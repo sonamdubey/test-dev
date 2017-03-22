@@ -1,0 +1,39 @@
+﻿@using Bikewale.Utility;
+@model  Bikewale.Models.Shared.PopularScootersList
+<div class="swiper-container card-container">
+        <div class="swiper-wrapper discover-bike-carousel">
+            @foreach (var bike in Model.PopularScooters)
+            { 
+            <div class="swiper-slide">
+                <div class="swiper-card">
+                    <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName))" title="@bike.BikeName">
+                        <div class="swiper-image-preview">
+                            <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostURL,ImageSize._174x98)" title="@bike.BikeName" alt="@bike.BikeName" src="" />
+                            <span class="swiper-lazy-preloader"></span>
+                        </div>
+                        <div class="swiper-details-block">
+                            <h3 class="target-link font12 text-truncate margin-bottom5">@bike.BikeName</h3>
+                            @if (bike.VersionPrice>0)
+                            { 
+                            <p class="text-truncate text-light-grey font11">Ex-showroom, @(!String.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.GetDefaultCityName)</p>
+                            <p class="text-default">
+                                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span><span class="font14 text-bold"> onwards</span>
+                            </p>
+                            }
+                            else
+                            {
+                                <p class="text-default">
+                               <span class="font14 text-bold">Price not available </span>
+                                </p>
+                            }
+                        </div>
+                    </a>
+
+                 <div class="swiper-btn-block">
+                        <a href="javascript:void(0)" data-pagecatid="@Model.PageCatId" data-pqsourceid="@Model.PQSourceId" data-makename="@bike.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId"   class="btn btn-card btn-full-width btn-white @(bike.VersionPrice!=0 ?"":"hide") getquotation">Check on-road price</a>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>

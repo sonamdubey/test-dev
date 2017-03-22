@@ -2,7 +2,15 @@
 <% if (showWidget && ServiceCenteList!= null)
    { %>
 <div class="container card-bottom-margin padding-bottom20">
-    <h2 class="padding-right20 padding-left20 text-bold padding-top10"><%=widgetHeading %></h2>
+    <div class="carousel-heading-content">
+        <div class="swiper-heading-left-grid inline-block">
+            <h2><%=widgetHeading %></h2>
+        </div>
+        <div class="swiper-heading-right-grid inline-block text-right">
+            <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> Service Centers in <%=cityName %>" class="btn view-all-target-btn">View all</a>
+        </div>
+        <div class="clear"></div>
+    </div>
     <%if(!string.IsNullOrEmpty(biLineText)) {%>
     <p class="margin-top5 margin-left20 margin-bottom15"><%=biLineText %></p>
     <%} %>
@@ -32,10 +40,6 @@
             </div>
             <% } %>
         </div>
-    </div>
-
-    <div class="padding-right20 padding-left20 font14">
-        <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> service centers in <%=cityName %>">View all <%= makeName %> service centers <span class="bwmsprite blue-right-arrow-icon"></span></a>
     </div>
 </div>
 <% } %>

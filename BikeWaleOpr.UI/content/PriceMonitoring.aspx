@@ -13,13 +13,6 @@
 	.na{background-color:#000000; font-weight:bold;color:#FFFFFF; text-decoration:none;}
 
 </style>
-<div class="urh">
-	You are here &raquo; <a href="/content/default.aspx">Contents</a> &raquo; Price Monitoring
-</div>
-<script type="text/javascript" src="/src/AjaxFunctions.js"></script>
-<div>
-    <!-- #Include file="contentsMenu.aspx" -->
-</div>
 <div class="left">
     <h1>Price Monitoring report</h1>
 <fieldset>

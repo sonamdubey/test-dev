@@ -22,8 +22,8 @@ namespace Bikewale.Mobile
     public class BikeMakes : PageBase
     {
         protected NewMUpcomingBikes ctrlUpcomingBikes;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected NewNewsWidget ctrlNews;
-        protected UsedPopularModels ctrlPopularUsedBikes;
         protected NewExpertReviewsWidget ctrlExpertReviews;
         protected NewVideosWidget ctrlVideos;
         protected MMostPopularBikes ctrlMostPopularBikes;
@@ -69,7 +69,8 @@ namespace Bikewale.Mobile
                 BindDiscountinuedBikes();
             }
         }
-
+        /// Modified By :-Subodh Jain on 15 March 2017
+        /// Summary :-Added used Bike widget
         private void BindUserControls()
         {
             int _makeId = Convert.ToInt16(makeId);
@@ -84,6 +85,7 @@ namespace Bikewale.Mobile
             ctrlUpcomingBikes.pageSize = 6;
             ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
             ctrlUpcomingBikes.MakeName = _make.MakeName;
+            ctrlUpcomingBikes.MakeMaskingName = _make.MaskingName;
 
             ////news,videos,revews
             ctrlNews.TotalRecords = 3;
@@ -117,21 +119,20 @@ namespace Bikewale.Mobile
             ctrlServiceCenterCard.makeName = _make.MakeName;
             ctrlServiceCenterCard.CityId = cityId;
             ctrlServiceCenterCard.cityName = cityName;
+            ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
             ctrlServiceCenterCard.TopCount = 9;
             ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", _make.MakeName, cityName);
             ctrlLeadCapture.CityId = cityId;
-            if (ctrlPopularUsedBikes != null)
+            if (ctrlusedBikeModel != null)
             {
-                ctrlPopularUsedBikes.MakeId = makeId;
+
+                ctrlusedBikeModel.MakeId = makeId;
                 if (cityId > 0)
-                {
-                    ctrlPopularUsedBikes.CityId = cityId;
-                    ctrlPopularUsedBikes.CityName = cityName;
-                    ctrlPopularUsedBikes.CityMaskingName = cityMaskingName;
-                }
-                ctrlPopularUsedBikes.MakeMaskingName = makeMaskingName;
-                ctrlPopularUsedBikes.MakeName = _make.MakeName;
-                ctrlPopularUsedBikes.TopCount = 6;
+                    ctrlusedBikeModel.CityId = cityId;
+                ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand {0} Bikes in {1}",_make.MakeName, cityId > 0 ? cityName : "India");
+                ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", _make.MakeName, cityId > 0 ? cityName : "India");
+                ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", _make.MaskingName, cityId > 0 ? cityMaskingName : "india");
+                ctrlusedBikeModel.TopCount = 9;
             }
         }
 

@@ -30,11 +30,7 @@
             <%} %>
         </ul>
     </div>
-
     <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
     <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-      <div class="margin-top10 margin-bottom10 margin-left20">
-            <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleLinkTitle%> in India" class="font14">View the complete list<span class="bwsprite blue-right-arrow-icon"></span></a>
-        </div>
 </div>
 <%} %>

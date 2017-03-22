@@ -82,8 +82,8 @@ $(window).scroll(function () {
         pageHeight = $(document).height(),
         windowHeight = $(window).height(),
         footerHeight = $("#bg-footer").height();
-    var position = pageHeight - (windowHeight + 286 + 200);
-    if (winScroll >= position && pageNo < maxPage && isNextPage) {
+    var position = $("#section-videos-list").height();
+    if (winScroll >= position && pageNo < maxPage && isNextPage) {       
         isNextPage = false;
         pageNo = $.getPageNo() + 1;
         $.getVideos();
@@ -106,7 +106,7 @@ $.getVideos = function () {
                 url: catURL,
                 dataType: 'json',
                 success: function (response) {
-                    if (response)
+                    if (response && response.length > 0)
                     {
                         var objVideos;
                         if (typeof response.Videos == 'undefined') {

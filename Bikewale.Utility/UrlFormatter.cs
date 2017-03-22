@@ -61,18 +61,28 @@ namespace Bikewale.Utility
         /// <summary>
         /// Modified by :   Sumit Kate on 19 Dec 2016
         /// Description :   If source is passed consider it for url qs for compare tracking
+        /// Modified by:    Sangram Nandkhile on 17 Mar 2017
+        /// Description:    added ModelId1 and ModelId2 and logic to create canonical url
         /// </summary>
-        /// <param name="makeMasking1"></param>
-        /// <param name="modelMasking1"></param>
-        /// <param name="makeMasking2"></param>
-        /// <param name="modelMasking2"></param>
-        /// <param name="versionId1"></param>
-        /// <param name="versionId2"></param>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public static string CreateCompareUrl(string makeMasking1, string modelMasking1, string makeMasking2, string modelMasking2, string versionId1, string versionId2, Bikewale.Entities.Compare.CompareSources? source = null)
+        public static string CreateCompareUrl(string makeMasking1, string modelMasking1, string makeMasking2, string modelMasking2,
+            string versionId1, string versionId2, uint modelId1, uint modelId2,
+            Bikewale.Entities.Compare.CompareSources? source = null)
         {
-            return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}{6}", makeMasking1, modelMasking1, makeMasking2, modelMasking2, versionId1, versionId2, (source.HasValue ? "&source=" + (int)source.Value : ""));
+            var first = new { MakeMaking = makeMasking1, ModelMasking = modelMasking1, VersionId = versionId1, ModelId = Convert.ToUInt32(modelId1) };
+            var second = new { MakeMaking = makeMasking2, ModelMasking = modelMasking2, VersionId = versionId2, ModelId = Convert.ToUInt32(modelId2) };
+
+            if (first.ModelId < second.ModelId)
+            {
+                return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}{6}", first.MakeMaking, first.ModelMasking, second.MakeMaking, second.ModelMasking, first.VersionId, second.VersionId, (source.HasValue ? "&source=" + (int)source.Value : ""));
+            }
+            else if (first.ModelId > second.ModelId)
+            {
+                return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}{6}", second.MakeMaking, second.ModelMasking, first.MakeMaking, first.ModelMasking, first.VersionId, second.VersionId, (source.HasValue ? "&source=" + (int)source.Value : ""));
+            }
+            else
+            {
+                return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}{6}", makeMasking1, modelMasking1, makeMasking2, modelMasking2, versionId1, versionId2, (source.HasValue ? "&source=" + (int)source.Value : ""));
+            }
         }
 
         public static string CreateCompareTitle(string make1, string model1, string make2, string model2)
@@ -152,10 +162,24 @@ namespace Bikewale.Utility
 
         public static string UsedBikesUrlNoCity(string make, string model, string city)
         {
-            if (!String.IsNullOrEmpty(model))
-                return String.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, city);
+            if (!String.IsNullOrEmpty(city))
+            {
+                if (!String.IsNullOrEmpty(model) && !String.IsNullOrEmpty(make))
+                    return String.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, city);
+                else if (!String.IsNullOrEmpty(make))
+                    return String.Format("/used/{0}-bikes-in-{1}/", make, city);
+                else
+                    return String.Format("/used/bikes-in-{0}/", city);
+            }
             else
-                return String.Format("/used/{0}-bikes-in-{1}/", make, city);
+            {
+                if (!String.IsNullOrEmpty(model) && !String.IsNullOrEmpty(make))
+                    return String.Format("/used/{0}-{1}-bikes-in-india/", make, model);
+                else if (!String.IsNullOrEmpty(make))
+                    return String.Format("/used/{0}-bikes-in-india/", make);
+                else
+                    return "/used/bikes-in-india/";
+            }
         }
 
 

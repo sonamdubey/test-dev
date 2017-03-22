@@ -22,7 +22,7 @@ namespace BikeWaleOpr.Content
         protected DropDownList cmbMake, cmbModel;
         public int modelId;
         private IBikeMakes _objMakesRepo = null;
-        private IBikeModels _objModelsRepo = null;
+        private IBikeModelsRepository _objModelsRepo = null;
         public IEnumerable<ModelColorImage> modelColors = null;
         public ushort modelColorCount = 0;
         ManageModelColor objManageModelColor = null;
@@ -76,10 +76,10 @@ namespace BikeWaleOpr.Content
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMakes, BikeMakesRepository>()
-                    .RegisterType<IBikeModels, BikeModelsRepository>()
+                    .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                     .RegisterType<IBikeVersions, BikeVersionsRepository>();
                     _objMakesRepo = container.Resolve<IBikeMakes>();
-                    _objModelsRepo = container.Resolve<IBikeModels>();
+                    _objModelsRepo = container.Resolve<IBikeModelsRepository>();
                 }
 
                 IEnumerable<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase> makes = _objMakesRepo.GetMakes("NEW");

@@ -2,6 +2,7 @@
 <%@ Register Src="~/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/DealersByBrand.ascx" TagName="DealersByBrand" TagPrefix="BW" %>
+<%@ Register Src="~/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 
@@ -25,8 +26,6 @@
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/new/markerwithlabel.js"></script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -60,9 +59,9 @@
                         <div class="content-box-shadow padding-14-20">
                             <h1><%=objMMV.MakeName %> Showrooms in India</h1>
                         </div>
-                        <div class="padding-14-20 font14 text-light-grey">
-                            <p id="main-content">BikeWale recommends to buy your <%=objMMV.MakeName %> bike only from authorized <%=objMMV.MakeName %> showrooms. We bring you a list of <%=DealerCount%> <%=objMMV.MakeName %>  <%=DealerCount>1?"showrooms":"showroom"%> present in <%=citiesCount%> <%=citiesCount>1?"cities":"city"%> in India. The showroom locator tool will help you find the <%=objMMV.MakeName %> showroom in your city.</p>
-					        <p id="more-content"> BikeWale works with more than 200+ bike showrooms in India to provide you a hassle-free bike buying experience. Get <%=objMMV.MakeName %> showroom’s address, contact details, EMI options for your nearest dealer.</p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">...Read more</a>
+                        <div class="padding-14-20 font14 text-light-grey collapsible-content">
+                            <p class="main-content">BikeWale recommends to buy your <%=objMMV.MakeName %> bike only from authorized <%=objMMV.MakeName %> showrooms. We bring you a list of <%=String.Format("{0} {1}",DealerCount,objMMV.MakeName) %><%=DealerCount>1?" showrooms":" showroom"%> present in <%=citiesCount%><%=citiesCount>1?" cities":" city"%> in India. The showroom locator tool will help you find the <%=objMMV.MakeName %> showroom in your city.</p>
+					        <p class="more-content"> BikeWale works with more than 200+ bike showrooms in India to provide you a hassle-free bike buying experience. Get <%=objMMV.MakeName %> showroom's address, contact details, EMI options for your nearest dealer.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                         </div>
                     </div>
                 </div>
@@ -74,7 +73,7 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h2 class="font18 bg-white padding-18-20"><%=DealerCount%> <%=objMMV.MakeName %> dealers in <%=citiesCount%> cities</h2>
+                        <h2 class="font18 bg-white padding-18-20"><%= String.Format("{0} {1}", DealerCount,objMMV.MakeName) %> dealers in <%=citiesCount%> cities</h2>
                         <div id="listing-left-column" class="grid-4">
                             <div id="filter-input" class="form-control-box">
                                 <span class="bwsprite search-icon-grey"></span>
@@ -106,7 +105,7 @@
                         </div>
                         <div id="listing-right-column" class="grid-8 alpha omega">
                             <div class="dealer-map-wrapper">
-                                <div id="dealerMapWrapper" style="width: 661px; height: 530px;">
+                                <div id="dealerMapWrapper" style="width: 661px; height: 530px; background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;">
                                     <div id="dealersMap" style="width: 661px; height: 530px;"></div>
                                 </div>
                             </div>
@@ -125,23 +124,36 @@
         </section>
         <%} %>
                       
-           <% if(ctrlNewLaunchedBikes.FetchedRecordsCount > 0 ||ctrlUpcomingBikes.FetchedRecordsCount  >0){ %>
+           <% if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0 || ctrlUpcomingBikes.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0)
+              { %>
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
                           <% if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
                            { %>
-                          <h2 class="font18 padding-18-20">Newly launched <%=objMMV.MakeName %> bikes</h2>
+                        <div class="carousel-heading-content padding-top20">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>New <%=objMMV.MakeName %> bike launches</h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/new-<%= objMMV.MaskingName %>-bike-launches/" title="<%= objMMV.MakeName %> Bike Launches in India" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
                         <BW:NewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
                         <%} %>
-                      
-
-
                         <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
                         <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
-           { %> <h2 class="font18 padding-18-20">Upcoming <%=objMMV.MakeName %> bikes</h2>
-                         <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
+                           { %>
+                        <div class="carousel-heading-content padding-top20">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>Upcoming <%= objMMV.MakeName %> Bikes</h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/<%= objMMV.MaskingName %>-bikes/upcoming/" title="Upcoming <%= objMMV.MakeName %> Bikes in India" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
                             <div class="jcarousel">
                                 <ul>
                                     <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
@@ -150,27 +162,30 @@
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
-        <%} %>
-                       
+                <%} %>
+                         <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+                  <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+                 
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                        
+                    <% } %>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
             <%} %>
         </section>
-
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+         <noscript id="asynced-css"><link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" />
+             <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        </noscript>
         <!-- #include file="/includes/footerBW.aspx" -->
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript">
-            var dealersByCity = true;
-          <%--  var cityArr = JSON.parse('<%= cityArr %>');--%>
-       <%--     var stateLat = '<%= (dealerCity != null && dealerCity.dealerStates != null) ? dealerCity.dealerStates.StateLatitude : string.Empty %>';
-            var stateLong = '<%= (dealerCity != null && dealerCity.dealerStates != null) ? dealerCity.dealerStates.StateLongitude : string.Empty %>';--%>
-        </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/location.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/fontBW.aspx" -->
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
+        <script defer src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
+        <script  defer type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/new/markerwithlabel.js"></script>
+        <script  defer  type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/location.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

@@ -1,0 +1,37 @@
+﻿@model  Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeResult
+@if (Model != null && Model.Bikes != null)
+{
+    <div class="swiper-container card-container">
+        <div class="swiper-wrapper discover-bike-carousel">
+            @foreach (var bikedetails in Model.Bikes)
+            {
+                string bikeName = string.Format("{0} {1}", bikedetails.Make.MakeName, bikedetails.Model.ModelName);
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.Make.MaskingName, bikedetails.Model.MaskingName))" title="@bikeName">
+                            <div class="swiper-image-preview">
+                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostUrl, Bikewale.Utility.ImageSize._174x98)" title="@bikeName" alt="@bikeName" src="" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                                @if (bikedetails.City!=null)
+                                {<p class="text-truncate text-light-grey font11">Ex-showroom, @bikedetails.City.CityName</p>}
+                                else{<p class="text-truncate text-light-grey font11">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>}
+                                
+                                <p class="text-default">
+                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.MinPrice))</span><span class="font14 text-bold"> onwards</span>
+                                </p>
+                            </div>
+                        </a>
+                        <div class="swiper-btn-block">
+                            <a href="javascript:void(0)" data-pagecatid="@ViewBag.PageCatId" data-makename="@bikedetails.Make.MakeName" data-modelname="@bikedetails.Model.ModelName" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_Scooters_Landing_Check_on_road_price)" data-modelid="@bikedetails.Model.ModelId" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+    </div>
+}

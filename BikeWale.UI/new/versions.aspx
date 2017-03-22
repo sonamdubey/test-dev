@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.BikeModel" EnableViewState="false" Trace="false" %>
-
 <%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/News.ascx" TagName="LatestNews" TagPrefix="BW" %>
 <%@ Register Src="~/controls/NewExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
@@ -77,7 +76,7 @@
                                     <span itemprop="title"><%= modelPageEntity.ModelDetails.MakeBase.MakeName %> Bikes</span>
                                 </a></li>
                             <li><span class="bwsprite fa-angle-right margin-right10"></span>
-                                <span><%= modelPageEntity.ModelDetails.MakeBase.MakeName %> <%= modelPageEntity.ModelDetails.ModelName %></span>
+                                <span><%= String.Format("{0} {1}", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName) %></span>
                             </li>
                         </ul>
                         <div class="clear"></div>
@@ -321,7 +320,7 @@
                                                         <li>
                                                             <div class="carousel-img-container">
                                                                 <span>
-                                                                    <a href="/<%=modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPageEntity.ModelDetails.MaskingName %>/images/?modelpage=true&imageindex=<%#Container.ItemIndex %>#modelGallery"><img class='<%# Container.ItemIndex > 2 ? "lazy" : "" %>' data-original='<%# Container.ItemIndex > 2 ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) : "" %>' title="<%# bikeName + ' ' + Convert.ToString(DataBinder.Eval(Container.DataItem, "ImageCategory")) %>" alt="<%# bikeName + ' ' + Convert.ToString(DataBinder.Eval(Container.DataItem, "ImageCategory")) %>" src='<%# Container.ItemIndex > 2 ? "" : Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>' border="0" /></a>
+                                                                    <a href="/<%=modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPageEntity.ModelDetails.MaskingName %>/images/?modelpage=true&imageindex=<%#Container.ItemIndex %>#modelGallery"><img class='<%# Container.ItemIndex > 2 ? "lazy" : "" %>' data-original='<%# Container.ItemIndex > 2 ? Bikewale.Utility.Image.GetPathToShowImages(Convert.ToString(DataBinder.Eval(Container.DataItem, "OriginalImgPath")),Convert.ToString(DataBinder.Eval(Container.DataItem, "HostUrl")),Bikewale.Utility.ImageSize._476x268) : "" %>' title="<%# bikeName + ' ' + Convert.ToString(DataBinder.Eval(Container.DataItem, "ImageCategory")) %>" alt="<%# bikeName + ' ' + Convert.ToString(DataBinder.Eval(Container.DataItem, "ImageCategory")) %>" src='<%# Container.ItemIndex > 2 ? "" : Bikewale.Utility.Image.GetPathToShowImages(Convert.ToString(DataBinder.Eval(Container.DataItem, "OriginalImgPath")),Convert.ToString(DataBinder.Eval(Container.DataItem, "HostUrl")),Bikewale.Utility.ImageSize._476x268) %>' border="0" /></a>
                                                                 </span>
                                                             </div>
                                                         </li>
@@ -343,7 +342,7 @@
                                                         <li>
                                                             <div class="carousel-nav-img-container">
                                                                 <span>
-                                                                    <img class="<%# Container.ItemIndex > 7 ? "lazy" : "" %>" data-original="<%# Container.ItemIndex > 7 ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) : "" %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="<%# Container.ItemIndex <= 7 ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) : "https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"%>" border="0" />
+                                                                    <img class="<%# Container.ItemIndex > 7 ? "lazy" : "" %>" data-original="<%# Container.ItemIndex > 7 ? Bikewale.Utility.Image.GetPathToShowImages(Convert.ToString(DataBinder.Eval(Container.DataItem, "OriginalImgPath")),Convert.ToString(DataBinder.Eval(Container.DataItem, "HostUrl")),Bikewale.Utility.ImageSize._110x61) : "" %>" title="<%# bikeName + ' ' + Convert.ToString(DataBinder.Eval(Container.DataItem, "ImageCategory")) %>" alt="<%# bikeName + ' ' + Convert.ToString(DataBinder.Eval(Container.DataItem, "ImageCategory")) %>" src="<%# Container.ItemIndex <= 7 ? Bikewale.Utility.Image.GetPathToShowImages(Convert.ToString(DataBinder.Eval(Container.DataItem, "OriginalImgPath")),Convert.ToString(DataBinder.Eval(Container.DataItem, "HostUrl")),Bikewale.Utility.ImageSize._110x61) : "https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"%>" border="0" />
                                                                 </span>
                                                             </div>
                                                         </li>
@@ -613,7 +612,6 @@
                                 <%} %>
                             </div>
                             <%}
-                               //<!-- upcoming start Floating -->
                                else if (modelPageEntity.UpcomingBike != null)
                                { %>
                             <% if (modelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && modelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
@@ -712,7 +710,7 @@
 
         <section>
             <div class="container">
-                <div id="modelSpecsTabsContentWrapper" class="grid-12 margin-bottom20">
+                <div id="modelSpecsTabsContentWrapper" class="grid-12 margin-bottom20 content-details-wrapper">
                     <div class="content-box-shadow">
                         <div class="overall-specs-tabs-wrapper">
                             <% if ((modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)) || modelPageEntity.ModelVersionSpecs != null)
@@ -878,7 +876,7 @@
 
                         <%} %>
 
-                        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+                        
 
                         <% if (modelPageEntity.ModelVersions != null && modelPageEntity.ModelVersions.Count > 0)
                            { %>
@@ -1271,7 +1269,7 @@
 
                         <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlNews.FetchedRecordsCount > 0)
                           { %>
-                        <div id="modelReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <div id="modelReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
                               <h2><%=bikeName %> Reviews</h2>
                             <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                                { %>
@@ -1282,18 +1280,21 @@
                                { %>
                             <div class="margin-bottom20"></div>
                             <% } %>
+                            <div class="margin-top15 padding-top15 border-solid-top"></div>
                             <% } %>
 
                             <% if (ctrlUserReviews.FetchedRecordsCount > 0)
                                { %>
                             <!-- user reviews -->
                             <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                            <div class="margin-top15 border-solid-top"></div>
                             <!-- user reviews ends -->
                             <% } %>
                             <% if (ctrlNews.FetchedRecordsCount > 0)
                                { %>
                             <!-- News widget starts -->
                                 <BW:LatestNews runat="server" ID="ctrlNews" />
+                            <div class="margin-top15 border-solid-top"></div>
                             <!-- News widget ends -->
                             <% } %>
                         </div>
@@ -1301,7 +1302,7 @@
 
                         <% if (ctrlVideos.FetchedRecordsCount > 0)
                            { %>
-                        <div id="modelVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <div id="modelVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-bottom20 border-solid-bottom font14">
                             <!-- Video reviews -->
                             <BW:Videos runat="server" ID="ctrlVideos" />
                             <!-- Video reviews ends -->
@@ -1310,13 +1311,21 @@
                         <!-- model comparison -->
                         <!-- Popular Comparision -->
                         
-                        <div id="modelSimilarContent" class="bw-model-tabs-data padding-top20 font14">
+                        <div id="modelSimilarContent" class="bw-model-tabs-data margin-top20 font14">
                             <% if (ctrlPopularCompare.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0)
                                { %>
                             <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to <%=modelPageEntity.ModelDetails.ModelName%> </h2>
                             <% if (ctrlPopularCompare.fetchedCount > 0)
                                { %>
-                            <h3 class="padding-left20 padding-right20 margin-bottom15">Most compared alternatives</h3>
+                            
+                            <div class="carousel-heading-content">
+                                <div class="swiper-heading-left-grid inline-block">
+                                    <h3 class="padding-right20 margin-bottom15">Most compared alternatives</h3>
+                                </div><div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
                             <BW:PopularCompare ID="ctrlPopularCompare" runat="server" />
 
                             <div class="margin-right10 margin-left10 border-solid-bottom padding-bottom20"></div>
@@ -1332,11 +1341,10 @@
                               { %>
                             <div class="margin-left20 margin-right20 padding-bottom20">
                                 <div class="content-inner-block-15 border-solid font14">
-                                    <div class="grid-9 alpha">
+                                    <div class="grid-9 alpha omega">
                                         <div class="inline-block">
                                             <span class="item-rank">#<%=bikeRankObj.Rank%></span>
-                                        </div>
-                                        <p class="inline-block checkout-list-slug-label"><%=bikeModelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
+                                        </div><p class="inline-block checkout-list-slug-label"><%=bikeModelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
                                     </div>
                                     <div class="grid-3 text-right position-rel pos-top5">
                                         <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
@@ -1437,131 +1445,27 @@
             <div class="onroadPriceCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
             <div class="form-control-box padding-top30">
                 <select id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', chosen: { width: '190px' }"></select>
-                <%--<input type="text" class="form-control" placeholder="Type to select city" id="orpCity">--%>
             </div>
             <div class="form-control-box padding-top30">
                 <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', chosen: { width: '190px' }"></select>
-                <%-- <input type="text" class="form-control" placeholder="Type to select area" id="orpArea">--%>
             </div>
             <input type="button" value="Confirm" class="btn btn-orange margin-top40" id="onroadPriceConfirmBtn">
         </div>
 
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+         <noscript id="asynced-css"><link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" />
+            <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/model-btf.css?<%=staticFileVersion %>" />
+             <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        </noscript>
         <!-- #include file="/includes/footerBW.aspx" -->
-        
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
-            ga_pg_id = '2';
-
-            // Cache selectors outside callback for performance.
-            var leadSourceId;
-
-            var getCityArea = GetGlobalCityArea();
-            if (bikeVersionLocation == '') {
-                bikeVersionLocation = getBikeVersionLocation();
-                if ($('#getOffersPrimary').length>0)
-                    $('#getOffersPrimary').attr('v',bikeVersionLocation) ;
-            }
-            if (bikeVersion == '') {
-                bikeVersion = getBikeVersion();
-            }
-            function secondarydealer_Click(dealerID) {
-                try {
-                    var isSuccess = false;
-
-                    var objData = {
-                        "dealerId": dealerID,
-                        "modelId": <%= modelId%>,
-                        "versionId": versionId,
-                        "cityId": cityId,
-                        "areaId": areaId,
-                        "clientIP": clientIP,
-                        "pageUrl": pageUrl,
-                        "sourceType": 1,
-                        "pQLeadId": pqSourceId,
-                        "deviceId": getCookie('BWC')
-                    };
-
-                    isSuccess = dleadvm.registerPQ(objData);
-
-                    if (isSuccess) {
-                        var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
-                        window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
-                    }
-                } catch (e) {
-                    console.warn("Unable to create pricequote : " + e.message);
-                }
-            }
-            function openLeadCaptureForm(dealerID) {
-                triggerGA('Dealer_PQ', 'Secondary_Dealer_Get_Offers_Clicked', bikeVersionLocation);
-                event.stopPropagation();
-            }
-            $(function () {
-                if ($('.dealership-benefit-list li').length <= 2) {
-                    $('.dealership-benefit-list').addClass("dealer-two-offers");
-                }
-            });
-           
-            $('#getEmailID').on("focus", function () {
-                $('#assistGetEmail').parent().addClass('not-empty');
-            });
-
-            $('#getFullName').on("focus", function () {
-                $('#assistGetName').parent().addClass('not-empty');
-            });
-            
-            $('#getMobile').on("focus", function () {
-                $('#assistGetMobile').parent().addClass('not-empty');
-            });
-            $('#getEmailID').on("blur", function () {
-                if ($('#assistGetEmail').val()=="")
-                    $('#assistGetEmail').parent().removeClass('not-empty');
-            });
-
-            $('#getFullName').on("blur", function () {
-                if ($('#assistGetName').val() == "")
-                    $('#assistGetName').parent().removeClass('not-empty');
-            });
-
-            $('#getMobile').on("blur", function () {
-                if ($('#assistGetMobile').val() == "")
-                    $('#assistGetMobile').parent().removeClass('not-empty');
-            });
-
-            $(".leadcapturebtn").click(function (e) {
-                ele = $(this);
-                var leadOptions = {
-                    "dealerid": ele.attr('data-item-id'),
-                    "dealername": ele.attr('data-item-name'),
-                    "dealerarea": ele.attr('data-item-area'),
-                    "versionid": versionId,
-                    "leadsourceid": ele.attr('data-leadsourceid'),
-                    "pqsourceid": ele.attr('data-pqsourceid'),
-                    "isleadpopup": ele.attr('data-isleadpopup'),
-                    "mfgCampid": ele.attr('data-mfgcampid'),
-                    "pqid": pqId,
-                    "pageurl": pageUrl,
-                    "clientip": clientIP,
-                    "dealerHeading" : ele.attr('data-item-heading'), 
-                    "dealerMessage" : ele.attr('data-item-message'), 
-                    "dealerDescription" : ele.attr('data-item-description'), 
-                    "pinCodeRequired":ele.attr("data-ispincodrequired"),
-                    "gaobject": {
-                        cat: ele.attr("c"),
-                        act: ele.attr("a"),
-                        lab: bikeVersionLocation
-                    }
-
-                };
-                dleadvm.setOptions(leadOptions);
-            });
+            ga_pg_id = '2';var leadSourceId, getCityArea,bikeModelId='<%= modelId%>';
         </script>
-
-        <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

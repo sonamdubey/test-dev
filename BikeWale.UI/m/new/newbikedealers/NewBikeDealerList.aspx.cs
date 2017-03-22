@@ -39,7 +39,7 @@ namespace Bikewale.Mobile.New
         protected ushort totalDealers;
         protected Repeater rptDealers; //rptMakes, rptCities, ;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
-        protected UsedPopularModelsInCity ctrlUsedPopularModels;
+
 
         protected MMostPopularBikes ctrlPopoularBikeMake;
         protected LeadCaptureControl ctrlLeadCapture;
@@ -47,7 +47,7 @@ namespace Bikewale.Mobile.New
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected DealersInNearByCities ctrlDealerCount;
         protected ChangeLocationPopup ctrlChangeLocation;
-
+        protected UsedBikeModel ctrlusedBikeModel;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -93,6 +93,8 @@ namespace Bikewale.Mobile.New
         /// Desc : Binded Dealercount widget
         /// Modified By : Sushil Kumar on 17th Jan 2016
         /// Description : Added chnage location prompt widget
+        /// Modified By :-Subodh Jain on 15 March 2017
+        /// Summary :-Added used Bike widget
         /// </summary>
         private void BindUserControls()
         {
@@ -105,23 +107,14 @@ namespace Bikewale.Mobile.New
                 ctrlDealerCount.CityName = cityName;
                 ctrlDealerCount.MakeName = makeName;
 
-                if (ctrlUsedPopularModels != null)
-                {
-                    ctrlUsedPopularModels.MakeId = makeId;
-                    ctrlUsedPopularModels.CityId = cityId;
-                    ctrlUsedPopularModels.header = string.Format("Used {0} bikes in {1}", makeName, cityName);
-                    ctrlUsedPopularModels.TopCount = 4;
-                    ctrlUsedPopularModels.MakeName = makeName;
-                    ctrlUsedPopularModels.MakeMaskingName = makeMaskingName;
-                    ctrlUsedPopularModels.CityName = cityName;
-                    ctrlUsedPopularModels.CityMaskingName = cityMaskingName;
-                }
+
                 ctrlPopoularBikeMake.makeId = (int)makeId;
                 ctrlPopoularBikeMake.cityId = (int)cityId;
                 ctrlPopoularBikeMake.totalCount = 9;
                 ctrlPopoularBikeMake.cityname = cityName;
                 ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
+                ctrlPopoularBikeMake.makeMaskingName=makeMaskingName;
                 ctrlLeadCapture.CityId = cityId;
                 ctrlBrandCity.requestType = EnumBikeType.Dealer;
                 ctrlBrandCity.makeId = makeId;
@@ -134,13 +127,23 @@ namespace Bikewale.Mobile.New
                 ctrlServiceCenterCard.cityName = cityName;
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 9;
-                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
-                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
-
+                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", makeName, cityName);
+             
                 if (ctrlChangeLocation != null)
                 {
                     ctrlChangeLocation.UrlCityId = cityId;
                     ctrlChangeLocation.UrlCityName = cityName;
+                }
+                if (ctrlusedBikeModel != null)
+                {
+
+                    ctrlusedBikeModel.MakeId = makeId;
+                    if (cityId > 0)
+                        ctrlusedBikeModel.CityId = cityId;
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", makeMaskingName, cityId > 0 ? cityMaskingName : "india");
+                    ctrlusedBikeModel.TopCount = 9;
                 }
 
 

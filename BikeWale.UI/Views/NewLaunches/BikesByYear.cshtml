@@ -76,7 +76,14 @@
     <div class="container section-bottom-margin">
         <div class="grid-12">
             <div class="content-box-shadow padding-top20 padding-bottom20">
-                <h2 class="font18 padding-bottom20 padding-left20">Upcoming bikes in India</h2>
+                <div class="carousel-heading-content">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2>Upcoming bikes in India</h2>
+                    </div><div class="swiper-heading-right-grid inline-block text-right">
+                              <a href="/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
                 @Html.Partial("~/Views/Shared/_UpcomingBikes.cshtml", objUpcoming)
             </div>
         </div>
@@ -88,7 +95,14 @@
     <div class="container section-bottom-margin">
         <div class="grid-12">
             <div class="content-box-shadow padding-top20 padding-bottom20">
-                <h2 class="font18 padding-bottom20 padding-left20">Explore new launches by brands</h2>
+                <div class="carousel-heading-content">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2>Explore new launches by brands</h2>
+                    </div><div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
                 @{Html.RenderAction("Makes", "DNewLaunches");}
             </div>
         </div>

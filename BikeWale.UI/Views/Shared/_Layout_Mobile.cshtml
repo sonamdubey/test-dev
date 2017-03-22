@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     @{
         var Title = ViewBag.Title;
+        var PageMetaTags = ViewBag.PageMetaTags;
         var relPrevPageUrl = ViewBag.relPrevPageUrl;
         var relNextPageUrl = ViewBag.relNextPageUrl;
         var description = ViewBag.Description;
@@ -29,30 +30,83 @@
         var IsHomePage= Convert.ToBoolean(ViewBag.IsHomePage !=null ? ViewBag.IsHomePage : false);        
     }
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@Title</title>
-    <meta name="description" content="@description" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-    <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
-    <meta name="theme-color" content="#2a2a2a" />
-    @if(!String.IsNullOrEmpty(keywords)) {
-        <meta name="keywords" content="@keywords" />}
-    @if(EnableOG)
+
+    @if (PageMetaTags != null) 
     {
-        <meta property="og:title" content="@Title" />
-        <meta property="og:type" content="website" />
-        <meta property="og:description" content="@description" />
-        <meta property="og:image" content="@string.IsNullOrEmpty(OGImage) ? @Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : @OGImage" />
-        if (!String.IsNullOrEmpty(canonical)) {
-            <meta property="og:url" content="@canonical" /> }
+        if (!String.IsNullOrEmpty(PageMetaTags.Title))
+        { 
+<title>@PageMetaTags.Title</title>
+        }
+        if (!String.IsNullOrEmpty(PageMetaTags.Description))
+        {
+<meta name="description" content="@PageMetaTags.Description" />
+        }
+        if (!String.IsNullOrEmpty(PageMetaTags.Keywords))
+        {
+<meta name="keywords" content="@PageMetaTags.Keywords" />
+        }
+        if (EnableOG)
+        {
+<meta property="og:title" content="@PageMetaTags.Title" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="@PageMetaTags.Description" />
+<meta property="og:image" content="@(string.IsNullOrEmpty(OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : OGImage)" />
+            if (!String.IsNullOrEmpty(PageMetaTags.CanonicalUrl))
+            {
+<meta property="og:url" content="@PageMetaTags.CanonicalUrl" />
+            }
+        }
+        if (!String.IsNullOrEmpty(PageMetaTags.AlternateUrl))
+        {
+<meta name="alternate" content="@PageMetaTags.AlternateUrl" />
+        }
+        if (!String.IsNullOrEmpty(PageMetaTags.CanonicalUrl))
+        {
+<link rel="canonical" href="@PageMetaTags.CanonicalUrl" />}
+        if (!String.IsNullOrEmpty(PageMetaTags.PreviousPageUrl))
+        {
+<link rel="prev" href="@PageMetaTags.PreviousPageUrl" /> }
+        if (!String.IsNullOrEmpty(PageMetaTags.NextPageUrl))
+        {
+<link rel="next" href="@PageMetaTags.NextPageUrl" />
+        }
     }
-    @if(!String.IsNullOrEmpty(canonical)) {
-        <link rel="canonical" href="@canonical" />}
-    @if(!String.IsNullOrEmpty(relPrevPageUrl)){
-        <link rel="prev" href="@relPrevPageUrl" />}
-    @if(!String.IsNullOrEmpty(relNextPageUrl)){
-        <link rel="next" href="@relNextPageUrl" />}
-    <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
-    <link rel='stylesheet' type='text/css' href='/m/css/bwm-common-atf.css' />
+    else
+    {
+<title>@Title</title>
+<meta name="description" content="@description" />
+        if (!String.IsNullOrEmpty(keywords))
+        {
+<meta name="keywords" content="@keywords" />}
+        if (EnableOG)
+        {
+<meta property="og:title" content="@Title" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="@description" />
+<meta property="og:image" content="@string.IsNullOrEmpty(OGImage) ? @Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : @OGImage" />
+            if (!String.IsNullOrEmpty(canonical))
+            {
+<meta property="og:url" content="@canonical" /> 
+            }
+        }
+        if (!String.IsNullOrEmpty(canonical))
+        {
+<link rel="canonical" href="@canonical" />}
+        if (!String.IsNullOrEmpty(relPrevPageUrl))
+        {
+<link rel="prev" href="@relPrevPageUrl" />}
+        if (!String.IsNullOrEmpty(relNextPageUrl))
+        {
+<link rel="next" href="@relNextPageUrl" />
+        }
+    }
+                                                  
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
+<meta name="theme-color" content="#2a2a2a" />
+<link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
+<link rel='stylesheet' type='text/css' href='/m/css/bwm-common-atf.css' />
+    <script type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
     @{Bikewale.Utility.BWCookies.SetBWUtmz();}
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     @Html.Raw(ViewBag.Page_ATF_CSS)
@@ -177,7 +231,7 @@
                         </div>
                     </div>
                     <div class="rightfloat">
-                        <div class="global-search" id="global-search" style="display:none">
+                        <div class="global-search" id="global-search">
                             <span class="bwmsprite search-bold-icon"></span>
                         </div>
                         <div class="global-location">
@@ -195,7 +249,7 @@
         </header>
         @if (IsHomePage)
         {
-            //Call Home Page Banner partial view
+            <!-- Call Home Page Banner partial view -->
         }
         @if (Ad_320x50)
         {
@@ -232,11 +286,12 @@
                 <li>
                     <a href="javascript:void(0)" rel="nofollow">
                         <span class="bwmsprite newBikes-icon"></span>
-                        <span class="navbarTitle">New Bikes</span>
+                        <span class="navbarTitle">New Bikes & Scooters</span>
                         <span class="nav-drop bwmsprite fa-angle-down"></span>
                     </a>
                     <ul class="nestedUL">
                         <li><a href="/m/new-bikes-in-india/">Find New Bikes</a></li>
+                        <li><a href="/m/new-scooters/">Find New Scooters</a></li>
                         <li><a href="/m/comparebikes/">Compare Bikes</a></li>
                         <li><a href="/m/pricequote/">Check On-Road Price</a></li>
                         <li><a href="/m/dealer-showroom-locator/">Locate Dealer</a></li>

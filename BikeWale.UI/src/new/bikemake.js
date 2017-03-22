@@ -1,5 +1,23 @@
 ﻿var dt = '';
 
+$("img.lazy").lazyload();
+
+$('#user-details-submit-btn').click(function () {
+    var bikeName = $('#getLeadBike :selected').text();
+    if (bikeName != 'Select a bike') {
+        var cityName = GetGlobalCityArea(); 
+        triggerGA('Make_Page', 'Lead_Submitted', bikeName + "_" + cityName);
+    }
+});
+
+$(".upcoming-brand-bikes-container").on('jcarousel:visiblein', 'li', function (event, carousel) {
+    $(this).find("img.lazy").trigger("imgLazyLoad");
+});
+
+$("#spnContent").append($("#discontinuedMore a:eq(0)").clone()).append(", ").append($("#discontinuedMore a:eq(1)").clone()).append(", ").append($("#discontinuedMore a:eq(2)").clone()).append(", ").append($("#discontinuedMore a:eq(3)").clone());
+$("#spnContent").append("... <a class='f-small' onclick='ShowAllDisModels()'>View All</a>");
+
+
 $("#sortbike li").on("click", function () {
     sortListLI.removeClass("selected");
     $(this).addClass('selected');
@@ -34,6 +52,14 @@ $("#sortbike li").on("click", function () {
     ul.insertAdjacentHTML('beforeend', htm);
     applyTabsLazyLoad();
 });
+
+function ShowAllDisModels() {
+    $("#discontinuedLess").hide();
+    $("#discontinuedMore").show();
+    var xContents = $('#discontinuedMore').contents();
+    xContents[xContents.length - 1].nodeValue = "";
+}
+
 
 
 function sortResults(mydata, prop, asc) {

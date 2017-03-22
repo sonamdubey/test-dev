@@ -30,6 +30,7 @@ namespace Bikewale.Mobile.New
     {
         protected BikeMakeEntityBase objMMV;
         protected MNewLaunchedBikes ctrlNewLaunchedBikes;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected MUpcomingBikes ctrlUpcomingBikes;
         protected DealersByBrand ctrlDealersByBrand;
         public ushort makeId;
@@ -52,6 +53,7 @@ namespace Bikewale.Mobile.New
         }
         /// Modified by  :   Subodh jain on 20 Dec 2016
         /// Description :   Get Dealer By BrandList widget
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (ProcessQS())
@@ -65,17 +67,45 @@ namespace Bikewale.Mobile.New
                     objMMV = makesRepository.GetMakeDetails(makeId.ToString());
 
                 }
+
+                BindStatesCities();
+                Bindwidget();
+            }
+        }
+        /// <summary>
+        /// Created By :- Subodh Jain 15 March 2017
+        /// Summary :- bind wigdet function
+        /// </summary>
+        private void Bindwidget()
+        {
+            try
+            {
                 ctrlNewLaunchedBikes.pageSize = 6;
                 ctrlNewLaunchedBikes.makeid = makeId;
                 ctrlUpcomingBikes.pageSize = 6;
                 ctrlUpcomingBikes.MakeId = makeId;
                 ctrlDealersByBrand.WidgetTitle = "Find showroom for other brands";
                 ctrlDealersByBrand.makeId = makeId;
-                BindStatesCities();
+                if (ctrlusedBikeModel != null)
+                {
+                    CityEntityBase _cityDetails = null;
+                    if (cityId > 0)
+                        _cityDetails = new CityHelper().GetCityById(cityId);
+                    ctrlusedBikeModel.MakeId = makeId;
+
+                    ctrlusedBikeModel.CityId = cityId;
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? _cityDetails.CityName : "India");
+                    ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", objMMV.MakeName, cityId > 0 ? _cityDetails.CityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", objMMV.MaskingName, cityId > 0 ? _cityDetails.CityMaskingName : "india");
+                    ctrlusedBikeModel.TopCount = 9;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "DealerInCountry.Bindwidget");
             }
         }
-
-
         private void BindStatesCities()
         {
 

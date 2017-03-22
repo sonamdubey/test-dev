@@ -31,8 +31,8 @@
             </div>
         </ItemTemplate>
     </asp:Repeater>    
-    <div class="padding-left10 more-article-target">
-        <a title="<%= linkTitle %>" href="<%=MoreExpertReviewUrl %>" class="bw-ga" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="myBikeName">Read all expert reviews<span class="bwsprite blue-right-arrow-icon"></span></a>        
+    <div class="padding-left10 more-article-target view-all-btn-container">
+        <a title="<%= linkTitle %>" href="<%=MoreExpertReviewUrl %>" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>        
     </div>
 </div><!-- Ends here-->
 

@@ -3,7 +3,7 @@
     <div class="grid-5 leftfloat">
         <div class="bg-white content-inner-block-15 light-box-shadow rounded-corner2 margin-top70" id="OnRoadContent">
             <h2 class="text-bold margin-bottom20 font22">On-road price</h2> 
-            <!-- On road pricequote control-->              
+            <!-- On road pricequote control -->              
             <div class="form-control-box margin-bottom20">
                 <input value="" class="form-control ui-autocomplete-input" type="text" placeholder="Search Make and Model" id="makemodelFinalPrice" tabindex="1" autocomplete="off">
                 <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
@@ -23,34 +23,16 @@
             <button id="btnDealerPriceOnRoad" tabindex="4" class="btn btn-orange margin-bottom20" type="button" data-bind="event: { click: getPriceQuoteOnRoad }">Check on-road price</button>
             <p class="margin-bottom5">Its private, no need to share your number and email</p>    
         </div>             
-        <!-- Onroad price quote ends here-->            
+        <!-- Onroad price quote ends here -->            
         </div>
 </div>
 
-<%--<script type="text/javascript">
+<script type="text/javascript">
 
-    var preSelectedCityId = 0;
-    var preSelectedCityName = "", selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
-    var selectedModel = 0;
-    var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
-    var pageId;
-    $onRoadContent = $('#OnRoadContent');
-    onRoadcity  = $('#ddlCitiesOnRoad');
-    onRoadArea = $('#ddlAreaOnRoad');
-    onRoadMakeModel = $('#makemodelFinalPrice');
-    mname = "";
-    var onCookieObj = {};
+    var preSelectedCityId = 0,preSelectedCityName = "", selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
+    var selectedModel = 0, pageId, onRoadcity, onRoadArea, onRoadMakeModel, viewModelOnRoad;
+    var onCookieObj = {}, mname = "";
 
-   
-    
-    // knockout OnRoadData binding
-    var viewModelOnRoad = {
-        selectedCity: ko.observable(),
-        bookingCities: ko.observableArray([]),
-        selectedArea: ko.observable(),
-        bookingAreas: ko.observableArray([]),
-        hasAreas: ko.observable()
-    };    
 
     function RfindCityById(vm, id) {
         return ko.utils.arrayFirst(vm.bookingCities(), function (child) {
@@ -63,10 +45,7 @@
             type: "GET",
             url: "/api/PQCityList/?modelId=" + modelId,
             dataType: 'json',
-            //data: '{"modelId":"' + modelId + '"}',
-            //beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCitiesNew"); },
             success: function (response) {
-                //var obj = JSON.parse(response);
                 var cities = response.cities;
                 var citySelected = null; 
                 if (cities) {
@@ -91,7 +70,6 @@
     }
 
     function cityChangedOnRoad() {
-        //gtmCodeAppender(pageId, "City Selected", null);
         if (viewModelOnRoad.selectedCity() != undefined) {
             viewModelOnRoad.hasAreas(RfindCityById(viewModelOnRoad, viewModelOnRoad.selectedCity()).hasAreas);
             if (viewModelOnRoad.hasAreas() != undefined && viewModelOnRoad.hasAreas()) {
@@ -111,10 +89,13 @@
                             viewModelOnRoad.selectedArea(0);
                             viewModelOnRoad.bookingAreas([]);
                         }
+
+                        onRoadArea.trigger('chosen:updated');
                     },
                     error: function (e) {
                         viewModelOnRoad.selectedArea(0);
                         viewModelOnRoad.bookingAreas([]);
+                        onRoadArea.trigger('chosen:updated');
                     }
                 });
             }
@@ -125,6 +106,8 @@
         } else {
             viewModelOnRoad.bookingAreas([]);
         }
+
+        onRoadArea.trigger('chosen:updated');
     }
 
     function isValidInfoOnRoad() {
@@ -169,7 +152,6 @@
         var cityId = viewModelOnRoad.selectedCity(), areaId = viewModelOnRoad.selectedArea() ? viewModelOnRoad.selectedArea() : 0;
         if (isValidInfoOnRoad()) {
 
-            //set global cookie
             if (cityId != onCookieObj.PQCitySelectedId || areaId > 0)
                 setLocationCookie($('#ddlCitiesOnRoad option:selected'), $('#ddlAreaOnRoad option:selected'));
             var obj = {
@@ -207,7 +189,6 @@
                     }
 
                     cookieValue = "CityId=" + viewModelOnRoad.selectedCity() + "&AreaId=" + (!isNaN(viewModelOnRoad.selectedArea()) ? viewModelOnRoad.selectedArea() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
-                    //SetCookie("_MPQ", cookieValue);
 
                     if (jsonObj != undefined && jsonObj.quoteId > 0) {
 
@@ -274,7 +255,20 @@
         }
     }
 
-    $(function () {
+    docReady(function () {
+
+        viewModelOnRoad = {
+            selectedCity: ko.observable(),
+            bookingCities: ko.observableArray([]),
+            selectedArea: ko.observable(),
+            bookingAreas: ko.observableArray([]),
+            hasAreas: ko.observable()
+        };
+
+        onRoadcity = $('#ddlCitiesOnRoad'), onRoadArea = $('#ddlAreaOnRoad'), onRoadMakeModel = $('#makemodelFinalPrice');
+
+        $.fn.hint = bwHint;
+        $.fn.bw_autocomplete = bwAutoComplete;
 
       $("#makemodelFinalPrice").bw_autocomplete({
             width: 365,
@@ -318,4 +312,4 @@
       ko.applyBindings(viewModelOnRoad, $("#OnRoadContent")[0]);
 
     });
-</script>--%>
+</script>

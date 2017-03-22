@@ -8,7 +8,15 @@
 %>
 <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
     <% if(isHeadingNeeded)  { %>  
-    <h2 class="padding-right20 padding-left20 text-bold"><%=widgetHeading%></h2>
+    <div class="carousel-heading-content">
+        <div class="swiper-heading-left-grid inline-block">
+            <h2><%=widgetHeading%></h2>
+        </div>
+        <div class="swiper-heading-right-grid inline-block text-right">
+            <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> Showrooms in <%= cityName %>" class="btn view-all-target-btn">View all</a>
+        </div>
+        <div class="clear"></div>
+    </div>
     <% } %>
     <div class="swiper-container card-container dealer-horizontal-swiper">
         <!-- dealers by city -->
@@ -30,17 +38,13 @@
             <% } %>
         </div>
     </div>
-
-    <div class="margin-top10 padding-right20 padding-left20">
-        <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> showroom in <%= cityName %>">View all <%=makeName %> showrooms <span class="bwmsprite blue-right-arrow-icon font14"></span></a>
-    </div>
 </div>
 <% }
        else
        { %>
 <%if(cityDealers!=null){ %>
 <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
-<h2 class="padding-right20 padding-left20"><%= makeName %> <%=(cityDealers.TotalDealerCount>0)?"Showrooms":"" %> <%=(cityDealers.TotalDealerCount>0 && cityDealers.TotalServiceCenterCount>0)?"&":"" %> <%=(cityDealers.TotalServiceCenterCount>0)?"Service Centers":"" %></h2>
+<h2 class="padding-right20 padding-left20"><%= string.Format("{0} {1} {2} {3}", makeName ,((cityDealers.TotalDealerCount>0)?"Showrooms":""),((cityDealers.TotalDealerCount>0 && cityDealers.TotalServiceCenterCount>0)?"&":""),((cityDealers.TotalServiceCenterCount>0)?"Service Centers":"")) %></h2>
     <div class="swiper-container card-container dealer-horizontal-swiper no-city-selection-carousel">
         <!-- dealers when no city selected -->
         <div class="swiper-wrapper">
@@ -53,7 +57,7 @@
                         </span>
                         <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in <%=details.CityName %></p>
                         <%if (details.DealerCount>0) {%>
-                        <a href="/m/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" title="<%=makeName%> showroom in <%=details.CityName%>" class="block"><%=details.DealerCount %> <%=(details.DealerCount > 1 )? "showrooms" : "showroom" %></a>
+                        <a href="/m/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" title="<%=makeName%> showroom in <%=details.CityName%>" class="block"><%=details.DealerCount %><%=(details.DealerCount > 1 )? " showrooms" : " showroom" %></a>
                         <%} %>
                         <%if (details.ServiceCenterCount>0){%>
                         <a href="/m/<%=makeMaskingName%>-service-center-in-<%=details.CityMaskingName%>/" title="<%=makeName%> service center in <%=details.CityName%>" class="block"><%=details.ServiceCenterCount %> service center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a>
@@ -69,7 +73,7 @@
                         </span>
                         <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in India</p>
                         <%if (cityDealers.TotalDealerCount > 0) {%>
-                        <a href="/m/<%=makeMaskingName%>-dealer-showrooms-in-india/" title="<%=makeName%> showroom in India" class="block"><%=cityDealers.TotalDealerCount %> <%=(cityDealers.TotalDealerCount > 1 )? "showrooms" : "showroom" %></a>
+                        <a href="/m/<%=makeMaskingName%>-dealer-showrooms-in-india/" title="<%=makeName%> showroom in India" class="block"><%=cityDealers.TotalDealerCount %><%=(cityDealers.TotalDealerCount > 1 )? " showrooms" : " showroom" %></a>
                         <%} %>
                         <%if (cityDealers.TotalServiceCenterCount > 0) {%>
                         <a href="/m/<%=makeMaskingName%>-service-center-in-india/" title="<%=makeName%> service center in India" class="block"><%=cityDealers.TotalServiceCenterCount %> service center<%=(cityDealers.TotalServiceCenterCount > 1 )? "s" : "" %></a>

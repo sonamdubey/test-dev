@@ -112,7 +112,7 @@ $('.deleteImage').live("click", function () {
     var colorId = $(this).attr('data-id');
     $.ajax({
         type: "POST",
-        url: "/api/image/delete/modelid/?photoId=" + colorId,
+        url: "/api/image/delete/modelid/?photoId=" + colorId + "&modelid=" + modelId,
         contentType: 'application/json',
         dataType: 'json',
         crossDomain: true,
@@ -122,7 +122,7 @@ $('.deleteImage').live("click", function () {
         },
         success: function (data) {
             delBtn.closest('tr').find('#mainImage').attr('src', 'https://imgd3.aeplcdn.com/144x81/bikewaleimg/images/noimage.png');
-            showToast('Image deleted');
+            showToast('Image deleted');            
             delBtn.hide();
         },
         complete: function (xhr) {
@@ -145,7 +145,7 @@ function uploadToAWS(file, photoId, itemId, path, ext) {
     var imgUpldUtil = new ImageUploadUtility();
     imgUpldUtil.request = { "originalPath": path, "categoryId": 2, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": ext };
     imgUpldUtil.photoId = photoId;
-    imgUpldUtil.baseURL = bwHostUrl;
+    imgUpldUtil.baseURL = bwOprHostUrl;
     file.type = "image/" + ext;    
     imgUpldUtil.upload(file);
     $(file._removeLink).attr("photoId", (imgUpldUtil.photoId ? imgUpldUtil.photoId : ''));
@@ -166,4 +166,8 @@ function stopLoading(ele) {
         _self.stop(true, true).css({ 'width': '100%' }).fadeOut(1000);
     }
     catch (e) { return };
+}
+
+function showToast(msg) {
+    $('.toast').text(msg).stop().fadeIn(400).delay(3000).fadeOut(400);
 }

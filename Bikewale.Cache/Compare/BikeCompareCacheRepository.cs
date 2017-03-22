@@ -145,5 +145,24 @@ namespace Bikewale.Cache.Compare
             }
             return compareEntity;
         }
+        /// <summary>
+        /// Created By :- Subodh Jain 10 March 2017
+        /// Summary :- Populate Compare ScootersList
+        /// </summary>
+        public IEnumerable<TopBikeCompareBase> ScooterCompareList(uint topCount)
+        {
+            IEnumerable<TopBikeCompareBase> topScootersComapareBase = null;
+            string key = string.Format("BW_CompareScooters_topCount_{0}", topCount);
+            try
+            {
+                topScootersComapareBase = _cache.GetFromCache<IEnumerable<TopBikeCompareBase>>(key, new TimeSpan(1, 0, 0), () => _compareRepository.ScooterCompareList(topCount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.ScooterCompareList topCount:{0}", topCount));
+
+            }
+            return topScootersComapareBase;
+        }
     }
 }

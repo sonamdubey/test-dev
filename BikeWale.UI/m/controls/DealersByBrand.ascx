@@ -16,7 +16,7 @@
                             </div>
                             <div class="swiper-details-block">
                                 <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10"><%=DealerDetails.MakeName%></p>
-                                <h3 class="text-unbold text-light-grey font11"><%=DealerDetails.DealerCount%> <%=DealerDetails.MakeName%> showroom<%=(DealerDetails.DealerCount)>1?"s":"" %></h3>
+                                <h3 class="text-unbold text-light-grey font11"><%=String.Format("{0} {1}",DealerDetails.DealerCount,DealerDetails.MakeName)%> showroom<%=(DealerDetails.DealerCount)>1?"s":"" %></h3>
                             </div>
                         </a>
                     </div>

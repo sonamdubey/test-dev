@@ -2,8 +2,8 @@
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/serviceschedule.ascx" TagName="ServiceSchedule" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 
 <!DOCTYPE html>
 <html>
@@ -75,7 +75,7 @@
                     <h2 class="font14 text-default margin-bottom15">Get commute distance and time:</h2>
                     <div class="form-control-box margin-bottom15">
                         <input id="locationSearch" type="text" class="form-control padding-right40" placeholder="Type in your location" />
-                        <span id="getUserLocation" class="crosshair-icon position-abt pos-right10 pos-top10"></span>
+                        <span id="getUserLocation" class="crosshair-icon position-abt"></span>
                     </div>
                     <div class="location-details margin-bottom15">
                         Distance: <span id="commuteDistance" class="margin-right10"></span>
@@ -106,10 +106,12 @@
         </div>
 
         <section>
+            <div class="container bg-white box-shadow padding-top15">
             <% if (ctrlServiceCenterCard.showWidget && ctrlServiceCenterCard.centerData!=null && ctrlServiceCenterCard.centerData.Count>1)
                    { %>
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
                 <% }  %>
+            </div>
         </section>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
@@ -139,13 +141,13 @@
                 </ul>
             </div>
         </section>
-            <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.fetchedCount > 0) {%>
+            <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0)
+               {%>
         <section>
-            <div class="container bg-white box-shadow margin-bottom15">
-                
-             <div class="container bg-white box-shadow margin-bottom15">
+            <div class="container bg-white box-shadow card-bottom-margin">
                 <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                  {%> 
+
                  <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
                 <%} %>
 
@@ -154,23 +156,19 @@
                 </div>
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
 
-                <% if (ctrlRecentUsedBikes.fetchedCount > 0)
-                {%> 
-                 <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" />
-                <%} %>
-            </div>
-                </div>
-            
+                           <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+                 <div class="padding-top15">
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                  </div>      
+                    <% } %> 
+            </div>            
         </section>
         <% } %>
         <% if (ctrlDealerCard.showWidget) { %>
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <div class="margin-right20 margin-left20 padding-top15">
-                    <h2 class="margin-bottom5">Looking to buy a new <%= makeName %> bike in <%=serviceCity %>?</h2>
-                    <p>Check out authorised <%= makeName %> dealers in <%=serviceCity %></p>
-                </div>
-                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />
+                <BW:DealerCard runat="server" ID="ctrlDealerCard" />
             </div>
         </section>
          <% }  %>

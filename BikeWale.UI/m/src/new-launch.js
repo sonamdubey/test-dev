@@ -1,36 +1,4 @@
-﻿// read more - collapse
-$('.read-more-target').on('click', function () {
-    var element = $(this),
-        parentElemtent = element.closest('.collapsible-content');
-
-    if (!parentElemtent.hasClass('active')) {
-        parentElemtent.addClass('active');
-        element.text(' Collapse');
-    }
-    else {
-        parentElemtent.removeClass('active');
-        element.text('...Read more');
-    }
-});
-
-// more brand - collapse
-$('.view-brandType').click(function () {
-    var element = $(this),
-        elementParent = element.closest('.collapsible-brand-content'),
-        moreBrandContainer = elementParent.find('.brandTypeMore');
-
-    if (!moreBrandContainer.is(':visible')) {
-        moreBrandContainer.slideDown();
-        element.attr('href', 'javascript:void(0)');
-        element.text('View less brands');
-    }
-    else {
-        element.attr('href', '#brand-type-container');
-        moreBrandContainer.slideUp();
-        element.text('View more brands');
-    }
-});
-
+﻿
 var directionRight = { direction: 'right' };
 
 // brand

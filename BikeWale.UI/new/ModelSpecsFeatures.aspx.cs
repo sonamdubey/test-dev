@@ -134,9 +134,32 @@ namespace Bikewale.New
                                     versionName = selectedVersion.VersionName;
                                 }
                             }
-                            if (!modelPg.ModelDetails.New)
+                            // Added by Sangram on 21 Mar 2017 to fetch version id in case of discontinued bikes
+                            else if (!modelPg.ModelDetails.New)
+                            {
                                 isDiscontinued = true;
-
+                                List<BikeVersionMinSpecs> nonZeroValues = modelPg.ModelVersions.Where(x => x.Price > 0).ToList();
+                                if (nonZeroValues != null && nonZeroValues.Count > 0)
+                                {
+                                    ulong minVal = nonZeroValues.Min(x => x.Price);
+                                    var lowestVersion = modelPg.ModelVersions.First(x => x.Price == minVal);
+                                    if (lowestVersion != null)
+                                    {
+                                        this.versionId = Convert.ToUInt16(lowestVersion.VersionId);
+                                        price = Convert.ToUInt32(lowestVersion.Price);
+                                        versionName = lowestVersion.VersionName;
+                                    }
+                                }
+                                else
+                                {
+                                    BikeVersionMinSpecs selectedVersion = modelPg.ModelVersions.FirstOrDefault();
+                                    if (selectedVersion != null)
+                                    {
+                                        price = Convert.ToUInt32(selectedVersion.Price);
+                                        versionName = selectedVersion.VersionName;
+                                    }
+                                }
+                            }
                         }
                     }
                 }

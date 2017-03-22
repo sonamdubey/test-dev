@@ -107,9 +107,24 @@
         if (isFeatured == 'True') {
             versionId = versionId.substring(0, versionId.lastIndexOf(','));
         }
-
-        url = url.substring(0, url.length - 1) + "-vs-" + $(drpMake).val().split('_')[1] + "-" + $(drpModel).val().split('_')[1] + "/";
-
+        var basicUrl = (window.location.pathname).split('/')[2];
+        var curVersions = versions;
+        var makeModelList = new Array();
+        var VersionIdList = new Array();
+        var newBasicUrl = "";
+        var newQueryStr = "";
+        var Count = 0;
+        makeModelList = basicUrl.split("-vs-");
+        VersionIdList = curVersions.split(',');
+        var versionToAdd = $('#addBike_drpModel').val().split('_')[0];
+        VersionIdList.push(versionToAdd);
+        VersionIdList = VersionIdList.sort(sortNumber);
+        var indx = VersionIdList.indexOf(versionToAdd);
+        makeModelList.splice(indx, 0, $(drpMake).val().split('_')[1] + "-" + $(drpModel).val().split('_')[1]);
+        for (var i = 0; i < makeModelList.length; i++) {
+                newBasicUrl += makeModelList[i] + "-vs-";
+            }
+        newBasicUrl = newBasicUrl.substring(0, newBasicUrl.lastIndexOf("-vs-"));
         var verIdlist = new Array();
         verIdlist = versionId.split(',');
 
@@ -118,7 +133,10 @@
             count++;
         }
         queryStr += "bike" + count + "=" + $(drpVersion).val();
-        window.location = url + queryStr + "&source=" + <%= (int)Bikewale.Entities.Compare.CompareSources.Desktop_CompareBike_UserSelection %>;
+        window.location = '/comparebikes/' +newBasicUrl + queryStr + "&source=" + '<%= (int)Bikewale.Entities.Compare.CompareSources.Desktop_CompareBike_UserSelection %>';
     }
 
+    function sortNumber(a, b) {
+        return a - b;
+    }
 </script>

@@ -29,13 +29,13 @@ namespace Bikewale
         protected NewExpertReviews ctrlExpertReviews;
         protected NewVideosControl ctrlVideos;
         protected ComparisonMin ctrlCompareBikes;
-        protected PopularUsedBikes ctrlPopularUsedBikes;
         protected OnRoadPricequote ctrlOnRoadPriceQuote;
 
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
         protected MostPopularBikes_new ctrlMostPopularBikes;
-
+        protected UsedBikeModel ctrlusedBikeModel;
+        protected UsedBikeInCities ctrlusedBikeInCities;
         protected BestBikes ctrlBestBikes;
 
         protected short reviewTabsCnt = 0;
@@ -43,9 +43,11 @@ namespace Bikewale
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
         //Varible to Hide or show controlers
         protected bool isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
+        protected string cityName, cityMaskingName;
         protected Repeater rptPopularBrand, rptOtherBrands;
         protected BindDefaultPage bindHomePage;
         protected HomePageBannerEntity bannerEntity;
+        protected string usedBikeLink = string.Empty, usedBikeTitle = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -78,8 +80,6 @@ namespace Bikewale
             ctrlVideos.ShowWidgetTitle = false;
             ctrlCompareBikes.TotalRecords = 4;
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            ctrlPopularUsedBikes.header = String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(currentCityArea.City) ? currentCityArea.City : "India");
-            ctrlPopularUsedBikes.TotalRecords = 6;
             ctrlOnRoadPriceQuote.PQSourceId = (int)PQSourceEnum.Desktop_HP_PQ_Widget;
 
             BindRepeaters();
@@ -88,6 +88,8 @@ namespace Bikewale
         /// <summary>
         /// Created By : Sushil Kumar on 28th Oct 2016
         /// Description : Added new launched,upcoming and poular bikes binding 
+        /// Modified By :- Subodh Jain 16 March 2016
+        /// Summary :- Added Used and city widget
         /// </summary>
         private void BindBikesWidgets()
         {
@@ -104,12 +106,35 @@ namespace Bikewale
                 //To get Upcoming Bike List Details 
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                cityName = currentCityArea.City;
+                CityEntityBase cityDetails = null;
+                if (ctrlusedBikeModel != null)
+                {
+                    if (currentCityArea.CityId > 0)
+                    {
+                        cityDetails = new CityHelper().GetCityById(currentCityArea.CityId);
+                        ctrlusedBikeModel.CityId = currentCityArea.CityId;
+                    }
+                    usedBikeLink = string.Format("/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                    usedBikeTitle = string.Format("Second Hand Bikes in {0}", currentCityArea.CityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.IsLandingPage = true;
+                    ctrlusedBikeModel.WidgetTitle = usedBikeTitle;
+                    ctrlusedBikeModel.WidgetHref = usedBikeLink;
+                    ctrlusedBikeModel.TopCount = 9;
+                }
+                if (ctrlusedBikeInCities != null)
+                {
+
+                    ctrlusedBikeInCities.WidgetHref = usedBikeLink;
+                    ctrlusedBikeInCities.WidgetTitle = usedBikeTitle;
+                }
+
 
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindBikesWidgets");
-                objErr.SendMail();
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Default.BindBikesWidgets");
             }
         }
 

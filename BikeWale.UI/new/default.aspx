@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Default" EnableViewState="false" %>
 
 <%@ Register Src="~/controls/News.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
@@ -32,13 +32,13 @@
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/newbikes.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
-    <%  isTransparentHeader = true;
-    %>
+    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/css/newbikes.css" />
+    <script type="text/javascript">
+        <!-- #include file="\includes\gacode_desktop.aspx" -->
+    </script>
 </head>
-<body>
+<body class="page-type-landing">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <header class="new-bikes-top-banner">
@@ -55,7 +55,7 @@
             <div class="grid-12">
                 <div class="bw-tabs-panel brand-budget-mileage-style-wrapper content-box-shadow margin-minus50">
                     <div class="bw-tabs bw-tabs-flex">
-                        <ul class="brand-budget-mileage-style-UL">
+                        <ul class="brand-collapsible-present">
                             <li class="active" data-tabs="discoverBrand">
                                 <h3>Brand</h3>
                             </li>
@@ -70,8 +70,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="bw-tabs-data" id="discoverBrand">
-                        <div class="brand-type-container">
+                    <div class="bw-tabs-data collapsible-brand-content" id="discoverBrand">
+                        <div id="brand-type-container" class="brand-type-container">
                             <ul class="text-center">
                                 <asp:Repeater ID="rptPopularBrand" runat="server">
                                     <ItemTemplate>
@@ -87,8 +87,6 @@
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </ul>
-                            <div class="brand-bottom-border border-solid-top margin-left20 margin-right20 hide">
-                            </div>
                             <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
                                 <asp:Repeater ID="rptOtherBrands" runat="server">
                                     <ItemTemplate>
@@ -104,8 +102,8 @@
                                 </asp:Repeater>
                             </ul>
                         </div>
-                        <div class="view-brandType text-center padding-top10 padding-bottom30">
-                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View <span>more</span> brands</a>
+                        <div class="view-all-btn-container padding-top10 padding-bottom30">
+                            <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
                     <div class="bw-tabs-data hide" id="discoverBudget">
@@ -293,7 +291,7 @@
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
                 <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Featured bikes</h2>
-                <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
+                <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
                             <li class="active" style="<%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlMostPopularBikes">
@@ -315,13 +313,19 @@
                                     <!-- Most Popular Bikes Control-->
                                 </ul>
                             </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                        </div>
+                        <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <a href="/best-bikes-in-india/" class="btn view-all-target-btn" title="Best Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
 
                     <div class="bw-tabs-data hide <%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlNewLaunchedBikes">
                         <BW:NewLaunchedBikes PageId="5" runat="server" ID="ctrlNewLaunchedBikes" />
+                        <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
+                        </div>
                         <!-- New Launched Bikes Control-->
                     </div>
 
@@ -333,14 +337,19 @@
                                     <!-- Upcoming Bikes Control-->
                                 </ul>
                             </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                        </div>
+                        <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <a href="/upcoming-bikes/" class="btn view-all-target-btn" title="Upcoming Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="clear"></div>
         </section>
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
          <% if(ctrlBestBikes!= null) { %>
         <section>
@@ -483,14 +492,14 @@
             </div>
         </section>
         <!-- #include file="/includes/footerBW.aspx" -->
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
-        <%--<script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>--%>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/newbikes.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             ga_pg_id = '4';
 
-            //for jquery chosen : knockout event 
+            $('#globalSearch').parent().show();
+
             ko.bindingHandlers.chosen = {
                 init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
                     var $element = $(element);
@@ -509,11 +518,12 @@
                         }
                     });
                 }
-            }
+            };
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");           
         </script>
+        <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

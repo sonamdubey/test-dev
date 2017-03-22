@@ -2,8 +2,26 @@
 <%if (FetchedRecordsCount > 0)
   {%>
 <section>
-    <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
-        <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">Popular <%=(!String.IsNullOrEmpty(makeName) ? makeName: "")%> bikes</h2>
+    <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
+        <div class="carousel-heading-content">
+        <div class="swiper-heading-left-grid inline-block">
+        <h2>Popular <%=(!String.IsNullOrEmpty(makeName) ? makeName: "")%> bikes</h2>
+        </div>
+            <% if (!string.IsNullOrEmpty(makeMasking))
+           { %>
+         <div class="swiper-heading-right-grid inline-block text-right">
+            <a href="/m/<%= makeMasking %>-bikes/" title="<%=makeName %> Bikes" class="btn view-all-target-btn">View all</a>
+        </div>
+            
+        <%} %>
+        <% else 
+           { %>
+        <div class="swiper-heading-right-grid inline-block text-right">
+            <a href="/m/best-bikes-in-india/" title="Best Bikes in India" class="btn view-all-target-btn">View all</a>
+        </div>
+        <% } %>
+            <div class="clear"></div>
+        </div>
         <div class="swiper-container card-container swiper-small">
             <div class="swiper-wrapper">
                 <%foreach (var bike in objPopularBikes)
@@ -13,7 +31,7 @@
                 <div class="swiper-slide">
                     <div class="swiper-card">
                         <a href="/m<%= Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName) %>" title="<%=bikeName%>">
-                            <div class="swiper-image-preview position-rel">
+                            <div class="swiper-image-preview">
                                 <img class="swiper-lazy" alt="<%=bikeName %>" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostURL,Bikewale.Utility.ImageSize._174x98) %>" alt="<%=bikeName%>">
                             </div>
                             <div class="swiper-details-block">
@@ -38,18 +56,7 @@
                 <%} %>
             </div>
         </div>
-        <% if (!string.IsNullOrEmpty(makeMasking))
-           { %>
-        <div class="margin-top15 margin-left20 font14">
-            <a href="/m/<%= makeMasking %>-bikes/" title="View all <%=(!String.IsNullOrEmpty(makeName) ? makeName: "") %> bikes">View all <%=(!String.IsNullOrEmpty(makeName) ? makeName: "") %> bikes<span class="bwmsprite blue-right-arrow-icon"></span></a>
-        </div>
-        <%} %>
-        <% else 
-           { %>
-        <div class="margin-top15 margin-left20 font14">
-            <a href="/m/best-bikes-in-india/" title="Best Bikes in India">View the complete list<span class="bwmsprite blue-right-arrow-icon"></span></a>
-        </div>
-        <% } %>   
+           
     </div>
 </section>
 <%} %>

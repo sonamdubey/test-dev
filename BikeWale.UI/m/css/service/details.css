@@ -18,14 +18,8 @@
   -o-box-shadow: 0 2px 2px 0 #dcdcdc;
   box-shadow: 0 2px 2px 0 #dcdcdc; }
 
-.details-column {
-  width: 92%; }
-
 .location-details {
   display: none; }
-
-.padding-15-20 {
-  padding: 15px 20px; }
 
 .vertical-top {
   display: inline-block;
@@ -58,19 +52,6 @@
   border-top: 1px solid #eee; }
 
 .dealership-loc-icon {
-  width: 10px;
-  height: 14px;
-  background-position: -40px -436px;
-  position: relative;
-  top: 4px;
-  margin-right: 3px; }
-
-.tel-sm-grey-icon {
-  width: 10px;
-  height: 10px;
-  background-position: 0 -437px;
-  position: relative;
-  top: 5px;
   margin-right: 3px; }
 
 .mail-grey-icon {
@@ -83,7 +64,9 @@
 .crosshair-icon {
   width: 20px;
   height: 20px;
-  background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/detect-location-icon.png) no-repeat; }
+  background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/detect-location-icon.png) no-repeat;
+  top: 10px;
+  right: 10px; }
 
 .clock-icon {
   width: 14px;

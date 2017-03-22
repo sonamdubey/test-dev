@@ -16,9 +16,9 @@ namespace BikewaleOpr.Service
             // Web API routes
             config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
+                name: "DefaultOprApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { id = RouteParameter.Optional, action = RouteParameter.Optional }
             );
         }
     }

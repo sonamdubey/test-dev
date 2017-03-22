@@ -38,13 +38,13 @@ namespace Bikewale.New
         protected Repeater rptDealers;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected bool areDealersPremium = false;
-        protected UsedPopularModelsInCity ctrlUsedModels;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected LeadCaptureControl ctrlLeadCapture;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected BrandCityPopUp ctrlBrandCity;
         protected DealersInNearByCities ctrlDealerCount;
         protected ChangeLocationPopup ctrlChangeLocation;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -95,6 +95,8 @@ namespace Bikewale.New
         /// Desc : Binded dealer count widget
         /// Modified By : Sushil Kumar on 17th Jan 2016
         /// Description : Added chnage location prompt widget
+        /// Modified By :-Subodh Jain on 15 March 2017
+        /// Summary :-Added used bike widget
         /// </summary>
         private void BindUserControls()
         {
@@ -114,19 +116,6 @@ namespace Bikewale.New
                 ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
 
-                if (ctrlUsedModels != null)
-                {
-                    ctrlUsedModels.CityId = cityId;
-                    ctrlUsedModels.MakeId = makeId;
-                    ctrlUsedModels.MakeName = makeName;
-                    ctrlUsedModels.MakeMaskingName = makeMaskingName;
-                    ctrlUsedModels.TopCount = 4;
-                    ctrlUsedModels.IsAd = true;
-                    ctrlUsedModels.CityName = cityName;
-                    ctrlUsedModels.CityMaskingName = cityMaskingName;
-                    ctrlUsedModels.AdId = "1395986297721";
-                }
-
                 ctrlLeadCapture.CityId = cityId;
                 ctrlBrandCity.requestType = EnumBikeType.Dealer;
                 ctrlBrandCity.makeId = makeId;
@@ -139,13 +128,23 @@ namespace Bikewale.New
                 ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 3;
-                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
-                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
+                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", makeName, cityName);
 
                 if (ctrlChangeLocation != null)
                 {
                     ctrlChangeLocation.UrlCityId = cityId;
                     ctrlChangeLocation.UrlCityName = cityName;
+                }
+                if (ctrlusedBikeModel != null)
+                {
+
+                    ctrlusedBikeModel.MakeId = makeId;
+                    if (cityId > 0)
+                        ctrlusedBikeModel.CityId = cityId;
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/used/{0}-bikes-in-{1}/", makeMaskingName, cityId > 0 ? cityMaskingName : "india");
+                    ctrlusedBikeModel.TopCount = 9;
                 }
             }
             catch (Exception ex)

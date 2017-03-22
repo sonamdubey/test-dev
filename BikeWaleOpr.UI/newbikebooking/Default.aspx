@@ -1,18 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.BikeBooking.Default" Trace="false" Debug="false" Async="true" EnableEventValidation="false" EnableViewState="true" %>
 
 <!-- #Include file="/includes/headerNew.aspx" -->
-<script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
-<script src="/src/AjaxFunctions.js" type="text/javascript"></script>
+
 <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
 
 <style type="text/css">
-    input[type='text'] {
-        background-color: #fff;
-    }
+    input[type='text'] {background-color: #fff;}
 </style>
 <div>
 
-    <!-- #Include file="/content/DealerMenu.aspx" -->
 </div>
 <div class="left">
     <h1>Manage New Bike Dealers</h1>
@@ -44,11 +40,11 @@
 
         <table width="100%" border="0" cellpadding="2" cellspacing="0">
             <tr>
-                <td>
+                <td style="padding-top:10px;">
                     <input type="button" value="Manage Offers" id="btnManageoffer" />&nbsp;&nbsp;
-                    <input runat="server" type="submit" value="Manage Prices And Availability" id="btnManagePrice" />&nbsp;&nbsp;
+                    <input type="submit" value="Manage Prices And Availability" id="btnManagePrice" runat="server"/>&nbsp;&nbsp;
                     <input type="button" value="Manage Facilities" id="btnManagefacilities" />&nbsp;&nbsp;
-                    <input type="button" value="Manage Emi" id="btnEmi" />&nbsp;&nbsp;
+                    <input type="button" value="Manage Emi" id="btnEmi" />&nbsp;&nbsp;                    
                      <input type="button" value="Manage Dealer Disclaimer" id="btnDisclaimer" />&nbsp;&nbsp;
                     <input type="button" value="Manage Booking Amount" id="btnBkgAmount" />&nbsp;&nbsp;
                     <input type="button" value="Manage Benefits/ USP" id="btnManageBenefits" />&nbsp;&nbsp;
@@ -240,7 +236,7 @@
                 }
             });
         }
-    }
+    };
 
     function isPostBack() {
         return $('#ispostback').val() == 'True';
@@ -266,7 +262,7 @@
         }
 
         ddlCities.change(function (item, event) {
-            self.selectedCity(ddlCities.select().val());
+            self.selectedCity(ddlCities.val());
             showHideMatchError(ddlCities, false);
             showHideMatchError(ddlMakes, false);
             showHideMatchError(ddlDealers, false);
@@ -275,16 +271,18 @@
             self.cityChanged();
         });
         ddlMakes.change(function () {
-            self.selectedMake(ddlMakes.select().val());
+            self.selectedMake(ddlMakes.val());
             showHideMatchError(ddlMakes, false);
             showHideMatchError(ddlDealers, false);
             self.ClearDealers();
             self.makeChanged();
         });
         ddlDealers.change(function () {
-            self.selectedDealer(ddlDealers.select().val());
-            showHideMatchError(ddlDealers, false);
-            $('#hdnDealerId').val(self.selectedDealer());
+            if (ddlDealers.val()) {
+                self.selectedDealer(ddlDealers.val());
+                showHideMatchError(ddlDealers, false);
+                $('#hdnDealerId').val(self.selectedDealer());
+            }
         });
 
         self.cityChanged = function () {
@@ -741,6 +739,18 @@
         //ends here
     });
 
+    function showHideMatchError(element, error) {
+        if (error) {
+            element.parent().find('.error-icon').removeClass('hide');
+            element.parent().find('.bw-blackbg-tooltip').removeClass('hide');
+            element.addClass('border-red')
+        }
+        else {
+            element.parent().find('.error-icon').addClass('hide');
+            element.parent().find('.bw-blackbg-tooltip').addClass('hide');
+            element.removeClass('border-red');
+        }
+    }
 </script>
 
 <!-- #Include file="/includes/footerNew.aspx" -->

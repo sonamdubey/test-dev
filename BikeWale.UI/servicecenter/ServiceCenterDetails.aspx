@@ -2,8 +2,8 @@
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/serviceschedule.ascx" TagName="ServiceSchedule" TagPrefix="BW" %>
-<%@ Register Src="~/controls/UsedBikeWidget.ascx" TagName="UsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
+<%@ Register Src="~/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,26 +174,37 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-             <% if(ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.FetchedRecordsCount >0){ %>
+             <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0)
+                { %>
         <section>
             <div class="container">
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                            { %>
-                          <h2 class="section-h2-title padding-15-20">Popular <%=makeName %> bikes in <%=serviceVM.CityName%></h2>
+                         <div class="carousel-heading-content padding-top20">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>Popular <%=serviceVM.MakeName %> bikes in <%= serviceVM.CityName %></h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/<%= makeMaskingName %>-bikes/" title="<%= serviceVM.MakeName %> Bikes" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
                         <BW:MostPopularBikesMake runat="server" ID="ctrlPopoularBikeMake" />
                         <%} %>
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <!-- Used bikes widget -->
-                        <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
-                           { %>
-                        <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
-                        <%} %>
-
+                             <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+                 
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                        
+                    <% } %>  
+                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <div class="clear"></div>
                     </div>
                 </div>
+                
                 <div class="clear"></div>
             </div>
         </section>
@@ -204,11 +215,7 @@
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <div class="padding-top15 padding-right20 padding-left20">
-                            <h2 class="section-h2-title margin-bottom10">Looking to buy a new <%=serviceVM.MakeName %> bike in <%=serviceVM.CityName %>?</h2>
-                            <p class="font14">Check out authorised <%=serviceVM.MakeName %> dealers in <%=serviceVM.CityName %></p>
-                        </div>      
-                             <BW:DealerCard runat="server" ID="ctrlDealerCard" />                                            
+                        <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -236,8 +243,8 @@
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/service/details.js?<%= staticFileVersion %>"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap""></script>
         <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap" async defer"></script>
 </html>

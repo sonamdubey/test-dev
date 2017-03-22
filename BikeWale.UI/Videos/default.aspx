@@ -27,7 +27,7 @@
 </style>
   
 </head>
-<body class="bg-light-grey header-fixed-inner">
+<body class="bg-light-grey header-fixed-inner page-type-landing">
 	<form id="form1" runat="server">
 		<!-- #include file="/includes/headBW.aspx" -->
 		<section>
@@ -119,8 +119,8 @@
 			<div class="container section-bottom-margin">
 				<div class="grid-12">
                      <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Browse videos by brands</h2>
-					<div class="content-box-shadow padding-top20">
-						<div class="brand-type-container">
+					<div class="content-box-shadow padding-top20 collapsible-brand-content">
+						<div id="brand-type-container" class="brand-type-container">
 							<ul class="text-center">
 							  <% foreach (var make in objVideo.TopMakeList)
 								 { %>
@@ -136,8 +136,7 @@
 							</ul>
 							<% if (objVideo.OtherMakeList!=null&&objVideo.OtherMakeList.Count() >0)
                                { %>
-							<div class="brand-bottom-border border-solid-top hide"></div>
-							<ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
+                            <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
 							 <% foreach (var make in objVideo.OtherMakeList)
                                 { %>
 									   <li>
@@ -152,8 +151,8 @@
 							</ul>
 						</div>
                        
-						<div class="view-brandType text-center padding-bottom25">
-							<a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16" rel="nofollow">View <span>more</span> brands</a>
+						<div class="view-all-btn-container padding-bottom25">
+							<a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwsprite teal-right"></span></a>
 						</div>
 						<%} %>
 					</div>
@@ -190,23 +189,13 @@
 		<BW:ByCategory runat="server" ID="ctrlMiscellaneous" />
 		<% } %> 
         
-		
+		<div class="margin-bottom25"></div>
 
 		<script type="text/javascript">
 			$(document).ready(function () { $("img.lazy").lazyload(); });
 		</script>
 		<!-- #include file="/includes/footerBW.aspx" -->
 		<!-- #include file="/includes/footerscript.aspx" -->
-          <script type="text/javascript"> 
-        $("a.view-more-btn").click(function (e) {
-    var moreBrandList = $("ul.brand-style-moreBtn"),
-        moreText = $(this).find("span"),
-        borderDivider = $(".brand-bottom-border");
-    moreBrandList.slideToggle();
-    moreText.text(moreText.text() === "more" ? "less" : "more");
-    borderDivider.slideToggle();
-        });
-              </script>
 	</form>
 </body>
 </html>

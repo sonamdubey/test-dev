@@ -67,7 +67,7 @@
                     </div>
                     <ul id="popupMakeList" data-bind="template: { name: 'bindBrandList-template', foreach: visibleBrands }"></ul>
                     <script type="text/html" id="bindBrandList-template">
-                        <li data-bind="text: makeName, attr: { 'makeId': id }, click: function (d, e) { $parent.chooseBrand(d, e); }"></li>
+                        <li data-bind="text: makeName, attr: { 'makeId': makeId }, click: function (d, e) { $parent.chooseBrand(d, e); }"></li>
                     </script>
                     <div class="margin-top30 font24 text-center margin-top60 "></div>
                 </div>
@@ -82,7 +82,7 @@
                     </div>
                     <ul id="popupCitiesList" data-bind="template: { name: 'bindCitiesList-template', foreach: visibleCities }"></ul>
                     <script type="text/html" id="bindCitiesList-template">
-                        <li data-bind="text: cityName, attr: { 'cityId': id }, click: function (d, e) { $parent.chooseCity(d, e); }"></li>
+                        <li data-bind="text: cityName, attr: { 'cityId': cityId }, click: function (d, e) { $parent.chooseCity(d, e); }"></li>
                     </script>
                     <div class="margin-top30 font24 text-center margin-top60 "></div>
                 </div>
@@ -136,22 +136,22 @@
         self.cityFilter = ko.observable(""),
         self.LoadingText = ko.observable("Loading..."),
         self.searchByBrandCityBtnClicked = ko.observable(false),
-         self.makeMasking = ko.pureComputed(function () {
+        self.makeMasking = ko.pureComputed(function () {
             return ko.utils.arrayFirst(self.bookingBrands(), function (child) {
                 return child.makeId === self.selectedBrand().makeId;
             }).maskingName;
-        })
+        });
         self.cityMasking = ko.pureComputed(function () {
             return ko.utils.arrayFirst(self.listCities(), function (child) {
                 return child.cityId === self.selectCity().cityId;
             }).cityMaskingName;
-        })
+        });
         self.cityApiUrl = ko.pureComputed(function () {
             if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>)
                 return ("/api/v2/DealerCity/?makeId=" + self.selectedBrand().makeId);
             else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>)
                 return ("/api/servicecenter/cities/make/" + self.selectedBrand().makeId + "/");
-        })
+        });
         
         self.visibleCities = ko.computed(function () {
             filter = self.cityFilter();
@@ -180,7 +180,7 @@
 
         self.FillBrandsPopup = function () {
             $('#brandcitypopupWrapper').addClass('loader-active');
-             var isAborted = false;
+            var isAborted = false;
             BrandsKey="BrandCityPopUp_"+'<%=requestType%>';
             if (data = lscache.get(BrandsKey)) {
                 var brands = ko.toJS(data);
@@ -188,7 +188,7 @@
                     self.bookingBrands(brands);
                     if (self.bookingBrands() != null) {
                         isAborted = true;
-                       }
+                    }
                 }
                 else {
                     self.bookingBrands([]);
@@ -204,7 +204,7 @@
                     beforeSend: function (xhr) {
                         self.bookingBrands([]);
                         self.listCities([]);
-                           },
+                    },
                     success: function (response) {
                         var brands = ko.toJS(response);
                         if (brands) {
@@ -214,17 +214,17 @@
                         else {
                             self.bookingBrands([]);
                         }
-                       },
+                    },
                     complete: function () {
                         self.preselectMake();
                     }
                 });
             }
-             };
+        };
 
 
         self.makeChangedPopup = function () {
-            self.searchByBrandCityBtnClicked(false)
+            self.searchByBrandCityBtnClicked(false);
             var isAborted = false;
             if (self.selectedBrand() != undefined) {
                 BrandCityKey = "brandcity_"+'<%=requestType%>'+'_' + self.selectedBrand().makeId;
@@ -233,19 +233,19 @@
                     if (cities) {
                         self.listCities(cities);
                        
-                            isAborted = true;
-                            if(self.SelectedCityId()!=null)
-                            {
-                                self.preselectCity();
-                            }
-                            else self.selectCity(null);
+                        isAborted = true;
+                        if(self.SelectedCityId()!=null)
+                        {
+                            self.preselectCity();
+                        }
+                        else self.selectCity(null);
                     }
                     $('#brandcitypopupWrapper').removeClass('loader-active');
                     
                 }
                 
                 if (!isAborted) {
-                      $.ajax({
+                    $.ajax({
                         type: "GET",
                         url: self.cityApiUrl(),
                         dataType: 'json',
@@ -280,11 +280,11 @@
                         }
                     });
                 }
-             }
+            }
             else {
                 self.listCities([]);
             }
-        }
+        };
 
         self.isValidInfoPopup=function() {
             isValid = true;
@@ -301,9 +301,9 @@
             if (isValid) {
                 self.hideError($("#makeSelection"));
                 self.hideError($("#citiesSelection"));
-                }
+            }
             return isValid;
-        }
+        };
 
         self.searchByBrandCityPopUp = function () {
             self.searchByBrandCityBtnClicked(true);
@@ -311,25 +311,25 @@
             if (isvalid) {
                 if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>) {
                     window.location.href = "/m/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
-                }
-                else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>) {
-                    window.location.href = "/m/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
-                }
             }
-        }
+            else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>) {
+                window.location.href = "/m/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
+        };
+    }
+    };
 
-        self.preselectMake = function () {
-            if (makeId > 0 && self.bookingBrands().length > 0) {
-                self.selectedBrand(self.findMakeById(parseInt(makeId)));
-                self.makeChangedPopup();
-            }
+    self.preselectMake = function () {
+        if (makeId > 0 && self.bookingBrands().length > 0) {
+            self.selectedBrand(self.findMakeById(parseInt(makeId)));
+            self.makeChangedPopup();
         }
+    };
         self.preselectCity = function () {
 
             if (self.listCities().length > 0) {
                 self.selectCity(self.findCityById(parseInt(self.SelectedCityId())));
             }
-        }
+        };
         self.chooseBrand = function (data, event) {
            
             if (!self.oBrowser()) {
@@ -371,14 +371,14 @@
                 if (child.id == id || child.makeId == id)
                     return child;
             });
-        }
+        };
         
         self.findCityById = function (id) {
             return ko.utils.arrayFirst(self.listCities(), function (child) {
                 if (child.id == id || child.cityId == id)
                     return child;
             });
-        }
+        };
 
         self.setError = function (element, msg) {
             element.addClass("border-red");

@@ -15,6 +15,7 @@ namespace Bikewale.Controllers
     public class PopularBikesController : Controller
     {
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
+
         IEnumerable<MostPopularBikesBase> objPopularBikes = null;
 
         public PopularBikesController(IBikeModelsCacheRepository<int> modelCache)
@@ -34,6 +35,7 @@ namespace Bikewale.Controllers
             else
                 objPopularBikes = _modelCache.GetMostPopularBikes((int)topCount, (int)makeId);
             ViewBag.MakeName = objPopularBikes.FirstOrDefault().objMake.MakeName;
+            ViewBag.MakeMaskingName = objPopularBikes.FirstOrDefault().objMake.MaskingName;
             return View("~/Views/Shared/_PopularBikes.cshtml", objPopularBikes);
         }
 
@@ -49,6 +51,7 @@ namespace Bikewale.Controllers
             else
                 objPopularBikes = _modelCache.GetMostPopularBikes((int)topCount, (int)makeId);
             ViewBag.MakeName = objPopularBikes.FirstOrDefault().objMake.MakeName;
+            ViewBag.MakeMaskingName = objPopularBikes.FirstOrDefault().objMake.MaskingName;
             return View("~/Views/m/Shared/_PopularBikes.cshtml", objPopularBikes);
         }
 
@@ -84,5 +87,7 @@ namespace Bikewale.Controllers
             }
             return View("~/Views/m/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
         }
+
+
     }
 }

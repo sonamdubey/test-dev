@@ -6,7 +6,7 @@
     <ul class="compare-bikes-list">
          <%foreach(var bike in compareList) { %>
         <li>
-            <a href="/m/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeMaskingName1,bike.ModelMaskingName1,bike.MakeMaskingName2,bike.ModelMaskingName2, bike.VersionId1.ToString(), bike.VersionId2.ToString(),Bikewale.Entities.Compare.CompareSources.Mobile_Featured_Compare_Widget)%>" title="Compare <%= FormatBikeCompareAnchorText(bike.Bike1,bike.Bike2) %>">
+            <a href="/m/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeMaskingName1,bike.ModelMaskingName1,bike.MakeMaskingName2,bike.ModelMaskingName2, bike.VersionId1.ToString(), bike.VersionId2.ToString(), bike.ModelId1,bike.ModelId2, Bikewale.Entities.Compare.CompareSources.Mobile_Featured_Compare_Widget)%>" title="Compare <%= FormatBikeCompareAnchorText(bike.Bike1,bike.Bike2) %>">
                 <div class="grid-6">
                     <div class="comparison-image">
                         <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl1,bike.HostUrl1,Bikewale.Utility.ImageSize._110x61) %>" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">

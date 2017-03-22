@@ -58,7 +58,6 @@ namespace Bikewale.BAL.Images
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("GenerateImageUploadToken{0}", Newtonsoft.Json.JsonConvert.SerializeObject(objImage)));
-                objErr.SendMail();
             }
             return token;
         }
@@ -102,7 +101,6 @@ namespace Bikewale.BAL.Images
             {
                 token.Status = false;
                 ErrorClass objErr = new ErrorClass(ex, String.Format("ProcessImageUpload({0})", JsonConvert.SerializeObject(token)));
-                objErr.SendMail();
             }
             return token;
         }

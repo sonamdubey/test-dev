@@ -1,0 +1,56 @@
+﻿@model ICollection<Bikewale.Entities.BikeData.SimilarCompareBikeEntity>
+@if (Model != null) {
+<div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
+    <div class="carousel-heading-content">
+        <div class="swiper-heading-left-grid inline-block">
+            <h2>Popular Comparison of @ViewBag.MakeName Scooters</h2>
+        </div>
+        <div class="swiper-heading-right-grid inline-block text-right">
+            <a href="/m/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="ctrlCompareBikes">
+        <div id="comparisonSwiper" class="swiper-container comparison-swiper card-container">
+            <div class="swiper-wrapper">
+              @foreach (var bikedetails in Model) {
+                  string bike1 = string.Format("{0} {1}", bikedetails.Make1, bikedetails.Model1);
+                  string bike2 = string.Format("{0} {1}", bikedetails.Make2, bikedetails.Model2);
+                <div class="swiper-slide">
+                    <div class="swiper-card rounded-corner2">
+                        <a href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(bikedetails.MakeMasking1, bikedetails.ModelMaskingName1, bikedetails.MakeMasking2, bikedetails.ModelMaskingName2, Convert.ToString(bikedetails.VersionId1), Convert.ToString(bikedetails.VersionId2),bikedetails.ModelId1,bikedetails.ModelId2, Bikewale.Entities.Compare.CompareSources.Mobile_Scooter_Listing_Compare)" title="@string.Format("{0} {1} vs {2} {3}",bikedetails.Make1,bikedetails.Model1,bikedetails.Make2,bikedetails.Model2)" class="block">
+                            <h3 class="font12 text-black text-center margin-bottom10">@string.Format("{0} vs {1}", bikedetails.Model1, bikedetails.Model2)</h3>
+                            <div class="grid-6">
+                                <div class="model-img-content">
+                                    <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath1, bikedetails.HostUrl1, Bikewale.Utility.ImageSize._144x81)" alt="@bike1" title="@bike1" src="" />
+                                    <span class="swiper-lazy-preloader"></span>
+                                </div>
+@if (!string.IsNullOrEmpty(ViewBag.CityName)) { <p class="font11 text-light-grey text-truncate">Ex-showroom, @ViewBag.CityName</p>}
+else
+{<p class="font11 text-light-grey text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>}
+                                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price1))</span>
+                            </div>
+                            <div class="grid-6">
+                                <div class="model-img-content">
+                                    <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath2, bikedetails.HostUrl2, Bikewale.Utility.ImageSize._144x81)" alt="@bike2" title="@bike2" src="" />
+                                    <span class="swiper-lazy-preloader"></span>
+                                </div>
+                                @if (!string.IsNullOrEmpty(ViewBag.CityName))
+                                { <p class="font11 text-light-grey text-truncate">Ex-showroom, @ViewBag.CityName</p>}
+                                else
+                                {<p class="font11 text-light-grey text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>}
+                                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price2))</span>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="margin-top15 text-center">
+                                <span class="btn btn-white btn-size-1">Compare now</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+              }
+            </div>
+        </div>
+       </div>
+</div>
+}

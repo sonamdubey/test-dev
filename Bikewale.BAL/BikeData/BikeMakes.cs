@@ -118,5 +118,20 @@ namespace Bikewale.BAL.BikeData
         {
             return makesRepository.GetOldMaskingNames();
         }
+
+
+        public IEnumerable<BikeMakeEntityBase> GetScooterMakes()
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Created by  :   Aditi Srivastava on 15 Mar 2017
+        /// Description :   Calls make repository
+        /// </summary>
+        /// <returns></returns>
+        public BikeDescriptionEntity GetScooterMakeDescription(uint makeId)
+        {
+            return makesRepository.GetScooterMakeDescription(makeId);
+        }
     }   // Class
 }   //Namespace

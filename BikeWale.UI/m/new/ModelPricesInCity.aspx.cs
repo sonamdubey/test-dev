@@ -52,7 +52,6 @@ namespace Bikewale.Mobile.New
         private bool redirectToPageNotFound = false, redirectPermanent = false;
         protected bool isAreaAvailable, isAreaSelected, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
-        protected UsedBikes ctrlRecentUsedBikes;
         protected DealersEntity _dealers = null;
         protected int dealerCount = 0;
         protected int colourCount = 0;
@@ -142,12 +141,6 @@ namespace Bikewale.Mobile.New
                 if (firstVersion != null)
                     ctrlAlternateBikes.VersionId = firstVersion.VersionId;
 
-                ctrlRecentUsedBikes.MakeId = makeId;
-                ctrlRecentUsedBikes.ModelId = modelId;
-                ctrlRecentUsedBikes.CityId = (int?)cityId;
-                ctrlRecentUsedBikes.TopCount = 6;
-                ctrlRecentUsedBikes.header = "Recently uploaded Used " + modelName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
-
                 ctrlServiceCenterCard.MakeId = Convert.ToUInt32(makeId);
                 ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
                 ctrlServiceCenterCard.makeName = makeName;
@@ -155,8 +148,7 @@ namespace Bikewale.Mobile.New
                 ctrlServiceCenterCard.cityName = cityName;
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 9;
-                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
-                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
+                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", makeName, cityName);
 
                 if (ctrlChangeLocation != null)
                 {

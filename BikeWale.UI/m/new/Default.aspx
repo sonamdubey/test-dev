@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="False" Inherits="Bikewale.Mobile.New.Default" EnableViewState="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="False" Inherits="Bikewale.Mobile.New.Default" EnableViewState="false" %>
 
 <%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
@@ -22,18 +22,21 @@
         Ad320x150_I = true;
         Ad320x150_II = true;
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-newbikes.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/m/css/bwm-newbikes.css" />
+    <script type="text/javascript">
+        <!-- #include file="\includes\gacode_mobile.aspx" -->
+    </script>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey page-type-landing">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
             <div class="container">
-                <div class="newbikes-banner-div">
+                <div class="newbikes-banner-div text-center">
                     <!-- Top banner code starts here -->
-                    <h1 class="font22 text-uppercase text-white text-center padding-top25 font24">New Bikes in India</h1>
-                    <p class=" font16 text-white text-center">All new bikes under one roof</p>
+                    <h1 class="font22 text-uppercase text-white">New Bikes in India</h1>
+                    <p class="font14 text-white">All new bikes under one roof</p>
                 </div>
                 <!-- Top banner code ends here -->
             </div>
@@ -41,9 +44,9 @@
         <section class="container">
             <!-- Brand section code starts here -->
             <div class="grid-12">
-                <div class="bg-white brand-wrapper content-box-shadow margin-minus60">
+                <div class="bg-white brand-wrapper content-box-shadow margin-minus60 padding-bottom20 collapsible-brand-content">
                     <h2 class="content-inner-block-10 text-uppercase text-center margin-top30 margin-bottom20">Brand</h2>
-                    <div class="brand-type-container">
+                    <div id="brand-type-container" class="brand-type-container">
                         <ul class="text-center">
                             <asp:Repeater ID="rptPopularBrand" runat="server">
                                 <ItemTemplate>
@@ -73,8 +76,8 @@
                             </asp:Repeater>
                         </ul>  
                     </div>
-                    <div class="text-center padding-bottom20">
-                        <a href="javascript:void(0)" id="more-brand-tab" class="view-more-btn font16">View <span>more</span> Brands</a>
+                    <div class="view-all-btn-container">
+                        <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwmsprite teal-right"></span></a>
                     </div>
                 </div>
             </div>
@@ -106,15 +109,21 @@
                                     <div class="swiper-container card-container">
                                         <div class="swiper-wrapper discover-bike-carousel">
                                             <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
-                                        </div>
+                                         </div>
                                     </div>
+                                      <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="/m/best-bikes-in-india/" title="Popular Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+                               </div>
                                 </div>
-                                <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
+                                   <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
                                     <div class="swiper-container card-container">
                                         <div class="swiper-wrapper discover-bike-carousel">
                                             <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
                                         </div>
                                     </div>
+                                <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="/m/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all launches<span class="bwmsprite teal-right"></span></a>
+                               </div>
                                 </div>
                                 <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
                                     <div class="swiper-container card-container">
@@ -122,6 +131,9 @@
                                             <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
                                         </div>
                                     </div>
+                               <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+                               </div>
                                 </div>
                             </div>
                         </div>
@@ -131,6 +143,8 @@
                 <div class="clear"></div>
             </div>
         </section>
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <% if(ctrlBestBikes!= null) { %>
         <section>
@@ -272,19 +286,17 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <!--  News, reviews and videos code ends here -->
+        
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- all other js plugins -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-newbikes.js?<%= staticFileVersion %>"></script>
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/includes/footerscript_mobile.aspx" -->
+        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
         <script type="text/javascript">
             ga_pg_id = '4';
             $("img.lazy").lazyload();
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");    
-
-        
+            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");        
         </script>
     </form>
 </body>

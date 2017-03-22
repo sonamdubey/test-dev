@@ -1,0 +1,46 @@
+﻿@using Bikewale.Utility;
+@model Bikewale.Models.Shared.PopularScootersList
+        <div class="jcarousel-wrapper inner-content-carousel">
+            <div class="jcarousel">
+                <ul>
+                    @foreach (var bike in Model.PopularScooters)
+                    {
+                        <li>
+                            <a href="@UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName)" title="@bike.BikeName" class="jcarousel-card">
+                                <div class="model-jcarousel-image-preview">
+                                    <span class="card-image-block">
+                                        <img class="lazy" data-original="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostURL,ImageSize._310x174)" alt="@bike.BikeName" src="" border="0" />
+                                    </span>
+                                </div>
+                                <div class="card-desc-block">
+                                    <h3 class="bikeTitle">@bike.BikeName</h3>
+                                    <p class="text-xt-light-grey font14 margin-bottom10">
+                                       @Html.Raw(FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement),Convert.ToString(bike.Specs.FuelEfficiencyOverall),Convert.ToString(bike.Specs.MaxPower)))
+                                            </p>
+                                    @if (bike.VersionPrice > 0)
+                                    {
+                                        <p class="font14 text-light-grey margin-bottom5">Ex-showroom, @(!String.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.GetDefaultCityName)</p>
+                                        <p class="text-bold text-default">
+                                            <span class="bwsprite inr-lg"></span> <span class="font18">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span><span class="font14"> onwards</span>
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-bold text-default">
+                                            <span class="font14">Price not available</span>
+                                        </p>
+                                    }
+                                </div>
+                            </a>
+                            <div class="margin-left20 margin-bottom20">
+                                <a href="javascript:void(0);" data-pagecatid="@Model.PageCatId" data-pqsourceid="@Model.PQSourceId" data-makename="@bike.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm font14  @(bike.VersionPrice!=0 ?"":"hide") getquotation" rel="nofollow">Check on-road price</a>
+                            </div>
+
+                        </li>
+                    }
+                   </ul>
+            </div>
+            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+        </div>
+    

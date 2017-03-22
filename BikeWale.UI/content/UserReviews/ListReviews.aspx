@@ -53,7 +53,7 @@
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                             <span class="bwsprite fa-angle-right margin-right10"></span>
                             <a href="/<%=  MakeMaskingName %>-bikes/<%= ModelMaskingName %>/" itemprop="url">
-                                <span itemprop="title"> <%= MakeName%> <%= ModelName%></span>
+                                <span itemprop="title"><%= String.Format("{0} {1}", MakeName,ModelName) %></span>
                             </a>
                         </li>
                         <li>
@@ -181,7 +181,7 @@
                 </div>
 
                <%if (ModelReviewCount>0) {%> <div class="bg-white padding-18-20 content-box-shadow margin-bottom20">
-                    <h2 class="font18 margin-bottom10"><%= totalReviewCount %> <%= BikeName %> User <%=(totalReviewCount >1?" reviews":" review") %></h2>
+                    <h2 class="font18 margin-bottom10"><%= String.Format("{0} {1}", totalReviewCount,BikeName) %> User <%=(totalReviewCount >1?" reviews":" review") %></h2>
                  <div>
                          <%if (ModelReviewCount > 1)
                            { %>  <div class="leftfloat review-dropdown margin-right20">
@@ -245,9 +245,11 @@
             <div class="grid-4 omega">
                  <%if(ctrlUserReviewSimilarBike.FetchCount>0){ %>
                  <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                <h2>User reviews of similar bikes</h2>
+                <h2>Reviews of similar bikes</h2>
                 <BW:UserReviewSimilarBike ID="ctrlUserReviewSimilarBike" runat="server" />
-    
+                     <div class="view-all-btn-container padding-top10 padding-bottom10">
+                         <a href="/user-reviews/" title="Bikes User Reviews" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                     </div>
                 </div>
                   <%} %>
                 <div class=" margin-bottom20">
@@ -276,7 +278,7 @@
 
         selectDropdownBox.each(function () {
             var text = $(this).find('.chosen-select').attr('data-title'),
-                searchBox = $(this).find('.chosen-search')
+                searchBox = $(this).find('.chosen-search');
 
             searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
         });

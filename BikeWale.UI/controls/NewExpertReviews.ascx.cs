@@ -41,13 +41,18 @@ namespace Bikewale.Controls
 
             MoreExpertReviewUrl = UrlFormatter.FormatExpertReviewUrl(MakeMaskingName, ModelMaskingName);
 
-            if (String.IsNullOrEmpty(ModelMaskingName))
+
+            if (!String.IsNullOrEmpty(ModelName) && !String.IsNullOrEmpty(MakeName))
+            {
+                linkTitle = string.Format("{0} {1} Expert Reviews", MakeName, ModelName);
+            }
+            else if (String.IsNullOrEmpty(ModelName) && !String.IsNullOrEmpty(MakeName))
             {
                 linkTitle = string.Format("{0} Expert Reviews", MakeName);
             }
             else
             {
-                linkTitle = string.Format("{0} {1} Expert Reviews", MakeName, ModelName);
+                linkTitle = "Expert Reviews on Bikes";
             }
         }
 

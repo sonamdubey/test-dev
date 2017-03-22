@@ -51,7 +51,7 @@
                             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= objReview.BikeEntity.MakeEntity.MaskingName%>-bikes/<%= objReview.BikeEntity.ModelEntity.MaskingName%>/" itemprop="url">
-                                    <span itemprop="title"><%= objReview.BikeEntity.MakeEntity.MakeName%> <%= objReview.BikeEntity.ModelEntity.ModelName%> </span>
+                                    <span itemprop="title"><%= String.Format("{0} {1}", objReview.BikeEntity.MakeEntity.MakeName,objReview.BikeEntity.ModelEntity.ModelName)%> </span>
                                 </a>
                             </li>
                             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -266,8 +266,11 @@ else
                     <div class="grid-4 omega">
                         <%if(ctrlUserReviewSimilarBike.FetchCount>0){ %>
                         <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                            <h2>User reviews of similar bikes</h2>
+                            <h2>Reviews of similar bikes</h2>
                                 <BW:UserReviewSimilarBike ID="ctrlUserReviewSimilarBike" runat="server" />
+                            <div class="view-all-btn-container padding-top10 padding-bottom10">
+                                <a href="/user-reviews/" title="Bikes User Reviews" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                            </div>
                         </div>
                         <%} %>
                             <div class="margin-bottom20">

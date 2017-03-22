@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.NewLaunchedBikes_new" %>
 <!-- New Launched Bikes Starts here-->
-<div class="jcarousel-wrapper inner-content-carousel">
+<div class="jcarousel-wrapper inner-content-carousel carousel-height-360">
     <div class="jcarousel">
         <ul>
             <asp:Repeater ID="rptNewLaunchedBikes" runat="server">

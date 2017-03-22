@@ -16,7 +16,7 @@
      <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/css/videos/bwm-videos-landing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey page-type-landing">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
@@ -81,8 +81,8 @@
            {  %>
         <section>
              <h2 class="text-center padding-top10 padding-bottom15">Browse videos by brands</h2>
-            <div class="container bg-white box-shadow card-bottom-margin padding-top25 padding-bottom20">
-                <div class="brand-type-container">
+            <div class="container bg-white box-shadow card-bottom-margin padding-top25 padding-bottom20 collapsible-brand-content margin-bottom25">
+                <div id="brand-type-container" class="brand-type-container">
                     <ul class="text-center">
                         <%foreach (var bikebrand in objVideo.TopMakeList)
                           {%>
@@ -113,8 +113,8 @@
                     </ul>
 
                 </div>
-                <div class="view-brandType text-center">
-                    <a href="javascript:void(0)" id="view-brandType" rel="nofollow" class="view-more-btn font14">View more brands</a>
+                <div class="view-all-btn-container">
+                    <a href="javascript:void(0)" rel="nofollow" class="view-brandType btn view-all-target-btn rotate-arrow"><span class="btn-label">View more brands</span><span class="bwmsprite teal-right"></span></a>
                 </div>
                 <%} %>
             </div>
@@ -150,15 +150,6 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $("img.lazy").lazyload();
-            });
-            $("#view-brandType").click(function () {
-                $(".brandTypeMore").slideToggle();
-                var targetLink = $(this);
-                targetLink.text(targetLink.text() == 'View more brands' ? 'View less brands' : 'View more brands');
-                if (targetLink.text() === "View more brands")
-                    targetLink.attr("href", "#more");
-                else
-                    targetLink.attr("href", "javascript:void(0)");
             });
         </script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->

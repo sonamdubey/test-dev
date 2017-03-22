@@ -23,7 +23,7 @@ namespace BikewaleOpr.content
     {
         protected Button btnUploadFile;
         protected HtmlInputFile flUpload;
-        private IBikeModels _objModelsRepo = null;
+        private IBikeModelsRepository _objModelsRepo = null;
         protected BikeWaleOpr.Controls.DateControl calFrom;
         protected HtmlGenericControl spnFile;
         protected Label lbl;
@@ -64,10 +64,10 @@ namespace BikewaleOpr.content
                 {
                     container.RegisterType<IPopularBikeComparisions, PopularBikeComparisionsRepository>()
                     .RegisterType<IBikeMakes, BikeMakesRepository>()
-                    .RegisterType<IBikeModels, BikeModelsRepository>()
+                    .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                     .RegisterType<IBikeVersions, BikeVersionsRepository>();
 
-                    _objModelsRepo = container.Resolve<IBikeModels>();
+                    _objModelsRepo = container.Resolve<IBikeModelsRepository>();
                 }
                 catch (Exception err)
                 {

@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -522,15 +521,10 @@ namespace Bikewale.DAL.Compare
                     }
                 }
             }
-            catch (SqlException sqEx)
-            {
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return topBikeList;
@@ -552,7 +546,7 @@ namespace Bikewale.DAL.Compare
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarcomparebikeslist_13102016";
+                    cmd.CommandText = "getsimilarcomparebikeslist_17032017";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
@@ -577,6 +571,8 @@ namespace Bikewale.DAL.Compare
                                     ModelMasking2 = Convert.ToString(reader["ModelMaskingName2"]),
                                     VersionId1 = Convert.ToString(reader["VersionId1"]),
                                     VersionId2 = Convert.ToString(reader["VersionId2"]),
+                                    ModelId1 = SqlReaderConvertor.ToUInt32(reader["ModelId1"]),
+                                    ModelId2 = SqlReaderConvertor.ToUInt32(reader["ModelId2"]),
                                     ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName1"]),
                                     ModelMaskingName2 = Convert.ToString(reader["ModelMaskingName2"]),
                                     OriginalImagePath1 = Convert.ToString(reader["OriginalImagePath1"]),
@@ -597,7 +593,6 @@ namespace Bikewale.DAL.Compare
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository_GetSimilarCompareBikes_{0}_Cnt_{1}_City_{2}", versionList, topCount, cityid));
-                objErr.SendMail();
             }
 
             return similarBikeList;
@@ -678,6 +673,66 @@ namespace Bikewale.DAL.Compare
         public Int64 GetFeaturedBike(string versions)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Created By :- Subodh Jain 10 March 2017
+        /// Summary :- Populate Compare ScootersList
+        /// </summary>
+        public IEnumerable<TopBikeCompareBase> ScooterCompareList(uint topCount)
+        {
+            IList<TopBikeCompareBase> topBikeList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getscootercomparisonmin"))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (reader != null)
+                        {
+                            topBikeList = new List<TopBikeCompareBase>();
+                            while (reader.Read())
+                            {
+                                topBikeList.Add(new TopBikeCompareBase()
+                                {
+                                    Bike1 = Convert.ToString(reader["Bike1"]),
+                                    Bike2 = Convert.ToString(reader["Bike2"]),
+                                    ID = SqlReaderConvertor.ToInt32(reader["ID"]),
+                                    MakeMaskingName2 = Convert.ToString(reader["MakeMakingName2"]),
+                                    MakeMaskingName1 = Convert.ToString(reader["MakeMaskingName1"]),
+                                    ModelId1 = SqlReaderConvertor.ToUInt16(reader["ModelId1"]),
+                                    ModelId2 = SqlReaderConvertor.ToUInt16(reader["ModelId2"]),
+                                    ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName1"]),
+                                    ModelMaskingName2 = Convert.ToString(reader["ModelMaskingName2"]),
+
+                                    Price1 = SqlReaderConvertor.ToUInt32(reader["Price1"]),
+                                    Price2 = SqlReaderConvertor.ToUInt32(reader["Price2"]),
+
+                                    VersionId1 = SqlReaderConvertor.ToUInt16(reader["VersionId1"]),
+                                    VersionId2 = SqlReaderConvertor.ToUInt16(reader["VersionId2"]),
+                                    VersionImgUrl1 = Convert.ToString(reader["VersionImgUrl1"]),
+                                    VersionImgUrl2 = Convert.ToString(reader["VersionImgUrl2"]),
+                                    HostUrl1 = Convert.ToString(reader["HostUrl1"]),
+                                    HostUrl2 = Convert.ToString(reader["HostUrl2"])
+                                });
+                            }
+
+                            reader.Close();
+                        }
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository.ScooterCompareList topCount:{0}", topCount));
+            }
+
+            return topBikeList;
+
         }
     }
 }

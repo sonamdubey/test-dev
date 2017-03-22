@@ -5,10 +5,10 @@
 <%@ Register Src="~/controls/NewVideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW" %>
-<%@ Register Src="~/controls/UsedPopularModels.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register Src="~/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!Doctype html>
 <html>
 <head>
@@ -27,10 +27,7 @@
         isHeaderFix = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <style type="text/css">
-        @charset "utf-8";.card .card-target:hover,.dealer-card-target:hover{text-decoration:none}.content-inner-block-1420{padding:14px 20px}.text-x-black{color:#1a1a1a}#bikeMakeList .bikeDescWrapper{padding:15px 0}.inner-content-card li{width:294px;min-height:390px;margin-right:20px;margin-bottom:5px}.inner-content-card li.front{border:none}.sort-div,.sort-selection-div{background:#fff;border:1px solid #e2e2e2}.inner-content-card li .imageWrapper{width:100%;height:166px}.sort-div{width:190px;height:36px;padding:7px;position:relative;cursor:pointer}.sort-by-title{width:150px}.sort-selection-div{width:190px;margin-top:10px;position:absolute;z-index:2}.sort-list-items ul::after,.sort-list-items ul::before{border-left:10px solid transparent;border-right:10px solid transparent;content:"";left:87px;position:absolute;z-index:1}.sort-selection-div ul li{padding:2px 0 2px 8px;margin-top:4px;margin-bottom:4px}.sort-selection-div ul li:hover{cursor:pointer;background:#82888b;color:#fff}.sort-selection-div ul li.selected{font-weight:700}.sort-list-items ul::before{border-bottom:10px solid #e2e2e2;top:-11px}.sort-list-items ul::after{border-bottom:10px solid #fff;top:-10px}#upDownArrow.fa-angle-down{transition:all .5s ease-in-out 0s;font-size:20px}.sort-div .fa-angle-down{transition:transform .3s;-moz-transition:transform .3s;-webkit-transition:transform .3s;-o-transition:transform .3s;-ms-transition:transform .3s}.sort-div.open .fa-angle-down{-moz-transform:rotateZ(180deg);-webkit-transform:rotateZ(180deg);-o-transform:rotateZ(180deg);-ms-transform:rotateZ(180deg);transform:rotateZ(180deg)}.sort-by-text p{height:35px;line-height:35px}#makeUpcomingBikesContent .jcarousel-control-left{left:0}#makeUpcomingBikesContent .jcarousel-control-right{right:0}.content-inner-block-2010{padding:20px 10px}#makeOverallTabsWrapper{width:100%;height:45px}.overall-floating-tabs{width:976px;background:#fff;border-bottom:1px solid #e2e2e2}#makeOverallTabs.fixed-tab{position:fixed;top:0;margin:0 auto;z-index:5;border-bottom:0;-moz-box-shadow:0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;-webkit-box-shadow:0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;-o-box-shadow:0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;-ms-box-shadow:0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;box-shadow:0 2px 2px #e2e2e2,0 1px 1px #f1f1f1}.mail-grey-icon,.phone-black-icon{margin-right:3px;position:relative}.overall-specs-tabs-wrapper{display:table;background:#fff}.overall-specs-tabs-wrapper a{padding:10px 20px;display:table-cell;font-size:14px;color:#82888b}.overall-specs-tabs-wrapper a:hover{text-decoration:none;color:#4d5057}.overall-specs-tabs-wrapper a.active{border-bottom:3px solid #ef3f30;font-weight:700;color:#4d5057}#makeTabsContentWrapper h2{margin-bottom:15px}#makeTabsContentWrapper h3{font-weight:700;margin-bottom:12px}#makeReviewsContent h3.model-section-subtitle{margin-bottom:20px}.preview-more-content{display:none}.border-divider{border-top:1px solid #e2e2e2}.line-height17{line-height:1.7}.model-preview-image-container{width:292px;height:164px;display:table;text-align:center}#makeUpcomingBikesContent .model-preview-image-container{border:none}.model-preview-image-container a{width:100%;height:164px;display:block;background:url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat}.model-preview-image-container a img{width:100%;height:164px}.border-light-right{border-right:1px solid #f1f1f1}.text-truncate{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}#makeReviewsContent .article-target-link,#makeVideosContent .article-target-link{margin-bottom:8px;line-height:1.5}.blue-right-arrow-icon{width:6px;height:10px;background-position:-74px -469px;position:relative;top:1px;left:7px}.model-user-review-rating-container{width:148px;height:84px;border:1px solid #e2e2e2;background:#f9f9f9;padding-top:17px;text-align:center}.model-user-review-title-container{width:308px}#makeTabsContentWrapper .model-user-review-title-container h3{font-size:16px;color:#2a2a2a;line-height:1.7;margin-bottom:5px;position:relative;top:-6px}.dealer-card-target{display:block}.dealer-jcarousel-image-preview{width:292px;height:114px;display:block;margin-bottom:15px;text-align:center;padding-top:10px}.city-sprite{background:url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?26Dec2016) no-repeat;display:inline-block}.ahmedabad-icon,.bangalore-icon,.chandigarh-icon,.chennai-icon,.delhi-icon,.hyderabad-icon,.india-icon,.kolkata-icon,.lucknow-icon,.mumbai-icon,.pune-icon{height:92px}.mumbai-icon{width:130px;background-position:0 0}.pune-icon{width:186px;background-position:-140px 0}.bangalore-icon{width:136px;background-position:-336px 0}.delhi-icon{width:70px;background-position:-482px 0}.chennai-icon{width:53px;background-position:-562px 0}.hyderabad-icon{width:65px;background-position:-625px 0}.kolkata-icon{width:182px;background-position:-700px 0}.lucknow-icon{width:174px;background-position:-892px 0}.ahmedabad-icon,.chandigarh-icon{width:0;background-position:0 0}.india-icon{width:81px;background-position:-1076px 0}.dealership-loc-icon{width:9px;height:12px;background-position:-52px -469px;position:relative;top:4px}.dealership-card-details{width:92%}.vertical-top{display:inline-block;vertical-align:top}.dealership-address,.dealership-email{width:87%}.phone-black-icon{width:11px;height:15px;top:5px;background-position:-73px -444px}.mail-grey-icon{width:12px;height:10px;background-position:-92px -446px;top:6px}.dealer-no-city a{width:184px;min-height:210px;display:block;padding:20px}#makeUsedBikeContent .grid-4{display:inline-block;vertical-align:top;width:315px;float:none}.card{width:292px;min-height:140px;border:1px solid #f6f6f6;-webkit-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-moz-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-ms-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-o-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);box-shadow:0 1px 2px 0 rgba(0,0,0,.2);float:left;margin-left:30px;margin-bottom:20px}.card:first-child{margin-left:20px}.card .card-target{min-height:147px;display:block;padding:15px 20px}.card .text-truncate{width:100%}.details-column{width:92%}.newBikes-latest-updates-container .home-tabs{background:#ccc}.newBikes-latest-updates-container .home-tabs li{width:170px;text-align:center;font-size:18px;padding:13px 14px;background:#f5f5f5}.newBikes-latest-updates-container .home-tabs li:first-child{margin-right:-2px}.newBikes-latest-updates-container .home-tabs li.active{background:#fff;color:#2a2a2a}@media only screen and (max-width:1024px){#makeUsedBikeContent .grid-4{width:300px}#city-dealer-list li{width:280px}}
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="/css/brand.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
@@ -144,13 +141,18 @@
             <div class="clear"></div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-
         <section class="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <div id="makeUpcomingBikesContent" class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow padding-top20 padding-bottom25">
-                        <h2 class="padding-left20 padding-right20 text-x-black text-bold margin-bottom20">Upcoming <%= _make.MakeName %> Bikes</h2>
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>Upcoming <%= _make.MakeName %> Bikes</h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/<%= _make.MaskingName %>-bikes/upcoming/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
                         <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
@@ -165,9 +167,9 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <%if ((_bikeDesc != null && _bikeDesc.FullDescription.Length > 0) || (ctrlNews.FetchedRecordsCount > 0) || (ctrlExpertReviews.FetchedRecordsCount > 0) || (ctrlVideos.FetchedRecordsCount > 0) || (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)) || (ctrlPopularUsedBikes.FetchedRecordsCount > 0)){ %>
+        <%if ((_bikeDesc != null && _bikeDesc.FullDescription.Length > 0) || (ctrlNews.FetchedRecordsCount > 0) || (ctrlExpertReviews.FetchedRecordsCount > 0) || (ctrlVideos.FetchedRecordsCount > 0) || (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)) || (ctrlusedBikeModel.FetchCount > 0)){ %>
         <section class="container">
-            <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
+            <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20 content-details-wrapper">
                 <div class="content-box-shadow">
                     <div id="makeOverallTabsWrapper">
                         <div id="makeOverallTabs" class="overall-floating-tabs">
@@ -195,9 +197,10 @@
                                 <a href="#dealerAndServiceContent" rel="nofollow"><% if (ctrlDealerCard.showWidget){%>Dealers<%} %>  <%if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0))
                                                                          { %><% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers<%} %></a>
                                 <%} %>
-                                <% if (ctrlPopularUsedBikes.FetchedRecordsCount > 0)
+                                <% if (ctrlusedBikeModel.FetchCount>0)
                                    {%> <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
                                 <%} %>
+
                             </div>
                         </div>
                     </div>
@@ -258,9 +261,11 @@
                         <% } %>
                     </div>
                     <%} %>
-                    <% if (ctrlPopularUsedBikes.FetchedRecordsCount > 0)
+                    <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                    <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
+                      <div id="makeUsedBikeContent" class="bw-model-tabs-data" >
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                          </div>
                     <% } %>
                     <div id="overallMakeDetailsFooter"></div>
                 </div>
@@ -273,8 +278,8 @@
                 <div class="grid-12">
                     <% if (fetchedRecordsCount > 0)
                        { %>
-                    <div id="discontinuedModels" class="margin-top10 padding20" style="display: block;">
-                        <div class="content-inner-block-10 rounded-corner2 margin-bottom30 font14">
+                    <div id="discontinuedModels">
+                        <div class="content-inner-block-10 margin-bottom20 font14">
                             <div id="discontinuedLess">
                                 Discontinued <%=_make.MakeName %> models: - <span id="spnContent"></span>
                             </div>
@@ -293,69 +298,48 @@
                 <div class="clear"></div>
             </div>
         </section>
-
-        <script>
-
-            $(document).ready(function () {
-                $('#user-details-submit-btn').click(function () {
-                    var bikeName = $('#getLeadBike :selected').text();
-                    if (bikeName != 'Select a bike') {
-                        var cityName = GetGlobalCityArea();
-                        triggerGA('Make_Page', 'Lead_Submitted', bikeName + "_" + cityName);
-                    }
-                });
-
-                $("img.lazy").lazyload();
-                if ($("#discontinuedMore a").length > 4) {
-                    $('#discontinuedMore').hide();
-                }
-                else {
-                    $('#discontinuedLess').hide();
-                }
-                $("#spnContent").append($("#discontinuedMore a:eq(0)").clone()).append(", ").append($("#discontinuedMore a:eq(1)").clone()).append(", ").append($("#discontinuedMore a:eq(2)").clone()).append(", ").append($("#discontinuedMore a:eq(3)").clone());
-                $("#spnContent").append("... <a class='f-small' onclick='ShowAllDisModels()'>View All</a>");
-            });
-            $(".upcoming-brand-bikes-container").on('jcarousel:visiblein', 'li', function (event, carousel) {
-                $(this).find("img.lazy").trigger("imgLazyLoad");
-            });
-            function ShowAllDisModels() {
-                $("#discontinuedLess").hide();
-                $("#discontinuedMore").show();
-                var xContents = $('#discontinuedMore').contents();
-                xContents[xContents.length - 1].nodeValue = "";
-            }
-
-        </script>
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
-
-        <!-- #include file="/includes/footerBW.aspx" -->        
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/new/bikemake.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/fontBW.aspx" -->
+            <noscript id="asynced-css"><link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" /><link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' /></noscript>
+        <!-- #include file="/includes/footerBW.aspx" -->
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>   
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer  src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/new/bikemake.js?<%= staticFileVersion %>"></script>
     </form>
     <script type="text/javascript">
         ga_pg_id = '3';
         var _makeName = "<%= _make.MakeName %>";
         var clientIP = "<%= clientIP%>";
         var pageUrl = window.location.href;
-        $(".leadcapturebtn").click(function (e) {
-            ele = $(this);
-            var leadOptions = {
-                "dealerid": ele.attr('data-item-id'),
-                "dealername": ele.attr('data-item-name'),
-                "dealerarea": ele.attr('data-item-area'),
-                "versionid": $("#versions a.active").attr("id"),
-                "leadsourceid": ele.attr('data-leadsourceid'),
-                "pqsourceid": ele.attr('data-pqsourceid'),
-                "pageurl": pageUrl,
-                "clientip": clientIP,
-                "isdealerbikes": true,
-                "campid": ele.attr('data-camp-id'),
-                "isregisterpq": true
-            };
-            dleadvm.setOptions(leadOptions);
+
+        docReady(function () {
+
+            $(".leadcapturebtn").click(function (e) {
+                ele = $(this);
+                var leadOptions = {
+                    "dealerid": ele.attr('data-item-id'),
+                    "dealername": ele.attr('data-item-name'),
+                    "dealerarea": ele.attr('data-item-area'),
+                    "versionid": $("#versions a.active").attr("id"),
+                    "leadsourceid": ele.attr('data-leadsourceid'),
+                    "pqsourceid": ele.attr('data-pqsourceid'),
+                    "pageurl": pageUrl,
+                    "clientip": clientIP,
+                    "isdealerbikes": true,
+                    "campid": ele.attr('data-camp-id'),
+                    "isregisterpq": true
+                };
+                dleadvm.setOptions(leadOptions);
+            });
+
+            if ($("#discontinuedMore a").length > 4) {
+                $('#discontinuedMore').hide();
+            }
+            else {
+                $('#discontinuedLess').hide();
+            }
         });
+
     </script>
 </body>
 </html>

@@ -33,6 +33,6 @@
         </ItemTemplate>
     </asp:Repeater>
 </div>
-<div>
-    <a title="<%= linkTitle %>" href="<%=MoreVideoUrl%>" class="bw-ga font14" c="Model_Page" a="View_all_videos_link_cliked" v="myBikeName">View all videos<span class="bwmsprite blue-right-arrow-icon"></span></a>
+<div class="view-all-btn-container">
+    <a title="<%= linkTitle %>" href="<%=MoreVideoUrl%>" class="bw-ga btn view-all-target-btn" c="Model_Page" a="View_all_videos_link_cliked" v="myBikeName">View all videos<span class="bwmsprite teal-right"></span></a>
 </div>

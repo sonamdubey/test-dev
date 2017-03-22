@@ -30,6 +30,7 @@ namespace Bikewale.New
     {
         protected BikeMakeEntityBase objMMV;
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected DealersByBrand ctrlDealerByBrand;
         public ushort makeId;
@@ -50,6 +51,10 @@ namespace Bikewale.New
         }
         /// Modified by  :   Subodh jain on 20 Dec 2016
         /// Description :   Get Dealer By BrandList widget
+        /// <summary>
+        /// Modified By :- Subodh Jain 15 March 2017
+        /// Summary :- Added used bike widget
+        /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Lucky Rathore on 12 July 2016.
@@ -80,6 +85,19 @@ namespace Bikewale.New
                 ctrlUpcomingBikes.MakeId = makeId;
                 ctrlDealerByBrand.WidgetTitle = "Find showroom for other brands";
                 ctrlDealerByBrand.makeId = makeId;
+                if (ctrlusedBikeModel != null)
+                {
+                    CityEntityBase _cityDetails = null;
+                    if (cityId > 0)
+                        _cityDetails = new CityHelper().GetCityById(cityId);
+                    ctrlusedBikeModel.MakeId = makeId;
+
+                    ctrlusedBikeModel.CityId = cityId;
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? _cityDetails.CityName : "India");
+                    ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", objMMV.MakeName, cityId > 0 ? _cityDetails.CityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/used/{0}-bikes-in-{1}/", objMMV.MaskingName, cityId > 0 ? _cityDetails.CityMaskingName : "india");
+                    ctrlusedBikeModel.TopCount = 9;
+                }
                 BindStatesCities();
 
             }

@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Service.ServiceCenterInCountry" EnableViewState="false" %>
 <%@ Register Src="~/m/controls/BikeCare.ascx" TagName="BikeCare" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCentersByBrand.ascx" TagName="OtherServiceCenters" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,15 +37,16 @@
         <section>
             <div class="container bg-white card-bottom-margin">
                 <h1 class="card-header"><%=objMMV.MakeName %> service centers in India</h1>
-                <div class="card-inner-padding font14 text-light-grey">
-                    <p id="service-main-content">There are <%=ServiceCenterList.ServiceCenterCount %> authorised <%=objMMV.MakeName %> service centers in India. BikeWale strongly recommends you to avail services only from authorized <%=objMMV.MakeName %> service centers. These authorised service centers are</p><p id="service-more-content"> spread over <%=ServiceCenterList.CityCount%> cities to service your <%=objMMV.MakeName %> bike and keep your bike moving. Enter the name of your city in the search box provided below to find authorised <%=objMMV.MakeName %> service centers in your city. </p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">... Read more</a>
+                <div class="card-inner-padding font14 text-light-grey collapsible-content">
+                    <p class="main-content">There are <%=ServiceCenterList.ServiceCenterCount %> authorised <%=objMMV.MakeName %> service centers in India. BikeWale strongly recommends you to avail services only from authorized <%=objMMV.MakeName %> service centers. These authorised service centers are</p>
+                    <p class="more-content"> spread over <%=ServiceCenterList.CityCount%> cities to service your <%=objMMV.MakeName %> bike and keep your bike moving. Enter the name of your city in the search box provided below to find authorised <%=objMMV.MakeName %> service centers in your city. </p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                 </div>
             </div>
         </section>
 
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <h2 class="padding-15-20 border-solid-bottom"><%=ServiceCenterList.ServiceCenterCount%> <%=objMMV.MakeName %> service centers in <%=ServiceCenterList.CityCount%> cities</h2>
+                <h2 class="padding-15-20 border-solid-bottom"><%= String.Format("{0} {1}", ServiceCenterList.ServiceCenterCount,objMMV.MakeName) %> service centers in <%=ServiceCenterList.CityCount%> cities</h2>
                 <div class="content-inner-block-20">
                     <div class="form-control-box">
                         <span class="bwmsprite search-icon-grey"></span>
@@ -74,8 +76,18 @@
             </div>
         </section>
         <%if(ctrlOtherServiceCenters.FetchedRecordsCount>0){ %>
+        <section>
         <BW:OtherServiceCenters runat="server" ID="ctrlOtherServiceCenters" />
+            </section>
        <%} %>
+          <div class="margin-top20 margin-right20 margin-left20 border-solid-bottom"></div>
+        <% if (ctrlusedBikeModel.FetchCount > 0)
+           { %>
+        <div class="container bg-white box-shadow padding-top15">
+   <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />  
+            </div>
+        
+            <% } %>
       <%if(ctrlBikeCare.FetchedRecordsCount>0) {%>
         <section>
             <BW:BikeCare runat="server" ID="ctrlBikeCare" />

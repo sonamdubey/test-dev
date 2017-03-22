@@ -147,7 +147,6 @@ var fallbackGallery = {
     open: function (imageIndex) {
         $('.blackOut-window-model').show();
         $('.modelgallery-close-btn, .bike-gallery-popup').show();
-        //setGalleryImage(imageIndex);
         $('body').addClass('lock-browser-scroll');
     },
 

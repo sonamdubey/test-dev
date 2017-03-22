@@ -11,6 +11,5 @@ namespace Bikewale.Entities.BikeData
         ModelWiseVideo = 5,
         NewsDetailsPage = 6,
         Priceincitypage = 7
-
     }
 }

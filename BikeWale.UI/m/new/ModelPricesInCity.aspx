@@ -4,7 +4,6 @@
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="Dealers" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
 
@@ -30,8 +29,11 @@
         Ad_Bot_320x50 = true;
     %>
 
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-modelprice-in-city.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/m/css/new/bwm-modelprice-in-city.css" />
+    <script type="text/javascript">
+        <!-- #include file="\includes\gacode_mobile.aspx" -->
+    </script>
 </head>
 
 <body class="bg-light-grey">
@@ -154,6 +156,7 @@
             </div>
         </section>
 
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0 || bikeRankObj!=null) ? string.Empty : "hide" %>">
             <div class="container box-shadow bg-white margin-bottom10">
@@ -199,19 +202,9 @@
             </div>
         </section>
 
-
-
-        <% if (ctrlRecentUsedBikes.fetchedCount > 0)
-           { %>
-        <section>
-            <div class="box-shadow bg-white margin-bottom10">
-                <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" />
-            </div>
-        </section>
-        <%} %>
         <span class="font13 text-light-grey padding-right20 padding-left20 margin-bottom10"><strong>Disclaimer</strong>:</span>
         <p class="font12 text-light-grey padding-right20 padding-left20 margin-bottom10">
-            BikeWale takes utmost care in gathering precise and accurate information about <%=makeName %> <%=modelName %> 
+            BikeWale takes utmost care in gathering precise and accurate information about <%=String.Format("{0} {1}",makeName,modelName) %> 
         price in <%= cityName %>
         However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank"> visitor agreement </a>and  <a href="/privacypolicy.aspx" target="_blank">privacy policy</a>.
         </p>
@@ -220,7 +213,8 @@
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript">
             ga_pg_id = "16";
             var bikenamever = '<%= string.Format("{0}_{1}_{2}", makeName, modelName,versionName)%>';
@@ -305,6 +299,7 @@
 
             });
         </script>
+        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
     </form>
 
 </body>

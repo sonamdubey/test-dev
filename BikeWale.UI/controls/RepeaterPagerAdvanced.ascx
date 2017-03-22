@@ -65,7 +65,7 @@
 			<td align="right"><div id="divLastNav1" runat="server"></div></td>
 		</tr>
 	</table>
-<script language="javascript">
+<script type="text/javascript">
 	function changePageSize(e){
 		var baseUrl = '<%= baseUrlForPs%>';
 		var val = e.value;

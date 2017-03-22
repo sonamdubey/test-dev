@@ -20,12 +20,12 @@
         isAd970x90BottomShown = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <style type="text/css">@charset "utf-8";#dealer-locator-box .welcome-box{margin-top:85px}.dealerlocator-banner{background:url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/dealer-locator-banner.jpg?v1=29Sep2016) center top no-repeat #393a3e;height:268px;padding-top:1px}.section-container{margin-bottom:25px}h2.section-header{font-size:18px;text-align:center;margin-bottom:20px}.padding-25-30{padding:25px 30px}.negative-50{margin-top:-50px}.locator-search-container{margin:0 auto;width:570px}.locator-search-container .form-control{padding:8px;border-radius:0}.locator-search-brand,.locator-search-city{height:40px;float:left}.locator-search-brand{width:334px}.locator-search-city{width:233px}.locator-search-brand select,.locator-search-city select{width:100%;height:38px;color:#555}.locator-search-city .chosen-container{border-left:0!important}.locator-search-brand .chosen-container,.locator-search-city .chosen-container{border:1px solid #e2e2e2!important;border-radius:0;padding:12px 20px}#applyFiltersBtn{margin-top:35px}.locator-search-btn.btn-lg{padding:8px 64px}.locator-search-container .error-icon{right:20px}.locator-search-container .bw-blackbg-tooltip{right:10px}.brand-type-container li{display:inline-block;vertical-align:top;width:180px;height:85px;margin:0 5px 30px;text-align:center;font-size:18px;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.brand-1,.brand-10,.brand-11,.brand-12,.brand-13,.brand-14,.brand-15,.brand-16,.brand-17,.brand-18,.brand-19,.brand-2,.brand-20,.brand-22,.brand-23,.brand-24,.brand-3,.brand-34,.brand-37,.brand-38,.brand-39,.brand-4,.brand-40,.brand-41,.brand-42,.brand-5,.brand-6,.brand-7,.brand-71,.brand-8,.brand-81,.brand-9,.brand-type{height:50px}.brand-type{width:180px;display:block;margin:0 auto}.brand-type-title{margin-top:10px;display:block}.brand-type-container a{text-decoration:none;color:#82888b;display:inline-block}.brand-type-container li:hover span.brand-type-title{color:#4d5057;font-weight:700}.brand-bottom-border{overflow:hidden}.brandlogosprite{background:url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?v=04Oct2016) no-repeat;display:inline-block}.brand-2{width:87px;background-position:0 0}.brand-7{width:56px;background-position:-96px 0}.brand-1{width:88px;background-position:-162px 0}.brand-8{width:100px;background-position:-260px 0}.brand-12{width:67px;background-position:-370px 0}.brand-40{width:125px;background-position:-447px 0}.brand-34{width:122px;background-position:-582px 0}.brand-22{width:121px;background-position:-714px 0}.brand-3{width:44px;background-position:-845px 0}.brand-17{width:86px;background-position:-899px 0}.brand-15{width:118px;background-position:-995px 0}.brand-4{width:43px;background-position:-1123px 0}.brand-9{width:99px;background-position:-1176px 0}.brand-16{width:117px;background-position:-1285px 0}.brand-5{width:59px;background-position:-1412px 0}.brand-19{width:122px;background-position:-1481px 0}.brand-13{width:122px;background-position:-1613px 0}.brand-6{width:63px;background-position:-1745px 0}.brand-10{width:102px;background-position:-1818px 0}.brand-14{width:127px;background-position:-1930px 0}.brand-39{width:89px;background-position:-2067px 0}.brand-20{width:82px;background-position:-2166px 0}.brand-11{width:121px;background-position:-2258px 0}.brand-41{width:63px;background-position:-2389px 0}.brand-42{width:64px;background-position:-2461px 0}.brand-81{width:71px;background-position:-2535px 0}.brand-71{width:39px;background-position:-2616px 0}@media only screen and (max-width:1024px){.brand-type,.brand-type-container li{width:170px}}</style>
+    <link rel="stylesheet" type="text/css" href="/css/dealer/landing.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey page-type-landing">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <header class="dealerlocator-banner">
@@ -82,8 +82,8 @@
             <div class="container section-container">
                 <div class="grid-12">
                     <h2 class="section-header">Explore showroom by brand</h2>
-                    <div class="content-box-shadow padding-top20">
-                        <div class="brand-type-container">
+                    <div class="content-box-shadow padding-top20 collapsible-brand-content">
+                        <div id="brand-type-container" class="brand-type-container">
                             <ul class="text-center">
                                 <asp:Repeater ID="rptPopularBrands" runat="server">
                                     <ItemTemplate>
@@ -98,7 +98,6 @@
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </ul>
-                            <div class="brand-bottom-border border-solid-top hide"></div>
                             <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
                                 <asp:Repeater ID="rptOtherBrands" runat="server">
                                     <ItemTemplate>
@@ -114,8 +113,8 @@
                                 </asp:Repeater>
                             </ul>
                         </div>
-                        <div class="view-brandType text-center padding-bottom25">
-                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16" rel="nofollow">View <span>more</span> brands</a>
+                        <div class="view-all-btn-container padding-bottom25">
+                            <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
                 </div>
@@ -140,12 +139,15 @@
         <section>
             <div class="container section-container">
                 <div class="grid-12">
-                    <h2 class="section-header">Newly launched bikes</h2>
-                    <div class="content-box-shadow padding-top20 padding-bottom20">
+                    <h2 class="section-header">New Bike Launches in India</h2>
+                    <div class="content-box-shadow padding-top20">
                         
                         <%if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
                             { %>
-                            <BW:NewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
+                        <BW:NewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
+                        <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
+                        </div>
                         <%} %>
                     </div>
                 </div>
@@ -156,19 +158,22 @@
         <section>
             <div class="container section-container">
                 <div class="grid-12">
-                    <h2 class="section-header">Upcoming bikes</h2>
-                    <div class="content-box-shadow padding-top20 padding-bottom20">
+                    <h2 class="section-header">Upcoming Bikes in India</h2>
+                    <div class="content-box-shadow padding-top20">
                         <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
-                                   <%if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
-                                    { %>
-                                        <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                                    <%if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
+                                      { %>
+                                    <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
                                     <%} %>
                                 </ul>
                             </div>
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                        </div>
+                        <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <a href="/upcoming-bikes/" class="btn view-all-target-btn" title="Upcoming Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
                 </div>
@@ -190,23 +195,7 @@
             var key = "dealerCitiesByMake_";
             lscache.setBucket('DLPage');  
 
-            $(function () {
-                $(window).on("scroll", function () {
-                    if ($(window).scrollTop() > 40)
-                        $('#header').removeClass("header-landing").addClass("header-fixed");
-                    else
-                        $('#header').removeClass("header-fixed").addClass("header-landing");
-                });
-
-                $("a.view-more-btn").click(function (e) {
-                    var moreBrandList = $("ul.brand-style-moreBtn"),
-                        moreText = $(this).find("span"),
-                        borderDivider = $(".brand-bottom-border");                    
-                    moreBrandList.slideToggle();
-                    moreText.text(moreText.text() === "more" ? "less" : "more");
-                    borderDivider.slideToggle();
-                });
-
+            $(function () {           
 
                 $('select').prop('selectedIndex', 0);
 

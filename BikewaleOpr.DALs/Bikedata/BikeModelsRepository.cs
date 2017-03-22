@@ -11,7 +11,7 @@ using System.Data;
 using System.Data.Common;
 namespace BikewaleOpr.DALs.Bikedata
 {
-    public class BikeModelsRepository : IBikeModels
+    public class BikeModelsRepository : IBikeModelsRepository
     {
         /// <summary>
         /// Created By : Sushil Kumar on  25th Oct 2016
@@ -83,7 +83,6 @@ namespace BikewaleOpr.DALs.Bikedata
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.SaveModelUnitSold-{0}-{1}", list, date));
-                objErr.SendMail();
             }
         }
 
@@ -119,10 +118,175 @@ namespace BikewaleOpr.DALs.Bikedata
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.GetLastSoldUnitData"));
-                objErr.SendMail();
             }
             return dataObj;
         }
+        /// <summary>
+        /// Created by Sangram Nandkhile on 06 Mar 2017
+        /// Desc : function to get the used bikes where no model image is found
+        /// Modified by : Sajal Gupta on 21-03-2017
+        /// Description : Changed function to send notification once in a day
+        /// </summary>
+        /// </summary>
+        /// <returns></returns>
+        public UsedBikeImagesNotificationData GetPendingUsedBikesWithoutModelImage()
+        {
+            UsedBikeImagesNotificationData objImagesData = null;
+            IList<UsedBikeImagesModel> _objBikeModels = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getPendingUsedBikesWithoutModelImage"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objImagesData = new UsedBikeImagesNotificationData();
+
+                            _objBikeModels = new List<UsedBikeImagesModel>();
+                            while (dr.Read())
+                            {
+                                UsedBikeImagesModel _objBike = new UsedBikeImagesModel();
+
+                                _objBike.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
+                                _objBike.MakeName = Convert.ToString(dr["makeName"]);
+                                _objBike.ModelName = Convert.ToString(dr["modelname"]);
+
+                                _objBikeModels.Add(_objBike);
+                            }
+                            objImagesData.Bikes = _objBikeModels;
+
+                            if (dr.NextResult())
+                            {
+                                if (dr.Read())
+                                {
+                                    objImagesData.IsNotify = SqlReaderConvertor.ToBoolean(dr["sendNotification"]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetPendingUsedBikesWithoutModelImage()");
+            }
+            return objImagesData;
+        }
+
+        /// <summary>
+        ///  Created by Sajal Gupta on 03-03-2017
+        /// Des : function to save used bike model images to db and get saved photo id. 
+        /// </summary>
+        public uint FetchPhotoId(UsedBikeModelImageEntity objModelImageEntity)
+        {
+            uint photoId = 0;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("opr_saveUsedBikeImage"))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, objModelImageEntity.Modelid));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, objModelImageEntity.UserId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+
+                            while (dr.Read())
+                            {
+                                photoId = SqlReaderConvertor.ToUInt32(dr["Id"]);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.BikeModelsRepository.FetchPhotoId");
+            }
+
+            return photoId;
+        }
+
+        /// <summary>
+        ///  Created by Sajal Gupta on 03-03-2017
+        /// Des : function to delete used bike model image .
+        /// </summary>
+        public bool DeleteUsedBikeModelImage(uint modelId)
+        {
+            bool isDeleted = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("opr_deleteUsedBikeImage"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    isDeleted = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.BikeModelsRepository.FetchPhotoId");
+            }
+            return isDeleted;
+        }
+
+
+        /// <summary>
+        ///  Created by Sajal Gupta on 06-03-2017
+        /// Des : function to get used bike model image data by make
+        /// </summary>
+        public IEnumerable<UsedBikeModelImageData> GetUsedBikeModelImageByMake(uint makeId)
+        {
+            IList<UsedBikeModelImageData> objImageList = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikemodelimagebymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            objImageList = new List<UsedBikeModelImageData>();
+                            while (dr.Read())
+                            {
+                                UsedBikeModelImageData objImage = new UsedBikeModelImageData();
+                                objImage.ModelId = SqlReaderConvertor.ToUInt32(dr["modelid"]);
+                                objImage.MakeId = SqlReaderConvertor.ToUInt32(dr["makeid"]);
+                                objImage.ModelName = Convert.ToString(dr["modelname"]);
+                                objImage.MakeName = Convert.ToString(dr["makename"]);
+                                objImage.HostUrl = Convert.ToString(dr["HostURL"]);
+                                objImage.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objImageList.Add(objImage);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.BikeModelsRepository.GetUsedBikeModelImageByMake makeId {0}", makeId));
+            }
+
+            return objImageList;
+        }
+
     }
 }
 

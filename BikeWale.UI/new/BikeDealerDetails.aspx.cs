@@ -79,7 +79,7 @@ namespace Bikewale.New
                     ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
                     ctrlDealerCard.pageName = "DealerDetail_Page_Desktop";
                     ctrlDealerCard.DealerId = (uint)dealerId;
-                    ctrlDealerCard.widgetHeading = string.Format("Other {0} showrooms in {1}", makeName, cityName);
+                    ctrlDealerCard.widgetHeading = string.Format("More {0} showrooms", makeName);
                     ctrlLeadCapture.CityId = cityId;
                     ctrlLeadCapture.AreaId = 0;
                     BindUserControl();
@@ -142,8 +142,7 @@ namespace Bikewale.New
                 ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 3;
-                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
-                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
+                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", makeName, cityName);
             }
             catch (Exception ex)
             {

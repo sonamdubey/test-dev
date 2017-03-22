@@ -1,17 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="PopularModelComparison.ascx.cs" Inherits="Bikewale.Mobile.Controls.PopularModelComparison" %>
 <% if(fetchedCount > 0 && objSimilarBikes!=null) { %>
 <div id="ctrlCompareBikes">
-    <div id="comparisonSwiper" class="swiper-container padding-top5 padding-bottom5 comparison-swiper card-container">
-        <div class="swiper-wrapper model-comparison-list">
+    <div id="comparisonSwiper" class="swiper-container comparison-swiper card-container padding-bottom25">
+        <div class="swiper-wrapper">
             <% foreach(var bike in  objSimilarBikes) { %>
                 <div class="swiper-slide">
                     <div class="swiper-card rounded-corner2">
-                        <a href="/m/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeMasking1,bike.ModelMasking1,bike.MakeMasking2,bike.ModelMasking2,bike.VersionId1,bike.VersionId2,Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget) %>" title ="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2) %>" class="block">
+                        <a href="/m/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeMasking1,bike.ModelMasking1,bike.MakeMasking2,bike.ModelMasking2,bike.VersionId1,bike.VersionId2, bike.ModelId1,bike.ModelId2, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget) %>" title ="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2) %>" class="block">
                         <% if(SponsoredVersionId == Convert.ToUInt32(bike.VersionId2)) { %>  <span class="text-default position-abt pos-top5 pos-right5 font12">Sponsored</span>   <% } %>
                         <h3 class="font12 text-black text-center margin-bottom10"><%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2) %></h3>
                         <div class="grid-6">
                             <div class="model-img-content">
-                                <img class="swiper-lazy" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath1,bike.HostUrl1,Bikewale.Utility.ImageSize._144x81) %>" alt="<%= bike.Model1 %>" title="<%= bike.Model1 %>" />
+                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath1,bike.HostUrl1,Bikewale.Utility.ImageSize._144x81) %>" alt="<%= bike.Model1 %>" title="<%= bike.Model1 %>" src="" />
                                 <span class="swiper-lazy-preloader"></span>
                             </div>
                             <p class="font11 text-light-grey text-truncate">Ex-showroom, <%= bike.City1  %></p>
@@ -19,7 +19,7 @@
                         </div>
                         <div class="grid-6">
                             <div class="model-img-content">
-                                <img class="swiper-lazy" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath2,bike.HostUrl2,Bikewale.Utility.ImageSize._144x81) %>" alt="<%= bike.Model2 %>" title="<%= bike.Model2 %>" />
+                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath2,bike.HostUrl2,Bikewale.Utility.ImageSize._144x81) %>" alt="<%= bike.Model2 %>" title="<%= bike.Model2 %>" src="" />
                                 <span class="swiper-lazy-preloader"></span>
                             </div>
                             <p class="font11 text-light-grey text-truncate">Ex-showroom, <%= bike.City2  %></p>
@@ -36,9 +36,6 @@
                 </div>
             <% } %>
         </div>
-    </div>
-    <div class="margin-top15 margin-left20 margin-bottom20">
-        <a href="/m/comparebikes/">View more comparisons<span class="bwmsprite blue-right-arrow-icon"></span></a>
     </div>
 </div>
 <div class="margin-right20 margin-left20 border-solid-bottom"></div>

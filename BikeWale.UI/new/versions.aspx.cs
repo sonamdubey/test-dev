@@ -526,7 +526,7 @@ namespace Bikewale.New
             {
                 if (modelPage != null)
                 {
-                    var photos = modelPage.Photos;
+                    var photos = modelPage.AllPhotos;
                     if (photos != null && photos.Count() > 0)
                     {
                         rptModelPhotos.DataSource = photos;
@@ -534,7 +534,6 @@ namespace Bikewale.New
                         rptNavigationPhoto.DataSource = photos;
                         rptNavigationPhoto.DataBind();
                     }
-
                     if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath))
                     {
                         modelImage = Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath, modelPage.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);

@@ -32,61 +32,18 @@
 
 <script type="text/javascript">
 
-    var preSelectedCityId = 0;
-    var preSelectedCityName = "";
-    var selectedModel = 0;
-    var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
-    var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
-    var pageId;
-    var selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
-    onRoadcity = $('#ddlCitiesOnRoad');
-    onRoadArea = $('#ddlAreaOnRoad');
-    onRoadMakeModel = $('#getFinalPrice');
-    mname = "";
-    var onCookieObj = {};
+    var selectedModel = 0,pageId,selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
+    var onRoadcity ,onRoadArea ,onRoadMakeModel ,mname = "";
+    var onCookieObj = {}, viewModelOnRoad;
 
-    // knockout OnRoadData binding
-    var viewModelOnRoad = {
-        selectedCity: ko.observable(),
-        bookingCities: ko.observableArray([]),
-        selectedArea: ko.observable(),
-        bookingAreas: ko.observableArray([]),
-        hasAreas: ko.observable()
-    };
+    
     function RfindCityById(vm, id) {
         return ko.utils.arrayFirst(vm.bookingCities(), function (child) {
             return (child.cityId === id || child.id === id);
         });
     }
-    //for jquery chosen 
-    ko.bindingHandlers.chosen = {
-        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var $element = $(element);
-            var options = ko.unwrap(valueAccessor());
-            if (typeof options === 'object')
-                $element.chosen(options);
 
-            ['options', 'selectedOptions', 'value'].forEach(function (propName) {
-                if (allBindings.has(propName)) {
-                    var prop = allBindings.get(propName);
-                    if (ko.isObservable(prop)) {
-                        prop.subscribe(function () {
-                            $element.trigger('chosen:updated');
-                        });
-                    }
-                }
-            });
-        }
-    }
 
-    // Chosen touch support.
-    if ($('.chosen-container').length > 0) {
-        $('.chosen-container').on('touchstart', function (e) {
-            e.stopPropagation(); e.preventDefault();
-            // Trigger the mousedown event.
-            $(this).trigger('mousedown');
-        });
-    }
     function FillCitiesOnRoad(modelId) {
         $.ajax({
             type: "GET",
@@ -300,7 +257,51 @@
         }
     }
 
-    $(function () {
+    docReady(function () {
+
+        onRoadcity = $('#ddlCitiesOnRoad'), onRoadArea = $('#ddlAreaOnRoad'), onRoadMakeModel = $('#getFinalPrice');
+
+        // knockout OnRoadData binding
+        viewModelOnRoad = {
+            selectedCity: ko.observable(),
+            bookingCities: ko.observableArray([]),
+            selectedArea: ko.observable(),
+            bookingAreas: ko.observableArray([]),
+            hasAreas: ko.observable()
+        };
+
+        //for jquery chosen 
+        ko.bindingHandlers.chosen = {
+            init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+                var $element = $(element);
+                var options = ko.unwrap(valueAccessor());
+                if (typeof options === 'object')
+                    $element.chosen(options);
+
+                ['options', 'selectedOptions', 'value'].forEach(function (propName) {
+                    if (allBindings.has(propName)) {
+                        var prop = allBindings.get(propName);
+                        if (ko.isObservable(prop)) {
+                            prop.subscribe(function () {
+                                $element.trigger('chosen:updated');
+                            });
+                        }
+                    }
+                });
+            }
+        };
+
+        // Chosen touch support.
+        if ($('.chosen-container').length > 0) {
+            $('.chosen-container').on('touchstart', function (e) {
+                e.stopPropagation(); e.preventDefault();
+                // Trigger the mousedown event.
+                $(this).trigger('mousedown');
+            });
+        }
+
+        $.fn.hint = bwHint;
+        $.fn.bw_autocomplete = bwAutoComplete;
 
         $("#getFinalPrice").bw_autocomplete({
 

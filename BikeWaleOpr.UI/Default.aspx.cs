@@ -34,7 +34,7 @@ namespace BikeWaleOpr
         {
             if (CurrentUser.Id == "-1")
             {
-                Response.Redirect("/users/login.aspx");
+                Response.Redirect("/users/login");
             }
             else if (CurrentUser.Id == Bikewale.Utility.BWOprConfiguration.Instance.NotificationUserId && DateTime.Now.Day > 15) // If customer id matches the user id from the config file then send the notification to the user
             {
@@ -50,8 +50,8 @@ namespace BikeWaleOpr
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IBikeModels, BikeModelsRepository>();
-                IBikeModels _objModelsRepo = container.Resolve<IBikeModels>();
+                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                IBikeModelsRepository _objModelsRepo = container.Resolve<IBikeModelsRepository>();
 
                 dataObj = _objModelsRepo.GetLastSoldUnitData();
             }

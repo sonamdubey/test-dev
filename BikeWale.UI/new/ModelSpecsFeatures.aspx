@@ -41,7 +41,7 @@
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
-                                <a href="/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" itemprop="url"><span itemprop="title"><%= makeName %> <%= modelName %></span></a>
+                                <a href="/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" itemprop="url"><span itemprop="title"><%= String.Format("{0} {1}", makeName, modelName) %></span></a>
                             </li>
                             <li>
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
@@ -118,6 +118,7 @@
 
                 <div id="modelSpecsAndFeaturesWrapper" class="content-box-shadow">
                     <div class="border-divider"></div>
+                    <% if(specs!= null){ %>
                     <div id="specs" class="bw-model-tabs-data padding-top20">
                         <h2 class="padding-left20 padding-right20">Specifications</h2>
                         <h3 class="padding-left20">Engine and Transmission</h3>
@@ -334,6 +335,7 @@
                     </div>
 
                     <div id="modelSpecsFeaturesFooter"></div>
+                    <% } %>
                 </div>
             </div>
             <div class="clear"></div>
