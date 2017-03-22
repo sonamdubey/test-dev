@@ -28,7 +28,7 @@
            @foreach (var bikedetails in ScootersList)
                    {
              <li class="list-item">
-                 <a href="@string.Format("m/{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.objMake.MaskingName, bikedetails.objModel.MaskingName))" title="@bikedetails.BikeName" class="block">
+                 <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.objMake.MaskingName, bikedetails.objModel.MaskingName))" title="@bikedetails.BikeName" class="block">
                      <div class="item-image-content">
                          <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostURL, Bikewale.Utility.ImageSize._310x174)" alt="@bikedetails.BikeName" src="" />
                      </div>

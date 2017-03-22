@@ -8,7 +8,7 @@
                 string bikeName = string.Format("{0} {1}", bikedetails.Make.MakeName, bikedetails.Model.ModelName);
                 <div class="swiper-slide">
                     <div class="swiper-card">
-                        <a href="@string.Format("m/{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.Make.MaskingName, bikedetails.Model.MaskingName))" title="@bikeName">
+                        <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.Make.MaskingName, bikedetails.Model.MaskingName))" title="@bikeName">
                             <div class="swiper-image-preview">
                                 <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostUrl, Bikewale.Utility.ImageSize._174x98)" title="@bikeName" alt="@bikeName" src="" />
                                 <span class="swiper-lazy-preloader"></span>
