@@ -191,7 +191,7 @@
             {
                 $.ajax({
                     type: "GET",
-                    url: BwOprHostUrl + "/api/Dealers/DeleteBookingAmount/?bookingId=" + bookingId,
+                    url: "/api/Dealers/DeleteBookingAmount/?bookingId=" + bookingId,
                     success: function (response) {
                        window.location.href = window.location.href;
                     }
@@ -233,13 +233,9 @@
                     return !isError;
                 }
                 if (newAmount != "" && newAmount != null) {
-                    //var objBooking = { Id: bookingId, Amount: parseInt(newAmount), IsActive: true };
-                    //var jsonStr = JSON.stringify(objBooking);
                     $.ajax({
                         type: "GET",
-                        //contentType: "application/json; charset=utf-8",
-                       // data: "'"+jsonStr+"'",
-                        url: BwOprHostUrl + "/api/Dealers/UpdateBookingAmount/?bookingId=" + bkgId + '&amount=' + parseInt(newAmount),
+                        url: "/api/Dealers/UpdateBookingAmount/?bookingId=" + bkgId + '&amount=' + parseInt(newAmount),
                         success: function (response) {
                             $("#gb-content").html("Booking amount updated Successfully, Please Close this Box");
                         }

@@ -87,7 +87,7 @@
             <div class="content-box-shadow padding-top20 padding-bottom20">
                 <div class="carousel-heading-content">
                     <div class="swiper-heading-left-grid inline-block">
-                        <h2>Other brands</h2>
+                        <h2>New launches of other brands</h2>
                     </div><div class="swiper-heading-right-grid inline-block text-right">
                         <a href="/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all</a>
                     </div>
@@ -99,10 +99,4 @@
         <div class="clear"></div>
     </div>
 </section>
-<section>
-    <div class="container section-bottom-margin">
-        <h2 class="section-heading">Explore year-wise bike launches</h2>
-        @{Html.RenderAction("Years", "DNewLaunches");}
-    </div>
-</section> 
 <script type="text/javascript" src="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/frameworks.js?@ViewBag.staticFileVersion"></script>

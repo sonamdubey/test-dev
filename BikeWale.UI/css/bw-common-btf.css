@@ -715,6 +715,7 @@ input[type="number"] {
 
 .swiper-heading-left-grid {
     width: 75%;
+    margin-right: -4px;
 }
 
 .swiper-heading-right-grid {
@@ -1242,14 +1243,14 @@ input[type="number"] {
 
 /* key specs */
 .key-specs-list li {
-    padding-right: 14px;
-    margin-right: 12px;
+    padding-right: 10px;
+    margin-right: 10px;
     position: relative;
 }
 .key-specs-list li:before {
     content: "";
     width: 1px;
-    height: 15px;
+    height: 12px;
     position: absolute;
     top: 3px;
     right: 0;
@@ -1502,3 +1503,7 @@ input[type="number"] {
   }
 }
 .red-text { font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }
+.inner-content-carousel.carousel-height-360 .jcarousel li {
+    min-height: 360px;
+}
+.brand-style-moreBtn { border-top: 1px solid #e2e2e2; margin-left: 0; }

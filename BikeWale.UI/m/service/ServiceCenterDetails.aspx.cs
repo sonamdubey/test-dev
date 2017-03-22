@@ -128,8 +128,8 @@ namespace Bikewale.Mobile.Service
                 ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DetailsPage;
                 ctrlDealerCard.LeadSourceId = 17;
                 ctrlDealerCard.DealerId = 0;
-                ctrlDealerCard.isHeadingNeeded = false;
-                ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", makeName, serviceCity);
+                ctrlDealerCard.isHeadingNeeded = true;
+                ctrlDealerCard.widgetHeading = string.Format("New {0} bikes showrooms", makeName);
 
                 ctrlServiceSchedule.MakeId = makeId;
                 ctrlServiceSchedule.MakeName = makeName;
@@ -141,15 +141,16 @@ namespace Bikewale.Mobile.Service
                 ctrlPopoularBikeMake.cityname = serviceCity;
                 ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
+                ctrlPopoularBikeMake.makeMaskingName = makeMaskingName;
                 if (ctrlusedBikeModel != null)
                 {
 
                     ctrlusedBikeModel.MakeId = makeId;
                     if (cityId > 0)
                         ctrlusedBikeModel.CityId = cityId;
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? serviceCity : "India");
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand {0} Bikes in {1}",makeName, cityId > 0 ? serviceCity : "India");
                     ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, cityId > 0 ? serviceCity : "India");
-                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", makeName, cityId > 0 ? cityMaskingName : "india");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", makeMaskingName, cityId > 0 ? cityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;
                 }
             }

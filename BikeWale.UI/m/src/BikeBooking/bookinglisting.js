@@ -31,13 +31,21 @@ var ShowReviewCount = function (reviewCount) {
 };
 
 $(document).ready(function () {
-    var completeQs = location.href.split('?')[1];
-
+    $('html, body').scrollTop(0);
+    var completeQs = location.href.split('?')[1] || "";
     completeQs = $.removeFilterFromQS('pageno');
+
+    if (completeQs && completeQs.indexOf("pageno=") != -1) {
+        completeQs = completeQs.replace(/pageno=\d+/i, "");
+    }
 
     $.selectedValueSortTab();
 
+    newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + completeQs;
+    window.history.pushState({ path: newurl }, '', newurl);
+
     $.pushState(completeQs);
+
 });//-- document ready ends here 
 
 $.selectedValueSortTab = function () {
@@ -256,7 +264,7 @@ CheckBoxFilter.on('click', function () {
 
 /* Mileage */
 mileage.click(function () {
-    $(this).toggleClass('optionSelected');  
+    $(this).toggleClass('optionSelected');
 });
 
 $('.checkOption').click(function () {
@@ -345,16 +353,18 @@ $.hitAPI = function (searchUrl) {
                 $.pushGACode(searchUrl, $.totalCount);
             }
             else {
-                errorNoBikes();
+                errorNoBikes(searchUrl);
+                $.pageNo = 1;
             }
         },
         error: function (error) {
-            errorNoBikes();
+            errorNoBikes(searchUrl);
+            $.pageNo = 1;
         }
     });
 };
 
-function errorNoBikes() {
+function errorNoBikes(searchUrl) {
     $.totalCount = 0;
     var element = $('#divSearchResult');
     element.html('');
@@ -477,7 +487,6 @@ $.getFilterFromQS = function (name) {
         }
     }
     if (isFound && value.length > 0) {
-        //if (value.indexOf('+') > 0)
         if ((/\+/).test(value))
             return value.replace(/\+/g, " ");
         else
@@ -498,7 +507,7 @@ $.loadNextPage = function () {
 
 $.pushState = function (qs) {
     loading.show();
-    if (qs!="")
+    if (qs && qs != "")
         history.pushState(null, null, '?' + qs);
     $.hitAPI(qs);
 };
@@ -1082,7 +1091,7 @@ $("#listingPopupCityList").on("click", "li", function () {
     var userselection = getSelectedLocationLI($(this));
     $("#listingCitySelection .selected-city").text(userselection.trim());
     //$("#listingAreaSelection").empty();
-    
+
     $("#listingAreaSelection .selected-area").text("Select Area");
     $('#listingPopupAreaInput').val('');
     onChangeCity($(this));
@@ -1115,7 +1124,7 @@ $("#btnBookingListingPopup").on("click", function () {
     }
 
     listingLocationPopupClose();
-    var CookieValue = selectedCityId + "_" +cityName.text().trim() + '_' + selectedAreaId + "_" +areaName.text().trim();
+    var CookieValue = selectedCityId + "_" + cityName.text().trim() + '_' + selectedAreaId + "_" + areaName.text().trim();
     SetCookieInDays("location", CookieValue, 365);
     window.location.href = "/m/bikebooking/bookinglisting.aspx";
     //    $('#Userlocation').text(cityName.text().trim() + ', ' + areaName.text().trim());
@@ -1194,7 +1203,7 @@ function registerPQ(myData) {
             //SetCookie("_MPQ", cookieValue);
             if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                 // gtmCodeAppenderWidget(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
-                
+
                 window.location = "/m/pricequote/bookingsummary_new.aspx?MPQ=" + Base64.encode(cookieValue);
             }
             else {
@@ -1210,7 +1219,7 @@ function registerPQ(myData) {
 }
 
 function onChangeCity(objCity) {
-    selectedCityId = !isNaN(parseInt(objCity.attr('cityid')))?parseInt(objCity.attr('cityid')):0;
+    selectedCityId = !isNaN(parseInt(objCity.attr('cityid'))) ? parseInt(objCity.attr('cityid')) : 0;
     $('#listingPopupAreaList').empty();
     if (selectedCityId > 0) {
         if (!checkCacheCityAreas(selectedCityId)) {

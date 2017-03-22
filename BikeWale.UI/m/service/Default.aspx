@@ -3,7 +3,8 @@
 <%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="MMostPopularBikes" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeInCities.ascx" TagName="usedBikeInCities" TagPrefix="BW" %>
 
 <!DOCTYPE html>
 <html>
@@ -61,7 +62,7 @@
          <% if(TopMakeList!= null ){  %>
         <section>
             <h2 class="section-heading">Service Centers by brands</h2>
-            <div class="container bg-white box-shadow card-bottom-margin padding-top25 padding-bottom20 collapsible-brand-content">
+            <div class="container bg-white box-shadow padding-top25 padding-bottom20 collapsible-brand-content">
                 <div id="brand-type-container" class="brand-type-container">
                         <ul class="text-center">
                            <%foreach(var bikebrand in TopMakeList) {%>
@@ -107,7 +108,7 @@
           {%>
         <section>
             <!--  Upcoming, New Launches and Top Selling code starts here -->
-            <div class="container margin-bottom20">
+            <div class="container">
                 <div class="grid-12 alpha omega">
                     <h2 class="font18 text-center margin-top20 margin-bottom10">Most popular bikes</h2>
                     <div class="featured-bikes-panel content-box-shadow padding-bottom15">
@@ -127,6 +128,9 @@
                                         <BW:MMostPopularBikes PageId="4" runat="server" ID="ctrlMostPopularBikes" />
                                     </div>
                                 </div>
+                                <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="/m/best-bikes-in-india/" title="Popular Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+                               </div>
                             </div>
                             <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
                                 <div class="swiper-container card-container">
@@ -134,6 +138,9 @@
                                         <BW:MNewLaunchedBikes PageId="4" runat="server" ID="ctrlNewLaunchedBikes" />
                                     </div>
                                 </div>
+                                <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="/m/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all launches<span class="bwmsprite teal-right"></span></a>
+                               </div>
                             </div>
                             <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
                                 <div class="swiper-container card-container">
@@ -141,6 +148,9 @@
                                         <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
                                     </div>
                                 </div>
+                                <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+                               </div>
                             </div>
                         </div>
                     </div>
@@ -151,11 +161,86 @@
             </div>
         </section>
         <%} %>
-        <%if(ctrlPopularUsedBikes.FetchedRecordsCount>0){ %>
-        <section>
-            <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
+         <section>
+            <div class="container">
+                <h2 class="section-heading">Find used bikes</h2>
+                <div class="bw-tabs-panel content-box-shadow">
+                    <div class="bw-tabs bw-tabs-flex tabs-bottom15">
+                        <ul>
+                            <% if (ctrlusedBikeModel.FetchCount > 0)
+                               { %>
+                            <li class="active" data-tabs="usedByModel">Model</li>
+                            <%} %>
+                           
+                            <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0)
+                              { %><li class="<%=ctrlusedBikeModel.FetchCount > 0?"":"active"%>" data-tabs="usedByCity">City</li>
+                            <%} %>
+                             <li  class="<%=((ctrlusedBikeModel.FetchCount>0) ||( ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0))?"":"active"%>" data-tabs="usedByBudget">Budget</li>
+                        </ul>
+                    </div>
+                      <% if (ctrlusedBikeModel.FetchCount > 0)
+                       { %>
+                    <div class="bw-tabs-data" id="usedByModel">
+                        <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                    </div>
+                    <% } %>
+                     <div class="clear"></div>
+                    <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0)
+                      { %>
+                    <div class="bw-tabs-data <%=ctrlusedBikeModel.FetchCount > 0?"hide":""%>" id="usedByCity">
+                        <BW:usedBikeInCities runat="server" ID="ctrlusedBikeInCities" />
+                         
+                    </div>
+                    <%} %>
+                    <div class="bw-tabs-data <%=((ctrlusedBikeModel.FetchCount>0) ||( ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0))?"hide":""%>" id="usedByBudget">
+                        <ul class="elevated-card-list padding-top5">
+                            <li>
+                                <a href="/m/used/bikes-in-india/#budget=0+35000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite budget-one"></span>
+                                        </div>
+                                        <span class="key-size-14">Upto</span><br />
+                                        <span class="bwmsprite inr-xsm-icon"></span><span class="value-size-15">35K</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/m/used/bikes-in-india/#budget=35000+80000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite budget-two"></span>
+                                        </div>
+                                        <span class="key-size-14">Between</span><br />
+                                        <span class="bwmsprite inr-xsm-icon"></span><span class="value-size-15">35K -</span>
+                                        <span class="bwmsprite inr-xsm-icon"></span><span class="value-size-15">80K</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/m/used/bikes-in-india/#budget=80000+200000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite budget-three"></span>
+                                        </div>
+                                        <span class="key-size-14">Above</span><br />
+                                        <span class="bwmsprite inr-xsm-icon"></span><span class="value-size-15">80K</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="padding-left10 view-all-btn-container margin-top10 padding-bottom20">
+                            <a href="<%=usedBikeLink %>" title="<%=usedBikeTitle%>" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
+                               </div>
+
+                    </div>
+
+                  
+                </div>
+
+            </div>
         </section>
-        <%} %>
         <section>
             <h2 class="section-heading">Bike Troubleshooting - FAQs</h2>
             <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">
@@ -281,7 +366,7 @@
             $ddlMakes.on("click", "li", function () {
                 var _self = $(this),
                         selectedElement = _self.text();
-                setSelectedElement(_self, selectedElement); key
+                setSelectedElement(_self, selectedElement);
                 _self.addClass('activeBrand').siblings().removeClass('activeBrand');
                 $("div.locator-search-brand-form").find("span").text(selectedElement);
                 selMakeId = $(this).attr("makeId");
@@ -344,7 +429,7 @@
                         });
                     }
                     else {
-                        $("div.locator-search-city-form span").text("Select city")
+                        $("div.locator-search-city-form span").text("Select city");
                         data = lscache.get(key + mId);
                         setOptions(data);
                     }

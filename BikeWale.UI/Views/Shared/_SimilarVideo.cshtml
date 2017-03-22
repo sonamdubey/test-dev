@@ -9,9 +9,9 @@
                                 <div class="carousel-heading-content">
                                     <div class="swiper-heading-left-grid inline-block">
                                         <h2>More related videos</h2>
-                                    </div><div class="swiper-heading-right-grid inline-block text-right">
+                                    </div>@if (!String.IsNullOrEmpty(Model.ViewAllLinkUrl)){ <div class="swiper-heading-right-grid inline-block text-right">
                                         <a href="@Model.ViewAllLinkUrl" title="@Model.ViewAllLinkTitle" class="btn view-all-target-btn">@Model.ViewAllLinkText</a>
-                                    </div>
+                                    </div>}
                                     <div class="clear"></div>
                                 </div>
                                     <div class="jcarousel-wrapper inner-content-carousel padding-bottom20 overlay-carousel video-carousel">

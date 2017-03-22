@@ -19,9 +19,9 @@
             <li class="fwd-arrow">&rsaquo;</li>
             <li><a href="/<%= MakeMaskingName%>-bikes/"><%=make %> Bikes</a></li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li><a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName%>/"><%=make %> <%=model %></a></li>
+            <li><a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName%>/"><%= String.Format("{0} {1}", make,model) %></a></li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li class="current"><strong><%=make %> <%=model %> Specifications</strong></li>
+            <li class="current"><strong><%= String.Format("{0} {1}", make,model) %> Specifications</strong></li>
         </ul><div class="clear"></div>
     </div>
     <div class="grid_8 margin-top10">        

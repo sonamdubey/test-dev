@@ -173,7 +173,7 @@
             </div>
             <h1 class="font18"><%= pageHeading %></h1>
         </header>
-        <section class="bg-white padding-top50 bottom-shadow margin-bottom10">
+        <section class="bg-white padding-top50 bottom-shadow margin-bottom10" id="section-videos-list">
             <div class="miscWrapper container">
                 <ul id="listVideos1">
                     <asp:Repeater ID="rptVideos" runat="server">
@@ -226,10 +226,9 @@
         <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0)
           {%>
         <section>
-            <div class="container content-box-shadow margin-bottom20">
-                <div class="padding-top20 padding-bottom20 font14">
-                    <h2 class="padding-left20 padding-right20 margin-bottom15">Explore other popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
-                    <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server" />
+            <div class="container box-shadow bg-white section-bottom-margin margin-bottom20">
+            <div class="padding-bottom20 font14">
+                        <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server" />
                 </div>
             </div>
         </section>
@@ -256,7 +255,7 @@
             var cwHostUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.CwApiHostUrl %>";
             var catId = <%= isModel ? modelId : makeId %>;
             var maxPage = 10000000;
-            var isModel = false;
+            var isModel = <%= isModel.ToString().ToLower() %>;
             var isNextPage = true;
             var apiURL = isModel ? "/api/v1/videos/model/" : "/api/v1/videos/make/";
             var cacheKey = isModel ? "model_" + catId : "make_" + catId;

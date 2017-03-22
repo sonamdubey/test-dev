@@ -33,7 +33,7 @@ namespace BikewaleOpr.Campaign
         protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber, reqFormRadius, reqLeadsLimit;
         protected Button btnUpdate;
         protected ManageDealerCampaign dealerCampaign;
-        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtCampaignName, txtLeadsLimit;
+        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtCampaignName, txtLeadsLimit, txtDealerNumber;
         protected string startDate, endDate;
         protected Label lblGreenMessage, lblErrorSummary;
         protected HtmlGenericControl textArea;
@@ -277,6 +277,8 @@ namespace BikewaleOpr.Campaign
         /// <summary>
         /// Created By : Sangram Nandkhile on 05-Apr-2016
         /// Description : To Load masking numbers dropdown
+        /// Created By : Sushil Kumar on 21st March 2016
+        /// Description : Add default text for 
         /// </summary>
         private void LoadMaskingNumbers()
         {
@@ -294,6 +296,9 @@ namespace BikewaleOpr.Campaign
                         ddlMaskingNumber.DataValueField = "IsAssigned";
                         ddlMaskingNumber.DataBind();
                     }
+
+                    ddlMaskingNumber.Items.Insert(0, new ListItem("Select Masking Number", ""));
+
                 }
             }
             catch (Exception ex)
@@ -331,6 +336,7 @@ namespace BikewaleOpr.Campaign
                             oldMaskingNumber = txtMaskingNumber.Text;
                             hdnOldMaskingNumber.Value = txtMaskingNumber.Text;
                         }
+                        txtDealerNumber.Text = campaign.DealerMobile;
                         txtCampaignName.Text = campaign.CampaignName;
                         oldMaskingNumber = txtMaskingNumber.Text;
                         txtDealerEmail.Text = campaign.EmailId;

@@ -43,9 +43,11 @@ namespace Bikewale
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
         //Varible to Hide or show controlers
         protected bool isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
+        protected string cityName, cityMaskingName;
         protected Repeater rptPopularBrand, rptOtherBrands;
         protected BindDefaultPage bindHomePage;
         protected HomePageBannerEntity bannerEntity;
+        protected string usedBikeLink = string.Empty, usedBikeTitle = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -105,22 +107,27 @@ namespace Bikewale
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                string _cityName = currentCityArea.City;
+                cityName = currentCityArea.City;
+                CityEntityBase cityDetails = null;
                 if (ctrlusedBikeModel != null)
                 {
-
-                    CityEntityBase cityDetails = null;
-
                     if (currentCityArea.CityId > 0)
                     {
                         cityDetails = new CityHelper().GetCityById(currentCityArea.CityId);
                         ctrlusedBikeModel.CityId = currentCityArea.CityId;
                     }
-
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", currentCityArea.CityId > 0 ? _cityName : "India");
-                    ctrlusedBikeModel.WidgetHref = string.Format("/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
-                    ctrlusedBikeModel.TopCount = 9;
+                    usedBikeLink = string.Format("/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                    usedBikeTitle = string.Format("Second Hand Bikes in {0}", currentCityArea.CityId > 0 ? cityName : "India");
                     ctrlusedBikeModel.IsLandingPage = true;
+                    ctrlusedBikeModel.WidgetTitle = usedBikeTitle;
+                    ctrlusedBikeModel.WidgetHref = usedBikeLink;
+                    ctrlusedBikeModel.TopCount = 9;
+                }
+                if (ctrlusedBikeInCities != null)
+                {
+
+                    ctrlusedBikeInCities.WidgetHref = usedBikeLink;
+                    ctrlusedBikeInCities.WidgetTitle = usedBikeTitle;
                 }
 
 

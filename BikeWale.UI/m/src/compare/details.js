@@ -432,6 +432,26 @@ var bikeSelection = function() {
     self.versionId = ko.observable('');
     self.compareSource = ko.observable(compareSource);
 
+    function returnCompareUrl(toBeReplacedModelId, newModelId, newmasking) {
+        var compareUrl;
+        var first = $(".comparison-main-card .bike-details-block")[0];
+        var second = $(".comparison-main-card .bike-details-block")[1];
+        if ($(first).data('modelid') == toBeReplacedModelId) {
+            if (newModelId > $(second).data('modelid')) {
+                compareUrl = $(second).data('masking') + '-vs-' + newmasking;
+            } else {
+                compareUrl = newmasking + '-vs-' + $(second).data('masking');
+        }
+
+        } else {
+            if (newModelId > $(first).data('modelid')) {
+                compareUrl = $(first).data('masking') + '-vs-' + newmasking;
+            } else {
+                compareUrl = newmasking + '-vs-' + $(first).data('masking');
+            }
+        }
+        return compareUrl;
+    }
     self.redirectionUrl = function()
     {
         var _link = "";
@@ -440,12 +460,11 @@ var bikeSelection = function() {
                 makemasking = $("#select-make-wrapper ul li[data-id='" + self.makeId() + "']").data("masking");
                 if (self.modelId() > 0) {
                     modelmasking = $("#select-model-wrapper ul li[data-id='" + self.modelId() + "']").data("masking");
-
                     if (self.versionId() > 0) {
                         var ele = $(".comparison-main-card .bike-details-block[data-changed='true']"),loc = window.location;
-
-                        _link = loc.pathname.replace(ele.data("masking"), makemasking + "-" + modelmasking);
-
+                        var newmasking = makemasking + "-" + modelmasking;
+                        var compareUrl = returnCompareUrl(ele.data("modelid"), self.modelId(), newmasking);
+                        _link = '/m/comparebikes/' + compareUrl;
                         if (window.location.search.indexOf("bike") > -1)
                         {
                             _link = _link + loc.search.replace(ele.data("versionid"), self.versionId());
@@ -538,11 +557,8 @@ var bikeSelection = function() {
     };
 
     self.versionChanged = function (data, event) {
-
         self.versionId(data.versionId);
-
         $('#select-version-wrapper .same-version-toast').hide();
-
         if (!bikePopup.checkSameVersion(self.versionId()) && self.versionId()>0)
         {
             window.location = self.redirectionUrl();

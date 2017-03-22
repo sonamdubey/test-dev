@@ -50,7 +50,7 @@
             <div class="container box-shadow bg-white section-bottom-margin">
             		        
             <% if (!string.IsNullOrEmpty(modelName)) {%>
-                <h1 class="box-shadow padding-15-20"><%= makeName  %> <%= modelName %> Expert Reviews</h1>
+                <h1 class="box-shadow padding-15-20"><%= String.Format("{0} {1}",makeName,modelName) %> Expert Reviews</h1>
             <% }
             else if(!string.IsNullOrEmpty(makeName)) { %>
 		        <h1 class="box-shadow padding-15-20"><%= makeName  %> Bikes Expert Reviews</h1>
@@ -105,11 +105,9 @@
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
         <%if(modelId>0){%>
         <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){%>
-         <section>
+        <section>
             <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
-                <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">
-                    Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
-        <BW:MBikesByBodyStyle runat="server" ID="ctrlBikesByBodyStyle" />
+                              <BW:MBikesByBodyStyle runat="server" ID="ctrlBikesByBodyStyle" />
                 </div>
              </section>
         <%} %>

@@ -51,6 +51,7 @@
     <Compile Include="ContractCampaign\IDealerCampaignRepository.cs" />
     <Compile Include="IDealerPriceQuote.cs" />
     <Compile Include="IDealers.cs" />
+    <Compile Include="IHomePage.cs" />
     <Compile Include="Images\IImage.cs" />
     <Compile Include="Images\IImageRepository.cs" />
     <Compile Include="ManufacturerCampaign\IManufacturerCampaign.cs">

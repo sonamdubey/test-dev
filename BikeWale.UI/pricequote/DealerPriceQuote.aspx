@@ -160,7 +160,7 @@
                                                 <td align="right">
                                                     <% if (isPrimaryDealer)
                                                        { %>
-                                                    <a href="javascript:void(0)" class="font14 bw-ga" leadsourceid="8" data-dealerid="<%=dealerId %>" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
+                                                    <a href="javascript:void(0)" class="font14 bw-ga leadcapturebtn" leadsourceid="8" data-item-id="<%=dealerId %>" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
                                                     <% } %>
                                                 </td>
                                             </tr>
@@ -225,7 +225,7 @@
                                                 <td align="right">
                                                     <% if (isPrimaryDealer)
                                                        { %>
-                                                    <a href="javascript:void(0)" class="font14 bw-ga" leadsourceid="8" data-dealerid="<%=dealerId %>" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
+                                                    <a href="javascript:void(0)" class="font14 bw-ga leadcapturebtn" leadsourceid="8" data-item-id="<%=dealerId %>" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
                                                     <% } %>
                                                 </td>
                                             </tr>
@@ -593,7 +593,7 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow padding-bottom20">
-                        <h2 class="font18 padding-top20 padding-left20">Prices from <%= detailedDealer.SecondaryDealerCount %> <%= (detailedDealer.SecondaryDealerCount > 1)?"more partner dealers":"more partner dealer" %></h2>
+                        <h2 class="font18 padding-top20 padding-left20">Prices from <%= detailedDealer.SecondaryDealerCount %> <%= (detailedDealer.SecondaryDealerCount > 1)?" more partner dealers":" more partner dealer" %></h2>
                         <div class="jcarousel-wrapper inner-content-carousel small-card-carousel">
                             <div class="jcarousel margin-top20 margin-bottom20">
                                 <ul id="dealerList" class="more-dealers-list">
@@ -752,7 +752,7 @@
                     },
                     owner: this
                 });
-            }          
+            };          
 
 
             $.calculateEMI = function (loanAmount, tenure, rateOfInterest,proFees) {
@@ -786,7 +786,7 @@
     
                 }
                 return svar;
-            }
+            };
 
             $.LoanAmount = function (onRoadPrice, percentage) {
                 var price;
@@ -811,7 +811,7 @@
                 }
               
                 return num;
-            }
+            };
 
             var EMIviewModel = new BikeEMI;
             ko.applyBindings(EMIviewModel, $("#EMISection")[0]);

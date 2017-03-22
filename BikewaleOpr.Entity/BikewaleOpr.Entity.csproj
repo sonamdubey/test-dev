@@ -57,9 +57,12 @@
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
+    <Compile Include="BikeData\OprNotificationType.cs" />
     <Compile Include="BikeData\SoldUnitData.cs" />
     <Compile Include="BikeData\SynopsisData.cs" />
+    <Compile Include="BikeData\UsedBikeImagesByMakeNotificationData.cs" />
     <Compile Include="BikeData\UsedBikeImagesModel.cs" />
+    <Compile Include="BikeData\UsedBikeImagesNotificationData.cs" />
     <Compile Include="BikeData\UsedBikeModelImageData.cs" />
     <Compile Include="BikeData\UsedBikeModelImageEntity.cs" />
     <Compile Include="BikeData\UsedModelsByMake.cs" />
@@ -96,6 +99,7 @@
     <Compile Include="FacilityEntity.cs" />
     <Compile Include="GeoLocationDestinationEntity.cs" />
     <Compile Include="GeoLocationEntity.cs" />
+    <Compile Include="HomePageData.cs" />
     <Compile Include="Images\Image.cs" />
     <Compile Include="Images\ImageToken.cs" />
     <Compile Include="MakeEntity.cs" />

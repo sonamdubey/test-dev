@@ -1,5 +1,5 @@
-﻿
-<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.New.Photos.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.New.Photos.Default" %>
+
 <%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
 <%@ Register TagPrefix="BW" TagName="SimilarBikeWithPhotos" Src="~/m/controls/SimilarBikeWithPhotos.ascx" %>
@@ -25,20 +25,23 @@
 </head>
 <body>
     <form id="form1" runat="server">
-         <% if (isModelPage) { %>
-            <div class="gallery-loader-placeholder gallery-bg-overlay text-center"><span class="spin-loader fixed-loader"></span></div>
-          <%}else {%>
+        <% if (isModelPage)
+           { %>
+        <div class="gallery-loader-placeholder gallery-bg-overlay text-center"><span class="spin-loader fixed-loader"></span></div>
+        <%}
+           else
+           {%>
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <% if (vmModelPhotos != null)
-        {
-            var objImages = vmModelPhotos.objImageList; %>
+           {
+               var objImages = vmModelPhotos.objImageList; %>
         <section>
             <div class="container box-shadow section-bottom-margin padding-bottom2">
                 <h1 class="section-header bg-white"><%= vmModelPhotos.bikeName %> Images</h1>
                 <% int i = 0; if (vmModelPhotos.totalPhotosCount > 0)
                    { %>
                 <ul class="photos-grid-list">
-                    <% while (i < vmModelPhotos.gridPhotosCount - 1 && i < 6) //to handle lazy load for initial images (6 images can vary) 
+                    <% while (i < vmModelPhotos.gridPhotosCount - 1 && i < 6)
                        { %>
                     <li>
                         <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%= string.Format("{0} {1}",bikeName,objImages[i].ImageCategory) %> Image" title="<%= string.Format("{0} {1}",bikeName,objImages[i++].ImageCategory)%>" />
@@ -66,10 +69,11 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <%} } %>        
-    
+        <%}
+          } %>
+
         <%if (ctrlVideos.FetchedRecordsCount > 0)
-            { %>
+          { %>
         <section>
             <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
                 <h2 class="margin-bottom15"><%= vmModelPhotos.bikeName %> Videos</h2>
@@ -77,8 +81,9 @@
             </div>
         </section>
         <% } %>
-           
-        <%if(bikeInfo!=null){ %><section>
+
+        <%if (bikeInfo != null)
+          { %><section>
             <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
                 <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
             </div>
@@ -94,10 +99,12 @@
                     <h2 class="text-white gallery-title"><%=bikeName %> Images</h2>
                     <span id="gallery-close-btn" class="position-abt bwmsprite cross-md-white cur-pointer"></span>
                     <ul class="horizontal-tabs-wrapper">
-                       <%if(vmModelPhotos!=null && vmModelPhotos.totalPhotosCount>0) {%>
+                        <%if (vmModelPhotos != null && vmModelPhotos.totalPhotosCount > 0)
+                          {%>
                         <li data-bind="click: togglePhotoTab, css: photosTabActive() ? 'active': ''">Images</li>
                         <%} %>
-                        <%if (VideoCount > 0) { %>
+                        <%if (VideoCount > 0)
+                          { %>
                         <li data-bind="click: togglePhotoTab, css: !photosTabActive() ? 'active': ''">Videos</li>
                         <%} %>
                     </ul>
@@ -108,7 +115,7 @@
                         <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
                             <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activePhotoTitle()"></p>
                             <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
-                                <span data-bind="text: activePhotoIndex()"></span> / 
+                                <span data-bind="text: activePhotoIndex()"></span>/ 
                                 <span data-bind="text: photoList().length"></span>
                             </div>
                             <div class="clear"></div>
@@ -126,8 +133,8 @@
                         <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
                             <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activeColorTitle()"></p>
                             <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
-                                <span data-bind="text: activeColorIndex()"></span> of 
-                                <span data-bind="text: colorPhotoList().length"></span> <span data-bind="text: colorPhotoList().length > 1 ? 'colours' : 'colour'"></span>
+                                <span data-bind="text: activeColorIndex()"></span>&nbsp<span>of</span>
+                                <span data-bind="text: colorPhotoList().length"></span>&nbsp<span data-bind="text: colorPhotoList().length > 1 ? 'colours' : 'colour'"></span>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -161,10 +168,11 @@
                             <span class="inline-block font14">All photos</span>
                         </div>
 
-                         <%if(VideoCount>1){ %>
+                        <%if (VideoCount > 1)
+                          { %>
                         <div style="display: none" data-bind="click: toggleVideoListScreen, visible: !photosTabActive(), css: videoListScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
                             <span class="bwmsprite grid-icon margin-right10"></span>
-                           <span class="inline-block font14">All videos</span>
+                            <span class="inline-block font14">All videos</span>
                         </div>
                         <%} %>
 
@@ -209,10 +217,15 @@
                         </div>
                     </div>
 
-                    <%if(bikeInfo!=null){ %>  <div id="info-tab-screen" class="footer-tab-card" data-bind="css: modelInfoScreen() ? 'position-fixed' : ''">
+                    <%if (bikeInfo != null)
+                      { %>
+                    <div id="info-tab-screen" class="footer-tab-card" data-bind="css: modelInfoScreen() ? 'position-fixed' : ''">
                         <div class="model-more-info-section padding-15-20">
-                           <%if(IsUpcoming){ %><p class="model-ribbon-tag upcoming-ribbon">Upcoming</p><%} %>
-                            <%if(IsDiscontinued){ %>
+                            <%if (IsUpcoming)
+                              { %><p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+                            <%} %>
+                            <%if (IsDiscontinued)
+                              { %>
                             <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                             <%} %>
                             <div class="margin-bottom10">
@@ -222,15 +235,17 @@
                                 <div class="bike-details-block vertical-top">
                                     <h3 class="margin-bottom5"><a href="<%=bikeUrl %>" class="block text-bold text-default text-truncate" title="<%=bikeName %>"><%=bikeName%></a></h3>
                                     <ul class="item-more-details-list">
-                                        <%if(bikeInfo.ExpertReviewsCount>0) {%>
+                                        <%if (bikeInfo.ExpertReviewsCount > 0)
+                                          {%>
                                         <li>
                                             <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%=bikeName %> Reviews">
                                                 <span class="bwmsprite reviews-sm"></span>
                                                 <span class="icon-label">Reviews</span>
                                             </a>
-                                        </li>        
+                                        </li>
                                         <%} %>
-                                        <%if(bikeInfo.NewsCount>0){ %>
+                                        <%if (bikeInfo.NewsCount > 0)
+                                          { %>
                                         <li>
                                             <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatNewsUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%=bikeName %> News">
                                                 <span class="bwmsprite news-sm"></span>
@@ -238,19 +253,21 @@
                                             </a>
                                         </li>
                                         <%} %>
-                                        <%if(bikeInfo.IsSpecsAvailable) {%>
+                                        <%if (bikeInfo.IsSpecsAvailable)
+                                          {%>
                                         <li>
                                             <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%=bikeName %> Specification">
                                                 <span class="bwmsprite specs-sm"></span>
                                                 <span class="icon-label">Specs</span>
                                             </a>
-                                        </li>         
+                                        </li>
                                         <%} %>
                                     </ul>
                                 </div>
                             </div>
-                            <%if(!IsUpcoming&&!IsDiscontinued){ %>
-                            
+                            <%if (!IsUpcoming && !IsDiscontinued)
+                              { %>
+
                             <div class="grid-7 alpha omega">
                                 <p class="font11 text-light-grey text-truncate">Ex-showroom, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                                 <div>
@@ -258,16 +275,20 @@
                                     <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
                                 </div>
                             </div>
-                            <%}else if (IsUpcoming){ %>
-                               <div class="grid-7 alpha omega">
+                            <%}
+                              else if (IsUpcoming)
+                              { %>
+                            <div class="grid-7 alpha omega">
                                 <p class="font11 text-light-grey text-truncate">Expected price</p>
                                 <div>
                                     <span class="bwmsprite inr-xsm-icon"></span>
                                     <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) %> onwards</span>
                                 </div>
                             </div>
-                            <%}else if (IsDiscontinued){ %>
-                             <div class="grid-7 alpha omega">
+                            <%}
+                              else if (IsDiscontinued)
+                              { %>
+                            <div class="grid-7 alpha omega">
                                 <p class="font11 text-light-grey text-truncate">Last know price</p>
                                 <div>
                                     <span class="bwmsprite inr-xsm-icon"></span>
@@ -280,7 +301,8 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                    </div>  <%} %>
+                    </div>
+                    <%} %>
 
                     <div id="video-tab-screen" class="footer-tab-card font14" style="display: none" data-bind="visible: videoListScreen()">
                         <ul class="video-tab-list" data-bind="foreach: videoList">
@@ -300,7 +322,7 @@
 
             </div>
         </div>
-        
+
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -314,15 +336,15 @@
                 var videoCount = "<%=VideoCount%>";
                 var colorImageId = "<%= colorImageId%>";
                 var modelName = "<%= vmModelPhotos.bikeName %>";            
-                var encodedVideoList = "<%= JSONVideoList%>"
-                var encodedImageList = "<%= JSONImageList %>"
+                var encodedVideoList = "<%= JSONVideoList%>";
+                var encodedImageList = "<%= JSONImageList %>";
             }catch(e)
             {
                 console.warn(e);
             }
-        </script> 
-        
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/photos.js?<%= staticFileVersion %>"></script>
+        </script>
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : ""%>/m/src/photos.js?<%= staticFileVersion%>"></script>
         <script type="text/javascript">            
             $(document).ready(function () {
                 if(isModelPage) {

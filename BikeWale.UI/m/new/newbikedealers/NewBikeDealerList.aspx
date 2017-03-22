@@ -19,8 +19,7 @@
         
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-
-  <link rel="stylesheet" type="text/css" href="/m/css/dealer/listing.css" />
+    <link rel="stylesheet" type="text/css" href="/m/css/dealer/listing.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
 
@@ -45,9 +44,9 @@
             <div class="container margin-bottom10">
                 <div class="bg-white">
                     <h1 class="box-shadow padding-15-20"><%=makeName%> Showroom<%=(totalDealers > 1 )?"s":"" %> in <%=cityName%></h1>                  							
-                    <div class="box-shadow padding-15-20 font14 text-light-grey">
-                        <p id="main-content">Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of <%=makeName%> Showroom to improve your buying experience. There <%=totalDealers>1?"are":"is"%> <%=totalDealers %>  <%=makeName%> <%=totalDealers>1?"showrooms":"showroom"%> in  <%=cityName%></p>
-					    <p id="more-content">BikeWale recommends buying bikes from authorized <%=makeName%> showroom in  <%=cityName%>. For information on prices, offers, EMI options and test rides you may get in touch with below mentioned <%=makeName%> dealers in  <%=cityName%>. </p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">...Read more</a>
+                    <div class="box-shadow padding-15-20 font14 text-light-grey collapsible-content">
+                        <p class="main-content">Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of <%=makeName%> Showroom to improve your buying experience. There <%=totalDealers>1?"are ":"is "%><%=totalDealers %><%= String.Format(" {0}", makeName)%><%=totalDealers>1?" showrooms":" showroom"%> in  <%=cityName%></p>
+					    <p class="more-content">BikeWale recommends buying bikes from authorized <%=makeName%> showroom in <%=cityName%>. For information on prices, offers, EMI options and test rides you may get in touch with below mentioned <%=makeName%> dealers in <%=cityName%>. </p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                     </div>	
                 </div>
             </div>
@@ -56,8 +55,8 @@
         <section>
             <div class="container bg-white box-shadow margin-bottom10">
                 <div class="border-solid-bottom padding-15-20">
-                    <h2 class="vertical-middle font18 text-black text-bold bg-white dealer-heading padding-right10"><%=totalDealers %> <%=makeName%> showroom<%=(totalDealers>1)?"s":"" %> in <%=cityName%></h2>
-                    <div class="vertical-middle text-center">
+                    <h2 class="inline-block text-bold dealer-heading padding-right10"><%= String.Format("{0} {1}",totalDealers, makeName) %> showroom<%=(totalDealers>1)?"s":"" %> in <%=cityName%></h2>
+                    <div class="inline-block text-center">
                         <span class="edit-blue-link" id="changeOptions" ><span class="bwmsprite edit-blue margin-right5"></span><span class="change-text text-link">change</span></span>
                     </div>
                 </div>
@@ -96,12 +95,12 @@
         <BW:DealersCount ID="ctrlDealerCount" runat="server" />
         <% } %>
 
+        <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+
         <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0)
            {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
-                
-             <div class="container bg-white box-shadow margin-bottom15">
                 <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                  {%> 
                  <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
@@ -113,19 +112,21 @@
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                     <% if (ctrlServiceCenterCard.showWidget)
                    { %>
+                 <div class="margin-bottom10"></div>
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
                         <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-                <% }  %>
+                
+                     <% }  %>
                
                        <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                 
+                     <div class="padding-top15">
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
-                        
+                        </div>
                     <% } %> 
                  
             </div>
-                </div>
+              
             
         </section>
         <% } %>
@@ -150,20 +151,7 @@
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
         <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>"></script>
         <script type="text/javascript">
-            // read more-collapse
-            var readMoreTarget = $('#read-more-target'),
-                dealereMoreContent = $('#more-content');
-
-            readMoreTarget.on('click', function () {
-                if (!dealereMoreContent.hasClass('active')) {
-                    dealereMoreContent.addClass('active');
-                    readMoreTarget.text('Collapse');
-                }
-                else {
-                    dealereMoreContent.removeClass('active');
-                    readMoreTarget.text('Read more');
-                }
-            });
+            
             $(".leadcapturebtn").click(function (e) {
                 ele = $(this);
                 var leadOptions = {
@@ -183,7 +171,7 @@
             initializeCityMap();
             function initializeCityMap() {
                 $(".map_canvas").each(function (index) {
-                    var lat = $(this).attr("data-lat")
+                    var lat = $(this).attr("data-lat");
                     var lng = $(this).attr("data-long");
                     var latlng = new google.maps.LatLng(lat, lng);
 

@@ -11,7 +11,7 @@
 .new-bike-search input[type="text"] { width: 100%; padding: 11px 10px; }
 .findBtn { float:left; }
 .findBtn .btn-md { padding: 8px 20px; border-radius: 0 2px 2px 0; }
-
+.global-search {display:none;}
 .brand-type-container ul li { display:inline-block; *display:inline; *zoom:1; vertical-align:top; width:180px; height:85px; margin:0 5px 30px; text-align:center; font-size:18px; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
 .style-type-container ul li { display:inline-block; *display:inline; *zoom:1; vertical-align:top; width:226px; height:155px; margin:0 5px 15px; text-align:center; font-size:18px; border:1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
 .brand-type { width:180px; height:50px; display:block; margin:0 auto; }
@@ -203,6 +203,9 @@
 
 #city-jcarousel .inner-content-carousel .jcarousel-control-left, #city-jcarousel .inner-content-carousel .jcarousel-control-right {
     top: 32%
+}
+#city-jcarousel {
+    padding-top: 0;
 }
 
 /* city sprite */

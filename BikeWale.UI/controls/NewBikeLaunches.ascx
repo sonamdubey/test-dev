@@ -12,12 +12,11 @@
     <asp:Repeater ID="rptData" runat="server">
 	    <itemtemplate>
 		    <div class="nl-bike">
-			    <a href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString()%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() %>/'>
-				    <%--<div class="nl-image" style="background-image: url('<%# Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/", DataBinder.Eval(Container.DataItem,"HostUrl").ToString() ) + DataBinder.Eval(Container.DataItem,"SmallPic").ToString() %>');" title="<%# DataBinder.Eval(Container.DataItem,"Make") %> <%# DataBinder.Eval(Container.DataItem,"Model") %>"></div>--%>
-                    <div class="nl-image" style="background-image: url('<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem,"HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>');" title="<%# DataBinder.Eval(Container.DataItem,"Make") %> <%# DataBinder.Eval(Container.DataItem,"Model") %>"></div>
+			    <a href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString()%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() %>/'>				    
+                    <div class="nl-image" style="background-image: url('<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem,"HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>');" title="<%# String.Format("{0} {1}", DataBinder.Eval(Container.DataItem,"Make"), DataBinder.Eval(Container.DataItem,"Model")) %>"></div>
 			    </a>
 			    <div class="nl-links">
-				    <a href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString()%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() %>/'><%# DataBinder.Eval(Container.DataItem,"Make") %> <%# DataBinder.Eval(Container.DataItem,"Model") %></a>
+				    <a href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString()%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() %>/'><%# String.Format("{0} {1}", DataBinder.Eval(Container.DataItem,"Make"),DataBinder.Eval(Container.DataItem,"Model")) %></a>
                     <br/><span>Starts At : Rs. <%#!String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MinPrice").ToString()) ? CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"MinPrice").ToString() ): "N/A"%></span>
 
 				    <br/><a class="href-grey getquotation" data-pqSourceId="<%= PQSourceId%>" href="/pricequote/default.aspx?model=<%# DataBinder.Eval(Container.DataItem,"ModelId") %>" data-modelId="<%# DataBinder.Eval(Container.DataItem,"ModelId") %>" style="<%# (DataBinder.Eval(Container.DataItem,"MinPrice").ToString()!="0")?"":"display:none"%>">Check On-Road Price</a>

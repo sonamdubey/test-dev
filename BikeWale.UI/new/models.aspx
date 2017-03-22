@@ -141,8 +141,6 @@
             <div class="clear"></div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-
         <section class="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <div id="makeUpcomingBikesContent" class="container margin-bottom20">
                 <div class="grid-12">
@@ -265,7 +263,7 @@
                     <%} %>
                     <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                      <div id="makeUsedBikeContent" >
+                      <div id="makeUsedBikeContent" class="bw-model-tabs-data" >
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
                           </div>
                     <% } %>
@@ -300,69 +298,48 @@
                 <div class="clear"></div>
             </div>
         </section>
-
-        <script>
-
-            $(document).ready(function () {
-                $('#user-details-submit-btn').click(function () {
-                    var bikeName = $('#getLeadBike :selected').text();
-                    if (bikeName != 'Select a bike') {
-                        var cityName = GetGlobalCityArea();
-                        triggerGA('Make_Page', 'Lead_Submitted', bikeName + "_" + cityName);
-                    }
-                });
-
-                $("img.lazy").lazyload();
-                if ($("#discontinuedMore a").length > 4) {
-                    $('#discontinuedMore').hide();
-                }
-                else {
-                    $('#discontinuedLess').hide();
-                }
-                $("#spnContent").append($("#discontinuedMore a:eq(0)").clone()).append(", ").append($("#discontinuedMore a:eq(1)").clone()).append(", ").append($("#discontinuedMore a:eq(2)").clone()).append(", ").append($("#discontinuedMore a:eq(3)").clone());
-                $("#spnContent").append("... <a class='f-small' onclick='ShowAllDisModels()'>View All</a>");
-            });
-            $(".upcoming-brand-bikes-container").on('jcarousel:visiblein', 'li', function (event, carousel) {
-                $(this).find("img.lazy").trigger("imgLazyLoad");
-            });
-            function ShowAllDisModels() {
-                $("#discontinuedLess").hide();
-                $("#discontinuedMore").show();
-                var xContents = $('#discontinuedMore').contents();
-                xContents[xContents.length - 1].nodeValue = "";
-            }
-
-        </script>
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
-
-        <!-- #include file="/includes/footerBW.aspx" -->        
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/new/bikemake.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/fontBW.aspx" -->
+            <noscript id="asynced-css"><link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" /><link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' /></noscript>
+        <!-- #include file="/includes/footerBW.aspx" -->
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>   
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer  src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/new/bikemake.js?<%= staticFileVersion %>"></script>
     </form>
     <script type="text/javascript">
         ga_pg_id = '3';
         var _makeName = "<%= _make.MakeName %>";
         var clientIP = "<%= clientIP%>";
         var pageUrl = window.location.href;
-        $(".leadcapturebtn").click(function (e) {
-            ele = $(this);
-            var leadOptions = {
-                "dealerid": ele.attr('data-item-id'),
-                "dealername": ele.attr('data-item-name'),
-                "dealerarea": ele.attr('data-item-area'),
-                "versionid": $("#versions a.active").attr("id"),
-                "leadsourceid": ele.attr('data-leadsourceid'),
-                "pqsourceid": ele.attr('data-pqsourceid'),
-                "pageurl": pageUrl,
-                "clientip": clientIP,
-                "isdealerbikes": true,
-                "campid": ele.attr('data-camp-id'),
-                "isregisterpq": true
-            };
-            dleadvm.setOptions(leadOptions);
+
+        docReady(function () {
+
+            $(".leadcapturebtn").click(function (e) {
+                ele = $(this);
+                var leadOptions = {
+                    "dealerid": ele.attr('data-item-id'),
+                    "dealername": ele.attr('data-item-name'),
+                    "dealerarea": ele.attr('data-item-area'),
+                    "versionid": $("#versions a.active").attr("id"),
+                    "leadsourceid": ele.attr('data-leadsourceid'),
+                    "pqsourceid": ele.attr('data-pqsourceid'),
+                    "pageurl": pageUrl,
+                    "clientip": clientIP,
+                    "isdealerbikes": true,
+                    "campid": ele.attr('data-camp-id'),
+                    "isregisterpq": true
+                };
+                dleadvm.setOptions(leadOptions);
+            });
+
+            if ($("#discontinuedMore a").length > 4) {
+                $('#discontinuedMore').hide();
+            }
+            else {
+                $('#discontinuedLess').hide();
+            }
         });
+
     </script>
 </body>
 </html>

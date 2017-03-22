@@ -457,7 +457,7 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript">
-            var pqId = '<%= pqId %>'
+            var pqId = '<%= pqId %>';
             var verId = '<%= versionId %>';
             var cityId = '<%= cityId%>';
             var dealerId = '<%= dealerId%>';
@@ -468,11 +468,10 @@
             var ga_pg_id= '14';
         </script>
         <script type="text/javascript">
-            //Need to uncomment the below script
+
             var thisBikename = "<%= this.bikeName %>";
             var clientIP = '<%= clientIP %>'; 
             var pageUrl = '<%= pageUrl %>';
-            //select bike version
             var bikeVersionId = <%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>;
             $(function () {
                 $(".ae-logo-border").hide();
@@ -499,7 +498,7 @@
                 self.InsuranceAmount = ko.observable(insAmt);
                 self.latitude = ko.observable(<%= latitude %>);
                 self.longitude = ko.observable(<%= longitude %>);
-            }
+            };
             var getCityArea = GetGlobalCityArea();
         </script>
         <script src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-bookingflow.js?<%= staticFileVersion %>" type="text/javascript"></script>

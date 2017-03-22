@@ -1,16 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Controls.NewBikesOnRoadPrice" %>
-<style>
-    /*PopupWidget Styling*/
-    #OnRoadContent .chosen-container {
-        border: 0;
-        border-radius: 0;
-        padding: 9px;
-    }
-
-    .minifyWidth {
-        width: 50%;
-    }
-</style>
+﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Controls.NewBikesOnRoadPrice" EnableViewState="false"%>
+<style>#OnRoadContent .chosen-container {border: 0;border-radius: 0;padding: 9px; }</style>
 
 
 <div class="final-price-search-container tools-price-dealer-container" id="OnRoadContent">
@@ -51,22 +40,9 @@
 
 <script type="text/javascript">
 
-    onRoadcity = $('#ddlCitiesOnRoad');
-    onRoadArea = $('#ddlAreaOnRoad');
-    onRoadMakeModel = $('#finalPriceBikeSelect');
-    selectedMakeModel = { makeModelName: "", modelId: "" };
-    mname = "";
-    var onCookieObj = {};
+    var onRoadcity, onRoadArea, onRoadMakeModel,selectedMakeModel = { makeModelName: "", modelId: "" };
+    var onCookieObj = {}, mname = "", viewModelOnRoad;
     var selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
-
-    // knockout OnRoadData binding
-    var viewModelOnRoad = {
-        selectedCity: ko.observable(),
-        bookingCities: ko.observableArray([]),
-        selectedArea: ko.observable(),
-        bookingAreas: ko.observableArray([]),
-        hasAreas: ko.observable()
-    };
 
     function findCityById(vm, id) {
         return ko.utils.arrayFirst(vm.bookingCities(), function (child) {
@@ -103,9 +79,7 @@
         });
     }
 
-
     function cityChangedOnRoad() {
-        //gtmCodeAppenderWidget(pageId, "City Selected", null);
         showHideMatchError(onRoadArea, false);
         if (viewModelOnRoad.selectedCity() != undefined) {
             viewModelOnRoad.hasAreas(findCityById(viewModelOnRoad, viewModelOnRoad.selectedCity()).hasAreas);
@@ -146,7 +120,6 @@
             calcWidth();
         }
     }
-
 
     function isValidInfoOnRoad() {
         isValid = true;
@@ -302,7 +275,20 @@
         else $(ele).width(322);
     }
 
-    $(function () {
+    docReady(function () {
+
+        onRoadcity = $('#ddlCitiesOnRoad'); onRoadArea = $('#ddlAreaOnRoad'); onRoadMakeModel = $('#finalPriceBikeSelect');
+
+        viewModelOnRoad = {
+            selectedCity: ko.observable(),
+            bookingCities: ko.observableArray([]),
+            selectedArea: ko.observable(),
+            bookingAreas: ko.observableArray([]),
+            hasAreas: ko.observable()
+        };
+
+        $.fn.hint = bwHint;
+        $.fn.bw_autocomplete = bwAutoComplete;
 
         $("#finalPriceBikeSelect").bw_autocomplete({
             width: 250,

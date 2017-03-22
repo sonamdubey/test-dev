@@ -25,7 +25,7 @@
                        foreach (var Tabsdetails in bikeInfo.Tabs)
                        { %>
                 <li>
-                    <a href="<%= Tabsdetails.URL%>" title="<%= bikeName %> <%=Tabsdetails.Title%>">
+                    <a href="<%= Tabsdetails.URL%>" title="<%= String.Format("{0} {1}",bikeName, Tabsdetails.Title)%>">
                         <span class="bwsprite <%=Tabsdetails.IconText%>-sm"></span>
                         <span class="icon-label"><%=Tabsdetails.TabText %></span>
                     </a>

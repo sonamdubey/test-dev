@@ -44,6 +44,7 @@ namespace Bikewale.Mobile
         protected Repeater rptPopularBrand, rptOtherBrands;
         protected BindDefaultPage bindHomePage;
         protected HomePageBannerEntity bannerEntity;
+        protected string usedBikeLink=string.Empty,usedBikeTitle=string.Empty;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -90,6 +91,7 @@ namespace Bikewale.Mobile
                 //to get Most Popular Bikes
                 mctrlMostPopularBikes.totalCount = 9;
                 mctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_HP_MostPopular;
+                
 
                 //To get Upcoming Bike List Details 
                 mctrlNewLaunchedBikes.pageSize = 9;
@@ -101,22 +103,28 @@ namespace Bikewale.Mobile
                 mctrlUpcomingBikes.pageSize = 9;
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
                 string _cityName = currentCityArea.City;
+                CityEntityBase cityDetails = null;
                 if (ctrlusedBikeModel != null)
                 {
-
-                    CityEntityBase cityDetails = null;
-
                     if (currentCityArea.CityId > 0)
                     {
                         cityDetails = new CityHelper().GetCityById(currentCityArea.CityId);
                         ctrlusedBikeModel.CityId = currentCityArea.CityId;
                     }
-
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", currentCityArea.CityId > 0 ? _cityName : "India");
-                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                    usedBikeLink = string.Format("/m/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                    usedBikeTitle = string.Format("Second Hand Bikes in {0}", currentCityArea.CityId > 0 ? _cityName : "India");
+                    ctrlusedBikeModel.IsLandingPage = true;
+                    ctrlusedBikeModel.WidgetTitle = usedBikeTitle;
+                    ctrlusedBikeModel.WidgetHref = usedBikeLink;
                     ctrlusedBikeModel.TopCount = 9;
                 }
-
+                if (ctrlusedBikeInCities != null)
+                {
+                    ctrlusedBikeInCities.IsLandingPage = true;
+                    ctrlusedBikeInCities.WidgetHref = usedBikeLink;
+                    ctrlusedBikeInCities.WidgetTitle = usedBikeTitle;
+                }
+                
             }
             catch (Exception ex)
             {

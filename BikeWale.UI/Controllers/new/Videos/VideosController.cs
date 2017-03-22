@@ -105,10 +105,17 @@ namespace Bikewale.Controllers.Desktop.Videos
             SimilarModelsModel similarVideosModel = new SimilarModelsModel();
             similarVideosModel.Videos = _video.GetSimilarModelsVideos(videoId, modelId, 9);
             similarVideosModel.ModelId = modelId;
-            BikeModelEntity objModel = new ModelHelper().GetModelDataById(modelId);
-            similarVideosModel.ViewAllLinkText = "View all";
-            similarVideosModel.ViewAllLinkUrl = String.Format("/{0}-bikes/{1}/videos/", objModel.MakeBase.MaskingName, objModel.MaskingName);
-            similarVideosModel.ViewAllLinkTitle = String.Format("{0} {1} Videos", objModel.MakeBase.MakeName, objModel.ModelName);
+            if (modelId > 0)
+            {
+                BikeModelEntity objModel = new ModelHelper().GetModelDataById(modelId);
+
+                if (objModel != null)
+                {
+                    similarVideosModel.ViewAllLinkText = "View all";
+                    similarVideosModel.ViewAllLinkUrl = String.Format("/{0}-bikes/{1}/videos/", objModel.MakeBase.MaskingName, objModel.MaskingName);
+                    similarVideosModel.ViewAllLinkTitle = String.Format("{0} {1} Videos", objModel.MakeBase.MakeName, objModel.ModelName);
+                }
+            }
             return PartialView("~/views/shared/_SimilarVideo.cshtml", similarVideosModel);
         }
     }

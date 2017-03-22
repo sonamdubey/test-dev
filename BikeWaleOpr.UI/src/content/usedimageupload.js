@@ -49,11 +49,11 @@
                 var modelId = $(e.currentTarget).data("modelid");
                 var modelName = $(e.currentTarget).data("modelname");
                 var makeName = $(e.currentTarget).data("makename");
-                var bikFullName = makeName + modelName;
+                var bikFullName = makeName + ' ' + modelName;
                 var bikeName = bikFullName.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-') + "-" + Date.now() + '.' + ext;
 
                 var path = 'n/bw/' + $('#environment').val() + 'used/modelimages/' + bikeName;
-               
+                
                 $.ajax({
                     type: "POST",
                     url: "/api/used/modelimageupload/fetchphotoid/",

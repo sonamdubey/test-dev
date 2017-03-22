@@ -34,9 +34,6 @@
     <div class="clear"></div>
 </div>
 
-<script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/bwcache.js?<%= staticFileVersion %>"></script>
-<BW:LocationWidget runat="server" id="ctrlChangeLocation" />
-
 <!-- global-search-popup code starts here -->
 <div id="global-search-popup" class="global-search-popup" style="display:none"> 
     <div class="form-control-box">
@@ -101,3 +98,6 @@
     </div>
     <div class="clear"></div>
 </footer> <!-- Ends here -->
+<script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/bwcache.js?<%= staticFileVersion %>"></script>
+<BW:LocationWidget runat="server" id="ctrlChangeLocation" />
+<script type="text/javascript">var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display='none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);</script>

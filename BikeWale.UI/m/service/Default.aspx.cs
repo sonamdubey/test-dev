@@ -33,8 +33,10 @@ namespace Bikewale.Mobile.Service
         protected MUpcomingBikes ctrlUpcomingBikes;
         protected MNewLaunchedBikes ctrlNewLaunchedBikes;
         protected MMostPopularBikes ctrlMostPopularBikes;
-        protected PopularUsedBikes ctrlPopularUsedBikes;
+        protected UsedBikeModel ctrlusedBikeModel;
+        protected UsedBikeInCities ctrlusedBikeInCities;
         protected string cityName = string.Empty;
+        protected string usedBikeLink = string.Empty, usedBikeTitle = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -58,6 +60,8 @@ namespace Bikewale.Mobile.Service
         /// <summary>
         /// Created By : Subodh Jain  on 28th Nov 2016
         /// Description : Added new launched,upcoming and poular bikes binding 
+        /// Modified by :- Subodh Jain on 20 march 2017
+        /// Summary :-added model city budget used bike widget
         /// </summary>
         private void BindBikesWidgets()
         {
@@ -76,9 +80,32 @@ namespace Bikewale.Mobile.Service
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
 
-                ctrlPopularUsedBikes.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DefaultPage;
-                ctrlPopularUsedBikes.header = string.Format("Popular used bikes in {0}", cityId > 0 ? cityName : "India");
-                ctrlPopularUsedBikes.TotalRecords = 9;
+                CityEntityBase cityDetails = null;
+
+
+
+                if (ctrlusedBikeModel != null)
+                {
+                    if (cityId > 0)
+                    {
+                        cityDetails = new CityHelper().GetCityById(cityId);
+                        ctrlusedBikeModel.CityId = cityId;
+                    }
+
+                    ctrlusedBikeModel.TopCount = 9;
+                    ctrlusedBikeModel.IsLandingPage = true;
+                    usedBikeLink = string.Format("/m/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                    usedBikeTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.WidgetTitle = usedBikeTitle;
+                    ctrlusedBikeModel.WidgetHref = usedBikeLink;
+
+                }
+                if (ctrlusedBikeInCities != null)
+                {
+                    ctrlusedBikeInCities.IsLandingPage = true;
+                    ctrlusedBikeInCities.WidgetHref = usedBikeLink;
+                    ctrlusedBikeInCities.WidgetTitle = usedBikeTitle;
+                }
 
                 ctrlBikeCare.TotalRecords = 3;
             }

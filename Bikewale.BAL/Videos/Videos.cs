@@ -457,7 +457,7 @@ namespace Bikewale.BAL.Videos
                     if (remainingCount > 0)
                     {
                         var videoDetails = GetVideoDetails(videoId);
-                        if (videoDetails != null)
+                        if (videoDetails != null && !string.IsNullOrEmpty(videoDetails.SubCatId))
                         {
                             int categoryId = Convert.ToInt32(videoDetails.SubCatId);
                             if (categoryId > 0)
@@ -467,15 +467,15 @@ namespace Bikewale.BAL.Videos
                                 if (objVideosList == null)
                                     objVideosList = new List<BikeVideoEntity>();
                                 if (allVideos.Videos != null && allVideos.Videos.Count() > 0)
-                                if (allVideos.Videos != null && allVideos.Videos.Count() > 0)
-                                {
-                                    objVideosList.AddRange(allVideos.Videos);
-                                    var objVideos = objVideosList.Where(x => x.BasicId != videoId).Take(totalCount).ToList();
-                                    if (objVideos != null)
+                                    if (allVideos.Videos != null && allVideos.Videos.Count() > 0)
                                     {
-                                        objVideosList = objVideos.ToList();
+                                        objVideosList.AddRange(allVideos.Videos);
+                                        var objVideos = objVideosList.Where(x => x.BasicId != videoId).Take(totalCount).ToList();
+                                        if (objVideos != null)
+                                        {
+                                            objVideosList = objVideos.ToList();
+                                        }
                                     }
-                                }
                             }
                         }
                     }

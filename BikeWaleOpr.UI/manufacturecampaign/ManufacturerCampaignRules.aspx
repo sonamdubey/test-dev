@@ -1,28 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.manufacturecampaign.ManufacturerCampaignRules" EnableEventValidation="false" %>
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<!-- #Include file="/includes/headerWithoutForm.aspx" -->
-<head>
-    <title>Campaign Rules</title>
-    <style type="text/css">
-        .greenMessage { color: #6B8E23; font-size: 11px; }
-        .redmsg { color: #FFCECE; }
-        .errMessage { color: #FF4A4A; }
-        .valign { vertical-align: top; }
-    </style>
-    <link rel="stylesheet" href="/css/chosen.min.css" />
-    <script src="/src/chosen.jquery.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $(".chosen-select").chosen({
-                placeholder_text_multiple: "Select Cities"
-            });
-        });
-    </script>
-</head>
-<body>
-    <form id="mfgRuleForm" runat="server">
+<!-- #Include file="/includes/headerNew.aspx" -->
         <div class="left min-height600"> 
             <h1>Manage Campaign Rules For <%=manufactureName %></h1>           
             <fieldset class="margin-top10">
@@ -227,7 +204,4 @@
                 }
             }
         </script>
-    </form>
-
-</body>
-</html>
+<!-- #Include file="/includes/footerNew.aspx" -->

@@ -124,11 +124,14 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <summary>
         /// Created by Sangram Nandkhile on 06 Mar 2017
         /// Desc : function to get the used bikes where no model image is found
+        /// Modified by : Sajal Gupta on 21-03-2017
+        /// Description : Changed function to send notification once in a day
         /// </summary>
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<UsedBikeImagesModel> GetPendingUsedBikesWithoutModelImage()
+        public UsedBikeImagesNotificationData GetPendingUsedBikesWithoutModelImage()
         {
+            UsedBikeImagesNotificationData objImagesData = null;
             IList<UsedBikeImagesModel> _objBikeModels = null;
             try
             {
@@ -139,6 +142,8 @@ namespace BikewaleOpr.DALs.Bikedata
                     {
                         if (dr != null)
                         {
+                            objImagesData = new UsedBikeImagesNotificationData();
+
                             _objBikeModels = new List<UsedBikeImagesModel>();
                             while (dr.Read())
                             {
@@ -150,6 +155,15 @@ namespace BikewaleOpr.DALs.Bikedata
 
                                 _objBikeModels.Add(_objBike);
                             }
+                            objImagesData.Bikes = _objBikeModels;
+
+                            if (dr.NextResult())
+                            {
+                                if (dr.Read())
+                                {
+                                    objImagesData.IsNotify = SqlReaderConvertor.ToBoolean(dr["sendNotification"]);
+                                }
+                            }
                         }
                     }
                 }
@@ -158,7 +172,7 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetPendingUsedBikesWithoutModelImage()");
             }
-            return _objBikeModels;
+            return objImagesData;
         }
 
         /// <summary>

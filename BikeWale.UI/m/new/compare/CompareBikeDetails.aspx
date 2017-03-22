@@ -39,7 +39,7 @@
                         <% foreach (var bike in vmCompare.BasicInfo)
                            {
                                string bikeName = string.Format("{0} {1}", bike.Make, bike.Model); %>
-                        <div class="bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>" data-masking="<%= string.Format("{0}-{1}",bike.MakeMaskingName,bike.ModelMaskingName)%>" data-changed="" data-versionid="<%= bike.VersionId %>">
+                        <div class="bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>" data-masking="<%= string.Format("{0}-{1}",bike.MakeMaskingName,bike.ModelMaskingName)%>" data-changed="" data-modelid="<%= bike.ModelId %>" data-versionid="<%= bike.VersionId %>">
                             <% if (bike.VersionId == sponsoredVersionId)
                                {%>
                             <span class="position-abt pos-top5 label-text">Sponsored</span>

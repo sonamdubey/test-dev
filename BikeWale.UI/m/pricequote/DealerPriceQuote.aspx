@@ -76,75 +76,75 @@
 
 			</div>
 			<script type="text/javascript">                
-				var dropdown = {
-					setDropdown: function () {
-						var selectDropdown = $('.dropdown-select');
+			    var dropdown = {
+			        setDropdown: function () {
+			            var selectDropdown = $('.dropdown-select');
 
-						selectDropdown.each(function () {
-							dropdown.setMenu($(this));
-						});
-					},
+			            selectDropdown.each(function () {
+			                dropdown.setMenu($(this));
+			            });
+			        },
 
-					setMenu: function (element) {
-						$('<div class="dropdown-menu"></div>').insertAfter(element);
-						dropdown.setStructure(element);
-					},
+			        setMenu: function (element) {
+			            $('<div class="dropdown-menu"></div>').insertAfter(element);
+			            dropdown.setStructure(element);
+			        },
 
-					setStructure: function (element) {
-						var elementText = element.find('option:selected').text(),
+			        setStructure: function (element) {
+			            var elementText = element.find('option:selected').text(),
 							menu = element.next('.dropdown-menu');
 
-						menu.append('<p class="dropdown-label">' + elementText + '</p><div class="dropdown-list-wrapper"><p class="dropdown-selected-item">' + elementText + '</p><ul class="dropdown-menu-list dropdown-with-select"></ul></div>');
+			            menu.append('<p class="dropdown-label">' + elementText + '</p><div class="dropdown-list-wrapper"><p class="dropdown-selected-item">' + elementText + '</p><ul class="dropdown-menu-list dropdown-with-select"></ul></div>');
 
-						dropdown.setOption(element);
-					},
+			            dropdown.setOption(element);
+			        },
 
-					setOption: function (element) {
-						var selectedIndex = element.find('option:selected').index(),
+			        setOption: function (element) {
+			            var selectedIndex = element.find('option:selected').index(),
 							menu = element.next('.dropdown-menu'),
 							menuList = menu.find('ul'),
 							i;
 
-						element.find('option').each(function (index) {
-							if (selectedIndex == index) {
-								menuList.append('<li class="active" data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
-							}
-							else {
-								menuList.append('<li data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
-							}
-						});
-					},
+			            element.find('option').each(function (index) {
+			                if (selectedIndex == index) {
+			                    menuList.append('<li class="active" data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+			                }
+			                else {
+			                    menuList.append('<li data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+			                }
+			            });
+			        },
 
-					active: function (label) {
-						$('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
-						label.closest('.dropdown-menu').addClass('dropdown-active');
-					},
+			        active: function (label) {
+			            $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
+			            label.closest('.dropdown-menu').addClass('dropdown-active');
+			        },
 
-					inactive: function () {
-						$('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
-					},
+			        inactive: function () {
+			            $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
+			        },
 
-					selectItem: function (element) {
-						var elementText = element.text(),
+			        selectItem: function (element) {
+			            var elementText = element.text(),
 							menu = element.closest('.dropdown-menu'),
 							dropdownLabel = menu.find('.dropdown-label'),
 							selectedItem = menu.find('.dropdown-selected-item');
 
-						element.siblings('li').removeClass('active');
-						element.addClass('active');
-						selectedItem.text(elementText);
-						dropdownLabel.text(elementText);
-					},
+			            element.siblings('li').removeClass('active');
+			            element.addClass('active');
+			            selectedItem.text(elementText);
+			            dropdownLabel.text(elementText);
+			        },
 
-					selectOption: function (element) {
-						var elementValue = element.attr('data-option-value'),
+			        selectOption: function (element) {
+			            var elementValue = element.attr('data-option-value'),
 							wrapper = element.closest('.dropdown-select-wrapper'),
 							selectDropdown = wrapper.find('.dropdown-select');
 
-						selectDropdown.val(elementValue).trigger('change');
+			            selectDropdown.val(elementValue).trigger('change');
 
-					}
-				}
+			        }
+			    };
 				dropdown.setDropdown();
 			</script>
 			<!--Price Breakup starts here-->
@@ -176,7 +176,7 @@
 					<asp:Repeater ID="rptDiscount" runat="server">
 						<ItemTemplate>
 							<tr>
-								<td align="left" class="padding-bottom15">Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='https://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
+								<td align="left" class="padding-bottom15">Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %><%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='https://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
 								<td align="right" class="padding-bottom15 text-bold"><span class="bwmsprite inr-xxsm-icon"></span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
 							</tr>
 						</ItemTemplate>
@@ -768,47 +768,47 @@
 			};
 
 			var BikeEMI = function () {
-				var self = this;
-				self.breakPoints = ko.observable(5);
-				self.bikePrice = ko.observable(bikeVersionPrice);
-				self.minDnPay = ko.observable('<%= primarydealer.EMIDetails.MinDownPayment %>' * bikeVersionPrice / 100);
-				self.maxDnPay = ko.observable('<%= primarydealer.EMIDetails.MaxDownPayment %>' * bikeVersionPrice / 100);
-				self.minTenure = ko.observable(<%= primarydealer.EMIDetails.MinTenure %>);
-				self.maxTenure = ko.observable(<%= primarydealer.EMIDetails.MaxTenure  %>);
-				self.minROI = ko.observable(<%= primarydealer.EMIDetails.MinRateOfInterest %>);
-				self.maxROI = ko.observable(<%= primarydealer.EMIDetails.MaxRateOfInterest %>);
-				<%--self.processingFees = ko.observable(<%= primarydealer.EMIDetails.ProcessingFee %>);--%>
-				self.processingFees = ko.observable(0);
-				self.exshowroomprice = ko.observable(bikeVersionPrice);
-				self.loan = ko.observable();
+			    var self = this;
+			    self.breakPoints = ko.observable(5);
+			    self.bikePrice = ko.observable(bikeVersionPrice);
+			    self.minDnPay = ko.observable('<%= primarydealer.EMIDetails.MinDownPayment %>' * bikeVersionPrice / 100);
+			    self.maxDnPay = ko.observable('<%= primarydealer.EMIDetails.MaxDownPayment %>' * bikeVersionPrice / 100);
+			    self.minTenure = ko.observable(<%= primarydealer.EMIDetails.MinTenure %>);
+			    self.maxTenure = ko.observable(<%= primarydealer.EMIDetails.MaxTenure  %>);
+			    self.minROI = ko.observable(<%= primarydealer.EMIDetails.MinRateOfInterest %>);
+			    self.maxROI = ko.observable(<%= primarydealer.EMIDetails.MaxRateOfInterest %>);
+			    <%--self.processingFees = ko.observable(<%= primarydealer.EMIDetails.ProcessingFee %>);--%>
+			    self.processingFees = ko.observable(0);
+			    self.exshowroomprice = ko.observable(bikeVersionPrice);
+			    self.loan = ko.observable();
 
-				self.tenure = ko.observable((self.maxTenure() - self.minTenure()) / 2 + self.minTenure());
-				self.rateofinterest = ko.observable((self.maxROI() - self.minROI()) / 2 + self.minROI());
-				self.downPayment = ko.pureComputed({
-					read: function () {
-						if (self.loan() == undefined || isNaN(self.loan()) || self.loan() == null)
-							self.loan($.LoanAmount(self.exshowroomprice(), 70));
-						return (($.LoanAmount(self.exshowroomprice(), 100)) - self.loan());
-					},
-					write: function (value) {
-						self.loan((($.LoanAmount(self.exshowroomprice(), 100))) - value);
-					},
-					owner: this
-				});
+			    self.tenure = ko.observable((self.maxTenure() - self.minTenure()) / 2 + self.minTenure());
+			    self.rateofinterest = ko.observable((self.maxROI() - self.minROI()) / 2 + self.minROI());
+			    self.downPayment = ko.pureComputed({
+			        read: function () {
+			            if (self.loan() == undefined || isNaN(self.loan()) || self.loan() == null)
+			                self.loan($.LoanAmount(self.exshowroomprice(), 70));
+			            return (($.LoanAmount(self.exshowroomprice(), 100)) - self.loan());
+			        },
+			        write: function (value) {
+			            self.loan((($.LoanAmount(self.exshowroomprice(), 100))) - value);
+			        },
+			        owner: this
+			    });
 
-				self.monthlyEMI = ko.pureComputed({
-				    read: function () {
-						var calculatedEMI = $.calculateEMI(self.loan(), self.tenure(), self.rateofinterest(), self.processingFees());                        
-						if (calculatedEMI != "0")
-							$("#spnEMIAmount").text(calculatedEMI);                            
-						else {
-							$("#spnEMIAmount").parent().addClass("hide");
-						}
-						return calculatedEMI;
-					},
-					owner: this
-				});
-			}
+			    self.monthlyEMI = ko.pureComputed({
+			        read: function () {
+			            var calculatedEMI = $.calculateEMI(self.loan(), self.tenure(), self.rateofinterest(), self.processingFees());
+			            if (calculatedEMI != "0")
+			                $("#spnEMIAmount").text(calculatedEMI);
+			            else {
+			                $("#spnEMIAmount").parent().addClass("hide");
+			            }
+			            return calculatedEMI;
+			        },
+			        owner: this
+			    });
+			};
 
 
 			$.calculateEMI = function (loanAmount, tenure, rateOfInterest, proFees) {
@@ -835,36 +835,36 @@
 			};
 
 			$.createSliderPoints = function (index, min, max, breaks, sliderType) {
-				var svar = "";
-				try {
-					switch (sliderType) {
-						case 1:
-							svar = $.valueFormatter(Math.round(min + (index * (max - min) / breaks)));
-							break;
-						case 2:
-							svar = Math.round(min + (index * (max - min) / breaks));
-							break;
-						default:
-							svar = (min + (index * (max - min) / breaks)).toFixed(2);
-							break;
-					}
-				} catch (e) {
+			    var svar = "";
+			    try {
+			        switch (sliderType) {
+			            case 1:
+			                svar = $.valueFormatter(Math.round(min + (index * (max - min) / breaks)));
+			                break;
+			            case 2:
+			                svar = Math.round(min + (index * (max - min) / breaks));
+			                break;
+			            default:
+			                svar = (min + (index * (max - min) / breaks)).toFixed(2);
+			                break;
+			        }
+			    } catch (e) {
 
-				}
-				return svar;
-			}
+			    }
+			    return svar;
+			};
 
 			$.valueFormatter = function (num) {
-				if (isNaN(num)) {
-					if (num >= 100000) {
-						return (num / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
-					}
-					if (num >= 1000) {
-						return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-					}
-				}
-				return num;
-			}
+			    if (isNaN(num)) {
+			        if (num >= 100000) {
+			            return (num / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
+			        }
+			        if (num >= 1000) {
+			            return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+			        }
+			    }
+			    return num;
+			};
 
 			var EMIviewModel = new BikeEMI;
 			ko.applyBindings(EMIviewModel, $("#emiPopup")[0]);

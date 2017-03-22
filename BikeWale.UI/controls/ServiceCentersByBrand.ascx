@@ -20,7 +20,7 @@
                         </div>
                         <div class="card-desc-block">
                             <p class="card-heading font14 text-bold text-black padding-top10 border-solid-top"><%= centers.MakeName%></p>
-                            <h3 class="text-unbold text-light-grey"><%=centers.ServiceCenterCount %> <%=centers.MakeName %> service center<%=(centers.ServiceCenterCount)>1?"s":"" %></h3>
+                            <h3 class="text-unbold text-light-grey"><%= String.Format("{0} {1}", centers.ServiceCenterCount,centers.MakeName) %> service center<%=(centers.ServiceCenterCount)>1?"s":"" %></h3>
                         </div>
                     </a>
                 </li>

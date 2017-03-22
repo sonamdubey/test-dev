@@ -29,10 +29,9 @@ namespace Bikewale.Used
         protected bool isPageNotFound, isPhotoRequestDone;
         protected Bikewale.Mobile.Controls.UploadPhotoRequestPopup widgetUploadPhotoRequest;
         public SimilarUsedBikes ctrlSimilarUsedBikes;
-        public OtherUsedBikeByCity ctrlOtherUsedBikes;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected string pgAlternateUrl = string.Empty;
-
+        protected UsedBikeModel ctrlusedBikeModel;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -102,6 +101,8 @@ namespace Bikewale.Used
         /// Summary :- Added Service center Widget
         /// Modified By :-Subodh Jain on 15 March 2017
         /// Summary :-Made count for other used bike 9
+        /// Modified by :- Subodh Jain on 20 march 2017
+        /// Summary :-Changed heading used bike widget
         /// </summary>
         private void BindUserControls()
         {
@@ -119,11 +120,6 @@ namespace Bikewale.Used
                 ctrlSimilarUsedBikes.MakeMaskingName = inquiryDetails.Make.MaskingName;
                 ctrlSimilarUsedBikes.BikeName = bikeName;
 
-                ctrlOtherUsedBikes.InquiryId = inquiryId;
-                ctrlOtherUsedBikes.CityId = inquiryDetails.City.CityId;
-                ctrlOtherUsedBikes.ModelId = (uint)inquiryDetails.Model.ModelId;
-                ctrlOtherUsedBikes.TopCount = 9;
-
 
                 ctrlServiceCenterCard.MakeId = Convert.ToUInt32(inquiryDetails.Make.MakeId);
                 ctrlServiceCenterCard.CityId = inquiryDetails.City.CityId;
@@ -132,8 +128,17 @@ namespace Bikewale.Used
                 ctrlServiceCenterCard.makeMaskingName = inquiryDetails.Make.MaskingName;
                 ctrlServiceCenterCard.cityMaskingName = inquiryDetails.City.CityMaskingName;
                 ctrlServiceCenterCard.TopCount = 3;
-                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
-                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", inquiryDetails.Make.MakeName);
+                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
+                if (ctrlusedBikeModel != null)
+                {
+                    if (inquiryDetails.City.CityId > 0)
+                        ctrlusedBikeModel.CityId = inquiryDetails.City.CityId;
+
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
+                    ctrlusedBikeModel.header = string.Format("More used bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/used/bikes-in-{0}/", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
+                    ctrlusedBikeModel.TopCount = 9;
+                }
             }
             catch (Exception ex)
             {

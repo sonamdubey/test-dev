@@ -9,39 +9,21 @@
 @if (objBikeList != null)
 {
     <div class="container bg-white box-shadow section-bottom-margin">
-        <div class="box-shadow padding-top10 padding-bottom10">
-            @if (objMakes != null && objYears != null)
-            {
-              <div class="grid-6 padding-left15 padding-right15 border-solid-right">
-                <p class="font12 text-light-grey">Brand</p>
-                  <p id="brand-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedMake() ? selectedMake() : '' ">All brands</p>
-            </div>  
-            
-            <div class="grid-6 padding-left15 padding-right15">
-                <p class="font12 text-light-grey">Launch year</p>
-                <p id="year-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedYear() ? selectedYear() : ''">All years</p>
+
+        @if (objMakes != null)
+        {
+            <div class="box-shadow padding-top10 padding-bottom10">
+                <div class="grid-12 padding-left15 padding-right15 border-solid-right">
+                    <p class="font12 text-light-grey">Brand</p>
+                    <p id="brand-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedMake() ? selectedMake() : '' ">All brands</p>
+                </div>
+                <div class="clear"></div>
             </div>
-            }
-            @if (objMakes != null && objYears == null)
-            {
-                <div class="inline-block margin-right10 padding-left20">
-                    <span class="bwmsprite filter-icon"></span>
-                    <span class="font14 text-light-grey">Filter by:</span>
-                </div>
-                <p id="brand-filter-selection" class="filter-selection-value text-truncate inline-block selection-auto-width" data-bind="text : selectedMake() ? selectedMake() : '' ">All brands</p>
-            }
-            @if (objMakes == null && objYears != null)
-            {
-                <div class="inline-block margin-right10 padding-left20">
-                    <span class="bwmsprite filter-icon"></span>
-                    <span class="font14 text-light-grey">Filter by:</span>
-                </div>
-                <p id="year-filter-selection" class="filter-selection-value text-truncate inline-block selection-auto-width" data-bind="text : selectedYear() ? selectedYear() : ''">All years</p>
-            }
-            <div class="clear"></div>
-        </div>
+        }
+
+
         <!-- ko if : models() && models().length > 0 -->
-            <ul class="new-launches-list" data-bind="visible : !noBikes() && TotalBikes() != 0" >
+        <ul class="new-launches-list" data-bind="visible : !noBikes() && TotalBikes() != 0">
             @foreach (var bike in objBikeList.Bikes)
             {
                 <!-- ko if : models()[@i] -->
@@ -66,7 +48,7 @@
                                 <span data-bind="text:models()[@i].minSpec.displacement + ' cc'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc")</span>
                             </li>
 
-                            <li data-bind="visible : models()[@i].minSpec.fuelEffeciency != 0"  @(bike.MinSpecs.FuelEfficiencyOverall > 0 ? "" : " style=display:none ")>
+                            <li data-bind="visible : models()[@i].minSpec.fuelEffeciency != 0" @(bike.MinSpecs.FuelEfficiencyOverall > 0 ? "" : " style=display:none ")>
                                 <span data-bind="text:models()[@i].minSpec.fuelEffeciency + ' kmpl'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl")</span>
                             </li>
 
@@ -90,12 +72,12 @@
                         <div class="clear"></div>
                     </a>
 
-                    <div class="margin-top10" @(bike.Price > 0 ? "" : " style=display:none ")  data-bind="visible : models()[@i].price != 0">
+                    <div class="margin-top10" @(bike.Price > 0 ? "" : " style=display:none ") data-bind="visible : models()[@i].price != 0">
                         <a href="javascript:void(0)" data-pqsourceid="@ViewBag.PqSource" data-bind="attr : { 'data-modelid' : models()[@i].model.modelId }" data-modelid="@bike.Model.ModelId" class="btn btn-white btn-180-32 getquotation">Check on-road price</a>
                     </div>
                 </li>
                  <!-- /ko -->
-                i++;
+                            i++;
             }
 
         </ul>
@@ -109,8 +91,8 @@
             <div class=" grid-5 omega text-light-grey font13">
                 <div class="font14" data-bind="visible: TotalBikes() > 0"><span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((ViewBag.pager.PageNo - 1) * ViewBag.pager.PageSize + 1)</span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(ViewBag.pager.PageNo * ViewBag.pager.PageSize, ViewBag.pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()">@ViewBag.pager.TotalResults</span> bikes</div>
             </div>
-            
             @if (ViewBag.pager.TotalResults > 10) { Html.RenderAction("Index", "Pager", new { objPager = @ViewBag.pager }); }
+            <div class="clear"></div>
         </div>
     </div>
 }
@@ -126,12 +108,12 @@
         <div class="drawer-body-content">
             <div class="filter-input-box">
                 <div class="form-control-box">
-                    <input type="text" id="" class="form-control padding-right40" placeholder="Type to select brand" >
+                    <input type="text" id="" class="form-control padding-right40" placeholder="Type to select brand">
                     <span class="bwmsprite search-icon-grey"></span>
                 </div>
             </div>
             <ul class="filter-list" data-filter="makewise">
-                <li  data-bind="click : function(d,e) { setMakeFilter(e);}"> <span>All brands</span> </li>
+                <li data-bind="click : function(d,e) { setMakeFilter(e);}"> <span>All brands</span> </li>
                 @foreach (var make in objMakes)
                 {
                     <li data-makeid="@make.Make.MakeId" data-makename="@make.Make.MakeName" data-makename-lower="@make.Make.MakeName.ToLower()" data-bind="click : function(d,e) { setMakeFilter(e);}">
@@ -139,27 +121,6 @@
                     </li>
                 }
 
-            </ul>
-        </div>
-    </div>
-}
-@if (objYears != null)
-{
-    <div id="year-slideIn-drawer" class="slideIn-drawer-container fix-only-header">
-        <div class="drawer-top-header">
-            <span id="close-year-slideIn-drawer" class="back-arrow-box inline-block">
-                <span class="bwmsprite back-long-arrow-left"></span>
-            </span><p class="head-label inline-block">Select year</p>
-        </div>
-        <div class="drawer-body-content">
-            <ul class="filter-list" data-filter="yearwise">
-                <li data-bind="click : function(d,e) { setYearFilter(e);}"> <span>All years</span> </li>
-                @foreach (var year in objYears)
-                {
-                    <li data-bikeyear="@year.Year" data-bind="click : function(d,e) { setYearFilter(e) }">
-                        <span>@year.Year</span>
-                    </li>
-                }
             </ul>
         </div>
     </div>

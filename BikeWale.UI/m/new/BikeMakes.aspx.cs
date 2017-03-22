@@ -85,6 +85,7 @@ namespace Bikewale.Mobile
             ctrlUpcomingBikes.pageSize = 6;
             ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
             ctrlUpcomingBikes.MakeName = _make.MakeName;
+            ctrlUpcomingBikes.MakeMaskingName = _make.MaskingName;
 
             ////news,videos,revews
             ctrlNews.TotalRecords = 3;
@@ -118,6 +119,7 @@ namespace Bikewale.Mobile
             ctrlServiceCenterCard.makeName = _make.MakeName;
             ctrlServiceCenterCard.CityId = cityId;
             ctrlServiceCenterCard.cityName = cityName;
+            ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
             ctrlServiceCenterCard.TopCount = 9;
             ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", _make.MakeName, cityName);
             ctrlLeadCapture.CityId = cityId;
@@ -127,7 +129,7 @@ namespace Bikewale.Mobile
                 ctrlusedBikeModel.MakeId = makeId;
                 if (cityId > 0)
                     ctrlusedBikeModel.CityId = cityId;
-                ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityName : "India");
+                ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand {0} Bikes in {1}",_make.MakeName, cityId > 0 ? cityName : "India");
                 ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", _make.MakeName, cityId > 0 ? cityName : "India");
                 ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", _make.MaskingName, cityId > 0 ? cityMaskingName : "india");
                 ctrlusedBikeModel.TopCount = 9;

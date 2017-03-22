@@ -121,13 +121,13 @@ namespace Bikewale.New
             {
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             } // catch Exception
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             } // catch Exception
 
             ListItem item = new ListItem("--Select Make--", "0");
@@ -202,7 +202,7 @@ namespace Bikewale.New
             {
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             } // catch Exception
 
         }
@@ -228,16 +228,27 @@ namespace Bikewale.New
             if (Request.Form["cmbMake3"] != null && Request.Form["cmbMake3"] != "0")
                 makeMaskingName4 = Request.Form["cmbMake3"].Split('_')[1];
 
-
+            ushort model1 = 0, model2 = 0, model3 = 0, model4 = 0;
             if (Request.Form["cmbModel"] != null && Request.Form["cmbModel"] != "0")
+            {
                 modelMaskingName1 = Request.Form["cmbModel"].Split('_')[1];
+                model1 = Convert.ToUInt16(Request.Form["cmbModel"].Split('_')[0]);
+            }
             if (Request.Form["cmbModel1"] != null && Request.Form["cmbModel1"] != "0")
+            {
                 modelMaskingName2 = Request.Form["cmbModel1"].Split('_')[1];
+                model2 = Convert.ToUInt16(Request.Form["cmbModel1"].Split('_')[0]);
+            }
             if (Request.Form["cmbModel2"] != null && Request.Form["cmbModel2"] != "0")
+            {
                 modelMaskingName3 = Request.Form["cmbModel2"].Split('_')[1];
+                model3 = Convert.ToUInt16(Request.Form["cmbModel2"].Split('_')[0]);
+            }
             if (Request.Form["cmbModel3"] != null && Request.Form["cmbModel3"] != "0")
+            {
                 modelMaskingName4 = Request.Form["cmbModel3"].Split('_')[1];
-
+                model4 = Convert.ToUInt16(Request.Form["cmbModel3"].Split('_')[0]);
+            }
 
             if (Request.Form["cmbVersion"] != null && Request.Form["cmbVersion"] != "0" && CommonOpn.CheckId(Request.Form["cmbVersion"]))
                 bike1 = Request.Form["cmbVersion"];
@@ -264,7 +275,6 @@ namespace Bikewale.New
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
-
             for (int i = 2; i <= bikeCount; i++)
             {
                 switch (i)
@@ -368,10 +378,36 @@ namespace Bikewale.New
                         break;
                 }
             }
-            compareUrl = "/comparebikes/" + compareUrl + "/?" + compString;
-            compareUrl += "&source=" + (int)Bikewale.Entities.Compare.CompareSources.Desktop_CompareBike_UserSelection;
-            Response.Redirect(compareUrl);
+
+            #region
+
+            // Compare all the bikes and order them in an ascending order
+
+            List<CompareMakeModelEntity> bikeList = new List<CompareMakeModelEntity>();
+            bikeList.Add(new CompareMakeModelEntity() { Id = 1, MakeMaskingName = makeMaskingName1, ModelMaskingName = modelMaskingName1, ModelId = model1 });
+            bikeList.Add(new CompareMakeModelEntity() { Id = 2, MakeMaskingName = makeMaskingName2, ModelMaskingName = modelMaskingName2, ModelId = model2 });
+            bikeList.Add(new CompareMakeModelEntity() { Id = 3, MakeMaskingName = makeMaskingName3, ModelMaskingName = modelMaskingName3, ModelId = model3 });
+            bikeList.Add(new CompareMakeModelEntity() { Id = 4, MakeMaskingName = makeMaskingName4, ModelMaskingName = modelMaskingName4, ModelId = model4 });
+            compareUrl = CreateCompareUrl(bikeList);
+
+            #endregion
+
+            string returnUrl = string.Format("/comparebikes/{0}/?{1}&source={2}", compareUrl, compString, (int)Bikewale.Entities.Compare.CompareSources.Desktop_CompareBike_UserSelection);
+            Response.Redirect(returnUrl);
         } // btnSend_Click
 
+        private string CreateCompareUrl(List<CompareMakeModelEntity> bikeList)
+        {
+            string url = string.Empty;
+            try
+            {
+                url = string.Join("-vs-", bikeList.Where(x => x.ModelId != 0).OrderBy(x => x.ModelId).Select(x => string.Format("{0}-{1}", x.MakeMaskingName, x.ModelMaskingName)));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ComparisonChoose.CreateCompareUrl()");
+            }
+            return url;
+        }
     } // class
 } // namespace

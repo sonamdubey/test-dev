@@ -45,7 +45,7 @@
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/" title="><%=make %> bikes"><span itemprop="title"><%=make %> Bikes</span></a></li>
                             <% if (isModel)
                                { %>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/<%=modelMaskingName %>/" title="<%=make %> <%=model %> bikes"><span itemprop="title"><%=make %> <%=model %></span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/<%=modelMaskingName %>/" title="<%= String.Format("{0} {1}", make,model) %> bikes"><span itemprop="title"><%=String.Format("{0} {1}", make,model) %></span></a></li>
                             <%}%>
 
                                                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><span itemprop="title">Videos</span></li>
@@ -163,9 +163,9 @@
         <script type="text/javascript">
             var cwHostUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.CwApiHostUrl %>";
             var catId = <%= isModel ? modelId : makeId %>;
-            var maxPage = 10000000;//Number.MAX_VALUE; 
+            var maxPage = 10000000;
             var isModel = <%= isModel.ToString().ToLower() %>;
-            var isNextPage = true;  //change it
+            var isNextPage = true; 
             var apiURL = isModel ? "/api/v1/videos/model/" : "/api/v1/videos/make/";
             var cacheKey = isModel ? "model_" + catId : "make_" + catId;
             $(document).ready(function () {

@@ -51,6 +51,7 @@ namespace Bikewale.Controllers
             else
                 objPopularBikes = _modelCache.GetMostPopularBikes((int)topCount, (int)makeId);
             ViewBag.MakeName = objPopularBikes.FirstOrDefault().objMake.MakeName;
+            ViewBag.MakeMaskingName = objPopularBikes.FirstOrDefault().objMake.MaskingName;
             return View("~/Views/m/Shared/_PopularBikes.cshtml", objPopularBikes);
         }
 

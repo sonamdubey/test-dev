@@ -62,7 +62,7 @@ namespace Bikewale.Mobile.New
         protected PQOnRoadPrice pqOnRoad;
         protected UsedBikes ctrlRecentUsedBikes;
         protected Repeater rptNavigationPhoto, rptVarients, rptOffers, rptNewOffers, rptSecondaryDealers;
-        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty, versionText = string.Empty, summaryDescription = string.Empty, clientIP = CommonOpn.GetClientIP();
+        protected string cityName = string.Empty, cityMaskingName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty, versionText = string.Empty, summaryDescription = string.Empty, clientIP = CommonOpn.GetClientIP();
         //Varible to Hide or show controlers
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton, isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive, isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerPQ, isDealerAssitance, isBookingAvailable, isOfferAvailable;
         protected NewAlternativeBikes ctrlAlternativeBikes;
@@ -87,7 +87,7 @@ namespace Bikewale.Mobile.New
         protected int colorCount;
         protected BikeRankingEntity bikeRankObj;
         protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
-
+        CityEntityBase cityDetails = null;
         GlobalCityAreaEntity currentCityArea = null;
         private StringBuilder colorStr = new StringBuilder();
         #region Events
@@ -335,6 +335,12 @@ namespace Bikewale.Mobile.New
         {
             try
             {
+                 if (cityId > 0)
+               {
+                cityDetails = new CityHelper().GetCityById(cityId);
+                if (cityDetails != null)
+                    cityMaskingName = cityDetails.CityMaskingName;
+                }
                 if (!isDiscontinued)
                 {
                     ctrlCompareBikes.versionId = versionId;
@@ -391,12 +397,12 @@ namespace Bikewale.Mobile.New
                 ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage;
                 ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", modelPage.ModelDetails.MakeBase.MakeName, cityName);
 
-
                 ctrlServiceCenterCard.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
                 ctrlServiceCenterCard.makeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
                 ctrlServiceCenterCard.makeName = modelPage.ModelDetails.MakeBase.MakeName;
                 ctrlServiceCenterCard.CityId = cityId;
                 ctrlServiceCenterCard.cityName = cityName;
+                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 9;
                 ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", modelPage.ModelDetails.MakeBase.MakeName, cityName);
 
@@ -408,7 +414,7 @@ namespace Bikewale.Mobile.New
                 ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
                 ctrlRecentUsedBikes.CityId = (int?)cityId;
                 ctrlRecentUsedBikes.TopCount = 6;
-                ctrlRecentUsedBikes.header = "Recently uploaded Used " + modelPage.ModelDetails.ModelName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
+                ctrlRecentUsedBikes.header = "Used " + modelPage.ModelDetails.ModelName + " bikes in " + (cityId > 0 ? cityName : "India");
             }
             catch (Exception ex)
             {

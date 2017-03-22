@@ -102,7 +102,7 @@
             requestMediaPopup.userDetails.hide();
             requestMediaPopup.acknowledgment.show();
         },
-    }
+    };
 
     function shownInterestInThisBike(profileId) {
         $.ajax({

@@ -2,10 +2,16 @@
 <% if(FetchedRecordsCount> 0)
    {  
        %>
-        <div id="modelSimilar" class="bw-model-tabs-data padding-top20 padding-bottom15">
-            
-            <h2 class="margin-right20 margin-bottom15 margin-left20">Similar used <%= ModelName %> bikes</h2>
-            
+        <div id="modelSimilar" class="bw-model-tabs-data padding-top15 padding-bottom15">
+            <div class="carousel-heading-content">  
+            <div class="swiper-heading-left-grid inline-block">
+                  <h2>More <%= ModelName %> bikes in <%=CityName%></h2>
+         </div>
+        <div class="swiper-heading-right-grid inline-block text-right">
+            <a href="<%=WidgetHref %>" title="<%=WidgetTitle%>" class="btn view-all-target-btn">View all</a>
+        </div>
+                <div class="clear"></div>
+                </div>
             <div id="similar-bike-swiper" class="swiper-container padding-top5 padding-bottom5">
                 <div class="swiper-wrapper">
                     <% foreach (var bike in similarBikeList)
@@ -16,13 +22,13 @@
                                 <% if (String.IsNullOrEmpty(bike.Photo.OriginalImagePath)) { %>
                                 <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" />
                                 <% } else { %>
-                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" title="Used <%=bike.ModelYear.Year %> <%= bike.BikeName %>" alt="Used <%=bike.ModelYear.Year %> <%= bike.BikeName %>" />
+                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" title="Used <%=String.Format("{0} {1}",bike.ModelYear.Year, bike.BikeName) %>" alt="Used <%=String.Format("{0} {1}",bike.ModelYear.Year, bike.BikeName) %>" />
                                 <% } %>
                                 <span class="swiper-lazy-preloader"></span>
                             </a>
                         </div>
                         <div class="model-swiper-details font11">
-                            <a href="/m/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/" class="target-link font12 text-truncate margin-bottom5" title="Used <%=bike.ModelYear.Year %> <%= bike.BikeName %>"><%= bike.BikeName %></a>
+                            <a href="/m/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/" class="target-link font12 text-truncate margin-bottom5" title="Used <%=String.Format("{0} {1}",bike.ModelYear.Year, bike.BikeName)%>"><%= bike.BikeName %></a>
                              <% if (bike.ModelYear!=null)
                                  { %>
                             <div class="grid-6 alpha padding-right5">
@@ -58,10 +64,7 @@
                     <% } %>
                 </div>
             </div>
-            <div class="margin-top10 margin-right20 margin-left20">
-                <a href="/m/used/<%= MakeMaskingName %>-<%= ModelMaskingName %>-bikes-in-<%= CityMaskingName %>/" title="Used <%= ModelName %> bikes in <%= CityName %>" class="font14">View all <%= ModelName %> in <%= CityName %><span class="bwmsprite blue-right-arrow-icon"></span></a>
             </div>
-        </div>
         <div class="margin-right20 margin-left20 border-solid-bottom"></div>
 <% } %>
 

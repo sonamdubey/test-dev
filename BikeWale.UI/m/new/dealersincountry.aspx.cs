@@ -69,6 +69,7 @@ namespace Bikewale.Mobile.New
                 }
 
                 BindStatesCities();
+                Bindwidget();
             }
         }
         /// <summary>
@@ -93,7 +94,7 @@ namespace Bikewale.Mobile.New
                     ctrlusedBikeModel.MakeId = makeId;
 
                     ctrlusedBikeModel.CityId = cityId;
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? _cityDetails.CityName : "India");
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? _cityDetails.CityName : "India");
                     ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", objMMV.MakeName, cityId > 0 ? _cityDetails.CityName : "India");
                     ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", objMMV.MaskingName, cityId > 0 ? _cityDetails.CityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;
