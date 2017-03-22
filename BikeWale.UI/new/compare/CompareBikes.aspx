@@ -927,7 +927,6 @@
         $(featuredBike).html('<span>sponsored</span>');
 
         $("a.delBike").click(function () {
-            debugger;
             var verId = $(this).attr("versionId");
             var basicUrl = (window.location.pathname).split('/')[2];
             var makeModelList = new Array();
