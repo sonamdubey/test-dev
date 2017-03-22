@@ -116,7 +116,7 @@
         var Count = 0;
         makeModelList = basicUrl.split("-vs-");
         VersionIdList = curVersions.split(',');
-        var versionToAdd = $(drpVersion).val();
+        var versionToAdd = $('#addBike_drpModel').val().split('_')[0];
         VersionIdList.push(versionToAdd);
         VersionIdList = VersionIdList.sort(sortNumber);
         var indx = VersionIdList.indexOf(versionToAdd);

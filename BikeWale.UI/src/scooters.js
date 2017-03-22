@@ -33,7 +33,7 @@ $(document).ready(function () {
         target: '+=2'
     });
 
-    var makeDealersContent = $('#makeDealerContent');
+    var makeDealersContent = $('#makeDealersContent');
 
     if (makeDealersContent.length != 0) {
         makeDealersContent.removeClass('bw-model-tabs-data');

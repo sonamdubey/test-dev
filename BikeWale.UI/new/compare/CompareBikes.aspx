@@ -69,7 +69,7 @@
                                            <td class="maintd <%# Container.ItemIndex == featuredBikeIndex ? "featuredBike" : ""  %>">
                                                <table class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>" cellpadding="0" border="0" cellspacing="0">
                                                    <tr><td>
-                                                       <div class="bikeclose"><a class='delBike pointer font16 right-float <%= !isFeatured ? ((count==2) ? "hide" : "") : ((count==3) ? "hide" : "") %>' versionId='<%# DataBinder.Eval(Container.DataItem,"BikeVersionId") %>'><span class="bwsprite cross-md-dark-grey"></span></a></div>
+                                                       <div class="bikeclose"><a class='delBike pointer font16 right-float <%= !isFeatured ? ((count==2) ? "hide" : "") : ((count==3) ? "hide" : "") %>' versionId='<%# DataBinder.Eval(Container.DataItem,"BikeVersionId") %>' ><span class="bwsprite cross-md-dark-grey"></span></a></div>
                                                        <div class="clear"></div>
                                                        <div class="bikemain">
                                                            <div class="bikename"><strong><a class="blue" href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName") +"-bikes/"+ DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/' title='<%# DataBinder.Eval(Container.DataItem,"Make") + " " + DataBinder.Eval(Container.DataItem,"Model") + " " + DataBinder.Eval(Container.DataItem,"Version") + " Details"%>'><%#DataBinder.Eval(Container.DataItem,"Make") + " " + DataBinder.Eval(Container.DataItem,"Model")%></a></strong></div>
@@ -903,7 +903,8 @@
 <div id="back-to-top" class="back-to-top"><a><span></span></a></div>
 
 <script type="text/javascript">
-    versions = '<%= hashVersion%>';
+    versions = '<%= hashModels%>';
+    var currentversions = '<%= hashVersions%>';
     $(document).ready(function () {
         var speed = 300;
         //input parameter : id of element, scroll up speed
@@ -934,7 +935,7 @@
             var newQueryStr = "";
             var Count = 0;
             makeModelList = basicUrl.split("-vs-");
-            VersionIdList = versions.split(',');
+            VersionIdList = currentversions.split(',');
 
             for (var i = 0; i < makeModelList.length; i++) {
                 if (verId != VersionIdList[i]) {
