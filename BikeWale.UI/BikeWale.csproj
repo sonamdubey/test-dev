@@ -460,6 +460,7 @@
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\new\Videos\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
+    <Compile Include="Controllers\PriceController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\GenericBikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
@@ -3504,6 +3505,7 @@
     <Content Include="Views\Shared\_Layout_Mobile_old.cshtml" />
     <Content Include="Views\ExpertReviews\Index.cshtml" />
     <Content Include="Views\ExpertReviews\Index_Mobile.cshtml" />
+    <Content Include="Views\Price\DealerPriceQuoteIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
