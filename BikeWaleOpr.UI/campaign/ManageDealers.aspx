@@ -94,7 +94,7 @@
                     <tr>
                         <td style="width: 20%"><strong>Campaign Dealer Number :</strong></td>
                         <td>
-                            <asp:textbox runat="server" name="dealerNumber" id="txtDealerNumber" class="req width300" disabled />
+                            <asp:textbox runat="server" name="dealerNumber" id="txtDealerNumber" class="width300" disabled />
                             <span style="color: red" id="dealerNumberMsg">Mapping a masking number will result in calling to both masking and dealer numbers one after another.</span>
                         </td>
                     </tr>
@@ -163,7 +163,7 @@
 
     <% if (isCampaignPresent)
        { %>
-    <fieldset >
+    <fieldset>
         <legend>Define Components</legend>
 
         <strong>Edit rules:</strong><span><a href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Rules</a></span>
@@ -211,7 +211,7 @@
             if (isValid) {
                 var maskingNumber = $("#txtMaskingNumber").val().trim();
                 var nos = parseInt(dealerNoEle.attr("data-numberCount"));
-                if (nos && maskingNumber != txtMaskingNumber && maskingNumber!="") {
+                if (nos && maskingNumber != txtMaskingNumber && maskingNumber != "") {
                     var r = confirm("You are mapping " + nos + " dealer numbers to 1 masking number. Are you sure you want to continue?");
                     if (!r) {
                         isValid = false;
@@ -290,11 +290,12 @@
     function handleMaskingNumber() {
         try {
             $("#ddlMaskingNumber option[Value='True']").each(function () {
-                $(this).prop("disabled", true);
-                if ($(this).text() == txtMaskingNumber) {
-                    $('#txtMaskingNumber').val($(this).text());
+                var ele = $(this), txt = ele.text();
+                if (txt == txtMaskingNumber) {
+                    $('#txtMaskingNumber').val(txt);
                     $(this).prop("selected", true);
                 }
+                ele.text(ele.text() + " (Assigned)");
             });
 
             //show dealernumber message
@@ -326,8 +327,11 @@
 
         $("#ddlMaskingNumber").change(function () {
             var ele = $(this);
-            if (ele.val() && ele.val() != "")
-                $('#txtMaskingNumber').val($(this).find("option:selected").text());
+            if (ele.val() && ele.val() != "") {
+                var val = $(this).find("option:selected").text();
+                val = val.replace(" (Assigned)", "");
+                $('#txtMaskingNumber').val(val);
+            }
             else $('#txtMaskingNumber').val("");
         });
 

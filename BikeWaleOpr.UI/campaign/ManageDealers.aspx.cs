@@ -244,6 +244,7 @@ namespace BikewaleOpr.Campaign
                     else
                     {
                         txtCampaignName.Text = dealerName;
+                        txtDealerNumber.Text = dealerMobile;
                     }
                     LoadDealerCallToAction();
                 }
