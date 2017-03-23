@@ -76,6 +76,9 @@ namespace Bikewale
             container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>();
             container.RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>();
             container.RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>();
+            container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>();
+
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

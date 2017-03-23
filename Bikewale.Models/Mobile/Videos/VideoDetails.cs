@@ -12,7 +12,7 @@ namespace Bikewale.Models.Mobile.Videos
     /// </summary>
     public class VideoDetails
     {
-        public PageMetaTags PageMetas { get; set; }
+        public Bikewale.Entities.SEO.PageMetaTags PageMetas { get; set; }
         public BikeVideoEntity VideoEntity { get; set; }
         public string Description { get; set; }
         public string DisplayDate { get; set; }

@@ -6,8 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Bikewale.Models;
+using Bikewale.Interfaces.EditCMS;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.Pager;
 
-namespace Bikewale.Controllers.Mobile.Content
+namespace Bikewale.Controllers
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 19 Jan 2017
@@ -16,14 +21,50 @@ namespace Bikewale.Controllers.Mobile.Content
     public class ExpertReviewsController : Controller
     {
         private readonly ICMSCacheContent cache = null;
+        private readonly IArticles articles = null;
+        private readonly IBikeModels<BikeModelEntity, int> bikeModels = null;
+        private readonly IBikeMakesCacheRepository<int> bikeMakesCache = null;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMaskingCache = null;
+        private readonly IPager pager = null;
+        private ExpertReviewsIndexPage obj = null;
+
 
         /// <summary>
-        /// Constructor to resolve all the dependencies
+        /// Constructor to pass all the dependencies
         /// </summary>
         /// <param name="_cache"></param>
-        public ExpertReviewsController(ICMSCacheContent _cache)
+        public ExpertReviewsController(ICMSCacheContent _cache, IArticles _articles, IBikeModels<BikeModelEntity, int> _bikeModels, IBikeMakesCacheRepository<int> _bikeMakesCache, IBikeMaskingCacheRepository<BikeModelEntity, int> _bikeMaskingCache, IPager _pager)
         {
             cache = _cache;
+            articles = _articles;
+            bikeModels = _bikeModels;
+            bikeMakesCache = _bikeMakesCache;
+            bikeMaskingCache = _bikeMaskingCache;
+            pager = _pager;
+        }
+
+
+        /// <summary>
+        /// Action to get the expertreviews list page for the first page
+        /// </summary>
+        /// <returns></returns>
+        [Route("expertreviews/")]
+        public ActionResult Index()
+        {
+            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(cache, articles, bikeModels, bikeMakesCache, bikeMaskingCache, pager);
+
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {                
+                return Redirect("/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.redirectUrl);
+            } else {
+                ExpertReviewsIndexPageVM objData = obj.GetData();
+
+                return View(objData);
+            }
         }
 
         /// <summary>
@@ -31,9 +72,24 @@ namespace Bikewale.Controllers.Mobile.Content
         /// </summary>
         /// <returns></returns>
         [Route("m/expertreviews/")]
-        public ActionResult Index()
+        public ActionResult Index_Mobile()
         {
-            return View();
+            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(cache, articles, bikeModels, bikeMakesCache, bikeMaskingCache, pager);
+
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.redirectUrl);
+            }
+            else
+            {
+                ExpertReviewsIndexPageVM objData = obj.GetData();
+
+                return View(objData);
+            }
         }
 
         /// <summary>

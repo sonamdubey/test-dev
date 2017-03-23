@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using WURFL;
 using WURFL.Config;
+using System.Web.WebPages;
+using Bikewale.Filters;
 
 namespace Bikewale
 {
@@ -23,6 +25,21 @@ namespace Bikewale
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             GlobalConfiguration.Configuration.EnsureInitialized();
+
+            DisplayModeProvider.Instance.Modes.Clear();
+
+            //// Added mobile device detection for the views
+            //if (!BWConfiguration.Instance.DebugMobileSite)
+            //{
+            //    // Remove existing mobile device
+            //    DisplayModeProvider.Instance.Modes.RemoveAt(0);
+
+            //    // Custom mobile device detection for pages
+            //    DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Mobile")
+            //    {
+            //        ContextCondition = (ctx => ctx.IsMobileDevice())
+            //    });
+            //}
 
             ConfigureWurfl();
         }
