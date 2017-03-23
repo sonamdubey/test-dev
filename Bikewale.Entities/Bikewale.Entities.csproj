@@ -246,6 +246,9 @@
     <Compile Include="MobileAppAlert\MobileAppNotificationBase.cs" />
     <Compile Include="MobileAppAlert\MobileAppNotifications.cs" />
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />
+    <Compile Include="Models\AdTags.cs" />
+    <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\PageMetaTags.cs" />
     <Compile Include="NewBikeSearch\FilterEnum.cs" />
     <Compile Include="NewBikeSearch\FilterInput.cs" />
     <Compile Include="NewBikeSearch\InputBaseEntity.cs" />
@@ -300,6 +303,7 @@
     <Compile Include="ServiceCenters\ServiceCenterData.cs" />
     <Compile Include="ServiceCenters\ServiceCenterDetails.cs" />
     <Compile Include="service\ServiceCityEntity.cs" />
+    <Compile Include="StatusCodes.cs" />
     <Compile Include="UrlShortner\UrlShortnerResponse.cs" />
     <Compile Include="Used\BikeDetails.cs" />
     <Compile Include="Used\BikeDetailsMin.cs" />

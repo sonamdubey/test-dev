@@ -448,7 +448,7 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controllers\m\Content\ExpertReviewsController.cs" />
+    <Compile Include="Controllers\ExpertReviewsController.cs" />
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
@@ -872,6 +872,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Filters\DeviceDetection.cs" />
+    <Compile Include="Filters\DetectDevice.cs" />
     <Compile Include="Generic\BikeListing.aspx.cs">
       <DependentUpon>BikeListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -892,6 +893,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\ExpertReviewsIndexPage.cs" />
     <Compile Include="mybikewale\buyerdetails.aspx.cs">
       <DependentUpon>buyerdetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3498,6 +3500,10 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad320x150_First.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x150_Second.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad300x250.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout_Mobile_old.cshtml" />
+    <Content Include="Views\ExpertReviews\Index.cshtml" />
+    <Content Include="Views\ExpertReviews\Index_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3513,16 +3519,13 @@
   <ItemGroup>
     <Folder Include="community\pms\" />
     <Folder Include="content\ComparisonTest\" />
-    <Folder Include="Controllers\Content\" />
     <Folder Include="Controllers\m\new\Scooters\" />
-    <Folder Include="Models\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
     <Folder Include="Views\BikeInfo\" />
     <Folder Include="Views\Content\News\Amp\" />
-    <Folder Include="Views\ExpertReviews\" />
     <Folder Include="Views\Features\" />
     <Folder Include="Views\GenericBikeInfo\" />
     <Folder Include="Views\Upcoming\" />
