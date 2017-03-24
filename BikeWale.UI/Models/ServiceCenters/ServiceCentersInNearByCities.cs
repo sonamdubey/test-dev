@@ -7,6 +7,10 @@ using System.Collections.Generic;
 
 namespace Bikewale.Models.ServiceCenters
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 24-03-2017
+    /// This class provides data for ServiceCentersInNearByCities widget (Dektop + Mobile)
+    /// </summary>
     public class ServiceCentersInNearByCities
     {
         private BikeMakeEntityBase _make;
@@ -33,7 +37,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ServiceCenters.ServiceCentersInNearbyCities.GetData()");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ServiceCenters.ServiceCentersInNearByCities.GetData()");
             }
             return objVM;
         }

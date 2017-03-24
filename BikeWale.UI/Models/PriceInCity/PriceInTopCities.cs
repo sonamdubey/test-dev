@@ -11,6 +11,10 @@ using System.Linq;
 
 namespace Bikewale.Models.PriceInCity
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 24-03-2017
+    /// This Class provides data for price in top cities widget (Desktop + Mobile)
+    /// </summary>
     public class PriceInTopCities
     {
         private uint _modelId, _topCount;
@@ -45,9 +49,12 @@ namespace Bikewale.Models.PriceInCity
             try
             {
                 IEnumerable<PriceQuoteOfTopCities> prices = null;
-                prices = _objCache.FetchPriceQuoteOfTopCitiesCache(_modelId, _topCount);
+
+                if (_objCache != null)
+                    prices = _objCache.FetchPriceQuoteOfTopCitiesCache(_modelId, _topCount);
 
                 objData = new PriceInTopCitiesWidgetVM();
+
                 if (prices != null && prices.Count() > 0)
                 {
                     objData.PriceQuoteList = prices;

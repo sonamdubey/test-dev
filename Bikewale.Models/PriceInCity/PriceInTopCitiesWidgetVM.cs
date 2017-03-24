@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace Bikewale.Models.PriceInCity
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 24-03-2017
+    /// Wrapper class for widget priceInNearByCities 
+    /// </summary>
     public class PriceInTopCitiesWidgetVM
     {
         public IEnumerable<PriceQuoteOfTopCities> PriceQuoteList { get; set; }

@@ -5,8 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bikewale.Models.ServiceCenters 
+namespace Bikewale.Models.ServiceCenters
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 24-03-2017
+    /// This class provides data for ServiceCentersByBrand widget (Desktop + Mobile)
+    /// </summary>
     public class ServiceCentersByBrand
     {
         private uint _makeId;
@@ -21,8 +25,7 @@ namespace Bikewale.Models.ServiceCenters
             IEnumerable<BrandServiceCenters> AllServiceCenters = null;
             try
             {
-                BindOtherBrandsServiceCenters servicecentViewModel = new BindOtherBrandsServiceCenters();
-                AllServiceCenters = servicecentViewModel.GetAllServiceCentersbyMake();
+                AllServiceCenters = (new BindOtherBrandsServiceCenters()).GetAllServiceCentersbyMake();
 
                 if (AllServiceCenters != null && AllServiceCenters.Count() > 0)
                     AllServiceCenters = AllServiceCenters.Where(v => v.MakeId != _makeId);

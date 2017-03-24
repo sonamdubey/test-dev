@@ -9,7 +9,11 @@ using System.Linq;
 
 namespace Bikewale.Models.ServiceCenters
 {
-    public class ServiceCentersCard 
+    /// <summary>
+    /// Created by Sajal Gupta on 24-03-2017
+    /// This class provides data for ServiceCentersCard widget (Desktop + Mobile)
+    /// </summary>
+    public class ServiceCentersCard
     {
         private uint _serviceCenterId, _topCount;
         private CityEntityBase _city;
@@ -36,8 +40,7 @@ namespace Bikewale.Models.ServiceCenters
             ServiceCenterDetailsWidgetVM objData = null;
             try
             {
-                BindServiceCenter serviceViewModel = new BindServiceCenter();
-                ServiceCenterData centerData = serviceViewModel.GetServiceCenterList(_make.MakeId, _city.CityId);
+                ServiceCenterData centerData = (new BindServiceCenter()).GetServiceCenterList(_make.MakeId, _city.CityId);
                 IEnumerable<ServiceCenterDetails> totalList = null;
 
                 if (centerData != null && centerData.ServiceCenters != null)
@@ -46,18 +49,16 @@ namespace Bikewale.Models.ServiceCenters
 
                     if (totalList != null)
                         totalList = totalList.Take((int)_topCount);
-
                 }
 
                 objData = new ServiceCenterDetailsWidgetVM();
                 objData.ServiceCentersList = totalList;
                 objData.MakeMaskingName = _make.MaskingName;
                 objData.CityMaskingName = _city.CityMaskingName;
-
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ServiceCenters.GetData");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ServiceCenters.ServiceCentersCard.GetData");
             }
             return objData;
         }
