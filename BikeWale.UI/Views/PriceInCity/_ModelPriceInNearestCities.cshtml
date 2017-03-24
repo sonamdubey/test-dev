@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Bikewale.Entities.PriceQuote.PriceQuoteOfTopCities>
+
+@if (@Model != null)
+{
+    <ul>
+        @foreach (var priceQuote in @Model)
+        {
+            <li>
+                <a href="@Bikewale.Utility.UrlFormatter.PriceInCityUrl(@priceQuote.MakeMaskingName, @priceQuote.ModelMaskingName, @priceQuote.CityMaskingName)"
+                   title="@String.Format("{0} {1} Price in {2}", @priceQuote.Make, @priceQuote.Model, @priceQuote.CityName)">
+                    @priceQuote.CityName
+            </a>
+            <span class="nearby-city-price">
+                <span class="bwsprite inr-sm-dark"></span>
+               @Bikewale.Utility.Format.FormatPrice(Convert.ToString(priceQuote.OnRoadPrice))
+            </span>
+        </li>
+        }
+    </ul>
+}
