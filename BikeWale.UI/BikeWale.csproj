@@ -3514,6 +3514,7 @@
     <Content Include="Views\BikeMakes\_Brands.cshtml" />
     <Content Include="Views\HomePage\Index_Mobile.cshtml" />
     <Content Include="Views\BikeMakes\_Brands_Mobile.cshtml" />
+    <Content Include="Views\BikeModels\_MostPopularBikesSideBar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
