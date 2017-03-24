@@ -461,9 +461,12 @@
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\new\Videos\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
+    <Compile Include="Controllers\PriceInCityController.cs" />
+    <Compile Include="Controllers\ServiceCentersController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\GenericBikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -897,6 +900,9 @@
     <Compile Include="Models\BikeModels\MostPopularBikesWidget.cs" />
     <Compile Include="Models\BikeMakes\BrandWidgetModel.cs" />
     <Compile Include="Models\ExpertReviewsIndexPage.cs" />
+    <Compile Include="Models\ServiceCenters\ServiceCentersByBrand.cs" />
+    <Compile Include="Models\ServiceCenters\ServiceCentersCard.cs" />
+    <Compile Include="Models\ServiceCenters\ServiceCentersInNearByCities.cs" />
     <Compile Include="Models\HomePageModel.cs" />
     <Compile Include="mybikewale\buyerdetails.aspx.cs">
       <DependentUpon>buyerdetails.aspx</DependentUpon>
@@ -3508,6 +3514,14 @@
     <Content Include="Views\Shared\_Layout_Mobile_old.cshtml" />
     <Content Include="Views\ExpertReviews\Index.cshtml" />
     <Content Include="Views\ExpertReviews\Index_Mobile.cshtml" />
+    <Content Include="Views\ServiceCenters\_ServiceCentersCard.cshtml" />
+    <Content Include="Views\ServiceCenters\_ServiceCentersCard_Mobile.cshtml" />
+    <Content Include="Views\ServiceCenters\_ServiceCentersByBrand.cshtml" />
+    <Content Include="Views\ServiceCenters\_ServiceCentersByBrand_Mobile.cshtml" />
+    <Content Include="Views\ServiceCenters\_ServiceCentersInNearByCities.cshtml" />
+    <Content Include="Views\ServiceCenters\_ServiceCentersInNearByCities_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInTopCities.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInTopCities_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_MostPopularBikes.cshtml" />
     <Content Include="Views\BikeModels\_MostPopularBikes_Mobile.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
