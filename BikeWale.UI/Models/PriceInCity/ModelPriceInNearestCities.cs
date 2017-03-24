@@ -10,6 +10,10 @@ using System.Collections.Generic;
 
 namespace Bikewale.Models.PriceInCity
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 24-03-2017
+    /// This class provides data for ModelPriceInNearestCities widget (Desktop + Mobile)
+    /// </summary>
     public class ModelPriceInNearestCities
     {
         private IPriceQuoteCache _objCache;
@@ -26,7 +30,6 @@ namespace Bikewale.Models.PriceInCity
 
                 using (IUnityContainer container = new UnityContainer())
                 {
-
                     container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>()
                              .RegisterType<ICacheManager, MemcacheManager>()
                              .RegisterType<IPriceQuoteCache, PriceQuoteCache>();
