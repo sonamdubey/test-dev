@@ -460,9 +460,12 @@
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\new\Videos\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
+    <Compile Include="Controllers\PriceInCityController.cs" />
+    <Compile Include="Controllers\ServiceCentersController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\GenericBikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -894,6 +897,10 @@
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
     <Compile Include="Models\ExpertReviewsIndexPage.cs" />
+    <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\ServiceCenters\ServiceCentersByBrand.cs" />
+    <Compile Include="Models\ServiceCenters\ServiceCentersCard.cs" />
+    <Compile Include="Models\ServiceCenters\ServiceCentersInNearByCities.cs" />
     <Compile Include="mybikewale\buyerdetails.aspx.cs">
       <DependentUpon>buyerdetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3504,6 +3511,15 @@
     <Content Include="Views\Shared\_Layout_Mobile_old.cshtml" />
     <Content Include="Views\ExpertReviews\Index.cshtml" />
     <Content Include="Views\ExpertReviews\Index_Mobile.cshtml" />
+    <Content Include="Views\ServiceCenters\_ServiceCentersCard.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\ServiceCenters\_ServiceCentersCard_Mobile.cshtml" />
+    <Content Include="Views\ServiceCenters\_ServiceCentersByBrand.cshtml" />
+    <Content Include="Views\ServiceCenters\_ServiceCentersByBrand_Mobile.cshtml" />
+    <Content Include="Views\ServiceCenters\_ServiceCentersInNearByCities.cshtml" />
+    <Content Include="Views\ServiceCenters\_ServiceCentersInNearByCities_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInTopCities.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInTopCities_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
