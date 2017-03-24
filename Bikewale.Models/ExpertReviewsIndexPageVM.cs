@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 
 namespace Bikewale.Models
@@ -25,4 +19,6 @@ namespace Bikewale.Models
 
         public CMSContent Articles { get; set; }
     }
+
+
 }
