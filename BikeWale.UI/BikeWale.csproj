@@ -449,6 +449,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controllers\ExpertReviewsController.cs" />
+    <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
@@ -894,7 +895,9 @@
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
     <Compile Include="Models\BikeModels\MostPopularBikesWidget.cs" />
+    <Compile Include="Models\BikeMakes\BrandWidgetModel.cs" />
     <Compile Include="Models\ExpertReviewsIndexPage.cs" />
+    <Compile Include="Models\HomePageModel.cs" />
     <Compile Include="mybikewale\buyerdetails.aspx.cs">
       <DependentUpon>buyerdetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3507,6 +3510,10 @@
     <Content Include="Views\ExpertReviews\Index_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_MostPopularBikes.cshtml" />
     <Content Include="Views\BikeModels\_MostPopularBikes_Mobile.cshtml" />
+    <Content Include="Views\HomePage\Index.cshtml" />
+    <Content Include="Views\BikeMakes\_Brands.cshtml" />
+    <Content Include="Views\HomePage\Index_Mobile.cshtml" />
+    <Content Include="Views\BikeMakes\_Brands_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

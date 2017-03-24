@@ -40,7 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BikeModels\MostPopularBikeWidgetVM.cs" />
+    <Compile Include="BikeMakes\BrandWidgetVM.cs" />
     <Compile Include="ExpertReviewsIndexPageVM.cs" />
+    <Compile Include="HomePage\HomePageVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
