@@ -900,6 +900,8 @@
     <Compile Include="Models\BikeModels\MostPopularBikesWidget.cs" />
     <Compile Include="Models\BikeMakes\BrandWidgetModel.cs" />
     <Compile Include="Models\ExpertReviewsIndexPage.cs" />
+    <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
+    <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersByBrand.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersCard.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersInNearByCities.cs" />
@@ -3529,6 +3531,10 @@
     <Content Include="Views\HomePage\Index_Mobile.cshtml" />
     <Content Include="Views\BikeMakes\_Brands_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_MostPopularBikesSideBar.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\PriceInCity\_ModelPriceInNearestCities.cshtml" />
+    <Content Include="Views\PriceInCity\_ModelPriceInNearestCities_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\_OnRoadPriceWidget.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
