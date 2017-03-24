@@ -1335,9 +1335,41 @@ namespace Bikewale.BAL.BikeData
         {
             return _modelCacheRepository.GetMostPopularScooters(makeId);
         }
-        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
+
+        /// <summary>
+        /// Implemented by  :   Sumit Kate on 24 Mar 2017
+        /// Description     :   Returns GetMostPopularBikes based on following params
+        /// </summary>
+        /// <param name="requestType">request type</param>
+        /// <param name="topCount">top count</param>
+        /// <param name="makeId">make id</param>
+        /// <param name="cityId">cityid</param>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId)
         {
-            throw new NotImplementedException();
+            IEnumerable<MostPopularBikesBase> bikes = null;
+            try
+            {
+                switch (requestType)
+                {
+                    case EnumBikeType.Scooters:
+                        if (makeId > 0 & cityId > 0)
+                            bikes = _modelCacheRepository.GetMostPopularScooters(topCount, makeId, cityId);
+                        else if (makeId > 0)
+                            bikes = _modelCacheRepository.GetMostPopularScooters(topCount, makeId);
+                        else
+                            bikes = _modelCacheRepository.GetMostPopularScooters(topCount, cityId);
+                        break;
+                    default:
+                        bikes = _modelCacheRepository.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetMostPopularBikes({0},{1},{2},{3})", requestType, topCount, makeId, cityId));
+            }
+            return bikes;
         }
     }   // Class
 }   // namespace

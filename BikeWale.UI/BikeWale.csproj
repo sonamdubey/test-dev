@@ -894,6 +894,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BikeModels\MostPopularBikesWidget.cs" />
     <Compile Include="Models\BikeMakes\BrandWidgetModel.cs" />
     <Compile Include="Models\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\HomePageModel.cs" />
@@ -3507,6 +3508,8 @@
     <Content Include="Views\Shared\_Layout_Mobile_old.cshtml" />
     <Content Include="Views\ExpertReviews\Index.cshtml" />
     <Content Include="Views\ExpertReviews\Index_Mobile.cshtml" />
+    <Content Include="Views\BikeModels\_MostPopularBikes.cshtml" />
+    <Content Include="Views\BikeModels\_MostPopularBikes_Mobile.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\BikeMakes\_Brands.cshtml" />
     <Content Include="Views\HomePage\Index_Mobile.cshtml" />
