@@ -466,7 +466,6 @@
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\GenericBikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -899,6 +898,7 @@
     <Compile Include="memcache\SeriesMapping.cs" />
     <Compile Include="Models\BikeModels\MostPopularBikesWidget.cs" />
     <Compile Include="Models\BikeMakes\BrandWidgetModel.cs" />
+    <Compile Include="Models\BikeModels\SimilarBikesWidget.cs" />
     <Compile Include="Models\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersByBrand.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersCard.cs" />
@@ -3529,6 +3529,8 @@
     <Content Include="Views\HomePage\Index_Mobile.cshtml" />
     <Content Include="Views\BikeMakes\_Brands_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_MostPopularBikesSideBar.cshtml" />
+    <Content Include="Views\BikeModels\_SimilarBikes.cshtml" />
+    <Content Include="Views\BikeModels\_SimilarBikes_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
