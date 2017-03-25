@@ -1,0 +1,76 @@
+﻿@model Bikewale.Models.BikeInfoVM
+@using Bikewale.Utility
+@if (Model !=null && Model.BikeInfo != null)
+{
+    <div class="model-grid-8-slug">
+        @if (Model.IsUpcoming)
+        {
+            <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+        }
+        else if (Model.IsDiscontinued)
+        {
+            <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+        }
+        <div class="clear"></div>
+        <div class="grid-8 alpha border-solid-right">
+            <a href="@Model.BikeUrl" title="@Model.BikeName" class="model-image-target vertical-top">
+                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath, Model.BikeInfo.HostUrl, Bikewale.Utility.ImageSize._160x89)" src="" alt="@Model.BikeName" />
+            </a>
+            <div class="model-details-block vertical-top">
+                <a href="@Model.BikeUrl" title="@Model.BikeName" class="block text-default">
+                    <h3>@Model.BikeName</h3>
+                </a>
+                <ul class="item-more-details-list inline-block">
+                    @if (Model.BikeInfo.Tabs != null)
+                    {
+                        foreach (var Tabsdetails in Model.BikeInfo.Tabs)
+                        {
+                            <li>
+                                <a href="@Tabsdetails.URL" title="@String.Format(" {0} {1}",Model.BikeName, Tabsdetails.Title)">                                    
+                                    <span class="bwsprite @Tabsdetails.IconText-sm"></span>
+                                    <span class="icon-label">@Tabsdetails.TabText</span>
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="grid-4 omega">
+            @if (Model.IsDiscontinued)
+            {
+                <p class="font12 text-light-grey margin-bottom5 text-truncate" title="Last known Ex-showroom price">Last known Ex-showroom price</p>
+            <span class="bwsprite inr-md margin-right5"></span><span class="font16 text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
+            }
+            else if (Model.IsUpcoming)
+            {
+                <p class="font12 text-light-grey margin-bottom5 text-truncate" title="Expected price">Expected price</p>
+                <span class="bwsprite inr-md margin-right5"></span><span class="font16 text-bold">@String.Format("{0} - {1}", Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMin)), Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMax)))</span>
+            }
+            else
+            {
+                if (Model.BikeInfo.PriceInCity > 0 && Model.CityDetails != null)
+                {
+                    <p class="font12 text-light-grey margin-bottom5 text-truncate" title="@String.Format("Ex-showroom, {0}",Model.CityDetails.CityName)">@String.Format("Ex-showroom, {0}", Model.CityDetails.CityName)</p>
+            <span class="bwsprite inr-md margin-right5"></span><span class="font16 text-bold">@Format.FormatPrice(Convert.ToString(Model.BikeInfo.PriceInCity))</span>
+                }
+                else
+                {
+                    <p class="font12 text-light-grey margin-bottom5 text-truncate" title="@String.Format("Ex-showroom, {0}",BWConfiguration.Instance.DefaultName)">@String.Format("Ex-showroom, {0}", BWConfiguration.Instance.DefaultName)</p>
+            <span class="bwsprite inr-md margin-right5"></span><span class="font16 text-bold">@Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
+                }
+            }
+        </div>
+        <div class="clear"></div>
+        @if (Model.BikeInfo.UsedBikeCount > 0)
+        {
+            <div class="border-solid-bottom margin-top15 margin-bottom10"></div>
+            <a href="@UrlFormatter.UsedBikesUrlNoCity(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName,(Model.CityDetails!=null)?Model.CityDetails.CityMaskingName:" india")" title="@Model.BikeInfo.UsedBikeCount used @Model.BikeName bikes" class="block text-default hover-no-underline">
+                <span class="used-target-label inline-block">
+                    <span class="font14 text-bold margin-right5">@Model.BikeInfo.UsedBikeCount Used @Model.BikeName bikes</span><span class="font12 text-light-grey">starting at <span class="bwsprite inr-xsm-grey margin-right5"></span>@Format.FormatNumeric(Convert.ToString(Model.BikeInfo.UsedBikeMinPrice))</span>
+                </span>
+                <span class="bwsprite next-grey-icon"></span>
+            </a>
+        }
+    </div>
+}
