@@ -9,6 +9,10 @@ namespace Bikewale.Models.CompareBikes
 {
     public class ComparisonMinWidget
     {
+        /// <summary>
+        /// Created by Sajal Gupta on 25-03-2017
+        /// This class will get data for comparisson widget (Mobile + Desktop)
+        /// </summary>
         private readonly IBikeCompareCacheRepository _objCompareCache;
         private uint _topCount;
         private bool _showComparisonButton;
