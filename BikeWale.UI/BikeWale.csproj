@@ -448,6 +448,7 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\CompareBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
@@ -3536,6 +3537,7 @@
     <Content Include="Views\PriceInCity\_ModelPriceInNearestCities.cshtml" />
     <Content Include="Views\PriceInCity\_ModelPriceInNearestCities_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_OnRoadPriceWidget.cshtml" />
+    <Content Include="Views\CompareBikes\ComparisonMin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

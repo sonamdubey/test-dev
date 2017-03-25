@@ -1,6 +1,6 @@
-﻿using Bikewale.BindViewModels.Controls;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities.ServiceCenters;
+using Bikewale.Interfaces.ServiceCenter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +14,11 @@ namespace Bikewale.Models.ServiceCenters
     public class ServiceCentersByBrand
     {
         private uint _makeId;
+        private readonly IServiceCenterCacheRepository _serviceCenterObj;
 
-        public ServiceCentersByBrand(uint makeId)
+        public ServiceCentersByBrand(IServiceCenterCacheRepository serviceCenterObj, uint makeId)
         {
+            _serviceCenterObj = serviceCenterObj;
             _makeId = makeId;
         }
 
@@ -25,7 +27,7 @@ namespace Bikewale.Models.ServiceCenters
             IEnumerable<BrandServiceCenters> AllServiceCenters = null;
             try
             {
-                AllServiceCenters = (new BindOtherBrandsServiceCenters()).GetAllServiceCentersbyMake();
+                AllServiceCenters = _serviceCenterObj.GetAllServiceCentersByBrand();
 
                 if (AllServiceCenters != null && AllServiceCenters.Count() > 0)
                     AllServiceCenters = AllServiceCenters.Where(v => v.MakeId != _makeId);
