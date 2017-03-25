@@ -5,128 +5,59 @@ var getMoreDetailsClick = false;
 var getEMIClick = false;
 var msg = "";
 
-$(function () {
-
-    $("#btnEmiQuote").on('click', function () {
-        triggerGA('Dealer_PQ', 'Get_EMI_Quote_Clicked', bikeVerLocation);
-        getEMIClick = true;
-        getOfferClick = false;
-    });
-
-});
-
-$('#ddlVersion').on("change", function () {
-    $('#hdnVariant').val($(this).val());
-    triggerGA('Dealer_PQ', 'Version_Changed', bikeVerLocation);
-});
-
-
-
-// version dropdown
-$('.chosen-select').chosen();
-
-$(document).ready(function () {
-    // version dropdown
-    var selectDropdownBox = $('.select-box-no-input');
-
-    selectDropdownBox.each(function () {
-        var text = $(this).find('.chosen-select').attr('data-title'),
-            searchBox = $(this).find('.chosen-search')
-
-        searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
-    });
-});
 var variantsDropdown = $(".variants-dropdown"),
 variantSelectionTab = $(".variant-selection-tab"),
 variantUL = $(".variants-dropdown-list"),
 variantListLI = $(".variants-dropdown-list li");
 
-variantsDropdown.click(function (e) {
-    if (!variantsDropdown.hasClass("open"))
-        $.variantChangeDown(variantsDropdown);
-    else
-        $.variantChangeUp(variantsDropdown);
-});
 
-$.variantChangeDown = function (variantsDropdown) {
-    variantsDropdown.addClass("open");
-    variantUL.show();
-};
+function secondarydealer_Click(dealerID) {
+    triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Clicked', bikeVerLocation);
+    try {
+        var isSuccess = false;
 
-$.variantChangeUp = function (variantsDropdown) {
-    variantsDropdown.removeClass("open");
-    variantUL.slideUp();
-};
+        var objData = {
+            "dealerId": dealerID,
+            "modelId": modelId,
+            "versionId": versionId,
+            "cityId": cityId,
+            "areaId": areaId,
+            "clientIP": clientIP,
+            "pageUrl": pageUrl,
+            "sourceType": 1,
+            "pQLeadId": pqSourceId,
+            "deviceId": getCookie('BWC')
+        };
 
+        isSuccess = dleadvm.registerPQ(objData);
 
-$(document).mouseup(function (e) {
-    if (!$(".variants-dropdown, .variant-selection-tab, .variant-selection-tab #upDownArrow").is(e.target)) {
-        $.variantChangeUp($(".variants-dropdown"));
-    }
-});
-
-var assistanceGetName = $('#assistanceGetName'),
-    assistanceGetEmail = $('#assistanceGetEmail'),
-    assistanceGetMobile = $('#assistanceGetMobile');
-
-
-$(document).ready(function () {
-    var sidebarHeight = false;
-    if ($('#pqBikeDetails').height() < 400) {
-        $('#PQDealerSidebarContainer').css({ 'padding-bottom': '20px' });
-        $('#PQDealerSidebarContainer .pqdealer-and-listing-container').css({ 'height': '350px' });
-        sidebarHeight = true;
-    }
-    if (!sidebarHeight) {
-        if ($('#pqBikeDetails').height() < 470) {
-            $('#PQDealerSidebarContainer').css({ 'padding-bottom': '20px' });
-            $('#PQDealerSidebarContainer .pqdealer-and-listing-container').css({ 'height': '400px' });
-            sidebarHeight = true;
+        if (isSuccess) {
+            var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
+            window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
         }
+    } catch (e) {
+        console.warn("Unable to create pricequote : " + e.message);
     }
-    if (!sidebarHeight) {
-        if ($('#pqBikeDetails').height() < 500) {
-            $('#PQDealerSidebarContainer').css({ 'padding-bottom': '20px' });
-            $('#PQDealerSidebarContainer .pqdealer-and-listing-container').css({ 'height': '450px' });
-        }
-    }
+}
 
-    var breadcrumbFlag,
-        breadcrumbDiv = $('.breadcrumb');
+function openLeadCaptureForm(dealerID) {
+    triggerGA('Dealer_PQ', 'Secondary_Dealer_Get_Offers_Clicked', bikeVerLocation);
+    event.stopPropagation();
+}
 
-    var $window = $(window),
-        disclaimerText = $('#disclaimerText'),
-        PQDealerSidebarContainer = $('#PQDealerSidebarContainer'),
-        dealerPriceQuoteContainer = $('#dealerPriceQuoteContainer'),
-        PQDealerSidebarHeight;
-    $(window).scroll(function () {
-        PQDealerSidebarHeight = PQDealerSidebarContainer.height();
-        var windowScrollTop = $window.scrollTop(),
-            disclaimerTextOffset = disclaimerText.offset(),
-            dealerPriceQuoteContainerOffset = dealerPriceQuoteContainer.offset(),
-            breadcrumbOffsetTop = breadcrumbDiv.offset().top;
+function GetBikeVerLoc() {
+    return bikeName + "_" + versionName + "_" + "";//getCityArea;
+}
 
-        if (breadcrumbOffsetTop < 100)
-            breadcrumbFlag = true;
-        else
-            breadcrumbFlag = false;
-
-        if ($('#dealerPriceQuoteContainer').height() > 500) {
-            if (windowScrollTop < dealerPriceQuoteContainerOffset.top - 50) {
-                PQDealerSidebarContainer.css({ 'position': 'relative', 'top': '0', 'right': '0' })
-            }
-            else if (windowScrollTop > (disclaimerTextOffset.top - PQDealerSidebarHeight - 80)) {
-                if (breadcrumbFlag)
-                    PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 150, 'right': '0' })
-                else
-                    PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 240, 'right': '0' })
-            }
-            else {
-                PQDealerSidebarContainer.css({ 'position': 'fixed', 'top': '50px', 'right': $(window).innerWidth() - (996 + $('#dealerPriceQuoteContainer').offset().left - 11) })
-            }
-        }
-    });
-});
+function formatPrice(price) {
+    price = price.toString();
+    var lastThree = price.substring(price.length - 3);
+    var otherNumbers = price.substring(0, price.length - 3);
+    if (otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    return price;
+}
 
 function loadDisclaimer(dealerType) {
     $("#read-less").hide();
@@ -137,20 +68,6 @@ function loadDisclaimer(dealerType) {
     }
     $("#read-more").show();
 }
-
-$('.tnc').on('click', function (e) {
-    LoadTerms($(this).attr("id"));
-});
-
-$('#termsPopUpCloseBtn').on("click", function () {
-    $(".blackOut-window").hide();
-    $("div#termsPopUpContainer").hide()
-});
-
-$('.blackOut-window').on("click", function () {
-    $(".blackOut-window").hide();
-    $("div#termsPopUpContainer").hide()
-});
 
 function LoadTerms(offerId) {
     $("div#termsPopUpContainer").show();
@@ -179,14 +96,184 @@ function LoadTerms(offerId) {
     $('#termspinner').hide();
 }
 
-// tooltip
-$('.bw-tooltip').on('click', '.close-bw-tooltip', function () {
-    var tooltipParent = $(this).closest('.bw-tooltip');
+docReady(function () {
+    // version dropdown
+    var selectDropdownBox = $('.select-box-no-input');
 
-    if (!tooltipParent.hasClass('slideUp-tooltip')) {
-        tooltipParent.fadeOut();
+    selectDropdownBox.each(function () {
+        var text = $(this).find('.chosen-select').attr('data-title'),
+            searchBox = $(this).find('.chosen-search')
+
+        searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
+    });
+
+    $("input[name*='btnVariant']").on("click", function () {
+        if ($(this).attr('versionid') == $('#hdnVariant').val()) {
+            return false;
+        }
+        $('#hdnVariant').val($(this).attr('title'));
+        triggerGA('Dealer_PQ', 'Version_Change', bikeVerLocation);
+    });
+
+    if ($('.pricequote-benefits-list li').length % 2 == 0) {
+        $('.pricequote-benefits-list').addClass("pricequote-two-benefits");
     }
-    else {
-        tooltipParent.slideUp();
+
+    $('#ddlVersion').on("change", function () {
+        $('#hdnVariant').val($(this).val());
+        triggerGA('Dealer_PQ', 'Version_Changed', bikeVerLocation);
+    });
+
+    // version dropdown
+    $('.chosen-select').chosen();
+
+    $("#readmore").on("click", function () {
+        loadDisclaimer(dealerType);
+    });
+
+    $('.blackOut-window').on("click", function () {
+        $("div#termsPopUpContainer").hide();
+        $(".blackOut-window").hide();
+    });
+
+    $(".leadcapturebtn").click(function (e) {
+        ele = $(this);
+        var leadOptions = {
+            "dealerid": ele.attr('data-item-id'),
+            "dealername": ele.attr('data-item-name'),
+            "dealerarea": ele.attr('data-item-area'),
+            "versionid": versionId,
+            "leadsourceid": ele.attr('data-leadsourceid'),
+            "pqsourceid": ele.attr('data-pqsourceid'),
+            "isleadpopup": ele.attr('data-isleadpopup'),
+            "mfgCampid": ele.attr('data-mfgcampid'),
+            "pqid": pqId,
+            "pageurl": pageUrl,
+            "clientip": clientIP,
+            "dealerHeading": ele.attr('data-item-heading'),
+            "dealerMessage": ele.attr('data-item-message'),
+            "dealerDescription": ele.attr('data-item-description'),
+            "pinCodeRequired": ele.attr("data-ispincodrequired"),
+            "gaobject": {
+                cat: ele.attr("c"),
+                act: ele.attr("a"),
+                lab: bikeVerLocation
+            }
+
+        };
+        dleadvm.setOptions(leadOptions);
+    });
+
+    $("#btnEmiQuote").on('click', function () {
+        triggerGA('Dealer_PQ', 'Get_EMI_Quote_Clicked', bikeVerLocation);
+        getEMIClick = true;
+        getOfferClick = false;
+    });
+
+    $('.tnc').on('click', function (e) {
+        LoadTerms($(this).attr("id"));
+    });
+
+    $('#termsPopUpCloseBtn').on("click", function () {
+        $(".blackOut-window").hide();
+        $("div#termsPopUpContainer").hide()
+    });
+
+    $('.blackOut-window').on("click", function () {
+        $(".blackOut-window").hide();
+        $("div#termsPopUpContainer").hide()
+    });
+
+    // tooltip
+    $('.bw-tooltip').on('click', '.close-bw-tooltip', function () {
+        var tooltipParent = $(this).closest('.bw-tooltip');
+
+        if (!tooltipParent.hasClass('slideUp-tooltip')) {
+            tooltipParent.fadeOut();
+        }
+        else {
+            tooltipParent.slideUp();
+        }
+    });
+
+    var sidebarHeight = false;
+    if ($('#pqBikeDetails').height() < 400) {
+        $('#PQDealerSidebarContainer').css({ 'padding-bottom': '20px' });
+        $('#PQDealerSidebarContainer .pqdealer-and-listing-container').css({ 'height': '350px' });
+        sidebarHeight = true;
     }
+    if (!sidebarHeight) {
+        if ($('#pqBikeDetails').height() < 470) {
+            $('#PQDealerSidebarContainer').css({ 'padding-bottom': '20px' });
+            $('#PQDealerSidebarContainer .pqdealer-and-listing-container').css({ 'height': '400px' });
+            sidebarHeight = true;
+        }
+    }
+    if (!sidebarHeight) {
+        if ($('#pqBikeDetails').height() < 500) {
+            $('#PQDealerSidebarContainer').css({ 'padding-bottom': '20px' });
+            $('#PQDealerSidebarContainer .pqdealer-and-listing-container').css({ 'height': '450px' });
+        }
+    }
+
+    var breadcrumbFlag,
+        breadcrumbDiv = $('.breadcrumb');
+
+    var $window = $(window),
+        disclaimerText = $('#disclaimerText'),
+        PQDealerSidebarContainer = $('#PQDealerSidebarContainer'),
+        dealerPriceQuoteContainer = $('#dealerPriceQuoteContainer'),
+        PQDealerSidebarHeight;
+
+    $(window).scroll(function () {
+        PQDealerSidebarHeight = PQDealerSidebarContainer.height();
+        var windowScrollTop = $window.scrollTop(),
+            disclaimerTextOffset = disclaimerText.offset(),
+            dealerPriceQuoteContainerOffset = dealerPriceQuoteContainer.offset(),
+            breadcrumbOffsetTop = breadcrumbDiv.offset().top;
+
+        if (breadcrumbOffsetTop < 100)
+            breadcrumbFlag = true;
+        else
+            breadcrumbFlag = false;
+
+        if ($('#dealerPriceQuoteContainer').height() > 500) {
+            if (windowScrollTop < dealerPriceQuoteContainerOffset.top - 50) {
+                PQDealerSidebarContainer.css({ 'position': 'relative', 'top': '0', 'right': '0' })
+            }
+            else if (windowScrollTop > (disclaimerTextOffset.top - PQDealerSidebarHeight - 80)) {
+                if (breadcrumbFlag)
+                    PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 150, 'right': '0' })
+                else
+                    PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 240, 'right': '0' })
+            }
+            else {
+                PQDealerSidebarContainer.css({ 'position': 'fixed', 'top': '50px', 'right': $(window).innerWidth() - (996 + $('#dealerPriceQuoteContainer').offset().left - 11) })
+            }
+        }
+    });
+
+    $(document).mouseup(function (e) {
+        if (!$(".variants-dropdown, .variant-selection-tab, .variant-selection-tab #upDownArrow").is(e.target)) {
+            $.variantChangeUp($(".variants-dropdown"));
+        }
+    });
+
 });
+
+variantsDropdown.click(function (e) {
+    if (!variantsDropdown.hasClass("open"))
+        $.variantChangeDown(variantsDropdown);
+    else
+        $.variantChangeUp(variantsDropdown);
+});
+
+$.variantChangeDown = function (variantsDropdown) {
+    variantsDropdown.addClass("open");
+    variantUL.show();
+};
+
+$.variantChangeUp = function (variantsDropdown) {
+    variantsDropdown.removeClass("open");
+    variantUL.slideUp();
+};

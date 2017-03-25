@@ -13,7 +13,6 @@ namespace Bikewale.Entities.PriceQuote
     /// </summary>
     public class DealerQuotationEntity
     {
-        private string _leadBtnLongText = "Get offers from dealer";
 
         [JsonProperty("bookingAmount")]
         public uint BookingAmount { get; set; }
@@ -55,8 +54,6 @@ namespace Bikewale.Entities.PriceQuote
 
         [JsonProperty("totalPrice")]
         public ulong TotalPrice { get { return (PriceList != null ? Convert.ToUInt64(PriceList.Sum(m => Convert.ToInt64(m.Price))) : 0UL); } }
-
-        public string LeadBtnLongText { get { return ((this.DealerDetails != null && !string.IsNullOrEmpty(this.DealerDetails.DisplayTextLarge)) ? this.DealerDetails.DisplayTextLarge : _leadBtnLongText); } }
 
         public bool IsPremiumDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Premium.Equals(this.DealerDetails.DealerPackageType)); } }
 

@@ -3510,6 +3510,7 @@
     <Content Include="Views\Price\_SecondaryDealers.cshtml" />
     <Content Include="Views\Price\_DealerCampaign.cshtml" />
     <Content Include="Views\Price\_ManufacturerCampaign.cshtml" />
+    <Content Include="Views\Shared\_LeadCaptureControl.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

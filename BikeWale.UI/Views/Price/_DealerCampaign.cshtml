@@ -1,9 +1,9 @@
 ﻿@model Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity
 
-@if (Model != null && Model.PrimaryDealer != null && Model.PrimaryDealer.DealerDetails != null && Model.PrimaryDealerDetails.objArea != null)
+@if (Model != null && Model.PrimaryDealer != null && Model.PrimaryDealer.DealerDetails != null && Model.PrimaryDealer.DealerDetails.objArea != null)
 {
-    var PrimaryDealerDetails = Model.PrimaryDealer.DealerDetails; 
-    
+    var PrimaryDealerDetails = Model.PrimaryDealer.DealerDetails;
+
     <div class="inner-card-shadow margin-top20">
         <div class="content-inner-block-20 position-rel">
             <div id="pq-dealer-name" class="inline-block">
@@ -11,15 +11,15 @@
                     <span class="pq-sprite partner-dealer"></span>
                 </div>
                 <div class="inline-block dealer-name-content">
-                    <h3 class="font18 text-black margin-bottom5 inline-block">@Model.PrimaryDealerDetails.Organization</h3>
-                    @if (!string.IsNullOrEmpty(Model.PrimaryDealerDetails.MaskingNumber))
+                    <h3 class="font18 text-black margin-bottom5 inline-block">@PrimaryDealerDetails.Organization</h3>
+                    @if (!string.IsNullOrEmpty(PrimaryDealerDetails.MaskingNumber))
                     {
                         <div class="margin-left10 inline-block">
                             <span class="bwsprite phone-black-icon vertical-top"></span>
-                            <span class="font15 vertical-top text-bold ">@Model.PrimaryDealerDetails.MaskingNumber</span>
+                            <span class="font15 vertical-top text-bold ">@PrimaryDealerDetails.MaskingNumber</span>
                         </div>
                     }
-                    <p class="font12 text-light-grey">@(!Model.PrimaryDealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ")@Model.PrimaryDealerDetails.objArea.AreaName</p>
+                    <p class="font12 text-light-grey">@(!PrimaryDealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ")@PrimaryDealerDetails.objArea.AreaName</p>
                 </div>
             </div>
             <div id="dealer-offers-label" class="inline-block">
@@ -30,14 +30,13 @@
                     <li>EMI options</li>
                 </ul>
             </div>
-            <div id="get-offers-btn-content" class="inline-block @(Model.PrimaryDealerDetails.IsDSA ? " rightfloat" :
-                                 "" ) ">
-                <a href=" javascript:void(0)" id="leadBtn" leadsourceid="9" data-item-id="@Model.PrimaryDealerDetails.DealerId" data-item-name="@Model.PrimaryDealerDetails.Organization" data-item-area="@Model.PrimaryDealerDetails.objArea.AreaName" class="btn btn-orange pq-get-dealer-offers leadcapturebtn" c="DealerPriceQoute_Page" a="Get_Offers_Clicked" v="bikeVerLocation" rel="nofollow">
-                    @Model.PrimaryDealer.LeadBtnLongText
+            <div id="get-offers-btn-content" class="inline-block @(PrimaryDealerDetails.IsDSA ? " rightfloat " :"" )">
+                <a href=" javascript:void(0)" id="leadBtn" data-leadsourceid="9" data-item-id="@PrimaryDealerDetails.DealerId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" class="btn btn-orange pq-get-dealer-offers leadcapturebtn" c="DealerPriceQoute_Page" a="Get_Offers_Clicked" v="bikeVerLocation" rel="nofollow">
+                    @PrimaryDealerDetails.DisplayTextLarge
                 </a>
             </div>
             <div class="clear"></div>
-            @if (Model.PrimaryDealerDetails.IsDSA)
+            @if (PrimaryDealerDetails.IsDSA)
             {
                 <div class="bw-tooltip pq-multi-brand-tooltip tooltip-bottom slideUp-tooltip">
                     <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands. Above price is not final and may vary at the dealership.</p>
@@ -50,54 +49,54 @@
             <!-- if no map, add 'map-absent' class -->
             <div class="alpha font14 @(Model.PrimaryDealer.IsPremiumDealer ? " grid-6" : "grid-12 omega")">
                 <!-- if no map, replace grid-6 with grid-12 -->
-                @if (!string.IsNullOrEmpty(Model.PrimaryDealerDetails.Address))
+                @if (!string.IsNullOrEmpty(PrimaryDealerDetails.Address))
                 {
                     <p class=" text-bold margin-bottom15">Dealer contact details</p>
                     <div class="margin-bottom10">
                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                        <span class="vertical-top text-light-grey details-column">@Model.PrimaryDealerDetails.Address</span>
+                        <span class="vertical-top text-light-grey details-column">@PrimaryDealerDetails.Address</span>
                     </div>
                 }
-                @if (!string.IsNullOrEmpty(Model.PrimaryDealerDetails.MaskingNumber))
+                @if (!string.IsNullOrEmpty(PrimaryDealerDetails.MaskingNumber))
                 {
                     <div class="dealer-details-item">
                         <span class="bwsprite phone-black-icon vertical-top"></span>
-                        <span class="font15 vertical-top text-bold details-column">@Model.PrimaryDealerDetails.MaskingNumber</span>
+                        <span class="font15 vertical-top text-bold details-column">@PrimaryDealerDetails.MaskingNumber</span>
                     </div>
                 }
-                @if (!string.IsNullOrEmpty(Model.PrimaryDealerDetails.EmailId))
+                @if (!string.IsNullOrEmpty(PrimaryDealerDetails.EmailId))
                 {
                     <div class="dealer-details-item">
                         <span class="bwsprite mail-grey-icon vertical-top"></span>
-                        <a href="mailto:@Model.PrimaryDealerDetails.EmailId" target="_blank" class="vertical-top text-light-grey" rel="nofollow">
-                            <span class="dealership-card-details">@Model.PrimaryDealerDetails.EmailId</span>
+                        <a href="mailto:@PrimaryDealerDetails.EmailId" target="_blank" class="vertical-top text-light-grey" rel="nofollow">
+                            <span class="dealership-card-details">@PrimaryDealerDetails.EmailId</span>
                         </a>
                     </div>
                 }
-                @if (!string.IsNullOrEmpty(Model.PrimaryDealerDetails.WorkingTime))
+                @if (!string.IsNullOrEmpty(PrimaryDealerDetails.WorkingTime))
                 {
                     <div class="dealer-details-item">
                         <span class="bwsprite clock-icon vertical-top"></span>
-                        <span class="vertical-top text-light-grey details-column">Working hours: @Model.PrimaryDealerDetails.WorkingTime</span>
+                        <span class="vertical-top text-light-grey details-column">Working hours: @PrimaryDealerDetails.WorkingTime</span>
                     </div>
                 }
             </div>
             @if (Model.PrimaryDealer.IsPremiumDealer)
             {
                 <div class="grid-6 omega">
-                    <script src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&callback=initializeDealerMap" async defer></script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&callback=initializeDealerMap" async defer ></script>
 
                     <div id="dealerMap" style="width: 438px; height: 202px; border: 1px solid #f5f5f5;"></div>
                     <div id="get-direction-button" title="get directions">
-                        <a href="https://maps.google.com/?saddr=&daddr=@Model.PrimaryDealerDetails.objArea.Latitude,@Model.PrimaryDealerDetails.objArea.Longitude" target="_blank">
+                        <a href="https://maps.google.com/?saddr=&daddr=@PrimaryDealerDetails.objArea.Latitude,@PrimaryDealerDetails.objArea.Longitude" target="_blank">
                             <span class="bwsprite get-direction-icon"></span>
                         </a>
                     </div>
                     <script type="text/javascript">
                         function initializeDealerMap() {
                             var element = document.getElementById('dealerMap');
-                            var latitude = '@Model.PrimaryDealerDetails.objArea.Latitude';
-                            var longitude = '@Model.PrimaryDealerDetails.objArea.Longitude';
+                            var latitude = '@PrimaryDealerDetails.objArea.Latitude';
+                            var longitude = '@PrimaryDealerDetails.objArea.Longitude';
 
                             try {
                                 mapUrl = "https://maps.google.com/?q=" + latitude + "," + longitude;
@@ -139,11 +138,9 @@
             <div class="clear"></div>
         </div>
 
-
-
-        <!-- EMI calculator starts -->
         @if (Model.PrimaryDealer.EMIDetails != null)
         {
+            <!-- EMI calculator starts -->
             <div class="margin-right20 margin-left20 border-solid-bottom"></div>
             <div class="content-inner-block-20">
                 <p class="font14 text-bold margin-bottom15">EMI calculator</p>
@@ -177,7 +174,7 @@
 
                         <div class="emi-slider-box">
                             <p class="text-light-grey leftfloat">Tenure (Months)</p>
-                            <p class="rightfloat text-bold margin-right15"><span id="tenurePeriod" data-bind="text: tenure"></span>Months</p>
+                            <p class="rightfloat text-bold margin-right15"><span id="tenurePeriod" data-bind="text: tenure"></span>&nbsp;Months</p>
                             <div class="clear"></div>
 
                             <div id="tenureSlider"
@@ -218,7 +215,7 @@
                                     <span id="emiAmount" data-bind="text: formatPrice(monthlyEMI())"></span> per month
                                 </span>
                             </div>
-                            <a id="btnEmiQuote" leadsourceid="11" data-item-id="@Model.PrimaryDealerDetails.DealerId" class="btn btn-grey btn-md font14 leadcapturebtn">Get EMI quote</a>
+                            <a id="btnEmiQuote" data-leadsourceid="11" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" data-item-id="@PrimaryDealerDetails.DealerId" class="btn btn-grey btn-md font14 leadcapturebtn">Get EMI quote</a>
                         </div>
 
                     </div>
@@ -226,66 +223,70 @@
                 </div>
                 <div class="clear"></div>
             </div>
+            <!-- EMI calculator ends -->
         }
-        <!-- EMI calculator ends -->
+
         @if ((!Model.PrimaryDealer.IsStandardDealer && Model.PrimaryDealer.HasOffers) || (Model.PrimaryDealer.IsPremiumDealer && Model.PrimaryDealer.HasBenefits))
         {
+            <!-- offers and benefits starts here -->
             <div class="margin-right20 margin-left20 border-solid-bottom"></div>
             <div class="content-inner-block-20 font14">
                 @if (!Model.PrimaryDealer.IsStandardDealer && Model.PrimaryDealer.HasOffers)
                 {
                     bool isSingleOffer = Model.PrimaryDealer.OfferList.Count() == 1;
                     <!-- offers -->
-                    <div class="alpha @(Model.PrimaryDealer.IsPremiumDealer && Model.PrimaryDealer.HasBenefits ? " grid-6 border-light-right"  :"grid-12 omega offers-or-benefits")">
-                        <p class=" text-bold margin-bottom5">
-                            Offers from this dealer:
-                        </p>
-                        <ul class="dealership-benefit-list">
+                <div class="alpha @(Model.PrimaryDealer.IsPremiumDealer && Model.PrimaryDealer.HasBenefits ? " grid-6 border-light-right"  :"grid-12 omega offers-or-benefits")">
+                    <p class=" text-bold margin-bottom5">
+                        Offers from this dealer:
+                    </p>
+                    <ul class="dealership-benefit-list">
 
-                            @foreach (var offer in Model.PrimaryDealer.OfferList)
+                        @foreach (var offer in Model.PrimaryDealer.OfferList)
                             {
 
-                                <li class="@( isSingleOffer ? " single-offer" : "")">
-                                    <span class="inline-block benefit-list-image pq-sprite @(string.Format(" offerIcon_{0}", offer.OfferCategoryId))">
-                                    </span>
-                                    <span class="inline-block benefit-list-title">
-                                        @offer.OfferText
-                                        @if (offer.IsOfferTerms)
+                            <li class="@( isSingleOffer ? " single-offer" : "")">
+                                <span class="inline-block benefit-list-image pq-sprite @(string.Format(" offerIcon_{0}", offer.OfferCategoryId))">
+                                </span>
+                                <span class="inline-block benefit-list-title">
+                                    @offer.OfferText
+                                    @if (offer.IsOfferTerms)
                                         {
-                                            <span class="tnc font9 margin-left5" id="@offer.OfferId">
-                                                View terms
-                                            </span>
+                                        <span class="tnc font9 margin-left5" id="@offer.OfferId">
+                                            View terms
+                                        </span>
                                         }
-                                    </span>
-                                </li>
+                                </span>
+                            </li>
                             }
-                        </ul>
-                        <div class="clear"></div>
-                    </div>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
                 }
                 @if (Model.PrimaryDealer.IsPremiumDealer && Model.PrimaryDealer.HasBenefits)
                 {
                                     <!-- benefits -->
-                    <div class="omega @(!Model.PrimaryDealer.IsStandardDealer && Model.PrimaryDealer.HasOffers ? " grid-6 padding-left30" : "grid-12 alpha offers-or-benefits")">
-                        <p class="text-bold margin-bottom5">Benefits offered by this dealer</p>
-                        <ul class="dealership-benefit-list">
-                            @foreach (var benefit in Model.PrimaryDealer.Benefits)
+                <div class="omega @(!Model.PrimaryDealer.IsStandardDealer && Model.PrimaryDealer.HasOffers ? " grid-6 padding-left30" : "grid-12 alpha offers-or-benefits")">
+                    <p class="text-bold margin-bottom5">Benefits offered by this dealer</p>
+                    <ul class="dealership-benefit-list">
+                        @foreach (var benefit in Model.PrimaryDealer.Benefits)
                             {
-                                <li>
-                                    <span class="inline-block benefit-list-image pq-sprite @(string.Format(" benifitIcon_{0}", benefit.CatId))"></span>
-                                    <span class="inline-block benefit-list-title">@benefit.BenefitText</span>
-                                </li>
+                            <li>
+                                <span class="inline-block benefit-list-image pq-sprite @(string.Format(" benifitIcon_{0}", benefit.CatId))"></span>
+                                <span class="inline-block benefit-list-title">@benefit.BenefitText</span>
+                            </li>
                             }
-                        </ul>
-                        <div class="clear"></div>
-                    </div>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
                 }
                 <div class="clear"></div>
             </div>
+            <!-- offers and benefits ends here -->
         }
 
         @if (Model.PrimaryDealer.IsBookingAvailable)
         {
+            <!-- booking starts here -->
             <div class="margin-right20 margin-left20 border-solid-bottom"></div>
             <div class="content-inner-block-20 font14">
                 <p class="text-bold margin-bottom15">Book your bike from this dealer</p>
@@ -303,23 +304,27 @@
                 </div>
                 <div class="clear"></div>
             </div>
+            <!-- booking ends here -->
         }
-        @if (Model.PrimaryDealerDetails != null)
+
+        @if (PrimaryDealerDetails != null)
         {
+            <!-- disclaimer starts here -->
             <p id="disclaimerText" class="padding-left20 font11 padding-right20 padding-bottom20 text-x-light">
                 <span id="read-less">
                     @if (Model.PrimaryDealer.IsPremiumDealer)
                     {
-                        <span>The bike prices and EMI quote mentioned here are indicative and are provided by their authorized dealerships. BikeWale takes utmost care in gathering precise</span>
+                    <span>The bike prices and EMI quote mentioned here are indicative and are provided by their authorized dealerships. BikeWale takes utmost care in gathering precise</span>
                     }
                     else
                     {
-                        <span>The bike prices mentioned here are indicative and are provided by their authorized dealerships. BikeWale takes utmost care in gathering precise and accurate</span>
+                    <span>The bike prices mentioned here are indicative and are provided by their authorized dealerships. BikeWale takes utmost care in gathering precise and accurate</span>
                     }
                     <a id="readmore" class="text-link">read more</a>
                 </span>
                 <span id="read-more"></span>
             </p>
+            <!-- disclaimer ends here -->
         }
     </div>
 
@@ -341,8 +346,8 @@
 
     if (Model.PrimaryDealer.EMIDetails != null)
     {
-       <script type="text/javascript">
-            
+        <script type="text/javascript">
+
             var calculateEMI = function (loanAmount, tenure, rateOfInterest,proFees) {
                 var interest, totalRepay, finalEmi;
                 try {
