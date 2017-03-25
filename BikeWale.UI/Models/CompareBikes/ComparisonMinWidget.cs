@@ -1,4 +1,5 @@
 ﻿using Bikewale.Common;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.Compare;
 using System;
@@ -16,12 +17,14 @@ namespace Bikewale.Models.CompareBikes
         private readonly IBikeCompareCacheRepository _objCompareCache;
         private uint _topCount;
         private bool _showComparisonButton;
+        private EnumBikeType _bikeType;
 
-        public ComparisonMinWidget(IBikeCompareCacheRepository objCompareCache, uint topCount, bool showComparisonButton)
+        public ComparisonMinWidget(IBikeCompareCacheRepository objCompareCache, uint topCount, bool showComparisonButton, EnumBikeType bikeType)
         {
             _topCount = topCount;
             _objCompareCache = objCompareCache;
             _showComparisonButton = showComparisonButton;
+            _bikeType = bikeType;
         }
 
         public ComparisonMinWidgetVM GetData()
@@ -29,7 +32,12 @@ namespace Bikewale.Models.CompareBikes
             ComparisonMinWidgetVM objComparison = null;
             try
             {
-                IEnumerable<TopBikeCompareBase> topBikeCompares = _objCompareCache.CompareList(_topCount);
+                IEnumerable<TopBikeCompareBase> topBikeCompares = null;
+
+                if (_bikeType.Equals(EnumBikeType.Scooters))
+                    topBikeCompares = _objCompareCache.ScooterCompareList(_topCount);
+                else
+                    topBikeCompares = _objCompareCache.CompareList(_topCount);
 
                 if (topBikeCompares != null && topBikeCompares.Count() > 0)
                 {
