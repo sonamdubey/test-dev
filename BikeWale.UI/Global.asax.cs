@@ -6,8 +6,6 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using WURFL;
 using WURFL.Config;
-using System.Web.WebPages;
-using Bikewale.Filters;
 
 namespace Bikewale
 {
@@ -26,7 +24,7 @@ namespace Bikewale
 
             GlobalConfiguration.Configuration.EnsureInitialized();
 
-            DisplayModeProvider.Instance.Modes.Clear();
+            //DisplayModeProvider.Instance.Modes.Clear();
 
             //// Added mobile device detection for the views
             //if (!BWConfiguration.Instance.DebugMobileSite)

@@ -1,0 +1,23 @@
+﻿@model  Bikewale.Models.DealerShowroomCityPageVM
+@*@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}*@
+
+@if (Model.DealerCountCityList != null && Model.DealerCountCityList.Count() > 0)
+{
+    <section>
+        <div class="container bg-white box-shadow padding-top15 padding-bottom20">
+            <h2 class="padding-right20 padding-bottom15 padding-left20">Explore @ViewBag.MakeName showrooms in cities near @ViewBag.CityName</h2>
+            @*</div><div class="swiper-heading-right-grid inline-block text-right">
+                <a href="@Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title=@<%=makeName %> Showrooms in <%=cityName %>" class="btn view-all-target-btn">View all</a>
+            </div>*@
+            <div class="clear"></div>
+
+            @Html.Partial("~/Views/DealerShowroom/_DealersInNearByCities_Mobile.cshtml", Model.DealerCountCityList)
+        </div>
+        
+
+        <div class="clear"></div>
+
+    </section>
+}
