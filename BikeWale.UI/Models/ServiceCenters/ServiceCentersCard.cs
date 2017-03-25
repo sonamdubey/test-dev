@@ -1,8 +1,8 @@
-﻿using Bikewale.BindViewModels.Controls;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.ServiceCenters;
+using Bikewale.Interfaces.ServiceCenter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +18,12 @@ namespace Bikewale.Models.ServiceCenters
         private uint _serviceCenterId, _topCount;
         private CityEntityBase _city;
         private BikeMakeEntityBase _make;
+        private readonly IServiceCenter _objSC;
 
-        public ServiceCentersCard(uint topCount, BikeMakeEntityBase make, CityEntityBase city)
+
+        public ServiceCentersCard(IServiceCenter objSC, uint topCount, BikeMakeEntityBase make, CityEntityBase city)
         {
+            _objSC = objSC;
             _serviceCenterId = 0;
             _topCount = topCount;
             _make = make;
@@ -40,7 +43,7 @@ namespace Bikewale.Models.ServiceCenters
             ServiceCenterDetailsWidgetVM objData = null;
             try
             {
-                ServiceCenterData centerData = (new BindServiceCenter()).GetServiceCenterList(_make.MakeId, _city.CityId);
+                ServiceCenterData centerData = _objSC.GetServiceCentersByCity(_city.CityId, _make.MakeId);
                 IEnumerable<ServiceCenterDetails> totalList = null;
 
                 if (centerData != null && centerData.ServiceCenters != null)

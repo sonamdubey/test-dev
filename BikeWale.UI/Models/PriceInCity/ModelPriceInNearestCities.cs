@@ -1,10 +1,6 @@
-﻿using Bikewale.Cache.Core;
-using Bikewale.Cache.PriceQuote;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 
@@ -16,26 +12,18 @@ namespace Bikewale.Models.PriceInCity
     /// </summary>
     public class ModelPriceInNearestCities
     {
-        private IPriceQuoteCache _objCache;
+        private readonly IPriceQuoteCache _objCache;
         private uint _modelId, _cityId;
         private ushort _topCount;
 
-        public ModelPriceInNearestCities(uint modelId, uint cityId, ushort topCount)
+        public ModelPriceInNearestCities(IPriceQuoteCache objCache, uint modelId, uint cityId, ushort topCount)
         {
             try
             {
                 _modelId = modelId;
                 _cityId = cityId;
                 _topCount = topCount;
-
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IPriceQuoteCache, PriceQuoteCache>();
-
-                    _objCache = container.Resolve<IPriceQuoteCache>();
-                }
+                _objCache = objCache;
             }
             catch (Exception ex)
             {
