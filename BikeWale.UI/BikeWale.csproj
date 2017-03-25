@@ -3557,6 +3557,7 @@
     <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ_Mobile.cshtml" />
     <Content Include="Views\BikeCare\_RecentBikeCare.cshtml" />
     <Content Include="Views\BikeCare\_RecentBikeCare_Mobile.cshtml" />
+    <Content Include="Views\CompareBikes\_ComparisonMin_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
