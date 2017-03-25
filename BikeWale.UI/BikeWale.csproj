@@ -896,6 +896,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BikeModels\BikeInfoWidget.cs" />
     <Compile Include="Models\BikeModels\MostPopularBikesWidget.cs" />
     <Compile Include="Models\BikeMakes\BrandWidgetModel.cs" />
     <Compile Include="Models\BikeModels\SimilarBikesWidget.cs" />
@@ -3462,7 +3463,7 @@
     <Content Include="Views\Videos\Details.cshtml" />
     <Content Include="Views\Shared\_SimilarVideo.cshtml" />
     <Content Include="Views\m\Scooters\BikesByMake.cshtml" />
-    <Content Include="Views\Shared\_GenericBikeInfoCard.cshtml" />
+    <Content Include="Views\BikeModels\_BikeInfoCard.cshtml" />
     <Content Include="Views\m\Videos\Makes.cshtml" />
     <Content Include="Views\Videos\Makes.cshtml" />
     <Content Include="Views\m\Shared\_PopularBikes.cshtml" />
@@ -3471,7 +3472,7 @@
     <Content Include="Views\Scooters\index.cshtml" />
     <Content Include="Views\m\Shared\_PopularBodyStyle.cshtml" />
     <Content Include="Views\m\Videos\Details.cshtml" />
-    <Content Include="Views\m\Shared\_GenericBikeInfoCard.cshtml" />
+    <Content Include="Views\BikeModels\_BikeInfoCard_Mobile.cshtml" />
     <Content Include="Views\m\Shared\_SimilarVideo.cshtml" />
     <Content Include="Views\Scooters\models.cshtml" />
     <Content Include="Views\Shared\_makes.cshtml" />

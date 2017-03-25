@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BikeModels\BikeInfoVM.cs" />
     <Compile Include="BikeModels\MostPopularBikeWidgetVM.cs" />
     <Compile Include="BikeMakes\BrandWidgetVM.cs" />
     <Compile Include="BikeModels\SimilarBikesWidgetVM.cs" />
