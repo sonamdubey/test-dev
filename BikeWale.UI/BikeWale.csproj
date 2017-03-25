@@ -898,6 +898,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BikeModels\BikeInfoWidget.cs" />
     <Compile Include="Models\BestBikes\BestBikeWidgetModel.cs" />
     <Compile Include="Models\BikeModels\MostPopularBikesWidget.cs" />
     <Compile Include="Models\BikeMakes\BrandWidgetModel.cs" />
@@ -3469,7 +3470,7 @@
     <Content Include="Views\Videos\Details.cshtml" />
     <Content Include="Views\Shared\_SimilarVideo.cshtml" />
     <Content Include="Views\m\Scooters\BikesByMake.cshtml" />
-    <Content Include="Views\Shared\_GenericBikeInfoCard.cshtml" />
+    <Content Include="Views\BikeModels\_BikeInfoCard.cshtml" />
     <Content Include="Views\m\Videos\Makes.cshtml" />
     <Content Include="Views\Videos\Makes.cshtml" />
     <Content Include="Views\m\Shared\_PopularBikes.cshtml" />
@@ -3478,7 +3479,7 @@
     <Content Include="Views\Scooters\index.cshtml" />
     <Content Include="Views\m\Shared\_PopularBodyStyle.cshtml" />
     <Content Include="Views\m\Videos\Details.cshtml" />
-    <Content Include="Views\m\Shared\_GenericBikeInfoCard.cshtml" />
+    <Content Include="Views\BikeModels\_BikeInfoCard_Mobile.cshtml" />
     <Content Include="Views\m\Shared\_SimilarVideo.cshtml" />
     <Content Include="Views\Scooters\models.cshtml" />
     <Content Include="Views\Shared\_makes.cshtml" />
@@ -3543,6 +3544,8 @@
     <Content Include="Views\PriceInCity\_ModelPriceInNearestCities.cshtml" />
     <Content Include="Views\PriceInCity\_ModelPriceInNearestCities_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_OnRoadPriceWidget.cshtml" />
+    <Content Include="Views\BikeModels\_MinBikeInfoCard.cshtml" />
+    <Content Include="Views\BikeModels\_minBikeInfoCard_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\ComparisonMin.cshtml" />
     <Content Include="Views\NewLaunches\_NewLaunches.cshtml" />
     <Content Include="Views\NewLaunches\_NewLaunches_Mobile.cshtml" />
