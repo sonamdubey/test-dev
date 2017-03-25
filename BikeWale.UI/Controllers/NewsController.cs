@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.Videos;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
@@ -15,10 +16,12 @@ namespace Bikewale.Controllers
     {
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
-        public NewsController(ICMSCacheContent articles, IVideos videos)
+        private readonly IBikeModelsCacheRepository<int> _models = null;
+        public NewsController(ICMSCacheContent articles, IVideos videos,IBikeModelsCacheRepository<int> models)
         {
             _articles = articles;
             _videos = videos;
+            _models = models;
         }
 
         [Route("news/")]
@@ -66,10 +69,10 @@ namespace Bikewale.Controllers
             uint totalRec = 10, makeid = 1, modelid = 411;
             string makeName = "Bajaj", makemasking = "bajaj";
             string modelName = "Pulsar RS200", modelmasking = "pulsar";
-            testPageModel obj = new testPageModel(_articles, _videos);
+            testPageModel obj = new testPageModel(_articles, _videos,_models);
             TestVM objData = new TestVM();
-            objData = obj.PopulatePageModel(totalRec, 0, 0, null, null, null, null, 1, 5,videoCatList,VideosSortOrder.FeaturedAndLatest, EnumVideosCategory.FeaturedAndLatest);
-            // objData = obj.PopulatePageModel(totalRec, makeid, modelid, makeName, makemasking, modelName, modelmasking);
+           // objData = obj.PopulatePageModel(1,totalRec, 0, 0, null, null, null, null, 1, 5,videoCatList,VideosSortOrder.FeaturedAndLatest, EnumVideosCategory.FeaturedAndLatest);
+             objData = obj.PopulatePageModel(1,totalRec, makeid, modelid, makeName, makemasking, modelName, modelmasking, 1, 5,videoCatList,VideosSortOrder.FeaturedAndLatest, EnumVideosCategory.FeaturedAndLatest);
             return View(objData);
 
         }
