@@ -3439,7 +3439,7 @@
     <Content Include="Views\Shared\_Layout_Mobile_AMP.cshtml" />
     <Content Include="Views\m\Content\ExpertReviews\details_amp.cshtml" />
     <Content Include="Views\m\Content\Features\details_amp.cshtml" />
-    <Content Include="Views\m\Shared\_BikeInfo.cshtml" />
+    <Content Include="Views\BikeModels\_BikeInfoCard_AMP_Mobile.cshtml" />
     <Content Include="Views\m\NewLaunches\Index.cshtml" />
     <Content Include="Views\m\Shared\_HomePageBanner.cshtml" />
     <Content Include="Views\m\Shared\_PopupWidget.cshtml" />
