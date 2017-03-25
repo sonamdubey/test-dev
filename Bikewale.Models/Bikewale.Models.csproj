@@ -45,6 +45,7 @@
     <Compile Include="BikeModels\MostPopularBikeWidgetVM.cs" />
     <Compile Include="BikeMakes\BrandWidgetVM.cs" />
     <Compile Include="BikeModels\SimilarBikesWidgetVM.cs" />
+    <Compile Include="CompareBikes\ComparisonMinWidgetVM.cs" />
     <Compile Include="ExpertReviews\ExpertReviewsIndexPageVM.cs" />
     <Compile Include="ExpertReviews\RecentExpertReviewsVM.cs" />
     <Compile Include="HomePage\HomePageVM.cs" />

@@ -468,6 +468,7 @@
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\GenericBikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -903,6 +904,7 @@
     <Compile Include="Models\BikeModels\MostPopularBikesWidget.cs" />
     <Compile Include="Models\BikeMakes\BrandWidgetModel.cs" />
     <Compile Include="Models\BikeModels\SimilarBikesWidget.cs" />
+    <Compile Include="Models\CompareBikes\ComparisonMinWidget.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
@@ -3544,9 +3546,10 @@
     <Content Include="Views\PriceInCity\_ModelPriceInNearestCities.cshtml" />
     <Content Include="Views\PriceInCity\_ModelPriceInNearestCities_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_OnRoadPriceWidget.cshtml" />
+    <Content Include="Views\CompareBikes\_ComparisonMin.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\BikeModels\_MinBikeInfoCard.cshtml" />
     <Content Include="Views\BikeModels\_minBikeInfoCard_Mobile.cshtml" />
-    <Content Include="Views\CompareBikes\ComparisonMin.cshtml" />
     <Content Include="Views\NewLaunches\_NewLaunches.cshtml" />
     <Content Include="Views\NewLaunches\_NewLaunches_Mobile.cshtml" />
     <Content Include="Views\BestBikes\_BestBikes.cshtml" />
@@ -3557,6 +3560,7 @@
     <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ_Mobile.cshtml" />
     <Content Include="Views\BikeCare\_RecentBikeCare.cshtml" />
     <Content Include="Views\BikeCare\_RecentBikeCare_Mobile.cshtml" />
+    <Content Include="Views\CompareBikes\_ComparisonMin_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3657,7 +3661,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54955</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
