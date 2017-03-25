@@ -41,8 +41,6 @@ namespace Bikewale.Models
         public HomePageVM GetData()
         {
             HomePageVM objVM = new HomePageVM();
-            objVM.AdTags = new AdTags();
-            objVM.PageMetaTags = new PageMetaTags();
             objVM.Brands = new BrandWidgetModel(TopCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.New);
             objVM.NewLaunchedBikes = new NewLaunchedWidgetModel(LaunchedRecordCount, _newLaunches).GetData();
             objVM.NewLaunchedBikes.PageCatId = 5;
