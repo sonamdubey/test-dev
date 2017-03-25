@@ -447,7 +447,8 @@
     <Compile Include="content\UserReviews\WriteReviews.aspx.cs">
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile><Compile Include="Controllers\BikeCareController.cs" />
+    </Compile>
+    <Compile Include="Controllers\BikeCareController.cs" />
     <Compile Include="Controllers\BestBikesController.cs" />
     <Compile Include="Controllers\CompareBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
@@ -470,7 +471,6 @@
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\GenericBikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -901,6 +901,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BestBikes\PopularBikesByBodyStyle.cs" />
     <Compile Include="Models\BikeModels\BikeInfoWidget.cs" />
     <Compile Include="Models\BestBikes\BestBikeWidgetModel.cs" />
     <Compile Include="Models\BikeModels\MostPopularBikesWidget.cs" />
@@ -914,7 +915,6 @@
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
     <Compile Include="Models\testPageModel.cs" />
-    <Compile Include="Models\Videos\RecentVideos.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersByBrand.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersCard.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersInNearByCities.cs" />
@@ -3570,7 +3570,6 @@
     <Content Include="Views\Videos\_ExpertReviewVideos.cshtml" />
     <Content Include="Views\Videos\_ExpertReviewVideos_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_ComparisonMin.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\BikeModels\_MinBikeInfoCard.cshtml" />
     <Content Include="Views\BikeModels\_minBikeInfoCard_Mobile.cshtml" />
     <Content Include="Views\NewLaunches\_NewLaunches.cshtml" />
@@ -3584,6 +3583,11 @@
     <Content Include="Views\BikeCare\_RecentBikeCare.cshtml" />
     <Content Include="Views\BikeCare\_RecentBikeCare_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_ComparisonMin_Mobile.cshtml" />
+    <Content Include="Views\Videos\_SimilarVideos.cshtml" />
+    <Content Include="Views\Videos\_SimilarVideos_Mobile.cshtml" />
+    <Content Include="Views\BestBikes\_PopularBodyStyle_Vertical.cshtml" />
+    <Content Include="Views\BestBikes\_PopularBodyStyleCarousel.cshtml" />
+    <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
