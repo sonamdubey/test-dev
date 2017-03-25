@@ -913,8 +913,7 @@
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
-    <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
-    <Compile Include="Models\testPageModel.cs" />
+    <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />    
     <Compile Include="Models\Videos\RecentVideos.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersByBrand.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersCard.cs" />
@@ -922,8 +921,7 @@
     <Compile Include="Models\HomePageModel.cs" />
     <Compile Include="Models\Videos\VideosByCategory.cs" />
     <Compile Include="Models\Videos\VideosBySubcategory.cs" />
-    <Compile Include="Models\NewLaunches\NewLaunchedWidgetModel.cs" />
-    <Compile Include="Models\Videos\RecentVideos.cs" />
+    <Compile Include="Models\NewLaunches\NewLaunchedWidgetModel.cs" />   
     <Compile Include="mybikewale\buyerdetails.aspx.cs">
       <DependentUpon>buyerdetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3552,8 +3550,6 @@
     <Content Include="Views\BikeCare\_RecentBikeCare_Mobile.cshtml" />
     <Content Include="Views\News\_RecentNews.cshtml" />
     <Content Include="Views\News\_RecentNews_Mobile.cshtml" />
-    <Content Include="Views\News\TestNews.cshtml" />
-    <Content Include="Views\News\TestWidget_Mobile.cshtml" />
     <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ.cshtml" />
     <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ_Mobile.cshtml" />
     <Content Include="Views\Videos\_RecentVideos.cshtml" />

@@ -44,8 +44,7 @@
     <Compile Include="BikeCare\RecentBikeCareVM.cs" />
     <Compile Include="BikeModels\MostPopularBikeWidgetVM.cs" />
     <Compile Include="BikeMakes\BrandWidgetVM.cs" />
-    <Compile Include="BikeModels\SimilarBikesWidgetVM.cs" />
-    <Compile Include="BikeCare\RecentBikeCareVM.cs" />
+    <Compile Include="BikeModels\SimilarBikesWidgetVM.cs" />    
     <Compile Include="CompareBikes\ComparisonMinWidgetVM.cs" />
     <Compile Include="ExpertReviews\ExpertReviewsIndexPageVM.cs" />
     <Compile Include="ExpertReviews\RecentExpertReviewsVM.cs" />
@@ -55,7 +54,6 @@
     <Compile Include="News\RecentNewsVM.cs" />
     <Compile Include="PriceInCity\PriceInTopCitiesWidgetVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="News\RecentNewsVM.cs" />
     <Compile Include="ServiceCenters\ServiceCenterDetailsWidgetVM.cs" />
     <Compile Include="ServiceCenters\ServiceCentersNearByCityWidgetVM.cs" />
     <Compile Include="Shared\BikeInfo.cs" />
@@ -64,8 +62,7 @@
     <Compile Include="Shared\PopularScootersList.cs" />
     <Compile Include="Shared\Showrooms.cs" />
     <Compile Include="Videos\RecentVideosVM.cs" />
-    <Compile Include="Videos\VideosBySubcategoryVM.cs" />
-    <Compile Include="Videos\RecentVideosVM.cs" />
+    <Compile Include="Videos\VideosBySubcategoryVM.cs" />   
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
