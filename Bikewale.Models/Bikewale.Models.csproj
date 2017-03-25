@@ -45,6 +45,7 @@
     <Compile Include="BikeModels\MostPopularBikeWidgetVM.cs" />
     <Compile Include="BikeMakes\BrandWidgetVM.cs" />
     <Compile Include="BikeModels\SimilarBikesWidgetVM.cs" />
+    <Compile Include="BikeCare\RecentBikeCareVM.cs" />
     <Compile Include="CompareBikes\ComparisonMinWidgetVM.cs" />
     <Compile Include="ExpertReviews\ExpertReviewsIndexPageVM.cs" />
     <Compile Include="ExpertReviews\RecentExpertReviewsVM.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="News\RecentNewsVM.cs" />
     <Compile Include="PriceInCity\PriceInTopCitiesWidgetVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="News\RecentNewsVM.cs" />
     <Compile Include="ServiceCenters\ServiceCenterDetailsWidgetVM.cs" />
     <Compile Include="ServiceCenters\ServiceCentersNearByCityWidgetVM.cs" />
     <Compile Include="Shared\BikeInfo.cs" />
@@ -61,6 +63,8 @@
     <Compile Include="Shared\Pager.cs" />
     <Compile Include="Shared\PopularScootersList.cs" />
     <Compile Include="Shared\Showrooms.cs" />
+    <Compile Include="Videos\RecentVideosVM.cs" />
+    <Compile Include="Videos\VideosBySubcategoryVM.cs" />
     <Compile Include="Videos\RecentVideosVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Desktop\" />
+    <Folder Include="Features\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
