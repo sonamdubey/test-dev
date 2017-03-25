@@ -221,4 +221,61 @@
             <div class="clear"></div>
         </div>
     </section>
+    <section>
+        <div class="container section-bottom-margin">
+            <h2 class="section-heading">Featured bikes</h2>
+            <div class="grid-12">
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Featured bikes</h2>
+                <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul>
+                            @*@if (popularScooters.PopularScooters != null && popularScooters.PopularScooters.Count() > 0)
+                            {
+                                <li class="active" data-tabs="ctrlMostPopularBikes">
+                                    <h3>Most Popular</h3>
+                                </li>
+                            }*@
+                            @if (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0)
+                            {
+                                <li data-tabs="ctrlNewLaunchedBikes">
+                                    <h3>New launches</h3>
+                                </li>
+                            }
+                            @*@if (objUpcoming != null && objUpcoming.Count() > 0)
+                            {
+                                <li data-tabs="ctrlUpcomingBikes">
+                                    <h3>Upcoming</h3>
+                                </li>
+                            }*@
+                        </ul>
+                    </div>
+                    @*@if (popularScooters.PopularScooters != null && popularScooters.PopularScooters.Count() > 0)
+                    {
+                        <div id="ctrlMostPopularBikes" class="bw-tabs-data">
+                            @Html.Partial("~/Views/Shared/_popularBikesScooters.cshtml", popularScooters)
+                            <div class="view-all-btn-container padding-top15 padding-bottom20">
+                                <a href="/best-scooters-in-india/" class="btn view-all-target-btn" title="Popular Scooters in India">View all scooters<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    }*@
+                    @if (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0)
+                    {
+                        <div class="bw-tabs-data hide padding-top15 padding-bottom20" id="ctrlNewLaunchedBikes">
+                            @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunchedBikes)
+                        </div>
+                    }
+                    @*@if (objUpcoming != null && objUpcoming.Count() > 0)
+                    {
+                        <div class="bw-tabs-data hide padding-top15 padding-bottom20" id="ctrlUpcomingBikes">
+                            @Html.Partial("~/Views/Shared/_UpcomingBikes.cshtml", objUpcoming)
+                        </div>
+                    }*@
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <section>
+        @Html.Partial("~/Views/BestBikes/_BestBikes.cshtml", Model.BestBikes)
+    </section>
 </body>
