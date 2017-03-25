@@ -83,7 +83,7 @@
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
                             <ul id="location-list">
-                                  <% foreach (Bikewale.Entities.DealerLocator.StateCityEntity st in states.stateCityList)
+                                  <% foreach (Bikewale.Entities.DealerLocator.StateCityEntity st in states.StateCityList)
                        { %>
                                 <li  class="item-state">
                                     <p data-item-id="<%=st.Id %>" data-item-name="<%=st.Name %>" data-lat="<%=st.Lat %>" data-long ="<%=st.Long %>" data-dealercount="<%=st.DealerCountState%>" class="type-state cur-pointer" data-item-id="<%=st.Id %>"><%=st.Name %></p>

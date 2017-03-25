@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DealerShowroomCityPageVM.cs" />
+    <Compile Include="DealerShowroomDealerDetailsVM.cs" />
+    <Compile Include="DealerShowroomIndiaPageVM.cs" />
     <Compile Include="ExpertReviewsIndexPageVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />

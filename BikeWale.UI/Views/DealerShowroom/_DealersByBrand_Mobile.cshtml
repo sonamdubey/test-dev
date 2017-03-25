@@ -1,0 +1,28 @@
+﻿@model  IEnumerable<Bikewale.Entities.Dealer.DealerBrandEntity>
+
+@if (Model != null)
+{
+
+    <div class="swiper-container padding-top5 padding-bottom5 brand-type-carousel">
+        <div class="swiper-wrapper">
+            @foreach (var DealerDetails in Model)
+            {
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.GetDealerShowroomUrl(DealerDetails.MaskingName))" title="@String.Format(" {0} showrooms in india", DealerDetails.MakeName)">
+                            <div class="brand-logo-image">
+                                <span class="brand-type">
+                                    <span class="brandlogosprite brand-@DealerDetails.MakeId"></span>
+                                </span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">@DealerDetails.MakeName</p>
+                                <h3 class="text-unbold text-light-grey font11">@String.Format("{0} {1} showroom{2}", DealerDetails.DealerCount, DealerDetails.MakeName, DealerDetails.DealerCount > 1 ? "s" : "")</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

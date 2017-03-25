@@ -448,6 +448,7 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\DealerShowroomController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
@@ -895,6 +896,10 @@
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
     <Compile Include="Models\DealerPriceQuotePage.cs" />
+    <Compile Include="Models\DealerShowroom\DealerShowroomCityPage.cs" />
+    <Compile Include="Models\DealerShowroom\DealerShowroomDealerDetail.cs" />
+    <Compile Include="Models\DealerShowroom\DealerShowroomIndexPage.cs" />
+    <Compile Include="Models\DealerShowroom\DealerShowroomIndiaPage.cs" />
     <Compile Include="Models\ExpertReviewsIndexPage.cs" />
     <Compile Include="mybikewale\buyerdetails.aspx.cs">
       <DependentUpon>buyerdetails.aspx</DependentUpon>
@@ -3443,8 +3448,8 @@
     <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
     <Content Include="Views\NewLaunches\BikesByYear.cshtml" />
     <Content Include="Views\m\NewLaunches\BikesByYear.cshtml" />
-    <Content Include="Views\m\Shared\_UpcomingBikes.cshtml" />
-    <Content Include="Views\Shared\_UpcomingBikes.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikes_Mobile.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikes.cshtml" />
     <Content Include="Views\Shared\_NewLaunchedByMakeWithCount.cshtml" />
     <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
     <Content Include="Views\m\Shared\_NewLaunchedByMakeWithCount.cshtml" />
@@ -3511,6 +3516,20 @@
     <Content Include="Views\Price\_DealerCampaign.cshtml" />
     <Content Include="Views\Price\_ManufacturerCampaign.cshtml" />
     <Content Include="Views\Shared\_LeadCaptureControl.cshtml" />
+    <Content Include="Views\DealerShowroom\_DealersByBrand.cshtml" />
+    <Content Include="Views\DealerShowroom\_DealersInNearByCities.cshtml" />
+    <Content Include="Views\DealerShowroom\_DealerCard.cshtml" />
+    <Content Include="Views\DealerShowroom\DealersInIndia.cshtml" />
+    <Content Include="Views\DealerShowroom\DealersInIndia_Mobile.cshtml" />
+    <Content Include="Views\DealerShowroom\_DealersByBrand_Mobile.cshtml" />
+    <Content Include="Views\DealerShowroom\DealerDetail.cshtml" />
+    <Content Include="Views\DealerShowroom\_DealerCard_Mobile.cshtml" />
+    <Content Include="Views\DealerShowroom\DealerDetail_Mobile.cshtml" />
+    <Content Include="Views\DealerShowroom\DealerInCity.cshtml" />
+    <Content Include="Views\DealerShowroom\DealerInCity_Mobile.cshtml" />
+    <Content Include="Views\DealerShowroom\_DealersInNearByCities_Mobile.cshtml" />
+    <Content Include="Views\Used\_UsedBikesByModel.cshtml" />
+    <Content Include="Views\Used\_UsedBikesByModel_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3535,7 +3554,6 @@
     <Folder Include="Views\Content\News\Amp\" />
     <Folder Include="Views\Features\" />
     <Folder Include="Views\GenericBikeInfo\" />
-    <Folder Include="Views\Upcoming\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

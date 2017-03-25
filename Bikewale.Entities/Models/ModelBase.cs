@@ -7,8 +7,8 @@ namespace Bikewale.Models
     /// </summary>
     public class ModelBase
     {
-        public PageMetaTags PageMetaTags { get; set; }
-        public AdTags AdTags { get; set; }
+        public PageMetaTags PageMetaTags { get; private set; }
+        public AdTags AdTags { get; private set; }
 
         public bool IsTransparentHeader { get; set; }
         public bool IsHomePage { get; set; }
@@ -20,8 +20,8 @@ namespace Bikewale.Models
 
         public ModelBase()
         {
-            PageMetaTags = new PageMetaTags();
-            AdTags = new AdTags();
+            this.PageMetaTags = new PageMetaTags();
+            this.AdTags = new AdTags();
         }
     }
 }
