@@ -448,6 +448,7 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\BestBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
@@ -894,9 +895,11 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BestBikes\BestBikeWidgetModel.cs" />
     <Compile Include="Models\BikeMakes\BrandWidgetModel.cs" />
     <Compile Include="Models\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\HomePageModel.cs" />
+    <Compile Include="Models\NewLaunches\NewLaunchedWidgetModel.cs" />
     <Compile Include="mybikewale\buyerdetails.aspx.cs">
       <DependentUpon>buyerdetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3511,6 +3514,14 @@
     <Content Include="Views\BikeMakes\_Brands.cshtml" />
     <Content Include="Views\HomePage\Index_Mobile.cshtml" />
     <Content Include="Views\BikeMakes\_Brands_Mobile.cshtml" />
+    <Content Include="Views\NewLaunches\_NewLaunches.cshtml" />
+    <Content Include="Views\NewLaunches\_NewLaunches_Mobile.cshtml" />
+    <Content Include="Views\BestBikes\_BestBikes.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\BestBikes\_BestBikes_Mobile.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
