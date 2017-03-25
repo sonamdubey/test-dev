@@ -1,7 +1,7 @@
-﻿using Bikewale.BindViewModels.Controls;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.ServiceCenters;
+using Bikewale.Interfaces.ServiceCenter;
 using System;
 using System.Collections.Generic;
 
@@ -15,9 +15,11 @@ namespace Bikewale.Models.ServiceCenters
     {
         private BikeMakeEntityBase _make;
         private uint _topCount, _cityId;
+        private readonly IServiceCenterCacheRepository _objSC;
 
-        public ServiceCentersInNearByCities(uint topCount, uint cityId, BikeMakeEntityBase make)
+        public ServiceCentersInNearByCities(IServiceCenterCacheRepository objSC, uint topCount, uint cityId, BikeMakeEntityBase make)
         {
+            _objSC = objSC;
             _topCount = topCount;
             _cityId = cityId;
             _make = make;
@@ -29,7 +31,7 @@ namespace Bikewale.Models.ServiceCenters
 
             try
             {
-                IEnumerable<CityBrandServiceCenters> ServiceCentersNearbyCities = (new BindNearbyCitiesServiceCenters()).GetServiceCentersNearbyCitiesByMake((int)_cityId, _make.MakeId, (int)_topCount);
+                IEnumerable<CityBrandServiceCenters> ServiceCentersNearbyCities = _objSC.GetServiceCentersNearbyCitiesByBrand((int)_cityId, _make.MakeId, (int)_topCount);
 
                 objVM = new ServiceCentersNearByCityWidgetVM();
                 objVM.ServiceCentersNearbyCities = ServiceCentersNearbyCities;
