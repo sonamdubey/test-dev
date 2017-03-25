@@ -2,42 +2,42 @@
 <!doctype html>
 <html>
 <head>
-    @if (@Model != null && @Model.PageMetaTags != null)
+    @if (Model != null && Model.PageMetaTags != null)
     {
-        if (!String.IsNullOrEmpty(@Model.PageMetaTags.Title))
-        { 
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
+        {
             <title>@Model.PageMetaTags.Title</title>
         }
-        if (!String.IsNullOrEmpty(@Model.PageMetaTags.Description))
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
         {
             <meta name="description" content="@Model.PageMetaTags.Description" />
         }
-        if (!String.IsNullOrEmpty(@Model.PageMetaTags.Keywords))
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
         {
             <meta name="keywords" content="@Model.PageMetaTags.Keywords" />
         }
-        if (@Model.PageMetaTags.EnableOG)
+        if (Model.PageMetaTags.EnableOG)
         {
             <meta property="og:title" content="@Model.PageMetaTags.Title" />
             <meta property="og:type" content="website" />
             <meta property="og:description" content="@Model.PageMetaTags.Description" />
-            <meta property="og:image" content="@(string.IsNullOrEmpty(@Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : @Model.PageMetaTags.OGImage)" />
-            if (!String.IsNullOrEmpty(@Model.PageMetaTags.CanonicalUrl))
+            <meta property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
             {
                 <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
             }
         }
-        if (!String.IsNullOrEmpty(@Model.PageMetaTags.AlternateUrl))
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.AlternateUrl))
         {
             <meta name="alternate" content="@Model.PageMetaTags.AlternateUrl" />
         }
-        if (!String.IsNullOrEmpty(@Model.PageMetaTags.CanonicalUrl))
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
         {
             <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
-        if (!String.IsNullOrEmpty(@Model.PageMetaTags.PreviousPageUrl))
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.PreviousPageUrl))
         {
             <link rel="prev" href="@Model.PageMetaTags.PreviousPageUrl" /> }
-        if (!String.IsNullOrEmpty(@Model.PageMetaTags.NextPageUrl))
+        if (!String.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
         {
             <link rel="next" href="@Model.PageMetaTags.NextPageUrl" />
         }
@@ -48,17 +48,25 @@
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
     <link rel='stylesheet' type='text/css' href='/css/bw-common-atf.css' />
+    <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion"></script>
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <noscript id="asynced-css">
+        <link href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st2.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/css/bw-common-btf.css?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion" rel="stylesheet" type="text/css" />
+        @if (!String.IsNullOrEmpty(Model.Page_BTF_CSS_Path))
+        {
+
+            <link href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_BTF_CSS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion" rel="stylesheet" type="text/css" />
+        }
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     </noscript>
     <script type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
     @{ Bikewale.Utility.BWCookies.SetBWUtmz(); }
     <!--[if lt IE 9]>
         <script src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + @Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/html5.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion"></script>
     <![endif]-->
-    @if (!string.IsNullOrEmpty(Model.Page_ATF_CSS)) { 
-    @Html.Raw(@Model.Page_ATF_CSS)
-    }
+    @Html.Raw(Model.Page_ATF_CSS)
     <script type="text/javascript">
         var ga_pg_id = '0';
 
@@ -114,7 +122,7 @@
                     default:
                         return "";
                 }
-            }        
+            }
 
             string GetGTTargeting(int targetId, string target)
             {
@@ -132,22 +140,22 @@
                         return "";
                 }
             }
-        }   
+        }
 
         googletag.cmd.push(function () {
-            @if(@Model.AdTags.Ad_300x250){ @Html.Raw(GetAdSlot(1, @Model.AdTags.AdPath, @Model.AdTags.AdId))} 
-            @if(@Model.AdTags.Ad_300x250BTF){ @Html.Raw(GetAdSlot(2, @Model.AdTags.AdPath, @Model.AdTags.AdId))} 
-            @if(@Model.AdTags.Ad_970x90){ @Html.Raw(GetAdSlot(3, @Model.AdTags.AdPath, @Model.AdTags.AdId))} 
-            @if(@Model.AdTags.Ad_970x90BTF){ @Html.Raw(GetAdSlot(4, @Model.AdTags.AdPath, @Model.AdTags.AdId))} 
-            @if(@Model.AdTags.Ad_970x90Bottom){ @Html.Raw(GetAdSlot(5, @Model.AdTags.AdPath, @Model.AdTags.AdId))} 
-            @if(@Model.AdTags.Ad_976x400First){ @Html.Raw(GetAdSlot(6, @Model.AdTags.AdPath, @Model.AdTags.AdId))} 
-            @if(@Model.AdTags.Ad_976x400Second) { @Html.Raw(GetAdSlot(7, @Model.AdTags.AdPath, @Model.AdTags.AdId))} 
-            @if(@Model.AdTags.Ad_976x204) { @Html.Raw(GetAdSlot(8, @Model.AdTags.AdPath, @Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_300x250){ @Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_300x250BTF){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_970x90){ @Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_970x90BTF){ @Html.Raw(GetAdSlot(4, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_970x90Bottom){ @Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_976x400First){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_976x400Second) { @Html.Raw(GetAdSlot(7, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_976x204) { @Html.Raw(GetAdSlot(8, Model.AdTags.AdPath, Model.AdTags.AdId))}
             googletag.pubads().enableSingleRequest();
-            @if(!String.IsNullOrEmpty(@Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, @Model.AdTags.TargetedModel))}
-            @if(!String.IsNullOrEmpty(@Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, @Model.AdTags.TargetedMakes))}
-            @if(!String.IsNullOrEmpty(@Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, @Model.AdTags.TargetedModels))}
-            @if(!String.IsNullOrEmpty(@Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, @Model.AdTags.TargetedCity))}
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
 
             googletag.pubads().collapseEmptyDivs();
             googletag.pubads().enableSingleRequest();
@@ -155,9 +163,9 @@
         });
     </script>
 </head>
-<body class="@(@Model.IsTransparentHeader ? "page-type-landing" : "")">
+<body class="@(Model.IsTransparentHeader ? "page-type-landing" : "")">
     <form>
-        <div id="header" class='@(@Model.IsHeaderFix ? "header-fixed" : "header-not-fixed") @(@Model.IsTransparentHeader ? "header-landing header-transparent" : "")'>
+        <div id="header" class='@(Model.IsHeaderFix ? "header-fixed" : "header-not-fixed") @(Model.IsTransparentHeader ? "header-landing header-transparent" : "")'>
             <!-- Fixed Header code starts here -->
             <div class="leftfloat">
                 <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
@@ -165,7 +173,7 @@
 
             </div>
             <div class="rightfloat">
-                <div class="global-search" >
+                <div class="global-search">
                     <span class="bwsprite search-icon-grey" id="btnGlobalSearch" style="z-index:2"></span>
                     <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="blur ui-autocomplete-input" autocomplete="off">
                     <span class="fa fa-spinner fa-spin position-abt  text-black" style="display:none;right:14px;top:7px;background:#fff"></span>
@@ -192,34 +200,35 @@
             <div class="clear"></div>
         </div> <!-- ends here -->
         <div class="clear"></div>
-        @if (@Model.AdTags.Ad_970x90)
-        { 
-        <div class="bg-white ">
-            <div class="container">
-                <div class="grid-12">
-                    <div>
-                        <div id='div-gpt-ad-@Model.AdTags.AdId-3' class="margin-bottom15 margin-top10 text-center">
-                            <script type='text/javascript'>
-                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-3'); });
-                            </script>
+        @if (Model.AdTags.Ad_970x90)
+        {
+            <div class="bg-white ">
+                <div class="container">
+                    <div class="grid-12">
+                        <div>
+                            <div id='div-gpt-ad-@Model.AdTags.AdId-3' class="margin-bottom15 margin-top10 text-center">
+                                <script type='text/javascript'>
+                                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-3'); });
+                                </script>
+                            </div>
                         </div>
                     </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
             </div>
-        </div>
-        }        
+        }
         @RenderBody()
         @Html.Partial("~/Views/Shared/_PopupWidget.cshtml")
-        @if(@Model.AdTags.Ad_970x90Bottom){ 
-        <section>
-            <div id='div-gpt-ad-@Model.AdTags.AdId-5' class="margin-bottom20 text-center">
-                <script type='text/javascript'>
-                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-5'); });
-                </script>
-            </div>
-        </section>
-        } 
+        @if (Model.AdTags.Ad_970x90Bottom)
+        {
+            <section>
+                <div id='div-gpt-ad-@Model.AdTags.AdId-5' class="margin-bottom20 text-center">
+                    <script type='text/javascript'>
+                        googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-5'); });
+                    </script>
+                </div>
+            </section>
+        }
         <div class="blackOut-window"></div>
         <nav id="nav">
             <ul class="navUL">
@@ -287,12 +296,12 @@
                     </a>
                 </li>
                 @*
-                <li>
-                    <a href="/insurance/">
-                        <span class="bwsprite insurance-icon"></span>
-                        <span class="navbarTitle">Insurance</span>
-                    </a>
-                </li>*@
+                    <li>
+                        <a href="/insurance/">
+                            <span class="bwsprite insurance-icon"></span>
+                            <span class="navbarTitle">Insurance</span>
+                        </a>
+                    </li>*@
                 <li>
                     <a href="/bike-loan-emi-calculator/">
                         <span class="bwsprite forum-icon"></span>
@@ -340,7 +349,7 @@
             <div class="clear"></div>
         </div>
 
-        <script type="text/javascript" src="@(Bikewale.Utility.BWConfiguration.Instance.StaticUrl != "" ? "https://st2.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/bwcache.js?@ViewBag.staticFileVersion"></script>
+        <script type="text/javascript" src="@(Bikewale.Utility.BWConfiguration.Instance.StaticUrl != "" ? "https://st2.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/bwcache.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
         @Html.Partial("~/Views/Shared/_ChangeLocation.cshtml")
 
         <footer class="bg-footer padding-top40 padding-bottom20" id="bg-footer">
@@ -406,24 +415,19 @@
         </footer><!-- Ends here -->
         @Html.Partial("~/Views/Shared/_LoginControl.cshtml")
         <script>
-            if ($(window).width() < 996 && $(window).width() > 790)
-                $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
+            docReady(function () {
+                if ($(window).width() < 996 && $(window).width() > 790)
+                    $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
+            });
+            var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
         </script>
-        <link href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st2.aeplcdn.com" + @Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/css/bw-common-btf.css?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion" rel="stylesheet" type="text/css" />
-        @if (!String.IsNullOrEmpty(@Model.Page_BTF_CSS_Path))
+        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
+        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
+        @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
         {
-            <link href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + @Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@ViewBag.Page_BTF_CSS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion" rel="stylesheet" type="text/css" />
+            <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
         }
-        <script type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + @Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
-        <script type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + @Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
-        @if (!String.IsNullOrEmpty(@Model.Page_JS_Path))
-        {
-            <script type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + @Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@ViewBag.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
-        }
-        <script type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
-        <script type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
-        <script type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
+
     </form>
 </body>
 </html>
