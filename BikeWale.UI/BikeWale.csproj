@@ -908,6 +908,7 @@
     <Compile Include="Models\BikeModels\SimilarBikesWidget.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\CompareBikes\ComparisonMinWidget.cs" />
+    <Compile Include="Models\CompareBikes\PopularModelCompareWidget.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
@@ -3584,6 +3585,8 @@
     <Content Include="Views\BikeCare\_RecentBikeCare.cshtml" />
     <Content Include="Views\BikeCare\_RecentBikeCare_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_ComparisonMin_Mobile.cshtml" />
+    <Content Include="Views\CompareBikes\_PopularModelCompare.cshtml" />
+    <Content Include="Views\CompareBikes\_PopularModelCompare_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
