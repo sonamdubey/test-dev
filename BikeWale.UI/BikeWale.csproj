@@ -448,6 +448,7 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\BestBikesController.cs" />
     <Compile Include="Controllers\CompareBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
@@ -898,17 +899,22 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BestBikes\BestBikeWidgetModel.cs" />
     <Compile Include="Models\BikeModels\MostPopularBikesWidget.cs" />
     <Compile Include="Models\BikeMakes\BrandWidgetModel.cs" />
     <Compile Include="Models\BikeModels\SimilarBikesWidget.cs" />
     <Compile Include="Models\CompareBikes\ComparisonMinWidget.cs" />
-    <Compile Include="Models\ExpertReviewsIndexPage.cs" />
+    <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
+    <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
+    <Compile Include="Models\News\RecentNews.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersByBrand.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersCard.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersInNearByCities.cs" />
     <Compile Include="Models\HomePageModel.cs" />
+    <Compile Include="Models\NewLaunches\NewLaunchedWidgetModel.cs" />
+    <Compile Include="Models\Videos\RecentVideos.cs" />
     <Compile Include="mybikewale\buyerdetails.aspx.cs">
       <DependentUpon>buyerdetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3539,8 +3545,18 @@
     <Content Include="Views\PriceInCity\_ModelPriceInNearestCities.cshtml" />
     <Content Include="Views\PriceInCity\_ModelPriceInNearestCities_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_OnRoadPriceWidget.cshtml" />
-    <Content Include="Views\CompareBikes\ComparisonMin.cshtml" />
+    <Content Include="Views\CompareBikes\_ComparisonMin.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\NewLaunches\_NewLaunches.cshtml" />
+    <Content Include="Views\NewLaunches\_NewLaunches_Mobile.cshtml" />
+    <Content Include="Views\BestBikes\_BestBikes.cshtml" />
+    <Content Include="Views\BestBikes\_BestBikes_Mobile.cshtml" />
+    <Content Include="Views\News\_RecentNews.cshtml" />
+    <Content Include="Views\News\_RecentNews_Mobile.cshtml" />
+    <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ.cshtml" />
+    <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ_Mobile.cshtml" />
+    <Content Include="Views\BikeCare\_RecentBikeCare.cshtml" />
+    <Content Include="Views\BikeCare\_RecentBikeCare_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

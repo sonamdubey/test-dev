@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Models;
 using System.Web.Mvc;
 
@@ -12,16 +13,21 @@ namespace Bikewale.Controllers
     public class HomePageController : Controller
     {
         private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
-        public HomePageController(IBikeMakes<BikeMakeEntity, int> bikeMakes)
+        private readonly IBikeModelsCacheRepository<int> _bikeModels = null;
+        private readonly INewBikeLaunchesBL _newLaunches = null;
+
+        public HomePageController(IBikeMakes<BikeMakeEntity, int> bikeMakes, IBikeModelsCacheRepository<int> bikeModels, INewBikeLaunchesBL newLaunches)
         {
             _bikeMakes = bikeMakes;
+            _bikeModels = bikeModels;
+            _newLaunches = newLaunches;
         }
         // GET: HomePage
         [Route("homepage/")]
         public ActionResult Index()
         {
             HomePageVM objData = null;
-            HomePageModel obj = new HomePageModel(10, _bikeMakes);
+            HomePageModel obj = new HomePageModel(10, 9, _bikeMakes, _newLaunches);
 
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -43,7 +49,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile()
         {
             HomePageVM objData = null;
-            HomePageModel obj = new HomePageModel(10, _bikeMakes);
+            HomePageModel obj = new HomePageModel(10, 9, _bikeMakes, _newLaunches);
 
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
