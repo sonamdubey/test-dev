@@ -6,6 +6,10 @@ using System.Collections.Generic;
 
 namespace Bikewale.Models.CompareBikes
 {
+    /// <summary>
+    /// Created By Sajal Gupta on 25-03-2017
+    /// This class is created to fetch data for similar comparison widget (Desktop + Mobile)
+    /// </summary>
     public class PopularModelCompareWidget
     {
         private string _versionList;
