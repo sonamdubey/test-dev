@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Bikewale.Entities.PriceQuote.v2
 {
-   /// <summary>
+    /// <summary>
     /// Created By : Sushil Kumar
     /// Created On : 17th June 2016
     /// Description : To wrap Dealer Quotation page data with version prices.

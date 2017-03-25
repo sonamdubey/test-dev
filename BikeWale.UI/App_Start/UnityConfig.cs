@@ -1,8 +1,10 @@
+using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.BikeData.NewLaunched;
 using Bikewale.BAL.BikeData.UpComingBike;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
+using Bikewale.BAL.PriceQuote;
 using Bikewale.BAL.ServiceCenter;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
@@ -20,6 +22,7 @@ using Bikewale.DAL.ServiceCenter;
 using Bikewale.DAL.Videos;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.service;
+using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -30,6 +33,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
+using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Videos;
 using Microsoft.Practices.Unity;
@@ -77,6 +81,12 @@ namespace Bikewale
             container.RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>();
             container.RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>();
             container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>();
+            container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
+            container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
+            container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
+            container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
+            container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();
+            container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
 
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

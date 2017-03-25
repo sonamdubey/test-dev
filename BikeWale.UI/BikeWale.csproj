@@ -894,6 +894,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\DealerPriceQuotePage.cs" />
     <Compile Include="Models\ExpertReviewsIndexPage.cs" />
     <Compile Include="mybikewale\buyerdetails.aspx.cs">
       <DependentUpon>buyerdetails.aspx</DependentUpon>
@@ -3505,7 +3506,10 @@
     <Content Include="Views\Shared\_Layout_Mobile_old.cshtml" />
     <Content Include="Views\ExpertReviews\Index.cshtml" />
     <Content Include="Views\ExpertReviews\Index_Mobile.cshtml" />
-    <Content Include="Views\Price\DealerPriceQuoteIndex.cshtml" />
+    <Content Include="Views\Price\Details.cshtml" />
+    <Content Include="Views\Price\_SecondaryDealers.cshtml" />
+    <Content Include="Views\Price\_DealerCampaign.cshtml" />
+    <Content Include="Views\Price\_ManufacturerCampaign.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

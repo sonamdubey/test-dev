@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bikewale.Models
 {
     /// <summary>
@@ -22,5 +17,11 @@ namespace Bikewale.Models
         public string Page_ATF_CSS { get; set; }
         public string Page_BTF_CSS_Path { get; set; }
         public string Page_JS_Path { get; set; }
+
+        public ModelBase()
+        {
+            PageMetaTags = new PageMetaTags();
+            AdTags = new AdTags();
+        }
     }
 }
