@@ -42,5 +42,7 @@ namespace Bikewale.Models.Price
         public string PageUrl { get; set; }
         public int PQSourcePage { get { return (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DPQ_Quotation; } }
         public int PQLeadSource { get { return 34; } }
+
+        public SimilarBikesWidgetVM SimilarBikesVM { get; set; }
     }
 }

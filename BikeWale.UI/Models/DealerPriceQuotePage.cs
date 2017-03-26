@@ -162,6 +162,10 @@ namespace Bikewale.Models
                     BikeName = objData.BikeName
 
                 };
+
+                objData.SimilarBikesVM = new SimilarBikesWidgetVM();
+                objData.SimilarBikesVM.Bikes = _objVersionCache.GetSimilarBikesList(_versionId, 9, _cityId);
+                objData.SimilarBikesVM.PQSourceId = PQSourceEnum.Desktop_DPQ_Alternative; ;
             }
             catch (Exception ex)
             {

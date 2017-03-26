@@ -260,15 +260,6 @@
         </section>
 }
     
-@if (Model.OtherDealers != null)
-{
-    <section>
-        
-
-        <div class="clear"></div>
-
-    </section>
-}
 
 
 @if (Model.ManufacturerCampaign != null)
@@ -281,19 +272,20 @@
     @Html.Partial("~/Views/Price/_SecondaryDealers.cshtml", Model.DetailedDealer.SecondaryDealers)
 }
 
-    @*@if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
+  @if (Model.SimilarBikesVM!=null && Model.SimilarBikesVM.Bikes!=null&& Model.SimilarBikesVM.Bikes.Count()>0)
         {
         <!-- Alternate bikes section starts-->
         <section>
             <div class="container margin-bottom30">
                 <div class="grid-12">
-                    <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
+                    @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikesVM)
+
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
         <!-- Alternate bikes section ends -->
-        }*@
+        }
 
     <script type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + @Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
 
