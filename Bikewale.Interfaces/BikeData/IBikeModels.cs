@@ -20,8 +20,10 @@ namespace Bikewale.Interfaces.BikeData
     /// Modified by: Sangram Nandkhile on 10 Feb 2017
     /// Description: Added new method GetModelPhotoGalleryWithMainImage, GetModelPageDetailsNew which has extra main model image
     /// Modified by : Sajal Gupta - added CreateAllPhotoList on 27-02-2017
-    ///Modified By :- Subodh jain 14 march 2017
-    ///Summary :- Added GetMostPopularScooters
+    /// Modified By :- Subodh jain 14 march 2017
+    /// Summary :- Added GetMostPopularScooters
+    /// Modified by :   Sumit Kate on 24 Mar 2017
+    /// Description :   IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId)
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
     public interface IBikeModels<T, U> : IRepository<T, U>
@@ -49,6 +51,6 @@ namespace Bikewale.Interfaces.BikeData
         BikeModelPageEntity GetModelPageDetails(U modelId, int versionId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
-        IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId);
     }
 }

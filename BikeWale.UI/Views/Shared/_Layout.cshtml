@@ -66,7 +66,9 @@
     <!--[if lt IE 9]>
         <script src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + @Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/html5.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion"></script>
     <![endif]-->
+    @if (!string.IsNullOrEmpty(Model.Page_ATF_CSS)) { 
     @Html.Raw(Model.Page_ATF_CSS)
+    }
     <script type="text/javascript">
         var ga_pg_id = '0';
 
@@ -429,6 +431,8 @@
             <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
         }
       
+        <script type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
+        <script type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
     </form>
 </body>
 </html>
