@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.PriceQuote;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace Bikewale.Models.Price
         public uint CityId { get; set; }
         public uint AreaId { get; set; }
         public uint TotalPrice { get; set; }
-
+        public DealersEntity OtherDealers { get; set; }
         public uint ModelId { get { return (this.SelectedVersion != null && this.SelectedVersion.ModelBase != null) ? (uint)this.SelectedVersion.ModelBase.ModelId : 0; } }
         public uint VersionId { get { return (this.SelectedVersion != null) ? (uint)this.SelectedVersion.VersionId : 0; } }
 

@@ -5,6 +5,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Models.Price;
@@ -27,18 +28,21 @@ namespace Bikewale.Models
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
         private readonly IAreaCacheRepository _objAreaCache = null;
         private readonly ICityCacheRepository _objCityCache = null;
+        private readonly IDealerCacheRepository _objDealerCache = null;
+
+
         private readonly IPriceQuote _objPQ = null;
 
         public string redirectUrl;
         public StatusCodes status;
 
-        private uint _modelId, _versionId, _cityId, _areaId, _pqId, _dealerId;
+        private uint _modelId, _versionId, _cityId, _areaId, _pqId, _dealerId, _makeId;
         private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty;
 
         /// <summary>
         /// 
         /// </summary>
-        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ)
+        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache)
         {
             _objDealerPQDetails = objDealerPQDetails;
             _objDealerPQ = objDealerPQ;
@@ -46,6 +50,7 @@ namespace Bikewale.Models
             _objAreaCache = objAreaCache;
             _objCityCache = objCityCache;
             _objPQ = objPQ;
+            _objDealerCache = objDealerCache;
 
             ProcessQueryString();
         }
@@ -144,6 +149,7 @@ namespace Bikewale.Models
                 //    }
 
                 //}
+                objData.OtherDealers = _objDealerCache.GetDealerByMakeCity(_cityId, _makeId);
 
                 objData.LeadCapture = new LeadCaptureEntity()
                 {
@@ -350,6 +356,8 @@ namespace Bikewale.Models
                 {
                     objData.BikeName = String.Format("{0} {1}", objData.SelectedVersion.MakeBase.MakeName, objData.SelectedVersion.ModelBase.ModelName);
                     _modelId = (uint)objData.SelectedVersion.ModelBase.ModelId;
+                    _makeId = (uint)objData.SelectedVersion.MakeBase.MakeId;
+
                     objData.VersionsList = _objVersionCache.GetVersionsByType(EnumBikeType.PriceQuote, objData.SelectedVersion.ModelBase.ModelId, (int)_cityId);
 
                     if (objData.VersionsList != null)

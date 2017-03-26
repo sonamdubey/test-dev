@@ -240,19 +240,36 @@
 </section>
 
 
-@*@if (Model.DealerId == 0 && Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount == 0 && Model.Quotation != null && string.IsNullOrEmpty(Model.Quotation.ManufacturerAd))
+@if (Model.DealerId == 0 && Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount == 0 && Model.Quotation != null && string.IsNullOrEmpty(Model.Quotation.ManufacturerAd))
     {
         <section>
             <div class="container">
                 <div class="grid-12 margin-bottom20">
                     <div class="content-box-shadow">
                         <div class="margin-left10 margin-right10"></div>
-                        <BW:Dealers ID="ctrlDealers" runat="server" />
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>Other dealers</h2>
+                                <div class="clear"></div>
+                                @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.OtherDealers)
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-    }*@
+}
+    
+@if (Model.OtherDealers != null)
+{
+    <section>
+        
+
+        <div class="clear"></div>
+
+    </section>
+}
+
 
 @if (Model.ManufacturerCampaign != null)
 {

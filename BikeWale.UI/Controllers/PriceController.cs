@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Models;
@@ -18,8 +19,10 @@ namespace Bikewale.Controllers
         private readonly IAreaCacheRepository _objAreaCache = null;
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IPriceQuote _objPQ = null;
+        private readonly IDealerCacheRepository _objDealerCache = null;
 
-        public PriceController(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ)
+
+        public PriceController(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache)
         {
             _objDealerPQDetails = objDealerPQDetails;
             _objDealerPQ = objDealerPQ;
@@ -27,6 +30,9 @@ namespace Bikewale.Controllers
             _objAreaCache = objAreaCache;
             _objCityCache = objCityCache;
             _objPQ = objPQ;
+            _objDealerCache = objDealerCache;
+
+
         }
 
         /// <summary>
@@ -42,7 +48,7 @@ namespace Bikewale.Controllers
         [Route("pricequote/dealer/")]
         public ActionResult Details()
         {
-            DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ);
+            DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache);
 
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {

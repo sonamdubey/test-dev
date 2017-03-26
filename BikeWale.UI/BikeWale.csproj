@@ -3515,7 +3515,7 @@
     <Content Include="Views\Price\_SecondaryDealers.cshtml" />
     <Content Include="Views\Price\_DealerCampaign.cshtml" />
     <Content Include="Views\Price\_ManufacturerCampaign.cshtml" />
-    <Content Include="Views\Shared\_LeadCaptureControl.cshtml" />
+    <Content Include="Views\Shared\_LeadCapture.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersByBrand.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersInNearByCities.cshtml" />
     <Content Include="Views\DealerShowroom\_DealerCard.cshtml" />
