@@ -1,0 +1,29 @@
+﻿@model  IEnumerable<Bikewale.Entities.Dealer.DealerBrandEntity> 
+
+@if (Model != null)
+{
+    <div class="jcarousel-wrapper inner-content-carousel brand-type-carousel">
+        <div class="jcarousel">
+            <ul>
+                @foreach (var DealerDetails in Model)
+                {
+                    <li>
+                        <a href="@Bikewale.Utility.UrlFormatter.GetDealerShowroomUrl(DealerDetails.MaskingName)" title="@String.Format("{0} showrooms in india",DealerDetails.MakeName)" class="jcarousel-card">
+                            <div class="brand-logo-image">
+                                <span class="brand-type">
+                                    <span class="brandlogosprite brand-@DealerDetails.MakeId"></span>
+                                </span>
+                            </div>
+                            <div class="card-desc-block">
+                                <p class="card-heading font14 text-bold text-black padding-top10 border-solid-top">@DealerDetails.MakeName</p>
+                                <h3 class="text-unbold text-light-grey">@String.Format("{0} {1} showroom{2}", DealerDetails.DealerCount, DealerDetails.MakeName, DealerDetails.DealerCount > 1 ? "s" : "")</h3>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+    </div>
+}

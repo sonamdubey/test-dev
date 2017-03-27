@@ -6,8 +6,6 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using WURFL;
 using WURFL.Config;
-using System.Web.WebPages;
-using Bikewale.Filters;
 
 namespace Bikewale
 {

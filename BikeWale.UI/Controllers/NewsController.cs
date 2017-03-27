@@ -1,4 +1,5 @@
-﻿using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Videos;
 using System.Web.Mvc;
 
@@ -8,10 +9,12 @@ namespace Bikewale.Controllers
     {
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
-        public NewsController(ICMSCacheContent articles, IVideos videos)
+        private readonly IBikeModelsCacheRepository<int> _models = null;
+        public NewsController(ICMSCacheContent articles, IVideos videos, IBikeModelsCacheRepository<int> models)
         {
             _articles = articles;
             _videos = videos;
+            _models = models;
         }
 
         [Route("news/")]
@@ -37,34 +40,5 @@ namespace Bikewale.Controllers
         {
             return View();
         }
-
-        ///// <summary>
-        ///// This is a test controller
-        ///// </summary>
-        ///// <returns></returns>
-        //[Route("testnews/")]
-        //public ActionResult TestNews()
-        //{
-        //    ICollection<string> videoCatList = new Collection<string>();
-        //    videoCatList.Add(((int)EnumVideosCategory.BikeReview).ToString());
-        //    videoCatList.Add(((int)EnumVideosCategory.Motorsports).ToString());
-        //    videoCatList.Add(((int)EnumVideosCategory.Misc).ToString());
-        //    videoCatList.Add(((int)EnumVideosCategory.FirstRide).ToString());
-        //    videoCatList.Add(((int)EnumVideosCategory.LaunchAlert).ToString());
-        //    videoCatList.Add(((int)EnumVideosCategory.TopMusic).ToString());
-        //    videoCatList.Add(((int)EnumVideosCategory.Specials).ToString());
-        //    videoCatList.Add(((int)EnumVideosCategory.FirstLook).ToString());
-        //    videoCatList.Add(((int)EnumVideosCategory.Blockbuster).ToString());
-
-        //    uint totalRec = 10, makeid = 1, modelid = 411;
-        //    string makeName = "Bajaj", makemasking = "bajaj";
-        //    string modelName = "Pulsar RS200", modelmasking = "pulsar";
-        //    objData = obj.PopulatePageModel(totalRec, 0, 0, null, null, null, null, 1, 5, videoCatList, VideosSortOrder.FeaturedAndLatest, EnumVideosCategory.FeaturedAndLatest);
-        //    // objData = obj.PopulatePageModel(totalRec, makeid, modelid, makeName, makemasking, modelName, modelmasking);
-        //    return View(objData);
-
-        //}
-
-
     }
 }

@@ -1,0 +1,24 @@
+﻿@model  Bikewale.Entities.DealerLocator.DealersEntity
+
+@if (Model != null && Model.Dealers != null)
+{
+    <ul id="city-dealer-list" class="bw-horizontal-cards">
+        @foreach (var dealerDetails in Model.Dealers)
+        {
+            <li class="card">
+                <a href="@Bikewale.Utility.UrlFormatter.GetDealerUrl(Model.MakeMaskingName, Model.CityMaskingName, dealerDetails.Name, Convert.ToInt32(dealerDetails.DealerId)) " title="@dealerDetails.Name" class="card-target">
+                    <p class="text-black text-bold text-truncate margin-bottom5">@dealerDetails.Name</p>
+                    <p class="@string.Format("{0}", string.IsNullOrEmpty(dealerDetails.Address) ? "hide" : "text-light-grey margin-bottom5")">
+                        <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                        <span class="vertical-top details-column">@Bikewale.Utility.FormatDescription.TruncateDescription(dealerDetails.Address), 95)</span>
+                    </p>
+                    <p class="@string.Format("{0}", string.IsNullOrEmpty(dealerDetails.MaskingNumber) ? "hide" : "text-default")">
+                        <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
+                        <span class="text-bold vertical-top details-column text-truncate">@dealerDetails.MaskingNumber</span>
+                    </p>
+                </a>
+            </li>
+        }
+    </ul>
+    <div class="clear"></div>
+}

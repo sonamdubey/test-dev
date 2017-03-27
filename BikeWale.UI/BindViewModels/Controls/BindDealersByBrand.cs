@@ -32,7 +32,7 @@ namespace Bikewale.BindViewModels.Controls
                 {
                     container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
                                .RegisterType<ICacheManager, MemcacheManager>()
-                               .RegisterType<IDealer, DealersRepository>()
+                               .RegisterType<IDealerRepository, DealersRepository>()
                               ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
                     dealersData = objCache.GetDealerByBrandList();

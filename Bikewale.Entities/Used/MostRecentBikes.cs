@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bikewale.Entities.Location;
+using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 namespace Bikewale.Entities.UsedBikes
 {
@@ -58,9 +60,12 @@ namespace Bikewale.Entities.UsedBikes
         public string UsedOriginalImagePath { get; set; }
         [DataMember]
         public uint ModelId { get; set; }
-
-
-
-
     }
+
+    public class UsedBikeModels
+    {
+        public IEnumerable<MostRecentBikes> UsedBikeModelList;
+        public CityEntityBase CityDetails;
+    }
+
 }

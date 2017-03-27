@@ -1,5 +1,4 @@
-﻿using Bikewale.DAL.Dealer;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
@@ -16,15 +15,11 @@ namespace Bikewale.BAL.Dealer
     /// </summary>
     public class Dealer : IDealer
     {
-        private readonly IDealer dealerRepository = null;
+        private readonly IDealerRepository _dealerRepository = null;
 
-        public Dealer()
+        public Dealer(IDealerRepository dealerRepository)
         {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IDealer, DealersRepository>();
-                dealerRepository = container.Resolve<IDealer>();
-            }
+            _dealerRepository = dealerRepository;
         }
 
         /// <summary>
@@ -35,7 +30,7 @@ namespace Bikewale.BAL.Dealer
         {
             List<NewBikeDealersMakeEntity> objMakeList = null;
 
-            objMakeList = dealerRepository.GetDealersMakesList();
+            objMakeList = _dealerRepository.GetDealersMakesList();
 
             return objMakeList;
         }
@@ -49,7 +44,7 @@ namespace Bikewale.BAL.Dealer
         {
             NewBikeDealersListEntity objDealerList = null;
 
-            objDealerList = dealerRepository.GetDealersCitiesListByMakeId(makeId);
+            objDealerList = _dealerRepository.GetDealersCitiesListByMakeId(makeId);
 
             return objDealerList;
         }
@@ -64,7 +59,7 @@ namespace Bikewale.BAL.Dealer
         {
             List<NewBikeDealerEntity> objDealersList = null;
 
-            objDealersList = dealerRepository.GetDealersList(makeId, cityId);
+            objDealersList = _dealerRepository.GetDealersList(makeId, cityId);
 
             return objDealersList;
         }
@@ -81,7 +76,7 @@ namespace Bikewale.BAL.Dealer
         public IEnumerable<NewBikeDealerEntityBase> GetNewBikeDealersList(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null)
         {
             IEnumerable<NewBikeDealerEntityBase> objDealersList = null;
-            objDealersList = dealerRepository.GetNewBikeDealersList(makeId, cityId, clientId);
+            objDealersList = _dealerRepository.GetNewBikeDealersList(makeId, cityId, clientId);
             return objDealersList;
         }
 
@@ -94,7 +89,7 @@ namespace Bikewale.BAL.Dealer
         {
             List<BikeMakeEntityBase> objMakeList = null;
 
-            objMakeList = dealerRepository.GetDealersMakeListByCityId(cityId);
+            objMakeList = _dealerRepository.GetDealersMakeListByCityId(cityId);
 
             return objMakeList;
         }
@@ -107,7 +102,7 @@ namespace Bikewale.BAL.Dealer
         {
             List<CityEntityBase> objCitiesList = null;
 
-            objCitiesList = dealerRepository.GetDealersCitiesList();
+            objCitiesList = _dealerRepository.GetDealersCitiesList();
 
             return objCitiesList;
         }
@@ -120,7 +115,7 @@ namespace Bikewale.BAL.Dealer
         public bool SaveManufacturerLead(ManufacturerLeadEntity lead)
         {
             bool status = false;
-            status = dealerRepository.SaveManufacturerLead(lead);
+            status = _dealerRepository.SaveManufacturerLead(lead);
             return status;
         }
 
@@ -166,7 +161,7 @@ namespace Bikewale.BAL.Dealer
         {
             try
             {
-                return dealerRepository.GetDealerByMakeCity(cityId, makeId, modelId);
+                return _dealerRepository.GetDealerByMakeCity(cityId, makeId, modelId);
             }
             catch (Exception ex)
             {
@@ -186,7 +181,7 @@ namespace Bikewale.BAL.Dealer
         {
             try
             {
-                return dealerRepository.FetchDealerCitiesByMake(makeId);
+                return _dealerRepository.FetchDealerCitiesByMake(makeId);
             }
             catch (Exception ex)
             {
@@ -206,7 +201,7 @@ namespace Bikewale.BAL.Dealer
         {
             try
             {
-                return dealerRepository.GetDealerDetailsAndBikes(dealerId, campaignId);
+                return _dealerRepository.GetDealerDetailsAndBikes(dealerId, campaignId);
             }
             catch (Exception ex)
             {
@@ -224,7 +219,7 @@ namespace Bikewale.BAL.Dealer
         {
             try
             {
-                return dealerRepository.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
+                return _dealerRepository.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
             }
             catch (Exception ex)
             {
@@ -244,7 +239,7 @@ namespace Bikewale.BAL.Dealer
         {
             try
             {
-                return dealerRepository.GetPopularCityDealer(makeId, topCount);
+                return _dealerRepository.GetPopularCityDealer(makeId, topCount);
             }
             catch (Exception ex)
             {
@@ -266,7 +261,7 @@ namespace Bikewale.BAL.Dealer
         {
             try
             {
-                return dealerRepository.UpdateManufaturerLead(pqId, custEmail, mobile, response);
+                return _dealerRepository.UpdateManufaturerLead(pqId, custEmail, mobile, response);
             }
             catch (Exception ex)
             {
@@ -289,7 +284,7 @@ namespace Bikewale.BAL.Dealer
             {
                 if (makeId > 0 && cityId > 0)
                 {
-                    objDealerCountList = dealerRepository.FetchNearByCityDealersCount(makeId, cityId);
+                    objDealerCountList = _dealerRepository.FetchNearByCityDealersCount(makeId, cityId);
                 }
             }
             catch (Exception ex)
@@ -307,7 +302,7 @@ namespace Bikewale.BAL.Dealer
         {
             try
             {
-                return dealerRepository.GetDealerByBrandList();
+                return _dealerRepository.GetDealerByBrandList();
             }
             catch (Exception ex)
             {
