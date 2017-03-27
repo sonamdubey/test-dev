@@ -88,8 +88,7 @@
                                     </p>
                                 </a>
                                 <div class="@string.Format("{0}", Details.DealerType == 3 || Details.DealerType == 2 ? "margin-top20" : "hide")">
-                                    <a data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14"
-                                       data-item-name="@Details.Name" data-item-area="" data-campid="@Details.CampaignId" data-pqsourceid="(int)@Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton" class="btn btn-white btn-full-width font14 leadcapturebtn">@Details.DisplayTextLarge</a>
+                                    <a data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14" data-item-name="@Details.Name" data-item-area="" data-campid="@Details.CampaignId" data-pqsourceid="(int)@Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton" class="btn btn-white btn-full-width font14 leadcapturebtn">@Details.DisplayTextLarge</a>
                                 </div>
                             </li>
                         }
@@ -112,6 +111,7 @@
     <div id="listing-footer"></div>
 </section>
 
+
 @if (Model.DealerCountCity != null && Model.DealerCountCity.objDealerInNearCityList.Count() > 0)
 {
     <section>
@@ -131,24 +131,41 @@
 }
 @if (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0)
 {
-    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
-    <section>
+    <div class="container">
+        <div class="grid-12">
+            <div class="content-box-shadow">
+                <section>
 
-        <div class="carousel-heading-content padding-top15">
-            <div class="swiper-heading-left-grid inline-block">
-                <h2 class="font18 padding-bottom20 padding-left20">Used @Model.Make.MakeName bikes in @Model.CityDetails.CityName</h2>
-            </div><div class="swiper-heading-right-grid inline-block text-right">
-                <a href="@string.Format("/used/{0}-bikes-in-india/",Model.Make.MaskingName)" title="Second Hand Bikes in India" class="btn view-all-target-btn">View all</a>
+                    <div class="carousel-heading-content padding-top15">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2>Used @Model.Make.MakeName bikes in @Model.CityDetails.CityName</h2>
+                        </div><div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="@string.Format("/used/{0}-bikes-in-india/",Model.Make.MaskingName)" title="Second Hand Bikes in India" class="btn view-all-target-btn">View all</a>
+                        </div>
+                    </div>
+                        <div class="clear"></div>
+
+                        <div class="padding-bottom20">
+                            @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedBikeModel)
+                        </div>
+                    
+                    <div class="clear"></div>
+                </section>
             </div>
-
-            <div class="clear"></div>
-
-            <div class="padding-top20 padding-bottom20">
-                @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedBikeModel)
             </div>
-        </div>
-    </section>
+        <div class="clear"></div>
+    </div>
 
 }
-    <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>
- 
+<section>
+    <div class="container margin-top10 margin-bottom30">
+        <div class="grid-12 font12">
+            <span class="font14"><strong>Disclaimer</strong>:</span> The above mentioned information about @Model.Make.MakeName dealership showrooms in @Model.CityDetails.CityName is furnished to the best of our knowledge.
+            All @Model.Make.MakeName bike models and colour options may not be available at each of the @Model.Make.MakeName dealers.
+            We recommend that you call and check with your nearest @Model.Make.MakeName dealer before scheduling a showroom visit.
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+<script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>
+

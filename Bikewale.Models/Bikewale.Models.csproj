@@ -39,9 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DealerShowroomCityPageVM.cs" />
-    <Compile Include="DealerShowroomDealerDetailsVM.cs" />
-    <Compile Include="DealerShowroomIndiaPageVM.cs" />
+
+    <Compile Include="DealerShowroom\DealerShowroomCityPageVM.cs" />
+    <Compile Include="DealerShowroom\DealerShowroomDealerDetailsVM.cs" />
+    <Compile Include="DealerShowroom\DealerShowroomIndiaPageVM.cs" />
+    <Compile Include="ExpertReviewsIndexPageVM.cs" />
+
+
     <Compile Include="BestBikes\PopularBodyStyleVM.cs" />
     <Compile Include="BikeModels\BikeInfoVM.cs" />
     <Compile Include="BestBikes\BestBikeWidgetVM.cs" />

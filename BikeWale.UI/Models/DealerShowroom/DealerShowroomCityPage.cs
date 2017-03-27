@@ -14,6 +14,10 @@ using System;
 using System.Linq;
 namespace Bikewale.Models.DealerShowroom
 {
+    /// <summary>
+    /// Created By :- Subodh Jain 27 March 2017
+    /// Summary :- Sealer Showroom in city page model
+    /// </summary>
     public class DealerShowroomCityPage
     {
         private readonly IDealerCacheRepository _objDealerCache = null;
@@ -25,6 +29,7 @@ namespace Bikewale.Models.DealerShowroom
         public StatusCodes status;
         public BikeMakeEntityBase objMake;
         public CityEntityBase CityDetails;
+        //Constructor
         public DealerShowroomCityPage(IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository<int> bikeMakesCache, string makeMaskingName, string cityMaskingName)
         {
             _objDealerCache = objDealerCache;
@@ -32,45 +37,90 @@ namespace Bikewale.Models.DealerShowroom
             _objUsedCache = objUsedCache;
             ProcessQuery(makeMaskingName, cityMaskingName);
         }
+        /// <summary>
+        /// Created By :- Subodh Jain 27 March 2017
+        /// Summary :- To Fetch Data realted to Dealer in city Page
+        /// </summary>
+        /// <returns></returns>
         public DealerShowroomCityPageVM GetData()
         {
             DealerShowroomCityPageVM objDealerVM = new DealerShowroomCityPageVM();
 
-            objMake = new MakeHelper().GetMakeNameByMakeId(makeId);
-            if (objMake != null)
-                objDealerVM.Make = objMake;
-            if (cityId > 0)
+            try
             {
-                CityDetails = new CityHelper().GetCityById(cityId);
-                objDealerVM.CityDetails = CityDetails;
+                objMake = new MakeHelper().GetMakeNameByMakeId(makeId);
+                if (objMake != null)
+                    objDealerVM.Make = objMake;
+                if (cityId > 0)
+                {
+                    CityDetails = new CityHelper().GetCityById(cityId);
+                    objDealerVM.CityDetails = CityDetails;
+                }
+                objDealerVM.DealersList = BindDataDealers();
+                if (objDealerVM.DealersList != null && objDealerVM.DealersList.Dealers != null)
+                {
+                    objDealerVM.TotalDealers = (uint)objDealerVM.DealersList.Dealers.Count();
+                }
+                objDealerVM.DealerCountCity = BindOtherDealerInCitiesWidget();
+                objDealerVM.UsedBikeModel = BindUsedBikeByModel();
             }
-            objDealerVM.DealersList = BindDataDealers();
-            if (objDealerVM.DealersList != null && objDealerVM.DealersList.Dealers != null)
+            catch (Exception ex)
             {
-                objDealerVM.TotalDealers = (uint)objDealerVM.DealersList.Dealers.Count();
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.GetData()");
             }
-            objDealerVM.DealerCountCity = BindOtherDealerInCitiesWidget();
-            objDealerVM.UsedBikeModel = BindUsedBikeByModel();
             return objDealerVM;
         }
+
+        /// <summary>
+        /// Created By :- Subodh Jain 27 March 2017
+        /// Summary :- To Fetch Data realted to Dealer in city Page
+        /// </summary>
+        /// <returns></returns>
         private DealersEntity BindDataDealers()
         {
             DealersEntity objDealerList = null;
-            objDealerList = _objDealerCache.GetDealerByMakeCity(cityId, makeId);
+            try
+            {
+                objDealerList = _objDealerCache.GetDealerByMakeCity(cityId, makeId);
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindDataDealers()");
+            }
             return objDealerList;
         }
+        /// <summary>
+        /// Created By :- Subodh Jain 27 March 2017
+        /// Summary :- To Fetch Data For other dealers in near by cities
+        /// </summary>
+        /// <returns></returns>
         private NearByCityDealer BindOtherDealerInCitiesWidget()
         {
             NearByCityDealer objDealer = new NearByCityDealer();
-            objDealer.objDealerInNearCityList = _objDealerCache.FetchNearByCityDealersCount(makeId, cityId);
-            if (objDealer != null && objDealer.objDealerInNearCityList != null && objDealer.objDealerInNearCityList.Count() > 0)
+            try
             {
-                objDealer.objDealerInNearCityList = objDealer.objDealerInNearCityList.Take((int)topCount);
+                objDealer.objDealerInNearCityList = _objDealerCache.FetchNearByCityDealersCount(makeId, cityId);
+                if (objDealer != null && objDealer.objDealerInNearCityList != null && objDealer.objDealerInNearCityList.Count() > 0)
+                {
+                    objDealer.objDealerInNearCityList = objDealer.objDealerInNearCityList.Take((int)topCount);
+                }
+                objDealer.Make = objMake;
             }
-            objDealer.Make = objMake;
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindOtherDealerInCitiesWidget()");
+
+            }
 
             return objDealer;
         }
+        /// <summary>
+        /// Created By :- Subodh Jain 27 March 2017
+        /// Summary :- To process in put query string
+        /// </summary>
+        /// <returns></returns>
         private void ProcessQuery(string makeMaskingName, string cityMaskingName)
         {
             objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
@@ -96,6 +146,11 @@ namespace Bikewale.Models.DealerShowroom
                 status = StatusCodes.ContentNotFound;
             }
         }
+        /// <summary>
+        /// Created By :- Subodh Jain 27 March 2017
+        /// Summary :- To Fetch Data realted to Used Bike in city
+        /// </summary>
+        /// <returns></returns>
         private UsedBikeModels BindUsedBikeByModel()
         {
             UsedBikeModels UsedBikeModel = new UsedBikeModels();
@@ -103,20 +158,28 @@ namespace Bikewale.Models.DealerShowroom
             {
                 if (makeId > 0)
                 {
-                    UsedBikeModel.UsedBikeModelList = _objUsedCache.GetPopularUsedModelsByMake(makeId, topCount);
+                    if (cityId > 0)
+                        UsedBikeModel.UsedBikeModelList = _objUsedCache.GetUsedBikeByModelCountInCity(makeId, cityId, topCount);
+                    else
+                        UsedBikeModel.UsedBikeModelList = _objUsedCache.GetPopularUsedModelsByMake(makeId, topCount);
                 }
                 else
                 {
-                    UsedBikeModel.UsedBikeModelList = _objUsedCache.GetUsedBike(topCount);
+                    if (cityId > 0)
+                        UsedBikeModel.UsedBikeModelList = _objUsedCache.GetUsedBikeCountInCity(cityId, topCount);
+                    else
+                        UsedBikeModel.UsedBikeModelList = _objUsedCache.GetUsedBike(topCount);
+
                 }
+                if (cityId > 0)
+                    UsedBikeModel.CityDetails = CityDetails;
             }
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindUsedBikeByModel()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindUsedBikeByModel()");
             }
-            if (cityId > 0)
-                UsedBikeModel.CityDetails = CityDetails;
+
             return UsedBikeModel;
 
         }
