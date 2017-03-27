@@ -447,7 +447,8 @@
     <Compile Include="content\UserReviews\WriteReviews.aspx.cs">
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile><Compile Include="Controllers\BikeCareController.cs" />
+    </Compile>
+    <Compile Include="Controllers\BikeCareController.cs" />
     <Compile Include="Controllers\BestBikesController.cs" />
     <Compile Include="Controllers\CompareBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
@@ -471,6 +472,7 @@
     <Compile Include="Controllers\Shared\GenericBikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\UsedController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -913,7 +915,8 @@
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
-    <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />    
+    <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\Videos\RecentVideos.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersByBrand.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersCard.cs" />
@@ -921,7 +924,7 @@
     <Compile Include="Models\HomePageModel.cs" />
     <Compile Include="Models\Videos\VideosByCategory.cs" />
     <Compile Include="Models\Videos\VideosBySubcategory.cs" />
-    <Compile Include="Models\NewLaunches\NewLaunchedWidgetModel.cs" />   
+    <Compile Include="Models\NewLaunches\NewLaunchedWidgetModel.cs" />
     <Compile Include="mybikewale\buyerdetails.aspx.cs">
       <DependentUpon>buyerdetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3583,6 +3586,8 @@
     <Content Include="Views\CompareBikes\_ComparisonMin_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare_Mobile.cshtml" />
+    <Content Include="Views\Used\_UsedBikesByModelCity.cshtml" />
+    <Content Include="Views\Used\_UsedBikesByModelCity_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
