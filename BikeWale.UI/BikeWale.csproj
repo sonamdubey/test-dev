@@ -3082,6 +3082,11 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="new\photos\Default.aspx" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
     <Content Include="servicecenter\ServiceCenterInCountry.aspx" />
@@ -3563,7 +3568,6 @@
     <Content Include="Views\DealerShowroom\DealersInIndia.cshtml" />
     <Content Include="Views\DealerShowroom\DealersInIndia_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersByBrand_Mobile.cshtml" />
-    <Content Include="Views\DealerShowroom\DealerDetail.cshtml" />
     <Content Include="Views\DealerShowroom\_DealerCard_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\DealerDetail_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\DealerInCity.cshtml" />
@@ -3626,12 +3630,16 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare_Mobile.cshtml" />
+
+    <Content Include="Views\DealerShowroom\DealerDetail.cshtml" />
+
     <Content Include="Views\UsedBikes\_UsedBikesCIties.cshtml" />
     <Content Include="Views\UsedBikes\_UsedBikesCIties_Mobile.cshtml" />
     <Content Include="Views\Make\_BrandCityPopup.cshtml" />
     <Content Include="Views\Make\_BrandCityPopup_Mobile.cshtml" />
     <Content Include="Views\Used\_UsedBikesByModelCity.cshtml" />
     <Content Include="Views\Used\_UsedBikesByModelCity_Mobile.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -39,10 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+
+
     <Compile Include="Make\BrandCityPopupVM.cs" />
     <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />
     <Compile Include="Make\MakePageVM.cs" />
     <Compile Include="BikeCare\RecentBikeCareVM.cs" />
+
     <Compile Include="DealerShowroom\DealerShowroomCityPageVM.cs" />
     <Compile Include="DealerShowroom\DealerShowroomDealerDetailsVM.cs" />
     <Compile Include="DealerShowroom\DealerShowroomIndiaPageVM.cs" />
