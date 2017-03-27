@@ -1,4 +1,4 @@
-﻿using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Videos;
 using System.Web.Mvc;
@@ -40,6 +40,5 @@ namespace Bikewale.Controllers
         {
             return View();
         }
-
     }
 }
