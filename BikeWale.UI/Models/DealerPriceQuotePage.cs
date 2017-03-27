@@ -467,7 +467,7 @@ namespace Bikewale.Models
 
             if (objVersion.AntilockBrakingSystem)
             {
-                minSpecsStr = string.Format("{0}<li>ABS</li>");
+                minSpecsStr = string.Format("{0}<li>ABS</li>", minSpecsStr);
             }
 
             if (!String.IsNullOrEmpty(objVersion.BrakeType))
