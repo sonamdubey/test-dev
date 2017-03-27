@@ -39,6 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+
+    <Compile Include="DealerShowroomCityPageVM.cs" />
+    <Compile Include="DealerShowroomDealerDetailsVM.cs" />
+    <Compile Include="DealerShowroomIndiaPageVM.cs" />
+    <Compile Include="ExpertReviewsIndexPageVM.cs" />
+
     <Compile Include="BestBikes\PopularBodyStyleVM.cs" />
     <Compile Include="BikeModels\BikeInfoVM.cs" />
     <Compile Include="BestBikes\BestBikeWidgetVM.cs" />
@@ -50,6 +56,7 @@
     <Compile Include="ExpertReviews\ExpertReviewsIndexPageVM.cs" />
     <Compile Include="ExpertReviews\RecentExpertReviewsVM.cs" />
     <Compile Include="HomePage\HomePageVM.cs" />
+
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
     <Compile Include="PriceInCity\PriceInTopCitiesWidgetVM.cs" />

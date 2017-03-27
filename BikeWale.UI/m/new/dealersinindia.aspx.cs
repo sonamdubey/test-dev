@@ -192,8 +192,8 @@ namespace Bikewale.Mobile.New
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IDealer, DealersRepository>();
-                        var objCities = container.Resolve<IDealer>();
+                        container.RegisterType<IDealerRepository, DealersRepository>();
+                        var objCities = container.Resolve<IDealerRepository>();
                         _cities = objCities.FetchDealerCitiesByMake(_makeId);
                         if (_cities != null && _cities.Count() > 0)
                         {

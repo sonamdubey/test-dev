@@ -5,7 +5,10 @@
     @if (Model != null && Model.PageMetaTags != null)
     {
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
-        {
+
+        { 
+
+
             <title>@Model.PageMetaTags.Title</title>
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
@@ -143,13 +146,15 @@
         }
 
         googletag.cmd.push(function () {
-            @if(Model.AdTags.Ad_300x250){ @Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_300x250BTF){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_970x90){ @Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_970x90BTF){ @Html.Raw(GetAdSlot(4, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_970x90Bottom){ @Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_976x400First){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_976x400Second) { @Html.Raw(GetAdSlot(7, Model.AdTags.AdPath, Model.AdTags.AdId))}
+
+            @if(Model.AdTags.Ad_300x250){ @Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))} 
+            @if(Model.AdTags.Ad_300x250BTF){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))} 
+            @if(Model.AdTags.Ad_970x90){ @Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))} 
+            @if(Model.AdTags.Ad_970x90BTF){ @Html.Raw(GetAdSlot(4, Model.AdTags.AdPath, Model.AdTags.AdId))} 
+            @if(Model.AdTags.Ad_970x90Bottom){ @Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))} 
+            @if(Model.AdTags.Ad_976x400First){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))} 
+            @if(Model.AdTags.Ad_976x400Second) { @Html.Raw(GetAdSlot(7, Model.AdTags.AdPath, Model.AdTags.AdId))} 
+
             @if(Model.AdTags.Ad_976x204) { @Html.Raw(GetAdSlot(8, Model.AdTags.AdPath, Model.AdTags.AdId))}
             googletag.pubads().enableSingleRequest();
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
@@ -201,6 +206,7 @@
         </div> <!-- ends here -->
         <div class="clear"></div>
         @if (Model.AdTags.Ad_970x90)
+
         {
             <div class="bg-white ">
                 <div class="container">
@@ -211,6 +217,7 @@
                                     googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-3'); });
                                 </script>
                             </div>
+
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -219,16 +226,17 @@
         }
         @RenderBody()
         @Html.Partial("~/Views/Shared/_PopupWidget.cshtml")
-        @if (Model.AdTags.Ad_970x90Bottom)
-        {
-            <section>
-                <div id='div-gpt-ad-@Model.AdTags.AdId-5' class="margin-bottom20 text-center">
-                    <script type='text/javascript'>
-                        googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-5'); });
-                    </script>
-                </div>
-            </section>
-        }
+
+        @if(Model.AdTags.Ad_970x90Bottom){ 
+        <section>
+            <div id='div-gpt-ad-@Model.AdTags.AdId-5' class="margin-bottom20 text-center">
+                <script type='text/javascript'>
+                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-5'); });
+                </script>
+            </div>
+        </section>
+        } 
+
         <div class="blackOut-window"></div>
         <nav id="nav">
             <ul class="navUL">
@@ -427,7 +435,6 @@
         {
             <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
         }
-
     </form>
 </body>
 </html>

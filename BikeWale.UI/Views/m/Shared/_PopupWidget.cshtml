@@ -100,12 +100,14 @@
 <script type="text/javascript">
 
 	var onCookieObj = {};
-
-	$('#popupWrapper .close-btn').click(function () {
-		$('.getquotation').removeClass('ui-btn-active');
-		$("#popupContent").hide();
-		$('#popupWrapper').removeClass('loader-active').hide();
+	docReady(function () {
+	    $('#popupWrapper .close-btn').click(function () {
+	        $('.getquotation').removeClass('ui-btn-active');
+	        $("#popupContent").hide();
+	        $('#popupWrapper').removeClass('loader-active').hide();
+	    });
 	});
+	
 
 	$(document).on("click", ".getquotation", function (e) {
 		var ele = $(this); e.stopPropagation();
