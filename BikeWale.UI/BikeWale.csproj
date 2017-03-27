@@ -3566,6 +3566,7 @@
     <Content Include="Views\Shared\_LeadCapture_Mobile.cshtml" />
     <Content Include="Views\Price\_DealerCampaign_Mobile.cshtml" />
     <Content Include="Views\Price\_SecondaryDealers_Mobile.cshtml" />
+    <Content Include="Views\Price\_ManufacturerCampaign_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

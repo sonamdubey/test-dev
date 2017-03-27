@@ -298,7 +298,18 @@ namespace Bikewale.Models
                         else
                         {
                             objData.Quotation = _objPQ.GetPriceQuoteById(Convert.ToUInt64(_pqId), LeadSourceEnum.DPQ_Desktop);
-                            SetManufacturerAd(objData);
+                            if (objData.Quotation != null)
+                            {
+                                objData.TotalPrice = (uint)objData.Quotation.OnRoadPrice;
+
+                                objData.ManufacturerCampaign = new ManufacturerCampaign()
+                                {
+                                    ShowAd = detailedDealer.PrimaryDealer.DealerDetails == null && detailedDealer.SecondaryDealerCount == 0,
+                                    Ad = Format.FormatManufacturerAd(objData.Quotation.ManufacturerAd, objData.Quotation.CampaignId, objData.Quotation.ManufacturerName, objData.Quotation.MaskingNumber, objData.Quotation.ManufacturerId, objData.Quotation.Area, objData.PQLeadSource.ToString(), objData.PQSourcePage.ToString(), string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objData.Quotation.MaskingNumber) ? "hide" : string.Empty, objData.Quotation.LeadCapturePopupHeading, objData.Quotation.LeadCapturePopupDescription, objData.Quotation.LeadCapturePopupMessage, objData.Quotation.PinCodeRequired),
+                                    Name = objData.Quotation.ManufacturerName,
+                                    Id = objData.Quotation.ManufacturerId
+                                };
+                            }
                         }
                     }
                 }
@@ -315,34 +326,6 @@ namespace Bikewale.Models
             }
 
             objData.DetailedDealer = detailedDealer;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="objData"></param>
-        private void SetManufacturerAd(DealerPriceQuotePageVM objData)
-        {
-            try
-            {
-                var objQuotation = objData.Quotation;
-                if (objQuotation != null)
-                {
-                    objData.TotalPrice = (uint)objQuotation.OnRoadPrice;
-
-                    objData.ManufacturerCampaign = new ManufacturerCampaign()
-                    {
-                        ShowAd = objData.DetailedDealer.PrimaryDealer.DealerDetails == null && objData.DetailedDealer.SecondaryDealerCount == 0,
-                        Ad = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, objQuotation.ManufacturerId, objQuotation.Area, objData.PQLeadSource.ToString(), objData.PQSourcePage.ToString(), string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty, objQuotation.LeadCapturePopupHeading, objQuotation.LeadCapturePopupDescription, objQuotation.LeadCapturePopupMessage, objQuotation.PinCodeRequired),
-                        Name = objQuotation.ManufacturerName,
-                        Id = objQuotation.ManufacturerId
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.DealerPriceQuotePage.SetManufacturerAd()");
-            }
         }
 
         /// <summary>

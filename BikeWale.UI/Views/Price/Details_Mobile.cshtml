@@ -139,27 +139,22 @@
 
 @if (Model.DealerId == 0 && Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount == 0 && Model.Quotation != null && string.IsNullOrEmpty(Model.Quotation.ManufacturerAd))
 {
-    <section>
-        <div class="container">
-            <div class="grid-12 margin-bottom20">
-                <div class="content-box-shadow">
-                    <div class="margin-left10 margin-right10"></div>
-                    <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 font14">
-                        <div class="carousel-heading-content">
-                            <div class="swiper-heading-left-grid inline-block">
-                                <h2>@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City</h2>
-                            </div>
-                            <div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="@Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.SelectedVersion.MakeBase.MaskingName, Model.Quotation.CityMaskingName)" title="@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City" class="btn view-all-target-btn">View all</a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        @Html.Partial("~/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.OtherDealers)
-                        <div class="clear"></div>
+    <section class="container bg-white margin-bottom10">
+        <div class="box-shadow">
+            <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+                <div class="carousel-heading-content">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2>@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City</h2>
                     </div>
-                    <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="@Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.SelectedVersion.MakeBase.MaskingName, Model.Quotation.CityMaskingName)" title="@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
                 </div>
+                @Html.Partial("~/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.OtherDealers)
+                <div class="clear"></div>
             </div>
+            <div class="margin-right10 margin-left10 border-solid-bottom"></div>
         </div>
     </section>
 }
@@ -167,14 +162,11 @@
 @if (Model.SimilarBikesVM != null && Model.SimilarBikesVM.Bikes != null && Model.SimilarBikesVM.Bikes.Count() > 0)
 {
     <section>
-        <div class="container margin-bottom30">
-            <div class="grid-12">
-                <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
-                    <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to @Model.BikeName</h2>
-                    @Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikesVM)
-                </div>
+        <div class="bg-white bottom-shadow margin-top10 margin-bottom20 padding-bottom10">
+            <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top15 font14 margin-bottom20">
+                <h2 class="padding-left20 padding-right20 margin-bottom20">Bikes Similar to @Model.BikeName</h2>
+                @Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikesVM)
             </div>
-            <div class="clear"></div>
         </div>
     </section>
 }
@@ -196,6 +188,7 @@
     var versionName = "@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")";
     var leadSourceId = "@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DPQ_SecondaryDealers)";
     var bikeName = "@Model.BikeName", bikeVersionPrice = "@Model.TotalPrice";
+    var quotationPage = true;
 
     docReady(function () {
         ga_pg_id = "7";
