@@ -455,6 +455,7 @@
     <Compile Include="Controllers\ExpertReviewsController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\FeaturesController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
@@ -918,8 +919,10 @@
     <Compile Include="Models\CompareBikes\PopularModelCompareWidget.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
+    <Compile Include="Models\Location\ChangeLocationPopup.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
+    <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\Videos\RecentVideos.cs" />
@@ -3460,11 +3463,11 @@
     <Content Include="Views\m\Shared\_HomePageBanner.cshtml" />
     <Content Include="Views\m\Shared\_PopupWidget.cshtml" />
     <Content Include="Views\Pager\PagerControl.cshtml" />
-    <Content Include="Views\m\Shared\_ChangeLocation.cshtml" />
+    <Content Include="Views\Location\_ChangeLocation_Mobile.cshtml" />
     <Content Include="Views\Shared\_Layout_Desktop.cshtml" />
     <Content Include="Views\Shared\_LoginStatus.cshtml" />
     <Content Include="Views\Shared\_PopupWidget.cshtml" />
-    <Content Include="Views\Shared\_ChangeLocation.cshtml" />
+    <Content Include="Views\Location\_ChangeLocation.cshtml" />
     <Content Include="Views\NewLaunches\Index.cshtml" />
     <Content Include="Views\Shared\_LoginControl.cshtml" />
     <Content Include="Views\m\Shared\_LoginControl.cshtml" />

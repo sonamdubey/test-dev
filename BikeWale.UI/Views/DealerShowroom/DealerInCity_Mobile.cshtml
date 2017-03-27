@@ -74,4 +74,5 @@
 
         </section>
 }
+@{Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.CityDetails.CityId, cityName = Model.CityDetails.CityName });}
 <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey"></script>
