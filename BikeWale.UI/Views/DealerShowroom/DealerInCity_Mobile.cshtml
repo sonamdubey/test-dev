@@ -1,0 +1,78 @@
+﻿@model  Bikewale.Models.DealerShowroomCityPageVM
+
+@{
+        Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/dealer/listing.css' />";
+        Model.Page_JS_Path = "/m/src/dealer/listing.js";
+}
+<section>
+    <div class="container margin-bottom10">
+        <div class="bg-white">
+            <h1 class="box-shadow padding-15-20">@Model.Make.MakeName @string.Format("Showroom{0}", Model.TotalDealers > 1 ? "s" : "") in @Model.CityDetails.CityName</h1>
+            <div class="box-shadow padding-15-20 font14 text-light-grey collapsible-content">
+                <p class="main-content">Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of @Model.Make.MakeName Showroom to improve your buying experience. There @string.Format("{0} {1} {2} showroom{3}", Model.TotalDealers > 1 ? "are" : "is", Model.TotalDealers, Model.Make.MakeName, Model.TotalDealers > 1 ? "s" : "") in  @Model.CityDetails.CityName. BikeWale recommends buying bikes from authorized @Model.Make.MakeName showroom in @Model.CityDetails.CityName</p>
+                <p class="more-content">For information on prices, offers, EMI options and test rides you may get in touch with below mentioned @Model.Make.MakeName dealers in  @Model.CityDetails.CityName.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container bg-white box-shadow margin-bottom10">
+        <div class="border-solid-bottom padding-15-20">
+            <h2 class="inline-block text-bold dealer-heading padding-right10">@String.Format("{0} {1} showroom{2} in {3}", Model.TotalDealers, Model.Make.MakeName, Model.TotalDealers > 1 ? "s" : "", Model.CityDetails.CityName)</h2>
+            <div class="inline-block text-center">
+                <span class="edit-blue-link" id="changeOptions"><span class="bwmsprite edit-blue margin-right5"></span><span class="change-text text-link">change</span></span>
+            </div>
+        </div>
+        <ul id="dealersList">
+            @foreach (var Details in Model.DealersList.Dealers)
+            {
+                <li>
+                    <a href="/m/@Model.Make.MaskingName-dealer-showrooms-in-@Model.CityDetails.CityMaskingName/@Details.DealerId-@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)/" title="@Details.Name">
+                        <div class="@string.Format("{0}",Details.DealerType==3||Details.DealerType==2?"":"hide") featured-tag">
+                            <span class="bwmsprite star-white"></span>Featured
+                        </div>
+                        <h3 class="text-truncate margin-bottom5">
+                            @Details.Name
+                        </h3>
+                        <p class="@string.Format("{0}", string.IsNullOrEmpty(Details.Address) ? "hide" : "margin-bottom5")">
+                            <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                            @if (string.IsNullOrEmpty(Details.objArea.PinCode))
+                                {
+                                <span class="vertical-top dealership-details text-light-grey">@string.Format("{0}, {1}", Details.Address, Model.CityDetails.CityName)</span>
+                                }
+                                else
+                                {
+                                <span class="vertical-top dealership-details text-light-grey">@string.Format("{0}, {1}, {2}", Details.Address, Details.objArea.PinCode, Model.CityDetails.CityName)</span>
+                                }
+                        </p>
+                        <div class="@string.Format("{0}",String.IsNullOrEmpty(Details.MaskingNumber)?"hide":"")">
+                            <a href="tel:@Details.MaskingNumber" class="text-default text-bold maskingNumber">
+                                <span class="vertical-top bwmsprite tel-sm-grey-icon"></span>
+                                <span class="vertical-top dealership-details">@Details.MaskingNumber</span>
+                            </a>
+                        </div>
+                    </a>
+                    <input data-leadsourceid="20" data-item-id="@Details.DealerId" data-item-type="@Details.DealerType" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaId" data-campid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" type="button" class="btn btn-white margin-top10 leadcapturebtn @(string.Format("{0}", Details.DealerType == 3 || Details.DealerType == 2 ? "margin-top20" : "hide"))" value="@Details.DisplayTextLarge" />
+                </li>
+            }
+            </ul>
+        </div>
+    </section>
+
+    @if (Model.DealerCountCity != null && Model.DealerCountCity.objDealerInNearCityList.Count() > 0)
+{
+
+        <section>
+            <div class="container bg-white box-shadow padding-top15 padding-bottom20">
+                <h2 class="padding-right20 padding-bottom15 padding-left20">Explore Explore @Model.Make.MakeName showrooms in cities near @Model.CityDetails.CityName</h2>
+                <div class="clear"></div>
+                @Html.Partial("~/Views/DealerShowroom/_DealersInNearByCities_Mobile.cshtml", Model.DealerCountCity)
+            </div>
+            <div class="clear"></div>
+
+        </section>
+}
+@{Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.CityDetails.CityId, cityName = Model.CityDetails.CityName });}
+<script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey"></script>

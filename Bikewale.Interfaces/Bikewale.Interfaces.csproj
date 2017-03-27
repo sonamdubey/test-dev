@@ -88,6 +88,7 @@
     <Compile Include="Customer\ICustomerRepository.cs" />
     <Compile Include="Dealer\IDealer.cs" />
     <Compile Include="Dealer\IDealerCacheRepository.cs" />
+    <Compile Include="Dealer\IDealerRepository.cs" />
     <Compile Include="Dealer\IOffer.cs" />
     <Compile Include="EditCMS\IArticles.cs" />
     <Compile Include="Feedback\IFeedback.cs" />

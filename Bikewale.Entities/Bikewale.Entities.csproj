@@ -194,6 +194,7 @@
     <Compile Include="DealerLocator\DealerLocatorList.cs" />
     <Compile Include="DealerLocator\Dealers.cs" />
     <Compile Include="DealerLocator\DealersList.cs" />
+    <Compile Include="Dealer\MakeEnitityBase.cs" />
     <Compile Include="Dealer\NearByCityDealerCountEntity.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />
     <Compile Include="Dealer\DealerBrandEntity.cs" />

@@ -31,8 +31,7 @@
                 </asp:Repeater>
             </div>
         </div>
-        <%--<a href="/m<%= Bikewale.Utility.UrlFormatter.VideoByCategoryPageUrl(SectionTitle,CategoryIdList) %>" class="font16 text-center more-videos-link">View more videos</a>--%>
-   <div class="padding-left10 view-all-btn-container margin-top10 padding-bottom20">
+        <div class="padding-left10 view-all-btn-container margin-top10 padding-bottom20">
     <a href="/m<%= Bikewale.Utility.UrlFormatter.VideoByCategoryPageUrl(SectionTitle,CategoryIdList) %>" title="<%=SectionTitle %> Bike Videos" class="btn view-all-target-btn">View more videos<span class="bwmsprite teal-right"></span></a>
      </div>
          </div>

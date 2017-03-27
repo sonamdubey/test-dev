@@ -217,8 +217,8 @@ namespace Bikewale.DAL.Location
                             if (objStateList != null)
                             {
                                 objStateCityList = new DealerLocatorList();
-                                objStateCityList.stateCityList = objStateList;
-                                foreach (var st in objStateCityList.stateCityList)
+                                objStateCityList.StateCityList = objStateList;
+                                foreach (var st in objStateCityList.StateCityList)
                                 {
                                     var curStateCityList = from curCity in objCityList
                                                            where curCity.stateId == st.Id
@@ -229,8 +229,8 @@ namespace Bikewale.DAL.Location
                                     }
                                 }
 
-                                objStateCityList.totalCities = Convert.ToUInt32(objStateCityList.stateCityList.Sum(m => m.Cities.Count()));
-                                objStateCityList.totalDealers = Convert.ToUInt32(objStateCityList.stateCityList.Sum(m => m.DealerCountState));
+                                objStateCityList.TotalCities = Convert.ToUInt32(objStateCityList.StateCityList.Sum(m => m.Cities.Count()));
+                                objStateCityList.TotalDealers = Convert.ToUInt32(objStateCityList.StateCityList.Sum(m => m.DealerCountState));
                             }
                             dr.Close();
                         }

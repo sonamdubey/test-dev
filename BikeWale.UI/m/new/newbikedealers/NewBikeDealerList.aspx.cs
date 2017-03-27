@@ -114,7 +114,7 @@ namespace Bikewale.Mobile.New
                 ctrlPopoularBikeMake.cityname = cityName;
                 ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
-                ctrlPopoularBikeMake.makeMaskingName=makeMaskingName;
+                ctrlPopoularBikeMake.makeMaskingName = makeMaskingName;
                 ctrlLeadCapture.CityId = cityId;
                 ctrlBrandCity.requestType = EnumBikeType.Dealer;
                 ctrlBrandCity.makeId = makeId;
@@ -128,7 +128,7 @@ namespace Bikewale.Mobile.New
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 9;
                 ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", makeName, cityName);
-             
+
                 if (ctrlChangeLocation != null)
                 {
                     ctrlChangeLocation.UrlCityId = cityId;
@@ -169,7 +169,7 @@ namespace Bikewale.Mobile.New
                 {
                     container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
                              .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IDealer, DealersRepository>()
+                             .RegisterType<IDealerRepository, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
                     _dealers = objCache.GetDealerByMakeCity(cityId, makeId);
@@ -239,9 +239,9 @@ namespace Bikewale.Mobile.New
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealer, DealersRepository>();
+                    container.RegisterType<IDealerRepository, DealersRepository>();
 
-                    var objCities = container.Resolve<IDealer>();
+                    var objCities = container.Resolve<IDealerRepository>();
                     _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {

@@ -99,42 +99,47 @@
 <!-- widget script starts here-->
 <script type="text/javascript">
 
-	var onCookieObj = {};
+    var onCookieObj = {}, vmquotation;
+	docReady(function () {
+	    $('#popupWrapper .close-btn').click(function () {
+	        $('.getquotation').removeClass('ui-btn-active');
+	        $("#popupContent").hide();
+	        $('#popupWrapper').removeClass('loader-active').hide();
+	    });
+	    $(document).on("click", ".getquotation", function (e) {
+	        var ele = $(this); e.stopPropagation();
 
-	$('#popupWrapper .close-btn').click(function () {
-		$('.getquotation').removeClass('ui-btn-active');
-		$("#popupContent").hide();
-		$('#popupWrapper').removeClass('loader-active').hide();
+	        checkCookies();
+	        var options = {
+	            "modelId": ele.attr('data-modelid'),
+	            "cityId": onCookieObj.PQCitySelectedId,
+	            "areaId": onCookieObj.PQAreaSelectedId,
+	            "city": (onCookieObj.PQCitySelectedId > 0) ? { 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName } : null,
+	            "area": (onCookieObj.PQAreaSelectedId > 0) ? { 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName } : null,
+	            "makename": ele.attr('data-makeName'),
+	            "modelname": ele.attr('data-modelName'),
+	            "pagecatid": ele.attr('data-pagecatid'),
+	            "pagesrcid": ele.attr('data-pqSourceId'),
+	            "ispersistent": ele.attr('data-persistent') != null ? true : false,
+	            "isreload": ele.attr("data-reload") != null ? true : false
+
+	        };
+
+	        options.cityId = ele.attr('data-preselcity') || options.cityId;
+
+	        $('#popupWrapper').addClass('loader-active');
+	        $('#popupWrapper').show();
+	        $("#popupContent").show();
+	        appendHash("onRoadPrice");
+	        vmquotation.setOptions(options);
+
+	    });
+	     vmquotation = new mPopup;
+	    ko.applyBindings(vmquotation, $("#popupWrapper")[0]);
 	});
+	
 
-	$(document).on("click", ".getquotation", function (e) {
-		var ele = $(this); e.stopPropagation();
-
-		checkCookies();
-		var options = {
-			"modelId": ele.attr('data-modelid') ,
-			"cityId": onCookieObj.PQCitySelectedId,
-			"areaId": onCookieObj.PQAreaSelectedId,
-			"city" : (onCookieObj.PQCitySelectedId > 0)?{ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }:null,
-			"area" : (onCookieObj.PQAreaSelectedId > 0)?{ 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName }:null,
-			"makename" : ele.attr('data-makeName'),
-			"modelname" : ele.attr('data-modelName'),
-			"pagecatid" : ele.attr('data-pagecatid'),
-			"pagesrcid" : ele.attr('data-pqSourceId'),
-			"ispersistent" : ele.attr('data-persistent') !=null ? true : false,
-			"isreload" : ele.attr("data-reload") !=null ? true : false
-
-		};
-
-		options.cityId = ele.attr('data-preselcity') || options.cityId;
-
-		$('#popupWrapper').addClass('loader-active');
-		$('#popupWrapper').show();
-		$("#popupContent").show();
-		appendHash("onRoadPrice");
-		vmquotation.setOptions(options);
-
-	});
+	
 
 	var mPopup = function () {
 	    var self = this;
@@ -474,8 +479,7 @@
 		}
 	}
 
-	var vmquotation = new mPopup;
-	ko.applyBindings(vmquotation, $("#popupWrapper")[0]);
+	
 
 </script>
 <!-- widget script ends here-->

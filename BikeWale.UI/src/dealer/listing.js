@@ -1,10 +1,10 @@
-var markerArr = [], dealerArr = [], map, infowindow, readMoreTarget, dealerMoreContent, mapDimension;
+var markerArr = [], dealerArr = [], map, infowindow, readMoreTarget, dealerMoreContent, mapDimension, currentCityName;
 var blackMarkerImage = 'https://imgd2.aeplcdn.com/0x0/bw/static/design15/map-marker-black.png';
 var redMarkerImage = 'https://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
 
 function initializeMap(dealerArr) {
     var i, marker, dealer, markerPosition, content, zIndex;
-
+    currentCityName = document.getElementById("dealerMapWrapper").getAttribute("data-currentcityname");
     var mapProp = {
         scrollwheel: false,
         streetViewControl: false,
@@ -134,7 +134,7 @@ docReady(function () {
     };
     
     mapDimension();
-
+    initializeDealerMap();
     $(window).on('scroll', function () {
         var windowTop = $(window).scrollTop(),
             mapWrapperOffset = mapWrapper.offset(),
