@@ -39,17 +39,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Make\BrandCityPopupVM.cs" />
+    <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />
+    <Compile Include="Make\MakePageVM.cs" />
     <Compile Include="BikeModels\BikeInfoVM.cs" />
     <Compile Include="BestBikes\BestBikeWidgetVM.cs" />
     <Compile Include="BikeCare\RecentBikeCareVM.cs" />
     <Compile Include="BikeModels\MostPopularBikeWidgetVM.cs" />
-    <Compile Include="BikeMakes\BrandWidgetVM.cs" />
+    <Compile Include="Make\BrandWidgetVM.cs" />
     <Compile Include="BikeModels\SimilarBikesWidgetVM.cs" />
     <Compile Include="ExpertReviews\ExpertReviewsIndexPageVM.cs" />
     <Compile Include="ExpertReviews\RecentExpertReviewsVM.cs" />
     <Compile Include="HomePage\HomePageVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
+    <Compile Include="NewLaunches\NewLaunchedWidgetVM.cs" />
     <Compile Include="News\RecentNewsVM.cs" />
     <Compile Include="PriceInCity\PriceInTopCitiesWidgetVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +64,7 @@
     <Compile Include="Shared\Pager.cs" />
     <Compile Include="Shared\PopularScootersList.cs" />
     <Compile Include="Shared\Showrooms.cs" />
+    <Compile Include="UsedBikes\UsedBikeCitiesWidgetVM.cs" />
     <Compile Include="Videos\RecentVideosVM.cs" />
   </ItemGroup>
   <ItemGroup>

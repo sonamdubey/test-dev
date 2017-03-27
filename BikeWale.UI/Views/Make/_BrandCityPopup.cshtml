@@ -1,0 +1,53 @@
+﻿@model Bikewale.Models.Make.BrandCityPopupVM
+<div class="bw-popup hide bw-popup-sm" id="brandcityPopup">
+    <div class="popup-inner-container">
+        <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
+        <div class="cityPop-icon-container">
+            <div class="icon-outer-container rounded-corner50 margin-bottom20">
+                <div class="icon-inner-container rounded-corner50">
+                    <span class="bwsprite cityPopup-icon margin-top20"></span>
+                </div>
+            </div>
+        </div>
+        @if(Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
+        {
+        <p class="font20 margin-top15 text-center">Looking for a different Dealer?</p>
+        <p class="text-light-grey margin-bottom15 margin-top15 text-center">Select the Brand and City to see Dealer details</p>
+        }
+        else if (Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
+        {
+        <p class="font20 margin-top15 text-center">Looking for a different Service Center?</p>
+        <p class="text-light-grey margin-bottom15 margin-top15 text-center">Select the Brand and City to see Service Center details</p>
+        }
+        <div class="padding-top10" id="brandCityPopUpContent">
+            <div id="divBrandLoader" class="margin-top10 form-control-box">
+                <div class="placeholder-loading-text form-control">Loading Brands..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
+                <div data-bind="visible: bookingBrands().length > 0">
+                    <select data-placeholder="--Select Brands--" class="chosen-select" id="ddlBrandPopup" data-bind="options: bookingBrands(), value: selectedBrand, optionsText: 'makeName', optionsValue: 'makeId', optionsCaption: '--Select Brand--', event: { change: makeChangedPopup }"></select>
+                    <span class="bwsprite error-icon error-tooltip-siblings"></span>
+                    <div class="bw-blackbg-tooltip error-tooltip-siblings"></div>
+                </div>
+                <span class="position-abt progress-bar"></span>
+            </div>
+
+
+            <div id="divCitiesLoader" class="margin-top10 form-control-box">
+                <div class="placeholder-loading-text form-control">Loading Cities..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
+                <div data-bind="visible: listCities().length > 0">
+                    <select data-placeholder="--Select City--" class="chosen-select" id="ddlCityPopup" tabindex="2" data-bind="options: listCities(), value: selectCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: '--Select City--', event: { change: isValidInfoPopup }"></select>
+                    <span class="bwsprite error-icon error-tooltip-siblings"></span>
+                    <div class="bw-blackbg-tooltip error-tooltip-siblings"></div>
+                </div>
+                <span class="position-abt progress-bar"></span>
+            </div>
+            @if (Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
+            {
+            <input id="btnSearchBrandCity" class="action-btn margin-top15 margin-left70 " style="display: block;" type="button" value="Show dealers" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">
+            }
+            else if (Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
+            {
+            <input id="btnSearchBrandCity" class="action-btn margin-top15 margin-left60 " style="display: block;" type="button" value="Show service centers" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">
+            }
+        </div>
+    </div>
+</div>
