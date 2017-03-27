@@ -45,10 +45,6 @@ function openLeadCaptureForm(dealerID) {
     event.stopPropagation();
 }
 
-function GetBikeVerLoc() {
-    return bikeName + "_" + versionName + "_" + "";//getCityArea;
-}
-
 function formatPrice(price) {
     price = price.toString();
     var lastThree = price.substring(price.length - 3);

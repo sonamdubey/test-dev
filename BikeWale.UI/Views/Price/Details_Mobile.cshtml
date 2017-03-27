@@ -1,0 +1,230 @@
+﻿@model Bikewale.Models.Price.DealerPriceQuotePageVM
+@using Bikewale.Common;
+@using Bikewale.BikeBooking;
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/dealerpricequote.css' />";
+    Model.Page_BTF_CSS_Path = "";
+    Model.Page_JS_Path = "/m/src/dealerpricequote.js";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
+    Model.AdTags.AdId = "1398766000399";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
+
+<div class="bg-white padding-10-5 bottom-shadow margin-bottom10">
+    <div class="bike-details margin-bottom15">
+        <h1>@Model.BikeName</h1>
+        <p class="font12 text-light-grey padding-left15 padding-right5">Version:</p>
+        @if (Model.VersionsList.Count() > 1)
+        {
+            <div class="dropdown-select-wrapper margin-left5">
+                <select id="ddlVersion" class="dropdown-select" data-title="Version">
+                    @foreach (var version in Model.VersionsList)
+                    {
+                        <option value="@version.VersionId" @(version.VersionId == Model.VersionId ? "selected" : "")>@version.VersionName</option>
+                    }
+                </select>
+            </div>
+        }
+        else
+        {
+            <p class="single-version-label font14 margin-left5">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
+        }
+        <div class="text-center">
+            <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.DetailedDealer.OriginalImagePath, Model.DetailedDealer.HostUrl, Bikewale.Utility.ImageSize._210x118)" title="@Model.BikeName Images" alt="@Model.BikeName Images" border="0" />
+        </div>
+        <p class="font12 text-light-grey padding-left15 padding-right15">Location:</p>
+        <p class="font16 text-bold padding-left15 padding-right15">
+            @Html.Raw(Model.Location)
+            <a href="javascript:void(0)" rel="nofollow" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" data-modelid="@Model.ModelId" class="getquotation" data-persistent="true"><span class="bwmsprite loc-change-blue-icon"></span></a>
+        </p>
+    </div>
+
+    <!-- Price Breakup starts here -->
+    <div class="padding-left15 padding-right15">
+        @if (Model.IsDealerPriceQuote)
+        {
+            <div class="break-line margin-bottom15"></div>
+        <!-- Dealer PQ starts -->
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
+                @foreach (var item in Model.DetailedDealer.PrimaryDealer.PriceList)
+                {
+                    <tr>
+                        <td align="left" width="65%" class="padding-bottom15">
+                            @item.CategoryName
+                        </td>
+                        <td align="right" width="35%" class="padding-bottom15 text-bold">
+                            <span class="bwmsprite inr-xxsm-icon"></span>&nbsp;@CommonOpn.FormatPrice(item.Price.ToString())
+                        </td>
+                    </tr>
+                }
+                <tr align="left">
+                    <td height="1" colspan="2" class="break-line padding-bottom15"></td>
+                </tr>
+                <tr>
+                    <td align="left" class="font16 padding-bottom5">On-road price</td>
+                    <td align="right" class="font18 text-bold padding-bottom5"><span class="bwmsprite inr-sm-icon"></span>&nbsp;@Bikewale.Utility.Format.FormatPrice(Model.TotalPrice.ToString())</td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right" class="text-light-grey padding-bottom15">
+                        <a id='getMoreDetails' class="get-offer-link bw-ga leadcapturebtn" data-item-registerpq="false" data-leadsourceid="23" data-item-id="@Model.DealerId" data-item-name="@@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a>
+                    </td>
+                </tr>
+            </table>
+        <!-- Bikewale PQ ends -->
+        }
+        else if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
+        {
+        <!-- Bikewale PQ starts -->
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
+                <tr>
+                    <td class="text-light-grey padding-bottom15" width="60%" align="left">Ex-Showroom (@Model.Quotation.City)</td>
+                    <td class="padding-bottom15 text-bold" width="40%" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatNumeric(Model.Quotation.ExShowroomPrice.ToString())</td>
+                </tr>
+                <tr>
+                    <td class="text-light-grey padding-bottom15" align="left">RTO</td>
+                    <td class="padding-bottom15 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatPrice(Model.Quotation.RTO.ToString())</td>
+                </tr>
+                <tr>
+                    <td class="text-light-grey padding-bottom15" align="left">Insurance </td>
+                    <td class="padding-bottom15 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatPrice(Model.Quotation.Insurance.ToString())</td>
+                </tr>
+
+                <tr align="left">
+                    <td height="1" colspan="2" class="break-line padding-bottom10"></td>
+                </tr>
+                <tr>
+                    <td class="font16" align="left">On-road price</td>
+                    <td class="font18 text-bold" align="right">
+                        <span class="bwmsprite inr-sm-icon"></span>&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())
+                    </td>
+                </tr>
+                <tr class="padding-bottom10">
+                    <td colspan="2" align="right" class="text-bold padding-bottom10">
+                        @if (Model.IsPrimaryDealerAvailable)
+                        {
+                            <a id='getMoreDetails' class="get-offer-link bw-ga leadcapturebtn" data-item-registerpq="false" data-leadsourceid="23" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a>
+                        }
+                        else
+                        {
+                            <p class='position-rel'><a target="_blank" href="https://www.bankbazaar.com/personal-loan.html?variant=slide&headline=HEADLINE_PL_MelaSale&WT.mc_id=bb01|BW|PL|PriceQuote&utm_source=bb01&utm_medium=display&utm_campaign=bb01|BW|PL|PriceQuote&variantOptions=mobileRequired" class="font14 bw-ga" c="Dealer_PQ" a="Get_personal_loan_offers_clicked" f="GetBikeVerLoc" rel="nofollow">Get personal loan offers</a><span class='position-abt pos-right35 pos-top0'>Ad</span></p>
+                        }
+                    </td>
+                </tr>
+            </table>
+        <!-- Bikewale PQ ends -->
+        }
+        else
+        {
+            <div class="margin-top10 padding5" style="background: #fef5e6;">Price for this bike is not available in this city.</div>
+        }
+    </div>
+    <!-- Price Breakup ends here -->
+    @if (Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null)
+    {
+        @Html.Partial("~/Views/Price/_DealerCampaign_Mobile.cshtml", Model.DetailedDealer)
+    }
+    <div class="clear"></div>
+</div>
+
+
+@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0)
+{
+    @Html.Partial("~/Views/Price/_SecondaryDealers_Mobile.cshtml", Model.DetailedDealer.SecondaryDealers)
+}
+
+@if (Model.ManufacturerCampaign != null)
+{
+    @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.ManufacturerCampaign)
+}
+
+@if (Model.DealerId == 0 && Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount == 0 && Model.Quotation != null && string.IsNullOrEmpty(Model.Quotation.ManufacturerAd))
+{
+    <section>
+        <div class="container">
+            <div class="grid-12 margin-bottom20">
+                <div class="content-box-shadow">
+                    <div class="margin-left10 margin-right10"></div>
+                    <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 font14">
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City</h2>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="@Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.SelectedVersion.MakeBase.MaskingName, Model.Quotation.CityMaskingName)" title="@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        @Html.Partial("~/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.OtherDealers)
+                        <div class="clear"></div>
+                    </div>
+                    <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+@if (Model.SimilarBikesVM != null && Model.SimilarBikesVM.Bikes != null && Model.SimilarBikesVM.Bikes.Count() > 0)
+{
+    <section>
+        <div class="container margin-bottom30">
+            <div class="grid-12">
+                <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
+                    <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to @Model.BikeName</h2>
+                    @Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikesVM)
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
+
+@if (Model.LeadCapture != null)
+{
+    @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
+}
+
+<script type="text/javascript">
+
+    var dealerId = '@Model.DealerId', pqId = '@Model.PQId', versionId = '@Model.VersionId', modelId = '@Model.ModelId';
+    var ABHostUrl = '@System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]';
+    var cityId = '@Model.CityId', areaId = '@Model.AreaId';
+    var clientIP = "@Model.ClientIP";
+    var pageUrl = window.location.href, getCityArea;
+    var bikeVerLocation, EMIviewModel, dealerType = '@Model.DealerType';
+    var dealerName = '@(Model.IsPrimaryDealerAvailable ? Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization : "")';
+    var versionName = "@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")";
+    var leadSourceId = "@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DPQ_SecondaryDealers)";
+    var bikeName = "@Model.BikeName", bikeVersionPrice = "@Model.TotalPrice";
+
+    docReady(function () {
+        ga_pg_id = "7";
+        try {
+            getCityArea = GetGlobalCityArea();
+            bikeVerLocation = bikeName + '_' + versionName + '_' + getCityArea;
+
+            @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealers != null && Model.DetailedDealer.SecondaryDealerCount > 0)
+         {
+             <text>triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
+         }
+
+            @if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
+        {
+            <text>triggerGA('Dealer_PQ', 'Get_personal_loan_offers_shown', bikeVerLocation);</text>
+        }
+
+            if (dealerName != "") {
+                $("#header-dealername").text(dealerName);
+            }
+            else {
+                $("#headerText").removeClass("font12").addClass("font20 margin-top5");
+            }
+
+        }
+        catch (e) {
+            console.log(e.message);
+        }
+
+    });
+
+</script>

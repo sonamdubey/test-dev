@@ -138,7 +138,7 @@
             <div class="clear"></div>
         </div>
 
-        @if (Model.PrimaryDealer.EMIDetails != null)
+        @if (Model.PrimaryDealer.EMIDetails != null && !Model.PrimaryDealer.IsStandardDealer)
         {
             <!-- EMI calculator starts -->
             <div class="margin-right20 margin-left20 border-solid-bottom"></div>
@@ -235,7 +235,7 @@
                 {
                     bool isSingleOffer = Model.PrimaryDealer.OfferList.Count() == 1;
                     <!-- offers -->
-                <div class="alpha @(Model.PrimaryDealer.IsPremiumDealer && Model.PrimaryDealer.HasBenefits ? " grid-6 border-light-right"  :"grid-12 omega offers-or-benefits")">
+                                <div class="alpha @(Model.PrimaryDealer.IsPremiumDealer && Model.PrimaryDealer.HasBenefits ? " grid-6 border-light-right"  :"grid-12 omega offers-or-benefits")">
                     <p class=" text-bold margin-bottom5">
                         Offers from this dealer:
                     </p>
@@ -251,9 +251,7 @@
                                     @offer.OfferText
                                     @if (offer.IsOfferTerms)
                                         {
-                                        <span class="tnc font9 margin-left5" id="@offer.OfferId">
-                                            View terms
-                                        </span>
+                                        <span class="tnc font9 margin-left5" id="@offer.OfferId">View terms</span>
                                         }
                                 </span>
                             </li>

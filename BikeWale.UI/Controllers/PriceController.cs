@@ -65,5 +65,26 @@ namespace Bikewale.Controllers
                 return View(objData);
             }
         }
+
+        [Route("m/pricequote/dealer/")]
+        public ActionResult Details_Mobile()
+        {
+            DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache);
+
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.redirectUrl);
+            }
+            else
+            {
+                DealerPriceQuotePageVM objData = obj.GetData();
+
+                return View(objData);
+            }
+        }
     }
 }
