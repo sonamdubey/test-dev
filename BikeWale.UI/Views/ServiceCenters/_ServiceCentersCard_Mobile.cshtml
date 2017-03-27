@@ -1,18 +1,18 @@
 ﻿@model Bikewale.Models.ServiceCenters.ServiceCenterDetailsWidgetVM
 
-@if (@Model != null)
+@if (Model != null)
 {
-    foreach (var serviceCenter in @Model.ServiceCentersList)
+    foreach (var serviceCenter in Model.ServiceCentersList)
     {
         <div class="swiper-slide">
             <div class="swiper-card">
-                <a href="@string.Format("/m{0}", @Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(@Model.MakeMaskingName, @Model.CityMaskingName, @serviceCenter.Name, @serviceCenter.ServiceCenterId))" title="@serviceCenter.Name" class="block">
+                <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(Model.MakeMaskingName, Model.CityMaskingName, serviceCenter.Name, serviceCenter.ServiceCenterId))" title="@serviceCenter.Name" class="block">
                     <div class="target-link margin-bottom5 text-truncate font14">@serviceCenter.Name</div>
-                    @if (!string.IsNullOrEmpty(@serviceCenter.Address))
+                    @if (!string.IsNullOrEmpty(serviceCenter.Address))
                     {
                         <p class="margin-bottom5 text-light-grey">
                             <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                            <span class="vertical-top dealership-address details-column">@Bikewale.Utility.FormatDescription.TruncateDescription(@serviceCenter.Address, 95)</span>
+                            <span class="vertical-top dealership-address details-column">@Bikewale.Utility.FormatDescription.TruncateDescription(serviceCenter.Address, 95)</span>
                         </p>
                     }
                 </a>

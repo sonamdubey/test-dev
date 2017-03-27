@@ -3069,6 +3069,11 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="new\photos\Default.aspx" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
     <Content Include="servicecenter\ServiceCenterInCountry.aspx" />
@@ -3544,7 +3549,6 @@
     <Content Include="Views\DealerShowroom\DealersInIndia.cshtml" />
     <Content Include="Views\DealerShowroom\DealersInIndia_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersByBrand_Mobile.cshtml" />
-    <Content Include="Views\DealerShowroom\DealerDetail.cshtml" />
     <Content Include="Views\DealerShowroom\_DealerCard_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\DealerDetail_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\DealerInCity.cshtml" />
@@ -3569,7 +3573,7 @@
     <Content Include="Views\BikeCare\_RecentBikeCare.cshtml" />
     <Content Include="Views\BikeCare\_RecentBikeCare_Mobile.cshtml" />
     <Content Include="Views\News\_RecentNews.cshtml" />
-    <Content Include="Views\News\_RecentNews_Mobile.cshtml" />    
+    <Content Include="Views\News\_RecentNews_Mobile.cshtml" />
     <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ.cshtml" />
     <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ_Mobile.cshtml" />
     <Content Include="Views\Videos\_RecentVideos.cshtml" />
@@ -3607,6 +3611,7 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare_Mobile.cshtml" />
+    <Content Include="Views\DealerShowroom\DealerDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3707,7 +3712,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54955</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
