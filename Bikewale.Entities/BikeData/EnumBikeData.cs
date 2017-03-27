@@ -22,6 +22,7 @@ namespace Bikewale.Entities.BikeData
         UsedBikeSpecs = 10,
         NewBikeSpecification = 11,
         Dealer = 12,
-        ServiceCenter = 13
+        ServiceCenter = 13,
+        Scooters = 14
     }
 }

@@ -1,0 +1,47 @@
+﻿@model Bikewale.Models.SimilarBikesWidgetVM
+@using Bikewale.Entities.BikeData;
+@using Bikewale.Utility;
+@if (Model != null && Model.Bikes != null && Model.Bikes.Count() > 0)
+{
+    <div class="swiper-container">
+        <div class="swiper-wrapper">    
+            @foreach(var bike in Model.Bikes){        
+                string make = bike.MakeBase.MakeName, modelName = bike.ModelBase.ModelName;
+                var bikeUrl =String.Format("/m{0}",UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName));
+                var bikeName = String.Format("{0} {1}", make, modelName);
+                    <div class="swiper-slide">
+                        <div class="model-swiper-image-preview">
+                            <a href="@bikeUrl">
+                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._210x118)" title="@bikeName" alt="@bikeName" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </a>
+                        </div>
+                        <div class="model-swiper-details">
+                            <a href="@bikeUrl"
+                               class="target-link font13 text-truncate" title="@bikeName">@bikeName</a>
+                            @if(bike.VersionPrice > 0)
+                            { 
+                            <p class="text-truncate text-light-grey font12 margin-top5">@String.Format("Ex-showroom, {0}", bike.CityName)</p>
+                            <p class="font18 text-bold margin-bottom10">
+                                <span class="bwmsprite inr-xsm-icon"></span>
+                                <span>@Format.FormatPrice(bike.VersionPrice.ToString())</span>
+                            </p>
+                            }
+                            else { 
+                            <p class="text-bold text-default">
+                                <span class="font14">Price not available</span>
+                            </p>
+                            }
+                            @if (Model.ShowCheckOnRoadCTA) { 
+                            <a href="javascript:void(0)" data-pqsourceid="@((int)Model.PQSourceId)" data-modelid="@bike.ModelBase.ModelId" class="btn btn-xs btn-full-width btn-white margin-top10 getquotation font12" rel="nofollow">Check on-road price</a>
+                            }
+                            @if (Model.ShowPriceInCityCTA) { 
+                            <a href="@String.Format("/m{0}", UrlFormatter.PriceInCityUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName,bike.CityMaskingName))" class="btn btn-xs btn-full-width btn-white margin-top10 font12" rel="nofollow" title="On-road price in @bike.CityName">On-road price in @bike.CityName</a>
+                            }
+                        </div>
+                    </div>
+            }
+        </div>
+    </div>
+
+}

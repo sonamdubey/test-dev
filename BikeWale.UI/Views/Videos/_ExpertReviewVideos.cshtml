@@ -1,0 +1,39 @@
+﻿@model Bikewale.Models.Videos.VideosBySubcategoryVM
+@using Bikewale.Utility
+@if (Model != null && Model.VideoList != null && Model.VideoList.Videos != null && Model.VideoList.Videos.Count() > 0) {
+<section class="bg-white">
+    <div class="container">
+        <div class="grid-12">
+            <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">@Model.SectionTitle</h2>
+            @foreach (var video in Model.VideoList.Videos) { 
+                    <div class="grid-6 ">
+                        <div class="reviews-image-wrapper rounded-corner2">
+                            <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))">
+                                <img class="lazy" data-original="@string.Format("https://img.youtube.com/vi/{0}/sddefault.jpg",video.VideoId)" 
+                                     alt="@video.VideoTitle" title="@video.VideoTitle" src="@string.Format("https://img.youtube.com/vi/{0}/sddefault.jpg",video.VideoId)" border="0" />
+                            </a>
+                        </div>
+                        <div class="reviews-desc-wrapper">
+                            <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" class="article-target-link font14">@video.VideoTitle"</a>
+                            <div class="font12 text-light-grey margin-top10 margin-bottom10">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate),"MMMM dd, yyyy")</div>
+                            <div class="font14 text-light-grey margin-bottom15">@FormatDescription.TruncateDescription(video.Description,125)</div>
+                            <div class="grid-4 alpha omega border-light-right font14">
+                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Views))</span>
+                            </div>
+                            <div class="grid-8 omega padding-left20 font14">
+                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Likes))</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+            }
+            <div class="clear"></div>
+            <!-- keep heading and view all at widget level as it varies according to the widget and is used only on videos landing page-->
+            <div class="view-all-btn-container padding-top15 padding-bottom20">
+                <a title="@Model.SectionTitle Bike Videos" href="@UrlFormatter.VideoByCategoryPageUrl(Model.SectionTitle,Model.CategoryIdList)" class="btn view-all-target-btn">View more videos<span class="bwsprite teal-right"></span></a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+}

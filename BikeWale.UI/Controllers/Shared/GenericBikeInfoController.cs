@@ -1,7 +1,6 @@
-﻿using Bikewale.BAL;
-using Bikewale.BAL.MVC.UI;
-using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
+using Bikewale.Models;
 using Bikewale.Models.Mobile.Videos;
 using System.Web.Mvc;
 
@@ -35,14 +34,13 @@ namespace Bikewale.Controllers.Shared
         public ActionResult BikeInfoCard(GenericBikeInfoCard bikeInfo)
         {
             uint totalTabs = 4;
-            GenericBikeInfoModel bikeData = null;
+            BikeInfoVM objVM = null;
             if (bikeInfo.ModelId > 0)
             {
-                GenericBikeInfoHelper helper = new GenericBikeInfoHelper(_bikeInfo, _city);
-                bikeData = helper.GetDetails(bikeInfo.ModelId, bikeInfo.CityId, totalTabs, bikeInfo.PageId);
-                bikeInfo.IsSmallSlug = bikeInfo.IsSmallSlug;
+                BikeInfoWidget model = new BikeInfoWidget(_bikeInfo, _city, bikeInfo.ModelId, bikeInfo.CityId, totalTabs, bikeInfo.PageId);
+                objVM = model.GetData();
             }
-            return PartialView("~/views/shared/_GenericBikeInfoCard.cshtml", bikeData);
+            return PartialView("~/views/BikeModels/_BikeInfoCard.cshtml", objVM);
         }
     }
 }
