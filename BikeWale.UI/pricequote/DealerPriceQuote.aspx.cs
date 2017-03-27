@@ -411,7 +411,7 @@ namespace Bikewale.BikeBooking
                 if (objPQOutput != null && objPQOutput.PQId > 0)
                 {
                     // Save pq cookie
-                    Response.Redirect("/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
+                    Response.Redirect("/pricequote/dealer/?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }

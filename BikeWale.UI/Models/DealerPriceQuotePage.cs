@@ -149,7 +149,9 @@ namespace Bikewale.Models
                 //    }
 
                 //}
+
                 objData.OtherDealers = _objDealerCache.GetDealerByMakeCity(_cityId, _makeId);
+                objData.OtherDealers.Dealers = objData.OtherDealers.Dealers.Take(3);
 
                 objData.LeadCapture = new LeadCaptureEntity()
                 {
@@ -289,14 +291,14 @@ namespace Bikewale.Models
                             #endregion
 
                         }
-                        if (!objData.IsDealerPriceQuote)
+                        if (detailedDealer.PrimaryDealer.PriceList != null && detailedDealer.PrimaryDealer.PriceList.Count() > 0)
                         {
-                            objData.Quotation = _objPQ.GetPriceQuoteById(Convert.ToUInt64(_pqId), LeadSourceEnum.DPQ_Desktop);
-                            SetManufacturerAd(objData);
+                            objData.TotalPrice = (uint)detailedDealer.PrimaryDealer.TotalPrice;
                         }
                         else
                         {
-                            objData.TotalPrice = (uint)detailedDealer.PrimaryDealer.TotalPrice;
+                            objData.Quotation = _objPQ.GetPriceQuoteById(Convert.ToUInt64(_pqId), LeadSourceEnum.DPQ_Desktop);
+                            SetManufacturerAd(objData);
                         }
                     }
                 }
@@ -415,7 +417,7 @@ namespace Bikewale.Models
             {
                 if (objPQOutput != null && objPQOutput.PQId > 0)
                 {
-                    redirectUrl = "/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(_cityId.ToString(), objPQOutput.PQId.ToString(), _areaId.ToString(), _versionId.ToString(), Convert.ToString(_dealerId)));
+                    redirectUrl = "/pricequote/dealer/?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(_cityId.ToString(), objPQOutput.PQId.ToString(), _areaId.ToString(), _versionId.ToString(), Convert.ToString(_dealerId)));
                     status = StatusCodes.RedirectTemporary;
                 }
                 else
@@ -470,7 +472,7 @@ namespace Bikewale.Models
 
             if (!String.IsNullOrEmpty(objVersion.BrakeType))
             {
-                minSpecsStr = string.Format("{0}<li>{1} Brake</li>", objVersion.BrakeType);
+                minSpecsStr = string.Format("{0}<li>{1} Brake</li>", minSpecsStr, objVersion.BrakeType);
             }
 
 

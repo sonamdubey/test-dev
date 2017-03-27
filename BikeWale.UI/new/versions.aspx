@@ -210,7 +210,7 @@
                                         <span id="new-bike-price" class="font22 text-bold" itemprop="price" content="<%=price %>"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                         <%if (isOnRoadPrice && !isDiscontinued)
                                           {%>
-                                        <a id="viewBreakupText" href="/pricequote/dealerpricequote.aspx?MPQ=<%=detailedPriceLink %>" rel="nofollow" class="font14 text-bold viewBreakupText">View detailed price</a>
+                                        <a id="viewBreakupText" href="/pricequote/dealer/?MPQ=<%=detailedPriceLink %>" rel="nofollow" class="font14 text-bold viewBreakupText">View detailed price</a>
                                         <br>
                                         <% } %>
                                     </div>

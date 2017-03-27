@@ -60,33 +60,33 @@
                     <div id="pq-image-column" class="grid-5 alpha">
                         @if (Model.DetailedDealer != null)
                         {
-                            <div id="model-image">
-                                <img alt="@Model.BikeName Images" src="@Bikewale.Utility.Image.GetPathToShowImages(Model.DetailedDealer.OriginalImagePath, Model.DetailedDealer.HostUrl, Bikewale.Utility.ImageSize._360x202)" title="@Model.BikeName Images" alt="@Model.BikeName Images" width="100%" />
-                            </div>
+                        <div id="model-image">
+                            <img alt="@Model.BikeName Images" src="@Bikewale.Utility.Image.GetPathToShowImages(Model.DetailedDealer.OriginalImagePath, Model.DetailedDealer.HostUrl, Bikewale.Utility.ImageSize._360x202)" title="@Model.BikeName Images" alt="@Model.BikeName Images" width="100%" />
+                        </div>
                         }
                         @Html.Raw(Model.MinSpecsHtml)
                     </div>
                     <div id="pq-table-column" class="grid-7 alpha omega">
                         @if (Model.VersionsList.Count() > 1)
                         {
-                            <div id="model-version-dropdown" class="margin-right40 vertical-top">
-                                <div class="select-box select-box-no-input done size-small">
-                                    <p class="select-label">Version</p>
-                                    <select id="ddlVersion" class="chosen-select" data-title="Version">
-                                        @foreach (var version in Model.VersionsList)
+                        <div id="model-version-dropdown" class="margin-right40 vertical-top">
+                            <div class="select-box select-box-no-input done size-small">
+                                <p class="select-label">Version</p>
+                                <select id="ddlVersion" class="chosen-select" data-title="Version">
+                                    @foreach (var version in Model.VersionsList)
                                         {
-                                            <option value="@version.VersionId" @(version.VersionId == Model.VersionId ? "selected" : "")>@version.VersionName</option>
+                                        <option value="@version.VersionId" @(version.VersionId == Model.VersionId ? "selected" : "")>@version.VersionName</option>
                                         }
-                                    </select>
-                                </div>
+                                </select>
                             </div>
+                        </div>
                         }
                         else
                         {
-                            <div class="single-version-content position-rel top-minus5 vertical-top margin-right40">
-                                <p class="font12 text-light-grey">Version</p>
-                                <p class="font14 text-bold single-version-value">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
-                            </div>
+                        <div class="single-version-content position-rel top-minus5 vertical-top margin-right40">
+                            <p class="font12 text-light-grey">Version</p>
+                            <p class="font14 text-bold single-version-value">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
+                        </div>
                         }
                         <input type="hidden" value="@Model.VersionId" />
 
@@ -102,126 +102,126 @@
                             <div id="pq-table" class="margin-top15">
                                 @if (Model.IsDealerPriceQuote)
                                 {
-                                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                                        @foreach (var item in Model.DetailedDealer.PrimaryDealer.PriceList)
+                                <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                    @foreach (var item in Model.DetailedDealer.PrimaryDealer.PriceList)
                                         {
-                                            <tr class="row-with-padding">
-                                                <td width="300" class="font14">
-                                                    @item.CategoryName
-                                                </td>
-                                                <td width="170" align="right">
-                                                    <span class="bwsprite inr-md"></span>&nbsp;<span id="exShowroomPrice" class="font16 text-bold">@CommonOpn.FormatPrice(item.Price.ToString())</span>
-                                                </td>
-                                            </tr>
+                                        <tr class="row-with-padding">
+                                            <td width="300" class="font14">
+                                                @item.CategoryName
+                                            </td>
+                                            <td width="170" align="right">
+                                                <span class="bwsprite inr-md"></span>&nbsp;<span id="exShowroomPrice" class="font16 text-bold">@CommonOpn.FormatPrice(item.Price.ToString())</span>
+                                            </td>
+                                        </tr>
                                         }
-                                        <tr>
-                                            <td colspan="2" class="padding-bottom5">
-                                                <div class="border-light-bottom"></div>
-                                            <td>
-                                        </tr>
+                                    <tr>
+                                        <td colspan="2" class="padding-bottom5">
+                                            <div class="border-light-bottom"></div>
+                                        <td>
+                                    </tr>
 
-                                        <tr>
-                                            <td>
-                                                <p class="font14 text-bold">On-road price in @Html.Raw(Model.Location)</p>
-                                            </td>
-                                            <td align="right">
-                                                <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold">@CommonOpn.FormatPrice(Model.TotalPrice.ToString())</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                @if (Model.IsPrimaryDealerAvailable)
+                                    <tr>
+                                        <td>
+                                            <p class="font14 text-bold">On-road price in @Html.Raw(Model.Location)</p>
+                                        </td>
+                                        <td align="right">
+                                            <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold">@CommonOpn.FormatPrice(Model.TotalPrice.ToString())</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @if (Model.IsPrimaryDealerAvailable)
                                                 {
                                                     if (!Model.DetailedDealer.PrimaryDealer.DealerDetails.IsDSA)
                                                     {
-                                                        <p class="font12 text-light-grey text-truncate position-rel top-minus5"> powered by @Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization, @Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName</p>
+                                                <p class="font12 text-light-grey text-truncate position-rel top-minus5"> powered by @Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization, @Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName</p>
                                                     }
                                                     else
                                                     {
-                                                        <p class="font12 text-light-grey text-truncate position-rel top-minus5">*actual pricing may vary</p>
+                                                <p class="font12 text-light-grey text-truncate position-rel top-minus5">*actual pricing may vary</p>
                                                     }
                                                 }
-                                            </td>
-                                            <td align="right">
-                                                @if (Model.IsPrimaryDealerAvailable)
+                                        </td>
+                                        <td align="right">
+                                            @if (Model.IsPrimaryDealerAvailable)
                                                 {
-                                                    <a href="javascript:void(0)" class="font14 bw-ga leadcapturebtn" data-leadsourceid="8" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
+                                                <a href="javascript:void(0)" class="font14 bw-ga leadcapturebtn" data-leadsourceid="8" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
                                                 }
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" class="text-right padding-top5"></td>
-                                        </tr>
-                                        <tr class="hide">
-                                            <td colspan="3"></td>
-                                        </tr>
-                                    </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-right padding-top5"></td>
+                                    </tr>
+                                    <tr class="hide">
+                                        <td colspan="3"></td>
+                                    </tr>
+                                </table>
                                 }
                                 else if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
                                 {
-                                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                                        <tr class="row-with-padding">
-                                            <td width="300" class="font14">
-                                                Ex-Showroom (@Model.Quotation.City)
-                                            </td>
-                                            <td width="170" align="right">
-                                                <span class="bwsprite inr-md"></span>&nbsp;<span id="exShowroomPrice" class="font16 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.ExShowroomPrice.ToString())</span>
-                                            </td>
-                                        </tr>
-                                        <tr class="row-with-padding">
-                                            <td class="font14">RTO</td>
-                                            <td align="right">
-                                                <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.RTO.ToString())</span>
-                                            </td>
-                                        </tr>
-                                        <tr class="row-with-padding">
-                                            <td class="font14">
-                                                Insurance (Comprehensive)
-                                            </td>
-                                            <td align="right">
-                                                <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-bold">@CommonOpn.FormatNumeric(@Model.Quotation.Insurance.ToString())</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" class="padding-bottom5">
-                                                <div class="border-light-bottom"></div>
-                                            <td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <p class="font14 text-bold">On-road price in @Html.Raw(Model.Location)</p>
-                                            </td>
-                                            <td align="right">
-                                                <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.OnRoadPrice.ToString())</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            @if (!Model.IsPrimaryDealerAvailable)
+                                <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                    <tr class="row-with-padding">
+                                        <td width="300" class="font14">
+                                            Ex-Showroom (@Model.Quotation.City)
+                                        </td>
+                                        <td width="170" align="right">
+                                            <span class="bwsprite inr-md"></span>&nbsp;<span id="exShowroomPrice" class="font16 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.ExShowroomPrice.ToString())</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="row-with-padding">
+                                        <td class="font14">RTO</td>
+                                        <td align="right">
+                                            <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.RTO.ToString())</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="row-with-padding">
+                                        <td class="font14">
+                                            Insurance (Comprehensive)
+                                        </td>
+                                        <td align="right">
+                                            <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-bold">@CommonOpn.FormatNumeric(@Model.Quotation.Insurance.ToString())</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="padding-bottom5">
+                                            <div class="border-light-bottom"></div>
+                                        <td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="font14 text-bold">On-road price in @Html.Raw(Model.Location)</p>
+                                        </td>
+                                        <td align="right">
+                                            <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.OnRoadPrice.ToString())</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        @if (!Model.IsPrimaryDealerAvailable)
                                             {
-                                                <td align="right" colspan="2"><p class="position-rel"><span class="position-abt neg-right15 pos-top0 font8">Ad</span><a target="_blank" href="https://www.bankbazaar.com/personal-loan.html?variant=slide&headline=HEADLINE_PL_MelaSale&WT.mc_id=bb01|BW|PL|PriceQuote&utm_source=bb01&utm_medium=display&utm_campaign=bb01|BW|PL|PriceQuote&variantOptions=mobileRequired" class="font14 bw-ga text-bold" c="Dealer_PQ" a="Get_personal_loan_offers_clicked" f="GetBikeVerLoc" rel="nofollow">Get personal loan offers</a></p></td>
+                                            <td align="right" colspan="2"><p class="position-rel"><span class="position-abt neg-right15 pos-top0 font8">Ad</span><a target="_blank" href="https://www.bankbazaar.com/personal-loan.html?variant=slide&headline=HEADLINE_PL_MelaSale&WT.mc_id=bb01|BW|PL|PriceQuote&utm_source=bb01&utm_medium=display&utm_campaign=bb01|BW|PL|PriceQuote&variantOptions=mobileRequired" class="font14 bw-ga text-bold" c="Dealer_PQ" a="Get_personal_loan_offers_clicked" f="GetBikeVerLoc" rel="nofollow">Get personal loan offers</a></p></td>
                                             }
-                                        </tr>
-                                        @if (Model.IsPrimaryDealerAvailable)
+                                    </tr>
+                                    @if (Model.IsPrimaryDealerAvailable)
                                         {
-                                            <tr>
-                                                <td>
+                                        <tr>
+                                            <td>
 
-                                                    <p class="font12 text-light-grey text-truncate position-rel top-minus5">@string.Format("powered by {0}, {1}", Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization, Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName)</p>
+                                                <p class="font12 text-light-grey text-truncate position-rel top-minus5">@string.Format("powered by {0}, {1}", Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization, Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName)</p>
 
-                                                </td>
-                                                <td align="right">
+                                            </td>
+                                            <td align="right">
 
-                                                    <a href="javascript:void(0)" class="font14 bw-ga leadcapturebtn" data-leadsourceid="8" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
-                                                </td>
-                                            </tr>
+                                                <a href="javascript:void(0)" class="font14 bw-ga leadcapturebtn" data-leadsourceid="8" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
+                                            </td>
+                                        </tr>
                                         }
-                                    </table>
+                                </table>
                                 }
                                 else
                                 {
-                                    <div>
-                                        <p class="font16 text-bold">Price for this bike is not available in this city.</p>
-                                    </div>
+                                <div>
+                                    <p class="font16 text-bold">Price for this bike is not available in this city.</p>
+                                </div>
                                 }
                             </div>
                         </div>
@@ -230,7 +230,7 @@
 
                     @if (Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null)
                     {
-                        @Html.Partial("~/Views/Price/_DealerCampaign.cshtml", Model.DetailedDealer)
+                    @Html.Partial("~/Views/Price/_DealerCampaign.cshtml", Model.DetailedDealer)
                     }
                 </div>
             </div>
@@ -241,25 +241,32 @@
 
 
 @if (Model.DealerId == 0 && Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount == 0 && Model.Quotation != null && string.IsNullOrEmpty(Model.Quotation.ManufacturerAd))
-    {
-        <section>
-            <div class="container">
-                <div class="grid-12 margin-bottom20">
-                    <div class="content-box-shadow">
-                        <div class="margin-left10 margin-right10"></div>
+{
+    <section>
+        <div class="container">
+            <div class="grid-12 margin-bottom20">
+                <div class="content-box-shadow">
+                    <div class="margin-left10 margin-right10"></div>
+                    <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 font14">
                         <div class="carousel-heading-content">
                             <div class="swiper-heading-left-grid inline-block">
-                                <h2>Other dealers</h2>
-                                <div class="clear"></div>
-                                @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.OtherDealers)
+                                <h2>@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City</h2>
                             </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="@Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.SelectedVersion.MakeBase.MaskingName, Model.Quotation.CityMaskingName)" title="@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
                         </div>
+                        @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.OtherDealers)
+                        <div class="clear"></div>
                     </div>
+                    <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 }
-    
+
 
 
 @if (Model.ManufacturerCampaign != null)
@@ -272,51 +279,51 @@
     @Html.Partial("~/Views/Price/_SecondaryDealers.cshtml", Model.DetailedDealer.SecondaryDealers)
 }
 
-  @if (Model.SimilarBikesVM!=null && Model.SimilarBikesVM.Bikes!=null&& Model.SimilarBikesVM.Bikes.Count()>0)
-        {
-        <!-- Alternate bikes section starts-->
-        <section>
-            <div class="container margin-bottom30">
-                <div class="grid-12">
+@if (Model.SimilarBikesVM != null && Model.SimilarBikesVM.Bikes != null && Model.SimilarBikesVM.Bikes.Count() > 0)
+{
+    <section>
+        <div class="container margin-bottom30">
+            <div class="grid-12">
+                <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
+                    <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to @Model.BikeName</h2>
                     @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikesVM)
-
                 </div>
-                <div class="clear"></div>
             </div>
-        </section>
-        <!-- Alternate bikes section ends -->
-        }
+            <div class="clear"></div>
+        </div>
+    </section>
+}
 
-    <script type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + @Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
+<script type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + @Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
 
-    @if (Model.LeadCapture != null)
-    {
-        @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
-    }
+@if (Model.LeadCapture != null)
+{
+    @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
+}
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-    var dealerId = '@Model.DealerId',pqId = '@Model.PQId',versionId = '@Model.VersionId',modelId='@Model.ModelId';
-        var ABHostUrl = '@System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]';
-        var cityId = '@Model.CityId',areaId = '@Model.AreaId';
-        var clientIP = "@Model.ClientIP";
-        var versionName = "@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")";
-        var bikeVerLocation,EMIviewModel,dealerType='@Model.DealerType';
-        var pageUrl = "www.bikewale.com/pricequote/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
+    var dealerId = '@Model.DealerId', pqId = '@Model.PQId', versionId = '@Model.VersionId', modelId = '@Model.ModelId';
+    var ABHostUrl = '@System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]';
+    var cityId = '@Model.CityId', areaId = '@Model.AreaId';
+    var clientIP = "@Model.ClientIP";
+    var versionName = "@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")";
+    var bikeVerLocation, EMIviewModel, dealerType = '@Model.DealerType';
+    var pageUrl = "www.bikewale.com/pricequote/dealer/?versionId=" + versionId + "&cityId=" + cityId;
 
-        var bikeName = "@Model.BikeName",bikeVersionPrice = "@Model.TotalPrice";
-        var leadSourceId = "@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DPQ_SecondaryDealers)";
+    var bikeName = "@Model.BikeName", bikeVersionPrice = "@Model.TotalPrice";
+    var leadSourceId = "@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DPQ_SecondaryDealers)";
 
 
-        docReady(function() {
-            bikeVerLocation = GetBikeVerLoc();
-            @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealers != null && Model.DetailedDealer.SecondaryDealerCount > 0)
+    docReady(function () {
+        bikeVerLocation = GetBikeVerLoc();
+        @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealers != null && Model.DetailedDealer.SecondaryDealerCount > 0)
             {
                 <text>triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
             }
-            @if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
+        @if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
             {
                 <text>triggerGA('Dealer_PQ', 'Get_personal_loan_offers_shown', GetBikeVerLoc());</text>
             }
-        });
-    </script>
+    });
+</script>
