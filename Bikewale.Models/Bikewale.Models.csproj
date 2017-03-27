@@ -53,9 +53,12 @@
     <Compile Include="ExpertReviews\ExpertReviewsIndexPageVM.cs" />
     <Compile Include="ExpertReviews\RecentExpertReviewsVM.cs" />
     <Compile Include="HomePage\HomePageVM.cs" />
+    <Compile Include="Location\ChangeLocationPopupVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
+
     <Compile Include="News\RecentNewsVM.cs" />
+    <Compile Include="PriceInCity\PriceInCityPageVM.cs" />
     <Compile Include="PriceInCity\PriceInTopCitiesWidgetVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceCenters\ServiceCenterDetailsWidgetVM.cs" />
