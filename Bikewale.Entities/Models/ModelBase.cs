@@ -4,6 +4,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created By : Ashish G. Kamble on 20 Mar 2017
     /// Summary : Class have all properties for view models of the mvc pages. All view mdoels for mvc pages should be inherited from this class.
+    /// Modified by :   Sumit Kate on 24 Mar 2017
+    /// Description :   Initialize Page meta and Ad tag in constructor
     /// </summary>
     public class ModelBase
     {

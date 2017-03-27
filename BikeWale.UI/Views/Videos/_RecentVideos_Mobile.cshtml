@@ -1,0 +1,41 @@
+﻿@model Bikewale.Models.Videos.RecentVideosVM
+@using Bikewale.Utility
+@if (Model != null && Model.VideosList != null && Model.VideosList != null) {
+<div class="model-expert-review-container">
+    @foreach(var video in Model.VideosList){
+           <div class="margin-bottom20">
+                <div class="review-image-wrapper">
+                    <a href="@string.Format("/m{0}",UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId)))" class="video-image-thumbnail">
+                        <img class="lazy" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)"
+                        alt="@video.VideoTitle" title="@video.VideoTitle" src="" border="0" />
+                        <span class="play-icon-wrapper">
+                            <span class="bwmsprite video-play-icon"></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="review-heading-wrapper">
+                    <a href="@string.Format("/m{0}",UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId)))"
+                        class="font14 target-link" title="@video.VideoTitle">@FormatDescription.TruncateDescription(video.VideoTitle, 44)
+                    </a>
+                    <div class="grid-7 alpha padding-right5">
+                        <span class="bwmsprite calender-grey-sm-icon"></span>
+                        <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "MMM dd, yyyy")</span>
+                    </div>
+                    <div class="grid-5 alpha omega">
+                        <span class="bwmsprite views-grey-sm-icon"></span>
+                        <span class="article-stats-content video-view-count">@Format.FormatPrice(Convert.ToString(video.Views))</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <p class="margin-top10">
+                   @FormatDescription.TruncateDescription(video.Description,180)
+                </p>
+            </div>
+      }
+</div>
+  <!-- To be included on page -->  
+<div class="view-all-btn-container">
+    <a title="@Model.LinkTitle" href="@Model.MoreVideoUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="View_all_videos_link_cliked" v="@Model.BikeName">View all videos<span class="bwmsprite teal-right"></span></a>
+</div>
+}
+

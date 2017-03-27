@@ -5,7 +5,10 @@
     @if (Model != null && Model.PageMetaTags != null)
     {
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
+
         { 
+
+
             <title>@Model.PageMetaTags.Title</title>
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
@@ -122,7 +125,7 @@
                     default:
                         return "";
                 }
-            }        
+            }
 
             string GetGTTargeting(int targetId, string target)
             {
@@ -140,9 +143,10 @@
                         return "";
                 }
             }
-        }   
+        }
 
         googletag.cmd.push(function () {
+
             @if(Model.AdTags.Ad_300x250){ @Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))} 
             @if(Model.AdTags.Ad_300x250BTF){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))} 
             @if(Model.AdTags.Ad_970x90){ @Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))} 
@@ -150,6 +154,7 @@
             @if(Model.AdTags.Ad_970x90Bottom){ @Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))} 
             @if(Model.AdTags.Ad_976x400First){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))} 
             @if(Model.AdTags.Ad_976x400Second) { @Html.Raw(GetAdSlot(7, Model.AdTags.AdPath, Model.AdTags.AdId))} 
+
             @if(Model.AdTags.Ad_976x204) { @Html.Raw(GetAdSlot(8, Model.AdTags.AdPath, Model.AdTags.AdId))}
             googletag.pubads().enableSingleRequest();
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
@@ -173,7 +178,7 @@
 
             </div>
             <div class="rightfloat">
-                <div class="global-search" >
+                <div class="global-search">
                     <span class="bwsprite search-icon-grey" id="btnGlobalSearch" style="z-index:2"></span>
                     <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="blur ui-autocomplete-input" autocomplete="off">
                     <span class="fa fa-spinner fa-spin position-abt  text-black" style="display:none;right:14px;top:7px;background:#fff"></span>
@@ -201,24 +206,27 @@
         </div> <!-- ends here -->
         <div class="clear"></div>
         @if (Model.AdTags.Ad_970x90)
-        { 
-        <div class="bg-white ">
-            <div class="container">
-                <div class="grid-12">
-                    <div>
-                        <div id='div-gpt-ad-@Model.AdTags.AdId-3' class="margin-bottom15 margin-top10 text-center">
-                            <script type='text/javascript'>
-                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-3'); });
-                            </script>
+
+        {
+            <div class="bg-white ">
+                <div class="container">
+                    <div class="grid-12">
+                        <div>
+                            <div id='div-gpt-ad-@Model.AdTags.AdId-3' class="margin-bottom15 margin-top10 text-center">
+                                <script type='text/javascript'>
+                                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-3'); });
+                                </script>
+                            </div>
+
                         </div>
                     </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
             </div>
-        </div>
-        }        
+        }
         @RenderBody()
         @Html.Partial("~/Views/Shared/_PopupWidget.cshtml")
+
         @if(Model.AdTags.Ad_970x90Bottom){ 
         <section>
             <div id='div-gpt-ad-@Model.AdTags.AdId-5' class="margin-bottom20 text-center">
@@ -228,6 +236,7 @@
             </div>
         </section>
         } 
+
         <div class="blackOut-window"></div>
         <nav id="nav">
             <ul class="navUL">
@@ -295,12 +304,12 @@
                     </a>
                 </li>
                 @*
-                <li>
-                    <a href="/insurance/">
-                        <span class="bwsprite insurance-icon"></span>
-                        <span class="navbarTitle">Insurance</span>
-                    </a>
-                </li>*@
+                    <li>
+                        <a href="/insurance/">
+                            <span class="bwsprite insurance-icon"></span>
+                            <span class="navbarTitle">Insurance</span>
+                        </a>
+                    </li>*@
                 <li>
                     <a href="/bike-loan-emi-calculator/">
                         <span class="bwsprite forum-icon"></span>
@@ -426,7 +435,6 @@
         {
             <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
         }
-      
     </form>
 </body>
 </html>

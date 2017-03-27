@@ -36,5 +36,11 @@ namespace Bikewale.Entities.BikeData
 
         [JsonProperty("totalCount"), DataMember]
         public uint TotalCount { get; set; }
+
+        [JsonProperty("href"), DataMember]
+        public string Href { get; set; }
+
+        [JsonProperty("title"), DataMember]
+        public string Title { get; set; }
     }
 }

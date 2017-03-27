@@ -58,7 +58,7 @@ namespace Bikewale.Controls
         /// <summary>
         /// Function binds data with repeater.
         /// </summary>
-        private void BindNearestCityPrices()
+        private void BindNearestCityPrices() 
         {
             try
             {
