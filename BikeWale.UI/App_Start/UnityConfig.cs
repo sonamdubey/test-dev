@@ -12,6 +12,7 @@ using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Cache.Location;
+using Bikewale.Cache.PriceQuote;
 using Bikewale.Cache.ServiceCenter;
 using Bikewale.Cache.Used;
 using Bikewale.Cache.Videos;
@@ -84,7 +85,6 @@ namespace Bikewale
             container.RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>();
             container.RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>();
             container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>();
-
             container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
             container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
             container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
@@ -93,13 +93,13 @@ namespace Bikewale
             container.RegisterType<IStateCacheRepository, StateCacheRepository>();
             container.RegisterType<IState, StateRepository>();
             container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();
-
             container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
             container.RegisterType<IBikeModelsCacheRepository<int>>();
             container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
-
-
+            container.RegisterType<ICityMaskingCacheRepository, CityMaskingCache>();
+            container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
+            container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

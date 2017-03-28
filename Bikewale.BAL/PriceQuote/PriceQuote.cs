@@ -157,9 +157,17 @@ namespace Bikewale.BAL.PriceQuote
             return objPQ.GetModelPriceInNearestCities(modelId, cityId, topCount);
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Mar 2017
+        /// Description :   Call DAL function
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="hasArea"></param>
+        /// <returns></returns>
         public IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId, out bool hasArea)
         {
-            throw new NotImplementedException();
+            return objPQ.GetVersionPricesByModelId(modelId, cityId, out hasArea);
         }
     }   // class
 }   // namespace

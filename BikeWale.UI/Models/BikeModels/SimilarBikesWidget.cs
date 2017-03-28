@@ -83,6 +83,8 @@ namespace Bikewale.Models
             try
             {
                 objVM = new SimilarBikesWidgetVM();
+                objVM.ShowCheckOnRoadCTA = _showCheckOnRoadCTA;
+                objVM.ShowPriceInCityCTA = _showPriceInCityCTA;
                 objVM.Bikes = _versionCache.GetSimilarBikesList(_versionId, TopCount, CityId);
                 objVM.PQSourceId = _pqSource;
             }
