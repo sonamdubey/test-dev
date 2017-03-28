@@ -17,5 +17,6 @@ namespace Bikewale.Models
         public uint DealerCount;
         public uint CitiesCount;
         public DealerLocatorList States;
+        public NewLaunchedWidgetVM NewLaunchedBikes;
     }
 }

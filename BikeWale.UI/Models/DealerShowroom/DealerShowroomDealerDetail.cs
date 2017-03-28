@@ -23,7 +23,7 @@ namespace Bikewale.Models
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private readonly IServiceCenter _objSC;
+        private readonly IServiceCenter _objSC = null;
         public uint cityId, makeId, dealerId;
         public StatusCodes status;
         public MakeMaskingResponse objResponse;
@@ -68,6 +68,7 @@ namespace Bikewale.Models
                     CityDetails = new CityHelper().GetCityById(cityId);
                     objDealerDetails.CityDetails = CityDetails;
                 }
+                ProcessGlobalLocationCookie();
                 objDealerDetails.DealersList = BindOtherDealerWidget();
                 objDealerDetails.DealerDetails = BindDealersData();
                 objDealerDetails.PopularBikes = BindMostPopularBikes();
@@ -85,6 +86,31 @@ namespace Bikewale.Models
         }
 
         /// <summary>
+        /// Created by  :   Sumit Kate on 19 Jan 2017
+        /// Description :   Process Global Cookie
+        /// </summary>
+        private void ProcessGlobalLocationCookie()
+        {
+            GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
+            uint customerCityId = location.CityId;
+            uint customerAreaId = location.AreaId;
+            if (customerCityId == cityId && customerAreaId > 0)
+            {
+                objDealerDetails.PQCityId = cityId;
+                objDealerDetails.PQAreaID = customerAreaId;
+                objDealerDetails.CustomerAreaName = location.Area.Replace('-', ' ');
+                objDealerDetails.PQAreaName = objDealerDetails.CustomerAreaName;
+            }
+            else
+            {
+                objDealerDetails.PQCityId = cityId;
+                objDealerDetails.PQAreaID = customerAreaId;
+                if (objDealerDetails.DealerDetails != null && objDealerDetails.DealerDetails.DealerDetails != null && objDealerDetails.DealerDetails.DealerDetails.Area != null)
+                    objDealerDetails.PQAreaName = objDealerDetails.DealerDetails.DealerDetails.Area.AreaName;
+            }
+        }
+
+        /// <summary>
         /// Created By:- Subodh Jain 23 March 2017
         /// Summary:- Fetching data about dealers of other brands
         /// </summary>
@@ -94,8 +120,8 @@ namespace Bikewale.Models
 
             try
             {
-                objPage.Title = string.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", objDealerDetails.DealerDetails.DealerDetails.Name, CityDetails.CityName);
-                objPage.Keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMake.MakeName);
+                objPage.Keywords = string.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", objDealerDetails.DealerDetails.DealerDetails.Name, CityDetails.CityName);
+                objPage.Title = string.Format("{0} | {0} showroom in {1} - BikeWale", objMake.MakeName, CityDetails.CityName);
                 objPage.Description = string.Format("{2} is an authorized {0} showroom in {1}. Get address, contact details direction, EMI quotes etc. of {2} {0} showroom.", objMake.MakeName, CityDetails.CityName, objDealerDetails.DealerDetails.DealerDetails.Name);
 
             }
@@ -116,8 +142,7 @@ namespace Bikewale.Models
             ServiceCenterDetailsWidgetVM ServiceCenterVM = null;
             try
             {
-                uint topCount = 9;
-                ServiceCentersCard objServcieCenter = new ServiceCentersCard(_objSC, topCount, objMake, CityDetails);
+                ServiceCentersCard objServcieCenter = new ServiceCentersCard(_objSC, 3, objMake, CityDetails);
                 ServiceCenterVM = objServcieCenter.GetData();
             }
             catch (System.Exception ex)
@@ -140,7 +165,7 @@ namespace Bikewale.Models
             MostPopularBikeWidgetVM objPopularBikes = new MostPopularBikeWidgetVM();
             try
             {
-                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true);
+                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels, 0, (uint)objMake.MakeId);
                 popularBikes.TopCount = 9;
                 objPopularBikes = popularBikes.GetData();
                 objPopularBikes.PageCatId = 5;
