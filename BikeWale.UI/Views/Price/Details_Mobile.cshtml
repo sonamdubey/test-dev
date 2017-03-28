@@ -30,7 +30,7 @@
             <p class="single-version-label font14 margin-left5">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
         }
         <div class="text-center">
-            <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.DetailedDealer.OriginalImagePath, Model.DetailedDealer.HostUrl, Bikewale.Utility.ImageSize._210x118)" title="@Model.BikeName Images" alt="@Model.BikeName Images" border="0" />
+            <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.SelectedVersion.OriginalImagePath, Model.SelectedVersion.HostUrl, Bikewale.Utility.ImageSize._210x118)" title="@Model.BikeName Images" alt="@Model.BikeName Images" border="0" />
         </div>
         <p class="font12 text-light-grey padding-left15 padding-right15">Location:</p>
         <p class="font16 text-bold padding-left15 padding-right15">

@@ -58,10 +58,10 @@
                 <div class="padding-top15 padding-right20 padding-bottom20 padding-left20">
                     <h2 class="font18 margin-bottom15">@Model.BikeName</h2>
                     <div id="pq-image-column" class="grid-5 alpha">
-                        @if (Model.DetailedDealer != null)
+                        @if (Model.SelectedVersion != null)
                         {
                             <div id="model-image">
-                                <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.DetailedDealer.OriginalImagePath, Model.DetailedDealer.HostUrl, Bikewale.Utility.ImageSize._360x202)" title="@Model.BikeName Images" alt="@Model.BikeName Images" width="100%" />
+                                <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.SelectedVersion.OriginalImagePath, Model.SelectedVersion.HostUrl, Bikewale.Utility.ImageSize._360x202)" title="@Model.BikeName Images" alt="@Model.BikeName Images" width="100%" />
                             </div>
                         }
                         @Html.Raw(Model.MinSpecsHtml)

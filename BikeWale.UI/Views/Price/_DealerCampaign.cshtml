@@ -342,7 +342,7 @@
     </div>
     <!-- Terms and condition Popup Ends -->
 
-    if (Model.PrimaryDealer.EMIDetails != null)
+    if (Model.PrimaryDealer.EMIDetails != null && !Model.PrimaryDealer.IsStandardDealer)
     {
         <script type="text/javascript">
 
@@ -448,6 +448,7 @@
 
            docReady(function(){
 
+               var EMISection = $("#EMISection");
                ko.bindingHandlers.slider = {
                    init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
                        var options = allBindingsAccessor().sliderOptions || {};
@@ -466,8 +467,11 @@
                    }
                };
 
-                EMIviewModel = new BikeEMI;
-                ko.applyBindings(EMIviewModel, $("#EMISection")[0]);
+               EMIviewModel = new BikeEMI;
+               if(EMISection && EMISection.length > 1)
+               {
+                   ko.applyBindings(EMIviewModel, $("#EMISection")[0]);
+               }               
             })
 
 
