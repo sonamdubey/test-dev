@@ -1,9 +1,6 @@
-﻿@{
-    bool isLocationChange = false;
-    Bikewale.Entities.Location.GlobalCityAreaEntity objLocation = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
-    isLocationChange = (ViewBag.UrlCityId > 0 && ViewBag.UrlCityId != objLocation.CityId);
-}
-@if (isLocationChange) {
+﻿@model Bikewale.Models.ChangeLocationPopupVM
+@if (Model != null && Model.IsLocationChanged)
+{
 <!-- global Change city pop up code starts here -->
 <div class="globalchangecity-popup rounded-corner2" id="globalchangecity-popup">
     <div class="globalchangecity-popup-data text-center font14">
@@ -12,25 +9,25 @@
                 <span class="bwsprite cityPopup-icon"></span>
             </div>
         </div>
-        <p class="margin-top15 margin-bottom5">You had chosen your location as @(objLocation.City).</p>
-        <p class="margin-bottom15">However, you are viewing information related to <span class="font16 text-bold">@ViewBag.UrlCityName</span>.</p>
+        <p class="margin-top15 margin-bottom5">You had chosen your location as @(Model.CurrentLocation.City).</p>
+        <p class="margin-bottom15">However, you are viewing information related to <span class="font16 text-bold">@Model.UrlLocation.City</span>.</p>
         <a href="javascript:void(0)" class="btn btn-grey btn-md font14 city-ignore margin-right15" id="changecity-ignore" rel="nofollow">Dismiss</a>
-        <a href="javascript:void(0)" class="btn btn-orange font14 city-accept text-truncate" id="changecity-accept" rel="nofollow">Change to @ViewBag.UrlCityName</a>
+        <a href="javascript:void(0)" class="btn btn-orange font14 city-accept text-truncate" id="changecity-accept" rel="nofollow">Change to @Model.UrlLocation.City</a>
     </div>
     <div class="clear"></div>
 </div>
 
 <script type="text/javascript">
 
-    var locationChangePopup = (function () {
+    var locationChangePopup = function () {
         try {
             var options = {
-                urlCityName: '@ViewBag.UrlCityName',
-                cookieCityName: '@objLocation.City',
-                urlCityId: parseInt('@ViewBag.UrlCityId', 10),
-                cookieCityId: parseInt('@objLocation.CityId', 10),
+                urlCityName: '@Model.UrlLocation.City',
+                cookieCityName: '@Model.CurrentLocation.City',
+                urlCityId: parseInt('@Model.UrlLocation.CityId', 10),
+                cookieCityId: parseInt('@Model.CurrentLocation.CityId', 10),
                 sessionKey: "bwchangecity",
-                locationChangeKey : "userchangedlocation",
+                locationChangeKey: "userchangedlocation",
                 ignoreEle: document.getElementById("changecity-ignore"),
                 acceptEle: document.getElementById("changecity-accept"),
                 popupEle: document.getElementById("globalchangecity-popup"),
@@ -38,13 +35,11 @@
                 navGlobalLocation: document.getElementsByClassName("gl-default-stage")[0],
                 bodyEle: document.getElementsByTagName("body")[0]
             };
-            var ignoreCityChange = function()
-            {
+            var ignoreCityChange = function () {
                 bwcache.set(options.sessionKey, "1", true);
                 hideChangeCityPopup();
             };
-            var acceptCityChange = function()
-            {
+            var acceptCityChange = function () {
                 var cookieValue = options.urlCityId + '_' + options.urlCityName;
                 cookieValue = cookieValue.replace(/\s+/g, '-');
                 bwcache.remove("userchangedlocation", true);
@@ -70,8 +65,7 @@
                     document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
             };
 
-            var closeChangeCityPopup = function()
-            {
+            var closeChangeCityPopup = function () {
                 ignoreCityChange();
                 hideChangeCityPopup();
             };
@@ -136,14 +130,11 @@
                 }
             }();
         }
-        catch(e)
-        {
+        catch (e) {
             console.log("Something went wrong with location change popup : " + e.message);
         }
-    })();
+    };
+    docReady(function () { locationChangePopup(); });
 
 </script>
-
-
-
 }

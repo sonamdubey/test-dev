@@ -9,22 +9,13 @@ namespace Bikewale.Models
     /// </summary>
     public class HomePageVM : ModelBase
     {
+        public string LocationMasking { get; set; }
+        public string Location { get; set; }
         public BrandWidgetVM Brands { get; set; }
         public NewLaunchedWidgetVM NewLaunchedBikes { get; set; }
+        public MostPopularBikeWidgetVM PopularBikes { get; set; }
         public BestBikeWidgetVM BestBikes { get; set; }
+        public UsedBikeCitiesWidgetVM UsedBikeCities { get; set; }
     }
 
-
-    /// <summary>
-    /// </summary>
-    /// <author>
-    /// Created by: Sangram Nandkhile on 24-Mar-2017
-    /// Summary:  View Model for New launches
-    /// </author>
-    public class NewLaunchedWidgetVM
-    {
-        public IEnumerable<NewLaunchedBikeEntityBase> Bikes { get; set; }
-        public uint PQSourceId { get; set; }
-        public uint PageCatId { get; set; }
-    }
 }
