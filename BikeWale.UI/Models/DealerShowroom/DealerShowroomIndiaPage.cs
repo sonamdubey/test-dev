@@ -254,7 +254,7 @@ namespace Bikewale.Models
                             if (_city != null)
                             {
                                 redirectUrl = String.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName, _city.CityMaskingName);
-                                status = StatusCodes.Redirect;
+                                status = StatusCodes.RedirectTemporary;
                             }
                         }
                         if (status == 0)

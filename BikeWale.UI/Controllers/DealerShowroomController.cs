@@ -143,7 +143,7 @@ namespace Bikewale.Controllers
                     {
                         return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealer.objResponse.MaskingName));
                     }
-                    else if (objDealer.status == Entities.StatusCodes.Redirect)
+                    else if (objDealer.status == Entities.StatusCodes.RedirectTemporary)
                     {
                         return Redirect(objDealer.redirectUrl);
                     }
@@ -187,7 +187,7 @@ namespace Bikewale.Controllers
                     {
                         return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealer.objResponse.MaskingName));
                     }
-                    else if (objDealer.status == Entities.StatusCodes.Redirect)
+                    else if (objDealer.status == Entities.StatusCodes.RedirectTemporary)
                     {
                         return Redirect(objDealer.redirectUrl);
                     }
