@@ -37,6 +37,7 @@ namespace Bikewale.Models.Price
         public bool IsDealerPriceQuote { get { return (this.DetailedDealer != null && this.DetailedDealer.PrimaryDealer != null && this.DetailedDealer.PrimaryDealer.PriceList != null && this.DetailedDealer.PrimaryDealer.PriceList.Count() > 0); } }
 
         public string LeadBtnLongText { get { return "Get offers from dealer"; } }
+        public string LeadBtnShortText { get { return "Get offers"; } }
 
         public string ClientIP { get; set; }
         public string PageUrl { get; set; }

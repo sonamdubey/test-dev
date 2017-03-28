@@ -11,20 +11,19 @@ variantUL = $(".variants-dropdown-list"),
 variantListLI = $(".variants-dropdown-list li");
 
 
-function secondarydealer_Click(dealerID) {
-    triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Clicked', bikeVerLocation);
+function registerPQAndReload(eledealerId, eleversionId) {
     try {
         var isSuccess = false;
 
         var objData = {
-            "dealerId": dealerID,
+            "dealerId": eledealerId || dealerId,
             "modelId": modelId,
-            "versionId": versionId,
+            "versionId": eleversionId || versionId,
             "cityId": cityId,
             "areaId": areaId,
             "clientIP": clientIP,
             "pageUrl": pageUrl,
-            "sourceType": 1,
+            "sourceType": 2,
             "pQLeadId": pqSourceId,
             "deviceId": getCookie('BWC')
         };
@@ -32,12 +31,16 @@ function secondarydealer_Click(dealerID) {
         isSuccess = dleadvm.registerPQ(objData);
 
         if (isSuccess) {
-            var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
+            var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + objData.versionId + "&DealerId=" + objData.dealerId;
             window.location.href = "/pricequote/dealer/?MPQ=" + Base64.encode(rediurl);
         }
     } catch (e) {
         console.warn("Unable to create pricequote : " + e.message);
     }
+}
+function secondarydealer_Click(dealerID) {
+    triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Clicked', bikeVerLocation);
+    registerPQAndReload(dealerID);
 }
 
 function openLeadCaptureForm(dealerID) {
@@ -103,20 +106,12 @@ docReady(function () {
         searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
     });
 
-    $("input[name*='btnVariant']").on("click", function () {
-        if ($(this).attr('versionid') == $('#hdnVariant').val()) {
-            return false;
-        }
-        $('#hdnVariant').val($(this).attr('title'));
-        triggerGA('Dealer_PQ', 'Version_Change', bikeVerLocation);
-    });
-
     if ($('.pricequote-benefits-list li').length % 2 == 0) {
         $('.pricequote-benefits-list').addClass("pricequote-two-benefits");
     }
 
     $('#ddlVersion').on("change", function () {
-        $('#hdnVariant').val($(this).val());
+        registerPQAndReload(dealerId, $(this).val());
         triggerGA('Dealer_PQ', 'Version_Changed', bikeVerLocation);
     });
 

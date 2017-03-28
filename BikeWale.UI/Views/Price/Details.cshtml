@@ -308,7 +308,7 @@
     var bikeName = "@Model.BikeName", bikeVersionPrice = "@Model.TotalPrice";
     var leadSourceId = "@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DPQ_SecondaryDealers)";
     var versionName = "@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")";
-    var bikeVerLocation = bikeName + '_' + versionName + '_' + getCityArea, EMIviewModel, dealerType = '@Model.DealerType';
+    var bikeVerLocation , EMIviewModel, dealerType = '@Model.DealerType';
     var pageUrl = window.location.href;
 
     docReady(function () {

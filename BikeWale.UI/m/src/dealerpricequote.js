@@ -1,19 +1,18 @@
 ﻿var swiper, dropdown, emiPopupDiv, offersPopupDiv
-
-function secondarydealer_Click(dealerID) {
-    triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Clicked', bikeVerLocation);
+function registerPQAndReload(eledealerId,eleversionId)
+{
     try {
         var isSuccess = false;
 
         var objData = {
-            "dealerId": dealerID,
+            "dealerId": eledealerId || dealerId,
             "modelId": modelId,
-            "versionId": versionId,
+            "versionId": eleversionId || versionId,
             "cityId": cityId,
             "areaId": areaId,
             "clientIP": clientIP,
             "pageUrl": pageUrl,
-            "sourceType": 1,
+            "sourceType": 2,
             "pQLeadId": pqSourceId,
             "deviceId": getCookie('BWC')
         };
@@ -21,12 +20,16 @@ function secondarydealer_Click(dealerID) {
         isSuccess = dleadvm.registerPQ(objData);
 
         if (isSuccess) {
-            var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
-            window.location.href = "/pricequote/dealer/?MPQ=" + Base64.encode(rediurl);
+            var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + objData.versionId + "&DealerId=" + objData.dealerId;
+            window.location.href = "/m/pricequote/dealer/?MPQ=" + Base64.encode(rediurl);
         }
     } catch (e) {
         console.warn("Unable to create pricequote : " + e.message);
     }
+}
+function secondarydealer_Click(dealerID) {
+    triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Clicked', bikeVerLocation);
+    registerPQAndReload(dealerID);
 }
 
 function LoadTerms(offerId) {
@@ -216,6 +219,7 @@ docReady(function () {
 
     $("#ddlVersion").on("change", function () {
         versionName = $(this).children(":selected").text();
+        registerPQAndReload(dealerId,$(this).val());
         dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Version_Changed", "lab": bikeName + "_" + versionName + "_" + getCityArea });
     });
 
