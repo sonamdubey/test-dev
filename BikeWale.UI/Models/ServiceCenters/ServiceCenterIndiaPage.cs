@@ -11,6 +11,10 @@ using System;
 
 namespace Bikewale.Models.ServiceCenters
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 27-03-2017
+    /// This Model will fetch data for service centers in india page
+    /// </summary>
     public class ServiceCenterIndiaPage
     {
         private readonly string _makeMaskingName;
@@ -72,32 +76,39 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindPageMetas()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.BindPageMetas()");
             }
         }
 
         private void ProcessQuery(string makeMaskingName)
         {
-            objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
-            if (objResponse != null)
+            try
             {
-                if (objResponse.StatusCode == 200)
+                objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
+                if (objResponse != null)
                 {
-                    _makeId = objResponse.MakeId;
-                    status = StatusCodes.ContentFound;
-                }
-                else if (objResponse.StatusCode == 301)
-                {
-                    status = StatusCodes.RedirectPermanent;
+                    if (objResponse.StatusCode == 200)
+                    {
+                        _makeId = objResponse.MakeId;
+                        status = StatusCodes.ContentFound;
+                    }
+                    else if (objResponse.StatusCode == 301)
+                    {
+                        status = StatusCodes.RedirectPermanent;
+                    }
+                    else
+                    {
+                        status = StatusCodes.ContentNotFound;
+                    }
                 }
                 else
                 {
                     status = StatusCodes.ContentNotFound;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                status = StatusCodes.ContentNotFound;
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.ProcessQuery()");
             }
         }
 
@@ -118,7 +129,7 @@ namespace Bikewale.Models.ServiceCenters
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindUsedBikeByModel()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.BindUsedBikeByModel()");
             }
             return UsedBikeModel;
         }

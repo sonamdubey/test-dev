@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace Bikewale.Controllers
 {
     /// <summary>
-    /// Created by Sajal Gupta on 23-03-2017
+    /// Created by Sajal Gupta on 23-03-2017  
     /// </summary>
     public class ServiceCentersController : Controller
     {
@@ -32,6 +32,12 @@ namespace Bikewale.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 28-03-2017
+        /// This action method will fetch details for service centers in india page Desktop
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <returns></returns>
         [Route("servicecentersinindia/make/{makeMaskingName}")]
         public ActionResult ServiceCentersInIndia(string makeMaskingName)
         {
@@ -68,6 +74,12 @@ namespace Bikewale.Controllers
             }
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 28-03-2017
+        /// This action method will fetch details for service centers in india page Mobile
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <returns></returns>
         [Route("m/servicecentersinindia/make/{makeMaskingName}")]
         public ActionResult ServiceCentersInIndia_Mobile(string makeMaskingName)
         {
@@ -99,7 +111,7 @@ namespace Bikewale.Controllers
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersController.ServiceCentersInIndia");
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersController.ServiceCentersInIndia_Mobile");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
         }
