@@ -31,11 +31,12 @@ namespace Bikewale.Models
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IPriceQuote _objPQ = null;
 
-        public string redirectUrl;
-        public StatusCodes status;
+        public string RedirectUrl { get; set; }
+        public StatusCodes Status { get; set; }
 
         private uint _modelId, _versionId, _cityId, _areaId, _pqId, _dealerId, _makeId;
         private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty;
+
 
 
         /// <summary>
@@ -144,51 +145,33 @@ namespace Bikewale.Models
 
             try
             {
-                //if (objVersionDetails != null)
-                //{
-                //    ctrlAlternativeBikes.VersionId = Convert.ToUInt32(versionId);
-                //    ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_DPQ_Alternative;
-                //    ctrlAlternativeBikes.cityId = cityId;
-
-                //    if (objVersionDetails.ModelBase != null)
-                //    {
-                //        ctrlAlternativeBikes.model = objVersionDetails.ModelBase.ModelName;
-
-                //        if (ctrlDealers != null && objVersionDetails.MakeBase != null)
-                //        {
-                //            //ctrlDealers.MakeId = (uint)objVersionDetails.MakeBase.MakeId;
-                //            //ctrlDealers.CityId = cityId;
-                //            //ctrlDealers.IsDiscontinued = false;
-                //            //ctrlDealers.TopCount = 3;
-                //            //ctrlDealers.ModelId = _modelId;
-                //            //ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_Dealerpricequote_DealersCard_GetOfferButton;
-                //            //ctrlDealers.widgetHeading = string.Format("{0} showrooms {1}", objVersionDetails.MakeBase.MakeName, !string.IsNullOrEmpty(currentCity) ? "in " + currentCity : string.Empty);
-                //            //ctrlDealers.pageName = "DealerPriceQuote_Page";
-
-                //        }
-                //    }
-
-                //}
-
-                objData.OtherDealers = _objDealerCache.GetDealerByMakeCity(_cityId, _makeId);
-                objData.OtherDealers.Dealers = objData.OtherDealers.Dealers.Take(3);
-
-
-                objData.LeadCapture = new LeadCaptureEntity()
+                if (objData != null)
                 {
-                    ModelId = _modelId,
-                    CityId = _cityId,
-                    AreaId = _areaId,
-                    Area = currentArea,
-                    City = currentCity,
-                    Location = objData.Location,
-                    BikeName = objData.BikeName
+                    objData.OtherDealers = _objDealerCache.GetDealerByMakeCity(_cityId, _makeId);
+                    objData.OtherDealers.Dealers = objData.OtherDealers.Dealers.Take(3);
 
-                };
 
-                objData.SimilarBikesVM = new SimilarBikesWidgetVM();
-                objData.SimilarBikesVM.Bikes = _objVersionCache.GetSimilarBikesList(_versionId, 9, _cityId);
-                objData.SimilarBikesVM.PQSourceId = PQSourceEnum.Desktop_DPQ_Alternative; ;
+                    objData.LeadCapture = new LeadCaptureEntity()
+                    {
+                        ModelId = _modelId,
+                        CityId = _cityId,
+                        AreaId = _areaId,
+                        Area = currentArea,
+                        City = currentCity,
+                        Location = objData.Location,
+                        BikeName = objData.BikeName
+
+                    };
+
+                    var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, _versionId, PQSourceEnum.Desktop_DPQ_Alternative);
+                    if (objSimilarBikes != null)
+                    {
+                        objSimilarBikes.TopCount = 9;
+                        objSimilarBikes.CityId = _cityId;
+                        objData.SimilarBikesVM = objSimilarBikes.GetData();
+                    }
+                }
+
             }
             catch (Exception ex)
             {
@@ -346,7 +329,8 @@ namespace Bikewale.Models
                 }
                 else
                 {
-                    status = StatusCodes.ContentFound;
+                    RedirectUrl = "/pricequote/";
+                    Status = StatusCodes.RedirectPermanent;
                 }
 
             }
@@ -478,18 +462,18 @@ namespace Bikewale.Models
                     UInt32.TryParse(PriceQuoteQueryString.AreaId, out _areaId);
                     pageUrl = request.ServerVariables["URL"];
                     mpqQueryString = request.QueryString["MPQ"];
-                    status = StatusCodes.ContentFound;
+                    Status = StatusCodes.ContentFound;
                 }
                 else
                 {
-                    redirectUrl = "/pricequote/quotation.aspx";
-                    status = StatusCodes.RedirectPermanent;
+                    RedirectUrl = "/pricequote/";
+                    Status = StatusCodes.RedirectPermanent;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.ParseQueryString() versionid {0}, CityId {1}, PQId {2}", _versionId, _cityId, _pqId));
-                status = StatusCodes.ContentNotFound;
+                Status = StatusCodes.ContentNotFound;
             }
         }
     }

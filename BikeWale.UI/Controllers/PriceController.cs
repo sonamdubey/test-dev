@@ -71,20 +71,20 @@ namespace Bikewale.Controllers
             DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache);
 
 
-            if (obj.status.Equals(StatusCodes.ContentFound))
+            if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 DealerPriceQuotePageVM objData = obj.GetData();
-                //if data is null check for content not found 
-                if (!obj.status.Equals(StatusCodes.ContentNotFound))
+                //if data is null check for pricequote redirection
+                if (obj.Status.Equals(StatusCodes.RedirectPermanent))
                 {
-                    return View(objData);
+                    return RedirectPermanent(obj.RedirectUrl);
                 }
-                else return Redirect("/pagenotfound.aspx");
+                else return View(objData);
 
             }
-            else if (obj.status.Equals(StatusCodes.RedirectPermanent))
+            else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
             {
-                return RedirectPermanent(obj.redirectUrl);
+                return RedirectPermanent(obj.RedirectUrl);
             }
             else
             {
@@ -102,20 +102,20 @@ namespace Bikewale.Controllers
         {
             DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache);
 
-            if (obj.status.Equals(StatusCodes.ContentFound))
+            if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 DealerPriceQuotePageVM objData = obj.GetData();
-                //if data is null check for content not found 
-                if (!obj.status.Equals(StatusCodes.ContentNotFound))
+                //if data is null check for pricequote redirection
+                if (obj.Status.Equals(StatusCodes.RedirectPermanent))
                 {
-                    return View(objData);
+                    return RedirectPermanent(obj.RedirectUrl);
                 }
-                else return Redirect("/pagenotfound.aspx");
+                else return View(objData);
 
             }
-            else if (obj.status.Equals(StatusCodes.RedirectPermanent))
+            else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
             {
-                return RedirectPermanent(obj.redirectUrl);
+                return RedirectPermanent(obj.RedirectUrl);
             }
             else
             {
