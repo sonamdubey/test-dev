@@ -11,109 +11,152 @@
         <div class="bg-white box-shadow">
             @if (Model.DealerDetails.DealerDetails.Area != null && string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.Area.AreaName))
             {
-                <h1 class="box-shadow padding-15-20">@string.Format("{0}, {2}, {1}", Model.DealerDetails.DealerDetails.Name, Model.CityDetails.CityName, Model.DealerDetails.DealerDetails.Area.AreaName)</h1>
+            <h1 class="box-shadow padding-15-20">@string.Format("{0}, {2}, {1}", Model.DealerDetails.DealerDetails.Name, Model.CityDetails.CityName, Model.DealerDetails.DealerDetails.Area.AreaName)</h1>
             }
             else
             {
-                <h1 class="box-shadow padding-15-20">@string.Format("{0}, {1}", Model.DealerDetails.DealerDetails.Name, Model.CityDetails.CityName)</h1>
+            <h1 class="box-shadow padding-15-20">@string.Format("{0}, {1}", Model.DealerDetails.DealerDetails.Name, Model.CityDetails.CityName)</h1>
             }
             <div class="dealer-details position-rel pos-top-3 content-inner-block-20 font14">
                 @if (Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
                 {
-                    <span class="featured-tag inline-block margin-right10"><span class="bwmsprite star-white"></span>Featured</span>
+                <span class="featured-tag inline-block margin-right10"><span class="bwmsprite star-white"></span>Featured</span>
                 }
                 else
                 {
-                    <div class="margin-bottom20">
-                        <h2 class="font14 text-bold inline-block">@string.Format("Authorized {0} dealer in {1}", Model.Make.MakeName, Model.CityDetails.CityName) </h2>
-                    </div>
+                <div class="margin-bottom20">
+                    <h2 class="font14 text-bold inline-block">@string.Format("Authorized {0} dealer in {1}", Model.Make.MakeName, Model.CityDetails.CityName) </h2>
+                </div>
                 }
                 @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.Address))
                 {
-                    <p class="margin-bottom10">
-                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                        @if (String.IsNullOrEmpty(Model.DealerDetails.DealerDetails.Pincode))
+                <p class="margin-bottom10">
+                    <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                    @if (String.IsNullOrEmpty(Model.DealerDetails.DealerDetails.Pincode))
                         {
-                            <span class="vertical-top dealership-details text-light-grey">@string.Format("{0}, {1}", Model.DealerDetails.DealerDetails.Address, Model.CityDetails.CityName)</span>
+                        <span class="vertical-top dealership-details text-light-grey">@string.Format("{0}, {1}", Model.DealerDetails.DealerDetails.Address, Model.CityDetails.CityName)</span>
                         }
                         else
                         {
-                            <span class="vertical-top dealership-details text-light-grey">@string.Format("{0}, {1}, {2}", Model.DealerDetails.DealerDetails.Address, Model.DealerDetails.DealerDetails.Pincode, Model.CityDetails.CityName)</span>
+                        <span class="vertical-top dealership-details text-light-grey">@string.Format("{0}, {1}, {2}", Model.DealerDetails.DealerDetails.Address, Model.DealerDetails.DealerDetails.Pincode, Model.CityDetails.CityName)</span>
                         }
 
-                    </p>
+                </p>
                 }
                 @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.MaskingNumber))
                 {
-                    <div class="margin-bottom10">
-                        <a href="tel:= dealerDetails.MaskingNumber " class="text-default text-bold maskingNumber">
-                            <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
-                            <span class="vertical-top text-bold dealership-details">@Model.DealerDetails.DealerDetails.MaskingNumber </span>
-                        </a>
-                    </div>
+                <div class="margin-bottom10">
+                    <a href="tel:= dealerDetails.MaskingNumber " class="text-default text-bold maskingNumber">
+                        <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
+                        <span class="vertical-top text-bold dealership-details">@Model.DealerDetails.DealerDetails.MaskingNumber </span>
+                    </a>
+                </div>
                 }
                 @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.EMail))
                 {
-                    <div class="margin-bottom10">
-                        <a href="mailto:= dealerDetails.EMail " class="text-light-grey">
-                            <span class="bwmsprite mail-grey-icon vertical-top"></span>
-                            <span class="vertical-top dealership-details text-light-grey">@Model.DealerDetails.DealerDetails.EMail </span>
-                        </a>
-                    </div>
+                <div class="margin-bottom10">
+                    <a href="mailto:= dealerDetails.EMail " class="text-light-grey">
+                        <span class="bwmsprite mail-grey-icon vertical-top"></span>
+                        <span class="vertical-top dealership-details text-light-grey">@Model.DealerDetails.DealerDetails.EMail </span>
+                    </a>
+                </div>
                 }
                 @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.WorkingHours))
                 {
-                    <div class="margin-bottom10">
-                        <span class="bwmsprite clock-icon vertical-top"></span>
-                        <span class="vertical-top dealership-details text-light-grey">Working hours: @Model.DealerDetails.DealerDetails.WorkingHours </span>
-                    </div>
+                <div class="margin-bottom10">
+                    <span class="bwmsprite clock-icon vertical-top"></span>
+                    <span class="vertical-top dealership-details text-light-grey">Working hours: @Model.DealerDetails.DealerDetails.WorkingHours </span>
+                </div>
                 }
                 @if (Model.DealerDetails.DealerDetails.Area != null && Model.DealerDetails.DealerDetails.Area.Latitude > 0 && Model.DealerDetails.DealerDetails.Area.Longitude > 0)
                 {
-                    <div class="border-solid-bottom margin-bottom15 padding-top10"></div>
+                <div class="border-solid-bottom margin-bottom15 padding-top10"></div>
 
-                    <h2 class="font14 text-default margin-bottom15">Get commute distance and time:</h2>
-                    <div class="form-control-box margin-bottom15">
-                        <input id="locationSearch" data-lat="@Model.DealerDetails.DealerDetails.Area.Latitude" data-long="@Model.DealerDetails.DealerDetails.Area.Longitude" type="text" class="form-control padding-right40" placeholder="Enter your location" />
-                        <span id="getUserLocation" class="crosshair-icon position-abt"></span>
-                    </div>
-                    <div class="location-details margin-bottom15">
-                        Distance: <span id="commuteDistance" class="margin-right10"></span>
-                        Time: <span id="commuteDuration"></span>
-                    </div>
-                    <div id="commuteResults"></div>
-                    <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:=@Model.DealerDetails.DealerDetails.Area.Latitude ,@Model.DealerDetails.DealerDetails.Area.Longitude " target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
+                <h2 class="font14 text-default margin-bottom15">Get commute distance and time:</h2>
+                <div class="form-control-box margin-bottom15">
+                    <input id="locationSearch" data-lat="@Model.DealerDetails.DealerDetails.Area.Latitude" data-long="@Model.DealerDetails.DealerDetails.Area.Longitude" type="text" class="form-control padding-right40" placeholder="Enter your location" />
+                    <span id="getUserLocation" class="crosshair-icon position-abt"></span>
+                </div>
+                <div class="location-details margin-bottom15">
+                    Distance: <span id="commuteDistance" class="margin-right10"></span>
+                    Time: <span id="commuteDuration"></span>
+                </div>
+                <div id="commuteResults"></div>
+                <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:=@Model.DealerDetails.DealerDetails.Area.Latitude ,@Model.DealerDetails.DealerDetails.Area.Longitude " target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
                 }
             </div>
 
             @if (Model.DealerDetails.DealerDetails.CampaignId > 0 && Model.DealerDetails.DealerDetails.DealerType != (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
             {
-                <div class="grid-12 float-button clearfix float-fixed">
-                    @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.MaskingNumber))
+            <div class="grid-12 float-button clearfix float-fixed">
+                @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.MaskingNumber))
                     {
-                        <div class="grid-6 alpha padding-right5">
-                            <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">@Model.DealerDetails.DealerDetails.DisplayTextSmall</a>
-                        </div>
-                        <div class="grid-6 omega padding-left5">
-                            <a id="calldealer" class="btn btn-green btn-full-width rightfloat" href="tel:= dealerDetails.MaskingNumber ">
-                                <span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer
-                            </a>
-                        </div>
+                    <div class="grid-6 alpha padding-right5">
+                        <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">@Model.DealerDetails.DealerDetails.DisplayTextSmall</a>
+                    </div>
+                    <div class="grid-6 omega padding-left5">
+                        <a id="calldealer" class="btn btn-green btn-full-width rightfloat" href="tel:= dealerDetails.MaskingNumber ">
+                            <span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer
+                        </a>
+                    </div>
                     }
                     else
                     {
-                        <div class="grid-12 alpha padding-right5">
-                            <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">@Model.DealerDetails.DealerDetails.DisplayTextSmall </a>
-                        </div>
+                    <div class="grid-12 alpha padding-right5">
+                        <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">@Model.DealerDetails.DealerDetails.DisplayTextSmall </a>
+                    </div>
                     }
-                    <div class="clear"></div>
-                </div>
                 <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
 
             }
     </section>
 }
+@if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null && Model.DealerDetails.DealerDetails.CampaignId > 0 && ((Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))))
+{
+    <section class="container bg-white margin-bottom10">
+        <div class="box-shadow padding-top15 padding-right20 padding-bottom5 padding-left20">
+            <h2 class="font18 margin-bottom15">Bikes available at @Model.DealerDetails.DealerDetails.Name</h2>
+            <ul id="model-available-list">
+                @foreach (var bike in Model.DealerDetails.Models)
+                {
+                    var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+                    <li>
+                        <a class="modelurl" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName))" title="@bikeName">
+                            <div class="image-block">
+                                <div class="image-content">
+                                    <img class="lazy"
+                                         data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
+                                </div>
+                            </div>
 
+                            <div class="details-block">
+                                <h3 class="font16 margin-bottom10 text-black text-truncate">@bikeName</h3>
+                                <div class="font14 text-x-light margin-bottom5">
+                                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
+                                </div>
+                                <div class="text-default">
+                                    <span class="font14 text-light-grey"> On-road Price,@Model.CityDetails.CityName</span>
+                                </div>
+                                <div class="text-default">
+                                    <span class="bwmsprite inr-sm-icon"></span>
+                                    <span class="font18 text-bold">@Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bike.VersionPrice))</span>
+                                </div>
+                                @if (Model.DealerDetails.DealerDetails.Area != null && Model.DealerDetails.DealerDetails.Area.AreaId > 0)
+                                {
+                                <div class="text-default">
+                                    <a rel="nofollow" id="dealerDetails" class="btn btn-white btn-sm-1 margin-top5 inline-block dealerDetails" href="javascript:void(0)" data-dealerid="@Model.DealerDetails.DealerDetails.DealerId" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels)" data-modelid="@bike.objModel.ModelId" data-versionid="@bike.objVersion.VersionId" data-areaid="@Model.PQAreaID" data-cityid="@Model.CityDetails.CityId" data-areaname="@Model.PQAreaName" data-cityname="@Model.CityDetails.CityName">Show detailed price</a>
+                                </div>
+                                } 
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </section>
+}
 @if (Model.DealersList != null)
 {
     <section class="container bg-white margin-bottom10">
@@ -161,7 +204,7 @@
                     @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard_Mobile.cshtml", Model.ServiceCenterDetails)
                 </div>
             </div>
-            </div>
         </div>
+    </div>
 }
 <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>

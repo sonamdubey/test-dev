@@ -14,6 +14,10 @@ namespace Bikewale.Models
         public DealerBikesEntity DealerDetails;
         public MostPopularBikeWidgetVM PopularBikes;
         public ServiceCenterDetailsWidgetVM ServiceCenterDetails;
+        public uint PQCityId;
+        public uint PQAreaID;
+        public string PQAreaName;
+        public string CustomerAreaName;
 
     }
 }
