@@ -192,7 +192,7 @@
 
                     if (jsonObj != undefined && jsonObj.quoteId > 0) {
                         gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
-                        window.location = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
+                        window.location = "/m/pricequote/dealer/?MPQ=" + Base64.encode(cookieValue);
                     }                    
                     else {
                         gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
