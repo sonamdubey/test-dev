@@ -921,6 +921,7 @@
     <Compile Include="Models\News\RecentNews.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\Videos\RecentVideos.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersByBrand.cs" />
@@ -3611,6 +3612,8 @@
     <Content Include="Views\CompareBikes\_PopularModelCompare_Mobile.cshtml" />
     <Content Include="Views\Used\_UsedBikesByModelCity.cshtml" />
     <Content Include="Views\Used\_UsedBikesByModelCity_Mobile.cshtml" />
+    <Content Include="Views\ServiceCenters\ServiceCentersInIndia.cshtml" />
+    <Content Include="Views\ServiceCenters\ServiceCentersInIndia_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

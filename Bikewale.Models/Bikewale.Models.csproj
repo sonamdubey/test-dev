@@ -59,6 +59,7 @@
     <Compile Include="PriceInCity\PriceInTopCitiesWidgetVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceCenters\ServiceCenterDetailsWidgetVM.cs" />
+    <Compile Include="ServiceCenters\ServiceCenterIndiaPageVM.cs" />
     <Compile Include="ServiceCenters\ServiceCentersNearByCityWidgetVM.cs" />
     <Compile Include="Shared\BikeInfo.cs" />
     <Compile Include="Shared\Brands.cs" />
