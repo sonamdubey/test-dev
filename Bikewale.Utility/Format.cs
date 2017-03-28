@@ -213,7 +213,7 @@ namespace Bikewale.Utility
             uint campaignId,
             string ManufacturerName,
             string MaskingNumber,
-            string dealerid,
+            uint dealerid,
             string dealerArea,
             string LeadSourceId,
             string PqSourceId,

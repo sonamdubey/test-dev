@@ -6,6 +6,7 @@ namespace Bikewale.Entities
         ContentFound = 200,
         ContentNotFound = 404,
         RedirectPermanent = 301,
-        Redirect = 302
+        RedirectTemporary = 302
+
     }
 }
