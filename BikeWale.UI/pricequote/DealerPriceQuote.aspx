@@ -859,7 +859,7 @@
 
                     if (isSuccess) {
                         var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
-                        window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+                        window.location.href = "/pricequote/dealer/?MPQ=" + Base64.encode(rediurl);
                     }
                 } catch (e) {
                     console.warn("Unable to create pricequote : " + e.message);

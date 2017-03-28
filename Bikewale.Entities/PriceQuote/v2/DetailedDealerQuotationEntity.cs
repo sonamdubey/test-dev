@@ -1,10 +1,10 @@
 ﻿using Bikewale.Entities.BikeData;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-
+using System.Linq;
 namespace Bikewale.Entities.PriceQuote.v2
 {
-   /// <summary>
+    /// <summary>
     /// Created By : Sushil Kumar
     /// Created On : 17th June 2016
     /// Description : To wrap Dealer Quotation page data with version prices.
@@ -33,6 +33,6 @@ namespace Bikewale.Entities.PriceQuote.v2
         public IEnumerable<Bikewale.Entities.PriceQuote.v2.NewBikeDealerBase> SecondaryDealers { get; set; }
 
         [JsonProperty("secondaryDealerCount")]
-        public int SecondaryDealerCount { get; set; }
+        public int SecondaryDealerCount { get { return (this.SecondaryDealers != null ? this.SecondaryDealers.Count() : 0); } }
     }
 }

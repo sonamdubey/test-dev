@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Bikewale.Entities.PriceQuote.v2.NewBikeDealerBase>
+
+@if (Model != null)
+{
+    uint secondaryDealersCount = Convert.ToUInt32(Model.Count());
+<!-- Secondary dealer section -->
+    <section>
+        <div class="container margin-bottom20">
+            <div class="grid-12">
+                <div class="content-box-shadow padding-bottom20">
+                    <h2 class="font18 padding-top20 padding-left20">Prices from @secondaryDealersCount @(secondaryDealersCount > 1 ? " more partner dealers" : " more partner dealer")</h2>
+                    <div class="jcarousel-wrapper inner-content-carousel small-card-carousel">
+                        <div class="jcarousel margin-top20 margin-bottom20">
+                            <ul id="dealerList" class="more-dealers-list">
+                                @foreach (var dealer in Model)
+                                {
+                                    <li dealerid="@dealer.DealerId" style="min-height:191px">
+                                        <a href="javascript:void(0)" title="@dealer.Name" class="top-block-target" onclick="secondarydealer_Click(@dealer.DealerId)">
+                                            <div class="grid-10 alpha margin-bottom5">
+                                                <h3 class="text-black text-truncate">@dealer.Name</h3>
+                                            </div>
+                                            <div class="grid-2 dealer-distance alpha omega font12 text-light-grey text-right pos-top2">@Math.Truncate(dealer.Distance) kms</div>
+                                            <div class="clear"></div>
+
+                                            <div class="margin-bottom5">
+                                                <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                                <span class="vertical-top details-column font14 text-light-grey">@dealer.Area</span>
+                                            </div>
+                                            <div class="margin-top10">
+                                                <div class="grid-5 alpha omega">
+                                                    <p class="font12 text-light-grey margin-bottom2">On-road price</p>
+                                                    <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(dealer.SelectedVersionPrice.ToString())</span>
+                                                </div>
+                                                @if (dealer.DealerPackageType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard && dealer.OfferCount > 0)
+                                                {
+                                                    <div class="grid-7 border-solid-left padding-top10 padding-bottom10 padding-left20 omega ">
+                                                        <span class="bwsprite offers-sm-box"></span>
+                                                        <span class="font14 text-default text-bold">@dealer.OfferCount</span>
+                                                        <span class="font12 text-light-grey">@(dealer.OfferCount > 1 ? "Offers available" : "Offer available")</span>
+                                                    </div>
+                                                }
+                                                <div class="clear"></div>
+                                            </div>
+                                        </a>
+                                        <div class="bottom-block-button margin-top15">
+                                            <a href="javascript:void(0)" onclick="secondarydealer_Click(@dealer.DealerId)" class="btn btn-white partner-dealer-offers-btn" rel="nofollow">View detailed price</a>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+<!-- Secondary dealer section ends -->
+}
