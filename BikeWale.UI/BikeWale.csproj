@@ -906,6 +906,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\Make\BrandCityPopupModel.cs" />
     <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
@@ -3639,6 +3640,7 @@
     <Content Include="Views\Make\_BrandCityPopup_Mobile.cshtml" />
     <Content Include="Views\Used\_UsedBikesByModelCity.cshtml" />
     <Content Include="Views\Used\_UsedBikesByModelCity_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\Index.cshtml" />
     <Content Include="Views\ServiceCenters\ServiceCentersInIndia.cshtml" />
     <Content Include="Views\ServiceCenters\ServiceCentersInIndia_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_OnRoadPriceWidget.cshtml" />
