@@ -9,6 +9,7 @@ using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
+using Bikewale.Cache.HomePage;
 using Bikewale.Cache.Location;
 using Bikewale.Cache.ServiceCenter;
 using Bikewale.Cache.Used;
@@ -16,6 +17,7 @@ using Bikewale.Cache.Videos;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Compare;
 using Bikewale.DAL.Dealer;
+using Bikewale.DAL.HomePage;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.ServiceCenter;
 using Bikewale.DAL.Used;
@@ -30,6 +32,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
+using Bikewale.Interfaces.HomePage;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.ServiceCenter;
@@ -90,6 +93,8 @@ namespace Bikewale
             container.RegisterType<IBikeModelsCacheRepository<int>>();
             container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
+            container.RegisterType<IHomePageBannerRepository, HomePageBannerRepository>();
+            container.RegisterType<IHomePageBannerCacheRepository, HomePageBannerCacheRepository>();
 
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

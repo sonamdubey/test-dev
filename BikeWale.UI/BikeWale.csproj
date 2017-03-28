@@ -451,10 +451,8 @@
     <Compile Include="Controllers\DealerShowroomController.cs" />
     <Compile Include="Controllers\BikeCareController.cs" />
     <Compile Include="Controllers\BestBikesController.cs" />
-    <Compile Include="Controllers\BikeCareController.cs" />
     <Compile Include="Controllers\CompareBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
-    <Compile Include="Controllers\FeaturesController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\MakeController.cs" />
     <Compile Include="Controllers\FeaturesController.cs" />
@@ -921,7 +919,6 @@
     <Compile Include="Models\BikeModels\MostPopularBikesWidget.cs" />
     <Compile Include="Models\Make\BrandWidgetModel.cs" />
     <Compile Include="Models\BikeModels\SimilarBikesWidget.cs" />
-    <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\CompareBikes\ComparisonMinWidget.cs" />
     <Compile Include="Models\CompareBikes\PopularModelCompareWidget.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
@@ -931,6 +928,7 @@
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\Videos\RecentVideos.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersByBrand.cs" />
@@ -3649,6 +3647,7 @@
     <Folder Include="content\ComparisonTest\" />
     <Folder Include="Controllers\m\new\Scooters\" />
     <Folder Include="Models\Features\" />
+    <Folder Include="Models\Upcoming\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />

@@ -1,7 +1,7 @@
 ﻿
 using Bikewale.Entities.Compare;
 using System.Collections.Generic;
-namespace Bikewale.Models.CompareBikes
+namespace Bikewale.Models
 {
     /// <summary>
     /// Created by Sajal Gupta on 25-03-2017

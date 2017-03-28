@@ -19,7 +19,32 @@
     bool IsPopularBikesDataAvailable = (Model.PopularBikes != null && Model.PopularBikes.Bikes!= null && Model.PopularBikes.Bikes.Count() > 0);
     bool IsNewLaunchedDataAvailable = (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0);
     bool IsUsedBikeCitiesAvailable = (Model.UsedBikeCities != null && Model.UsedBikeCities.Cities != null && Model.UsedBikeCities.Cities.Count() > 0);
-    bool IsUpcomingBikeAvailable = false;
+    bool IsUpcomingBikeAvailable = (Model.UpcomingBikes!= null && Model.UpcomingBikes.Count() > 0);
+    bool IsUsedModelsAvailable = (Model.UsedModels != null && Model.UsedModels.UsedBikeModelList != null && Model.UsedModels.UsedBikeModelList.Count() > 0);
+    var reviewTabsCnt = 0;
+    bool isNewsActive = false, isExpertReviewActive = false, isVideoActive = false;
+
+    if (Model.News.FetchedCount > 0)
+    {
+        reviewTabsCnt++;
+        isNewsActive = true;
+    }
+    if (Model.ExpertReviews.FetchedCount > 0)
+    {
+        reviewTabsCnt++;
+        if (!isNewsActive)
+        {
+            isExpertReviewActive = true;
+        }
+    }
+    if (Model.Videos.FetchedCount > 0)
+    {
+        reviewTabsCnt++;
+        if (!isExpertReviewActive && !isNewsActive)
+        {
+            isVideoActive = true;
+        }
+    }
 #endregion
 }
 <body data-pageid="1">
@@ -48,6 +73,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div id="banner">
+            @if (Model.Banner != null)
+            {   
+                @Html.Raw(Model.Banner.DesktopCss);
+                @Html.Raw(Model.Banner.DesktopHtml);
+                @Html.Raw(Model.Banner.DesktopJS);
+            }
         </div>
     </header>
     <section>
@@ -276,7 +309,7 @@
                     @if(IsUpcomingBikeAvailable)
                     {
                         <div class="bw-tabs-data hide padding-top15 padding-bottom20" id="ctrlUpcomingBikes">
-                            @Html.Partial("~/Views/Shared/_UpcomingBikes.cshtml", Model.NewLaunchedBikes)
+                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.UpcomingBikes)
                             <div class="view-all-btn-container padding-top15 padding-bottom20">
                                 <a href="/upcoming-bikes/" class="btn view-all-target-btn" title="Upcoming Bikes in India">View upcoming bikes<span class="bwsprite teal-right"></span></a>
                             </div>
@@ -320,6 +353,19 @@
         @Html.Partial("~/Views/BestBikes/_BestBikes.cshtml", Model.BestBikes)
     </section>
 
+    @if (Model.CompareBikes != null)
+    {
+        <section>
+            <div class="container">
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Compare bikes</h2>
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-top20 padding-bottom20">
+                        @Html.Partial("~/Views/CompareBikes/_ComparisonMin.cshtml", Model.CompareBikes)
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
     <section>
         <!--  Discover your bike code starts here -->
         <div class="container">
@@ -328,31 +374,28 @@
                 <div class="bw-tabs-panel content-box-shadow">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
-                            @*<% if (ctrlusedBikeModel.FetchCount > 0)
-                            { %>*@
+                            @if (IsUsedModelsAvailable) { 
                             <li class="active" data-tabs="usedByModel">
                                 <h3>Model</h3>
                             </li>
-                            @*<%} %>*@
-
+                            }
                             @if (IsUsedBikeCitiesAvailable)
                             {
                                 <li data-tabs="usedByCity">
                                     <h3>City</h3>
                                 </li>
                             }
-                            @*<%} %>*@
                             <li data-tabs="usedByBudget">
                                 <h3>Budget</h3>
                             </li>
                         </ul>
                     </div>
 
-                    @*<% if (ctrlusedBikeModel.FetchCount > 0)
-                    { %>*@
+                    @if (IsUsedModelsAvailable) {
                     <div class="bw-tabs-data padding-bottom20" id="usedByModel">
-                        <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                        @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedModels)
                     </div>
+                    }
                     @if (IsUsedBikeCitiesAvailable)
                     { 
                     <section>
@@ -361,7 +404,7 @@
                         </div>
                     </section>
                     }
-                        <div id="usedByBudget" class="hide">
+                    <div id="usedByBudget" class="hide">
                             <ul class="elevated-card-list">
                                 <li>
                                     <a href="/used/bikes-in-@Model.LocationMasking/#budget=0+35000" rel="nofollow">
@@ -408,8 +451,68 @@
             <div class="clear"></div>
         </div>
     </section>
-
+    <section>
+        <!--  News Bikes latest updates code starts here -->
+        <div class="@string.Format("container {0}", reviewTabsCnt == 0 ? "hide" : string.Empty)">
+            <div class="grid-12">
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest updates from the bike industry</h2>
+                <div class="bw-tabs-panel margin-bottom30 padding-bottom20 content-box-shadow article-control">
+                    <div class="@string.Format("text-center {0}", reviewTabsCnt > 2 ? string.Empty : reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10")" >
+                        <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", reviewTabsCnt > 2 ? "bw-tabs-flex" : reviewTabsCnt > 1 ? "home-tabs" : "hide")">
+                            <ul>
+                                @if (Model.News.FetchedCount > 0)
+                                {
+                                    <li class="@string.Format("{0}", isNewsActive ? "active" : "hide")" data-tabs="ctrlNews">
+                                        <h3>News</h3>
+                                    </li>
+                                }
+                                @if (Model.ExpertReviews.FetchedCount > 0)
+                                {
+                                    <li class="@string.Format("{0}", isExpertReviewActive? "active":"hide")" data-tabs="ctrlExpertReviews">
+                                        <h3>Expert Reviews</h3>
+                                    </li>
+                                }
+                                @if (Model.Videos.FetchedCount > 0)
+                                {
+                                    <li class="@string.Format("{0}", isVideoActive? "active":"hide")" data-tabs="ctrlVideos">
+                                        <h3>Videos</h3>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bw-tabs-data padding-left10 padding-right10" id="ctrlNews">
+                        @if (Model.News.FetchedCount > 0)
+                        {
+                            @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+                        }
+                    </div>
+                    <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlExpertReviews">
+                        @if (Model.ExpertReviews.FetchedCount > 0)
+                        {
+                            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                        }
+                    </div>
+                    <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlVideos">
+                        @if (Model.Videos.FetchedCount > 0)
+                        {
+                            @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <!-- Ends here -->
     <script type="text/javascript">
+
+    docReady(function () {
+        $('#globalSearch').parent().hide();
+        if (!@isNewsActive.ToString().ToLower()) $("#ctrlNews").addClass("hide");
+        if (!@isExpertReviewActive.ToString().ToLower()) $("#ctrlExpertReviews").addClass("hide");
+        if (!@isVideoActive.ToString().ToLower()) $("#ctrlVideos").addClass("hide");
+    });
 
     var preSelectedCityId = 0, preSelectedCityName = "", selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
     var selectedModel = 0, pageId, onRoadcity, onRoadArea, onRoadMakeModel, viewModelOnRoad;
@@ -689,7 +792,6 @@
         $("#ddlAreaOnRoad").chosen({ no_results_text: "No matches found!!" });
 
         ko.applyBindings(viewModelOnRoad, $("#OnRoadContent")[0]);
-
     });
     </script>
 
