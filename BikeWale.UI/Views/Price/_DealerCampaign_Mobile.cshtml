@@ -400,6 +400,8 @@
 
             docReady(function(){
 
+                var EMISection = $("#emiPopup");
+
                 ko.bindingHandlers.slider = {
                     init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
                         var options = allBindingsAccessor().sliderOptions || {};
@@ -418,8 +420,12 @@
                     }
                 };
 
-                EMIviewModel = new BikeEMI;
-                ko.applyBindings(EMIviewModel, $("#emiPopup")[0]);
+                
+                if(EMISection)
+                {
+                    EMIviewModel = new BikeEMI;
+                    ko.applyBindings(EMIviewModel, EMISection[0]);
+                } 
             })
 
 
