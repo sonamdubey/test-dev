@@ -589,6 +589,7 @@
 			</div>
 		</div>
 		<%} %>
+
 		<!-- Lead Capture pop up start  -->               
 		<BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 		 <!-- Lead Capture pop up end  -->

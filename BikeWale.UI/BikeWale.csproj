@@ -469,6 +469,7 @@
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\new\Videos\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
+    <Compile Include="Controllers\PriceController.cs" />
     <Compile Include="Controllers\PriceInCityController.cs" />
     <Compile Include="Controllers\ServiceCentersController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
@@ -908,9 +909,10 @@
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\Make\BrandCityPopupModel.cs" />
     <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
-    <Compile Include="Models\Make\MakePageModel.cs" />
+    <Compile Include="Models\DealerPriceQuotePage.cs" />
     <Compile Include="Models\DealerShowroom\DealerShowroomCityPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerShowroomDealerDetail.cs" />
+    <Compile Include="Models\Make\MakePageModel.cs" />
     <Compile Include="Models\DealerShowroom\DealerShowroomIndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerShowroomIndiaPage.cs" />
     <Compile Include="Models\BestBikes\PopularBikesByBodyStyle.cs" />
@@ -3598,11 +3600,15 @@
     <Content Include="Views\BikeModels\_SimilarBikes_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_ModelPriceInNearestCities.cshtml" />
     <Content Include="Views\PriceInCity\_ModelPriceInNearestCities_Mobile.cshtml" />
-    <Content Include="Views\PriceInCity\_OnRoadPriceWidget.cshtml" />
+    <Content Include="Views\Price\Details.cshtml" />
     <Content Include="Views\Videos\_VideosByCategory.cshtml" />
     <Content Include="Views\Videos\_VideosByCategory_Mobile.cshtml" />
     <Content Include="Views\Videos\_ExpertReviewVideos.cshtml" />
     <Content Include="Views\Videos\_ExpertReviewVideos_Mobile.cshtml" />
+    <Content Include="Views\Price\_SecondaryDealers.cshtml" />
+    <Content Include="Views\Price\_DealerCampaign.cshtml" />
+    <Content Include="Views\Price\_ManufacturerCampaign.cshtml" />
+    <Content Include="Views\Shared\_LeadCapture.cshtml" />
     <Content Include="Views\CompareBikes\_ComparisonMin.cshtml" />
     <Content Include="Views\BikeModels\_MinBikeInfoCard.cshtml" />
     <Content Include="Views\BikeModels\_minBikeInfoCard_Mobile.cshtml" />
@@ -3635,6 +3641,12 @@
     <Content Include="Views\Used\_UsedBikesByModelCity_Mobile.cshtml" />
     <Content Include="Views\ServiceCenters\ServiceCentersInIndia.cshtml" />
     <Content Include="Views\ServiceCenters\ServiceCentersInIndia_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\_OnRoadPriceWidget.cshtml" />
+    <Content Include="Views\Price\Details_Mobile.cshtml" />
+    <Content Include="Views\Shared\_LeadCapture_Mobile.cshtml" />
+    <Content Include="Views\Price\_DealerCampaign_Mobile.cshtml" />
+    <Content Include="Views\Price\_SecondaryDealers_Mobile.cshtml" />
+    <Content Include="Views\Price\_ManufacturerCampaign_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

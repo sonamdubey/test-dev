@@ -167,8 +167,9 @@
             googletag.enableServices();
         });
     </script>
+
 </head>
-<body class="@(Model.IsTransparentHeader ? "page-type-landing" : "")">
+<body class="@(@Model.IsTransparentHeader ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")">
     <form>
         <div id="header" class='@(Model.IsHeaderFix ? "header-fixed" : "header-not-fixed") @(Model.IsTransparentHeader ? "header-landing header-transparent" : "")'>
             <!-- Fixed Header code starts here -->
@@ -226,16 +227,16 @@
         }
         @RenderBody()
         @Html.Partial("~/Views/Shared/_PopupWidget.cshtml")
-
-        @if(Model.AdTags.Ad_970x90Bottom){ 
-        <section>
-            <div id='div-gpt-ad-@Model.AdTags.AdId-5' class="margin-bottom20 text-center">
-                <script type='text/javascript'>
-                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-5'); });
-                </script>
-            </div>
-        </section>
-        } 
+        @if(Model.AdTags.Ad_970x90Bottom)
+        {
+            <section>
+                <div id='div-gpt-ad-@Model.AdTags.AdId-5' class="margin-bottom20 text-center">
+                    <script type='text/javascript'>
+                        googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-5'); });
+                    </script>
+                </div>
+            </section>
+        }
 
         <div class="blackOut-window"></div>
         <nav id="nav">
@@ -434,6 +435,7 @@
         {
             <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
         }
+      
     </form>
 </body>
 </html>

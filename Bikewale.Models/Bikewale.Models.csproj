@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
 
-
     <Compile Include="Make\BrandCityPopupVM.cs" />
     <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />
     <Compile Include="Make\MakePageVM.cs" />
@@ -52,17 +51,19 @@
     <Compile Include="BestBikes\PopularBodyStyleVM.cs" />
     <Compile Include="BikeModels\BikeInfoVM.cs" />
     <Compile Include="BestBikes\BestBikeWidgetVM.cs" />
-    <Compile Include="BikeModels\MostPopularBikeWidgetVM.cs" />
     <Compile Include="Make\BrandWidgetVM.cs" />
-    <Compile Include="BikeModels\SimilarBikesWidgetVM.cs" />
     <Compile Include="CompareBikes\ComparisonMinWidgetVM.cs" />
     <Compile Include="ExpertReviews\ExpertReviewsIndexPageVM.cs" />
     <Compile Include="ExpertReviews\RecentExpertReviewsVM.cs" />
+    <Compile Include="BikeModels\MostPopularBikeWidgetVM.cs" />
+    <Compile Include="BikeMakes\BrandWidgetVM.cs" />
+    <Compile Include="BikeModels\SimilarBikesWidgetVM.cs" />
     <Compile Include="HomePage\HomePageVM.cs" />
     <Compile Include="Location\ChangeLocationPopupVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
     <Compile Include="NewLaunches\NewLaunchedWidgetVM.cs" />
+    <Compile Include="Price\DealerPriceQuotePageVM.cs" />
     <Compile Include="News\RecentNewsVM.cs" />
     <Compile Include="PriceInCity\PriceInCityPageVM.cs" />
     <Compile Include="PriceInCity\PriceInTopCitiesWidgetVM.cs" />
