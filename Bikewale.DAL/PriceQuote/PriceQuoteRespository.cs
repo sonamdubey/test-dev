@@ -184,6 +184,7 @@ namespace Bikewale.DAL.PriceQuote
                             objQuotation.LeadCapturePopupHeading = Convert.ToString(dr["LeadCapturePopupHeading"]);
                             objQuotation.LeadCapturePopupMessage = Convert.ToString(dr["LeadCapturePopupMessage"]);
                             objQuotation.PinCodeRequired = SqlReaderConvertor.ToBoolean(dr["PinCodeRequired"]);
+                            objQuotation.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
                         }
                     }
                 }

@@ -1,4 +1,29 @@
 ﻿var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
+var dealerLat = document.getElementById("locationSearch").getAttribute("data-lat");
+var dealerLong = document.getElementById("locationSearch").getAttribute("data-long");
+docReady(function () {
+
+    initializeMap();
+    $(document).on("click", "#getUserLocation", function () {
+        getLocation();
+    });
+    $("#assistanceBrandInput").on("keyup", function () {
+        locationFilter($(this));
+    });
+    String.prototype.toHHMMSS = function () {
+        var sec_num = parseInt(this, 10);
+        var hrs = Math.floor(sec_num / 3600);
+        var mins = Math.floor((sec_num - (hrs * 3600)) / 60);
+        var secs = sec_num - (hrs * 3600) - (mins * 60);
+
+        if (hrs < 10) { hrs = "0" + hrs; }
+        if (mins < 10) { mins = "0" + mins; }
+        if (secs < 10) { secs = "0" + secs; }
+        var time = hrs + ' hrs ' + mins + ' mins ';// + secs +" s";
+        return time;
+    }
+});
+
 function getLocation() {
     if (navigator.geolocation) {        
         navigator.geolocation.getCurrentPosition(
@@ -9,7 +34,7 @@ function getLocation() {
     }    
 }
 
-$(document).on("click", "#getUserLocation", function () { getLocation(); });
+
 
 function savePosition(position) {
     userLocation = {
@@ -34,9 +59,7 @@ function savePosition(position) {
 function setUserLocation(position) {
     $("#anchorGetDir").attr("href", "https://maps.google.com/?saddr=" + position.lat() + "," + position.lng() + "&daddr=" + dealerLat + "," + dealerLong + '');
 }
-$("#assistanceBrandInput").on("keyup", function () {
-    locationFilter($(this));
-});
+
 
 function initializeMap() {
     getLocation();
@@ -131,16 +154,5 @@ function showError(error) {
     }
 }
 
-String.prototype.toHHMMSS = function () {
-    var sec_num = parseInt(this, 10);
-    var hrs = Math.floor(sec_num / 3600);
-    var mins = Math.floor((sec_num - (hrs * 3600)) / 60);
-    var secs = sec_num - (hrs * 3600) - (mins * 60);
 
-    if (hrs < 10) { hrs = "0" + hrs; }
-    if (mins < 10) { mins = "0" + mins; }
-    if (secs < 10) { secs = "0" + secs; }
-    var time = hrs + ' hrs ' + mins + ' mins ';// + secs +" s";
-    return time;
-}
 

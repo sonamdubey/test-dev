@@ -159,7 +159,7 @@ namespace Bikewale.PriceQuote
             {
                 objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(priceQuoteId), LeadSourceEnum.DPQ_Desktop);
                 if (objQuotation != null)
-                    objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty, objQuotation.LeadCapturePopupHeading, objQuotation.LeadCapturePopupDescription, objQuotation.LeadCapturePopupMessage, objQuotation.PinCodeRequired);
+                    objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, objQuotation.ManufacturerId, objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty, objQuotation.LeadCapturePopupHeading, objQuotation.LeadCapturePopupDescription, objQuotation.LeadCapturePopupMessage, objQuotation.PinCodeRequired);
 
             }
             catch (Exception ex)
@@ -214,7 +214,7 @@ namespace Bikewale.PriceQuote
                 {
                     // Save pq cookie
 
-                    Response.Redirect("/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString())), false);
+                    Response.Redirect("/pricequote/dealer/?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString())), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }

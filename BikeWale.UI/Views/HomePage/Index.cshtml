@@ -13,9 +13,11 @@
     Model.AdTags.Ad_976x400First = true;
     Model.AdTags.Ad_976x400Second = true;
     Model.AdTags.Ad_976x204 = false;
+    Model.IsTransparentHeader = true;
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/scooters/listing.css' />";
     
 #region
+    
     bool IsPopularBikesDataAvailable = (Model.PopularBikes != null && Model.PopularBikes.Bikes!= null && Model.PopularBikes.Bikes.Count() > 0);
     bool IsNewLaunchedDataAvailable = (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0);
     bool IsUsedBikeCitiesAvailable = (Model.UsedBikeCities != null && Model.UsedBikeCities.Cities != null && Model.UsedBikeCities.Cities.Count() > 0);
@@ -74,15 +76,19 @@
                 </div>
             </div>
         </div>
-        <div id="banner">
             @if (Model.Banner != null)
             {   
                 @Html.Raw(Model.Banner.DesktopCss);
                 @Html.Raw(Model.Banner.DesktopHtml);
                 @Html.Raw(Model.Banner.DesktopJS);
             }
-        </div>
     </header>
+    @if (Model.AdTags.Ad_976x400First)
+    {
+        <section>
+            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_First.cshtml", new { AdId = Model.AdTags.AdId });}
+        </section>
+    }
     <section>
         <!--  Discover your bike code starts here -->
         <div class="container">
@@ -349,6 +355,14 @@
             </div>
         </div>
     </section>
+
+    @if (Model.AdTags.Ad_976x400Second)
+    {
+        <section>
+            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Second.cshtml", new { AdId = Model.AdTags.AdId });}
+        </section>
+    }
+    
     <section>
         @Html.Partial("~/Views/BestBikes/_BestBikes.cshtml", Model.BestBikes)
     </section>
@@ -404,47 +418,47 @@
                         </div>
                     </section>
                     }
-                    <div id="usedByBudget" class="hide">
-                            <ul class="elevated-card-list">
-                                <li>
-                                    <a href="/used/bikes-in-@Model.LocationMasking/#budget=0+35000" rel="nofollow">
-                                        <div class="table-middle">
-                                            <div class="tab-icon-container">
-                                                <span class="bwsprite budget-one"></span>
-                                            </div>
-                                            <span class="key-size-14">Upto</span><br />
-                                            <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">35,000</span>
+                    <div id="usedByBudget" class="bw-tabs-data hide">
+                        <ul class="elevated-card-list">
+                            <li>
+                                <a href="/used/bikes-in-@Model.LocationMasking/#budget=0+35000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwsprite budget-one"></span>
                                         </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/used/bikes-in-@Model.LocationMasking/#budget=35000+80000" rel="nofollow">
-                                        <div class="table-middle">
-                                            <div class="tab-icon-container">
-                                                <span class="bwsprite budget-two"></span>
-                                            </div>
-                                            <span class="key-size-14">Between</span><br />
-                                            <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">35,000 -</span>
-                                            &nbsp<span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">80,000</span>
+                                        <span class="key-size-14">Upto</span><br />
+                                        <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">35,000</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/used/bikes-in-@Model.LocationMasking/#budget=35000+80000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwsprite budget-two"></span>
                                         </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/used/bikes-in-@Model.LocationMasking/#budget=80000+200000" rel="nofollow">
-                                        <div class="table-middle">
-                                            <div class="tab-icon-container">
-                                                <span class="bwsprite budget-three"></span>
-                                            </div>
-                                            <span class="key-size-14">Above</span><br />
-                                            <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">80,000</span>
+                                        <span class="key-size-14">Between</span><br />
+                                        <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">35,000 -</span>
+                                        &nbsp<span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">80,000</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/used/bikes-in-@Model.LocationMasking/#budget=80000+200000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwsprite budget-three"></span>
                                         </div>
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="more-article-target view-all-btn-container padding-top10 padding-bottom20">
-                                <a href="/used/bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
-                            </div>
+                                        <span class="key-size-14">Above</span><br />
+                                        <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">80,000</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="more-article-target view-all-btn-container padding-top10 padding-bottom20">
+                            <a href="/used/bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
                         </div>
+                    </div>
                 </div>
 
             </div>

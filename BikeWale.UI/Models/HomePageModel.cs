@@ -79,12 +79,19 @@ namespace Bikewale.Models
             string cityName, cityMaskingName = string.Empty;
 
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
-            if (location != null)
+            if (location != null && location.CityId > 0)
             {
                 cityId = location.CityId;
                 cityName = location.City;
                 var cityEntity = new CityHelper().GetCityById(cityId);
                 cityMaskingName = cityEntity != null ? cityEntity.CityMaskingName : string.Empty;
+                objVM.Location = cityName;
+                objVM.LocationMasking = cityMaskingName;
+            }
+            else
+            {
+                objVM.Location = "India";
+                objVM.LocationMasking = "india";
             }
             BindPageMetas(objVM.PageMetaTags);
             BindAdTags(objVM.AdTags);
@@ -110,6 +117,8 @@ namespace Bikewale.Models
             objVM.UsedBikeCities = new UsedBikeCitiesWidgetModel(cityMaskingName, string.Empty, _IUsedBikesCache).GetData();
 
             objVM.UsedModels = new UsedBikeModelsWidgetModel(cityId, 9, _cachedBikeDetails).GetData();
+            objVM.UsedModels.Location = objVM.Location;
+            objVM.UsedModels.LocationMasking = objVM.LocationMasking;
 
             objVM.News = new RecentNews(3, _articles).GetData();
 
@@ -149,7 +158,6 @@ namespace Bikewale.Models
                 objPage.Keywords = "new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, Images, news, compare bikes, Instant Bike On-Road Price";
                 objPage.Description = "BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values.";
                 objPage.CanonicalUrl = "https://www.bikewale.com/";
-                objPage.AlternateUrl = "https://www.bikewale.com/m/";
 
             }
             catch (Exception ex)

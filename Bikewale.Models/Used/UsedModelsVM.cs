@@ -10,6 +10,8 @@ namespace Bikewale.Models
     /// </author>
     public class UsedBikeModelsWidgetVM
     {
+        public string Location;
+        public string LocationMasking;
         public IEnumerable<MostRecentBikes> UsedBikeModelList;
         public CityEntityBase CityDetails;
     }

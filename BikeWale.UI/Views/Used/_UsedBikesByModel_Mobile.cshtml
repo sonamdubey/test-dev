@@ -7,7 +7,7 @@
             {
             <div class="swiper-slide">
                 <div class="swiper-card">
-                    <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeDetails.MakeMaskingName, bikeDetails.ModelMaskingName, Model.CityDetails != null ? Model.CityDetails .CityMaskingName : " india"))" title="@string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,Model.CityDetails !=null?Model.CityDetails.CityName:"India")">
+                    <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeDetails.MakeMaskingName, bikeDetails.ModelMaskingName, Model.CityDetails != null ? Model.CityDetails .CityMaskingName : "india"))" title="@string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,Model.CityDetails !=null?Model.CityDetails.CityName:"India")">
                         <div class="swiper-image-preview">
                             <div class="image-thumbnail">
                                 <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.UsedOriginalImagePath,bikeDetails.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,Model.CityDetails !=null?Model.CityDetails.CityName:"India")" />
@@ -34,4 +34,7 @@
             }
         </div>
     </div>
-    }
+    <div class="padding-left10 view-all-btn-container margin-top15">
+        <a href="/m/used/bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
+    </div>
+}
