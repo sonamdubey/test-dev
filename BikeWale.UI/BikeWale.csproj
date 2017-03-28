@@ -904,6 +904,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\DealerShowroom\DealerShowroomCityPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerShowroomDealerDetail.cs" />
     <Compile Include="Models\DealerShowroom\DealerShowroomIndexPage.cs" />
@@ -3614,6 +3615,7 @@
     <Content Include="Views\CompareBikes\_PopularModelCompare_Mobile.cshtml" />
     <Content Include="Views\Used\_UsedBikesByModelCity.cshtml" />
     <Content Include="Views\Used\_UsedBikesByModelCity_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

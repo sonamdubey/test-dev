@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BikeCare\RecentBikeCareVM.cs" />
+    <Compile Include="BikeModels\BikeModelRankVM.cs" />
     <Compile Include="DealerShowroom\DealerShowroomCityPageVM.cs" />
     <Compile Include="DealerShowroom\DealerShowroomDealerDetailsVM.cs" />
     <Compile Include="DealerShowroom\DealerShowroomIndiaPageVM.cs" />
@@ -56,7 +57,6 @@
     <Compile Include="Location\ChangeLocationPopupVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
-
     <Compile Include="News\RecentNewsVM.cs" />
     <Compile Include="PriceInCity\PriceInCityPageVM.cs" />
     <Compile Include="PriceInCity\PriceInTopCitiesWidgetVM.cs" />
