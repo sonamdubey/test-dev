@@ -12,7 +12,7 @@ namespace Bikewale.Models
         public NearByCityDealer DealerCountCity;
         public DealersEntity DealersList;
         public BikeMakeEntityBase Make;
-        public UsedBikeModels UsedBikeModel;
+        public UsedBikeModelsVM UsedBikeModel;
         public CityEntityBase CityDetails;
         public uint TotalDealers;
         public MostPopularBikeWidgetVM PopularBikes;

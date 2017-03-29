@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bikewale.Models.News
+namespace Bikewale.Models
 {
     /// <summary>
     /// Created by : Aditi Srivastava on 27 Mar 2017

@@ -242,9 +242,9 @@ namespace Bikewale.Models.DealerShowroom
         /// Summary :- To Fetch Data realted to Used Bike in city
         /// </summary>
         /// <returns></returns>
-        private UsedBikeModels BindUsedBikeByModel()
+        private UsedBikeModelsVM BindUsedBikeByModel()
         {
-            UsedBikeModels UsedBikeModel = new UsedBikeModels();
+            UsedBikeModelsVM UsedBikeModel = new UsedBikeModelsVM();
             try
             {
                 if (makeId > 0)

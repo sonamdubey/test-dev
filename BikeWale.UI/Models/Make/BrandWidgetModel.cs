@@ -24,11 +24,12 @@ namespace Bikewale.Models
         {
 
             BrandWidgetVM objData = new BrandWidgetVM();
-
+            _brands = _bikeMakes.GetMakesByType(page);
             switch (page)
             {
+
                 case EnumBikeType.New:
-                    _brands = _bikeMakes.GetMakesByType(page);
+
                     foreach (var make in _brands)
                     {
                         make.Href = String.Format("/{0}-bikes/", make.MaskingName);
