@@ -3653,6 +3653,7 @@
     <Content Include="Views\Price\_SecondaryDealers_Mobile.cshtml" />
     <Content Include="Views\Price\_ManufacturerCampaign_Mobile.cshtml" />
     <Content Include="Views\UpcomingBikes\Index_Mobile.cshtml" />
+    <Content Include="Views\UpcomingBikes\UpcomingBikesByMake_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
