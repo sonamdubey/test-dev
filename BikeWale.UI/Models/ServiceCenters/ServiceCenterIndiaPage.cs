@@ -112,9 +112,9 @@ namespace Bikewale.Models.ServiceCenters
             }
         }
 
-        private UsedBikeModels BindUsedBikeByModel(uint topCount)
+        private UsedBikeModelsVM BindUsedBikeByModel(uint topCount)
         {
-            UsedBikeModels UsedBikeModel = new UsedBikeModels();
+            UsedBikeModelsVM UsedBikeModel = new UsedBikeModelsVM();
             try
             {
                 if (_makeId > 0)

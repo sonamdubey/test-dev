@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DealerShowroom\IndexVM.cs" />
     <Compile Include="Make\BrandCityPopupVM.cs" />
     <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />
     <Compile Include="Make\MakePageVM.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Shared\Showrooms.cs" />
     <Compile Include="UsedBikes\UsedBikeCitiesWidgetVM.cs" />
     <Compile Include="Used\UsedBikeByModelCityVM.cs" />
+    <Compile Include="Used\UsedBikeByModelVM.cs" />
     <Compile Include="Videos\RecentVideosVM.cs" />
     <Compile Include="Videos\VideosBySubcategoryVM.cs" />
   </ItemGroup>
