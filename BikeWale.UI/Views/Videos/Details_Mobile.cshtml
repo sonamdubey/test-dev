@@ -1,50 +1,45 @@
-﻿@{
-
-    var Model = ViewBag.DetailsPage;
-    var videoModel = Model.VideoEntity;
-
-
-    ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/videos/video-detail.css' />";
-    ViewBag.Page_JS_Path = "/m/src/video/details.js";
+﻿@model Bikewale.Models.VideoDetailsPageVM
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/videos/video-detail.css' />";
+    Model.Page_JS_Path = "/m/src/video/details.js";
+    Model.PageMetaTags.AlternateUrl = "";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
-    ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
 
 }
-        @if (videoModel != null)
+        @if (Model != null && Model.Video !=null)
         {
             <section class="bg-white">
                 <div class="container margin-bottom10">
                     <div id="embedVideo">
-                        <iframe height="180" src="@string.Format("{0}&autoplay=1",videoModel.VideoUrl)" frameborder="0" allowfullscreen></iframe>
+                        <iframe height="180" src="@string.Format("{0}&autoplay=1", Model.Video.VideoUrl)" frameborder="0" allowfullscreen></iframe>
                     </div>
                     <div class="padding20 border-solid-bottom">
-                        <h1 class="font18">@videoModel.VideoTitle</h1>
+                        <h1 class="font18">@Model.Video.VideoTitle</h1>
                         <p class="font12 margin-top10 margin-bottom10 text-xlight-grey">@Model.DisplayDate</p>
                         <div class="font14 text-light-grey line-height18 margin-bottom10">
-                            @if (ViewBag.IsSmallDescriptionAvailable)
+                            @if (Model.IsSmallDescription)
                             {
                                 <span class="model-preview-main-content">
-                                    @Html.Raw(ViewBag.SmallDescription)
+                                    @Html.Raw(Model.SmallDescription)
                                 </span>
                                 <span class="model-preview-more-content hide">
-                                    @Html.Raw(videoModel.Description)
+                                    @Html.Raw(Model.Video.Description)
                                 </span>
                                 <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
                             }
                             else
                             {
-                                @Html.Raw(videoModel.Description)
+                                @Html.Raw(Model.Video.Description)
                             }
                         </div>
                         <div class="video-views-count-container font14 leftfloat border-light-right">
-                            <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-default comma">@Bikewale.Utility.Format.FormatNumeric(videoModel.Views.ToString())</span>
+                            <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-default comma">@Bikewale.Utility.Format.FormatNumeric(Model.Video.Views.ToString())</span>
                         </div>
                         <div class="video-views-count-container font14 leftfloat padding-left10 border-light-right">
-                            <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-default comma">@Bikewale.Utility.Format.FormatNumeric(videoModel.Likes.ToString())</span>
+                            <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-default comma">@Bikewale.Utility.Format.FormatNumeric(Model.Video.Likes.ToString())</span>
                         </div>
                         <div class="font14 leftfloat padding-left10 powerdrift-sub-btn">
-                            <script src="https://apis.google.com/js/platform.js"></script>
+                            <script defer src="https://apis.google.com/js/platform.js"></script>
                             <div class="g-ytsubscribe" data-channel="powerdriftofficial" data-layout="default" data-count="hidden"></div>
                         </div>
                         <div class="clear"></div>
@@ -70,8 +65,11 @@
                 </div>
             </section>
         }
-@{Html.RenderAction("BikeInfoCard", "GenericBikeInfoMobile", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = @ViewBag.ModelId, CityId = @ViewBag.CityId, PageId = Bikewale.Entities.GenericBikes.BikeInfoTabType.Videos, IsSmallSlug = false });}  
-@{Html.RenderAction("SimilarVideos", "VideosMobile", new { videoId = videoModel.BasicId, modelId = @ViewBag.ModelId});}
-@{Html.RenderAction("PopularBodyStyleMobile", "PopularBikes", new { modelId = @ViewBag.ModelId, topCount = @ViewBag.TopCount, cityId = @ViewBag.CityId });}
-         
-<script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>
+@if (Model.IsBikeTagged)
+{
+    <section class="bg-white section-bottom-margin margin-bottom10">
+        @{Html.RenderAction("BikeInfoCard", "GenericBikeInfoMobile", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = Model.TaggedModelId, CityId = Model.CityId, PageId = Bikewale.Entities.GenericBikes.BikeInfoTabType.Videos, IsSmallSlug = false });}
+    </section>
+}
+@{Html.RenderAction("SimilarVideos_Mobile", "Videos", new { videoId = Model.Video.BasicId, modelId = Model.TaggedModelId });}
+@{Html.RenderAction("PopularBodyStyleMobile", "PopularBikes", new { modelId = Model.TaggedModelId, topCount = 9, cityId = Model.CityId });}

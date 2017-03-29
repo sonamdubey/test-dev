@@ -76,6 +76,7 @@
     <Compile Include="Shared\PopularScootersList.cs" />
     <Compile Include="Shared\Showrooms.cs" />
     <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
+    <Compile Include="Videos\VideoDetailsPageVM.cs" />
     <Compile Include="Videos\VideosBySubcategoryVM.cs" />
     <Compile Include="Used\UsedBikeCitiesWidgetVM.cs" />
     <Compile Include="Used\UsedBikeByModelCityVM.cs" />
