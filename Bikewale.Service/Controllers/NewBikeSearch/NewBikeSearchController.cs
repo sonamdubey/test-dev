@@ -5,7 +5,6 @@ using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.NewBikeSearch;
 using Bikewale.Service.Utilities;
 using System;
-using System.Linq;
 using System.Web.Http;
 namespace Bikewale.Service.Controllers.NewBikeSearch
 {
@@ -36,14 +35,6 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             try
             {
                 SearchOutput searchResult = new SearchOutput();
-                if (Request.Headers.Contains("platformId") && input.Displacement == "2")
-                {
-                    var platformId = Convert.ToString(Request.Headers.GetValues("platformId").First());
-                    if (platformId == "3")
-                        input.Displacement = "8";
-
-
-                }
                 FilterInput filterInputs = _processFilter.ProcessFilters(input);
 
                 SearchOutputEntity objSearchList = _searchResult.GetSearchResult(filterInputs, input);
