@@ -14,6 +14,10 @@ using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
+    /// <summary>
+    /// Created By :- Subodh Jain 29 March 2017
+    /// Sumary :- Controller for Dealer Showroom
+    /// </summary>
     public class DealerShowroomController : Controller
     {
         private readonly IDealerCacheRepository _objDealerCache = null;
@@ -24,8 +28,10 @@ namespace Bikewale.Controllers
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IServiceCenter _objSC = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
+        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
 
-        public DealerShowroomController(INewBikeLaunchesBL newLaunches, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache)
+        //Constructor for dealer locator
+        public DealerShowroomController(IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
@@ -35,36 +41,26 @@ namespace Bikewale.Controllers
             _bikeModels = bikeModels;
             _newLaunches = newLaunches;
             _objSC = objSC;
+            _bikeMakes = bikeMakes;
 
         }
 
-        [Route("dealerdetails/make/{makeMaskingName}/dealerid/{dealerId}")]
-        public ActionResult DealerDetail(string makeMaskingName, uint dealerId)
+        /// <summary>
+        /// Created By:- Subodh Jain 29 March 2017
+        /// Summary :- Action method For Landing Page Desktop
+        /// </summary>
+        /// <returns></returns>
+        [Route("dealershowroom/Index/")]
+        public ActionResult Index()
         {
+            DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_bikeMakes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 10);
             try
             {
-
-                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, dealerId);
-                if (objDealerDetails != null && dealerId > 0)
+                if (objDealerIndex != null)
                 {
-                    DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
-
-                    if (objDealerDetails.status == Entities.StatusCodes.ContentFound)
-                    {
-
-                        objDealerDetailsVM = objDealerDetails.GetData();
-                        return View(objDealerDetailsVM);
-                    }
-
-                    else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealerDetails.objResponse.MaskingName));
-                    }
-                    else
-                    {
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
-
+                    IndexVM objDealerIndexVM = new IndexVM();
+                    objDealerIndexVM = objDealerIndex.GetData();
+                    return View(objDealerIndexVM);
                 }
                 else
                 {
@@ -74,39 +70,27 @@ namespace Bikewale.Controllers
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealerDetails");
+                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.Index");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
 
         }
-
-        [Route("m/dealerdetails/make/{makeMaskingName}/dealerid/{dealerId}")]
-        public ActionResult DealerDetail_Mobile(string makeMaskingName, uint dealerId)
+        /// <summary>
+        /// Created By:- Subodh Jain 29 March 2017
+        /// Summary :- Action method For Landing Page Mobile
+        /// </summary>
+        /// <returns></returns>
+        [Route("m/dealershowroom/Index/")]
+        public ActionResult Index_Mobile()
         {
+            DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_bikeMakes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 10);
             try
             {
-
-                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, dealerId);
-                if (objDealerDetails != null && dealerId > 0)
+                if (objDealerIndex != null)
                 {
-                    DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
-
-                    if (objDealerDetails.status == Entities.StatusCodes.ContentFound)
-                    {
-
-                        objDealerDetailsVM = objDealerDetails.GetData();
-                        return View(objDealerDetailsVM);
-                    }
-
-                    else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealerDetails.objResponse.MaskingName));
-                    }
-                    else
-                    {
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
-
+                    IndexVM objDealerIndexVM = new IndexVM();
+                    objDealerIndexVM = objDealerIndex.GetData();
+                    return View(objDealerIndexVM);
                 }
                 else
                 {
@@ -116,12 +100,16 @@ namespace Bikewale.Controllers
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealerDetail_Mobile");
+                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.Index");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
 
         }
-
+        /// <summary>
+        /// Created By:- Subodh Jain 29 March 2017
+        /// Summary :- Action method For Dealers In India Desktop
+        /// </summary>
+        /// <returns></returns>
         [Route("dealersinindia/make/{makeMaskingName}")]
         public ActionResult DealersInIndia(string makeMaskingName)
         {
@@ -165,6 +153,11 @@ namespace Bikewale.Controllers
             }
         }
 
+        /// <summary>
+        /// Created By:- Subodh Jain 29 March 2017
+        /// Summary :- Action method For Dealers In India Mobile
+        /// </summary>
+        /// <returns></returns>
         [Route("m/dealersinindia/make/{makeMaskingName}")]
         public ActionResult DealersInIndia_Mobile(string makeMaskingName)
         {
@@ -209,6 +202,11 @@ namespace Bikewale.Controllers
             }
         }
 
+        /// <summary>
+        /// Created By:- Subodh Jain 29 March 2017
+        /// Summary :- Action method For Dealers In City Desktop
+        /// </summary>
+        /// <returns></returns>
         [Route("dealerincity/make/{makeMaskingName}/city/{cityMaskingName}")]
         public ActionResult DealerInCity(string makeMaskingName, string cityMaskingName)
         {
@@ -251,6 +249,11 @@ namespace Bikewale.Controllers
             }
         }
 
+        /// <summary>
+        /// Created By:- Subodh Jain 29 March 2017
+        /// Summary :- Action method For Dealers In City Mobile
+        /// </summary>
+        /// <returns></returns>
         [Route("m/dealerincity/make/{makeMaskingName}/city/{cityMaskingName}")]
         public ActionResult DealerInCity_Mobile(string makeMaskingName, string cityMaskingName)
         {
@@ -292,6 +295,100 @@ namespace Bikewale.Controllers
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
         }
+
+        /// <summary>
+        /// Created By:- Subodh Jain 29 March 2017
+        /// Summary :- Action method For Dealer Details Page Desktop
+        /// </summary>
+        /// <returns></returns>
+        [Route("dealerdetails/make/{makeMaskingName}/dealerid/{dealerId}")]
+        public ActionResult DealerDetail(string makeMaskingName, uint dealerId)
+        {
+            try
+            {
+
+                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, dealerId);
+                if (objDealerDetails != null && dealerId > 0)
+                {
+                    DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
+
+                    if (objDealerDetails.status == Entities.StatusCodes.ContentFound)
+                    {
+
+                        objDealerDetailsVM = objDealerDetails.GetData();
+                        return View(objDealerDetailsVM);
+                    }
+
+                    else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
+                    {
+                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealerDetails.objResponse.MaskingName));
+                    }
+                    else
+                    {
+                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    }
+
+                }
+                else
+                {
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealerDetails");
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+
+        }
+        /// <summary>
+        /// Created By:- Subodh Jain 29 March 2017
+        /// Summary :- Action method For Dealer Details Page Mobile
+        /// </summary>
+        /// <returns></returns>
+        [Route("m/dealerdetails/make/{makeMaskingName}/dealerid/{dealerId}")]
+        public ActionResult DealerDetail_Mobile(string makeMaskingName, uint dealerId)
+        {
+            try
+            {
+
+                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, dealerId);
+                if (objDealerDetails != null && dealerId > 0)
+                {
+                    DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
+
+                    if (objDealerDetails.status == Entities.StatusCodes.ContentFound)
+                    {
+
+                        objDealerDetailsVM = objDealerDetails.GetData();
+                        return View(objDealerDetailsVM);
+                    }
+
+                    else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
+                    {
+                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealerDetails.objResponse.MaskingName));
+                    }
+                    else
+                    {
+                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    }
+
+                }
+                else
+                {
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealerDetail_Mobile");
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+
+        }
+
 
     }
 }

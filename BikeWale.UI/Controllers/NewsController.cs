@@ -2,8 +2,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
-using Bikewale.Interfaces.Videos;
-using Bikewale.Models.News;
+using Bikewale.Models;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -45,6 +44,9 @@ namespace Bikewale.Controllers
             else
             {
                 NewsIndexPageVM objData = obj.GetData();
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/pagenotfound.aspx");
+                else
                 return View(objData);
             }
         }
@@ -66,6 +68,9 @@ namespace Bikewale.Controllers
             else
             {
                 NewsIndexPageVM objData = obj.GetData();
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/pagenotfound.aspx");
+                else
                 return View(objData);
             }
         }
