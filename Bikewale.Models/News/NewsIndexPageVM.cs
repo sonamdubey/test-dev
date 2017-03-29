@@ -1,8 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
-using Bikewale.Models.BestBikes;
-using Bikewale.Models.Upcoming;
 using System;
 using System.Collections.Generic;
 using System.Linq;

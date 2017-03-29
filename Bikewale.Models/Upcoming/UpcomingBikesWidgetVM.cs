@@ -1,11 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Bikewale.Models.Upcoming
+namespace Bikewale.Models
 {
     /// <summary>
     /// Created by : Aditi Srivastava on 28 Mar 2017

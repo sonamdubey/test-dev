@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bikewale.Models.BestBikes
+namespace Bikewale.Models
 {
     /// <summary>
     /// Createed by : Aditi Srivastava on 25 Mar 2017
