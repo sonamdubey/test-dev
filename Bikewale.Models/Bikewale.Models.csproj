@@ -81,7 +81,6 @@
     <Compile Include="Used\UsedBikeByModelCityVM.cs" />
     <Compile Include="Used\UsedModelsVM.cs" />
     <Compile Include="Videos\RecentVideosVM.cs" />
-    <Compile Include="Videos\VideosBySubcategoryVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
