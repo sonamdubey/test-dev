@@ -1,10 +1,12 @@
 ﻿var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
 var dealerLat = document.getElementById("locationSearch").getAttribute("data-lat");
 var dealerLong = document.getElementById("locationSearch").getAttribute("data-long");
-var locationKey=document.getElementById("locationSearch").getAttribute("data-cityid")+"_"+ document.getElementById("locationSearch").getAttribute("data-cityname");
+var locationKey;
 
 docReady(function () {
-    SetCookieInDays("location", "locationKey", 365);
+    debugger;
+    locationKey = document.getElementById("locationSearch").getAttribute("data-cityid") + "_" + document.getElementById("locationSearch").getAttribute("data-cityname");
+    SetCookieInDays("location", locationKey, 365);
     initializeMap();
     $(document).on("click", "#getUserLocation", function () {
         getLocation();
