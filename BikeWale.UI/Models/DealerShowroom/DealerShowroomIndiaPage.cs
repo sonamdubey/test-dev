@@ -5,7 +5,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -154,9 +153,9 @@ namespace Bikewale.Models
         /// Summary:- Bind data for used bike widget
         /// </summary>
         /// <returns></returns>
-        private UsedBikeModels BindUsedBikeByModel()
+        private UsedBikeModelsVM BindUsedBikeByModel()
         {
-            UsedBikeModels UsedBikeModel = new UsedBikeModels();
+            UsedBikeModelsVM UsedBikeModel = new UsedBikeModelsVM();
             try
             {
                 if (makeId > 0)

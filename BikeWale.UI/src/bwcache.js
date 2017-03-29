@@ -185,28 +185,28 @@ Description : WebStorage Library with cookie as a fallback.
 			Parameters : Key and expiring is compulsion and storage is dynamic
 			Example : getbyExpiry(object,string);
 		*/
-		var getbyExpiry = function (key, expiry, storage) {
-		    try {
-		        if (typeCheck(key, 'string')) {
-		            var currentTime = (new Date()).getTime();
-		            if (typeCheck(expiry, 'number')) currentTime -= (expiry * 60000);
-		            if (typeCheck(expiry, 'boolean') || typeCheck(expiry, 'number')) {
-		                var _item_ = JSON.parse(storage.getItem(key)) || {};
-		                var time = _item_.expiryTime || 1;
-		                //if exists returns value else return null for timeout object
-		                if (time < currentTime) {
-		                    return Object.keys(_item_).length !== 0 ? _item_ : null;
-		                }
-		                else errorLog(2);
-		            }
-		            else return getbyKey(key, storage);
-		        }
-		        else errorLog(2);
-		    } catch (e) {
-		        errorLog(0, e);
-		    }
-		    return null;
-		};
+	var getbyExpiry = function (key, expiry, storage) {
+            try {
+                if (typeCheck(key, 'string')) {
+                    var currentTime = (new Date()).getTime();
+                    if (typeCheck(expiry, 'number')) currentTime -= (expiry * 60000);
+                    if (typeCheck(expiry, 'boolean') || typeCheck(expiry, 'number')) {
+                        var _item_  = JSON.parse(storage.getItem(key)) || {};
+                        var time = _item_.expiryTime || 1;
+                        //if exists returns value else return null for timeout object
+                        if (time < currentTime) {
+                            return Object.keys(_item_).length !== 0 ? _item_  : null;
+                        }
+                        else errorLog(2);
+                    }
+                    else return getbyKey(key, storage);
+                }
+                else errorLog(2);
+            } catch (e) {
+                errorLog(0, e);
+            }
+            return null;
+        };
 
 		/*
 			Function : Get all web storage entites from the document.
@@ -346,7 +346,7 @@ Description : WebStorage Library with cookie as a fallback.
 		        if (typeCheck(item, 'object')) {
 		            if (typeCheck(item.expiryTime, 'number') && item.expiryTime !== 0) //set specified expiry along with data
 		            {
-		                item.expiryTime = (new Date()).getTime() + (item.expiryTime * 60000); //in minutes	
+		                item.expiryTime = (new Date()).getTime() + (item.expiryTime * 60000); //in minutes    
 		            }
 		            else if (typeCheck(item.expiryTime, 'boolean')) {
 		                item.expiryTime = 0;
