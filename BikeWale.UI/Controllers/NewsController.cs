@@ -1,5 +1,6 @@
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models;
@@ -13,13 +14,15 @@ namespace Bikewale.Controllers
         private readonly IPager _pager = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
+        private readonly IUpcoming _upcoming = null; 
         private int _topCount;
-        public NewsController(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels)
+        public NewsController(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming)
         {
             _articles = articles;
             _pager = pager;
             _models = models;
             _bikeModels = bikeModels;
+            _upcoming = upcoming;
         }
 
         /// <summary>
@@ -31,7 +34,7 @@ namespace Bikewale.Controllers
         public ActionResult Index()
         {
             _topCount = 4;
-            NewsIndexPage obj = new NewsIndexPage(_articles, _pager,_models,_bikeModels,_topCount);
+            NewsIndexPage obj = new NewsIndexPage(_articles, _pager,_models,_bikeModels,_upcoming,_topCount);
 
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -55,7 +58,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile()
         {
             _topCount = 9;
-            NewsIndexPage obj = new NewsIndexPage(_articles, _pager, _models, _bikeModels, _topCount);
+            NewsIndexPage obj = new NewsIndexPage(_articles, _pager, _models, _bikeModels,_upcoming, _topCount);
 
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {

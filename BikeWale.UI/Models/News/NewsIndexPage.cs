@@ -14,6 +14,7 @@ using Bikewale.Models.BestBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Models.Upcoming;
+using Bikewale.Interfaces.BikeData.UpComing;
 
 namespace Bikewale.Models
 {
@@ -27,6 +28,7 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _articles = null;
         private readonly IPager _pager = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
+        private readonly IUpcoming _upcoming = null;
         private int _topCount;
         #endregion
 
@@ -49,12 +51,13 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public NewsIndexPage(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models,IBikeModels<BikeModelEntity, int> bikeModels,int topCount)
+        public NewsIndexPage(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models,IBikeModels<BikeModelEntity, int> bikeModels,IUpcoming upcoming,int topCount)
         {
             _articles = articles;
             _pager = pager;
             _models = models;
             _bikeModels = bikeModels;
+            _upcoming = upcoming;
             _topCount = topCount;
             ProcessQueryString();
         }
@@ -289,12 +292,15 @@ namespace Bikewale.Models
                 }
                 else
                 {
-                    UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_models);
-                    objUpcomingBikes.TopCount = _topCount;
+                    UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
+                    objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
+                    objUpcomingBikes.Filters.StartIndex = 1;
+                    objUpcomingBikes.Filters.EndIndex=_topCount;
                     if (MakeId > 0)
                     {
-                        objUpcomingBikes.MakeId = MakeId;
+                        objUpcomingBikes.Filters.MakeId =(int)MakeId;
                     }
+                    objUpcomingBikes.SortBy = EnumUpcomingBikesFilter.Default;
                     objData.UpcomingBikes = objUpcomingBikes.GetData();
 
                     if (objMake != null)
