@@ -8,6 +8,7 @@
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
     Model.AdTags.AdId = "1398766000399";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    ViewBag.TotalPrice = Model.TotalPrice; // to pass price component on dealer campaign if dealerprice not available
 }
 
 <div class="bg-white padding-10-5 bottom-shadow margin-bottom10">
@@ -137,7 +138,7 @@
     @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.ManufacturerCampaign)
 }
 
-@if (Model.DealerId == 0 && Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount == 0 && Model.Quotation != null && string.IsNullOrEmpty(Model.Quotation.ManufacturerAd))
+@if (Model.ShowOtherDealers && Model.AreOtherDealersAvailable)
 {
     <section class="container bg-white margin-bottom10">
         <div class="box-shadow">
