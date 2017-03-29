@@ -450,11 +450,11 @@
     </Compile>
     <Compile Include="Controllers\DealerShowroomController.cs" />
     <Compile Include="Controllers\BikeCareController.cs" />
-    <Compile Include="Controllers\BestBikesController.cs" />    
+    <Compile Include="Controllers\BestBikesController.cs" />
     <Compile Include="Controllers\CompareBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
-    <Compile Include="Controllers\MakeController.cs" />   
+    <Compile Include="Controllers\MakeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
@@ -920,7 +920,7 @@
     <Compile Include="Models\BestBikes\BestBikeWidgetModel.cs" />
     <Compile Include="Models\BikeModels\MostPopularBikesWidget.cs" />
     <Compile Include="Models\Make\BrandWidgetModel.cs" />
-    <Compile Include="Models\BikeModels\SimilarBikesWidget.cs" />   
+    <Compile Include="Models\BikeModels\SimilarBikesWidget.cs" />
     <Compile Include="Models\CompareBikes\ComparisonMinWidget.cs" />
     <Compile Include="Models\CompareBikes\PopularModelCompareWidget.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
@@ -2993,6 +2993,7 @@
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\new-launch.js" />
     <Content Include="m\src\photos.js" />
+    <Content Include="m\src\priceincity.js" />
     <Content Include="m\src\scooters-by-make.js" />
     <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
@@ -3083,7 +3084,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="new\photos\Default.aspx" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />   
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
     <Content Include="servicecenter\ServiceCenterInCountry.aspx" />
@@ -3122,6 +3123,7 @@
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos.js" />
+    <Content Include="src\priceincity.js" />
     <Content Include="src\scooters.js" />
     <Content Include="src\service\location.js" />
     <Content Include="src\service\details.js" />
@@ -3631,9 +3633,7 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare_Mobile.cshtml" />
-
     <Content Include="Views\DealerShowroom\DealerDetail.cshtml" />
-
     <Content Include="Views\UsedBikes\_UsedBikesCIties.cshtml" />
     <Content Include="Views\UsedBikes\_UsedBikesCIties_Mobile.cshtml" />
     <Content Include="Views\Make\_BrandCityPopup.cshtml" />
@@ -3649,6 +3649,7 @@
     <Content Include="Views\Price\_DealerCampaign_Mobile.cshtml" />
     <Content Include="Views\Price\_SecondaryDealers_Mobile.cshtml" />
     <Content Include="Views\Price\_ManufacturerCampaign_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\Index_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
