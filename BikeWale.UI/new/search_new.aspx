@@ -144,12 +144,12 @@
                                         <span class="top-arrow"></span>
                                         <ul class="content-inner-block-10">
                                             <li class="uncheck" filterid="1"><span>Up to 110 cc</span></li>
-                                            <li class="uncheck" filterid="2"><span>110-125 cc</span></li>
-                                             <li class="uncheck" filterid="3"><span>125-150 cc</span></li>
-                                            <li class="uncheck" filterid="4"><span>150-200 cc</span></li>
-                                            <li class="uncheck" filterid="5"><span>200-250 cc</span></li>
-                                            <li class="uncheck" filterid="6"><span>250-500 cc</span></li>
-                                            <li class="uncheck" filterid="7"><span>500 cc and more</span></li>
+                                            <li class="uncheck" filterid="7"><span>110-125 cc</span></li>
+                                             <li class="uncheck" filterid="8"><span>125-150 cc</span></li>
+                                            <li class="uncheck" filterid="3"><span>150-200 cc</span></li>
+                                            <li class="uncheck" filterid="4"><span>200-250 cc</span></li>
+                                            <li class="uncheck" filterid="5"><span>250-500 cc</span></li>
+                                            <li class="uncheck" filterid="6"><span>500 cc and more</span></li>
                                         </ul>
                                     </div>
                                 </div>
