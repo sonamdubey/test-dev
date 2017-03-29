@@ -386,6 +386,9 @@ namespace Bikewale.DAL.NewBikeSearch
                 case "7":
                     clause = " sd.displacement >= 500 ";
                     break;
+                case "8":
+                    clause = " sd.displacement between 110 and 150 ";
+                    break;
                 default:
                     break;
 

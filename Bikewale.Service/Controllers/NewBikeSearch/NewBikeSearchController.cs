@@ -5,8 +5,8 @@ using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.NewBikeSearch;
 using Bikewale.Service.Utilities;
 using System;
+using System.Linq;
 using System.Web.Http;
-
 namespace Bikewale.Service.Controllers.NewBikeSearch
 {
     /// <summary>
@@ -25,13 +25,27 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             _searchResult = searchResult;
             _processFilter = processFilter;
         }
-
+        /// <summary>
+        /// Modified By :- Subodh Jain 29 March 2017
+        /// Summary :- if platform  is android then use dispalcement clause 8
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public IHttpActionResult Get([FromUri]InputBaseEntity input)
         {
             try
             {
                 SearchOutput searchResult = new SearchOutput();
+                if (Request.Headers.Contains("platformId") && input.Displacement == "2")
+                {
+                    var platformId = Convert.ToString(Request.Headers.GetValues("platformId").First());
+                    if (platformId == "3")
+                        input.Displacement = "8";
+
+
+                }
                 FilterInput filterInputs = _processFilter.ProcessFilters(input);
+
                 SearchOutputEntity objSearchList = _searchResult.GetSearchResult(filterInputs, input);
 
                 searchResult = SearchOutputMapper.Convert(objSearchList);
