@@ -1,13 +1,5 @@
-﻿using Bikewale.Common;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Videos;
-using Bikewale.Interfaces.Videos;
+﻿using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
-using Bikewale.Models.Mobile.Videos;
-using Bikewale.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Desktop.Videos
@@ -79,85 +71,53 @@ namespace Bikewale.Controllers.Desktop.Videos
         }
 
         /// <summary>
-        /// Created by : Aditi Srivastava on 27 Feb 2017
-        /// Summary    : Fetch videos page by masking name
+        /// Created by  :   Aditi Srivastava on 27 Feb 2017
+        /// Summary     :   Fetch videos page by masking name
+        /// Modified by :   Sumit Kate on 29 Mar 2017
+        /// Description :   Make wise video page desktop action method
         /// </summary>
+        [Filters.DeviceDetection()]
         [Route("videos/make/{makeMaskingName}/")]
         public ActionResult Makes(string makeMaskingName)
         {
-            IEnumerable<BikeVideoModelEntity> objModelVideos = null;
-            MakeMaskingResponse makeInfo = null;
-            makeInfo = new MakeHelper().GetMakeByMaskingName(makeMaskingName);
-            if (makeInfo.StatusCode == 200)
+            MakeVideosPage objModel = new MakeVideosPage(makeMaskingName, _videos);
+            if (objModel.Status == Entities.StatusCodes.ContentFound)
             {
-                ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
-                ViewBag.TopCount = 9;
-                ViewBag.MakeId = makeInfo.MakeId;
-                ViewBag.makeMaskingName = makeMaskingName;
-                ViewBag.MakeName = "";
-                objModelVideos = _videos.GetModelVideos(makeInfo.MakeId);
-                if (objModelVideos != null && objModelVideos.Count() > 0 && objModelVideos.FirstOrDefault().objMake != null)
-                {
-                    ViewBag.MakeName = objModelVideos.FirstOrDefault().objMake.MakeName;
-                }
-                ViewBag.Title = string.Format("{0} Bike Videos - BikeWale", ViewBag.MakeName);
-                ViewBag.Description = string.Format("Check latest {0} bikes videos, watch BikeWale expert's take on {0} bikes - features, performance, price, fuel economy, handling and more.", ViewBag.MakeName);
-                ViewBag.Keywords = string.Format("{0},{0} bikes,{0} videos", ViewBag.MakeName);
-                ViewBag.canonical = string.Format("https://www.bikewale.com/{0}-bikes/videos/", ViewBag.makeMaskingName);
-                ViewBag.alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/videos/", ViewBag.makeMaskingName);
-                ViewBag.Ad_300x250BTF = false;
-                ViewBag.Ad_300x250 = false;
-                return View("~/Views/Videos/Makes.cshtml", objModelVideos);
+                return View(objModel.GetData());
             }
-            else if (makeInfo.StatusCode == 301)
+            else if (objModel.Status == Entities.StatusCodes.RedirectPermanent)
             {
-                return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, makeInfo.MaskingName));
+                return RedirectPermanent(objModel.RedirectUrl);
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect("pageNotFound.aspx");
             }
         }
 
         /// <summary>
         /// Created by : Aditi Srivastava on 27 Feb 2017
         /// Summary    : ActionResult method for make wise videos page
+        /// Modified by :   Sumit Kate on 29 Mar 2017
+        /// Description :   Make wise video page mobile action method
         /// </summary>
         /// <param name="makeMaskingName"></param>
         /// <returns></returns>
         [Route("m/videos/make/{makeMaskingname}/")]
         public ActionResult Makes_Mobile(string makeMaskingName)
         {
-            IEnumerable<BikeVideoModelEntity> objModelVideos = null;
-            MakeMaskingResponse makeInfo = null;
-            makeInfo = new MakeHelper().GetMakeByMaskingName(makeMaskingName);
-            if (makeInfo.StatusCode == 200)
+            MakeVideosPage objModel = new MakeVideosPage(makeMaskingName, _videos);
+            if (objModel.Status == Entities.StatusCodes.ContentFound)
             {
-                ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
-                ViewBag.TopCount = 9;
-                ViewBag.MakeId = makeInfo.MakeId;
-                ViewBag.makeMaskingName = makeMaskingName;
-                ViewBag.MakeName = "";
-                objModelVideos = _videos.GetModelVideos(makeInfo.MakeId);
-                if (objModelVideos != null && objModelVideos.Count() > 0 && objModelVideos.FirstOrDefault().objMake != null)
-                {
-                    ViewBag.MakeName = objModelVideos.FirstOrDefault().objMake.MakeName;
-                }
-                ViewBag.Title = string.Format("{0} Bike Videos - BikeWale", ViewBag.MakeName);
-                ViewBag.Description = string.Format("Check latest {0} bikes videos, watch BikeWale expert's take on {0} bikes - features, performance, price, fuel economy, handling and more.", ViewBag.MakeName);
-                ViewBag.Keywords = string.Format("{0},{0} bikes,{0} videos", ViewBag.MakeName);
-                ViewBag.canonical = string.Format("https://www.bikewale.com/{0}-bikes/videos/", ViewBag.makeMaskingName);
-                ViewBag.Ad_320x50 = true;
-                ViewBag.Ad_Bot_320x50 = true;
-                return View("~/Views/m/Videos/Makes.cshtml", objModelVideos);
+                return View(objModel.GetData());
             }
-            else if (makeInfo.StatusCode == 301)
+            else if (objModel.Status == Entities.StatusCodes.RedirectPermanent)
             {
-                return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, makeInfo.MaskingName));
+                return RedirectPermanent(objModel.RedirectUrl);
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect("pageNotFound.aspx");
             }
         }
 
@@ -168,21 +128,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("videos/SimilarVideos/")]
         public ActionResult SimilarVideos(uint videoId, uint modelId)
         {
-            SimilarModelsModel similarVideosModel = new SimilarModelsModel();
-            similarVideosModel.Videos = _video.GetSimilarModelsVideos(videoId, modelId, 9);
-            similarVideosModel.ModelId = modelId;
-            if (modelId > 0)
-            {
-                BikeModelEntity objModel = new ModelHelper().GetModelDataById(modelId);
-
-                if (objModel != null)
-                {
-                    similarVideosModel.ViewAllLinkText = "View all";
-                    similarVideosModel.ViewAllLinkUrl = String.Format("/{0}-bikes/{1}/videos/", objModel.MakeBase.MaskingName, objModel.MaskingName);
-                    similarVideosModel.ViewAllLinkTitle = String.Format("{0} {1} Videos", objModel.MakeBase.MakeName, objModel.ModelName);
-                }
-            }
-            return PartialView("~/views/shared/_SimilarVideo.cshtml", similarVideosModel);
+            return PartialView("~/views/videos/_SimilarVideos.cshtml", new SimilarVideosModel(modelId, videoId, _video));
         }
 
         /// <summary>
@@ -192,20 +138,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("m/videos/SimilarVideos/")]
         public ActionResult SimilarVideos_Mobile(uint videoId, uint modelId)
         {
-            SimilarModelsModel similarVideosModel = new SimilarModelsModel();
-            similarVideosModel.Videos = _video.GetSimilarModelsVideos(videoId, modelId, 9);
-            similarVideosModel.ModelId = modelId;
-            if (modelId > 0)
-            {
-                BikeModelEntity objModel = new ModelHelper().GetModelDataById(modelId);
-                if (objModel != null)
-                {
-                    similarVideosModel.ViewAllLinkText = "View all";
-                    similarVideosModel.ViewAllLinkUrl = string.Format("/m/{0}-bikes/{1}/videos/", objModel.MakeBase.MaskingName, objModel.MaskingName);
-                    similarVideosModel.ViewAllLinkTitle = string.Format("{0} {1} Videos", objModel.MakeBase.MakeName, objModel.ModelName);
-                }
-            }
-            return PartialView("~/views/m/shared/_SimilarVideo.cshtml", similarVideosModel);
+            return PartialView("~/views/videos/_SimilarVideos_Mobile.cshtml", new SimilarVideosModel(modelId, videoId, _video));
         }
     }
 }
