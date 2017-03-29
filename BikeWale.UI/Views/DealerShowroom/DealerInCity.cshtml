@@ -76,7 +76,7 @@
                         @foreach (var Details in Model.DealersList.Dealers)
                         {
                             <li data-item-type="@Details.DealerType" data-item-id="@Details.DealerId" data-item-inquired="false" data-item-number="@Details.MaskingNumber" data-lat="@Details.objArea.Latitude" data-log="@Details.objArea.Longitude" data-address="@Details.Address" data-campid="@Details.CampaignId" data-item-url="@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)">
-                                <a href="/@Model.Make.MaskingName-dealer-showrooms-in-@Model.CityDetails.CityMaskingName/@Details.DealerId@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)/" title="@Details.Name" class="dealer-card-target font14">
+                                <a href="/@Model.Make.MaskingName-dealer-showrooms-in-@Model.CityDetails.CityMaskingName/@Details.DealerId-@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)/" title="@Details.Name" class="dealer-card-target font14">
                                     <div class="margin-bottom5">
                                         <div class="@string.Format("{0}",Details.DealerType==3||Details.DealerType==2?"":"hide")">
                                             <span class="featured-tag margin-bottom5"><span class="bwsprite star-white"></span>Featured</span>
@@ -168,7 +168,7 @@
                         <div class="swiper-heading-left-grid inline-block">
                             <h2>@Model.Make.MakeName service centers in @Model.CityDetails.CityName</h2>
                         </div><div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="/@Model.Make.MakeName-service-center-in-@Model.CityDetails.CityName/" title="@Model.Make.MakeName Service Centers in @Model.CityDetails.CityName" class="btn view-all-target-btn">View all</a>
+                            <a href="/@Model.Make.MaskingName-service-center-in-@Model.CityDetails.CityMaskingName/" title="@Model.Make.MakeName Service Centers in @Model.CityDetails.CityName" class="btn view-all-target-btn">View all</a>
                         </div>
                         <div class="clear"></div>
                     </div>

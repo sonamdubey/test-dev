@@ -117,7 +117,7 @@
 
     </section>
 }
-@if ((Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0) || (Model.objUpcomingBikes != null && Model.objUpcomingBikes.Count() > 0) || (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0))
+@if ((Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0) || (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0) || (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0))
 {
     <div class="bg-white content-box-shadow container section-bottom-margin padding-top20">
         @if (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0)
@@ -138,8 +138,8 @@
                 </div>
             </section>
         }
-        @if (Model.objUpcomingBikes != null && Model.objUpcomingBikes.Count() > 0)
-        {
+      @if (Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)
+      {
             <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
             <section>
                 <div class="carousel-heading-content padding-top20 padding-bottom15">

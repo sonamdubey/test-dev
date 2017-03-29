@@ -2993,6 +2993,7 @@
     <Content Include="m\src\compare\landing.js" />
     <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
+    <Content Include="m\src\dealer\landing.js" />
     <Content Include="m\src\new-launch.js" />
     <Content Include="m\src\photos.js" />
     <Content Include="m\src\priceincity.js" />
@@ -3122,7 +3123,7 @@
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
-    <Content Include="src\dealer\Index.js" />
+    <Content Include="src\dealer\landing.js" />
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos.js" />
@@ -3630,12 +3631,10 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare_Mobile.cshtml" />
-
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Index_Mobile.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikes_Vertical.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Middle.cshtml" />
-
     <Content Include="Views\DealerShowroom\DealerDetail.cshtml" />
     <Content Include="Views\UsedBikes\_UsedBikesCIties.cshtml" />
     <Content Include="Views\UsedBikes\_UsedBikesCIties_Mobile.cshtml" />
@@ -3652,12 +3651,9 @@
     <Content Include="Views\Price\_DealerCampaign_Mobile.cshtml" />
     <Content Include="Views\Price\_SecondaryDealers_Mobile.cshtml" />
     <Content Include="Views\Price\_ManufacturerCampaign_Mobile.cshtml" />
-
     <Content Include="Views\DealerShowroom\Index.cshtml" />
     <Content Include="Views\DealerShowroom\Index_Mobile.cshtml" />
-
     <Content Include="Views\PriceInCity\Index_Mobile.cshtml" />
-
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3675,7 +3671,6 @@
     <Folder Include="content\ComparisonTest\" />
     <Folder Include="Controllers\m\new\Scooters\" />
     <Folder Include="Models\Features\" />
-    <Folder Include="Models\Upcoming\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />

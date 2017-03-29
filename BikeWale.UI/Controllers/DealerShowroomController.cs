@@ -83,7 +83,7 @@ namespace Bikewale.Controllers
         [Route("m/dealershowroom/Index/")]
         public ActionResult Index_Mobile()
         {
-            DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_bikeMakes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 10);
+            DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_bikeMakes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 6);
             try
             {
                 if (objDealerIndex != null)

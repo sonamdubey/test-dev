@@ -11,6 +11,7 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Used;
+using Bikewale.Models.Upcoming;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -153,9 +154,9 @@ namespace Bikewale.Models
         /// Summary:- Bind data for used bike widget
         /// </summary>
         /// <returns></returns>
-        private UsedBikeModelsVM BindUsedBikeByModel()
+        private UsedBikeModelsWidgetVM BindUsedBikeByModel()
         {
-            UsedBikeModelsVM UsedBikeModel = new UsedBikeModelsVM();
+            UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
             try
             {
                 if (makeId > 0)
@@ -181,18 +182,20 @@ namespace Bikewale.Models
         /// Summary:- Binding data for upcoming bike widget
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<UpcomingBikeEntity> BindUpCompingBikesWidget()
+        private UpcomingBikesWidgetVM BindUpCompingBikesWidget()
         {
-            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = null;
+            UpcomingBikesWidgetVM objUpcomingBikes = null;
             try
             {
-                var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
-                    {
-                        EndIndex = 9,
-                        StartIndex = 1
-                    };
-                var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-                objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
+                UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
+
+                objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+                {
+                    EndIndex = 9,
+                    StartIndex = 1
+                };
+                objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+                objUpcomingBikes = objUpcoming.GetData();
             }
             catch (Exception ex)
             {

@@ -3,7 +3,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.UsedBikes;
 using Bikewale.Models.ServiceCenters;
 namespace Bikewale.Models
 {
@@ -12,7 +11,7 @@ namespace Bikewale.Models
         public NearByCityDealer DealerCountCity;
         public DealersEntity DealersList;
         public BikeMakeEntityBase Make;
-        public UsedBikeModelsVM UsedBikeModel;
+        public UsedBikeModelsWidgetVM UsedBikeModel;
         public CityEntityBase CityDetails;
         public uint TotalDealers;
         public MostPopularBikeWidgetVM PopularBikes;
