@@ -168,7 +168,7 @@
         });
     </script>
 </head>
-<body class="@(Model.IsTransparentHeader ? "page-type-landing" : "")">
+<body class="@(Model.IsTransparentHeader ? "page-type-landing" : "") @(Model.IsInnerHeader ? "header-fixed-inner": "")">
     <form>
         <div id="header" class='@(Model.IsHeaderFix ? "header-fixed" : "header-not-fixed") @(Model.IsTransparentHeader ? "header-landing header-transparent" : "")'>
             <!-- Fixed Header code starts here -->

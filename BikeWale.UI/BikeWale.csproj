@@ -917,6 +917,7 @@
     <Compile Include="Models\CompareBikes\PopularModelCompareWidget.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
+    <Compile Include="Models\News\NewsIndexPage.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
@@ -924,6 +925,7 @@
     <Compile Include="Models\ServiceCenters\ServiceCentersCard.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersInNearByCities.cs" />
     <Compile Include="Models\HomePageModel.cs" />
+    <Compile Include="Models\Upcoming\UpcomingBikesWidget.cs" />
     <Compile Include="Models\Videos\VideosByCategory.cs" />
     <Compile Include="Models\Videos\VideosBySubcategory.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedWidgetModel.cs" />
@@ -3569,7 +3571,7 @@
     <Content Include="Views\BikeCare\_RecentBikeCare.cshtml" />
     <Content Include="Views\BikeCare\_RecentBikeCare_Mobile.cshtml" />
     <Content Include="Views\News\_RecentNews.cshtml" />
-    <Content Include="Views\News\_RecentNews_Mobile.cshtml" />    
+    <Content Include="Views\News\_RecentNews_Mobile.cshtml" />
     <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ.cshtml" />
     <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ_Mobile.cshtml" />
     <Content Include="Views\Videos\_RecentVideos.cshtml" />
@@ -3593,12 +3595,6 @@
     <Content Include="Views\NewLaunches\_NewLaunches_Mobile.cshtml" />
     <Content Include="Views\BestBikes\_BestBikes.cshtml" />
     <Content Include="Views\BestBikes\_BestBikes_Mobile.cshtml" />
-    <Content Include="Views\News\_RecentNews.cshtml" />
-    <Content Include="Views\News\_RecentNews_Mobile.cshtml" />
-    <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ.cshtml" />
-    <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ_Mobile.cshtml" />
-    <Content Include="Views\BikeCare\_RecentBikeCare.cshtml" />
-    <Content Include="Views\BikeCare\_RecentBikeCare_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_ComparisonMin_Mobile.cshtml" />
     <Content Include="Views\Videos\_SimilarVideos.cshtml" />
     <Content Include="Views\Videos\_SimilarVideos_Mobile.cshtml" />
@@ -3607,6 +3603,10 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare_Mobile.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\News\Index_Mobile.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikes_Vertical.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Middle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3707,11 +3707,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54955</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9011</IISUrl>
+          <IISUrl>http://localhost:9011/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

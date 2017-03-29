@@ -12,6 +12,6 @@ namespace Bikewale.Models.Shared
         public int StartIndex { get; set; }
         public int EndIndex { get; set; }
         public PagerOutputEntity PagerOutput { get; set; }
-
+        public bool ShowHash { get; set; }
     }
 }

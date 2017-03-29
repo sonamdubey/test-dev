@@ -15,6 +15,7 @@ namespace Bikewale.Models
         public bool IsTransparentHeader { get; set; }
         public bool IsHomePage { get; set; }
         public bool IsHeaderFix { get; set; }
+        public bool IsInnerHeader { get; set; }
 
         public string Page_ATF_CSS { get; set; }
         public string Page_BTF_CSS_Path { get; set; }
