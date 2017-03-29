@@ -20,10 +20,6 @@
   -o-box-shadow: 0 2px 2px 0 #dcdcdc;
   box-shadow: 0 2px 2px 0 #dcdcdc; }
 
-.card-bottom-margin,
-.section-bottom-margin {
-  margin-bottom: 10px; }
-
 .card-inner-padding {
   padding: 15px 20px;
   -webkit-box-shadow: 0 2px 2px 0 #dcdcdc;
@@ -168,8 +164,7 @@
   margin-bottom: 15px; }
 
 #usedByCity .box-shadow.padding-top20 {
-    padding-top: 0;
-}
+  padding-top: 0; }
 
 .city-sprite {
   background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat;

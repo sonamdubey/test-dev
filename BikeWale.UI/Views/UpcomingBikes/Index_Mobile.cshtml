@@ -1,0 +1,407 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/upcoming-bikes/upcoming-bikes.css' />";
+    Model.Page_JS_Path = "/m/src/upcoming-bikes.js";
+}
+
+<section>
+    <div class="container upcoming-bikes-banner text-center">
+        <h1 class="font22 text-uppercase text-white">Upcoming bikes</h1>
+        <h2 class="font14 text-unbold text-white">Things to be excited about</h2>
+    </div>
+</section>
+
+<section>
+    <div class="container section-bottom-margin">
+        <div class="grid-12">
+            <div class="banner-box-shadow padding-right20 padding-left20 padding-bottom20">
+                <div class="padding-top15 font14 text-light-grey collapsible-content">
+                    <p class="main-content">India is one of the largest two-wheeler market in the world. The Indian market of two-wheelers has some noteworthy diversity. In order to thrive in this massive </p>
+                    <p class="more-content">competition, manufacturers try to keep up with fast changing trends. Every year there are plenty of bike models that hit the market. BikeWale brings you an exhaustive list of newly launched bikes in India. Explore the list of latest bikes.</p>
+                    <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+<section>
+    <h2 class="section-heading">Upcoming bikes in India</h2>
+    <div class="container content-box-shadow section-bottom-margin">
+        <div class="box-shadow padding-top10 padding-bottom10">
+            <div class="grid-6 padding-left15 padding-right15 border-solid-right">
+                <p class="font12 text-light-grey">Brand</p>
+                <p id="brand-filter-selection" class="filter-selection-value text-truncate">All brands</p>
+            </div>
+            <div class="grid-6 padding-left15 padding-right15">
+                <p class="font12 text-light-grey">Launch year</p>
+                <p id="year-filter-selection" class="filter-selection-value text-truncate">All years</p>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <ul class="bike-listing-vertical">
+            <li class="list-item">
+                <p class="border-red-left font12 text-bold margin-bottom10">Launching this month</p>
+                <a href="" title="Honda CB Shine" class="block">
+                    <div class="item-image-content">
+                        <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg" alt="Honda CB Shine" src="" />
+                    </div>
+                    <h3>Honda CB Shine</h3>
+                    <p class="key-size-14 text-truncate">Expected launch</p>
+                    <span class="value-size-16">June 2016</span>
+                    <p class="key-size-14 text-truncate margin-top10">Expected price</p>
+                    <span class="bwmsprite inr-sm-icon"></span>&nbsp;<span class="value-size-18">12,489</span>&nbsp;<span class="value-size-14">onwards</span>
+                </a>
+            </li>
+            <li class="list-item">
+                <p class="border-red-left font12 text-bold margin-bottom10">Launching this month</p>
+                <a href="" title="Honda CB Shine" class="block">
+                    <div class="item-image-content">
+                        <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg" alt="Honda CB Shine" src="" />
+                    </div>
+                    <h3>Honda CB Shine</h3>
+                    <p class="key-size-14 text-truncate">Expected launch</p>
+                    <span class="value-size-16">June 2016</span>
+                    <p class="key-size-14 text-truncate margin-top10">Expected price</p>
+                    <span class="bwmsprite inr-sm-icon"></span>&nbsp;<span class="value-size-18">12,489</span>&nbsp;<span class="value-size-14">onwards</span>
+                </a>
+            </li>
+            <li class="list-item">
+                <p class="border-red-left font12 text-bold margin-bottom10">Launching this month</p>
+                <a href="" title="Honda CB Shine" class="block">
+                    <div class="item-image-content">
+                        <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg" alt="Honda CB Shine" src="" />
+                    </div>
+                    <h3>Honda CB Shine</h3>
+                    <p class="key-size-14 text-truncate">Expected launch</p>
+                    <span class="value-size-16">June 2016</span>
+                    <p class="key-size-14 text-truncate margin-top10">Expected price</p>
+                    <span class="bwmsprite inr-sm-icon"></span>&nbsp;<span class="value-size-18">12,489</span>&nbsp;<span class="value-size-14">onwards</span>
+                </a>
+            </li>
+            <li class="list-item">
+                <p class="border-red-left font12 text-bold margin-bottom10">Launching this month</p>
+                <a href="" title="Honda CB Shine" class="block">
+                    <div class="item-image-content">
+                        <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg" alt="Honda CB Shine" src="" />
+                    </div>
+                    <h3>Honda CB Shine</h3>
+                    <p class="key-size-14 text-truncate">Expected launch</p>
+                    <span class="value-size-16">June 2016</span>
+                    <p class="key-size-14 text-truncate margin-top10">Expected price</p>
+                    <span class="bwmsprite inr-sm-icon"></span>&nbsp;<span class="value-size-18">12,489</span>&nbsp;<span class="value-size-14">onwards</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top">
+            <div class="grid-5 omega text-light-grey font13">
+                <span class="text-bold text-default">1-10</span> of
+                <span class="text-bold text-default">2000</span> bikes
+            </div>
+            <div id="pagination-list-content" class="grid-7 alpha omega position-rel rightfloat pagination-list-content">
+                <ul id="pagination-list" class="pagination-list">
+                    <li class="active">1</li>
+                    <li><a href="">2</a></li>
+                    <li><a href="">3</a></li>
+                    <li><a href="">4</a></li>
+                    <li><a href="">5</a></li>
+                </ul>
+                <span class="pagination-control-prev inactive">
+                    <a href="" class="bwmsprite bwsprite prev-page-icon"></a>
+                </span>
+                <span class="pagination-control-next ">
+                    <a href="" class="bwmsprite bwsprite next-page-icon"></a>
+                </span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2 class="section-heading">Upcoming bikes by brands</h2>
+    <div class="container content-box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
+        <div id="brand-type-container" class="brand-type-container">
+            <ul>
+                <li>
+                    <a href="" title="">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-7"></span>
+                        </span>
+                        <span class="brand-type-title">Honda</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="" title="">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-1"></span>
+                        </span>
+                        <span class="brand-type-title">Bajaj</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="" title="">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-6"></span>
+                        </span>
+                        <span class="brand-type-title">Hero</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="" title="">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-11"></span>
+                        </span>
+                        <span class="brand-type-title">Royal Enfield</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="" title="">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-13"></span>
+                        </span>
+                        <span class="brand-type-title">Yamaha</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="" title="">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-12"></span>
+                        </span>
+                        <span class="brand-type-title">Suzuki</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 hide">
+                <li>
+                    <a href="" title="">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-7"></span>
+                        </span>
+                        <span class="brand-type-title">Honda</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="" title="">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-1"></span>
+                        </span>
+                        <span class="brand-type-title">Bajaj</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="" title="">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-6"></span>
+                        </span>
+                        <span class="brand-type-title">Hero</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="" title="">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-11"></span>
+                        </span>
+                        <span class="brand-type-title">Royal Enfield</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="" title="">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-13"></span>
+                        </span>
+                        <span class="brand-type-title">Yamaha</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="" title="">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-12"></span>
+                        </span>
+                        <span class="brand-type-title">Suzuki</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="view-all-btn-container">
+            <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwmsprite teal-right"></span></a>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2 class="section-heading">Newly launched bikes</h2>
+    <div class="contaner content-box-shadow section-bottom-margin padding-top15 padding-bottom15">
+        <div class="swiper-container card-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="/m/bajaj-bikes/model420x/" title="Bajaj model420x">
+                            <div class="swiper-image-preview position-rel">
+                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/suzuki-gixxer-fi.jpg?20161002175445" alt="Suzuki Gixxer Fi">
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="target-link font12 text-truncate margin-bottom5">Bajaj model420x</h3>
+                                <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
+                                <p>
+                                    <span class="text-default text-bold"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">5,454</span><span class="font14"> onwards</span></span>
+                                </p>
+                            </div>
+                        </a>
+                        <div class="swiper-btn-block">
+                            <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="/m/bajaj-bikes/model420x/" title="Bajaj model420x">
+                            <div class="swiper-image-preview position-rel">
+                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/suzuki-gixxer-fi.jpg?20161002175445" alt="Suzuki Gixxer Fi">
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="target-link font12 text-truncate margin-bottom5">Bajaj model420x</h3>
+                                <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
+                                <p>
+                                    <span class="text-default text-bold"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">5,454</span><span class="font14"> onwards</span></span>
+                                </p>
+                            </div>
+                        </a>
+                        <div class="swiper-btn-block">
+                            <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="/m/bajaj-bikes/model420x/" title="Bajaj model420x">
+                            <div class="swiper-image-preview position-rel">
+                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/suzuki-gixxer-fi.jpg?20161002175445" alt="Suzuki Gixxer Fi">
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="target-link font12 text-truncate margin-bottom5">Bajaj model420x</h3>
+                                <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
+                                <p>
+                                    <span class="text-default text-bold"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">5,454</span><span class="font14"> onwards</span></span>
+                                </p>
+                            </div>
+                        </a>
+                        <div class="swiper-btn-block">
+                            <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view-all-btn-container margin-top10">
+            <a href="" title="" class="btn view-all-target-btn">View all launches<span class="bwmsprite teal-right"></span></a>
+        </div>
+    </div>
+</section>
+
+<div id="brand-slideIn-drawer" class="slideIn-drawer-container fix-only-header">
+    <div class="drawer-top-header">
+        <span id="close-brand-slideIn-drawer" class="back-arrow-box inline-block">
+            <span class="bwmsprite back-long-arrow-left"></span>
+        </span><p class="head-label inline-block">Select brand</p>
+    </div>
+    <div class="drawer-body-content">
+        <div class="filter-input-box">
+            <div class="form-control-box">
+                <input type="text" id="" class="form-control padding-right40" placeholder="Type to select brand">
+                <span class="bwmsprite search-icon-grey"></span>
+            </div>
+        </div>
+        <ul class="filter-list">
+            <li>
+                <span>Bajaj</span>
+            </li>
+            <li>
+                <span>Honda</span>
+            </li>
+            <li>
+                <span>Hero</span>
+            </li>
+            <li>
+                <span>Royal Enfield</span>
+            </li>
+            <li>
+                <span>Yamaha</span>
+            </li>
+            <li>
+                <span>Bajaj</span>
+            </li>
+            <li>
+                <span>Honda</span>
+            </li>
+            <li>
+                <span>Hero</span>
+            </li>
+            <li>
+                <span>Royal Enfield</span>
+            </li>
+            <li>
+                <span>Yamaha</span>
+            </li>
+            <li>
+                <span>Bajaj</span>
+            </li>
+            <li>
+                <span>Honda</span>
+            </li>
+            <li>
+                <span>Hero</span>
+            </li>
+            <li>
+                <span>Royal Enfield</span>
+            </li>
+            <li>
+                <span>Yamaha</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div id="year-slideIn-drawer" class="slideIn-drawer-container fix-only-header">
+    <div class="drawer-top-header">
+        <span id="close-year-slideIn-drawer" class="back-arrow-box inline-block">
+            <span class="bwmsprite back-long-arrow-left"></span>
+        </span><p class="head-label inline-block">Select year</p>
+    </div>
+    <div class="drawer-body-content">
+        <ul class="filter-list">
+            <li>
+                <span>2020</span>
+            </li>
+            <li>
+                <span>2019</span>
+            </li>
+            <li>
+                <span>2018</span>
+            </li>
+            <li>
+                <span>2017</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div id="sort-filters-loader" style="display: none;">
+    <div id="popup-loader"></div>
+</div>
