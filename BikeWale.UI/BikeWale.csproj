@@ -458,11 +458,10 @@
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
-    <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
     <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
     <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
-    <Compile Include="Controllers\new\NewLaunches\DNewLaunchesController.cs" />
+    <Compile Include="Controllers\NewLaunchesController.cs" />
     <Compile Include="Controllers\new\Scooters\ScootersController.cs" />
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
@@ -924,6 +923,8 @@
     <Compile Include="Models\CompareBikes\PopularModelCompareWidget.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
+    <Compile Include="Models\NewLaunches\NewLaunchedIndexModel.cs" />
+    <Compile Include="Models\NewLaunches\NewLaunchesBikesModel.cs" />
     <Compile Include="Models\News\NewsIndexPage.cs" />
     <Compile Include="Models\Location\ChangeLocationPopup.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
@@ -3482,7 +3483,7 @@
     <Content Include="Views\m\Content\ExpertReviews\details_amp.cshtml" />
     <Content Include="Views\m\Content\Features\details_amp.cshtml" />
     <Content Include="Views\BikeModels\_BikeInfoCard_AMP_Mobile.cshtml" />
-    <Content Include="Views\m\NewLaunches\Index.cshtml" />
+    <Content Include="Views\NewLaunches\Index_Mobile.cshtml" />
     <Content Include="Views\m\Shared\_HomePageBanner.cshtml" />
     <Content Include="Views\m\Shared\_PopupWidget.cshtml" />
     <Content Include="Views\Pager\PagerControl.cshtml" />
@@ -3494,7 +3495,7 @@
     <Content Include="Views\NewLaunches\Index.cshtml" />
     <Content Include="Views\Shared\_LoginControl.cshtml" />
     <Content Include="Views\m\Shared\_LoginControl.cshtml" />
-    <Content Include="Views\m\NewLaunches\_NewLaunchedBikes.cshtml" />
+    <Content Include="Views\NewLaunches\_NewLaunchedBikes_Mobile.cshtml" />
     <Content Include="Views\m\Shared\_NewLaunchedByMakeWithoutCount.cshtml" />
     <Content Include="Views\m\Shared\_NewLaunchedByYear.cshtml" />
     <Content Include="Views\Shared\_NewLaunchedByYear.cshtml" />
