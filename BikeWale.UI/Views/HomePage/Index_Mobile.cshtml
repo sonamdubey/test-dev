@@ -15,7 +15,7 @@
     bool IsPopularBikesDataAvailable = (Model.PopularBikes != null && Model.PopularBikes.Bikes != null && Model.PopularBikes.Bikes.Count() > 0);
     bool IsNewLaunchedDataAvailable = (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0);
     bool IsUsedBikeCitiesAvailable = (Model.UsedBikeCities != null && Model.UsedBikeCities.Cities != null && Model.UsedBikeCities.Cities.Count() > 0);
-    bool IsUpcomingBikeAvailable = (Model.UpcomingBikes != null && Model.UpcomingBikes.Count() > 0);
+    bool IsUpcomingBikeAvailable = (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0);
     bool IsUsedModelsAvailable = (Model.UsedModels != null && Model.UsedModels.UsedBikeModelList != null && Model.UsedModels.UsedBikeModelList.Count() > 0);
     var reviewTabsCnt = 0;
     bool isNewsActive = false, isExpertReviewActive = false, isVideoActive = false;

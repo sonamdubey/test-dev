@@ -108,7 +108,8 @@ namespace Bikewale.Models
             objVM.NewLaunchedBikes.PageCatId = 5;
             objVM.NewLaunchedBikes.PQSourceId = (uint)PQSourceEnum.Desktop_New_NewLaunches;
 
-            objVM.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
+            objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
+            objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
 
             objVM.CompareBikes = new ComparisonMinWidget(_cachedCompare, 4, true, EnumBikeType.New).GetData();
 

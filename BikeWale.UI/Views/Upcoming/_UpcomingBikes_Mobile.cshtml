@@ -1,4 +1,5 @@
-﻿@model Bikewale.Models.Upcoming.UpcomingBikesWidgetVM
+﻿@model Bikewale.Models.UpcomingBikesWidgetVM
+@if (Model != null) { 
     <div class="swiper-container card-container">
         <div class="swiper-wrapper">
             @foreach (var bike in Model.UpcomingBikes)
@@ -38,3 +39,4 @@
             }
         </div>
     </div>
+}

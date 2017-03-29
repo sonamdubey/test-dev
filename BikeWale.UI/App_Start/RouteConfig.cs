@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
-using Bikewale.Service.UnityConfiguration;
 
 namespace Bikewale
 {
@@ -15,10 +10,12 @@ namespace Bikewale
             routes.MapMvcAttributeRoutes();
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("ajaxpro/{*pathInfo}");
-            routes.IgnoreRoute("ajax/{*pathInfo}");            
-            routes.IgnoreRoute("default.aspx");            
+            routes.IgnoreRoute("ajax/{*pathInfo}");
+            routes.IgnoreRoute("default.aspx");
             routes.IgnoreRoute("m/default.aspx");
             routes.IgnoreRoute("{*allaspx}", new { allaspx = @".*\.aspx(/.*)?" });
+            routes.IgnoreRoute("{*allcss}", new { allcss = @".*\.css(/.*)?" });
+            routes.IgnoreRoute("{*alljs}", new { alljs = @".*\.js(/.*)?" });
 
             routes.MapRoute(
                 name: "bikewale.ui.m",

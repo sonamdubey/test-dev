@@ -16,7 +16,7 @@ namespace Bikewale.Models
         public BrandWidgetVM Brands { get; set; }
         public NewLaunchedWidgetVM NewLaunchedBikes { get; set; }
         public MostPopularBikeWidgetVM PopularBikes { get; set; }
-        public IEnumerable<UpcomingBikeEntity> UpcomingBikes { get; set; }
+        public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
         public BestBikeWidgetVM BestBikes { get; set; }
         public ComparisonMinWidgetVM CompareBikes { get; set; }
         public UsedBikeCitiesWidgetVM UsedBikeCities { get; set; }
@@ -27,3 +27,4 @@ namespace Bikewale.Models
     }
 
 }
+
