@@ -80,11 +80,8 @@
     <Compile Include="Videos\VideosBySubcategoryVM.cs" />
     <Compile Include="Used\UsedBikeCitiesWidgetVM.cs" />
     <Compile Include="Used\UsedBikeByModelCityVM.cs" />
-
     <Compile Include="Used\UsedBikeByModelVM.cs" />
-
     <Compile Include="Used\UsedModelsVM.cs" />
->
     <Compile Include="Videos\RecentVideosVM.cs" />
   </ItemGroup>
   <ItemGroup>
