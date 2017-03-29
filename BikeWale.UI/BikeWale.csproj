@@ -460,13 +460,12 @@
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
     <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
-    <Compile Include="Controllers\m\new\Videos\VideosMobileController.cs" />
     <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\new\NewLaunches\DNewLaunchesController.cs" />
     <Compile Include="Controllers\new\Scooters\ScootersController.cs" />
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
-    <Compile Include="Controllers\new\Videos\VideosController.cs" />
+    <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
     <Compile Include="Controllers\PriceController.cs" />
     <Compile Include="Controllers\PriceInCityController.cs" />
@@ -940,6 +939,7 @@
     <Compile Include="Models\ServiceCenters\ServiceCentersInNearByCities.cs" />
     <Compile Include="Models\HomePageModel.cs" />
     <Compile Include="Models\Upcoming\UpcomingBikesWidget.cs" />
+    <Compile Include="Models\Videos\VideoDetails.cs" />
     <Compile Include="Models\Videos\VideosByCategory.cs" />
     <Compile Include="Models\Videos\VideosBySubcategory.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedWidgetModel.cs" />
@@ -3511,14 +3511,14 @@
     <Content Include="Views\Shared\_SimilarVideo.cshtml" />
     <Content Include="Views\m\Scooters\BikesByMake.cshtml" />
     <Content Include="Views\BikeModels\_BikeInfoCard.cshtml" />
-    <Content Include="Views\m\Videos\Makes.cshtml" />
+    <Content Include="Views\Videos\Makes_Mobile.cshtml" />
     <Content Include="Views\Videos\Makes.cshtml" />
     <Content Include="Views\m\Shared\_PopularBikes.cshtml" />
     <Content Include="Views\Shared\_PopularBikes.cshtml" />
     <Content Include="Views\Shared\_PopularBodyStyle.cshtml" />
     <Content Include="Views\Scooters\index.cshtml" />
     <Content Include="Views\m\Shared\_PopularBodyStyle.cshtml" />
-    <Content Include="Views\m\Videos\Details.cshtml" />
+    <Content Include="Views\Videos\Details_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_BikeInfoCard_Mobile.cshtml" />
     <Content Include="Views\m\Shared\_SimilarVideo.cshtml" />
     <Content Include="Views\Scooters\models.cshtml" />
@@ -3675,7 +3675,6 @@
     <Folder Include="content\ComparisonTest\" />
     <Folder Include="Controllers\m\new\Scooters\" />
     <Folder Include="Models\Features\" />
-    <Folder Include="Models\Upcoming\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
