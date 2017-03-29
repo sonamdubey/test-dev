@@ -107,7 +107,7 @@
                             }
                             else
                             {
-                                <div class="priceTable @(version.VersionId != Model.VersionId?"hide":string.Empty)" id="@Model.VersionId">
+                                <div class="priceTable @(version.VersionId != Model.VersionId?"hide":string.Empty)" id="@version.VersionId">
                                     <p class="text-x-grey margin-bottom15">@Model.BikeName is now discontinued in India.</p>
                                     <div class="padding-bottom15 text-default text-bold">
                                         <span class="margin-right5">Last known Ex-showroom price</span>
@@ -120,7 +120,8 @@
                     </div>
 
                     <div class="grid-4 padding-top15 padding-left15">
-                        @if(Model.IsAreaSelected) {
+                        @if (Model.IsAreaSelected && Model.IsNew)
+                        {
                             <p class="text-black">Get in touch with dealer for:</p>
                             <ul class="selectAreaToGetList margin-bottom20">
                                 <li class="bullet-point">
