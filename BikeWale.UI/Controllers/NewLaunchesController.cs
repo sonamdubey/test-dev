@@ -63,63 +63,6 @@ namespace Bikewale.Controllers
         [Route("m/newlaunches/")]
         public ActionResult Index_Mobile(ushort? pageNumber)
         {
-            //ViewBag.PageNumber = (int)(pageNumber.HasValue ? pageNumber : 1);
-            //ViewBag.PageSize = 10;
-
-            //var objFilters = new InputFilter()
-            //{
-            //    PageNo = ViewBag.PageNumber,
-            //    CityId = _objLocation.CityId,
-            //    PageSize = ViewBag.PageSize
-            //};
-            //ViewBag.Bikes = _newLaunches.GetBikes(objFilters);
-            //int TopCount = 6;
-            //IEnumerable<BikesCountByMakeEntityBase> makes = _newLaunches.GetMakeList();
-            //ViewBag.Makes = makes;
-            //if (makes != null && makes.Count() > 0)
-            //{
-            //    ViewBag.TopMakes = makes.Take(TopCount);
-            //    ViewBag.OtherMakes = makes.Count() > TopCount ? makes.Skip(TopCount).OrderBy(m => m.Make.MakeName) : null;
-            //}
-            //ViewBag.Description = string.Format("Check out the latest bikes in India. Explore the bikes launched in {0}. Know more about prices, mileage,colors, specifications, and dealers of new bikes launches in {0}.", DateTime.Today.Year);
-            //ViewBag.Title = string.Format("New Bike Launches in {0} | Latest Bikes in India - BikeWale", DateTime.Today.Year);
-            //ViewBag.Keywords = string.Format("new bikes {0}, new bike launches in {1}, just launched bikes, new bike arrivals, bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year);
-            //ViewBag.canonical = string.Format("{0}/new-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs);
-
-            //ViewBag.pager = new PagerEntity()
-            //{
-            //    PageNo = ViewBag.PageNumber,
-            //    PageSize = ViewBag.PageSize,
-            //    PagerSlotSize = 5,
-            //    BaseUrl = "/m/new-bike-launches/",
-            //    PageUrlType = "page/",
-            //    TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
-            //};
-
-            //var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
-            //{
-            //    EndIndex = 9,
-            //    StartIndex = 1
-            //};
-            //var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-
-            //IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
-            //ViewBag.UpcomingBikes = objUpcomingBikes;
-
-            //int pages = (int)(ViewBag.Bikes.TotalCount / ViewBag.PageSize);
-
-            //if ((ViewBag.Bikes.TotalCount % ViewBag.PageSize) > 0)
-            //    pages += 1;
-            //string prevUrl = string.Empty, nextUrl = string.Empty;
-            //Paging.CreatePrevNextUrl(pages, "/m/new-bike-launches/", (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
-
-            //ViewBag.location = _objLocation;
-
-            //ViewBag.relPrevPageUrl = prevUrl;
-            //ViewBag.relNextPageUrl = nextUrl;
-
-            //return View("~/views/m/newlaunches/index.cshtml");
-
             var objFilters = new InputFilter()
             {
                 PageNo = (int)(pageNumber.HasValue ? pageNumber : 1),
