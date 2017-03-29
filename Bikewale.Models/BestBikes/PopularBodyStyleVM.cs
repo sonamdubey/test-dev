@@ -15,6 +15,9 @@ namespace Bikewale.Models.BestBikes
     public class PopularBodyStyleVM
     {
         public IEnumerable<MostPopularBikesBase> PopularBikes { get; set; }
+        public string WidgetHeading { get; set; }
+        public string WidgetLinkTitle { get; set; }
+        public string WidgetHref { get; set; }
         public string BodyStyleText { get; set; }
         public string BodyStyleLinkTitle { get; set; }
         public EnumBikeBodyStyles BodyStyle { get; set; }

@@ -11,5 +11,5 @@ namespace Bikewale.Entities.CMS.Articles
         public IList<ArticleSummary> Articles { get; set; }
         [DataMember]
         public uint RecordCount { get; set; }
-    }
+     }
 }
