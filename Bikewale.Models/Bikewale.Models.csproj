@@ -61,6 +61,7 @@
     <Compile Include="Location\ChangeLocationPopupVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
+    <Compile Include="News\NewsIndexPageVM.cs" />
     <Compile Include="NewLaunches\NewLaunchedWidgetVM.cs" />
     <Compile Include="Price\DealerPriceQuotePageVM.cs" />
     <Compile Include="News\RecentNewsVM.cs" />
@@ -75,11 +76,16 @@
     <Compile Include="Shared\Pager.cs" />
     <Compile Include="Shared\PopularScootersList.cs" />
     <Compile Include="Shared\Showrooms.cs" />
-    <Compile Include="UsedBikes\UsedBikeCitiesWidgetVM.cs" />
-    <Compile Include="Used\UsedBikeByModelCityVM.cs" />
-    <Compile Include="Used\UsedBikeByModelVM.cs" />
-    <Compile Include="Videos\RecentVideosVM.cs" />
+    <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
     <Compile Include="Videos\VideosBySubcategoryVM.cs" />
+    <Compile Include="Used\UsedBikeCitiesWidgetVM.cs" />
+    <Compile Include="Used\UsedBikeByModelCityVM.cs" />
+
+    <Compile Include="Used\UsedBikeByModelVM.cs" />
+
+    <Compile Include="Used\UsedModelsVM.cs" />
+>
+    <Compile Include="Videos\RecentVideosVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">

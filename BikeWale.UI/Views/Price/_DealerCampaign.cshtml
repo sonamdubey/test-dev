@@ -84,7 +84,7 @@
             @if (Model.PrimaryDealer.IsPremiumDealer)
             {
                 <div class="grid-6 omega">
-                    <script src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&callback=initializeDealerMap" async defer ></script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&callback=initializeDealerMap" async defer></script>
 
                     <div id="dealerMap" style="width: 438px; height: 202px; border: 1px solid #f5f5f5;"></div>
                     <div id="get-direction-button" title="get directions">
@@ -235,47 +235,47 @@
                 {
                     bool isSingleOffer = Model.PrimaryDealer.OfferList.Count() == 1;
                     <!-- offers -->
-                                <div class="alpha @(Model.PrimaryDealer.IsPremiumDealer && Model.PrimaryDealer.HasBenefits ? " grid-6 border-light-right"  :"grid-12 omega offers-or-benefits")">
-                    <p class=" text-bold margin-bottom5">
-                        Offers from this dealer:
-                    </p>
-                    <ul class="dealership-benefit-list">
+                    <div class="alpha @(Model.PrimaryDealer.IsPremiumDealer && Model.PrimaryDealer.HasBenefits ? " grid-6 border-light-right"  :"grid-12 omega offers-or-benefits")">
+                        <p class=" text-bold margin-bottom5">
+                            Offers from this dealer:
+                        </p>
+                        <ul class="dealership-benefit-list">
 
-                        @foreach (var offer in Model.PrimaryDealer.OfferList)
+                            @foreach (var offer in Model.PrimaryDealer.OfferList)
                             {
 
-                            <li class="@( isSingleOffer ? " single-offer" : "")">
-                                <span class="inline-block benefit-list-image pq-sprite @(string.Format(" offerIcon_{0}", offer.OfferCategoryId))">
-                                </span>
-                                <span class="inline-block benefit-list-title">
-                                    @offer.OfferText
-                                    @if (offer.IsOfferTerms)
+                                <li class="@( isSingleOffer ? " single-offer" : "")">
+                                    <span class="inline-block benefit-list-image pq-sprite @(string.Format(" offerIcon_{0}", offer.OfferCategoryId))">
+                                    </span>
+                                    <span class="inline-block benefit-list-title">
+                                        @offer.OfferText
+                                        @if (offer.IsOfferTerms)
                                         {
-                                        <span class="tnc font9 margin-left5" id="@offer.OfferId">View terms</span>
+                                            <span class="tnc font9 margin-left5" id="@offer.OfferId">View terms</span>
                                         }
-                                </span>
-                            </li>
+                                    </span>
+                                </li>
                             }
-                    </ul>
-                    <div class="clear"></div>
-                </div>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
                 }
                 @if (Model.PrimaryDealer.IsPremiumDealer && Model.PrimaryDealer.HasBenefits)
                 {
                                     <!-- benefits -->
-                <div class="omega @(!Model.PrimaryDealer.IsStandardDealer && Model.PrimaryDealer.HasOffers ? " grid-6 padding-left30" : "grid-12 alpha offers-or-benefits")">
-                    <p class="text-bold margin-bottom5">Benefits offered by this dealer</p>
-                    <ul class="dealership-benefit-list">
-                        @foreach (var benefit in Model.PrimaryDealer.Benefits)
+                    <div class="omega @(!Model.PrimaryDealer.IsStandardDealer && Model.PrimaryDealer.HasOffers ? " grid-6 padding-left30" : "grid-12 alpha offers-or-benefits")">
+                        <p class="text-bold margin-bottom5">Benefits offered by this dealer</p>
+                        <ul class="dealership-benefit-list">
+                            @foreach (var benefit in Model.PrimaryDealer.Benefits)
                             {
-                            <li>
-                                <span class="inline-block benefit-list-image pq-sprite @(string.Format(" benifitIcon_{0}", benefit.CatId))"></span>
-                                <span class="inline-block benefit-list-title">@benefit.BenefitText</span>
-                            </li>
+                                <li>
+                                    <span class="inline-block benefit-list-image pq-sprite @(string.Format(" benifitIcon_{0}", benefit.CatId))"></span>
+                                    <span class="inline-block benefit-list-title">@benefit.BenefitText</span>
+                                </li>
                             }
-                    </ul>
-                    <div class="clear"></div>
-                </div>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
                 }
                 <div class="clear"></div>
             </div>
@@ -298,7 +298,7 @@
                     <div class="clear"></div>
                 </div>
                 <div class="grid-4 padding-top5">
-                    <a href="/pricequote/bookingsummary_new.aspx?MPQ=" class="btn btn-teal book-now-btn btn-188-40">Book bike</a>
+                    <a href="#" onclick="return this.href='/pricequote/bookingsummary_new.aspx' + window.location.search" class="btn btn-teal book-now-btn btn-188-40">Book bike</a>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -312,11 +312,11 @@
                 <span id="read-less">
                     @if (Model.PrimaryDealer.IsPremiumDealer)
                     {
-                    <span>The bike prices and EMI quote mentioned here are indicative and are provided by their authorized dealerships. BikeWale takes utmost care in gathering precise</span>
+                        <span>The bike prices and EMI quote mentioned here are indicative and are provided by their authorized dealerships. BikeWale takes utmost care in gathering precise</span>
                     }
                     else
                     {
-                    <span>The bike prices mentioned here are indicative and are provided by their authorized dealerships. BikeWale takes utmost care in gathering precise and accurate</span>
+                        <span>The bike prices mentioned here are indicative and are provided by their authorized dealerships. BikeWale takes utmost care in gathering precise and accurate</span>
                     }
                     <a id="readmore" class="text-link">read more</a>
                 </span>
@@ -446,32 +446,33 @@
                 });
             };
 
-           docReady(function(){
+            docReady(function(){
 
-               var EMISection = $("#EMISection");
-               ko.bindingHandlers.slider = {
-                   init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
-                       var options = allBindingsAccessor().sliderOptions || {};
-                       $("#" + element.id).slider(options);
-                       ko.utils.registerEventHandler("#" + element.id, "slide", function (event, ui) {
-                           var observable = valueAccessor();
-                           observable(ui.value);
-                       });
-                   },
-                   update: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
-                       var options = allBindingsAccessor().sliderOptions || {};
-                       $("#" + element.id).slider(options);
-                       var value = ko.utils.unwrapObservable(valueAccessor());
-                       if (isNaN(value)) value = 0;
-                       $("#" + element.id).slider("value", value);
-                   }
-               };
+                var EMISection = $("#EMISection");
 
-               EMIviewModel = new BikeEMI;
-               if(EMISection && EMISection.length > 1)
-               {
-                   ko.applyBindings(EMIviewModel, $("#EMISection")[0]);
-               }               
+                ko.bindingHandlers.slider = {
+                    init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
+                        var options = allBindingsAccessor().sliderOptions || {};
+                        $("#" + element.id).slider(options);
+                        ko.utils.registerEventHandler("#" + element.id, "slide", function (event, ui) {
+                            var observable = valueAccessor();
+                            observable(ui.value);
+                        });
+                    },
+                    update: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
+                        var options = allBindingsAccessor().sliderOptions || {};
+                        $("#" + element.id).slider(options);
+                        var value = ko.utils.unwrapObservable(valueAccessor());
+                        if (isNaN(value)) value = 0;
+                        $("#" + element.id).slider("value", value);
+                    }
+                };
+
+                if(EMISection)
+                {
+                    EMIviewModel = new BikeEMI;
+                    ko.applyBindings(EMIviewModel, EMISection[0]);
+                }
             })
 
 

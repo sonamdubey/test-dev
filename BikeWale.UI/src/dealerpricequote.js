@@ -1,15 +1,18 @@
-﻿var detailsSubmitBtn = $("#user-details-submit-btn, #buyingAssistBtn");
+﻿var selectDropdownBox, msg = "";
 var getCityArea = GetGlobalCityArea();
-var getOfferClick = false;
-var getMoreDetailsClick = false;
-var getEMIClick = false;
-var msg = "";
+var getOfferClick = false, getMoreDetailsClick = false, getEMIClick = false;
 
-var variantsDropdown = $(".variants-dropdown"),
-variantSelectionTab = $(".variant-selection-tab"),
-variantUL = $(".variants-dropdown-list"),
-variantListLI = $(".variants-dropdown-list li");
+var variantsDropdown, variantSelectionTab, variantUL, variantListLI;
 
+var variantChangeDown = function (variantsDropdown) {
+    variantsDropdown.addClass("open");
+    variantUL.show();
+};
+
+var variantChangeUp = function (variantsDropdown) {
+    variantsDropdown.removeClass("open");
+    variantUL.slideUp();
+};
 
 function registerPQAndReload(eledealerId, eleversionId) {
     try {
@@ -38,6 +41,7 @@ function registerPQAndReload(eledealerId, eleversionId) {
         console.warn("Unable to create pricequote : " + e.message);
     }
 }
+
 function secondarydealer_Click(dealerID) {
     triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Clicked', bikeVerLocation);
     registerPQAndReload(dealerID);
@@ -96,15 +100,23 @@ function LoadTerms(offerId) {
 }
 
 docReady(function () {
+
     // version dropdown
-    var selectDropdownBox = $('.select-box-no-input');
+    selectDropdownBox = $('.select-box-no-input');
 
-    selectDropdownBox.each(function () {
-        var text = $(this).find('.chosen-select').attr('data-title'),
-            searchBox = $(this).find('.chosen-search')
+    variantsDropdown = $(".variants-dropdown"), variantSelectionTab = $(".variant-selection-tab"),
+    variantUL = $(".variants-dropdown-list"), variantListLI = $(".variants-dropdown-list li");
 
-        searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
-    });
+    var breadcrumbFlag, breadcrumbDiv = $('.breadcrumb');
+    var sidebarHeight = false;
+    var $window = $(window),
+        disclaimerText = $('#disclaimerText'),
+        PQDealerSidebarContainer = $('#PQDealerSidebarContainer'),
+        dealerPriceQuoteContainer = $('#dealerPriceQuoteContainer'),
+        PQDealerSidebarHeight;
+
+    // version dropdown
+    $('.chosen-select').chosen();
 
     if ($('.pricequote-benefits-list li').length % 2 == 0) {
         $('.pricequote-benefits-list').addClass("pricequote-two-benefits");
@@ -114,9 +126,6 @@ docReady(function () {
         registerPQAndReload(dealerId, $(this).val());
         triggerGA('Dealer_PQ', 'Version_Changed', bikeVerLocation);
     });
-
-    // version dropdown
-    $('.chosen-select').chosen();
 
     $("#readmore").on("click", function () {
         loadDisclaimer(dealerType);
@@ -187,7 +196,7 @@ docReady(function () {
         }
     });
 
-    var sidebarHeight = false;
+
     if ($('#pqBikeDetails').height() < 400) {
         $('#PQDealerSidebarContainer').css({ 'padding-bottom': '20px' });
         $('#PQDealerSidebarContainer .pqdealer-and-listing-container').css({ 'height': '350px' });
@@ -207,14 +216,12 @@ docReady(function () {
         }
     }
 
-    var breadcrumbFlag,
-        breadcrumbDiv = $('.breadcrumb');
+    selectDropdownBox.each(function () {
+        var text = $(this).find('.chosen-select').attr('data-title'),
+            searchBox = $(this).find('.chosen-search')
 
-    var $window = $(window),
-        disclaimerText = $('#disclaimerText'),
-        PQDealerSidebarContainer = $('#PQDealerSidebarContainer'),
-        dealerPriceQuoteContainer = $('#dealerPriceQuoteContainer'),
-        PQDealerSidebarHeight;
+        searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
+    });
 
     $(window).scroll(function () {
         PQDealerSidebarHeight = PQDealerSidebarContainer.height();
@@ -250,21 +257,10 @@ docReady(function () {
         }
     });
 
+    variantsDropdown.click(function (e) {
+        if (!variantsDropdown.hasClass("open"))
+            variantChangeDown(variantsDropdown);
+        else
+            variantChangeUp(variantsDropdown);
+    });
 });
-
-variantsDropdown.click(function (e) {
-    if (!variantsDropdown.hasClass("open"))
-        $.variantChangeDown(variantsDropdown);
-    else
-        $.variantChangeUp(variantsDropdown);
-});
-
-$.variantChangeDown = function (variantsDropdown) {
-    variantsDropdown.addClass("open");
-    variantUL.show();
-};
-
-$.variantChangeUp = function (variantsDropdown) {
-    variantsDropdown.removeClass("open");
-    variantUL.slideUp();
-};

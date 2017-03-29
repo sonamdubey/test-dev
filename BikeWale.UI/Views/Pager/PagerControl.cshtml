@@ -7,16 +7,17 @@
             @foreach (var pg in @Model.PagerOutput.PagesDetail)
             {
                 <li class="@(pg.PageNo.Equals(@Model.CurrentPageNo) ? "active" : "")">
-                    <a data-hash="@string.Format("city={0}&make={1}&model={2}", @Model.CityId, @Model.MakeId,@Model.ModelId)" data-bind='click: function (d,e) {  ChangePageNumber(e); }' href="@pg.PageUrl" data-pagenum="@pg.PageNo">@pg.PageNo</a>
+                    <a data-hash="@((Model.ShowHash)? string.Format("city={0}&make={1}&model={2}", @Model.CityId, @Model.MakeId,@Model.ModelId) : "")" data-bind='click: function (d,e) {  ChangePageNumber(e); }' href="@pg.PageUrl" data-pagenum="@pg.PageNo">@pg.PageNo</a>
                 </li>
             }
         </ul>
         <span class="pagination-control-prev @(String.IsNullOrEmpty(Model.PagerOutput.PreviousPageUrl) ? " inactive" : "") " data-bind="html: PrevPageHtml, css: Pagination().hasPrevious() ? 'active' : 'inactive' ">
-            <a href="@Model.PagerOutput.PreviousPageUrl" class="bwmsprite bwsprite prev-page-icon" data-hash="@string.Format("city={0}&make ={1}&model ={2}", Model.CityId,Model.MakeId, Model.ModelId)" data-pagenum="@(Model.CurrentPageNo >1 ? Model.CurrentPageNo - 1: 1)"></a>
+            <a href="@Model.PagerOutput.PreviousPageUrl" class="bwmsprite bwsprite prev-page-icon" data-hash="@(Model.ShowHash?string.Format("city={0}&make ={1}&model ={2}", Model.CityId,Model.MakeId, Model.ModelId):"")" data-pagenum="@(Model.CurrentPageNo >1 ? Model.CurrentPageNo - 1: 1)"></a>
         </span>
         <span class="pagination-control-next @(String.IsNullOrEmpty(Model.PagerOutput.NextPageUrl) ? " inactive" : "") " data-bind="html: NextPageHtml, css: Pagination().hasNext() ? 'active' : 'inactive'">
-            <a href="@Model.PagerOutput.NextPageUrl" class="bwmsprite bwsprite next-page-icon" data-hash="@string.Format("city={0}&make ={1}&model ={2}", Model.CityId,Model.MakeId, Model.ModelId)" data-pagenum="@(Model.CurrentPageNo < Model.TotalPages? Model.CurrentPageNo + 1: Model.TotalPages)"></a>
+            <a href="@Model.PagerOutput.NextPageUrl" class="bwmsprite bwsprite next-page-icon" data-hash="@(Model.ShowHash?string.Format("city={0}&make ={1}&model ={2}", Model.CityId,Model.MakeId, Model.ModelId):"")" data-pagenum="@(Model.CurrentPageNo < Model.TotalPages? Model.CurrentPageNo + 1: Model.TotalPages)"></a>
         </span>
     </div>
     <div class="clear"></div>
 }      
+

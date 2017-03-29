@@ -453,7 +453,6 @@
     <Compile Include="Controllers\BestBikesController.cs" />
     <Compile Include="Controllers\CompareBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
-    <Compile Include="Controllers\FeaturesController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\MakeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
@@ -926,11 +925,13 @@
     <Compile Include="Models\CompareBikes\PopularModelCompareWidget.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
+    <Compile Include="Models\News\NewsIndexPage.cs" />
     <Compile Include="Models\Location\ChangeLocationPopup.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\Videos\RecentVideos.cs" />
@@ -938,6 +939,7 @@
     <Compile Include="Models\ServiceCenters\ServiceCentersCard.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersInNearByCities.cs" />
     <Compile Include="Models\HomePageModel.cs" />
+    <Compile Include="Models\Upcoming\UpcomingBikesWidget.cs" />
     <Compile Include="Models\Videos\VideosByCategory.cs" />
     <Compile Include="Models\Videos\VideosBySubcategory.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedWidgetModel.cs" />
@@ -2993,6 +2995,7 @@
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\new-launch.js" />
     <Content Include="m\src\photos.js" />
+    <Content Include="m\src\priceincity.js" />
     <Content Include="m\src\scooters-by-make.js" />
     <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
@@ -3123,6 +3126,7 @@
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos.js" />
+    <Content Include="src\priceincity.js" />
     <Content Include="src\scooters.js" />
     <Content Include="src\service\location.js" />
     <Content Include="src\service\details.js" />
@@ -3618,12 +3622,6 @@
     <Content Include="Views\NewLaunches\_NewLaunches_Mobile.cshtml" />
     <Content Include="Views\BestBikes\_BestBikes.cshtml" />
     <Content Include="Views\BestBikes\_BestBikes_Mobile.cshtml" />
-    <Content Include="Views\News\_RecentNews.cshtml" />
-    <Content Include="Views\News\_RecentNews_Mobile.cshtml" />
-    <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ.cshtml" />
-    <Content Include="Views\BikeCare\_BikeTroubleshootingFAQ_Mobile.cshtml" />
-    <Content Include="Views\BikeCare\_RecentBikeCare.cshtml" />
-    <Content Include="Views\BikeCare\_RecentBikeCare_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_ComparisonMin_Mobile.cshtml" />
     <Content Include="Views\Videos\_SimilarVideos.cshtml" />
     <Content Include="Views\Videos\_SimilarVideos_Mobile.cshtml" />
@@ -3632,6 +3630,12 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare_Mobile.cshtml" />
+
+    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\News\Index_Mobile.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikes_Vertical.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Middle.cshtml" />
+
     <Content Include="Views\DealerShowroom\DealerDetail.cshtml" />
     <Content Include="Views\UsedBikes\_UsedBikesCIties.cshtml" />
     <Content Include="Views\UsedBikes\_UsedBikesCIties_Mobile.cshtml" />
@@ -3648,8 +3652,12 @@
     <Content Include="Views\Price\_DealerCampaign_Mobile.cshtml" />
     <Content Include="Views\Price\_SecondaryDealers_Mobile.cshtml" />
     <Content Include="Views\Price\_ManufacturerCampaign_Mobile.cshtml" />
+
     <Content Include="Views\DealerShowroom\Index.cshtml" />
     <Content Include="Views\DealerShowroom\Index_Mobile.cshtml" />
+
+    <Content Include="Views\PriceInCity\Index_Mobile.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3667,6 +3675,7 @@
     <Folder Include="content\ComparisonTest\" />
     <Folder Include="Controllers\m\new\Scooters\" />
     <Folder Include="Models\Features\" />
+    <Folder Include="Models\Upcoming\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
@@ -3755,7 +3764,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54955</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9011</IISUrl>
+          <IISUrl>http://localhost:9011/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
