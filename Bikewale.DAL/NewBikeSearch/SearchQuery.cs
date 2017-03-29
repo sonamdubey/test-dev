@@ -311,7 +311,7 @@ namespace Bikewale.DAL.NewBikeSearch
             {
                 for (int i = 0; i < filterInputs.Displacement.Length; i++)
                 {
-                    if (CommonValidators.ValidRange(Convert.ToInt32(filterInputs.Displacement[i]), 1, 7))
+                    if (CommonValidators.ValidRange(Convert.ToInt32(filterInputs.Displacement[i]), 1, 8))
                     {
                         string displacementClause = GetDisplacementClause(filterInputs.Displacement[i]);
                         if (!String.IsNullOrEmpty(displacementClause))
