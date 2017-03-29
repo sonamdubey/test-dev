@@ -454,7 +454,8 @@
     <Compile Include="Controllers\CompareBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
-    <Compile Include="Controllers\FeaturesController.cs" />
+    <Compile Include="Controllers\MakeController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
@@ -467,11 +468,13 @@
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\new\Videos\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
+    <Compile Include="Controllers\PriceController.cs" />
     <Compile Include="Controllers\PriceInCityController.cs" />
     <Compile Include="Controllers\ServiceCentersController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\GenericBikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
+    <Compile Include="Controllers\UsedController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -902,25 +905,36 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BikeModels\BikeModelRank.cs" />
+    <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
+    <Compile Include="Models\Make\BrandCityPopupModel.cs" />
+    <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
+    <Compile Include="Models\DealerPriceQuotePage.cs" />
     <Compile Include="Models\DealerShowroom\DealerShowroomCityPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerShowroomDealerDetail.cs" />
+    <Compile Include="Models\Make\MakePageModel.cs" />
     <Compile Include="Models\DealerShowroom\DealerShowroomIndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerShowroomIndiaPage.cs" />
     <Compile Include="Models\BestBikes\PopularBikesByBodyStyle.cs" />
     <Compile Include="Models\BikeModels\BikeInfoWidget.cs" />
     <Compile Include="Models\BestBikes\BestBikeWidgetModel.cs" />
     <Compile Include="Models\BikeModels\MostPopularBikesWidget.cs" />
-    <Compile Include="Models\BikeMakes\BrandWidgetModel.cs" />
+    <Compile Include="Models\Make\BrandWidgetModel.cs" />
     <Compile Include="Models\BikeModels\SimilarBikesWidget.cs" />
-    <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\CompareBikes\ComparisonMinWidget.cs" />
     <Compile Include="Models\CompareBikes\PopularModelCompareWidget.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
     <Compile Include="Models\News\NewsIndexPage.cs" />
+    <Compile Include="Models\Location\ChangeLocationPopup.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
+    <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
+    <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
+    <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
+    <Compile Include="Models\Videos\RecentVideos.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersByBrand.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersCard.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersInNearByCities.cs" />
@@ -929,7 +943,7 @@
     <Compile Include="Models\Videos\VideosByCategory.cs" />
     <Compile Include="Models\Videos\VideosBySubcategory.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedWidgetModel.cs" />
-    <Compile Include="Models\Videos\RecentVideos.cs" />
+    <Compile Include="Models\UsedBikes\UsedBikeCitiesWidgetModel.cs" />
     <Compile Include="mybikewale\buyerdetails.aspx.cs">
       <DependentUpon>buyerdetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2981,6 +2995,7 @@
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\new-launch.js" />
     <Content Include="m\src\photos.js" />
+    <Content Include="m\src\priceincity.js" />
     <Content Include="m\src\scooters-by-make.js" />
     <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
@@ -3071,6 +3086,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="new\photos\Default.aspx" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
     <Content Include="servicecenter\ServiceCenterInCountry.aspx" />
@@ -3109,6 +3125,7 @@
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos.js" />
+    <Content Include="src\priceincity.js" />
     <Content Include="src\scooters.js" />
     <Content Include="src\service\location.js" />
     <Content Include="src\service\details.js" />
@@ -3254,6 +3271,12 @@
     <Content Include="Videos\video.aspx" />
     <Content Include="Videos\VideoCategories.aspx" />
     <Content Include="Videos\VideoMakeModel.aspx" />
+    <Content Include="Views\Make\_DealerServiceCentersWidget.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Make\_DealerServiceCentersWidget_Mobile.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="VisitorAgreement.aspx" />
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe" />
     <Content Include="wkhtmltopdf\bin\wkhtmltopdf.exe" />
@@ -3460,11 +3483,11 @@
     <Content Include="Views\m\Shared\_HomePageBanner.cshtml" />
     <Content Include="Views\m\Shared\_PopupWidget.cshtml" />
     <Content Include="Views\Pager\PagerControl.cshtml" />
-    <Content Include="Views\m\Shared\_ChangeLocation.cshtml" />
+    <Content Include="Views\Location\_ChangeLocation_Mobile.cshtml" />
     <Content Include="Views\Shared\_Layout_Desktop.cshtml" />
     <Content Include="Views\Shared\_LoginStatus.cshtml" />
     <Content Include="Views\Shared\_PopupWidget.cshtml" />
-    <Content Include="Views\Shared\_ChangeLocation.cshtml" />
+    <Content Include="Views\Location\_ChangeLocation.cshtml" />
     <Content Include="Views\NewLaunches\Index.cshtml" />
     <Content Include="Views\Shared\_LoginControl.cshtml" />
     <Content Include="Views\m\Shared\_LoginControl.cshtml" />
@@ -3546,7 +3569,6 @@
     <Content Include="Views\DealerShowroom\DealersInIndia.cshtml" />
     <Content Include="Views\DealerShowroom\DealersInIndia_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersByBrand_Mobile.cshtml" />
-    <Content Include="Views\DealerShowroom\DealerDetail.cshtml" />
     <Content Include="Views\DealerShowroom\_DealerCard_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\DealerDetail_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\DealerInCity.cshtml" />
@@ -3565,7 +3587,7 @@
     <Content Include="Views\BikeModels\_MostPopularBikes.cshtml" />
     <Content Include="Views\BikeModels\_MostPopularBikes_Mobile.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
-    <Content Include="Views\BikeMakes\_Brands.cshtml" />
+    <Content Include="Views\Make\_Brands.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews.cshtml" />
     <Content Include="Views\ExpertReviews\_RecentExpertReviews_Mobile.cshtml" />
     <Content Include="Views\BikeCare\_RecentBikeCare.cshtml" />
@@ -3577,17 +3599,21 @@
     <Content Include="Views\Videos\_RecentVideos.cshtml" />
     <Content Include="Views\Videos\_RecentVideos_Mobile.cshtml" />
     <Content Include="Views\HomePage\Index_Mobile.cshtml" />
-    <Content Include="Views\BikeMakes\_Brands_Mobile.cshtml" />
+    <Content Include="Views\Make\_Brands_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_MostPopularBikesSideBar.cshtml" />
     <Content Include="Views\BikeModels\_SimilarBikes.cshtml" />
     <Content Include="Views\BikeModels\_SimilarBikes_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_ModelPriceInNearestCities.cshtml" />
     <Content Include="Views\PriceInCity\_ModelPriceInNearestCities_Mobile.cshtml" />
-    <Content Include="Views\PriceInCity\_OnRoadPriceWidget.cshtml" />
+    <Content Include="Views\Price\Details.cshtml" />
     <Content Include="Views\Videos\_VideosByCategory.cshtml" />
     <Content Include="Views\Videos\_VideosByCategory_Mobile.cshtml" />
     <Content Include="Views\Videos\_ExpertReviewVideos.cshtml" />
     <Content Include="Views\Videos\_ExpertReviewVideos_Mobile.cshtml" />
+    <Content Include="Views\Price\_SecondaryDealers.cshtml" />
+    <Content Include="Views\Price\_DealerCampaign.cshtml" />
+    <Content Include="Views\Price\_ManufacturerCampaign.cshtml" />
+    <Content Include="Views\Shared\_LeadCapture.cshtml" />
     <Content Include="Views\CompareBikes\_ComparisonMin.cshtml" />
     <Content Include="Views\BikeModels\_MinBikeInfoCard.cshtml" />
     <Content Include="Views\BikeModels\_minBikeInfoCard_Mobile.cshtml" />
@@ -3607,6 +3633,23 @@
     <Content Include="Views\News\Index_Mobile.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikes_Vertical.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Middle.cshtml" />
+    <Content Include="Views\DealerShowroom\DealerDetail.cshtml" />
+    <Content Include="Views\UsedBikes\_UsedBikesCIties.cshtml" />
+    <Content Include="Views\UsedBikes\_UsedBikesCIties_Mobile.cshtml" />
+    <Content Include="Views\Make\_BrandCityPopup.cshtml" />
+    <Content Include="Views\Make\_BrandCityPopup_Mobile.cshtml" />
+    <Content Include="Views\Used\_UsedBikesByModelCity.cshtml" />
+    <Content Include="Views\Used\_UsedBikesByModelCity_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\Index.cshtml" />
+    <Content Include="Views\ServiceCenters\ServiceCentersInIndia.cshtml" />
+    <Content Include="Views\ServiceCenters\ServiceCentersInIndia_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\_OnRoadPriceWidget.cshtml" />
+    <Content Include="Views\Price\Details_Mobile.cshtml" />
+    <Content Include="Views\Shared\_LeadCapture_Mobile.cshtml" />
+    <Content Include="Views\Price\_DealerCampaign_Mobile.cshtml" />
+    <Content Include="Views\Price\_SecondaryDealers_Mobile.cshtml" />
+    <Content Include="Views\Price\_ManufacturerCampaign_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\Index_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3624,6 +3667,7 @@
     <Folder Include="content\ComparisonTest\" />
     <Folder Include="Controllers\m\new\Scooters\" />
     <Folder Include="Models\Features\" />
+    <Folder Include="Models\Upcoming\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
@@ -3632,6 +3676,7 @@
     <Folder Include="Views\Content\News\Amp\" />
     <Folder Include="Views\Features\" />
     <Folder Include="Views\GenericBikeInfo\" />
+    <Folder Include="Views\Makes\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

@@ -5,72 +5,213 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Memcache;
+using Bikewale.Models.Make;
+using Bikewale.Models.ServiceCenters;
 using System;
 using System.Linq;
 namespace Bikewale.Models.DealerShowroom
 {
+    /// <summary>
+    /// Created By :- Subodh Jain 27 March 2017
+    /// Summary :- Sealer Showroom in city page model
+    /// </summary>
     public class DealerShowroomCityPage
     {
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
+        private readonly IServiceCenter _objSC = null;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
 
         public MakeMaskingResponse objResponse;
         public uint cityId, makeId, topCount;
         public StatusCodes status;
         public BikeMakeEntityBase objMake;
         public CityEntityBase CityDetails;
-        public DealerShowroomCityPage(IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository<int> bikeMakesCache, string makeMaskingName, string cityMaskingName)
+        public DealerShowroomCityPageVM objDealerVM;
+        //Constructor
+        public DealerShowroomCityPage(IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository<int> bikeMakesCache, string makeMaskingName, string cityMaskingName)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
             _objUsedCache = objUsedCache;
+            _objSC = objSC;
+            _bikeModels = bikeModels;
             ProcessQuery(makeMaskingName, cityMaskingName);
         }
+        /// <summary>
+        /// Created By :- Subodh Jain 27 March 2017
+        /// Summary :- To Fetch Data realted to Dealer in city Page
+        /// </summary>
+        /// <returns></returns>
         public DealerShowroomCityPageVM GetData()
         {
-            DealerShowroomCityPageVM objDealerVM = new DealerShowroomCityPageVM();
+            objDealerVM = new DealerShowroomCityPageVM();
 
-            objMake = new MakeHelper().GetMakeNameByMakeId(makeId);
-            if (objMake != null)
-                objDealerVM.Make = objMake;
-            if (cityId > 0)
+            try
             {
-                CityDetails = new CityHelper().GetCityById(cityId);
-                objDealerVM.CityDetails = CityDetails;
+                objMake = new MakeHelper().GetMakeNameByMakeId(makeId);
+                if (objMake != null)
+                    objDealerVM.Make = objMake;
+                if (cityId > 0)
+                {
+                    CityDetails = new CityHelper().GetCityById(cityId);
+                    objDealerVM.CityDetails = CityDetails;
+                }
+                objDealerVM.DealersList = BindDataDealers();
+                if (objDealerVM.DealersList != null && objDealerVM.DealersList.Dealers != null)
+                {
+                    objDealerVM.TotalDealers = (uint)objDealerVM.DealersList.Dealers.Count();
+                }
+                objDealerVM.DealerCountCity = BindOtherDealerInCitiesWidget();
+                objDealerVM.UsedBikeModel = BindUsedBikeByModel();
+                objDealerVM.ServiceCenterDetails = BindServiceCenterWidget();
+                objDealerVM.PopularBikes = BindMostPopularBikes();
+                objDealerVM.BrandCityPopUp = BindBrandPopUpWidget();
+                BindPageMetas(objDealerVM.PageMetaTags);
             }
-            objDealerVM.DealersList = BindDataDealers();
-            if (objDealerVM.DealersList != null && objDealerVM.DealersList.Dealers != null)
+            catch (Exception ex)
             {
-                objDealerVM.TotalDealers = (uint)objDealerVM.DealersList.Dealers.Count();
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.GetData()");
             }
-            objDealerVM.DealerCountCity = BindOtherDealerInCitiesWidget();
-            objDealerVM.UsedBikeModel = BindUsedBikeByModel();
             return objDealerVM;
         }
+
+        private BrandCityPopupVM BindBrandPopUpWidget()
+        {
+            BrandCityPopupVM objBrandCity = null;
+
+            BrandCityPopupModel objBCPM = new BrandCityPopupModel(EnumBikeType.Dealer);
+
+            return objBrandCity;
+
+        }
+
+        /// <summary>
+        /// Created By :- Subodh Jain 27 March 2017
+        /// Summary :- To fetch data for most popular bikes
+        /// </summary>
+        /// <returns></returns>
+        private MostPopularBikeWidgetVM BindMostPopularBikes()
+        {
+            MostPopularBikeWidgetVM objPopularBikes = new MostPopularBikeWidgetVM();
+            try
+            {
+                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels, 0, (uint)objMake.MakeId);
+                popularBikes.TopCount = 9;
+                objPopularBikes = popularBikes.GetData();
+                objPopularBikes.PageCatId = 5;
+                objPopularBikes.PQSourceId = PQSourceEnum.Desktop_HP_MostPopular;
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomDealerDetail.BindMostPopularBikes()");
+            }
+            return objPopularBikes;
+        }
+        /// <summary>
+        /// Created By :- Subodh Jain 27 March 2017
+        /// Summary :- To fetch data for service center
+        /// </summary>
+        /// <returns></returns>
+        private ServiceCenterDetailsWidgetVM BindServiceCenterWidget()
+        {
+            ServiceCenterDetailsWidgetVM ServiceCenterVM = null;
+            try
+            {
+                uint topCount = 3;
+                ServiceCentersCard objServcieCenter = new ServiceCentersCard(_objSC, topCount, objMake, CityDetails);
+                ServiceCenterVM = objServcieCenter.GetData();
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomDealerDetail.BindServiceCenterWidget()");
+            }
+
+            return ServiceCenterVM;
+
+        }
+        /// <summary>
+        /// Created By:- Subodh Jain 23 March 2017
+        /// Summary:- Fetching data about dealers of other brands
+        /// </summary>
+        /// <returns></returns>
+        private void BindPageMetas(PageMetaTags objPage)
+        {
+
+            try
+            {
+                objPage.Title = String.Format("{0} showroom in {1} | {2} {0} bike dealers - BikeWale", objMake.MakeName, CityDetails.CityName, objDealerVM.TotalDealers);
+                objPage.Keywords = String.Format("{0} showroom {1}, {0} dealers {1}, {1} bike showroom, {1} bike dealers,{1} dealers, {1} bike showroom, bike dealers, bike showroom, dealerships", objMake.MakeName, CityDetails.CityName);
+                objPage.Description = String.Format("Find address, contact details and direction for {2} {0} showrooms in {1}. Contact {0} showroom near you for prices, EMI options, and availability of {0} bike", objMake.MakeName, CityDetails.CityName, objDealerVM.TotalDealers);
+
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindPageMetas()");
+            }
+        }
+
+        /// <summary>
+        /// Created By :- Subodh Jain 27 March 2017
+        /// Summary :- To Fetch Data realted to Dealer in city Page
+        /// </summary>
+        /// <returns></returns>
         private DealersEntity BindDataDealers()
         {
             DealersEntity objDealerList = null;
-            objDealerList = _objDealerCache.GetDealerByMakeCity(cityId, makeId);
+            try
+            {
+                objDealerList = _objDealerCache.GetDealerByMakeCity(cityId, makeId);
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindDataDealers()");
+            }
             return objDealerList;
         }
+        /// <summary>
+        /// Created By :- Subodh Jain 27 March 2017
+        /// Summary :- To Fetch Data For other dealers in near by cities
+        /// </summary>
+        /// <returns></returns>
         private NearByCityDealer BindOtherDealerInCitiesWidget()
         {
             NearByCityDealer objDealer = new NearByCityDealer();
-            objDealer.objDealerInNearCityList = _objDealerCache.FetchNearByCityDealersCount(makeId, cityId);
-            if (objDealer != null && objDealer.objDealerInNearCityList != null && objDealer.objDealerInNearCityList.Count() > 0)
+            try
             {
-                objDealer.objDealerInNearCityList = objDealer.objDealerInNearCityList.Take((int)topCount);
+                objDealer.objDealerInNearCityList = _objDealerCache.FetchNearByCityDealersCount(makeId, cityId);
+                if (objDealer != null && objDealer.objDealerInNearCityList != null && objDealer.objDealerInNearCityList.Count() > 0)
+                {
+                    objDealer.objDealerInNearCityList = objDealer.objDealerInNearCityList.Take((int)topCount);
+                }
+                objDealer.Make = objMake;
             }
-            objDealer.Make = objMake;
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindOtherDealerInCitiesWidget()");
+
+            }
 
             return objDealer;
         }
+        /// <summary>
+        /// Created By :- Subodh Jain 27 March 2017
+        /// Summary :- To process in put query string
+        /// </summary>
+        /// <returns></returns>
         private void ProcessQuery(string makeMaskingName, string cityMaskingName)
         {
             objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
@@ -96,6 +237,11 @@ namespace Bikewale.Models.DealerShowroom
                 status = StatusCodes.ContentNotFound;
             }
         }
+        /// <summary>
+        /// Created By :- Subodh Jain 27 March 2017
+        /// Summary :- To Fetch Data realted to Used Bike in city
+        /// </summary>
+        /// <returns></returns>
         private UsedBikeModels BindUsedBikeByModel()
         {
             UsedBikeModels UsedBikeModel = new UsedBikeModels();
@@ -103,20 +249,28 @@ namespace Bikewale.Models.DealerShowroom
             {
                 if (makeId > 0)
                 {
-                    UsedBikeModel.UsedBikeModelList = _objUsedCache.GetPopularUsedModelsByMake(makeId, topCount);
+                    if (cityId > 0)
+                        UsedBikeModel.UsedBikeModelList = _objUsedCache.GetUsedBikeByModelCountInCity(makeId, cityId, topCount);
+                    else
+                        UsedBikeModel.UsedBikeModelList = _objUsedCache.GetPopularUsedModelsByMake(makeId, topCount);
                 }
                 else
                 {
-                    UsedBikeModel.UsedBikeModelList = _objUsedCache.GetUsedBike(topCount);
+                    if (cityId > 0)
+                        UsedBikeModel.UsedBikeModelList = _objUsedCache.GetUsedBikeCountInCity(cityId, topCount);
+                    else
+                        UsedBikeModel.UsedBikeModelList = _objUsedCache.GetUsedBike(topCount);
+
                 }
+                if (cityId > 0)
+                    UsedBikeModel.CityDetails = CityDetails;
             }
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindUsedBikeByModel()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.BindUsedBikeByModel()");
             }
-            if (cityId > 0)
-                UsedBikeModel.CityDetails = CityDetails;
+
             return UsedBikeModel;
 
         }

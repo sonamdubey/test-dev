@@ -1,5 +1,6 @@
 ﻿
-using Bikewale.Entities.BikeData.NewLaunched;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.HomePage;
 using System.Collections.Generic;
 namespace Bikewale.Models
 {
@@ -9,22 +10,20 @@ namespace Bikewale.Models
     /// </summary>
     public class HomePageVM : ModelBase
     {
+        public string LocationMasking { get; set; }
+        public string Location { get; set; }
+        public HomePageBannerEntity Banner { get; set; }
         public BrandWidgetVM Brands { get; set; }
         public NewLaunchedWidgetVM NewLaunchedBikes { get; set; }
+        public MostPopularBikeWidgetVM PopularBikes { get; set; }
+        public IEnumerable<UpcomingBikeEntity> UpcomingBikes { get; set; }
         public BestBikeWidgetVM BestBikes { get; set; }
+        public ComparisonMinWidgetVM CompareBikes { get; set; }
+        public UsedBikeCitiesWidgetVM UsedBikeCities { get; set; }
+        public UsedBikeModelsWidgetVM UsedModels { get; set; }
+        public RecentNewsVM News { get; set; }
+        public RecentExpertReviewsVM ExpertReviews { get; set; }
+        public RecentVideosVM Videos { get; set; }
     }
 
-
-    /// <summary>
-    /// </summary>
-    /// <author>
-    /// Created by: Sangram Nandkhile on 24-Mar-2017
-    /// Summary:  View Model for New launches
-    /// </author>
-    public class NewLaunchedWidgetVM
-    {
-        public IEnumerable<NewLaunchedBikeEntityBase> Bikes { get; set; }
-        public uint PQSourceId { get; set; }
-        public uint PageCatId { get; set; }
-    }
 }

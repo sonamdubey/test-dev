@@ -13,7 +13,41 @@
     Model.AdTags.Ad_976x400First = true;
     Model.AdTags.Ad_976x400Second = true;
     Model.AdTags.Ad_976x204 = false;
+    Model.IsTransparentHeader = true;
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/scooters/listing.css' />";
+    
+#region
+    
+    bool IsPopularBikesDataAvailable = (Model.PopularBikes != null && Model.PopularBikes.Bikes!= null && Model.PopularBikes.Bikes.Count() > 0);
+    bool IsNewLaunchedDataAvailable = (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0);
+    bool IsUsedBikeCitiesAvailable = (Model.UsedBikeCities != null && Model.UsedBikeCities.Cities != null && Model.UsedBikeCities.Cities.Count() > 0);
+    bool IsUpcomingBikeAvailable = (Model.UpcomingBikes!= null && Model.UpcomingBikes.Count() > 0);
+    bool IsUsedModelsAvailable = (Model.UsedModels != null && Model.UsedModels.UsedBikeModelList != null && Model.UsedModels.UsedBikeModelList.Count() > 0);
+    var reviewTabsCnt = 0;
+    bool isNewsActive = false, isExpertReviewActive = false, isVideoActive = false;
+
+    if (Model.News.FetchedCount > 0)
+    {
+        reviewTabsCnt++;
+        isNewsActive = true;
+    }
+    if (Model.ExpertReviews.FetchedCount > 0)
+    {
+        reviewTabsCnt++;
+        if (!isNewsActive)
+        {
+            isExpertReviewActive = true;
+        }
+    }
+    if (Model.Videos.FetchedCount > 0)
+    {
+        reviewTabsCnt++;
+        if (!isExpertReviewActive && !isNewsActive)
+        {
+            isVideoActive = true;
+        }
+    }
+#endregion
 }
 <body data-pageid="1">
     <header class="home-top-banner">
@@ -42,7 +76,19 @@
                 </div>
             </div>
         </div>
+            @if (Model.Banner != null)
+            {   
+                @Html.Raw(Model.Banner.DesktopCss);
+                @Html.Raw(Model.Banner.DesktopHtml);
+                @Html.Raw(Model.Banner.DesktopJS);
+            }
     </header>
+    @if (Model.AdTags.Ad_976x400First)
+    {
+        <section>
+            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_First.cshtml", new { AdId = Model.AdTags.AdId });}
+        </section>
+    }
     <section>
         <!--  Discover your bike code starts here -->
         <div class="container">
@@ -65,7 +111,7 @@
                             </li>
                         </ul>
                     </div>
-                    @Html.Partial("~/Views/BikeMakes/_Brands.cshtml",Model.Brands)
+                    @Html.Partial("~/Views/Make/_Brands.cshtml",Model.Brands)
                     <div class="bw-tabs-data hide" id="discoverBudget">
                         <div class="budget-container margin-bottom20">
                             <ul class="text-center">
@@ -223,59 +269,544 @@
     </section>
     <section>
         <div class="container section-bottom-margin">
-            <h2 class="section-heading">Featured bikes</h2>
             <div class="grid-12">
                 <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Featured bikes</h2>
                 <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
-                            @*@if (popularScooters.PopularScooters != null && popularScooters.PopularScooters.Count() > 0)
+                            @if (IsPopularBikesDataAvailable)
                             {
                                 <li class="active" data-tabs="ctrlMostPopularBikes">
                                     <h3>Most Popular</h3>
                                 </li>
-                            }*@
-                            @if (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0)
+                            }
+                            @if (IsNewLaunchedDataAvailable)
                             {
                                 <li data-tabs="ctrlNewLaunchedBikes">
                                     <h3>New launches</h3>
                                 </li>
                             }
-                            @*@if (objUpcoming != null && objUpcoming.Count() > 0)
+                            @if(IsUpcomingBikeAvailable)
                             {
                                 <li data-tabs="ctrlUpcomingBikes">
                                     <h3>Upcoming</h3>
                                 </li>
-                            }*@
+                            }
                         </ul>
                     </div>
-                    @*@if (popularScooters.PopularScooters != null && popularScooters.PopularScooters.Count() > 0)
+                    @if (IsPopularBikesDataAvailable)
                     {
                         <div id="ctrlMostPopularBikes" class="bw-tabs-data">
-                            @Html.Partial("~/Views/Shared/_popularBikesScooters.cshtml", popularScooters)
+                            @Html.Partial("~/Views/BikeModels/_MostPopularBikes.cshtml", Model.PopularBikes)
                             <div class="view-all-btn-container padding-top15 padding-bottom20">
-                                <a href="/best-scooters-in-india/" class="btn view-all-target-btn" title="Popular Scooters in India">View all scooters<span class="bwsprite teal-right"></span></a>
+                                <a href="/best-bikes-in-india/" class="btn view-all-target-btn" title="Popular Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
                             </div>
                         </div>
-                    }*@
-                    @if (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0)
+                    }
+                     @if (IsNewLaunchedDataAvailable)
                     {
                         <div class="bw-tabs-data hide padding-top15 padding-bottom20" id="ctrlNewLaunchedBikes">
                             @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunchedBikes)
+                            <div class="view-all-btn-container padding-top15 padding-bottom20">
+                                <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
+                            </div>
                         </div>
                     }
-                    @*@if (objUpcoming != null && objUpcoming.Count() > 0)
+                    @if(IsUpcomingBikeAvailable)
                     {
                         <div class="bw-tabs-data hide padding-top15 padding-bottom20" id="ctrlUpcomingBikes">
-                            @Html.Partial("~/Views/Shared/_UpcomingBikes.cshtml", objUpcoming)
+                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.UpcomingBikes)
+                            <div class="view-all-btn-container padding-top15 padding-bottom20">
+                                <a href="/upcoming-bikes/" class="btn view-all-target-btn" title="Upcoming Bikes in India">View upcoming bikes<span class="bwsprite teal-right"></span></a>
+                            </div>
                         </div>
-                    }*@
+                    }
                 </div>
             </div>
             <div class="clear"></div>
         </div>
     </section>
+    <section class="lazy home-getFinalPrice-banner" data-original="https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/get-final-price-banner.jpg">
+        <div class="container">
+            <div class="grid-5 leftfloat">
+                <div class="bg-white content-inner-block-15 light-box-shadow rounded-corner2 margin-top70" id="OnRoadContent">
+                    <h2 class="text-bold margin-bottom20 font22">On-road price</h2>
+                    <!-- On road pricequote control -->
+                    <div class="form-control-box margin-bottom20">
+                        <input value="" class="form-control ui-autocomplete-input" type="text" placeholder="Search Make and Model" id="makemodelFinalPrice" tabindex="1" autocomplete="off">
+                        <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
+                        <span class="bwsprite error-icon hide"></span>
+                        <div class="bw-blackbg-tooltip hide">Please enter make/model name</div>
+                    </div>
+                    <div class="form-control-box margin-bottom20 finalPriceCitySelect ">
+                        <select data-placeholder="--Select City--" class="form-control" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: '--Select City--', event: { change: cityChangedOnRoad },chosen: { width: '100%' }"></select>
+                        <span class="bwsprite error-icon hide"></span>
+                        <div class="bw-blackbg-tooltip hide">Please Select City</div>
+                    </div>
+                    <div class="form-control-box margin-bottom20 finalPriceAreaSelect " data-bind="visible: bookingAreas().length > 0">
+                        <select data-placeholder="--Select Area--" class="form-control" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'areaName', optionsValue: 'areaId', optionsCaption: '--Select Area--', chosen: { width: '100%' }"></select>
+                        <span class="bwsprite error-icon hide"></span>
+                        <div class="bw-blackbg-tooltip hide">Please Select Area</div>
+                    </div>
+                    <button id="btnDealerPriceOnRoad" tabindex="4" class="btn btn-orange margin-bottom20" type="button" data-bind="event: { click: getPriceQuoteOnRoad }">Check on-road price</button>
+                    <p class="margin-bottom5">Its private, no need to share your number and email</p>
+                </div>
+                <!-- Onroad price quote ends here -->
+            </div>
+        </div>
+    </section>
+
+    @if (Model.AdTags.Ad_976x400Second)
+    {
+        <section>
+            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Second.cshtml", new { AdId = Model.AdTags.AdId });}
+        </section>
+    }
+    
     <section>
         @Html.Partial("~/Views/BestBikes/_BestBikes.cshtml", Model.BestBikes)
     </section>
+
+    @if (Model.CompareBikes != null)
+    {
+        <section>
+            <div class="container">
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Compare bikes</h2>
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-top20 padding-bottom20">
+                        @Html.Partial("~/Views/CompareBikes/_ComparisonMin.cshtml", Model.CompareBikes)
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    <section>
+        <!--  Discover your bike code starts here -->
+        <div class="container">
+            <div class="grid-12">
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Find used bikes</h2>
+                <div class="bw-tabs-panel content-box-shadow">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul>
+                            @if (IsUsedModelsAvailable) { 
+                            <li class="active" data-tabs="usedByModel">
+                                <h3>Model</h3>
+                            </li>
+                            }
+                            @if (IsUsedBikeCitiesAvailable)
+                            {
+                                <li data-tabs="usedByCity">
+                                    <h3>City</h3>
+                                </li>
+                            }
+                            <li data-tabs="usedByBudget">
+                                <h3>Budget</h3>
+                            </li>
+                        </ul>
+                    </div>
+
+                    @if (IsUsedModelsAvailable) {
+                    <div class="bw-tabs-data padding-bottom20" id="usedByModel">
+                        @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedModels)
+                    </div>
+                    }
+                    @if (IsUsedBikeCitiesAvailable)
+                    { 
+                    <section>
+                        <div class="bw-tabs-data hide" id="usedByCity">
+                            @Html.Partial("~/Views/UsedBikes/_usedBikesCities.cshtml", Model.UsedBikeCities)
+                        </div>
+                    </section>
+                    }
+                    <div id="usedByBudget" class="bw-tabs-data hide">
+                        <ul class="elevated-card-list">
+                            <li>
+                                <a href="/used/bikes-in-@Model.LocationMasking/#budget=0+35000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwsprite budget-one"></span>
+                                        </div>
+                                        <span class="key-size-14">Upto</span><br />
+                                        <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">35,000</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/used/bikes-in-@Model.LocationMasking/#budget=35000+80000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwsprite budget-two"></span>
+                                        </div>
+                                        <span class="key-size-14">Between</span><br />
+                                        <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">35,000 -</span>
+                                        &nbsp<span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">80,000</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/used/bikes-in-@Model.LocationMasking/#budget=80000+200000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwsprite budget-three"></span>
+                                        </div>
+                                        <span class="key-size-14">Above</span><br />
+                                        <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">80,000</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="more-article-target view-all-btn-container padding-top10 padding-bottom20">
+                            <a href="/used/bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <section>
+        <!--  News Bikes latest updates code starts here -->
+        <div class="@string.Format("container {0}", reviewTabsCnt == 0 ? "hide" : string.Empty)">
+            <div class="grid-12">
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest updates from the bike industry</h2>
+                <div class="bw-tabs-panel margin-bottom30 padding-bottom20 content-box-shadow article-control">
+                    <div class="@string.Format("text-center {0}", reviewTabsCnt > 2 ? string.Empty : reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10")" >
+                        <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", reviewTabsCnt > 2 ? "bw-tabs-flex" : reviewTabsCnt > 1 ? "home-tabs" : "hide")">
+                            <ul>
+                                @if (Model.News.FetchedCount > 0)
+                                {
+                                    <li class="@string.Format("{0}", isNewsActive ? "active" : "hide")" data-tabs="ctrlNews">
+                                        <h3>News</h3>
+                                    </li>
+                                }
+                                @if (Model.ExpertReviews.FetchedCount > 0)
+                                {
+                                    <li class="@string.Format("{0}", isExpertReviewActive? "active":"hide")" data-tabs="ctrlExpertReviews">
+                                        <h3>Expert Reviews</h3>
+                                    </li>
+                                }
+                                @if (Model.Videos.FetchedCount > 0)
+                                {
+                                    <li class="@string.Format("{0}", isVideoActive? "active":"hide")" data-tabs="ctrlVideos">
+                                        <h3>Videos</h3>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bw-tabs-data padding-left10 padding-right10" id="ctrlNews">
+                        @if (Model.News.FetchedCount > 0)
+                        {
+                            @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+                        }
+                    </div>
+                    <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlExpertReviews">
+                        @if (Model.ExpertReviews.FetchedCount > 0)
+                        {
+                            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                        }
+                    </div>
+                    <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlVideos">
+                        @if (Model.Videos.FetchedCount > 0)
+                        {
+                            @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <!-- Ends here -->
+    <script type="text/javascript">
+
+    docReady(function () {
+        $('#globalSearch').parent().hide();
+        if (!@isNewsActive.ToString().ToLower()) $("#ctrlNews").addClass("hide");
+        if (!@isExpertReviewActive.ToString().ToLower()) $("#ctrlExpertReviews").addClass("hide");
+        if (!@isVideoActive.ToString().ToLower()) $("#ctrlVideos").addClass("hide");
+    });
+
+    var preSelectedCityId = 0, preSelectedCityName = "", selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
+    var selectedModel = 0, pageId, onRoadcity, onRoadArea, onRoadMakeModel, viewModelOnRoad;
+    var onCookieObj = {}, mname = "";
+
+
+    function RfindCityById(vm, id) {
+        return ko.utils.arrayFirst(vm.bookingCities(), function (child) {
+            return (child.cityId === id || child.id === id);
+        });
+    }
+
+    function FillCitiesOnRoad(modelId) {
+        $.ajax({
+            type: "GET",
+            url: "/api/PQCityList/?modelId=" + modelId,
+            dataType: 'json',
+            success: function (response) {
+                var cities = response.cities;
+                var citySelected = null;
+                if (cities) {
+                    insertCitySeparator(cities);
+                    checkCookies();
+                    viewModelOnRoad.bookingCities(cities);
+                    if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelOnRoad.bookingCities() && selectElementFromArray(viewModelOnRoad.bookingCities(), onCookieObj.PQCitySelectedId)) {
+                        viewModelOnRoad.selectedCity(onCookieObj.PQCitySelectedId);
+                        viewModelOnRoad.hasAreas(RfindCityById(viewModelOnRoad, onCookieObj.PQCitySelectedId).hasAreas);
+                    }
+                    onRoadcity.find("option[value='0']").prop('disabled', true);
+                    onRoadcity.trigger('chosen:updated');
+                    cityChangedOnRoad();
+
+                }
+                else {
+                    viewModelOnRoad.bookingCities([]);
+                    $('.chosen - drop').hide();
+                }
+            }
+        });
+    }
+
+    function cityChangedOnRoad() {
+        if (viewModelOnRoad.selectedCity() != undefined) {
+            viewModelOnRoad.hasAreas(RfindCityById(viewModelOnRoad, viewModelOnRoad.selectedCity()).hasAreas);
+            if (viewModelOnRoad.hasAreas() != undefined && viewModelOnRoad.hasAreas()) {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/PQAreaList/?modelId=" + selectedModel + "&cityId=" + viewModelOnRoad.selectedCity(),
+                    dataType: 'json',
+                    success: function (response) {
+                        areas = response.areas;
+                        if (areas.length) {
+                            viewModelOnRoad.bookingAreas(areas);
+                            if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
+                                viewModelOnRoad.selectedArea(onCookieObj.PQAreaSelectedId);
+                            }
+                        }
+                        else {
+                            viewModelOnRoad.selectedArea(0);
+                            viewModelOnRoad.bookingAreas([]);
+                        }
+
+                        onRoadArea.trigger('chosen:updated');
+                    },
+                    error: function (e) {
+                        viewModelOnRoad.selectedArea(0);
+                        viewModelOnRoad.bookingAreas([]);
+                        onRoadArea.trigger('chosen:updated');
+                    }
+                });
+            }
+            else {
+                viewModelOnRoad.selectedArea(0);
+                viewModelOnRoad.bookingAreas([]);
+            }
+        } else {
+            viewModelOnRoad.bookingAreas([]);
+        }
+
+        onRoadArea.trigger('chosen:updated');
+    }
+
+    function isValidInfoOnRoad() {
+        isValid = true;
+        var errMsg = "Missing fields:";
+        showHideMatchError(onRoadMakeModel, false);
+        showHideMatchError(onRoadcity, false);
+        showHideMatchError(onRoadArea, false);
+        $(onRoadcity).next().removeClass("chosenError");
+        mname = onRoadMakeModel.val();
+
+        if (selectedModel <= 0 || (mname == "" || mname.length < 2 || mname == "Search Make and Model")) {
+            showHideMatchError(onRoadMakeModel, true);
+            errMsg += "Make/Model,";
+            isValid = false;
+            $(onRoadcity).next().addClass("chosenError");
+        }
+
+        if (viewModelOnRoad.selectedCity() == undefined) {
+            showHideMatchError(onRoadcity, true);
+            errMsg += "City,";
+            isValid = false;
+        }
+
+
+        if (viewModelOnRoad.bookingAreas().length > 0 && viewModelOnRoad.selectedArea() == undefined) {
+            showHideMatchError(onRoadArea, true);
+            errMsg += "Area,";
+            isValid = false;
+        }
+
+        if (!isValid) {
+            errMsg = errMsg.substring(0, errMsg.length - 1);
+            gtmCodeAppender(pageId, "Error in submission", errMsg);
+        }
+
+        return isValid;
+    }
+
+    function getPriceQuoteOnRoad() {
+        var cityId = viewModelOnRoad.selectedCity(), areaId = viewModelOnRoad.selectedArea() ? viewModelOnRoad.selectedArea() : 0;
+        if (isValidInfoOnRoad()) {
+
+            if (cityId != onCookieObj.PQCitySelectedId || areaId > 0)
+                setLocationCookie($('#ddlCitiesOnRoad option:selected'), $('#ddlAreaOnRoad option:selected'));
+            var obj = {
+                'CityId': viewModelOnRoad.selectedCity(),
+                'AreaId': viewModelOnRoad.selectedArea(),
+                'ModelId': selectedModel,
+                'ClientIP': '<%= ClientIP %>',
+                'SourceType': '1',
+                'VersionId': 0,
+                'pQLeadId': '<%= PQSourceId%>',
+                'deviceId': getCookie('BWC')
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: "/api/PriceQuote/",
+                data: obj,
+                dataType: 'json',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('utma', getCookie('__utma'));
+                    xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+                },
+                success: function (json) {
+                    var jsonObj = json;
+                    selectedCityName = $("#ddlCitiesOnRoad option:selected").text();
+
+                    if (areaId > 0)
+                        selectedAreaName = $("#ddlAreaOnRoad option:selected").text();
+
+                    if (selectedMakeName != "" && selectedCityName != "") {
+                        gaLabel = selectedMakeName + ',' + selectedCityName;
+
+                        if (selectedAreaName != '')
+                            gaLabel += ',' + selectedAreaName;
+                    }
+
+                    cookieValue = "CityId=" + viewModelOnRoad.selectedCity() + "&AreaId=" + (!isNaN(viewModelOnRoad.selectedArea()) ? viewModelOnRoad.selectedArea() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
+
+                    if (jsonObj != undefined && jsonObj.quoteId > 0) {
+
+
+                        if (jsonObj.dealerId > 0) {
+                            gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                        }
+                        else {
+                            gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
+                        }
+
+                        window.location = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
+
+                    } else {
+                        gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
+                        $("#errMsgOnRoad").text("Oops. We do not seem to have pricing for given details.").show();
+                    }
+                },
+                error: function (e) {
+                    gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
+                    $("#errMsg").text("Oops. Some error occured. Please try again.").show();
+                }
+            });
+        } else {
+            gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
+            $("#errMsgOnRoad").text("Please select all the details").show();
+        }
+    }
+
+    function gtmCodeAppender(pageId, action, label) {
+        if (pageId != null) {
+            switch (pageId) {
+                case "1":
+                    category = 'HP';
+                    break;
+                case "2":
+                    category = "New_Bikes_Page";
+                    break;
+            }
+            if (label) {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action, 'lab': label });
+            }
+            else {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action });
+            }
+        }
+
+    }
+
+    function checkCookies() {
+        c = document.cookie.split('; ');
+        for (i = c.length - 1; i >= 0; i--) {
+            C = c[i].split('=');
+            if (C[0] == "location") {
+                var cData = (String(C[1])).split('_');
+                onCookieObj.PQCitySelectedId = parseInt(cData[0]) || 0;
+                onCookieObj.PQCitySelectedName = cData[1] ? cData[1].replace(/-/g, ' ') : "";
+                onCookieObj.PQAreaSelectedId = parseInt(cData[2]) || 0;
+                onCookieObj.PQAreaSelectedName = cData[3] ? cData[3].replace(/-/g, ' ') : "";
+
+            }
+        }
+    }
+
+    docReady(function () {
+
+        viewModelOnRoad = {
+            selectedCity: ko.observable(),
+            bookingCities: ko.observableArray([]),
+            selectedArea: ko.observable(),
+            bookingAreas: ko.observableArray([]),
+            hasAreas: ko.observable()
+        };
+
+        onRoadcity = $('#ddlCitiesOnRoad'), onRoadArea = $('#ddlAreaOnRoad'), onRoadMakeModel = $('#makemodelFinalPrice');
+
+        $.fn.hint = bwHint;
+        $.fn.bw_autocomplete = bwAutoComplete;
+
+        $("#makemodelFinalPrice").bw_autocomplete({
+            width: 365,
+            source: 2,
+            recordCount: 10,
+            onClear: function () {
+                objBikes = new Object();
+            },
+            click: function (event, ui, orgTxt) {
+                var model = null;
+                if (ui.item.payload.modelId > 0) {
+                    model = new Object();
+                    model.maskingName = ui.item.payload.modelMaskingName;
+                    model.id = ui.item.payload.modelId;
+                    pageId = '<%= PageId %>';
+                    selectedMakeName = ui.item.label;
+                    gtmCodeAppender(pageId, "Get_On_Road_Price_Click", selectedMakeName);
+                    $("#errMsgOnRoad").empty();
+                    selectedModel = model.id;
+                    FillCitiesOnRoad(selectedModel);
+
+                }
+            },
+            open: function (result) {
+                objBikes.result = result;
+            },
+            focusout: function () {
+                if ($('li.ui-state-focus a:visible').text() != "") {
+                    focusedMakeModel = new Object();
+                    focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
+                }
+            },
+            afterfetch: function (result, searchtext) {
+                return false;
+            }
+        });
+
+        $("#ddlCitiesOnRoad").chosen({ no_results_text: "No matches found!!" });
+        $("#ddlAreaOnRoad").chosen({ no_results_text: "No matches found!!" });
+
+        ko.applyBindings(viewModelOnRoad, $("#OnRoadContent")[0]);
+    });
+    </script>
+
 </body>

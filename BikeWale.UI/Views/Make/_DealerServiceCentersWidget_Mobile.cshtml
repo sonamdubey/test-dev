@@ -1,0 +1,46 @@
+﻿@model Bikewale.Models.DealerServiceCenterWidgetVM
+
+<div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+    <h2 class="padding-right20 padding-left20">@Model.Title</h2>
+    <div class="swiper-container card-container dealer-horizontal-swiper no-city-selection-carousel">
+        <!-- dealers when no city selected -->
+        <div class="swiper-wrapper">
+            @foreach(var details in Model.DealerDetails){
+            <div class="swiper-slide">
+                <div class="swiper-card">
+                    <span class="dealer-city-image-preview">
+                        <span class="city-sprite <%=details.CityMaskingName %>-icon"></span>
+                    </span>
+                    <p class="text-default text-bold margin-bottom5">@Model.MakeName outlets in @details.CityName /p>
+                    @if (details.DealerCount>0) {
+                        <a href="@string.Format("/m/{0}-dealer-showrooms-in-{1}/", Model.MakeMaskingName,details.CityMaskingName)" title="@string.Format("{0} Showrooms in {1}",Model.MakeName,details.CityName)" class="block">
+                            @details.DealerCount showroom
+                        </a>
+                    }
+                    @if (details.ServiceCenterCount>0){
+                        <a href="@string.Format("/m/{0}-service-center-in-{1}/", Model.MakeMaskingName, details.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.MakeName, details.CityName)" class="block">
+                            @details.ServiceCenterCount service center
+                        </a>
+                    } 
+                </div>
+            </div>
+            }
+            @if(Model.TotalDealerCount>0||Model.TotalServiceCenterCount>0){
+            <div class="swiper-slide">
+                <div class="swiper-card">
+                    <span class="dealer-city-image-preview">
+                        <span class="city-sprite india-icon"></span>
+                    </span>
+                    <p class="text-default text-bold margin-bottom5">@Model.MakeName outlets in India</p>
+                    @if (Model.TotalDealerCount > 0) {
+                        <a href="/m/@Model.MakeMaskingName-dealer-showrooms-in-india/" title="@Model.MakeName showroom in India" class="block">@Model.TotalDealerCount showrooms</a>
+                    }
+                    @if (Model.TotalServiceCenterCount > 0) {
+                        <a href="/m/@Model.MakeMaskingName-service-center-in-india/" title="@Model.MakeName service center in India" class="block">@Model.TotalDealerCount service centers</a>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

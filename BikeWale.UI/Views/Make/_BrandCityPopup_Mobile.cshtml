@@ -1,0 +1,96 @@
+﻿@model Bikewale.Models.BrandCityPopupVM
+<div class="bw-city-popup bwm-fullscreen-popup bw-popup-sm text-center hide" id="brandcitypopupWrapper">
+    <div class="city-area-banner"></div>
+    <div class="popup-inner-container">
+        <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
+        <div id="popupHeading" class="content-inner-block-20">
+            @if(Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
+            { 
+            <p class="font18 margin-bottom5">Looking for a different Dealer?</p>
+            <div class="text-light-grey margin-bottom5"><span class="red">*</span>Select the brand and city to see dealer details</div>
+            }
+            else if (Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
+            {
+            <p class="font18 margin-bottom5">Looking for a different Service Center?</p>
+            <div class="text-light-grey margin-bottom5"><span class="red">*</span>Select the brand and city to see service center details</div>
+            }
+            @if (Model.PageType.IsOperaBrowser)
+            {
+            <div class="form-control-box margin-bottom10 ">
+                <select id="opBrandList" class="form-control" tabindex="2" data-bind="options: bookingBrands(), value: selectedBrand, optionsText: 'makeName', optionsValue: 'makeId', optionsCaption: '--Select Brand--', event: { change: choosebrand }"></select>
+                <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
+            </div>
+            <div class="form-control-box" data-bind="visible: listCities().length > 0">
+                <select id="opCitiesList" class="form-control" data-bind="options: listCities(), value: selectCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: '--Select City--', event: { change: chooseCity }"></select>
+                <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
+            </div>
+
+            }
+            else
+            {
+            <div id="makeSelection" class="form-control text-left input-sm position-rel margin-bottom10 " data-bind="click: function (d,e) { hideError($(e.target)) }, visible: listCities().length > 0">
+                <div class="selected-area" id="ddlBrandsPopup" data-bind="click: function (d, e) { hideError($(e.target).parent()) }, text: (selectedBrand() != null && selectedBrand().makeName != '') ? selectedBrand().makeName : 'Select Brand'">Select Brand</div>
+                <span class="bwmsprite error-icon errorIcon hide"></span>
+                <div class="bw-blackbg-tooltip errorText hide"></div>
+                <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
+
+            </div>
+            <div id="citiesSelection" class="form-control text-left input-sm position-rel margin-bottom10" data-bind="visible: listCities().length > 0, click: function(d,e) {hideError($(e.target))}">
+                <div class="selected-city" id="ddlCityPopup" data-bind="click:function (d,e) { hideError($(e.target).parent()) },text: (selectCity() != null && selectCity().cityName != '') ? selectCity().cityName : 'Select City'"></div>
+                <span class="bwmsprite error-icon errorIcon hide"></span>
+                <div class="bw-blackbg-tooltip errorText hide"></div>
+                <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
+            </div>
+
+            <div id="btnSearchBrandCity" class="center-align margin-top20 text-center position-rel">
+               @if (Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
+                {
+                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" rel="nofollow" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0),visible:(listCities().length > 0)">Show dealers</a>
+                }
+               else if (Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
+                {
+                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" rel="nofollow" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0),visible:(listCities().length > 0)">Show service centers</a>
+                }
+            </div>
+
+            <div id="brandcitypopupContent" class="bwm-city-area-popup-wrapper">
+                <div class="bw-city-popup-box bwm-city-area-box city-list-container form-control-box text-left">
+                    <div class="user-input-box">
+                        <span class="back-arrow-box">
+                            <span class="bwmsprite back-long-arrow-left"></span>
+                        </span>
+                        <input type="text" class="form-control padding-right40" placeholder="Type to select brand" id="popupMakeInput" autocomplete="off" data-bind="textInput: brandFilter, attr: { value: (selectedBrand() != undefined) ? selectedBrand().makeName : '' }">
+                    </div>
+                    <ul id="popupMakeList" data-bind="template: { name: 'bindBrandList-template', foreach: visibleBrands }"></ul>
+                    <script type="text/html" id="bindBrandList-template">
+                        <li data-bind="text: makeName, attr: { 'makeId': makeId }, click: function (d, e) { $parent.chooseBrand(d, e); }"></li>
+                    </script>
+                    <div class="margin-top30 font24 text-center margin-top60 "></div>
+                </div>
+
+                <div class="bw-area-popup-box bwm-city-area-box area-list-container form-control-box text-left" data-bind="visible: listCities().length > 0">
+                    <div class="user-input-box">
+                        <span class="back-arrow-box">
+                            <span class="bwmsprite back-long-arrow-left"></span>
+                        </span>
+                        <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityNameInput" autocomplete="off" data-bind="textInput: cityFilter, attr: { value: (selectCity() != undefined) ? selectCity().cityName : '' }">
+                    </div>
+                    <ul id="popupCitiesList" data-bind="template: { name: 'bindCitiesList-template', foreach: visibleCities }"></ul>
+                    <script type="text/html" id="bindCitiesList-template">
+                        <li data-bind="text: cityName, attr: { 'cityId': cityId }, click: function (d, e) { $parent.chooseCity(d, e); }"></li>
+                    </script>
+                    <div class="margin-top30 font24 text-center margin-top60 "></div>
+                </div>
+            </div>
+
+            }
+        </div>
+
+    </div>
+    <div id="popup-loader-container">
+        <div id="popup-loader"></div>
+        <div id="popup-loader-text">
+            <p data-bind="text: LoadingText()" class="font14"></p>
+        </div>
+    </div>
+</div>

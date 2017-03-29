@@ -1,4 +1,4 @@
-﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
@@ -81,6 +81,5 @@ namespace Bikewale.Controllers
         {
             return View();
         }
-
     }
 }

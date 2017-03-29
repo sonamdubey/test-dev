@@ -1,9 +1,11 @@
 ﻿using Bikewale.CoreDAL;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Models;
 using Bikewale.Models.DealerShowroom;
@@ -19,39 +21,50 @@ namespace Bikewale.Controllers
         private readonly IUpcoming _upcoming = null;
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
         private readonly IStateCacheRepository _objStateCache = null;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
+        private readonly IServiceCenter _objSC = null;
+        private readonly INewBikeLaunchesBL _newLaunches = null;
 
-        public DealerShowroomController(IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IUpcoming upcoming, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache)
+        public DealerShowroomController(INewBikeLaunchesBL newLaunches, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
             _upcoming = upcoming;
             _objUsedCache = objUsedCache;
             _objStateCache = objStateCache;
+            _bikeModels = bikeModels;
+            _newLaunches = newLaunches;
+            _objSC = objSC;
 
         }
 
         [Route("dealerdetails/make/{makeMaskingName}/dealerid/{dealerId}")]
-        public ActionResult DealerDetails(string makeMaskingName, uint dealerId)
+        public ActionResult DealerDetail(string makeMaskingName, uint dealerId)
         {
             try
             {
-                MakeMaskingResponse objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
 
-                if (objResponse != null && objResponse.StatusCode == 200 && dealerId > 0)
+                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, dealerId);
+                if (objDealerDetails != null && dealerId > 0)
                 {
                     DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
-                    DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objDealerCache);
-                    if (objDealerDetails != null)
+
+                    if (objDealerDetails.status == Entities.StatusCodes.ContentFound)
                     {
-                        objDealerDetails.makeId = objResponse.MakeId;
+
                         objDealerDetailsVM = objDealerDetails.GetData();
+                        return View(objDealerDetailsVM);
                     }
 
-                    return View("~/Views/DealerShowroom/DealerDetail.cshtml", objDealerDetailsVM);
-                }
-                else if (objResponse.StatusCode == 301)
-                {
-                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                    else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
+                    {
+                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealerDetails.objResponse.MaskingName));
+                    }
+                    else
+                    {
+                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    }
+
                 }
                 else
                 {
@@ -68,27 +81,32 @@ namespace Bikewale.Controllers
         }
 
         [Route("m/dealerdetails/make/{makeMaskingName}/dealerid/{dealerId}")]
-        public ActionResult DealerDetails_Mobile(string makeMaskingName, uint dealerId)
+        public ActionResult DealerDetail_Mobile(string makeMaskingName, uint dealerId)
         {
             try
             {
-                MakeMaskingResponse objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
 
-                if (objResponse != null && objResponse.StatusCode == 200 && dealerId > 0)
+                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, dealerId);
+                if (objDealerDetails != null && dealerId > 0)
                 {
                     DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
-                    DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objDealerCache);
-                    if (objDealerDetails != null)
+
+                    if (objDealerDetails.status == Entities.StatusCodes.ContentFound)
                     {
-                        objDealerDetails.makeId = objResponse.MakeId;
+
                         objDealerDetailsVM = objDealerDetails.GetData();
+                        return View(objDealerDetailsVM);
                     }
 
-                    return View("~/Views/DealerShowroom/DealerDetail_Mobile.cshtml", objDealerDetailsVM);
-                }
-                else if (objResponse.StatusCode == 301)
-                {
-                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                    else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
+                    {
+                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealerDetails.objResponse.MaskingName));
+                    }
+                    else
+                    {
+                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    }
+
                 }
                 else
                 {
@@ -98,7 +116,7 @@ namespace Bikewale.Controllers
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealerDetails");
+                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealerDetail_Mobile");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
 
@@ -109,7 +127,8 @@ namespace Bikewale.Controllers
         {
             try
             {
-                DealerShowroomIndiaPage objDealer = new DealerShowroomIndiaPage(_objDealerCache, _upcoming, _objUsedCache, _objStateCache, _bikeMakesCache, makeMaskingName);
+                DealerShowroomIndiaPage objDealer = new DealerShowroomIndiaPage(_newLaunches, _objDealerCache, _upcoming, _objUsedCache, _objStateCache, _bikeMakesCache, makeMaskingName);
+
                 if (objDealer != null)
                 {
 
@@ -123,6 +142,10 @@ namespace Bikewale.Controllers
                     else if (objDealer.status == Entities.StatusCodes.RedirectPermanent)
                     {
                         return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealer.objResponse.MaskingName));
+                    }
+                    else if (objDealer.status == Entities.StatusCodes.RedirectTemporary)
+                    {
+                        return Redirect(objDealer.redirectUrl);
                     }
                     else
                     {
@@ -149,7 +172,7 @@ namespace Bikewale.Controllers
             {
 
 
-                DealerShowroomIndiaPage objDealer = new DealerShowroomIndiaPage(_objDealerCache, _upcoming, _objUsedCache, _objStateCache, _bikeMakesCache, makeMaskingName);
+                DealerShowroomIndiaPage objDealer = new DealerShowroomIndiaPage(_newLaunches, _objDealerCache, _upcoming, _objUsedCache, _objStateCache, _bikeMakesCache, makeMaskingName);
                 if (objDealer != null)
                 {
 
@@ -163,6 +186,10 @@ namespace Bikewale.Controllers
                     else if (objDealer.status == Entities.StatusCodes.RedirectPermanent)
                     {
                         return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealer.objResponse.MaskingName));
+                    }
+                    else if (objDealer.status == Entities.StatusCodes.RedirectTemporary)
+                    {
+                        return Redirect(objDealer.redirectUrl);
                     }
                     else
                     {
@@ -187,7 +214,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName);
+                DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName);
                 if (objDealer != null)
                 {
                     if (objDealer.status == Entities.StatusCodes.ContentFound)
@@ -229,7 +256,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName);
+                DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName);
                 if (objDealer != null)
                 {
                     if (objDealer.status == Entities.StatusCodes.ContentFound)

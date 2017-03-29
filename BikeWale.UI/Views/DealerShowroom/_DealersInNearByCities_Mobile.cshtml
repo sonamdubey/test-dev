@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Bikewale.Entities.Dealer.NearByCityDealerCountEntity>
+﻿@model Bikewale.Entities.Dealer.NearByCityDealer
 @if (Model!=null)
 {
 <div class="swiper-container padding-top5 padding-bottom5 map-type-carousel">
     <div class="swiper-wrapper">
-      @foreach (var Dealer in Model)
+      @foreach (var Dealer in Model.objDealerInNearCityList)
       {
         <div class="swiper-slide">
             <div class="swiper-card">

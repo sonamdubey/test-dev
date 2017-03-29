@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
@@ -178,6 +179,22 @@ namespace Bikewale.Cache.DealersLocator
                 objErr.SendMail();
             }
             return objDealerCountList;
+        }
+
+        public IEnumerable<CityEntityBase> FetchDealerCitiesByMake(uint makeId)
+        {
+            IEnumerable<CityEntityBase> objDealerCitytList = null;
+            string key = String.Format("BW_CityDealerCount_{0}", makeId);
+            try
+            {
+                objDealerCitytList = _cache.GetFromCache<IEnumerable<CityEntityBase>>(key, new TimeSpan(1, 0, 0), () => _objDealersRepository.FetchDealerCitiesByMake(makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("exception in CAche layer for FetchDealerCitiesByMake {0}", makeId));
+            }
+            return objDealerCitytList;
+
         }
     }
 }

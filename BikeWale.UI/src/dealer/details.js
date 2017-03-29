@@ -1,12 +1,150 @@
 ﻿var redMarkerImage = 'https://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
 var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
 var customerViewModel, dealerDetailsViewModel;
-$(document).ready(function () {
+var dealerLat = document.getElementById("locationSearch").getAttribute("data-lat");
+var dealerLong = document.getElementById("locationSearch").getAttribute("data-long"), dropdown, assistGetModel, currentCityName;
+docReady(function () {
+    assistGetModel = $('#getLeadBike');
+    initializeMap();
     dropdown.setDropdown();
-});
+    $(".dealerDetails").click(function () {
+        var btnDpq = $(this);
+        var pqSourceId = btnDpq.data("pqsourceid");
+        var modelId = btnDpq.data("modelid");
+        var versionId = btnDpq.data("versionid");
+        var areaId = btnDpq.data("areaid");
+        var cityId = btnDpq.data("cityid");
+        var cityName = btnDpq.data("cityname");
+        var areaName = btnDpq.data("areaname");
+        var dealerid = btnDpq.data("dealerid");
+        vmquotation.CheckCookies();
+        vmquotation.IsLoading(true);
+        $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
+        var options = {
+            "modelId": modelId,
+            "versionid": versionId,
+            "cityId": cityId,
+            "areaId": areaId,
+            "city": cityName,
+            "area": areaName,
+            "pagesrcid": pqSourceId,
+            "dealerid": dealerid
+        };
+        vmquotation.IsOnRoadPriceClicked(false);
+        vmquotation.setOptions(options);
+    });
+    $('.dropdown-select-wrapper').on('click', '.dropdown-label', function () {
+        dropdown.active($(this));
+    });
 
+    $('.dropdown-select-wrapper').on('click', '.dropdown-menu-list.dropdown-with-select li', function () {
+        var element = $(this);
+        if (!element.hasClass('active')) {
+            dropdown.selectItem($(this));
+            dropdown.selectOption($(this));
+        }
+        else {
+            element.closest('.dropdown-menu').removeClass('dropdown-active');
+        }
+    });
+    
+    $(document).on('click', function (event) {
+        event.stopPropagation();
+        var dropdown = $('.dropdown-menu');
+
+        if (dropdown.hasClass('dropdown-active')) {
+            if (!dropdown.is(event.target) && dropdown.has(event.target).length == 0) {
+                dropdown.removeClass('dropdown-active');
+            }
+        }
+    });
+    $('#submitAssistanceFormBtn').on('click', function () {
+        var isValidDetails = false;
+        isValidDetails &= validateBike(assistGetModel);
+        isValidDetails = ValidateUserDetail(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
+        if (isValidDetails) {
+            return true;
+        }
+    });
+    $(document).on('click', '#assistance-response-close-btn', function () {
+        $("#dealer-assist-msg").slideUp();
+    });
+    $(document).on("click", "#getUserLocation", function () { getLocation(); })
+    
+
+});
+dropdown = {
+    setDropdown: function () {
+        var selectDropdown = $('.dropdown-select');
+
+        selectDropdown.each(function () {
+            dropdown.setMenu($(this));
+        });
+    },
+
+    setMenu: function (element) {
+        $('<div class="dropdown-menu"></div>').insertAfter(element);
+        dropdown.setStructure(element);
+    },
+
+    setStructure: function (element) {
+        var elementValue = element.find('option:selected').text(),
+            menu = element.next('.dropdown-menu');
+        menu.append('<p class="dropdown-label">' + elementValue + '</p><div class="dropdown-list-wrapper"><p class="dropdown-selected-item">' + elementValue + '</p><ul class="dropdown-menu-list dropdown-with-select"></ul></div>');
+        dropdown.setOption(element);
+    },
+
+    setOption: function (element) {
+        var selectedIndex = element.find('option:selected').index(),
+            menu = element.next('.dropdown-menu'),
+            menuList = menu.find('ul');
+
+        element.find('option').each(function (index) {
+            if ($(this).val() != 0 && $(this).val().length != 0) { // check for dropdown label value
+                menuList.append('<li data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+            }
+        });
+    },
+
+    active: function (label) {
+        $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
+        label.closest('.dropdown-menu').addClass('dropdown-active');
+        if (label.closest('.dropdown-select-wrapper').hasClass('invalid')) {
+            validateDropdown.dropdown.hideError(label);
+        }
+    },
+
+    inactive: function () {
+        $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
+    },
+
+    selectItem: function (element) {
+        var elementValue = element.attr('data-option-value');
+        if (elementValue != 0 || elementValue.length != 0) { // check for dropdown label value
+            var elementText = element.text(),
+                menu = element.closest('.dropdown-menu'),
+                dropdownLabel = menu.find('.dropdown-label'),
+                selectedItem = menu.find('.dropdown-selected-item');
+
+            element.siblings('li').removeClass('active');
+            element.addClass('active');
+            selectedItem.text(elementText);
+            dropdownLabel.text(elementText);
+            menu.removeClass('dropdown-active');
+        }
+    },
+
+    selectOption: function (element) {
+        var elementValue = element.attr('data-option-value'),
+            wrapper = element.closest('.dropdown-select-wrapper'),
+            selectDropdown = wrapper.find('.dropdown-select');
+
+        selectDropdown.val(elementValue).trigger('change');
+    }
+};
 function initializeMap() {
     var mapCanvas = document.getElementById("dealer-map");
+    currentCityName = document.getElementById("locationSearch").getAttribute("data-currentcityname");
     var mapProp = {
         scrollwheel: false,
         streetViewControl: false,
@@ -53,8 +191,8 @@ function initializeMap() {
         travel_mode = google.maps.TravelMode.DRIVING;
 
         route(origin_place_id, travel_mode, directionsService, directionsDisplay);
-        if(userAddress!="")
-        $('.location-details').show();
+        if (userAddress != "")
+            $('.location-details').show();
     });
 
     var geocoder = new google.maps.Geocoder();
@@ -65,7 +203,6 @@ function initializeMap() {
         }
     });
 }
-
 
 function savePosition(position) {
     userLocation = {
@@ -89,31 +226,7 @@ function savePosition(position) {
 
 }
 
-$(".dealerDetails").click(function () {
-    var btnDpq = $(this);
-    var pqSourceId = btnDpq.data("pqsourceid");
-    var modelId = btnDpq.data("modelid");
-    var versionId = btnDpq.data("versionid");
-    var areaId = btnDpq.data("areaid");
-    var cityId = btnDpq.data("cityid");
-    var cityName = btnDpq.data("cityname");
-    var areaName = btnDpq.data("areaname");
-    vmquotation.CheckCookies();
-    vmquotation.IsLoading(true);
-    $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
-    var options = {
-        "modelId": modelId,
-        "versionid" : versionId,
-        "cityId": cityId,
-        "areaId": areaId,
-        "city": cityName,
-        "area": areaName,
-        "pagesrcid": pqSourceId,
-        "dealerid": dealerid
-    };
-    vmquotation.IsOnRoadPriceClicked(false);
-    vmquotation.setOptions(options);
-});
+
 
 var dealerDetails = function (dealerDetailsBind) {
     var self = this;
@@ -141,113 +254,7 @@ var dealerDetails = function (dealerDetailsBind) {
     self.msg = "";
 }
 
-
-$('.dropdown-select-wrapper').on('click', '.dropdown-label', function () {
-    dropdown.active($(this));
-});
-
-$('.dropdown-select-wrapper').on('click', '.dropdown-menu-list.dropdown-with-select li', function () {
-    var element = $(this);
-    if (!element.hasClass('active')) {
-        dropdown.selectItem($(this));
-        dropdown.selectOption($(this));
-    }
-    else {
-        element.closest('.dropdown-menu').removeClass('dropdown-active');
-    }
-});
-
-var dropdown = {
-    setDropdown: function () {
-        var selectDropdown = $('.dropdown-select');
-
-        selectDropdown.each(function () {
-            dropdown.setMenu($(this));
-        });
-    },
-
-    setMenu: function (element) {
-        $('<div class="dropdown-menu"></div>').insertAfter(element);
-        dropdown.setStructure(element);
-    },
-
-    setStructure: function (element) {
-        var elementValue = element.find('option:selected').text(),
-			menu = element.next('.dropdown-menu');
-        menu.append('<p class="dropdown-label">' + elementValue + '</p><div class="dropdown-list-wrapper"><p class="dropdown-selected-item">' + elementValue + '</p><ul class="dropdown-menu-list dropdown-with-select"></ul></div>');
-        dropdown.setOption(element);
-    },
-
-    setOption: function (element) {
-        var selectedIndex = element.find('option:selected').index(),
-			menu = element.next('.dropdown-menu'),
-			menuList = menu.find('ul');
-
-        element.find('option').each(function (index) {
-            if ($(this).val() != 0 && $(this).val().length != 0) { // check for dropdown label value
-                menuList.append('<li data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
-            }
-        });
-    },
-
-    active: function (label) {
-        $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
-        label.closest('.dropdown-menu').addClass('dropdown-active');
-        if (label.closest('.dropdown-select-wrapper').hasClass('invalid')) {
-            validateDropdown.dropdown.hideError(label);
-        }
-    },
-
-    inactive: function () {
-        $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
-    },
-
-    selectItem: function (element) {
-        var elementValue = element.attr('data-option-value');
-        if (elementValue != 0 || elementValue.length != 0) { // check for dropdown label value
-            var elementText = element.text(),
-			    menu = element.closest('.dropdown-menu'),
-			    dropdownLabel = menu.find('.dropdown-label'),
-			    selectedItem = menu.find('.dropdown-selected-item');
-
-            element.siblings('li').removeClass('active');
-            element.addClass('active');
-            selectedItem.text(elementText);
-            dropdownLabel.text(elementText);
-            menu.removeClass('dropdown-active');
-        }
-    },
-
-    selectOption: function (element) {
-        var elementValue = element.attr('data-option-value'),
-			wrapper = element.closest('.dropdown-select-wrapper'),
-			selectDropdown = wrapper.find('.dropdown-select');
-
-        selectDropdown.val(elementValue).trigger('change');
-    }
-};
-
-$(document).on('click', function (event) {
-    event.stopPropagation();
-    var dropdown = $('.dropdown-menu');
-
-    if (dropdown.hasClass('dropdown-active')) {
-        if (!dropdown.is(event.target) && dropdown.has(event.target).length == 0) {
-            dropdown.removeClass('dropdown-active');
-        }
-    }
-});
-
-var  assistGetModel = $('#getLeadBike');
-
-$('#submitAssistanceFormBtn').on('click', function () {
-    var isValidDetails = false;
-    isValidDetails &= validateBike(assistGetModel);
-    isValidDetails = ValidateUserDetail(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
-    if (isValidDetails) {
-        return true;
-    }
-});
+ 
 
 function validateBikeData() {
     if ($('#getLeadBike').val().length == 0) {
@@ -324,9 +331,6 @@ function validatePhone()
      }
 }
 
-$(document).on('click', '#assistance-response-close-btn', function () {
-    $("#dealer-assist-msg").slideUp();
-});
 
 
 function hideFormErrors() {
@@ -377,7 +381,7 @@ function getLocation() {
     }
 }
 
-$(document).on("click", "#getUserLocation", function () { getLocation(); })
+
 
 function route(origin_place_id, travel_mode, directionsService, directionsDisplay) {
 

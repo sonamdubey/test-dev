@@ -1,4 +1,4 @@
-﻿@model Bikewale.Entities.UsedBikes.UsedBikeModels
+﻿@model Bikewale.Models.UsedBikeModelsWidgetVM
 
 @if (Model != null ) { 
 <div class="jcarousel-wrapper inner-content-carousel">
@@ -7,7 +7,7 @@
             @foreach (var bikeDetails in Model.UsedBikeModelList)
             {
             <li>
-                <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeDetails.MakeMaskingName, bikeDetails.ModelMaskingName, Model.CityDetails != null ? Model.CityDetails .CityMaskingName : " india")" title="@string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,Model.CityDetails !=null?Model.CityDetails.CityName:"India")" class="jcarousel-card">
+                <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeDetails.MakeMaskingName, bikeDetails.ModelMaskingName, Model.CityDetails != null ? Model.CityDetails .CityMaskingName : "india")" title="@string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,Model.CityDetails !=null?Model.CityDetails.CityName:"India")" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <div class="card-image-block">
                             <img class="lazy" src="" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.UsedOriginalImagePath,bikeDetails.UsedHostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@string.Format(" used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,Model.CityDetails !=null?Model.CityDetails.CityName:"India")">
