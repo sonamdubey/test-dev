@@ -54,13 +54,13 @@
     <section>
         <div class="margin-bottom10">
             <div class="container bg-white box-shadow padding-top15 padding-bottom20">
-                <h2 class="padding-right20 padding-bottom15 padding-left20">Other Brand</h2>
+                <h2 class="padding-right20 padding-bottom15 padding-left20">Find showroom for other brands</h2>
                 @Html.Partial("~/Views/DealerShowroom/_DealersByBrand_Mobile.cshtml", Model.AllDealers)
             </div>
         </div>
 </section>
 }
-@if ((Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count()>0 )|| (Model.objUpcomingBikes != null && Model.objUpcomingBikes.Count() > 0) ||( Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0))
+@if ((Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0) || (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0) || (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0))
 {<section>
         <div class="container bg-white box-shadow padding-top15 padding-bottom20">
             @if (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0)
@@ -77,7 +77,7 @@
 
                 </section>
             }
-            @if (Model.objUpcomingBikes != null && Model.objUpcomingBikes.Count() > 0)
+            @if ((Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0))
             {
                  <div class="margin-top20 margin-right20 margin-left20 border-solid-bottom"></div>
                 <section>

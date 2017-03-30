@@ -1,21 +1,10 @@
-﻿@{
-
-    var Model = ViewBag.DetailsPage;
-    var videoModel = Model.VideoEntity;
-    
-    ViewBag.Ad_970x90 = false;
-    ViewBag.Ad_970x90Bottom = false;
-    ViewBag.Ad_300x250BTF = false;
-    ViewBag.Ad_Mid_320x50 = false;
-    ViewBag.Ad_300x250 = false;
-    ViewBag.IsHeaderFix = false;
-    ViewBag.Page_JS_Path = "/src/videos/detail.js";
-    Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
-    ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/detail.css' />";
-    ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
-    ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;    
+﻿@model Bikewale.Models.VideoDetailsPageVM
+@{  
+    Model.Page_JS_Path = "/src/videos/detail.js";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/detail.css' />";
 }
-@if (Model != null)
+@if (Model != null && Model.Video!=null)
 {
     <section>
         <div class="container">
@@ -24,14 +13,14 @@
                     <ul>
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title">Home</span></a></li>
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/bike-videos/"><span itemprop="title">Bike Videos</span></a></li>
-                        @if (!String.IsNullOrEmpty(videoModel.SubCatName))
+                        @if (!String.IsNullOrEmpty(Model.Video.SubCatName))
                         {
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="@Bikewale.Utility.UrlFormatter.VideoByCategoryPageUrl(videoModel.SubCatName, videoModel.SubCatId)"><span itemprop="title">@videoModel.SubCatName</span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="@Bikewale.Utility.UrlFormatter.VideoByCategoryPageUrl(Model.Video.SubCatName, Model.Video.SubCatId)"><span itemprop="title">@Model.Video.SubCatName</span></a></li>
                         }
-                        <li><span class="bwsprite fa-angle-right margin-right10"></span>@videoModel.VideoTitle </li>
+                        <li><span class="bwsprite fa-angle-right margin-right10"></span>@Model.Video.VideoTitle </li>
                     </ul>
                 </div>
-                <h1 class="font26 margin-bottom5">@videoModel.VideoTitle</h1>
+                <h1 class="font26 margin-bottom5">@Model.Video.VideoTitle</h1>
             </div>
             <div class="clear"></div>
         </div>
@@ -41,14 +30,14 @@
             <div class="grid-12">
                 <div class="content-box-shadow content-inner-block-20">
                     <div id="embedVideo" class="margin-bottom15">
-                        <iframe width="934" height="527" src="@string.Format("{0}&autoplay=1", videoModel.VideoUrl)" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="934" height="527" src="@string.Format("{0}&autoplay=1", Model.Video.VideoUrl)" frameborder="0" allowfullscreen></iframe>
                     </div>
-                    <div class="font14 text-light-grey margin-bottom10">@Html.Raw(videoModel.Description)</div>
+                    <div class="font14 text-light-grey margin-bottom10">@Html.Raw(Model.Video.Description)</div>
                     <p class="video-views-counts border-light-right font14 leftfloat padding-right40">
-                        <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default comma">@Bikewale.Utility.Format.FormatNumeric(videoModel.Views.ToString())</span>
+                        <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default comma">@Bikewale.Utility.Format.FormatNumeric(Model.Video.Views.ToString())</span>
                     </p>
                     <p class="video-views-counts padding-left30 font14 leftfloat border-light-right">
-                        <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma">@Bikewale.Utility.Format.FormatNumeric(videoModel.Likes.ToString())</span>
+                        <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma">@Bikewale.Utility.Format.FormatNumeric(Model.Video.Likes.ToString())</span>
                     </p>
                     <div class="leftfloat powerdrift-subscribe padding-left30">
                         <script src="https://apis.google.com/js/platform.js"></script>
@@ -62,11 +51,13 @@
         </div>
     </section>
 }
-@{Html.RenderAction("BikeInfoCard", "GenericBikeInfo", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = @ViewBag.ModelId, CityId = @ViewBag.CityId, PageId = Bikewale.Entities.GenericBikes.BikeInfoTabType.Videos,IsSmallSlug = false });}
-@{Html.RenderAction("SimilarVideos", "Videos", new { videoId = videoModel.BasicId, modelId = @ViewBag.ModelId });}
-@{Html.RenderAction("PopularBodyStyleDesktop", "PopularBikes", new { modelId = @ViewBag.ModelId, topCount = @ViewBag.TopCount, cityId = @ViewBag.CityId });}
 
-<script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/frameworks.js?@ViewBag.staticFileVersion"></script>
-<script type="text/javascript" src='https://st2.aeplcdn.com/bikewale/min/src/jquery.floating-social-share.min.js'></script>
+@if(Model.IsBikeTagged)
+{
+    Html.RenderAction("BikeInfoCard", "GenericBikeInfo", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = Model.TaggedModelId, CityId = Model.CityId, PageId = Bikewale.Entities.GenericBikes.BikeInfoTabType.Videos, IsSmallSlug = false });
+}
+@{Html.RenderAction("SimilarVideos", "Videos", new { videoId = Model.Video.BasicId, modelId = Model.TaggedModelId });}
+@{Html.RenderAction("PopularBodyStyleDesktop", "PopularBikes", new { modelId = Model.TaggedModelId, topCount = 9, cityId = Model.CityId });}
+<script defer type="text/javascript" src='https://st2.aeplcdn.com/bikewale/min/src/jquery.floating-social-share.min.js'></script>
 <link href="https://st2.aeplcdn.com/bikewale/min/css/jquery.floating-social-share.min.css?28Feb2017v1" rel="stylesheet" type="text/css">
 

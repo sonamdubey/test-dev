@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.CMS;
@@ -47,6 +48,7 @@ namespace Bikewale.Controllers
         }
         // GET: HomePage
         [Route("homepage/")]
+        [DeviceDetection]
         public ActionResult Index()
         {
             HomePageVM objData = null;
