@@ -147,7 +147,7 @@
                                 @if (Model.DealerDetails.DealerDetails.Area != null && Model.DealerDetails.DealerDetails.Area.AreaId > 0)
                                 {
                                     <div class="text-default">
-                                        <a rel="nofollow" id="dealerDetails" class="btn btn-white btn-sm-1 margin-top5 inline-block dealerDetails" href="javascript:void(0)" data-dealerid="@Model.DealerDetails.DealerDetails.DealerId" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels)" data-modelid="@bike.objModel.ModelId" data-versionid="@bike.objVersion.VersionId" data-areaid="@Model.PQAreaID" data-cityid="@Model.CityDetails.CityId" data-areaname="@Model.PQAreaName" data-cityname="@Model.CityDetails.CityName">Show detailed price</a>
+                                        <a rel="nofollow" id="dealerDetails" class="btn btn-white btn-sm-1 margin-top5 inline-block dealerDetails" href="javascript:void(0)" data-dealerid="@Model.DealerDetails.DealerDetails.DealerId" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels)" data-modelid="@bike.objModel.ModelId" data-versionid="@bike.objVersion.VersionId" data-areaid="@Model.DealerDetails.DealerDetails.Area.AreaId " data-cityid="@Model.CityDetails.CityId" data-areaname="@Model.DealerDetails.DealerDetails.Area.AreaName" data-cityname="@Model.CityDetails.CityName">Show detailed price</a>
                                     </div>
                                 }
                             </div>
