@@ -4,7 +4,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
@@ -131,9 +130,9 @@ namespace Bikewale.Models.ServiceCenters
             }
         }
 
-        private UsedBikeModels BindUsedBikeByModel(CityEntityBase city)
+        private UsedBikeModelsWidgetVM BindUsedBikeByModel(CityEntityBase city)
         {
-            UsedBikeModels UsedBikeModel = new UsedBikeModels();
+            UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
             try
             {
                 UsedBikeModel.CityDetails = city;

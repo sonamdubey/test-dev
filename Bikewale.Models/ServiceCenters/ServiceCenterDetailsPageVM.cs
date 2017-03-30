@@ -2,14 +2,13 @@
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.ServiceCenters;
-using Bikewale.Entities.UsedBikes;
 using System.Collections.Generic;
 
 namespace Bikewale.Models.ServiceCenters
 {
     public class ServiceCenterDetailsPageVM : ModelBase
     {
-        public UsedBikeModels UsedBikesByMakeList { get; set; }
+        public UsedBikeModelsWidgetVM UsedBikesByMakeList { get; set; }
         public DealersEntity DealersWidgetData { get; set; }
         public MostPopularBikeWidgetVM PopularWidgetData { get; set; }
         public ServiceCenterCompleteData ServiceCenterData { get; set; }

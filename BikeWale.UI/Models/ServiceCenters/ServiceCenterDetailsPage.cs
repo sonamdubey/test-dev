@@ -4,7 +4,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
@@ -62,7 +61,7 @@ namespace Bikewale.Models.ServiceCenters
                     objVM.Make = new MakeHelper().GetMakeNameByMakeId(_makeId);
 
                 MostPopularBikesWidget objPopularBikesWidget = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, false, true, PQSourceEnum.Mobile_ServiceCenter_Listing_CityPage, 0, _makeId);
-                objPopularBikesWidget.TopCount = PopularBikeWidgetTopCount;
+                objPopularBikesWidget.TopCount = (int)PopularBikeWidgetTopCount;
                 objPopularBikesWidget.CityId = _cityId;
                 objVM.PopularWidgetData = objPopularBikesWidget.GetData();
 
@@ -83,9 +82,9 @@ namespace Bikewale.Models.ServiceCenters
             return objVM;
         }
 
-        private UsedBikeModels BindUsedBikeByModel(CityEntityBase city)
+        private UsedBikeModelsWidgetVM BindUsedBikeByModel(CityEntityBase city)
         {
-            UsedBikeModels UsedBikeModel = new UsedBikeModels();
+            UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
             try
             {
                 UsedBikeModel.CityDetails = city;

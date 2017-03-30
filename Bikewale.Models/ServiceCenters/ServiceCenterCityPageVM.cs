@@ -3,7 +3,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.ServiceCenters;
-using Bikewale.Entities.UsedBikes;
 namespace Bikewale.Models.ServiceCenters
 {
     public class ServiceCenterCityPageVM : ModelBase
@@ -13,7 +12,7 @@ namespace Bikewale.Models.ServiceCenters
         public CityEntityBase City { get; set; }
         public ServiceCentersNearByCityWidgetVM NearByCityWidgetData { get; set; }
         public MostPopularBikeWidgetVM PopularWidgetData { get; set; }
-        public UsedBikeModels UsedBikesByMakeList { get; set; }
+        public UsedBikeModelsWidgetVM UsedBikesByMakeList { get; set; }
         public DealersEntity DealersWidgetData { get; set; }
         public BrandCityPopupVM BrandCityPopupWidget { get; set; }
     }
