@@ -163,7 +163,7 @@
                 }
                 @if (Model.ServiceCenterDetails != null && Model.ServiceCenterDetails.ServiceCentersList != null && Model.ServiceCenterDetails.ServiceCentersList.Count() > 0)
                 {
-                    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+                    
                     <div class="carousel-heading-content padding-top20">
                         <div class="swiper-heading-left-grid inline-block">
                             <h2>@string.Format("{0} service centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)</h2>
@@ -175,16 +175,15 @@
                         <div class="swiper-wrapper">
                             @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.ServiceCenterDetails)
                         </div>
+                        <div class="clear"></div>
                     </div>
-             
-            
-
 
                 }
                 @if (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0)
                 {
-                    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+                   
                     <section>
+                        <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <div class="carousel-heading-content padding-top15">
                             <div class="swiper-heading-left-grid inline-block">
                                 <h2>@string.Format("Used {0}  bikes in {1}", Model.Make.MakeName, Model.CityDetails.CityName)</h2>
