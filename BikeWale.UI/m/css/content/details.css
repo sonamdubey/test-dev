@@ -65,6 +65,8 @@
     text-decoration: none;
 }
 
+.next-page-title { height: 3em; overflow: hidden; }
+
 .text-light {
     color: #a2a2a2;
 }

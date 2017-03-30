@@ -925,6 +925,7 @@
     <Compile Include="Models\CompareBikes\PopularModelCompareWidget.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
+    <Compile Include="Models\News\NewsDetailPage.cs" />
     <Compile Include="Models\News\NewsIndexPage.cs" />
     <Compile Include="Models\Location\ChangeLocationPopup.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
@@ -3630,12 +3631,10 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleCarousel_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare_Mobile.cshtml" />
-
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Index_Mobile.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikes_Vertical.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Middle.cshtml" />
-
     <Content Include="Views\DealerShowroom\DealerDetail.cshtml" />
     <Content Include="Views\UsedBikes\_UsedBikesCIties.cshtml" />
     <Content Include="Views\UsedBikes\_UsedBikesCIties_Mobile.cshtml" />
@@ -3652,12 +3651,11 @@
     <Content Include="Views\Price\_DealerCampaign_Mobile.cshtml" />
     <Content Include="Views\Price\_SecondaryDealers_Mobile.cshtml" />
     <Content Include="Views\Price\_ManufacturerCampaign_Mobile.cshtml" />
-
     <Content Include="Views\DealerShowroom\Index.cshtml" />
     <Content Include="Views\DealerShowroom\Index_Mobile.cshtml" />
-
     <Content Include="Views\PriceInCity\Index_Mobile.cshtml" />
-
+    <Content Include="Views\News\Detail_Mobile.cshtml" />
+    <Content Include="Views\News\Detail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3675,7 +3673,6 @@
     <Folder Include="content\ComparisonTest\" />
     <Folder Include="Controllers\m\new\Scooters\" />
     <Folder Include="Models\Features\" />
-    <Folder Include="Models\Upcoming\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
