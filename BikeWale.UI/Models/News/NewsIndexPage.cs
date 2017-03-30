@@ -30,10 +30,11 @@ namespace Bikewale.Models
         private readonly IBikeModelsCacheRepository<int> _models = null;
         private readonly IUpcoming _upcoming = null;
         private int _topCount;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels=null;
         #endregion
 
         #region Page level variables
-        private uint MakeId, ModelId, pageCatId = 0,cityId;
+        private uint MakeId, ModelId, pageCatId = 0,CityId;
         private const int pageSize = 10, pagerSlotSize = 5;
         private int curPageNo = 1;
         private string make=string.Empty, model=string.Empty;
@@ -42,9 +43,8 @@ namespace Bikewale.Models
         private GlobalCityAreaEntity currentCityArea;
         public string redirectUrl;
         public StatusCodes status;
-        protected BikeModelEntity objModel = null;
-        protected BikeMakeEntityBase objMake = null;
-        private IBikeModels<BikeModelEntity, int> _bikeModels;
+        private BikeModelEntity objModel = null;
+        private BikeMakeEntityBase objMake = null;        
         private EnumBikeType bikeType=EnumBikeType.All;
         private bool showCheckOnRoadCTA = false;
         private PQSourceEnum pqSource=0;
@@ -260,11 +260,11 @@ namespace Bikewale.Models
             {
                 currentCityArea = GlobalCityArea.GetGlobalCityArea();
                 if (currentCityArea != null)
-                    cityId = currentCityArea.CityId;
+                    CityId = currentCityArea.CityId;
 
                 MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, pqSource, pageCatId, MakeId);
                 objPopularBikes.TopCount = _topCount;
-                objPopularBikes.CityId = cityId;
+                objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();
                 if (MakeId > 0 && objMake != null)
                 {
@@ -283,7 +283,7 @@ namespace Bikewale.Models
                 {
                     PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
                     objPopularStyle.ModelId = ModelId;
-                    objPopularStyle.CityId = cityId;
+                    objPopularStyle.CityId = CityId;
                     objPopularStyle.TopCount = _topCount;
                     objData.PopularBodyStyle = objPopularStyle.GetData();
                     if (objData.PopularBodyStyle != null)
@@ -356,7 +356,7 @@ namespace Bikewale.Models
             string _mainUrl = String.Format("{0}{1}page/", BWConfiguration.Instance.BwHostUrl, objData.PagerEntity.BaseUrl);
             string prevPageNumber = string.Empty, nextPageNumber = string.Empty;
             int totalPages = _pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
-             if (curPageNo == 1)    
+            if (curPageNo == 1 && totalPages > 1)    
             {
                 nextPageNumber = "2";
                 objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/",_mainUrl, nextPageNumber);
