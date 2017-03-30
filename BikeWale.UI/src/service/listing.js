@@ -27,6 +27,7 @@ function initializeMap(dealerArr) {
     }
 
     var i, marker, dealer, markerPosition, content, zIndex;
+    var currentCityName = document.getElementById("dealerMapWrapper").getAttribute("data-currentcityname");
 
     var mapProp = {
         scrollwheel: false,
@@ -379,9 +380,11 @@ docReady(function () {
                 }
             }
         }
-    });
+    });    
 
     $(window).resize(function () {
         mapDimension();
     });
+
+    initializeDealerMap();
 });

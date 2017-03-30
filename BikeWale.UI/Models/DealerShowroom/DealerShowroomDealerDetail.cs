@@ -140,7 +140,7 @@ namespace Bikewale.Models
             MostPopularBikeWidgetVM objPopularBikes = new MostPopularBikeWidgetVM();
             try
             {
-                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true);
+                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, false);
                 popularBikes.TopCount = 9;
                 objPopularBikes = popularBikes.GetData();
                 objPopularBikes.PageCatId = 5;
@@ -179,7 +179,7 @@ namespace Bikewale.Models
         /// Created By :- Subodh Jain 27 March 2017
         /// Summary :- To fetch data for Other dealer widget
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns>   
         private DealersEntity BindOtherDealerWidget()
         {
             DealersEntity objDealerList = null;

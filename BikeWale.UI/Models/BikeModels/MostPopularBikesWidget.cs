@@ -15,6 +15,7 @@ namespace Bikewale.Models
         #region Private Readonly Member Variables and Objects
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly bool _showCheckOnRoadCTA;
+        private readonly bool _showPriceInCityCTA;
         private readonly uint _makeId, _pageCatId;
         private readonly PQSourceEnum _pqSource;
         private readonly EnumBikeType _bikeType;
@@ -38,11 +39,12 @@ namespace Bikewale.Models
         /// <param name="bikeModels"></param>
         /// <param name="bikeType"></param>
         /// <param name="showCheckOnRoadCTA"></param>
-        public MostPopularBikesWidget(IBikeModels<BikeModelEntity, int> bikeModels, EnumBikeType bikeType, bool showCheckOnRoadCTA)
+        public MostPopularBikesWidget(IBikeModels<BikeModelEntity, int> bikeModels, EnumBikeType bikeType, bool showCheckOnRoadCTA, bool showPriceInCityCTA)
         {
             _bikeModels = bikeModels;
             _showCheckOnRoadCTA = showCheckOnRoadCTA;
             _bikeType = bikeType;
+            _showPriceInCityCTA = showPriceInCityCTA;
         }
 
         /// <summary>
@@ -60,8 +62,8 @@ namespace Bikewale.Models
         /// <param name="pqSource">PQ Source to track the source of price quotes sources</param>
         /// <param name="pageCatId">page Cat id used to push GA events</param>
         /// <param name="showCheckOnRoadCTA">Hide or show Check on road button</param>
-        public MostPopularBikesWidget(IBikeModels<BikeModelEntity, int> bikeModels, EnumBikeType bikeType, bool showCheckOnRoadCTA, PQSourceEnum pqSource, uint pageCatId)
-            : this(bikeModels, bikeType, showCheckOnRoadCTA)
+        public MostPopularBikesWidget(IBikeModels<BikeModelEntity, int> bikeModels, EnumBikeType bikeType, bool showCheckOnRoadCTA, bool showPriceInCityCTA, PQSourceEnum pqSource, uint pageCatId)
+            : this(bikeModels, bikeType, showCheckOnRoadCTA, showPriceInCityCTA)
         {
             _pqSource = pqSource;
             _pageCatId = pageCatId;
@@ -83,8 +85,8 @@ namespace Bikewale.Models
         /// <param name="pageCatId">page Cat id used to push GA events</param>
         /// <param name="showCheckOnRoadCTA">Hide or show Check on road button</param>
         /// <param name="makeId"></param>
-        public MostPopularBikesWidget(IBikeModels<BikeModelEntity, int> bikeModels, EnumBikeType bikeType, bool showCheckOnRoadCTA, PQSourceEnum pqSource, uint pageCatId, uint makeId)
-            : this(bikeModels, bikeType, showCheckOnRoadCTA)
+        public MostPopularBikesWidget(IBikeModels<BikeModelEntity, int> bikeModels, EnumBikeType bikeType, bool showCheckOnRoadCTA, bool showPriceInCityCTA, PQSourceEnum pqSource, uint pageCatId, uint makeId)
+            : this(bikeModels, bikeType, showCheckOnRoadCTA, showPriceInCityCTA)
         {
             _makeId = makeId;
             _pqSource = pqSource;
@@ -105,6 +107,7 @@ namespace Bikewale.Models
                 objVM.PQSourceId = _pqSource;
                 objVM.PageCatId = _pageCatId;
                 objVM.ShowCheckOnRoadCTA = _showCheckOnRoadCTA;
+                objVM.ShowPriceInCityCTA = _showPriceInCityCTA;
                 objVM.Bikes = _bikeModels.GetMostPopularBikes(_bikeType, TopCount, _makeId, CityId);
             }
             catch (Exception ex)

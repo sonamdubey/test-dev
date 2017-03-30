@@ -10,6 +10,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Used;
 using Bikewale.Memcache;
+using Bikewale.Models.Make;
 using System;
 using System.Linq;
 namespace Bikewale.Models.DealerShowroom
@@ -63,6 +64,7 @@ namespace Bikewale.Models.DealerShowroom
                 }
                 objDealerVM.DealerCountCity = BindOtherDealerInCitiesWidget();
                 objDealerVM.UsedBikeModel = BindUsedBikeByModel();
+                objDealerVM.BrandCityPopupWidget = new BrandCityPopupModel(EnumBikeType.Dealer, (uint)objMake.MakeId, cityId).GetData();
             }
             catch (Exception ex)
             {

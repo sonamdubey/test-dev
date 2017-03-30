@@ -9,5 +9,7 @@ namespace Bikewale.Models
     {
         public EnumBikeType PageType { get; set; }
         public bool IsOperaBrowser { get; set; }
+        public uint CityId { get; set; }
+        public uint MakeId { get; set; }
     }
 }

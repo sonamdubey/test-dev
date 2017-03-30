@@ -4,7 +4,6 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.Location;
-using Bikewale.Models;
 
 namespace Bikewale.Models
 {
@@ -52,7 +51,7 @@ namespace Bikewale.Models
             HomePageVM objVM = new HomePageVM();
             objVM.Brands = new BrandWidgetModel(TopCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.New);
 
-            var popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true);
+            var popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, false);
             popularBikes.TopCount = 9;
             objVM.PopularBikes = popularBikes.GetData();
             objVM.PopularBikes.PageCatId = 5;

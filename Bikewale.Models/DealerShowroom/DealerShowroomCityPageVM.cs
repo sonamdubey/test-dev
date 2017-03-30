@@ -14,5 +14,6 @@ namespace Bikewale.Models
         public UsedBikeModels UsedBikeModel;
         public CityEntityBase CityDetails;
         public uint TotalDealers;
+        public BrandCityPopupVM BrandCityPopupWidget { get; set; }
     }
 }

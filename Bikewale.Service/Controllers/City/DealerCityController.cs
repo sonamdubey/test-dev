@@ -82,7 +82,7 @@ namespace Bikewale.Service.Controllers.City
         /// <returns></returns>
         [ResponseType(typeof(CityList)), Route("api/v2/DealerCity/")]
         public IHttpActionResult GetV2(uint makeId)
-        {
+        { 
             IEnumerable<CityEntityBase> cities = null;
             Bikewale.DTO.PriceQuote.City.v2.PQCityList objDTOCityList = null;
             try
