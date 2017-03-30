@@ -462,7 +462,7 @@
     <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NewLaunchesController.cs" />
-    <Compile Include="Controllers\new\Scooters\ScootersController.cs" />
+    <Compile Include="Controllers\ScootersController.cs" />
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
@@ -934,6 +934,7 @@
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\Scooters\ScootersIndexPageModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterCityPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterDetailsPage.cs" />
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
@@ -3524,7 +3525,7 @@
     <Content Include="Views\m\Shared\_PopularBikes.cshtml" />
     <Content Include="Views\Shared\_PopularBikes.cshtml" />
     <Content Include="Views\Shared\_PopularBodyStyle.cshtml" />
-    <Content Include="Views\Scooters\index.cshtml" />
+    <Content Include="Views\Scooters\Index.cshtml" />
     <Content Include="Views\m\Shared\_PopularBodyStyle.cshtml" />
     <Content Include="Views\Videos\Details_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_BikeInfoCard_Mobile.cshtml" />
@@ -3560,7 +3561,7 @@
     <Content Include="Views\m\Shared\_Brands.cshtml" />
     <Content Include="Views\Shared\_OtherBrands.cshtml" />
     <Content Include="Views\m\Shared\_OtherBrands.cshtml" />
-    <Content Include="Views\m\Scooters\index.cshtml" />
+    <Content Include="Views\Scooters\Index_Mobile.cshtml" />
     <Content Include="Views\Shared\_ServiceCenters.cshtml" />
     <Content Include="Views\m\Shared\_ServiceCenters.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad976x400_First.cshtml" />
