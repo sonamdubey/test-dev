@@ -229,7 +229,7 @@
                             @if (Model.DealerDetails.DealerDetails.Area != null && Model.DealerDetails.DealerDetails.Area.AreaId > 0)
                             {
                                 <div class="margin-left20 margin-bottom20">
-                                    <a href="javascript:void(0)" data-dealerid="@Model.DealerDetails.DealerDetails.DealerId" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels)" data-modelid="@bike.objModel.ModelId" data-versionid="@bike.objVersion.VersionId" data-areaid="@Model.PQAreaID" data-cityid="@Model.CityDetails.CityId" data-areaname="@Model.PQAreaName" data-cityname="@Model.CityDetails.CityName" class="btn btn-sm btn-grey font14 dealerDetails" rel="nofollow">Show detailed price</a>
+                                    <a href="javascript:void(0)" data-dealerid="@Model.DealerDetails.DealerDetails.DealerId" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels)" data-modelid="@bike.objModel.ModelId" data-versionid="@bike.objVersion.VersionId" data-areaid="@Model.DealerDetails.DealerDetails.Area.AreaId" data-cityid="@Model.CityDetails.CityId" data-areaname="@Model.DealerDetails.DealerDetails.Area.AreaName" data-cityname="@Model.CityDetails.CityName" class="btn btn-sm btn-grey font14 dealerDetails" rel="nofollow">Show detailed price</a>
                                 </div>
                             }
                         </li>
