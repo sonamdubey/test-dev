@@ -97,8 +97,7 @@ namespace Bikewale.Models
             BindAdTags(objVM.AdTags);
             objVM.Banner = _cachedBanner.GetHomePageBanner();
             objVM.Brands = new BrandWidgetModel(TopCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.New);
-
-            var popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.New, true);
+            var popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, false);
             popularBikes.TopCount = 9;
             objVM.PopularBikes = popularBikes.GetData();
             objVM.PopularBikes.PageCatId = 5;

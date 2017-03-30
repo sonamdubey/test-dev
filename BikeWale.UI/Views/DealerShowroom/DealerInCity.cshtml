@@ -218,5 +218,7 @@
         <div class="clear"></div>
     </div>
 </section>
+
+@Html.Partial("~/Views/Make/_BrandCityPopup.cshtml", Model.BrandCityPopupWidget)
 @{Html.RenderAction("ChangeLocation", "Location", new { cityId = Model.CityDetails.CityId, cityName = Model.CityDetails.CityName });}
 <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>
