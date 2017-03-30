@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DealerShowroom\DealerCardVM.cs" />
     <Compile Include="DealerShowroom\IndexVM.cs" />
     <Compile Include="Make\BrandCityPopupVM.cs" />
     <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />

@@ -73,6 +73,7 @@ namespace Bikewale.Controllers
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
+                obj.OtherTopCount = 3;
                 DealerPriceQuotePageVM objData = obj.GetData();
                 //if data is null check for pricequote redirection
                 if (obj.Status.Equals(StatusCodes.RedirectPermanent))
@@ -104,6 +105,7 @@ namespace Bikewale.Controllers
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
+                obj.OtherTopCount = 9;
                 DealerPriceQuotePageVM objData = obj.GetData();
                 //if data is null check for pricequote redirection
                 if (obj.Status.Equals(StatusCodes.RedirectPermanent))

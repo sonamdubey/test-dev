@@ -72,6 +72,7 @@ namespace Bikewale.Controllers
             {
                 model.BikeInfoTabCount = 4;
                 model.NearestCityCount = 8;
+                model.TopCount = 3;
                 objVM = model.GetData();
                 return View(objVM);
             }
@@ -106,6 +107,7 @@ namespace Bikewale.Controllers
             {
                 model.BikeInfoTabCount = 3;
                 model.NearestCityCount = 4;
+                model.TopCount = 9;
                 objVM = model.GetData();
                 return View(objVM);
             }
