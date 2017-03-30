@@ -1,8 +1,6 @@
 ﻿using Bikewale.BAL.MVC.UI;
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.BikeData.NewLaunched;
-using Bikewale.Entities.Compare;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.BikeData;
@@ -11,14 +9,19 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.Models;
 using Bikewale.Models.Shared;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-namespace Bikewale.Controllers.Desktop.Scooters
+namespace Bikewale.Controllers
 {
+    /// <summary>
+    /// Created by  :   Sumit Kate on 30 Mar 2017
+    /// Description :   Scooters Controller
+    /// </summary>
     public class ScootersController : Controller
     {
         private readonly INewBikeLaunchesBL _newLaunches = null;
@@ -44,39 +47,35 @@ namespace Bikewale.Controllers.Desktop.Scooters
             _objMakeRepo = objMakeRepo;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 30 Mar 2017
+        /// Description :   Returns view model Desktop Scooter landing page
+        /// </summary>
+        /// <returns></returns>
         [Route("scooters/")]
         [Bikewale.Filters.DeviceDetection]
         public ActionResult Index()
         {
-            int pageCatId = 7;
-            PopulateNewlaunch(pageCatId);
-            PopularScooters(9, pageCatId, PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price);
-            UpcomingScooters();
-            CompareScootersList();
-            ViewBag.PageMetaTags = new ScootersHelper().CreateLandingMetaTags(true);
-            return View("~/views/scooters/index.cshtml");
+            ScootersIndexPageModel model = new ScootersIndexPageModel(
+                _objMakeRepo, _models, _newLaunches, _upcoming, _compareScooters);
+            model.BrandTopCount = 10;
+            model.PqSource = PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price;
+            return View(model.GetData());
         }
 
-        [Route("m/scooters/")]
-        public ActionResult MIndex()
-        {
-            int pageCatId = 7;
-            PopulateNewlaunch(pageCatId);
-            PopularScooters(9, pageCatId, PQSourceEnum.Mobile_Scooters_Landing_Check_on_road_price);
-            UpcomingScooters();
-            CompareScootersList();
-            ViewBag.PageMetaTags = new ScootersHelper().CreateLandingMetaTags(false);
-            return View("~/views/m/scooters/index.cshtml");
-        }
         /// <summary>
-        /// Created By :- Subodh Jain 10 March 2017
-        /// Summary :- Populate Compare ScootersList
+        /// Modified by :   Sumit Kate on 30 Mar 2017
+        /// Description :   Returns view model Mobile Scooter landing page
         /// </summary>
-        private void CompareScootersList()
+        /// <returns></returns>
+        [Route("m/scooters/")]
+        public ActionResult Index_Mobile()
         {
-            uint topcount = 4;
-            IEnumerable<TopBikeCompareBase> topScootersCompares = _compareScooters.ScooterCompareList(topcount);
-            ViewBag.TopScootersCompares = topScootersCompares;
+            ScootersIndexPageModel model = new ScootersIndexPageModel(
+                _objMakeRepo, _models, _newLaunches, _upcoming, _compareScooters);
+            model.BrandTopCount = 6;
+            model.PqSource = PQSourceEnum.Mobile_Scooters_Landing_Check_on_road_price;
+            return View(model.GetData());
         }
         /// <summary>
         /// Created By :- Subodh Jain 09 March 2017
@@ -95,39 +94,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
             ViewBag.UpcomingBikes = objUpcomingBikes;
 
         }
-        /// <summary>
-        /// Created By :- Subodh Jain 09 March 2017
-        /// Summary :- Populate New launchs
-        /// </summary>
-        private void PopulateNewlaunch(int pageCatId)
-        {
-            uint cityId = GlobalCityArea.GetGlobalCityArea().CityId;
-            var filters = new InputFilter()
-            {
-                PageSize = 9,
-                BodyStyle = 5,
-                CityId = cityId
-            };
-            NewLaunchedBikeResult objNewLaunchesBikes = _newLaunches.GetBikes(filters);
-            ViewBag.NewLaunchesList = objNewLaunchesBikes;
-            ViewBag.PageCatId = pageCatId;
-        }
 
-        /// <summary>
-        /// Created by : Aditi Srivastava on 9 Mar 2017
-        /// Summary    : Get list of popular scooters
-        /// </summary>
-        private void PopularScooters(uint topCount, int pageCatId, PQSourceEnum pqSource)
-        {
-            uint cityId = GlobalCityArea.GetGlobalCityArea().CityId;
-
-            PopularScootersList objScooters = new PopularScootersList();
-            objScooters.PopularScooters = _models.GetMostPopularScooters(topCount, cityId);
-
-            objScooters.PQSourceId = (int)pqSource;
-            objScooters.PageCatId = pageCatId;
-            ViewBag.popularScooters = objScooters;
-        }
         /// <summary>
         /// Created By :- Subodh Jain 17 March 2017
         /// Summary :- Added statuscode check
@@ -244,23 +211,6 @@ namespace Bikewale.Controllers.Desktop.Scooters
 
         }
 
-        [Route("scooters/brands/")]
-        public ActionResult Brands()
-        {
-            ScooterBrands scooters = new ScooterBrands();
-            BrandWidget brands = scooters.GetScooterBrands(_objMakeCache, 10);
-            return View("~/views/shared/_brands.cshtml", brands);
-        }
-
-        [Route("m/scooters/brands/")]
-        public ActionResult BrandsMobile()
-        {
-            ScooterBrands scooters = new ScooterBrands();
-            BrandWidget brands = scooters.GetScooterBrands(_objMakeCache, 6);
-            return View("~/views/m/shared/_brands.cshtml", brands);
-        }
-
-
         [Route("scooters/otherBrands/")]
         public ActionResult OtherBrands(uint makeId)
         {
@@ -294,26 +244,6 @@ namespace Bikewale.Controllers.Desktop.Scooters
         private IEnumerable<MostPopularBikesBase> BindPopularScooters(uint makeId)
         {
             return _objBikeModel.GetMostPopularScooters(makeId);
-        }
-        /// <summary>
-        /// Created by : Aditi Srivastava on 10 Mar 2017
-        /// Summary    : To fetch upcoming make scooters
-        /// </summary>
-
-        private void UpcomingMakeScooters(int makeId)
-        {
-            var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
-            {
-                EndIndex = 9,
-                StartIndex = 1,
-                BodyStyleId = 5,
-                MakeId = makeId
-            };
-            var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
-            ViewBag.UpcomingBikes = objUpcomingBikes;
-            if (objUpcomingBikes != null && objUpcomingBikes.Count() > 0)
-                ViewBag.MakeName = objUpcomingBikes.FirstOrDefault().MakeBase.MakeName;
         }
 
         /// <summary>
@@ -352,7 +282,6 @@ namespace Bikewale.Controllers.Desktop.Scooters
         /// Created by : Aditi Srivastava on 10 Mar 2017
         /// Summary    : To fetch service center info
         /// </summary>
-
         private void ServiceCenters(uint cityId, int makeId, int topCount)
         {
             ServiceCenterData objServiceCenter = _serviceCenter.GetServiceCentersByCity(cityId, makeId);
