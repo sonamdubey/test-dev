@@ -33,7 +33,7 @@ namespace Bikewale.Models
         #endregion
 
         #region Page level variables
-        private uint MakeId, ModelId, pageCatId = 0;
+        private uint MakeId, ModelId, pageCatId = 0,cityId;
         private const int pageSize = 10, pagerSlotSize = 5;
         private int curPageNo = 1;
         private string make = string.Empty, model = string.Empty;
@@ -48,6 +48,10 @@ namespace Bikewale.Models
         private EnumBikeType bikeType = EnumBikeType.All;
         private bool showCheckOnRoadCTA = false;
         private PQSourceEnum pqSource = 0;
+        #endregion
+
+        #region Public properties
+        public bool IsMobile { get; set; }
         #endregion
 
         #region Constructor
@@ -78,10 +82,7 @@ namespace Bikewale.Models
             {
                 int _startIndex = 0, _endIndex = 0;
                 _pager.GetStartEndIndex(pageSize, curPageNo, out _startIndex, out _endIndex);
-
-                objData.StartIndex = _startIndex;
-                objData.EndIndex = _endIndex;
-
+                
                 List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
                 categorList.Add(EnumCMSContentType.News);
                 if (MakeId == 0 && ModelId == 0)
@@ -107,8 +108,11 @@ namespace Bikewale.Models
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {
                     status = StatusCodes.ContentFound;
+                    objData.StartIndex = _startIndex;
+                    objData.EndIndex = _endIndex > objData.Articles.RecordCount ? Convert.ToInt32(objData.Articles.RecordCount) : _endIndex;
                     BindLinkPager(objData);
                     SetPageMetas(objData);
+                    CreatePrevNextUrl(objData);
                     GetWidgetData(objData);
                 }
                 else
@@ -127,7 +131,7 @@ namespace Bikewale.Models
         /// Created by : Aditi Srivastava on 27 Mar 2017
         /// Summary    : Process query string for news page
         /// </summary>
-        public void ProcessQueryString()
+        private void ProcessQueryString()
         {
             var request = HttpContext.Current.Request;
             var queryString = request != null ? request.QueryString : null;
@@ -255,7 +259,6 @@ namespace Bikewale.Models
             try
             {
                 currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                uint cityId = 0;
                 if (currentCityArea != null)
                     cityId = currentCityArea.CityId;
 
@@ -334,6 +337,9 @@ namespace Bikewale.Models
                 objData.PagerEntity.BaseUrl = string.Format("{0}{1}", objData.PagerEntity.BaseUrl, UrlFormatter.FormatNewsUrl(make, model));
                 objData.PagerEntity.PageNo = curPageNo;
                 objData.PagerEntity.PagerSlotSize = pagerSlotSize;
+                objData.PagerEntity.BaseUrl = string.Format("{0}{1}",(IsMobile ? "/m" : ""),UrlFormatter.FormatNewsUrl(make, model));
+                objData.PagerEntity.PageNo = curPageNo; 
+                objData.PagerEntity.PagerSlotSize = pagerSlotSize; 
                 objData.PagerEntity.PageUrlType = "page/";
                 objData.PagerEntity.TotalResults = (int)objData.Articles.RecordCount;
                 objData.PagerEntity.PageSize = pageSize;
@@ -341,6 +347,34 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Bikewale.Models.News.NewsIndexPage.BindLinkPager");
+            }
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 29 Mar 2017
+        /// Summary    : Create previous and next page urls
+        /// </summary>
+        /// <param name="objData"></param>
+        private void CreatePrevNextUrl(NewsIndexPageVM objData)
+        {
+            string _mainUrl = String.Format("{0}{1}page/", BWConfiguration.Instance.BwHostUrl, objData.PagerEntity.BaseUrl);
+            string prevPageNumber = string.Empty, nextPageNumber = string.Empty;
+            int totalPages = _pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
+             if (curPageNo == 1)    
+            {
+                nextPageNumber = "2";
+                objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/",_mainUrl, nextPageNumber);
+            }
+            else if (curPageNo == totalPages)   
+            {
+                prevPageNumber = Convert.ToString(curPageNo - 1);
+                objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/",_mainUrl, prevPageNumber);
+            }
+            else
+            {
+                prevPageNumber = Convert.ToString(curPageNo - 1);
+                objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/", _mainUrl, prevPageNumber);
+                nextPageNumber = Convert.ToString(curPageNo + 1);
+                objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/",_mainUrl, nextPageNumber);
             }
         }
         #endregion

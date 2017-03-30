@@ -10,7 +10,6 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
-using System.Linq;
 namespace Bikewale.Models
 {
     /// <summary>
@@ -206,17 +205,16 @@ namespace Bikewale.Models
         /// Summary :- To fetch data for Other dealer widget
         /// </summary>
         /// <returns></returns>   
-        private DealersEntity BindOtherDealerWidget()
+        private DealerCardVM BindOtherDealerWidget()
         {
-            DealersEntity objDealerList = null;
+            DealerCardVM objDealerList = null;
             try
             {
 
-                objDealerList = _objDealerCache.GetDealerByMakeCity(cityId, makeId);
-
-                objDealerList.Dealers = objDealerList.Dealers.Where(m => m.DealerId != dealerId);
-
-                objDealerList.Dealers = objDealerList.Dealers.Take((int)TopCount);
+                DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, CityDetails.CityId, (uint)objMake.MakeId);
+                objDealer.DealerId = dealerId;
+                objDealer.TopCount = TopCount;
+                objDealerList = objDealer.GetData();
             }
             catch (System.Exception ex)
             {

@@ -8,7 +8,7 @@ namespace Bikewale.Models
 {
     public class DealerShowroomDealerDetailsVM : ModelBase
     {
-        public DealersEntity DealersList;
+        public DealerCardVM DealersList;
         public BikeMakeEntityBase Make;
         public CityEntityBase CityDetails;
         public DealerBikesEntity DealerDetails;
