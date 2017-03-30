@@ -102,9 +102,9 @@
                                                 </div>
                                                 <div class="font14 text-light-grey margin-bottom5">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
                                                 <div class="text-bold">
-                                                    <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %>
+                                                   <%-- <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %>--%>
                                                 </div>
-                                                <a href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage %>" data-makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" data-modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" data-modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+                                                <a href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="@(int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage" data-makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" data-modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" data-modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
                                             </div>
                                         </div>
                                     </li>
@@ -167,6 +167,8 @@
                 <div class="clear"></div>
             </div>
         </section>
+
+
         <%if ((_bikeDesc != null && _bikeDesc.FullDescription.Length > 0) || (ctrlNews.FetchedRecordsCount > 0) || (ctrlExpertReviews.FetchedRecordsCount > 0) || (ctrlVideos.FetchedRecordsCount > 0) || (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)) || (ctrlusedBikeModel.FetchCount > 0)){ %>
         <section class="container">
             <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20 content-details-wrapper">

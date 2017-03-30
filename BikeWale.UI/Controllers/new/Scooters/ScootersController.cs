@@ -322,7 +322,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
         /// </summary>
         private void DealerShowrooms(uint cityId, uint makeId, int topCount)
         {
-            Showrooms objShowrooms = new Showrooms();
+            ShowroomsVM objShowrooms = new ShowroomsVM();
             if (cityId > 0)
             {
                 objShowrooms.dealers = _dealerCache.GetDealerByMakeCity(cityId, makeId, 0);
