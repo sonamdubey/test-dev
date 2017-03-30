@@ -151,9 +151,9 @@
                     <div class="bw-model-tabs-data padding-top20 padding-bottom20 border-solid-bottom font14">
                         <div class="carousel-heading-content">
                             <div class="swiper-heading-left-grid inline-block">
-                                <h2>Popular @Model.Make.MakeName bikes in @Model.CityDetails.CityName</h2>
+                                <h2>@string.Format("Popular {0} bikes in {1}",Model.Make.MakeName ,Model.CityDetails.CityName) </h2>
                             </div><div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="/@Model.Make.MaskingName-bikes/" title="@Model.Make.MakeName Bikes" class="btn view-all-target-btn">View all</a>
+                                      <a href="@string.Format("/{0}-bikes/",Model.Make.MaskingName)" title="@string.Format("{0} Bikes",Model.Make.MakeName)" class="btn view-all-target-btn">View all</a>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -166,14 +166,14 @@
                     <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                     <div class="carousel-heading-content padding-top20">
                         <div class="swiper-heading-left-grid inline-block">
-                            <h2>@Model.Make.MakeName service centers in @Model.CityDetails.CityName</h2>
+                            <h2>@string.Format("{0} service centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)</h2>
                         </div><div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="/@Model.Make.MaskingName-service-center-in-@Model.CityDetails.CityMaskingName/" title="@Model.Make.MakeName Service Centers in @Model.CityDetails.CityName" class="btn view-all-target-btn">View all</a>
+                                  <a href="@string.Format("/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View all</a>
                         </div>
                     </div>
                     <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
                         <div class="swiper-wrapper">
-                            @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard_Mobile.cshtml", Model.ServiceCenterDetails)
+                            @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.ServiceCenterDetails)
                         </div>
                     </div>
              
@@ -187,9 +187,9 @@
                     <section>
                         <div class="carousel-heading-content padding-top15">
                             <div class="swiper-heading-left-grid inline-block">
-                                <h2>Used @Model.Make.MakeName bikes in @Model.CityDetails.CityName</h2>
+                                <h2>@string.Format("Used {0}  bikes in {1}", Model.Make.MakeName, Model.CityDetails.CityName)</h2>
                             </div><div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="@string.Format("/used/{0}-bikes-in-{1}/",Model.Make.MaskingName,Model.CityDetails!=null?Model.CityDetails.CityMaskingName:"india")" title=@string.Format("Second Hand Bikes in {0}",Model.CityDetails!=null?Model.CityDetails.CityMaskingName:"India") class="btn view-all-target-btn">View all</a>
+                                <a href="@string.Format("/used/{0}-bikes-in-{1}/",Model.Make.MaskingName,Model.CityDetails!=null?Model.CityDetails.CityMaskingName:"india")" title="@string.Format("Second Hand Bikes in {0}",Model.CityDetails!=null?Model.CityDetails.CityMaskingName:"India")" class="btn view-all-target-btn">View all</a>
                             </div>
                         </div>
                         <div class="clear"></div>
