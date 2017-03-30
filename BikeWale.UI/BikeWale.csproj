@@ -905,6 +905,7 @@
     <Compile Include="memcache\SeriesMapping.cs" />
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
+    <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
     <Compile Include="Models\Make\BrandCityPopupModel.cs" />
     <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
     <Compile Include="Models\DealerPriceQuotePage.cs" />
@@ -933,6 +934,8 @@
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\ServiceCenters\ServiceCenterCityPage.cs" />
+    <Compile Include="Models\ServiceCenters\ServiceCenterDetailsPage.cs" />
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
@@ -3646,6 +3649,10 @@
     <Content Include="Views\PriceInCity\Index.cshtml" />
     <Content Include="Views\ServiceCenters\ServiceCentersInIndia.cshtml" />
     <Content Include="Views\ServiceCenters\ServiceCentersInIndia_Mobile.cshtml" />
+    <Content Include="Views\ServiceCenters\ServiceCentersInCity.cshtml" />
+    <Content Include="Views\ServiceCenters\ServiceCentersInCity_Mobile.cshtml" />
+    <Content Include="Views\ServiceCenters\ServiceCenterDetail.cshtml" />
+    <Content Include="Views\ServiceCenters\ServiceCenterDetail_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_OnRoadPriceWidget.cshtml" />
     <Content Include="Views\Price\Details_Mobile.cshtml" />
     <Content Include="Views\Shared\_LeadCapture_Mobile.cshtml" />

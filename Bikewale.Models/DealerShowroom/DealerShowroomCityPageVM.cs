@@ -14,6 +14,7 @@ namespace Bikewale.Models
         public UsedBikeModelsWidgetVM UsedBikeModel;
         public CityEntityBase CityDetails;
         public uint TotalDealers;
+        public BrandCityPopupVM BrandCityPopupWidget { get; set; }
         public MostPopularBikeWidgetVM PopularBikes;
         public ServiceCenterDetailsWidgetVM ServiceCenterDetails;
         public BrandCityPopupVM BrandCityPopUp;

@@ -227,7 +227,7 @@ namespace Bikewale.Models
                 currentCityArea = GlobalCityArea.GetGlobalCityArea();
                 if (currentCityArea != null)
                     CityId = currentCityArea.CityId;
-                MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, pqSource, pageCatId, MakeId);
+                MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
                 objPopularBikes.TopCount = _topCount;
                 objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();

@@ -72,9 +72,9 @@ namespace Bikewale.Models.DealerShowroom
                 }
                 objDealerVM.DealerCountCity = BindOtherDealerInCitiesWidget();
                 objDealerVM.UsedBikeModel = BindUsedBikeByModel();
+                objDealerVM.BrandCityPopupWidget = new BrandCityPopupModel(EnumBikeType.Dealer, (uint)objMake.MakeId, cityId).GetData();
                 objDealerVM.ServiceCenterDetails = BindServiceCenterWidget();
                 objDealerVM.PopularBikes = BindMostPopularBikes();
-                objDealerVM.BrandCityPopUp = BindBrandPopUpWidget();
                 BindPageMetas(objDealerVM.PageMetaTags);
             }
             catch (Exception ex)
@@ -83,16 +83,6 @@ namespace Bikewale.Models.DealerShowroom
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.GetData()");
             }
             return objDealerVM;
-        }
-
-        private BrandCityPopupVM BindBrandPopUpWidget()
-        {
-            BrandCityPopupVM objBrandCity = null;
-
-            BrandCityPopupModel objBCPM = new BrandCityPopupModel(EnumBikeType.Dealer);
-
-            return objBrandCity;
-
         }
 
         /// <summary>
@@ -105,7 +95,7 @@ namespace Bikewale.Models.DealerShowroom
             MostPopularBikeWidgetVM objPopularBikes = new MostPopularBikeWidgetVM();
             try
             {
-                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels, 0, (uint)objMake.MakeId);
+                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, false, PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels, 0, (uint)objMake.MakeId);
                 popularBikes.TopCount = 9;
                 objPopularBikes = popularBikes.GetData();
                 objPopularBikes.PageCatId = 5;

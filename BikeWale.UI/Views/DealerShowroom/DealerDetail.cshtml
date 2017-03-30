@@ -38,9 +38,6 @@
             <div class="clear"></div>
         </div>
     </section>
-
-
-
         @if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null)
         {
             <section>
@@ -98,7 +95,7 @@
                                     {
                                         <div class="margin-bottom10">
                                             <span class="bwsprite mail-grey-icon vertical-top"></span>
-                                            <a href="mailto:<%=eMail %>" target="_blank" class="vertical-top text-light-grey" rel="nofollow">
+                                            <a href="mailto:@Model.DealerDetails.DealerDetails.EMail" target="_blank" class="vertical-top text-light-grey" rel="nofollow">
                                                 <span class="dealership-card-details">@Model.DealerDetails.DealerDetails.EMail</span>
                                             </a>
                                         </div>
@@ -245,7 +242,7 @@
     </section>
 }
  
-        @if (Model.DealersList != null)
+        @if (Model.DealersList != null && Model.DealersList.Dealers!=null && Model.DealersList.Dealers.Count()>0)
         {
             <section>
                 <div class="container margin-bottom20">
@@ -295,7 +292,7 @@
                             <div class="swiper-heading-left-grid inline-block">
                                 <h2>@Model.Make.MakeName service centers in @Model.CityDetails.CityName</h2>
                             </div><div class="swiper-heading-right-grid inline-block text-right">
-                                      <a href="/@Model.Make.MakeName-service-center-in-@Model.CityDetails.CityName/" title="@Model.Make.MakeName Service Centers in @Model.CityDetails.CityName" class="btn view-all-target-btn">View all</a>
+                                      <a href="/@Model.Make.MaskingName-service-center-in-@Model.CityDetails.CityMaskingName/" title="@Model.Make.MakeName Service Centers in @Model.CityDetails.CityName" class="btn view-all-target-btn">View all</a>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -307,7 +304,6 @@
             </div>
 
         }
-        
         <section>
     <div class="container margin-top10 margin-bottom30">
         <div class="grid-12 font12">

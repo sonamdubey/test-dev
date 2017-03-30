@@ -1,0 +1,213 @@
+﻿  @model Bikewale.Models.ServiceCenters.ServiceCenterCityPageVM
+@using Bikewale.Utility;
+
+@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/service/listing.css' />";
+    Model.Page_JS_Path = "/m/src/service/listing.js";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Model";
+    Model.AdTags.AdId = "1444028976556";
+    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName);
+}
+
+@if (Model != null && Model.Make != null)
+{
+    if (Model.City != null && Model.ServiceCentersListObject != null)
+    {
+        <section>
+            <div class="container bg-white card-bottom-margin">
+                <h1 class="card-header">@Model.Make.MakeName service center@(Model.ServiceCentersListObject.Count > 1 ? "s" : "") in @Model.City.CityName</h1>
+                <div class="card-inner-padding font14 text-light-grey collapsible-content">
+                    <p class="main-content">
+                        Is your @Model.Make.MakeName bike due for a service or are you looking to repair your @Model.Make.MakeName bike?
+                        BikeWale brings you the list of all authorised @Model.Make.MakeName service centers in @Model.City.CityName.
+                        @if(Model.ServiceCentersListObject.Count > 0)
+                        {
+                            <text>@Model.Make.MakeName has @Model.ServiceCentersListObject.Count authorised service center@(Model.ServiceCentersListObject.Count > 1 ? "s" : "") in @Model.City.CityName.</text>
+                        }
+                    </p><p class="more-content">We recommend availing services only from authorised service centers.<br />Authorised @Model.Make.MakeName service centers abide by the servicing standards of Honda with an assurance of genuine @Model.Make.MakeName spare parts. BikeWale strongly recommends to use only @Model.Make.MakeName genuine spare parts for your safety and durability of your bike. For more information on pick-up and drop facility, prices and service schedules get in touch with any of the below mentioned authorised @Model.Make.MakeName service centers in City. Do check out the maintenance tips and answers to FAQs from BikeWale experts! </p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                </div>
+            </div>
+        </section>
+    }
+
+    if (Model.ServiceCentersListObject.ServiceCenters != null && Model.ServiceCentersListObject.Count > 0 && Model.City != null)
+    {
+        <section>
+            <div class="container bg-white box-shadow card-bottom-margin">
+                <div class="border-solid-bottom padding-15-20">
+                    <h2 class="vertical-middle text-bold dealer-heading padding-right10">@string.Format("{0} {1} service center{2} in {3}", Model.ServiceCentersListObject.Count, Model.Make.MakeName, Model.ServiceCentersListObject.Count > 1 ? "s" : "", Model.City.CityName)</h2>
+                    <div class="vertical-middle text-center">
+                        <span class="edit-blue-link" id="changeOptions"><span class="bwmsprite edit-blue margin-right5"></span><span class="change-text text-link">change</span></span>
+                    </div>
+                </div>
+                <ul id="center-list">
+                    @foreach (var serviceCenter in Model.ServiceCentersListObject.ServiceCenters)
+                    {
+                        <li>
+                            <a href="@string.Format("/m{0}", UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName, serviceCenter.Name, serviceCenter.ServiceCenterId))" title="@serviceCenter.Name | @Model.Make.MakeName | @Model.City.CityName" class="center-list-item">
+                                <h3 class="text-truncate margin-bottom5 text-black">
+                                    @serviceCenter.Name
+                                </h3>
+                                @if (!(String.IsNullOrEmpty(serviceCenter.Address)))
+                                {
+                                    <p class="margin-bottom5">
+                                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                        <span class="vertical-top details-column text-light-grey">@serviceCenter.Address</span>
+                                    </p>
+                                }
+                            </a>
+                            @if (!serviceCenter.Phone.Contains(","))
+                            {
+                                if (!(String.IsNullOrEmpty(serviceCenter.Phone)))
+                                {
+                                    <span class="vertical-top bwmsprite tel-sm-grey-icon"></span>
+                                    <a href="tel:@serviceCenter.Phone.Trim()" class="vertical-top details-column text-bold text-default">@serviceCenter.Phone.Trim()</a>
+                                }
+                            }
+                            else
+                            {
+                                <a href="javascript:void(0)" class="text-default text-bold maskingNumber contact-service-btn" data-service-name="@serviceCenter.Name" data-service-number="@serviceCenter.Phone" rel="nofollow">
+                                    <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
+                                    <span class="vertical-top text-bold details-column">@serviceCenter.Phone</span>
+                                </a>
+                            }
+                            @if (!(String.IsNullOrEmpty(serviceCenter.Phone)))
+                            {
+                                <div class="margin-top15">
+                                    @if (!serviceCenter.Phone.Contains(","))
+                                    {
+                                        <a href="tel:@serviceCenter.Phone.Trim()" class="btn btn-inv-green service-btn"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</a>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-inv-green service-btn contact-service-btn" data-service-name="serviceCenter.Name" data-service-number="@serviceCenter.Phone.Trim()"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</button>
+                                    }
+                                </div>
+                            }
+                        </li>
+                    }
+                </ul>
+            </div>
+        </section>
+    }
+
+    <div class="modal-background"></div>
+    <div id="contact-service-popup" class="modal-popup-container">
+        <div class="popup-header"></div>
+        <div class="popup-body">
+            <p class="body-label">Select one of the phone numbers to talk to service center executive</p>
+            <ul class="popup-list margin-bottom20"></ul>
+            <div class="grid-6 alpha">
+                <p class="btn btn-white btn-full-width btn-size-0 cancel-popup-btn">Cancel</p>
+            </div>
+            <div class="grid-6 omega">
+                <a href="" id="call-service-btn" class="btn btn-orange btn-full-width btn-size-0">Call</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <section>
+        <div class="container bg-white box-shadow card-bottom-margin">
+            <h2 class="padding-top15 padding-right20 padding-left20">Tips from BikeWale experts to keep your bike in good shape!</h2>
+            <ul id="bw-tips-list">
+                <li>
+                    <a href="/m/bike-care/" target="_blank" title="Bike Care - Maintenance tips">
+                        <span class="service-sprite care-icon"></span>
+                        <h3 class="text-unbold margin-left10 vertical-middle">Bike Care - Maintenance tips</h3>
+                        <span class="bwmsprite right-arrow"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/m/bike-troubleshooting/" target="_blank" title="Bike troubleshooting - FAQs">
+                        <span class="service-sprite faq-icon"></span>
+                        <h3 class="text-unbold margin-left10 vertical-middle">Bike troubleshooting - FAQs</h3>
+                        <span class="bwmsprite right-arrow"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    if (Model.NearByCityWidgetData != null)
+    {
+        <div class="container bg-white box-shadow padding-top15 padding-bottom10 font14 active">
+            <h2 class="padding-right20 padding-bottom15 padding-left20">@String.Format("Explore {0} service centers in cities near {1}", Model.Make.MakeName, Model.City.CityName)</h2>
+            <div class="swiper-container padding-top5 padding-bottom5 map-type-carousel">
+                <div class="swiper-wrapper">
+                    @Html.Partial("~/Views/ServiceCenters/_ServiceCentersInNearByCities_Mobile.cshtml", Model.NearByCityWidgetData)
+                </div>
+            </div>
+        </div>
+    }
+
+    if (Model.PopularWidgetData != null || Model.UsedBikesByMakeList != null || Model.DealersWidgetData != null)
+    {
+        <section>
+            <div class="container bg-white box-shadow margin-bottom15">
+                @if (Model.PopularWidgetData != null)
+                {
+                    <div class="carousel-heading-content padding-top15">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2>Popular @Model.Make.MakeName bikes in @Model.City.CityName</h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="/m/@Model.Make.MaskingName-bikes/" title="@Model.Make.MakeName Bikes" class="btn view-all-target-btn">View all</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularWidgetData)
+                }
+                <div class="padding-top10 text-center">
+                </div>
+                <div class="margin-right10 margin-left10 border-solid-bottom padding-bottom15"></div>
+                @if (Model.UsedBikesByMakeList != null)
+                {
+                    <div class="padding-top15">
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>@string.Format("Used {0} bikes in {1}", Model.Make.MakeName, Model.City.CityName)</h2>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="@string.Format("/m/used/{0}-bikes-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName)" title="@string.Format("Second Hand {0} Bikes in {1}", Model.Make.MakeName, Model.City.CityName)" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="padding-top15">
+                            <div class="content-box-shadow padding-bottom20">
+                                @Html.Partial("~/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedBikesByMakeList)
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (Model.DealersWidgetData != null)
+                {
+                    <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>@string.Format("New {0} bikes showrooms", Model.Make.MakeName)</h2>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="@string.Format("/m{0}", UrlFormatter.DealerLocatorUrl(Model.Make.MaskingName, Model.City.CityMaskingName))" title="@Model.Make.MakeName Showrooms in @Model.City.CityName" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        @Html.Partial("~/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.DealersWidgetData)
+                    </div>
+                }
+            </div>
+        </section>
+    }
+
+    <section>
+        <div class="container margin-bottom20 font12 padding-top5 padding-right20 padding-left20">
+            <span class="font14"><strong>Disclaimer:</strong></span> The above-mentioned information about authorised @Model.Make.MakeName service centers is furnished to best of our knowledge. The facilities of pick and drop, timings and service schedule related information might vary slightly from service center to service center. Please check with the authorised @Model.Make.MakeName service center before scheduling an appointment.
+        </div>
+    </section>
+    @Html.Partial("~/Views/Make/_BrandCityPopup_Mobile.cshtml", Model.BrandCityPopupWidget)
+}
+@{Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.City.CityId, cityName = Model.City.CityName });}
+<script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey"></script>

@@ -10,7 +10,6 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
-using System.Linq;
 namespace Bikewale.Models
 {
     /// <summary>
@@ -61,17 +60,17 @@ namespace Bikewale.Models
             try
             {
                 objMake = new MakeHelper().GetMakeNameByMakeId(makeId);
+                objDealerDetails.DealerDetails = BindDealersData();
                 if (objMake != null)
                     objDealerDetails.Make = objMake;
-                cityId = GlobalCityArea.GetGlobalCityArea().CityId;
-                if (cityId > 0)
-                {
-                    CityDetails = new CityHelper().GetCityById(cityId);
-                    objDealerDetails.CityDetails = CityDetails;
-                }
+
+                cityId = (uint)objDealerDetails.DealerDetails.DealerDetails.CityId;
+                CityDetails = new CityHelper().GetCityById(cityId);
+                objDealerDetails.CityDetails = CityDetails;
+
                 ProcessGlobalLocationCookie();
                 objDealerDetails.DealersList = BindOtherDealerWidget();
-                objDealerDetails.DealerDetails = BindDealersData();
+
                 objDealerDetails.PopularBikes = BindMostPopularBikes();
                 objDealerDetails.ServiceCenterDetails = BindServiceCenterWidget();
                 BindPageMetas(objDealerDetails.PageMetaTags);
@@ -166,7 +165,7 @@ namespace Bikewale.Models
             MostPopularBikeWidgetVM objPopularBikes = new MostPopularBikeWidgetVM();
             try
             {
-                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels, 0, (uint)objMake.MakeId);
+                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, false, PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels, 0, (uint)objMake.MakeId);
                 popularBikes.TopCount = 9;
                 objPopularBikes = popularBikes.GetData();
                 objPopularBikes.PageCatId = 5;
@@ -205,18 +204,17 @@ namespace Bikewale.Models
         /// Created By :- Subodh Jain 27 March 2017
         /// Summary :- To fetch data for Other dealer widget
         /// </summary>
-        /// <returns></returns>
-        private DealersEntity BindOtherDealerWidget()
+        /// <returns></returns>   
+        private DealerCardVM BindOtherDealerWidget()
         {
-            DealersEntity objDealerList = null;
+            DealerCardVM objDealerList = null;
             try
             {
 
-                objDealerList = _objDealerCache.GetDealerByMakeCity(cityId, makeId);
-
-                objDealerList.Dealers = objDealerList.Dealers.Where(m => m.DealerId != dealerId);
-
-                objDealerList.Dealers = objDealerList.Dealers.Take((int)TopCount);
+                DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, CityDetails.CityId, (uint)objMake.MakeId);
+                objDealer.DealerId = dealerId;
+                objDealer.TopCount = TopCount;
+                objDealerList = objDealer.GetData();
             }
             catch (System.Exception ex)
             {

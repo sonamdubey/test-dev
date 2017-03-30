@@ -30,8 +30,9 @@ namespace Bikewale.Models.ServiceCenters
             _city = city;
         }
 
-        public ServiceCentersCard(uint topCount, uint serviceCenterId, BikeMakeEntityBase make, CityEntityBase city)
+        public ServiceCentersCard(IServiceCenter objSC, uint topCount, uint serviceCenterId, BikeMakeEntityBase make, CityEntityBase city)
         {
+            _objSC = objSC;
             _serviceCenterId = serviceCenterId;
             _topCount = topCount;
             _make = make;

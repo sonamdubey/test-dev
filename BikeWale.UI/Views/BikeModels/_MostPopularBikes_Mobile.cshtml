@@ -36,6 +36,12 @@
                             <a href="javascript:void(0)" data-pagecatid="@Model.PageCatId" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-card btn-full-width btn-white @(bike.VersionPrice!=0 ?"":"hide") getquotation">Check on-road price</a>
                         </div>
                     }
+                    @if (Model.ShowPriceInCityCTA)
+                    {
+                        <div class="swiper-btn-block">
+                            <a href="@Bikewale.Utility.UrlFormatter.PriceInCityUrl(bike.objMake.MaskingName, bike.objModel.MaskingName, bike.CityMaskingName)" class="btn btn-card btn-full-width btn-white font14 text-truncate" rel="nofollow" title="@String.Format("{0} {1} On-road price in {2}", bike.objMake.MakeName, bike.objModel.ModelName, bike.CityName)">@String.Format("On-road price in {0}", bike.CityName)</a>
+                        </div>
+                    }
                 </div>
             </div>
         }
