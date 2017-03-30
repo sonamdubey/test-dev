@@ -83,7 +83,7 @@ namespace Bikewale.Controllers
         [Route("m/dealershowroom/Index/")]
         public ActionResult Index_Mobile()
         {
-            DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_bikeMakes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 10);
+            DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_bikeMakes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 6);
             try
             {
                 if (objDealerIndex != null)
@@ -212,7 +212,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName);
+                DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName, 3);
                 if (objDealer != null)
                 {
                     if (objDealer.status == Entities.StatusCodes.ContentFound)
@@ -221,7 +221,6 @@ namespace Bikewale.Controllers
 
                         if (objDealer != null)
                         {
-                            objDealer.topCount = 9;
                             objDealerVM = objDealer.GetData();
                         }
 
@@ -259,7 +258,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName);
+                DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName, 9);
                 if (objDealer != null)
                 {
                     if (objDealer.status == Entities.StatusCodes.ContentFound)
@@ -268,7 +267,6 @@ namespace Bikewale.Controllers
 
                         if (objDealer != null)
                         {
-                            objDealer.topCount = 9;
                             objDealerVM = objDealer.GetData();
                         }
 
@@ -307,7 +305,7 @@ namespace Bikewale.Controllers
             try
             {
 
-                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, dealerId);
+                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, dealerId, 3);
                 if (objDealerDetails != null && dealerId > 0)
                 {
                     DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
@@ -353,7 +351,7 @@ namespace Bikewale.Controllers
             try
             {
 
-                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, dealerId);
+                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, dealerId, 9);
                 if (objDealerDetails != null && dealerId > 0)
                 {
                     DealerShowroomDealerDetailsVM objDealerDetailsVM = null;

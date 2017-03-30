@@ -2996,6 +2996,7 @@
     <Content Include="m\src\compare\landing.js" />
     <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
+    <Content Include="m\src\dealer\landing.js" />
     <Content Include="m\src\new-launch.js" />
     <Content Include="m\src\photos.js" />
     <Content Include="m\src\priceincity.js" />
@@ -3125,7 +3126,7 @@
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
-    <Content Include="src\dealer\Index.js" />
+    <Content Include="src\dealer\landing.js" />
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos.js" />
@@ -3759,7 +3760,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54955</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9011/</IISUrl>
+          <IISUrl>http://localhost:9011</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

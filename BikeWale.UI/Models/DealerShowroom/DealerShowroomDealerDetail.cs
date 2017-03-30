@@ -24,7 +24,7 @@ namespace Bikewale.Models
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IServiceCenter _objSC = null;
-        public uint cityId, makeId, dealerId;
+        public uint cityId, makeId, dealerId, TopCount;
         public StatusCodes status;
         public MakeMaskingResponse objResponse;
         public BikeMakeEntityBase objMake;
@@ -40,12 +40,13 @@ namespace Bikewale.Models
         /// <param name="bikeModels"></param>
         /// <param name="makeMaskingName"></param>
         /// <param name="dealerId"></param>
-        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, uint dealerId)
+        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, uint dealerId, uint topCount)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
             _bikeModels = bikeModels;
             _objSC = objSC;
+            TopCount = topCount;
             ProcessQuery(makeMaskingName, dealerId);
         }
 
@@ -142,7 +143,7 @@ namespace Bikewale.Models
             ServiceCenterDetailsWidgetVM ServiceCenterVM = null;
             try
             {
-                ServiceCentersCard objServcieCenter = new ServiceCentersCard(_objSC, 3, objMake, CityDetails);
+                ServiceCentersCard objServcieCenter = new ServiceCentersCard(_objSC, TopCount, objMake, CityDetails);
                 ServiceCenterVM = objServcieCenter.GetData();
             }
             catch (System.Exception ex)
@@ -210,12 +211,12 @@ namespace Bikewale.Models
             DealersEntity objDealerList = null;
             try
             {
-                int topCount = 3;
+
                 objDealerList = _objDealerCache.GetDealerByMakeCity(cityId, makeId);
 
                 objDealerList.Dealers = objDealerList.Dealers.Where(m => m.DealerId != dealerId);
 
-                objDealerList.Dealers = objDealerList.Dealers.Take(topCount);
+                objDealerList.Dealers = objDealerList.Dealers.Take((int)TopCount);
             }
             catch (System.Exception ex)
             {

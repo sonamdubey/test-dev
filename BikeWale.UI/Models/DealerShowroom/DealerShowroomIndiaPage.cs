@@ -5,12 +5,14 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Used;
+using Bikewale.Models.Upcoming;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -90,10 +92,11 @@ namespace Bikewale.Models
         /// <returns></returns>
         private NewLaunchedWidgetVM BindNewLaunchesBikes()
         {
-            NewLaunchedWidgetVM NewLaunchedbikes = null;
+            NewLaunchedWidgetVM NewLaunchedbikes = new NewLaunchedWidgetVM();
             try
             {
                 NewLaunchedWidgetModel objNewLaunched = new NewLaunchedWidgetModel(9, _newLaunches);
+                NewLaunchedbikes.PQSourceId = (uint)PQSourceEnum.Mobile_DealerLocator_Landing_Check_on_road_price;
                 NewLaunchedbikes = objNewLaunched.GetData();
             }
             catch (Exception ex)
@@ -153,9 +156,9 @@ namespace Bikewale.Models
         /// Summary:- Bind data for used bike widget
         /// </summary>
         /// <returns></returns>
-        private UsedBikeModelsVM BindUsedBikeByModel()
+        private UsedBikeModelsWidgetVM BindUsedBikeByModel()
         {
-            UsedBikeModelsVM UsedBikeModel = new UsedBikeModelsVM();
+            UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
             try
             {
                 if (makeId > 0)
@@ -181,18 +184,20 @@ namespace Bikewale.Models
         /// Summary:- Binding data for upcoming bike widget
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<UpcomingBikeEntity> BindUpCompingBikesWidget()
+        private UpcomingBikesWidgetVM BindUpCompingBikesWidget()
         {
-            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = null;
+            UpcomingBikesWidgetVM objUpcomingBikes = null;
             try
             {
-                var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
-                    {
-                        EndIndex = 9,
-                        StartIndex = 1
-                    };
-                var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-                objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
+                UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
+
+                objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+                {
+                    EndIndex = 9,
+                    StartIndex = 1
+                };
+                objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+                objUpcomingBikes = objUpcoming.GetData();
             }
             catch (Exception ex)
             {

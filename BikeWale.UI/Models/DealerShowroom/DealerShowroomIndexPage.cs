@@ -5,6 +5,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Models.Upcoming;
 using System;
 using System.Collections.Generic;
 namespace Bikewale.Models
@@ -121,18 +122,20 @@ namespace Bikewale.Models
         /// Summary:- Binding data for upcoming bike widget
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<UpcomingBikeEntity> BindUpCompingBikesWidget()
+        private UpcomingBikesWidgetVM BindUpCompingBikesWidget()
         {
-            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = null;
+            UpcomingBikesWidgetVM objUpcomingBikes = null;
             try
             {
-                var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+                UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
+
+                objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
                 {
                     EndIndex = 9,
                     StartIndex = 1
                 };
-                var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-                objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
+                objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+                objUpcomingBikes = objUpcoming.GetData();
             }
             catch (Exception ex)
             {
