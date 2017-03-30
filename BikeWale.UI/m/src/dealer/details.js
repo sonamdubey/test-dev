@@ -2,10 +2,10 @@
 var dealerLat = document.getElementById("locationSearch").getAttribute("data-lat");
 var dealerLong = document.getElementById("locationSearch").getAttribute("data-long");
 var locationKey;
-
+var googleMapAPIKey;
 docReady(function () {
-    debugger;
     locationKey = document.getElementById("locationSearch").getAttribute("data-cityid") + "_" + document.getElementById("locationSearch").getAttribute("data-cityname");
+    googleMapAPIKey = document.getElementById("locationSearch").getAttribute("data-Map");
     SetCookieInDays("location", locationKey, 365);
     initializeMap();
     $(document).on("click", "#getUserLocation", function () {

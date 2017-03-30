@@ -74,7 +74,7 @@
 
                     <h2 class="font14 text-default margin-bottom15">Get commute distance and time:</h2>
                     <div class="form-control-box margin-bottom15">
-                        <input id="locationSearch" data-cityid="@Model.CityDetails.CityId" data-cityname="@Model.CityDetails.CityName" data-lat="@Model.DealerDetails.DealerDetails.Area.Latitude" data-long="@Model.DealerDetails.DealerDetails.Area.Longitude" type="text" class="form-control padding-right40" placeholder="Enter your location" />
+                        <input id="locationSearch" data-map="@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey" data-cityid="@Model.CityDetails.CityId" data-cityname="@Model.CityDetails.CityName" data-lat="@Model.DealerDetails.DealerDetails.Area.Latitude" data-long="@Model.DealerDetails.DealerDetails.Area.Longitude" type="text" class="form-control padding-right40" placeholder="Enter your location" />
                         <span id="getUserLocation" class="crosshair-icon position-abt"></span>
                     </div>
                     <div class="location-details margin-bottom15">
@@ -194,8 +194,9 @@
     <div class="container bg-white box-shadow padding-top15 margin-bottom10">
         <div class="container card-bottom-margin padding-bottom20">
             <div class="carousel-heading-content">
-                <div class="swiper-heading-left-grid inline-block"><h2>@Model.Make.MakeName service centers in @Model.CityDetails.CityName</h2></div><div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="/m/@Model.Make.MakeName-service-center-in-@Model.CityDetails.CityName/" title="@Model.Make.MakeName Service Centers in @Model.CityDetails.CityName" class="btn view-all-target-btn">View all</a>
+                <div class="swiper-heading-left-grid inline-block"><h2>@string.Format("{0} Service Centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)</h2></div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="/m/@Model.Make.MaskingName-service-center-in-@Model.CityDetails.CityMaskingName/" title="@Model.Make.MakeName Service Centers in @Model.CityDetails.CityName" class="btn view-all-target-btn">View all</a>
                 </div>
                 <div class="clear"></div>
             </div>

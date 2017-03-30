@@ -110,6 +110,8 @@ namespace Bikewale.Entities.PriceQuote
         Mobile_News_Listing_page = 84,
         Desktop_Photos_page = 85,
         Desktop_Scooters_Landing_Check_on_road_price = 86,
-        Mobile_Scooters_Landing_Check_on_road_price = 87
+        Mobile_Scooters_Landing_Check_on_road_price = 87,
+        Desktop_DealerLocator_Landing_Check_on_road_price = 88,
+        Mobile_DealerLocator_Landing_Check_on_road_price = 89
     }
 }
