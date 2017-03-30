@@ -89,7 +89,7 @@ namespace Bikewale.Controllers
 
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
-                model.BaseUrl = "/new-{0}-bike-launches/";
+                model.BaseUrl = String.Format("/new-{0}-bike-launches/", maskingName);
                 model.PageSize = 15;
                 model.MakeTopCount = 9;
                 return View(model.GetData());
