@@ -34,7 +34,6 @@ namespace Bikewale.Controllers
         /// Created by : Aditi srivastava on 27 Mar 2017
         /// Summmary   : Action method to render news listing page- Desktop
         /// </summary>
-        /// <returns></returns>
         [Route("newslanding/")]
         public ActionResult Index()
         {
@@ -74,7 +73,7 @@ namespace Bikewale.Controllers
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
-                return RedirectPermanent(obj.redirectUrl);
+                return RedirectPermanent(string.Format("/m{0}",obj.redirectUrl));
             }
             else
             {
