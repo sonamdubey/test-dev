@@ -30,18 +30,13 @@
 .collapsible-content.active .more-content {
   display: inline; }
 
-.btn-180-32 {
-  width: 180px;
-  padding: 5px;
-  font-size: 14px; }
-
-.new-launch-banner {
+.upcoming-bikes-banner {
   background: #89a3b7 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/new-launches-banner.jpg) no-repeat center;
   background-size: cover;
   height: 268px;
   padding-top: 1px; }
 
-#new-launch-center-box .welcome-box {
+#upcoming-bikes-center-box .welcome-box {
   margin-top: 85px; }
 
 .negative-50 {
@@ -55,44 +50,40 @@
   padding-right: 20px;
   background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 99%; }
 
-.new-launch-filter .select-box {
+.upcoming-filter .select-box {
   height: 22px; }
-  .new-launch-filter .select-box .chosen-container {
+  .upcoming-filter .select-box .chosen-container {
     min-width: 90px;
     width: auto !important;
     height: 22px;
     border-bottom: 0; }
-    .new-launch-filter .select-box .chosen-container .chosen-drop {
+    .upcoming-filter .select-box .chosen-container .chosen-drop {
       width: 220px;
       top: -4px;
       z-index: 2; }
-  .new-launch-filter .select-box .select-label {
+  .upcoming-filter .select-box .select-label {
     color: #4d5057;
     font-weight: 700; }
-  .new-launch-filter .select-box.right-align-box .chosen-container.chosen-with-drop .chosen-drop {
+  .upcoming-filter .select-box.right-align-box .chosen-container.chosen-with-drop .chosen-drop {
     left: -120px; }
 
-.new-launch-filter .chosen-select {
+.upcoming-filter .chosen-select {
   display: none; }
 
-.new-launch-filter .chosen-container-single .chosen-single span {
+.upcoming-filter .chosen-container-single .chosen-single span {
   margin-right: 15px; }
 
-.new-launch-filter .brand-type-filter .chosen-container-single .chosen-single span {
+.upcoming-filter .brand-type-filter .chosen-container-single .chosen-single span {
   margin-right: 20px; }
 
-#newlaunched-bikes .spinner-content {
-  position: absolute;
-  top: 15%; }
-
-.new-launches-wrapper {
+.upcoming-bikes-wrapper {
   min-height: 350px; }
 
-.new-launches-list {
+.bike-listing-horizontal {
   overflow: hidden;
   padding-bottom: 20px;
   position: relative; }
-  .new-launches-list.loader-active:before {
+  .bike-listing-horizontal.loader-active:before {
     content: '';
     width: 100%;
     min-height: 350px;
@@ -103,37 +94,41 @@
     background: #f5f5f5;
     opacity: 0.8;
     z-index: 1; }
-  .new-launches-list .list-item {
+  .bike-listing-horizontal .list-item {
     width: 33%;
-    min-height: 332px;
+    height: 350px;
     display: inline-block;
-    vertical-align: top;
-    padding: 20px 10px 0; }
-    .new-launches-list .list-item a:hover {
+    vertical-align: bottom;
+    padding: 15px 10px 0; }
+    .bike-listing-horizontal .list-item a:hover {
       text-decoration: none; }
-    .new-launches-list .list-item h3 {
+    .bike-listing-horizontal .list-item h3 {
       font-weight: 600; }
-  .new-launches-list .card-desc-block {
+  .bike-listing-horizontal .card-desc-block {
     padding-right: 10px;
     padding-bottom: 10px;
     min-height: 121px; }
-  .new-launches-list .value-size-16 {
-    position: relative;
-    top: 2px; }
-  .new-launches-list .text-truncate {
-    width: 100%; }
 
-.border-light-left {
-  border-left: 1px solid #f5f5f5; }
+.border-red-left {
+  border-left: 5px solid #ef3f30;
+  line-height: 22px;
+  padding-left: 8px; }
 
-.key-size-13 {
-  font-size: 13px;
+.launching-label {
+  height: 22px; }
+
+.key-size-14 {
+  font-size: 14px;
   color: #787878; }
 
+.value-size-14,
 .value-size-16,
 .value-size-18 {
   font-weight: 700;
   color: #4d5057; }
+
+.value-size-14 {
+  font-size: 14px; }
 
 .value-size-16 {
   font-size: 16px; }
@@ -382,31 +377,6 @@
 .brand-71 {
   width: 39px;
   background-position: -2616px 0; }
-
-.year-type-carousel .card-image-block {
-  width: 100%;
-  height: 103px;
-  display: table;
-  text-align: center;
-  background: #c6e8ed url(https://imgd.aeplcdn.com/0x0/bw/static/design15/calendar-cover.png) no-repeat center; }
-  .year-type-carousel .card-image-block span {
-    font-size: 18px;
-    font-weight: 700;
-    color: #4d5057;
-    padding-top: 15px;
-    display: table-cell;
-    vertical-align: middle; }
-
-.year-type-carousel .card-desc-block {
-  padding-top: 15px;
-  padding-bottom: 18px; }
-
-.year-type-carousel .text-truncate {
-  width: 100%; }
-
-.year-type-carousel.inner-content-carousel .jcarousel-control-left,
-.year-type-carousel.inner-content-carousel .jcarousel-control-right {
-  top: 34%; }
 
 .spinner-content {
   width: 50px;

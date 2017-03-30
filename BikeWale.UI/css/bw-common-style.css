@@ -569,6 +569,9 @@ a.action-btn:hover{text-decoration:none;}
 .vertical-top { display:inline-block; vertical-align: top; }
 .block { display: block; }
 .ul-arrow li { margin-top: 10px;}
+.padding-15-20 {
+    padding: 15px 20px;
+}
 
 .bg-white { background: #FFF; }
 .bg-light-grey { background: #f5f5f5; }

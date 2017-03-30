@@ -10,6 +10,14 @@ namespace Bikewale.Controllers
     public class UpcomingBikesController : Controller
     {
         // GET: UpcomingBikes
+        [Route("upcomingbikes/")]
+        public ActionResult Index()
+        {
+            ModelBase m = new ModelBase();
+            return View(m);
+        }
+        
+        // GET: UpcomingBikes
         [Route("m/upcomingbikes/")]
         public ActionResult Index_Mobile()
         {

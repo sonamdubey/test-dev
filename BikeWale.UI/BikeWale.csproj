@@ -3085,6 +3085,8 @@
     <Content Include="m\sass\upcoming-bikes\upcoming-bikes.sass" />
     <Content Include="m\sass\upcoming-bikes\_upcoming-bikes-style.sass" />
     <Content Include="m\sass\upcoming-bikes\_media-query.sass" />
+    <Content Include="sass\upcoming-bikes\upcoming-bikes.sass" />
+    <Content Include="sass\upcoming-bikes\_upcoming-bikes-style.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="new\photos\Default.aspx" />
@@ -3214,6 +3216,7 @@
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\swiper-3.1.7.js" />
+    <Content Include="src\upcoming-bikes.js" />
     <Content Include="src\used-landing.js" />
     <Content Include="src\sell-bike.js" />
     <Content Include="src\used-details.js" />
@@ -3654,6 +3657,7 @@
     <Content Include="Views\Price\_ManufacturerCampaign_Mobile.cshtml" />
     <Content Include="Views\UpcomingBikes\Index_Mobile.cshtml" />
     <Content Include="Views\UpcomingBikes\UpcomingBikesByMake_Mobile.cshtml" />
+    <Content Include="Views\UpcomingBikes\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

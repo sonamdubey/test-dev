@@ -1,10 +1,10 @@
-﻿.new-launch-banner
+﻿.upcoming-bikes-banner
 	background: #89a3b7 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/new-launches-banner.jpg) no-repeat center
 	background-size: cover
 	height: 268px
 	padding-top: 1px
 
-#new-launch-center-box
+#upcoming-bikes-center-box
 	.welcome-box
 		margin-top: 85px
 
@@ -20,7 +20,7 @@
 	padding-right: 20px
 	background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 99%
 
-.new-launch-filter
+.upcoming-filter
 	.select-box
 		height: 22px
 
@@ -58,17 +58,11 @@
 				span
 					margin-right: 20px
 
-#newlaunched-bikes
-	.spinner-content
-		position: absolute
-		top: 15%
-
 // new-launches-list
-.new-launches-wrapper 
-		min-height: 350px
+.upcoming-bikes-wrapper
+	min-height: 350px
 
-
-.new-launches-list
+.bike-listing-horizontal
 	overflow: hidden
 	padding-bottom: 20px
 	position: relative
@@ -88,10 +82,10 @@
 
 	.list-item
 		width: 33%
-		min-height: 332px
+		height: 350px
 		display: inline-block
-		vertical-align: top
-		padding: 20px 10px 0
+		vertical-align: bottom
+		padding: 15px 10px 0
 
 		a
 			&:hover
@@ -105,26 +99,27 @@
 		padding-bottom: 10px
 		min-height: 121px
 
-	
-	.value-size-16
-		position: relative
-		top: 2px
+.border-red-left
+	border-left: 5px solid #ef3f30
+	line-height: 22px
+	padding-left: 8px
 
-	.text-truncate
-		width: 100%
-
-.border-light-left
-	border-left: 1px solid #f5f5f5
+.launching-label
+	height: 22px
 
 // common classes
-.key-size-13
-	font-size: 13px
+.key-size-14
+	font-size: 14px
 	color: #787878
 
+.value-size-14,
 .value-size-16,
 .value-size-18
 	font-weight: $font-bold
 	color: #4d5057
+
+.value-size-14
+	font-size: 14px
 
 .value-size-16
 	font-size: 16px
