@@ -359,22 +359,25 @@ namespace Bikewale.Models
             string _mainUrl = String.Format("{0}{1}page/", BWConfiguration.Instance.BwHostUrl, objData.PagerEntity.BaseUrl);
             string prevPageNumber = string.Empty, nextPageNumber = string.Empty;
             int totalPages = _pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
-            if (curPageNo == 1 && totalPages > 1)    
+            if (totalPages > 1)
             {
-                nextPageNumber = "2";
-                objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/",_mainUrl, nextPageNumber);
-            }
-            else if (curPageNo == totalPages)   
-            {
-                prevPageNumber = Convert.ToString(curPageNo - 1);
-                objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/",_mainUrl, prevPageNumber);
-            }
-            else
-            {
-                prevPageNumber = Convert.ToString(curPageNo - 1);
-                objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/", _mainUrl, prevPageNumber);
-                nextPageNumber = Convert.ToString(curPageNo + 1);
-                objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/",_mainUrl, nextPageNumber);
+                if (curPageNo == 1 && totalPages > 1)
+                {
+                    nextPageNumber = "2";
+                    objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/", _mainUrl, nextPageNumber);
+                }
+                else if (curPageNo == totalPages)
+                {
+                    prevPageNumber = Convert.ToString(curPageNo - 1);
+                    objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/", _mainUrl, prevPageNumber);
+                }
+                else
+                {
+                    prevPageNumber = Convert.ToString(curPageNo - 1);
+                    objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/", _mainUrl, prevPageNumber);
+                    nextPageNumber = Convert.ToString(curPageNo + 1);
+                    objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/", _mainUrl, nextPageNumber);
+                }
             }
         }
         #endregion
