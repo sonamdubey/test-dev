@@ -1,7 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.Pager;
 using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
@@ -9,7 +8,6 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Models;
 using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 namespace Bikewale.Controllers
@@ -87,70 +85,23 @@ namespace Bikewale.Controllers
         [DeviceDetection]
         public ActionResult BikeByMake(string maskingName, ushort? pageNumber)
         {
-            ViewBag.PageNumber = (int)(pageNumber.HasValue ? pageNumber : 1);
-            ViewBag.PageSize = 15;
-            MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(maskingName);
-            ViewBag.location = _objLocation;
-            ViewBag.MakeMaskingName = maskingName;
-            var objFilters = new InputFilter()
+            NewLaunchedMakePageModel model = new NewLaunchedMakePageModel(maskingName, _newLaunches, _objMakeCache, _upcoming, Entities.PriceQuote.PQSourceEnum.Desktop_NewLaunchLanding, pageNumber);
+
+            if (model.Status == Entities.StatusCodes.ContentFound)
             {
-                PageNo = ViewBag.PageNumber,
-                PageSize = ViewBag.PageSize,
-                Make = objResponse.MakeId,
-                CityId = _objLocation.CityId
-            };
-
-            var objBikes = _newLaunches.GetBikes(objFilters);
-            ViewBag.Bikes = objBikes;
-
-            ViewBag.MakeName = "";
-            ViewBag.MakeId = objResponse.MakeId;
-
-            if (objBikes != null && objBikes.TotalCount > 0)
+                model.BaseUrl = "/new-{0}-bike-launches/";
+                model.PageSize = 15;
+                model.MakeTopCount = 9;
+                return View(model.GetData());
+            }
+            else if (model.Status == Entities.StatusCodes.RedirectPermanent)
             {
-                ViewBag.MakeName = objBikes.Bikes.First().Make.MakeName;
+                return RedirectPermanent(model.RedirectUrl);
             }
             else
             {
-                BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
-                ViewBag.MakeName = objMake.MakeName;
+                return Redirect("pageNotFound.aspx");
             }
-            ViewBag.pageHeading = string.Format("Latest {0} bikes in India", ViewBag.MakeName);
-            ViewBag.Description = string.Format("Check out the latest {0} bikes in India. Know more about prices, mileage, colors, specifications, and dealers of recently launched {0} bikes.", ViewBag.MakeName.ToLower());
-            ViewBag.Title = string.Format("{0} Bike Launches | Latest {0} Bikes in India- BikeWale", ViewBag.MakeName);
-            ViewBag.Keywords = string.Format("new {2} bikes {0}, new {2} bike launches in {1}, just launched {2} bikes, new {2} bike arrivals, {2} bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year, ViewBag.MakeName.ToLower());
-            ViewBag.canonical = string.Format("{0}/new-{1}-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, objResponse.MaskingName);
-            ViewBag.alternate = string.Format("{0}/m/new-{1}-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, objResponse.MaskingName);
-            ViewBag.pager = new PagerEntity()
-            {
-                PageNo = ViewBag.PageNumber,
-                PageSize = ViewBag.PageSize,
-                PagerSlotSize = 5,
-                BaseUrl = string.Format("/new-{0}-bike-launches/", maskingName),
-                PageUrlType = "page/",
-                TotalResults = (int)(objBikes != null ? objBikes.TotalCount : 0)
-            };
-
-
-            int pages = (int)(ViewBag.Bikes.TotalCount / ViewBag.PageSize);
-
-            if ((ViewBag.Bikes.TotalCount % ViewBag.PageSize) > 0)
-                pages += 1;
-
-            string prevUrl = string.Empty, nextUrl = string.Empty;
-            Paging.CreatePrevNextUrl((int)objBikes.TotalCount, string.Format("/new-{0}-bike-launches/", maskingName), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
-            ViewBag.relPrevPageUrl = prevUrl;
-            ViewBag.relNextPageUrl = nextUrl;
-            var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
-            {
-                MakeId = (int)objResponse.MakeId,
-                EndIndex = 9,
-                StartIndex = 1
-            };
-            var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
-            ViewBag.UpcomingBikes = objUpcomingBikes;
-            return View("~/views/newlaunches/bikesbymake.cshtml");
         }
 
 
@@ -181,68 +132,23 @@ namespace Bikewale.Controllers
         [Route("m/newlaunches/make/{maskingName}/")]
         public ActionResult BikeByMake_Mobile(string maskingName, ushort? pageNumber)
         {
-            ViewBag.PageNumber = (int)(pageNumber.HasValue ? pageNumber : 1);
-            ViewBag.PageSize = 10;
-            MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(maskingName);
+            NewLaunchedMakePageModel model = new NewLaunchedMakePageModel(maskingName, _newLaunches, _objMakeCache, _upcoming, Entities.PriceQuote.PQSourceEnum.Desktop_NewLaunchLanding, pageNumber);
 
-            var objFilters = new InputFilter()
+            if (model.Status == Entities.StatusCodes.ContentFound)
             {
-                PageNo = ViewBag.PageNumber,
-                PageSize = ViewBag.PageSize,
-                CityId = _objLocation.CityId,
-                Make = objResponse.MakeId
-            };
-
-            var objBikes = _newLaunches.GetBikes(objFilters);
-            ViewBag.Bikes = objBikes;
-
-            ViewBag.MakeName = "";
-            ViewBag.MakeId = objResponse.MakeId;
-
-            if (objBikes != null && objBikes.TotalCount > 0)
+                model.BaseUrl = String.Format("/m/new-{0}-bike-launches/", maskingName);
+                model.PageSize = 10;
+                model.MakeTopCount = 9;
+                return View(model.GetData());
+            }
+            else if (model.Status == Entities.StatusCodes.RedirectPermanent)
             {
-                ViewBag.MakeName = objBikes.Bikes.First().Make.MakeName;
+                return RedirectPermanent(model.RedirectUrl);
             }
             else
             {
-                BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
-                ViewBag.MakeName = objMake.MakeName;
+                return Redirect("pageNotFound.aspx");
             }
-            ViewBag.MakeMaskingName = maskingName;
-            ViewBag.Description = string.Format("Check out the latest {0} bikes in India. Know more about prices, mileage, colors, specifications, and dealers of recently launched {0} bikes.", ViewBag.MakeName.ToLower());
-            ViewBag.Title = string.Format("{0} Bike Launches| Latest {0} Bikes in India- BikeWale", ViewBag.MakeName);
-            ViewBag.Keywords = string.Format("new {2} bikes {0}, new {2} bike launches in {1}, just launched {2} bikes, new {2} bike arrivals, {2} bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year, ViewBag.MakeName.ToLower());
-            ViewBag.canonical = string.Format("{0}/new-{1}-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, objResponse.MaskingName);
-
-            ViewBag.pager = new PagerEntity()
-            {
-                PageNo = ViewBag.PageNumber,
-                PageSize = ViewBag.PageSize,
-                PagerSlotSize = 5,
-                BaseUrl = string.Format("/m/new-{0}-bike-launches/", maskingName),
-                PageUrlType = "page/",
-                TotalResults = (int)(objBikes != null ? objBikes.TotalCount : 0)
-            };
-            ViewBag.location = _objLocation;
-            string prevUrl = string.Empty, nextUrl = string.Empty;
-            int pages = (int)(ViewBag.Bikes.TotalCount / ViewBag.PageSize);
-
-            if ((ViewBag.Bikes.TotalCount % ViewBag.PageSize) > 0)
-                pages += 1;
-
-            Paging.CreatePrevNextUrl(pages, string.Format("/m/new-{0}-bike-launches/", maskingName), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
-            ViewBag.relPrevPageUrl = prevUrl;
-            ViewBag.relNextPageUrl = nextUrl;
-            var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
-            {
-                MakeId = (int)objResponse.MakeId,
-                EndIndex = 9,
-                StartIndex = 1
-            };
-            var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
-            ViewBag.UpcomingBikes = objUpcomingBikes;
-            return View("~/views/m/newlaunches/bikesbymake.cshtml");
         }
 
 

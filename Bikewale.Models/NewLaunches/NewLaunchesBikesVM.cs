@@ -6,6 +6,10 @@ using System.Linq;
 
 namespace Bikewale.Models
 {
+    /// <summary>
+    /// Created by  :   Sumit Kate on 30 Mar 2017
+    /// Description :   NewLaunchesBikes partial view ViewModel
+    /// </summary>
     public class NewLaunchesBikesVM
     {
         public NewLaunchedBikeResult Bikes { get; set; }
