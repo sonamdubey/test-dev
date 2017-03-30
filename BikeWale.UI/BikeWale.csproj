@@ -924,6 +924,7 @@
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedIndexModel.cs" />
+    <Compile Include="Models\NewLaunches\NewLaunchedMakePageModel.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchesBikesModel.cs" />
     <Compile Include="Models\News\NewsIndexPage.cs" />
     <Compile Include="Models\Location\ChangeLocationPopup.cs" />
@@ -3501,14 +3502,12 @@
     <Content Include="Views\m\Shared\_NewLaunchedByYear.cshtml" />
     <Content Include="Views\Shared\_NewLaunchedByYear.cshtml" />
     <Content Include="Views\Shared\_NewLaunchedByMakeWithoutCount.cshtml" />
-    <Content Include="Views\NewLaunches\BikesByMake.cshtml" />
-    <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
+    <Content Include="Views\NewLaunches\BikeByMake.cshtml" />
     <Content Include="Views\NewLaunches\BikesByYear.cshtml" />
-    <Content Include="Views\m\NewLaunches\BikesByYear.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikes_Mobile.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikes.cshtml" />
     <Content Include="Views\Shared\_NewLaunchedByMakeWithCount.cshtml" />
-    <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
+    <Content Include="Views\NewLaunches\BikeByMake_Mobile.cshtml" />
     <Content Include="Views\m\Shared\_NewLaunchedByMakeWithCount.cshtml" />
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
     <Content Include="Views\Videos\Details.cshtml" />

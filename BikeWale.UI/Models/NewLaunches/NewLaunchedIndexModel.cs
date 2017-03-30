@@ -18,7 +18,6 @@ namespace Bikewale.Models
     {
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
-        private readonly IBikeMakes<BikeMakeEntity, int> _objMakeRepo = null;
         private readonly IUpcoming _upcoming = null;
         private readonly InputFilter _filter = null;
         private readonly PQSourceEnum _pqSource;

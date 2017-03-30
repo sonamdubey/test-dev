@@ -62,6 +62,7 @@
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
     <Compile Include="NewLaunches\NewLaunchedIndexVM.cs" />
+    <Compile Include="NewLaunches\NewLaunchedMakeVM.cs" />
     <Compile Include="NewLaunches\NewLaunchesBikesVM.cs" />
     <Compile Include="News\NewsIndexPageVM.cs" />
     <Compile Include="NewLaunches\NewLaunchedWidgetVM.cs" />
