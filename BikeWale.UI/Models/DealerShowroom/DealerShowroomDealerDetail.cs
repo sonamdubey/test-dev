@@ -8,6 +8,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.Memcache;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
 namespace Bikewale.Models
@@ -39,14 +40,14 @@ namespace Bikewale.Models
         /// <param name="bikeModels"></param>
         /// <param name="makeMaskingName"></param>
         /// <param name="dealerId"></param>
-        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, uint dealerId, uint topCount)
+        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, string cityMaskingName, uint dealerId, uint topCount)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
             _bikeModels = bikeModels;
             _objSC = objSC;
             TopCount = topCount;
-            ProcessQuery(makeMaskingName, dealerId);
+            ProcessQuery(makeMaskingName, cityMaskingName, dealerId);
         }
 
         /// <summary>
@@ -63,8 +64,8 @@ namespace Bikewale.Models
                 objDealerDetails.DealerDetails = BindDealersData();
                 if (objMake != null)
                     objDealerDetails.Make = objMake;
-
-                cityId = (uint)objDealerDetails.DealerDetails.DealerDetails.CityId;
+                if (objDealerDetails.DealerDetails != null)
+                    cityId = (uint)objDealerDetails.DealerDetails.DealerDetails.CityId;
                 CityDetails = new CityHelper().GetCityById(cityId);
                 objDealerDetails.CityDetails = CityDetails;
 
@@ -74,6 +75,7 @@ namespace Bikewale.Models
                 objDealerDetails.PopularBikes = BindMostPopularBikes();
                 objDealerDetails.ServiceCenterDetails = BindServiceCenterWidget();
                 BindPageMetas(objDealerDetails.PageMetaTags);
+                BindLeadCapture(objDealerDetails);
             }
             catch (System.Exception ex)
             {
@@ -83,6 +85,23 @@ namespace Bikewale.Models
 
 
             return objDealerDetails;
+        }
+        /// <summary>
+        /// Created by :- Subodh Jain 30 March 2017
+        /// Summary :- Added lead popup
+        /// </summary>
+        /// <param name="objDealerDetails"></param>
+        private void BindLeadCapture(DealerShowroomDealerDetailsVM objDealerDetails)
+        {
+            objDealerDetails.LeadCapture = new LeadCaptureEntity()
+            {
+
+                CityId = cityId,
+                AreaId = objDealerDetails.DealerDetails.DealerDetails.Area.AreaId,
+                Area = objDealerDetails.DealerDetails.DealerDetails.Area.AreaName,
+                City = CityDetails.CityName
+
+            };
         }
 
         /// <summary>
@@ -229,7 +248,7 @@ namespace Bikewale.Models
         /// Summary :- To Processing query
         /// </summary>
         /// <returns></returns>
-        private void ProcessQuery(string makeMaskingName, uint dealerId)
+        private void ProcessQuery(string makeMaskingName, string cityMaskingName, uint dealerId)
         {
             objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
             if (objResponse != null)
@@ -237,8 +256,11 @@ namespace Bikewale.Models
                 if (objResponse.StatusCode == 200)
                 {
                     makeId = objResponse.MakeId;
+                    cityId = CitiMapping.GetCityId(cityMaskingName);
                     this.dealerId = dealerId;
                     status = StatusCodes.ContentFound;
+                    if (cityId <= 0)
+                        status = StatusCodes.ContentNotFound;
                 }
                 else if (objResponse.StatusCode == 301)
                 {
