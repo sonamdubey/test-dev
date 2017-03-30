@@ -186,6 +186,7 @@ namespace Bikewale.Controllers
                     }
                     else if (objDealer.status == Entities.StatusCodes.RedirectTemporary)
                     {
+                        objDealer.redirectUrl = string.Format("/m{0}", objDealer.redirectUrl);
                         return Redirect(objDealer.redirectUrl);
                     }
                     else
