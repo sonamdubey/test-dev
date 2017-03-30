@@ -3,7 +3,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.UsedBikes;
 using System.Collections.Generic;
 
-namespace Bikewale.Models.Used
+namespace Bikewale.Models
 {
     /// <summary>
     /// Created by Sajal Gupta on 26-03-2017

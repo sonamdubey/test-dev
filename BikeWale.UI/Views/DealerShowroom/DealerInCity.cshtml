@@ -4,31 +4,37 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_JS_Path = "/src/dealer/listing.js";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealer/listing.css' />";
+    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName);
+    Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName);
+    Model.AdTags.AdId = "1395986297721";
+    Model.AdTags.AdPath = "/1017752/BikeWale_New_";
+    Model.AdTags.Ad_970x90 = true;
+    Model.AdTags.Ad_970x90Bottom = true;
 }
 
-    <section>
-        <div class="container padding-top10">
-            <div class="grid-12">
-                <div class="breadcrumb margin-bottom15">
-                    <!-- breadcrumb code starts here -->
-                    <ul>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
-                        </li>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Showroom Locator</span></a>
-                        </li>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/@Model.Make.MaskingName-dealer-showrooms-in-india/"><span itemprop="title">@Model.Make.MakeName Showrooms</span></a>
-                        </li>
-                        <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span>@Model.Make.MakeName Showrooms in @Model.CityDetails.CityName</li>
-                    </ul>
-                    <div class="clear"></div>
-                </div>
+<section>
+    <div class="container padding-top10">
+        <div class="grid-12">
+            <div class="breadcrumb margin-bottom15">
+                <!-- breadcrumb code starts here -->
+                <ul>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
+                    </li>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Showroom Locator</span></a>
+                    </li>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/@Model.Make.MaskingName-dealer-showrooms-in-india/"><span itemprop="title">@Model.Make.MakeName Showrooms</span></a>
+                    </li>
+                    <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span>@Model.Make.MakeName Showrooms in @Model.CityDetails.CityName</li>
+                </ul>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
         </div>
-    </section>
+        <div class="clear"></div>
+    </div>
+</section>
 
 <section>
     <div class="container margin-bottom20">
@@ -56,7 +62,12 @@
                     <h2 class="font18 text-black text-bold bg-white dealer-heading inline-block margin-right10">@String.Format("{0} {1} showroom{2} in {3}", Model.TotalDealers, Model.Make.MakeName, Model.TotalDealers > 1 ? "s" : "", Model.CityDetails.CityName)</h2>
                     <div class="inline-block">
                         <span class="edit-blue-link" id="brandSelect"><span class="bwsprite edit-blue text-link"></span> <span class="change text-link">change</span></span>
-                    </div>
+                       @if (Model.BrandCityPopUp!=null)
+                       {
+                            @Html.Partial("~/Views/Make/_BrandCityPopup.cshtml", Model.BrandCityPopUp)
+                       }
+                        
+                     </div>
                     <div class="clear"></div>
                 </div>
 
@@ -130,33 +141,72 @@
 
     </section>
 }
-@if (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0)
+@if ((Model.PopularBikes != null && Model.PopularBikes.Bikes != null && Model.PopularBikes.Bikes.Count() > 0) || (Model.ServiceCenterDetails != null && Model.ServiceCenterDetails.ServiceCentersList != null && Model.ServiceCenterDetails.ServiceCentersList.Count() > 0) || (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0))
 {
-    <div class="container">
+    <div class="container margin-bottom20">
         <div class="grid-12">
             <div class="content-box-shadow">
-                <section>
+                @if (Model.PopularBikes != null && Model.PopularBikes.Bikes != null && Model.PopularBikes.Bikes.Count() > 0)
+                {
+                    <div class="bw-model-tabs-data padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>@string.Format("Popular {0} bikes in {1}",Model.Make.MakeName ,Model.CityDetails.CityName) </h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                      <a href="@string.Format("/{0}-bikes/",Model.Make.MaskingName)" title="@string.Format("{0} Bikes",Model.Make.MakeName)" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        @Html.Partial("~/Views/BikeModels/_MostPopularBikes.cshtml", Model.PopularBikes)
+                    </div>
 
-                    <div class="carousel-heading-content padding-top15">
+                }
+                @if (Model.ServiceCenterDetails != null && Model.ServiceCenterDetails.ServiceCentersList != null && Model.ServiceCenterDetails.ServiceCentersList.Count() > 0)
+                {
+                    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+                    <div class="carousel-heading-content padding-top20">
                         <div class="swiper-heading-left-grid inline-block">
-                            <h2>Used @Model.Make.MakeName bikes in @Model.CityDetails.CityName</h2>
+                            <h2>@string.Format("{0} service centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)</h2>
                         </div><div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="@string.Format("/used/{0}-bikes-in-india/",Model.Make.MaskingName)" title="Second Hand Bikes in India" class="btn view-all-target-btn">View all</a>
+                                  <a href="@string.Format("/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View all</a>
                         </div>
                     </div>
+                    <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
+                        <div class="swiper-wrapper">
+                            @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.ServiceCenterDetails)
+                        </div>
+                    </div>
+             
+            
+
+
+                }
+                @if (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0)
+                {
+                    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+                    <section>
+                        <div class="carousel-heading-content padding-top15">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>@string.Format("Used {0}  bikes in {1}", Model.Make.MakeName, Model.CityDetails.CityName)</h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="@string.Format("/used/{0}-bikes-in-{1}/",Model.Make.MaskingName,Model.CityDetails!=null?Model.CityDetails.CityMaskingName:"india")" title="@string.Format("Second Hand Bikes in {0}",Model.CityDetails!=null?Model.CityDetails.CityMaskingName:"India")" class="btn view-all-target-btn">View all</a>
+                            </div>
+                        </div>
                         <div class="clear"></div>
 
                         <div class="padding-bottom20">
                             @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedBikeModel)
                         </div>
-                    
-                    <div class="clear"></div>
-                </section>
+
+                        <div class="clear"></div>
+                    </section>
+
+
+                }
             </div>
-            </div>
+        </div>
         <div class="clear"></div>
     </div>
-
 }
 <section>
     <div class="container margin-top10 margin-bottom30">

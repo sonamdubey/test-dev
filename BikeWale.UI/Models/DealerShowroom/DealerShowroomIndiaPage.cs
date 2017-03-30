@@ -5,12 +5,15 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.UsedBikes;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Used;
+using Bikewale.Models.Upcoming;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +30,7 @@ namespace Bikewale.Models
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
         private readonly IStateCacheRepository _objStateCache = null;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
+        private readonly INewBikeLaunchesBL _newLaunches = null;
 
         public uint makeId, cityId, topCount;
         public CityEntityBase cityDetails;
@@ -34,14 +38,16 @@ namespace Bikewale.Models
         public MakeMaskingResponse objResponse;
         public BikeMakeEntityBase objMake;
         private DealerShowroomIndiaPageVM objDealerVM;
+        public string redirectUrl;
         //Constructor
-        public DealerShowroomIndiaPage(IDealerCacheRepository objDealerCache, IUpcoming upcoming, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache, IBikeMakesCacheRepository<int> bikeMakesCache, string makeMaskingName)
+        public DealerShowroomIndiaPage(INewBikeLaunchesBL newLaunches, IDealerCacheRepository objDealerCache, IUpcoming upcoming, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache, IBikeMakesCacheRepository<int> bikeMakesCache, string makeMaskingName)
         {
             _objDealerCache = objDealerCache;
             _upcoming = upcoming;
             _objUsedCache = objUsedCache;
             _objStateCache = objStateCache;
             _bikeMakesCache = bikeMakesCache;
+            _newLaunches = newLaunches;
             ProcessQuery(makeMaskingName);
         }
 
@@ -66,6 +72,7 @@ namespace Bikewale.Models
                 objDealerVM.AllDealers = BindOtherBrandWidget();
                 objDealerVM.objUpcomingBikes = BindUpCompingBikesWidget();
                 objDealerVM.UsedBikeModel = BindUsedBikeByModel();
+                objDealerVM.NewLaunchedBikes = BindNewLaunchesBikes();
                 BindPageMetas(objDealerVM.PageMetaTags);
 
 
@@ -76,6 +83,29 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.GetData()");
             }
             return objDealerVM;
+        }
+
+        /// <summary>
+        /// Created By:- Subodh Jain 23 March 2017
+        /// Summary:- Fetching data about New Bike Launches
+        /// </summary>
+        /// <returns></returns>
+        private NewLaunchedWidgetVM BindNewLaunchesBikes()
+        {
+            NewLaunchedWidgetVM NewLaunchedbikes = new NewLaunchedWidgetVM();
+            try
+            {
+                NewLaunchedWidgetModel objNewLaunched = new NewLaunchedWidgetModel(9, _newLaunches);
+                NewLaunchedbikes.PQSourceId = (uint)PQSourceEnum.Mobile_DealerLocator_Landing_Check_on_road_price;
+                NewLaunchedbikes = objNewLaunched.GetData();
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindNewLaunchesBikes()");
+            }
+            return NewLaunchedbikes;
+
         }
 
         /// <summary>
@@ -126,9 +156,9 @@ namespace Bikewale.Models
         /// Summary:- Bind data for used bike widget
         /// </summary>
         /// <returns></returns>
-        private UsedBikeModels BindUsedBikeByModel()
+        private UsedBikeModelsWidgetVM BindUsedBikeByModel()
         {
-            UsedBikeModels UsedBikeModel = new UsedBikeModels();
+            UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
             try
             {
                 if (makeId > 0)
@@ -154,18 +184,20 @@ namespace Bikewale.Models
         /// Summary:- Binding data for upcoming bike widget
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<UpcomingBikeEntity> BindUpCompingBikesWidget()
+        private UpcomingBikesWidgetVM BindUpCompingBikesWidget()
         {
-            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = null;
+            UpcomingBikesWidgetVM objUpcomingBikes = null;
             try
             {
-                var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
-                    {
-                        EndIndex = 9,
-                        StartIndex = 1
-                    };
-                var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-                objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
+                UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
+
+                objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+                {
+                    EndIndex = 9,
+                    StartIndex = 1
+                };
+                objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+                objUpcomingBikes = objUpcoming.GetData();
             }
             catch (Exception ex)
             {
@@ -206,26 +238,50 @@ namespace Bikewale.Models
         /// <returns></returns>
         private void ProcessQuery(string makeMaskingName)
         {
-            objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
-            if (objResponse != null)
+            try
             {
-                if (objResponse.StatusCode == 200)
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                cityId = currentCityArea.CityId;
+
+                objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
+
+                if (objResponse != null)
                 {
-                    makeId = objResponse.MakeId;
-                    status = StatusCodes.ContentFound;
-                }
-                else if (objResponse.StatusCode == 301)
-                {
-                    status = StatusCodes.RedirectPermanent;
+                    if (objResponse.StatusCode == 200)
+                    {
+                        makeId = objResponse.MakeId;
+                        var _cities = _objDealerCache.FetchDealerCitiesByMake(makeId);
+                        if (_cities != null && _cities.Count() > 0)
+                        {
+
+                            var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
+                            if (_city != null)
+                            {
+                                redirectUrl = String.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName, _city.CityMaskingName);
+                                status = StatusCodes.RedirectTemporary;
+                            }
+                        }
+                        if (status == 0)
+                            status = StatusCodes.ContentFound;
+                    }
+                    else if (objResponse.StatusCode == 301)
+                    {
+                        status = StatusCodes.RedirectPermanent;
+                    }
+                    else
+                    {
+                        status = StatusCodes.ContentNotFound;
+                    }
                 }
                 else
                 {
                     status = StatusCodes.ContentNotFound;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                status = StatusCodes.ContentNotFound;
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("DealerShowroomIndiaPage.ProcessQuery() makeMaskingName:{0}", makeMaskingName));
             }
         }
 

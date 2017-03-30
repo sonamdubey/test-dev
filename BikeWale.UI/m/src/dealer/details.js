@@ -1,8 +1,12 @@
 ﻿var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
 var dealerLat = document.getElementById("locationSearch").getAttribute("data-lat");
 var dealerLong = document.getElementById("locationSearch").getAttribute("data-long");
+var locationKey;
+var googleMapAPIKey;
 docReady(function () {
-
+    locationKey = document.getElementById("locationSearch").getAttribute("data-cityid") + "_" + document.getElementById("locationSearch").getAttribute("data-cityname");
+    googleMapAPIKey = document.getElementById("locationSearch").getAttribute("data-Map");
+    SetCookieInDays("location", locationKey, 365);
     initializeMap();
     $(document).on("click", "#getUserLocation", function () {
         getLocation();
@@ -22,6 +26,58 @@ docReady(function () {
         var time = hrs + ' hrs ' + mins + ' mins ';// + secs +" s";
         return time;
     }
+    $(window).scroll(function () {
+        bodHt = $('body').height();
+        footerHt = $('footer').height();
+        scrollPosition = $(this).scrollTop();
+        if ($('.float-button').hasClass('float-fixed')) {
+            if (scrollPosition + $(window).height() > (bodHt - footerHt))
+                $('.float-button').removeClass('float-fixed').hide();
+        }
+        if (scrollPosition + $(window).height() < (bodHt - footerHt))
+            $('.float-button').addClass('float-fixed').show();
+    });
+    $(".leadcapturebtn").click(function (e) {
+        ele = $(this);
+        var leadOptions = {
+            "dealerid": dealerId,
+            "leadsourceid": ele.attr('data-leadsourceid'),
+            "pqsourceid": ele.attr('data-pqsourceid'),
+            "pageurl": pageUrl,
+            "clientip": clientIP,
+            "isregisterpq": true,
+            "isdealerbikes": true,
+            "campid": campaignId
+        };
+        dleadvm.setOptions(leadOptions);
+    });
+
+    $(".dealerDetails").click(function (e) {
+        btnDpq = $(this);
+        var pqSourceId = btnDpq.data("pqsourceid");
+        var modelId = btnDpq.data("modelid");
+        var versionId = btnDpq.data("versionid");
+        var areaId = btnDpq.data("areaid");
+        var cityId = btnDpq.data("cityid");
+        var cityName = btnDpq.data("cityname");
+        var areaName = btnDpq.data("areaname");
+        var dealerid = btnDpq.data("dealerid");
+        checkCookies();
+        $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
+        $('#popupWrapper').addClass('loader-active');
+        $('#popupWrapper,#popupContent').show();
+        var options = {
+            "modelId": modelId,
+            "versionid": versionId,
+            "cityId": cityId,
+            "areaId": areaId,
+            "city": cityName,
+            "area": areaName,
+            "pagesrcid": pqSourceId,
+            "dealerid": dealerid
+        };
+        vmquotation.setOptions(options);
+    });
 });
 
 function getLocation() {

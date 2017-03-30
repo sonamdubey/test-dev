@@ -1,6 +1,9 @@
+using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.Videos;
+using Bikewale.Interfaces.Pager;
+using Bikewale.Models;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -8,25 +11,71 @@ namespace Bikewale.Controllers
     public class NewsController : Controller
     {
         private readonly ICMSCacheContent _articles = null;
-        private readonly IVideos _videos = null;
+        private readonly IPager _pager = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
-        public NewsController(ICMSCacheContent articles, IVideos videos, IBikeModelsCacheRepository<int> models)
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
+        private readonly IUpcoming _upcoming = null; 
+        private int _topCount;
+        public NewsController(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming)
         {
             _articles = articles;
-            _videos = videos;
+            _pager = pager;
             _models = models;
+            _bikeModels = bikeModels;
+            _upcoming = upcoming;
         }
 
-        [Route("news/")]
+        /// <summary>
+        /// Created by : Aditi srivastava on 27 Mar 2017
+        /// Summmary   : Action method to render news listing page
+        /// </summary>
+        /// <returns></returns>
+        [Route("newslanding/")]
         public ActionResult Index()
         {
-            return View();
+            _topCount = 4;
+            NewsIndexPage obj = new NewsIndexPage(_articles, _pager,_models,_bikeModels,_upcoming,_topCount);
+
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.redirectUrl);
+            }
+            else
+            {
+                NewsIndexPageVM objData = obj.GetData();
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/pagenotfound.aspx");
+                else
+                return View(objData);
+            }
         }
 
-        [Route("m/news/")]
+        [Route("m/newslanding/")]
         public ActionResult Index_Mobile()
         {
-            return View();
+            _topCount = 9;
+            NewsIndexPage obj = new NewsIndexPage(_articles, _pager, _models, _bikeModels,_upcoming, _topCount);
+
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.redirectUrl);
+            }
+            else
+            {
+                NewsIndexPageVM objData = obj.GetData();
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/pagenotfound.aspx");
+                else
+                return View(objData);
+            }
         }
 
         [Route("news/{basicid}/")]

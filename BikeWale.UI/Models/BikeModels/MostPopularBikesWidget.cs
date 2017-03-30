@@ -4,6 +4,8 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using System;
+using System.Linq;
+
 namespace Bikewale.Models
 {
     /// <summary>
@@ -19,10 +21,11 @@ namespace Bikewale.Models
         private readonly uint _makeId, _pageCatId;
         private readonly PQSourceEnum _pqSource;
         private readonly EnumBikeType _bikeType;
+        private uint TotalWidgetItems = 9;
         #endregion
 
         #region Public Property
-        public uint TopCount { get; set; }
+        public int TopCount { get; set; }
         public uint CityId { get; set; }
         #endregion
 
@@ -108,7 +111,11 @@ namespace Bikewale.Models
                 objVM.PageCatId = _pageCatId;
                 objVM.ShowCheckOnRoadCTA = _showCheckOnRoadCTA;
                 objVM.ShowPriceInCityCTA = _showPriceInCityCTA;
-                objVM.Bikes = _bikeModels.GetMostPopularBikes(_bikeType, TopCount, _makeId, CityId);
+                objVM.Bikes = _bikeModels.GetMostPopularBikes(_bikeType, TotalWidgetItems, _makeId, CityId);
+                if (objVM.Bikes != null && objVM.Bikes.Count()>0)
+                {
+                    objVM.Bikes = objVM.Bikes.Take(TopCount);
+                }
             }
             catch (Exception ex)
             {

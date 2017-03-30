@@ -1,13 +1,11 @@
 ﻿@model  Bikewale.Models.MostPopularBikeWidgetVM
 @using Bikewale.Entities.BikeData;
 @using Bikewale.Utility;
-@if (Model != null && Model.Bikes != null && Model.Bikes.Count() > 0)
-{
-<div class="swiper-container card-container">
+<div class="swiper-container card-container swiper-small">
     <div class="swiper-wrapper discover-bike-carousel">
         @foreach (var bike in Model.Bikes)
         {
-            var bikeName = String.Format("{0} {1}",bike.objMake.MakeName, bike.objModel.ModelName);
+            var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
             <div class="swiper-slide">
                 <div class="swiper-card">
                     <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName))" title="@bikeName">
@@ -32,11 +30,11 @@
                             }
                         </div>
                     </a>
-                    @if (Model.ShowCheckOnRoadCTA) 
+                    @if (Model.ShowCheckOnRoadCTA)
                     {
-                    <div class="swiper-btn-block">
-                        <a href="javascript:void(0)" data-pagecatid="@Model.PageCatId" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-card btn-full-width btn-white @(bike.VersionPrice!=0 ?"":"hide") getquotation">Check on-road price</a>
-                    </div>
+                        <div class="swiper-btn-block">
+                            <a href="javascript:void(0)" data-pagecatid="@Model.PageCatId" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-card btn-full-width btn-white @(bike.VersionPrice!=0 ?"":"hide") getquotation">Check on-road price</a>
+                        </div>
                     }
                     @if (Model.ShowPriceInCityCTA)
                     {
@@ -49,4 +47,3 @@
         }
     </div>
 </div>
-}

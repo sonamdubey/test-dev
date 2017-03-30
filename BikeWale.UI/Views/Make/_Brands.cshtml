@@ -2,22 +2,7 @@
 <div id="discoverBrand" class="bw-tabs-data text-center collapsible-brand-content">
     <div id="brand-type-container" class="brand-type-container">
         <ul>
-            @foreach (var make in Model.TopBrands) 
-            { 
-            <li>
-                <a href="@make.Href" title="@make.Title">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-@make.MakeId"></span>
-                    </span>
-                    <span class="brand-type-title">@make.MakeName</span>
-                </a>
-            </li>
-            }
-        </ul>
-        @if (Model.HasOtherBrands)
-        {
-        <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide border-solid-top">
-            @foreach (var make in Model.OtherBrands)
+            @foreach (var make in Model.TopBrands)
             {
                 <li>
                     <a href="@make.Href" title="@make.Title">
@@ -29,12 +14,27 @@
                 </li>
             }
         </ul>
+        @if (Model.HasOtherBrands)
+        {
+            <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide border-solid-top">
+                @foreach (var make in Model.OtherBrands)
+                {
+                    <li>
+                        <a href="@make.Href" title="@make.Title">
+                            <span class="brand-type">
+                                <span class="lazy brandlogosprite brand-@make.MakeId"></span>
+                            </span>
+                            <span class="brand-type-title">@make.MakeName</span>
+                        </a>
+                    </li>
+                }
+            </ul>
         }
     </div>
     @if (Model.HasOtherBrands)
     {
-    <div class="view-all-btn-container padding-top10 padding-bottom30">
-        <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwsprite teal-right"></span></a>
-    </div>
+        <div class="view-all-btn-container padding-top10 padding-bottom25">
+            <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwsprite teal-right"></span></a>
+        </div>
     }
 </div>

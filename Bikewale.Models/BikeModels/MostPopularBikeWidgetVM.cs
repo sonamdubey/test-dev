@@ -15,5 +15,8 @@ namespace Bikewale.Models
         public bool ShowCheckOnRoadCTA { get; set; }
         public bool ShowPriceInCityCTA { get; set; }
         public IEnumerable<MostPopularBikesBase> Bikes { get; set; }
+        public string WidgetHeading { get; set; }
+        public string WidgetHref { get; set; }
+        public string WidgetLinkTitle { get; set; }
     }
 }

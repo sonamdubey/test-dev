@@ -1,18 +1,7 @@
-﻿@model Bikewale.Models.BestBikes.PopularBodyStyleVM
+﻿@model Bikewale.Models.PopularBodyStyleVM
 @using Bikewale.Utility
-@if (Model != null && Model.PopularBikes != null && Model.PopularBikes.Count() > 0) {
-<div class="carousel-heading-content padding-top15">
-    <div class="swiper-heading-left-grid inline-block">
-        <h2> Popular @Model.BodyStyleText</h2>
-    </div>
-    <div class="swiper-heading-right-grid inline-block text-right">
-        <a href="@string.Format("/m{0}",UrlFormatter.FormatGenericPageUrl(Model.BodyStyle))" title="Best @Model.BodyStyleLinkTitle in India" class="btn view-all-target-btn">View all</a>
-    </div>
-    <div class="clear"></div>
-</div>
 <div class="swiper-container card-container swiper-small">
     <div class="swiper-wrapper">
-
         @foreach (var bike in Model.PopularBikes)
         {
         string bikeName = string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName);
@@ -41,5 +30,5 @@
         }
     </div>
 </div>
-}
+
 

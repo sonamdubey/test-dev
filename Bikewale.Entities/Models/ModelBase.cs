@@ -6,6 +6,8 @@ namespace Bikewale.Models
     /// Summary : Class have all properties for view models of the mvc pages. All view mdoels for mvc pages should be inherited from this class.
     /// Modified by :   Sumit Kate on 24 Mar 2017
     /// Description :   Initialize Page meta and Ad tag in constructor
+    /// Modified by :   Sumit Kate on 28 Mar 2017
+    /// Description :   Added PageH1 property of the page for binding
     /// </summary>
     public class ModelBase
     {
@@ -15,10 +17,12 @@ namespace Bikewale.Models
         public bool IsTransparentHeader { get; set; }
         public bool IsHomePage { get; set; }
         public bool IsHeaderFix { get; set; }
-
+      
         public string Page_ATF_CSS { get; set; }
         public string Page_BTF_CSS_Path { get; set; }
         public string Page_JS_Path { get; set; }
+
+        public string Page_H1 { get; set; }
 
         public ModelBase()
         {

@@ -5,7 +5,6 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models.ExpertReviews
 {
@@ -17,10 +16,30 @@ namespace Bikewale.Models.ExpertReviews
     {
         private readonly ICMSCacheContent _articles = null;
 
+        private readonly uint _totalRecords;
+        private readonly uint _makeId;
+        private readonly string _makeName;
+        private readonly string _makeMasking;
+        private readonly uint _modelId;
+        private readonly string _modelName;
+        private readonly string _modelMasking;
+
         #region Constructor
-        public RecentExpertReviews(ICMSCacheContent articles)
+        public RecentExpertReviews(uint totalRecords, ICMSCacheContent articles)
         {
+            _totalRecords = totalRecords;
             _articles = articles;
+        }
+
+        public RecentExpertReviews(uint totalRecords, uint makeId, uint modelId, string makeName, string makeMasking, string modelName, string modelMasking, ICMSCacheContent articles)
+        {
+            _totalRecords = totalRecords;
+            _makeId = makeId;
+            _modelId = modelId;
+            _makeName = makeName;
+            _makeMasking = makeMasking;
+            _modelName = modelName;
+            _modelMasking = modelMasking;
         }
         #endregion
 
@@ -29,40 +48,43 @@ namespace Bikewale.Models.ExpertReviews
         /// Created by : Aditi Srivastava on 23 Mar 2017
         /// Summary    : To get list of expert review articles
         /// </summary>
-        public RecentExpertReviewsVM GetData(uint totalRecords, uint makeId, uint modelId, string makeName, string makeMasking, string modelName, string modelMasking)
+        public RecentExpertReviewsVM GetData()
         {
             RecentExpertReviewsVM recentReviews = new RecentExpertReviewsVM();
-
             try
             {
                 List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
                 categorList.Add(EnumCMSContentType.RoadTest);
                 categorList.Add(EnumCMSContentType.ComparisonTests);
                 string _contentType = CommonApiOpn.GetContentTypesString(categorList);
-               
-                recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, Convert.ToUInt32(totalRecords), makeId, modelId);
-                if (makeId > 0)
+
+                recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelId);
+                if (recentReviews.ArticlesList != null)
                 {
-                    recentReviews.MakeName = makeName;
-                    recentReviews.MakeMasking = makeMasking;
+                    recentReviews.FetchedCount = recentReviews.ArticlesList.Count();
+                }
+                if (_makeId > 0)
+                {
+                    recentReviews.MakeName = _makeName;
+                    recentReviews.MakeMasking = _makeMasking;
                 }
 
-                if (modelId > 0)
+                if (_modelId > 0)
                 {
-                    recentReviews.ModelName = modelName;
-                    recentReviews.ModelMasking = modelMasking;
+                    recentReviews.ModelName = _modelName;
+                    recentReviews.ModelMasking = _modelMasking;
                 }
-                recentReviews.MoreExpertReviewUrl = UrlFormatter.FormatExpertReviewUrl(makeMasking, modelMasking);
+                recentReviews.MoreExpertReviewUrl = UrlFormatter.FormatExpertReviewUrl(_makeMasking, _modelMasking);
 
 
-                if (!String.IsNullOrEmpty(modelName) && !String.IsNullOrEmpty(makeName))
+                if (!String.IsNullOrEmpty(_modelName) && !String.IsNullOrEmpty(_makeName))
                 {
-                    recentReviews.LinkTitle = string.Format("{0} {1} Expert Reviews", makeName, modelName);
-                    recentReviews.BikeName = string.Format("{0} {1}",makeName,modelName);
+                    recentReviews.LinkTitle = string.Format("{0} {1} Expert Reviews", _makeName, _modelName);
+                    recentReviews.BikeName = string.Format("{0} {1}", _makeName, _modelName);
                 }
-                else if (String.IsNullOrEmpty(modelName) && !String.IsNullOrEmpty(makeName))
+                else if (String.IsNullOrEmpty(_modelName) && !String.IsNullOrEmpty(_makeName))
                 {
-                    recentReviews.LinkTitle = string.Format("{0} Expert Reviews", makeName);
+                    recentReviews.LinkTitle = string.Format("{0} Expert Reviews", _makeName);
                 }
                 else
                 {
@@ -71,7 +93,7 @@ namespace Bikewale.Models.ExpertReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.ExpertReviews.RecentExpertReviews.GetData: TotalRecords {0},MakeId {1}, ModelId {2}", totalRecords, makeId, modelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.ExpertReviews.RecentExpertReviews.GetData: TotalRecords {0},MakeId {1}, ModelId {2}", _totalRecords, _makeId, _modelId));
             }
             return recentReviews;
         }

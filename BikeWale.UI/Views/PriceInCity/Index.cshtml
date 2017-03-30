@@ -1,0 +1,272 @@
+﻿@model Bikewale.Models.PriceInCityPageVM
+@using Bikewale.Utility;
+@using Bikewale.Common;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new/modelprice-in-city.css' />";
+    Model.Page_JS_Path = "/src/priceincity.js";
+    Model.AdTags.Ad_970x90 = true;
+    Model.AdTags.Ad_970x90Bottom = true;
+    Model.AdTags.AdId = "1442913773076";
+    Model.AdTags.AdPath = "/1017752/Bikewale_NewBike_";
+}
+<section class="bg-light-grey padding-top10">
+    <div class="container">
+        <div class="grid-12">
+            <div class="breadcrumb margin-bottom15">
+                <!-- breadcrumb code starts here -->
+                <ul>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <a href="/" itemprop="url">
+                            <span itemprop="title">Home</span>
+                        </a>
+                    </li>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <span class="bwsprite fa-angle-right margin-right10"></span>
+                        <a href="/@Model.Make.MaskingName-bikes/" itemprop="url">
+                            <span itemprop="title">@Model.Make.MakeName Bikes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="bwsprite fa-angle-right margin-right10"></span>
+                        <a href="@UrlFormatter.BikePageUrl(Model.Make.MaskingName,Model.BikeModel.MaskingName)" itemprop="url">
+                            <span>@Model.BikeName</span>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="bwsprite fa-angle-right margin-right10"></span>
+                        <span>@String.Format("Price in {0}",Model.CityEntity.CityName)</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+<section>
+    <div id="versionPriceInCityWrapper" class="container section-bottom-margin">
+        <div class="grid-12 font14">
+            <div class="content-box-shadow">
+                <h1 class="content-box-shadow padding-top15 padding-right20 padding-bottom15 padding-left20">@Model.Page_H1</h1>
+                <p class="padding-top15 padding-right20 padding-bottom5 padding-left20 text-light-grey">
+                    @Model.PageDescription
+                </p>
+                <div id='versions' class="model-versions-tabs-wrapper">
+                    @foreach (var version in Model.BikeVersionPrices)
+                    {
+                        <a class="@(version.VersionId != Model.VersionId ? string.Empty : "active")" id="@version.VersionId" href="javascript:void(0)">@version.VersionName</a>
+                    }
+                </div>
+                <div class="border-divider"></div>
+
+                <div id="modelVersionDetailsWrapper" class="text-light-grey padding-bottom20">
+                    <div class="grid-4 padding-top10">
+                        <div class="model-version-image-content">
+                            @if(Model.IsDiscontinued) { <span class="discontinued-text-label font16 position-abt text-center">Discontinued</span>}
+                            <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
+                        </div>
+                    </div>
+                    <div class="grid-4 padding-top15">
+                        @foreach (var version in Model.BikeVersionPrices)
+                        {
+                            if (Model.IsNew)
+                            {
+                                <div class="priceTable @(version.VersionId != Model.VersionId?"hide":string.Empty)" id="@version.VersionId">
+                                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                        <tr>
+                                            <td width="200" class="padding-bottom15">Ex-showroom</td>
+                                            <td align="right" class="padding-bottom15 text-default">
+                                                <span class="bwsprite inr-sm"></span>
+                                                @CommonOpn.FormatPrice(version.ExShowroomPrice.ToString())
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding-bottom15">RTO</td>
+                                            <td align="right" class="padding-bottom15 text-default">
+                                                <span class="bwsprite inr-sm"></span>
+                                                @CommonOpn.FormatPrice(version.RTO.ToString())
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding-bottom15">Insurance</td>
+                                            <td align="right" class="padding-bottom15 text-default">
+                                                <span class="bwsprite inr-sm"></span>
+                                                @CommonOpn.FormatPrice(version.Insurance.ToString())
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-bold text-default padding-top15 border-divider">@Model.BikeModel.ModelName On-road price in @Model.CityEntity.CityName</td>
+                                            <td align="right" class="font16 text-bold text-default padding-top15 border-divider">
+                                                <span class="bwsprite inr-lg"></span>
+                                                @CommonOpn.FormatPrice(version.OnRoadPrice.ToString())
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="priceTable @(version.VersionId != Model.VersionId?"hide":string.Empty)" id="@version.VersionId">
+                                    <p class="text-x-grey margin-bottom15">@Model.BikeName is now discontinued in India.</p>
+                                    <div class="padding-bottom15 text-default text-bold">
+                                        <span class="margin-right5">Last known Ex-showroom price</span>
+                                        <span class="bwsprite inr-sm"></span>
+                                        @CommonOpn.FormatPrice(version.ExShowroomPrice.ToString())
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <div class="grid-4 padding-top15 padding-left15">
+                        @if (Model.IsAreaSelected && Model.IsNew)
+                        {
+                            <p class="text-black">Get in touch with dealer for:</p>
+                            <ul class="selectAreaToGetList margin-bottom20">
+                                <li class="bullet-point">
+                                    <p>Best offers</p>
+                                </li>
+                                <li class="bullet-point">
+                                    <p>Test rides</p>
+                                </li>
+                                <li class="bullet-point">
+                                    <p>Complete buying assistance</p>
+                                </li>
+                            </ul>
+                            <a id="dealerDetails" href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_Dealer_Detail_Click)" f="getBikeVersionName" c="Price_in_City_Page" a="View_dealer_details_Clicked" data-preselcity="@Model.CityEntity.CityId" data-modelid="@Model.BikeModel.ModelId" class="btn btn-orange btn-xxlg font14 bw-ga" rel="nofollow">View dealer details</a>
+                        }
+                        else if (Model.IsAreaAvailable && Model.IsNew)
+                        {
+                            <p class="text-black">Please select your area to get:</p>
+                            <ul class="selectAreaToGetList margin-bottom20">
+                                <li class="bullet-point">
+                                    <p>Nearest dealership details</p>
+                                </li>
+                                <li class="bullet-point">
+                                    <p>Exclusive offers</p>
+                                </li>
+                                <li class="bullet-point">
+                                    <p>Complete buying assistance</p>
+                                </li>
+                            </ul>
+                            <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas)" f="getBikeVersionName" c="Price_in_City_Page" a="Select_Area_Clicked" data-preselcity="@Model.CityEntity.CityId" data-persistent="true" data-modelid="@Model.BikeModel.ModelId" class="btn btn-orange btn-xxlg font14 getquotation changeCity bw-ga" rel="nofollow">Select your area</a>
+                        }
+                        else
+                        {
+                            <script type='text/javascript' src='https://www.googletagservices.com/tag/js/gpt.js'>
+							      googletag.pubads().definePassback('/1017752/Bikewale_PQ_300x250', [300, 250]).display();
+                            </script>
+                        }
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+                @if (Model.HasDealers)
+                {
+                    <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 font14">
+                        <div class="carousel-heading-content"><div class="swiper-heading-left-grid inline-block"><h2>@Model.DealersWidget_H2</h2></div><div class="swiper-heading-right-grid inline-block text-right"><a href="@Model.DealersWidget_ViewAll_Href" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a></div><div class="clear"></div></div>
+                        @Html.Partial("~/views/dealershowroom/_DealerCard.cshtml", Model.Dealers)
+                        <div class="clear"></div>
+                    </div>
+                }
+
+                        @if (Model.HasServiceCenters)
+                        {
+                            <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+                            <div class="carousel-heading-content padding-top20">
+                                <div class="swiper-heading-left-grid inline-block">
+                                    <h2>@Model.ServiceCenterWidget_H2</h2></div><div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="@Model.ServiceCenterWidget_ViewAll_Href" title="@Model.ServiceCenterWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            @Html.Partial("~/views/servicecenters/_ServiceCentersCard.cshtml", Model.ServiceCenters)
+                            <div class="clear"></div>
+                            <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                        }
+
+                        @if (Model.HasNearestPriceCities)
+                        {
+                            <div id="modelPriceInNearbyCities" class="content-inner-block-20">
+                                <h2 class="font14 text-bold text-x-black margin-bottom15">@Model.NearestPriceCitiesWidget_H2<span class="text-light-grey text-unbold margin-left5">(@(Model.IsNew ? "On road price" : "Ex-showroom price"))</span></h2>
+                                @Html.Partial("~/views/priceincity/_ModelPriceInNearestCities.cshtml", Model.PriceInNearestCities)
+                                <div class="clear"></div>
+                            </div>
+                        }
+                    </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+@if (Model.BikeInfo != null)
+{
+    @Html.Partial("~/views/Bikemodels/_BikeInfoCard.cshtml",Model.BikeInfo)
+}
+
+<section>
+    <div class="container section-bottom-margin">
+        <div class="grid-12">
+            <div class="content-box-shadow">
+
+                @if (Model.HasAlternateBikes)
+                { 
+                    <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14 ">
+                        <h2 class="padding-left20 padding-right20 margin-bottom15">@String.Format("Prices of alternative bikes for {0} in {1}", Model.BikeModel.ModelName, Model.CityEntity.CityName)</h2>
+                    @Html.Partial("~/views/Bikemodels/_SimilarBikes.cshtml",Model.AlternateBikes)
+
+                        
+                        </div>
+                 }
+                @if(Model.BikeRank !=null && Model.BikeRank.Rank != null)
+                { 
+                if(Model.BikeRank.Rank.Rank>0){
+                <div class="margin-left20 margin-right20 padding-bottom20 @(Model.HasAlternateBikes?string.Empty:" padding-top20")">
+                    <div class="content-inner-block-15 border-solid font14">
+                        <div class="grid-9 alpha omega">
+                            <div class="inline-block">
+                                <span class="item-rank">#@Model.BikeRank.Rank.Rank</span>
+                            </div><p class="inline-block checkout-list-slug-label">@Model.BikeModel.ModelName is the @(Html.Raw(Model.BikeRank.Rank.Rank>1?Model.BikeRank.RankText:"")) most popular @Model.BikeRank.BikeType.ToLower(). Check out other @Model.BikeRank.StyleName.ToLower() which made it to Top 10 list.</p>
+                        </div>
+                        <div class="grid-3 text-right position-rel pos-top5">
+                            <a href="@UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle)" title="Best @Model.BikeRank.StyleName in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                }
+                else{
+                    <div class="margin-left20 margin-right20 padding-bottom20 @(Model.HasAlternateBikes?string.Empty:" padding-top20")">
+                        <div class="content-inner-block-15 border-solid font14">
+                            <div class="grid-9 alpha">
+                                <div class="inline-block icon-red-bg">
+                                    <span class="bwsprite rank-graph"></span>
+                                </div>
+                                <p class="inline-block checkout-list-slug-label">Not sure what to buy? List of Top 10 @Model.BikeRank.StyleName.ToLower() can come in handy.</p>
+                            </div>
+                            <div class="grid-3 text-right position-rel pos-top5">
+                                <a href="@UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle)" title="Best @Model.BikeRank.StyleName in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                }
+                }
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+<section>
+    <div class="container section-bottom-margin">
+        <div class="grid-12 font12">
+            <span class="font14"><strong>Disclaimer</strong>:</span><p> BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName.  However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a target="_blank" href="/TermsConditions.aspx">Terms & Condition</a> ,<a target="_blank" href="/visitoragreement.aspx">Visitor Agreement</a> and  <a target="_blank" href="/privacypolicy.aspx">Privacy Policy</a>. </p>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+<div class="hide" id="dvPgVar" data-cityarea="@Model.CookieCityArea" data-bikename="@Model.BikeName" data-modelid="@Model.BikeModel.ModelId"></div>
+@{Html.RenderAction("ChangeLocation", "Location", new { cityId = Model.CityEntity.CityId, cityName = Model.CityEntity.CityName });}

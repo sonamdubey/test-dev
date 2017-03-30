@@ -185,17 +185,18 @@ Description : WebStorage Library with cookie as a fallback.
 			Parameters : Key and expiring is compulsion and storage is dynamic
 			Example : getbyExpiry(object,string);
 		*/
-        var getbyExpiry = function (key, expiry, storage) {
+
+	var getbyExpiry = function (key, expiry, storage) {
             try {
                 if (typeCheck(key, 'string')) {
                     var currentTime = (new Date()).getTime();
                     if (typeCheck(expiry, 'number')) currentTime -= (expiry * 60000);
                     if (typeCheck(expiry, 'boolean') || typeCheck(expiry, 'number')) {
-                        var _item_ = JSON.parse(storage.getItem(key)) || {};
+                        var _item_  = JSON.parse(storage.getItem(key)) || {};
                         var time = _item_.expiryTime || 1;
                         //if exists returns value else return null for timeout object
                         if (time < currentTime) {
-                            return Object.keys(_item_).length !== 0 ? _item_ : null;
+                            return Object.keys(_item_).length !== 0 ? _item_  : null;
                         }
                         else errorLog(2);
                     }
@@ -208,7 +209,8 @@ Description : WebStorage Library with cookie as a fallback.
             return null;
         };
 
-        /*
+
+		/*
 			Function : Get all web storage entites from the document.
 			Parameters : Key and session is boolean for  to maintain 
 			Example : get(object/string,boolean isSession(session/localStorage));
@@ -341,32 +343,34 @@ Description : WebStorage Library with cookie as a fallback.
 			Parameters : item and storage is compulsory
 			Example : setKeyValue(object,string);
 		*/
-        var _setKeyValue = function (item, storage) {
-            try {
-                if (typeCheck(item, 'object')) {
-                    if (typeCheck(item.expiryTime, 'number') && item.expiryTime !== 0) //set specified expiry along with data
-                    {
-                        item.expiryTime = (new Date()).getTime() + (item.expiryTime * 60000); //in minutes    
-                    }
-                    else if (typeCheck(item.expiryTime, 'boolean')) {
-                        item.expiryTime = 0;
-                    }
-                    if (item.val != null || _options.AllowNullSave) {
-                        var data = JSON.stringify(item.val);
-                        if (_options.EnableEncryption && data) data = encode(data);
-                        storage.setItem(item.key, data);
-                        return true;
-                    }
 
-                }
-                else errorLog(1);
-            } catch (e) {
-                errorLog(0, e);
-            }
-            return false;
-        };
+        
+		var _setKeyValue = function (item, storage) {
+		    try {
+		        if (typeCheck(item, 'object')) {
+		            if (typeCheck(item.expiryTime, 'number') && item.expiryTime !== 0) //set specified expiry along with data
+		            {
+		                item.expiryTime = (new Date()).getTime() + (item.expiryTime * 60000); //in minutes    
+		            }
+		            else if (typeCheck(item.expiryTime, 'boolean')) {
+		                item.expiryTime = 0;
+		            }
+		            if (item.val != null || _options.AllowNullSave) {
+		                var data = JSON.stringify(item.val);
+		                if (_options.EnableEncryption && data) data = encode(data);
+		                storage.setItem(item.key, data);
+		                return true;
+		            }
 
-        /*
+		        }
+		        else errorLog(1);
+		    } catch (e) {
+		        errorLog(0, e);
+		    }
+		    return false;
+		};
+
+		/*
 			Function : Set web storage data to webstorage based on key value pair 
 					   If webstorage is not supported then cookie is implemented as a fall back option for the same
 			Parameters : Key,Value are required parameters,isSession is optionall parameter

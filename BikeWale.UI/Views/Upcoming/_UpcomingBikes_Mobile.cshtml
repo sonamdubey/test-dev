@@ -1,8 +1,8 @@
-﻿@model  IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity>
-            @if (Model != null) { 
+﻿@model Bikewale.Models.UpcomingBikesWidgetVM
+@if (Model != null) { 
     <div class="swiper-container card-container">
         <div class="swiper-wrapper">
-            @foreach (var bike in Model)
+            @foreach (var bike in Model.UpcomingBikes)
             {
                 string bikeName = string.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName);
                 <div class="swiper-slide">
@@ -39,4 +39,4 @@
             }
         </div>
     </div>
-            }
+}
