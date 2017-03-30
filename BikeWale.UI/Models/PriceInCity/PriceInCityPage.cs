@@ -43,7 +43,7 @@ namespace Bikewale.Models
         public String RedirectUrl { get; private set; }
         public uint NearestCityCount { get; set; }
         public uint BikeInfoTabCount { get; set; }
-
+        public uint TopCount { get; set; }
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
         /// Description :   Constructor to initialize the member variables
@@ -303,7 +303,10 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.Dealers = _objDealerCache.GetDealerByMakeCity(cityId, firstVersion.MakeId, modelId);
+                DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, cityId, firstVersion.MakeId);
+                objDealer.ModelId = modelId;
+                objDealer.TopCount = TopCount;
+                objVM.Dealers = objDealer.GetData();
                 dealerCount = (uint)(objVM.HasDealers ? objVM.Dealers.Dealers.Count() : 0);
             }
             catch (Exception ex)
