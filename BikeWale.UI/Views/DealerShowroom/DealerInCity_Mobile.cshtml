@@ -85,7 +85,7 @@
                         <div class="swiper-heading-left-grid inline-block">
                             <h2>@string.Format("Popular {0} bikes in {1}",Model.Make.MakeName, Model.CityDetails.CityName)</h2>
                         </div><div class="swiper-heading-right-grid inline-block text-right">
-                                  <a href="@string.Format("/m/{0}-bikes/",Model.Make.MaskingName)" title="@string.Format("{0}-bikes",Model.Make.MakeName)" class="btn view-all-target-btn">View all</a>
+                                  <a href="@string.Format("/m/{0}-bikes/",Model.Make.MaskingName)" title="@string.Format("{0} Bikes",Model.Make.MakeName)" class="btn view-all-target-btn">View all</a>
                         </div>
                     </div>
                     
@@ -105,7 +105,7 @@
             <div class="container card-bottom-margin padding-bottom20">
                 <div class="carousel-heading-content">
                     <div class="swiper-heading-left-grid inline-block">
-                        <h2>@string.Format("{0} Service Centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)</h2>
+                        <h2>@string.Format("{0} service centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)</h2>
                     </div><div class="swiper-heading-right-grid inline-block text-right">
                         <a href="@string.Format("/m/{0}-service-center-in-{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.Make.MakeName, Model.CityDetails.CityName)" class="btn view-all-target-btn">View all</a>
                     </div>
@@ -135,7 +135,7 @@
                         <div class="swiper-heading-left-grid inline-block">
                             <h2>@string.Format("Used {0} bike in {1}",Model.Make.MakeName,Model.CityDetails.CityName)</h2>
                         </div><div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="@string.Format("/m/used/{0}-bikes-in-{1}/",Model.Make.MaskingName,Model.CityDetails.CityMaskingName)" title="Second Hand Bikes in @Model.CityDetails.CityMaskingName" class="btn view-all-target-btn">View all</a>
+                                  <a href="@string.Format("/m/used/{0}-bikes-in-{1}/",Model.Make.MaskingName,Model.CityDetails.CityMaskingName)" title="@string.Format("Second Hand Bikes in {0}",Model.CityDetails!=null?Model.CityDetails.CityMaskingName:"India")" class="btn view-all-target-btn">View all</a>
                         </div>
                     </div>
                     <div class="padding-bottom20">

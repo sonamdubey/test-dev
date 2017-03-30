@@ -115,7 +115,7 @@
                                         <div id="commute-distance-form" class="margin-top20">
                                             <p class="text-bold margin-bottom15">Get commute distance and time:</p>
                                             <div class="leftfloat form-control-box margin-right15">
-                                                <input id="locationSearch" data-lat="@Model.DealerDetails.DealerDetails.Area.Latitude" data-long="@Model.DealerDetails.DealerDetails.Area.Longitude" data-currentCityName="@Model.CityDetails.CityName" type="text" class="form-control" placeholder="Enter your location" />
+                                                <input id="locationSearch" data-map="@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey" data-lat="@Model.DealerDetails.DealerDetails.Area.Latitude" data-long="@Model.DealerDetails.DealerDetails.Area.Longitude" data-currentcityname="@Model.CityDetails.CityName" type="text" class="form-control" placeholder="Enter your location" />
                                                 <span id="getUserLocation" class="crosshair-icon font12 position-abt pos-right10 pos-top10 cur-pointer"></span>
                                             </div>
                                             <div class="location-details padding-top10 padding-bottom10 leftfloat">
