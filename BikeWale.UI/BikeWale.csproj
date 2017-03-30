@@ -905,6 +905,7 @@
     <Compile Include="memcache\SeriesMapping.cs" />
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
+    <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
     <Compile Include="Models\Make\BrandCityPopupModel.cs" />
     <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
     <Compile Include="Models\DealerPriceQuotePage.cs" />

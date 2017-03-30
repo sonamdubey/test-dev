@@ -14,7 +14,7 @@ namespace Bikewale.Models
     public class PriceInCityPageVM : ModelBase
     {
         public IEnumerable<PriceQuoteOfTopCities> PriceInNearestCities { get; set; }
-        public DealersEntity Dealers { get; set; }
+        public DealerCardVM Dealers { get; set; }
         public SimilarBikesWidgetVM AlternateBikes { get; set; }
         public ServiceCenterDetailsWidgetVM ServiceCenters { get; set; }
         public BikeInfoVM BikeInfo { get; set; }
