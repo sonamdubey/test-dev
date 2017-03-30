@@ -45,12 +45,15 @@ namespace Bikewale.Controllers
 
         }
 
+
         /// <summary>
         /// Created By:- Subodh Jain 29 March 2017
         /// Summary :- Action method For Landing Page Desktop
         /// </summary>
         /// <returns></returns>
+        [Filters.DeviceDetection()]
         [Route("dealershowroom/Index/")]
+
         public ActionResult Index()
         {
             DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_bikeMakes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 10);
@@ -110,6 +113,7 @@ namespace Bikewale.Controllers
         /// Summary :- Action method For Dealers In India Desktop
         /// </summary>
         /// <returns></returns>
+        [Filters.DeviceDetection()]
         [Route("dealersinindia/make/{makeMaskingName}")]
         public ActionResult DealersInIndia(string makeMaskingName)
         {
@@ -207,6 +211,7 @@ namespace Bikewale.Controllers
         /// Summary :- Action method For Dealers In City Desktop
         /// </summary>
         /// <returns></returns>
+        [Filters.DeviceDetection()]
         [Route("dealerincity/make/{makeMaskingName}/city/{cityMaskingName}")]
         public ActionResult DealerInCity(string makeMaskingName, string cityMaskingName)
         {
@@ -299,6 +304,7 @@ namespace Bikewale.Controllers
         /// Summary :- Action method For Dealer Details Page Desktop
         /// </summary>
         /// <returns></returns>
+        [Filters.DeviceDetection()]
         [Route("dealerdetails/make/{makeMaskingName}/dealerid/{dealerId}")]
         public ActionResult DealerDetail(string makeMaskingName, uint dealerId)
         {
