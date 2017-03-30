@@ -149,7 +149,6 @@
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>"></script>
         <script type="text/javascript">
             
             $(".leadcapturebtn").click(function (e) {
