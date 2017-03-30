@@ -568,6 +568,9 @@ function applyTabsLazyLoad() {
     $("img.lazy").lazyload({
         event: "imgLazyLoad"
     });
+    $("div.lazy").lazyload({
+        event: "divLazyLoad"
+    });
 }
 
 function CloseCityPopUp() {

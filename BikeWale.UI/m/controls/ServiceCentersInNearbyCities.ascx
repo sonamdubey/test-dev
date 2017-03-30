@@ -10,7 +10,7 @@
                 <div class="swiper-slide">
                     <div class="swiper-card">
                         <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName,centers.CityMaskingName)%>" title="<%=String.Format("{0} Service Centers in {1}",makeName,centers.CityName)%>">
-                            <div class="lazy service-location-img" data-original="<%= centers.GoogleMapImg %>" title="<%= String.Format("{0} Service Centers in {1}",makeName,centers.CityName) %>">
+                            <div class="swiper-lazy service-location-img" data-background="<%= centers.GoogleMapImg %>" title="<%= String.Format("{0} Service Centers in {1}",makeName,centers.CityName) %>">
                             </div>
                             <div class="swiper-details-block">
                                 <p class="text-bold text-black font12 margin-bottom5 padding-top5"><%=centers.CityName%></p>
