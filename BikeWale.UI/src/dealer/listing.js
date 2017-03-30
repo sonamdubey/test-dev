@@ -60,8 +60,6 @@ function initializeMap(dealerArr) {
             }
         });
     }
-
-    initializeCityMap();
 }
 
 function mapDealersArray() {
@@ -78,27 +76,6 @@ function mapDealersArray() {
         _dealer.dealermaskingname = _self.attr("data-item-url");
         dealerArr.push(_dealer);
     });
-}
-
-function initializeCityMap() {
-    try {
-        $(".map_canvas").each(function (index) {
-            var lat = $(this).attr("data-lat");
-            var lng = $(this).attr("data-long");
-            var latlng = new google.maps.LatLng(lat, lng);
-
-            var myOptions = {
-                scrollwheel: false,
-                draggable: false,
-                zoom: 10,
-                center: latlng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-            var map = new google.maps.Map($(".map_canvas")[index], myOptions);
-        });
-    } catch (e) {
-        console.warn(e);
-    }
 }
 
 function initializeDealerMap() {
