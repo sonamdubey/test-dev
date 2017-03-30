@@ -61,6 +61,7 @@
     <Compile Include="Location\ChangeLocationPopupVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
+    <Compile Include="News\NewsDetailPageVM.cs" />
     <Compile Include="NewLaunches\NewLaunchedIndexVM.cs" />
     <Compile Include="NewLaunches\NewLaunchedMakeVM.cs" />
     <Compile Include="NewLaunches\NewLaunchesBikesVM.cs" />

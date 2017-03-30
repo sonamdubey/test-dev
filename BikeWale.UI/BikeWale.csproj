@@ -923,6 +923,7 @@
     <Compile Include="Models\CompareBikes\PopularModelCompareWidget.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
+    <Compile Include="Models\News\NewsDetailPage.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedIndexModel.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedMakePageModel.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchesBikesModel.cs" />
@@ -3654,6 +3655,8 @@
     <Content Include="Views\DealerShowroom\Index.cshtml" />
     <Content Include="Views\DealerShowroom\Index_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\Index_Mobile.cshtml" />
+    <Content Include="Views\News\Detail_Mobile.cshtml" />
+    <Content Include="Views\News\Detail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

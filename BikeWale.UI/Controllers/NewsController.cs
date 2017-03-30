@@ -2,6 +2,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models;
 using System.Web.Mvc;
@@ -14,20 +15,24 @@ namespace Bikewale.Controllers
         private readonly IPager _pager = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private readonly IUpcoming _upcoming = null; 
+        private readonly IUpcoming _upcoming = null;
+        private readonly IBikeInfo _bikeInfo = null;
+        private readonly ICityCacheRepository _cityCache = null;
         private int _topCount;
-        public NewsController(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming)
+        public NewsController(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming,IBikeInfo bikeInfo,ICityCacheRepository cityCache)
         {
             _articles = articles;
             _pager = pager;
             _models = models;
             _bikeModels = bikeModels;
             _upcoming = upcoming;
+            _bikeInfo = bikeInfo;
+            _cityCache=cityCache;
         }
 
         /// <summary>
         /// Created by : Aditi srivastava on 27 Mar 2017
-        /// Summmary   : Action method to render news listing page
+        /// Summmary   : Action method to render news listing page- Desktop
         /// </summary>
         /// <returns></returns>
         [Route("newslanding/")]
@@ -53,12 +58,42 @@ namespace Bikewale.Controllers
                 return View(objData);
             }
         }
-
+        /// <summary>
+        /// Created by : Aditi srivastava on 27 Mar 2017
+        /// Summmary   : Action method to render news listing page -mobile
+        /// </summary>
         [Route("m/newslanding/")]
         public ActionResult Index_Mobile()
         {
             _topCount = 9;
             NewsIndexPage obj = new NewsIndexPage(_articles, _pager, _models, _bikeModels,_upcoming, _topCount);
+            obj.IsMobile = true;
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/m/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.redirectUrl);
+            }
+            else
+            {
+                NewsIndexPageVM objData = obj.GetData();
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pagenotfound.aspx");
+                else
+                return View(objData);
+            }
+        }
+        /// <summary>
+        /// Created by : Aditi srivastava on 29 Mar 2017
+        /// Summmary   : Action method to render news detail page-desktop
+        /// </summary>
+        [Route("newsdetail/{id}/")]
+        public ActionResult Detail(string id)
+        {
+            _topCount = 3;
+            NewsDetailPage obj = new NewsDetailPage(_articles, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, id, _topCount);
 
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -70,24 +105,39 @@ namespace Bikewale.Controllers
             }
             else
             {
-                NewsIndexPageVM objData = obj.GetData();
+                NewsDetailPageVM objData = obj.GetData();
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/pagenotfound.aspx");
                 else
-                return View(objData);
+                    return View(objData);
             }
         }
-
-        [Route("news/{basicid}/")]
-        public ActionResult Details(string basicid)
+        /// <summary>
+        /// Created by : Aditi srivastava on 29 Mar 2017
+        /// Summmary   : Action method to render news detail page- mobile
+        /// </summary>
+        [Route("m/newsdetail/{id}/")]
+        public ActionResult Detail_Mobile(string id)
         {
-            return View();
-        }
-
-        [Route("m/news/{basicid}/")]
-        public ActionResult Details_Mobile(string basicid)
-        {
-            return View();
+            _topCount = 9;
+           NewsDetailPage obj = new NewsDetailPage(_articles, _models, _bikeModels, _upcoming,_bikeInfo,_cityCache,id, _topCount);
+           obj.IsMobile = true;
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/m/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(string.Format("/m{0}",obj.redirectUrl));
+            }
+            else
+            {
+                NewsDetailPageVM objData = obj.GetData();
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pagenotfound.aspx");
+                else
+                    return View(objData);
+            }
         }
     }
 }
