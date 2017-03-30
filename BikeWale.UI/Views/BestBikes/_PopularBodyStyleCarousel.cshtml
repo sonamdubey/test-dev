@@ -1,4 +1,4 @@
-﻿@model Bikewale.Models.BestBikes.PopularBodyStyleVM
+﻿@model Bikewale.Models.PopularBodyStyleVM
 @using Bikewale.Utility
 @if (Model != null && Model.PopularBikes != null && Model.PopularBikes.Count() > 0) { 
 <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
@@ -22,7 +22,7 @@
                          }
                         else
                         { 
-                        <span class="font16 text-default">Price not available</span>
+                        <span class="font16 text-default text-light-grey">Price not available</span>
                         }
                     </div>
                 </a>

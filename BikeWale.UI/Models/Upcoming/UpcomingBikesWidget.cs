@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
@@ -15,22 +16,20 @@ namespace Bikewale.Models
     public class UpcomingBikesWidget
     {
         #region Private variables
-        private IBikeModelsCacheRepository<int> _modelsCache = null;
-        private int TotalWidgetItems = 9, curPageNo = 1;
+        private IUpcoming _upcoming = null;
         private EnumUpcomingBikesFilter filter = EnumUpcomingBikesFilter.Default;
         #endregion
 
         #region Constructor
-        public UpcomingBikesWidget(IBikeModelsCacheRepository<int> modelsCache)
+        public UpcomingBikesWidget(IUpcoming upcoming)
         {
-            _modelsCache = modelsCache;
+            _upcoming = upcoming;
         }
         #endregion
 
         #region Public members
-        public uint? MakeId { get; set; }
-        public uint? ModelId { get; set; }
-        public int TopCount { get; set; }
+        public UpcomingBikesListInputEntity Filters { get; set; }
+        public EnumUpcomingBikesFilter SortBy { get; set; }
         #endregion
 
         #region Functions
@@ -43,17 +42,12 @@ namespace Bikewale.Models
             UpcomingBikesWidgetVM objUpcoming = new UpcomingBikesWidgetVM();
             try
             {
-                if (!MakeId.HasValue)
-                    MakeId = 0;
-                if (!ModelId.HasValue)
-                    ModelId = 0;
-                objUpcoming.UpcomingBikes = _modelsCache.GetUpcomingBikesList(filter, TotalWidgetItems, (int)MakeId,(int)ModelId,curPageNo);
-                if (objUpcoming.UpcomingBikes != null && objUpcoming.UpcomingBikes.Count()>0)
-                objUpcoming.UpcomingBikes = objUpcoming.UpcomingBikes.Take(TopCount);
+                objUpcoming.UpcomingBikes = _upcoming.GetModels(Filters, SortBy);
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "Bikewale.Models.Upcoming.UpcomingBikesWidget.GetData");
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingBikesWidget.GetData");
             }
             return objUpcoming;
         }

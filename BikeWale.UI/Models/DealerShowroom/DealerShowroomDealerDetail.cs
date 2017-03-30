@@ -8,9 +8,9 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.Memcache;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
-using System.Linq;
 namespace Bikewale.Models
 {
     /// <summary>
@@ -24,7 +24,7 @@ namespace Bikewale.Models
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IServiceCenter _objSC = null;
-        public uint cityId, makeId, dealerId;
+        public uint cityId, makeId, dealerId, TopCount;
         public StatusCodes status;
         public MakeMaskingResponse objResponse;
         public BikeMakeEntityBase objMake;
@@ -40,13 +40,14 @@ namespace Bikewale.Models
         /// <param name="bikeModels"></param>
         /// <param name="makeMaskingName"></param>
         /// <param name="dealerId"></param>
-        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, uint dealerId)
+        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository<int> bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, string cityMaskingName, uint dealerId, uint topCount)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
             _bikeModels = bikeModels;
             _objSC = objSC;
-            ProcessQuery(makeMaskingName, dealerId);
+            TopCount = topCount;
+            ProcessQuery(makeMaskingName, cityMaskingName, dealerId);
         }
 
         /// <summary>
@@ -60,20 +61,21 @@ namespace Bikewale.Models
             try
             {
                 objMake = new MakeHelper().GetMakeNameByMakeId(makeId);
+                objDealerDetails.DealerDetails = BindDealersData();
                 if (objMake != null)
                     objDealerDetails.Make = objMake;
-                cityId = GlobalCityArea.GetGlobalCityArea().CityId;
-                if (cityId > 0)
-                {
-                    CityDetails = new CityHelper().GetCityById(cityId);
-                    objDealerDetails.CityDetails = CityDetails;
-                }
+                if (objDealerDetails.DealerDetails != null)
+                    cityId = (uint)objDealerDetails.DealerDetails.DealerDetails.CityId;
+                CityDetails = new CityHelper().GetCityById(cityId);
+                objDealerDetails.CityDetails = CityDetails;
+
                 ProcessGlobalLocationCookie();
                 objDealerDetails.DealersList = BindOtherDealerWidget();
-                objDealerDetails.DealerDetails = BindDealersData();
+
                 objDealerDetails.PopularBikes = BindMostPopularBikes();
                 objDealerDetails.ServiceCenterDetails = BindServiceCenterWidget();
                 BindPageMetas(objDealerDetails.PageMetaTags);
+                BindLeadCapture(objDealerDetails);
             }
             catch (System.Exception ex)
             {
@@ -83,6 +85,23 @@ namespace Bikewale.Models
 
 
             return objDealerDetails;
+        }
+        /// <summary>
+        /// Created by :- Subodh Jain 30 March 2017
+        /// Summary :- Added lead popup
+        /// </summary>
+        /// <param name="objDealerDetails"></param>
+        private void BindLeadCapture(DealerShowroomDealerDetailsVM objDealerDetails)
+        {
+            objDealerDetails.LeadCapture = new LeadCaptureEntity()
+            {
+
+                CityId = cityId,
+                AreaId = objDealerDetails.DealerDetails.DealerDetails.Area.AreaId,
+                Area = objDealerDetails.DealerDetails.DealerDetails.Area.AreaName,
+                City = CityDetails.CityName
+
+            };
         }
 
         /// <summary>
@@ -142,7 +161,7 @@ namespace Bikewale.Models
             ServiceCenterDetailsWidgetVM ServiceCenterVM = null;
             try
             {
-                ServiceCentersCard objServcieCenter = new ServiceCentersCard(_objSC, 3, objMake, CityDetails);
+                ServiceCentersCard objServcieCenter = new ServiceCentersCard(_objSC, TopCount, objMake, CityDetails);
                 ServiceCenterVM = objServcieCenter.GetData();
             }
             catch (System.Exception ex)
@@ -165,7 +184,7 @@ namespace Bikewale.Models
             MostPopularBikeWidgetVM objPopularBikes = new MostPopularBikeWidgetVM();
             try
             {
-                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels, 0, (uint)objMake.MakeId);
+                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, false, PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels, 0, (uint)objMake.MakeId);
                 popularBikes.TopCount = 9;
                 objPopularBikes = popularBikes.GetData();
                 objPopularBikes.PageCatId = 5;
@@ -204,18 +223,17 @@ namespace Bikewale.Models
         /// Created By :- Subodh Jain 27 March 2017
         /// Summary :- To fetch data for Other dealer widget
         /// </summary>
-        /// <returns></returns>
-        private DealersEntity BindOtherDealerWidget()
+        /// <returns></returns>   
+        private DealerCardVM BindOtherDealerWidget()
         {
-            DealersEntity objDealerList = null;
+            DealerCardVM objDealerList = null;
             try
             {
-                int topCount = 3;
-                objDealerList = _objDealerCache.GetDealerByMakeCity(cityId, makeId);
 
-                objDealerList.Dealers = objDealerList.Dealers.Where(m => m.DealerId != dealerId);
-
-                objDealerList.Dealers = objDealerList.Dealers.Take(topCount);
+                DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, CityDetails.CityId, (uint)objMake.MakeId);
+                objDealer.DealerId = dealerId;
+                objDealer.TopCount = TopCount;
+                objDealerList = objDealer.GetData();
             }
             catch (System.Exception ex)
             {
@@ -230,7 +248,7 @@ namespace Bikewale.Models
         /// Summary :- To Processing query
         /// </summary>
         /// <returns></returns>
-        private void ProcessQuery(string makeMaskingName, uint dealerId)
+        private void ProcessQuery(string makeMaskingName, string cityMaskingName, uint dealerId)
         {
             objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
             if (objResponse != null)
@@ -238,8 +256,11 @@ namespace Bikewale.Models
                 if (objResponse.StatusCode == 200)
                 {
                     makeId = objResponse.MakeId;
+                    cityId = CitiMapping.GetCityId(cityMaskingName);
                     this.dealerId = dealerId;
                     status = StatusCodes.ContentFound;
+                    if (cityId <= 0)
+                        status = StatusCodes.ContentNotFound;
                 }
                 else if (objResponse.StatusCode == 301)
                 {

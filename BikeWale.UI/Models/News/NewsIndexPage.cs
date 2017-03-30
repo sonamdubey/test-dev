@@ -6,10 +6,12 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models.BestBikes;
 using Bikewale.Utility;
+using Bikewale.Models.Upcoming;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -26,11 +28,13 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _articles = null;
         private readonly IPager _pager = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
+        private readonly IUpcoming _upcoming = null;
         private int _topCount;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels=null;
         #endregion
 
         #region Page level variables
-        private uint MakeId, ModelId, pageCatId = 0;
+        private uint MakeId, ModelId, pageCatId = 0,CityId;
         private const int pageSize = 10, pagerSlotSize = 5;
         private int curPageNo = 1;
         private string make = string.Empty, model = string.Empty;
@@ -39,21 +43,25 @@ namespace Bikewale.Models
         private GlobalCityAreaEntity currentCityArea;
         public string redirectUrl;
         public StatusCodes status;
-        protected BikeModelEntity objModel = null;
-        protected BikeMakeEntityBase objMake = null;
-        private IBikeModels<BikeModelEntity, int> _bikeModels;
+        private BikeModelEntity objModel = null;
+        private BikeMakeEntityBase objMake = null;        
         private EnumBikeType bikeType = EnumBikeType.All;
         private bool showCheckOnRoadCTA = false;
         private PQSourceEnum pqSource = 0;
         #endregion
 
+        #region Public properties
+        public bool IsMobile { get; set; }
+        #endregion
+
         #region Constructor
-        public NewsIndexPage(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, int topCount)
+        public NewsIndexPage(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, int topCount)
         {
             _articles = articles;
             _pager = pager;
             _models = models;
             _bikeModels = bikeModels;
+            _upcoming = upcoming;
             _topCount = topCount;
             ProcessQueryString();
         }
@@ -74,10 +82,7 @@ namespace Bikewale.Models
             {
                 int _startIndex = 0, _endIndex = 0;
                 _pager.GetStartEndIndex(pageSize, curPageNo, out _startIndex, out _endIndex);
-
-                objData.StartIndex = _startIndex;
-                objData.EndIndex = _endIndex;
-
+                
                 List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
                 categorList.Add(EnumCMSContentType.News);
                 if (MakeId == 0 && ModelId == 0)
@@ -103,8 +108,11 @@ namespace Bikewale.Models
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {
                     status = StatusCodes.ContentFound;
+                    objData.StartIndex = _startIndex;
+                    objData.EndIndex = _endIndex > objData.Articles.RecordCount ? Convert.ToInt32(objData.Articles.RecordCount) : _endIndex;
                     BindLinkPager(objData);
                     SetPageMetas(objData);
+                    CreatePrevNextUrl(objData);
                     GetWidgetData(objData);
                 }
                 else
@@ -123,7 +131,7 @@ namespace Bikewale.Models
         /// Created by : Aditi Srivastava on 27 Mar 2017
         /// Summary    : Process query string for news page
         /// </summary>
-        public void ProcessQueryString()
+        private void ProcessQueryString()
         {
             var request = HttpContext.Current.Request;
             var queryString = request != null ? request.QueryString : null;
@@ -251,13 +259,12 @@ namespace Bikewale.Models
             try
             {
                 currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                uint cityId = 0;
                 if (currentCityArea != null)
-                    cityId = currentCityArea.CityId;
+                    CityId = currentCityArea.CityId;
 
-                MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, pqSource, pageCatId, MakeId);
+                MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
                 objPopularBikes.TopCount = _topCount;
-                objPopularBikes.CityId = cityId;
+                objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();
                 if (MakeId > 0 && objMake != null)
                 {
@@ -276,7 +283,7 @@ namespace Bikewale.Models
                 {
                     PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
                     objPopularStyle.ModelId = ModelId;
-                    objPopularStyle.CityId = cityId;
+                    objPopularStyle.CityId = CityId;
                     objPopularStyle.TopCount = _topCount;
                     objData.PopularBodyStyle = objPopularStyle.GetData();
                     if (objData.PopularBodyStyle != null)
@@ -288,12 +295,15 @@ namespace Bikewale.Models
                 }
                 else
                 {
-                    UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_models);
-                    objUpcomingBikes.TopCount = _topCount;
+                    UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
+                    objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
+                    objUpcomingBikes.Filters.StartIndex = 1;
+                    objUpcomingBikes.Filters.EndIndex = _topCount;
                     if (MakeId > 0)
                     {
-                        objUpcomingBikes.MakeId = MakeId;
+                        objUpcomingBikes.Filters.MakeId = (int)MakeId;
                     }
+                    objUpcomingBikes.SortBy = EnumUpcomingBikesFilter.Default;
                     objData.UpcomingBikes = objUpcomingBikes.GetData();
 
                     if (objMake != null)
@@ -327,6 +337,9 @@ namespace Bikewale.Models
                 objData.PagerEntity.BaseUrl = string.Format("{0}{1}", objData.PagerEntity.BaseUrl, UrlFormatter.FormatNewsUrl(make, model));
                 objData.PagerEntity.PageNo = curPageNo;
                 objData.PagerEntity.PagerSlotSize = pagerSlotSize;
+                objData.PagerEntity.BaseUrl = string.Format("{0}{1}",(IsMobile ? "/m" : ""),UrlFormatter.FormatNewsUrl(make, model));
+                objData.PagerEntity.PageNo = curPageNo; 
+                objData.PagerEntity.PagerSlotSize = pagerSlotSize; 
                 objData.PagerEntity.PageUrlType = "page/";
                 objData.PagerEntity.TotalResults = (int)objData.Articles.RecordCount;
                 objData.PagerEntity.PageSize = pageSize;
@@ -334,6 +347,37 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Bikewale.Models.News.NewsIndexPage.BindLinkPager");
+            }
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 29 Mar 2017
+        /// Summary    : Create previous and next page urls
+        /// </summary>
+        /// <param name="objData"></param>
+        private void CreatePrevNextUrl(NewsIndexPageVM objData)
+        {
+            string _mainUrl = String.Format("{0}{1}page/", BWConfiguration.Instance.BwHostUrl, objData.PagerEntity.BaseUrl);
+            string prevPageNumber = string.Empty, nextPageNumber = string.Empty;
+            int totalPages = _pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
+            if (totalPages > 1)
+            {
+                if (curPageNo == 1 && totalPages > 1)
+                {
+                    nextPageNumber = "2";
+                    objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/", _mainUrl, nextPageNumber);
+                }
+                else if (curPageNo == totalPages)
+                {
+                    prevPageNumber = Convert.ToString(curPageNo - 1);
+                    objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/", _mainUrl, prevPageNumber);
+                }
+                else
+                {
+                    prevPageNumber = Convert.ToString(curPageNo - 1);
+                    objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/", _mainUrl, prevPageNumber);
+                    nextPageNumber = Convert.ToString(curPageNo + 1);
+                    objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/", _mainUrl, nextPageNumber);
+                }
             }
         }
         #endregion

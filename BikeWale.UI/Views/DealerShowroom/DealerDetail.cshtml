@@ -38,9 +38,6 @@
             <div class="clear"></div>
         </div>
     </section>
-
-
-
         @if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null)
         {
             <section>
@@ -98,7 +95,7 @@
                                     {
                                         <div class="margin-bottom10">
                                             <span class="bwsprite mail-grey-icon vertical-top"></span>
-                                            <a href="mailto:<%=eMail %>" target="_blank" class="vertical-top text-light-grey" rel="nofollow">
+                                            <a href="mailto:@Model.DealerDetails.DealerDetails.EMail" target="_blank" class="vertical-top text-light-grey" rel="nofollow">
                                                 <span class="dealership-card-details">@Model.DealerDetails.DealerDetails.EMail</span>
                                             </a>
                                         </div>
@@ -115,7 +112,7 @@
                                         <div id="commute-distance-form" class="margin-top20">
                                             <p class="text-bold margin-bottom15">Get commute distance and time:</p>
                                             <div class="leftfloat form-control-box margin-right15">
-                                                <input id="locationSearch" data-lat="@Model.DealerDetails.DealerDetails.Area.Latitude" data-long="@Model.DealerDetails.DealerDetails.Area.Longitude" data-currentCityName="@Model.CityDetails.CityName" type="text" class="form-control" placeholder="Enter your location" />
+                                                <input id="locationSearch" data-clietIp="@Bikewale.Common.CommonOpn.GetClientIP()" data-map="@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey" data-lat="@Model.DealerDetails.DealerDetails.Area.Latitude" data-long="@Model.DealerDetails.DealerDetails.Area.Longitude" data-currentcityname="@Model.CityDetails.CityName" type="text" class="form-control" placeholder="Enter your location" />
                                                 <span id="getUserLocation" class="crosshair-icon font12 position-abt pos-right10 pos-top10 cur-pointer"></span>
                                             </div>
                                             <div class="location-details padding-top10 padding-bottom10 leftfloat">
@@ -232,7 +229,7 @@
                             @if (Model.DealerDetails.DealerDetails.Area != null && Model.DealerDetails.DealerDetails.Area.AreaId > 0)
                             {
                                 <div class="margin-left20 margin-bottom20">
-                                    <a href="javascript:void(0)" data-dealerid="@Model.DealerDetails.DealerDetails.DealerId" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels)" data-modelid="@bike.objModel.ModelId" data-versionid="@bike.objVersion.VersionId" data-areaid="@Model.PQAreaID" data-cityid="@Model.CityDetails.CityId" data-areaname="@Model.PQAreaName" data-cityname="@Model.CityDetails.CityName" class="btn btn-sm btn-grey font14 dealerDetails" rel="nofollow">Show detailed price</a>
+                                    <a href="javascript:void(0)" data-dealerid="@Model.DealerDetails.DealerDetails.DealerId" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels)" data-modelid="@bike.objModel.ModelId" data-versionid="@bike.objVersion.VersionId" data-areaid="@Model.DealerDetails.DealerDetails.Area.AreaId" data-cityid="@Model.CityDetails.CityId" data-areaname="@Model.DealerDetails.DealerDetails.Area.AreaName" data-cityname="@Model.CityDetails.CityName" class="btn btn-sm btn-grey font14 dealerDetails" rel="nofollow">Show detailed price</a>
                                 </div>
                             }
                         </li>
@@ -245,7 +242,7 @@
     </section>
 }
  
-        @if (Model.DealersList != null)
+        @if (Model.DealersList != null && Model.DealersList.Dealers!=null && Model.DealersList.Dealers.Count()>0)
         {
             <section>
                 <div class="container margin-bottom20">
@@ -295,7 +292,7 @@
                             <div class="swiper-heading-left-grid inline-block">
                                 <h2>@Model.Make.MakeName service centers in @Model.CityDetails.CityName</h2>
                             </div><div class="swiper-heading-right-grid inline-block text-right">
-                                      <a href="/@Model.Make.MakeName-service-center-in-@Model.CityDetails.CityName/" title="@Model.Make.MakeName Service Centers in @Model.CityDetails.CityName" class="btn view-all-target-btn">View all</a>
+                                      <a href="/@Model.Make.MaskingName-service-center-in-@Model.CityDetails.CityMaskingName/" title="@Model.Make.MakeName Service Centers in @Model.CityDetails.CityName" class="btn view-all-target-btn">View all</a>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -307,7 +304,10 @@
             </div>
 
         }
-        
+        @if (Model.LeadCapture != null)
+        {
+            @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
+        }
         <section>
     <div class="container margin-top10 margin-bottom30">
         <div class="grid-12 font12">

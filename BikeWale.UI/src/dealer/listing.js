@@ -1,7 +1,7 @@
 var markerArr = [], dealerArr = [], map, infowindow, readMoreTarget, dealerMoreContent, mapDimension, currentCityName;
 var blackMarkerImage = 'https://imgd2.aeplcdn.com/0x0/bw/static/design15/map-marker-black.png';
 var redMarkerImage = 'https://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
-
+var clientip;
 function initializeMap(dealerArr) {
     var i, marker, dealer, markerPosition, content, zIndex;
     currentCityName = document.getElementById("dealerMapWrapper").getAttribute("data-currentcityname");
@@ -106,7 +106,8 @@ function initializeDealerMap() {
     initializeMap(dealerArr);
 };
 
-docReady(function () {    
+docReady(function () {
+    clientip = document.getElementById("dealerLead").getAttribute("data-clientip");
     var windowHeight = window.innerHeight,
         mapWrapper = $('#listing-right-column'),
         mapColumn = $('#dealerMapWrapper'),
@@ -196,6 +197,22 @@ docReady(function () {
             dealerMoreContent.removeClass('active');
             readMoreTarget.text('Read more');
         }
+    });
+    $(".leadcapturebtn").click(function (e) {
+        ele = $(this);
+        var leadOptions = {
+            "dealerid": ele.attr('data-item-id'),
+            "dealername": ele.attr('data-item-name'),
+            "dealerarea": ele.attr('data-item-area'),
+            "campid": ele.attr('data-campid'),
+            "leadsourceid": ele.attr('data-leadsourceid'),
+            "pqsourceid": ele.attr('data-pqsourceid'),
+            "isdealerbikes": true,
+            "pageurl": window.location.href,
+            "isregisterpq": true,
+            "clientip": clientip
+        };
+        dleadvm.setOptions(leadOptions);
     });
 
 });

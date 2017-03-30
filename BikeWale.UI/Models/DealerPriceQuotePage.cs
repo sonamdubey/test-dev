@@ -8,6 +8,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Models;
 using Bikewale.Models.Price;
 using Bikewale.Utility;
 using System;
@@ -32,6 +33,7 @@ namespace Bikewale.Models
         private readonly IPriceQuote _objPQ = null;
 
         public string RedirectUrl { get; set; }
+        public uint OtherTopCount { get; set; }
         public StatusCodes Status { get; set; }
 
         private uint _modelId, _versionId, _cityId, _areaId, _pqId, _dealerId, _makeId;
@@ -147,8 +149,12 @@ namespace Bikewale.Models
             {
                 if (objData != null)
                 {
-                    objData.OtherDealers = _objDealerCache.GetDealerByMakeCity(_cityId, _makeId);
-                    objData.OtherDealers.Dealers = objData.OtherDealers.Dealers.Take(3);
+
+
+
+                    DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, _cityId, _makeId);
+                    objDealer.TopCount = OtherTopCount;
+                    objData.OtherDealers = objDealer.GetData();
 
 
                     objData.LeadCapture = new LeadCaptureEntity()

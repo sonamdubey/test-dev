@@ -145,7 +145,7 @@
     });
 </script>
 </head>
-
+<body class="@(@Model.IsTransparentHeader ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")"
     <form>
         <div id="appBanner" class="hide">
             <div class="banner-close-btn" id="btnCrossApp"></div>
@@ -192,11 +192,11 @@
                 <div class="clear"></div>
             </div>
         </header>
-        @if(Model.IsHomePage)
+        @if (Model.IsHomePage)
         {
             <!-- Call Home Page Banner partial view -->
         }
-        @if(Model.AdTags != null && Model.AdTags.Ad_320x50)
+        @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
         {
             <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
                 <script type='text/javascript'>
@@ -205,7 +205,7 @@
             </div>
         }
         @RenderBody()
-        @if(Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
+        @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
         {
             <section>
                 <div class="container">
@@ -336,7 +336,6 @@
                 <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left;height:auto !important;background:#fff;" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
             </div>
         </div> <!-- global-search-popup code ends here -->
-
         @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")
 
         <footer class="bg-footer padding-top30 padding-bottom15">
@@ -391,15 +390,15 @@
                 <link href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_BTF_CSS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion" rel="stylesheet" type="text/css" />
             }
         </noscript>
-           
-            <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
-            <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
-            @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
-            {
-                <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
-            }
-            <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
-</form>
-    <div class="back-to-top" id="back-to-top"></div>
 
+        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
+        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
+        @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
+        {
+            <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
+        }
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
+        <div class="back-to-top" id="back-to-top"></div>
+    </form>   
+</body>
 </html>

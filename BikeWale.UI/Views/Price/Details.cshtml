@@ -250,7 +250,7 @@
     @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
 }
 
-@if (Model.DealerId == 0 && Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount == 0 && Model.Quotation != null && string.IsNullOrEmpty(Model.Quotation.ManufacturerAd))
+@if (Model.ShowOtherDealers && Model.AreOtherDealersAvailable)
 {
     <section>
         <div class="container">
@@ -273,6 +273,7 @@
                     <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                 </div>
             </div>
+            <div class="clear"></div>
         </div>
     </section>
 }
@@ -291,8 +292,6 @@
         </div>
     </section>
 }
-
-<script type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + @Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
 
 @if (Model.LeadCapture != null)
 {
