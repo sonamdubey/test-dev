@@ -9,7 +9,7 @@
 {
     <section class="container bg-white margin-bottom10">
         <div class="bg-white box-shadow">
-            @if (Model.DealerDetails.DealerDetails.Area != null && string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.Area.AreaName))
+            @if (Model.DealerDetails.DealerDetails.Area != null && !string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.Area.AreaName))
             {
                 <h1 class="box-shadow padding-15-20">@string.Format("{0}, {2}, {1}", Model.DealerDetails.DealerDetails.Name, Model.CityDetails.CityName, Model.DealerDetails.DealerDetails.Area.AreaName)</h1>
             }
@@ -22,12 +22,10 @@
                 {
                     <span class="featured-tag inline-block margin-right10"><span class="bwmsprite star-white"></span>Featured</span>
                 }
-                else
-                {
-                    <div class="margin-bottom20">
-                        <h2 class="font14 text-bold inline-block">@string.Format("Authorized {0} dealer in {1}", Model.Make.MakeName, Model.CityDetails.CityName) </h2>
-                    </div>
-                }
+                <div class="margin-bottom20">
+                    <h2 class="font14 text-bold inline-block">@string.Format("Authorized {0} dealer in {1}", Model.Make.MakeName, Model.CityDetails.CityName) </h2>
+                </div>
+
                 @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.Address))
                 {
                     <p class="margin-bottom10">
@@ -86,6 +84,7 @@
                 }
             </div>
 
+
             @if (Model.DealerDetails.DealerDetails.CampaignId > 0 && Model.DealerDetails.DealerDetails.DealerType != (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
             {
                 <div class="grid-12 float-button clearfix float-fixed">
@@ -110,7 +109,9 @@
                 </div>
                 <div class="clear"></div>
 
+
             }
+        </div>
     </section>
 }
 @if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null && Model.DealerDetails.DealerDetails.CampaignId > 0 && ((Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))))
@@ -157,7 +158,7 @@
         </div>
     </section>
 }
-@if (Model.DealersList != null)
+@if (Model.DealersList != null && Model.DealersList.Dealers != null && Model.DealersList.Dealers.Count() > 0)
 {
     <section class="container bg-white margin-bottom10">
         <div class="box-shadow">

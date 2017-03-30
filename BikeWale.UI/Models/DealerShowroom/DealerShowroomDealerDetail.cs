@@ -60,17 +60,17 @@ namespace Bikewale.Models
             try
             {
                 objMake = new MakeHelper().GetMakeNameByMakeId(makeId);
+                objDealerDetails.DealerDetails = BindDealersData();
                 if (objMake != null)
                     objDealerDetails.Make = objMake;
-                cityId = GlobalCityArea.GetGlobalCityArea().CityId;
-                if (cityId > 0)
-                {
-                    CityDetails = new CityHelper().GetCityById(cityId);
-                    objDealerDetails.CityDetails = CityDetails;
-                }
+
+                cityId = (uint)objDealerDetails.DealerDetails.DealerDetails.CityId;
+                CityDetails = new CityHelper().GetCityById(cityId);
+                objDealerDetails.CityDetails = CityDetails;
+
                 ProcessGlobalLocationCookie();
                 objDealerDetails.DealersList = BindOtherDealerWidget();
-                objDealerDetails.DealerDetails = BindDealersData();
+
                 objDealerDetails.PopularBikes = BindMostPopularBikes();
                 objDealerDetails.ServiceCenterDetails = BindServiceCenterWidget();
                 BindPageMetas(objDealerDetails.PageMetaTags);
