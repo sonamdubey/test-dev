@@ -12,5 +12,7 @@ namespace BikewaleOpr.Entities.AWS
         public string AccessKeyId { get; set; }
         public string Policy { get; set; }
         public string Signature { get; set; }
+        public string DatetTmeISO { get; set; }
+        public string DateTimeISOLong { get; set; }
     }
 }
