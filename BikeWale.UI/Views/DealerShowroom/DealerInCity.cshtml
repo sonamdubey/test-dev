@@ -100,7 +100,7 @@
                                     </p>
                                 </a>
                                 <div class="@string.Format("{0}", Details.DealerType == 3 || Details.DealerType == 2 ? "margin-top20" : "hide")">
-                                    <a data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14" data-item-name="@Details.Name" data-item-area="" data-campid="@Details.CampaignId" data-pqsourceid="(int)@Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton" class="btn btn-white btn-full-width font14 leadcapturebtn">@Details.DisplayTextLarge</a>
+                                    <a id="dealerLead" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14" data-item-name="@Details.Name" data-item-area="" data-campid="@Details.CampaignId" data-pqsourceid="(int)@Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton" class="btn btn-white btn-full-width font14 leadcapturebtn">@Details.DisplayTextLarge</a>
                                 </div>
                             </li>
                         }
@@ -206,6 +206,10 @@
         </div>
         <div class="clear"></div>
     </div>
+}
+@if(Model.LeadCapture != null)
+{
+    @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
 }
 <section>
     <div class="container margin-top10 margin-bottom30">

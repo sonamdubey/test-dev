@@ -306,13 +306,13 @@ namespace Bikewale.Controllers
         /// </summary>
         /// <returns></returns>
         [Filters.DeviceDetection()]
-        [Route("dealerdetails/make/{makeMaskingName}/dealerid/{dealerId}")]
-        public ActionResult DealerDetail(string makeMaskingName, uint dealerId)
+        [Route("dealerdetails/make/{makeMaskingName}/city/{cityMaskingName}/dealerid/{dealerId}")]
+        public ActionResult DealerDetail(string makeMaskingName, string cityMaskingName, uint dealerId)
         {
             try
             {
 
-                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, dealerId, 3);
+                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 3);
                 if (objDealerDetails != null && dealerId > 0)
                 {
                     DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
@@ -321,7 +321,10 @@ namespace Bikewale.Controllers
                     {
 
                         objDealerDetailsVM = objDealerDetails.GetData();
-                        return View(objDealerDetailsVM);
+                        if (objDealerDetailsVM != null && objDealerDetailsVM.DealerDetails != null && objDealerDetailsVM.DealerDetails.DealerDetails != null)
+                            return View(objDealerDetailsVM);
+                        else
+                            return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
                     }
 
                     else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
@@ -352,13 +355,13 @@ namespace Bikewale.Controllers
         /// Summary :- Action method For Dealer Details Page Mobile
         /// </summary>
         /// <returns></returns>
-        [Route("m/dealerdetails/make/{makeMaskingName}/dealerid/{dealerId}")]
-        public ActionResult DealerDetail_Mobile(string makeMaskingName, uint dealerId)
+        [Route("m/dealerdetails/make/{makeMaskingName}/city/{cityMaskingName}/dealerid/{dealerId}")]
+        public ActionResult DealerDetail_Mobile(string makeMaskingName, string cityMaskingName, uint dealerId)
         {
             try
             {
 
-                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, dealerId, 9);
+                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 9);
                 if (objDealerDetails != null && dealerId > 0)
                 {
                     DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
@@ -367,7 +370,10 @@ namespace Bikewale.Controllers
                     {
 
                         objDealerDetailsVM = objDealerDetails.GetData();
-                        return View(objDealerDetailsVM);
+                        if (objDealerDetailsVM != null && objDealerDetailsVM.DealerDetails != null && objDealerDetailsVM.DealerDetails.DealerDetails != null)
+                            return View(objDealerDetailsVM);
+                        else
+                            return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
                     }
 
                     else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)

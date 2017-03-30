@@ -76,6 +76,7 @@ namespace Bikewale.Models.DealerShowroom
                 objDealerVM.ServiceCenterDetails = BindServiceCenterWidget();
                 objDealerVM.PopularBikes = BindMostPopularBikes();
                 BindPageMetas(objDealerVM.PageMetaTags);
+                BindLeadCapture(objDealerVM);
             }
             catch (Exception ex)
             {
@@ -83,6 +84,19 @@ namespace Bikewale.Models.DealerShowroom
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomCityPage.GetData()");
             }
             return objDealerVM;
+        }
+        /// <summary>
+        /// Created by :- Subodh Jain 30 March 2017
+        /// Summary :- Added lead popup
+        /// </summary>
+        /// <param name="objDealerDetails"></param>
+        private void BindLeadCapture(DealerShowroomCityPageVM objDealerDetails)
+        {
+            objDealerDetails.LeadCapture = new LeadCaptureEntity()
+            {
+
+                CityId = cityId,
+            };
         }
 
         /// <summary>
@@ -213,6 +227,8 @@ namespace Bikewale.Models.DealerShowroom
                     makeId = objResponse.MakeId;
                     cityId = CitiMapping.GetCityId(cityMaskingName);
                     status = StatusCodes.ContentFound;
+                    if (cityId <= 0)
+                        status = StatusCodes.ContentNotFound;
                 }
                 else if (objResponse.StatusCode == 301)
                 {
