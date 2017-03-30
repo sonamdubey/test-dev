@@ -16,7 +16,6 @@ namespace Bikewale.BAL.BikeData
     public class BikeMakes<T, U> : IBikeMakes<T, U> where T : BikeMakeEntity, new()
     {
         private readonly IBikeMakes<T, U> makesRepository = null;
-
         /// <summary>
         /// Constructor to initialize the required class level parameters.
         /// </summary>
@@ -122,7 +121,7 @@ namespace Bikewale.BAL.BikeData
 
         public IEnumerable<BikeMakeEntityBase> GetScooterMakes()
         {
-            throw new NotImplementedException();
+            return makesRepository.GetScooterMakes();
         }
         /// <summary>
         /// Created by  :   Aditi Srivastava on 15 Mar 2017

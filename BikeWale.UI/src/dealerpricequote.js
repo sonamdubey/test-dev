@@ -253,7 +253,7 @@ docReady(function () {
 
     $(document).mouseup(function (e) {
         if (!$(".variants-dropdown, .variant-selection-tab, .variant-selection-tab #upDownArrow").is(e.target)) {
-            $.variantChangeUp($(".variants-dropdown"));
+            variantChangeUp($(".variants-dropdown"));
         }
     });
 
