@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.Dealer;
+using Bikewale.Models.ServiceCenters;
 using System.Collections.Generic;
 
 namespace Bikewale.Models
@@ -13,6 +14,7 @@ namespace Bikewale.Models
         public string MakeName { get; set; }
         public string MakeMaskingName { get; set; }
         public ICollection<PopularCityDealerEntity> DealerDetails { get; set; }
+        public ServiceCenterDetailsWidgetVM ServiceCenters { get; set; } 
         public uint TotalDealerCount { get; set; }
         public uint TotalServiceCenterCount { get; set; }
     }
