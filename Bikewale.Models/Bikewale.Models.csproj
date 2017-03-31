@@ -97,6 +97,7 @@
     <Compile Include="Used\UsedBikeByModelVM.cs" />
     <Compile Include="Used\UsedModelsVM.cs" />
     <Compile Include="Videos\RecentVideosVM.cs" />
+    <Compile Include="Videos\VideosLandingPageVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">

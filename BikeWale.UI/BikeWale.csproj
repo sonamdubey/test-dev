@@ -957,6 +957,7 @@
     <Compile Include="Models\Videos\VideosBySubcategory.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedWidgetModel.cs" />
     <Compile Include="Models\UsedBikes\UsedBikeCitiesWidgetModel.cs" />
+    <Compile Include="Models\Videos\VideosLandingPage.cs" />
     <Compile Include="mybikewale\buyerdetails.aspx.cs">
       <DependentUpon>buyerdetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3681,6 +3682,8 @@
     <Content Include="Views\Shared\_EditCMSPhotoGallery.cshtml" />
     <Content Include="Views\DealerShowroom\_showrooms_Mobile.cshtml" />
     <Content Include="Views\Make\Index_Mobile.cshtml" />
+    <Content Include="Views\Videos\Index.cshtml" />
+    <Content Include="Views\Videos\Index_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
