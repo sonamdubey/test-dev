@@ -261,7 +261,7 @@
                         <% } %>
                         <%if (isOnRoadPrice && price > 0 && !isDiscontinued)
                           {%>
-                        <a href="/m/pricequote/dealerpricequote.aspx?MPQ=<%= detailedPriceLink %>" class="font16 text-bold viewBreakupText" rel="nofollow">View detailed price</a>
+                        <a href="/m/pricequote/dealer/?MPQ=<%= detailedPriceLink %>" class="font16 text-bold viewBreakupText" rel="nofollow">View detailed price</a>
                         <% } %>
                     </p>
                 </div>
@@ -1152,7 +1152,7 @@
 
                     if (isSuccess) {
                         var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
-                        window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+                        window.location.href = "/m/pricequote/dealer/?MPQ=" + Base64.encode(rediurl);
                     }
                 } catch (e) {
                     console.warn("Unable to create pricequote : " + e.message);
@@ -1162,7 +1162,7 @@
             docReady(function(){
                 $("#viewprimarydealer, #dealername").on("click", function () {
                     var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
-                    window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+                    window.location.href = "/m/pricequote/dealer/?MPQ=" + Base64.encode(rediurl);
                 });
 
                 $(".leadcapturebtn").click(function (e) {

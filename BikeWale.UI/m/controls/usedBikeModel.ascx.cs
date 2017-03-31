@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 namespace Bikewale.Mobile.Controls
-{    /// Created  By :-Subodh Jain on 15 March 2017
+{
+
+    /// Created  By :-Subodh Jain on 15 March 2017
     /// Summary :-Used Bike Widget
     public class UsedBikeModel : System.Web.UI.UserControl
     {

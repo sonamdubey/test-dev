@@ -1,0 +1,34 @@
+﻿@model Bikewale.Models.RecentExpertReviewsVM
+@using Bikewale.Utility
+@if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Count() > 0) { 
+ foreach(var review in Model.ArticlesList){
+<div class="margin-bottom20">
+    <div class="grid-4">
+        <div class="model-preview-image-container">
+            <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))">
+     <img class="lazy" data-original="@Image.GetPathToShowImages(review.OriginalImgUrl,review.HostUrl,Bikewale.Utility.ImageSize._310x174)" title="@review.Title" alt="@review.Title" src="" />
+            </a>
+        </div>
+    </div>
+    <div class="grid-8">
+        <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))" class="article-target-link"  title="@review.Title">@review.Title</a>
+        <div class="article-stats-left-grid">
+            <span class="bwsprite calender-grey-sm-icon"></span>
+            <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate),"MMM dd, yyyy")</span>
+        </div>
+        <div class="article-stats-right-grid">
+            <span class="bwsprite author-grey-sm-icon"></span>
+            <span class="article-stats-content">@review.AuthorName</span>
+        </div>
+        <p class="line-height17 margin-top10">
+            @FormatDescription.TruncateDescription(review.Description,280)
+        </p>
+    </div>
+    <div class="clear"></div>
+</div>
+ }
+ <!--To be included on specific page -->
+<div class="padding-left10 more-article-target view-all-btn-container">
+    <a title="@Model.LinkTitle" href="@Model.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
+</div>
+}

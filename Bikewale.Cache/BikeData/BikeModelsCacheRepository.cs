@@ -1289,13 +1289,13 @@ namespace Bikewale.Cache.BikeData
             return bikes;
         }
 
-          /// <summary>
+        /// <summary>
         /// Created By : Aditi Srivastava on 9 Mar 2017
         /// Summary    : Return list of popular scooters
         /// </summary>
-        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint?cityId)
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId)
         {
-            string key = String.Format("BW_MostPopularScooters_topCount_{0}",topCount);
+            string key = String.Format("BW_MostPopularScooters_topCount_{0}", topCount);
             if (cityId != null)
                 key = string.Format("{0}_CityId_{1}", key, cityId.Value);
             IEnumerable<MostPopularBikesBase> popularScooters = null;
@@ -1303,13 +1303,13 @@ namespace Bikewale.Cache.BikeData
             {
                 popularScooters = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetMostPopularScooters(topCount, cityId));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetMostPopularScooters");
             }
             return popularScooters;
         }
-               /// <summary>
+        /// <summary>
         /// Created by:- Subodh Jain 10 March 2017
         /// Summary :- Get comparision list of popular bike 
         /// </summary>
@@ -1331,11 +1331,20 @@ namespace Bikewale.Cache.BikeData
             return popularBikesList;
         }
 
-
-       
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
         {
-            throw new NotImplementedException();
+            IEnumerable<MostPopularBikesBase> popularBikesList = null;
+            string key = string.Format("BW_GetMostPopularScooters_MK_{0}_CID_{1}_TC_{2}", makeId, cityId, topCount);
+            try
+            {
+                popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularScooters(topCount, makeId, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetMostPopularScooters({0},{1},{2})", makeId, cityId, topCount));
+
+            }
+            return popularBikesList;
         }
     }
 }

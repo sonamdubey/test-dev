@@ -1,0 +1,260 @@
+﻿@model Bikewale.Models.ServiceCenters.ServiceCenterDetailsPageVM
+@using Bikewale.Utility;
+
+@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/service/details.css' />";
+    Model.Page_JS_Path = "/m/src/service/details.js";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Model";
+    Model.AdTags.AdId = "1444028976556";
+    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com{0}", Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName, Model.ServiceCenterData.Name, Model.ServiceCenterData.Id));
+}
+
+@if (Model != null && Model.Make != null)
+{
+    if (Model.City != null && Model.ServiceCenterData != null)
+    {
+        <section>
+            <div class="container bg-white card-bottom-margin">
+                <h1 class="card-header">@Model.ServiceCenterData.Name, @Model.City.CityName</h1>
+                <div class="card-inner-padding font14 text-light-grey">
+                    <h2 class="font14 margin-bottom15">@string.Format("Authorized {0} service center", Model.Make.MakeName)</h2>
+
+                    @if (!string.IsNullOrEmpty(Model.ServiceCenterData.Address))
+                    {
+                        <p class="margin-bottom10">
+                            <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                            <span class="vertical-top details-column text-light-grey">@Model.ServiceCenterData.Address</span>
+                        </p>
+                    }
+                    @if (!(String.IsNullOrEmpty(Model.ServiceCenterData.Mobile)) || !(String.IsNullOrEmpty(Model.ServiceCenterData.Phone)))
+                    {
+                        <div class="margin-bottom10">
+                            @if (!Model.ServiceCenterData.Phone.Contains(","))
+                            {
+                                <a href="tel:@Model.ServiceCenterData.Phone" class="text-default text-bold maskingNumber">
+                                    <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
+                                    <span class="vertical-top text-bold details-column">@Model.ServiceCenterData.Phone</span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="javascript:void(0)" class="text-default text-bold maskingNumber contact-service-btn" data-service-name="@Model.ServiceCenterData.Name" data-service-number="@Model.ServiceCenterData.Phone" rel="nofollow">
+                                    <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
+                                    <span class="vertical-top text-bold details-column">@Model.ServiceCenterData.Phone</span>
+                                </a>
+                            }
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.ServiceCenterData.Email))
+                    {
+                        <div class="margin-bottom10">
+                            <a href="mailto:Model.ServiceCenterData.Email" class="text-light-grey">
+                                <span class="bwmsprite mail-grey-icon vertical-top"></span>
+                                <span class="vertical-top details-column text-light-grey">Model.ServiceCenterData.Email</span>
+                            </a>
+                        </div>
+                    }
+                    @if (Model.ServiceCenterData.Lattitude > 0 && Model.ServiceCenterData.Longitude > 0)
+                    {
+                        <div class="border-solid-bottom margin-bottom15 padding-top10"></div>
+
+                        <h2 class="font14 text-default margin-bottom15">Get commute distance and time:</h2>
+                        <div class="form-control-box margin-bottom15">
+                            <input id="locationSearch" type="text" class="form-control padding-right40" placeholder="Type in your location" />
+                            <span id="getUserLocation" class="crosshair-icon position-abt"></span>
+                        </div>
+                        <div class="location-details margin-bottom15">
+                            Distance: <span id="commuteDistance" class="margin-right10"></span>
+                            Time: <span id="commuteDuration"></span>
+                        </div>
+                        <div id="commuteResults"></div>
+                        <a id="linkMap" href="http://maps.google.com/maps?z=12&t=m&q=loc:@Model.ServiceCenterData.Lattitude,@Model.ServiceCenterData.Longitude" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+
+
+    <div class="modal-background"></div>
+    <div id="contact-service-popup" class="modal-popup-container">
+        <div class="popup-header"></div>
+        <div class="popup-body">
+            <p class="body-label">Select one of the phone numbers to talk to service center executive</p>
+            <ul class="popup-list margin-bottom20"></ul>
+            <div class="grid-6 alpha">
+                <p class="btn btn-white btn-full-width btn-size-0 cancel-popup-btn">Cancel</p>
+            </div>
+            <div class="grid-6 omega">
+                <a href="" id="call-service-btn" class="btn btn-orange btn-full-width btn-size-0">Call</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    if (Model.City != null && Model.OtherServiceCentersWidgetData != null && Model.OtherServiceCentersWidgetData.ServiceCentersList != null && Model.OtherServiceCentersWidgetData.ServiceCentersList.Count() > 0)
+    {
+        <section>
+            <div class="container bg-white box-shadow padding-top15">
+                <div class="container card-bottom-margin padding-bottom20">
+                    <div class="carousel-heading-content">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2>@string.Format("Other {0} service centers in {1}", Model.Make.MakeName, Model.City.CityName)</h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="@string.Format("/m{0}", UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName))" title="@Model.Make.MakeName Service Centers in @Model.City.CityMaskingName" class="btn view-all-target-btn">View all</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
+                        <div class="swiper-wrapper">
+                            @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard_Mobile.cshtml", Model.OtherServiceCentersWidgetData)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+
+    if (Model.BikeScheduleList != null && Model.BikeScheduleList.Count() > 0)
+    {
+        <div id="service-schedular" class="container bg-white box-shadow card-bottom-margin padding-15-20">
+            <h2 class="margin-bottom5">Is your @Model.Make.MakeName bike due for a service?</h2>
+            <p class="margin-bottom15">Get your @Model.Make.MakeName bike serviced within given time period or km range, whichever condition gets satisfied earlier.</p>
+            <div class="select-box size-small margin-bottom20">
+                <p class="font12 text-light-grey">Model</p>
+                <select id="selBikes" class="chosen-select" data-bind="event: { change: GetModelId }">
+                    @foreach (var bike in Model.BikeScheduleList)
+                {
+                    <option value="@bike.ModelId">@bike.ModelName</option>
+                }
+                </select>
+            </div>
+            <table data-bind="visible: isDataExist()" id="one" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th align="left" width="20%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Service<br />no.</th>
+                        <th data-bind="visible: isKms()" align="left" width="40%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Validity from the<br />date of purchase</th>
+                        <th data-bind="visible: isDays()" align="left" width="40%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Validity from the date of previous service</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: bikesList">
+                    <!-- ko foreach : Schedules -->
+                    <tr>
+                        <td data-bind="text: ServiceNo" width="20%" class="padding-bottom10 padding-top10 padding-right10 font14 divider-top" valign="top"></td>
+                        <td data-bind="visible: $root.isKms(),text: Kms + ' Kms'" width="40%" class="padding-bottom10 padding-top10 padding-right10 divider-top" valign="top"></td>
+                        <td data-bind="visible: $root.isDays(), text: Days + ' days'" width="40%" class="padding-bottom10 padding-top10 divider-top" valign="top"></td>
+                    </tr>
+                    <!-- /ko -->
+                </tbody>
+            </table>
+            <!-- no service -->
+            <div data-bind="visible: !isDataExist()" id="service-not-avaiable">
+                <span class="service-sprite calender-lg"></span>
+                <p class="font14 text-light-grey">
+                    Sorry! The service schedule for<br />
+                    <span data-bind="text: currentBikeName()"></span> is not available.<br />
+                    Please check out the service schedule for other @Model.Make.MakeId bikes.
+                </p>
+            </div>
+            <!-- no service -->
+        </div>
+
+    <div id="service-schedule-data" data-servicelat="@Model.ServiceCenterData.Lattitude" data-servicelong="@Model.ServiceCenterData.Longitude" data-cityname="@Model.City.CityName" data-googlekey="@BWConfiguration.Instance.GoogleMapApiKey" class="hide">@Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeScheduleList)</div>
+    }
+
+    <section>
+        <div class="container bg-white box-shadow card-bottom-margin">
+            <h2 class="padding-top15 padding-right20 padding-left20">Tips from BikeWale experts to keep your bike in good shape!</h2>
+            <ul id="bw-tips-list">
+                <li>
+                    <a href="/m/bike-care/" target="_blank" title="Bike Care - Maintenance tips">
+                        <span class="service-sprite care-icon"></span>
+                        <h3 class="text-unbold margin-left10 vertical-middle">Bike Care - Maintenance tips</h3>
+                        <span class="bwmsprite right-arrow"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/m/bike-troubleshooting/" target="_blank" title="Bike troubleshooting - FAQs">
+                        <span class="service-sprite faq-icon"></span>
+                        <h3 class="text-unbold margin-left10 vertical-middle">Bike troubleshooting - FAQs</h3>
+                        <span class="bwmsprite right-arrow"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    if (Model.PopularWidgetData != null || Model.UsedBikesByMakeList != null && Model.City != null)
+    {
+        <section>
+            <div class="container bg-white box-shadow margin-bottom15">
+                @if (Model.PopularWidgetData != null && Model.PopularWidgetData.Bikes != null && Model.PopularWidgetData.Bikes.Count() > 0)
+                {
+                    <div class="carousel-heading-content padding-top15">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2>Popular @Model.Make.MakeName bikes in @Model.City.CityName</h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="/m/@Model.Make.MaskingName-bikes/" title="@Model.Make.MakeName Bikes" class="btn view-all-target-btn">View all</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularWidgetData)
+                }
+                <div class="padding-top10 text-center">
+                </div>
+                <div class="margin-right10 margin-left10 border-solid-bottom padding-bottom15"></div>
+                @if (Model.UsedBikesByMakeList != null && Model.UsedBikesByMakeList.UsedBikeModelList != null && Model.UsedBikesByMakeList.UsedBikeModelList.Count() > 0)
+                {
+                    <div class="padding-top15">
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>@string.Format("Used {0} bikes in {1}", Model.Make.MakeName, Model.City.CityName)</h2>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="@string.Format("/m/used/{0}-bikes-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName)" title="@string.Format("Second Hand {0} Bikes in {1}", Model.Make.MakeName, Model.City.CityName)" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="padding-top15">
+                            <div class="content-box-shadow padding-bottom20">
+                                @Html.Partial("~/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedBikesByMakeList)
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    }
+
+    if (Model.DealersWidgetData != null && Model.DealersWidgetData.Dealers != null && Model.DealersWidgetData.Dealers.Count() > 0)
+    {
+        <section>
+            <div class="container bg-white box-shadow card-bottom-margin">
+                <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+                    <div class="carousel-heading-content">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2>@string.Format("New {0} bikes showrooms", Model.Make.MakeName)</h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="@string.Format("/m{0}", UrlFormatter.DealerLocatorUrl(Model.Make.MaskingName, Model.City.CityMaskingName))" title="@Model.Make.MakeName Showrooms in @Model.City.CityName" class="btn view-all-target-btn">View all</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    @Html.Partial("~/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.DealersWidgetData)
+                </div>
+            </div>
+        </section>
+    }
+
+    <section>
+        <div class="container margin-bottom20 font12 padding-top5 padding-right20 padding-left20">
+            <span class="font14"><strong>Disclaimer:</strong></span> The above-mentioned information about authorised @Model.Make.MakeName service centers is furnished to best of our knowledge. The facilities of pick and drop, timings and service schedule related information might vary slightly from service center to service center. Please check with the authorised @Model.Make.MakeName service center before scheduling an appointment.
+        </div>
+    </section>
+}
+<script defer src="https://maps.googleapis.com/maps/api/js?key=@BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>

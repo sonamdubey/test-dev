@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.Location;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Dealer
@@ -27,5 +28,6 @@ namespace Bikewale.Interfaces.Dealer
         IEnumerable<NewBikeDealersMakeEntity> GetDealersMakesList();
         IEnumerable<DealerBrandEntity> GetDealerByBrandList();
         IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId);
+        IEnumerable<CityEntityBase> FetchDealerCitiesByMake(uint makeId);
     }
 }

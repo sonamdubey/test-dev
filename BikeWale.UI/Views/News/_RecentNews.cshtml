@@ -1,0 +1,45 @@
+﻿@model Bikewale.Models.RecentNewsVM
+@using Bikewale.Utility
+@if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
+{
+    <div id="modelNewsContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom font14">
+        @if (!string.IsNullOrEmpty(Model.Title))
+        {
+            <h2>@Model.Title</h2>
+        }
+        @foreach (var news in Model.ArticlesList)
+        {
+            <div class="margin-bottom20">
+                <div class="grid-4 alpha">
+                    <div class="model-preview-image-container">
+                        <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News))">
+                            <img class="lazy" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._310x174)" title="@news.Title" alt="@news.Title" src="">
+                        </a>
+                    </div>
+                </div>
+                <div class="grid-8">
+                    <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId),news.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News))" title="@news.Title" class="article-target-link line-height">
+                        @news.Title
+                    </a>
+                    <div class="article-stats-left-grid">
+                        <span class="bwsprite calender-grey-sm-icon"></span>
+                        <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(news.DisplayDate), "MMM dd, yyyy")</span>
+                    </div>
+                    <div class="article-stats-right-grid">
+                        <span class="bwsprite author-grey-sm-icon"></span>
+                        <span class="article-stats-content">@news.AuthorName</span>
+                    </div>
+                    <p class="line-height17 margin-top10">
+                        @FormatDescription.TruncateDescription(news.Description, 280)
+                    </p>
+                </div>
+                <div class="clear"></div>
+            </div>
+        }
+
+        <div class="more-article-target view-all-btn-container">
+            <a href="@UrlFormatter.FormatNewsUrl(Model.MakeMasking,Model.ModelMasking)" title="@(!string.IsNullOrEmpty(Model.ModelMasking) ? string.Format("{0} {1} News", Model.MakeName, Model.ModelName):(!string.IsNullOrEmpty(Model.MakeMasking) ? string.Format("{0} News",Model.MakeName):"Bikes News"))"
+               class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
+        </div>
+    </div>
+}

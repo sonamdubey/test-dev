@@ -351,6 +351,8 @@ namespace Bikewale.BAL.Videos
 
         /// <summary>
         /// Author: Prasad Gawde
+        /// Modified by : Aditi Srivastava on 24 Mar 2017
+        /// Summary     : Changed logic to fetch videos even if makeId=0
         /// </summary>
         /// <returns></returns>
         private IEnumerable<BikeVideoEntity> GetVideosByMakeModelViaGrpc(ushort pageNo, ushort pageSize, uint makeId, uint? modelId = null)
@@ -365,13 +367,17 @@ namespace Bikewale.BAL.Videos
                     int startIndex, endIndex;
                     Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
 
-                    if (modelId.HasValue)
+                    
+                    if (makeId > 0 || modelId.HasValue && modelId.Value > 0)
                     {
-                        _objVideoList = GrpcMethods.GetVideosByModelId((int)modelId.Value, (uint)startIndex, (uint)endIndex);
+                        if (modelId.HasValue && modelId.Value > 0)
+                            _objVideoList = GrpcMethods.GetVideosByModelId((int)modelId.Value, (uint)startIndex, (uint)endIndex);
+                        else
+                            _objVideoList = GrpcMethods.GetVideosByMakeId((int)makeId, (uint)startIndex, (uint)endIndex);
                     }
                     else
                     {
-                        _objVideoList = GrpcMethods.GetVideosByMakeId((int)makeId, (uint)startIndex, (uint)endIndex);
+                        _objVideoList = GrpcMethods.GetVideosBySubCategory((int)EnumVideosCategory.JustLatest, (uint)startIndex, (uint)endIndex);
                     }
 
 
@@ -398,20 +404,32 @@ namespace Bikewale.BAL.Videos
             return videoDTOList;
         }
 
+        /// <summary>
+        /// Modified by : Aditi Srivastava on 24 Mar 2017
+        /// Summary     : To handle cases when make or model is 0
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         public IEnumerable<BikeVideoEntity> GetVideosByMakeModelOldWay(ushort pageNo, ushort pageSize, uint makeId, uint? modelId = null)
         {
-            //BikeVideosListEntity objVideosList = null;
             IEnumerable<BikeVideoEntity> objVideosList = null;
             try
             {
                 string _apiUrl = string.Empty;
-                if (modelId.HasValue)
+                if (modelId.HasValue && modelId>0)
                 {
                     _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo={1}&pageSize={2}", modelId, pageNo, pageSize);
                 }
-                else
+                else if (makeId>0)
                 {
                     _apiUrl = String.Format("/api/v1/videos/make/{0}/?appId=2&pageNo={1}&pageSize={2}", makeId, pageNo, pageSize);
+                }
+                else
+                {
+                    _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)EnumVideosCategory.JustLatest, pageNo, pageSize);
                 }
 
                 using (BWHttpClient objclient = new BWHttpClient())

@@ -1,4 +1,16 @@
-﻿var dt = '';
+﻿
+ga_pg_id = '3';
+
+docReady(function () {
+
+    if ($("#discontinuedMore a").length > 4) {
+        $('#discontinuedMore').hide();
+    }
+    else {
+        $('#discontinuedLess').hide();
+    }
+});
+var dt = '';
 
 $("img.lazy").lazyload();
 
@@ -27,19 +39,19 @@ $("#sortbike li").on("click", function () {
     var id = $(this).attr('id');
     switch (id) {
         case '0':
-            dt = sortResults($(".listitems li"), 'prc', true);
+            dt = sortResults($(".listitems li"), 'data-price', true);
             pushGaTags('Price_Low_to_High');
             break;
         case '1':
-             dt = sortResults($(".listitems li"), 'pop', true);
+             dt = sortResults($(".listitems li"), 'data-popularity', true);
             pushGaTags('Popular');
             break;
         case '2':
-            dt = sortResults($(".listitems li"), 'prc', false);
+            dt = sortResults($(".listitems li"), 'data-price', false);
             pushGaTags('Price_High_to_Low');
             break;
         case '3':
-            dt = sortResults($(".listitems li"), 'mlg', false);
+            dt = sortResults($(".listitems li"), 'data-mileage', false);
             pushGaTags('Mileage_High_to_Low');
             break;
     }
@@ -54,8 +66,8 @@ $("#sortbike li").on("click", function () {
 });
 
 function ShowAllDisModels() {
-    $("#discontinuedLess").hide();
     $("#discontinuedMore").show();
+    $("#discontinuedLess").hide();
     var xContents = $('#discontinuedMore').contents();
     xContents[xContents.length - 1].nodeValue = "";
 }

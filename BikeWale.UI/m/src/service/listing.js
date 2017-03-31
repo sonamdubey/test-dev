@@ -89,3 +89,24 @@ $(window).on('popstate', function (event) {
         modalPopup.close('#contact-service-popup');
     }
 });
+
+function initializeCityMaps() {
+    $(".city-map").each(function (index) {
+        var lat = $(this).attr("data-item-lat");
+        var lng = $(this).attr("data-item-long");
+        var latlng = new google.maps.LatLng(lat, lng);
+        var mapOptions = {
+            zoom: 10,
+            center: latlng,
+            streetViewControl: false,
+            scrollwheel: false,
+            mapTypeControl: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map($(".city-map")[index], mapOptions);
+    });
+}
+
+docReady(function () {
+    initializeCityMaps();
+});

@@ -1,0 +1,322 @@
+﻿@model Bikewale.Models.DealerShowroomDealerDetailsVM
+
+@{
+   Layout = "~/Views/Shared/_Layout.cshtml";
+   Model.Page_ATF_CSS ="<link rel='stylesheet' type='text/css' href='/css/dealer/details.css' />";
+   Model.Page_JS_Path = "/src/dealer/details.js";
+   Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Model.DealerDetails.DealerDetails.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Model.DealerDetails.DealerDetails.Name));
+   Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName,Model.DealerDetails.DealerDetails.DealerId, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Model.DealerDetails.DealerDetails.Name));
+   Model.AdTags.AdId = "1395986297721";
+   Model.AdTags.AdPath = "/1017752/BikeWale_New_";
+   Model.AdTags.Ad_970x90 = true;
+   Model.AdTags.Ad_970x90Bottom = true;
+}
+
+    <section>
+        <div class="container padding-top10">
+            <div class="grid-12">
+                <div class="breadcrumb margin-bottom15">
+                    <!-- breadcrumb code starts here -->
+                    <ul>
+                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
+                        </li>
+                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Showroom Locator</span></a>
+                        </li>
+                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/@Model.Make.MaskingName-dealer-showrooms-in-india/"><span itemprop="title">@Model.Make.MakeName Showroom</span></a>
+                        </li>
+                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/@Model.Make.MaskingName-dealer-showrooms-in-@Model.CityDetails.CityMaskingName/"><span itemprop="title">@Model.Make.MakeName Showroom in @Model.CityDetails.CityName</span></a>
+                        </li>
+                        <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span>@Model.DealerDetails.DealerDetails.Name</li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+        @if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null)
+        {
+            <section>
+                <div class="container margin-bottom20" id="dealerInfo">
+                    <div class="grid-12">
+                        <div class="content-box-shadow">
+                            <div class="content-box-shadow padding-14-20">
+                                @if (Model.DealerDetails.DealerDetails.Area != null && !string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.Area.AreaName))
+                                {
+                                    <h1>
+                                        @string.Format("{0}, {2}, {1}", Model.DealerDetails.DealerDetails.Name, Model.CityDetails.CityName, Model.DealerDetails.DealerDetails.Area.AreaName)
+                                    </h1>
+                                }
+                                else
+                                {
+                                    <h1>
+                                        @string.Format("{0}, {1}", Model.DealerDetails.DealerDetails.Name, Model.CityDetails.CityName)
+                                    </h1>
+                                }
+                            </div>
+                            <div class="content-inner-block-20">
+                                <div class="grid-7 alpha omega font14">
+                                    <div class="margin-bottom10">
+                                        @if (Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
+                                        {
+                                            <span class="featured-tag inline-block margin-right10"><span class="bwsprite star-white"></span>Featured</span>
+                                        }
+                                        <h2 class="font14 text-black text-bold inline-block">@string.Format("Authorized {0} dealer in {1}", Model.Make.MakeName, Model.CityDetails.CityName)</h2>
+                                    </div>
+
+                                    @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.Address))
+                                    {
+                                        <div class="margin-bottom10">
+                                            <span class="bwsprite dealership-loc-icon vertical-top"></span>
+                                            @if (String.IsNullOrEmpty(Model.DealerDetails.DealerDetails.Pincode))
+                                            {
+                                                <span class="vertical-top text-light-grey dealership-card-details">@string.Format("{0}, {1}", Model.DealerDetails.DealerDetails.Address, Model.CityDetails.CityName)</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="vertical-top text-light-grey dealership-card-details">@string.Format("{0}, {1}, {2}", Model.DealerDetails.DealerDetails.Address, Model.DealerDetails.DealerDetails.Pincode, Model.CityDetails.CityName)</span>
+                                            }
+
+
+                                        </div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.MaskingNumber))
+                                    {
+                                        <div class="margin-bottom10">
+                                            <span class="bwsprite phone-black-icon vertical-top"></span>
+                                            <span class="vertical-top text-bold dealership-card-details">@Model.DealerDetails.DealerDetails.MaskingNumber</span>
+                                        </div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.EMail))
+                                    {
+                                        <div class="margin-bottom10">
+                                            <span class="bwsprite mail-grey-icon vertical-top"></span>
+                                            <a href="mailto:@Model.DealerDetails.DealerDetails.EMail" target="_blank" class="vertical-top text-light-grey" rel="nofollow">
+                                                <span class="dealership-card-details">@Model.DealerDetails.DealerDetails.EMail</span>
+                                            </a>
+                                        </div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.WorkingHours))
+                                    {
+                                        <div class="margin-bottom10">
+                                            <span class="bwsprite clock-icon vertical-top"></span>
+                                            <span class="vertical-top text-light-grey dealership-card-details">Working hours: @Model.DealerDetails.DealerDetails.WorkingHours</span>
+                                        </div>
+                                    }
+                                    @if (Model.DealerDetails.DealerDetails.Area != null && Model.DealerDetails.DealerDetails.Area.Latitude > 0 && Model.DealerDetails.DealerDetails.Area.Longitude > 0)
+                                    {
+                                        <div id="commute-distance-form" class="margin-top20">
+                                            <p class="text-bold margin-bottom15">Get commute distance and time:</p>
+                                            <div class="leftfloat form-control-box margin-right15">
+                                                <input id="locationSearch" data-clietIp="@Bikewale.Common.CommonOpn.GetClientIP()" data-map="@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey" data-lat="@Model.DealerDetails.DealerDetails.Area.Latitude" data-long="@Model.DealerDetails.DealerDetails.Area.Longitude" data-currentcityname="@Model.CityDetails.CityName" type="text" class="form-control" placeholder="Enter your location" />
+                                                <span id="getUserLocation" class="crosshair-icon font12 position-abt pos-right10 pos-top10 cur-pointer"></span>
+                                            </div>
+                                            <div class="location-details padding-top10 padding-bottom10 leftfloat">
+                                                Distance: <span id="commuteDistance" class="margin-right10"></span>
+                                                Time: <span id="commuteDuration"></span>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div id="commuteResults"></div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="grid-5 omega position-rel">
+                                    @if (Model.DealerDetails.DealerDetails.Area != null && Model.DealerDetails.DealerDetails.Area.Latitude > 0 && Model.DealerDetails.DealerDetails.Area.Longitude > 0)
+                                    {
+                                        <div id="dealer-map" style="width: 378px; height: 254px; border: 1px solid #eee;"></div>
+                                        <div id="get-direction-button" title="Get directions">
+                                            <a href="https://maps.google.com/?saddr=&amp;daddr=@Model.DealerDetails.DealerDetails.Area.Latitude,@Model.DealerDetails.DealerDetails.Area.Longitude" target="_blank">
+                                                <span class="bwsprite get-direction-icon"></span>
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </section>
+        }
+@if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null && Model.DealerDetails.DealerDetails.CampaignId > 0 && ((Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || Model.DealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))))
+{
+    <section id="dealerAssistance">
+        <div class="container margin-bottom20" id="leadForm">
+            <div class="grid-12">
+                <div id="buyingAssistance" class="content-box-shadow content-inner-block-20">
+                    <h2 class="font18 margin-bottom20">Complete buying assistance from @Model.DealerDetails.DealerDetails.Name</h2>
+                    <p class="font14 text-light-grey margin-bottom25">Get in touch with @Model.DealerDetails.DealerDetails.Name for best offers, test rides, EMI options, exchange benefits and much more...</p>
+                    <div class="input-box form-control-box type-user-details margin-right20">
+                        <input type="text" id="assistGetName" data-bind="textInput: fullName" />
+                        <label for="assistGetName">Name</label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                    <div class="input-box form-control-box type-user-details margin-right20">
+                        <input type="email" id="assistGetEmail" data-bind="textInput: emailId" />
+                        <label for="assistGetEmail">Email</label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                    <div class="input-box input-number-box form-control-box type-user-details">
+                        <input type="tel" id="assistGetMobile" maxlength="10" data-bind="textInput: mobileNo" />
+                        <label for="assistGetMobile">Mobile number</label>
+                        <span class="input-number-prefix">+91</span>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                    <div class="type-dropdown">
+                        <p class="font12 text-light-grey">Bike</p>
+                        <div class="dropdown-select-wrapper">
+                            <select id="getLeadBike" class="dropdown-select form-control chosen-select">
+                                <option value="">Select a bike</option>
+                                @foreach (var bike in Model.DealerDetails.Models)
+                                { 
+                                <option value="@bike.objVersion.VersionId">@bike.BikeName</option>
+                                }
+                            </select>
+                            <span class="boundary"></span>
+                            <span class="error-text"></span>
+                        </div>
+                    </div>
+                    <div class="type-sumit-button">
+                        <input type="button" id="dealer-assist-btn" data-isregisterpq="true" data-item-name="@Model.DealerDetails.DealerDetails.Name" data-item-area="@Model.DealerDetails.DealerDetails.Area!=null?@Model.DealerDetails.DealerDetails.Area.AreaName" data-leadsourceid="14" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="@Convert.ToInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers)"
+                               data-item-id="@Model.DealerDetails.DealerDetails.DealerId" data-bind="click: function (d, e) { validateBikeData(); validateUserLeadDetails(); HiddenSubmitLead(d, e) }" value="@Model.DealerDetails.DealerDetails.DisplayTextSmall" />
+                    </div>
+                    <p>By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+                </div>
+                <div id="dealer-assist-msg" class="hide">
+                    <p class="leftfloat font14">Thank you for your interest. <span data-bind="text: dealerName()"></span>&nbsp;will get in touch shortly</p>
+                    <span id="assistance-response-close-btn" class="rightfloat bwsprite cross-lg-lgt-grey cur-pointer"></span>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <section>
+        <div class="container margin-bottom20">
+            <div class="grid-12">
+                <div class="content-box-shadow padding-left5 padding-right5 inner-content-card font14">
+                    <h2 class="font18 margin-bottom20 padding-top20 padding-left15">Bikes available at @Model.DealerDetails.DealerDetails.Name</h2>
+                    <ul>
+                        @foreach (var bike in Model.DealerDetails.Models)
+                        {
+                            var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+                        <li>
+                            <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName)" title="@bikeName">
+                                <div class="model-jcarousel-image-preview">
+                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._476x268)" alt="@bikeName" src="" />
+                                </div>
+                                <div class="card-desc-block">
+                                    <h3 class="bikeTitle" title="@bikeName">@bikeName</h3>
+                                    <div class="text-xt-light-grey margin-bottom10">
+                                      @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement),Convert.ToString(bike.Specs.FuelEfficiencyOverall),Convert.ToString(bike.Specs.MaxPower),Convert.ToString(bike.Specs.KerbWeight)))
+                                    </div>
+                                    <p class="text-light-grey margin-bottom5">On-road price, @Model.CityDetails.CityName</p>
+                                    <div>
+                                        <span class="bwsprite inr-lg"></span>
+                                        <span class="font18 text-default text-bold">@Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bike.VersionPrice))</span>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </a>
+                            @if (Model.DealerDetails.DealerDetails.Area != null && Model.DealerDetails.DealerDetails.Area.AreaId > 0)
+                            {
+                                <div class="margin-left20 margin-bottom20">
+                                    <a href="javascript:void(0)" data-dealerid="@Model.DealerDetails.DealerDetails.DealerId" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels)" data-modelid="@bike.objModel.ModelId" data-versionid="@bike.objVersion.VersionId" data-areaid="@Model.DealerDetails.DealerDetails.Area.AreaId" data-cityid="@Model.CityDetails.CityId" data-areaname="@Model.DealerDetails.DealerDetails.Area.AreaName" data-cityname="@Model.CityDetails.CityName" class="btn btn-sm btn-grey font14 dealerDetails" rel="nofollow">Show detailed price</a>
+                                </div>
+                            }
+                        </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
+ 
+        @if (Model.DealersList != null && Model.DealersList.Dealers!=null && Model.DealersList.Dealers.Count()>0)
+        {
+            <section>
+                <div class="container margin-bottom20">
+                    <div class="grid-12">
+                        <div class="content-box-shadow">
+                            <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 font14">
+                                <div class="carousel-heading-content"><div class="swiper-heading-left-grid inline-block">
+                                    <h2>More @Model.Make.MakeName showrooms</h2></div><div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="/@Model.Make.MaskingName-dealer-showrooms-in-@Model.CityDetails.CityMaskingName/" title="@Model.Make.MakeName Showrooms in @Model.CityDetails.CityName" class="btn view-all-target-btn">View all</a></div>
+                                <div class="clear"></div></div>
+                                @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.DealersList)
+                            </div>
+                        </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+            </section>
+        }
+        @if (Model.PopularBikes != null && Model.PopularBikes.Bikes != null && Model.PopularBikes.Bikes.Count() > 0)
+        {
+            <div class="container margin-bottom20">
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        <div class="bw-model-tabs-data padding-top20 padding-bottom20 border-solid-bottom font14">
+                            <div class="carousel-heading-content">
+                                <div class="swiper-heading-left-grid inline-block">
+                                    <h2>Popular @Model.Make.MakeName bikes in @Model.CityDetails.CityName</h2>
+                                </div><div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="/@Model.Make.MaskingName-bikes/" title="@Model.Make.MakeName Bikes" class="btn view-all-target-btn">View all</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            @Html.Partial("~/Views/BikeModels/_MostPopularBikes.cshtml", Model.PopularBikes)
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        }
+        @if (Model.ServiceCenterDetails != null && Model.ServiceCenterDetails.ServiceCentersList != null && Model.ServiceCenterDetails.ServiceCentersList.Count() > 0)
+        {
+            <div class="container margin-bottom20">
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        <div class="carousel-heading-content padding-top20">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>@Model.Make.MakeName service centers in @Model.CityDetails.CityName</h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                      <a href="/@Model.Make.MaskingName-service-center-in-@Model.CityDetails.CityMaskingName/" title="@Model.Make.MakeName Service Centers in @Model.CityDetails.CityName" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.ServiceCenterDetails)
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        }
+        @if (Model.LeadCapture != null)
+        {
+            @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
+        }
+        <section>
+    <div class="container margin-top10 margin-bottom30">
+        <div class="grid-12 font12">
+            <span class="font14"><strong>Disclaimer</strong>:</span> The above mentioned information about @Model.Make.MakeName dealership showrooms in @Model.CityDetails.CityName is furnished to the best of our knowledge.
+            All @Model.Make.MakeName bike models and colour options may not be available at each of the @Model.Make.MakeName dealers.
+            We recommend that you call and check with your nearest @Model.Make.MakeName dealer before scheduling a showroom visit.
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>  
+        <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>
+

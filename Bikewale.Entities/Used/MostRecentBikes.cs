@@ -58,9 +58,8 @@ namespace Bikewale.Entities.UsedBikes
         public string UsedOriginalImagePath { get; set; }
         [DataMember]
         public uint ModelId { get; set; }
-
-
-
-
     }
+
+
+
 }

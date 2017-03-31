@@ -1903,7 +1903,7 @@ docReady(function () {
     });
 
     // read more - collapse
-    $('.read-more-target').on('click', function () {
+    $(document).on('click','.read-more-target', function () {
         var element = $(this),
             parentElemtent = element.closest('.collapsible-content');
 

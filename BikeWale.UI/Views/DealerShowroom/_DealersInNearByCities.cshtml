@@ -1,0 +1,24 @@
+﻿@model Bikewale.Entities.Dealer.NearByCityDealer
+@if (Model!=null) 
+{ 
+<div class="jcarousel-wrapper inner-content-carousel map-type-carousel">
+    <div class="jcarousel">
+        <ul>
+            @foreach (var Dealer in Model.objDealerInNearCityList)
+            {
+            <li>
+                <a href="@string.Format("/{0}-dealer-showrooms-in-{1}/",Model.Make.MaskingName,Dealer.CityMaskingName)" title="@string.Format("{0} showrooms in {1}", Model.Make.MakeName, Dealer.CityName)" class="jcarousel-card">
+                    <div class="map_canvas city-map" data-lat="@Dealer.Lattitude" data-long="@Dealer.Longitude"></div>
+                    <div class="card-desc-block">
+                        <p class="card-heading font14 text-bold text-black padding-top5">@Dealer.CityName</p>
+                        <h3 class="text-unbold text-light-grey">@String.Format("{0} {1} showroom{2}", Dealer.DealersCount, Model.Make.MaskingName, Dealer.DealersCount > 1 ? "s" : "")</h3>
+                    </div>
+                </a>
+            </li>
+            }
+        </ul>
+    </div>
+    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+</div>
+}

@@ -94,7 +94,8 @@ namespace Bikewale.Utility
             _FCMUnSusbscribeUserUrl = string.Empty,
             _FCMEnvironment = String.Empty,
             _LeadConsumerQueue = String.Empty,
-            _PinCodesIndexName = string.Empty;
+            _PinCodesIndexName = string.Empty,
+            _DebugMobileSite = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false;
         private readonly int _SecurityHashLength = 0;
@@ -180,6 +181,7 @@ namespace Bikewale.Utility
             _LeadConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["LeadConsumerQueue"]);
             _PinCodesIndexName = Convert.ToString(ConfigurationManager.AppSettings["PinCodesIndexName"]);
             _AWSS3Region = Convert.ToString(ConfigurationManager.AppSettings["AWSS3Region"]);
+            _DebugMobileSite = Convert.ToString(ConfigurationManager.AppSettings["DebugMobileSite"]);
         }
 
         // Static method to provide access to instance
@@ -310,5 +312,6 @@ namespace Bikewale.Utility
         public String LeadConsumerQueue { get { return _LeadConsumerQueue; } }
         public string PinCodesIndexName { get { return _PinCodesIndexName; } }
         public String AWSS3Region { get { return _AWSS3Region; } }
+        public bool DebugMobileSite { get { return string.IsNullOrEmpty(_DebugMobileSite) ? false : Convert.ToBoolean(_DebugMobileSite); } }
     }   // class
 }   // namespace

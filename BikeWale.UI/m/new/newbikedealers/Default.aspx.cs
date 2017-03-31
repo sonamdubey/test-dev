@@ -114,9 +114,9 @@ namespace Bikewale.Mobile.New.DealerLocator
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealer, DealersRepository>();
+                    container.RegisterType<IDealerRepository, DealersRepository>();
 
-                    var objCities = container.Resolve<IDealer>();
+                    var objCities = container.Resolve<IDealerRepository>();
                     _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {

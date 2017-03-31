@@ -1,0 +1,34 @@
+﻿@model Bikewale.Models.RecentExpertReviewsVM
+@using Bikewale.Utility
+@if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Count() > 0) {
+foreach(var review in Model.ArticlesList){
+<div class="model-expert-review-container">
+    <div class="margin-bottom20">
+        <div class="review-image-wrapper">
+            <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))">
+                <img alt="@review.Title" title="@review.Title" src="@Image.GetPathToShowImages(review.OriginalImgUrl,review.HostUrl,ImageSize._144x81)" />
+            </a>
+        </div>
+        <div class="review-heading-wrapper">
+            <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title"  class="font14 target-link">@FormatDescription.TruncateDescription(review.Title, 44)</a>
+            <div class="grid-7 alpha padding-right5">
+                <span class="bwmsprite calender-grey-sm-icon"></span>
+                <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate), "MMM dd, yyyy")</span>
+            </div>
+            <div class="grid-5 alpha omega">
+                <span class="bwmsprite author-grey-sm-icon"></span>
+                <span class="article-stats-content">@review.AuthorName</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <p class="margin-top10">
+            @FormatDescription.TruncateDescription(review.Description,180)
+        </p>
+    </div>
+</div>
+}
+ <!--To be included on specific page -->
+<div class="view-all-btn-container">
+    <a title="@Model.LinkTitle" href="@string.Format("/m{0}",Model.MoreExpertReviewUrl)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
+</div>
+}

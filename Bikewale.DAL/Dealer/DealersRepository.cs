@@ -17,7 +17,7 @@ namespace Bikewale.DAL.Dealer
     /// Created By : Ashwini Todkar on4 June 2014
     /// Summary    : Implements logic to access New Bike Dealers data
     /// </summary>
-    public class DealersRepository : IDealer
+    public class DealersRepository : IDealerRepository
     {
         /// <summary>
         /// Method to get list of make and total dealers for which dealers are available in india

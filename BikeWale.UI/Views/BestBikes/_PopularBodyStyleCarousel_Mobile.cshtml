@@ -1,0 +1,34 @@
+﻿@model Bikewale.Models.PopularBodyStyleVM
+@using Bikewale.Utility
+<div class="swiper-container card-container swiper-small">
+    <div class="swiper-wrapper">
+        @foreach (var bike in Model.PopularBikes)
+        {
+        string bikeName = string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName);
+        <div class="swiper-slide">
+            <div class="swiper-card">
+                <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName))" title="@bikeName">
+                    <div class="swiper-image-preview position-rel">
+                        <img class="swiper-lazy" alt="@bikeName" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostURL,ImageSize._174x98)" title="@bikeName">
+                    </div>
+                    <div class="swiper-details-block">
+                        <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                        @if(bike.VersionPrice > 0) { 
+                        <p class="text-truncate text-light-grey font11">Ex-showroom, @(!string.IsNullOrEmpty(bike.CityName)? bike.CityName : BWConfiguration.Instance.DefaultName)</p>
+                        <p class="text-default">
+                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span>
+                        </p>
+                        }else { 
+                        <p class="text-default">
+                            <span class="font14 text-light-grey">Price not available</span>
+                        </p>
+                         } 
+                    </div>
+                </a>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+
