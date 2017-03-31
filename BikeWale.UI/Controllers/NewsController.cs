@@ -88,11 +88,11 @@ namespace Bikewale.Controllers
         /// Created by : Aditi srivastava on 29 Mar 2017
         /// Summmary   : Action method to render news detail page-desktop
         /// </summary>
-        [Route("newsdetail/{id}/")]
-        public ActionResult Detail(string id)
+        [Route("newsdetail/{basicid}/")]
+        public ActionResult Detail(string basicid)
         {
             _topCount = 3;
-            NewsDetailPage obj = new NewsDetailPage(_articles, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, id, _topCount);
+            NewsDetailPage obj = new NewsDetailPage(_articles, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _topCount);
 
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -115,11 +115,11 @@ namespace Bikewale.Controllers
         /// Created by : Aditi srivastava on 29 Mar 2017
         /// Summmary   : Action method to render news detail page- mobile
         /// </summary>
-        [Route("m/newsdetail/{id}/")]
-        public ActionResult Detail_Mobile(string id)
+        [Route("m/newsdetail/{basicid}/")]
+        public ActionResult Detail_Mobile(string basicid)
         {
             _topCount = 9;
-           NewsDetailPage obj = new NewsDetailPage(_articles, _models, _bikeModels, _upcoming,_bikeInfo,_cityCache,id, _topCount);
+            NewsDetailPage obj = new NewsDetailPage(_articles, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _topCount);
            obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
