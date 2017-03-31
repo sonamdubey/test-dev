@@ -33,16 +33,11 @@
                         }
                 </div>
             }
-            @if (Model.BikeInfo != null) { 
-                <div class="section-bottom-margin">
+               @if(Model.BikeInfo != null) { 
+                
               @Html.Partial("~/Views/BikeModels/_minBikeInfoCard_Mobile.cshtml", Model.BikeInfo)
-                    </div>
+                    
               }
-                       
-                         @*<div class="section-bottom-margin">
-                <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
-            </div>*@
-
                         @if(Model.BikeTested != null && !String.IsNullOrEmpty(Model.BikeTested.ToString())){
                             @Html.Raw(string.Format("<div class='font12 text-light-grey margin-top10 margin-bottom10'>{0}</div>",Model.BikeTested)) }
                         <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
@@ -62,7 +57,8 @@
                         </ul>
                         <div class="clear"></div>
 
-                        @if (Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount>0){
+                        @if (Model.PhotoGallery!=null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
+                        {
                             <div class="border-solid-top padding-top10">
                                 <h3 class="margin-bottom10">Images</h3>
                                 <div class="swiper-container article-photos-swiper">
@@ -142,32 +138,14 @@ else
     }
 }
 
-@*<BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
-            <%if (isModelTagged)
-              { %>
-            <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0)
-              {%>
-    <section>
-        <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
-            <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server" />
-        </div>
-    </section>
-            <%} %>
-            <%}
-              else
-              {%>
-    <BW:MUpcomingBikesMin ID="ctrlUpcomingBikes" runat="server" />
-            <%} %>*@
 @if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
 {
 <section>
     <div class="model-gallery-container relative-gallery-container">
-        <h3 class="font16 text-white">@Model.ArticleDetails.Title Images</h3>
+        <h3 class="font16 text-white">@Model.ArticleDetails.Title</h3>
         <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
-            @Html.Partial("~Views/Shared/_EditCMSModelGallery_Mobile.cshtml",Model.PhotoGallery)
+            @Html.Partial("~/Views/Shared/_EditCMSModelGallery_Mobile.cshtml",Model.PhotoGallery)
         </div>
     </section>
 }
- 
-            @*<BW:ModelGallery runat="server" ID="photoGallery" />*@
 <div class="back-to-top" id="back-to-top"></div>

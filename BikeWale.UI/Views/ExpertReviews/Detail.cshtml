@@ -1,4 +1,19 @@
-﻿<section class="container padding-top10">
+﻿@model Bikewale.Models.ExpertReviewsDetailPageVM
+@using Bikewale.Utility
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' />";
+    Model.Page_JS_Path = "/src/content/details.js";
+    Model.PageMetaTags.FBTitle = Model.ArticleDetails.Title;
+    Model.AdTags.AdId = "1395986297721";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Reviews_";
+    Model.AdTags.Ad_300x250 = true;
+    Model.AdTags.Ad_300x250BTF = true;
+    Model.AdTags.Ad_970x90 = true;
+    Model.AdTags.Ad_970x90Bottom = true;
+    Model.IsHeaderFix = true;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="container padding-top10">
     <div class="grid-12">
         <div class="breadcrumb margin-bottom15">
             <ul>
@@ -13,7 +28,7 @@
                         <span itemprop="title">Expert Reviews</span>
                     </a>
                 </li>
-                <li><span class="bwsprite fa-angle-right margin-right10"></span><%= articleTitle%></li>
+                <li><span class="bwsprite fa-angle-right margin-right10"></span>@Model.ArticleDetails.Title</li>
             </ul>
             <div class="clear"></div>
         </div>
@@ -27,78 +42,124 @@
             <div id="content" class="grid-8 alpha">
                 <div class="bg-white">
                     <div class="section-header">
-                        <h1 class="margin-bottom5"><%= articleTitle%></h1>
+                        <h1 class="margin-bottom5">@Model.ArticleDetails.Title</h1>
                         <div>
                             <span class="bwsprite calender-grey-sm-icon"></span>
-                            <span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %></span>
+                            <span class="article-stats-content margin-right20">@FormatDate.GetFormatDate(Convert.ToString(Model.ArticleDetails.DisplayDate), "MMMM dd, yyyy hh:mm tt")</span>
                             <span class="bwsprite author-grey-sm-icon"></span>
-                            <span class="article-stats-content margin-right20"><%= authorName %></span>
-                            <span class="font12 inline-block text-light-grey"><%= (_bikeTested!=null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("{0}",_bikeTested) : "" %></span>
+                            <span class="article-stats-content margin-right20">@Model.ArticleDetails.AuthorName</span>
+                            <span class="font12 inline-block text-light-grey">
+                                @if(Model.BikeTested!=null && !string.IsNullOrEmpty(Model.BikeTested.ToString())){
+                                    @Html.Raw(Model.BikeTested)}
+                            </span>
                         </div>
                     </div>
                     <div class="section-inner-padding">
-                        <div id="topNav" runat="server" class="margin-bottom10">
-                            <asp:Repeater ID="rptPages" runat="server">
-                                <headertemplate>
-                                    <ul>
-                                </headertemplate>
-                                <itemtemplate>
-                                    <li>
-                                        <a href="#<%#Eval(" pageid") %>"><%#Eval("PageName") %></a>
-                                    </li>
-                                </itemtemplate>
-                                <footertemplate>
+                        <div id="topNav" class="margin-bottom10">
+                            @if(Model.ArticleDetails.PageList!=null && Model.ArticleDetails.PageList.Count()>0){
+                                <ul>
+                                    @foreach (var page in Model.ArticleDetails.PageList) {
+                                        <li>
+                                            <a href="#@page.pageId">@page.PageName</a>
+                                        </li>
+                                       }
                                     <li>
                                         <a href="#divPhotos">Images</a>
                                     </li>
-                                    </ul>
-                                </footertemplate>
-                            </asp:Repeater>
+                                </ul>
+                                      }
                         </div>
                         <div class="clear"></div>
-                        <asp:Repeater ID="rptPageContent" runat="server">
-                            <itemtemplate>
-                                <div class="margin-top10 margin-bottom10">
-                                    <h3 class="article-content-title"><%#Eval("PageName") %></h3>
-                                    <div id='<%#Eval("pageId") %>' class="margin-top10 article-content">
-                                        <%#Eval("content") %>
-                                    </div>
+                        @if(Model.ArticleDetails.PageList!=null && Model.ArticleDetails.PageList.Count()>0){
+                           foreach (var page in Model.ArticleDetails.PageList) {
+                            <div class="margin-top10 margin-bottom10">
+                                <h3 class="article-content-title">@page.PageName</h3>
+                                <div id='@page.pageId' class="margin-top10 article-content">
+                                    @Html.Raw(page.Content)
                                 </div>
-                            </itemtemplate>
-                        </asp:Repeater>
+                            </div>
+                            }}
+                        @if(Model.BikeInfo != null) {
+                            @Html.Partial("~/Views/BikeModels/_minBikeInfoCard.cshtml", Model.BikeInfo)
+                                }
 
-                        <BW:MinGenericBikeInfo ID="ctrlMinGenericBikeInfo" runat="server" />
-
-                        <div id="divPhotos">
-                            <PG:PhotoGallery runat="server" ID="ctrPhotoGallery" />
-                        </div>
+                        @if (Model.PhotoGallery!=null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
+                        {
+                            <div id="divPhotos">
+                                @Html.Partial("~/Views/Shared/_EditCMSPhotoGallery.cshtml",Model.PhotoGallery.Images)
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
             <div class="grid-4 omega">
-                <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+                @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
+                {
+                    <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                        <h2>@Model.MostPopularBikes.WidgetHeading</h2>
+                        @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
+
+                        <div class="view-all-btn-container padding-top10 padding-bottom10">
+                            <a href="@Model.MostPopularBikes.WidgetHref" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                        </div>
+                    </div>
+                }
                 <div class="margin-bottom20">
-                    <!-- #include file="/ads/ad300x250.aspx" -->
+                    @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                 </div>
-                <%if(isModelTagged){ %>
-                <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){ %>
-                <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                    <h2>Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
-                    <BW:PopularBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server" />
-                </div>
-                <%} %>
-                <%} else{%>
-                <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
-                <%} %>
+                @if (Model.Model != null && Model.Model.ModelId > 0)
+                {
+                    if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Count() > 0)
+                    {
+                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                            <h2>@Model.PopularBodyStyle.WidgetHeading</h2>
+                            @Html.Partial("~/Views/BestBikes/_PopularBodyStyle_Vertical.cshtml", Model.PopularBodyStyle)
+                            <div class="view-all-btn-container padding-top10 padding-bottom10">
+                                <a href="@Model.PopularBodyStyle.WidgetHref" title="@Model.PopularBodyStyle.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
+                    {
+                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                            <h2>@Model.UpcomingBikes.WidgetHeading</h2>
+                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
+                            <div class="view-all-btn-container padding-top10 padding-bottom10">
+                                <a href="@Model.UpcomingBikes.WidgetHref" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    }
+                }
             </div>
             <div class="clear"></div>
         </div>
         <div class="clear"></div>
     </div>
 </section>
-
-
 <div class="back-to-top" id="back-to-top"></div>
+@if (Model.PhotoGallery!=null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
+{
+    <section>
+        <div class="model-gallery-container">
+            <div class="blackOut-window-model"></div>
+            <div class="modelgallery-close-btn position-abt pos-top20 pos-right20 bwsprite cross-lg-white cur-pointer hide"></div>
+            <div class="bw-tabs-panel bike-gallery-popup hide" id="bike-gallery-popup">
 
-<!-- #include file="/includes/footerBW.aspx" -->
-<BW:ModelGallery ID="ctrlModelGallery" runat="server" />
+                <div class="bike-gallery-heading margin-bottom20 margin-left30 margin-top90">
+                    <p class="font18 text-bold text-white">@Model.ArticleDetails.Title</p>
+                </div>
+                @Html.Partial("~/Views/Shared/_EditCMSModelGallery.cshtml", Model.PhotoGallery)
+            </div>
+        </div>
+    </section>
+}
+ <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/jquery.floating-social-share.min.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
+<link rel='stylesheet' type='text/css' href='/css/jquery.floating-social-share.min.css' />
+<script type="text/javascript">
+        docReady(function () {
+            $("body").floatingSocialShare();
+        });
+    </script>

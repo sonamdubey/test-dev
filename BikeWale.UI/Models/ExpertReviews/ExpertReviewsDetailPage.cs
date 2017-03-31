@@ -34,7 +34,6 @@ namespace Bikewale.Models
         private readonly IBikeInfo _bikeInfo;
         private readonly ICityCacheRepository _cityCacheRepo;
         private IUpcoming _upcoming = null;
-        private IVideos _videos = null;
         private string _basicId;
         private int _topCount;
         #endregion
@@ -58,13 +57,12 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IVideos videos, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, int topCount)
+        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, int topCount)
         {
             _cmsCache = cmsCache;
             _models = models;
             _bikeModels = bikeModels;
             _upcoming = upcoming;
-            _videos = videos;
             _bikeInfo = bikeInfo;
             _cityCacheRepo = cityCacheRepo;
             _basicId = basicId;
@@ -121,8 +119,7 @@ namespace Bikewale.Models
                     SetPageMetas(objData);
                     GetWidgetData(objData);
                     PopulatePhotoGallery(objData);
-                    if (IsMobile)
-                        SetBikeTested(objData);
+                    SetBikeTested(objData);
                 }
                 else
                     status = StatusCodes.ContentNotFound;
@@ -307,11 +304,13 @@ namespace Bikewale.Models
         {
             try
             {
-                EditCMSPhotoGallery objGallery = new EditCMSPhotoGallery(_cmsCache, _videos);
-                objGallery.BasicId = basicId;
-                objGallery.ModelId = ModelId;
-                objData.PhotoGallery = objGallery.GetData();
-                if (objData.PhotoGallery != null && objData.Make != null && objData.Model != null)
+                objData.PhotoGallery = new EditCMSPhotoGalleryVM();
+                objData.PhotoGallery.Images = _cmsCache.GetArticlePhotos(Convert.ToInt32(basicId));
+                if (objData.PhotoGallery.Images != null && objData.PhotoGallery.Images.Count() > 0)
+                {
+                    objData.PhotoGallery.ImageCount = objData.PhotoGallery.Images.Count();
+                }
+                if (objData.Make!=null && objData.Model!=null)
                     objData.PhotoGallery.BikeName = string.Format("{0} {1}", objData.Make.MakeName, objData.Model.ModelName);
             }
             catch (Exception ex)

@@ -933,7 +933,6 @@
     <Compile Include="Models\News\NewsIndexPage.cs" />
     <Compile Include="Models\Location\ChangeLocationPopup.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
-    <Compile Include="Models\PhotoGallery\EditCMSPhotoGallery.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
