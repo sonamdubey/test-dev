@@ -4,7 +4,7 @@ using Bikewale.Entities.Pager;
 using System.Collections.Generic;
 namespace Bikewale.Models
 {
-    public class IndexFeatureVM
+    public class IndexFeatureVM : ModelBase
     {
         public IList<ArticleSummary> ArticlesList { get; set; }
         public PagerEntity PagerEntity { get; set; }
@@ -13,5 +13,7 @@ namespace Bikewale.Models
         public uint StartIndex { get; set; }
         public uint EndIndex { get; set; }
         public uint TotalArticles { get; set; }
+        public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
+        public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
     }
 }

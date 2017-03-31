@@ -168,7 +168,7 @@ namespace Bikewale.Cache.DealersLocator
         public IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId)
         {
             IEnumerable<NearByCityDealerCountEntity> objDealerCountList = null;
-            string key = String.Format("BW_NearByCityDealerCount_{0}_{1}", makeId, cityId);
+            string key = String.Format("BW_NearByCityDealers_{0}_{1}", makeId, cityId);
             try
             {
                 objDealerCountList = _cache.GetFromCache<IEnumerable<NearByCityDealerCountEntity>>(key, new TimeSpan(1, 0, 0), () => _objDealersRepository.FetchNearByCityDealersCount(makeId, cityId));

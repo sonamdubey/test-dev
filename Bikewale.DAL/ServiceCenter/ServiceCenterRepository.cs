@@ -490,7 +490,7 @@ namespace Bikewale.DAL.ServiceCenter
             IList<CityBrandServiceCenters> listServiceCenter = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecentersfornearbycities"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecentersfornearbycities_31032017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
@@ -511,6 +511,7 @@ namespace Bikewale.DAL.ServiceCenter
                                 objServiceCenters.ServiceCenterCount = SqlReaderConvertor.ToInt32(dr["ServiceCenterCount"]);
                                 objServiceCenters.Lattitude = SqlReaderConvertor.ToFloat(dr["Lattitude"]);
                                 objServiceCenters.Longitude = SqlReaderConvertor.ToFloat(dr["Longitude"]);
+                                objServiceCenters.GoogleMapImg = Convert.ToString(dr["googlemapimgurl"]);
                                 listServiceCenter.Add(objServiceCenters);
                             }
                             dr.Close();

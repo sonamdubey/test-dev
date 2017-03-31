@@ -153,6 +153,15 @@
     }
 }
 
+.dealer-location-img{
+    width:200px;
+    height:75px;
+    display: block;
+    background-color: rgb(229, 227, 223);
+    background-size: cover;
+    background-position: center center;
+}
+
 @media only screen and (max-width: 320px) {
     .bw-horizontal-swiper.card-container .swiper-slide {
         width: 275px;

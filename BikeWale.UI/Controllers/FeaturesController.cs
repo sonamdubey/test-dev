@@ -1,4 +1,7 @@
 ﻿using Bikewale.CoreDAL;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models;
@@ -10,14 +13,18 @@ namespace Bikewale.Controllers
 {
     public class FeaturesController : Controller
     {
-        private ICMSCacheContent _Cache = null;
-        private IPager _objPager = null;
+        private readonly ICMSCacheContent _Cache = null;
+        private readonly IPager _objPager = null;
+        private readonly IUpcoming _upcoming = null;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
 
 
-        public FeaturesController(ICMSCacheContent Cache, IPager objPager)
+        public FeaturesController(ICMSCacheContent Cache, IPager objPager, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels)
         {
             _Cache = Cache;
             _objPager = objPager;
+            _upcoming = upcoming;
+            _bikeModels = bikeModels;
         }
 
         /// <summary>
@@ -25,17 +32,24 @@ namespace Bikewale.Controllers
         /// Summary :- Index Method for Features news section
         /// </summary>
         /// <returns></returns>
-        [Route("content/features/{pageNumber}")]
+        [Route("features/")]
         [Filters.DeviceDetection()]
         public ActionResult Index(ushort? pageNumber)
         {
             try
             {
-                IndexPage objIndexPage = new IndexPage(_Cache, _objPager);
+                IndexPage objIndexPage = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
                 if (objIndexPage != null)
                 {
                     IndexFeatureVM objFeatureIndex = new IndexFeatureVM();
-                    return View(objFeatureIndex);
+                    objIndexPage.TopCount = 4;
+                    if (pageNumber.HasValue && pageNumber.Value > 0)
+                        objIndexPage.CurPageNo = pageNumber.Value;
+                    objFeatureIndex = objIndexPage.GetData();
+                    if (objIndexPage.status == Entities.StatusCodes.ContentFound)
+                        return View(objFeatureIndex);
+                    else
+                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
                 }
                 else
                 {
@@ -51,10 +65,35 @@ namespace Bikewale.Controllers
 
 
         }
-        [Route("m/content/features/{pageNumber}")]
+        [Route("m/features/")]
         public ActionResult Index_Mobile(ushort? pageNumber)
         {
-            return View();
+            try
+            {
+                IndexPage objIndexPage = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
+                if (objIndexPage != null)
+                {
+                    IndexFeatureVM objFeatureIndex = new IndexFeatureVM();
+                    objIndexPage.TopCount = 9;
+                    if (pageNumber.HasValue && pageNumber.Value > 0)
+                        objIndexPage.CurPageNo = pageNumber.Value;
+                    objFeatureIndex = objIndexPage.GetData();
+                    if (objIndexPage.status == Entities.StatusCodes.ContentFound)
+                        return View(objFeatureIndex);
+                    else
+                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
+                else
+                {
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "FeaturesController.Index");
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
         }
 
         public ActionResult Details()

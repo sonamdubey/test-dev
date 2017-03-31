@@ -4,7 +4,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Compare;
-using Bikewale.Models.Upcoming;
+using Bikewale.Models;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;

@@ -16,7 +16,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Utility;
 using Bikewale.Models.BestBikes;
-using Bikewale.Models.Upcoming;
+using Bikewale.Models;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Pager;
 

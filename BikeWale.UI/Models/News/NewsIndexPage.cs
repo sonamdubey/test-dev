@@ -11,7 +11,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models.BestBikes;
 using Bikewale.Utility;
-using Bikewale.Models.Upcoming;
+using Bikewale.Models;
 using System;
 using System.Collections.Generic;
 using System.Web;
