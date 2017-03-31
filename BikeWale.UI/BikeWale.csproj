@@ -457,7 +457,6 @@
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\MakeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
-    <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
     <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
@@ -907,6 +906,9 @@
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
+    <Compile Include="Models\Features\IndexPage.cs" />
+    <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
+
     <Compile Include="Models\ExpertReviews\ExpertReviewsDetailPage.cs" />
     <Compile Include="Models\Make\BrandCityPopupModel.cs" />
     <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
@@ -3525,7 +3527,7 @@
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
     <Content Include="Views\Videos\Details.cshtml" />
     <Content Include="Views\Videos\_SimilarVideos.cshtml" />
-    <Content Include="Views\m\Scooters\BikesByMake.cshtml" />
+    <Content Include="Views\Scooters\BikesByMake_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_BikeInfoCard.cshtml" />
     <Content Include="Views\Videos\Makes_Mobile.cshtml" />
     <Content Include="Views\Videos\Makes.cshtml" />
@@ -3682,8 +3684,13 @@
     <Content Include="Views\Shared\_EditCMSPhotoGallery.cshtml" />
     <Content Include="Views\DealerShowroom\_showrooms_Mobile.cshtml" />
     <Content Include="Views\Make\Index_Mobile.cshtml" />
-    <Content Include="Views\Videos\Index.cshtml" />
     <Content Include="Views\Videos\Index_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\Detail.cshtml" />
+    <Content Include="Views\ExpertReviews\Detail_Mobile.cshtml" />
+    <Content Include="Views\Features\Index.cshtml" />
+    <Content Include="Views\Features\Index_Mobile.cshtml" />
+    <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia.cshtml" />
+    <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3700,14 +3707,12 @@
     <Folder Include="community\pms\" />
     <Folder Include="content\ComparisonTest\" />
     <Folder Include="Controllers\m\new\Scooters\" />
-    <Folder Include="Models\Features\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
     <Folder Include="Views\BikeInfo\" />
     <Folder Include="Views\Content\News\Amp\" />
-    <Folder Include="Views\Features\" />
     <Folder Include="Views\GenericBikeInfo\" />
   </ItemGroup>
   <ItemGroup>

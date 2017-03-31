@@ -14,6 +14,7 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Entities;
+using Bikewale.Interfaces.Videos;
 
 namespace Bikewale.Controllers
 {
@@ -104,14 +105,58 @@ namespace Bikewale.Controllers
         }
 
         /// <summary>
-        /// Action to get the expertreviews details
+        /// Created by : Aditi Srivastava on 31 Mar 2017
+        /// Summary    : Action method for expert review details page - Mobile
         /// </summary>
-        /// <param name="basicid"></param>
-        /// <returns></returns>
         [Route("m/expertreviews/details/{basicid}/")]
-        public ActionResult Details(uint basicid)
+        public ActionResult Detail_Mobile(string basicid)
         {
-            return View();
+            _topCount = 9;
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _topCount);
+            obj.IsMobile = true;
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/m/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
+            }
+            else
+            {
+                ExpertReviewsDetailPageVM objData = obj.GetData();
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pagenotfound.aspx");
+                else
+                    return View(objData);
+            }
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 31 Mar 2017
+        /// Summary    : Action method for expert review details page - Desktop
+        /// </summary>
+        [Route("expertreviews/details/{basicid}/")]
+        public ActionResult Detail(string basicid)
+        {
+            _topCount = 3;
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _topCount);
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.redirectUrl);
+            }
+            else
+            {
+                ExpertReviewsDetailPageVM objData = obj.GetData();
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/pagenotfound.aspx");
+                else
+                    return View(objData);
+            }
         }
 
         /// <summary>
@@ -171,40 +216,6 @@ namespace Bikewale.Controllers
             return View("~/views/m/content/expertreviews/details_amp.cshtml", objExpertReviews);
         }
 
-        /// <summary>
-        /// Action to get the latest expertreviews
-        /// </summary>
-        /// <param name="count">no of expertreviews required</param>
-        /// <returns></returns>
-        [Route("m/expertreviews/latest/{count}/")]
-        public ActionResult Latest(int count)
-        {
-            return PartialView();
-        }
-
-        /// <summary>
-        /// Action to get the latst expertreviews for a given make
-        /// </summary>
-        /// <param name="makeId">make id for which expertreviews are required</param>
-        /// <param name="count">no of expertreviews required</param>
-        /// <returns></returns>
-        [Route("m/expertreviews/make/{makeId}/latest/{count}/")]
-        public ActionResult LatestExpertReviewsByMake(int makeId, int count)
-        {
-            return PartialView();
-        }
-
-        /// <summary>
-        /// Action to get the latest expertreviews for a given model
-        /// </summary>
-        /// <param name="modelId">model id for which expertreviews are required</param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        [Route("m/expertreviews/model/{modelId}/latest/{count}/")]
-        public ActionResult LatestExpertReviewsByModel(int modelId, int count)
-        {
-            return PartialView();
-        }
         #endregion
     }
 }

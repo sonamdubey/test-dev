@@ -24,7 +24,6 @@ namespace Bikewale.Models.ServiceCenters
         public ServiceCentersCard(IServiceCenter objSC, uint topCount, BikeMakeEntityBase make, CityEntityBase city)
         {
             _objSC = objSC;
-            _serviceCenterId = 0;
             _topCount = topCount;
             _make = make;
             _city = city;

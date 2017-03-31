@@ -161,7 +161,7 @@ namespace Bikewale.Controllers
         /// <param name="makeMaskingName"></param>
         /// <returns></returns>
         [Route("m/scooters/make/{makemaskingname}/")]
-        public ActionResult MBikesByMake(string makeMaskingName)
+        public ActionResult BikesByMake_Mobile(string makeMaskingName)
         {
 
             try
@@ -220,7 +220,7 @@ namespace Bikewale.Controllers
         }
 
         [Route("m/scooters/otherBrands/")]
-        public ActionResult OtherBrandsMobile(uint makeId)
+        public ActionResult OtherBrands_Mobile(uint makeId)
         {
             ScooterBrands scooters = new ScooterBrands();
             IEnumerable<BikeMakeEntityBase> otherBrand = scooters.GetOtherScooterBrands(_objMakeCache, makeId, 9);

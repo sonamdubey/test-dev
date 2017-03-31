@@ -19,5 +19,9 @@ namespace Bikewale.DTO.AWS
         public string Policy { get; set; }
         [Required, JsonProperty("signature")]
         public string Signature { get; set; }
+        [JsonProperty("datetimeiso")]
+        public string DatetTmeISO { get; set; }
+        [JsonProperty("datetimeisolong")]
+        public string DateTimeISOLong { get; set; }
     }
 }
