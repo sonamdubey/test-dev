@@ -933,6 +933,7 @@
     <Compile Include="Models\News\NewsIndexPage.cs" />
     <Compile Include="Models\Location\ChangeLocationPopup.cs" />
     <Compile Include="Models\News\RecentNews.cs" />
+    <Compile Include="Models\PhotoGallery\EditCMSPhotoGallery.cs" />
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
@@ -3681,6 +3682,8 @@
     <Content Include="Views\Shared\_EditCMSPhotoGallery.cshtml" />
     <Content Include="Views\DealerShowroom\_showrooms_Mobile.cshtml" />
     <Content Include="Views\Make\Index_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\Detail.cshtml" />
+    <Content Include="Views\ExpertReviews\Detail_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

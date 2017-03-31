@@ -506,5 +506,77 @@ namespace Bikewale.BAL.Videos
 
             return objVideosList;
         }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 31 Mar 2017
+        /// Summary    : Get list of videos by model
+        /// </summary>
+        public IEnumerable<BikeVideoEntity> GetVideosByModelId(uint ModelId)
+        {
+            return GetVideosByModelIdViaGrpc(ModelId);
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 31 Mar 2017
+        /// Summary    : Get list of videos by model
+        /// </summary>
+        private  IEnumerable<BikeVideoEntity> GetVideosByModelIdViaGrpc(uint ModelId)
+        {
+            IEnumerable<BikeVideoEntity> objVideosList = null;
+            try
+            {
+                if (_useGrpc)
+                {
+                    int startIndex, endIndex;
+                    Bikewale.Utility.Paging.GetStartEndIndex(1000, 1, out startIndex, out endIndex);
+
+                    var _objVideoList = GrpcMethods.GetVideosByModelId((int)ModelId, (uint)startIndex, (uint)endIndex);
+
+                    if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
+                    {
+                        objVideosList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList.LstGrpcVideos);
+                    }
+                    else
+                    {
+                        objVideosList = GetVideosByModelIdOldWay(ModelId);
+                    }
+                }
+                else
+                {
+                    objVideosList = GetVideosByModelIdOldWay(ModelId);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                objVideosList = GetVideosByModelIdOldWay(ModelId);
+            }
+
+            return objVideosList;
+        }
+        
+        /// <summary>
+        /// Created by : Aditi Srivastava on 31 Mar 2017
+        /// Summary    : Get list of videos by model
+        /// </summary>
+        private IEnumerable<BikeVideoEntity> GetVideosByModelIdOldWay(uint ModelId)
+        {
+            string _apiUrl = string.Empty;
+            List<BikeVideoEntity> objVideosList = null;
+            try
+            {
+                _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo=1&pageSize=1000", ModelId);
+
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BindModelGallery.GetVideos");
+            }
+            return objVideosList;
+        }
     }
 }
