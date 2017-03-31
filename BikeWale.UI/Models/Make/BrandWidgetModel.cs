@@ -17,10 +17,18 @@ namespace Bikewale.Models
         public ushort TopCount { get; private set; }
         private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelCache = null;
         public BrandWidgetModel(ushort topCount, IBikeMakes<BikeMakeEntity, int> bikeMakes)
         {
             _bikeMakes = bikeMakes;
             TopCount = topCount;
+        }
+
+        public BrandWidgetModel(ushort topCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache)
+        {
+            _bikeMakes = bikeMakes;
+            TopCount = topCount;
+            _objModelCache = objModelCache;
         }
 
         /// <summary>
@@ -85,6 +93,14 @@ namespace Bikewale.Models
                             make.Href = Utility.UrlFormatter.FormatMakeWiseBikeLaunchedUrl(make.MaskingName);
                             make.Title = String.Format("Newly launched {0} bikes", make.MakeName);
                         }
+                    }
+                    break;
+                case EnumBikeType.Videos:
+                    _brands = _objModelCache.GetMakeIfVideo();
+                    foreach (var make in _brands)
+                    {
+                        make.Href = String.Format("/{0}-bikes/videos/", make.MaskingName);
+                        make.Title = String.Format("{0} bikes videos", make.MakeName);
                     }
                     break;
                 default:
