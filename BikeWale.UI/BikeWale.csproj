@@ -907,6 +907,7 @@
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
+    <Compile Include="Models\Features\IndexPage.cs" />
     <Compile Include="Models\Make\BrandCityPopupModel.cs" />
     <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
     <Compile Include="Models\DealerPriceQuotePage.cs" />
@@ -3672,6 +3673,7 @@
     <Content Include="Views\News\Detail.cshtml" />
     <Content Include="Views\DealerShowroom\_showrooms_Mobile.cshtml" />
     <Content Include="Views\Make\Index_Mobile.cshtml" />
+    <Content Include="Views\Features\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3688,14 +3690,12 @@
     <Folder Include="community\pms\" />
     <Folder Include="content\ComparisonTest\" />
     <Folder Include="Controllers\m\new\Scooters\" />
-    <Folder Include="Models\Features\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
     <Folder Include="Views\BikeInfo\" />
     <Folder Include="Views\Content\News\Amp\" />
-    <Folder Include="Views\Features\" />
     <Folder Include="Views\GenericBikeInfo\" />
   </ItemGroup>
   <ItemGroup>
