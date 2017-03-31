@@ -12,5 +12,6 @@ namespace Bikewale.Models.Videos
         public string SectionTitle { get; set; }
         public string CategoryIdList { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
+        public string SectionBackgroundClass { get; set; }
     }
 }

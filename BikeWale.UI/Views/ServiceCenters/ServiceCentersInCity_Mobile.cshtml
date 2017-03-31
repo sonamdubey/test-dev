@@ -210,4 +210,3 @@
     @Html.Partial("~/Views/Make/_BrandCityPopup_Mobile.cshtml", Model.BrandCityPopupWidget)
 }
 @{Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.City.CityId, cityName = Model.City.CityName });}
-<script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey"></script>
