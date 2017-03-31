@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Bikewale.Entities.CMS.Photos.ModelImage>
+@using Bikewale.Utility
+@if (Model != null && Model.Count()>0) { 
+<div id="ctrlNewsPhotoGallery_taggedPhotogallery">
+    <h2 class="border-solid-top padding-top10">Gallery</h2>
+    <div id="gallery">
+        <div class="jcarousel-wrapper article-jcarousel-wrapper">
+            <div class="jcarousel article-jcarousel">
+                
+                        <ul id="image-gallery">
+                @foreach (var photo in Model)
+                {
+                                    <li>
+                            <div class="article-img-container">
+                                <span>
+                                    <img border="0" class="lazy" data-original="@Image.GetPathToShowImages(photo.OriginalImgPath,photo.HostUrl,ImageSize._640x348)" alt="@photo.AltImageName" title="@photo.ImageTitle" src="">
+                                </span>
+                            </div>
+                        </li>
+                }
+                            </ul>
+            </div>
+            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive"></a></span>
+            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+}
