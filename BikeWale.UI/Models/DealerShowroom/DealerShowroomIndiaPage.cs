@@ -12,7 +12,7 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Used;
-using Bikewale.Models.Upcoming;
+using Bikewale.Models;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;

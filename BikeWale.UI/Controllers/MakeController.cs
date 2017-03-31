@@ -1,6 +1,7 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Used;
@@ -27,8 +28,9 @@ namespace Bikewale.Controllers
         private readonly IVideos _videos = null;
         private readonly IUsedBikeDetailsCacheRepository _cachedBikeDetails;
         private readonly IDealerCacheRepository _cacheDealers;
+        private readonly IUpcoming _upcoming = null;
 
-        public MakeController(IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers)
+        public MakeController(IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming)
         {
             _dealerServiceCenters = dealerServiceCenters;
             _bikeModelsCache = bikeModelsCache;
@@ -38,13 +40,14 @@ namespace Bikewale.Controllers
             _videos = videos;
             _cachedBikeDetails = cachedBikeDetails;
             _cacheDealers = cacheDealers;
+            _upcoming = upcoming;
         }
         // GET: Makes
         [Route("makepage/{makeMaskingName}/")]
         [Bikewale.Filters.DeviceDetection]
         public ActionResult Index(string makeMaskingName)
         {
-            MakePageModel obj = new MakePageModel(makeMaskingName, 9, _dealerServiceCenters, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers);
+            MakePageModel obj = new MakePageModel(makeMaskingName, 9, _dealerServiceCenters, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming);
             MakePageVM objData = new MakePageVM();
             if (obj != null)
             {
@@ -76,7 +79,7 @@ namespace Bikewale.Controllers
         [Route("m/makepage/{makeMaskingName}/")]
         public ActionResult Index_Mobile(string makeMaskingName)
         {
-            MakePageModel obj = new MakePageModel(makeMaskingName, 9, _dealerServiceCenters, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers);
+            MakePageModel obj = new MakePageModel(makeMaskingName, 9, _dealerServiceCenters, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming);
             MakePageVM objData = new MakePageVM();
             if (obj != null)
             {

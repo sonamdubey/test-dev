@@ -4,6 +4,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Used;
@@ -33,12 +34,13 @@ namespace Bikewale.Models
         private readonly IVideos _videos = null;
         private readonly IUsedBikeDetailsCacheRepository _cachedBikeDetails = null;
         private readonly IDealerCacheRepository _cacheDealers = null;
+        private readonly IUpcoming _upcoming = null;
         public StatusCodes status;
         public MakeMaskingResponse objResponse;
         //public BikeMakeEntityBase objMake;
         public string redirectUrl;
 
-        public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers)
+        public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming)
         {
             this._makeMaskingName = makeMaskingName;
             this._dealerServiceCenters = dealerServiceCenters;
@@ -50,6 +52,7 @@ namespace Bikewale.Models
             this._videos = videos;
             this._cachedBikeDetails = cachedBikeDetails;
             this._cacheDealers = cacheDealers;
+            this._upcoming = upcoming;
             ProcessQuery(this._makeMaskingName);
         }
 
@@ -99,12 +102,27 @@ namespace Bikewale.Models
                     objData.DealerServiceCenters.TotalDealerCount = baseDetails.TotalDealerCount;
                     objData.DealerServiceCenters.TotalServiceCenterCount = baseDetails.TotalServiceCenterCount;
                 }
-                UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_bikeModelsCache)
-                 {
-                     MakeId = this._makeId,
-                     TopCount = 9
-                 };
+                //UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_bikeModelsCache)
+                // {
+                //     MakeId = this._makeId,
+                //     TopCount = 9
+                // };
+                //objData.UpcomingBikes = objUpcoming.GetData();
+
+
+                UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
+
+                objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+                {
+                    EndIndex = 9,
+                    StartIndex = 1,
+                    MakeId = (int)this._makeId
+                };
+                objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
                 objData.UpcomingBikes = objUpcoming.GetData();
+
+
+
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription((int)_makeId);
                 objData.News = new RecentNews(2, _makeId, _makeName, _makeMaskingName, string.Format("{0} News", _makeName), _articles).GetData();
 
