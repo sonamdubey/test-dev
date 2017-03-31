@@ -1,4 +1,255 @@
-﻿#modelCityPriceDetails {width: 100%;display: table;padding: 15px 10px 10px;}
+﻿/* common */
+.text-slate-grey {
+    color: #787878;
+}
+.card-h2-heading {
+    font-size: 18px;
+}
+.border-solid-bottom2 {
+    border-bottom: 2px solid #e2e2e2;
+}
+
+/* floating tabs */
+#modelOverallSpecsTopContent {
+    height: 44px;
+}
+.overall-specs-tabs-container {
+    width: 100%;
+    display: block;
+    background: #fff;
+    overflow-x: auto;
+    z-index: 2;
+    -webkit-overflow-scrolling: touch;
+    position: absolute;
+    top: 0;
+    -moz-box-shadow: 0 4px 5px -2px #d5d5d5;
+    -webkit-box-shadow: 0 4px 5px -2px #d5d5d5;
+    -o-box-shadow: 0 4px 5px -2px #d5d5d5;
+    -ms-box-shadow: 0 4px 5px -2px #d5d5d5;
+    box-shadow: 0 4px 5px -2px #d5d5d5;
+}
+.overall-specs-tabs-container.fixed-tab-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.overall-specs-tabs-wrapper {
+    width: 100%;
+    display: table;
+}
+.overall-specs-tabs-wrapper li {
+    display: table-cell;
+    width: 1%;
+    padding: 10px 15px;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #82888b;
+    cursor: pointer;
+}
+.overall-specs-tabs-wrapper li.active {
+    border-bottom: 3px solid #ef3f30;
+    color: #4d5057;
+    font-weight: 600;
+}
+.overall-specs-tabs-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+/* on-road price content */
+/* model-image */
+.model-image {
+    width: 120px;
+    height: 68px;
+}
+
+.model-image img {
+    width: 100%;
+}
+
+/* model-version-block */
+.model-version-block {
+    width: 60%;
+}
+
+/* dropdown */
+
+
+/* facts */
+.font-bold {
+    font-weight: 700;
+}
+.text-bold {
+    font-weight: 600 !important;
+}
+
+.line-height16 {
+    line-height: 1.6;
+}
+
+/* model dealers */
+.list-type-disc {
+    list-style: disc;
+    margin-left: 19px;
+}
+
+.btn-auto-32 {
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+/* model version prices */
+.divider-bottom {
+    border-bottom: 1px solid #eee;
+}
+
+/* model prices in nearby cities */
+.view-cities-link:before {
+    content: '';
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    top: -40px;
+    left: 0;
+    z-index: 1;
+    background: -webkit-linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+    background: -moz-linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+    background: -o-linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+}
+
+
+/* model prices in other cities */
+.btn-170-32 {
+    width: 170px;
+    font-size: 14px;
+    padding: 5px;
+}
+
+
+/* similar bikes swiper */
+.swiper-type-similar .swiper-btn-block {
+    padding-bottom: 15px;
+}
+
+.swiper-type-similar .right-arrow {
+    right: 18px;
+    top: 13px;
+    transform: scale(0.8);
+}
+
+.compare-with-target {
+    display: block;
+    padding: 10px 35px 10px 15px;
+    position: relative;
+    font-size: 12px;
+    color: #4d5057;    
+}
+
+.compare-with-target:before {
+    content: '';
+    position: absolute;
+    left: 8%;
+    top: 0;
+    width: 168px;
+    height: 1px;
+    border-top: 1px solid #e2e2e2;
+}
+
+.compare-sm {
+    width: 17px;
+    height: 12px;
+    background-position: -173px -596px;
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+}
+
+/* other cities swiper */
+.swiper-city .card-target-link {
+    display: block;
+}
+
+.swiper-city .card-target-link,
+.swiper-city .swiper-card {
+    min-height: 165px;
+}
+
+.swiper-city .swiper-image-preview {
+    height: 100px;
+    padding: 25px 0 10px;
+    margin-right: 15px;
+    margin-left: 15px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+.swiper-city .swiper-details-block {
+    padding-top: 10px;
+}
+
+/* city */
+.city-sprite {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat;
+    display: inline-block;
+}
+.c1-icon,
+.c12-icon,
+.c2-icon,
+.c10-icon,
+.c176-icon,
+.c105-icon,
+.c198-icon,
+.c220-icon {
+    height: 48px;
+}
+.c1-icon {
+    width: 78px;
+    background-position: 0 0;
+}
+.c12-icon {
+    width: 112px;
+    background-position: -84px 0;
+}
+.c2-icon {
+    width: 82px;
+    background-position: -202px 0;
+}
+.c10-icon {
+    width: 38px;
+    background-position: -290px 0;
+}
+.c176-icon {
+    width: 33px;
+    background-position: -334px 0;
+}
+.c105-icon {
+    width: 34px;
+    background-position: -373px 0;
+}
+.c198-icon {
+    width: 110px;
+    background-position: -413px 0;
+}
+.c220-icon {
+    width: 106px;
+    background-position: -529px 0;
+}
+
+/* top 10 bikes */
+.rank-graph-black {
+    width: 28px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.rank-graph-label {
+    width: 88%;
+}
+
+#modelCityPriceDetails {width: 100%;display: table;padding: 15px 10px 10px;}
 #modelCityPriceDetails .bike-image, #modelCityPriceDetails h1 {display: table-cell;vertical-align: middle;}
 #modelCityPriceDetails .bike-image {width: 80px;height: 45px;}
 #modelCityPriceDetails h1 {position: relative;top: -3px;}
@@ -23,7 +274,7 @@
 .dealership-details {width: 92%;}
 .tel-sm-icon {width: 13px;height: 15px;background-position: -86px -323px;position: relative;top: 2px;}
 .mail-grey-icon {width: 13px;height: 9px;background-position: -19px -437px;margin-right: 2px;}
-.block {display: block;}
+
 .blue-right-arrow-icon {width: 6px;height: 10px;background-position: -58px -437px;position: relative;top: 1px;left: 7px;}
 .prices-by-cities-list {overflow: hidden;}
 .prices-by-cities-list li {margin-bottom: 20px;}

@@ -8,6 +8,8 @@ function showTab(version) {
     $('.priceTable[id="' + version + '"]').show();
 };
 
+var dropdown;
+
 docReady(function () {
     try {
         var $dvPgVar = $("#dvPgVar");
@@ -15,10 +17,21 @@ docReady(function () {
         var floatButton = $('.float-button'),
             footer = $('footer');
 
+        // activate first tab
+        $('.overall-specs-tabs-wrapper li').first().addClass('active');
+
+        // dropdown
+
         var tabsLength = $('.model-versions-tabs-wrapper li').length - 1;
         if (tabsLength < 1) {
             $('.model-versions-tabs-wrapper li').css({ 'display': 'inline-block', 'width': 'auto' });
         }
+
+        // more cities
+        $('.view-cities-link').on('click', function () {
+            $('#more-cities-list').slideDown();
+            $(this).closest('div').hide();
+        });
 
         $("#dealerDetails").click(function (e) {
             try {

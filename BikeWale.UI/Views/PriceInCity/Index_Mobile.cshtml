@@ -12,6 +12,408 @@
     Model.Page_JS_Path = "/m/src/priceincity.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
+
+
+<section>
+    <div class="container">
+        <div class="padding-top10 padding-left20 padding-right20 bg-white">
+            <h1 class="font20">@Model.Page_H1</h1>
+        </div>
+        <div id="modelSpecsTabsContentWrapper">
+            <div id="modelOverallSpecsTopContent" class="bg-white position-rel">
+                <div id="overallSpecsTab" class="overall-specs-tabs-container">
+                    <ul class="overall-specs-tabs-wrapper">
+                        <li data-tabs="#orpContent">On-road price</li>
+                        <li data-tabs="#aboutContent">About</li>
+                        <li data-tabs="#dealerContent">Dealers</li>
+                        <li data-tabs="#serviceCenterContent">Service centers</li>
+                        <li data-tabs="#emiContent">EMI calculator</li>
+                        <li data-tabs="#versionContent">Versions</li>
+                        <li data-tabs="#nearbyCityContent">Nearby cities</li>
+                        <li data-tabs="#similarContent">Similar bikes</li>
+                        <li data-tabs="#otherCityContent">Other cities</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- model orp start -->
+            <div id="orpContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
+                <div class="model-image inline-block">
+                    <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
+                </div>
+                <div class="model-version-block inline-block padding-left15">
+                    <p class="font12 text-light-grey">Version:</p>
+                    <div class="dropdown-select-wrapper">
+                        <select class="dropdown-select">
+                            <option value="112">Electric Start/Drum/Alloy</option>
+                            <option value="113">Electric Start/Disc/Alloy</option>
+                            <option value="832">CBS</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="margin-top15 font14">
+                    <p class="font-bold margin-bottom5">Quick facts about @Model.BikeModel.ModelName</p>
+                    <p class="text-slate-grey line-height16">@Model.PageDescription</p>
+                </div>
+            </div>
+            <!-- model orp end -->
+
+            <!-- model about start -->
+            <div id="aboutContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin">
+                <div class="padding-15-20">
+                    <div class="model-more-info-section">
+                        <div class="clear"></div>
+                        <a href="/m/bajaj-bikes/pulsar-rs/" class="leftfloat text-default margin-bottom15" title="Bajaj Pulsar RS200">
+                            <h2>Bajaj Pulsar RS200</h2>
+                        </a>
+                        <div class="margin-bottom10">
+                            <div class="clear"></div>
+                            <a href="/m/bajaj-bikes/pulsar-rs/" class="item-image-content vertical-top" title="Bajaj Pulsar RS200 ">
+                                <img class="lazy" data-original="https://imgd1.aeplcdn.com//110x61//bw/models/bajaj-pulsar-rs200.jpg?20150710124439 " src="" alt="Bajaj Pulsar RS200">
+                            </a>
+                            <div class="bike-details-block vertical-top">
+                                <p class="price-label-size-12 text-truncate">Ex-showroom, Mumbai</p>
+                                <div>
+                                    <span class="bwmsprite inr-sm-icon margin-right5"></span><span class="price-value-size-18">89,000 </span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/m/bajaj-bikes/pulsar-rs/" title="Bajaj Pulsar RS200" class="btn btn-white btn-180-34  margin-bottom15">View model details <span class="bwmsprite btn-red-arrow"></span></a>
+                        <ul class="item-more-details-list">
+                            <li>
+                                <a href="/m/bajaj-bikes/pulsar-rs/images/" title="Bajaj Pulsar RS200  Images">
+                                    <span class="bwmsprite photos-sm"></span>
+                                    <span class="icon-label">Images </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/m/bajaj-bikes/pulsar-rs/specifications-features/" title="Bajaj Pulsar RS200  Specification">
+                                    <span class="bwmsprite specs-sm"></span>
+                                    <span class="icon-label">Specs </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/m/bajaj-bikes/pulsar-rs/news/" title="Bajaj Pulsar RS200  News">
+                                    <span class="bwmsprite reviews-sm"></span>
+                                    <span class="icon-label">News </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
+                        <div class="border-solid-bottom margin-top5 margin-bottom10"></div>
+                        <a href="/m/used/bajaj-pulsar-rs-bikes-in-mumbai/" title="Used Bajaj Pulsar RS200" class="block text-default hover-no-underline">
+                            <span class="used-target-label inline-block">
+                                <span class="font14 text-bold">10  Used Pulsar RS200  bikes</span><br>
+                                <span class="font12 text-light-grey">starting at <span class="bwmsprite inr-12-grey margin-right5"></span>456</span>
+                            </span>
+                            <span class="bwmsprite next-grey-icon"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- model about end -->
+
+            <!-- model dealers start -->
+            <div id="dealerContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
+                <div class="padding-right20 padding-bottom20 padding-left20">
+                    <h2 class="card-h2-heading margin-bottom15">Bajaj Dealers in @Model.CityEntity.CityName</h2>
+                    <div class="font14 text-slate-grey">
+                        <p class="margin-bottom10">Please provide your location to get information on:</p>
+                        <ul class="list-type-disc margin-bottom15">
+                            <li>Nearest dealer details in @Model.CityEntity.CityName</li>
+                            <li>Exclusive offers</li>
+                            <li>Complete buying assistance</li>
+                        </ul>
+                        <a href="javascript:void(0)" class="btn btn-orange btn-auto-32" rel="nofollow">Select your location</a>
+                    </div>
+                </div>
+                <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+            </div>
+            <!-- model dealers end -->
+
+            <!-- model service centers start -->
+            <div id="serviceCenterContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
+                <p class="font14 text-slate-grey margin-bottom15">Get in touch with your nearest Bajaj service center in Pune for service enquiries, service and repair costs and more!</p>
+                <a href="" title="" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+            </div>
+            <!-- model service centers end -->
+
+            <!-- model emi calculator start -->
+            <div id="emiContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
+                <h2 class="card-h2-heading">@Model.BikeName EMI Calculator</h2>
+                
+            </div>
+            <!-- model emi calculator end -->
+
+            <!-- model version prices start -->
+            <div id="versionContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
+                <table width="100%" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th colspan="2" align="left" class="padding-bottom20">
+                                <h2 class="card-h2-heading">@Model.BikeModel.ModelName version prices in @Model.CityEntity.CityName</h2>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="left" width="72%" class="font12 text-light-grey padding-bottom10 border-solid-bottom">Version</td>
+                            <td align="left" width="28%" class="font12 text-light-grey padding-bottom10 border-solid-bottom">Price</td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@Model.BikeModel.ModelName Self Start, Alloy Wheels</td>
+                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon"></span>85,000</td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@Model.BikeModel.ModelName Standard</td>
+                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon"></span>1,25,000</td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@Model.BikeModel.ModelName CBS</td>
+                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon"></span>25,15,000</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="padding-top10 font12 text-light-grey">Above mentioned prices are On-road, @Model.CityEntity.CityName</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- model version prices end -->
+
+            <!-- model prices in nearby cities start -->
+            <div id="nearbyCityContent" class="bw-model-tabs-data padding-top20 padding-bottom10 content-box-shadow card-bottom-margin">
+                <h2 class="card-h2-heading margin-bottom20 padding-left20 padding-right20">@Model.BikeName price in cities near @Model.CityEntity.CityName<span class="font14 text-slate-grey text-unbold">&nbsp;(On-road price)</span></h2>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14">
+                    <tbody>
+                        <tr>
+                            <td align="left" width="60%" class="city-name padding-bottom20">
+                                <a title="Bajaj Pulsar RS200 Price in Bangalore" href="">Bangalore</a>
+                            </td>
+                            <td align="right" width="40%" class="city-price padding-bottom20">
+                                <span class="bwmsprite inr-dark-grey-xsm-icon"></span>1,42,987
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" width="60%" class="city-name padding-bottom20">
+                                <a title="Bajaj Pulsar RS200 Price in Mumbai" href="">Mumbai</a>
+                            </td>
+                            <td align="right" width="40%" class="city-price padding-bottom20">
+                                <span class="bwmsprite inr-dark-grey-xsm-icon"></span>93,750
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" width="60%" class="city-name padding-bottom20">
+                                <a title="Bajaj Pulsar RS200 Price in Pune" href="">Pune</a>
+                            </td>
+                            <td align="right" width="40%" class="city-price padding-bottom20">
+                                <span class="bwmsprite inr-dark-grey-xsm-icon"></span>93,750
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table id="more-cities-list" width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14 hide">
+                    <tbody>
+                        <tr>
+                            <td align="left" width="60%" class="city-name padding-bottom20">
+                                <a title="Bajaj Pulsar RS200 Price in Bangalore" href="">Bangalore</a>
+                            </td>
+                            <td align="right" width="40%" class="city-price padding-bottom20">
+                                <span class="bwmsprite inr-dark-grey-xsm-icon"></span>1,42,987
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" width="60%" class="city-name padding-bottom20">
+                                <a title="Bajaj Pulsar RS200 Price in Mumbai" href="">Mumbai</a>
+                            </td>
+                            <td align="right" width="40%" class="city-price padding-bottom20">
+                                <span class="bwmsprite inr-dark-grey-xsm-icon"></span>93,750
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" width="60%" class="city-name padding-bottom20">
+                                <a title="Bajaj Pulsar RS200 Price in Pune" href="">Pune</a>
+                            </td>
+                            <td align="right" width="40%" class="city-price padding-bottom20">
+                                <span class="bwmsprite inr-dark-grey-xsm-icon"></span>93,750
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="padding-right20 padding-left20 padding-bottom5">
+                    <a href="javascript:void(0)" class="view-cities-link position-rel block font14" title="" rel="nofollow">View more cities</a>
+                </div>
+            </div>
+            <!-- model prices in nearby cities end -->
+
+            <!-- model prices similar bikes start -->
+            <div id="similarContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
+                <h2 class="card-h2-heading margin-bottom15 padding-left20 padding-right20">Prices of similar bikes in Mumbai</h2>
+                <div class="swiper-container card-container swiper-type-similar">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Bajaj Pulsar RS200">
+                                    <div class="swiper-image-preview">
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/bajaj-pulsar-rs200.jpg?20150710124439" alt="">
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="target-link font12 text-truncate margin-bottom5">Bajaj Pulsar RS200</p>
+                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
+                                        <p class="text-default">
+                                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">90,000</span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="swiper-btn-block">
+                                    <a href="" class="btn btn-card btn-full-width btn-white">On-road price in Mumbai</a>
+                                </div>
+                                <a class="compare-with-target text-truncate">
+                                    <span class="bwmsprite compare-sm"></span>Compare with Honda Unicorn<span class="bwmsprite right-arrow"></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Bajaj Pulsar RS200">
+                                    <div class="swiper-image-preview">
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/bajaj-pulsar-rs200.jpg?20150710124439" alt="">
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="target-link font12 text-truncate margin-bottom5">Bajaj Pulsar RS200</p>
+                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Pune</p>
+                                        <p class="text-default">
+                                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">90,000</span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="swiper-btn-block">
+                                    <a href="" class="btn btn-card btn-full-width btn-white">On-road price in Pune</a>
+                                </div>
+                                <a class="compare-with-target text-truncate">
+                                    <span class="bwmsprite compare-sm"></span>Compare with Unicorn<span class="bwmsprite right-arrow"></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Bajaj Pulsar RS200">
+                                    <div class="swiper-image-preview">
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/bajaj-pulsar-rs200.jpg?20150710124439" alt="">
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="target-link font12 text-truncate margin-bottom5">Bajaj Pulsar RS200</p>
+                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
+                                        <p class="text-default">
+                                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">90,000</span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="swiper-btn-block">
+                                    <a href="" class="btn btn-card btn-full-width btn-white">On-road price in Mumbai</a>
+                                </div>
+                                <a class="compare-with-target text-truncate">
+                                    <span class="bwmsprite compare-sm"></span>Compare with Unicorn<span class="bwmsprite right-arrow"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- model prices similar bikes end -->
+
+            <!-- model prices in other cities start -->
+            <div id="otherCityContent" class="bw-model-tabs-data content-box-shadow padding-bottom5 card-bottom-margin">
+                <div class="content-inner-block-20">
+                    <h2 class="card-h2-heading margin-bottom20">@Model.BikeModel.ModelName prices in other cities</h2>
+                    <p class="font14 text-slate-grey margin-bottom15">You are currently viewing price of Bajaj Dominar 400 in Pune. Not from Pune? Select your city to see price in your city.</p>
+                    <a href="" class="btn btn-white btn-170-32">Select your city</a>
+                </div>
+                <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+                <h3 class="margin-right20 margin-bottom10 margin-left20">@Model.BikeModel.ModelName prices in popular cities</h3>
+                <div class="swiper-container card-container swiper-city">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" class="card-target-link">
+                                    <div class="swiper-image-preview">
+                                        <span class="city-sprite c1-icon"></span>
+                                    </div>
+                                    <div class="swiper-details-block font12">
+                                        <h3 class="font12 text-black margin-bottom5">Mumbai</h3>
+                                        <div class="text-default">
+                                            <span class="bwmsprite inr-xxsm-icon"></span><span>1,25,000 onwards</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" class="card-target-link">
+                                    <div class="swiper-image-preview">
+                                        <span class="city-sprite c12-icon"></span>
+                                    </div>
+                                    <div class="swiper-details-block font12">
+                                        <h3 class="font12 text-black margin-bottom5">Pune</h3>
+                                        <div class="text-default">
+                                            <span class="bwmsprite inr-xxsm-icon"></span><span>1,25,000 onwards</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" class="card-target-link">
+                                    <div class="swiper-image-preview">
+                                        <span class="city-sprite c2-icon"></span>
+                                    </div>
+                                    <div class="swiper-details-block font12">
+                                        <h3 class="font12 text-black margin-bottom5">Bangalore</h3>
+                                        <div class="text-default">
+                                            <span class="bwmsprite inr-xxsm-icon"></span><span>1,25,000 onwards</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- model prices in other cities end -->
+
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container content-box-shadow content-inner-block-20 card-bottom-margin">
+        <div class="margin-bottom20">
+            <span class="rank-graph-black"></span>
+            <div class="inline-block rank-graph-label">
+                <h2 class="card-h2-heading">Top 10 Sports bikes in India</h2>
+            </div>
+        </div>
+        <p class="font14 margin-bottom15 text-slate-grey">Are you looking for a sports bike? Check out our list of top 10 sports bike in India.</p>
+        <a href="" title="" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+    </div>
+</section>
+
+<section>
+    <div class="container card-bottom-margin padding-right20 padding-left20 font12 text-slate-grey">
+        <p class="text-default text-bold">Disclaimer:</p>
+        <p>BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank">&nbsp;visitor agreement</a>&nbsp;and&nbsp;<a href="/privacypolicy.aspx" target="_blank">privacy policy</a>.
+        </p>
+    </div>
+    <div class="hide" id="dvPgVar" data-modelid="@Model.BikeModel.ModelId"></div>
+</section>
+
 <section class="bg-white box-shadow padding-top10 margin-bottom10">
     @if (Model.IsDiscontinued) {
     <div class="discont-text-label font14 text-white text-center">Discontinued</div>
@@ -190,9 +592,13 @@
             </div>
 </section>
 }
-<span class="font13 text-light-grey padding-right20 padding-left20 margin-bottom10"><strong>Disclaimer</strong>:</span>
+@*<span class="font13 text-light-grey padding-right20 padding-left20 margin-bottom10"><strong>Disclaimer</strong>:</span>
 <p class="font12 text-light-grey padding-right20 padding-left20 margin-bottom10">
     BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName
     price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank"> visitor agreement </a>and  <a href="/privacypolicy.aspx" target="_blank">privacy policy</a>.
 </p>
-<div class="hide" id="dvPgVar" data-modelid="@Model.BikeModel.ModelId"></div>
+<div class="hide" id="dvPgVar" data-modelid="@Model.BikeModel.ModelId"></div>*@
+
+<script type="text/javascript">
+    var versionCount = @Model.BikeVersionPrices.Count()
+</script>
