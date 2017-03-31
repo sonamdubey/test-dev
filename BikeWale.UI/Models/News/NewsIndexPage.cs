@@ -334,9 +334,6 @@ namespace Bikewale.Models
             try
             {
                 objData.PagerEntity = new PagerEntity();
-                objData.PagerEntity.BaseUrl = string.Format("{0}{1}", objData.PagerEntity.BaseUrl, UrlFormatter.FormatNewsUrl(make, model));
-                objData.PagerEntity.PageNo = curPageNo;
-                objData.PagerEntity.PagerSlotSize = pagerSlotSize;
                 objData.PagerEntity.BaseUrl = string.Format("{0}{1}",(IsMobile ? "/m" : ""),UrlFormatter.FormatNewsUrl(make, model));
                 objData.PagerEntity.PageNo = curPageNo; 
                 objData.PagerEntity.PagerSlotSize = pagerSlotSize; 

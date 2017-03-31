@@ -3683,12 +3683,13 @@
     <Content Include="Views\Shared\_EditCMSPhotoGallery.cshtml" />
     <Content Include="Views\DealerShowroom\_showrooms_Mobile.cshtml" />
     <Content Include="Views\Make\Index_Mobile.cshtml" />
-
+    <Content Include="Views\ExpertReviews\Detail.cshtml" />
+    <Content Include="Views\ExpertReviews\Detail_Mobile.cshtml" />
     <Content Include="Views\Features\Index.cshtml" />
     <Content Include="Views\Features\Index_Mobile.cshtml" />
-
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile.cshtml" />
+
 
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

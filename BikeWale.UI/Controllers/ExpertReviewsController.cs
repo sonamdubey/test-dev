@@ -14,6 +14,7 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Entities;
+using Bikewale.Interfaces.Videos;
 
 namespace Bikewale.Controllers
 {
@@ -104,14 +105,58 @@ namespace Bikewale.Controllers
         }
 
         /// <summary>
-        /// Action to get the expertreviews details
+        /// Created by : Aditi Srivastava on 31 Mar 2017
+        /// Summary    : Action method for expert review details page - Mobile
         /// </summary>
-        /// <param name="basicid"></param>
-        /// <returns></returns>
         [Route("m/expertreviews/details/{basicid}/")]
-        public ActionResult Details(uint basicid)
+        public ActionResult Detail_Mobile(string basicid)
         {
-            return View();
+            _topCount = 9;
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _topCount);
+            obj.IsMobile = true;
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/m/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
+            }
+            else
+            {
+                ExpertReviewsDetailPageVM objData = obj.GetData();
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pagenotfound.aspx");
+                else
+                    return View(objData);
+            }
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 31 Mar 2017
+        /// Summary    : Action method for expert review details page - Desktop
+        /// </summary>
+        [Route("expertreviews/details/{basicid}/")]
+        public ActionResult Detail(string basicid)
+        {
+            _topCount = 3;
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _topCount);
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(obj.redirectUrl);
+            }
+            else
+            {
+                ExpertReviewsDetailPageVM objData = obj.GetData();
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/pagenotfound.aspx");
+                else
+                    return View(objData);
+            }
         }
 
         /// <summary>
