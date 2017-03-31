@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="DealerShowroom\DealerCardVM.cs" />
     <Compile Include="DealerShowroom\IndexVM.cs" />
+    <Compile Include="ExpertReviews\ExpertReviewsDetailPageVM.cs" />
     <Compile Include="Make\BrandCityPopupVM.cs" />
     <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />
     <Compile Include="Make\MakePageVM.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="PriceInCity\PriceInCityPageVM.cs" />
     <Compile Include="PriceInCity\PriceInTopCitiesWidgetVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scooters\ScootersIndexPageVM.cs" />
     <Compile Include="ServiceCenters\ServiceCenterCityPageVM.cs" />
     <Compile Include="ServiceCenters\ServiceCenterDetailsPageVM.cs" />
     <Compile Include="ServiceCenters\ServiceCenterDetailsWidgetVM.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="ServiceCenters\ServiceCentersNearByCityWidgetVM.cs" />
     <Compile Include="Shared\BikeInfo.cs" />
     <Compile Include="Shared\Brands.cs" />
+    <Compile Include="Shared\EditCMSModelGalleryVM.cs" />
     <Compile Include="Shared\Pager.cs" />
     <Compile Include="Shared\PopularScootersList.cs" />
     <Compile Include="Shared\Showrooms.cs" />

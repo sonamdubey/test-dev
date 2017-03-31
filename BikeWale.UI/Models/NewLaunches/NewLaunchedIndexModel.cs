@@ -4,7 +4,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
-using Bikewale.Models.Upcoming;
+using Bikewale.Models;
 using Bikewale.Utility;
 using System;
 

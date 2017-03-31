@@ -1,10 +1,5 @@
 ﻿using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Models.Shared
 {
@@ -12,9 +7,17 @@ namespace Bikewale.Models.Shared
     /// Created by : Aditi Srivastava on 14 Mar 2017
     /// Summary    : model for dealer card
     /// </summary>
-    public class Showrooms
+    public class ShowroomsVM
     {
-       public DealersEntity dealers { get; set; }
-       public PopularDealerServiceCenter dealerServiceCenter { get; set; }
+        public string Title { get; set; }
+        public string MakeName { get; set; }
+        public string MakeMaskingName { get; set; }
+        public uint CityId { get; set; }
+        public string CityName { get; set; }
+        public string CityMaskingName { get; set; }
+        public DealersEntity dealers { get; set; }
+        public PopularDealerServiceCenter dealerServiceCenter { get; set; }
+
+        public bool IsDataAvailable { get; set; }
     }
 }

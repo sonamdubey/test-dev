@@ -1,4 +1,11 @@
-﻿using Bikewale.Interfaces.Dealer;
+﻿using Bikewale.Common;
+using Bikewale.Entities;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.UpComing;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.Used;
+using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
 using System.Web.Mvc;
 
@@ -14,31 +21,90 @@ namespace Bikewale.Controllers
     public class MakeController : Controller
     {
         private readonly IDealerCacheRepository _dealerServiceCenters = null;
-        public MakeController(IDealerCacheRepository dealerServiceCenters)
+        private readonly IBikeModelsCacheRepository<int> _bikeModelsCache;
+        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache;
+        private readonly ICMSCacheContent _articles = null;
+        private readonly ICMSCacheContent _expertReviews = null;
+        private readonly IVideos _videos = null;
+        private readonly IUsedBikeDetailsCacheRepository _cachedBikeDetails;
+        private readonly IDealerCacheRepository _cacheDealers;
+        private readonly IUpcoming _upcoming = null;
+
+        public MakeController(IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming)
         {
             _dealerServiceCenters = dealerServiceCenters;
+            _bikeModelsCache = bikeModelsCache;
+            _bikeMakesCache = bikeMakesCache;
+            _articles = articles;
+            _expertReviews = expertReviews;
+            _videos = videos;
+            _cachedBikeDetails = cachedBikeDetails;
+            _cacheDealers = cacheDealers;
+            _upcoming = upcoming;
         }
         // GET: Makes
-        [Route("make/")]
-        public ActionResult Index()
+        [Route("makepage/{makeMaskingName}/")]
+        [Bikewale.Filters.DeviceDetection]
+        public ActionResult Index(string makeMaskingName)
         {
-            uint makeId = 7;
-            MakePageModel obj = new MakePageModel(makeId, 9, _dealerServiceCenters);
+            MakePageModel obj = new MakePageModel(makeMaskingName, 9, _dealerServiceCenters, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming);
             MakePageVM objData = new MakePageVM();
-
-            if (obj.Status == Entities.StatusCodes.ContentNotFound)
+            if (obj != null)
             {
-                return Redirect("/pagenotfound.aspx");
-            }
-            else if (obj.Status == Entities.StatusCodes.RedirectPermanent)
-            {
-                return RedirectPermanent(obj.RedirectUrl);
+                if (obj.status == StatusCodes.ContentFound)
+                {
+                    objData = obj.GetData();
+                    return View(objData);
+                }
+                else if (obj.status == StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, obj.objResponse.MaskingName));
+                }
+                else if (obj.status == StatusCodes.RedirectTemporary)
+                {
+                    return Redirect(obj.redirectUrl);
+                }
+                else
+                {
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
             }
             else
             {
-                objData = obj.GetData();
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
-            return View(objData);
+        }
+
+        // GET: Makes
+        [Route("m/makepage/{makeMaskingName}/")]
+        public ActionResult Index_Mobile(string makeMaskingName)
+        {
+            MakePageModel obj = new MakePageModel(makeMaskingName, 9, _dealerServiceCenters, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming);
+            MakePageVM objData = new MakePageVM();
+            if (obj != null)
+            {
+                if (obj.status == StatusCodes.ContentFound)
+                {
+                    objData = obj.GetData();
+                    return View(objData);
+                }
+                else if (obj.status == StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, obj.objResponse.MaskingName));
+                }
+                else if (obj.status == StatusCodes.RedirectTemporary)
+                {
+                    return Redirect(obj.redirectUrl);
+                }
+                else
+                {
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
+            }
+            else
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
         }
     }
 }

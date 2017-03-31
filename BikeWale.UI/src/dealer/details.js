@@ -3,14 +3,23 @@ var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress
 var customerViewModel, dealerDetailsViewModel;
 var dealerLat;
 var googleMapAPIKey;
-var dealerLong , dropdown, assistGetModel, currentCityName;
+var dealerLong, dropdown, assistGetModel, currentCityName, pqId, pageUrl, clientIP;
+
 docReady(function () {
+    pageUrl = window.location.href;
     assistGetModel = $('#getLeadBike');
     dealerLong = document.getElementById("locationSearch").getAttribute("data-long");
     dealerLat = document.getElementById("locationSearch").getAttribute("data-lat");
     googleMapAPIKey = document.getElementById("locationSearch").getAttribute("data-Map");
+    clientIP = document.getElementById("locationSearch").getAttribute("data-clietIp");
     initializeMap();
     dropdown.setDropdown();
+    $("#getLeadBike").change(function () {
+        var val = $(this).val();
+        if (val && val != "" && val != "0") {
+            versionId = val;
+        }
+    });
     $(".dealerDetails").click(function () {
         var btnDpq = $(this);
         var pqSourceId = btnDpq.data("pqsourceid");

@@ -12,7 +12,7 @@
 <section>
     <div class="container box-shadow bg-white section-bottom-margin">
         <h1 class="box-shadow padding-15-20">@Model.PageH1</h1>
-
+       @if (Model.Articles != null && Model.Articles.Articles != null && Model.Articles.Articles.Count() > 0){
         <div id="divListing" class="article-list">
             @foreach (var news in Model.Articles.Articles)
             {
@@ -43,6 +43,7 @@
                 </a>
             }
         </div>
+        }
         <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
             <div class="grid-5 omega text-light-grey font13">
                 <span class="text-bold text-default">@Model.StartIndex-@Model.EndIndex</span> of <span class="text-bold text-default">@Model.Articles.RecordCount</span> articles

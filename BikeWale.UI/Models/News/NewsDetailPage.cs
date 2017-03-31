@@ -9,7 +9,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
-using Bikewale.Models.Upcoming;
+using Bikewale.Models;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;

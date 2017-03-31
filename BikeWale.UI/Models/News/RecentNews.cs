@@ -16,22 +16,35 @@ namespace Bikewale.Models
         private readonly uint _totalRecords;
         private readonly uint _makeId;
         private readonly uint _modelId;
-        private readonly string _makeName;
-        private readonly string _makeMasking;
-        private readonly string _modelName;
-        private readonly string _modelMasking;
+        private readonly string _title, _makeName, _makeMasking, _modelName, _modelMasking;
 
         #region Constructor
 
-        public RecentNews(ICMSCacheContent articles)
-        {
-            _articles = articles;
-        }
         public RecentNews(uint totalRecords, ICMSCacheContent articles)
         {
             _totalRecords = totalRecords;
             _articles = articles;
         }
+
+        public RecentNews(uint totalRecords, uint makeId, string makeName, string makeMasking, ICMSCacheContent articles)
+        {
+            _totalRecords = totalRecords;
+            _makeId = makeId;
+            _makeName = makeName;
+            _makeMasking = makeMasking;
+            _articles = articles;
+        }
+
+        public RecentNews(uint totalRecords, uint makeId, string makeName, string makeMasking, string title, ICMSCacheContent articles)
+        {
+            _totalRecords = totalRecords;
+            _makeId = makeId;
+            _makeName = makeName;
+            _makeMasking = makeMasking;
+            _title = title;
+            _articles = articles;
+        }
+
         public RecentNews(uint totalRecords, uint makeId, uint modelId, string makeName, string makeMasking, string modelName, string modelMasking)
         {
             _totalRecords = totalRecords;
@@ -68,6 +81,7 @@ namespace Bikewale.Models
                     recentNews.ModelMasking = _modelMasking;
                 }
                 recentNews.FetchedCount = recentNews.ArticlesList.Count();
+                recentNews.Title = _title;
             }
             catch (Exception ex)
             {

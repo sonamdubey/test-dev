@@ -13,6 +13,7 @@ namespace Bikewale.Models
         public IEnumerable<NewLaunchedBikeEntityBase> Bikes { get; set; }
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private ushort _recordCount;
+        public uint BodyStyleId { get; set; }
         public NewLaunchedWidgetModel(ushort recordCount, INewBikeLaunchesBL newLaunches)
         {
             _newLaunches = newLaunches;
@@ -30,6 +31,7 @@ namespace Bikewale.Models
             var objFilters = new InputFilter()
             {
                 PageNo = 1,
+                BodyStyle = BodyStyleId,
                 PageSize = _recordCount
             };
             var bikeBase = _newLaunches.GetBikes(objFilters);

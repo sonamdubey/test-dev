@@ -149,7 +149,6 @@
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>"></script>
         <script type="text/javascript">
             
             $(".leadcapturebtn").click(function (e) {
@@ -167,23 +166,7 @@
                     "clientip": clientIP
                 };
                 dleadvm.setOptions(leadOptions);
-            });
-            initializeCityMap();
-            function initializeCityMap() {
-                $(".map_canvas").each(function (index) {
-                    var lat = $(this).attr("data-lat");
-                    var lng = $(this).attr("data-long");
-                    var latlng = new google.maps.LatLng(lat, lng);
-
-                    var myOptions = {
-                        scrollwheel: false,
-                        zoom: 10,
-                        center: latlng,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    };
-                    var map = new google.maps.Map($(".map_canvas")[index], myOptions);
-                });
-            }
+            });            
         </script>
     </form>
 </body>
