@@ -1352,8 +1352,7 @@ docReady(function () {
         }
     });
 
-    $(".bw-tabs li").live('click', function () {
-        debugger;
+    $(".bw-tabs li").live('click', function () {        
         var panel = $(this).closest(".bw-tabs-panel");
         panel.find(".bw-tabs li").removeClass("active");
         $(this).addClass("active");

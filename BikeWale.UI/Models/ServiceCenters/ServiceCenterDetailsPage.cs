@@ -1,7 +1,6 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -9,10 +8,13 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using System;
-using System.Linq;
 
 namespace Bikewale.Models.ServiceCenters
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 27-03-2017
+    /// This Model will fetch data for service centers details page
+    /// </summary>
     public class ServiceCenterDetailsPage
     {
         private uint _makeId, _cityId, _serviceCenterId;
@@ -67,7 +69,7 @@ namespace Bikewale.Models.ServiceCenters
 
                 objVM.UsedBikesByMakeList = BindUsedBikeByModel(objVM.City);
 
-                objVM.DealersWidgetData = BindDealerWidget();
+                BindDealersWidget(objVM);
 
                 objVM.OtherServiceCentersWidgetData = (new ServiceCentersCard(_objSC, OtherServiceCenterWidgetTopCount, _serviceCenterId, objVM.Make, objVM.City)).GetData();
 
@@ -77,7 +79,7 @@ namespace Bikewale.Models.ServiceCenters
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterCityPage.GetData()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterDetailsPage.GetData()");
             }
             return objVM;
         }
@@ -100,26 +102,23 @@ namespace Bikewale.Models.ServiceCenters
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.BindUsedBikeByModel()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterDetailsPage.BindUsedBikeByModel()");
             }
             return UsedBikeModel;
         }
 
-        private DealersEntity BindDealerWidget()
+        private void BindDealersWidget(ServiceCenterDetailsPageVM objVM)
         {
-            DealersEntity objDealerList = null;
             try
             {
-                objDealerList = _objDealerCache.GetDealerByMakeCity(_cityId, _makeId);
-
-                objDealerList.Dealers = objDealerList.Dealers.Take((int)BikeShowroomWidgetTopCount);
+                DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, _cityId, _makeId);
+                objDealer.TopCount = BikeShowroomWidgetTopCount;
+                objVM.DealersWidgetData = objDealer.GetData();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomDealerDetail.BindOtherDealerWidget()");
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCenterDetailsPage.BindDealersWidget()");
             }
-            return objDealerList;
         }
 
         private void BindPageMetas(ServiceCenterDetailsPageVM objPageVM)

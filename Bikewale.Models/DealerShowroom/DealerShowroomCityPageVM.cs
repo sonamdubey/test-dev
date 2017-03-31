@@ -1,7 +1,6 @@
 ﻿
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
-using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Models.ServiceCenters;
 namespace Bikewale.Models
@@ -9,7 +8,7 @@ namespace Bikewale.Models
     public class DealerShowroomCityPageVM : ModelBase
     {
         public NearByCityDealer DealerCountCity;
-        public DealersEntity DealersList;
+        public DealerCardVM DealersList;
         public BikeMakeEntityBase Make;
         public UsedBikeModelsWidgetVM UsedBikeModel;
         public CityEntityBase CityDetails;
