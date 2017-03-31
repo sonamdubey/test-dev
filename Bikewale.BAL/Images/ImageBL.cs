@@ -53,6 +53,8 @@ namespace Bikewale.BAL.Images
                     token.AccessKeyId = awsToken.AccessKeyId;
                     token.URI = awsToken.URI;
                     token.Status = true;
+                    token.DatetTmeISO = awsToken.DatetTmeISO;
+                    token.DateTimeISOLong = awsToken.DateTimeISOLong;
                 }
             }
             catch (Exception ex)
