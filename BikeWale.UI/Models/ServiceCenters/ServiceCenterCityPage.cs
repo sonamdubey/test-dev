@@ -1,7 +1,6 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -11,10 +10,13 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Memcache;
 using Bikewale.Models.Make;
 using System;
-using System.Linq;
 
 namespace Bikewale.Models.ServiceCenters
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 29-03-2017
+    /// Description : This Model will fetch data for service centers in city page 
+    /// </summary>
     public class ServiceCenterCityPage
     {
         private string _cityMaskingName;
@@ -72,7 +74,7 @@ namespace Bikewale.Models.ServiceCenters
 
                 objVM.UsedBikesByMakeList = BindUsedBikeByModel(objVM.City);
 
-                objVM.DealersWidgetData = BindDealerWidget();
+                BindDealersWidget(objVM);
 
                 objVM.BrandCityPopupWidget = new BrandCityPopupModel(EnumBikeType.ServiceCenter, (uint)_makeId, (uint)_cityId).GetData();
 
@@ -153,21 +155,18 @@ namespace Bikewale.Models.ServiceCenters
             return UsedBikeModel;
         }
 
-        private DealersEntity BindDealerWidget()
+        private void BindDealersWidget(ServiceCenterCityPageVM objVM)
         {
-            DealersEntity objDealerList = null;
             try
             {
-                objDealerList = _objDealerCache.GetDealerByMakeCity(_cityId, _makeId);
-
-                objDealerList.Dealers = objDealerList.Dealers.Take((int)BikeShowroomWidgetTopCount);
+                DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, _cityId, _makeId);
+                objDealer.TopCount = BikeShowroomWidgetTopCount;
+                objVM.DealersWidgetData = objDealer.GetData();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomDealerDetail.BindOtherDealerWidget()");
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCenterDetailsPage.BindDealersWidget()");
             }
-            return objDealerList;
         }
     }
 }

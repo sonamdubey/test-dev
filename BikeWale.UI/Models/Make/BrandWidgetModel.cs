@@ -61,6 +61,12 @@ namespace Bikewale.Models
                     }
                     break;
                 case EnumBikeType.ServiceCenter:
+                    _brands = _bikeMakes.GetMakesByType(page);
+                    foreach (var make in _brands)
+                    {
+                        make.Href = String.Format("/{0}-service-center-in-india/", make.MaskingName);
+                        make.Title = String.Format("{0} service centers in India", make.MakeName);
+                    }
                     break;
                 case EnumBikeType.Scooters:
                     _brands = _bikeMakes.GetScooterMakes();
