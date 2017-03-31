@@ -216,40 +216,6 @@ namespace Bikewale.Controllers
             return View("~/views/m/content/expertreviews/details_amp.cshtml", objExpertReviews);
         }
 
-        /// <summary>
-        /// Action to get the latest expertreviews
-        /// </summary>
-        /// <param name="count">no of expertreviews required</param>
-        /// <returns></returns>
-        [Route("m/expertreviews/latest/{count}/")]
-        public ActionResult Latest(int count)
-        {
-            return PartialView();
-        }
-
-        /// <summary>
-        /// Action to get the latst expertreviews for a given make
-        /// </summary>
-        /// <param name="makeId">make id for which expertreviews are required</param>
-        /// <param name="count">no of expertreviews required</param>
-        /// <returns></returns>
-        [Route("m/expertreviews/make/{makeId}/latest/{count}/")]
-        public ActionResult LatestExpertReviewsByMake(int makeId, int count)
-        {
-            return PartialView();
-        }
-
-        /// <summary>
-        /// Action to get the latest expertreviews for a given model
-        /// </summary>
-        /// <param name="modelId">model id for which expertreviews are required</param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        [Route("m/expertreviews/model/{modelId}/latest/{count}/")]
-        public ActionResult LatestExpertReviewsByModel(int modelId, int count)
-        {
-            return PartialView();
-        }
         #endregion
     }
 }
