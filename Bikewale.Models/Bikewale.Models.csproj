@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DealerShowroom\DealerCardVM.cs" />
+    <Compile Include="DealerShowroom\DealersServiceCentersIndiaWidgetVM.cs" />
     <Compile Include="DealerShowroom\IndexVM.cs" />
     <Compile Include="Features\IndexFeatureVM.cs" />
     <Compile Include="ExpertReviews\ExpertReviewsDetailPageVM.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="ServiceCenters\ServiceCenterDetailsPageVM.cs" />
     <Compile Include="ServiceCenters\ServiceCenterDetailsWidgetVM.cs" />
     <Compile Include="ServiceCenters\ServiceCenterIndiaPageVM.cs" />
+    <Compile Include="ServiceCenters\ServiceCenterLandingPageVM.cs" />
     <Compile Include="ServiceCenters\ServiceCentersNearByCityWidgetVM.cs" />
     <Compile Include="Shared\BikeInfo.cs" />
     <Compile Include="Shared\Brands.cs" />

@@ -13,6 +13,7 @@ namespace Bikewale.Models
     /// </summary>
     public class DealerShowroomCityPageVM : ModelBase
     {
+
         public NearByCityDealer DealerCountCity { get; set; }
         public DealersEntity DealersList { get; set; }
         public BikeMakeEntityBase Make { get; set; }

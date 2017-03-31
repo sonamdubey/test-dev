@@ -1,0 +1,278 @@
+﻿@model Bikewale.ServiceCenters.ServiceCenterLandingPageVM
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/service/landing.css' />";
+    Model.IsHeaderFix = false;
+    Model.IsTransparentHeader = true;
+    Model.Page_JS_Path = "/src/service/landing.js";
+    Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/bike-service-center/";
+    Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/bike-service-center/";
+}
+
+@if (Model != null)
+{
+
+    <header class="service-center-banner">
+        <div id="service-center-box" class="container">
+            <div class="welcome-box">
+                <h1 class="font30 text-uppercase margin-bottom30">Bike Service Center Locator</h1>
+                <h2 class="font20 text-unbold text-white margin-bottom50">Find bike service center across 1000+ cities in India</h2>
+            </div>
+        </div>
+    </header>
+
+
+    if (Model.MakesList != null && Model.MakesList.Count() > 0)
+    {
+        <section>
+            <div class="container">
+                <div class="grid-12">
+                    <div class="search-box content-box-shadow negative-50 text-center padding-top5 padding-bottom20">
+                        <h2 class="section-heading">Search service centers</h2>
+                        <div class="locator-search-container">
+                            <div class="locator-search-brand form-control-box">
+                                <select id="ddlMakes" class="form-control  chosen-select">
+                                    <option value="0">Select a brand</option>
+                                    @foreach (var make in Model.MakesList)
+                                    {
+                                        <option maskingname="@make.MaskingName" value="@make.MakeId">@make.MakeName</option>
+                                    }
+                                </select>
+                                <div class="clear"></div>
+                                <span class="bwsprite error-icon errorIcon hide"></span>
+                                <div class="bw-blackbg-tooltip errorText hide"></div>
+                            </div>
+                            <div class="locator-search-city form-control-box">
+                                <select id="ddlCities" class="form-control  chosen-select">
+                                    <option value="0">Select a city</option>
+                                </select>
+                                <div class="clear"></div>
+                                <span class="bwsprite error-icon errorIcon hide"></span>
+                                <div class="bw-blackbg-tooltip errorText hide"></div>
+                            </div>
+                            <div class="clear"></div>
+                            <input type="button" id="applyFiltersBtn" class="btn btn-orange btn-lg locator-search-btn margin-bottom5" value="Search" />
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
+
+    if (Model.Brands != null)
+    {
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <h2 class="section-heading">Service center by brands</h2>
+                <div class="content-box-shadow padding-top20">
+                    @Html.Partial("~/Views/Make/_Brands.cshtml", Model.Brands)
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    }
+
+    if (Model.BikeCareWidgetVM != null && Model.BikeCareWidgetVM.ArticlesList != null && Model.BikeCareWidgetVM.ArticlesList.Count() > 0)
+    {
+        <section>
+            <section>
+                <div class="container section-bottom-margin">
+                    <h2 class="section-heading">Bike Care - Maintenance tips</h2>
+                    <div class="grid-12">
+                        <div class="content-box-shadow content-inner-block-20">
+                            @Html.Partial("~/Views/BikeCare/_RecentBikeCare.cshtml", Model.BikeCareWidgetVM)
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </section>
+        </section>
+    }
+
+    if (Model.City != null)
+    {
+        <div id="page-data" data-cityid="@Model.City.CityId" class="hide"></div>
+    }
+    else
+    {
+        <div id="page-data" data-cityid="0" class="hide"></div>
+    }
+
+    if (Model.NewLaunchWidgetData != null || Model.UpcomingWidgetData != null && Model.PopularWidgetData != null)
+    {
+        <section>
+            <div class="container section-bottom-margin">
+                <!--  Discover bikes section code starts here -->
+                <div class="grid-12">
+                    <h2 class="section-heading">Most popular bikes</h2>
+                    <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
+                        <div class="bw-tabs bw-tabs-flex">
+                            <ul>
+                                @if (Model.PopularWidgetData != null && Model.PopularWidgetData.Bikes != null && Model.PopularWidgetData.Bikes.Count() > 0)
+                                {
+                                    <li class="active" data-tabs="ctrlMostPopularBikes">
+                                        <h3>Most Popular</h3>
+                                    </li>
+                                }
+                                @if (Model.NewLaunchWidgetData != null && Model.NewLaunchWidgetData.Bikes != null && Model.NewLaunchWidgetData.Bikes.Count() > 0)
+                                {
+                                    <li data-tabs="ctrlNewLaunchedBikes">
+                                        <h3>New launches</h3>
+                                    </li>
+                                }
+                                @if (Model.UpcomingWidgetData != null && Model.UpcomingWidgetData.UpcomingBikes != null && Model.UpcomingWidgetData.UpcomingBikes.Count() > 0)
+                                {
+                                    <li data-tabs="ctrlUpcomingBikes">
+                                        <h3>Upcoming</h3>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="bw-tabs-data @((Model.PopularWidgetData != null && Model.PopularWidgetData.Bikes != null && Model.PopularWidgetData.Bikes.Count() > 0)?" ":" hide") " id="ctrlMostPopularBikes">
+                            @Html.Partial("~/Views/BikeModels/_MostPopularBikes.cshtml", Model.PopularWidgetData)
+                            <!-- Most Popular Bikes Control-->
+                            <div class="view-all-btn-container padding-top15 padding-bottom20">
+                                <a href="/best-bikes-in-india/" class="btn view-all-target-btn" title="Popular Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+
+                        <div class="bw-tabs-data hide @((Model.NewLaunchWidgetData != null && Model.NewLaunchWidgetData.Bikes != null && Model.NewLaunchWidgetData.Bikes.Count() > 0)?" ":" hide") " id="ctrlNewLaunchedBikes">
+                            @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunchWidgetData)
+                            <div class="view-all-btn-container padding-top15 padding-bottom20">
+                                <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
+                            </div>
+                            <!-- New Launched Bikes Control-->
+                        </div>
+
+                        <div class="bw-tabs-data hide @((Model.UpcomingWidgetData != null && Model.UpcomingWidgetData.UpcomingBikes != null && Model.UpcomingWidgetData.UpcomingBikes.Count() >  0)?" ":" hide")" id="ctrlUpcomingBikes">
+                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.UpcomingWidgetData)
+                            <div class="view-all-btn-container padding-top15 padding-bottom20">
+                                <a href="/upcoming-bikes/" class="btn view-all-target-btn" title="Upcoming Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
+
+
+    <section>
+        <!--  Discover your bike code starts here -->
+        <div class="container">
+            @{string city = (Model.City != null && !String.IsNullOrEmpty(Model.City.CityMaskingName) ? Model.City.CityMaskingName : "india");}
+            <div class="grid-12">
+                <h2 class="section-heading">Find used bikes</h2>
+                <div class="bw-tabs-panel content-box-shadow">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul>
+                            @if (Model.UsedBikesModelWidgetData != null && Model.UsedBikesModelWidgetData.UsedBikeModelList != null && Model.UsedBikesModelWidgetData.UsedBikeModelList.Count() > 0)
+                            {
+                                <li class="active" data-tabs="usedByModel">
+                                    <h3>Model</h3>
+                                </li>
+                            }
+
+                            @if (Model.UsedBikesCityWidgetData != null && Model.UsedBikesCityWidgetData.Cities != null && Model.UsedBikesCityWidgetData.Cities.Count() > 0)
+                            {
+                                <li class="@((Model.UsedBikesModelWidgetData.UsedBikeModelList != null && Model.UsedBikesModelWidgetData.UsedBikeModelList.Count() > 0) ? " " : " active")" data-tabs="usedByCity">
+                                    <h3>City</h3>
+                                </li>
+                            }
+                            <li class="@(((Model.UsedBikesModelWidgetData.UsedBikeModelList != null && Model.UsedBikesModelWidgetData.UsedBikeModelList.Count() > 0) || (Model.UsedBikesCityWidgetData != null && Model.UsedBikesCityWidgetData.Cities != null && Model.UsedBikesCityWidgetData.Cities.Count() > 0)) ? " " : " active")" data-tabs="usedByBudget">
+                                <h3>Budget</h3>
+                            </li>
+                        </ul>
+                    </div>
+
+                    @if (Model.UsedBikesModelWidgetData != null && Model.UsedBikesModelWidgetData.UsedBikeModelList != null && Model.UsedBikesModelWidgetData.UsedBikeModelList.Count() > 0)
+                    {
+                        <div class="bw-tabs-data padding-bottom20" id="usedByModel">
+                            <div class="padding-bottom20">
+                                @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedBikesModelWidgetData)
+                            </div>
+                            <div class="more-article-target view-all-btn-container">
+                                <a href="@string.Format("/used/bikes-in-{0}/", city)" title="@string.Format("Second Hand Bikes in {0}", city)" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.UsedBikesCityWidgetData != null && Model.UsedBikesCityWidgetData.Cities != null && Model.UsedBikesCityWidgetData.Cities.Count() > 0)
+                    {
+                        <section>
+                            <div class="bw-tabs-data @(( Model.UsedBikesModelWidgetData != null && Model.UsedBikesModelWidgetData.UsedBikeModelList != null && Model.UsedBikesModelWidgetData.UsedBikeModelList.Count() > 0 ) ?" hide":"") " id="usedByCity">
+                                @Html.Partial("~/Views/UsedBikes/_UsedBikesCIties.cshtml", Model.UsedBikesCityWidgetData)
+                            </div>
+                        </section>
+                    }
+
+
+                    <div class="bw-tabs-data @(((Model.UsedBikesModelWidgetData != null && Model.UsedBikesModelWidgetData.UsedBikeModelList != null && Model.UsedBikesModelWidgetData.UsedBikeModelList.Count() > 0) || (Model.UsedBikesModelWidgetData != null && Model.UsedBikesModelWidgetData.UsedBikeModelList != null && Model.UsedBikesModelWidgetData.UsedBikeModelList.Count() > 0))?" hide":"") padding-bottom20" id="usedByBudget">
+
+                        <ul class="elevated-card-list">
+                            <li>
+                                <a href="/used/bikes-in-@city/#budget=0+35000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwsprite budget-one"></span>
+                                        </div>
+                                        <span class="key-size-14">Upto</span><br />
+                                        <span class="bwsprite inr-md"></span><span class="value-size-16">35,000</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/used/bikes-in-@city/#budget=35000+80000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwsprite budget-two"></span>
+                                        </div>
+                                        <span class="key-size-14">Between</span><br />
+                                        <span class="bwsprite inr-md"></span><span class="value-size-16">35,000 -</span>
+                                        &nbsp<span class="bwsprite inr-md"></span><span class="value-size-16">80,000</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/used/bikes-in-@city/#budget=80000+200000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwsprite budget-three"></span>
+                                        </div>
+                                        <span class="key-size-14">Above</span><br />
+                                        <span class="bwsprite inr-md"></span><span class="value-size-16">80,000</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="more-article-target view-all-btn-container padding-top10">
+                            <a href="/used/bikes-in-india/" title="Second Hand Bikes in India" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container section-bottom-margin">
+            <h2 class="section-heading">Bike Troubleshooting - FAQs</h2>
+            <div class="grid-12">
+                <div class="content-box-shadow padding-bottom20">
+                    @Html.Partial("~/Views/BikeCare/_BikeTroubleshootingFAQ.cshtml")
+                    <a href="/bike-troubleshooting/" target="_blank" title="Bike Troubleshooting- FAQs" class="font14 margin-left20">Read all FAQs<span class="bwsprite blue-right-arrow-icon"></span></a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}

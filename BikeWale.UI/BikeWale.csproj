@@ -906,8 +906,9 @@
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
-    <Compile Include="Models\Features\CityEnitityBase.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
+    <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
+
     <Compile Include="Models\ExpertReviews\ExpertReviewsDetailPage.cs" />
     <Compile Include="Models\Make\BrandCityPopupModel.cs" />
     <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
@@ -941,6 +942,7 @@
     <Compile Include="Models\Scooters\ScootersIndexPageModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterCityPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterDetailsPage.cs" />
+    <Compile Include="Models\ServiceCenters\ServiceCenterLandingPage.cs" />
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
@@ -3014,6 +3016,7 @@
     <Content Include="m\src\scooters-by-make.js" />
     <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
+    <Content Include="m\src\service\landing.js" />
     <Content Include="m\src\service\listing.js" />
     <Content Include="m\src\dealerlisting.js" />
     <Content Include="m\src\dealerpricequote.js" />
@@ -3143,6 +3146,7 @@
     <Content Include="src\photos.js" />
     <Content Include="src\priceincity.js" />
     <Content Include="src\scooters.js" />
+    <Content Include="src\service\landing.js" />
     <Content Include="src\service\location.js" />
     <Content Include="src\service\details.js" />
     <Content Include="src\service\listing.js" />
@@ -3672,13 +3676,20 @@
     <Content Include="Views\DealerShowroom\_showrooms.cshtml" />
     <Content Include="Views\News\Detail_Mobile.cshtml" />
     <Content Include="Views\News\Detail.cshtml" />
+    <Content Include="Views\ServiceCenters\Index.cshtml" />
+    <Content Include="Views\ServiceCenters\Index_Mobile.cshtml" />
     <Content Include="Views\Shared\_EditCMSModelGallery.cshtml" />
     <Content Include="Views\Shared\_EditCMSModelGallery_Mobile.cshtml" />
     <Content Include="Views\Shared\_EditCMSPhotoGallery.cshtml" />
     <Content Include="Views\DealerShowroom\_showrooms_Mobile.cshtml" />
     <Content Include="Views\Make\Index_Mobile.cshtml" />
+
     <Content Include="Views\Features\Index.cshtml" />
     <Content Include="Views\Features\Index_Mobile.cshtml" />
+
+    <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia.cshtml" />
+    <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

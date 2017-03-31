@@ -1,11 +1,15 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.NewLaunched;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Models.ServiceCenters;
+using Bikewale.ServiceCenters;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -15,6 +19,7 @@ namespace Bikewale.Controllers
     /// </summary>
     public class ServiceCentersController : Controller
     {
+        #region Private variables
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
         private readonly IServiceCenterCacheRepository _objSCCache = null;
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
@@ -22,8 +27,14 @@ namespace Bikewale.Controllers
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IServiceCenter _objSC = null;
+        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        private readonly INewBikeLaunchesBL _newLaunches = null;
+        private readonly IUpcoming _upcoming = null;
+        private readonly ICityCacheRepository _ICityCache = null;
+        #endregion
 
-        public ServiceCentersController(IDealerCacheRepository objDealerCache, IBikeModels<BikeModelEntity, int> bikeModels, ICMSCacheContent articles, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository<int> bikeMakesCache, IServiceCenterCacheRepository objSCCache, IServiceCenter objSC)
+        #region Constructor
+        public ServiceCentersController(ICityCacheRepository ICityCache, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IBikeMakes<BikeMakeEntity, int> bikeMakes, IDealerCacheRepository objDealerCache, IBikeModels<BikeModelEntity, int> bikeModels, ICMSCacheContent articles, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository<int> bikeMakesCache, IServiceCenterCacheRepository objSCCache, IServiceCenter objSC)
         {
             _objUsedCache = objUsedCache;
             _bikeMakesCache = bikeMakesCache;
@@ -32,12 +43,81 @@ namespace Bikewale.Controllers
             _articles = articles;
             _objSC = objSC;
             _objDealerCache = objDealerCache;
+            _bikeMakes = bikeMakes;
+            _upcoming = upcoming;
+            _newLaunches = newLaunches;
+            _ICityCache = ICityCache;
         }
+        #endregion
 
-        // GET: ServiceCenters
+
+        /// <summary>
+        /// Created by Sajal Gupta on 30-03-2017
+        /// This action method will fetch data for service center landing page desktop.
+        /// </summary>
+        /// <returns></returns>
+        [Filters.DeviceDetection()]
+        [Route("servicecenter/Index/")]
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                ServiceCenterLandingPage modelObj = new ServiceCenterLandingPage(_ICityCache, _objUsedCache, _upcoming, _newLaunches, _bikeModels, _articles, _bikeMakesCache, _bikeMakes);
+                if (modelObj != null)
+                {
+                    modelObj.BrandWidgetTopCount = 10;
+                    modelObj.BikeCareRecordsCount = 3;
+                    modelObj.PopularBikeWidgetTopCount = 9;
+                    modelObj.NewLaunchedBikesWidgtData = 9;
+                    modelObj.UpcomingBikesWidgetData = 9;
+                    modelObj.UsedBikeModelWidgetTopCount = 9;
+                    ServiceCenterLandingPageVM pageVM = modelObj.GetData();
+                    return View(pageVM);
+                }
+                else
+                {
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
+            }
+            catch (System.Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersController.Index");
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 30-03-2017
+        /// This action method will fetch data for service center landing page mobile.
+        /// </summary>
+        /// <returns></returns>
+        [Route("m/servicecenter/Index/")]
+        public ActionResult Index_Mobile()
+        {
+            try
+            {
+                ServiceCenterLandingPage modelObj = new ServiceCenterLandingPage(_ICityCache, _objUsedCache, _upcoming, _newLaunches, _bikeModels, _articles, _bikeMakesCache, _bikeMakes);
+                if (modelObj != null)
+                {
+                    modelObj.BrandWidgetTopCount = 6;
+                    modelObj.BikeCareRecordsCount = 3;
+                    modelObj.PopularBikeWidgetTopCount = 9;
+                    modelObj.NewLaunchedBikesWidgtData = 9;
+                    modelObj.UpcomingBikesWidgetData = 9;
+                    modelObj.UsedBikeModelWidgetTopCount = 9;
+                    ServiceCenterLandingPageVM pageVM = modelObj.GetData();
+                    return View(pageVM);
+                }
+                else
+                {
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
+            }
+            catch (System.Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersController.Index_Mobile");
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
         }
 
         /// <summary>
@@ -109,7 +189,7 @@ namespace Bikewale.Controllers
                     }
                     else if (modelObj.status == Entities.StatusCodes.RedirectTemporary)
                     {
-                        return Redirect(modelObj.redirectUrl);
+                        return Redirect(string.Format("/m{0}", modelObj.redirectUrl));
                     }
                     else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
                     {
@@ -133,6 +213,12 @@ namespace Bikewale.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Created by Sajal Gupta on 30-03-2017
+        /// This action method will fetch data for service center in city page desktop.
+        /// </summary>
+        /// <returns></returns>
         [Filters.DeviceDetection()]
         [Route("servicecentersincity/make/{makeMaskingName}/city/{cityMaskingName}")]
         public ActionResult ServiceCentersInCity(string makeMaskingName, string cityMaskingName)
@@ -173,6 +259,11 @@ namespace Bikewale.Controllers
             }
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 30-03-2017
+        /// This action method will fetch data for service center in city page desktop.
+        /// </summary>
+        /// <returns></returns>
         [Route("m/servicecentersincity/make/{makeMaskingName}/city/{cityMaskingName}")]
         public ActionResult ServiceCentersInCity_Mobile(string makeMaskingName, string cityMaskingName)
         {
@@ -207,11 +298,16 @@ namespace Bikewale.Controllers
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersController.ServiceCentersInCity");
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersController.ServiceCentersInCity_Mobile");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 30-03-2017
+        /// This action method will fetch data for service center details page desktop.
+        /// </summary>
+        /// <returns></returns>
         [Filters.DeviceDetection()]
         [Route("servicecenterdetail/make/{makeMaskingName}/servicecenterid/{serviceCenterId}")]
         public ActionResult ServiceCenterDetail(string makeMaskingName, uint serviceCenterId)
@@ -248,12 +344,17 @@ namespace Bikewale.Controllers
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealerDetails");
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersController.ServiceCenterDetail");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
 
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 30-03-2017
+        /// This action method will fetch data for service center details page mobile.
+        /// </summary>
+        /// <returns></returns>
         [Route("m/servicecenterdetail/make/{makeMaskingName}/servicecenterid/{serviceCenterId}")]
         public ActionResult ServiceCenterDetail_Mobile(string makeMaskingName, uint serviceCenterId)
         {
@@ -289,7 +390,7 @@ namespace Bikewale.Controllers
             catch (System.Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealerDetails");
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersController.ServiceCenterDetail_Mobile");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
 

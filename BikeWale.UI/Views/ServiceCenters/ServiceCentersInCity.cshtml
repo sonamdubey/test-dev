@@ -42,7 +42,7 @@
         </section>
     }
 
-    if (Model.ServiceCentersListObject != null)
+    if (Model.ServiceCentersListObject != null && Model.ServiceCentersListObject.Count > 0)
     {
         <section>
             <div class="container section-bottom-margin">
@@ -177,7 +177,7 @@
         </div>
     </section>
 
-    if (Model.NearByCityWidgetData != null)
+    if (Model.NearByCityWidgetData != null && Model.NearByCityWidgetData.ServiceCentersNearbyCities != null && Model.NearByCityWidgetData.ServiceCentersNearbyCities.Count() > 0)
     {
         <div class="container section-container ">
             <div class="grid-12 margin-bottom20">
@@ -202,7 +202,7 @@
             <div class="container">
                 <div class="grid-12">
                     <div class="content-box-shadow ">
-                        @if (Model.PopularWidgetData != null)
+                        @if (Model.PopularWidgetData != null && Model.PopularWidgetData.Bikes != null && Model.PopularWidgetData.Bikes.Count() > 0)
                         {
                             <div class="padding-bottom20">
                                 <div class="carousel-heading-content padding-top20">
@@ -226,7 +226,7 @@
                                 <div class="swiper-heading-left-grid inline-block">
                                     <h2>@string.Format("Used {0} bikes in {1}", Model.Make.MakeName, Model.City.CityName)</h2>
                                 </div><div class="swiper-heading-right-grid inline-block text-right">
-                                    <a href="@string.Format("/used/{0}-bikes-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName)" title="Second Hand Bikes in India" class="btn view-all-target-btn">View all</a>
+                                          <a href="@string.Format("/used/{0}-bikes-in-{1}/", Model.Make.MaskingName, Model.City.CityMaskingName)" title="@string.Format("Second Hand Bikes in {0}", Model.City.CityName)" class="btn view-all-target-btn">View all</a>
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -243,7 +243,7 @@
         </section>
     }
 
-    if (Model.DealersWidgetData != null)
+    if (Model.DealersWidgetData != null && Model.DealersWidgetData.Dealers != null && Model.DealersWidgetData.Dealers.Count() > 0)
     {
         <section>
             <div class="container section-bottom-margin">
