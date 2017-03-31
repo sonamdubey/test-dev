@@ -95,7 +95,7 @@
         </div>
     </div>
 
-    if (Model.City != null && Model.OtherServiceCentersWidgetData != null)
+    if (Model.City != null && Model.OtherServiceCentersWidgetData != null && Model.OtherServiceCentersWidgetData.ServiceCentersList != null && Model.OtherServiceCentersWidgetData.ServiceCentersList.Count() > 0)
     {
         <section>
             <div class="container bg-white box-shadow padding-top15">
@@ -119,7 +119,7 @@
         </section>
     }
 
-    if (Model.BikeScheduleList != null)
+    if (Model.BikeScheduleList != null && Model.BikeScheduleList.Count() > 0)
     {
         <div id="service-schedular" class="container bg-white box-shadow card-bottom-margin padding-15-20">
             <h2 class="margin-bottom5">Is your @Model.Make.MakeName bike due for a service?</h2>
@@ -192,7 +192,7 @@
     {
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
-                @if (Model.PopularWidgetData != null)
+                @if (Model.PopularWidgetData != null && Model.PopularWidgetData.Bikes != null && Model.PopularWidgetData.Bikes.Count() > 0)
                 {
                     <div class="carousel-heading-content padding-top15">
                         <div class="swiper-heading-left-grid inline-block">
@@ -208,7 +208,7 @@
                 <div class="padding-top10 text-center">
                 </div>
                 <div class="margin-right10 margin-left10 border-solid-bottom padding-bottom15"></div>
-                @if (Model.UsedBikesByMakeList != null)
+                @if (Model.UsedBikesByMakeList != null && Model.UsedBikesByMakeList.UsedBikeModelList != null && Model.UsedBikesByMakeList.UsedBikeModelList.Count() > 0)
                 {
                     <div class="padding-top15">
                         <div class="carousel-heading-content">
@@ -230,8 +230,8 @@
             </div>
         </section>
     }
-    
-    if (Model.DealersWidgetData != null)
+
+    if (Model.DealersWidgetData != null && Model.DealersWidgetData.Dealers != null && Model.DealersWidgetData.Dealers.Count() > 0)
     {
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
