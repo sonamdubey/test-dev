@@ -907,6 +907,7 @@
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
+    <Compile Include="Models\ExpertReviews\ExpertReviewsDetailPage.cs" />
     <Compile Include="Models\Make\BrandCityPopupModel.cs" />
     <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
     <Compile Include="Models\DealerPriceQuotePage.cs" />
@@ -3670,6 +3671,9 @@
     <Content Include="Views\DealerShowroom\_showrooms.cshtml" />
     <Content Include="Views\News\Detail_Mobile.cshtml" />
     <Content Include="Views\News\Detail.cshtml" />
+    <Content Include="Views\Shared\_EditCMSModelGallery.cshtml" />
+    <Content Include="Views\Shared\_EditCMSModelGallery_Mobile.cshtml" />
+    <Content Include="Views\Shared\_EditCMSPhotoGallery.cshtml" />
     <Content Include="Views\DealerShowroom\_showrooms_Mobile.cshtml" />
     <Content Include="Views\Make\Index_Mobile.cshtml" />
     <None Include="Web.Debug.config">
