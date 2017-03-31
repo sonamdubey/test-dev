@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.Pager;
-using Bikewale.Notifications;
-using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities;
 using Bikewale.Common;
@@ -16,7 +11,6 @@ using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Utility;
 using Bikewale.Models.BestBikes;
-using Bikewale.Models.Upcoming;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Pager;
 

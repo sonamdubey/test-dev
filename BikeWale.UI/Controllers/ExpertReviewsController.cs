@@ -14,6 +14,7 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Entities;
+using Bikewale.Interfaces.Videos;
 
 namespace Bikewale.Controllers
 {
@@ -30,18 +31,20 @@ namespace Bikewale.Controllers
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
+        private readonly IVideos _videos = null;
         private int _topCount; 
         private ExpertReviewsIndexPage obj = null;
 
 
         #region Constructor
-        public ExpertReviewsController(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache)
+        public ExpertReviewsController(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming,IVideos videos, IBikeInfo bikeInfo, ICityCacheRepository cityCache)
         {
             _cmsCache = cmsCache;
             _pager = pager;
             _models = models;
             _bikeModels = bikeModels;
             _upcoming = upcoming;
+            _videos = videos;
             _bikeInfo = bikeInfo;
             _cityCache = cityCache;
         }
@@ -109,9 +112,27 @@ namespace Bikewale.Controllers
         /// <param name="basicid"></param>
         /// <returns></returns>
         [Route("m/expertreviews/details/{basicid}/")]
-        public ActionResult Details(uint basicid)
+        public ActionResult Detail(string basicid)
         {
-            return View();
+            _topCount = 9;
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming,_videos, _bikeInfo, _cityCache, basicid, _topCount);
+            obj.IsMobile = true;
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/m/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
+            }
+            else
+            {
+                ExpertReviewsDetailPageVM objData = obj.GetData();
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pagenotfound.aspx");
+                else
+                    return View(objData);
+            }
         }
 
         /// <summary>

@@ -12,7 +12,7 @@ namespace Bikewale.Models
     /// Created by : Aditi Srivastava on 30 Mar 2017
     /// Summary    : View model for edit cms model gallery
     /// </summary>
-    public class EditCMSModelGalleryVM
+    public class EditCMSPhotoGalleryVM
     {
         public IEnumerable<ModelImage> Images { get; set; }
         public IEnumerable<BikeVideoEntity> Videos { get; set; }

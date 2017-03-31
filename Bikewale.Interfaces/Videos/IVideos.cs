@@ -16,5 +16,6 @@ namespace Bikewale.Interfaces.Videos
         BikeVideoEntity GetVideoDetails(uint videoBasicId);
         BikeVideosListEntity GetVideosBySubCategory(string categoryIdList, ushort pageNo, ushort pageSize, VideosSortOrder? sortOrder = null);
         IEnumerable<BikeVideoEntity> GetSimilarModelsVideos(uint videoId, uint ModelId, ushort totalCount);
+        IEnumerable<BikeVideoEntity> GetVideosByModelId(uint ModelId);
     }
 }

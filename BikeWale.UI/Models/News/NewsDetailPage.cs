@@ -9,7 +9,6 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
-using Bikewale.Models.Upcoming;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
@@ -100,7 +99,7 @@ namespace Bikewale.Models
 
         /// <summary>
         /// Created by : Aditi Srivastava on 29 Mar 2017
-        /// Summary    : Get news entire data for news details page
+        /// Summary    : Get entire data for news details page
         /// </summary>
         public NewsDetailPageVM GetData()
         {
@@ -133,7 +132,6 @@ namespace Bikewale.Models
         /// </summary>
         private void SetPageMetas(NewsDetailPageVM objData)
         {
-
             try
             {
                 objData.BaseUrl = IsMobile?"/m":"";
@@ -142,7 +140,7 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Description = string.Format("BikeWale coverage on {0}. Get the latest reviews and photos for {0} on BikeWale coverage.", objData.ArticleDetails.Title);
                 objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/news/{0}-{1}.html", objData.ArticleDetails.BasicId, objData.ArticleDetails.ArticleUrl);
                 objData.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/news/{0}-{1}.html", objData.ArticleDetails.BasicId, objData.ArticleDetails.ArticleUrl);
-                objData.PageMetaTags.AmpUrl = String.Format("{0}/m/news/{1}-{2}/amp/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
+                objData.PageMetaTags.AmpUrl = string.Format("{0}/m/news/{1}-{2}/amp/", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 if (objData.ArticleDetails.PrevArticle != null && objData.ArticleDetails.PrevArticle.ArticleUrl != null)
                     objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/news/{2}-{3}.html", BWConfiguration.Instance.BwHostUrl, objData.BaseUrl, objData.ArticleDetails.PrevArticle.BasicId, objData.ArticleDetails.PrevArticle.ArticleUrl);
                 if (objData.ArticleDetails.NextArticle != null && objData.ArticleDetails.NextArticle.ArticleUrl != null)
@@ -150,7 +148,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.NewsDetailPage.SetPageTags");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.NewsDetailPage.SetPageMetas");
             }
         }
 

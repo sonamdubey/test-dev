@@ -5,7 +5,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Dealer;
-using Bikewale.Models.Upcoming;
 using System;
 using System.Collections.Generic;
 namespace Bikewale.Models
