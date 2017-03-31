@@ -7,8 +7,10 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -35,12 +37,12 @@ namespace Bikewale.Models
         private readonly IUsedBikeDetailsCacheRepository _cachedBikeDetails = null;
         private readonly IDealerCacheRepository _cacheDealers = null;
         private readonly IUpcoming _upcoming = null;
+        private readonly IServiceCenter _objSC;
         public StatusCodes status;
         public MakeMaskingResponse objResponse;
-        //public BikeMakeEntityBase objMake;
         public string redirectUrl;
 
-        public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming)
+        public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IServiceCenter objSC)
         {
             this._makeMaskingName = makeMaskingName;
             this._dealerServiceCenters = dealerServiceCenters;
@@ -53,6 +55,7 @@ namespace Bikewale.Models
             this._cachedBikeDetails = cachedBikeDetails;
             this._cacheDealers = cacheDealers;
             this._upcoming = upcoming;
+            this._objSC = objSC;
             ProcessQuery(this._makeMaskingName);
         }
 
@@ -70,6 +73,7 @@ namespace Bikewale.Models
             {
                 uint cityId = 0;
                 string cityName = string.Empty, cityMaskingName = string.Empty;
+                CityEntityBase cityBase = null;
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
                 if (location != null && location.CityId > 0)
                 {
@@ -79,6 +83,12 @@ namespace Bikewale.Models
                     cityMaskingName = cityEntity != null ? cityEntity.CityMaskingName : string.Empty;
                     objData.Location = cityName;
                     objData.LocationMasking = cityMaskingName;
+                    cityBase = new CityEntityBase()
+                    {
+                        CityId = cityId,
+                        CityMaskingName = cityMaskingName,
+                        CityName = cityName
+                    };
                 }
                 else
                 {
@@ -94,24 +104,8 @@ namespace Bikewale.Models
                     objData.MakeName = _makeName = makeBase.MakeName;
                 }
                 BindPageMetaTags(objData.PageMetaTags, objData.Bikes, _makeName);
-                var baseDetails = _dealerServiceCenters.GetPopularCityDealer(this._makeId, this._topCount);
-                if (baseDetails != null)
-                {
-                    objData.DealerServiceCenters = new DealerServiceCenterWidgetVM();
-                    objData.DealerServiceCenters.DealerDetails = baseDetails.DealerDetails;
-                    objData.DealerServiceCenters.TotalDealerCount = baseDetails.TotalDealerCount;
-                    objData.DealerServiceCenters.TotalServiceCenterCount = baseDetails.TotalServiceCenterCount;
-                }
-                //UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_bikeModelsCache)
-                // {
-                //     MakeId = this._makeId,
-                //     TopCount = 9
-                // };
-                //objData.UpcomingBikes = objUpcoming.GetData();
-
 
                 UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
-
                 objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
                 {
                     EndIndex = 9,
@@ -120,10 +114,19 @@ namespace Bikewale.Models
                 };
                 objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
                 objData.UpcomingBikes = objUpcoming.GetData();
-
-
-
+                if (cityId > 0)
+                {
+                    var dealerData = new DealerCardWidget(_cacheDealers, cityId, _makeId);
+                    dealerData.TopCount = 3;
+                    objData.Dealers = dealerData.GetData();
+                    objData.ServiceCenters = new ServiceCentersCard(_objSC, 3, makeBase, cityBase).GetData();
+                }
+                else
+                {
+                    objData.DealersServiceCenter = new DealersServiceCentersIndiaWidgetModel(_makeId, _makeName, _makeMaskingName, _cacheDealers).GetData();
+                }
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription((int)_makeId);
+
                 objData.News = new RecentNews(2, _makeId, _makeName, _makeMaskingName, string.Format("{0} News", _makeName), _articles).GetData();
 
                 objData.ExpertReviews = new RecentExpertReviews(2, _makeId, _makeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", _makeName)).GetData();
@@ -131,10 +134,6 @@ namespace Bikewale.Models
                 objData.Videos = new RecentVideos(1, 2, _videos).GetData();
 
                 objData.UsedModels = new UsedBikeModelsWidgetModel(cityId, 9, _makeId, objData.Location, objData.LocationMasking, _cachedBikeDetails).GetData();
-
-                objData.Showrooms = new ShowroomsWidgetModel(6, 3, cityId, cityName, _makeId, _makeName, _makeMaskingName, _cacheDealers).GetData();
-                if (objData.Showrooms != null)
-                    objData.IsDealerServiceDataAvailable = objData.Showrooms.IsDataAvailable;
 
                 objData.DiscontinuedBikes = _bikeMakesCache.GetDiscontinuedBikeModelsByMake(_makeId);
                 objData.IsDiscontinuedBikeAvailable = objData.DiscontinuedBikes != null && objData.DiscontinuedBikes.Count() > 0;
@@ -157,9 +156,14 @@ namespace Bikewale.Models
                     objData.IsExpertReviewsAvailable = objData.News != null && objData.ExpertReviews.ArticlesList != null && objData.ExpertReviews.ArticlesList.Count() > 0;
                     objData.IsVideosAvailable = objData.Videos != null && objData.Videos.VideosList != null && objData.Videos.VideosList.Count() > 0;
                     objData.IsUsedModelsBikeAvailable = objData.UsedModels != null && objData.UsedModels.UsedBikeModelList != null && objData.UsedModels.UsedBikeModelList.Count() > 0;
-                    objData.IsDealerServiceDataAvailable = objData.DealerServiceCenters != null && objData.DealerServiceCenters.DealerDetails.Count > 0;
+
+                    objData.IsDealerAvailable = objData.Dealers != null && objData.Dealers.Dealers != null && objData.Dealers.Dealers.Count() > 0;
+                    objData.IsServiceDataAvailable = objData.ServiceCenters != null && objData.ServiceCenters.ServiceCentersList != null && objData.ServiceCenters.ServiceCentersList.Count() > 0;
+                    objData.IsDealerServiceDataAvailable = cityId > 0 && (objData.IsDealerAvailable || objData.IsServiceDataAvailable);
+                    objData.IsDealerServiceDataInIndiaAvailable = cityId == 0 && objData.DealersServiceCenter != null && objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails.Count() > 0;
+
                     objData.IsMakeTabsDataAvailable = (objData.BikeDescription != null && objData.BikeDescription.FullDescription.Length > 0 || objData.IsNewsAvailable ||
-                        objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable);
+                        objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable);
 
                 }
                 #endregion
