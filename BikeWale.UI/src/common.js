@@ -241,6 +241,9 @@ function applyTabsLazyLoad() {
     $("img.lazy").lazyload({
         event: "imgLazyLoad"
     });
+    $("div.lazy").lazyload({
+        event: "divLazyLoad"
+    });
 }
 
 function applyLazyLoad() {
@@ -248,7 +251,13 @@ function applyLazyLoad() {
         event: "imgLazyLoad",
         effect: "fadeIn"
     });
+
+    $("div.lazy").lazyload({
+        event: "divLazyLoad",
+        effect: "fadeIn"
+    });
 }
+
 
 // common autocomplete data call function
 function dataListDisplay(availableTags, request, response) {
@@ -730,6 +739,7 @@ docReady(function () {
     }
     $(".jcarousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
         $(this).find("img.lazy").trigger("imgLazyLoad");
+        $(this).find("div.lazy").trigger("divLazyLoad");
     });
 });
 
@@ -1366,6 +1376,7 @@ docReady(function () {
         var jcaourselDiv = $(this).parent("span").prev("div");
         jcaourselDiv.on('jcarousel:visiblein', 'li', function (event, carousel) {
             $(this).find("img.lazy").trigger("imgLazyLoad");
+            $(this).find("div.lazy").trigger("divLazyLoad");
         });
     });
     // Contents Widegt Clicked
