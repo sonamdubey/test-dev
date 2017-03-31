@@ -3146,7 +3146,6 @@
     <Content Include="src\dealer\landing.js" />
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
-    <Content Include="src\new\newpage.js" />
     <Content Include="src\photos.js" />
     <Content Include="src\priceincity.js" />
     <Content Include="src\scooters.js" />
