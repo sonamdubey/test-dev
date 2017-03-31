@@ -13,7 +13,7 @@
                           { %>
                         <li>
                             <a href="/<%= MakeMaskingName %>-dealer-showrooms-in-<%= Dealer.CityMaskingName %>/" title="<%= MakeName %> showrooms in <%= Dealer.CityName %>" class="jcarousel-card">
-                                <div class="map_canvas city-map" data-lat="<%= Dealer.Lattitude %>" data-long="<%= Dealer.Longitude %>"></div>
+                                <div class="lazy dealer-location-img" data-original="<%= Dealer.GoogleMapImg %>" title="<%= MakeName %> showrooms in <%= Dealer.CityName %>" ></div>
                                 <div class="card-desc-block">
                                     <p class="card-heading font14 text-bold text-black padding-top5"><%= Dealer.CityName %></p>
                                     <h3 class="text-unbold text-light-grey"><%= String.Format("{0} {1}", Dealer.DealersCount,MakeName)%> showroom<%if(Dealer.DealersCount > 1){%>s<%}%></h3>

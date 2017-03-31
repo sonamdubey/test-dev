@@ -146,7 +146,7 @@ namespace Bikewale.Cache.ServiceCenter
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex,"Error in ServiceCentersCacheRepository.GetAllServiceCentersByBrand");
+                ErrorClass objErr = new ErrorClass(ex, "Error in ServiceCentersCacheRepository.GetAllServiceCentersByBrand");
                 objErr.SendMail();
                 return null;
             }
@@ -160,14 +160,14 @@ namespace Bikewale.Cache.ServiceCenter
         /// <returns></returns>
         public IEnumerable<CityBrandServiceCenters> GetServiceCentersNearbyCitiesByBrand(int cityId, int makeId, int topCount)
         {
-            string key = String.Format("BW_ServiceCentersByBrandinnearbyCities_{0}_{1}",makeId,cityId);
+            string key = String.Format("BW_NearByServiceCenter_{0}_{1}_{2}", makeId, cityId, topCount);
             try
             {
-                return _cache.GetFromCache<IEnumerable<CityBrandServiceCenters>>(key, new TimeSpan(1, 0, 0), () => _objServiceCenter.GetServiceCentersNearbyCitiesByBrand(cityId,makeId,topCount));
+                return _cache.GetFromCache<IEnumerable<CityBrandServiceCenters>>(key, new TimeSpan(1, 0, 0), () => _objServiceCenter.GetServiceCentersNearbyCitiesByBrand(cityId, makeId, topCount));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Error in ServiceCentersCacheRepository.GetServiceCentersNearbyCitiesByBrand; parameters: cityId : {0},makeId : {1},topcount : {2}",cityId, makeId,topCount));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Error in ServiceCentersCacheRepository.GetServiceCentersNearbyCitiesByBrand; parameters: cityId : {0},makeId : {1},topcount : {2}", cityId, makeId, topCount));
                 objErr.SendMail();
                 return null;
             }

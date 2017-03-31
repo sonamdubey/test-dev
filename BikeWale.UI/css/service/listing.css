@@ -382,6 +382,15 @@ input[type="number"] {
   .card .text-truncate {
     width: 100%; }
 
+.service-location-img{
+    width:290px;
+    height:90px;
+    display: block;
+    background-color: rgb(229, 227, 223);
+    background-size: cover;
+    background-position: center center;
+}
+
 @media only screen and (max-width: 1024px) {
   .card {
     width: 280px; } }

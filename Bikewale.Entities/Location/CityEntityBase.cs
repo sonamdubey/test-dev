@@ -27,5 +27,8 @@ namespace Bikewale.Entities.Location
 
         [JsonProperty("hasAreas"), DataMember]
         public bool HasAreas { get; set; }
+
+        [JsonProperty("googleMapImg"), DataMember]
+        public String GoogleMapImg { get; set; }
     }
 }
