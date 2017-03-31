@@ -20,6 +20,23 @@ namespace Bikewale.Utility
             return imgUrl;
         }
 
+        public static string GetPathToShowImages(string originalImagePath, string hostUrl, string size, string quality)
+        {
+            string imgUrl = String.Empty;
+            if (!String.IsNullOrEmpty(originalImagePath) && !String.IsNullOrEmpty(hostUrl))
+            {
+                if (!String.IsNullOrEmpty(quality))
+                    imgUrl = String.Format("{0}/{1}/{2}&q={3}", hostUrl, size, originalImagePath, quality);
+                else
+                    imgUrl = String.Format("{0}/{1}/{2}", hostUrl, size, originalImagePath);
+            }
+            else
+            {
+                imgUrl = string.Format("https://imgd3.aeplcdn.com/{0}/bikewaleimg/images/noimage.png", size);
+            }
+            return imgUrl;
+        }
+
         /// <summary>
         /// Written By : Ashish G. Kamble on 23/8/2012
         /// This function will return true is file name has one of follwing extension JPEG, GIF, PNG. Else will return false        
@@ -106,5 +123,17 @@ namespace Bikewale.Utility
         public const string _160x89 = "160x89";
         public const string _640x348 = "640x348";
         public const string _210x118 = "210x118";
+    }
+
+
+    public class QualityFactor
+    {
+        public const string _60 = "60";
+        public const string _65 = "65";
+        public const string _70 = "70";
+        public const string _75 = "75";
+        public const string _80 = "80";
+        public const string _85 = "85";
+        public const string _90 = "90";
     }
 }
