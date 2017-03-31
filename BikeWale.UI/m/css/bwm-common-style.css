@@ -380,16 +380,15 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 
 /* dealers */
 .dealer-horizontal-swiper h2 { margin-bottom: 15px }
-.dealer-horizontal-swiper .swiper-slide:first-child { margin-left: 5px; }
 
 .dealer-horizontal-swiper .swiper-slide { 
-    width:308px;
+    width: 253px;
 }
 
 .dealer-horizontal-swiper .swiper-card {
-    width: 308px;
-    min-height: 140px;
-    padding: 15px 10px 10px;
+    width: 253px;
+    min-height: 170px;
+    padding: 15px 15px 10px;
 }
 
 .dealer-horizontal-swiper.no-city-selection-carousel .swiper-card {
@@ -631,9 +630,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 .text-center { text-align: center; }
-.text-justify { text-align: justify; }
-.text-wrap { white-space: normal; }
-.text-nowrap { white-space: nowrap; }
+
 .text-lowercase { text-transform: lowercase; }
 .text-uppercase { text-transform: uppercase; }
 .text-capitalize { text-transform: capitalize; }
@@ -652,7 +649,6 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .text-white { color: #fff; }
 .text-link { cursor: pointer; color: #0288d1; }
 .text-orange { color: #f04031; }
-.text-orange-light { color: #F88379; }
 
 .font9 { font-size: 9px; }
 .font10 { font-size: 10px; }
@@ -660,16 +656,13 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .font12 { font-size: 12px; }
 .font13 { font-size: 13px; }
 .font14 { font-size: 14px; }
+.font15 { font-size: 15px; }
 .font16 { font-size: 16px; }
 .font18 { font-size: 18px; }
 .font20 { font-size: 20px; }
 .font22 { font-size: 22px; }
 .font24 { font-size: 24px; }
 .font25 { font-size: 25px; }
-.font26 { font-size: 26px; }
-.font27 { font-size: 27px; }
-.font28 { font-size: 28px; }
-.font29 { font-size: 29px; }
 .font30 { font-size: 30px; }
 .line-height { line-height: 1.8; }
 .content-inner-block-5 { padding: 5px; }
@@ -694,13 +687,6 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .margin-left10 { margin-left: 10px; }
 .margin-left15 { margin-left: 15px; }
 .margin-left20 { margin-left: 20px; }
-.margin-left25 { margin-left: 25px; }
-.margin-left30 { margin-left: 30px; }
-.margin-left40 { margin-left: 40px; }
-.margin-left50 { margin-left: 50px; }
-.margin-left60 { margin-left: 60px; }
-.margin-left70 { margin-left: 70px; }
-.margin-left90 { margin-left: 90px; }
 
 .margin-top5 { margin-top: 5px; }
 .margin-top10 { margin-top: 10px; }
@@ -709,13 +695,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .margin-top25 { margin-top: 25px; }
 .margin-top30 { margin-top: 30px; }
 .margin-top40 { margin-top: 40px; }
-.margin-top50 { margin-top: 50px; }
 .margin-top60 { margin-top: 60px; }
-.margin-top70 { margin-top: 70px; }
-.margin-top90 { margin-top: 90px; }
-.margin-minus30 { margin-top: -30px; }
-.margin-minus40 { margin-top: -40px; }
-.margin-minus50 { margin-top: -50px; }
 .margin-minus60 { margin-top: -60px; }
 
 .margin-right5 { margin-right: 5px; }
@@ -723,12 +703,6 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .margin-right15 { margin-right: 15px; }
 .margin-right20 { margin-right: 20px; }
 .margin-right25 { margin-right: 25px; }
-.margin-right30 { margin-right: 30px; }
-.margin-right40 { margin-right: 40px; }
-.margin-right50 { margin-right: 50px; }
-.margin-right60 { margin-right: 60px; }
-.margin-right70 { margin-right: 70px; }
-.margin-right90 { margin-right: 90px; }
 
 .margin-bottom5 { margin-bottom: 5px; }
 .margin-bottom10 { margin-bottom: 10px; }
@@ -737,10 +711,6 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .margin-bottom25 { margin-bottom: 25px; }
 .margin-bottom30 { margin-bottom: 30px; }
 .margin-bottom40 { margin-bottom: 40px; }
-.margin-bottom50 { margin-bottom: 50px; }
-.margin-bottom60 { margin-bottom: 60px; }
-.margin-bottom70 { margin-bottom: 70px; }
-.margin-bottom90 { margin-bottom: 90px; }
 .margin-auto { margin: 0 auto; }
 
 .padding-left5 { padding-left: 5px; }
@@ -750,10 +720,6 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .padding-left25 { padding-left: 25px; }
 .padding-left30 { padding-left: 30px; }
 .padding-left40 { padding-left: 40px; }
-.padding-left50 { padding-left: 50px; }
-.padding-left60 { padding-left: 60px; }
-.padding-left70 { padding-left: 70px; }
-.padding-left90 { padding-left: 90px; }
 
 .padding-top5 { padding-top: 5px; }
 .padding-top10 { padding-top: 10px; }
@@ -763,9 +729,6 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .padding-top30 { padding-top: 30px; }
 .padding-top40 { padding-top: 40px; }
 .padding-top50 { padding-top: 50px; }
-.padding-top60 { padding-top: 60px; }
-.padding-top70 { padding-top: 70px; }
-.padding-top90 { padding-top: 90px; }
 
 .padding-right5 { padding-right: 5px; }
 .padding-right10 { padding-right: 10px; }
@@ -774,10 +737,6 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .padding-right25 { padding-right: 25px; }
 .padding-right30 { padding-right: 30px; }
 .padding-right40 { padding-right: 40px; }
-.padding-right50 { padding-right: 50px; }
-.padding-right60 { padding-right: 60px; }
-.padding-right70 { padding-right: 70px; }
-.padding-right90 { padding-right: 90px; }
 
 .padding-bottom5 { padding-bottom: 5px; }
 .padding-bottom10 { padding-bottom: 10px; }
@@ -785,11 +744,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .padding-bottom20 { padding-bottom: 20px; }
 .padding-bottom25 { padding-bottom: 25px; }
 .padding-bottom30 { padding-bottom: 30px; }
-.padding-bottom40 { padding-bottom: 40px; }
-.padding-bottom50 { padding-bottom: 50px; }
 .padding-bottom60 { padding-bottom: 60px; }
-.padding-bottom70 { padding-bottom: 70px; }
-.padding-bottom90 { padding-bottom: 90px; }
 
 .hide { display: none; }
 .show { display: block; }
@@ -808,7 +763,6 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .pos-right15 { right: 15px; }
 .pos-right20 { right: 20px; }
 .pos-right45 { right: 45px; }
-.pos-right55 { right: 55px; }
 
 .pos-top0 { top: 0; }
 .pos-top5 { top: 5px; }
@@ -1260,7 +1214,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 
 /* dealer icons */
 .dealership-loc-icon {
-    width: 10px;
+    width: 12px;
     height: 15px;
     background-position: -40px -435px;
     position: relative;
@@ -1274,7 +1228,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     top: 2px;
 }
 .dealership-address, .details-column {
-    width: 87%;
+    width: 92%;
 }
 
 /* recent search dropdown */
@@ -1531,10 +1485,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
         width: 52% !important;
     }
     .article-stats-content.video-view-count, .article-stats-content { width:70%; }
-    #makeVideosContent .article-stats-content.video-view-count { width: 68%; }
-    .dealer-horizontal-swiper .swiper-slide, .dealer-horizontal-swiper .swiper-card {
-        width: 265px;
-    }    
+    #makeVideosContent .article-stats-content.video-view-count { width: 68%; } 
     .model-more-info-section .bike-details-block {
         width: 62%;
     }

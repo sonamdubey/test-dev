@@ -7,18 +7,18 @@
         <div class="swiper-slide">
             <div class="swiper-card">
                 <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(Model.MakeMaskingName, Model.CityMaskingName, serviceCenter.Name, serviceCenter.ServiceCenterId))" title="@serviceCenter.Name" class="block">
-                    <div class="target-link margin-bottom5 text-truncate font14">@serviceCenter.Name</div>
+                    <div class="target-link margin-bottom10 text-truncate font15">@serviceCenter.Name</div>
                     @if (!string.IsNullOrEmpty(serviceCenter.Address))
                     {
-                        <p class="margin-bottom5 text-light-grey">
+                        <p class="margin-bottom10 text-light-grey">
                             <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                            <span class="vertical-top dealership-address details-column">@Bikewale.Utility.FormatDescription.TruncateDescription(serviceCenter.Address, 95)</span>
+                            <span class="vertical-top dealership-address details-column font14">@Bikewale.Utility.FormatDescription.TruncateDescription(serviceCenter.Address, 95)</span>
                         </p>
                     }
                 </a>
                 @if (!string.IsNullOrEmpty(serviceCenter.Phone))
                 {
-                    <a href="tel:@serviceCenter.Phone" class="text-default text-bold text-truncate block">
+                    <a href="tel:@serviceCenter.Phone" class="text-default text-bold text-truncate block font14">
                         <span class="bwmsprite tel-sm-grey-icon"></span>@serviceCenter.Phone
                     </a>
                 }
