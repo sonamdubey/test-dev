@@ -3526,7 +3526,7 @@
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
     <Content Include="Views\Videos\Details.cshtml" />
     <Content Include="Views\Videos\_SimilarVideos.cshtml" />
-    <Content Include="Views\m\Scooters\BikesByMake.cshtml" />
+    <Content Include="Views\Scooters\BikesByMake_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_BikeInfoCard.cshtml" />
     <Content Include="Views\Videos\Makes_Mobile.cshtml" />
     <Content Include="Views\Videos\Makes.cshtml" />
