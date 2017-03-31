@@ -9,7 +9,6 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Used;
 using Bikewale.Models.BikeCare;
-using Bikewale.Models.Upcoming;
 using Bikewale.ServiceCenters;
 using Bikewale.Utility;
 using System;

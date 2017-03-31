@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
+using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Models.ServiceCenters;
