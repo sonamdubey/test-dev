@@ -1,4 +1,34 @@
-﻿$("#sort-btn").click(function () {
+﻿ga_pg_id = '3';
+
+docReady(function () {
+
+    $("img.lazy").lazyload();
+
+    $('.jcarousel-wrapper.upComingBikes .jcarousel').on('jcarousel:targetin', 'li', function () {
+        $("img.lazy").lazyload({
+            threshold: 300
+        });
+    });
+    $('#sort-by-div').insertAfter('header');
+    if ($("#discontinuedMore a").length > 4) {
+        $('#discontinuedMore').hide();
+    }
+    else {
+        $('#discontinuedLess').hide();
+    }
+    $("#spnContent").append($("#discontinuedMore a:eq(0)").clone()).append(", ").append($("#discontinuedMore a:eq(1)").clone()).append(", ").append($("#discontinuedMore a:eq(2)").clone()).append(", ").append($("#discontinuedMore a:eq(3)").clone());
+    $("#spnContent").append("... <a class='f-small' onclick='ShowAllDisModels()'>View All</a>");
+    $('#sort-btn').removeClass('hide').addClass("show");
+    $("a.read-more-btn").click(function () {
+        $("div.brand-about-more-desc").slideToggle();
+        $("div.brand-about-main").slideToggle();
+        var a = $(this).find("span");
+        a.text(a.text() === "more" ? "less" : "more");
+    });
+    $('#usedbikebottomlink').hide();
+});
+
+$("#sort-btn").click(function () {
     $("#sort-by-div").slideToggle('fast');
     $("html, body").animate({ scrollTop: $("#bw-header").offset().top }, 0);
 });

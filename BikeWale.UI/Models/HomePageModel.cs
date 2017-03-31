@@ -12,7 +12,6 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
-using Bikewale.Models.ExpertReviews;
 using Bikewale.Utility;
 using System;
 
@@ -25,7 +24,6 @@ namespace Bikewale.Models
     public class HomePageModel
     {
         #region Variables for dependency injection
-        private readonly uint _cityId;
         private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;

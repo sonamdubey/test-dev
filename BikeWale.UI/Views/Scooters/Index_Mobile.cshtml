@@ -1,15 +1,12 @@
-﻿@using Bikewale.Entities.BikeData;
+﻿@model Bikewale.Models.ScootersIndexPageVM
 @{
-    ViewBag.AdId = "1450262524302";
-    ViewBag.AdPath = "/1017752/Bikewale_Mobile_NewHome";
-    ViewBag.Ad320x150_Top = true;
-    ViewBag.Ad320x150_Bottom = true;
-    ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/scooters/landing.css' />";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeResult NewLaunchesList = ViewBag.NewLaunchesList;
-    Bikewale.Models.Shared.PopularScootersList popularScooters = ViewBag.popularScooters;
-    IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
-    IEnumerable<Bikewale.Entities.Compare.TopBikeCompareBase> TopScootersCompares = ViewBag.TopScootersCompares;
+    Model.AdTags.AdId = "1450262524302";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewHome";
+    Model.AdTags.Ad320x150_Top = true;
+    Model.AdTags.Ad320x150_Bottom = true;
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/scooters/landing.css' />";
+    Model.PageMetaTags.AlternateUrl = "";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";    
 }
 
 <section>
@@ -33,7 +30,7 @@
                     </div>
                     <div id="brand-tab" class="bw-tabs-data">
                         <div class="container bg-white box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
-                            @{Html.RenderAction("BrandsMobile", "Scooters");}
+                            @{ Html.RenderPartial("~/views/make/_Brands_Mobile.cshtml", Model.Brands); }
                           </div>
                     </div>
                     <div id="budget-tab" class="bw-tabs-data hide">
@@ -117,59 +114,64 @@
         <div class="clear"></div>
     </div>
 </section>
+@if (Model.AdTags.Ad320x150_Top) { 
 <section>
-    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_First.cshtml", new { AdId = ViewBag.AdId });}
+    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_First.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>
+}
 <section>
     <h2 class="section-heading">Featured scooters</h2>
     <div class="featured-bikes-panel content-box-shadow padding-bottom10 panel-type-scooter">
         <div class="bw-tabs-panel">
             <div class="bw-tabs bw-tabs-flex">
                 <ul>
-                    @if(popularScooters.PopularScooters!=null && popularScooters.PopularScooters.Count()>0)
+                    @if(Model.HasPopularBikes)
                     {
                         <li class="active" data-tabs="mctrlMostPopularBikes">Most Popular</li>
                     }
-                    @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
+                    @if (Model.HasNewLaunches)
                     {
                         <li data-tabs="mctrlNewLaunchedBikes">New launches</li>}
-                    @if (objUpcoming != null && objUpcoming.Count() > 0)
+                    @if (Model.HasUpcoming)
                     {
                     <li data-tabs="mctrlUpcomingBikes">Upcoming </li>}
                 </ul>
             </div>
-            @if(popularScooters.PopularScooters!=null && popularScooters.PopularScooters.Count()>0)
+            @if(Model.HasPopularBikes)
               {
             <div id="mctrlMostPopularBikes" class="bw-tabs-data features-bikes-container">
-                @Html.Partial("~/Views/m/Shared/_popularBikesScooters.cshtml", popularScooters)
+                @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularBikes)
                 <div class="padding-left10 view-all-btn-container margin-top10 text-center">
                     <a href="/m/best-scooters-in-india/" title="Popular Scooters in India" class="btn view-all-target-btn">View all scooters<span class="bwmsprite teal-right"></span></a>
                 </div>
                 </div>
                 }
-                @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
+                @if (Model.HasNewLaunches)
                 {
                     <div id="mctrlNewLaunchedBikes" class="bw-tabs-data features-bikes-container hide">
-                        @Html.Partial("~/Views/m/Shared/_newLaunches.cshtml", NewLaunchesList)
+                        @Html.Partial("~/Views/Newlaunches/_newLaunches_Mobile.cshtml", Model.NewLaunches)
                     </div>
                 }
-                @if (objUpcoming != null && objUpcoming.Count() > 0)
+                @if (Model.HasUpcoming)
                 {<div id="mctrlUpcomingBikes" class="bw-tabs-data features-bikes-container hide">
-                    @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcoming)
+                     @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.Upcoming)
                 </div>
                 }
             </div>
     </div>
 </section>
-@if (TopScootersCompares != null && TopScootersCompares.Count() > 0)
+@if (Model.HasComparison)
 {
-<section>
-    @Html.Partial("~/Views/m/Shared/_popularComparisions.cshtml", TopScootersCompares)
+    <section>
+        <h2 class="section-heading">Compare scooters</h2>
+        @Html.Partial("~/Views/CompareBikes/_ComparisonMin_Mobile.cshtml", Model.Comparison)
+        <div class="clear"></div>
     </section>
 }
+@if (Model.AdTags.Ad320x150_Bottom) 
+{ 
 <section>
-    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = ViewBag.AdId });}
+    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>
+}
 <div class="margin-bottom10"></div>
-
-<script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>

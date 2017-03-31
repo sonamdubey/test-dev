@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bikewale.Models.ExpertReviews
+namespace Bikewale.Models
 {
     /// <summary>
     /// Created by : Aditi Srivastava on 23 Mar 2017
@@ -15,7 +15,7 @@ namespace Bikewale.Models.ExpertReviews
     public class RecentExpertReviews
     {
         private readonly ICMSCacheContent _articles = null;
-
+        private string Title { get; set; }
         private readonly uint _totalRecords;
         private readonly uint _makeId;
         private readonly string _makeName;
@@ -30,6 +30,16 @@ namespace Bikewale.Models.ExpertReviews
             _totalRecords = totalRecords;
             _articles = articles;
         }
+
+        public RecentExpertReviews(uint totalRecords, uint makeId, string makeName, string makeMasking, ICMSCacheContent articles, string title)
+        {
+            _totalRecords = totalRecords;
+            _makeId = makeId;
+            _makeName = makeName;
+            _makeMasking = makeMasking;
+            Title = title;
+        }
+
 
         public RecentExpertReviews(uint totalRecords, uint makeId, uint modelId, string makeName, string makeMasking, string modelName, string modelMasking, ICMSCacheContent articles)
         {
@@ -90,6 +100,7 @@ namespace Bikewale.Models.ExpertReviews
                 {
                     recentReviews.LinkTitle = "Expert Reviews on Bikes";
                 }
+                recentReviews.Title = Title;
             }
             catch (Exception ex)
             {

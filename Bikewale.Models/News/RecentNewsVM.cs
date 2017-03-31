@@ -9,6 +9,7 @@ namespace Bikewale.Models
     /// </summary>
     public class RecentNewsVM
     {
+        public string Title { get; set; }
         public IEnumerable<ArticleSummary> ArticlesList { get; set; }
         public string MakeName { get; set; }
         public string ModelName { get; set; }
