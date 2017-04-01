@@ -1,9 +1,11 @@
-﻿using Bikewale.Entities.BikeData;
+﻿
+using Bikewale.Common;
+using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
 using Bikewale.Models.Videos;
-using Bikewale.Notifications;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Desktop.Videos
@@ -18,13 +20,19 @@ namespace Bikewale.Controllers.Desktop.Videos
         private readonly IVideos _video = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelCache = null;
+        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
+        private readonly ICityCacheRepository _cityCacheRepo = null;
+        private readonly IBikeInfo _bikeInfo = null;
 
-        public VideosController(IVideosCacheRepository videos, IVideos video, IBikeMakes<BikeMakeEntity, int> bikeMakes, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache)
+        public VideosController(ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IBikeMakesCacheRepository<int> bikeMakesCache, IVideosCacheRepository videos, IVideos video, IBikeMakes<BikeMakeEntity, int> bikeMakes, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache)
         {
             _videos = videos;
             _video = video;
             _bikeMakes = bikeMakes;
             _objModelCache = objModelCache;
+            _bikeMakesCache = bikeMakesCache;
+            _cityCacheRepo = cityCacheRepo;
+            _bikeInfo = bikeInfo;
         }
 
         /// <summary>
@@ -144,6 +152,76 @@ namespace Bikewale.Controllers.Desktop.Videos
             else
             {
                 return Redirect("/pagenotfound.aspx");
+            }
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 01-04-2017
+        /// Description : Controller for videos make wise page desktop 
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <param name="modelMaskingName"></param>
+        /// <returns></returns>
+        [Filters.DeviceDetection()]
+        [Route("videos/make/{makeMaskingName}/model/{modelMaskingName}")]
+        public ActionResult Models(string makeMaskingName, string modelMaskingName)
+        {
+            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache);
+
+            if (objModel.makeStatus == Entities.StatusCodes.ContentFound && objModel.modelStatus == Entities.StatusCodes.ContentFound)
+            {
+                objModel.SimilarBikeWidgetTopCount = 9;
+                ModelWiseVideoPageVM objVM = objModel.GetData();
+                return View(objVM);
+            }
+            else if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent || objModel.modelStatus == Entities.StatusCodes.RedirectPermanent)
+            {
+                if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objModel.objMakeResponse.MaskingName));
+                }
+                else
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objModel.objModelResponse.MaskingName));
+                }
+            }
+            else
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 01-04-2017
+        /// Description : Controller for videos make wise page mobile 
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <param name="modelMaskingName"></param>
+        /// <returns></returns>
+        [Route("m/videos/make/{makeMaskingName}/model/{modelMaskingName}")]
+        public ActionResult Models_Mobile(string makeMaskingName, string modelMaskingName)
+        {
+            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache);
+            if (objModel.makeStatus == Entities.StatusCodes.ContentFound && objModel.modelStatus == Entities.StatusCodes.ContentFound)
+            {
+                objModel.SimilarBikeWidgetTopCount = 9;
+                ModelWiseVideoPageVM objVM = objModel.GetData();
+                return View(objVM);
+            }
+            else if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent || objModel.modelStatus == Entities.StatusCodes.RedirectPermanent)
+            {
+                if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objModel.objMakeResponse.MaskingName));
+                }
+                else
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objModel.objModelResponse.MaskingName));
+                }
+            }
+            else
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
         }
 
