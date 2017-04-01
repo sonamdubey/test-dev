@@ -39,9 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BikeCare\BikeCareDetailPageVM.cs" />
+    <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
     <Compile Include="DealerShowroom\DealerCardVM.cs" />
     <Compile Include="DealerShowroom\DealersServiceCentersIndiaWidgetVM.cs" />
     <Compile Include="DealerShowroom\IndexVM.cs" />
+    <Compile Include="Features\DetailFeatureVM.cs" />
     <Compile Include="Features\IndexFeatureVM.cs" />
     <Compile Include="ExpertReviews\ExpertReviewsDetailPageVM.cs" />
     <Compile Include="Make\BrandCityPopupVM.cs" />
@@ -93,6 +96,7 @@
     <Compile Include="Shared\Showrooms.cs" />
     <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
     <Compile Include="Videos\MakeVideosPageVM.cs" />
+    <Compile Include="Videos\ModelWiseVideoPageVM.cs" />
     <Compile Include="Videos\SimilarVideoModelsVM.cs" />
     <Compile Include="Videos\VideoDetailsPageVM.cs" />
     <Compile Include="Videos\VideosBySubcategoryVM.cs" />

@@ -35,7 +35,6 @@ namespace Bikewale.Models
         private readonly ICityCacheRepository _cityCacheRepo;
         private IUpcoming _upcoming = null;
         private string _basicId;
-        private int _topCount;
         #endregion
 
         #region Page level variables
@@ -54,10 +53,11 @@ namespace Bikewale.Models
 
         #region Public properties
         public bool IsMobile { get; set; }
+        public int TopCount { get; set; }
         #endregion
 
         #region Constructor
-        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, int topCount)
+        public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -66,7 +66,6 @@ namespace Bikewale.Models
             _bikeInfo = bikeInfo;
             _cityCacheRepo = cityCacheRepo;
             _basicId = basicId;
-            _topCount = topCount;
             ProcessQueryString();
         }
         #endregion
@@ -142,7 +141,7 @@ namespace Bikewale.Models
                 objData.BaseUrl = IsMobile ? "/m" : "";
                 objData.PageMetaTags.CanonicalUrl = string.Format("{0}/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 objData.PageMetaTags.AmpUrl = string.Format("{0}/m/expert-reviews/{1}-{2}/amp/", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
-                objData.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/expert-reviews/{0}-{1}.html", objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
+                objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/expert-reviews/{0}-{1}.html",BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 objData.PageMetaTags.Title = string.Format("{0}- BikeWale.", objData.ArticleDetails.Title);
                 objData.PageMetaTags.Keywords = string.Format("{0},road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives", objData.Model.ModelName);
                 if (IsMobile)
@@ -230,7 +229,7 @@ namespace Bikewale.Models
                 if (currentCityArea != null)
                     CityId = currentCityArea.CityId;
                 MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
-                objPopularBikes.TopCount = _topCount;
+                objPopularBikes.TopCount = TopCount;
                 objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();
                 if (MakeId > 0 && objData.Make != null)
@@ -251,7 +250,7 @@ namespace Bikewale.Models
                     PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
                     objPopularStyle.ModelId = ModelId;
                     objPopularStyle.CityId = CityId;
-                    objPopularStyle.TopCount = _topCount;
+                    objPopularStyle.TopCount = TopCount;
                     objData.PopularBodyStyle = objPopularStyle.GetData();
                     if (objData.PopularBodyStyle != null)
                     {
@@ -269,7 +268,7 @@ namespace Bikewale.Models
                     UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
                     objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
                     objUpcomingBikes.Filters.StartIndex = 1;
-                    objUpcomingBikes.Filters.EndIndex = _topCount;
+                    objUpcomingBikes.Filters.EndIndex = TopCount;
                     if (MakeId > 0)
                     {
                         objUpcomingBikes.Filters.MakeId = (int)MakeId;
@@ -321,7 +320,7 @@ namespace Bikewale.Models
 
         /// <summary>
         /// Created by : Aditi Srivastava on 31 Mar 2017
-        /// Summary    : Add bike tested(for mobile) if models are tagged  
+        /// Summary    : Add bike tested if models are tagged  
         /// </summary>
         /// <param name="objData"></param>
         private void SetBikeTested(ExpertReviewsDetailPageVM objData)

@@ -65,7 +65,7 @@ namespace Bikewale.Models.DealerShowroom
                     CityDetails = new CityHelper().GetCityById(cityId);
                     objDealerVM.CityDetails = CityDetails;
                 }
-                //objDealerVM.DealersList = BindDataDealers();
+                objDealerVM.DealersList = BindDataDealers();
                 if (objDealerVM.DealersList != null && objDealerVM.DealersList.Dealers != null)
                 {
                     objDealerVM.TotalDealers = (uint)objDealerVM.DealersList.Dealers.Count();

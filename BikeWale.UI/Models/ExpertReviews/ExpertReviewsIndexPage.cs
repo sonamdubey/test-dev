@@ -28,7 +28,6 @@ namespace Bikewale.Models
         private readonly IPager _pager;
         private readonly IBikeModelsCacheRepository<int> _models = null;
         private readonly IUpcoming _upcoming = null;
-        private int _topCount;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         #endregion
 
@@ -51,18 +50,18 @@ namespace Bikewale.Models
 
         #region Public properties
         public bool IsMobile { get; set; }
+        public int TopCount { get; set; }
         #endregion
 
         #region Constructor
-        public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, int topCount)
+        public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming)
         {
             _cmsCache = cmsCache;
             _pager = pager;
             _models = models;
             _bikeModels = bikeModels;
             _upcoming = upcoming;
-            _topCount = topCount;
-            ProcessQueryString();
+             ProcessQueryString();
         }
         #endregion
 
@@ -73,9 +72,7 @@ namespace Bikewale.Models
         /// </summary>
         public ExpertReviewsIndexPageVM GetData()
         {
-            ExpertReviewsIndexPageVM objData = null;
-
-            objData = new ExpertReviewsIndexPageVM();
+            ExpertReviewsIndexPageVM objData =  new ExpertReviewsIndexPageVM();
 
             try
             {
@@ -250,7 +247,7 @@ namespace Bikewale.Models
                     CityId = currentCityArea.CityId;
 
                 MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
-                objPopularBikes.TopCount = _topCount;
+                objPopularBikes.TopCount = TopCount;
                 objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();
                 if (MakeId > 0 && objMake != null)
@@ -271,7 +268,7 @@ namespace Bikewale.Models
                     PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
                     objPopularStyle.ModelId = ModelId;
                     objPopularStyle.CityId = CityId;
-                    objPopularStyle.TopCount = _topCount;
+                    objPopularStyle.TopCount = TopCount;
                     objData.PopularBodyStyle = objPopularStyle.GetData();
                     if (objData.PopularBodyStyle != null)
                     {
@@ -285,7 +282,7 @@ namespace Bikewale.Models
                     UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
                     objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
                     objUpcomingBikes.Filters.StartIndex = 1;
-                    objUpcomingBikes.Filters.EndIndex = _topCount;
+                    objUpcomingBikes.Filters.EndIndex = TopCount;
                     if (MakeId > 0)
                     {
                         objUpcomingBikes.Filters.MakeId = (int)MakeId;

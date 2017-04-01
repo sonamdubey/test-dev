@@ -1,51 +1,39 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.Location;
-using Bikewale.Memcache;
-using Bikewale.Models.BestBikes;
-using Bikewale.Models;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using Bikewale.Models.BestBikes;
 
 namespace Bikewale.Models
 {
     /// <summary>
-    /// Created by : Aditi Srivastava on 29 Mar 2017
-    /// Summary    : Model for news details page
+    /// Created by : Aditi Srivastava on 1 Apr 2017
+    /// Summary    : Model to fetch data for bike care details page
     /// </summary>
-    public class NewsDetailPage
+    public class BikeCareDetailPage
     {
         #region Variables for dependency injection
         private readonly ICMSCacheContent _cmsCache = null;
-        private IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private IBikeModelsCacheRepository<int> _models = null;
-        private readonly IBikeInfo _bikeInfo;
-        private readonly ICityCacheRepository _cityCacheRepo;
-        private IUpcoming _upcoming = null;
+        private readonly IUpcoming _upcoming = null;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
+        private readonly IBikeModelsCacheRepository<int> _models = null;
         private string _basicId;
         #endregion
 
         #region Page level variables
+        private uint basicId;
         public StatusCodes status;
-        public string mappedCWId;
-        public string redirectUrl;
         private GlobalCityAreaEntity currentCityArea;
         private uint CityId, MakeId, ModelId, pageCatId = 0;
-        private uint _totalTabCount = 3;
-        private BikeInfoTabType _pageId = BikeInfoTabType.News;
         private EnumBikeType bikeType = EnumBikeType.All;
         private bool showCheckOnRoadCTA = false;
-        private uint basicId;
         private PQSourceEnum pqSource = 0;
         #endregion
 
@@ -55,59 +43,45 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public NewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId)
+        public BikeCareDetailPage(ICMSCacheContent cmsCache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> models, string basicId)
         {
             _cmsCache = cmsCache;
-            _models = models;
-            _bikeModels = bikeModels;
             _upcoming = upcoming;
-            _bikeInfo = bikeInfo;
-            _cityCacheRepo = cityCacheRepo;
+            _bikeModels = bikeModels;
+            _models = models;
             _basicId = basicId;
             ProcessQueryString();
         }
         #endregion
 
         #region Functions
+
         /// <summary>
-        /// Created by : Aditi Srivastava on 29 Mar 2017
+        /// Created by : Aditi Srivastava on 1 Apr 2017
         /// Summary    : Process query string
         /// </summary>
         private void ProcessQueryString()
         {
-            var request = HttpContext.Current.Request;
-            string qsBasicId = _basicId;
-            try
+            if (!string.IsNullOrEmpty(_basicId) && uint.TryParse(_basicId, out basicId) && basicId > 0)
             {
-                qsBasicId = BasicIdMapping.GetCWBasicId(qsBasicId);
-                if (!qsBasicId.Equals(_basicId))
-                {
-                    status = StatusCodes.RedirectPermanent;
-                    mappedCWId = qsBasicId;
-                    redirectUrl = string.Format("/news/{0}-{1}.html", mappedCWId, request["t"]);
-                }
-                if (uint.TryParse(qsBasicId, out basicId) && basicId > 0)
-                    status = StatusCodes.ContentFound;
-                else
-                    status = StatusCodes.ContentNotFound;
+                status = StatusCodes.ContentFound;
             }
-            catch (Exception ex)
+            else
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.NewsDetailPage.ProcessQueryString");
+                status = StatusCodes.ContentNotFound;
             }
         }
 
         /// <summary>
-        /// Created by : Aditi Srivastava on 29 Mar 2017
-        /// Summary    : Get entire data for news details page
+        /// Created by : Aditi Srivastava on 1 Apr 2017
+        /// Summary    : Get bike care detail page data
         /// </summary>
-        public NewsDetailPageVM GetData()
+        public BikeCareDetailPageVM GetData()
         {
-            NewsDetailPageVM objData = new NewsDetailPageVM();
+            BikeCareDetailPageVM objData = new BikeCareDetailPageVM();
             try
             {
-                objData.ArticleDetails = _cmsCache.GetNewsDetails(basicId);
-
+                objData.ArticleDetails = _cmsCache.GetArticlesDetails(basicId);
                 if (objData.ArticleDetails != null)
                 {
                     status = StatusCodes.ContentFound;
@@ -115,48 +89,47 @@ namespace Bikewale.Models
                     GetTaggedBikeListByModel(objData);
                     SetPageMetas(objData);
                     GetWidgetData(objData);
+                    PopulatePhotoGallery(objData);
                 }
                 else
+                {
                     status = StatusCodes.ContentNotFound;
+                }
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.NewsDetailPage.GetData");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareDetailPage.GetData");
             }
             return objData;
         }
 
         /// <summary>
-        /// Created by : Aditi Srivastava on 29 Mar 2017
-        /// Summary    : Set news details page metas
+        /// Created by : Aditi Srivastava on 1 Apr 2017
+        /// Summary    : Set expert reviews details page metas
         /// </summary>
-        private void SetPageMetas(NewsDetailPageVM objData)
+        private void SetPageMetas(BikeCareDetailPageVM objData)
         {
             try
             {
-                objData.BaseUrl = IsMobile?"/m":"";
-                objData.PageMetaTags.Title = string.Format("{0} - BikeWale News", objData.ArticleDetails.Title);
-                objData.PageMetaTags.ShareImage = Image.GetPathToShowImages(objData.ArticleDetails.OriginalImgUrl, objData.ArticleDetails.HostUrl, ImageSize._640x348);
-                objData.PageMetaTags.Description = string.Format("BikeWale coverage on {0}. Get the latest reviews and photos for {0} on BikeWale coverage.", objData.ArticleDetails.Title);
-                objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/news/{0}-{1}.html", objData.ArticleDetails.BasicId, objData.ArticleDetails.ArticleUrl);
-                objData.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/news/{0}-{1}.html", objData.ArticleDetails.BasicId, objData.ArticleDetails.ArticleUrl);
-                objData.PageMetaTags.AmpUrl = string.Format("{0}/m/news/{1}-{2}/amp/", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
-                if (objData.ArticleDetails.PrevArticle != null && objData.ArticleDetails.PrevArticle.ArticleUrl != null)
-                    objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/news/{2}-{3}.html", BWConfiguration.Instance.BwHostUrl, objData.BaseUrl, objData.ArticleDetails.PrevArticle.BasicId, objData.ArticleDetails.PrevArticle.ArticleUrl);
-                if (objData.ArticleDetails.NextArticle != null && objData.ArticleDetails.NextArticle.ArticleUrl != null)
-                    objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/news/{2}-{3}.html", BWConfiguration.Instance.BwHostUrl, objData.BaseUrl, objData.ArticleDetails.NextArticle.BasicId, objData.ArticleDetails.NextArticle.ArticleUrl);
+                objData.BaseUrl = IsMobile ? "/m" : "";
+                objData.PageMetaTags.CanonicalUrl = string.Format("{0}/bike-care/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
+                objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/bike-care/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl,objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
+                objData.PageMetaTags.Title = string.Format("{0} | Maintenance Tips from Bike Experts - BikeWale", objData.ArticleDetails.Title);
+                objData.PageMetaTags.Keywords = "Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care";
+                objData.PageMetaTags.Description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", objData.ArticleDetails.Title);
+                objData.Page_H1 = string.Format("{0} | Maintenance Tips from Bike Experts - BikeWale", objData.ArticleDetails.Title);   
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.NewsDetailPage.SetPageMetas");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareDetailPage.SetPageMetas");
             }
         }
 
         /// <summary>
-        /// Created by : Aditi Srivastava on 29 Mar 2017
+        /// Created by : Aditi Srivastava on 1 Apr 2017
         /// Summary    : Get tagged make in article
         /// </summary>
-        private void GetTaggedBikeListByMake(NewsDetailPageVM objData)
+        private void GetTaggedBikeListByMake(BikeCareDetailPageVM objData)
         {
             try
             {
@@ -179,16 +152,16 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.NewsDetailPage.GetTaggedBikeListByMake");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareDetailPage.GetTaggedBikeListByMake");
             }
         }
 
 
         /// <summary>
-        /// Created by : Aditi Srivastava on 29 Mar 2017
+        /// Created by : Aditi Srivastava on 1 Apr 2017
         /// Summary    : Get tagged model in article
         /// </summary>
-        private void GetTaggedBikeListByModel(NewsDetailPageVM objData)
+        private void GetTaggedBikeListByModel(BikeCareDetailPageVM objData)
         {
             try
             {
@@ -211,14 +184,14 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.NewsDetailPage.GetTaggedBikeListByModel");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareDetailPage.GetTaggedBikeListByModel");
             }
         }
         /// <summary>
-        /// Created by : Aditi Srivastava on 29 Mar 2017
+        /// Created by : Aditi Srivastava on 1 Apr 2017
         /// Summary    : Get data for the page widgets
         /// </summary>
-        private void GetWidgetData(NewsDetailPageVM objData)
+        private void GetWidgetData(BikeCareDetailPageVM objData)
         {
             try
             {
@@ -255,10 +228,6 @@ namespace Bikewale.Models
                         objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
                         objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
                     }
-
-                    BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, _pageId);
-                    objData.BikeInfo = objBikeInfo.GetData();
-                    objData.BikeInfo.IsSmallSlug = true;
                 }
                 else
                 {
@@ -288,9 +257,31 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.NewsDetailPage.GetWidgetData");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareDetailPage.GetWidgetData");
             }
         }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 1 Apr 2017
+        /// Summary    : Populate view model for photo gallery
+        /// </summary>
+        private void PopulatePhotoGallery(BikeCareDetailPageVM objData)
+        {
+            try
+            {
+                objData.PhotoGallery = new EditCMSPhotoGalleryVM();
+                objData.PhotoGallery.Images = _cmsCache.GetArticlePhotos(Convert.ToInt32(basicId));
+                if (objData.PhotoGallery.Images != null && objData.PhotoGallery.Images.Count() > 0)
+                {
+                    objData.PhotoGallery.ImageCount = objData.PhotoGallery.Images.Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.BikeCareDetailPage.PopulatePhotoGallery");
+            }
+        }
+        
         #endregion
     }
 }

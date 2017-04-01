@@ -9,7 +9,6 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Models;
 using Bikewale.Models.DealerShowroom;
-using Bikewale.Notifications;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -57,25 +56,18 @@ namespace Bikewale.Controllers
         public ActionResult Index()
         {
             DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_bikeMakes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 10);
-            try
-            {
-                if (objDealerIndex != null)
-                {
-                    IndexVM objDealerIndexVM = new IndexVM();
-                    objDealerIndexVM = objDealerIndex.GetData();
-                    return View(objDealerIndexVM);
-                }
-                else
-                {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
-            }
-            catch (System.Exception ex)
-            {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.Index");
+            if (objDealerIndex != null)
+            {
+                IndexVM objDealerIndexVM = new IndexVM();
+                objDealerIndexVM = objDealerIndex.GetData();
+                return View(objDealerIndexVM);
+            }
+            else
+            {
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
+
 
         }
         /// <summary>
@@ -87,25 +79,17 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile()
         {
             DealerShowroomIndexPage objDealerIndex = new DealerShowroomIndexPage(_bikeMakes, _objDealerCache, _bikeMakesCache, _upcoming, _newLaunches, 6);
-            try
+            if (objDealerIndex != null)
             {
-                if (objDealerIndex != null)
-                {
-                    IndexVM objDealerIndexVM = new IndexVM();
-                    objDealerIndexVM = objDealerIndex.GetData();
-                    return View(objDealerIndexVM);
-                }
-                else
-                {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
+                IndexVM objDealerIndexVM = new IndexVM();
+                objDealerIndexVM = objDealerIndex.GetData();
+                return View(objDealerIndexVM);
             }
-            catch (System.Exception ex)
+            else
             {
-
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.Index");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
+
 
         }
         /// <summary>
@@ -117,44 +101,37 @@ namespace Bikewale.Controllers
         [Route("dealersinindia/make/{makeMaskingName}")]
         public ActionResult DealersInIndia(string makeMaskingName)
         {
-            try
+
+            DealerShowroomIndiaPage objDealer = new DealerShowroomIndiaPage(_newLaunches, _objDealerCache, _upcoming, _objUsedCache, _objStateCache, _bikeMakesCache, makeMaskingName);
+
+            if (objDealer != null)
             {
-                DealerShowroomIndiaPage objDealer = new DealerShowroomIndiaPage(_newLaunches, _objDealerCache, _upcoming, _objUsedCache, _objStateCache, _bikeMakesCache, makeMaskingName);
 
-                if (objDealer != null)
+                if (objDealer.status == Entities.StatusCodes.ContentFound)
                 {
-
-                    if (objDealer.status == Entities.StatusCodes.ContentFound)
-                    {
-                        DealerShowroomIndiaPageVM objDealerVM = null;
-                        objDealer.topCount = 9;
-                        objDealerVM = objDealer.GetData();
-                        return View(objDealerVM);
-                    }
-                    else if (objDealer.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealer.objResponse.MaskingName));
-                    }
-                    else if (objDealer.status == Entities.StatusCodes.RedirectTemporary)
-                    {
-                        return Redirect(objDealer.redirectUrl);
-                    }
-                    else
-                    {
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
+                    DealerShowroomIndiaPageVM objDealerVM = null;
+                    objDealer.topCount = 9;
+                    objDealerVM = objDealer.GetData();
+                    return View(objDealerVM);
+                }
+                else if (objDealer.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealer.objResponse.MaskingName));
+                }
+                else if (objDealer.status == Entities.StatusCodes.RedirectTemporary)
+                {
+                    return Redirect(objDealer.redirectUrl);
                 }
                 else
                 {
                     return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
                 }
             }
-            catch (System.Exception ex)
+            else
             {
-
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealersInIndia");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
+
         }
 
         /// <summary>
@@ -165,46 +142,39 @@ namespace Bikewale.Controllers
         [Route("m/dealersinindia/make/{makeMaskingName}")]
         public ActionResult DealersInIndia_Mobile(string makeMaskingName)
         {
-            try
+
+
+            DealerShowroomIndiaPage objDealer = new DealerShowroomIndiaPage(_newLaunches, _objDealerCache, _upcoming, _objUsedCache, _objStateCache, _bikeMakesCache, makeMaskingName);
+            if (objDealer != null)
             {
 
-
-                DealerShowroomIndiaPage objDealer = new DealerShowroomIndiaPage(_newLaunches, _objDealerCache, _upcoming, _objUsedCache, _objStateCache, _bikeMakesCache, makeMaskingName);
-                if (objDealer != null)
+                if (objDealer.status == Entities.StatusCodes.ContentFound)
                 {
-
-                    if (objDealer.status == Entities.StatusCodes.ContentFound)
-                    {
-                        DealerShowroomIndiaPageVM objDealerVM = null;
-                        objDealer.topCount = 9;
-                        objDealerVM = objDealer.GetData();
-                        return View(objDealerVM);
-                    }
-                    else if (objDealer.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealer.objResponse.MaskingName));
-                    }
-                    else if (objDealer.status == Entities.StatusCodes.RedirectTemporary)
-                    {
-                        objDealer.redirectUrl = string.Format("/m{0}", objDealer.redirectUrl);
-                        return Redirect(objDealer.redirectUrl);
-                    }
-                    else
-                    {
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
+                    DealerShowroomIndiaPageVM objDealerVM = null;
+                    objDealer.topCount = 9;
+                    objDealerVM = objDealer.GetData();
+                    return View(objDealerVM);
+                }
+                else if (objDealer.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealer.objResponse.MaskingName));
+                }
+                else if (objDealer.status == Entities.StatusCodes.RedirectTemporary)
+                {
+                    objDealer.redirectUrl = string.Format("/m{0}", objDealer.redirectUrl);
+                    return Redirect(objDealer.redirectUrl);
                 }
                 else
                 {
                     return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
                 }
             }
-            catch (System.Exception ex)
+            else
             {
-
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealersInIndia_Mobile");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
+
+
         }
 
         /// <summary>
@@ -216,42 +186,36 @@ namespace Bikewale.Controllers
         [Route("dealerincity/make/{makeMaskingName}/city/{cityMaskingName}")]
         public ActionResult DealerInCity(string makeMaskingName, string cityMaskingName)
         {
-            try
+
+            DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName, 3);
+            if (objDealer != null)
             {
-                DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName, 3);
-                if (objDealer != null)
+                if (objDealer.status.Equals(Entities.StatusCodes.ContentFound))
                 {
-                    if (objDealer.status == Entities.StatusCodes.ContentFound)
-                    {
-                        DealerShowroomCityPageVM objDealerVM = null;
+                    DealerShowroomCityPageVM objDealerVM = null;
 
-                        if (objDealer != null)
-                        {
-                            objDealerVM = objDealer.GetData();
-                        }
+                    if (objDealer != null)
+                    {
+                        objDealerVM = objDealer.GetData();
+                    }
 
-                        return View(objDealerVM);
-                    }
-                    else if (objDealer.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealer.objResponse.MaskingName));
-                    }
-                    else
-                    {
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
+                    return View(objDealerVM);
+                }
+                else if (objDealer.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealer.objResponse.MaskingName));
                 }
                 else
                 {
                     return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
                 }
             }
-            catch (System.Exception ex)
+            else
             {
-
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealersInCity");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
+
+
         }
 
         /// <summary>
@@ -262,42 +226,35 @@ namespace Bikewale.Controllers
         [Route("m/dealerincity/make/{makeMaskingName}/city/{cityMaskingName}")]
         public ActionResult DealerInCity_Mobile(string makeMaskingName, string cityMaskingName)
         {
-            try
+
+            DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName, 9);
+            if (objDealer != null)
             {
-                DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName, 9);
-                if (objDealer != null)
+                if (objDealer.status == Entities.StatusCodes.ContentFound)
                 {
-                    if (objDealer.status == Entities.StatusCodes.ContentFound)
-                    {
-                        DealerShowroomCityPageVM objDealerVM = null;
+                    DealerShowroomCityPageVM objDealerVM = null;
 
-                        if (objDealer != null)
-                        {
-                            objDealerVM = objDealer.GetData();
-                        }
+                    if (objDealer != null)
+                    {
+                        objDealerVM = objDealer.GetData();
+                    }
 
-                        return View(objDealerVM);
-                    }
-                    else if (objDealer.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealer.objResponse.MaskingName));
-                    }
-                    else
-                    {
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
+                    return View(objDealerVM);
+                }
+                else if (objDealer.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealer.objResponse.MaskingName));
                 }
                 else
                 {
                     return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
                 }
             }
-            catch (System.Exception ex)
+            else
             {
-
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealersInCity");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
+
         }
 
         /// <summary>
@@ -309,45 +266,37 @@ namespace Bikewale.Controllers
         [Route("dealerdetails/make/{makeMaskingName}/city/{cityMaskingName}/dealerid/{dealerId}")]
         public ActionResult DealerDetail(string makeMaskingName, string cityMaskingName, uint dealerId)
         {
-            try
+
+            DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 3);
+            if (objDealerDetails != null && dealerId > 0)
             {
+                DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
 
-                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 3);
-                if (objDealerDetails != null && dealerId > 0)
+                if (objDealerDetails.status == Entities.StatusCodes.ContentFound)
                 {
-                    DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
 
-                    if (objDealerDetails.status == Entities.StatusCodes.ContentFound)
-                    {
-
-                        objDealerDetailsVM = objDealerDetails.GetData();
-                        if (objDealerDetailsVM != null && objDealerDetailsVM.DealerDetails != null && objDealerDetailsVM.DealerDetails.DealerDetails != null)
-                            return View(objDealerDetailsVM);
-                        else
-                            return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
-
-                    else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealerDetails.objResponse.MaskingName));
-                    }
+                    objDealerDetailsVM = objDealerDetails.GetData();
+                    if (objDealerDetailsVM != null && objDealerDetailsVM.DealerDetails != null && objDealerDetailsVM.DealerDetails.DealerDetails != null)
+                        return View(objDealerDetailsVM);
                     else
-                    {
                         return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
+                }
 
+                else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealerDetails.objResponse.MaskingName));
                 }
                 else
                 {
                     return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
                 }
-            }
-            catch (System.Exception ex)
-            {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealerDetails");
+            }
+            else
+            {
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
+
 
         }
         /// <summary>
@@ -358,45 +307,38 @@ namespace Bikewale.Controllers
         [Route("m/dealerdetails/make/{makeMaskingName}/city/{cityMaskingName}/dealerid/{dealerId}")]
         public ActionResult DealerDetail_Mobile(string makeMaskingName, string cityMaskingName, uint dealerId)
         {
-            try
+
+
+            DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 9);
+            if (objDealerDetails != null && dealerId > 0)
             {
+                DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
 
-                DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 9);
-                if (objDealerDetails != null && dealerId > 0)
+                if (objDealerDetails.status == Entities.StatusCodes.ContentFound)
                 {
-                    DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
 
-                    if (objDealerDetails.status == Entities.StatusCodes.ContentFound)
-                    {
-
-                        objDealerDetailsVM = objDealerDetails.GetData();
-                        if (objDealerDetailsVM != null && objDealerDetailsVM.DealerDetails != null && objDealerDetailsVM.DealerDetails.DealerDetails != null)
-                            return View(objDealerDetailsVM);
-                        else
-                            return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
-
-                    else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealerDetails.objResponse.MaskingName));
-                    }
+                    objDealerDetailsVM = objDealerDetails.GetData();
+                    if (objDealerDetailsVM != null && objDealerDetailsVM.DealerDetails != null && objDealerDetailsVM.DealerDetails.DealerDetails != null)
+                        return View(objDealerDetailsVM);
                     else
-                    {
                         return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
+                }
 
+                else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objDealerDetails.objResponse.MaskingName));
                 }
                 else
                 {
                     return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
                 }
-            }
-            catch (System.Exception ex)
-            {
 
-                ErrorClass objErr = new ErrorClass(ex, "DealerShowroomController.DealerDetail_Mobile");
+            }
+            else
+            {
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
+
 
         }
 

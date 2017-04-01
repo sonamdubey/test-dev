@@ -17,14 +17,15 @@ namespace Bikewale.Controllers
         private readonly IPager _objPager = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
+        private readonly IBikeModelsCacheRepository<int> _models = null;
 
-
-        public FeaturesController(ICMSCacheContent Cache, IPager objPager, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels)
+        public FeaturesController(ICMSCacheContent Cache, IPager objPager, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> models)
         {
             _Cache = Cache;
             _objPager = objPager;
             _upcoming = upcoming;
             _bikeModels = bikeModels;
+            _models = models;
         }
 
         /// <summary>
@@ -36,74 +37,96 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Index(ushort? pageNumber)
         {
-            try
-            {
-                IndexPage objIndexPage = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
-                if (objIndexPage != null)
-                {
-                    IndexFeatureVM objFeatureIndex = new IndexFeatureVM();
-                    objIndexPage.TopCount = 4;
-                    if (pageNumber.HasValue && pageNumber.Value > 0)
-                        objIndexPage.CurPageNo = pageNumber.Value;
-                    objFeatureIndex = objIndexPage.GetData();
-                    if (objIndexPage.status == Entities.StatusCodes.ContentFound)
-                        return View(objFeatureIndex);
-                    else
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
-                else
-                {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
-            }
-            catch (System.Exception ex)
-            {
-
-                ErrorClass objErr = new ErrorClass(ex, "FeaturesController.Index");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-            }
-
-
+            IndexPage objIndexPage = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
+            IndexFeatureVM objFeatureIndex = new IndexFeatureVM();
+            objIndexPage.TopCount = 4;
+            if (pageNumber.HasValue && pageNumber.Value > 0)
+                objIndexPage.CurPageNo = pageNumber.Value;
+            objFeatureIndex = objIndexPage.GetData();
+            if (objIndexPage.status == Entities.StatusCodes.ContentFound)
+                return View(objFeatureIndex);
+            else
+                return Redirect("/pageNotFound.aspx");
         }
+        /// <summary>
+        /// Created by :- Subodh Jain on 31 March 2017
+        /// Summary :- Index Method for Features news section Mobile
+        /// </summary>
+        /// <returns></returns>
         [Route("m/features/")]
         public ActionResult Index_Mobile(ushort? pageNumber)
         {
-            try
+
+            IndexPage objIndexPage = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
+            IndexFeatureVM objFeatureIndex = new IndexFeatureVM();
+            objIndexPage.TopCount = 9;
+            if (pageNumber.HasValue && pageNumber.Value > 0)
+                objIndexPage.CurPageNo = pageNumber.Value;
+            objFeatureIndex = objIndexPage.GetData();
+            if (objIndexPage.status == Entities.StatusCodes.ContentFound)
+                return View(objFeatureIndex);
+            else
+                return Redirect("/m/pageNotFound.aspx");
+
+        }
+
+        /// <summary>
+        ///Created By:- Subodh Jain 31 March 2017
+        ///Summary :- Detail Page Feature Desktop
+        /// </summary>
+        /// <returns></returns>
+        [Route("content/features/details/")]
+        [Filters.DeviceDetection()]
+        public ActionResult Detail(string basicId)
+        {
+            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicId);
+            objDetail.TopCount = 4;
+
+            if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
-                IndexPage objIndexPage = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
-                if (objIndexPage != null)
-                {
-                    IndexFeatureVM objFeatureIndex = new IndexFeatureVM();
-                    objIndexPage.TopCount = 9;
-                    if (pageNumber.HasValue && pageNumber.Value > 0)
-                        objIndexPage.CurPageNo = pageNumber.Value;
-                    objFeatureIndex = objIndexPage.GetData();
-                    if (objIndexPage.status == Entities.StatusCodes.ContentFound)
-                        return View(objFeatureIndex);
-                    else
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
+                return Redirect("/pagenotfound.aspx");
+            }
+            else if (objDetail.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(objDetail.redirectUrl);
+            }
+            else
+            {
+                DetailFeatureVM objData = objDetail.GetData();
+                if (objDetail.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/pagenotfound.aspx");
                 else
-                {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
+                    return View(objData);
             }
-            catch (System.Exception ex)
+
+        }
+        /// <summary>
+        ///Created By:- Subodh Jain 31 March 2017
+        ///Summary :- Detail Page Feature Mobile
+        /// </summary>
+        /// <returns></returns>
+        [Route("m/content/features/details/")]
+        public ActionResult Detail_Mobile(string basicId)
+        {
+            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicId);
+            objDetail.TopCount = 9;
+
+            if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
-
-                ErrorClass objErr = new ErrorClass(ex, "FeaturesController.Index");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect("/pagenotfound.aspx");
             }
-        }
-
-        public ActionResult Details()
-        {
-            return View();
-        }
-
-        public ActionResult Details_Mobile()
-        {
-            return View();
+            else if (objDetail.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return Redirect(string.Format("/m{0}", objDetail.redirectUrl));
+            }
+            else
+            {
+                DetailFeatureVM objData = objDetail.GetData();
+                if (objDetail.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pageNotFound.aspx");
+                else
+                    return View(objData);
+            }
         }
     }
 }

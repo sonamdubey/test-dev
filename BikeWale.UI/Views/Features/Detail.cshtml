@@ -1,0 +1,157 @@
+﻿@model Bikewale.Models.Features.DetailFeatureVM
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.AdTags.AdId = "1395986297721";
+    Model.AdTags.AdPath = "/1017752/BikeWale_New_";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' />";
+    Model.Page_JS_Path = "/src/content/details.js";
+    Model.PageMetaTags.CanonicalUrl = string.Format("{0}/features/{1}-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.objFeature.ArticleUrl, Model.objFeature.BasicId);
+    Model.PageMetaTags.AlternateUrl = string.Format("{0}/m/features/{1}-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.objFeature.ArticleUrl, Model.objFeature.BasicId);
+
+}
+
+@if (Model != null && Model.objFeature != null)
+{
+    <section class="container padding-top10">
+        <div class="grid-12">
+            <div class="breadcrumb margin-bottom15">
+                <ul>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <a href="/" itemprop="url">
+                            <span itemprop="title">Home</span>
+                        </a>
+                    </li>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <span class="bwsprite fa-angle-right margin-right10"></span>
+                        <a href="/features/" itemprop="url">
+                            <span itemprop="title">Features</span>
+                        </a>
+                    </li>
+                    <li><span class="bwsprite fa-angle-right margin-right10"></span>@Model.objFeature.Title Features</li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </section>
+    <section>
+        <div class="container margin-bottom20">
+            <div class="grid-12">
+                <div id="content" class="grid-8 alpha">
+                    <div class="bg-white">
+                        <div class="section-header">
+                            <h1>@Model.objFeature.Title</h1>
+                            <div>
+                                <span class="bwsprite calender-grey-sm-icon"></span>
+                                <span class="article-stats-content margin-right20">@Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(Model.objFeature.DisplayDate), "MMMM dd, yyyy hh:mm tt")</span>
+                                <span class="bwsprite author-grey-sm-icon"></span>
+                                <span class="article-stats-content">@Model.objFeature.AuthorName</span>
+                            </div>
+                        </div>
+                        <div class="section-inner-padding">
+                            <div id="topNav" class="margin-bottom10">
+
+                                <ul>
+                                    @foreach (var page in Model.objFeature.PageList)
+                                    {
+                                        <li>
+                                            <a href="#@page.pageId">@page.PageName</a>
+                                        </li>
+                                    }
+
+                                    <li>
+                                        <a href="#divPhotos">Images</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="clear"></div>
+                            @foreach (var page in Model.objFeature.PageList)
+                            {
+                                <div class="margin-top10 margin-bottom10">
+                                    <h3 class="article-content-title">@page.PageName</h3>
+                                    <div id='@page.pageId' class="margin-top10 article-content">
+                                        @Html.Raw(page.Content)
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
+                            {
+                                <div id="divPhotos">
+                                    @Html.Partial("~/Views/Shared/_EditCMSPhotoGallery.cshtml", Model.PhotoGallery.Images)
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-4 omega">
+                    @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
+                    {
+                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                            <h2>@Model.MostPopularBikes.WidgetHeading</h2>
+                            @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
+
+                            <div class="view-all-btn-container padding-top10 padding-bottom10">
+                                <a href="@Model.MostPopularBikes.WidgetHref" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    }
+                    <div class="margin-bottom20">
+                        @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
+                    </div>
+                    @if (Model.objModel != null && Model.objModel.ModelId > 0)
+                    {
+                        if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Count() > 0)
+                        {
+                            <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                                <h2>@Model.PopularBodyStyle.WidgetHeading</h2>
+                                @Html.Partial("~/Views/BestBikes/_PopularBodyStyle_Vertical.cshtml", Model.PopularBodyStyle)
+                                <div class="view-all-btn-container padding-top10 padding-bottom10">
+                                    <a href="@Model.PopularBodyStyle.WidgetHref" title="@Model.PopularBodyStyle.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
+                        {
+                            <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                                <h2>@Model.UpcomingBikes.WidgetHeading</h2>
+                                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
+                                <div class="view-all-btn-container padding-top10 padding-bottom10">
+                                    <a href="@Model.UpcomingBikes.WidgetHref" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+
+}
+<div class="back-to-top" id="back-to-top"></div>
+@if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
+{
+    <section>
+        <div class="model-gallery-container">
+            <div class="blackOut-window-model"></div>
+            <div class="modelgallery-close-btn position-abt pos-top20 pos-right20 bwsprite cross-lg-white cur-pointer hide"></div>
+            <div class="bw-tabs-panel bike-gallery-popup hide" id="bike-gallery-popup">
+
+                <div class="bike-gallery-heading margin-bottom20 margin-left30 margin-top90">
+                    <p class="font18 text-bold text-white">@Model.objFeature.Title</p>
+                </div>
+                @Html.Partial("~/Views/Shared/_EditCMSModelGallery.cshtml", Model.PhotoGallery)
+            </div>
+        </div>
+    </section>
+}
+<script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/jquery.floating-social-share.min.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
+<link rel='stylesheet' type='text/css' href='/css/jquery.floating-social-share.min.css' />
+
