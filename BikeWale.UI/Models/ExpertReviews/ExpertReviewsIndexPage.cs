@@ -73,9 +73,7 @@ namespace Bikewale.Models
         /// </summary>
         public ExpertReviewsIndexPageVM GetData()
         {
-            ExpertReviewsIndexPageVM objData = null;
-
-            objData = new ExpertReviewsIndexPageVM();
+            ExpertReviewsIndexPageVM objData =  new ExpertReviewsIndexPageVM();
 
             try
             {

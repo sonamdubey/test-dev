@@ -358,7 +358,7 @@ namespace Bikewale.Models
             int totalPages = _pager.GetTotalPages((int)objData.Articles.RecordCount, pageSize);
             if (totalPages > 1)
             {
-                if (curPageNo == 1 && totalPages > 1)
+                if (curPageNo == 1)
                 {
                     nextPageNumber = "2";
                     objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/", _mainUrl, nextPageNumber);
