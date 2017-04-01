@@ -460,6 +460,7 @@
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
     <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
+    <Compile Include="Controllers\NewPageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NewLaunchesController.cs" />
     <Compile Include="Controllers\ScootersController.cs" />
@@ -903,9 +904,11 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BikeCare\BikeCareIndexPage.cs" />
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
+    <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsDetailPage.cs" />
@@ -927,6 +930,7 @@
     <Compile Include="Models\CompareBikes\PopularModelCompareWidget.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
+    <Compile Include="Models\NewPage\NewPageModel.cs" />
     <Compile Include="Models\News\NewsDetailPage.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedIndexModel.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedMakePageModel.cs" />
@@ -3693,8 +3697,14 @@
     <Content Include="Views\Features\Index_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile.cshtml" />
-    <Content Include="Views\Videos\Models.cshtml" />
     <Content Include="Views\Videos\Models_Mobile.cshtml" />
+
+    <Content Include="Views\BikeCare\Index.cshtml" />
+    <Content Include="Views\BikeCare\Index_Mobile.cshtml" />
+    <Content Include="Views\Features\Detail.cshtml" />
+    <Content Include="Views\Features\Detail_Mobile.cshtml" />
+    <Content Include="Views\NewPage\Index.cshtml" />
+    <Content Include="Views\NewPage\Index_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
