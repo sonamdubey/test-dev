@@ -27,7 +27,6 @@ namespace Bikewale.Models
         public string RedirectUrl;
         private string _makeName, _makeMaskingName;
         private uint _topCount, _makeId;
-        public StatusCodes Status;
         private IDealerCacheRepository _dealerServiceCenters;
         private readonly IBikeModelsCacheRepository<int> _bikeModelsCache;
         private readonly IBikeMakesCacheRepository<int> _bikeMakesCache;
