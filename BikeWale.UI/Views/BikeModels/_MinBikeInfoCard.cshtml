@@ -65,7 +65,7 @@
         @if (Model.BikeInfo.UsedBikeCount > 0)
         {
             <div class="border-solid-bottom margin-top15 margin-bottom10"></div>
-            <a href="@UrlFormatter.UsedBikesUrlNoCity(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName,(Model.CityDetails!=null)?Model.CityDetails.CityMaskingName:" india")" title="@Model.BikeInfo.UsedBikeCount used @Model.BikeName bikes" class="block text-default hover-no-underline">
+            <a href="@UrlFormatter.UsedBikesUrlNoCity(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName,(Model.CityDetails!=null)?Model.CityDetails.CityMaskingName:"india")" title="@Model.BikeInfo.UsedBikeCount used @Model.BikeName bikes" class="block text-default hover-no-underline">
                 <span class="used-target-label inline-block">
                     <span class="font14 text-bold margin-right5">@Model.BikeInfo.UsedBikeCount Used @Model.BikeName bikes</span><span class="font12 text-light-grey">starting at <span class="bwsprite inr-xsm-grey margin-right5"></span>@Format.FormatNumeric(Convert.ToString(Model.BikeInfo.UsedBikeMinPrice))</span>
                 </span>

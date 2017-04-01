@@ -7,7 +7,7 @@ namespace Bikewale.Models
     /// Created by : Aditi Srivastava on 31 Mar 2017
     /// Summary    : View model for Bike care details page
     /// </summary>
-    public class BikeCareDetailPageVM :ModelBase
+    public class BikeCareDetailPageVM : ModelBase
     {
         public ArticlePageDetails ArticleDetails { get; set; }
         public BikeMakeEntityBase Make { get; set; }
