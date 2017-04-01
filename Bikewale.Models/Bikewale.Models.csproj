@@ -99,6 +99,7 @@
     <Compile Include="Videos\ModelWiseVideoPageVM.cs" />
     <Compile Include="Videos\SimilarVideoModelsVM.cs" />
     <Compile Include="Videos\VideoDetailsPageVM.cs" />
+    <Compile Include="Videos\VideosByCategoryPageVM.cs" />
     <Compile Include="Videos\VideosBySubcategoryVM.cs" />
     <Compile Include="Used\UsedBikeCitiesWidgetVM.cs" />
     <Compile Include="Used\UsedBikeByModelCityVM.cs" />

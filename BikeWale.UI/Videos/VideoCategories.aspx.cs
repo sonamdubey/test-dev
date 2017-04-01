@@ -1,18 +1,18 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
+using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.DAL.Videos;
 using Bikewale.Entities.Videos;
-using Bikewale.Interfaces.Videos;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Videos;
+using Bikewale.Utility.StringExtention;
 using Microsoft.Practices.Unity;
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.UI.WebControls;
-using Bikewale.Utility.StringExtention;
-using Bikewale.Common;
-using System.Reflection;
-using Bikewale.DAL.Videos;
 
 
 namespace Bikewale.Videos
@@ -25,7 +25,7 @@ namespace Bikewale.Videos
         protected Repeater rptVideos;
         protected LinkPagerControl repeaterPager;
         protected int totalRecords = 0;
-        protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle= string.Empty, pageHeading = string.Empty, descName = string.Empty;
+        protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, descName = string.Empty;
         protected string categoryIdList = string.Empty;
 
         protected override void OnInit(EventArgs e)
@@ -48,20 +48,20 @@ namespace Bikewale.Videos
         /// </summary>
         private void ParseQueryString()
         {
-            categoryIdList  = Request.QueryString.Get("cid");
+            categoryIdList = Request.QueryString.Get("cid");
             categoryIdList = categoryIdList.Replace("-", ",");
             titleName = Request.QueryString["title"];
             canonTitle = titleName.ToLower();
             if (!string.IsNullOrEmpty(titleName))
-                {                    
-                    //capitalize title
-                    titleName = StringHelper.Capitlization(titleName);
-                    titleName = titleName.Replace('-', ' ');
-                    pageHeading = string.Format("{0} Video", titleName); 
-                    titleName = string.Format("{0} Video Review - BikeWale", titleName);
-                }
-                descName = string.Format("{0} - Watch BikeWale's Expert's Take on New Bike and Scooter Launches - Features, performance, price, fuel economy, handling and more",
-                titleName);
+            {
+                //capitalize title
+                titleName = StringHelper.Capitlization(titleName);
+                titleName = titleName.Replace('-', ' ');
+                pageHeading = string.Format("{0} Video", titleName);
+                titleName = string.Format("{0} Video Review - BikeWale", titleName);
+            }
+            descName = string.Format("{0} - Watch BikeWale's Expert's Take on New Bike and Scooter Launches - Features, performance, price, fuel economy, handling and more",
+            titleName);
         }
 
         /// <summary>
@@ -85,10 +85,10 @@ namespace Bikewale.Videos
 
                     if (!String.IsNullOrEmpty(categoryIdList))
                     {
-                        objVideosList = objCache.GetVideosBySubCategory(categoryIdList, 1, 9,VideosSortOrder.JustLatest);
+                        objVideosList = objCache.GetVideosBySubCategory(categoryIdList, 1, 9, VideosSortOrder.JustLatest);
                         if (objVideosList != null)
                         {
-                            if (objVideosList.Videos!=null && objVideosList.Videos.Count() > 0)
+                            if (objVideosList.Videos != null && objVideosList.Videos.Count() > 0)
                             {
                                 totalRecords = objVideosList.TotalRecords;
                                 rptVideos.DataSource = objVideosList.Videos;
