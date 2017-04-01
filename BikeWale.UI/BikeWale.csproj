@@ -904,6 +904,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BikeCare\BikeCareDetailPage.cs" />
     <Compile Include="Models\BikeCare\BikeCareIndexPage.cs" />
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
@@ -3705,6 +3706,9 @@
     <Content Include="Views\Features\Detail_Mobile.cshtml" />
     <Content Include="Views\NewPage\Index.cshtml" />
     <Content Include="Views\NewPage\Index_Mobile.cshtml" />
+    <Content Include="Views\BikeCare\Detail.cshtml" />
+    <Content Include="Views\BikeCare\Detail_Mobile.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
