@@ -1,0 +1,177 @@
+﻿@model Bikewale.Models.Videos.VideosLandingPageVM
+@using Bikewale.Utility;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/landing.css' />";
+    Model.IsHeaderFix = false;
+    Model.IsTransparentHeader = true;
+    //Model.Page_JS_Path = "/src/service/landing.js";
+    Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/bike-videos/";
+    Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/bike-videos/";
+}
+
+@if (Model != null)
+{
+    <section>
+        <div class="container">
+            <div class="grid-12">
+                <div class="breadcrumb margin-top15 margin-bottom10">
+                    <ul>
+                        <li><a href="/"><span>Home</span></a></li>
+                        <li><span class="bwsprite fa-angle-right margin-right10"></span>Videos</li>
+                    </ul>
+                </div>
+                <h1 class="font26 margin-bottom5">Videos</h1>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section>
+        <div id="videoJumbotron" class="container">
+            <div class="grid-12">
+                <div class="content-box-shadow">
+                    @if (Model.LandingFirstVideoData != null)
+                    {
+                    <div class="grid-8">
+                        <a href="@UrlFormatter.VideoDetailPageUrl(Model.LandingFirstVideoData.VideoTitleUrl, Model.LandingFirstVideoData.BasicId.ToString())" class="main-video-container">
+                            <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", Model.LandingFirstVideoData.VideoId)" alt="@Model.LandingFirstVideoData.VideoTitle" title="@Model.LandingFirstVideoData.VideoTitle" src="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", Model.LandingFirstVideoData.VideoId)" border="0" />
+                            <span>@Model.LandingFirstVideoData.VideoTitle</span>
+                        </a>
+                    </div>
+                    }
+                    @if (Model.LandingOtherVideosData != null && Model.LandingOtherVideosData.Count() > 0)
+                    {
+                    <div class="grid-4">
+                        <ul>
+                            @foreach (var video in Model.LandingOtherVideosData)
+                                {
+                                <li>
+                                    <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId))" class="sidebar-video-image">
+                                        <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/default.jpg", video.VideoId)" alt="@video.VideoTitle" title="@video.VideoTitle" src="@String.Format("https://img.youtube.com/vi/{0}/default.jpg", video.VideoId)" border="0" />
+                                    </a>
+                                    <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="sidebar-video-title font14 text-light-grey">@video.VideoTitle.Truncate(35)</a>
+                                </li>
+                                }
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                    }
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container margin-top20 powerdrift-banner">
+            <div class="grid-12">
+                <div class="leftfloat margin-left25 margin-top35">
+                    <h3 class="text-white">
+                        Reviews, Specials, Underground, Launch Alerts &<br />
+                        a whole lot more...
+                    </h3>
+                </div>
+                <div class="rightfloat powerdrift-subscribe">
+                    <script src="https://apis.google.com/js/platform.js"></script>
+                    <div class="g-ytsubscribe" data-channel="powerdriftofficial" data-layout="full" data-count="hidden"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    if (Model.ExpertReviewsWidgetData != null && Model.ExpertReviewsWidgetData.VideoList != null && Model.ExpertReviewsWidgetData.VideoList.Videos != null && Model.ExpertReviewsWidgetData.VideoList.Videos.Count() > 0)
+    {
+        <section class="bg-white">
+            <div class="container">
+                <div class="grid-12">
+                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Expert Reviews</h2>
+                    @foreach (var video in Model.ExpertReviewsWidgetData.VideoList.Videos)
+                    {
+                    <div class="grid-6 ">
+                        <div class="reviews-image-wrapper rounded-corner2">
+                            <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId))">
+                                <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", video.VideoId)" alt="@video.VideoTitle" title="@video.VideoTitle" src="@String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg", video.VideoId)" border="0" />
+                            </a>
+                        </div>
+                        <div class="reviews-desc-wrapper">
+                            <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl, Convert.ToString(video.BasicId))" class="article-target-link font14">@video.VideoTitle</a>
+                            <div class="font12 text-light-grey margin-top10 margin-bottom10">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate),"MMMM dd, yyyy")</div>
+                            <div class="font14 text-light-grey margin-bottom15">@FormatDescription.TruncateDescription(video.Description, 125)</div>
+                            <div class="grid-4 alpha omega border-light-right font14">
+                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Views))</span>
+                            </div>
+                            <div class="grid-8 omega padding-left20 font14">
+                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Likes))</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    }
+                    <div class="clear"></div>
+                    <div class="view-all-btn-container padding-top15 padding-bottom20">
+                        <a title="Expert Reviews Bike Videos" href="@UrlFormatter.VideoByCategoryPageUrl(Model.ExpertReviewsWidgetData.SectionTitle, Model.ExpertReviewsWidgetData.CategoryIdList)" class="btn view-all-target-btn">View more videos<span class="bwsprite teal-right"></span></a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
+
+
+    if (Model.FirstRideWidgetData != null && Model.FirstRideWidgetData.VideoList != null && Model.FirstRideWidgetData.VideoList.Videos != null && Model.FirstRideWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.FirstRideWidgetData)
+    }
+
+    if (Model.LaunchAlertWidgetData != null && Model.LaunchAlertWidgetData.VideoList != null && Model.LaunchAlertWidgetData.VideoList.Videos != null && Model.LaunchAlertWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.LaunchAlertWidgetData)
+    }
+    if (Model.FirstLookWidgetData != null && Model.FirstLookWidgetData.VideoList != null && Model.FirstLookWidgetData.VideoList.Videos != null && Model.FirstLookWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.FirstLookWidgetData)
+    }
+
+    if (Model.Brands != null)
+    {
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Browse videos by brands</h2>
+                <div class="content-box-shadow padding-top20 collapsible-brand-content">
+                    @Html.Partial("~/Views/Make/_Brands.cshtml", Model.Brands)
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    }
+
+    if (Model.PowerDriftBlockbusterWidgetData != null && Model.PowerDriftBlockbusterWidgetData.VideoList != null && Model.PowerDriftBlockbusterWidgetData.VideoList.Videos != null && Model.PowerDriftBlockbusterWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.PowerDriftBlockbusterWidgetData)
+    }
+
+    if (Model.MotorSportsWidgetData != null && Model.MotorSportsWidgetData.VideoList != null && Model.MotorSportsWidgetData.VideoList.Videos != null && Model.MotorSportsWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.MotorSportsWidgetData)
+    }
+
+    if (Model.PowerDriftSpecialsWidgetData != null && Model.PowerDriftSpecialsWidgetData.VideoList != null && Model.PowerDriftSpecialsWidgetData.VideoList.Videos != null && Model.PowerDriftSpecialsWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.PowerDriftSpecialsWidgetData)
+    }
+
+    if (Model.PowerDriftTopMusicWidgetData != null && Model.PowerDriftTopMusicWidgetData.VideoList != null && Model.PowerDriftTopMusicWidgetData.VideoList.Videos != null && Model.PowerDriftTopMusicWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.PowerDriftTopMusicWidgetData)
+    }
+
+    if (Model.MiscellaneousWidgetData != null && Model.MiscellaneousWidgetData.VideoList != null && Model.MiscellaneousWidgetData.VideoList.Videos != null && Model.MiscellaneousWidgetData.VideoList.Videos.Count() > 0)
+    {
+        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.MiscellaneousWidgetData)
+    }
+    
+    <div class="margin-bottom25"></div>
+}

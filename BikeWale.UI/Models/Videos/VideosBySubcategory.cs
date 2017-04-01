@@ -3,9 +3,6 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models.Videos
 {
@@ -29,7 +26,7 @@ namespace Bikewale.Models.Videos
         /// Created by : Aditi Srivasatva on 25 Mar 2017
         /// Summary    : Get videos by category
         /// </summary>
-        public VideosBySubcategoryVM GetData(string categoryIdList, ushort pageNo, ushort pageSize, VideosSortOrder? sortOrder = null)
+        public VideosBySubcategoryVM GetData(string sectionBackgroundClass, string categoryIdList, ushort pageNo, ushort pageSize, VideosSortOrder? sortOrder = null)
         {
             VideosBySubcategoryVM objVideos = new VideosBySubcategoryVM();
             try
@@ -37,10 +34,11 @@ namespace Bikewale.Models.Videos
                 objVideos.VideoList = _videos.GetVideosBySubCategory(categoryIdList, pageNo, pageSize, sortOrder);
                 objVideos.SectionTitle = VideoTitleDescription.VideoCategoryTitle(categoryIdList);
                 objVideos.CategoryIdList = categoryIdList;
+                objVideos.SectionBackgroundClass = sectionBackgroundClass;
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.Videos.VideosBySubCategory.GetData: CategoryId {0}, PageNo {1}, PageSize {2}, SortOrder {3}", categoryIdList,pageNo,pageSize,sortOrder));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.Videos.VideosBySubCategory.GetData: CategoryId {0}, PageNo {1}, PageSize {2}, SortOrder {3}", categoryIdList, pageNo, pageSize, sortOrder));
             }
             return objVideos;
         }

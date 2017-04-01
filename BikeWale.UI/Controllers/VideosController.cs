@@ -1,5 +1,9 @@
-﻿using Bikewale.Interfaces.Videos;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
+using Bikewale.Models.Videos;
+using Bikewale.Notifications;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Desktop.Videos
@@ -12,11 +16,84 @@ namespace Bikewale.Controllers.Desktop.Videos
     {
         private readonly IVideosCacheRepository _videos = null;
         private readonly IVideos _video = null;
+        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelCache = null;
 
-        public VideosController(IVideosCacheRepository videos, IVideos video)
+        public VideosController(IVideosCacheRepository videos, IVideos video, IBikeMakes<BikeMakeEntity, int> bikeMakes, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache)
         {
             _videos = videos;
             _video = video;
+            _bikeMakes = bikeMakes;
+            _objModelCache = objModelCache;
+        }
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 31-03-2017
+        /// Descripton : This contoller will fetch data for vidoes landing page desktop
+        /// </summary>
+        /// <returns></returns>
+        [Filters.DeviceDetection()]
+        [Route("videos/Index/")]
+        public ActionResult Index()
+        {
+            try
+            {
+                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakes, _objModelCache);
+                modelObj.LandingVideosTopCount = 5;
+                modelObj.ExpertReviewsTopCount = 2;
+                modelObj.FirstRideWidgetTopCount = 6;
+                modelObj.LaunchAlertWidgetTopCount = 6;
+                modelObj.FirstLookWidgetTopCount = 6;
+                modelObj.PowerDriftBlockbusterWidgetTopCount = 6;
+                modelObj.MotorSportsWidgetTopCount = 6;
+                modelObj.PowerDriftSpecialsWidgetTopCount = 6;
+                modelObj.PowerDriftTopMusicWidgetTopCount = 6;
+                modelObj.MiscellaneousWidgetTopCount = 6;
+                modelObj.BrandWidgetTopCount = 10;
+
+                VideosLandingPageVM objVM = modelObj.GetData();
+
+                return View(objVM);
+            }
+            catch (System.Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersController.Index");
+                return Redirect("/pagenotfound.aspx");
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 31-03-2017
+        /// Descripton : This contoller will fetch data for vidoes landing page desktop
+        /// </summary>
+        /// <returns></returns>
+        [Route("m/videos/Index/")]
+        public ActionResult Index_Mobile()
+        {
+            try
+            {
+                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakes, _objModelCache);
+                modelObj.LandingVideosTopCount = 5;
+                modelObj.ExpertReviewsTopCount = 2;
+                modelObj.FirstRideWidgetTopCount = 6;
+                modelObj.LaunchAlertWidgetTopCount = 6;
+                modelObj.FirstLookWidgetTopCount = 6;
+                modelObj.PowerDriftBlockbusterWidgetTopCount = 6;
+                modelObj.MotorSportsWidgetTopCount = 6;
+                modelObj.PowerDriftSpecialsWidgetTopCount = 6;
+                modelObj.PowerDriftTopMusicWidgetTopCount = 6;
+                modelObj.MiscellaneousWidgetTopCount = 6;
+                modelObj.BrandWidgetTopCount = 6;
+
+                VideosLandingPageVM objVM = modelObj.GetData();
+
+                return View(objVM);
+            }
+            catch (System.Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersController.Index_Mobile");
+                return Redirect("/pagenotfound.aspx");
+            }
         }
 
         /// <summary>
