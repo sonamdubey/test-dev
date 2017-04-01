@@ -11,6 +11,10 @@ using System;
 
 namespace Bikewale.Models.Videos
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 01-04-2017
+    /// Description : Model for fetching Model wise video page data.
+    /// </summary>
     public class ModelWiseVideosPage
     {
         private readonly IVideosCacheRepository _objVideosCache = null;
@@ -76,7 +80,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-
+                ErrorClass objErr = new ErrorClass(ex, "ModelWiseVideosPage.GetData");
             }
             return objVM;
         }
@@ -94,7 +98,7 @@ namespace Bikewale.Models.Videos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.BindPageMetas()");
+                ErrorClass objErr = new ErrorClass(ex, "ModelWiseVideosPage.BindPageMetas");
             }
         }
 
