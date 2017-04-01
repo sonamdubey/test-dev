@@ -1,5 +1,4 @@
-﻿
-using Bikewale.Entities.CMS.Articles;
+﻿using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
 namespace Bikewale.Models
 {

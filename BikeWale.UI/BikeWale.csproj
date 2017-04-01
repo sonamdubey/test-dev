@@ -904,6 +904,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BikeCare\BikeCareDetailPage.cs" />
     <Compile Include="Models\BikeCare\BikeCareIndexPage.cs" />
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
@@ -941,6 +942,7 @@
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\Scooters\ScootersMakePageModel.cs" />
     <Compile Include="Models\ServiceCenters\ShowroomsWidgetModel.Cs" />
     <Compile Include="Models\Scooters\ScootersIndexPageModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterCityPage.cs" />
@@ -3138,6 +3140,8 @@
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
     <Content Include="src\bookingconfig.js" />
+    <Content Include="src\bw-home.js" />
+    <Content Include="src\bw-new.js" />
     <Content Include="src\bwcache.js" />
     <Content Include="src\cancellation.js" />
     <Content Include="src\chosen.jquery.min.js" />
@@ -3708,6 +3712,8 @@
     <Content Include="Views\NewPage\Index_Mobile.cshtml" />
     <Content Include="Views\Videos\CategoryVideos.cshtml" />
     <Content Include="Views\Videos\CategoryVideos_Mobile.cshtml" />
+    <Content Include="Views\BikeCare\Detail.cshtml" />
+    <Content Include="Views\BikeCare\Detail_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

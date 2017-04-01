@@ -63,13 +63,13 @@
                 <ul id="listitems" class="listitems">
                     @foreach(var bike in Model.Bikes)
                                     {
-                                        var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName);
-                                        var bikeName = string.Format("{0} {1}", bike.MakeName,bike.objModel.ModelName);
+                                        var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
+                                        var bikeName = string.Format("{0} {1}", bike.objMake.MakeName,bike.objModel.ModelName);
                             <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex">
                                 <div class="contentWrapper">
                                     <div class="imageWrapper">
                                         <a class="modelurl" href='@modelUrl'>
-                                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174)" title="@bikeName" alt="@bike.objModel.ModelName" />
+                                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" title="@bikeName" alt="@bike.objModel.ModelName" />
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
@@ -84,8 +84,9 @@
                                                      else { @Html.Raw(String.Format("<span class='bwsprite inr-lg'></span> <span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice)))); }
                                             }
                                         </div>
-
-                                        <a href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage)" data-makename="@bike.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+                                        @if (bike.VersionPrice > 0) { 
+                                        <a rel="nofollow" href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+                                        }
                                     </div>
                                 </div>
                             </li>
@@ -144,16 +145,8 @@
                                 }
                             @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
                                 {
-                                <a href="#dealerAndServiceContent" rel="nofollow">Dealers & Service Centers</a>
+                                <a href="#dealerAndServiceContent" rel="nofollow">@Model.DealerServiceTitle</a>
                                 }
-                                @*@if (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0))
-                                    {
-                                    <a href="#dealerAndServiceContent" rel="nofollow">
-                                        @if (ctrlDealerCard.showWidget){Dealers}  <%if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0))
-                                        { %><% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers<%} %>
-                                    </a>
-                                    }
-                                *@
                                 @if (Model.IsUsedModelsBikeAvailable)
                                 {
                                 <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
@@ -223,6 +216,7 @@
                             </div>
                         }
                         @if (Model.IsServiceDataAvailable) { 
+                            <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                             <div>
                                 <div class="carousel-heading-content padding-top20">
                                     <div class="swiper-heading-left-grid inline-block">
@@ -241,7 +235,10 @@
                         }
                         else if (Model.IsDealerServiceDataInIndiaAvailable)
                         {
-                            @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
+                            <div id="makeDealersContent" class="padding-top20 padding-bottom20 font14">
+                                <h2 class="padding-left20 padding-right20">Honda Showrooms &amp; Service Centers</h2>
+                                @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
+                            </div>
                         }
 
                     </div>

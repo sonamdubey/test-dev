@@ -1,5 +1,4 @@
-﻿
-using Bikewale.Entities;
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
@@ -11,6 +10,7 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Linq;
+using System.Web;
 namespace Bikewale.Models.Features
 {
     public class DetailPage
@@ -19,20 +19,24 @@ namespace Bikewale.Models.Features
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
+        private string _basicId;
 
-
-        public uint BasicId;
+        #region Page level variables
+        private uint basicId;
         public StatusCodes status;
+        public string mappedCWId;
+        public string redirectUrl;
+        #endregion
 
         public uint TopCount { get; set; }
-        public DetailPage(uint basicId, ICMSCacheContent cache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> models)
+        public DetailPage(ICMSCacheContent cache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> models,string basicId)
         {
             _cache = cache;
-            BasicId = basicId;
             _upcoming = upcoming;
             _bikeModels = bikeModels;
             _models = models;
-            ProcessQuery(basicId);
+            _basicId = basicId;
+            ProcessQuery();
 
         }
         /// <summary>
@@ -45,15 +49,19 @@ namespace Bikewale.Models.Features
             try
             {
 
-                objDetailsVM.objFeature = _cache.GetArticlesDetails(BasicId);
+                objDetailsVM.objFeature = _cache.GetArticlesDetails(basicId);
                 if (objDetailsVM.objFeature != null)
                 {
                     status = Entities.StatusCodes.ContentFound;
                     GetTaggedBikeListByMake(objDetailsVM);
                     GetTaggedBikeListByModel(objDetailsVM);
+                    BindPageMetas(objDetailsVM);
                     GetWidgetData(objDetailsVM);
                     PopulatePhotoGallery(objDetailsVM);
-
+                 }
+                else
+                {
+                    status = StatusCodes.ContentNotFound;
                 }
             }
             catch (Exception err)
@@ -185,12 +193,13 @@ namespace Bikewale.Models.Features
 
             }
         }
+
         private void PopulatePhotoGallery(DetailFeatureVM objData)
         {
             try
             {
                 objData.PhotoGallery = new EditCMSPhotoGalleryVM();
-                objData.PhotoGallery.Images = _cache.GetArticlePhotos(Convert.ToInt32(BasicId));
+                objData.PhotoGallery.Images = _cache.GetArticlePhotos(Convert.ToInt32(basicId));
                 if (objData.PhotoGallery.Images != null && objData.PhotoGallery.Images.Count() > 0)
                 {
                     objData.PhotoGallery.ImageCount = objData.PhotoGallery.Images.Count();
@@ -235,36 +244,28 @@ namespace Bikewale.Models.Features
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.GetTaggedBikeListByModel");
             }
         }
-        private void ProcessQuery(uint basicId)
+        private void ProcessQuery()
         {
+             var request = HttpContext.Current.Request;
+            string qsBasicId = _basicId;
             try
             {
-                if (basicId > 0)
+                qsBasicId = BasicIdMapping.GetCWBasicId(qsBasicId);
+                if (!qsBasicId.Equals(_basicId))
                 {
-                    string _basicId = BasicIdMapping.GetCWBasicId(Convert.ToString(basicId));
-
-                    if (!_basicId.Equals(Convert.ToString(basicId)))
-                    {
-
-                        if (Convert.ToUInt32(_basicId) > 0)
-                        {
-
-
-                            status = Entities.StatusCodes.RedirectPermanent;
-                        }
-
-                    }
+                    status = StatusCodes.RedirectPermanent;
+                    mappedCWId = qsBasicId;
+                    redirectUrl = string.Format("/features/{0}-{1}.html", request["t"], mappedCWId);
                 }
+                if (uint.TryParse(qsBasicId, out basicId) && basicId > 0)
+                    status = StatusCodes.ContentFound;
                 else
-                {
-                    status = Entities.StatusCodes.ContentNotFound;
-                }
+                    status = StatusCodes.ContentNotFound;
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.ProcessQueryString()");
-            }
-
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.ProcessQueryString");
+            }           
         }
 
     }

@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BikeCare\BikeCareDetailPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
     <Compile Include="DealerShowroom\DealerCardVM.cs" />
     <Compile Include="DealerShowroom\DealersServiceCentersIndiaWidgetVM.cs" />

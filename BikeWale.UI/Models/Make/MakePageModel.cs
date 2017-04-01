@@ -24,7 +24,6 @@ namespace Bikewale.Models
     /// </summary>
     public class MakePageModel
     {
-        public string RedirectUrl;
         private string _makeName, _makeMaskingName;
         private uint _topCount, _makeId;
         private IDealerCacheRepository _dealerServiceCenters;
@@ -70,6 +69,8 @@ namespace Bikewale.Models
 
             try
             {
+                #region Variable initialization
+
                 uint cityId = 0;
                 string cityName = string.Empty, cityMaskingName = string.Empty;
                 CityEntityBase cityBase = null;
@@ -95,6 +96,8 @@ namespace Bikewale.Models
                     objData.LocationMasking = "india";
                 }
 
+                #endregion
+
                 objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMake((int)_makeId);
                 BikeMakeEntityBase makeBase = _bikeMakesCache.GetMakeDetails(_makeId);
                 if (makeBase != null)
@@ -103,48 +106,12 @@ namespace Bikewale.Models
                     objData.MakeName = _makeName = makeBase.MakeName;
                 }
                 BindPageMetaTags(objData.PageMetaTags, objData.Bikes, _makeName);
-
-                UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
-                objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
-                {
-                    EndIndex = 9,
-                    StartIndex = 1,
-                    MakeId = (int)this._makeId
-                };
-                objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-                objData.UpcomingBikes = objUpcoming.GetData();
-                if (cityId > 0)
-                {
-                    var dealerData = new DealerCardWidget(_cacheDealers, cityId, _makeId);
-                    dealerData.TopCount = 3;
-                    objData.Dealers = dealerData.GetData();
-                    objData.ServiceCenters = new ServiceCentersCard(_objSC, 3, makeBase, cityBase).GetData();
-                }
-                else
-                {
-                    objData.DealersServiceCenter = new DealersServiceCentersIndiaWidgetModel(_makeId, _makeName, _makeMaskingName, _cacheDealers).GetData();
-                }
+                BindUpcomingBikes(objData);
+                BindDealerServiceData(objData, cityId, makeBase, cityBase);
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription((int)_makeId);
-
-                objData.News = new RecentNews(2, _makeId, _makeName, _makeMaskingName, string.Format("{0} News", _makeName), _articles).GetData();
-
-                objData.ExpertReviews = new RecentExpertReviews(2, _makeId, _makeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", _makeName)).GetData();
-
-                objData.Videos = new RecentVideos(1, 2, _videos).GetData();
-
-                objData.UsedModels = new UsedBikeModelsWidgetModel(cityId, 9, _makeId, objData.Location, objData.LocationMasking, _cachedBikeDetails).GetData();
-
-                objData.DiscontinuedBikes = _bikeMakesCache.GetDiscontinuedBikeModelsByMake(_makeId);
-                objData.IsDiscontinuedBikeAvailable = objData.DiscontinuedBikes != null && objData.DiscontinuedBikes.Count() > 0;
-
-                if (objData.IsDiscontinuedBikeAvailable)
-                {
-                    foreach (var bike in objData.DiscontinuedBikes)
-                    {
-                        bike.Href = string.Format("/{0}-bikes/{1}/", _makeMaskingName, bike.ModelMasking);
-                        bike.BikeName = string.Format("{0} {1}", _makeName, bike.ModelName);
-                    }
-                }
+                BindCMSContent(objData);
+                objData.UsedModels = new UsedBikeModelsWidgetModel(9, _makeId, cityBase, _cachedBikeDetails).GetData();
+                BindDiscontinuedBikes(objData);
 
                 #region Set Visible flags
 
@@ -163,7 +130,15 @@ namespace Bikewale.Models
 
                     objData.IsMakeTabsDataAvailable = (objData.BikeDescription != null && objData.BikeDescription.FullDescription.Length > 0 || objData.IsNewsAvailable ||
                         objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable);
+                    if (cityId == 0 && objData.IsDealerServiceDataInIndiaAvailable)
+                    {
+                        objData.DealerServiceTitle = string.Format("{0}{1}", (objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0) ? "Dealers" : "", (objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? " & Service Centers" : "");
 
+                    }
+                    else
+                    {
+                        objData.DealerServiceTitle = string.Format("{0}{1}", objData.IsDealerAvailable ? "Dealers" : "", objData.IsServiceDataAvailable ? " & Service Centers" : "");
+                    }
                 }
                 #endregion
             }
@@ -173,6 +148,57 @@ namespace Bikewale.Models
             }
 
             return objData;
+        }
+
+        private void BindDealerServiceData(MakePageVM objData, uint cityId, BikeMakeEntityBase makeBase, CityEntityBase cityBase)
+        {
+            if (cityId > 0)
+            {
+                var dealerData = new DealerCardWidget(_cacheDealers, cityId, _makeId);
+                dealerData.TopCount = 3;
+                objData.Dealers = dealerData.GetData();
+                objData.ServiceCenters = new ServiceCentersCard(_objSC, 3, makeBase, cityBase).GetData();
+            }
+            else
+            {
+                objData.DealersServiceCenter = new DealersServiceCentersIndiaWidgetModel(_makeId, _makeName, _makeMaskingName, _cacheDealers).GetData();
+            }
+        }
+
+        private void BindUpcomingBikes(MakePageVM objData)
+        {
+            UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
+            objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+            {
+                EndIndex = 9,
+                StartIndex = 1,
+                MakeId = (int)this._makeId
+            };
+            objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+            objData.UpcomingBikes = objUpcoming.GetData();
+        }
+
+        private void BindCMSContent(MakePageVM objData)
+        {
+            objData.News = new RecentNews(2, _makeId, _makeName, _makeMaskingName, string.Format("{0} News", _makeName), _articles).GetData();
+            objData.ExpertReviews = new RecentExpertReviews(2, _makeId, _makeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", _makeName)).GetData();
+            objData.Videos = new RecentVideos(1, 2, _makeId, _makeName, _makeMaskingName, _videos).GetData();
+
+        }
+
+        private void BindDiscontinuedBikes(MakePageVM objData)
+        {
+            objData.DiscontinuedBikes = _bikeMakesCache.GetDiscontinuedBikeModelsByMake(_makeId);
+            objData.IsDiscontinuedBikeAvailable = objData.DiscontinuedBikes != null && objData.DiscontinuedBikes.Count() > 0;
+
+            if (objData.IsDiscontinuedBikeAvailable)
+            {
+                foreach (var bike in objData.DiscontinuedBikes)
+                {
+                    bike.Href = string.Format("/{0}-bikes/{1}/", _makeMaskingName, bike.ModelMasking);
+                    bike.BikeName = string.Format("{0} {1}", _makeName, bike.ModelName);
+                }
+            }
         }
 
         private void BindPageMetaTags(PageMetaTags pageMetaTags, IEnumerable<MostPopularBikesBase> objModelList, string makeName)

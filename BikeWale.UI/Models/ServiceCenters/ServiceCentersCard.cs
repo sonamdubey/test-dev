@@ -16,25 +16,34 @@ namespace Bikewale.Models.ServiceCenters
     public class ServiceCentersCard
     {
         private uint _serviceCenterId, _topCount;
+        private int _makeId;
         private CityEntityBase _city;
         private BikeMakeEntityBase _make;
         private readonly IServiceCenter _objSC;
-
 
         public ServiceCentersCard(IServiceCenter objSC, uint topCount, BikeMakeEntityBase make, CityEntityBase city)
         {
             _objSC = objSC;
             _topCount = topCount;
             _make = make;
+            _makeId = make.MakeId;
             _city = city;
         }
 
+        public ServiceCentersCard(uint topCount, uint makeId, CityEntityBase city, IServiceCenter objSC)
+        {
+            _objSC = objSC;
+            _topCount = topCount;
+            _makeId = (int)makeId;
+            _city = city;
+        }
         public ServiceCentersCard(IServiceCenter objSC, uint topCount, uint serviceCenterId, BikeMakeEntityBase make, CityEntityBase city)
         {
             _objSC = objSC;
             _serviceCenterId = serviceCenterId;
             _topCount = topCount;
             _make = make;
+            _makeId = make.MakeId;
             _city = city;
         }
 
@@ -43,7 +52,7 @@ namespace Bikewale.Models.ServiceCenters
             ServiceCenterDetailsWidgetVM objData = null;
             try
             {
-                ServiceCenterData centerData = _objSC.GetServiceCentersByCity(_city.CityId, _make.MakeId);
+                ServiceCenterData centerData = _objSC.GetServiceCentersByCity(_city.CityId, _makeId);
                 IEnumerable<ServiceCenterDetails> totalList = null;
 
                 if (centerData != null && centerData.ServiceCenters != null)

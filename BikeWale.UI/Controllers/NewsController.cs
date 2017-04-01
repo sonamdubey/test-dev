@@ -11,6 +11,7 @@ namespace Bikewale.Controllers
 {
     public class NewsController : Controller
     {
+        #region Variables fro dependency injection
         private readonly ICMSCacheContent _articles = null;
         private readonly IPager _pager = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
@@ -18,7 +19,9 @@ namespace Bikewale.Controllers
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
-        private int _topCount;
+        #endregion
+
+        #region Constructor
         public NewsController(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming,IBikeInfo bikeInfo,ICityCacheRepository cityCache)
         {
             _articles = articles;
@@ -29,17 +32,19 @@ namespace Bikewale.Controllers
             _bikeInfo = bikeInfo;
             _cityCache=cityCache;
         }
+        #endregion
 
+        #region Action Methods
         /// <summary>
         /// Created by : Aditi srivastava on 27 Mar 2017
         /// Summmary   : Action method to render news listing page- Desktop
         /// </summary>
         [Route("newslanding/")]
+        [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            _topCount = 4;
-            NewsIndexPage obj = new NewsIndexPage(_articles, _pager,_models,_bikeModels,_upcoming,_topCount);
-
+            NewsIndexPage obj = new NewsIndexPage(_articles, _pager,_models,_bikeModels,_upcoming);
+            obj.TopCount = 4;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -62,11 +67,11 @@ namespace Bikewale.Controllers
         /// Summmary   : Action method to render news listing page -mobile
         /// </summary>
         [Route("m/newslanding/")]
-        public ActionResult Index_Mobile()
+        public ActionResult Index_Mobile(ushort? pn)
         {
-            _topCount = 9;
-            NewsIndexPage obj = new NewsIndexPage(_articles, _pager, _models, _bikeModels,_upcoming, _topCount);
+            NewsIndexPage obj = new NewsIndexPage(_articles, _pager, _models, _bikeModels,_upcoming);
             obj.IsMobile = true;
+            obj.TopCount=9;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/m/pagenotfound.aspx");
@@ -89,11 +94,11 @@ namespace Bikewale.Controllers
         /// Summmary   : Action method to render news detail page-desktop
         /// </summary>
         [Route("newsdetail/{basicid}/")]
+        [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
-            _topCount = 3;
-            NewsDetailPage obj = new NewsDetailPage(_articles, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _topCount);
-
+            NewsDetailPage obj = new NewsDetailPage(_articles, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid);
+            obj.TopCount = 3;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -118,9 +123,9 @@ namespace Bikewale.Controllers
         [Route("m/newsdetail/{basicid}/")]
         public ActionResult Detail_Mobile(string basicid)
         {
-            _topCount = 9;
-            NewsDetailPage obj = new NewsDetailPage(_articles, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _topCount);
+           NewsDetailPage obj = new NewsDetailPage(_articles, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid);
            obj.IsMobile = true;
+           obj.TopCount = 9;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/m/pagenotfound.aspx");
@@ -138,5 +143,6 @@ namespace Bikewale.Controllers
                     return View(objData);
             }
         }
+        #endregion
     }
 }

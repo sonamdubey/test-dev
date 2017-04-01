@@ -37,34 +37,16 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Index(ushort? pageNumber)
         {
-            try
-            {
-                IndexPage objIndexPage = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
-                if (objIndexPage != null)
-                {
-                    IndexFeatureVM objFeatureIndex = new IndexFeatureVM();
-                    objIndexPage.TopCount = 4;
-                    if (pageNumber.HasValue && pageNumber.Value > 0)
-                        objIndexPage.CurPageNo = pageNumber.Value;
-                    objFeatureIndex = objIndexPage.GetData();
-                    if (objIndexPage.status == Entities.StatusCodes.ContentFound)
-                        return View(objFeatureIndex);
-                    else
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
-                else
-                {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
-            }
-            catch (System.Exception ex)
-            {
-
-                ErrorClass objErr = new ErrorClass(ex, "FeaturesController.Index");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-            }
-
-
+            IndexPage objIndexPage = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
+            IndexFeatureVM objFeatureIndex = new IndexFeatureVM();
+            objIndexPage.TopCount = 4;
+            if (pageNumber.HasValue && pageNumber.Value > 0)
+                objIndexPage.CurPageNo = pageNumber.Value;
+            objFeatureIndex = objIndexPage.GetData();
+            if (objIndexPage.status == Entities.StatusCodes.ContentFound)
+                return View(objFeatureIndex);
+            else
+                return Redirect("/pageNotFound.aspx");
         }
         /// <summary>
         /// Created by :- Subodh Jain on 31 March 2017
@@ -74,32 +56,18 @@ namespace Bikewale.Controllers
         [Route("m/features/")]
         public ActionResult Index_Mobile(ushort? pageNumber)
         {
-            try
-            {
-                IndexPage objIndexPage = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
-                if (objIndexPage != null)
-                {
-                    IndexFeatureVM objFeatureIndex = new IndexFeatureVM();
-                    objIndexPage.TopCount = 9;
-                    if (pageNumber.HasValue && pageNumber.Value > 0)
-                        objIndexPage.CurPageNo = pageNumber.Value;
-                    objFeatureIndex = objIndexPage.GetData();
-                    if (objIndexPage.status == Entities.StatusCodes.ContentFound)
-                        return View(objFeatureIndex);
-                    else
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
-                else
-                {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
-            }
-            catch (System.Exception ex)
-            {
 
-                ErrorClass objErr = new ErrorClass(ex, "FeaturesController.Index");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-            }
+            IndexPage objIndexPage = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
+            IndexFeatureVM objFeatureIndex = new IndexFeatureVM();
+            objIndexPage.TopCount = 9;
+            if (pageNumber.HasValue && pageNumber.Value > 0)
+                objIndexPage.CurPageNo = pageNumber.Value;
+            objFeatureIndex = objIndexPage.GetData();
+            if (objIndexPage.status == Entities.StatusCodes.ContentFound)
+                return View(objFeatureIndex);
+            else
+                return Redirect("/m/pageNotFound.aspx");
+
         }
 
         /// <summary>
@@ -109,43 +77,27 @@ namespace Bikewale.Controllers
         /// <returns></returns>
         [Route("content/features/details/")]
         [Filters.DeviceDetection()]
-        public ActionResult Detail(uint? basicId)
+        public ActionResult Detail(string basicId)
         {
-            try
+            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicId);
+            objDetail.TopCount = 4;
+
+            if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
-                uint _basicId = basicId.HasValue ? basicId.Value : 0;
-                DetailPage objDetail = new DetailPage(_basicId, _Cache, _upcoming, _bikeModels, _models);
-                if (objDetail != null)
-                {
-                    DetailFeatureVM objDetailsVM = new DetailFeatureVM();
-                    objDetail.TopCount = 4;
-                    objDetailsVM = objDetail.GetData();
-                    if (objDetail.status == Entities.StatusCodes.ContentFound)
-                        return View(objDetailsVM);
-                    else if (objDetail.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-
-                        string redirectUrl = string.Format("/features/{0}-{1}/", objDetailsVM.objFeature.Title, _basicId);
-                        return Redirect(redirectUrl);
-                    }
-                    else
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-
-                }
+                return Redirect("/pagenotfound.aspx");
+            }
+            else if (objDetail.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(objDetail.redirectUrl);
+            }
+            else
+            {
+                DetailFeatureVM objData = objDetail.GetData();
+                if (objDetail.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/pagenotfound.aspx");
                 else
-                {
-
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
+                    return View(objData);
             }
-            catch (System.Exception ex)
-            {
-
-                ErrorClass objErr = new ErrorClass(ex, "FeaturesController.Index");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-            }
-
-
 
         }
         /// <summary>
@@ -154,39 +106,26 @@ namespace Bikewale.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("m/content/features/details/")]
-        public ActionResult Detail_Mobile(uint? basicId)
+        public ActionResult Detail_Mobile(string basicId)
         {
-            try
+            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicId);
+            objDetail.TopCount = 9;
+
+            if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
-                uint _basicId = basicId.HasValue ? basicId.Value : 0;
-                DetailPage objDetail = new DetailPage(_basicId, _Cache, _upcoming, _bikeModels, _models);
-                if (objDetail != null)
-                {
-                    DetailFeatureVM objDetailsVM = new DetailFeatureVM();
-                    objDetail.TopCount = 9;
-                    objDetailsVM = objDetail.GetData();
-                    if (objDetail.status == Entities.StatusCodes.ContentFound)
-                        return View(objDetailsVM);
-                    else if (objDetail.status == Entities.StatusCodes.RedirectPermanent && objDetailsVM != null && objDetailsVM.objFeature != null)
-                    {
-                        string redirectUrl = string.Format("/m/features/{0}-{1}/", objDetailsVM.objFeature.Title, _basicId);
-                        return Redirect(redirectUrl);
-                    }
-                    else
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-
-                }
-                else
-                {
-
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
+                return Redirect("/pagenotfound.aspx");
             }
-            catch (System.Exception ex)
+            else if (objDetail.status == Entities.StatusCodes.RedirectPermanent)
             {
-
-                ErrorClass objErr = new ErrorClass(ex, "FeaturesController.Index");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect(string.Format("/m{0}", objDetail.redirectUrl));
+            }
+            else
+            {
+                DetailFeatureVM objData = objDetail.GetData();
+                if (objDetail.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pageNotFound.aspx");
+                else
+                    return View(objData);
             }
         }
     }
