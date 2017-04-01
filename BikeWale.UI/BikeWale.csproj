@@ -904,6 +904,7 @@
     <Compile Include="memcache\ModelMapping.cs" />
     <Compile Include="memcache\NewBikeLaunches.cs" />
     <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="Models\BikeCare\BikeCareIndexPage.cs" />
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
@@ -3693,10 +3694,10 @@
     <Content Include="Views\Features\Index_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile.cshtml" />
-
+    <Content Include="Views\BikeCare\Index.cshtml" />
+    <Content Include="Views\BikeCare\Index_Mobile.cshtml" />
     <Content Include="Views\Features\Detail.cshtml" />
     <Content Include="Views\Features\Detail_Mobile.cshtml" />
-
     <Content Include="Views\NewPage\Index.cshtml" />
     <Content Include="Views\NewPage\Index_Mobile.cshtml" />
 
