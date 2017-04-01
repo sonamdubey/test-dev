@@ -1,0 +1,91 @@
+﻿@model Bikewale.Models.Videos.VideosByCategoryPageVM
+
+@{
+    Model.Page_JS_Path = "/src/Videos/videoByCategory.js";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/VideosByCategory.css' />";
+    Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/bike-videos/category/{0}-{1}/", Model.CanonicalTitle, Model.CategoryId.Replace(',', '-'));
+}
+
+@if (Model != null)
+{
+    <section>
+        <div class="container">
+            <div class="grid-12">
+                <div class="breadcrumb margin-top15 margin-bottom10">
+                    <ul>
+                        <li><a href="/"><span>Home</span></a></li>
+                        <li><a href="/bike-videos/"><span class="bwsprite fa-angle-right margin-right10"></span>Videos</a></li>
+                        <li><span class="bwsprite fa-angle-right margin-right10"></span>@Model.PageHeading</li>
+                    </ul>
+                </div>
+                <h1 class="font26 margin-bottom5">@Model.PageHeading</h1>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    if (Model.Videos != null && Model.Videos.TotalRecords > 0)
+    {
+        <section id="section-videos-list">
+            <div class="miscWrapper container">
+                <ul id="listVideos1">
+                    @foreach (var video in Model.Videos.Videos)
+                    {
+                        <li>
+                            <div class="video-image-wrapper rounded-corner2">
+                                <a href="@string.Format("/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))">
+                                    <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg", video.VideoId)"
+                                         alt="@video.VideoTitle" title="@video.VideoTitle" src="" border="0" />
+                                </a>
+                            </div>
+                            <div class="video-desc-wrapper">
+                                <a href="@string.Format("/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))" class="font14 text-bold text-default">@video.VideoTitle</a>
+                                <p class="font12 text-light-grey margin-top10 margin-bottom10">@Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "MMMM dd, yyyy")</p>
+                                <div class="grid-6 alpha omega border-light-right font14">
+                                    <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(video.Views))</span>
+                                </div>
+                                <div class="grid-6 omega padding-left20 font14">
+                                    <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(video.Likes))</span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
+
+    <section>
+        <div class="text-center">
+            <div id="loading">
+                <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+            </div>
+        </div>
+    </section>
+    <script type="text/html" id="templetVideos">
+        <li>
+            <div class="video-image-wrapper rounded-corner2">
+                <a data-bind="attr: { href: '/bike-videos/' + VideoTitleUrl() + '-' + BasicId() + '/' }">
+                    <img class="lazy" data-bind="attr: { title: VideoTitle(), alt: VideoTitle(), src: '' }, lazyload: 'https://img.youtube.com/vi/' + VideoId() + '/mqdefault.jpg' "
+                         border="0" />
+                </a>
+            </div>
+            <div class="video-desc-wrapper">
+                <a href="" class="font14 text-bold text-default" data-bind="text: VideoTitle(), attr: { href: '/bike-videos/' + VideoTitleUrl() + '-' + BasicId() + '/' }"></a>
+                <p class="font12 text-light-grey margin-top10 margin-bottom10" data-bind="formateDate: DisplayDate()"></p>
+                <div class="grid-6 alpha omega border-light-right font14">
+                    <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default" data-bind="CurrencyText: Views()"></span>
+                </div>
+                <div class="grid-6 omega padding-left20 font14">
+                    <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default" data-bind="CurrencyText: Likes()"></span>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </li>
+    </script>
+
+    <div id="js-variable" class="hide" data-cwhosturl="@Bikewale.Utility.BWConfiguration.Instance.CwApiHostUrl" data-catid="@Model.CategoryId" data-maxpage="@Model.Videos.TotalRecords" data-apiurl="/api/v1/videos/subcategory/" data-cachekey="@Model.CategoryId"></div>
+}

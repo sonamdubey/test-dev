@@ -959,7 +959,7 @@
     <Compile Include="Models\Upcoming\UpcomingBikesWidget.cs" />
     <Compile Include="Models\Videos\SimilarVideosModel.cs" />
     <Compile Include="Models\Videos\VideoDetails.cs" />
-    <Compile Include="Models\Videos\VideosByCategory.cs" />
+    <Compile Include="Models\Videos\VideosByCategoryPage.cs" />
     <Compile Include="Models\Videos\VideosBySubcategory.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedWidgetModel.cs" />
     <Compile Include="Models\UsedBikes\UsedBikeCitiesWidgetModel.cs" />
@@ -2392,6 +2392,7 @@
     <Content Include="css\video\detail.css" />
     <Content Include="css\video\landing.css" />
     <Content Include="css\video\videos-by-make.css" />
+    <Content Include="css\video\VideosByCategory.css" />
     <Content Include="css\video\videosByModel.css" />
     <Content Include="css\zebra-datepicker.css" />
     <Content Include="default.aspx" />
@@ -2921,6 +2922,7 @@
     <Content Include="m\css\videos\bwm-videos-landing.css" />
     <Content Include="m\css\videos\video-detail.css" />
     <Content Include="m\css\videos\videos-by-make.css" />
+    <Content Include="m\css\videos\VideosByCategory.css" />
     <Content Include="m\css\videos\videosByModel.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
@@ -3698,13 +3700,14 @@
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile.cshtml" />
     <Content Include="Views\Videos\Models_Mobile.cshtml" />
-
     <Content Include="Views\BikeCare\Index.cshtml" />
     <Content Include="Views\BikeCare\Index_Mobile.cshtml" />
     <Content Include="Views\Features\Detail.cshtml" />
     <Content Include="Views\Features\Detail_Mobile.cshtml" />
     <Content Include="Views\NewPage\Index.cshtml" />
     <Content Include="Views\NewPage\Index_Mobile.cshtml" />
+    <Content Include="Views\Videos\CategoryVideos.cshtml" />
+    <Content Include="Views\Videos\CategoryVideos_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

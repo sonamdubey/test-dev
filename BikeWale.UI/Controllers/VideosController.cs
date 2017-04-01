@@ -105,6 +105,34 @@ namespace Bikewale.Controllers.Desktop.Videos
         }
 
         /// <summary>
+        /// Created by Sajal Gupta on 01-04-2017 to fetch data fr category wise desktop videos page.
+        /// </summary>
+        /// <param name="categoryIdList"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        [Route("videos/category/{categoryIdList}/title/{title}")]
+        public ActionResult CategoryVideos(string categoryIdList, string title)
+        {
+            VideosByCategoryPage objModel = new VideosByCategoryPage(_videos, categoryIdList, title);
+            VideosByCategoryPageVM objVM = objModel.GetData(9);
+            return View(objVM);
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 01-04-2017 to fetch data fr category wise mobile videos page.
+        /// </summary>
+        /// <param name="categoryIdList"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        [Route("m/videos/category/{categoryIdList}/title/{title}")]
+        public ActionResult CategoryVideos_Mobile(string categoryIdList, string title)
+        {
+            VideosByCategoryPage objModel = new VideosByCategoryPage(_videos, categoryIdList, title);
+            VideosByCategoryPageVM objVM = objModel.GetData(9);
+            return View(objVM);
+        }
+
+        /// <summary>
         /// Created by : Sangram Nandkhile on 01 Mar 2017
         /// Summary: Action method for Video details Page
         /// Modified by :   Sumit Kate on 29 Mar 2017

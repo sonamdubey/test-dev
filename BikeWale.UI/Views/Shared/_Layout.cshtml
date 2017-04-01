@@ -1,4 +1,4 @@
-@model Bikewale.Models.ModelBase
+﻿@model Bikewale.Models.ModelBase
 <!doctype html>
 <html>
 <head>
@@ -9,11 +9,11 @@
         { 
 
 
-            <title>@Model.PageMetaTags.Title</title>
+            <title>@Html.Raw(Model.PageMetaTags.Title)</title>
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
         {
-            <meta name="description" content="@Model.PageMetaTags.Description" />
+            <meta name="description" content="@Html.Raw(Model.PageMetaTags.Description)" />
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
         {
