@@ -907,9 +907,9 @@
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
+    <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
-
     <Compile Include="Models\ExpertReviews\ExpertReviewsDetailPage.cs" />
     <Compile Include="Models\Make\BrandCityPopupModel.cs" />
     <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
@@ -3693,8 +3693,13 @@
     <Content Include="Views\Features\Index_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile.cshtml" />
+
+    <Content Include="Views\Features\Detail.cshtml" />
+    <Content Include="Views\Features\Detail_Mobile.cshtml" />
+
     <Content Include="Views\NewPage\Index.cshtml" />
     <Content Include="Views\NewPage\Index_Mobile.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
