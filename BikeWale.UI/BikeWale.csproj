@@ -908,7 +908,6 @@
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
-
     <Compile Include="Models\ExpertReviews\ExpertReviewsDetailPage.cs" />
     <Compile Include="Models\Make\BrandCityPopupModel.cs" />
     <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
@@ -947,6 +946,7 @@
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\Videos\MakeVideosPage.cs" />
+    <Compile Include="Models\Videos\ModelWiseVideosPage.cs" />
     <Compile Include="Models\Videos\RecentVideos.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersByBrand.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCentersCard.cs" />
@@ -2388,6 +2388,7 @@
     <Content Include="css\video\detail.css" />
     <Content Include="css\video\landing.css" />
     <Content Include="css\video\videos-by-make.css" />
+    <Content Include="css\video\videosByModel.css" />
     <Content Include="css\zebra-datepicker.css" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
@@ -2916,6 +2917,7 @@
     <Content Include="m\css\videos\bwm-videos-landing.css" />
     <Content Include="m\css\videos\video-detail.css" />
     <Content Include="m\css\videos\videos-by-make.css" />
+    <Content Include="m\css\videos\videosByModel.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
@@ -3691,6 +3693,8 @@
     <Content Include="Views\Features\Index_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersServiceCentersInIndia_Mobile.cshtml" />
+    <Content Include="Views\Videos\Models.cshtml" />
+    <Content Include="Views\Videos\Models_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
