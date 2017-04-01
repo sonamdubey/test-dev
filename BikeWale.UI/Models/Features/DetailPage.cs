@@ -23,7 +23,7 @@ namespace Bikewale.Models.Features
 
         public uint BasicId;
         public StatusCodes status;
-        public string redirectUrl;
+
         public uint TopCount { get; set; }
         public DetailPage(uint basicId, ICMSCacheContent cache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> models)
         {
@@ -249,7 +249,7 @@ namespace Bikewale.Models.Features
                         if (Convert.ToUInt32(_basicId) > 0)
                         {
 
-                            redirectUrl = string.Format("/features/{0}-{1}/", _basicId, _basicId);
+
                             status = Entities.StatusCodes.RedirectPermanent;
                         }
 

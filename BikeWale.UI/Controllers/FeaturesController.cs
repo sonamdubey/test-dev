@@ -123,7 +123,11 @@ namespace Bikewale.Controllers
                     if (objDetail.status == Entities.StatusCodes.ContentFound)
                         return View(objDetailsVM);
                     else if (objDetail.status == Entities.StatusCodes.RedirectPermanent)
-                        return Redirect(objDetail.redirectUrl);
+                    {
+
+                        string redirectUrl = string.Format("/features/{0}-{1}/", objDetailsVM.objFeature.Title, _basicId);
+                        return Redirect(redirectUrl);
+                    }
                     else
                         return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
 
@@ -163,8 +167,11 @@ namespace Bikewale.Controllers
                     objDetailsVM = objDetail.GetData();
                     if (objDetail.status == Entities.StatusCodes.ContentFound)
                         return View(objDetailsVM);
-                    else if (objDetail.status == Entities.StatusCodes.RedirectPermanent)
-                        return Redirect(objDetail.redirectUrl);
+                    else if (objDetail.status == Entities.StatusCodes.RedirectPermanent && objDetailsVM != null && objDetailsVM.objFeature != null)
+                    {
+                        string redirectUrl = string.Format("/m/features/{0}-{1}/", objDetailsVM.objFeature.Title, _basicId);
+                        return Redirect(redirectUrl);
+                    }
                     else
                         return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
 
