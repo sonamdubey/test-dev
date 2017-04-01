@@ -29,6 +29,15 @@ namespace Bikewale.Models
             _videos = videos;
         }
 
+        public RecentVideos(ushort pageNo, ushort pageSize, uint makeId, string makeName, string makeMasking, IVideos videos)
+        {
+            _pageNo = pageNo;
+            _pageSize = pageSize;
+            _makeId = makeId;
+            _makeName = makeName;
+            _makeMasking = makeMasking;
+            _videos = videos;
+        }
 
         public RecentVideos(ushort pageNo, ushort pageSize, uint makeId, string makeName, string makeMasking, uint modelId, string modelName, string modelMasking, IVideos videos)
         {

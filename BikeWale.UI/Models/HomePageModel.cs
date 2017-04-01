@@ -72,9 +72,12 @@ namespace Bikewale.Models
         public HomePageVM GetData()
         {
             HomePageVM objVM = new HomePageVM();
+
+            #region Variable initialization
+
             uint cityId = 0;
             string cityName, cityMaskingName = string.Empty;
-
+            CityEntityBase cityBase = null;
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null && location.CityId > 0)
             {
@@ -84,12 +87,20 @@ namespace Bikewale.Models
                 cityMaskingName = cityEntity != null ? cityEntity.CityMaskingName : string.Empty;
                 objVM.Location = cityName;
                 objVM.LocationMasking = cityMaskingName;
+                cityBase = new CityEntityBase()
+                    {
+                        CityId = cityId,
+                        CityMaskingName = cityMaskingName,
+                        CityName = cityName
+                    };
             }
             else
             {
                 objVM.Location = "India";
                 objVM.LocationMasking = "india";
             }
+            #endregion
+
             BindPageMetas(objVM.PageMetaTags);
             BindAdTags(objVM.AdTags);
             objVM.Banner = _cachedBanner.GetHomePageBanner();
@@ -113,9 +124,7 @@ namespace Bikewale.Models
 
             objVM.UsedBikeCities = new UsedBikeCitiesWidgetModel(cityMaskingName, string.Empty, _IUsedBikesCache).GetData();
 
-            objVM.UsedModels = new UsedBikeModelsWidgetModel(cityId, 9, _cachedBikeDetails).GetData();
-            objVM.UsedModels.Location = objVM.Location;
-            objVM.UsedModels.LocationMasking = objVM.LocationMasking;
+            objVM.UsedModels = new UsedBikeModelsWidgetModel(9, cityBase, _cachedBikeDetails).GetData();
 
             objVM.News = new RecentNews(3, _articles).GetData();
 

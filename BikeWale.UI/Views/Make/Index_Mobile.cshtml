@@ -40,21 +40,21 @@
                     <ul id="listitems" class="listitems">
                         @foreach (var bike in Model.Bikes)
                         {
-                            var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeMaskingName, bike.objModel.MaskingName);
-                            var bikeName = string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName);
+                            var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
+                            var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
 
                             <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex">
                                 <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
                                 <div class="contentWrapper">
                                     <div class="imageWrapper">
-                                        <a class="modelurl" href='@modelUrl'>
-                                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174)" title="@bikeName" alt="@bike.objModel.ModelName" />
+                                        <a class="modelurl" href='@string.Format("/m{0}", modelUrl)'>
+                                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" title="@bikeName" alt="@bike.objModel.ModelName" />
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
                                         <div class="bikeTitle margin-bottom10">
                                             <h3>
-                                                <a class="modelurl text-bold" title="@bike.BikeName" href='/m@modelUrl'>@bikeName</a>
+                                                <a class="modelurl text-bold" title="@bike.BikeName" href='@string.Format("/m{0}", modelUrl)'>@bikeName</a>
                                             </h3>
                                         </div>
                                         <div class="font14 text-x-light margin-bottom10">
@@ -65,7 +65,9 @@
                                             <span class="bwmsprite inr-sm-icon" style="@string.Format("{0}", bike.VersionPrice > 0  ? "display:inline-block;" : "display:none;")"></span>
                                             <span class="text-bold font18">@Html.Raw(string.Format("{0}", bike.VersionPrice > 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(bike.VersionPrice.ToString())) : "Price unavailable"))</span>
                                         </div>
-                                        <a href="javascript:void(0)" data-makename="@bike.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage)" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                        @if (bike.VersionPrice > 0) { 
+                                        <a href="javascript:void(0)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage)" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                        }
                                     </div>
                                 </div>
                             </li>
@@ -122,7 +124,7 @@
                         @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
                         {
                             <li data-tabs="#makeDealersContent">
-                                Dealers & Service Centers
+                                @Model.DealerServiceTitle
                             </li>
                         }
                         @if (Model.IsUsedModelsBikeAvailable)
@@ -196,6 +198,7 @@
                             </div>
                             @Html.Partial("~/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.Dealers)
                         </div>
+                        <div class="border-solid-bottom"></div>
                     }
                     @if (Model.IsServiceDataAvailable)
                     {
@@ -216,11 +219,12 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="border-solid-bottom"></div>
                     }
                     else if (Model.IsDealerServiceDataInIndiaAvailable)
                     {
                         <div class="padding-bottom20 padding-top15 font14">
-                            <h2 class="padding-right20 padding-left20">@Model.MakeName Showrooms & Service Centers </h2>
+                            <h2 class="padding-right20 padding-left20">@string.Format("{0} {1}",Model.MakeName, Model.DealerServiceTitle.Replace("Dealers","Showrooms")) </h2>
                             @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia_Mobile.cshtml", Model.DealersServiceCenter)
                         </div>
                     }
@@ -232,10 +236,10 @@
                 <div id="makeUsedBikeContent" class="bw-model-tabs-data  padding-top15">
                     <div class="carousel-heading-content">
                         <div class="swiper-heading-left-grid inline-block">
-                            <h2>Used @Model.MakeName bikes in @Model.UsedModels.Location</h2>
+                            <h2>Used @Model.MakeName bikes in @Model.Location</h2>
                         </div>
                         <div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="/m/used/@Model.MakeMaskingName-bikes-in-@Model.UsedModels.LocationMasking/" title="Second Hand @Model.MakeName Bikes in @Model.UsedModels.Location" class="btn view-all-target-btn">View all</a>
+                            <a href="/m/used/@Model.MakeMaskingName-bikes-in-@Model.LocationMasking/" title="Second Hand @Model.MakeName Bikes in @Model.Location" class="btn view-all-target-btn">View all</a>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -260,7 +264,7 @@
                         Discontinued @Model.MakeName models: -
                         @foreach (var bike in Model.DiscontinuedBikes)
                         {
-                            <a title="@bike.BikeName" href="/m/@bike.Href">@bike.BikeName</a>
+                            <a title="@bike.BikeName" href="@string.Format("/m{0}",bike.Href)">@bike.BikeName</a>
                         }
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 ﻿using Bikewale.Interfaces.Dealer;
+using Bikewale.Notifications;
 
 namespace Bikewale.Models
 {
@@ -29,7 +30,17 @@ namespace Bikewale.Models
         public DealersServiceCentersIndiaWidgetVM GetData()
         {
             DealersServiceCentersIndiaWidgetVM objData = new DealersServiceCentersIndiaWidgetVM();
-            objData.DealerServiceCenters = _dealerCache.GetPopularCityDealer(_makeId, _topCount);
+            try
+            {
+                objData.DealerServiceCenters = _dealerCache.GetPopularCityDealer(_makeId, _topCount);
+                objData.MakeMaskingName = _makeMaskingName;
+                objData.MakeName = _makeName;
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass er = new ErrorClass(ex, "DealersServiceCentersIndiaWidgetVM.GetData()");
+            }
             return objData;
         }
     }

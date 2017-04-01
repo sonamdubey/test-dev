@@ -38,6 +38,7 @@ namespace Bikewale.Models
             _makeName = makeName;
             _makeMasking = makeMasking;
             Title = title;
+            _articles = articles;
         }
 
 
@@ -50,6 +51,7 @@ namespace Bikewale.Models
             _makeMasking = makeMasking;
             _modelName = modelName;
             _modelMasking = modelMasking;
+            _articles = articles;
         }
         #endregion
 

@@ -1,3 +1,4 @@
+ga_pg_id = '4';
 var onRoadcity, clientIp = '', onRoadArea, onRoadMakeModel, selectedMakeModel = { makeModelName: "", modelId: "" };
 var onCookieObj = {}, mname = "", viewModelOnRoad;
 var selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
@@ -236,10 +237,6 @@ function calcWidth() {
 
 docReady(function () {
 
-    ga_pg_id = '4';
-
-    clientIp =;
-    pqsouceId = ;
     $('#globalSearch').parent().show();
 
     onRoadcity = $('#ddlCitiesOnRoad'); onRoadArea = $('#ddlAreaOnRoad'); onRoadMakeModel = $('#finalPriceBikeSelect');
@@ -315,10 +312,6 @@ docReady(function () {
             });
         }
     };
-    if (!@Model.IsNewsActive.ToString().ToLower()) $("#ctrlNews").addClass("hide");
-    if (!@Model.IsExpertReviewActive.ToString().ToLower()) $("#ctrlExpertReviews").addClass("hide");
-    if (!@Model.IsVideoActive.ToString().ToLower()) $("#ctrlVideos").addClass("hide");
-
     var viewModel = new ViewModelLD();
     ko.applyBindings(viewModel, $('#NBLocateDealer')[0]);
     viewModel.SelectedMake(0);

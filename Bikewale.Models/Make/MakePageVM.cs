@@ -17,6 +17,7 @@ namespace Bikewale.Models
         public string MakeMaskingName { get; set; }
         public string LocationMasking { get; set; }
         public string Location { get; set; }
+        public string DealerServiceTitle { get; set; }
 
         public IEnumerable<MostPopularBikesBase> Bikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
