@@ -9,7 +9,7 @@
                 @if (@Model.Make != null)
                 {
                     <a href="@string.Format("/m{0}", @Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(@Model.Make.MaskingName, @centers.CityMaskingName))" title="@String.Format("{0} service centers in {1}", @Model.Make.MakeName, @centers.CityName)">
-                        <div class="city-map" data-item-lat="@centers.Lattitude" data-item-long="@centers.Longitude">
+                        <div class="swiper-lazy service-location-img" data-background="@centers.GoogleMapImg" title="@String.Format("{0} service centers in {1}", @Model.Make.MakeName, @centers.CityName)">
                         </div>
                         <div class="swiper-details-block">
                             <p class="text-bold text-black font12 margin-bottom5 padding-top5">@centers.CityName</p>

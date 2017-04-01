@@ -24,6 +24,7 @@ namespace Bikewale.Entities.BikeData
         Dealer = 12,
         ServiceCenter = 13,
         Scooters = 14,
-        NewLaunched = 15
+        NewLaunched = 15,
+        Videos = 16
     }
 }

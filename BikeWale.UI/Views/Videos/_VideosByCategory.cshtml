@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.Videos.VideosBySubcategoryVM
 @using Bikewale.Utility
 @if (Model != null && Model.VideoList != null && Model.VideoList.Videos != null && Model.VideoList.Videos.Count() > 0) { 
-<section class="">@* class to be applied here- SectionBackgroundClass *@
+<section class="@Model.SectionBackgroundClass">
     <div class="container">
         <div class="grid-12">
             <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">@Model.SectionTitle</h2>

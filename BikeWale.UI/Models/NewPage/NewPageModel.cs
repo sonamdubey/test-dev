@@ -1,4 +1,5 @@
 ﻿using Bikewale.Common;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
@@ -6,9 +7,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
-using Bikewale.Interfaces.HomePage;
 using Bikewale.Interfaces.Location;
-using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
 using Bikewale.Utility;
@@ -18,34 +17,33 @@ using System.Linq;
 namespace Bikewale.Models
 {
     /// <summary>
-    /// Created by: Sangram Nandkhile on 24-Mar-2017
-    /// Summary:  Model for homepage
+    /// Created by: Sangram Nandkhile on 31-Mar-2017
+    ///  Model for new page
     /// </summary>
-    public class HomePageModel
+    public class NewPageModel
     {
         #region Variables for dependency injection
         private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly ICityCacheRepository _IUsedBikesCache = null;
-        private readonly IHomePageBannerCacheRepository _cachedBanner = null;
         private readonly IBikeModelsCacheRepository<int> _cachedModels = null;
         private readonly IBikeCompareCacheRepository _cachedCompare = null;
-        private readonly IUsedBikeDetailsCacheRepository _cachedBikeDetails = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly ICMSCacheContent _expertReviews = null;
+
         #endregion
 
         #region Page level variables
         public ushort TopCount { get; private set; }
         public ushort LaunchedRecordCount { get; private set; }
         public string redirectUrl;
-
+        public StatusCodes status;
 
         #endregion
 
-        public HomePageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompareCacheRepository cachedCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
+        public NewPageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IBikeModelsCacheRepository<int> cachedModels, IBikeCompareCacheRepository cachedCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
@@ -53,10 +51,8 @@ namespace Bikewale.Models
             _newLaunches = newLaunches;
             _bikeModels = bikeModels;
             _IUsedBikesCache = usedBikeCache;
-            _cachedBanner = cachedBanner;
             _cachedModels = cachedModels;
             _cachedCompare = cachedCompare;
-            _cachedBikeDetails = cachedBikeDetails;
             _videos = videos;
             _articles = articles;
             _expertReviews = expertReviews;
@@ -69,9 +65,9 @@ namespace Bikewale.Models
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
         /// </returns>
-        public HomePageVM GetData()
+        public NewPageVM GetData()
         {
-            HomePageVM objVM = new HomePageVM();
+            NewPageVM objVM = new NewPageVM();
             uint cityId = 0;
             string cityName, cityMaskingName = string.Empty;
 
@@ -92,7 +88,7 @@ namespace Bikewale.Models
             }
             BindPageMetas(objVM.PageMetaTags);
             BindAdTags(objVM.AdTags);
-            objVM.Banner = _cachedBanner.GetHomePageBanner();
+
             objVM.Brands = new BrandWidgetModel(TopCount, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.New);
             var popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, false);
             popularBikes.TopCount = 9;
@@ -111,12 +107,6 @@ namespace Bikewale.Models
 
             objVM.BestBikes = new BestBikeWidgetModel(null).GetData();
 
-            objVM.UsedBikeCities = new UsedBikeCitiesWidgetModel(cityMaskingName, string.Empty, _IUsedBikesCache).GetData();
-
-            objVM.UsedModels = new UsedBikeModelsWidgetModel(cityId, 9, _cachedBikeDetails).GetData();
-            objVM.UsedModels.Location = objVM.Location;
-            objVM.UsedModels.LocationMasking = objVM.LocationMasking;
-
             objVM.News = new RecentNews(3, _articles).GetData();
 
             objVM.Videos = new RecentVideos(1, 3, _videos).GetData();
@@ -125,23 +115,21 @@ namespace Bikewale.Models
 
             SetFlags(objVM);
 
-
-
             return objVM;
         }
 
         /// <summary>
-        /// Sets the flags.
-        /// </summary>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
-        /// <param name="Model">The model.</param>
-        private void SetFlags(HomePageVM Model)
+        /// Binds the ad tags.
+        /// </summary>
+        /// <param name="adTags">The ad tags.</param>
+        private void SetFlags(NewPageVM Model)
         {
             Model.IsPopularBikesDataAvailable = (Model.PopularBikes != null && Model.PopularBikes.Bikes != null && Model.PopularBikes.Bikes.Count() > 0);
             Model.IsNewLaunchedDataAvailable = (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0);
-            Model.IsUsedBikeCitiesAvailable = (Model.UsedBikeCities != null && Model.UsedBikeCities.Cities != null && Model.UsedBikeCities.Cities.Count() > 0);
+
             Model.IsUpcomingBikeAvailable = (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0);
-            Model.IsUsedModelsAvailable = (Model.UsedModels != null && Model.UsedModels.UsedBikeModelList != null && Model.UsedModels.UsedBikeModelList.Count() > 0);
+
             Model.TabCount = 0;
             Model.IsNewsActive = false;
             Model.IsExpertReviewActive = false;
@@ -190,11 +178,10 @@ namespace Bikewale.Models
         {
             try
             {
-                objPage.Title = "New Bikes, Used Bikes, Bike Prices, Reviews & Images in India";
-                objPage.Keywords = "new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, Images, news, compare bikes, Instant Bike On-Road Price";
-                objPage.Description = "BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values.";
-                objPage.CanonicalUrl = "https://www.bikewale.com/";
-
+                objPage.Title = "New Bikes - Bikes Reviews, Images, Specs, Features, Tips & Advices - BikeWale";
+                objPage.Keywords = "new bikes, new bikes prices, new bikes comparisons, bikes dealers, on-road price, bikes research, bikes india, Indian bikes, bike reviews, bike Images, specs, features, tips & advices";
+                objPage.Description = "New bikes in India. Search for the right new bikes for you, know accurate on-road price and discounts. Compare new bikes and find dealers.";
+                objPage.CanonicalUrl = "https://www.bikewale.com/new-bikes-in-india/";
             }
             catch (Exception ex)
             {
