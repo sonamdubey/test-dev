@@ -242,11 +242,12 @@ function setUserLocation(position) {
 
         $('.chosen-select').chosen();
 
-        bikeschedule = JSON.parse($("#service-schedule-data").html().replace(/\s/g, ' '));
-        vmService = new SchedulesViewModel();
-        ko.applyBindings(vmService, $("#service-scheduler")[0]);
-        vmService.selectedModelId(vmService.bikes()[0].ModelId);
-
+        if ($("#service-schedule-data").html()) {
+            bikeschedule = JSON.parse($("#service-schedule-data").html().replace(/\s/g, ' '));
+            vmService = new SchedulesViewModel();
+            ko.applyBindings(vmService, $("#service-scheduler")[0]);
+            vmService.selectedModelId(vmService.bikes()[0].ModelId);
+        }
 
 
 
