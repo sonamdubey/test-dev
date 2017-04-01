@@ -141,31 +141,5 @@ else
 }
 <div class="back-to-top" id="back-to-top"></div>
 <script type="text/javascript">
-    docReady(function () {
         ga_pg_id = "11";
-        $('.share-btn').click(function () {
-            var str = $(this).attr('data-attr');
-            var cururl = window.location.href;
-            switch (str) {
-                case 'fb':
-                    url = 'https://www.facebook.com/sharer/sharer.php?u=';
-                    break;
-                case 'tw':
-                    url = 'https://twitter.com/home?status=';
-                    break;
-                case 'gp':
-                    url = 'https://plus.google.com/share?url=';
-                    break;
-                case 'wp':
-                    var text = document.getElementsByTagName("title")[0].innerHTML;
-                    var message = encodeURIComponent(text) + " - " + encodeURIComponent(cururl);
-                    var whatsapp_url = "whatsapp://send?text=" + message;
-                    url = whatsapp_url;
-                    window.open(url, '_blank');
-                    return;
-            }
-            url += cururl;
-            window.open(url, '_blank');
-        });
-    });
 </script>

@@ -32,9 +32,7 @@ namespace Bikewale.Controllers
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
         private int _topCount; 
-        private ExpertReviewsIndexPage obj = null;
-
-
+        
         #region Constructor
         public ExpertReviewsController(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache)
         {
@@ -55,6 +53,7 @@ namespace Bikewale.Controllers
         /// Summmary   : Action method to render news listing page- Desktop
         /// </summary>
         [Route("expertreviews/")]
+        [Filters.DeviceDetection()]
         public ActionResult Index()
         {
             _topCount = 4;
@@ -137,6 +136,7 @@ namespace Bikewale.Controllers
         /// Summary    : Action method for expert review details page - Desktop
         /// </summary>
         [Route("expertreviews/details/{basicid}/")]
+        [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
             _topCount = 3;

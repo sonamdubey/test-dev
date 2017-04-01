@@ -35,6 +35,7 @@ namespace Bikewale.Controllers
         /// Summmary   : Action method to render news listing page- Desktop
         /// </summary>
         [Route("newslanding/")]
+        [Filters.DeviceDetection()]
         public ActionResult Index()
         {
             _topCount = 4;
@@ -89,6 +90,7 @@ namespace Bikewale.Controllers
         /// Summmary   : Action method to render news detail page-desktop
         /// </summary>
         [Route("newsdetail/{basicid}/")]
+        [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
             _topCount = 3;
