@@ -1,0 +1,93 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@{
+
+
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/model-atf.css' />";
+    Model.Page_BTF_CSS_Path = "/css/model-btf.css";
+    Model.Page_JS_Path = "/src/model.js";
+    Model.AdTags.AdPath = "/1017752/Bikewale_NewBike_";
+    Model.AdTags.AdId = "1442913773076";
+    Model.AdTags.Ad_970x90 = true;
+    Model.AdTags.Ad_300x250 = false;
+    Model.AdTags.Ad_970x90BTF = false;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.IsModelDetails)
+{
+    if (Model.ModelPageEntity.ModelDesc != null)
+    {
+        <meta itemscope itemprop="description" itemtype="https://schema.org/description" content="@Model.ModelPageEntity.ModelDesc.SmallDescription" />
+    }
+    <meta itemprop="name" content="@Model.BikeName " />
+    <meta itemprop="image" content="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath, Model.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._210x118)" />
+    <meta itemprop="manufacturer" name="manufacturer" content="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName">
+    <meta itemprop="model" content="@Model.ModelPageEntity.ModelDetails.ModelName" />
+    <meta itemprop="brand" content="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName" />
+}
+
+<section class="bg-light-grey padding-top10" id="breadcrumb">
+    <div class="container">
+        <div class="grid-12">
+            <div class="breadcrumb margin-bottom15">
+                <ul>
+                    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <a href="/" itemprop="url">
+                            <span itemprop="title">Home</span>
+                        </a>
+                    </li>
+                    @if (Model.IsModelDetails && Model.ModelPageEntity.ModelDetails.MakeBase != null)
+                    {
+                        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <span class="bwsprite fa-angle-right margin-right10"></span>
+                            <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/" itemprop="url">
+                                <span itemprop="title">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Bikes</span>
+                            </a>
+                        </li>
+                    }                    
+                    <li>
+                        <span class="bwsprite fa-angle-right margin-right10"></span>
+                        <span>@Model.BikeName</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+
+@if(Model.IsNewBike)
+{
+    @Html.Partial("~/Views/Model/_Index_New.cshtml", Model)
+}
+else if (Model.IsDiscontinuedBike)
+{
+    @Html.Partial("~/Views/Model/_Index_Discontinued.cshtml", Model)
+}
+else if(Model.IsUpcomingBike)
+{
+    @Html.Partial("~/Views/Model/_Index_Upcoming.cshtml", Model)
+}
+
+<script type="text/javascript">
+    ga_pg_id = '2';
+    var dealerId = '@Model.DealerId';
+    var pqId = '@Model.PQId';
+    var versionId = '@Model.VersionId';
+    var cityId = '@Model.CityId';
+    var bikeVersionLocation = '';
+    var bikeVersion = '';
+    var isBikeWalePq = "@Model.IsBPQAvailable";
+    var areaId = "@Model.AreaId ";
+    var isDealerPriceAvailable = "@Model.IsDPQAvailable";
+    @*var campaignId = "@Model.campaignId";
+    var manufacturerId = "@Model.manufacturerId";*@
+    var myBikeName = "@Model.BikeName";
+    var clientIP = "@Model.ClientIP";
+    var pageUrl = window.location.href;
+    var leadSourceId, getCityArea, bikeModelId = '@Model.ModelId';
+</script>
+
+

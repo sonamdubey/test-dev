@@ -456,6 +456,7 @@
     <Compile Include="Controllers\FeaturesController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\MakeController.cs" />
+    <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
@@ -908,6 +909,7 @@
     <Compile Include="Models\BikeCare\BikeCareIndexPage.cs" />
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
+    <Compile Include="Models\BikeModels\ModelPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
@@ -1446,14 +1448,6 @@
       <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\pricequote\DealerPriceQuote_old.aspx.cs">
-      <DependentUpon>DealerPriceQuote_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\pricequote\DealerPriceQuote_02082016.aspx.cs">
-      <DependentUpon>DealerPriceQuote_02082016.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\pricequote\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1469,9 +1463,6 @@
     <Compile Include="m\pricequote\PaymentFailure.aspx.cs">
       <DependentUpon>PaymentFailure.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\pricequote\PriceQuoteCookie.cs">
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="m\pricequote\Quotation.aspx.cs">
       <DependentUpon>Quotation.aspx</DependentUpon>
@@ -2994,8 +2985,6 @@
     <Content Include="m\pricequote\BikeDealerDetails.aspx" />
     <Content Include="m\pricequote\BookingSummary_New.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote.aspx" />
-    <Content Include="m\pricequote\DealerPriceQuote_old.aspx" />
-    <Content Include="m\pricequote\DealerPriceQuote_02082016.aspx" />
     <Content Include="m\pricequote\Default.aspx" />
     <Content Include="m\pricequote\DetailedDealerQuotation.aspx" />
     <Content Include="m\pricequote\PaymentConfirmation.aspx" />
@@ -3680,8 +3669,17 @@
     <Content Include="Views\Price\Details_Mobile.cshtml" />
     <Content Include="Views\Shared\_LeadCapture_Mobile.cshtml" />
     <Content Include="Views\Price\_DealerCampaign_Mobile.cshtml" />
+    <Content Include="Views\Model\Index.cshtml" />
+    <Content Include="Views\Model\_Index_New.cshtml" />
+    <Content Include="Views\Model\_Index_Discontinued.cshtml" />
     <Content Include="Views\Price\_SecondaryDealers_Mobile.cshtml" />
     <Content Include="Views\Price\_ManufacturerCampaign_Mobile.cshtml" />
+    <Content Include="Views\Model\_Index_Upcoming.cshtml" />
+    <Content Include="Views\Model\_Index_Reviews.cshtml" />
+    <Content Include="Views\Model\_Index_VersionsAndSpecs.cshtml" />
+    <Content Include="Views\Model\_Index_ModelGallery.cshtml" />
+    <Content Include="Views\Model\_Index_DealerDetails_TopCard.cshtml" />
+    <Content Include="Views\Model\_Index_DealerDetails_TopCard_Right.cshtml" />
     <Content Include="Views\DealerShowroom\Index.cshtml" />
     <Content Include="Views\DealerShowroom\Index_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\Index_Mobile.cshtml" />

@@ -1,0 +1,68 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+<section>
+    <div class="container" id="modelDetailsContainer">
+        <div class="grid-12 margin-bottom20">
+            <div class="content-box-shadow">
+                <div class="content-box-shadow padding-14-20">
+                    <h1 class="inline-block margin-right15">@Model.BikeName</h1>
+                </div>
+                <div class="padding-top20 padding-right20 padding-bottom10 padding-left20">
+                    <div class="grid-7 model-details-wrapper omega rightfloat padding-top5">
+
+                        <div id="scrollFloatingButton"></div>
+                        @if (Model.ModelPageEntity != null && Model.ModelPageEntity.UpcomingBike != null)
+                        {
+                            <div id="upcoming">
+                                @if (Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
+                                {
+                                    <div id="expectedPriceContainer" class="padding-top15">
+                                        <div itemscope itemtype="http://schema.org/Offer">
+                                            <p class="font14 default-showroom-text text-light-grey">Expected Price</p>
+                                            <div class="modelExpectedPrice margin-bottom15">
+                                                <span class="bwsprite inr-md-lg"></span>
+                                                <span id="bike-price" class="font22 text-bold">
+                                                    <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+                                                        <span itemprop="price minPrice">
+                                                            @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin))
+                                                        </span>
+                                                        <span> - </span>
+                                                        <span itemprop="priceCurrency" content="INR"><span class="bwsprite inr-md-lg"></span></span>
+                                                        <span itemprop="maxPrice">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax))</span>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p class="font26 default-showroom-text text-light-grey margin-bottom5">Price Unavailable</p>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.ModelPageEntity.UpcomingBike.ExpectedLaunchDate))
+                                {
+                                    <div id="expectedDateContainer" class="padding-top15 font14">
+                                        <p class="default-showroom-text text-light-grey margin-bottom10">Expected launch date</p>
+                                        <p class="modelLaunchDate text-bold font18 margin-bottom10">@Model.ModelPageEntity.UpcomingBike.ExpectedLaunchDate</p>
+                                        <p class="default-showroom-text text-light-grey">@Model.BikeName is not launched in India yet.</p>
+                                        <p class="text-light-grey">Information on this page is tentative.</p>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div class="grid-5 alpha margin-bottom20">
+                        <div class="position-rel">
+                            <span class="upcoming-text-label font16 position-abt text-white text-center">Upcoming</span>
+                        </div>
+                        @if (Model.AreModelPhotosAvailable)
+                        {
+                            @Html.Partial("~/Views/Model/_Index_ModelGallery.cshtml", Model)
+                        }
+                    </div>                    
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>

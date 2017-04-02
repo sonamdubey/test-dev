@@ -91,7 +91,7 @@
                     <div class="content-box-shadow">
                         <div class="content-box-shadow padding-14-20">
                             <h1 class="inline-block margin-right15"><%= bikeName %></h1>
-                            <% if (!modelPageEntity.ModelDetails.Futuristic || modelPageEntity.ModelDetails.New)
+                            <% if (!modelPageEntity.ModelDetails.Futuristic || modelPageEntity.ModelDetails.New) //for new and discontinued
                                { %>
                                 <div class="inline-block <%= modelPageEntity.ModelDetails.Futuristic ? "hide " : string.Empty %>">
                                     <div class="rating-review-content">

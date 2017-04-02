@@ -891,7 +891,7 @@
             ko.applyBindings(dleadvm, document.getElementById("dealerAssistance"));
         }
            
-        if ($("#getPinCode").is(":visible"))
+        if ($("#getPinCode") && $("#getPinCode").length > 0)
         {
             dleadvm.setPinCodeSuggestion();
         }
