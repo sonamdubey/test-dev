@@ -1,0 +1,59 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@{
+
+
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-model-atf.css' />";
+    Model.Page_BTF_CSS_Path = "/m/css/bwm-model-btf.css";
+    Model.Page_JS_Path = "/m/src/bwm-model.js";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Model";
+    Model.AdTags.AdId = "1444028976556";
+    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
+
+@if (Model.IsModelDetails)
+{
+    if (Model.ModelPageEntity.ModelDesc != null)
+    {
+        <meta itemscope itemprop="description" itemtype="https://schema.org/description" content="@Model.ModelPageEntity.ModelDesc.SmallDescription" />
+    }
+    <meta itemprop="name" content="@Model.BikeName " />
+    <meta itemprop="image" content="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath, Model.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._210x118)" />
+    <meta itemprop="manufacturer" name="manufacturer" content="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName">
+    <meta itemprop="model" content="@Model.ModelPageEntity.ModelDetails.ModelName" />
+    <meta itemprop="brand" content="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName" />
+}
+
+
+@if(Model.IsNewBike)
+{
+    @Html.Partial("~/Views/Model/_Index_New_Mobile.cshtml", Model)
+}
+else if (Model.IsDiscontinuedBike)
+{
+    @Html.Partial("~/Views/Model/_Index_Discontinued_Mobile.cshtml", Model)
+}
+else if(Model.IsUpcomingBike)
+{
+    @Html.Partial("~/Views/Model/_Index_Upcoming_Mobile.cshtml", Model)
+}
+
+<script type="text/javascript">
+    ga_pg_id = '2';
+    var dealerId = '@Model.DealerId';
+    var pqId = '@Model.PQId';
+    var versionId = '@Model.VersionId';
+    var cityId = '@Model.CityId';
+    var bikeVersionLocation = '';
+    var bikeVersion = '';
+    var isBikeWalePq = "@Model.IsBPQAvailable";
+    var areaId = "@Model.AreaId ";
+    var isDealerPriceAvailable = "@Model.IsDPQAvailable";
+    var campaignId = "@Model.CampaignId";
+    var manufacturerId = "@(Model.ManufacturerCampaign!=null ? Model.ManufacturerCampaign.Id : 0)";
+    var myBikeName = "@Model.BikeName";
+    var clientIP = "@Model.ClientIP";
+    var pageUrl = window.location.href;
+    var leadSourceId, getCityArea, bikeModelId = '@Model.ModelId';
+</script>

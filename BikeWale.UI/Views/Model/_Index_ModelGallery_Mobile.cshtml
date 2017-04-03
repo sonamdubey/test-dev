@@ -1,0 +1,76 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+
+<div id="model-photos-swiper" class="swiper-container noSwiper model-photos-swiper">
+
+    @if(!Model.IsNewBike)
+    {
+           <p class="model-ribbon-tag upcoming-ribbon">@(Model.IsUpcomingBike ? "Upcoming" : "Discontinued")</p> 
+    }
+
+@if (Model.AreModelPhotosAvailable)
+    {
+    <div class="swiper-wrapper">
+
+        @{int imageIndex = 0; var bikeImages = Model.ModelPageEntity.AllPhotos.Take(10);}
+        @foreach (var image in bikeImages)
+        {
+            string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
+
+            <div class="swiper-slide">
+                <a href="@String.Format(@"{0}?modelpage=true&imageindex={1}#modelGallery",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName),imageIndex)">
+                    @if (imageIndex < 2)
+                    {
+                        <img src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._393x221,"85")" alt="@imageProperty" title="@imageProperty" border="0" />
+                    }
+                    else
+                    {
+                        <img class="swiper-lazy" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._393x221,"80")" alt="@imageProperty" title="@imageProperty" border="0" />
+
+                    }
+                </a>
+            </div>
+        }
+    </div>
+    <div class="bwmsprite swiper-button-next gallery-type-next"></div>
+    <div class="bwmsprite swiper-button-prev gallery-type-prev"></div>
+}
+
+</div>
+
+<!-- media links start -->
+<ul class="model-media-list text-center padding-right20 padding-left20 padding-bottom15">
+    @if (Model.AreModelPhotosAvailable)
+    {
+    <li>
+        <a title="@Model.BikeName Images"  href="/m/@Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)">
+            <span class="bwmsprite photos-sm"></span>
+            <span class="inline-block">
+                <span class="font12">@Model.ModelPageEntity.ModelDetails.PhotosCount</span>&nbsp;<span class="font11">images</span>
+            </span>
+        </a>
+    </li>
+    }
+    @if (Model.IsVideosAvailable)
+    {
+    <li>
+        <a title="@Model.BikeName Videos"  href="/m/@Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)">
+            <span class="bwmsprite videos-sm"></span>
+            <span class="inline-block">
+                <span class="font12">@Model.ModelPageEntity.ModelDetails.VideosCount</span>&nbsp;<span class="font11">videos</span>
+            </span>
+        </a>
+    </li>
+    }
+    @if (Model.IsModelColorsAvailable)
+    {
+    <li>
+        <a title="@Model.BikeName Colors" href="javascript:void(0)" >
+            <span class="bwmsprite colors-sm"></span>
+            <span class="inline-block">
+                <span class="font12">@Model.ModelPageEntity.ModelColors.Count()</span>&nbsp;<span class="font11">colours</span>
+            </span>
+        </a>
+    </li>
+    }
+</ul>
+<!-- media links end -->
