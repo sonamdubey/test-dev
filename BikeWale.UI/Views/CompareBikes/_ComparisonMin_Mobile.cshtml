@@ -6,7 +6,7 @@
         <a href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(@Model.TopComparisonRecord.MakeMaskingName1, @Model.TopComparisonRecord.ModelMaskingName1, @Model.TopComparisonRecord.MakeMaskingName2, @Model.TopComparisonRecord.ModelMaskingName2, @Model.TopComparisonRecord.VersionId1.ToString(), @Model.TopComparisonRecord.VersionId2.ToString(), @Model.TopComparisonRecord.ModelId1, @Model.TopComparisonRecord.ModelId2, Bikewale.Entities.Compare.CompareSources.Mobile_Featured_Compare_Widget)" title="@string.Format("Compare {0} vs {1}", @Model.TopComparisonRecord.Bike1, @Model.TopComparisonRecord.Bike2)" id="main-compare-bikes-target" class="main-compare-bikes-target">
             <div class="grid-6">
                 <div class="comparison-image">
-                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(@Model.TopComparisonRecord.VersionImgUrl1, @Model.TopComparisonRecord.HostUrl1, Bikewale.Utility.ImageSize._144x81)" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
+                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.TopComparisonRecord.VersionImgUrl1, Model.TopComparisonRecord.HostUrl1, Bikewale.Utility.ImageSize._144x81, Bikewale.Utility.QualityFactor._70)" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
                 </div>
                 <h3 class="font14 text-black margin-bottom5">@Model.TopComparisonRecord.Bike1</h3>
                 <div class="text-default text-bold">
@@ -19,7 +19,7 @@
             </div>
             <div class="grid-6">
                 <div class="comparison-image">
-                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(@Model.TopComparisonRecord.VersionImgUrl2, @Model.TopComparisonRecord.HostUrl2, Bikewale.Utility.ImageSize._144x81)" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
+                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.TopComparisonRecord.VersionImgUrl2, Model.TopComparisonRecord.HostUrl2, Bikewale.Utility.ImageSize._144x81, Bikewale.Utility.QualityFactor._70)" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
                 </div>
                 <h3 class="font14 text-black margin-bottom5">@Model.TopComparisonRecord.Bike2</h3>
                 <div class="text-default text-bold">
