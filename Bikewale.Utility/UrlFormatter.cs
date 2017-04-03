@@ -279,8 +279,10 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string RemoveSpecialCharUrl(string url)
         {
+
             if (!string.IsNullOrEmpty(url))
             {
+                url = url.Trim();
                 url = (Regex.Replace(url, "[^0-9a-zA-Z]+", "-")).ToLower();
                 url = (Regex.Replace(url, @"\-+", "-")).TrimEnd('-');
             }
@@ -457,6 +459,17 @@ namespace Bikewale.Utility
         public static string FormatMakeWiseBikeLaunchedUrl(string makeMaskingName)
         {
             return string.Format("/new-{0}-bike-launches/", makeMaskingName);
+        }
+
+
+        public static string FormatShowReviewLink(string makeName, string modelName)
+        {
+            return string.Format("/{0}-bikes/{1}/user-reviews/", makeName, modelName);
+        }
+
+        public static string FormatWriteReviewLink(uint modelId)
+        {
+            return String.Format("/content/userreviews/writereviews.aspx?bikem={0}", modelId);
         }
     }
 }

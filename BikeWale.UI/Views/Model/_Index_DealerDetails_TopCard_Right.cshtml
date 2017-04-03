@@ -1,0 +1,28 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@if (Model.IsPremiumDealer)
+{
+    <div class="margin-top15">
+        <a href="javascript:void(0)" class="btn btn-orange margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation">@Model.DealerDetails.DisplayTextLarge</a>
+        <div class="grid-6 alpha omega">
+            <span class="font12 text-light-grey">Powered by</span>
+            <p class="font14 text-truncate" title="@Model.DealerDetails.Organization, @Model.DealerArea">@Model.DealerDetails.Organization,&nbsp;@Model.DealerArea</p>
+        </div>
+        <div class="clear"></div>
+    </div>
+}
+@if (Model.IsDealerDetailsExists && !Model.IsPremiumDealer)
+{
+    <div class="border-solid-top margin-top15 margin-bottom20 padding-top20">
+        <div class="inline-block margin-right10">
+            <span class="model-sprite partner-dealer"></span>
+        </div>
+        <div class="inline-block margin-right25">
+            <p class="font14 text-bold text-black margin-right10">One partner dealer near you</p>
+            @if (Model.IsDealerDetailsExists && !string.IsNullOrEmpty(Model.DealerDetails.Distance))
+            {
+                <p class="font12 text-x-light">Approx. @Model.DealerDetails.Distance kms away</p>
+            }
+        </div>
+        <a href="javascript:void(0)" id="getdealerdetails" class="btn btn-orange partner-dealer-details-btn">View dealer details</a>
+    </div>
+}

@@ -1,9 +1,13 @@
 ﻿var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
-var dealerLat = document.getElementById("locationSearch").getAttribute("data-lat");
-var dealerLong = document.getElementById("locationSearch").getAttribute("data-long");
+var dealerLat;
+var dealerLong;
 var locationKey;
-var googleMapAPIKey;
+var googleMapAPIKey, pageUrl;
 docReady(function () {
+    dealerLong = document.getElementById("locationSearch").getAttribute("data-long");
+    pageUrl = window.location.href;
+    dealerLat = document.getElementById("locationSearch").getAttribute("data-lat");
+    clientIP = document.getElementById("locationSearch").getAttribute("data-clietIp");
     locationKey = document.getElementById("locationSearch").getAttribute("data-cityid") + "_" + document.getElementById("locationSearch").getAttribute("data-cityname");
     googleMapAPIKey = document.getElementById("locationSearch").getAttribute("data-Map");
     SetCookieInDays("location", locationKey, 365);
@@ -40,14 +44,14 @@ docReady(function () {
     $(".leadcapturebtn").click(function (e) {
         ele = $(this);
         var leadOptions = {
-            "dealerid": dealerId,
+            "dealerid": ele.attr('data-item-id'),
             "leadsourceid": ele.attr('data-leadsourceid'),
             "pqsourceid": ele.attr('data-pqsourceid'),
-            "pageurl": pageUrl,
+            "pageurl": window.location.href,
             "clientip": clientIP,
             "isregisterpq": true,
             "isdealerbikes": true,
-            "campid": campaignId
+            "campid":  ele.attr('data-champaignid')
         };
         dleadvm.setOptions(leadOptions);
     });

@@ -6,7 +6,6 @@ using Bikewale.Entities.MobileVerification;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.MobileVerification;
-using Bikewale.Mobile.PriceQuote;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
@@ -370,15 +369,15 @@ namespace Bikewale.Ajax
             }
 
             // Check if dealer price quote exists for the given area id
-            finally
-            {
+            //finally
+            //{
 
-                if (objPQOutput.PQId > 0)
-                {
-                    // Save pq cookie
-                    PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());
-                }
-            }
+            //    if (objPQOutput.PQId > 0)
+            //    {
+            //        // Save pq cookie
+            //        PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());
+            //    }
+            //}
 
             response = "{\"quoteId\":\"" + objPQOutput.PQId + "\",\"dealerId\":\"" + objPQOutput.DealerId + "\"}";
 

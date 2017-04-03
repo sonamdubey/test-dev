@@ -91,7 +91,8 @@
                     @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.MaskingNumber))
                     {
                         <div class="grid-6 alpha padding-right5">
-                            <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">@Model.DealerDetails.DealerDetails.DisplayTextSmall</a>
+                            <a data-leadsourceid="15" data-clietip="@Bikewale.Common.CommonOpn.GetClientIP()" data-champaignid="@Model.DealerDetails.DealerDetails.CampaignId" data-isregisterpq="true" data-item-name="@Model.DealerDetails.DealerDetails.Name" data-item-area="@Model.DealerDetails.DealerDetails.Area!=null?@Model.DealerDetails.DealerDetails.Area.AreaName" data-isleadpopup="false" data-pqsourceid="@Convert.ToInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers)"
+                               data-item-id="@Model.DealerDetails.DealerDetails.DealerId" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);" rel="nofollow">@Model.DealerDetails.DealerDetails.DisplayTextSmall</a>
                         </div>
                         <div class="grid-6 omega padding-left5">
                             <a id="calldealer" class="btn btn-green btn-full-width rightfloat" href="tel:= dealerDetails.MaskingNumber ">
@@ -102,7 +103,8 @@
                     else
                     {
                         <div class="grid-12 alpha padding-right5">
-                            <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">@Model.DealerDetails.DealerDetails.DisplayTextSmall </a>
+                            <a data-leadsourceid="15" data-clietip="@Bikewale.Common.CommonOpn.GetClientIP()" data-champaignid="@Model.DealerDetails.DealerDetails.CampaignId" data-isregisterpq="true" data-item-name="@Model.DealerDetails.DealerDetails.Name" data-item-area="@Model.DealerDetails.DealerDetails.Area!=null?@Model.DealerDetails.DealerDetails.Area.AreaName" data-isleadpopup="false" data-pqsourceid="@Convert.ToInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers)"
+                               data-item-id="@Model.DealerDetails.DealerDetails.DealerId" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">@Model.DealerDetails.DealerDetails.DisplayTextSmall</a>
                         </div>
                     }
                     <div class="clear"></div>
@@ -208,6 +210,10 @@
             </div>
         </div>
     </div>
+}
+@if (Model.LeadCapture != null)
+{
+    @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 }
 <section>
     <div class="container margin-bottom30">

@@ -224,6 +224,7 @@
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
     <Compile Include="GenericBikes\BestBikesList.cs" />
     <Compile Include="GenericBikes\BikeRankingEntity.cs" />
+    <Compile Include="GenericBikes\BikeRankingPropertiesEntity.cs" />
     <Compile Include="GenericBikes\EnumBikeBodyStyles.cs" />
     <Compile Include="GenericBikes\GenericBikeInfo.cs" />
     <Compile Include="HomePage\HomePageBannerEntity.cs" />

@@ -1,0 +1,44 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+
+@if (Model.IsModelDescriptionAvailable)
+{
+    <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
+}
+@if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
+{
+    <a href="#modelPricesContent" rel="nofollow">Price</a>
+}
+@if (Model.IsModelColorsAvailable)
+{
+    <a href="#modelColorsContent" rel="nofollow">Colours</a>
+}
+@if (Model.IsVersionSpecsAvailable)
+{
+    <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
+}
+@if (Model.IsReviewsAvailable)
+{
+    <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
+}
+@if (!Model.IsReviewsAvailable && Model.IsNewsAvailable)
+{
+    <a href="#modelReviewsContent" rel="nofollow">News</a>
+}
+@if (Model.IsVideosAvailable)
+{
+    <a href="#modelVideosContent" rel="nofollow">Videos</a>
+}
+@if (Model.IsSimilarBikesAvailable)
+{
+    <a href="#modelSimilarContent" rel="nofollow">Similar Bikes</a>
+}
+@if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable))
+{
+    <a href="#dealerAndServiceContent" rel="nofollow">
+        @(Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable ? "Dealers & Service Centers" : (Model.IsOtherDealersAvailable ? "Dealers" : "Service Centers"))
+    </a>
+}
+@if (Model.IsUsedBikesAvailable)
+{
+    <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
+}

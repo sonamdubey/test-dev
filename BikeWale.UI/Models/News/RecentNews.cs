@@ -56,6 +56,21 @@ namespace Bikewale.Models
             _modelMasking = modelMasking;
 
         }
+
+        public RecentNews(uint totalRecords, uint makeId, uint modelId, string makeName, string makeMasking, string modelName, string modelMasking, string title, ICMSCacheContent articles)
+        {
+            _totalRecords = totalRecords;
+            _makeId = makeId;
+            _modelId = modelId;
+            _makeName = makeName;
+            _makeMasking = makeMasking;
+            _modelName = modelName;
+            _modelMasking = modelMasking;
+            _title = title;
+            _articles = articles;
+
+        }
+
         #endregion
 
         #region Functions to get data
