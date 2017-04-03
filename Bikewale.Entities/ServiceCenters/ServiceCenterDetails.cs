@@ -7,7 +7,7 @@ namespace Bikewale.Entities.ServiceCenters
     /// Created By :  Sajal Gupta
     /// Created On  : 07 Nov 2016
     /// Description : Service center data on city listing page.
-    /// Modified by Sajal Gupta on 16-11-2016 - added Lattitude, Longitude
+    /// Modified by Sajal Gupta on 16-11-2016 - added Lattitude, Longitude, CityMaskingName, MakeMaskingName
     /// </summary>
 
     [Serializable, DataContract]
@@ -33,5 +33,11 @@ namespace Bikewale.Entities.ServiceCenters
 
         [DataMember]
         public string Longitude { get; set; }
+
+        [DataMember]
+        public string CityMaskingName { get; set; }
+
+        [DataMember]
+        public string MakeMaskingName { get; set; }
     }
 }

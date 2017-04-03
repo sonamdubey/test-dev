@@ -71,7 +71,7 @@ namespace Bikewale.Models.ServiceCenters
 
                 BindDealersWidget(objVM);
 
-                objVM.OtherServiceCentersWidgetData = (new ServiceCentersCard(_objSC, OtherServiceCenterWidgetTopCount, _serviceCenterId, objVM.Make, objVM.City)).GetData();
+                objVM.OtherServiceCentersWidgetData = (new ServiceCentersCard(_objSC, OtherServiceCenterWidgetTopCount, (uint)(objVM.Make.MakeId), objVM.City.CityId, _serviceCenterId)).GetData();
 
                 objVM.BikeScheduleList = _objSC.GetServiceScheduleByMake(_makeId);
 

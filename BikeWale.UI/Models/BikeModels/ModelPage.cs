@@ -6,7 +6,6 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
-using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
@@ -232,7 +231,7 @@ namespace Bikewale.Models.BikeModels
                             var dealerData = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
                             dealerData.TopCount = 3;
                             objData.OtherDealers = dealerData.GetData();
-                            objData.ServiceCenters = new ServiceCentersCard(_objServiceCenter, 3, objMake, new CityEntityBase() { CityId = _cityId, CityMaskingName = objData.LocationCookie.City, CityName = objData.LocationCookie.City }).GetData();
+                            objData.ServiceCenters = new ServiceCentersCard(_objServiceCenter, 3, (uint)objMake.MakeId, _cityId).GetData();
                         }
                         else
                         {
