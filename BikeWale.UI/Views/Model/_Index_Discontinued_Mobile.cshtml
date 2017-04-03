@@ -1,0 +1,96 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+
+<section>
+    <div class="container" id="modelDetailsContainer">
+        <div class="grid-12 margin-bottom20">
+            <div class="content-box-shadow">
+                <div class="content-box-shadow padding-14-20">
+                    <h1 class="inline-block margin-right15">@Model.BikeName</h1>
+                    <div class="inline-block">
+                        @Html.Partial("~/Views/Model/_Index_Reviews.cshtml", Model)
+                    </div>
+                </div>
+                <div class="padding-top20 padding-right20 padding-bottom10 padding-left20">
+                    <div class="grid-7 model-details-wrapper omega rightfloat padding-top5">
+
+                        @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs.cshtml", Model)
+
+                        <div id="scrollFloatingButton"></div>
+                        <div id="modelPriceContainer">
+                            <p class="font14 text-light-grey">Last known Ex-showroom price in<span class="city-area-name">@Model.Location</span> </p>
+                            @if (Model.BikePrice == 0)
+                            {
+                                <span class="font16">Price not available</span>
+                            }
+                            else
+                            {
+                                <div class="leftfloat margin-right15" itemprop=" offers" itemscope itemtype="http://schema.org/Offer">
+                                    <span itemprop="priceCurrency" content="INR">
+                                        <span class="bwsprite inr-md-lg"></span>
+                                    </span>
+                                    <span id="new-bike-price" class="font22 text-bold" itemprop="price" content="@Model.BikePrice">@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
+                                </div>
+                            }
+                            <div class="clear"></div>
+                            <p class="default-showroom-text font14 text-light-grey margin-top5">@Model.BikeName is now discontinued in India.</p>
+                        </div>
+                    </div>
+                    <div class="grid-5 alpha margin-bottom20">
+                        <div class="position-rel">
+                            <span class="upcoming-text-label font16 position-abt text-white text-center">Discontinued</span>
+                        </div>
+                        @if (Model.AreModelPhotosAvailable)
+                        {
+                            @Html.Partial("~/Views/Model/_Index_ModelGallery.cshtml", Model)
+                        }
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+<section>
+    <div id="modelDetailsFloatingCardContent" class="container">
+        <div class="grid-12">
+            <div class="model-details-floating-card">
+                <div class="content-box-shadow content-inner-block-1020">
+                    <div class="grid-5 alpha omega">
+                        <div class="model-card-image-content inline-block-top margin-right20">
+                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath,Model.ModelPageEntity.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._144x81,"70")" />
+                        </div>
+                        <div class="model-card-title-content inline-block-top">
+                            <p class="font16 text-bold margin-bottom5">@Model.BikeName</p>
+                            <p class="font14 text-light-grey">@Model.VersionName</p>
+                        </div>
+                    </div>
+                    <div class="grid-4 floating-card-area-details">
+                        <p class="font14 text-light-grey leftfloat">Last known Ex-showroom price</p>
+                        <div class="clear"></div>
+
+                        <div>
+                            @if (Model.BikePrice!=0)
+                                {
+                                <span class="bwsprite inr-lg"></span>
+                                <span class="font18 text-bold">@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
+                                }
+                                else
+                                {
+                                <span class="font16">Price not available</span>
+                                }
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+                <div class="overall-specs-tabs-wrapper content-box-shadow">
+                    @Html.Partial("~/Views/Model/_Index_Tabs.cshtml", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@Html.Partial("~/Views/Model/_Index_DetailsCard.cshtml", Model)

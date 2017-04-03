@@ -232,7 +232,7 @@ namespace Bikewale.Models.BikeModels
                             objData.DealersServiceCenter = new DealersServiceCentersIndiaWidgetModel((uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, _objDealerCache).GetData();
                         }
 
-                        objData.UsedModels = new UsedBikeModelsWidgetModel(9, (uint)objMake.MakeId, new CityEntityBase() { CityId = _cityId, CityMaskingName = objData.LocationCookie.City, CityName = objData.LocationCookie.City }, _objUsedBikescache).GetData();
+                        //objData.UsedModels = new UsedBikeModelsWidgetModel(9, (uint)objMake.MakeId, new CityEntityBase() { CityId = _cityId, CityMaskingName = objData.LocationCookie.City, CityName = objData.LocationCookie.City }, _objUsedBikescache).GetData();
 
                         objData.PriceInTopCities = new PriceInTopCities(_objPQCache, _modelId, 8).GetData();
 
