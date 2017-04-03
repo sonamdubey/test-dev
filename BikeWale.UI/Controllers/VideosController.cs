@@ -311,7 +311,8 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("videos/SimilarVideos/")]
         public ActionResult SimilarVideos(uint videoId, uint modelId)
         {
-            return PartialView("~/views/videos/_SimilarVideos.cshtml", new SimilarVideosModel(modelId, videoId, _video));
+            SimilarVideosModel model = new SimilarVideosModel(modelId, videoId, _video);
+            return PartialView("~/views/videos/_SimilarVideos.cshtml", model.GetData());
         }
 
         /// <summary>
@@ -321,7 +322,8 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("m/videos/SimilarVideos/")]
         public ActionResult SimilarVideos_Mobile(uint videoId, uint modelId)
         {
-            return PartialView("~/views/videos/_SimilarVideos_Mobile.cshtml", new SimilarVideosModel(modelId, videoId, _video));
+            SimilarVideosModel model = new SimilarVideosModel(modelId, videoId, _video);
+            return PartialView("~/views/videos/_SimilarVideos_Mobile.cshtml", model.GetData());
         }
     }
 }

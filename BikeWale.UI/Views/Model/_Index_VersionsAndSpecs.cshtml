@@ -1,0 +1,59 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+
+@if (Model.ModelPageEntity.ModelVersionSpecs != null)
+{
+    <p class="font12 text-light-grey margin-bottom5">Key Specs</p>
+    <ul id="key-specs-list" class="font14 text-light-grey">
+        @if (Model.ModelPageEntity.ModelVersionSpecs.Displacement != 0)
+        {
+            <li>
+                <span class="bwsprite capacity-sm"></span>
+                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement) cc</span>
+            </li>
+        }
+        @if (Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall != 0)
+        {
+            <li>
+                <span class="bwsprite mileage-sm"></span>
+                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall) kmpl</span>
+            </li>
+        }
+        @if (Model.ModelPageEntity.ModelVersionSpecs.MaxPower != 0)
+        {
+            <li>
+                <span class="bwsprite power-sm"></span>
+                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower) bhp</span>
+            </li>
+        }
+        @if (Model.ModelPageEntity.ModelVersionSpecs.KerbWeight != 0)
+        {
+            <li>
+                <span class="bwsprite weight-sm"></span>
+                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight) kgs</span>
+            </li>
+        }
+    </ul>
+}
+
+@if (!Model.ModelPageEntity.ModelDetails.Futuristic)
+{
+    if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 1)
+    {
+        <div id="model-version-dropdown" class="padding-top25">
+            <div class="select-box select-box-no-input done size-small">
+                <p class="select-label">Version</p>
+                <select id="ddlVersion" class="chosen-select" data-title="Version" data-selected-version="@Model.VersionId">
+                    @foreach (var version in Model.ModelPageEntity.ModelVersions)
+                    {
+                        <option value="@version.VersionId" @(version.VersionId == Model.VersionId ? "selected" : "")>@version.VersionName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p class="font12 text-light-grey">Version</p>
+        <p id="singleversion" class="font14 text-bold margin-bottom15">@Model.SelectedVersion.VersionName</p>
+    }
+}

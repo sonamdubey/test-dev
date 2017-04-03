@@ -8,7 +8,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Models;
 using Bikewale.Models.Price;
 using Bikewale.Utility;
 using System;
@@ -149,8 +148,6 @@ namespace Bikewale.Models
             {
                 if (objData != null)
                 {
-
-
 
                     DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, _cityId, _makeId);
                     objDealer.TopCount = OtherTopCount;

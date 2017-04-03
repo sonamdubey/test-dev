@@ -334,39 +334,43 @@ docReady(function () {
     }
 
     $(window).scroll(function () {
-        var windowScrollTop = $window.scrollTop(),
-            modelPriceOffsetTop = modelPrice.offset().top,
-            modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top;
+        try {
+            var windowScrollTop = $window.scrollTop(),
+                    modelPriceOffsetTop = modelPrice.offset().top,
+                    modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top;
 
-        if (windowScrollTop > modelPriceOffsetTop + 40) {
-            modelDetailsFloatingCard.addClass('fixed-card');
-            if (windowScrollTop > modelSpecsTabsOffsetTop - topNavBar.height()) {
-                modelDetailsFloatingCard.addClass('activate-tabs');
+            if (windowScrollTop > modelPriceOffsetTop + 40) {
+                modelDetailsFloatingCard.addClass('fixed-card');
+                if (windowScrollTop > modelSpecsTabsOffsetTop - topNavBar.height()) {
+                    modelDetailsFloatingCard.addClass('activate-tabs');
+                }
             }
-        }
-        else if (windowScrollTop < modelPriceOffsetTop + 40) {
-            modelDetailsFloatingCard.removeClass('fixed-card');
-        }
-
-        if (modelDetailsFloatingCard.hasClass('activate-tabs')) {
-            if (windowScrollTop < modelSpecsTabsOffsetTop + 43 - topNavBar.height())
-                modelDetailsFloatingCard.removeClass('activate-tabs');
-            if (windowScrollTop > overallSpecsDetailsFooter.offset().top - topNavBar.height())
+            else if (windowScrollTop < modelPriceOffsetTop + 40) {
                 modelDetailsFloatingCard.removeClass('fixed-card');
-        }
-
-
-        $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').each(function () {
-            var top = $(this).offset().top - topNavBar.height(),
-            bottom = top + $(this).outerHeight();
-            if (windowScrollTop >= top && windowScrollTop <= bottom) {
-                topNavBar.find('a').removeClass('active');
-                $('#modelSpecsTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
-
-                $(this).addClass('active');
-                topNavBar.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
             }
-        });
+
+            if (modelDetailsFloatingCard.hasClass('activate-tabs')) {
+                if (windowScrollTop < modelSpecsTabsOffsetTop + 43 - topNavBar.height())
+                    modelDetailsFloatingCard.removeClass('activate-tabs');
+                if (windowScrollTop > overallSpecsDetailsFooter.offset().top - topNavBar.height())
+                    modelDetailsFloatingCard.removeClass('fixed-card');
+            }
+
+
+            $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').each(function () {
+                var top = $(this).offset().top - topNavBar.height(),
+                bottom = top + $(this).outerHeight();
+                if (windowScrollTop >= top && windowScrollTop <= bottom) {
+                    topNavBar.find('a').removeClass('active');
+                    $('#modelSpecsTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
+
+                    $(this).addClass('active');
+                    topNavBar.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+                }
+            });
+        } catch (e) {
+
+        }
 
     });
 

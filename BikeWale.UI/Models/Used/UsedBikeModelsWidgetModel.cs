@@ -1,7 +1,6 @@
 ﻿
-using Bikewale.Entities.Location;
+using Bikewale.Common;
 using Bikewale.Interfaces.Used;
-using Bikewale.Notifications;
 namespace Bikewale.Models
 {
     /// <summary>
@@ -10,35 +9,18 @@ namespace Bikewale.Models
     /// </summary>
     public class UsedBikeModelsWidgetModel
     {
-        private uint _cityId, _topCount = 0;
-        private uint _makeId = 0;
+        private uint _topCount = 0;
+        public uint makeId { get; set; }
+        public uint cityId { get; set; }
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
-        private readonly CityEntityBase _city;
 
-        public UsedBikeModelsWidgetModel(uint topCount, CityEntityBase city, IUsedBikeDetailsCacheRepository cachedUsedBikes)
+        public UsedBikeModelsWidgetModel(uint topCount, IUsedBikeDetailsCacheRepository cachedUsedBikes)
         {
-            if (city != null && city.CityId > 0)
-            {
-                _cityId = city.CityId;
-            }
-            _city = city;
+
             _topCount = topCount;
             _objUsedCache = cachedUsedBikes;
         }
 
-
-        public UsedBikeModelsWidgetModel(uint topCount, uint makeId, CityEntityBase city, IUsedBikeDetailsCacheRepository cachedUsedBikes)
-        {
-            // TODO: Complete member initialization
-            _makeId = makeId;
-            if (city != null && city.CityId > 0)
-            {
-                _cityId = city.CityId;
-            }
-            _city = city;
-            _topCount = topCount;
-            _objUsedCache = cachedUsedBikes;
-        }
 
         /// <summary>
         /// Gets the data.
@@ -51,26 +33,27 @@ namespace Bikewale.Models
             UsedBikeModelsWidgetVM objData = new UsedBikeModelsWidgetVM();
             try
             {
-                if (_makeId > 0)
+                if (makeId > 0)
                 {
-                    if (_cityId > 0)
-                        objData.UsedBikeModelList = _objUsedCache.GetUsedBikeByModelCountInCity(_makeId, _cityId, _topCount);
+                    if (cityId > 0)
+                        objData.UsedBikeModelList = _objUsedCache.GetUsedBikeByModelCountInCity(makeId, cityId, _topCount);
                     else
-                        objData.UsedBikeModelList = _objUsedCache.GetPopularUsedModelsByMake(_makeId, _topCount);
+                        objData.UsedBikeModelList = _objUsedCache.GetPopularUsedModelsByMake(makeId, _topCount);
 
                 }
                 else
                 {
-                    if (_cityId > 0)
-                        objData.UsedBikeModelList = _objUsedCache.GetUsedBikeCountInCity(_cityId, _topCount);
+                    if (cityId > 0)
+                        objData.UsedBikeModelList = _objUsedCache.GetUsedBikeCountInCity(cityId, _topCount);
                     else
                         objData.UsedBikeModelList = _objUsedCache.GetUsedBike(_topCount);
                 }
-                objData.CityDetails = _city;
+                if (cityId > 0)
+                    objData.CityDetails = new CityHelper().GetCityById(cityId); ;
             }
             catch (System.Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "UsedBikeModelsWidgetModel.GetData()");
+                Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, "UsedBikeModelsWidgetModel.GetData()");
             }
             return objData;
         }
