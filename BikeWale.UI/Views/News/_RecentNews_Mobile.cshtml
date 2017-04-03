@@ -5,7 +5,7 @@ foreach(var news in Model.ArticlesList){
 <div class="margin-bottom20">
     <div class="review-image-wrapper">
         <a href="@string.Format("/m{0}", @UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))">
-            <img class="lazy" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl,ImageSize._144x81)" title="@news.Title" alt="@news.Title"/>
+            <img class="lazy" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._144x81, QualityFactor._70)" title="@news.Title" alt="@news.Title"/>
         </a>
     </div>
     <div class="review-heading-wrapper">

@@ -3723,6 +3723,7 @@
     <Content Include="Views\UserReviews\_UserReviewsList.cshtml" />
     <Content Include="Views\UserReviews\_UserReviewsList_Mobile.cshtml" />
     <Content Include="Views\Videos\Index.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikes_Editorial_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
