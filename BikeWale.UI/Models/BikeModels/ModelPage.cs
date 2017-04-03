@@ -96,15 +96,7 @@ namespace Bikewale.Models.BikeModels
 
         #endregion Global Variables
 
-        #region Events
-        /// <summary>
-        /// Modified By : Lucky Rathore on 01 March 2016.
-        /// Description : set make masking name, model Making Name and model ID for video controller
-        /// Modified By : Lucky Rathore on 04 July 2016.
-        /// Description : function "SetBWUtmz" called.
-        /// Modified By : Sajal Gupta on 15/09/2016
-        /// Description : Added details for usedBikes.ascx usert control.
-        /// </summary>
+        #region Methods
 
         public ModelPageVM GetData(uint? versionId)
         {
@@ -146,10 +138,6 @@ namespace Bikewale.Models.BikeModels
             return objData;
 
         }
-
-        #endregion Events
-
-        #region Methods
 
         /// <summary>
         /// Created By :-Subodh Jain 07 oct 2016
@@ -251,7 +239,7 @@ namespace Bikewale.Models.BikeModels
 
                         objData.PriceInTopCities = new PriceInTopCities(_objPQCache, _modelId, 8).GetData();
 
-                        GetBikeRankingCategory(); 
+                        GetBikeRankingCategory();
                     }
                 }
 
@@ -652,17 +640,6 @@ namespace Bikewale.Models.BikeModels
             return pqOnRoad;
         }
 
-        protected string FormatShowReview(string makeName, string modelName)
-        {
-            return string.Format("/{0}-bikes/{1}/user-reviews/", makeName, modelName);
-        }
-
-        protected string FormatWriteReviewLink()
-        {
-            return String.Format("/content/userreviews/writereviews.aspx?bikem={0}", _modelId);
-        }
-
-
         /// <summary>
         /// Modified by :   Sumit Kate on 05 Jan 2016
         /// Description :   Replaced the Convert.ToXXX with XXX.TryParse method
@@ -721,100 +698,6 @@ namespace Bikewale.Models.BikeModels
         }
 
         #endregion Methods
-
-        #region enums
-
-        public enum Overviews
-        {
-            Capacity,
-            Mileage,
-            MaxPower,
-            Weight
-        }
-
-        public enum SummarySpec
-        {
-            Displacement,
-            MaxPower,
-            MaximumTorque,
-            NoofGears,
-            FuelEfficiency,
-            BrakeType,
-            FrontDisc,
-            RearDisc,
-            AlloyWheels,
-            KerbWeight,
-            ChassisType,
-            TopSpeed,
-            TubelessTyres,
-            FuelTankCapacity
-        }
-
-        public enum EnT
-        {
-            Displacement,
-            Cylinders,
-            MaxPower,
-            MaximumTorque,
-            Bore,
-            Stroke,
-            ValvesPerCylinder,
-            FuelDeliverySystem,
-            FuelType,
-            Ignition,
-            SparkPlugs,
-            CoolingSystem,
-            GearboxType,
-            NoOfGears,
-            TransmissionType,
-            Clutch
-        }
-
-        public enum BWS
-        {
-            BrakeType,
-            FrontDisc,
-            FrontDiscDrumSize,
-            RearDisc,
-            RearDiscDrumSize,
-            CalliperType,
-            WheelSize,
-            FrontTyre,
-            RearTyre,
-            TubelessTyres,
-            RadialTyres,
-            AlloyWheels,
-            FrontSuspension,
-            RearSuspension
-        }
-
-        public enum FEP
-        {
-            FuelTankCapacity,
-            ReserveFuelCapacity,
-            FuelEfficiencyOverall,
-            FuelEfficiencyRange,
-            Zeroto60kmph,
-            Zeroto80kmph,
-            Zeroto40m,
-            TopSpeed,
-            Sixityto0Kmph,
-            Eightyto0kmph
-        }
-
-        public enum DC
-        {
-            KerbWeight,
-            OverallLength,
-            OverallWidth,
-            OverallHeight,
-            Wheelbase,
-            GroundClearance,
-            SeatHeight,
-            ChassisType
-        }
-
-        #endregion enums
 
     }
 }
