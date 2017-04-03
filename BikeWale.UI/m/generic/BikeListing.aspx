@@ -75,12 +75,12 @@
                         <h2 class="padding-top10 padding-bottom10 border-solid-bottom">And the top 10 <%= pageName.ToLower() %> are...</h2>
                     </div>
                     <ul id="bike-list">
-                        <%  int i = 1; string prevMonth = DateTime.Now.AddMonths(-1).ToString("MMM");
+                        <%  int i = 10; string prevMonth = DateTime.Now.AddMonths(-1).ToString("MMM");
                                 foreach(var bike in objBestBikes) { %>
                         <li class="list-item">
                             <div class="padding-bottom15 border-light-bottom">
                                 <a href="<%= string.Format("/m/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %>" class="item-image-content vertical-top">
-                                    <span class="item-rank">#<%= i++ %></span>
+                                    <span class="item-rank">#<%= i-- %></span>
                                     <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="<%= bike.BikeName %>" src="" />
                                 </a>
                                 <div class="bike-details-block vertical-top">

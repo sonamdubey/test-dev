@@ -65,7 +65,7 @@ namespace Bikewale.Models
                     foreach (var make in _brands)
                     {
                         make.Href = String.Format("/{0}-dealer-showrooms-in-india/", make.MaskingName);
-                        make.Title = String.Format("{0} dealer showrooms in India/", make.MakeName);
+                        make.Title = String.Format("{0} dealer showrooms in India", make.MakeName);
                     }
                     break;
                 case EnumBikeType.ServiceCenter:

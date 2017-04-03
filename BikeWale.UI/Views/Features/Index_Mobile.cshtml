@@ -1,13 +1,11 @@
 ﻿@model Bikewale.Models.IndexFeatureVM
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/listing.css' />";
-    Model.AdTags.AdId = "1395986297721";
-    Model.AdTags.AdPath = "/1017752/BikeWale_New_";
-    Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/features/";
-}
-
-
+    Model.AdTags.AdId = "1398766302464";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewBikes";
+    Model.AdTags.Ad_Mid_320x50 = true;
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+   }
 <section>
     <div class="container box-shadow bg-white section-bottom-margin">
 
@@ -94,7 +92,7 @@
             </div>
             <div class="clear"></div>
         </div>
-        @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingBikes)
+        @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile.cshtml", Model.UpcomingBikes)
     </div>
 </section>
            }

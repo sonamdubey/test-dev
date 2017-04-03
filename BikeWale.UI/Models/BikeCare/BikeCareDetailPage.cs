@@ -37,11 +37,6 @@ namespace Bikewale.Models
         private PQSourceEnum pqSource = 0;
         #endregion
 
-        #region Public properties
-        public bool IsMobile { get; set; }
-        public int TopCount { get; set; }
-        #endregion
-
         #region Constructor
         public BikeCareDetailPage(ICMSCacheContent cmsCache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> models, string basicId)
         {
@@ -76,7 +71,7 @@ namespace Bikewale.Models
         /// Created by : Aditi Srivastava on 1 Apr 2017
         /// Summary    : Get bike care detail page data
         /// </summary>
-        public BikeCareDetailPageVM GetData()
+        public BikeCareDetailPageVM GetData(int widgetTopCount)
         {
             BikeCareDetailPageVM objData = new BikeCareDetailPageVM();
             try
@@ -88,7 +83,7 @@ namespace Bikewale.Models
                     GetTaggedBikeListByMake(objData);
                     GetTaggedBikeListByModel(objData);
                     SetPageMetas(objData);
-                    GetWidgetData(objData);
+                    GetWidgetData(objData, widgetTopCount);
                     PopulatePhotoGallery(objData);
                 }
                 else
@@ -111,7 +106,6 @@ namespace Bikewale.Models
         {
             try
             {
-                objData.BaseUrl = IsMobile ? "/m" : "";
                 objData.PageMetaTags.CanonicalUrl = string.Format("{0}/bike-care/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/bike-care/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl,objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 objData.PageMetaTags.Title = string.Format("{0} | Maintenance Tips from Bike Experts - BikeWale", objData.ArticleDetails.Title);
@@ -191,7 +185,7 @@ namespace Bikewale.Models
         /// Created by : Aditi Srivastava on 1 Apr 2017
         /// Summary    : Get data for the page widgets
         /// </summary>
-        private void GetWidgetData(BikeCareDetailPageVM objData)
+        private void GetWidgetData(BikeCareDetailPageVM objData,int topCount)
         {
             try
             {
@@ -199,7 +193,7 @@ namespace Bikewale.Models
                 if (currentCityArea != null)
                     CityId = currentCityArea.CityId;
                 MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
-                objPopularBikes.TopCount = TopCount;
+                objPopularBikes.TopCount = topCount;
                 objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();
                 if (MakeId > 0 && objData.Make != null)
@@ -220,7 +214,7 @@ namespace Bikewale.Models
                     PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
                     objPopularStyle.ModelId = ModelId;
                     objPopularStyle.CityId = CityId;
-                    objPopularStyle.TopCount = TopCount;
+                    objPopularStyle.TopCount = topCount;
                     objData.PopularBodyStyle = objPopularStyle.GetData();
                     if (objData.PopularBodyStyle != null)
                     {
@@ -234,7 +228,7 @@ namespace Bikewale.Models
                     UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
                     objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
                     objUpcomingBikes.Filters.StartIndex = 1;
-                    objUpcomingBikes.Filters.EndIndex = TopCount;
+                    objUpcomingBikes.Filters.EndIndex = topCount;
                     if (MakeId > 0)
                     {
                         objUpcomingBikes.Filters.MakeId = (int)MakeId;

@@ -90,7 +90,7 @@ namespace Bikewale.Models
             {
                 var modelInfo = new ModelHelper().GetModelDataByMasking(model.Video.MaskingName);
                 model.TaggedModelId = modelInfo.ModelId;
-                model.CityId = (GlobalCityArea.GetGlobalCityArea().CityId > 0 ? GlobalCityArea.GetGlobalCityArea().CityId : Convert.ToUInt32(BWConfiguration.Instance.DefaultCity));
+                model.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
             }
             catch (Exception ex)
             {

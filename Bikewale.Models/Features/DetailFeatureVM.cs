@@ -1,7 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 
-namespace Bikewale.Models.Features
+namespace Bikewale.Models
 {
     public class DetailFeatureVM : ModelBase
     {

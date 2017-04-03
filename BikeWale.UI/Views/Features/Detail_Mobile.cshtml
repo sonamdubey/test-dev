@@ -1,10 +1,9 @@
-﻿@model Bikewale.Models.Features.DetailFeatureVM
+﻿@model Bikewale.Models.DetailFeatureVM
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/details.css' />";
     Model.Page_JS_Path = "/m/src/content/details.js";
-    Model.PageMetaTags.CanonicalUrl = string.Format("{0}/features/{1}-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.objFeature.ArticleUrl, Model.objFeature.BasicId);
-}
+ }
 <section>
     <div class="container box-shadow bg-white section-bottom-margin">
         <div class="box-shadow article-head padding-15-20">
@@ -124,7 +123,7 @@ else
                     </div>
                     <div class="clear"></div>
                 </div>
-                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingBikes)
+                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile.cshtml", Model.UpcomingBikes)
             </div>
         </section>
     }

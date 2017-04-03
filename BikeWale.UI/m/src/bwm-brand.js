@@ -27,7 +27,7 @@ docReady(function () {
     });
     $('#usedbikebottomlink').hide();
 
-    /**/
+    
     var $window = $(window),
         listitems = $('#listitems'),
         listItemsFooter = $('#listItemsFooter'),
@@ -43,83 +43,77 @@ docReady(function () {
 
     makeOverallTabsWrapper.find('.overall-specs-tabs-wrapper li').first().addClass('active');
 
-    var makeDealersContent = $('#makeDealersContent');
+    $(window).on('scroll', function () {
+        var windowScrollTop = $window.scrollTop(),
+            listItemsFooterOffsetTop = listItemsFooter.offset().top,
+            makeOverallTabsOffsetTop = makeOverallTabsWrapper.offset().top,
+            makeSpecsFooterOffsetTop = makeSpecsFooter.offset().top;
 
-    if (makeDealersContent.length != 0) {
-        makeDealersContent.removeClass('bw-model-tabs-data');
-    }
+        if ($('#bw-header').offset().top > 90) {
+            if (windowScrollTop > $('#bw-header').offset().top)
+                showHeaderDiv();
+        }
 
-    var windowScrollTop = $window.scrollTop(),
-        listItemsFooterOffsetTop = listItemsFooter.offset().top,
-        makeOverallTabsOffsetTop = makeOverallTabsWrapper.offset().top,
-        makeSpecsFooterOffsetTop = makeSpecsFooter.offset().top;
-
-    if ($('#bw-header').offset().top > 90) {
-        if (windowScrollTop > $('#bw-header').offset().top)
+        else if ($('#bw-header').offset().top < 90) {
             showHeaderDiv();
-    }
-
-    else if ($('#bw-header').offset().top < 90) {
-        showHeaderDiv();
-    }
-
-    if ($('body').hasClass('listing-navbar-active')) {
-        if (windowScrollTop > listItemsFooterOffsetTop - 120) {
-            $('#bw-header, #sort-by-div').removeClass('fixed');
-            $('#sort-by-div').hide();
-            $('body').removeClass('listing-navbar-active');
         }
-        else if (windowScrollTop == 0 || windowScrollTop < 100) {
-            $('#bw-header, #sort-by-div').removeClass('fixed');
-            $('body').removeClass('listing-navbar-active');
+
+        if ($('body').hasClass('listing-navbar-active')) {
+            if (windowScrollTop > listItemsFooterOffsetTop - 120) {
+                $('#bw-header, #sort-by-div').removeClass('fixed');
+                $('#sort-by-div').hide();
+                $('body').removeClass('listing-navbar-active');
+            }
+            else if (windowScrollTop == 0 || windowScrollTop < 100) {
+                $('#bw-header, #sort-by-div').removeClass('fixed');
+                $('body').removeClass('listing-navbar-active');
+            }
         }
-    }
 
-    if (windowScrollTop > makeOverallTabsOffsetTop) {
-        overallSpecsTabsContainer.addClass('fixed-tab-nav');
-    }
+        if (windowScrollTop > makeOverallTabsOffsetTop) {
+            overallSpecsTabsContainer.addClass('fixed-tab-nav');
+        }
 
-    else if (windowScrollTop < makeOverallTabsOffsetTop) {
-        overallSpecsTabsContainer.removeClass('fixed-tab-nav');
-    }
-
-    if (overallSpecsTabsContainer.hasClass('fixed-tab-nav')) {
-        if (windowScrollTop > makeSpecsFooterOffsetTop - topNavBarHeight)
+        else if (windowScrollTop < makeOverallTabsOffsetTop) {
             overallSpecsTabsContainer.removeClass('fixed-tab-nav');
-    }
+        }
 
-    $('#makeTabsContentWrapper .bw-model-tabs-data').each(function () {
-        var top = $(this).offset().top - overallSpecsTabsContainer.height(),
-            bottom = top + $(this).outerHeight();
+        if (overallSpecsTabsContainer.hasClass('fixed-tab-nav')) {
+            if (windowScrollTop > makeSpecsFooterOffsetTop - topNavBarHeight)
+                overallSpecsTabsContainer.removeClass('fixed-tab-nav');
+        }
 
-        if (windowScrollTop >= top && windowScrollTop <= bottom) {
-            overallSpecsTabsContainer.find('li').removeClass('active');
-            $('#makeTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
-            $(this).addClass('active');
-            var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('id') + '"]');
-            overallSpecsTabsContainer.find(currentActiveTab).addClass('active');
+        $('#makeTabsContentWrapper .bw-model-tabs-data').each(function () {
+            var top = $(this).offset().top - overallSpecsTabsContainer.height(),
+                bottom = top + $(this).outerHeight();
+
+            if (windowScrollTop >= top && windowScrollTop <= bottom) {
+                overallSpecsTabsContainer.find('li').removeClass('active');
+                $('#makeTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
+                $(this).addClass('active');
+                var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('id') + '"]');
+                overallSpecsTabsContainer.find(currentActiveTab).addClass('active');
+            }
+        });
+
+        var scrollToTab = $('#makeTabsContentWrapper .bw-model-tabs-data:eq(3)');
+        if (scrollToTab.length != 0) {
+            if (windowScrollTop > scrollToTab.offset().top - 45) {
+                if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
+                    $('.overall-specs-tabs-container').addClass('scrolled-left');
+                    scrollHorizontal(300);
+                }
+            }
+
+            else if (windowScrollTop < scrollToTab.offset().top) {
+                if ($('#overallSpecsTab').hasClass('scrolled-left')) {
+                    $('.overall-specs-tabs-container').removeClass('scrolled-left');
+                    scrollHorizontal(0);
+                }
+            }
         }
     });
 
-    var scrollToTab = $('#makeTabsContentWrapper .bw-model-tabs-data:eq(3)');
-    if (scrollToTab.length != 0) {
-        if (windowScrollTop > scrollToTab.offset().top - 45) {
-            if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
-                $('.overall-specs-tabs-container').addClass('scrolled-left');
-                scrollHorizontal(300);
-            }
-        }
-
-        else if (windowScrollTop < scrollToTab.offset().top) {
-            if ($('#overallSpecsTab').hasClass('scrolled-left')) {
-                $('.overall-specs-tabs-container').removeClass('scrolled-left');
-                scrollHorizontal(0);
-            }
-        }
-    }
-
-
-    /**/
     $("#sort-btn").click(function () {
         $("#sort-by-div").slideToggle('fast');
         $("html, body").animate({ scrollTop: $("#bw-header").offset().top }, 0);

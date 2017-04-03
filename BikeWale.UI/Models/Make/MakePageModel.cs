@@ -179,7 +179,7 @@ namespace Bikewale.Models
                 var dealerData = new DealerCardWidget(_cacheDealers, cityId, _makeId);
                 dealerData.TopCount = 3;
                 objData.Dealers = dealerData.GetData();
-                objData.ServiceCenters = new ServiceCentersCard(_objSC, 3, makeBase, cityBase).GetData();
+                objData.ServiceCenters = new ServiceCentersCard(_objSC, 3, (uint)makeBase.MakeId, cityBase.CityId).GetData();
             }
             else
             {

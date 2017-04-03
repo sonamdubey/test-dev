@@ -10,6 +10,7 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Models.BikeCare;
 using Bikewale.Utility;
 using System;
+using System.Linq;
 
 namespace Bikewale.Models.ServiceCenters
 {
@@ -97,22 +98,29 @@ namespace Bikewale.Models.ServiceCenters
                 {
                     if (objResponse.StatusCode == 200)
                     {
+                        _makeId = objResponse.MakeId;
+                        var _cities = _objCache.GetServiceCenterCities(_makeId);                        
+
                         CityEntityBase city = null;
 
-                        if (_cookieCityId > 0)
+                        if (_cities != null && _cities.Count() > 0)
                         {
-                            city = new CityHelper().GetCityById(_cookieCityId);
+                            var _city = _cities.FirstOrDefault(x => x.CityId == _cookieCityId);
 
-                            if (city != null)
+                            if (_city != null)
                             {
-                                redirectUrl = String.Format("/{0}-service-center-in-{1}/", makeMaskingName, city.CityMaskingName);
-                                status = StatusCodes.RedirectTemporary;
+                                city = new CityHelper().GetCityById(_cookieCityId);
+
+                                if (city != null)
+                                {
+                                    redirectUrl = String.Format("/{0}-service-center-in-{1}/", makeMaskingName, city.CityMaskingName);
+                                    status = StatusCodes.RedirectTemporary;
+                                }
                             }
-                        }
-                        else
-                        {
-                            _makeId = objResponse.MakeId;
-                            status = StatusCodes.ContentFound;
+                            else
+                            {
+                                status = StatusCodes.ContentFound;
+                            }
                         }
 
                     }

@@ -482,6 +482,7 @@ docReady(function () {
     $('#ddlVersion').on("change", function () {
         $('#hdnVariant').val($(this).val());
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeVersionLocation });
+        window.location.href = $(this).data("pageurl") + "?versionId=" + $(this).val();
     });
 
 

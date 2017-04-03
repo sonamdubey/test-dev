@@ -1,12 +1,10 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models;
 using Bikewale.Models.Features;
-using Bikewale.Notifications;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -35,18 +33,22 @@ namespace Bikewale.Controllers
         /// <returns></returns>
         [Route("features/")]
         [Filters.DeviceDetection()]
-        public ActionResult Index(ushort? pageNumber)
+        public ActionResult Index()
         {
-            IndexPage objIndexPage = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
-            IndexFeatureVM objFeatureIndex = new IndexFeatureVM();
-            objIndexPage.TopCount = 4;
-            if (pageNumber.HasValue && pageNumber.Value > 0)
-                objIndexPage.CurPageNo = pageNumber.Value;
-            objFeatureIndex = objIndexPage.GetData();
-            if (objIndexPage.status == Entities.StatusCodes.ContentFound)
-                return View(objFeatureIndex);
+            IndexPage obj = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
             else
-                return Redirect("/pageNotFound.aspx");
+            {
+                IndexFeatureVM objData = new IndexFeatureVM();
+                objData = obj.GetData(4);
+                if (obj.status == Entities.StatusCodes.ContentFound)
+                    return View(objData);
+                else
+                    return Redirect("/pageNotFound.aspx");
+            }
         }
         /// <summary>
         /// Created by :- Subodh Jain on 31 March 2017
@@ -54,20 +56,23 @@ namespace Bikewale.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("m/features/")]
-        public ActionResult Index_Mobile(ushort? pageNumber)
+        public ActionResult Index_Mobile()
         {
-
-            IndexPage objIndexPage = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
-            IndexFeatureVM objFeatureIndex = new IndexFeatureVM();
-            objIndexPage.TopCount = 9;
-            if (pageNumber.HasValue && pageNumber.Value > 0)
-                objIndexPage.CurPageNo = pageNumber.Value;
-            objFeatureIndex = objIndexPage.GetData();
-            if (objIndexPage.status == Entities.StatusCodes.ContentFound)
-                return View(objFeatureIndex);
+            IndexPage obj = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
+            obj.IsMobile = true;
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/m/pagenotfound.aspx");
+            }
             else
-                return Redirect("/m/pageNotFound.aspx");
-
+            {
+                IndexFeatureVM objData = new IndexFeatureVM();
+                objData = obj.GetData(9);
+                if (obj.status == Entities.StatusCodes.ContentFound)
+                    return View(objData);
+                else
+                    return Redirect("/m/pageNotFound.aspx");
+            }
         }
 
         /// <summary>
@@ -80,8 +85,6 @@ namespace Bikewale.Controllers
         public ActionResult Detail(string basicId)
         {
             DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicId);
-            objDetail.TopCount = 4;
-
             if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -92,7 +95,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                DetailFeatureVM objData = objDetail.GetData();
+                DetailFeatureVM objData = objDetail.GetData(4);
                 if (objDetail.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/pagenotfound.aspx");
                 else
@@ -109,8 +112,6 @@ namespace Bikewale.Controllers
         public ActionResult Detail_Mobile(string basicId)
         {
             DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicId);
-            objDetail.TopCount = 9;
-
             if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -121,7 +122,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                DetailFeatureVM objData = objDetail.GetData();
+                DetailFeatureVM objData = objDetail.GetData(9);
                 if (objDetail.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/m/pageNotFound.aspx");
                 else

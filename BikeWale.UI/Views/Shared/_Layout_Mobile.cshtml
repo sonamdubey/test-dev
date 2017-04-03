@@ -30,10 +30,6 @@
                 <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
             }
         }
-        if (!String.IsNullOrEmpty(Model.PageMetaTags.AlternateUrl))
-        {
-            <meta name="alternate" content="@Model.PageMetaTags.AlternateUrl" />
-        }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
         {
             <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}

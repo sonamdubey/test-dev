@@ -330,7 +330,7 @@
     </section>
 
     <section>
-        <div class="container">
+        <div class="container padding-top10">
             <h2 class="font18 text-center margin-top20 margin-bottom10">Find used bikes</h2>
             <div class="bw-tabs-panel content-box-shadow">
                 <div class="bw-tabs bw-tabs-flex tabs-bottom15">
@@ -350,6 +350,7 @@
                 {
                     <div class="bw-tabs-data" id="usedByModel">
                         @Html.Partial("~/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedModels)
+                        <a href="/m/used/bikes-in-/@Model.LocationMasking" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
                     </div>
                 }
                 @if (Model.IsUsedBikeCitiesAvailable)
@@ -450,7 +451,6 @@
                                     @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
                                 }
                             </div>
-
                         </div>
                     </div>
                 </div>

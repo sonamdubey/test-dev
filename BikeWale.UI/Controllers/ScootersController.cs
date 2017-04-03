@@ -104,7 +104,7 @@ namespace Bikewale.Controllers
         [Bikewale.Filters.DeviceDetection]
         public ActionResult BikesByMake(string makeMaskingName)
         {
-            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache);
+            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter);
             ScootersMakePageVM objData = new ScootersMakePageVM();
             if (obj != null)
             {
@@ -141,7 +141,7 @@ namespace Bikewale.Controllers
         [Route("m/scooters/make/{makemaskingname}/")]
         public ActionResult BikesByMake_Mobile(string makeMaskingName)
         {
-            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache);
+            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter);
             ScootersMakePageVM objData = new ScootersMakePageVM();
             if (obj != null)
             {

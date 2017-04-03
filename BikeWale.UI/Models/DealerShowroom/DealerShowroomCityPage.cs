@@ -132,7 +132,7 @@ namespace Bikewale.Models.DealerShowroom
             try
             {
 
-                ServiceCentersCard objServcieCenter = new ServiceCentersCard(_objSC, TopCount, objMake, CityDetails);
+                ServiceCentersCard objServcieCenter = new ServiceCentersCard(_objSC, TopCount, (uint)objMake.MakeId, CityDetails.CityId);
                 ServiceCenterVM = objServcieCenter.GetData();
             }
             catch (System.Exception ex)

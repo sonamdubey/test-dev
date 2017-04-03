@@ -1,14 +1,12 @@
 ﻿@model Bikewale.Models.IndexFeatureVM
+@using Bikewale.Utility
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/listing.css' />";
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/BikeWale_New_";
-    Model.PageMetaTags.CanonicalUrl="https://www.bikewale.com/features/";
-    Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/features/";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  
 }
-
-
 <section class="container padding-top10">
     <div class="grid-12">
         <div class="breadcrumb margin-bottom15">
@@ -39,11 +37,11 @@
                             <div id='post-@article.BasicId' class="@string.Format("{0}",System.Text.RegularExpressions.Regex.Match(article.AuthorName, @"\b(sponsored)\b",System.Text.RegularExpressions.RegexOptions.IgnoreCase).Success ? "sponsored-content" : "post-content") article-content">
                                 @string.Format("{0}", System.Text.RegularExpressions.Regex.Match(article.AuthorName, @"\b(sponsored)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "")
                                 <div class="article-image-wrapper">
-                                    @Html.Raw(string.Format("<a href='{0}'><img src='{1}' alt='{2}' title='{2}' width='100%' border='0' /></a>", Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString()), Bikewale.Utility.Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._70), article.Title))
+                                    @Html.Raw(string.Format("<a href='{0}'><img src='{1}' alt='{2}' title='{2}' width='100%' border='0' /></a>", UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString()), Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl,ImageSize._210x118, QualityFactor._70), article.Title))
                                 </div>
                                 <div class="article-desc-wrapper">
                                     <h2 class="font14 margin-bottom10">
-                                        <a href="@Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString())" title="@article.Title" rel="bookmark" class="text-black text-bold">
+                                        <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString())" title="@article.Title" rel="bookmark" class="text-black text-bold">
                                             @article.Title
                                         </a>
                                     </h2>
@@ -51,7 +49,7 @@
                                         <div class="article-date">
                                             <span class="bwsprite calender-grey-icon inline-block"></span>
                                             <span class="inline-block">
-                                                @Bikewale.Utility.FormatDate.GetFormatDate(article.DisplayDate.ToString(), "MMMM dd, yyyy")
+                                                @FormatDate.GetFormatDate(article.DisplayDate.ToString(), "MMMM dd, yyyy")
                                             </span>
                                         </div>
                                         <div class="article-author">
@@ -61,7 +59,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="font14 line-height">@Html.Raw(article.Description)<a href="@Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString())">Read full story</a></div>
+                                    <div class="font14 line-height">@Html.Raw(article.Description)<a href="@UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Bikewale.Entities.CMS.EnumCMSContentType.Features.ToString())">Read full story</a></div>
                                 </div>
                                 <div class="clear"></div>
                             </div>

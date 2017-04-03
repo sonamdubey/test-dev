@@ -1,14 +1,11 @@
-﻿@model Bikewale.Models.Features.DetailFeatureVM
+﻿@model Bikewale.Models.DetailFeatureVM
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/BikeWale_New_";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' />";
     Model.Page_JS_Path = "/src/content/details.js";
-    Model.PageMetaTags.CanonicalUrl = string.Format("{0}/features/{1}-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.objFeature.ArticleUrl, Model.objFeature.BasicId);
-    Model.PageMetaTags.AlternateUrl = string.Format("{0}/m/features/{1}-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.objFeature.ArticleUrl, Model.objFeature.BasicId);
-
-}
+ }
 
 @if (Model != null && Model.objFeature != null)
 {

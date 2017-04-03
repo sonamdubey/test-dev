@@ -6,7 +6,7 @@ foreach(var review in Model.ArticlesList){
     <div class="margin-bottom20">
         <div class="review-image-wrapper">
             <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))">
-                <img alt="@review.Title" title="@review.Title" src="@Image.GetPathToShowImages(review.OriginalImgUrl,review.HostUrl,ImageSize._144x81)" />
+                <img alt="@review.Title" title="@review.Title" src="@Image.GetPathToShowImages(review.OriginalImgUrl, review.HostUrl, ImageSize._144x81, QualityFactor._70)" />
             </a>
         </div>
         <div class="review-heading-wrapper">
