@@ -232,7 +232,7 @@ namespace Bikewale.Models.BikeModels
                             objData.DealersServiceCenter = new DealersServiceCentersIndiaWidgetModel((uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, _objDealerCache).GetData();
                         }
 
-                        objData.UsedModels = new UsedBikeModelsWidgetModel(9, (uint)objMake.MakeId, new CityEntityBase() { CityId = _cityId, CityMaskingName = objData.LocationCookie.City, CityName = objData.LocationCookie.City }, _objUsedBikescache).GetData();
+                        objData.UsedModels = BindUsedBikeByModel((uint)objMake.MakeId, _cityId);
 
                         objData.PriceInTopCities = new PriceInTopCities(_objPQCache, _modelId, 8).GetData();
 
@@ -245,6 +245,28 @@ namespace Bikewale.Models.BikeModels
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindControls");
             }
+        }
+        private UsedBikeModelsWidgetVM BindUsedBikeByModel(uint makeId, uint cityId)
+        {
+            UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
+            try
+            {
+
+                UsedBikeModelsWidgetModel objUsedBike = new UsedBikeModelsWidgetModel(9, _objUsedBikescache);
+                if (makeId > 0)
+                    objUsedBike.makeId = makeId;
+                if (cityId > 0)
+                    objUsedBike.cityId = cityId;
+                UsedBikeModel = objUsedBike.GetData();
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ModelPage.BindUsedBikeByModel()");
+            }
+
+            return UsedBikeModel;
+
         }
 
 
@@ -305,7 +327,7 @@ namespace Bikewale.Models.BikeModels
                     objData.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/" + objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName + "-bikes/" + objData.ModelPageEntity.ModelDetails.MaskingName + "/";
                     objData.AdTags.TargetedCity = objData.LocationCookie.City;
                     objData.PageMetaTags.Keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", objData.BikeName);
-                    objData.PageMetaTags.OGImage = Bikewale.Utility.Image.GetPathToShowImages(objData.ModelPageEntity.ModelDetails.OriginalImagePath,objData.ModelPageEntity.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268);
+                    objData.PageMetaTags.OGImage = Bikewale.Utility.Image.GetPathToShowImages(objData.ModelPageEntity.ModelDetails.OriginalImagePath, objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
 
 
                     BindDescription();
