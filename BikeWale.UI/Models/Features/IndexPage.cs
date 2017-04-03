@@ -1,5 +1,4 @@
-﻿
-using Bikewale.Entities;
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.Location;
@@ -12,113 +11,87 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-namespace Bikewale.Models.Features
+namespace Bikewale.Models
 {
-
     /// <summary>
     /// Created By :- Subodh Jain 31 March 2017
     /// Summary :- Model For Index Page
     /// </summary>
     public class IndexPage
     {
+        #region Variables for dependency injection
         private readonly ICMSCacheContent _Cache = null;
         private readonly IPager _objPager = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
+        #endregion
 
-        public uint CurPageNo = 1, TopCount;
+        #region Page level variables
         private const int _pageSize = 10, _pagerSlotSize = 5;
+        private int curPageNo = 1;
         public StatusCodes status;
+        #endregion
+
+        #region Public properties
+        public bool IsMobile { get; set; }
+        #endregion
+
+        #region Constructor
         public IndexPage(ICMSCacheContent Cache, IPager objPager, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels)
         {
             _Cache = Cache;
             _objPager = objPager;
             _upcoming = upcoming;
             _bikeModels = bikeModels;
+            ProcessQueryString();
         }
+        #endregion
+
+        #region Functions
+        
+        /// <summary>
+        /// Created by : Aditi Srivastava on 3 Apr 2017
+        /// Summary    : Process query string
+        /// </summary>
+        private void ProcessQueryString()
+        {
+            var request = HttpContext.Current.Request;
+            var queryString = request != null ? request.QueryString : null;
+
+            if (queryString != null)
+            {
+
+                if (!string.IsNullOrEmpty(queryString["pn"]))
+                {
+                    string _pageNo = queryString["pn"];
+                    if (!string.IsNullOrEmpty(_pageNo))
+                    {
+                        int.TryParse(_pageNo, out curPageNo);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Created By:- Subodh Jain 23 March 2017
         /// Summary:- Fetching data about feature article
         /// </summary>
         /// <returns></returns>
-        public IndexFeatureVM GetData()
+        public IndexFeatureVM GetData(int widgetTopCount)
         {
             IndexFeatureVM objIndex = new IndexFeatureVM();
             GetFeaturesList(objIndex);
             BindLinkPager(objIndex);
-            BindWidget(objIndex);
             BindPageMetas(objIndex);
+            BindWidget(objIndex, widgetTopCount);
             CreatePrevNextUrl(objIndex);
             return objIndex;
         }
-        /// <summary>
-        /// Created By:- Subodh Jain 23 March 2017
-        /// Summary:- Fetching Meta Tags
-        /// </summary>
-        /// <returns></returns>
-        private void BindPageMetas(IndexFeatureVM objPage)
-        {
-
-            try
-            {
-                objPage.PageMetaTags.Title = string.Format("Features - Stories, Specials & Travelogues | BikeWale");
-                objPage.PageMetaTags.Description = string.Format("Features section of BikeWale brings specials, stories, travelogues and much more.");
-                objPage.PageMetaTags.Keywords = string.Format("features, stories, travelogues, specials, drives.");
-
-            }
-            catch (Exception ex)
-            {
-
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindPageMetas()");
-            }
-        }
-        /// <summary>
-        /// Created By : Subodh Jain 31 March 2017
-        /// Summary    : Bind Widgets
-        /// </summary>
-        private void BindWidget(IndexFeatureVM objIndex)
-        {
-            try
-            {
-                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                uint CityId = 0;
-                if (currentCityArea != null)
-                    CityId = currentCityArea.CityId;
-                UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
-                objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
-                objUpcomingBikes.Filters.StartIndex = 1;
-                objUpcomingBikes.Filters.EndIndex = (int)TopCount;
-                objUpcomingBikes.SortBy = EnumUpcomingBikesFilter.Default;
-
-                objIndex.UpcomingBikes = objUpcomingBikes.GetData();
-
-
-                objIndex.UpcomingBikes.WidgetHeading = "Upcoming bikes";
-                objIndex.UpcomingBikes.WidgetHref = "/upcoming-bikes/";
-                objIndex.UpcomingBikes.WidgetLinkTitle = "Upcoming Bikes in India";
-
-                MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, false, false);
-                objPopularBikes.TopCount = (int)TopCount;
-                objPopularBikes.CityId = CityId;
-
-
-                objIndex.MostPopularBikes = objPopularBikes.GetData();
-                objIndex.MostPopularBikes.WidgetHeading = "Popular bikes";
-                objIndex.MostPopularBikes.WidgetHref = "/best-bikes-in-india/";
-                objIndex.MostPopularBikes.WidgetLinkTitle = "Best Bikes in India";
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindWidget");
-
-            }
-        }
 
         /// <summary>
-        /// Written By : Ashwini Todkar on 30 Sept 2014
-        /// Summary    : PopulateWhere to get features list from web api asynchronously
+        /// Written By : Subodh Jain 23 March 2017
+        /// Summary    : Get features list
         /// </summary>
         public void GetFeaturesList(IndexFeatureVM objIndex)
         {
@@ -126,7 +99,7 @@ namespace Bikewale.Models.Features
             {
                 int _startIndex = 0, _endIndex = 0;
 
-                _objPager.GetStartEndIndex(_pageSize, (int)CurPageNo, out _startIndex, out _endIndex);
+                _objPager.GetStartEndIndex(_pageSize, curPageNo, out _startIndex, out _endIndex);
 
                 IList<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
                 categorList.Add(EnumCMSContentType.Features);
@@ -143,47 +116,15 @@ namespace Bikewale.Models.Features
                     objIndex.StartIndex = (uint)_startIndex;
                     objIndex.EndIndex = (uint)_endIndex;
                     status = StatusCodes.ContentFound;
-
                 }
                 else
                 {
                     status = StatusCodes.ContentNotFound;
                 }
-
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.Features.GetFeaturesList");
-            }
-        }
-        /// <summary>
-        /// Created By : Subodh Jain 31 March 2017
-        /// Summary    : Bind previous and next url
-        /// </summary>
-        private void CreatePrevNextUrl(IndexFeatureVM objData)
-        {
-            string _mainUrl = String.Format("{0}{1}page/", BWConfiguration.Instance.BwHostUrl, objData.PagerEntity.BaseUrl);
-            string prevPageNumber = string.Empty, nextPageNumber = string.Empty;
-            int totalPages = _objPager.GetTotalPages((int)objData.TotalArticles, _pageSize);
-            if (totalPages > 1)
-            {
-                if (CurPageNo == 1 )
-                {
-                    nextPageNumber = "2";
-                    objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/", _mainUrl, nextPageNumber);
-                }
-                else if (CurPageNo == totalPages)
-                {
-                    prevPageNumber = Convert.ToString(CurPageNo - 1);
-                    objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/", _mainUrl, prevPageNumber);
-                }
-                else
-                {
-                    prevPageNumber = Convert.ToString(CurPageNo - 1);
-                    objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/", _mainUrl, prevPageNumber);
-                    nextPageNumber = Convert.ToString(CurPageNo + 1);
-                    objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/", _mainUrl, nextPageNumber);
-                }
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.Features.IndexPage.GetFeaturesList");
             }
         }
 
@@ -195,37 +136,114 @@ namespace Bikewale.Models.Features
         {
             try
             {
-                string _baseUrl = RemoveTrailingPage(HttpContext.Current.Request.RawUrl.ToLower());
                 objIndex.PagerEntity = new PagerEntity();
-
-                objIndex.PagerEntity.PageNo = (int)CurPageNo;
+                objIndex.PagerEntity.BaseUrl = (IsMobile ? "/m/features/" : "/features/");
+                objIndex.PagerEntity.PageNo = curPageNo;
                 objIndex.PagerEntity.PagerSlotSize = _pagerSlotSize;
-                objIndex.PagerEntity.BaseUrl = _baseUrl;
                 objIndex.PagerEntity.PageUrlType = "page/";
                 objIndex.PagerEntity.TotalResults = (int)objIndex.TotalArticles;
                 objIndex.PagerEntity.PageSize = _pageSize;
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception :Bikewale.Models.Features.IndexPage.BindLinkPager");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.IndexPage.BindLinkPager");
+            }
+        }
+
+        /// <summary>
+        /// Created By:- Subodh Jain 23 March 2017
+        /// Summary:- Fetching Meta Tags
+        /// </summary>
+        /// <returns></returns>
+        private void BindPageMetas(IndexFeatureVM objPage)
+        {
+
+            try
+            {
+                objPage.PageMetaTags.Title = string.Format("Features - Stories, Specials & Travelogues | BikeWale");
+                objPage.PageMetaTags.Description = string.Format("Features section of BikeWale brings specials, stories, travelogues and much more.");
+                objPage.PageMetaTags.Keywords = string.Format("features, stories, travelogues, specials, drives.");
+                objPage.PageMetaTags.CanonicalUrl = string.Format("{0}/features/{1}", BWConfiguration.Instance.BwHostUrl, (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
+                objPage.PageMetaTags.AlternateUrl = string.Format("{0}/m/features/{1}", BWConfiguration.Instance.BwHostUrl, (curPageNo > 1 ? string.Format("page/{0}/", curPageNo) : ""));
+           
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.IndexPage.BindPageMetas");
             }
         }
         /// <summary>
         /// Created By : Subodh Jain 31 March 2017
-        /// Summary    : get raw url
-        /// <param name="rawUrl"></param>
-        /// <returns></returns>
-        private string RemoveTrailingPage(string rawUrl)
+        /// Summary    : Bind Widgets
+        /// </summary>
+        private void BindWidget(IndexFeatureVM objIndex,int topCount)
         {
-            string retUrl = rawUrl;
-            if (rawUrl.Contains("/page/"))
+            try
             {
-                string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
-                retUrl = string.Format("/{0}/", string.Join("/", urlArray.Take(urlArray.Length - 2).ToArray()));
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                uint CityId = 0;
+                if (currentCityArea != null)
+                    CityId = currentCityArea.CityId;
+                UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
+                objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
+                objUpcomingBikes.Filters.StartIndex = 1;
+                objUpcomingBikes.Filters.EndIndex = topCount;
+                objUpcomingBikes.SortBy = EnumUpcomingBikesFilter.Default;
+
+                objIndex.UpcomingBikes = objUpcomingBikes.GetData();
+
+
+                objIndex.UpcomingBikes.WidgetHeading = "Upcoming bikes";
+                objIndex.UpcomingBikes.WidgetHref = "/upcoming-bikes/";
+                objIndex.UpcomingBikes.WidgetLinkTitle = "Upcoming Bikes in India";
+
+                MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, false, false);
+                objPopularBikes.TopCount = topCount;
+                objPopularBikes.CityId = CityId;
+
+
+                objIndex.MostPopularBikes = objPopularBikes.GetData();
+                objIndex.MostPopularBikes.WidgetHeading = "Popular bikes";
+                objIndex.MostPopularBikes.WidgetHref = "/best-bikes-in-india/";
+                objIndex.MostPopularBikes.WidgetLinkTitle = "Best Bikes in India";
             }
-            return retUrl;
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.Features.IndexPage.BindWidget");
+
+            }
         }
 
-
+        /// <summary>
+        /// Created By : Subodh Jain 31 March 2017
+        /// Summary    : Bind previous and next url
+        /// </summary>
+        private void CreatePrevNextUrl(IndexFeatureVM objData)
+        {
+            string _mainUrl = String.Format("{0}{1}page/", BWConfiguration.Instance.BwHostUrl, objData.PagerEntity.BaseUrl);
+            string prevPageNumber = string.Empty, nextPageNumber = string.Empty;
+            int totalPages = _objPager.GetTotalPages((int)objData.TotalArticles, _pageSize);
+            if (totalPages > 1)
+            {
+                if (curPageNo == 1 )
+                {
+                    nextPageNumber = "2";
+                    objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/", _mainUrl, nextPageNumber);
+                }
+                else if (curPageNo == totalPages)
+                {
+                    prevPageNumber = Convert.ToString(curPageNo - 1);
+                    objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/", _mainUrl, prevPageNumber);
+                }
+                else
+                {
+                    prevPageNumber = Convert.ToString(curPageNo - 1);
+                    objData.PageMetaTags.PreviousPageUrl = string.Format("{0}{1}/", _mainUrl, prevPageNumber);
+                    nextPageNumber = Convert.ToString(curPageNo + 1);
+                    objData.PageMetaTags.NextPageUrl = string.Format("{0}{1}/", _mainUrl, nextPageNumber);
+                }
+            }
+        }       
+        #endregion
     }
 }

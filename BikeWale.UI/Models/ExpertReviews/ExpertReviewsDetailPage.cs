@@ -8,7 +8,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
-using Bikewale.Interfaces.Videos;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
 using Bikewale.Notifications;
@@ -53,7 +52,6 @@ namespace Bikewale.Models
 
         #region Public properties
         public bool IsMobile { get; set; }
-        public int TopCount { get; set; }
         #endregion
 
         #region Constructor
@@ -103,7 +101,7 @@ namespace Bikewale.Models
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Get entire data for expert reviews detail page
         /// </summary>
-        public ExpertReviewsDetailPageVM GetData()
+        public ExpertReviewsDetailPageVM GetData(int widgetTopCount)
         {
             ExpertReviewsDetailPageVM objData = new ExpertReviewsDetailPageVM();
             try
@@ -116,7 +114,7 @@ namespace Bikewale.Models
                     GetTaggedBikeListByMake(objData);
                     GetTaggedBikeListByModel(objData);
                     SetPageMetas(objData);
-                    GetWidgetData(objData);
+                    GetWidgetData(objData, widgetTopCount);
                     PopulatePhotoGallery(objData);
                     SetBikeTested(objData);
                 }
@@ -138,7 +136,6 @@ namespace Bikewale.Models
         {
             try
             {
-                objData.BaseUrl = IsMobile ? "/m" : "";
                 objData.PageMetaTags.CanonicalUrl = string.Format("{0}/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 objData.PageMetaTags.AmpUrl = string.Format("{0}/m/expert-reviews/{1}-{2}/amp/", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/expert-reviews/{0}-{1}.html",BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
@@ -221,7 +218,7 @@ namespace Bikewale.Models
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Get data for the page widgets
         /// </summary>
-        private void GetWidgetData(ExpertReviewsDetailPageVM objData)
+        private void GetWidgetData(ExpertReviewsDetailPageVM objData,int topCount)
         {
             try
             {
@@ -229,7 +226,7 @@ namespace Bikewale.Models
                 if (currentCityArea != null)
                     CityId = currentCityArea.CityId;
                 MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
-                objPopularBikes.TopCount = TopCount;
+                objPopularBikes.TopCount = topCount;
                 objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();
                 if (MakeId > 0 && objData.Make != null)
@@ -250,7 +247,7 @@ namespace Bikewale.Models
                     PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
                     objPopularStyle.ModelId = ModelId;
                     objPopularStyle.CityId = CityId;
-                    objPopularStyle.TopCount = TopCount;
+                    objPopularStyle.TopCount = topCount;
                     objData.PopularBodyStyle = objPopularStyle.GetData();
                     if (objData.PopularBodyStyle != null)
                     {
@@ -268,7 +265,7 @@ namespace Bikewale.Models
                     UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
                     objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
                     objUpcomingBikes.Filters.StartIndex = 1;
-                    objUpcomingBikes.Filters.EndIndex = TopCount;
+                    objUpcomingBikes.Filters.EndIndex = topCount;
                     if (MakeId > 0)
                     {
                         objUpcomingBikes.Filters.MakeId = (int)MakeId;

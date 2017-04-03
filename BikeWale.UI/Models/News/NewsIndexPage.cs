@@ -11,7 +11,6 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models.BestBikes;
 using Bikewale.Utility;
-using Bikewale.Models;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -51,7 +50,6 @@ namespace Bikewale.Models
 
         #region Public properties
         public bool IsMobile { get; set; }
-        public int TopCount { get; set; }
         #endregion
 
         #region Constructor
@@ -73,7 +71,7 @@ namespace Bikewale.Models
         /// Summary    : Get page data
         /// </summary>
         /// <returns></returns>
-        public NewsIndexPageVM GetData()
+        public NewsIndexPageVM GetData(int widgetTopCount)
         {
             NewsIndexPageVM objData = new NewsIndexPageVM();
 
@@ -112,7 +110,7 @@ namespace Bikewale.Models
                     BindLinkPager(objData);
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData);
-                    GetWidgetData(objData);
+                    GetWidgetData(objData, widgetTopCount);
                 }
                 else
                 {
@@ -253,7 +251,7 @@ namespace Bikewale.Models
         /// Created by : Aditi Srivastava on 28 Mar 2017
         /// Summary    : Get view model for page widgets
         /// </summary>
-        private void GetWidgetData(NewsIndexPageVM objData)
+        private void GetWidgetData(NewsIndexPageVM objData,int topCount)
         {
             try
             {
@@ -262,7 +260,7 @@ namespace Bikewale.Models
                     CityId = currentCityArea.CityId;
 
                 MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, bikeType, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
-                objPopularBikes.TopCount = TopCount;
+                objPopularBikes.TopCount = topCount;
                 objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();
                 if (MakeId > 0 && objMake != null)
@@ -283,7 +281,7 @@ namespace Bikewale.Models
                     PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
                     objPopularStyle.ModelId = ModelId;
                     objPopularStyle.CityId = CityId;
-                    objPopularStyle.TopCount = TopCount;
+                    objPopularStyle.TopCount = topCount;
                     objData.PopularBodyStyle = objPopularStyle.GetData();
                     if (objData.PopularBodyStyle != null)
                     {
@@ -297,7 +295,7 @@ namespace Bikewale.Models
                     UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
                     objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
                     objUpcomingBikes.Filters.StartIndex = 1;
-                    objUpcomingBikes.Filters.EndIndex = TopCount;
+                    objUpcomingBikes.Filters.EndIndex = topCount;
                     if (MakeId > 0)
                     {
                         objUpcomingBikes.Filters.MakeId = (int)MakeId;
