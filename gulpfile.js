@@ -304,6 +304,11 @@ var mvcPageArray = [
         folderName: 'Views/Shared/',
         fileName: '_Layout_Mobile.cshtml',
         stylesheet: 'm/css/bwm-common-atf.css'
+    },
+    {
+        folderName: 'Views/PriceInCity/',
+        fileName: 'Index_Mobile.cshtml',
+        stylesheet: 'm/css/new/bwm-modelprice-in-city.css'
     }
 ];
 

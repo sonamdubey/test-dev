@@ -69,6 +69,11 @@
     width: 100%;
 }
 
+.model-image .model-ribbon-tag {
+    position: absolute;
+    top: -15px;
+}
+
 /* model-version-block */
 .model-version-block {
     width: 60%;
@@ -179,6 +184,11 @@
 
 .btn-auto-32 {
     padding: 5px 10px;
+    font-size: 14px;
+}
+
+.btn-180-32 {
+    padding: 5px 28px;
     font-size: 14px;
 }
 

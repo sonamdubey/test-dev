@@ -39,7 +39,11 @@
             <!-- model orp start -->
             <div id="orpContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
                 <div class="margin-bottom15">
-                    <div class="model-image inline-block">
+                    <div class="model-image inline-block position-rel">
+                        @if (Model.IsDiscontinued)
+                        {
+                            <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+                        }
                         <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
                     </div>
                     <div class="model-version-block inline-block padding-left15">
@@ -168,6 +172,25 @@
                         <a href="javascript:void(0)" class="btn btn-orange btn-auto-32" rel="nofollow">Select your location</a>
                     </div>
                 </div>
+                @*<div class="padding-right20 padding-bottom20 padding-left20">
+                    <h2 class="card-h2-heading margin-bottom10">Bajaj Dealer near you</h2>
+                    <div class="margin-bottom10">
+                        <span class="rank-graph-black"></span>
+                        <div class="inline-block rank-graph-label">
+                            <h3>Executive Bajaj, Ghatkopar (W)</h3>
+                            <p class="font12 text-xx-light">Ghatkopar (W)</p>
+                        </div>
+                    </div>
+                    <div class="font14 text-slate-grey">
+                        <p class="margin-bottom10">Get in touch with Executive Bajaj for:</p>
+                        <ul class="list-type-disc margin-bottom15">
+                            <li>Best offers</li>
+                            <li>EMI options</li>
+                            <li>Complete buying assistance</li>
+                        </ul>
+                        <a href="javascript:void(0)" class="btn btn-orange btn-180-32" rel="nofollow">View dealer details</a>
+                    </div>
+                </div>*@
                 <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
                 <div class="carousel-heading-content">
                     <div class="swiper-heading-left-grid inline-block">
