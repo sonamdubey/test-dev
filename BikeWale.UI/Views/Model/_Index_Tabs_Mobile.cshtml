@@ -1,0 +1,46 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+<ul class="overall-specs-tabs-wrapper">
+    <li data-tabs="#overviewContent">Overview</li>
+    @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
+    {
+        <li data-tabs="#pricesContent">Price</li>
+    }
+    @if (Model.IsModelColorsAvailable)
+    {
+        <li data-tabs="#coloursContent">Colours</li>
+    }
+    @if (Model.IsVersionSpecsAvailable)
+    {
+        <li data-tabs="#specsFeaturesContent">Specs & Features</li>
+    }
+    @if (Model.IsModelDescriptionAvailable)
+    {
+        <li data-tabs="#aboutContent">About</li>
+    }
+    @if (Model.IsReviewsAvailable)
+    {
+        <li data-tabs="#reviewsContent">Reviews</li>
+    }
+    @if (!Model.IsReviewsAvailable && Model.IsNewsAvailable)
+    {
+        <li data-tabs="#reviewsContent">News</li>
+    }
+    @if (Model.IsVideosAvailable)
+    {
+        <li data-tabs="#videosContent">Videos</li>
+    }
+    @if (Model.IsSimilarBikesAvailable)
+    {
+        <li data-tabs="#similarContent">Similar Bikes</li>
+    }
+    @if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable))
+    {
+        <li data-tabs="#dealerAndServiceContent">
+            @(Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable ? "Dealers & Service Centers" : (Model.IsOtherDealersAvailable ? "Dealers" : "Service Centers"))
+        </li>
+    }
+    @if (Model.IsUsedBikesAvailable)
+    {
+        <li data-tabs="#makeUsedBikeContent">Used</li>
+    }
+</ul>

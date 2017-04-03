@@ -476,7 +476,7 @@
                                     </div>
                                     <% } %>
                                 </div>
-                                <% } %>
+                                <% } %> 
                                 <% if (viewModel != null && viewModel.SecondaryDealerCount > 0)
                                     { %>
                                 <div class="padding-15-20 border-solid-top font16">
@@ -803,7 +803,7 @@
                     <% if (modelPage.ModelVersionSpecs != null)
                        { %>
                     <!-- model specs and features start -->
-                    <div id="specsFeaturesContent" class="bw-model-tabs-data padding-top15 padding-bottom20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+                                                            <div id="specsFeaturesContent" class="bw-model-tabs-data padding-top15 padding-bottom20 content-box-shadow card-bottom-margin content-details-wrapper font14">
                         <h2 class="padding-right20 padding-left20"><%=modelPage.ModelDetails.ModelName%> Specifications & Features</h2>
                         <h3 class="padding-right20 padding-left20 model-specs-header">Specifications</h3>
 

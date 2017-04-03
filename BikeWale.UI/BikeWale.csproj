@@ -3723,6 +3723,12 @@
     <Content Include="Views\Model\_Index_New_Mobile.cshtml" />
     <Content Include="Views\Model\_Index_Upcoming_Mobile.cshtml" />
     <Content Include="Views\Model\_Index_Discontinued_Mobile.cshtml" />
+    <Content Include="Views\Model\_Index_Reviews_Mobile.cshtml" />
+    <Content Include="Views\Model\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\Model\_Index_ModelGallery_Mobile.cshtml" />
+    <Content Include="Views\Model\_Index_VersionsAndSpecs_Mobile.cshtml" />
+    <Content Include="Views\Model\_Index_DealerDetails_TopCard_Mobile.cshtml" />
+    <Content Include="Views\Model\_Index_ModelSummary_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
