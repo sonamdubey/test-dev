@@ -17,7 +17,7 @@
                         <span class="bwsprite rank-graph"></span>
                     </div>
                     <div class="rank-slug-label inline-block text-bold text-default">
-                        <p class="font14">@Model.BikeRanking.Rank>1?rankText:"" Most Popular @Model.BikeRanking.BikeType</p>
+                        <p class="font14">@Html.Raw(Model.BikeRanking.Rank > 1 ? Model.BikeRanking.RankText: "") Most Popular @Model.BikeRanking.BikeType</p>
                         <p class="font11">Check out the complete list.</p>
                     </div>
                     <span class="trend-arrow"></span>
