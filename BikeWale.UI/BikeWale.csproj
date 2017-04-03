@@ -953,6 +953,7 @@
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
+    <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
     <Compile Include="Models\Videos\MakeVideosPage.cs" />
     <Compile Include="Models\Videos\ModelWiseVideosPage.cs" />
     <Compile Include="Models\Videos\RecentVideos.cs" />
@@ -3719,6 +3720,8 @@
     <Content Include="Views\Model\_Index_ModelColors.cshtml" />
     <Content Include="Views\Model\_Index_ModelSpecsAndFeatures.cshtml" />
     <Content Include="Views\Model\_Index_Tabs.cshtml" />
+    <Content Include="Views\UserReviews\_UserReviewsList.cshtml" />
+    <Content Include="Views\UserReviews\_UserReviewsList_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

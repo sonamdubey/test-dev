@@ -1,0 +1,32 @@
+﻿@model Bikewale.Entities.UserReviews.ReviewListBase
+@using Bikewale.Utility;
+@if (Model != null && Model.ReviewList != null && Model.ReviewList.Count > 0)
+{
+    <div class="model-user-review-container padding20">
+@foreach (var review in Model.ReviewList)
+{
+    <div class="margin-bottom20">
+        <div class="model-user-review-rating-container">
+            <p class="text-bold">@review.OverAllRating.OverAllRating</p>
+            <p class="inline-block margin-bottom5 margin-top5">
+                @Html.Raw(ReviewsRating.GetRateImage(Convert.ToDouble(review.OverAllRating.OverAllRating)))
+            </p>
+        </div>
+        <div class="model-user-review-title-container">
+            <a class="target-link" title="@review.ReviewTitle" href="@String.Format("/m/{0}-bikes/{1}/user-reviews/{2}.html",review.MakeMaskingName,review.ModelMaskingName,review.ReviewId)">@FormatDescription.TruncateDescription(review.ReviewTitle,44)</a>
+            <div class="grid-7 alpha padding-right5">
+                <span class="bwmsprite calender-grey-sm-icon"></span>
+                <span class="article-stats-content">@review.ReviewDate.ToString("MMM dd, yyyy")</span>
+            </div>
+            <div class="grid-5 alpha omega">
+                <span class="bwmsprite author-grey-sm-icon"></span>
+                <span class="article-stats-content">@review.WrittenBy</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <p class="margin-top10">@FormatDescription.TruncateDescription(review.Comments,180)</p>
+    </div>
+}
+    </div>
+}

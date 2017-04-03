@@ -17,6 +17,7 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
+using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
 using Bikewale.Models.PriceInCity;
@@ -52,7 +53,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IServiceCenter _objServiceCenter;
         private readonly IPriceQuoteCache _objPQCache;
         private readonly IBikeCompareCacheRepository _objCompare;
-
+        private readonly IUserReviewsCache _userReviewCache;
 
         private ModelPageVM objData = null;
         private uint _modelId, _cityId, _areaId;
@@ -65,7 +66,7 @@ namespace Bikewale.Models.BikeModels
         public StatusCodes Status { get; set; }
         public uint OtherDealersTopCount { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare)
+        public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -82,7 +83,7 @@ namespace Bikewale.Models.BikeModels
             _objServiceCenter = objServiceCenter;
             _objPQCache = objPQCache;
             _objCompare = objCompare;
-
+            _userReviewCache = userReviewCache;
             ParseQueryString(makeMasking, modelMasking);
         }
 
@@ -102,6 +103,7 @@ namespace Bikewale.Models.BikeModels
                     #region Do Not change the sequence
 
                     CheckCityCookie();
+                    objData.CityId = _cityId;
                     objData.VersionId = versionId.HasValue ? versionId.Value : 0;
 
                     objData.ModelPageEntity = FetchModelPageDetails(_modelId);
@@ -237,6 +239,7 @@ namespace Bikewale.Models.BikeModels
                         objData.PriceInTopCities = new PriceInTopCities(_objPQCache, _modelId, 8).GetData();
 
                         GetBikeRankingCategory();
+                        BindUserReviews();
                     }
                 }
 
@@ -267,6 +270,27 @@ namespace Bikewale.Models.BikeModels
 
             return UsedBikeModel;
 
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 03 Apr 2017
+        /// Description :   Binds UserReviews for model
+        /// </summary>
+        private void BindUserReviews()
+        {
+            try
+            {
+                UserReviewsListWidget userReviews = new UserReviewsListWidget(_userReviewCache);
+                userReviews.TopCount = 3;
+                userReviews.ModelId = _modelId;
+                userReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
+
+                objData.UserReviews = userReviews.GetData();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindUserReviews");
+            }
         }
 
 

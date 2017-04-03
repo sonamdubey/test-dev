@@ -16,6 +16,7 @@ using Bikewale.Cache.Location;
 using Bikewale.Cache.PriceQuote;
 using Bikewale.Cache.ServiceCenter;
 using Bikewale.Cache.Used;
+using Bikewale.Cache.UserReviews;
 using Bikewale.Cache.Videos;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Compare;
@@ -24,6 +25,7 @@ using Bikewale.DAL.HomePage;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.ServiceCenter;
 using Bikewale.DAL.Used;
+using Bikewale.DAL.UserReviews;
 using Bikewale.DAL.Videos;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.service;
@@ -42,6 +44,7 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
+using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
@@ -105,6 +108,8 @@ namespace Bikewale
             container.RegisterType<ICityMaskingCacheRepository, CityMaskingCache>();
             container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
             container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
+            container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>();
+            container.RegisterType<IUserReviews, UserReviewsRepository>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
