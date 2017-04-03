@@ -34,7 +34,7 @@
                                     <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg", video.VideoId)" alt="@video.VideoTitle" title="@video.VideoTitle" src="" border="0" />
                                 </a>
                                 <a href="@string.Format("/m/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))"
-                                   class="font14 text-default text-bold padding-left20">@video.VideoTitle</a>
+                                   title="@video.VideoTitle" class="font14 text-default text-bold padding-left20">@video.VideoTitle</a>
                             </div>
                             <div class="video-views-count-container font14 leftfloat padding-right10 border-light-right">
                                 <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Views))</span>

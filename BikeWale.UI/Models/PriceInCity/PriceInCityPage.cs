@@ -286,7 +286,7 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.ServiceCenters = (new ServiceCentersCard(_objServiceCenter, 3, objVM.Make, objVM.CityEntity)).GetData();
+                objVM.ServiceCenters = (new ServiceCentersCard(_objServiceCenter, 3, Convert.ToUInt32(objVM.Make.MakeId), objVM.CityEntity.CityId)).GetData();
             }
             catch (Exception ex)
             {

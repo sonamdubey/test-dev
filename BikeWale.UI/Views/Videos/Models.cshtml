@@ -43,7 +43,7 @@
                         </a>
                     </div>
                     <div class="video-desc-wrapper">
-                        <a href="@string.Format("/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))" class="font14 text-bold text-default">@video.VideoTitle</a>
+                        <a href="@string.Format("/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))" class="font14 text-bold text-default" title="@video.VideoTitle">@video.VideoTitle</a>
                         <p class="font12 text-light-grey margin-top10 margin-bottom10">@Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "MMMM dd, yyyy")</p>
                         <div class="grid-6 alpha omega border-light-right font14">
                             <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(video.Views))</span>
