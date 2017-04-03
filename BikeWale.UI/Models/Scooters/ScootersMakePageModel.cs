@@ -47,7 +47,8 @@ namespace Bikewale.Models
             IUpcoming upcoming,
             IBikeCompareCacheRepository compareScooters,
             IBikeMakesCacheRepository<int> objMakeCache,
-            IDealerCacheRepository objDealerCache
+            IDealerCacheRepository objDealerCache,
+            IServiceCenter objServices
             )
         {
             _makeMaskingName = makeMaskingName;
@@ -58,6 +59,7 @@ namespace Bikewale.Models
             _objMakeCache = objMakeCache;
             _objDealerCache = objDealerCache;
             ProcessQuery(makeMaskingName);
+            _objService = objServices;
         }
 
         public uint CityId { get { return GlobalCityArea.GetGlobalCityArea().CityId; } }
@@ -100,9 +102,7 @@ namespace Bikewale.Models
                 BindUpcomingBikes(objViewModel);
                 BindDealersServiceCenters(objViewModel, cityEntity);
                 BindOtherScooterBrands(objViewModel, _makeId, 9);
-                string versionList = string.Join(",", objViewModel.Scooters.Select(m => m.objVersion.VersionId));
-                var compareBikes = _compareScooters.GetSimilarCompareBikes(versionList, 6, (int)CityId);
-                objViewModel.SimilarCompareScooters = compareBikes.Take(6).ToList();
+                BindCompareScootes(objViewModel);
                 SetFlags(objViewModel, CityId);
             }
             catch (Exception ex)
@@ -110,6 +110,22 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, "ScootersIndexPageModel.GetData()");
             }
             return objViewModel;
+        }
+
+        private void BindCompareScootes(ScootersMakePageVM objViewModel)
+        {
+            try
+            {
+                string versionList = string.Join(",", objViewModel.Scooters.Select(m => m.objVersion.VersionId));
+                var compareBikes = _compareScooters.GetSimilarCompareBikes(versionList, 4, (int)CityId);
+                objViewModel.SimilarCompareScooters = new ScooterComparesVM();
+                objViewModel.SimilarCompareScooters.Bikes = compareBikes.Take(4).ToList();
+                objViewModel.SimilarCompareScooters.MakeName = _makeName;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, "ScootersIndexPageModel.BindCompareScootes()");
+            }
         }
 
         private void BindOtherScooterBrands(ScootersMakePageVM objViewModel, uint _makeId, int topCount)
@@ -125,7 +141,7 @@ namespace Bikewale.Models
             {
 
                 objData.IsScooterDataAvailable = objData.Scooters != null && objData.Scooters.Count() > 0;
-                objData.IsCompareDataAvailable = objData.SimilarCompareScooters != null && objData.SimilarCompareScooters.Count > 0;
+                objData.IsCompareDataAvailable = objData.SimilarCompareScooters != null && objData.SimilarCompareScooters.Bikes != null && objData.SimilarCompareScooters.Bikes.Count > 0;
                 objData.IsUpComingBikesAvailable = objData.UpcomingScooters != null && objData.UpcomingScooters != null && objData.UpcomingScooters.UpcomingBikes != null && objData.UpcomingScooters.UpcomingBikes.Count() > 0;
                 objData.IsDealerAvailable = objData.Dealers != null && objData.Dealers.Dealers != null && objData.Dealers.Dealers.Count() > 0;
                 objData.IsServiceDataAvailable = objData.ServiceCenters != null && objData.ServiceCenters.ServiceCentersList != null && objData.ServiceCenters.ServiceCentersList.Count() > 0;

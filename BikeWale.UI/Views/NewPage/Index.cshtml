@@ -24,8 +24,7 @@
     <!--  Discover your bike code starts here -->
     <div class="container">
         <div class="grid-12">
-            <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Discover your bike</h2>
-            <div class="bw-tabs-panel content-box-shadow brand-budget-mileage-style-wrapper">
+            <div class="bw-tabs-panel brand-budget-mileage-style-wrapper content-box-shadow margin-minus50">
                 <div class="bw-tabs bw-tabs-flex">
                     <ul class="brand-collapsible-present">
                         <li class="active" data-tabs="discoverBrand">
@@ -236,7 +235,7 @@
                 }
                 @if (Model.IsNewLaunchedDataAvailable)
                 {
-                    <div class="bw-tabs-data hide padding-top15 padding-bottom20" id="ctrlNewLaunchedBikes">
+                    <div class="bw-tabs-data hide padding-top15" id="ctrlNewLaunchedBikes">
                         @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunchedBikes)
                         <div class="view-all-btn-container padding-top15 padding-bottom20">
                             <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
@@ -245,7 +244,7 @@
                 }
                 @if (Model.IsUpcomingBikeAvailable)
                 {
-                    <div class="bw-tabs-data hide padding-top15 padding-bottom20" id="ctrlUpcomingBikes">
+                    <div class="bw-tabs-data hide padding-top15" id="ctrlUpcomingBikes">
                         @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.UpcomingBikes)
                         <div class="view-all-btn-container padding-top15 padding-bottom20">
                             <a href="/upcoming-bikes/" class="btn view-all-target-btn" title="Upcoming Bikes in India">View upcoming bikes<span class="bwsprite teal-right"></span></a>
