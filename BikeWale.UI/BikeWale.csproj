@@ -3720,10 +3720,6 @@
     <Content Include="Views\Model\_Index_ModelColors.cshtml" />
     <Content Include="Views\Model\_Index_ModelSpecsAndFeatures.cshtml" />
     <Content Include="Views\Model\_Index_Tabs.cshtml" />
-    <Content Include="Views\UserReviews\_UserReviewsList.cshtml" />
-    <Content Include="Views\UserReviews\_UserReviewsList_Mobile.cshtml" />
-    <Content Include="Views\Videos\Index.cshtml" />
-    <Content Include="Views\Upcoming\_UpcomingBikes_Editorial_Mobile.cshtml" />
     <Content Include="Views\Model\Index_Mobile.cshtml" />
     <Content Include="Views\Model\_Index_New_Mobile.cshtml" />
     <Content Include="Views\Model\_Index_Upcoming_Mobile.cshtml" />
@@ -3734,6 +3730,8 @@
     <Content Include="Views\Model\_Index_VersionsAndSpecs_Mobile.cshtml" />
     <Content Include="Views\Model\_Index_DealerDetails_TopCard_Mobile.cshtml" />
     <Content Include="Views\Model\_Index_ModelSummary_Mobile.cshtml" />
+    <Content Include="Views\Model\_Index_DetailsCard_Mobile.cshtml" />
+    <Content Include="Views\Model\_Index_VersionPrices_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

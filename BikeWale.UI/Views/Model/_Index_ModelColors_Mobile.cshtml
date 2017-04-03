@@ -1,0 +1,25 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+
+<div id="coloursContent" class="bw-model-tabs-data content-box-shadow padding-15-20-20 card-bottom-margin content-details-wrapper">
+    <h2>@Model.BikeName Colours</h2>
+    <ul id="modelColorsList" class="padding-top5">
+        @foreach (var modelColor in Model.ModelPageEntity.ModelColors)
+        {
+            <li>
+                <a href="/m/@(modelColor.ColorImageId > 0 ? string.Format("/{0}-bikes/{1}/images/?modelpage=true&colorImageId={2}#modelGallery", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName, modelColor.ColorImageId) : "javascript:void(0)")">
+
+                    <div title="@modelColor.ColorName" class="color-box inline-block @(modelColor.HexCodes.Count() == 1 ? " color-count-one" : (modelColor.HexCodes.Count() == 3 ? "color-count-three" : "color-count-two"))">
+                        @if (Model.ModelPageEntity.ModelColors != null)
+                        {
+                            foreach (var HexCode in modelColor.HexCodes)
+                            {
+                                <span style="background-color: #@HexCode"></span>
+                            }
+                        }
+                    </div>
+                    <p class="font14 inline-block text-truncate">@Convert.ToString(modelColor.ColorName)</p>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

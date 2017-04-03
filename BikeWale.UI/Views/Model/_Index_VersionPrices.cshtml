@@ -34,11 +34,14 @@
             </tbody>
         </table>
     </div>
-    <div id="prices-top-cities" class="grid-6 omega">
-        <h3>Price by cities&nbsp;<span class="text-light-grey text-unbold">(@(Model.IsLocationSelected ? "On-road price" : "Ex-showroom price"))</span></h3>
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-            @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.PriceInTopCities)
-        </table>
-    </div>
+    @if (Model.PriceInTopCities != null)
+    {
+        <div id="prices-top-cities" class="grid-6 omega">
+            <h3>Price by cities&nbsp;<span class="text-light-grey text-unbold">(@(Model.IsLocationSelected ? "On-road price" : "Ex-showroom price"))</span></h3>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.PriceInTopCities)
+            </table>
+        </div>
+    }
     <div class="clear"></div>
 </div>
