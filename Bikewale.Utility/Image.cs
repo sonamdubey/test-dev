@@ -26,7 +26,12 @@ namespace Bikewale.Utility
             if (!String.IsNullOrEmpty(originalImagePath) && !String.IsNullOrEmpty(hostUrl))
             {
                 if (!String.IsNullOrEmpty(quality))
-                    imgUrl = String.Format("{0}/{1}/{2}&q={3}", hostUrl, size, originalImagePath, quality);
+                {
+                    if (originalImagePath.IndexOf("?") > -1)
+                        imgUrl = String.Format("{0}/{1}/{2}&q={3}", hostUrl, size, originalImagePath, quality);
+                    else
+                        imgUrl = String.Format("{0}/{1}/{2}?q={3}", hostUrl, size, originalImagePath, quality);
+                }
                 else
                     imgUrl = String.Format("{0}/{1}/{2}", hostUrl, size, originalImagePath);
             }

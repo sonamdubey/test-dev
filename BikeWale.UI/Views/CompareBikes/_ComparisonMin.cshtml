@@ -9,7 +9,7 @@
                 <div class="grid-6 padding-left20 border-light-right">
                     <div class="imageWrapper margin-bottom30">
                         <div class="comparison-image">
-                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(@Model.TopComparisonRecord.VersionImgUrl1, @Model.TopComparisonRecord.HostUrl1, Bikewale.Utility.ImageSize._210x118)" src="" alt="@string.Format("Compare {0} vs {1}", @Model.TopComparisonRecord.Bike1, @Model.TopComparisonRecord.Bike2)" />
+                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(@Model.TopComparisonRecord.VersionImgUrl1, @Model.TopComparisonRecord.HostUrl1, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._70)" src="" alt="@string.Format("Compare {0} vs {1}", @Model.TopComparisonRecord.Bike1, @Model.TopComparisonRecord.Bike2)" />
                         </div>
                     </div>
                     <h3 class="font18 text-black margin-bottom5">@Model.TopComparisonRecord.Bike1</h3>
@@ -25,7 +25,7 @@
                 <div class="grid-6 padding-right20">
                     <div class="imageWrapper margin-bottom30">
                         <div class="comparison-image">
-                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(@Model.TopComparisonRecord.VersionImgUrl2, @Model.TopComparisonRecord.HostUrl2, Bikewale.Utility.ImageSize._210x118)" src="" alt="@string.Format("Compare {0} vs {1}", @Model.TopComparisonRecord.Bike1, @Model.TopComparisonRecord.Bike2)" />
+                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(@Model.TopComparisonRecord.VersionImgUrl2, @Model.TopComparisonRecord.HostUrl2, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._70)" src="" alt="@string.Format("Compare {0} vs {1}", @Model.TopComparisonRecord.Bike1, @Model.TopComparisonRecord.Bike2)" />
                         </div>
                     </div>
                     <h3 class="font18 text-black margin-bottom5">@Model.TopComparisonRecord.Bike2</h3>
@@ -57,7 +57,7 @@
                            title="@string.Format("Compare {0} vs {1}", bike.Bike1, bike.Bike2)" class="compare-bikes-target">
                             <div class="grid-6 compare-bike-box">
                                 <div class="sidebar-image inline-block">
-                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl1, bike.HostUrl1, Bikewale.Utility.ImageSize._110x61)" src="" alt="@string.Format("Compare {0} vs {1}", bike.Bike1, bike.Bike2)" />
+                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl1, bike.HostUrl1, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._70)" src="" alt="@string.Format("Compare {0} vs {1}", bike.Bike1, bike.Bike2)" />
                                 </div>
                                 <div class="sidebar-image-label inline-block text-default">
                                     <h3 class="text-black text-bold margin-bottom5">@bike.Bike1</h3>
@@ -66,7 +66,7 @@
                             </div>
                             <div class="grid-6 compare-bike-box">
                                 <div class="sidebar-image inline-block">
-                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl2, bike.HostUrl2, Bikewale.Utility.ImageSize._110x61)" src="" alt="@string.Format("Compare {0} vs {1}", bike.Bike1, bike.Bike2)" />
+                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl2, bike.HostUrl2, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._70)" src="" alt="@string.Format("Compare {0} vs {1}", bike.Bike1, bike.Bike2)" />
                                 </div>
                                 <div class="sidebar-image-label inline-block text-default">
                                     <h3 class="text-black text-bold margin-bottom5">@bike.Bike2</h3>
