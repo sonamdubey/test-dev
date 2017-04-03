@@ -119,16 +119,6 @@
     background: #eee;
 }
 
-#dealer-timings-dropdown .dropdown-label {
-    padding: 0;
-    font-weight: 400;
-    border-bottom: 0;
-}
-
-#dealer-timings-dropdown .dropdown-list-wrapper {
-    top: -4px;
-}
-
 .loc-change-blue-icon { 
     width:12px;
     height:16px;
