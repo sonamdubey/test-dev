@@ -194,9 +194,9 @@ namespace Bikewale.Models.BikeModels
                 {
                     var objMake = objData.ModelPageEntity.ModelDetails.MakeBase;
 
-                    objData.News = new RecentNews(2, (uint)objMake.MakeId, objData.ModelId, objMake.MakeName, objMake.MaskingName, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, string.Format("{0} News", objData.BikeName), _objArticles).GetData();
-                    objData.ExpertReviews = new RecentExpertReviews(2, (uint)objMake.MakeId, objData.ModelId, objMake.MakeName, objMake.MaskingName, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, _objArticles, string.Format("{0} Reviews", objData.BikeName)).GetData();
-                    objData.Videos = new RecentVideos(1, 2, (uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, objData.ModelId, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, _objVideos).GetData();
+                    objData.News = new RecentNews(3, (uint)objMake.MakeId, objData.ModelId, objMake.MakeName, objMake.MaskingName, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, string.Format("{0} News", objData.BikeName), _objArticles).GetData();
+                    objData.ExpertReviews = new RecentExpertReviews(3, (uint)objMake.MakeId, objData.ModelId, objMake.MakeName, objMake.MaskingName, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, _objArticles, string.Format("{0} Reviews", objData.BikeName)).GetData();
+                    objData.Videos = new RecentVideos(1, 3, (uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, objData.ModelId, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, _objVideos).GetData();
 
 
                     if (!objData.IsUpcomingBike)
@@ -244,6 +244,7 @@ namespace Bikewale.Models.BikeModels
                         objData.PriceInTopCities = new PriceInTopCities(_objPQCache, _modelId, 8).GetData();
 
                         GetBikeRankingCategory();
+
                         BindUserReviews();
                     }
                 }

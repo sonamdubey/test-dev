@@ -3732,6 +3732,8 @@
     <Content Include="Views\Model\_Index_ModelSummary_Mobile.cshtml" />
     <Content Include="Views\Model\_Index_DetailsCard_Mobile.cshtml" />
     <Content Include="Views\Model\_Index_VersionPrices_Mobile.cshtml" />
+    <Content Include="Views\Model\_Index_ModelSpecsAndFeatures_Mobile.cshtml" />
+    <Content Include="Views\Model\_Index_ModelColors_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

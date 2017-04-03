@@ -1,5 +1,5 @@
 var imgTitle, imgTotalCount, getOffersClicked = false, popupDiv, gallery;
-var bodHt, footerHt, scrollPosition, versionCount ;
+var bodHt, footerHt, scrollPosition, versionCount;
 var sortByDiv, sortListDiv, sortCriteria, sortByDiv, sortListDiv, sortListLI;
 
 var dealersPopupDiv, dealerOffersDiv, termsConditions;
@@ -118,57 +118,57 @@ docReady(function () {
         makeDealersContent.removeClass('bw-model-tabs-data');
     }
 
-    //$(window).scroll(function () {
-    //    var windowScrollTop = $window.scrollTop(),
-    //        modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
-    //        modelSpecsFooterOffsetTop = modelSpecsFooter.offset().top;
+    $(window).scroll(function () {
+        var windowScrollTop = $window.scrollTop(),
+            modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
+            modelSpecsFooterOffsetTop = modelSpecsFooter.offset().top;
 
-    //    if (windowScrollTop > modelSpecsTabsOffsetTop) {
-    //        overallSpecsTabsContainer.addClass('fixed-tab-nav');
-    //    }
+        if (windowScrollTop > modelSpecsTabsOffsetTop) {
+            overallSpecsTabsContainer.addClass('fixed-tab-nav');
+        }
 
-    //    else if (windowScrollTop < modelSpecsTabsOffsetTop) {
-    //        overallSpecsTabsContainer.removeClass('fixed-tab-nav');
-    //    }
+        else if (windowScrollTop < modelSpecsTabsOffsetTop) {
+            overallSpecsTabsContainer.removeClass('fixed-tab-nav');
+        }
 
-    //    if (overallSpecsTabsContainer.hasClass('fixed-tab-nav')) {
-    //        if (windowScrollTop > modelSpecsFooterOffsetTop - topNavBarHeight) {
-    //            overallSpecsTabsContainer.removeClass('fixed-tab-nav');
-    //        }
-    //    }
+        if (overallSpecsTabsContainer.hasClass('fixed-tab-nav')) {
+            if (windowScrollTop > modelSpecsFooterOffsetTop - topNavBarHeight) {
+                overallSpecsTabsContainer.removeClass('fixed-tab-nav');
+            }
+        }
 
-    //    $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').each(function () {
-    //        var top = $(this).offset().top - overallSpecsTabsContainer.height(),
-    //            bottom = top + $(this).outerHeight();
-    //        if (windowScrollTop >= top && windowScrollTop <= bottom) {
-    //            overallSpecsTabsContainer.find('li').removeClass('active');
-    //            $('#modelSpecsTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
+        $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').each(function () {
+            var top = $(this).offset().top - overallSpecsTabsContainer.height(),
+                bottom = top + $(this).outerHeight();
+            if (windowScrollTop >= top && windowScrollTop <= bottom) {
+                overallSpecsTabsContainer.find('li').removeClass('active');
+                $('#modelSpecsTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
 
-    //            $(this).addClass('active');
+                $(this).addClass('active');
 
-    //            var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('id') + '"]');
-    //            overallSpecsTabsContainer.find(currentActiveTab).addClass('active');
-    //        }
-    //    });
+                var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('id') + '"]');
+                overallSpecsTabsContainer.find(currentActiveTab).addClass('active');
+            }
+        });
 
-    //    var scrollToTab = $('#modelSpecsTabsContentWrapper .bw-model-tabs-data:eq(4)');
-    //    if (scrollToTab.length != 0) {
-    //        if (windowScrollTop > scrollToTab.offset().top - 45) {
-    //            if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
-    //                $('.overall-specs-tabs-container').addClass('scrolled-left');
-    //                scrollHorizontal(400);
-    //            }
-    //        }
+        var scrollToTab = $('#modelSpecsTabsContentWrapper .bw-model-tabs-data:eq(4)');
+        if (scrollToTab.length != 0) {
+            if (windowScrollTop > scrollToTab.offset().top - 45) {
+                if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
+                    $('.overall-specs-tabs-container').addClass('scrolled-left');
+                    scrollHorizontal(400);
+                }
+            }
 
-    //        else if (windowScrollTop < scrollToTab.offset().top) {
-    //            if ($('#overallSpecsTab').hasClass('scrolled-left')) {
-    //                $('.overall-specs-tabs-container').removeClass('scrolled-left');
-    //                scrollHorizontal(0);
-    //            }
-    //        }
-    //    }
+            else if (windowScrollTop < scrollToTab.offset().top) {
+                if ($('#overallSpecsTab').hasClass('scrolled-left')) {
+                    $('.overall-specs-tabs-container').removeClass('scrolled-left');
+                    scrollHorizontal(0);
+                }
+            }
+        }
 
-    //});
+    });
 
     $('.overall-specs-tabs-wrapper li').click(function () {
         var target = $(this).attr('data-tabs');
