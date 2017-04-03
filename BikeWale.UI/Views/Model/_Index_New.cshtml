@@ -144,7 +144,7 @@
 @Html.Partial("~/Views/Model/_Index_DetailsCard.cshtml", Model)
 
 
-@if (Model.LeadCapture != null)
+@if (Model.LeadCapture != null && Model.IsLocationSelected)
 {
     @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
 }
