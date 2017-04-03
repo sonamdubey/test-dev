@@ -59,14 +59,16 @@
     text-align: center;
 }
 .sidebar-video-image,
-.sidebar-video-title {
-    width: 160px;
-    height: auto;
+.sidebar-video-title {  
     display: inline-block;
     vertical-align: middle;
 }
 .sidebar-video-title:hover {
     color: #4d5057;
+}
+.sidebar-video-title {
+    width: 160px;
+    height: auto;
 }
 .sidebar-video-image img {
     width: 100%;

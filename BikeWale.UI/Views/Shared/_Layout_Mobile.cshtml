@@ -147,6 +147,8 @@
 </head>
 <body class="@(@Model.IsTransparentHeader ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")">
     <form>
+        @if (Model.IsAppBannerNeeded)
+        { 
         <div id="appBanner" class="hide">
             <div class="banner-close-btn" id="btnCrossApp"></div>
             <div class="app-banner-img-container">
@@ -161,6 +163,7 @@
             </div>
             <div class="clear"></div>
         </div>
+        }
         @if (Model.IsHeaderRequired)
         {
             <header>

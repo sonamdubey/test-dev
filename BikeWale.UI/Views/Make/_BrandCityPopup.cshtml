@@ -81,9 +81,9 @@
             }).cityMaskingName;
         });
         self.cityApiUrl = ko.pureComputed(function () {
-            if (('@Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)').toString().toLowerCase())
+            if (isDealer)
             return "/api/v2/DealerCity/?makeId=" + self.selectedBrand();
-            else if (('@Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)').toString().toLowerCase())
+            else if (isServiceCenter)
             return "/api/servicecenter/cities/make/" + self.selectedBrand() + "/";
         });
         self.makeApiUrl = "/api/makelist/?requesttype=" + '@Convert.ToInt32(Model.PageType)';
@@ -156,7 +156,7 @@
             self.makeChangedPopup();
         };
 
-        self.makeChangedPopup = function () {
+        self.makeChangedPopup = function () {   
             var isAborted = false;
             self.searchByBrandCityBtnClicked(false);
 
@@ -188,13 +188,13 @@
                     },
                     success: function (response) {
                         var cities;
-                        if (('@Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)').toString().toLowerCase())
+                        if (isDealer)
                         cities = ko.toJS(response.City);
-                    else if (('@Model.PageType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)').toString().toLowerCase())
-                        cities = ko.toJS(response);
+                    else if (isServiceCenter)
+                        cities = ko.toJS(response);                        
                         if (cities != null)
                             lscache.set(BrandCityKey, cities, 60);
-                        if (cities.length) {
+                        if (cities && cities.length) {
                             progressBar.stopLoading($("#divCitiesLoader"));
                             $("#divCitiesLoader .placeholder-loading-text").hide();
                             insertCitySeparatorNew(cities);

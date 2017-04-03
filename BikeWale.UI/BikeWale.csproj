@@ -3712,6 +3712,7 @@
     <Content Include="Views\Videos\CategoryVideos_Mobile.cshtml" />
     <Content Include="Views\BikeCare\Detail.cshtml" />
     <Content Include="Views\BikeCare\Detail_Mobile.cshtml" />
+    <Content Include="Views\Videos\Models.cshtml" />
     <Content Include="Views\Model\_Index_DetailsCard.cshtml" />
     <Content Include="Views\Model\_Index_ModelSummary.cshtml" />
     <Content Include="Views\Model\_Index_VersionPrices.cshtml" />
