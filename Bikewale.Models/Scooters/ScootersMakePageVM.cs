@@ -16,7 +16,7 @@ namespace Bikewale.Models
         public BikeDescriptionEntity Description { get; set; }
         public IEnumerable<MostPopularBikesBase> Scooters { get; set; }
         public UpcomingBikesWidgetVM UpcomingScooters { get; set; }
-        public ICollection<SimilarCompareBikeEntity> SimilarCompareScooters { get; set; }
+        public ScooterComparesVM SimilarCompareScooters { get; set; }
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
         public ServiceCenterDetailsWidgetVM ServiceCenters { get; set; }
         public DealerCardVM Dealers { get; set; }
