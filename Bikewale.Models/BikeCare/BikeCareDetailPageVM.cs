@@ -16,6 +16,5 @@ namespace Bikewale.Models
         public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
         public EditCMSPhotoGalleryVM PhotoGallery { get; set; }
-        public string BaseUrl { get; set; }
     }
 }

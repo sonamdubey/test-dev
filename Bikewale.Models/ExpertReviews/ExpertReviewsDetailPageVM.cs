@@ -18,7 +18,6 @@ namespace Bikewale.Models
         public BikeInfoVM BikeInfo { get; set; }
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }
-        public string BaseUrl { get; set; }
         public StringBuilder BikeTested { get; set; }
     }
 }
