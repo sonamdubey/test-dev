@@ -49,6 +49,7 @@ namespace Bikewale.Models
             _modelId = modelId;
             _modelName = modelName;
             _modelMasking = modelMasking;
+            _videos = videos;
         }
         #endregion
 
@@ -63,25 +64,27 @@ namespace Bikewale.Models
             try
             {
                 recentVideos.VideosList = _videos.GetVideosByMakeModel(_pageNo, _pageSize, _makeId, _modelId);
-                if (string.IsNullOrEmpty(_makeMasking) && string.IsNullOrEmpty(_modelMasking))
-                {
-                    recentVideos.MoreVideoUrl = string.Format("/bike-videos/");
-                    recentVideos.LinkTitle = "Bikes Videos";
-                }
-
-                else if (!String.IsNullOrEmpty(_makeMasking) && String.IsNullOrEmpty(_modelMasking))
-                {
-                    recentVideos.MoreVideoUrl = string.Format("/{0}-bikes/videos/", _makeMasking);
-                    recentVideos.LinkTitle = string.Format("{0} Videos", _makeName);
-                }
-                else if (!String.IsNullOrEmpty(_makeMasking) && !String.IsNullOrEmpty(_modelMasking))
-                {
-                    recentVideos.MoreVideoUrl = string.Format("/{0}-bikes/{1}/videos/", _makeMasking, _modelMasking);
-                    recentVideos.LinkTitle = string.Format("{0} {1} Videos", _makeName, _modelName);
-                    recentVideos.BikeName = string.Format("{0} {1}", _makeName, _modelName);
-                }
                 if (recentVideos.VideosList != null)
+                {
+                    if (string.IsNullOrEmpty(_makeMasking) && string.IsNullOrEmpty(_modelMasking))
+                    {
+                        recentVideos.MoreVideoUrl = string.Format("/bike-videos/");
+                        recentVideos.LinkTitle = "Bikes Videos";
+                    }
+
+                    else if (!String.IsNullOrEmpty(_makeMasking) && String.IsNullOrEmpty(_modelMasking))
+                    {
+                        recentVideos.MoreVideoUrl = string.Format("/{0}-bikes/videos/", _makeMasking);
+                        recentVideos.LinkTitle = string.Format("{0} Videos", _makeName);
+                    }
+                    else if (!String.IsNullOrEmpty(_makeMasking) && !String.IsNullOrEmpty(_modelMasking))
+                    {
+                        recentVideos.MoreVideoUrl = string.Format("/{0}-bikes/{1}/videos/", _makeMasking, _modelMasking);
+                        recentVideos.LinkTitle = string.Format("{0} {1} Videos", _makeName, _modelName);
+                        recentVideos.BikeName = string.Format("{0} {1}", _makeName, _modelName);
+                    }
                     recentVideos.FetchedCount = recentVideos.VideosList.Count();
+                }
             }
             catch (Exception ex)
             {

@@ -257,6 +257,8 @@ function setUserLocation(position) {
         serviceLat = $('#dealer-map').data("servicelat");
         serviceLong = $('#dealer-map').data("servicelong");
         currentCityName = $('#dealer-map').data("cityname");
+        googleMapAPIKey = document.getElementById("locationSearch").getAttribute("data-Map");
+        clientIP = document.getElementById("locationSearch").getAttribute("data-clietIp");
 
         initializeMap();
 

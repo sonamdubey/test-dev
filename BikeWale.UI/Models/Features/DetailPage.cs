@@ -15,11 +15,13 @@ namespace Bikewale.Models.Features
 {
     public class DetailPage
     {
+        #region Variables for dependency injection and constructor
         private readonly ICMSCacheContent _cache = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
         private string _basicId;
+        #endregion
 
         #region Page level variables
         private uint basicId;
@@ -28,7 +30,7 @@ namespace Bikewale.Models.Features
         public string redirectUrl;
         #endregion
 
-        public uint TopCount { get; set; }
+        #region Constructor
         public DetailPage(ICMSCacheContent cache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> models,string basicId)
         {
             _cache = cache;
@@ -36,14 +38,17 @@ namespace Bikewale.Models.Features
             _bikeModels = bikeModels;
             _models = models;
             _basicId = basicId;
-            ProcessQuery();
+            ProcessQueryString();
 
         }
+        #endregion
+
+        #region Functions
         /// <summary>
-        /// Created by : SubodhJain  on 30 March 2017
+        /// Created by : Subodh Jain  on 30 March 2017
         /// Summary    : Get all feature details
         /// </summary>
-        public DetailFeatureVM GetData()
+        public DetailFeatureVM GetData(int widgetTopCount)
         {
             DetailFeatureVM objDetailsVM = new DetailFeatureVM();
             try
@@ -56,7 +61,7 @@ namespace Bikewale.Models.Features
                     GetTaggedBikeListByMake(objDetailsVM);
                     GetTaggedBikeListByModel(objDetailsVM);
                     BindPageMetas(objDetailsVM);
-                    GetWidgetData(objDetailsVM);
+                    GetWidgetData(objDetailsVM, widgetTopCount);
                     PopulatePhotoGallery(objDetailsVM);
                  }
                 else
@@ -66,11 +71,14 @@ namespace Bikewale.Models.Features
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.Features.GetData()");
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.Features.DetailPage.GetData");
             }
             return objDetailsVM;
         }
-        private void GetWidgetData(DetailFeatureVM objData)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GetWidgetData(DetailFeatureVM objData,int topCount)
         {
             try
             {
@@ -79,7 +87,7 @@ namespace Bikewale.Models.Features
                 if (currentCityArea != null)
                     CityId = currentCityArea.CityId;
                 MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, false, false, 0, 0, (uint)objData.objMake.MakeId);
-                objPopularBikes.TopCount = (int)TopCount;
+                objPopularBikes.TopCount = topCount;
                 objPopularBikes.CityId = CityId;
                 objData.MostPopularBikes = objPopularBikes.GetData();
                 if (objData.objMake != null && objData.objMake.MakeId > 0)
@@ -100,7 +108,7 @@ namespace Bikewale.Models.Features
                     PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
                     objPopularStyle.ModelId = (uint)objData.objModel.ModelId;
                     objPopularStyle.CityId = CityId;
-                    objPopularStyle.TopCount = (int)TopCount;
+                    objPopularStyle.TopCount = topCount;
                     objData.PopularBodyStyle = objPopularStyle.GetData();
                     if (objData.PopularBodyStyle != null)
                     {
@@ -114,7 +122,7 @@ namespace Bikewale.Models.Features
                     UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
                     objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
                     objUpcomingBikes.Filters.StartIndex = 1;
-                    objUpcomingBikes.Filters.EndIndex = (int)TopCount;
+                    objUpcomingBikes.Filters.EndIndex = topCount;
                     if (objData.objMake.MakeId > 0)
                     {
                         objUpcomingBikes.Filters.MakeId = objData.objMake.MakeId;
@@ -137,7 +145,7 @@ namespace Bikewale.Models.Features
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ExpertReviewsDetailPage.GetWidgetData");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.GetWidgetData");
             }
         }
         /// <summary>
@@ -147,18 +155,17 @@ namespace Bikewale.Models.Features
         /// <returns></returns>
         private void BindPageMetas(DetailFeatureVM objPage)
         {
-
             try
             {
+                objPage.PageMetaTags.CanonicalUrl = string.Format("{0}/features/{1}-{2}/", BWConfiguration.Instance.BwHostUrl, objPage.objFeature.ArticleUrl, objPage.objFeature.BasicId);
+                objPage.PageMetaTags.AlternateUrl = string.Format("{0}/m/features/{1}-{2}/", BWConfiguration.Instance.BwHostUrl, objPage.objFeature.ArticleUrl, objPage.objFeature.BasicId);
                 objPage.PageMetaTags.Title = string.Format("{0} - Bikewale ", objPage.objFeature.Title);
                 objPage.PageMetaTags.Description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", objPage.objFeature.Title);
                 objPage.PageMetaTags.Keywords = string.Format("features, stories, travelogues, specials, drives.");
-
             }
             catch (Exception ex)
             {
-
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindPageMetas()");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.BindPageMetas");
             }
         }
         /// <summary>
@@ -189,7 +196,7 @@ namespace Bikewale.Models.Features
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.Features.GetTaggedBikeListByMake");
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.Features.DetailPage.GetTaggedBikeListByMake");
 
             }
         }
@@ -209,12 +216,12 @@ namespace Bikewale.Models.Features
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ExpertReviewsDetailPage.PopulatePhotoGallery");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.PopulatePhotoGallery");
             }
         }
 
         /// <summary>
-        /// Created by : SubodhJain  on 30 March 2017
+        /// Created by : Subodh Jain  on 30 March 2017
         /// Summary    : Get model details if model is tagged
         /// </summary>
         private void GetTaggedBikeListByModel(DetailFeatureVM objDetailsVM)
@@ -241,10 +248,15 @@ namespace Bikewale.Models.Features
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.GetTaggedBikeListByModel");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.GetTaggedBikeListByModel");
             }
         }
-        private void ProcessQuery()
+
+        /// <summary>
+        /// Created by : Subodh Jain  on 30 March 2017
+        /// Summary    : Process query string
+        /// </summary>
+        private void ProcessQueryString()
         {
              var request = HttpContext.Current.Request;
             string qsBasicId = _basicId;
@@ -264,9 +276,9 @@ namespace Bikewale.Models.Features
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.ProcessQueryString");
-            }           
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Features.DetailPage.ProcessQueryString");
+            }
         }
-
+        #endregion
     }
 }

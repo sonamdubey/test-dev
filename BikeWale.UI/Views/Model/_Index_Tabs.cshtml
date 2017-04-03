@@ -32,10 +32,10 @@
 {
     <a href="#modelSimilarContent" rel="nofollow">Similar Bikes</a>
 }
-@if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable))
+@if (Model.IsNewBike && (((Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable) && Model.CityId > 0) || (Model.IsDealersServiceCenterAvailable && Model.CityId == 0)))
 {
     <a href="#dealerAndServiceContent" rel="nofollow">
-        @(Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable ? "Dealers & Service Centers" : (Model.IsOtherDealersAvailable ? "Dealers" : "Service Centers"))
+        @(((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) || Model.IsDealersServiceCenterAvailable) ? "Dealers & Service Centers" : (Model.IsOtherDealersAvailable ? "Dealers" : "Service Centers"))
     </a>
 }
 @if (Model.IsUsedBikesAvailable)
