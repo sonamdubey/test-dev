@@ -84,7 +84,7 @@ docReady(function () {
     });
 
     $("#spnContent").append($("#discontinuedMore a:eq(0)").clone()).append(", ").append($("#discontinuedMore a:eq(1)").clone()).append(", ").append($("#discontinuedMore a:eq(2)").clone()).append(", ").append($("#discontinuedMore a:eq(3)").clone());
-    $("#spnContent").append("... <a class='f-small' onclick='ShowAllDisModels()'>View All</a>");
+    $("#spnContent").append("... <a class='f-small' id='viewall' >View All</a>");
 
 
     $("#sortbike li").on("click", function () {
@@ -122,14 +122,12 @@ docReady(function () {
         applyTabsLazyLoad();
     });
 
-    function ShowAllDisModels() {
+    $("#viewall").click(function () {
         $("#discontinuedMore").show();
         $("#discontinuedLess").hide();
         var xContents = $('#discontinuedMore').contents();
         xContents[xContents.length - 1].nodeValue = "";
-    }
-
-
+    });
 
     function sortResults(mydata, prop, asc) {
         return mydata.sort(function (a, b) {
