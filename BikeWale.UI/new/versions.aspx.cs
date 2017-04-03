@@ -51,7 +51,6 @@ namespace Bikewale.New
         protected BikeModelPageEntity modelPageEntity;
         protected PopularModelCompare ctrlPopularCompare;
         protected DealerCard ctrlDealerCard;
-        protected VersionSpecifications bikeSpecs;
         protected PQOnRoadPrice pqOnRoad;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected int grid1_size = 9, grid2_size = 3, colorCount;
