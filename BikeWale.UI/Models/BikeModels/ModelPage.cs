@@ -17,11 +17,13 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
+using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Models.ServiceCenters;
+using Bikewale.Models.Used;
 using Bikewale.Utility;
 using System;
 using System.Linq;
@@ -54,6 +56,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IPriceQuoteCache _objPQCache;
         private readonly IBikeCompareCacheRepository _objCompare;
         private readonly IUserReviewsCache _userReviewCache;
+        private readonly IUsedBikesCache _usedBikesCache;
 
         private ModelPageVM objData = null;
         private uint _modelId, _cityId, _areaId;
@@ -62,11 +65,12 @@ namespace Bikewale.Models.BikeModels
         private StringBuilder colorStr = new StringBuilder();
 
 
+
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
         public uint OtherDealersTopCount { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache)
+        public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -84,6 +88,7 @@ namespace Bikewale.Models.BikeModels
             _objPQCache = objPQCache;
             _objCompare = objCompare;
             _userReviewCache = userReviewCache;
+            _usedBikesCache = usedBikesCache;
             ParseQueryString(makeMasking, modelMasking);
         }
 
@@ -249,17 +254,13 @@ namespace Bikewale.Models.BikeModels
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindControls");
             }
         }
-        private UsedBikeModelsWidgetVM BindUsedBikeByModel(uint makeId, uint cityId)
+        private UsedBikeByModelCityVM BindUsedBikeByModel(uint makeId, uint cityId)
         {
-            UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
+            UsedBikeByModelCityVM UsedBikeModel = new UsedBikeByModelCityVM();
             try
             {
 
-                UsedBikeModelsWidgetModel objUsedBike = new UsedBikeModelsWidgetModel(9, _objUsedBikescache);
-                if (makeId > 0)
-                    objUsedBike.makeId = makeId;
-                if (cityId > 0)
-                    objUsedBike.cityId = cityId;
+                UsedBikesByModelCityWidget objUsedBike = new UsedBikesByModelCityWidget(_usedBikesCache, 6, makeId, _modelId, _cityId);
                 UsedBikeModel = objUsedBike.GetData();
             }
             catch (Exception ex)
@@ -714,6 +715,8 @@ namespace Bikewale.Models.BikeModels
                     if (cities != null)
                     {
                         var selectedCity = cities.FirstOrDefault(m => m.CityId == _cityId);
+
+                        objData.City = selectedCity;
                         objData.IsAreaSelected = selectedCity != null && selectedCity.HasAreas && _areaId > 0;
                         if (!objData.IsAreaSelected) _areaId = 0;
                     }

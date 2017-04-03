@@ -212,19 +212,16 @@
                 <!-- Used bikes widget -->
                 @if (Model.IsUsedBikesAvailable)
                 {
-                    <div id="makeUsedBikeContent" class="bw-model-tabs-data">
-                        <div class="carousel-heading-content padding-top20">
-                            <div class="swiper-heading-left-grid inline-block">
-                                <h2>Used @Model.ModelPageEntity.ModelDetails.MakeBase.MakeName bikes in @Model.Location</h2>
-                            </div><div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="/used/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes-in-@Model.LocationCookie.City/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all</a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom20">
-                            @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedModels)
+                    <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                    <div id="makeUsedBikeContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
+                        <h2 class="padding-left10 padding-right10">Used @Model.BikeName bikes in @(Model.City != null ? Model.City.CityName : "India")</h2>
+                        @Html.Partial("~/Views/Used/_UsedBikesByModelCity.cshtml", Model.UsedModels)
+                        <div class="clear"></div>
+                        <div class="padding-left10 view-all-btn-container">
+                            <a title="@Model.BikeName Used Bikes in @(Model.City!=null ? Model.City.CityName :"India")" href="@Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Model.CityId, (Model.City!=null ? Model.City.CityMaskingName :"india"), Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
+
                 }
                 <div id="overallSpecsDetailsFooter"></div>
             </div>

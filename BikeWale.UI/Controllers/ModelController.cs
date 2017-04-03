@@ -9,6 +9,7 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
+using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.BikeModels;
@@ -34,8 +35,8 @@ namespace Bikewale.Controllers
         private readonly IPriceQuoteCache _objPQCache;
         private readonly IBikeCompareCacheRepository _objCompare;
         private readonly IUserReviewsCache _userReviewCache;
-
-        public ModelController(IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache)
+        private readonly IUsedBikesCache _usedBikesCache;
+        public ModelController(IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -52,13 +53,14 @@ namespace Bikewale.Controllers
             _objPQCache = objPQCache;
             _objCompare = objCompare;
             _userReviewCache = userReviewCache;
+            _usedBikesCache = usedBikesCache;
         }
 
         // GET: Models
         [Route("model/{makeMasking}-bikes/{modelMasking}/"), Filters.DeviceDetection]
         public ActionResult Index(string makeMasking, string modelMasking, uint? versionId)
         {
-            ModelPage obj = new ModelPage(makeMasking, modelMasking, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersionCache, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _objCompare, _userReviewCache);
+            ModelPage obj = new ModelPage(makeMasking, modelMasking, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersionCache, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _objCompare, _userReviewCache, _usedBikesCache);
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
