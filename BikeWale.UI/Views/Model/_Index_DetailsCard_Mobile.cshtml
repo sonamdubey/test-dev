@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 
-@if (Model.IsUpcomingBike)
+@if (!Model.IsUpcomingBike)
 {
     if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
     {
@@ -13,7 +13,7 @@
 
     }
 
-    if (Model.SimilarBikes != null)
+    if (Model.IsSimilarBikesAvailable)
     {
         <div id="similarContent" class="bw-model-tabs-data padding-top15 padding-bottom15 content-box-shadow card-bottom-margin content-details-wrapper">
             <h2 class="padding-left20 padding-right20">Bikes Similar to @Model.BikeName</h2>
@@ -102,7 +102,7 @@
         <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
         <div class="user-review-subContent">
             <h3 class="model-section-subtitle padding-right10 padding-left10">User reviews</h3>
-            @Html.Partial("~/Views/UserReviews/_UserReviewsList_Mobile.cshtml", Model.UserReviews);
+            @Html.Partial("~/Views/UserReviews/_UserReviewsList_Mobile.cshtml", Model.UserReviews)
             <div class="padding-left10 view-all-btn-container">
                 <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
             </div>
@@ -169,7 +169,7 @@
 
 @if (!Model.IsUpcomingBike && Model.IsUsedBikesAvailable)
 {
-    <div class="content-box-shadow card-bottom-margin content-details-wrapper">
+    <div id="makeUsedBikeContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
         <h2 class="padding-left10 padding-right10">Used @Model.BikeName bikes in @(Model.City != null ? Model.City.CityName : "India")</h2>
         @Html.Partial("~/Views/Used/_UsedBikesByModelCity_Mobile.cshtml", Model.UsedModels)
         <div class="clear"></div>
