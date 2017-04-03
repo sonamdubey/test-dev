@@ -3712,6 +3712,12 @@
     <Content Include="Views\Videos\CategoryVideos_Mobile.cshtml" />
     <Content Include="Views\BikeCare\Detail.cshtml" />
     <Content Include="Views\BikeCare\Detail_Mobile.cshtml" />
+    <Content Include="Views\Model\_Index_DetailsCard.cshtml" />
+    <Content Include="Views\Model\_Index_ModelSummary.cshtml" />
+    <Content Include="Views\Model\_Index_VersionPrices.cshtml" />
+    <Content Include="Views\Model\_Index_ModelColors.cshtml" />
+    <Content Include="Views\Model\_Index_ModelSpecsAndFeatures.cshtml" />
+    <Content Include="Views\Model\_Index_Tabs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

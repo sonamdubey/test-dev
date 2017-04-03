@@ -1,0 +1,102 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+
+<div id="modelSummaryContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
+    @if (!Model.IsUpcomingBike && Model.ModelPageEntity.ModelDetails.MinPrice > 0)
+    {
+        <h2 class="margin-bottom0">@Model.BikeName summary</h2>
+        <div class="@(Model.bikeRankObj!=null && Model.bikeRankObj.Rank > 0 ? " grid-8 " : " grid-12 omega ") alpha margin-top15">
+            <!-- add class - grid-12 and omega, if no slug instead of grid-8 -->
+            <p class="font14 text-light-grey line-height17 margin-bottom15">@Model.ModelSummary</p>
+        </div>
+        if (Model.BikeRanking != null && Model.BikeRanking.Rank > 0)
+        {
+
+            <div class="grid-4 omega margin-bottom10">
+                <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName in India" class="model-rank-slug">
+                    <div class="inline-block icon-red-bg">
+                        <span class="bwsprite rank-graph"></span>
+                    </div>
+                    <div class="rank-slug-label inline-block text-bold text-default">
+                        <p class="font14">@Model.BikeRanking.Rank>1?rankText:"" Most Popular @Model.BikeRanking.BikeType</p>
+                        <p class="font11">Check out the complete list.</p>
+                    </div>
+                    <span class="trend-arrow"></span>
+                    <span class="bwsprite right-arrow"></span>
+                </a>
+            </div>
+
+        }
+        <div class="clear"></div>
+        <div class="border-solid-bottom margin-bottom20">
+            <div class="grid-8 alpha margin-bottom10">
+                <table id="model-key-highlights" cellspacing="0" cellpadding="0" width="100%" border="0" class="font14 text-left">
+                    <thead>
+                        <tr>
+                            <th colspan="2">@Model.ModelPageEntity.ModelDetails.ModelName key highlights</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ModelPageEntity.ModelDetails.MinPrice > 0)
+                        {
+                            <tr>
+                                <td width="36%">Price</td>
+                                <td width="64%">
+                                    <span class="bwsprite inr-sm-dark"></span>
+                                    <span class="text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.ModelPageEntity.ModelDetails.MinPrice))</span>
+                                    <span class="font12 text-light-grey">(Ex-showroom @Bikewale.Utility.BWConfiguration.Instance.DefaultName)</span>
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
+                        {
+                            <tr>
+                                <td>Top speed</td>
+                                <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.TopSpeed kmph</td>
+                            </tr>
+                        }
+                        @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
+                        {
+                            <tr>
+                                <td>Mileage</td>
+                                <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall kmpl</td>
+                            </tr>
+                        }
+                        @if (Model.IsModelColorsAvailable)
+                        {
+                            <tr>
+                                <td valign="top">Colours</td>
+                                <td valign="top" class="text-bold">
+                                    <ul class="model-color-list">
+                                        @foreach (var colorName in Model.ModelPageEntity.ModelColors)
+                                        {
+                                        <li class="leftfloat">@colorName.ColorName</li>
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="grid-4 text-center alpha omega margin-bottom10">
+                <!-- #include file="/ads/Ad300x250.aspx" -->
+            </div>
+            <div class="clear"></div>
+        </div>
+    }
+    @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
+    {
+        <div id="model-overview-content" class="margin-bottom20">
+            <h3>@Model.ModelPageEntity.ModelDetails.ModelName preview</h3>
+            <p class="font14 text-light-grey line-height17 inline">
+                <span class="model-preview-main-content">
+                    @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                </span>
+                <span class="model-preview-more-content hide">
+                    @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                </span>
+                <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
+            </p>
+        </div>
+    }
+</div>

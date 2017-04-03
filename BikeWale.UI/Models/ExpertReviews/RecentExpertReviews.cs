@@ -42,7 +42,7 @@ namespace Bikewale.Models
         }
 
 
-        public RecentExpertReviews(uint totalRecords, uint makeId, uint modelId, string makeName, string makeMasking, string modelName, string modelMasking, ICMSCacheContent articles)
+        public RecentExpertReviews(uint totalRecords, uint makeId, uint modelId, string makeName, string makeMasking, string modelName, string modelMasking, ICMSCacheContent articles, string title)
         {
             _totalRecords = totalRecords;
             _makeId = makeId;
@@ -52,6 +52,7 @@ namespace Bikewale.Models
             _modelName = modelName;
             _modelMasking = modelMasking;
             _articles = articles;
+            Title = title;
         }
         #endregion
 

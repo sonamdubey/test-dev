@@ -82,8 +82,8 @@ else if(Model.IsUpcomingBike)
     var isBikeWalePq = "@Model.IsBPQAvailable";
     var areaId = "@Model.AreaId ";
     var isDealerPriceAvailable = "@Model.IsDPQAvailable";
-    @*var campaignId = "@Model.campaignId";
-    var manufacturerId = "@Model.manufacturerId";*@
+    var campaignId = "@Model.CampaignId";
+    var manufacturerId = "@(Model.ManufacturerCampaign!=null ? Model.ManufacturerCampaign.Id : 0)";
     var myBikeName = "@Model.BikeName";
     var clientIP = "@Model.ClientIP";
     var pageUrl = window.location.href;
