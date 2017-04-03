@@ -16,11 +16,11 @@
 {
     <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
 }
-@if (Model.IsReviewsAvailable)
+@if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable)
 {
     <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
 }
-@if (!Model.IsReviewsAvailable && Model.IsNewsAvailable)
+@if (!(Model.IsReviewsAvailable || Model.IsUserReviewsAvailable) && Model.IsNewsAvailable)
 {
     <a href="#modelReviewsContent" rel="nofollow">News</a>
 }

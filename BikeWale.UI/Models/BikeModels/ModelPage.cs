@@ -108,6 +108,7 @@ namespace Bikewale.Models.BikeModels
 
                     CheckCityCookie();
                     objData.CityId = _cityId;
+                    objData.AreaId = _areaId;
                     objData.VersionId = versionId.HasValue ? versionId.Value : 0;
 
                     objData.ModelPageEntity = FetchModelPageDetails(_modelId);
@@ -380,6 +381,30 @@ namespace Bikewale.Models.BikeModels
                     }
                     if (modelPg.ModelVersions != null && !modelPg.ModelDetails.Futuristic)
                     {
+
+                        if (pqOnRoad != null)
+                        {
+                            if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null)
+                            {
+                                foreach (var version in modelPg.ModelVersions)
+                                {
+                                    var selectVersion = pqOnRoad.DPQOutput.Varients.Where(m => m.objVersion.VersionId == version.VersionId).FirstOrDefault();
+                                    version.Price = selectVersion.OnRoadPrice;
+                                }
+                            }
+                            else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
+                            {
+                                foreach (var version in modelPg.ModelVersions)
+                                {
+                                    var selected = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == version.VersionId).FirstOrDefault();
+                                    if (selected != null)
+                                    {
+                                        version.Price = selected.OnRoadPrice;
+                                    }
+                                }
+                            }
+                        }
+
                         if (modelPg.ModelVersions.Count == 1)
                         {
                             var firstVer = modelPg.ModelVersions.FirstOrDefault();
@@ -460,7 +485,7 @@ namespace Bikewale.Models.BikeModels
                         if (modelPg.ModelVersions != null)
                             objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(v => v.VersionId == objData.VersionId);
 
-                        objData.BikePrice = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
+                        objData.BikePrice = (uint)(objData.VersionId > 0 ? objData.SelectedVersion.Price : Convert.ToUInt32(modelPg.ModelDetails.MinPrice));
 
                         // for new bike
                         if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
@@ -526,7 +551,7 @@ namespace Bikewale.Models.BikeModels
                         if (pqOnRoad.PriceQuote != null)
                         {
                             objData.DealerId = pqOnRoad.PriceQuote.DealerId;
-                            objData.VersionId = pqOnRoad.PriceQuote.DefaultVersionId > 0 ? pqOnRoad.PriceQuote.DefaultVersionId : pqOnRoad.PriceQuote.VersionId;
+                            //objData.VersionId = pqOnRoad.PriceQuote.DefaultVersionId > 0 ? pqOnRoad.PriceQuote.DefaultVersionId : pqOnRoad.PriceQuote.VersionId;
 
                         }
                         objData.MPQString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(_cityId.ToString(), pqOnRoad.PriceQuote.PQId.ToString(), _areaId.ToString(), objData.VersionId.ToString(), objData.DealerId.ToString()));
@@ -628,7 +653,7 @@ namespace Bikewale.Models.BikeModels
         {
             try
             {
-
+                BikeQuotationEntity bpqOutput = null;
                 PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
                 objPQEntity.CityId = Convert.ToUInt16(_cityId);
                 objPQEntity.AreaId = Convert.ToUInt32(_areaId);
@@ -652,6 +677,12 @@ namespace Bikewale.Models.BikeModels
                     if (objPQOutput != null && objPQOutput.PQId > 0)
                     {
                         objData.PQId = (uint)objPQOutput.PQId;
+                        bpqOutput = _objPQ.GetPriceQuoteById(objPQOutput.PQId, LeadSourceEnum.Model_Desktop);
+                        bpqOutput.Varients = _objPQ.GetOtherVersionsPrices(objPQOutput.PQId);
+                        if (bpqOutput != null)
+                        {
+                            pqOnRoad.BPQOutput = bpqOutput;
+                        }
                         if (objPQOutput.DealerId != 0)
                         {
                             PQ_QuotationEntity oblDealerPQ = null;

@@ -73,9 +73,20 @@
     </div>
 </section>
 
-@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0)
+@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && Model.City!=null)
 {
-    @Html.Partial("~/Views/Price/_SecondaryDealers.cshtml", Model.DetailedDealer.SecondaryDealers)
+    <section>
+        <div class="container">
+            <div class="grid-12 margin-bottom20">
+                <div class="content-box-shadow">
+                    <div id="partner-dealer-panel" class="content-box-shadow padding-14-20 font18 text-bold text-black position-rel cur-pointer open"> Prices from @Model.DetailedDealer.SecondaryDealerCount more partner dealer@(Model.DetailedDealer.SecondaryDealerCount > 1 ? "s" : "") in @Model.City.CityName<span class="model-sprite plus-icon"></span></div>
+                    <div id="moreDealersList" class="jcarousel-wrapper inner-content-carousel" style="overflow: hidden; display: block;">
+                        @Html.Partial("~/Views/Price/_SecondaryDealers.cshtml", Model.DetailedDealer.SecondaryDealers)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 }
 
 @if (Model.ManufacturerCampaign != null && Model.ManufacturerCampaign.ShowAd)
