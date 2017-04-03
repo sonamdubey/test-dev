@@ -12,7 +12,6 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Used;
-using Bikewale.Models;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -161,20 +160,19 @@ namespace Bikewale.Models
             UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
             try
             {
+
+                UsedBikeModelsWidgetModel objUsedBike = new UsedBikeModelsWidgetModel(topCount, _objUsedCache);
                 if (makeId > 0)
-                {
-                    UsedBikeModel.UsedBikeModelList = _objUsedCache.GetPopularUsedModelsByMake(makeId, topCount);
-                }
-                else
-                {
-                    UsedBikeModel.UsedBikeModelList = _objUsedCache.GetUsedBike(topCount);
-                }
+                    objUsedBike.makeId = makeId;
+
+                UsedBikeModel = objUsedBike.GetData();
             }
             catch (Exception ex)
             {
 
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindUsedBikeByModel()");
             }
+
             return UsedBikeModel;
 
         }
