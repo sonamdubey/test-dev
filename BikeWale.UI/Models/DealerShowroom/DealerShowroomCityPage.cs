@@ -34,7 +34,6 @@ namespace Bikewale.Models.DealerShowroom
         public StatusCodes status;
         public BikeMakeEntityBase objMake;
         public CityEntityBase CityDetails;
-        public DealerShowroomCityPageVM objDealerVM;
         //Constructor
         public DealerShowroomCityPage(IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository<int> bikeMakesCache, string makeMaskingName, string cityMaskingName, uint topCount)
         {
@@ -53,7 +52,7 @@ namespace Bikewale.Models.DealerShowroom
         /// <returns></returns>
         public DealerShowroomCityPageVM GetData()
         {
-            objDealerVM = new DealerShowroomCityPageVM();
+            DealerShowroomCityPageVM objDealerVM = new DealerShowroomCityPageVM();
 
             try
             {
@@ -75,7 +74,7 @@ namespace Bikewale.Models.DealerShowroom
                 objDealerVM.BrandCityPopupWidget = new BrandCityPopupModel(EnumBikeType.Dealer, (uint)objMake.MakeId, cityId).GetData();
                 objDealerVM.ServiceCenterDetails = BindServiceCenterWidget();
                 objDealerVM.PopularBikes = BindMostPopularBikes();
-                BindPageMetas(objDealerVM.PageMetaTags);
+                BindPageMetas(objDealerVM);
                 BindLeadCapture(objDealerVM);
             }
             catch (Exception ex)
@@ -150,14 +149,14 @@ namespace Bikewale.Models.DealerShowroom
         /// Summary:- Fetching data about dealers of other brands
         /// </summary>
         /// <returns></returns>
-        private void BindPageMetas(PageMetaTags objPage)
+        private void BindPageMetas(DealerShowroomCityPageVM objPage)
         {
 
             try
             {
-                objPage.Title = String.Format("{0} showroom in {1} | {2} {0} bike dealers - BikeWale", objMake.MakeName, CityDetails.CityName, objDealerVM.TotalDealers);
-                objPage.Keywords = String.Format("{0} showroom {1}, {0} dealers {1}, {1} bike showroom, {1} bike dealers,{1} dealers, {1} bike showroom, bike dealers, bike showroom, dealerships", objMake.MakeName, CityDetails.CityName);
-                objPage.Description = String.Format("Find address, contact details and direction for {2} {0} showrooms in {1}. Contact {0} showroom near you for prices, EMI options, and availability of {0} bike", objMake.MakeName, CityDetails.CityName, objDealerVM.TotalDealers);
+                objPage.PageMetaTags.Title = String.Format("{0} showroom in {1} | {2} {0} bike dealers - BikeWale", objMake.MakeName, CityDetails.CityName, objPage.TotalDealers);
+                objPage.PageMetaTags.Keywords = String.Format("{0} showroom {1}, {0} dealers {1}, {1} bike showroom, {1} bike dealers,{1} dealers, {1} bike showroom, bike dealers, bike showroom, dealerships", objMake.MakeName, CityDetails.CityName);
+                objPage.PageMetaTags.Description = String.Format("Find address, contact details and direction for {2} {0} showrooms in {1}. Contact {0} showroom near you for prices, EMI options, and availability of {0} bike", objMake.MakeName, CityDetails.CityName, objPage.TotalDealers);
 
             }
             catch (Exception ex)
@@ -254,23 +253,13 @@ namespace Bikewale.Models.DealerShowroom
             UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
             try
             {
-                if (makeId > 0)
-                {
-                    if (cityId > 0)
-                        UsedBikeModel.UsedBikeModelList = _objUsedCache.GetUsedBikeByModelCountInCity(makeId, cityId, TopCount);
-                    else
-                        UsedBikeModel.UsedBikeModelList = _objUsedCache.GetPopularUsedModelsByMake(makeId, TopCount);
-                }
-                else
-                {
-                    if (cityId > 0)
-                        UsedBikeModel.UsedBikeModelList = _objUsedCache.GetUsedBikeCountInCity(cityId, TopCount);
-                    else
-                        UsedBikeModel.UsedBikeModelList = _objUsedCache.GetUsedBike(TopCount);
 
-                }
+                UsedBikeModelsWidgetModel objUsedBike = new UsedBikeModelsWidgetModel(TopCount, _objUsedCache);
+                if (makeId > 0)
+                    objUsedBike.makeId = makeId;
                 if (cityId > 0)
-                    UsedBikeModel.CityDetails = CityDetails;
+                    objUsedBike.cityId = cityId;
+                UsedBikeModel = objUsedBike.GetData();
             }
             catch (Exception ex)
             {

@@ -110,7 +110,7 @@ namespace Bikewale.Models
                 BindDealerServiceData(objData, cityId, makeBase, cityBase);
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription((int)_makeId);
                 BindCMSContent(objData);
-                objData.UsedModels = new UsedBikeModelsWidgetModel(9, _makeId, cityBase, _cachedBikeDetails).GetData();
+                objData.UsedModels = BindUsedBikeByModel(_makeId, cityId);
                 BindDiscontinuedBikes(objData);
 
                 #region Set Visible flags
@@ -148,6 +148,28 @@ namespace Bikewale.Models
             }
 
             return objData;
+        }
+        private UsedBikeModelsWidgetVM BindUsedBikeByModel(uint makeId, uint cityId)
+        {
+            UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
+            try
+            {
+
+                UsedBikeModelsWidgetModel objUsedBike = new UsedBikeModelsWidgetModel(9, _cachedBikeDetails);
+                if (makeId > 0)
+                    objUsedBike.makeId = makeId;
+                if (cityId > 0)
+                    objUsedBike.cityId = cityId;
+                UsedBikeModel = objUsedBike.GetData();
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "MakePageModel.BindUsedBikeByModel()");
+            }
+
+            return UsedBikeModel;
+
         }
 
         private void BindDealerServiceData(MakePageVM objData, uint cityId, BikeMakeEntityBase makeBase, CityEntityBase cityBase)

@@ -9,6 +9,7 @@
     Model.AdTags.Ad_976x400Second = true;
     Model.IsTransparentHeader = true;
     Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/";
+    Model.IsPageTypeLanding = true;
     
 #region
     
@@ -377,6 +378,12 @@
                         <div class="bw-tabs-data padding-bottom20" id="usedByModel">
                             @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedModels)
                         </div>
+                    <div class="more-article-target view-all-btn-container padding-bottom20">
+                        <a href="/used/bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">
+                            View all used bikes<span class="bwsprite teal-right">
+                            </span>
+                        </a>
+                    </div>
                     }
                     @if (Model.IsUsedBikeCitiesAvailable)
                     {
