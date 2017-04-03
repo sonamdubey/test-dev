@@ -9,7 +9,7 @@ namespace Bikewale.Models
     /// Modified by :   Sumit Kate on 28 Mar 2017
     /// Description :   Added PageH1 property of the page for binding
     /// Modified by Sajal Gupta on 01-04-2017
-    /// Description : Added IsHeaderRequired
+    /// Description : Added IsHeaderRequired, IsAppBannerNeeded
     /// </summary>
     public class ModelBase
     {
@@ -27,6 +27,8 @@ namespace Bikewale.Models
             set { _IsHeaderRequired = value; }
         }
 
+        public bool IsPageTypeLanding { get; set; }
+
         public string Page_ATF_CSS { get; set; }
         public string Page_BTF_CSS_Path { get; set; }
         public string Page_JS_Path { get; set; }
@@ -37,6 +39,13 @@ namespace Bikewale.Models
         {
             this.PageMetaTags = new PageMetaTags();
             this.AdTags = new AdTags();
+        }
+
+        private bool _IsAppBannerNeeded = true;
+        public bool IsAppBannerNeeded
+        {
+            get { return _IsAppBannerNeeded; }
+            set { _IsAppBannerNeeded = value; }
         }
     }
 }

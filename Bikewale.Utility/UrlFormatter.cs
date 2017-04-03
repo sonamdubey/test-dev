@@ -460,6 +460,17 @@ namespace Bikewale.Utility
         {
             return string.Format("/new-{0}-bike-launches/", makeMaskingName);
         }
+
+
+        public static string FormatShowReviewLink(string makeName, string modelName)
+        {
+            return string.Format("/{0}-bikes/{1}/user-reviews/", makeName, modelName);
+        }
+
+        public static string FormatWriteReviewLink(uint modelId)
+        {
+            return String.Format("/content/userreviews/writereviews.aspx?bikem={0}", modelId);
+        }
     }
 }
 

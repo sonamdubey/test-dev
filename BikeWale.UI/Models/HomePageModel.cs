@@ -124,7 +124,7 @@ namespace Bikewale.Models
 
             objVM.UsedBikeCities = new UsedBikeCitiesWidgetModel(cityMaskingName, string.Empty, _IUsedBikesCache).GetData();
 
-            objVM.UsedModels = new UsedBikeModelsWidgetModel(9, cityBase, _cachedBikeDetails).GetData();
+            objVM.UsedModels = BindUsedBikeByModel(cityId);
 
             objVM.News = new RecentNews(3, _articles).GetData();
 
@@ -137,6 +137,28 @@ namespace Bikewale.Models
 
 
             return objVM;
+        }
+
+        private UsedBikeModelsWidgetVM BindUsedBikeByModel(uint cityId)
+        {
+            UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
+            try
+            {
+
+                UsedBikeModelsWidgetModel objUsedBike = new UsedBikeModelsWidgetModel(9, _cachedBikeDetails);
+
+                if (cityId > 0)
+                    objUsedBike.cityId = cityId;
+                UsedBikeModel = objUsedBike.GetData();
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "HomePageModel.BindUsedBikeByModel()");
+            }
+
+            return UsedBikeModel;
+
         }
 
         /// <summary>

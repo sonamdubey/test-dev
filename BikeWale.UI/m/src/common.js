@@ -851,7 +851,7 @@ docReady(function () {
     //App Banner
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
     var appbanner = getCookie("AppBanner");
-    if ((appbanner == null || appbanner == "show") && !isSafari) {
+    if ((appbanner == null || appbanner == "show") && !isSafari) {        
         var hideBannerPages = ['7', '14'];
         if (ga_pg_id == 2) {
             if (typeof isDealerPQ !== 'undefined') {
