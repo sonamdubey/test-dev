@@ -4,7 +4,7 @@
     @if (!Model.IsUpcomingBike && Model.ModelPageEntity.ModelDetails.MinPrice > 0)
     {
         <h2 class="margin-bottom0">@Model.BikeName summary</h2>
-        <div class="@(Model.bikeRankObj!=null && Model.bikeRankObj.Rank > 0 ? " grid-8 " : " grid-12 omega ") alpha margin-top15">
+        <div class="@(Model.BikeRanking != null && Model.BikeRanking.Rank > 0 ? " grid-8 " : " grid-12 omega ") alpha margin-top15">
             <!-- add class - grid-12 and omega, if no slug instead of grid-8 -->
             <p class="font14 text-light-grey line-height17 margin-bottom15">@Model.ModelSummary</p>
         </div>

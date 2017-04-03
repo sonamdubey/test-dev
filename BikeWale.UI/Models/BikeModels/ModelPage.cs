@@ -125,9 +125,8 @@ namespace Bikewale.Models.BikeModels
                     if (objData.IsModelDetails && objData.ModelPageEntity.ModelDetails.New)
                     {
                         FetchOnRoadPrice(objData.ModelPageEntity);
+                        LoadVariants(objData.ModelPageEntity);
                     }
-
-                    LoadVariants(objData.ModelPageEntity);
 
                     BindControls();
 
@@ -202,60 +201,64 @@ namespace Bikewale.Models.BikeModels
                 if (objData != null && objData.IsModelDetails)
                 {
                     var objMake = objData.ModelPageEntity.ModelDetails.MakeBase;
-                    objData.PriceInTopCities = new PriceInTopCities(_objPQCache, _modelId, 8).GetData();
-
 
                     objData.News = new RecentNews(2, (uint)objMake.MakeId, objData.ModelId, objMake.MakeName, objMake.MaskingName, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, string.Format("{0} News", objData.BikeName), _objArticles).GetData();
                     objData.ExpertReviews = new RecentExpertReviews(2, (uint)objMake.MakeId, objData.ModelId, objMake.MakeName, objMake.MaskingName, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, _objArticles, string.Format("{0} Reviews", objData.BikeName)).GetData();
                     objData.Videos = new RecentVideos(1, 2, (uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, objData.ModelId, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, _objVideos).GetData();
 
-                    DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
-                    objDealer.TopCount = OtherDealersTopCount;
-                    objData.OtherDealers = objDealer.GetData();
 
-                    objData.LeadCapture = new LeadCaptureEntity()
+                    if (!objData.IsUpcomingBike)
                     {
-                        ModelId = _modelId,
-                        CityId = _cityId,
-                        AreaId = _areaId,
-                        Area = objData.LocationCookie.Area,
-                        City = objData.LocationCookie.City,
-                        Location = objData.Location,
-                        BikeName = objData.BikeName
+                        DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
+                        objDealer.TopCount = OtherDealersTopCount;
+                        objData.OtherDealers = objDealer.GetData();
 
-                    };
+                        objData.LeadCapture = new LeadCaptureEntity()
+                        {
+                            ModelId = _modelId,
+                            CityId = _cityId,
+                            AreaId = _areaId,
+                            Area = objData.LocationCookie.Area,
+                            City = objData.LocationCookie.City,
+                            Location = objData.Location,
+                            BikeName = objData.BikeName
 
-                    var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, objData.VersionId, PQSourceEnum.Desktop_DPQ_Alternative);
-                    if (objSimilarBikes != null)
-                    {
-                        objSimilarBikes.TopCount = 9;
-                        objSimilarBikes.CityId = _cityId;
-                        objData.SimilarBikes = objSimilarBikes.GetData();
+                        };
+
+                        var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, objData.VersionId, PQSourceEnum.Desktop_DPQ_Alternative);
+                        if (objSimilarBikes != null)
+                        {
+                            objSimilarBikes.TopCount = 9;
+                            objSimilarBikes.CityId = _cityId;
+                            objData.SimilarBikes = objSimilarBikes.GetData();
+                        }
+
+                        objData.PopularComparisions = new PopularModelCompareWidget(_objCompare, 9, _cityId, objData.VersionId.ToString()).GetData();
+
+                        if (_cityId > 0)
+                        {
+                            var dealerData = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
+                            dealerData.TopCount = 3;
+                            objData.OtherDealers = dealerData.GetData();
+                            objData.ServiceCenters = new ServiceCentersCard(_objServiceCenter, 3, objMake, new CityEntityBase() { CityId = _cityId, CityMaskingName = objData.LocationCookie.City, CityName = objData.LocationCookie.City }).GetData();
+                        }
+                        else
+                        {
+                            objData.DealersServiceCenter = new DealersServiceCentersIndiaWidgetModel((uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, _objDealerCache).GetData();
+                        }
+
+                        objData.UsedModels = new UsedBikeModelsWidgetModel(9, (uint)objMake.MakeId, new CityEntityBase() { CityId = _cityId, CityMaskingName = objData.LocationCookie.City, CityName = objData.LocationCookie.City }, _objUsedBikescache).GetData();
+
+                        objData.PriceInTopCities = new PriceInTopCities(_objPQCache, _modelId, 8).GetData();
+
+                        GetBikeRankingCategory(); 
                     }
-
-                    objData.PopularComparisions = new PopularModelCompareWidget(_objCompare, 9, _cityId, objData.VersionId.ToString()).GetData();
-
-                    if (_cityId > 0)
-                    {
-                        var dealerData = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
-                        dealerData.TopCount = 3;
-                        objData.OtherDealers = dealerData.GetData();
-                        objData.ServiceCenters = new ServiceCentersCard(_objServiceCenter, 3, objMake, new CityEntityBase() { CityId = _cityId, CityMaskingName = objData.LocationCookie.City, CityName = objData.LocationCookie.City }).GetData();
-                    }
-                    else
-                    {
-                        objData.DealersServiceCenter = new DealersServiceCentersIndiaWidgetModel((uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, _objDealerCache).GetData();
-                    }
-
-                    objData.UsedModels = new UsedBikeModelsWidgetModel(9, (uint)objMake.MakeId, new CityEntityBase() { CityId = _cityId, CityMaskingName = objData.LocationCookie.City, CityName = objData.LocationCookie.City }, _objUsedBikescache).GetData();
-
-                    GetBikeRankingCategory();
                 }
 
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.DealerPriceQuotePage.BindPageWidgets");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindControls");
             }
         }
 
