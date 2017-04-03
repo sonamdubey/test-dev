@@ -3714,6 +3714,8 @@
     <Content Include="Views\Videos\CategoryVideos_Mobile.cshtml" />
     <Content Include="Views\BikeCare\Detail.cshtml" />
     <Content Include="Views\BikeCare\Detail_Mobile.cshtml" />
+    <Content Include="Views\Videos\Index.cshtml" />
+    <Content Include="Views\Videos\Models.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -4,10 +4,11 @@
 
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/videos/videosByModel.css' />";    
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/videos/videosByModel.css' />";
     Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/videos/", Model.Make.MaskingName, Model.Model.MaskingName);
     Model.IsHeaderFix = false;
     Model.IsHeaderRequired = false;
+    Model.IsAppBannerNeeded = false;
 }
 
 @if (Model != null && Model.Make != null && Model.Model != null)
@@ -51,7 +52,11 @@
 
     if (Model.BikeInfoWidgetData != null)
     {
-        @Html.Partial("~/Views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfoWidgetData)
+        <section >
+            <div class="container bg-white box-shadow section-bottom-margin margin-bottom10">
+                @Html.Partial("~/Views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfoWidgetData)
+            </div>
+        </section>
     }
 
     if (Model.SimilarBikeVideoList != null && Model.SimilarBikeVideoList.Count() > 0)

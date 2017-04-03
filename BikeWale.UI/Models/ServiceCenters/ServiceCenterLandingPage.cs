@@ -64,9 +64,9 @@ namespace Bikewale.Models.ServiceCenters
                 objVM.PopularWidgetData = objPopularBikesWidget.GetData();
                 objVM.NewLaunchWidgetData = new NewLaunchedWidgetModel(NewLaunchedBikesWidgtData, _newLaunches).GetData();
                 objVM.UpcomingWidgetData = BindUpCompingBikesWidget();
-                objVM.UsedBikesModelWidgetData = new UsedBikeModelsWidgetVM();
-                objVM.UsedBikesModelWidgetData.UsedBikeModelList = _objUsedCache.GetUsedBike(UsedBikeModelWidgetTopCount);
                 BindCity(objVM);
+                objVM.UsedBikesModelWidgetData = new UsedBikeModelsWidgetVM();
+                objVM.UsedBikesModelWidgetData.CityDetails = objVM.City;
                 objVM.UsedBikesCityWidgetData = BindUsedBikeCityWidget(objVM);
                 BindPageMetas(objVM);
 
@@ -122,11 +122,13 @@ namespace Bikewale.Models.ServiceCenters
 
                 if (objVM.City != null)
                 {
+                    objVM.UsedBikesModelWidgetData.UsedBikeModelList = _objUsedCache.GetUsedBikeCountInCity(objVM.City.CityId, UsedBikeModelWidgetTopCount);
                     cityWidgetTitle = string.Format("Second hand bikes in {0}", objVM.City.CityName);
                     cityWidgetHref = string.Format("/used/bikes-in-{0}/", objVM.City.CityMaskingName);
                 }
                 else
                 {
+                    objVM.UsedBikesModelWidgetData.UsedBikeModelList = _objUsedCache.GetUsedBike(UsedBikeModelWidgetTopCount);
                     cityWidgetTitle = "Second hand bikes in India";
                     cityWidgetHref = "/used/bikes-in-india/";
                 }
