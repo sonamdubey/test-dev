@@ -62,7 +62,7 @@
                                     @foreach (var photo in Model.PhotoGallery.Images)
                                     {
                                         <div class="swiper-slide">
-                                            <img class="swiper-lazy" title="@photo.ImageName" alt="@photo.ImageName" data-src="@Image.GetPathToShowImages(photo.OriginalImgPath,photo.HostUrl,ImageSize._110x61)">
+                                            <img class="swiper-lazy" title="@photo.ImageName" alt="@photo.ImageName" data-src="@Image.GetPathToShowImages(photo.OriginalImgPath, photo.HostUrl, ImageSize._110x61, QualityFactor._70)">
                                             <span class="swiper-lazy-preloader"></span>
                                         </div>
                                     }
@@ -127,7 +127,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingBikes)
+                        @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile.cshtml", Model.UpcomingBikes)
                     </div>
                 </section>
             }

@@ -13,7 +13,7 @@
                 <div class="grid-4 alpha">
                     <div class="model-preview-image-container">
                         <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News))">
-                            <img class="lazy" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._310x174)" title="@news.Title" alt="@news.Title" src="">
+                            <img class="lazy" data-original="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._310x174, QualityFactor._75)" title="@news.Title" alt="@news.Title" src="">
                         </a>
                     </div>
                 </div>
