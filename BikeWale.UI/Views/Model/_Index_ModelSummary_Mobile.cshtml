@@ -13,7 +13,7 @@
                 <span class="offers-sprite specs-capacity"></span>
                 <p class="font12 text-light-grey">
                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement)
-                    @if(Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement).Equals("--"))
+                    @if(!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement).Equals("--"))
                 {
                 <span>&nbsp;cc</span>
                 }
@@ -23,7 +23,7 @@
                 <span class="offers-sprite specs-mileage"></span>
                 <p class="font12 text-light-grey">
                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall)
-                    @if(Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall).Equals("--"))
+                    @if(!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall).Equals("--"))
                 {
                 <span>&nbsp;kmpl</span>
                 }
@@ -33,7 +33,7 @@
                 <span class="offers-sprite specs-maxpower"></span>
                 <p class="font12 text-light-grey">
                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower)
-                    @if(Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower).Equals("--"))
+                    @if(!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower).Equals("--"))
                 {
                 <span>&nbsp;bhp</span>
                 }
@@ -43,7 +43,7 @@
                 <span class="offers-sprite specs-weight"></span>
                 <p class="font12 text-light-grey">
                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight)
-                    @if(Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight).Equals("--"))
+                    @if(!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight).Equals("--"))
                 {
                 <span>&nbsp;kgs</span>
                 }

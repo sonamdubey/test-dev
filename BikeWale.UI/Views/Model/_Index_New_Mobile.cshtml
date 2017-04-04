@@ -55,17 +55,17 @@
 
                 </div>
 
+                @if (Model.ManufacturerCampaign != null && Model.ManufacturerCampaign.ShowAd)
+                {
+                    @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
+                }
+
                 @if (Model.ModelPageEntity.ModelVersionSpecs != null)
                 {
                     @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
                 }
 
             </div>
-
-            @if (Model.ManufacturerCampaign != null && Model.ManufacturerCampaign.ShowAd)
-            {
-                @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
-            }
 
             @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
 
