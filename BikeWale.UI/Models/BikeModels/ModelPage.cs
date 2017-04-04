@@ -253,6 +253,11 @@ namespace Bikewale.Models.BikeModels
                         objData.UsedModels = BindUsedBikeByModel((uint)objMake.MakeId, _cityId);
 
                         objData.PriceInTopCities = new PriceInTopCities(_objPQCache, _modelId, 8).GetData();
+                        if ((objData.PriceInTopCities != null && objData.PriceInTopCities.PriceQuoteList != null && objData.PriceInTopCities.PriceQuoteList.Count() > 0 )|| (objData.ModelPageEntity.ModelVersions != null && objData.ModelPageEntity.ModelVersions.Select(x => x.Price > 0).FirstOrDefault() && objData.ModelPageEntity.ModelVersions.Count > 0))
+                        {
+                            objData.IsShowPriceTab = true;
+                        }
+
 
                         GetBikeRankingCategory();
 
