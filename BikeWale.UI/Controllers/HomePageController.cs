@@ -47,7 +47,7 @@ namespace Bikewale.Controllers
             _expertReviews = expertReviews;
         }
         // GET: HomePage
-        [Route("homepage/")]
+        //[Route("homepage/")]
         [DeviceDetection]
         public ActionResult Index()
         {

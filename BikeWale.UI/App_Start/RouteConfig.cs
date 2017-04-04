@@ -17,6 +17,7 @@ namespace Bikewale
             routes.IgnoreRoute("{*allcss}", new { allcss = @".*\.css(/.*)?" });
             routes.IgnoreRoute("{*alljs}", new { alljs = @".*\.js(/.*)?" });
 
+
             routes.MapRoute(
                 name: "bikewale.ui.m",
                 url: "m/{controller}/{action}/{id}"
@@ -26,8 +27,8 @@ namespace Bikewale
 
             routes.MapRoute(
                 name: "bikewale.ui",
-                url: "{controller}/{action}/{id}"
-                //defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "HomePage", action = "Index", id = UrlParameter.Optional }
                 //namespaces: new[] { "Bikewale.Desktop.Controllers" }
             );
         }
