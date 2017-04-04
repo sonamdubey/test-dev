@@ -5,6 +5,7 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 namespace Bikewale.Models.BikeModels
@@ -18,7 +19,7 @@ namespace Bikewale.Models.BikeModels
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DetailedDealer { get; set; }
         public ManufacturerCampaign ManufacturerCampaign { get; set; }
         public LeadCaptureEntity LeadCapture { get; set; }
-
+        public IEnumerable<BestBikeEntityBase> objBestBikesList { get; set; }
         public uint VersionId { get; set; }
         public uint DealerId { get; set; }
         public uint PQId { get; set; }
