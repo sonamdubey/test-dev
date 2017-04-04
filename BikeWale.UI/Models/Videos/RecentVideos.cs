@@ -66,6 +66,7 @@ namespace Bikewale.Models
                 recentVideos.VideosList = _videos.GetVideosByMakeModel(_pageNo, _pageSize, _makeId, _modelId);
                 if (recentVideos.VideosList != null)
                 {
+                    recentVideos.VideosList = recentVideos.VideosList.Take(_pageSize);
                     if (string.IsNullOrEmpty(_makeMasking) && string.IsNullOrEmpty(_modelMasking))
                     {
                         recentVideos.MoreVideoUrl = string.Format("/bike-videos/");

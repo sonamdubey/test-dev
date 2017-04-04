@@ -1,10 +1,9 @@
 var imgTitle, imgTotalCount, getOffersClicked = false, popupDiv, gallery;
-var bodHt, footerHt, scrollPosition;
+var bodHt, footerHt, scrollPosition, versionCount;
 var sortByDiv, sortListDiv, sortCriteria, sortByDiv, sortListDiv, sortListLI;
 
 var dealersPopupDiv, dealerOffersDiv, termsConditions;
-var currentStagePhoto, currentStageActiveImage, dropdown, videosThumbs, galleryThumbs, slidegalleryThumbs, galleryTop, navigationVideosLI;
-var videoiFrame = document.getElementById("video-iframe");
+var dropdown;
 var window, overallSpecsTabsContainer, modelSpecsTabsContentWrapper, modelSpecsFooter, topNavBarHeight;
 
 function getBikeVersion() {
@@ -63,22 +62,6 @@ function LoadTerms(offerId) {
     $('#termspinner').hide();
 }
 
-function showImgTitle(swiper) {
-    try {
-        if (swiper.activeIndex != null) {
-            imgTitle = $(galleryTop.slides[swiper.activeIndex]).find('img').attr('title');
-            imgTotalCount = galleryThumbs.slides.length;
-            $(".media-title").text(imgTitle);
-            $(".gallery-count").text(swiper.activeIndex + 1 + " of " + imgTotalCount.toString());
-            currentStagePhoto = $(".connected-carousels-photos .stage-photos");
-            currentStageActiveImage = currentStagePhoto.find(".swiper-slide.swiper-slide-active img");
-            currentStagePhoto.find('.carousel-stage-photos').css({ 'height': currentStageActiveImage.height() });
-        }
-    } catch (e) {
-        console.warn(e);
-    }
-}
-
 function scrollHorizontal(pos) {
     $('#overallSpecsTab').animate({ scrollLeft: pos + 'px' }, 500);
 }
@@ -97,21 +80,8 @@ function centerItVariableWidth(target, outer) {
     out.animate({ scrollLeft: Math.max(0, q - (x - y) / 2) }, 500, 'swing');
 }
 
-var firstVideo = function () {
-    var a = $(".carousel-navigation-videos .swiper-wrapper").first(".swiper-slide");
-    var newSrc = a.find("img").attr("iframe-data");
-    videoiFrame.setAttribute("src", newSrc);
-};
-
 var appendState = function (state) {
     window.history.pushState(state, '', '');
-};
-
-var slideToClick = function (swiper) {
-    var clickedSlide = swiper.slides[swiper.clickedIndex];
-    $('.carousel-navigation-photos .swiper-slide').removeClass('swiper-slide-active');
-    $(clickedSlide).addClass('swiper-slide-active');
-    galleryTop.slideTo(swiper.clickedIndex, 500);
 };
 
 docReady(function () {
@@ -142,17 +112,8 @@ docReady(function () {
 
     $('.overall-specs-tabs-wrapper li').first().addClass('active');
 
-    // remove tabs highlight class for combined sections
-    var newsContent = $('#makeNewsContent'),
-        alternativeContent = $('#modelAlternateBikeContent'),
-        makeDealersContent = $('#makeDealersContent');
+    var makeDealersContent = $('#makeDealersContent');
 
-    if (newsContent.length != 0) { // check if news content is present
-        newsContent.removeClass('bw-model-tabs-data').addClass('model-news-content');
-    }
-    if (alternativeContent.length != 0) {
-        alternativeContent.removeClass('bw-model-tabs-data margin-bottom20');
-    }
     if (makeDealersContent.length != 0) {
         makeDealersContent.removeClass('bw-model-tabs-data');
     }
@@ -187,7 +148,6 @@ docReady(function () {
 
                 var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('id') + '"]');
                 overallSpecsTabsContainer.find(currentActiveTab).addClass('active');
-
             }
         });
 
@@ -216,9 +176,8 @@ docReady(function () {
         centerItVariableWidth($(this), '.overall-specs-tabs-container');
         return false;
     });
-
-
-
+    
+    // dropdown
     dropdown = {
         setDropdown: function () {
             var selectDropdown = $('.dropdown-select');
@@ -304,56 +263,23 @@ docReady(function () {
             $('.dropdown-select-wrapper').find('.dropdown-list-wrapper').css('width', newWidth / 2);
         }
     };
-
-
-    videosThumbs = new Swiper('.carousel-navigation-videos', {
-        slideActiveClass: '',
-        spaceBetween: 0,
-        slidesPerView: 'auto',
-        slideToClickedSlide: true,
-        preloadImages: false,
-        lazyLoading: true,
-        lazyLoadingInPrevNext: true,
-        watchSlidesProgress: true,
-        watchSlidesVisibility: true
-    });
-
-    galleryThumbs = new Swiper('.carousel-navigation-photos', {
-        slideActiveClass: '',
-        spaceBetween: 0,
-        slidesPerView: 'auto',
-        slideToClickedSlide: true,
-        preloadImages: false,
-        lazyLoading: true,
-        lazyLoadingInPrevNext: true,
-        watchSlidesProgress: true,
-        watchSlidesVisibility: true,
-        onTap: slideToClick
-    });
-
-    slidegalleryThumbs = function (swiper) {
-        galleryThumbs.slideTo(swiper.activeIndex, 500);
-        galleryThumbs.slides.removeClass('swiper-slide-active');
-        galleryThumbs.slides[swiper.activeIndex].className += ' swiper-slide-active';
-
-        showImgTitle(galleryTop);
-    };
-
-    galleryTop = new Swiper('.carousel-stage-photos', {
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        spaceBetween: 10,
-        preloadImages: false,
-        lazyLoading: true,
-        lazyLoadingInPrevNext: true,
-        watchSlidesProgress: true,
-        watchSlidesVisibility: true,
-        onSlideChangeEnd: slidegalleryThumbs
-    });
-
 });
 
 docReady(function () {
+
+    var gallerySwiper = new Swiper('#model-photos-swiper', {
+        spaceBetween: 0,        
+        nextButton: '.gallery-type-next',
+        prevButton: '.gallery-type-prev'
+    });
+
+    var photosCount = 100;
+    if (photosCount > 10) {
+        var overlayCount = '<span class="black-overlay text-white"><span class="font16 text-bold">+' + photosCount + '</span><br><span class="font14">images</span></span>';
+
+        $("#model-photos-swiper .swiper-slide").last().append(overlayCount);
+    }
+
     popupDiv = {
         open: function (div) {
             div.show();
@@ -565,9 +491,9 @@ docReady(function () {
         footerHt = $('footer').height();
         scrollPosition = $(this).scrollTop();
         if (scrollPosition + $(window).height() > (bodHt - footerHt))
-            $('.float-button').hide().removeClass('float-fixed');
+            $('.floating-btn').hide();
         else
-            $('.float-button').show().addClass('float-fixed');
+            $('.floating-btn').show();
     });
 
     sortByDiv.click(function () {
@@ -636,17 +562,10 @@ docReady(function () {
         }
     });
 
-    /* model gallery */
-    $('#model-main-image').on('click', function () {
-        gallery.open();
-        window.dispatchEvent(new Event('resize'));
-        appendState('gallery');
-
-        $("#photos-tab").trigger('click');
-        // slide thumbnail to active gallery image
-        galleryThumbs.slideTo(galleryTop.activeIndex, 500);
+    $('.view-cities-link').on('click', function () {
+        $('#more-cities-list').slideDown();
+        $(this).closest('div').hide();
     });
-
 
     $('#locslug').on('click', function (e) {
         triggerGA('Model_Page', 'Booking_Benefits_City_Link_Clicked', myBikeName + '_' + getBikeVersion());
@@ -681,11 +600,4 @@ docReady(function () {
         videoiFrame.setAttribute("src", newSrc);
         window.dispatchEvent(new Event('resize'));
     });
-
-    // model gallery
-    $('.carousel-navigation-photos .swiper-slide').first().addClass('swiper-slide-active');
-    showImgTitle(galleryTop);
-    $('#videos').hide();
-
 });
-

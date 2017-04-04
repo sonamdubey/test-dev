@@ -21,7 +21,7 @@
                             @(Regex.Match(article.AuthorName, @"\b(sponsored)\b", RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "")
                             <div class="article-wrapper">
                                 <div class="article-image-wrapper">
-                                    <img class="lazy" alt='Expert Review: @article.Title' title="Expert reviews: @article.Title" data-original='@Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._110x61)' width="100%" border="0" src="">
+                                    <img class="lazy" alt='Expert Review: @article.Title' title="Expert reviews: @article.Title" data-original='@Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._110x61, QualityFactor._70)' width="100%" border="0" src="">
                                 </div>
                                 <div class="padding-left10 article-desc-wrapper">
                                     <h2 class="font14">Expert Review: @article.Title</h2>
@@ -109,7 +109,7 @@ else
                     </div>
                     <div class="clear"></div>
                 </div>
-                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingBikes)
+                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile.cshtml", Model.UpcomingBikes)
             </div>
         </section>
     }

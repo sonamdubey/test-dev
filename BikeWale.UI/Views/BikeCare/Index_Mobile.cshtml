@@ -21,7 +21,7 @@
                         <div class="article-item-content">
                             <div class="article-wrapper">
                                 <div class="article-image-wrapper">
-                                    <img class="lazy" alt='Bike Care:@article.Title' title="Bike Care: @article.Title" data-original="@Image.GetPathToShowImages(article.OriginalImgUrl,article.HostUrl,ImageSize._110x61)" width="100%" border="0" src="">
+                                    <img class="lazy" alt='Bike Care:@article.Title' title="Bike Care: @article.Title" data-original="@Image.GetPathToShowImages(article.OriginalImgUrl,article.HostUrl,ImageSize._110x61,QualityFactor._70)" width="100%" border="0" src="">
                                 </div>
                                 <div class="padding-left10 article-desc-wrapper">
                                     <h2 class="font14">Bike Care: @article.Title</h2>
@@ -80,11 +80,11 @@
                     <h2>@Model.UpcomingBikes.WidgetHeading</h2>
                 </div>
                 <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="@string.Format("/m{0}", Model.UpcomingBikes.WidgetHref)" t title="@Model.UpcomingBikes.WidgetLinkTitle" cl class="btn view-all-target-btn">View all</a>
+                    <a href="@string.Format("/m{0}", Model.UpcomingBikes.WidgetHref)" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
                 </div>
                 <div class="clear"></div>
             </div>
-            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingBikes)
+            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile.cshtml", Model.UpcomingBikes)
         </div>
     </section>
 }

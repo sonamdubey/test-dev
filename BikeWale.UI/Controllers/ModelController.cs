@@ -83,9 +83,30 @@ namespace Bikewale.Controllers
             }
         }
 
-        public ActionResult Index_Mobile()
+        [Route("m/model/{makeMasking}-bikes/{modelMasking}/")]
+        public ActionResult Index_Mobile(string makeMasking, string modelMasking, uint? versionId)
         {
-            return View();
+            ModelPage obj = new ModelPage(makeMasking, modelMasking, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersionCache, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _objCompare, _userReviewCache, _usedBikesCache);
+
+            if (obj.Status.Equals(StatusCodes.ContentFound))
+            {
+                ModelPageVM objData = obj.GetData(versionId);
+                //if data is null check for new bikes page redirection
+                if (obj.Status.Equals(StatusCodes.RedirectPermanent))
+                {
+                    return RedirectPermanent(obj.RedirectUrl);
+                }
+                else return View(objData);
+
+            }
+            else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
+            {
+                return RedirectPermanent(obj.RedirectUrl);
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
         }
 
 

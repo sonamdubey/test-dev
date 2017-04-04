@@ -423,10 +423,6 @@
         </footer><!-- Ends here -->
         @Html.Partial("~/Views/Shared/_LoginControl.cshtml")
         <script>
-            docReady(function () {
-                if ($(window).width() < 996 && $(window).width() > 790)
-                    $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
-            });
             var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
         </script>
         <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>

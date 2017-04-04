@@ -1,0 +1,91 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@using Bikewale.Common;
+@using Bikewale.BikeBooking;
+
+<section>
+    <div class="contaniner clearfix">
+        <span itemprop="name" class="hide">@Model.BikeName</span>
+        <div class="padding-top10 padding-left20 padding-right20 bg-white">
+            <h1 class="padding-bottom5">@Model.BikeName</h1>
+            @Html.Partial("~/Views/Model/_Index_Reviews_Mobile.cshtml", Model)
+        </div>
+
+        <div id="modelSpecsTabsContentWrapper">
+            <div id="modelOverallSpecsTopContent" class="bg-white position-rel">
+                <div id="overallSpecsTab" class="overall-specs-tabs-container">
+                    @Html.Partial("~/Views/Model/_Index_Tabs_Mobile.cshtml", Model)
+                </div>
+            </div>
+        </div>
+
+        <div id="overviewContent" class="bw-model-tabs-data card-bottom-margin content-details-wrapper">
+            <div class="content-box-shadow card-bottom-margin">
+                @Html.Partial("~/Views/Model/_Index_ModelGallery_Mobile.cshtml", Model)
+
+                <div class="floating-btn clearfix">
+                    <div class="grid-6 alpha omega">
+                        <a class="btn btn-orange btn-full-width" href="javascript:void(0);">Get offers</a>
+                    </div>
+                    <div class="grid-6 alpha omega">
+                        <a class="btn btn-green btn-full-width" href=""><span class="bwmsprite tel-white-icon margin-right10"></span>Call dealer</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="elevated-shadow-top">
+                    @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs_Mobile.cshtml", Model)
+                    <div class="clear"></div>
+
+                    <div class="padding-10-20" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <p class="font12 text-light-grey">@(Model.IsLocationSelected ? "On-road" : "Ex-showroom ") price in @Model.Location</p>
+                        <div>
+                            <span itemprop="priceCurrency" content="INR">
+                                @if (Model.BikePrice != 0)
+                                {
+                                    <span class="bwmsprite inr-lg-icon"></span>
+                                    <span class="font24 text-bold padding-right5" itemprop="price" content="@Model.BikePrice">@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
+                                }
+                                else
+                                {
+                                    <span class="font18 text-bold" itemprop="price" content="0">Price not available</span>
+                                }
+                            </span>
+                            @if (Model.IsLocationSelected)
+                            {
+                                <a href="/m/pricequote/dealerpricequote.aspx?MPQ=<%= detailedPriceLink %>" class="font14 text-bold viewBreakupText" rel="nofollow">View detailed price</a>
+                            }
+                        </div>
+                    </div>
+
+                    @if (Model.IsDealerDetailsExists)
+                    {
+                        @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Mobile.cshtml", Model)
+                    }
+
+                </div>
+
+            </div>
+
+            @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+            {
+                @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
+            }
+            
+        </div>
+
+        @if (Model.ManufacturerCampaign != null && Model.ManufacturerCampaign.ShowAd)
+        {
+            @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
+        }
+        
+        @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
+
+
+    </div>
+</section>
+
+
+@if (Model.LeadCapture != null && Model.IsLocationSelected)
+{
+    @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
+}

@@ -42,7 +42,7 @@
         <div id="model-version-dropdown" class="padding-top25">
             <div class="select-box select-box-no-input done size-small">
                 <p class="select-label">Version</p>
-                <select id="ddlVersion" class="chosen-select" data-title="Version" data-selected-version="@Model.VersionId">
+                <select id="ddlVersion" class="chosen-select" data-title="Version" data-selected-version="@Model.VersionId" data-pageurl="@Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)">
                     @foreach (var version in Model.ModelPageEntity.ModelVersions)
                     {
                         <option value="@version.VersionId" @(version.VersionId == Model.VersionId ? "selected" : "")>@version.VersionName</option>

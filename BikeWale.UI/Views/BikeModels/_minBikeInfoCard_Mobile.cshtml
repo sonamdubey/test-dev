@@ -13,11 +13,11 @@
                 <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                 }
             <div class="clear"></div>
-            <a href="@Model.BikeUrl" class="item-image-content vertical-top" title="@Model.BikeName">
-                <img class="lazy" data-original="@Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath,Model.BikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61)" src="" alt="@Model.BikeName" />
+            <a href="@string.Format("/m{0}",Model.BikeUrl)" class="item-image-content vertical-top" title="@Model.BikeName">
+                <img class="lazy" data-original="@Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath, Model.BikeInfo.HostUrl, ImageSize._110x61, QualityFactor._70)" src="" alt="@Model.BikeName" />
             </a>
             <div class="bike-details-block vertical-top">
-                <a href="@Model.BikeUrl" class="block text-default margin-bottom5" title="@Model.BikeName">
+                <a href="@string.Format("/m{0}",Model.BikeUrl)" class="block text-default margin-bottom5" title="@Model.BikeName">
                     <h3 class="text-truncate">@Model.BikeName</h3>
                 </a>
                 @if (Model.IsDiscontinued)
@@ -65,7 +65,7 @@
                 @foreach (var Tabsdetails in Model.BikeInfo.Tabs)
                 {
                     <li>
-                        <a href="@String.Format("/m{0}", Tabsdetails.URL)" title="@String.Format(" {0} {1}",Model.BikeName, Tabsdetails.Title)">
+                        <a href="@string.Format("/m{0}", Tabsdetails.URL)" title="@string.Format("{0} {1}",Model.BikeName, Tabsdetails.Title)">
                             <span class="bwmsprite @Tabsdetails.IconText-sm"></span>
                             <span class="icon-label">@Tabsdetails.TabText</span>
                         </a>
@@ -77,7 +77,7 @@
         @if (Model.BikeInfo.UsedBikeCount > 0)
         {
             <div class="border-solid-bottom margin-top5 margin-bottom10"></div>
-            <a href="@String.Format("/m{0}", UrlFormatter.UsedBikesUrlNoCity(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName,(Model.CityDetails!=null)?Model.CityDetails.CityMaskingName:"india"))" title="Used @Model.BikeName" class="block text-default hover-no-underline">
+            <a href="@string.Format("/m{0}", UrlFormatter.UsedBikesUrlNoCity(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName,(Model.CityDetails!=null)?Model.CityDetails.CityMaskingName:"india"))" title="Used @Model.BikeName" class="block text-default hover-no-underline">
                 <span class="used-target-label inline-block">
                     <span class="font14 text-bold">@Model.BikeInfo.UsedBikeCount Used @Model.BikeInfo.Model.ModelName bikes</span><br />
                     <span class="font12 text-light-grey">starting at <span class="bwmsprite inr-12-grey margin-right5"></span>@Format.FormatNumeric(Convert.ToString(Model.BikeInfo.UsedBikeMinPrice))</span>
