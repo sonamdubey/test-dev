@@ -541,6 +541,16 @@ namespace Bikewale.Models.BikeModels
                                 objData.BikePrice = (uint)objData.SelectedVersion.Price;
                             }
                         }
+
+                        if (modelPg.ModelDetails.PhotosCount > 0 && modelPg.AllPhotos != null && modelPg.AllPhotos.Count() > 0)
+                        {
+                            var colorImages = modelPg.AllPhotos.Where(x => x.ColorId > 0);
+                            if (colorImages != null)
+                            {
+                                objData.ModelColorPhotosCount = colorImages.Count();
+                            }
+
+                        }
                     }
                 }
             }

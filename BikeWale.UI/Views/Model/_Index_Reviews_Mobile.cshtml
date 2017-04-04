@@ -15,9 +15,9 @@
                 <meta itemprop="itemreviewed" content="@Model.BikeName" />
                 @if (Model.ModelPageEntity.ModelDetails.ReviewRate > 0)
                 {
-                    <a href="/m/@Bikewale.Utility.UrlFormatter.FormatWriteReviewLink(Model.ModelId)" class="border-light-left leftfloat margin-right10 padding-left10 font12">
+                    <span class="border-light-left leftfloat margin-right10 padding-left10 font12 text-black">
                         <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span>&nbsp;<span>Reviews</span>
-                    </a>
+                    </span>
                 }
             </span>
         </div>

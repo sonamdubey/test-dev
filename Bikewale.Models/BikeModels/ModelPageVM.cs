@@ -74,7 +74,7 @@ namespace Bikewale.Models.BikeModels
         public UsedBikeByModelCityVM UsedModels { get; set; }
         public ReviewListBase UserReviews { get; set; }
 
-        public bool AreModelPhotosAvailable { get { return (this.ModelPageEntity != null && this.ModelPageEntity.AllPhotos.Count() > 0); } }
+        public bool AreModelPhotosAvailable { get { return (this.ModelPageEntity != null && ModelPageEntity.AllPhotos != null && this.ModelPageEntity.AllPhotos.Count() > 0); } }
         public bool IsNewsAvailable { get { return (News != null && News.FetchedCount > 0); } }
         public bool IsReviewsAvailable { get { return (ExpertReviews != null && ExpertReviews.FetchedCount > 0); } } //includes user reviews need to add
         public bool IsVideosAvailable { get { return (Videos != null && Videos.VideosList != null && Videos.FetchedCount > 0 && Videos.VideosList.Count() > 0); } }
@@ -97,8 +97,9 @@ namespace Bikewale.Models.BikeModels
         //public ModelPageVM viewModel = null;
         public BikeRankingPropertiesEntity BikeRanking { get; set; }
         public string ModelSummary { get; set; }
-
         public uint CampaignId { get; set; }
+
+        public int ModelColorPhotosCount { get; set; }
     }
 
 }

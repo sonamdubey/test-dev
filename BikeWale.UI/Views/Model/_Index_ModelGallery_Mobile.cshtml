@@ -61,13 +61,13 @@
         </a>
     </li>
     }
-    @if (Model.IsModelColorsAvailable)
+    @if (Model.IsModelColorsAvailable && Model.AreModelPhotosAvailable)
     {
     <li>
         <a title="@Model.BikeName Colors" href="javascript:void(0)" >
             <span class="bwmsprite colors-sm"></span>
             <span class="inline-block">
-                <span class="font12">@Model.ModelPageEntity.ModelColors.Count()</span>&nbsp;<span class="font11">colours</span>
+                <span class="font12">@Model.ModelColorPhotosCount</span>&nbsp;<span class="font11">colours</span>
             </span>
         </a>
     </li>

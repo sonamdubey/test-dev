@@ -29,7 +29,7 @@
                             <p class="font12 text-light-grey">@(Model.IsLocationSelected ? "On-road" : "Ex-showroom ") price in @Model.Location</p>
                             <div>
                                 <span itemprop="priceCurrency" content="INR">
-                                    @if (Model.BikePrice != 0)
+                                    @if (Model.BikePrice > 0)
                                     {
                                         <span class="bwmsprite inr-lg-icon"></span>
                                         <span class="font24 text-bold padding-right5" itemprop="price" content="@Model.BikePrice">@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
@@ -39,7 +39,7 @@
                                         <span class="font18 text-bold" itemprop="price" content="0">Price not available</span>
                                     }
                                 </span>
-                                @if (Model.IsLocationSelected)
+                                @if (Model.IsLocationSelected && Model.BikePrice > 0)
                                 {
                                     <a href="/m/pricequote/dealerpricequote.aspx?MPQ=@Model.MPQString" class="font14 text-bold viewBreakupText" rel="nofollow">View detailed price</a>
                                 }
