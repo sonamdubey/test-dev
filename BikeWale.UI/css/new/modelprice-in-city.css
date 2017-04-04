@@ -8,9 +8,166 @@
 .font-bold {
     font-weight: 700;
 }
+.font15 {
+    font-size: 15px;
+}
 
 .text-bold {
     font-weight: 600 !important;
+}
+
+/* on-road price */
+.orp-left-grid {
+    width: 250px;
+    padding-right: 20px;
+}
+
+.orp-right-grid {
+    width: 59%;
+}
+
+#version-specs-list {
+    width: 100%;
+    padding-left: 20px;
+    overflow: hidden;    
+}
+
+#version-specs-list li {
+    list-style: disc;
+    width: 50%;
+    float: left;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    font-size: 12px;
+    color: #787878;
+    padding-right: 20px;
+}
+
+/* version dropdown */
+.single-version-content {
+    width: 126px;
+}
+
+.single-version-value,
+.selected-city {
+    padding: 3px 15px 6px 0;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+}
+
+.single-version-value {
+    background: transparent url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+}
+
+.single-version-value:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 15px;
+    height: 100%;
+    background: #fff;
+    opacity: 0.5;
+}
+
+.top-minus5 {
+    top: -5px;
+}
+
+.pos-top2 {
+    top: 2px;
+}
+
+/* custom version dropdown */
+#model-version-dropdown .select-box {
+    height: 25px;
+}
+
+#model-version-dropdown .chosen-container {
+    width: 126px !important;
+    height: 25px;
+}
+
+#model-version-dropdown .chosen-container .chosen-drop {
+    width: 260px !important;
+    top: -20px;
+}
+
+#model-version-dropdown .chosen-single {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#model-version-dropdown .no-input-label {
+    font-size: 14px;
+}
+
+#model-version-dropdown .result-selected {
+    font-weight: 600;
+}
+
+/* model-image */
+.model-image {
+    width: 230px;
+    height: 128px;
+}
+
+.model-image img {
+    width: 100%;
+}
+
+/* floating tabs */
+#modelOverallSpecsTopContent {
+    height: 44px;
+}
+
+.overall-specs-tabs-container {
+    width: 976px;
+    background: #fff;
+    -moz-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+    -webkit-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+    -o-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+    -ms-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+    box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+}
+
+.overall-specs-tabs-wrapper {
+    display: table;
+    background: #fff;
+}
+
+.overall-specs-tabs-wrapper a {
+    padding: 10px 20px;
+    display: table-cell;
+    font-size: 14px;
+    color: #82888b;
+}
+
+.overall-specs-tabs-wrapper a:hover {
+    text-decoration: none;
+    color: #4d5057;
+}
+
+.overall-specs-tabs-wrapper a.active {
+    border-bottom: 3px solid #ef3f30;
+    font-weight: bold;
+    color: #4d5057;
+}
+
+/* fixed */
+#modelOverallSpecsTopContent.fixed-tab {
+    position: fixed;
+    top: 0;
+    margin: 0 auto;
+    z-index: 5;
+    border-bottom: 0;
+    
+}
+
+
+/* about */
+.aboutContent h2 {
+    font-size: 18px;
 }
 
 /* dealer */
@@ -57,6 +214,63 @@
 .grid-2-inline {
     display: inline-block;
     vertical-align: middle;
+}
+
+/* emi calculator */
+/* emi */
+.emi-slider-box {
+    margin-top: 30px;
+}
+
+.emi-slider-box:first-child {
+    margin-top: 0;
+}
+/* slider */
+.finance-emi-container .ui-widget-content {
+    background: #bababa;
+    height: 2px;
+    margin-top: 15px;
+    width: 97%;
+    cursor: pointer;
+}
+
+.finance-emi-container .ui-slider .ui-slider-range {
+    border: none;
+    display: block;
+    position: absolute;
+    z-index: 1;
+}
+
+.finance-emi-container .ui-widget-header {
+    background: #ef3030;
+    height: 2px;
+}
+
+.finance-emi-container .ui-slider {
+    position: relative;
+    text-align: left;
+}
+
+.finance-emi-container .ui-slider .ui-slider-handle {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat;
+    cursor: pointer;
+    height: 28px;
+    width: 28px;
+    display: block;
+    margin-left: -9px;
+    position: absolute;
+    outline: none;
+    top: -13px;
+    z-index: 2;
+    background-position: 3px 3px;
+}
+
+.border-light-right {
+    border-right: 1px solid #eee;
+}
+
+.border-light-bottom {
+    border-bottom: 1px solid #eee;
 }
 
 /* price list */
@@ -131,6 +345,46 @@
     right: 20px;
     top: 15px;
 }
+
+/* prices in other cities */
+.btn-200-32 {
+    width: 200px;
+    font-size: 14px;
+    padding: 7px;
+}
+
+/* other cities swiper */
+.carousel-type-city .card-target-link {
+    min-height: 205px;
+    display: block;
+}
+
+.carousel-type-city .card-target-link:hover {
+    text-decoration: none;
+}
+
+.carousel-type-city .city-image-preview {
+    padding: 15px 0;
+    margin-right: 15px;
+    margin-left: 15px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+/* city */
+.city-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
+.c1-icon, .c12-icon, .c2-icon, .c10-icon, .c176-icon, .c105-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 92px; }
+.c1-icon { width: 130px; background-position: 0 0; }
+.c12-icon { width: 186px; background-position: -140px 0; }
+.c2-icon { width: 136px; background-position: -336px 0; }
+.c10-icon { width: 70px; background-position: -482px 0; }
+.c176-icon { width: 53px; background-position: -562px 0; }
+.c105-icon { width: 65px; background-position: -625px 0; }
+.kolkata-icon { width: 182px; background-position: -700px 0; }
+.lucknow-icon { width: 174px; background-position: -892px 0; }
+.ahmedabad-icon { width: 0px; background-position: 0 0; }
+.chandigarh-icon { width: 0px; background-position: 0 0; }
+
 
 /* icons */
 .dealership-loc-icon {

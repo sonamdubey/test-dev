@@ -47,6 +47,170 @@
     </div>
 </section>
 
+<section>
+    <div class="container section-bottom-margin">
+        <div class="grid-12">
+            <div class="padding-top15 padding-left20 content-box-shadow">
+                <h1>@Model.Page_H1</h1>
+            </div>
+            <div id="modelSpecsTabsContentWrapper">
+                <div id="modelOverallSpecsTopContent" class="bg-white position-rel">
+                    <div id="overallSpecsTab" class="overall-specs-tabs-container">
+                        <div class="overall-specs-tabs-wrapper">
+                            <a href="#orpContent" rel="nofollow">On-road price</a>
+                            <a href="#dealerContent" rel="nofollow">Dealers</a>
+                            <a href="#serviceCenterContent" rel="nofollow">Service centers</a>
+                            <a href="#emiContent" rel="nofollow">EMI calculator</a>
+                            <a href="#versionContent" rel="nofollow">Versions</a>
+                            <a href="#nearbyCityContent" rel="nofollow">Nearby cities</a>
+                            <a href="#similarContent" rel="nofollow">Similar bikes</a>
+                            <a href="#otherCityContent" rel="nofollow">Other cities</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="orpContent" class="bw-model-tabs-data content-box-shadow content-inner-block-20">
+                    <div class="grid-8 alpha omega">
+                        <div class="orp-left-grid leftfloat margin-top5">
+                            <div class="model-image position-rel margin-bottom10">
+                                @if (Model.IsDiscontinued)
+                                {
+                                    <span class="discontinued-text-label font16 position-abt text-center">Discontinued</span>
+                                }
+                                <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
+                            </div>
+                            <ul id="version-specs-list">
+                                <li>Alloy Wheels</li>
+                                <li>Electric Start</li>
+                                <li>Disc Brake</li>
+                            </ul>
+                        </div>
+                        <div class="orp-right-grid leftfloat">
+                            <div id="model-version-dropdown" class="margin-right15 padding-top20 vertical-top">
+                                <div class="select-box select-box-no-input done size-small">
+                                    <p class="select-label">Version</p>
+                                    <select class="chosen-select" data-title="Version">
+                                        <option value="816" selected>ABS</option>
+                                        <option value="4517">Self Start, Alloy Wheels</option>
+                                        <option value="526">Standard</option>
+                                    </select>
+                                </div>
+                            </div>
+                            @*<div class="single-version-content vertical-top">
+                                <p class="font12 text-light-grey">Version</p>
+                                <p class="text-bold single-version-value text-truncate">Standard</p>
+                            </div>*@
+                            <div class="vertical-top cur-pointer">
+                                <p class="font12 text-light-grey">City</p>
+                                <p class="text-bold selected-city">
+                                    <span>Ghatkopar (E)</span>, <span>Mumbai</span> <span class="margin-left5">
+                                        <span class="bwsprite loc-change-blue-icon"></span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="grid-4 alpha omega">
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+<!-- model about start -->
+<div class="container section-bottom-margin aboutContent">
+    <div class="grid-12">
+        <div class="content-box-shadow padding-top20 padding-right20 padding-bottom15 padding-left20 model-grid-12-slug">
+
+            <a href="" title="Bajaj Pulsar RS200" class="leftfloat margin-bottom15 text-default">
+                <h2>Bajaj Pulsar RS200</h2>
+            </a>
+            <div class="clear"></div>
+
+            <div class="grid-8 alpha padding-right20 border-solid-right">
+                <a href="" title="Bajaj Pulsar RS200" class="model-image-target vertical-top">
+                    <img class="lazy" data-original="https://imgd1.aeplcdn.com//160x89//bw/models/bajaj-pulsar-rs200.jpg?20150710124439" src="" alt="Bajaj Pulsar RS200" />
+                </a>
+                <div class="model-details-block vertical-top">
+                    <ul class="key-specs-list margin-bottom15 text-light-grey">
+                        <li>
+                            <span class="bwsprite capacity-sm"></span>
+                            <span>23 cc</span>
+                        </li>
+                        <li>
+                            <span class="bwsprite mileage-sm"></span>
+                            <span>34 kmpl</span>
+                        </li>
+                        <li>
+                            <span class="bwsprite power-sm"></span>
+                            <span>12 bhp</span>
+                        </li>
+                        <li>
+                            <span class="bwsprite weight-sm"></span>
+                            <span>123 kgs</span>
+                        </li>
+                    </ul>
+
+                    <ul class="item-more-details-list margin-bottom5 inline-block">
+                        <li>
+                            <a href="/bajaj-bikes/pulsar-rs/specifications-features/" title="Bajaj Pulsar RS200 Specification">
+                                <span class="bwsprite specs-sm"></span>
+                                <span class="icon-label">Specs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/bajaj-bikes/pulsar-rs/news/" title="Bajaj Pulsar RS200 News">
+                                <span class="bwsprite reviews-sm"></span>
+                                <span class="icon-label">News</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/bajaj-bikes/pulsar-rs/videos/" title="Bajaj Pulsar RS200 Videos">
+                                <span class="bwsprite videos-sm"></span>
+                                <span class="icon-label">Videos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/bajaj-bikes/pulsar-rs/user-reviews/" title="Bajaj Pulsar RS200 User Reviews">
+                                <span class="bwsprite user-reviews-sm"></span>
+                                <span class="icon-label">User Reviews</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="border-solid-bottom margin-bottom10"></div>
+                    <a href="/used/bajaj-pulsar-rs-bikes-in-mumbai/" title="10 Used Bajaj Pulsar RS200 bikes" class="block text-default hover-no-underline">
+                        <span class="used-target-label inline-block">
+                            <span class="font14 text-bold">10 Used Bajaj Pulsar RS200 bikes</span>
+                            <span class="font12 text-light-grey">starting at <span class="bwsprite inr-xsm-grey"></span> 456</span>
+                        </span>
+                        <span class="bwsprite next-grey-icon"></span>
+                    </a>
+
+                </div>
+            </div>
+            <div class="grid-4 omega padding-left20">
+                <p class="font14 text-light-grey margin-bottom5" title="Ex-showroom, Mumbai">Ex-showroom, Mumbai</p>
+                <div class="margin-bottom10">
+                    <span class="bwsprite inr-lg"></span>
+                    <span class="font18 text-bold">89,000</span>
+                </div>
+
+                <a href="/bajaj-bikes/pulsar-rs/" title="Bajaj Pulsar RS200" class="btn btn-white btn-180-34">View model details <span class="bwsprite btn-red-arrow"></span></a>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- model about end -->
+
 <!-- model dealers start -->
 <div id="dealerContent" class="bw-model-tabs-data container section-bottom-margin">
     <div class="grid-12">
@@ -93,6 +257,104 @@
     <div class="clear"></div>
 </div>
 <!-- model service centers end -->
+
+<!-- model emi calculator start -->
+<div id="emiContent" class="bw-model-tabs-data container section-bottom-margin">
+    <div class="grid-12">
+        <div class="content-box-shadow content-inner-block-20">
+            <h2 class="card-h2-heading margin-bottom20">@Model.BikeModel.ModelName EMI Calculator</h2>
+
+            <div class="finance-emi-container font14">
+                <div class="grid-8 alpha border-light-right padding-bottom5 margin-bottom10">
+
+                    <div class="emi-slider-box">
+                        <p class="text-slate-grey leftfloat">Down payment</p>
+                        <p class="rightfloat margin-right15">
+                            <span class="bwsprite inr-sm"></span>&nbsp;
+                            <span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span>
+                        </p>
+                        <div class="clear"></div>
+
+                        <div id="downPaymentSlider"
+                             data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2 ) + minDnPay()) }"
+                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                    </div>
+
+                    <div class="emi-slider-box">
+                        <p class="text-slate-grey leftfloat">Loan Amount</p>
+                        <p class="rightfloat margin-right15">
+                            <span class="bwsprite inr-sm"></span>&nbsp;
+                            <span id="loanAmount" class="text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span>
+                        </p>
+                        <div class="clear"></div>
+
+                        <div id="loanAmountSlider"
+                             data-bind="slider: loan, sliderOptions: { min: bikePrice() - maxDnPay(), max: bikePrice() - minDnPay(), range: 'min', step: 1 }"
+                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                    </div>
+
+                    <div class="emi-slider-box">
+                        <p class="text-slate-grey leftfloat">Tenure</p>
+                        <p class="rightfloat text-bold margin-right15">
+                            <span id="tenurePeriod" data-bind="text: tenure"></span>&nbsp;Months
+                        </p>
+                        <div class="clear"></div>
+
+                        <div id="tenureSlider"
+                             data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
+                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                    </div>
+
+                    <div class="emi-slider-box">
+                        <p class="text-slate-grey leftfloat">Interest</p>
+                        <p class="rightfloat text-bold margin-right15">
+                            <span id="rateOfInterestPercentage" class="text-bold" data-bind="text: rateofinterest">5</span>%
+                        </p>
+                        <div class="clear"></div>
+
+                        <div id="rateOfInterestSlider"
+                             data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
+                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-4 padding-left20 omega">
+                    <div class="border-light-bottom padding-bottom20 margin-bottom20">
+                        <p class="text-light-grey margin-bottom5">Total amount (Principal + Interest)</p>
+                        <div>
+                            <span class="bwsprite inr-lg"></span>&nbsp;
+                            <span class="font18 text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-light-grey margin-bottom5">Indicative EMI</p>
+                        <div>
+                            <span class="bwsprite inr-lg"></span>&nbsp;
+                            <span class="font18 text-bold">
+                                <span id="emiAmount" data-bind="text: formatPrice(monthlyEMI())"></span>&nbsp;per month
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- model emi calculator end -->
 
 <!-- model version prices start -->
 <div id="" class="bw-model-tabs-data container section-bottom-margin">
@@ -212,7 +474,7 @@
 <!-- model similar start -->
 <div id="similarContent" class="bw-model-tabs-data container section-bottom-margin">
     <div class="grid-12">
-        <div class="content-box-shadow padding-top20 padding-bottom15">
+        <div class="content-box-shadow padding-top20 padding-bottom20">
             <h2 class="card-h2-heading padding-right20 margin-bottom20 padding-left20">Prices of similar bikes in @Model.CityEntity.CityName</h2>
             <div class="jcarousel-wrapper inner-content-carousel">
                 <div class="jcarousel">
@@ -229,8 +491,65 @@
                                     <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">44,000</span>
                                 </div>
                             </a>
-                            <div class="margin-left20 margin-bottom15">
-                                <a href="javascript:void(0)" class="btn btn-sm btn-grey font14" rel="nofollow">Check on-road price</a>
+                            <div class="margin-left20 margin-bottom20">
+                                <a href="javascript:void(0)" class="btn btn-white btn-truncate font14" rel="nofollow">On-road price in @Model.CityEntity.CityName</a>
+                            </div>
+                            <a href="" class="compare-with-target text-truncate">
+                                <span class="bwsprite compare-sm"></span>Compare with Honda Unicorn<span class="bwsprite next-grey-icon"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" title="TVS Apache RTR 160" class="jcarousel-card">
+                                <div class="model-jcarousel-image-preview">
+                                    <img class="lazy" data-original="https://imgd2.aeplcdn.com//310x174//bw/models/tvs-apachertr160.jpg?20152412215051" alt="TVS Apache RTR 160" src="" border="0" />
+                                </div>
+                                <div class="card-desc-block">
+                                    <p class="bikeTitle">TVS Apache RTR 160</p>
+                                    <p class="text-xt-light-grey margin-bottom10"><span>160 cc</span>, <span>15 bhp</span>, <span>137 kgs</span></p>
+                                    <p class="text-light-grey margin-bottom5">Ex Showroom, Mumbai</p>
+                                    <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">44,000</span>
+                                </div>
+                            </a>
+                            <div class="margin-left20 margin-bottom20">
+                                <a href="javascript:void(0)" class="btn btn-white btn-truncate font14" rel="nofollow">On-road price in @Model.CityEntity.CityName</a>
+                            </div>
+                            <a href="" class="compare-with-target text-truncate">
+                                <span class="bwsprite compare-sm"></span>Compare with Honda Unicorn<span class="bwsprite next-grey-icon"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" title="TVS Apache RTR 160" class="jcarousel-card">
+                                <div class="model-jcarousel-image-preview">
+                                    <img class="lazy" data-original="https://imgd2.aeplcdn.com//310x174//bw/models/tvs-apachertr160.jpg?20152412215051" alt="TVS Apache RTR 160" src="" border="0" />
+                                </div>
+                                <div class="card-desc-block">
+                                    <p class="bikeTitle">TVS Apache RTR 160</p>
+                                    <p class="text-xt-light-grey margin-bottom10"><span>160 cc</span>, <span>15 bhp</span>, <span>137 kgs</span></p>
+                                    <p class="text-light-grey margin-bottom5">Ex Showroom, Mumbai</p>
+                                    <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">44,000</span>
+                                </div>
+                            </a>
+                            <div class="margin-left20 margin-bottom20">
+                                <a href="javascript:void(0)" class="btn btn-white btn-truncate font14" rel="nofollow">On-road price in @Model.CityEntity.CityName</a>
+                            </div>
+                            <a href="" class="compare-with-target text-truncate">
+                                <span class="bwsprite compare-sm"></span>Compare with Honda Unicorn<span class="bwsprite next-grey-icon"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" title="TVS Apache RTR 160" class="jcarousel-card">
+                                <div class="model-jcarousel-image-preview">
+                                    <img class="lazy" data-original="https://imgd2.aeplcdn.com//310x174//bw/models/tvs-apachertr160.jpg?20152412215051" alt="TVS Apache RTR 160" src="" border="0" />
+                                </div>
+                                <div class="card-desc-block">
+                                    <p class="bikeTitle">TVS Apache RTR 160</p>
+                                    <p class="text-xt-light-grey margin-bottom10"><span>160 cc</span>, <span>15 bhp</span>, <span>137 kgs</span></p>
+                                    <p class="text-light-grey margin-bottom5">Ex Showroom, Mumbai</p>
+                                    <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">44,000</span>
+                                </div>
+                            </a>
+                            <div class="margin-left20 margin-bottom20">
+                                <a href="javascript:void(0)" class="btn btn-white btn-truncate font14" rel="nofollow">On-road price in @Model.CityEntity.CityName</a>
                             </div>
                             <a href="" class="compare-with-target text-truncate">
                                 <span class="bwsprite compare-sm"></span>Compare with Honda Unicorn<span class="bwsprite next-grey-icon"></span>
@@ -238,12 +557,142 @@
                         </li>
                     </ul>
                 </div>
+                <span class="jcarousel-control-left">
+                    <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+                </span>
+                <span class="jcarousel-control-right">
+                    <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                </span>
             </div>
         </div>
     </div>
     <div class="clear"></div>
 </div>
 <!-- model similar end -->
+
+<!-- model prices in other cities start -->
+<div id="otherCityContent" class="bw-model-tabs-data container section-bottom-margin">
+    <div class="grid-12">
+        <div class="content-box-shadow padding-bottom20">
+            <div class="content-inner-block-20">
+                <h2 class="card-h2-heading margin-bottom20">@Model.BikeModel.ModelName Prices in other cities</h2>
+                <div class="grid-9 alpha">
+                    <p class="font14 text-slate-grey">You are currently viewing price of Bajaj Dominar 400 in Pune. Not from Pune? Select your city to see price in your city.</p>
+                </div>
+                <div class="grid-3 omega">
+                    <a href="" class="btn btn-orange btn-200-32">Select your city</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+            <h3 class="margin-right20 margin-bottom20 margin-left20">@Model.BikeModel.ModelName prices in popular cities</h3>
+            <div class="jcarousel-wrapper inner-content-carousel carousel-type-city">
+                <div class="jcarousel">
+                    <ul>
+                        <li>
+                            <a href="" title="" class="card-target-link">
+                                <div class="city-image-preview">
+                                    <span class="city-sprite c1-icon"></span>
+                                </div>
+                                <div class="text-left padding-top15 padding-left20 padding-right20 padding-bottom20">
+                                    <p class="font15 text-default text-bold margin-bottom5">Mumbai</p>
+                                    <p class="text-light-grey font14">
+                                        <span class="bwsprite inr-sm-grey"></span>&nbsp;1,25,000 onwards
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" title="" class="card-target-link">
+                                <div class="city-image-preview">
+                                    <span class="city-sprite c12-icon"></span>
+                                </div>
+                                <div class="text-left padding-top15 padding-left20 padding-right20 padding-bottom20">
+                                    <p class="font15 text-default text-bold margin-bottom5">Pune</p>
+                                    <p class="text-light-grey font14">
+                                        <span class="bwsprite inr-sm-grey"></span>&nbsp;1,25,000 onwards
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" title="" class="card-target-link">
+                                <div class="city-image-preview">
+                                    <span class="city-sprite c2-icon"></span>
+                                </div>
+                                <div class="text-left padding-top15 padding-left20 padding-right20 padding-bottom20">
+                                    <p class="font15 text-default text-bold margin-bottom5">Bangalore</p>
+                                    <p class="text-light-grey font14">
+                                        <span class="bwsprite inr-sm-grey"></span>&nbsp;1,25,000 onwards
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" title="" class="card-target-link">
+                                <div class="city-image-preview">
+                                    <span class="city-sprite c1-icon"></span>
+                                </div>
+                                <div class="text-left padding-top15 padding-left20 padding-right20 padding-bottom20">
+                                    <p class="font15 text-default text-bold margin-bottom5">Mumbai</p>
+                                    <p class="text-light-grey font14">
+                                        <span class="bwsprite inr-sm-grey"></span>&nbsp;1,25,000 onwards
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <span class="jcarousel-control-left">
+                    <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+                </span>
+                <span class="jcarousel-control-right">
+                    <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- model prices in other cities end -->
+
+<!-- top 10 bikes start -->
+<section>
+    <div class="container section-bottom-margin">
+        <div class="grid-12">
+            <div class="content-box-shadow content-inner-block-20">
+                <div class="grid-10-inline margin-right-4">
+                    <div class="left-grid-icon">
+
+                    </div>
+                    <div class="right-grid-label">
+                        <h2 class="card-h2-heading margin-bottom5">Top 10 Sports bikes in India</h2>
+                        <p class="font14 text-slate-grey">Are you looking for a sports bike? Check out our list of top 10 sports bike in India.</p>
+                    </div>
+                </div>
+                <div class="grid-2-inline text-right">
+                    <a href="" class="btn view-all-target-btn">View complete list<span class="bwsprite teal-right"></span></a>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+<!-- top 10 bikes end -->
+
+<!-- disclaimer start -->
+<section>
+    <div class="container section-bottom-margin">
+        <div class="grid-12">
+            <div class="padding-right20 padding-left20 font12 text-slate-grey">
+                <p class="text-bold">Disclaimer:</p>
+                <p>BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName.  However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a target="_blank" href="/TermsConditions.aspx">Terms & Condition</a> ,<a target="_blank" href="/visitoragreement.aspx">Visitor Agreement</a> and  <a target="_blank" href="/privacypolicy.aspx">Privacy Policy</a>. </p>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+<!-- disclaimer end -->
 
 <section>
     <div id="versionPriceInCityWrapper" class="container section-bottom-margin">
