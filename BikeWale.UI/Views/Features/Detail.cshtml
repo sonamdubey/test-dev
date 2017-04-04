@@ -1,10 +1,12 @@
 ﻿@model Bikewale.Models.DetailFeatureVM
+@using Bikewale.Utility
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/BikeWale_New_";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' />";
+    Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
     Model.Page_JS_Path = "/src/content/details.js";
+    Layout = "~/Views/Shared/_Layout.cshtml";    
  }
 
 @if (Model != null && Model.objFeature != null)
@@ -40,7 +42,7 @@
                             <h1>@Model.objFeature.Title</h1>
                             <div>
                                 <span class="bwsprite calender-grey-sm-icon"></span>
-                                <span class="article-stats-content margin-right20">@Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(Model.objFeature.DisplayDate), "MMMM dd, yyyy hh:mm tt")</span>
+                                <span class="article-stats-content margin-right20">@FormatDate.GetFormatDate(Convert.ToString(Model.objFeature.DisplayDate), "MMMM dd, yyyy hh:mm tt")</span>
                                 <span class="bwsprite author-grey-sm-icon"></span>
                                 <span class="article-stats-content">@Model.objFeature.AuthorName</span>
                             </div>
@@ -149,6 +151,5 @@
         </div>
     </section>
 }
-<script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/jquery.floating-social-share.min.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
-<link rel='stylesheet' type='text/css' href='/css/jquery.floating-social-share.min.css' />
+<script defer type="text/javascript" src="@(!String.IsNullOrEmpty(BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + BWConfiguration.Instance.StaticUrl : "")/src/jquery.floating-social-share.min.js?@BWConfiguration.Instance.StaticPluginFileVersion"></script>
 

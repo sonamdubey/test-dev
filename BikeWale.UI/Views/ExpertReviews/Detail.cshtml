@@ -2,6 +2,7 @@
 @using Bikewale.Utility
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' />";
+    Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
     Model.Page_JS_Path = "/src/content/details.js";
     Model.PageMetaTags.FBTitle = Model.ArticleDetails.Title;
     Model.AdTags.AdId = "1395986297721";
@@ -157,4 +158,3 @@
     </section>
 }
 <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + BWConfiguration.Instance.StaticUrl : "")/src/jquery.floating-social-share.min.js?@BWConfiguration.Instance.StaticPluginFileVersion"></script>
-<link rel='stylesheet' type='text/css' href='/css/jquery.floating-social-share.min.css' />
