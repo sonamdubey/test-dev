@@ -57,18 +57,15 @@ namespace Bikewale.Service.Controllers.CMS
         [ResponseType(typeof(IEnumerable<CMSModelImageBase>)), Route("api/cms/photos/model/{modelId}")]
         public IHttpActionResult Get(int modelId)
         {
-            List<ModelImage> objImageList = null;
+            IEnumerable<ModelImage> objImageList = null;
             try
             {
                 objImageList = _bikeModelEntity.GetBikeModelPhotoGallery(modelId);
-                if (objImageList != null && objImageList.Count > 0)
+                if (objImageList != null && objImageList.Count() > 0)
                 {
                     // Auto map the properties
                     List<CMSModelImageBase> objCMSModels = new List<CMSModelImageBase>();
                     objCMSModels = CMSMapper.Convert(objImageList);
-
-                    objImageList.Clear();
-                    objImageList = null;
 
                     return Ok(objCMSModels);
                 }

@@ -161,6 +161,8 @@ namespace Bikewale.DAL.BikeData
                         modelPage.ModelColors = GetModelColor(modelId);
                         modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
                     }
+
+                    modelPage.colorPhotos = GetModelColorPhotos(modelId);
                 }
             }
             catch (Exception ex)
@@ -360,6 +362,7 @@ namespace Bikewale.DAL.BikeData
                                 t.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 t.PhotosCount = Convert.ToInt32(dr["PhotosCount"]);
                                 t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
+                                t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
                             }
                             dr.Close();
                         }

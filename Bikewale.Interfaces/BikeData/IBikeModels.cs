@@ -41,8 +41,8 @@ namespace Bikewale.Interfaces.BikeData
         BikeModelPageEntity GetModelPageDetailsNew(U modelId);
         //IEnumerable<BikeSpecificationEntity> GetModelSpecifications(U modelId, int versionId);
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
-        List<ModelImage> GetBikeModelPhotoGallery(U modelId);
-        List<ModelImage> GetModelPhotoGalleryWithMainImage(U ModelId);
+        IEnumerable<ModelImage> GetBikeModelPhotoGallery(U modelId);
+        IEnumerable<ModelImage> GetModelPhotoGalleryWithMainImage(U modelId);
         BikeModelContent GetRecentModelArticles(U modelId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);

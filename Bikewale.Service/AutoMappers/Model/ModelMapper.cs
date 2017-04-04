@@ -107,7 +107,6 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<Bikewale.Entities.BikeData.Specs, Bikewale.DTO.Model.Specs>();
             Mapper.CreateMap<Bikewale.Entities.BikeData.SpecsCategory, Bikewale.DTO.Model.SpecsCategory>();
             Mapper.CreateMap<Bikewale.Entities.CMS.Photos.ModelImage, Bikewale.DTO.CMS.Photos.CMSModelImageBase>();
-           
             return Mapper.Map<BikeModelPageEntity, Bikewale.DTO.Model.v2.ModelPage>(objModelPage);
         }
 
@@ -220,7 +219,7 @@ namespace Bikewale.Service.AutoMappers.Model
                         }
                     }
                 }
-                
+
 
                 if (objModelPage.AllPhotos != null)
                 {
@@ -307,7 +306,7 @@ namespace Bikewale.Service.AutoMappers.Model
                         }
                     }
                 }
-              
+
                 if (objModelPage.AllPhotos != null)
                 {
                     var photos = new List<DTO.Model.v3.CMSModelImageBase>();
