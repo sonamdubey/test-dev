@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 <ul class="overall-specs-tabs-wrapper">
     <li data-tabs="#overviewContent">Overview</li>
-    @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
+    @if (Model.IsShowPriceTab)
     {
         <li data-tabs="#pricesContent">Price</li>
     }
