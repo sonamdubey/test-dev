@@ -83,7 +83,7 @@
                     @if (Model.IsPopularComparisionsAvailable || Model.IsSimilarBikesAvailable)
                     {
                         <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to @Model.ModelPageEntity.ModelDetails.ModelName </h2>
-                        if (Model.IsPopularComparisionsAvailable)
+                        @*if (Model.IsPopularComparisionsAvailable)
                         {
 
                             <div class="carousel-heading-content">
@@ -103,7 +103,7 @@
                                 <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                             </div>
                             <div class="margin-right10 margin-left10 border-solid-bottom padding-bottom20"></div>
-                        }
+                        }*@
                         if (Model.IsSimilarBikesAvailable)
                         {
                             <div id="modelAlternateBikeContent" class="padding-top20 padding-bottom20 font14">
