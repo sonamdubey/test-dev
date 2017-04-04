@@ -22,6 +22,7 @@ using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Service.AutoMappers.Model
 {
@@ -78,8 +79,21 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<Bikewale.Entities.BikeData.Specs, Bikewale.DTO.Model.Specs>();
             Mapper.CreateMap<Bikewale.Entities.BikeData.SpecsCategory, Bikewale.DTO.Model.SpecsCategory>();
             Mapper.CreateMap<Bikewale.Entities.CMS.Photos.ModelImage, Bikewale.DTO.CMS.Photos.CMSModelImageBase>();
+            var dto = Mapper.Map<BikeModelPageEntity, Bikewale.DTO.Model.ModelPage>(objModelPage);
 
-            return Mapper.Map<BikeModelPageEntity, Bikewale.DTO.Model.ModelPage>(objModelPage);
+            if (objModelPage.AllPhotos != null)
+            {
+
+                dto.Photos = objModelPage.AllPhotos.Select(
+                    m =>
+                        new Bikewale.DTO.CMS.Photos.CMSModelImageBase()
+                        {
+                            HostUrl = m.HostUrl,
+                            OriginalImgPath = m.OriginalImgPath
+                        }
+                    );
+            }
+            return dto;
         }
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Jan 2016
@@ -107,7 +121,21 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<Bikewale.Entities.BikeData.Specs, Bikewale.DTO.Model.Specs>();
             Mapper.CreateMap<Bikewale.Entities.BikeData.SpecsCategory, Bikewale.DTO.Model.SpecsCategory>();
             Mapper.CreateMap<Bikewale.Entities.CMS.Photos.ModelImage, Bikewale.DTO.CMS.Photos.CMSModelImageBase>();
-            return Mapper.Map<BikeModelPageEntity, Bikewale.DTO.Model.v2.ModelPage>(objModelPage);
+            var dto = Mapper.Map<BikeModelPageEntity, Bikewale.DTO.Model.v2.ModelPage>(objModelPage);
+
+            if (objModelPage.AllPhotos != null)
+            {
+
+                dto.Photos = objModelPage.AllPhotos.Select(
+                    m =>
+                        new Bikewale.DTO.CMS.Photos.CMSModelImageBase()
+                        {
+                            HostUrl = m.HostUrl,
+                            OriginalImgPath = m.OriginalImgPath
+                        }
+                    );
+            }
+            return dto;
         }
 
         internal static ModelBase Convert(BikeModelEntityBase objModel)

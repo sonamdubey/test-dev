@@ -24,7 +24,7 @@ namespace Bikewale.DTO.Model.v2
         public Version.VersionSpecifications ModelVersionSpecs { get; set; }
 
         [JsonProperty("photos")]
-        public List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> Photos { get; set; }
+        public IEnumerable<Bikewale.DTO.CMS.Photos.CMSModelImageBase> Photos { get; set; }
 
         [JsonProperty("modelColors")]
         public IEnumerable<NewModelColor> ModelColors { get; set; }
