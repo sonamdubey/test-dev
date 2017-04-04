@@ -6,11 +6,11 @@
     <div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
         <div class="grid-6 alpha border-solid-right">
             <p class="font12 text-light-grey padding-left10">Version:</p>
-            <p id="defversion" class="single-version-label font14">@(Model.SelectedVersion!=null ? Model.SelectedVersion.VersionName : Model.VersionName)</p>
+            <p id="defversion" class="single-version-label font14">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : Model.VersionName)</p>
             @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 1)
             {
                 <div class="dropdown-select-wrapper">
-                    <select id="ddlNewVersionList" name="ddlNewVersionList"  class="dropdown-select" data-title="Version" data-selected-version="@Model.VersionId">
+                    <select id="ddlNewVersionList" name="ddlNewVersionList" class="dropdown-select" data-title="Version" data-pageurl="@(string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)))" data-selected-version="Model.VersionId">
                         @foreach (var version in Model.ModelPageEntity.ModelVersions)
                         {
                             <option value="@version.VersionId" @(version.VersionId == Model.VersionId ? "selected" : "")>@version.VersionName</option>
@@ -24,7 +24,7 @@
             @if (!Model.IsDiscontinuedBike)
             {
                 <div class="font14 text-bold">
-                    <a href="javascript:void(0)" data-reload="true" data-pageurl="@Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)" data-persistent=" true" data-modelid='@Model.ModelId' class="getquotation changeCity" rel="nofollow">
+                    <a href="javascript:void(0)" data-reload="true" data-persistent=" true" data-modelid='@Model.ModelId' class="getquotation changeCity" rel="nofollow">
                         <span class="selected-location-label inline-block text-default text-truncate">@Model.Location</span>
                         <span class="bwmsprite loc-change-blue-icon"></span>
                     </a>

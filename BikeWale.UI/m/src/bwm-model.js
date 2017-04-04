@@ -1,5 +1,5 @@
 var imgTitle, imgTotalCount, getOffersClicked = false, popupDiv, gallery;
-var bodHt, footerHt, scrollPosition;
+var bodHt, footerHt, scrollPosition, selectDropdown;
 var sortByDiv, sortListDiv, sortCriteria, sortByDiv, sortListDiv, sortListLI;
 
 var dealersPopupDiv, dealerOffersDiv, termsConditions;
@@ -103,6 +103,7 @@ docReady(function () {
     dealersPopupDiv = $('#more-dealers-popup'),
     dealerOffersDiv = $('#dealer-offers-popup'),
     termsConditions = $('#termsPopUpContainer');
+    selectDropdown = $('.dropdown-select');
 
     navigationVideosLI = $(".carousel-navigation-videos .swiper-slide");
 
@@ -187,8 +188,6 @@ docReady(function () {
     // dropdown
     dropdown = {
         setDropdown: function () {
-            var selectDropdown = $('.dropdown-select');
-
             selectDropdown.each(function () {
                 dropdown.setMenu($(this));
             });
@@ -213,10 +212,10 @@ docReady(function () {
 
             element.find('option').each(function (index) {
                 if (selectedIndex == index) {
-                    menuList.append('<li><input value="' + $(this).text() + '" type="submit" runat="server" class="active fullwidth" id="temp_' + index + '" data-option-value="' + $(this).val() + '" title="' + $(this).text() + '"></li>');
+                    menuList.append('<li id="temp_' + index + '" data-option-value="' + $(this).val() + '" title="' + $(this).text() + '">' + $(this).text() + '</li>');
                 }
                 else {
-                    menuList.append('<li><input value="' + $(this).text() + '" type="submit" runat="server" class="fullwidth" id="temp_' + index + '" data-option-value="' + $(this).val() + '" title="' + $(this).text() + '"></li>');
+                    menuList.append('<li data-option-value="' + $(this).val() + '" title="' + $(this).text() + '">' + $(this).text() + '</li>');
                 }
             });
         },

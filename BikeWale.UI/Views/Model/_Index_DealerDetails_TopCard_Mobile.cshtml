@@ -94,3 +94,16 @@ else
     <a href="javascript:void(0)" rel="nofollow" id="more-dealers-target">Prices from @Model.DetailedDealer.SecondaryDealerCount more partner dealers<span class="bwmsprite blue-right-arrow-icon"></span></a>
 </div>
 }
+
+@if (Model.IsDealerDetailsExists)
+{
+    <div class="floating-btn clearfix">
+        <div class="grid-6 alpha omega">
+            <a class="btn btn-orange btn-full-width leadcapturebtn" href="javascript:void(0);" data-leadsourceid="30" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea">Get offers</a>
+        </div>
+        <div class="grid-6 alpha omega">
+            <a class="btn btn-green btn-full-width" href="tel:+91@(String.IsNullOrEmpty(Model.DealerDetails.MaskingNumber) ? Model.DealerDetails.MobileNo : Model.DealerDetails.MaskingNumber)"><span class="bwmsprite tel-white-icon margin-right10"></span>Call dealer</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+}
