@@ -186,6 +186,8 @@
     </div>
 
 }
+@if (Model.objBestBikesList != null && Model.objBestBikesList.Count() > 0) 
+{ 
 <section>
     <div class="container padding-15-20-20 content-box-shadow card-bottom-margin">
         <h2 class="text-bold margin-bottom10">Top 10 Mileage bikes in India</h2>
@@ -195,6 +197,7 @@
         </div>
     </div>
 </section>
+}
 
 <div id="modelSpecsFooter"></div>
 

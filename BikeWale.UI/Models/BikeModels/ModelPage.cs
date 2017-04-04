@@ -224,6 +224,12 @@ namespace Bikewale.Models.BikeModels
                             objSimilarBikes.TopCount = 9;
                             objSimilarBikes.CityId = _cityId;
                             objData.SimilarBikes = objSimilarBikes.GetData();
+
+                            objData.SimilarBikes.Make = objMake;
+                            objData.SimilarBikes.Model = objData.ModelPageEntity.ModelDetails;
+                            objData.SimilarBikes.VersionId = objData.VersionId;
+
+
                         }
 
                         objData.PopularComparisions = new PopularModelCompareWidget(_objCompare, 9, _cityId, objData.VersionId.ToString()).GetData();
