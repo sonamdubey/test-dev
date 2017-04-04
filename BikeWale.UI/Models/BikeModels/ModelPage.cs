@@ -62,7 +62,8 @@ namespace Bikewale.Models.BikeModels
         private ModelPageVM objData = null;
         private uint _modelId, _cityId, _areaId;
         private PQOnRoadPrice pqOnRoad;
-        private int totalUsedBikes = 0, colorCount = 0;
+        private uint totalUsedBikes = 0;
+        private int colorCount = 0;
         private StringBuilder colorStr = new StringBuilder();
 
 
@@ -366,6 +367,7 @@ namespace Bikewale.Models.BikeModels
                     }
                     else if (!objData.ModelPageEntity.ModelDetails.New)
                     {
+                        totalUsedBikes = objData.ModelPageEntity.ModelDetails.UsedListingsCnt;
                         objData.PageMetaTags.Description = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & images at BikeWale.com", objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, objData.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(objData.BikePrice.ToString()), totalUsedBikes);
                     }
                     else

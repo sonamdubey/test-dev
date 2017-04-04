@@ -28,7 +28,7 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public UpcomingBikeEntity UpcomingBike { get; set; }
         [DataMember]
-        public List<ModelImage> Photos { get; set; }
+        public IEnumerable<ModelImage> Photos { get; set; }
         [DataMember]
         public IEnumerable<ColorImageBaseEntity> AllPhotos { get; set; }
         [DataMember]
@@ -39,6 +39,7 @@ namespace Bikewale.Entities.BikeData
         public Features objFeatures { get; set; }
         [DataMember]
         public Specifications objSpecs { get; set; }
-
+        [DataMember]
+        public uint UsedListingsCnt { get; set; }
     }
 }

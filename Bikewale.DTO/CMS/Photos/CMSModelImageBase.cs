@@ -1,45 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.DTO.Make;
+﻿using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace Bikewale.DTO.CMS.Photos
 {
     public class CMSModelImageBase
     {
-        [JsonProperty("imageId")]
+        [JsonIgnore]
         public uint ImageId { get; set; }
         [JsonProperty("hostUrl")]
         public string HostUrl { get; set; }
-        [JsonProperty("imagePathThumbnail")]
+        [JsonIgnore]
         public string ImagePathThumbnail { get; set; }
-        [JsonProperty("imagePathLarge")]
+        [JsonIgnore]
         public string ImagePathLarge { get; set; }
-        [JsonProperty("mainImgCategoryId")]
+        [JsonIgnore]
         public short MainImgCategoryId { get; set; }
-        [JsonProperty("imageCategory")]
+        [JsonIgnore]
         public string ImageCategory { get; set; }
-        [JsonProperty("caption")]
+        [JsonIgnore]
         public string Caption { get; set; }
-        [JsonProperty("imageName")]
+        [JsonIgnore]
         public string ImageName { get; set; }
-        [JsonProperty("altImageName")]
+        [JsonIgnore]
         public string AltImageName { get; set; }
-        [JsonProperty("imageTitle")]
+        [JsonIgnore]
         public string ImageTitle { get; set; }
-        [JsonProperty("imageDescription")]
+        [JsonIgnore]
         public string ImageDescription { get; set; }
-        [JsonProperty("makeBase")]
+        [JsonIgnore]
         public MakeBase MakeBase { get; set; }
-        [JsonProperty("modelBase")]
+        [JsonIgnore]
         public ModelBase ModelBase { get; set; }
         [JsonProperty("originalImgPath")]
-        public string OriginalImgPath{ get; set; }
+        public string OriginalImgPath { get; set; }
     }
 
 }
