@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.IndexFeatureVM
+@using Bikewale.Utility
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/listing.css' />";
     Model.AdTags.AdId = "1398766302464";
@@ -15,7 +16,7 @@
         <div id="divListing" class="article-list">
            @foreach (var article in Model.ArticlesList)
                         {
-            <a href='@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId),Convert.ToString(article.ArticleUrl),(Bikewale.Entities.CMS.EnumCMSContentType.Features).ToString()))' title="@article.Title">
+            <a href='@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId),Convert.ToString(article.ArticleUrl),(Bikewale.Entities.CMS.EnumCMSContentType.Features).ToString()))' title="@article.Title">
 
                 <div class='article-item-content @Convert.ToString(article.AuthorName).ToLower().Contains("sponsored") ? "sponsored-content" : ""'>
 
@@ -23,7 +24,7 @@
 
                     <div class="article-wrapper">
                         <div class="article-image-wrapper">
-                            <img class="lazy" alt='@article.Title' title="@article.Title" data-original='@Bikewale.Utility.Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)' width="100%" border="0" src="">
+                            <img class="lazy" alt='@article.Title' title="@article.Title" data-original='@Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._110x61,QualityFactor._70)' width="100%" border="0" src="">
                         </div>
                         <div class="padding-left10 article-desc-wrapper">
                             <h2 class="font14">@article.Title</h2>
@@ -31,7 +32,7 @@
                     </div>
 
                     <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-                        <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block">@Bikewale.Utility.FormatDate.GetFormatDate(article.DisplayDate.ToString(), "MMM dd, yyyy")</span>
+                        <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block">@FormatDate.GetFormatDate(article.DisplayDate.ToString(), "MMM dd, yyyy")</span>
                     </div>
                     <div class="article-stats-wrapper font12 leftfloat text-light-grey">
                         <span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block">@article.AuthorName</span>
@@ -95,4 +96,4 @@
         @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile.cshtml", Model.UpcomingBikes)
     </div>
 </section>
-           }
+}

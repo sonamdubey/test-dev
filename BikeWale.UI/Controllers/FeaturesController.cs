@@ -80,7 +80,7 @@ namespace Bikewale.Controllers
         ///Summary :- Detail Page Feature Desktop
         /// </summary>
         /// <returns></returns>
-        [Route("content/features/details/")]
+        [Route("features/detail/{basicid}/")]
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicId)
         {
@@ -108,7 +108,7 @@ namespace Bikewale.Controllers
         ///Summary :- Detail Page Feature Mobile
         /// </summary>
         /// <returns></returns>
-        [Route("m/content/features/details/")]
+        [Route("m/features/detail/{basicid}/")]
         public ActionResult Detail_Mobile(string basicId)
         {
             DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicId);

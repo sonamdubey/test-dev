@@ -741,6 +741,11 @@ docReady(function () {
         $(this).find("img.lazy").trigger("imgLazyLoad");
         $(this).find("div.lazy").trigger("divLazyLoad");
     });
+   
+        if ($(window).width() < 996 && $(window).width() > 790)
+            $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
+  
+
 });
 
 docReady(function () {

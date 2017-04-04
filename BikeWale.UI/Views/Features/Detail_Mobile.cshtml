@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.DetailFeatureVM
+@using Bikewale.Utility
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/details.css' />";
@@ -10,7 +11,7 @@
             <h1 class="margin-bottom10">@Model.objFeature.Title</h1>
             <div class="grid-6 alpha padding-right5">
                 <span class="bwmsprite calender-grey-sm-icon"></span>
-                <span class="article-stats-content">@Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(Model.objFeature.DisplayDate), "MMMM dd, yyyy hh:mm tt")</span>
+                <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(Model.objFeature.DisplayDate), "MMMM dd, yyyy hh:mm tt")</span>
             </div>
             <div class="grid-6 alpha omega">
                 <span class="bwmsprite author-grey-sm-icon"></span>
@@ -57,7 +58,7 @@
                      @foreach (var image in Model.PhotoGallery.Images)
                      {
                                 <div class="swiper-slide">
-                                    <img class="swiper-lazy" title="@image.ImageName" alt="@image.ImageName" data-src='@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)'>
+                                    <img class="swiper-lazy" title="@image.ImageName" alt="@image.ImageName" data-src='@Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,ImageSize._110x61,QualityFactor._70)'>
                                     <span class="swiper-lazy-preloader"></span>
                                 </div>
                      }

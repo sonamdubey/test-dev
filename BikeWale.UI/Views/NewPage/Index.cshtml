@@ -5,8 +5,6 @@
     Model.Page_JS_Path = "/src/bw-new.js";
     Model.AdTags.AdPath = "1017752/BikeWale_NewBikesHome_";
     Model.AdTags.AdId = "1395986297721";
-    Model.AdTags.Ad_970x90 = true;
-    Model.AdTags.Ad_970x90Bottom = true;
     Model.AdTags.Ad_300x250BTF = true;
     Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/new-bikes-in-india/";
     Model.IsTransparentHeader = true;
@@ -451,6 +449,9 @@
                     @if (Model.ExpertReviews.FetchedCount > 0)
                     {
                         @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                        <div class="padding-left10 more-article-target view-all-btn-container">
+                            <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="btn view-all-target-btn">Read all reviews<span class="bwsprite teal-right"></span></a>
+                        </div>
                     }
                 </div>
                 <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlVideos">

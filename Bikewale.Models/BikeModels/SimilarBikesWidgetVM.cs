@@ -13,5 +13,8 @@ namespace Bikewale.Models
         public bool ShowCheckOnRoadCTA { get; set; }
         public bool ShowPriceInCityCTA { get; set; }
         public IEnumerable<SimilarBikeEntity> Bikes { get; set; }
+        public BikeModelEntityBase Model { get; set; }
+        public BikeMakeEntityBase Make { get; set; }
+        public uint VersionId { get; set; }
     }
 }
