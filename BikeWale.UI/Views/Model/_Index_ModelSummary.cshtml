@@ -89,12 +89,22 @@
             <h3>@Model.ModelPageEntity.ModelDetails.ModelName preview</h3>
             <p class="font14 text-light-grey line-height17 inline">
                 <span class="model-preview-main-content">
-                    @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                    @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
+                    {
+                        @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                    }
+                    else
+                    {
+                        @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                    }
                 </span>
-                <span class="model-preview-more-content hide">
-                    @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                </span>
-                <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
+                @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
+                {
+                    <span class="model-preview-more-content hide">
+                        @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                    </span>
+                    <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
+                }
             </p>
         </div>
     }

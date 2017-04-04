@@ -166,10 +166,10 @@
                                 <div id="makeDealersContent" class="padding-bottom20 padding-top15 font14">
                                     <div class="carousel-heading-content">
                                         <div class="swiper-heading-left-grid inline-block">
-                                            <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location</h2>
+                                            <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @(Model.City != null ? Model.City.CityName : "India")</h2>
                                         </div>
                                         <div class="swiper-heading-right-grid inline-block text-right">
-                                            <a href="@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-dealer-showrooms-in-@Model.LocationCookie.City/" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
+                                            <a href="@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-dealer-showrooms-in-@Model.LocationCookie.City/" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @(Model.City != null ? Model.City.CityName : "India")" class="btn view-all-target-btn">View all</a>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -182,9 +182,9 @@
                                 <div>
                                     <div class="carousel-heading-content padding-top20">
                                         <div class="swiper-heading-left-grid inline-block">
-                                            <h2>@string.Format("{0} service centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.Location)</h2>
+                                            <h2>@string.Format("{0} service centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, (Model.City != null ? Model.City.CityName : "India"))</h2>
                                         </div><div class="swiper-heading-right-grid inline-block text-right">
-                                            <a href="@string.Format("/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.LocationCookie.City)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.Location)" class="btn view-all-target-btn">View all</a>
+                                            <a href="@string.Format("/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.LocationCookie.City)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, (Model.City != null ? Model.City.CityName : "India"))" class="btn view-all-target-btn">View all</a>
                                         </div>
                                     </div>
                                     <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
