@@ -242,7 +242,7 @@ h1 {font-weight: 700;}
 .block { width:100%; }
 .border-light-right { border-right:1px solid #e2e2e2; }
 
-.offers-sprite {background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v19Aug2016) no-repeat; display: inline-block;}
+.offers-sprite {background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v04Apr2017) no-repeat; display: inline-block;}
 .loc-change-blue-icon { width:16px; height:16px; background-position:-195px -395px; position:relative; top:2px; }
 .loc-change-blue-icon:hover { background-position:-84px -278px; }
 .upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-10px;top:10px;}
@@ -266,6 +266,31 @@ h1 {font-weight: 700;}
 .specs-maxpower-icon { height:30px; background-position:-46px -62px; }
 .specs-weight-icon { height:30px; background-position:-46px -102px; }
 .margin-bottom13 { margin-bottom:13px; }
+
+/* summary icons */
+.specs-capacity,
+.specs-maxpower,
+.specs-mileage,
+.specs-weight {
+    width: 22px;
+    height: 20px;
+}
+
+.specs-capacity {
+    background-position: -46px 0
+}
+
+.specs-mileage {
+    background-position: -46px 0
+}
+
+.specs-maxpower {
+    background-position: -46px -30px
+}
+
+.specs-weight {
+    background-position: -46px -60px
+}
 
 /* dropdown */
 .dropdown-select {
