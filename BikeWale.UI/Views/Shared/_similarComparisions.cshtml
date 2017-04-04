@@ -28,8 +28,8 @@
                                                     <img src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath1, bikedetails.HostUrl1, Bikewale.Utility.ImageSize._174x98)" alt="@bike1" title="@bike1">
                                                 </div>
                                             </div>
-                                            @if (!string.IsNullOrEmpty(ViewBag.CityName))
-                                            {<p class="text-light-grey block text-truncate">Ex-showroom, @ViewBag.CityName</p> }
+                                            @if (!string.IsNullOrEmpty(bikedetails.City1))
+                                            {<p class="text-light-grey block text-truncate">Ex-showroom, @bikedetails.City1</p> }
                                             else
                                             {<p class="text-light-grey block text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p> }
 
@@ -41,8 +41,8 @@
                                                     <img src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath2, bikedetails.HostUrl2, Bikewale.Utility.ImageSize._174x98)" alt="@bike2" title="@bike2">
                                                 </div>
                                             </div>
-                                            @if (!string.IsNullOrEmpty(ViewBag.CityName))
-                                            {<p class="text-light-grey block text-truncate">Ex-showroom, @ViewBag.CityName</p> }
+                                            @if (!string.IsNullOrEmpty(bikedetails.City2))
+                                            {<p class="text-light-grey block text-truncate">Ex-showroom, @bikedetails.City2</p> }
                                             else
                                             {<p class="text-light-grey block text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p> }
                                             <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font20 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price2))</span>

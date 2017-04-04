@@ -144,17 +144,17 @@ docReady(function () {
             if (sortOrder != undefined) {
                 if (sortedText.text() === ': Low') {
                     $.so = '1';
-                    dt = sortResults(list, 'prc', false);
+                    dt = sortResults(list, 'data-price', false);
                     pushGaTags('Price_High_to_Low');
                 }
                 else {
                     $.so = '0';
-                    dt = sortResults(list, 'prc', true);
+                    dt = sortResults(list, 'data-price', true);
                     pushGaTags('Price_Low_to_High');
                 }
             }
             else {
-                dt = sortResults(list, 'prc', true);
+                dt = sortResults(list, 'data-price', true);
                 pushGaTags('Price_Low_to_High');
             }
             if ($.so.length > 0) {
@@ -165,11 +165,11 @@ docReady(function () {
         else {
             $.sc = $(this).parent().attr('sc');
             if ($.sc == '') {
-                dt = sortResults(list, 'pop', true);
+                dt = sortResults(list, 'data-popularity', true);
                 pushGaTags('Popularity');
             }
             else {
-                dt = sortResults(list, 'mlg', false);
+                dt = sortResults(list, 'data-mileage', false);
                 pushGaTags('Mileage_High_to_Low');
             }
             $('.price-sort').find('span').text('');

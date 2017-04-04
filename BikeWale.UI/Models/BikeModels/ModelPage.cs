@@ -47,7 +47,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IBikeModels<BikeModelEntity, int> _objModel = null;
         private readonly IDealerPriceQuoteDetail _objDealerDetails = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
-
+        private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         private readonly ICMSCacheContent _objArticles = null;
         private readonly IVideos _objVideos = null;
         private readonly IUsedBikeDetailsCacheRepository _objUsedBikescache = null;
@@ -69,7 +69,7 @@ namespace Bikewale.Models.BikeModels
         public StatusCodes Status { get; set; }
         public uint OtherDealersTopCount { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache)
+        public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -79,6 +79,7 @@ namespace Bikewale.Models.BikeModels
             _objDealerCache = objDealerCache;
             _objDealerDetails = objDealerDetails;
             _objVersionCache = objVersionCache;
+            _objBestBikes = objBestBikes;
 
             _objArticles = objArticles;
             _objVideos = objVideos;
@@ -223,6 +224,12 @@ namespace Bikewale.Models.BikeModels
                             objSimilarBikes.TopCount = 9;
                             objSimilarBikes.CityId = _cityId;
                             objData.SimilarBikes = objSimilarBikes.GetData();
+
+                            objData.SimilarBikes.Make = objMake;
+                            objData.SimilarBikes.Model = objData.ModelPageEntity.ModelDetails;
+                            objData.SimilarBikes.VersionId = objData.VersionId;
+
+
                         }
 
                         objData.PopularComparisions = new PopularModelCompareWidget(_objCompare, 9, _cityId, objData.VersionId.ToString()).GetData();
@@ -246,6 +253,8 @@ namespace Bikewale.Models.BikeModels
                         GetBikeRankingCategory();
 
                         BindUserReviews();
+
+                        BindBestBikeWidget(objData.BikeRanking.BodyStyle, _cityId);
                     }
                 }
 
@@ -253,6 +262,22 @@ namespace Bikewale.Models.BikeModels
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindControls");
+            }
+        }
+        private void BindBestBikeWidget(EnumBikeBodyStyles BodyStyleType, uint? cityId = null)
+        {
+            try
+            {
+
+                objData.objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType, cityId).Reverse().Take(3);
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("FetchBestBikesList{0} ", BodyStyleType));
             }
         }
         private UsedBikeByModelCityVM BindUsedBikeByModel(uint makeId, uint cityId)

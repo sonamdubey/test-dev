@@ -40,7 +40,10 @@
                             <!-- expert review starts-->
                             <h3 class="model-section-subtitle padding-right10 padding-left10">Expert Reviews</h3>
                             @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
-                            <!-- expert review ends-->                            
+                            <div class="padding-left10 more-article-target view-all-btn-container">
+                                <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
+                            </div>
+                            <!-- expert review ends-->
                             <div class="margin-top20 padding-top10 border-solid-top"></div>
                         }
                         
@@ -169,7 +172,7 @@
                                             <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @(Model.City != null ? Model.City.CityName : "India")</h2>
                                         </div>
                                         <div class="swiper-heading-right-grid inline-block text-right">
-                                            <a href="@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-dealer-showrooms-in-@Model.LocationCookie.City/" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @(Model.City != null ? Model.City.CityName : "India")" class="btn view-all-target-btn">View all</a>
+                                            <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-dealer-showrooms-in-@Model.City.CityMaskingName/" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -184,7 +187,7 @@
                                         <div class="swiper-heading-left-grid inline-block">
                                             <h2>@string.Format("{0} service centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, (Model.City != null ? Model.City.CityName : "India"))</h2>
                                         </div><div class="swiper-heading-right-grid inline-block text-right">
-                                            <a href="@string.Format("/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.LocationCookie.City)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, (Model.City != null ? Model.City.CityName : "India"))" class="btn view-all-target-btn">View all</a>
+                                            <a href="@string.Format("/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.City.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.Location)" class="btn view-all-target-btn">View all</a>
                                         </div>
                                     </div>
                                     <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
