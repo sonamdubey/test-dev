@@ -451,6 +451,9 @@
                     @if (Model.ExpertReviews.FetchedCount > 0)
                     {
                         @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                        <div class="padding-left10 more-article-target view-all-btn-container">
+                            <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="btn view-all-target-btn">Read all reviews<span class="bwsprite teal-right"></span></a>
+                        </div>
                     }
                 </div>
                 <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlVideos">
