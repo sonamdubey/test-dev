@@ -1,4 +1,4 @@
-﻿var pageNo = 1, isNextPage = true, cwHostUrl, catId, maxPage, apiURL, cacheKey, objVideos;
+﻿var pageNo = 1, isNextPage = true, catId, maxPage, apiURL, cacheKey, objVideos;
 
 
 docReady(function () {
@@ -10,8 +10,7 @@ docReady(function () {
     lscache.flushExpired();
 
     var div = $("#js-variable");
-
-    cwHostUrl = div.data('cwhosturl');
+    
     catId = div.data('catid');
     maxPage = div.data('maxpage');
     apiURL = div.data('apiurl');
@@ -117,17 +116,16 @@ docReady(function () {
             $('#loading').hide();
         }
         else {
-            var catURL = cwHostUrl + apiURL + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
+            var catURL = apiURL + catId + "/pn/" + pageNo + "/ps/9/";
             try {
                 $.ajax({
                     type: 'GET',
                     url: catURL,
                     dataType: 'json',
                     success: function (response) {
-                        if (response && response.Videos.length > 0) {
-                            var objVideos;
-                            if (typeof response.Videos == 'undefined') {
-                                objVideos = { 'Videos': response };
+                        if (response && response.videos && response.videos.length > 0) {                            
+                            if (typeof response.videos == 'undefined') {
+                                objVideos = { 'Videos': response.videos };
                             }
                             else {
                                 objVideos = response;
@@ -154,7 +152,7 @@ docReady(function () {
 
     $.bindVideos = function (reponseVideos) {
         var koHtml = '<div class="miscWrapper container">'
-                             + '<ul id="listVideos' + pageNo + '"  data-bind="template: { name: \'templetVideos\', foreach: Videos }">'
+                             + '<ul id="listVideos' + pageNo + '"  data-bind="template: { name: \'templetVideos\', foreach: videos }">'
                              + '</ul>'
                          + '<div class="clear"></div></div>';
         $('#listVideos' + (pageNo - 1)).parent().after(koHtml);
