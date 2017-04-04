@@ -122,7 +122,7 @@
 @if (Model.IsVideosAvailable)
 {
     <div id="videosContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
-        <h2 class="padding-right10 padding-left10">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Videos</h2>
+        <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Videos</h2>
         @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
     </div>
 }
@@ -131,7 +131,7 @@
 {
     <div id="dealerAndServiceContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
 
-        <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName @((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) ? "Showrooms & Service Centers" : Model.IsOtherDealersAvailable ? "Showrooms" : "Service Centers")</h2>
+        <h2 class="padding-top15 padding-right20 padding-left20">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName @((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) ? "Showrooms & Service Centers" : Model.IsOtherDealersAvailable ? "Showrooms" : "Service Centers")</h2>
         @if (Model.IsOtherDealersAvailable)
         {
             <div id="makeDealersContent" class="padding-bottom20 padding-top15 font14">
@@ -146,6 +146,10 @@
                 </div>
                 @Html.Partial("~/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.OtherDealers)
             </div>
+        }
+        @if (Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable && Model.CityId > 0)
+        {
+            <div class="margin-right10 margin-left10 border-solid-bottom"></div>
         }
         @if (Model.IsServiceCentersAvailable && Model.CityId > 0)
         {
@@ -171,7 +175,7 @@
 
 @if (!Model.IsUpcomingBike && Model.IsUsedBikesAvailable)
 {
-    <div id="makeUsedBikeContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+    <div id="makeUsedBikeContent" class="bw-model-tabs-data padding-top15 padding-right10 padding-bottom20 padding-left10 content-box-shadow card-bottom-margin content-details-wrapper font14">
         <h2 class="padding-left10 padding-right10">Used @Model.BikeName bikes in @(Model.City != null ? Model.City.CityName : "India")</h2>
         @Html.Partial("~/Views/Used/_UsedBikesByModelCity_Mobile.cshtml", Model.UsedModels)
         <div class="clear"></div>

@@ -384,6 +384,10 @@ h2.text-bold { font-weight: bold; }
     padding-top: 80px;
 }
 
+#back-to-top {
+    bottom: 60px;
+}
+
 @media all and (max-width: 350px) {
     .review-heading-wrapper, .model-user-review-title-container { width:50%; }
     .news-heading-wrapper { width:40%; }

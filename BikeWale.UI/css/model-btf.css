@@ -194,58 +194,42 @@ li.offertxt:hover span {display:inline}
 .chosen-results::-webkit-scrollbar-thumb {background-color: rgba(204, 204, 204,0.7);}
 .line-height { line-height: 1.5; }
 
-/* comparison */
-.inner-content-carousel .model-comparison-list li {
-    width: 457px;
-    min-height: 273px;
-    border: 1px solid #f5f5f5;
-    margin-right: 20px;
-}
-
-.inner-content-carousel .model-comparison-list a {
-    width: 100%;
-    height: 100%;
-    padding: 20px;
+/* similar bikes */
+.compare-with-target {
     display: block;
-}
-
-.inner-content-carousel .model-comparison-list a:hover {
-    text-decoration: none
-}
-
-.model-comparison-list .imageWrapper {
-    width: 160px;
-    height: 89px;
-}
-
-.model-comparison-list .comparison-image {
-    display: table-cell;
-    vertical-align: middle;
-    background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
-}
-
-.model-comparison-list h3 + .grid-6 {
+    padding: 10px 35px 10px 20px;
     position: relative;
+    font-size: 14px;
+    color: #4d5057;    
 }
 
-.model-comparison-list h3 + .grid-6:after {
+.compare-with-target:before {
     content: '';
     position: absolute;
-    right: -12px;
-    top: 30px;
-    width: 22px;
-    height: 21px;
-    background: url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png') no-repeat;
-    display: block;
+    left: 20px;
+    top: 0;
+    width: 85%;
+    height: 1px;
+    border-top: 1px solid #e2e2e2;
 }
 
-#modelComparisonContent .jcarousel-control-left, #modelComparisonContent .jcarousel-control-right {
-    top: 38%;
+.compare-with-target:hover {
+    text-decoration: none;
 }
 
-.btn-size-1 {
-    font-size: 14px;
-    padding: 5px 45px;
+.compare-sm {
+    width: 17px;
+    height: 12px;
+    background-position: -210px -580px;
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+}
+
+.compare-with-target .next-grey-icon {
+    position: absolute;
+    right: 20px;
+    top: 15px;
 }
 
 #prices-top-cities tr {
@@ -351,7 +335,6 @@ li.offertxt:hover span {display:inline}
     #campaign-offer-list li { width: 170px; }
     .campaign-offer-label { width:70%; }
     #modelColorsList li { width: 230px; }
-    .inner-content-carousel .model-comparison-list li { width: 438px !important; }
 }
 
 #modelColorsList a {
