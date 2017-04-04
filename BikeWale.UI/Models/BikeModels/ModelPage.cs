@@ -24,7 +24,9 @@ using Bikewale.Models.PriceInCity;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Models.Used;
 using Bikewale.Utility;
+using Bikewale.Utility.GenericBikes;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -60,7 +62,8 @@ namespace Bikewale.Models.BikeModels
         private ModelPageVM objData = null;
         private uint _modelId, _cityId, _areaId;
         private PQOnRoadPrice pqOnRoad;
-        private int totalUsedBikes = 0, colorCount = 0;
+        private uint totalUsedBikes = 0;
+        private int colorCount = 0;
         private StringBuilder colorStr = new StringBuilder();
 
 
@@ -230,6 +233,7 @@ namespace Bikewale.Models.BikeModels
                             objData.SimilarBikes.VersionId = objData.VersionId;
 
 
+
                         }
 
                         objData.PopularComparisions = new PopularModelCompareWidget(_objCompare, 9, _cityId, objData.VersionId.ToString()).GetData();
@@ -270,8 +274,8 @@ namespace Bikewale.Models.BikeModels
             {
 
                 objData.objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType, cityId).Reverse().Take(3);
-
-
+                var PageMaskingName = GenericBikesCategoriesMapping.BodyStyleByType(BodyStyleType);
+                objData.BestBikeHeading = new CultureInfo("en-US", false).TextInfo.ToTitleCase(PageMaskingName).Replace("-", " "); ;
 
 
             }
@@ -363,6 +367,7 @@ namespace Bikewale.Models.BikeModels
                     }
                     else if (!objData.ModelPageEntity.ModelDetails.New)
                     {
+                        totalUsedBikes = objData.ModelPageEntity.ModelDetails.UsedListingsCnt;
                         objData.PageMetaTags.Description = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & images at BikeWale.com", objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, objData.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(objData.BikePrice.ToString()), totalUsedBikes);
                     }
                     else
@@ -509,7 +514,12 @@ namespace Bikewale.Models.BikeModels
                     if (modelPg != null)
                     {
                         if (modelPg.ModelVersions != null)
-                            objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(v => v.VersionId == objData.VersionId);
+                        {
+                            if (objData.VersionId > 0)
+                                objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(v => v.VersionId == objData.VersionId);
+                            else
+                                objData.SelectedVersion = modelPg.ModelVersions.OrderBy(x => x.Price).FirstOrDefault();
+                        }
 
                         objData.BikePrice = (uint)(objData.VersionId > 0 ? objData.SelectedVersion.Price : Convert.ToUInt32(modelPg.ModelDetails.MinPrice));
 

@@ -64,7 +64,7 @@
     @if (Model.IsModelColorsAvailable && Model.AreModelPhotosAvailable)
     {
     <li>
-        <a title="@Model.BikeName Colors" href="javascript:void(0)" >
+        <a title="@Model.BikeName Colors" href="@string.Format("/m/{0}-bikes/{1}/images/?modelpage=true&colorImageId={2}#modelGallery", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName, Model.ModelPageEntity.ModelColors.Where(x => x.ColorImageId > 0).FirstOrDefault().ColorImageId) ">
             <span class="bwmsprite colors-sm"></span>
             <span class="inline-block">
                 <span class="font12">@Model.ModelColorPhotosCount</span>&nbsp;<span class="font11">colours</span>

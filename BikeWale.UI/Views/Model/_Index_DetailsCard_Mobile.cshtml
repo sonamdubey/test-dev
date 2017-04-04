@@ -19,35 +19,7 @@
             <h2 class="padding-left20 padding-right20">Bikes Similar to @Model.BikeName</h2>
             <div class="swiper-container card-container swiper-type-similar">
                 <div class="swiper-wrapper">
-                    @foreach (var bike in Model.SimilarBikes.Bikes)
-                    {
-                        string make = bike.MakeBase.MakeName, modelName = bike.ModelBase.ModelName;
-                        var bikeUrl = String.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName));
-                        var bikeName = String.Format("{0} {1}", make, modelName);
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="@bikeUrl" title="@bikeName">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._210x118, "70")" title="@bikeName" alt="@bikeName">
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <p class="target-link font12 text-truncate margin-bottom5">@bikeName</p>
-                                        <p class="text-truncate text-light-grey font11">@String.Format("Ex-showroom, {0}", bike.CityName)</p>
-                                        <p class="text-default">
-                                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">@Bikewale.Utility.Format.FormatPrice(bike.VersionPrice.ToString())</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="swiper-btn-block">
-                                    <a href="javascript:void(0)" data-pqsourceid="" data-modelid="@bike.ModelBase.ModelId" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
-                                </div>
-                                <a class="compare-with-target text-truncate" href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName, bike.VersionBase.VersionId.ToString(), Model.VersionId.ToString(), (uint)bike.ModelBase.ModelId, Model.ModelId, Bikewale.Entities.Compare.CompareSources.Desktop_Model_MostPopular_Compare_Widget)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.ModelPageEntity.ModelDetails.ModelName)">
-                                    <span class="bwmsprite compare-sm"></span>Compare with @Model.ModelPageEntity.ModelDetails.ModelName<span class="bwmsprite right-arrow"></span>
-                                </a>
-                            </div>
-                        </div>
-                    }
+                    @Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikes)
                 </div>
             </div>
         </div>
@@ -193,7 +165,7 @@
 { 
 <section>
     <div class="container padding-15-20-20 content-box-shadow card-bottom-margin">
-        <h2 class="text-bold margin-bottom10">Top 10 Mileage bikes in India</h2>
+        <h2 class="text-bold margin-bottom10">Here's a list of best @Model.BestBikeHeading</h2>
         @Html.Partial("~/Views/Model/_BestBikes_Mobile.cshtml", Model.objBestBikesList)
         <div class="view-all-btn-container">
             <a href="@string.Format("/m{0}",@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle))" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>

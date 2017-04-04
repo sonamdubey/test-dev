@@ -53,7 +53,7 @@ namespace Bikewale.Models.BikeModels
         public NewBikeDealers DealerDetails { get { return this.DetailedDealer.PrimaryDealer.DealerDetails; } }
         public string MPQString { get; set; }
         public string DealerArea { get { return (IsDealerDetailsExists && DealerDetails.objArea != null ? DealerDetails.objArea.AreaName : LocationCookie.Area); } }
-
+        public string BestBikeHeading { get; set; }
 
         public string ClientIP { get; set; }
         public string PageUrl { get; set; }
