@@ -1,7 +1,8 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
-<div class="rating-review-content">
-    @if (Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewRate) > 0)
-    {
+
+@if (Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewRate) > 0)
+{
+    <div class="rating-review-content">
         <div class="inline-block margin-right10">
             <span class="star-span star-one-icon"></span>
             <span class="font14 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating</span><span class="font12 text-light-grey">/5</span>
@@ -20,13 +21,7 @@
                 }
             </span>
         </div>
-    }
-    else
-    {
-        <div class="rating-box inline-block">
-            <span class="star-span star-zero-icon"></span>
-            <span class="font12 text-light-grey">Not rated yet</span>
-        </div>
-    }
-</div>
+    </div>
+}
+
 

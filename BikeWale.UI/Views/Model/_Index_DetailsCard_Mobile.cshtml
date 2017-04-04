@@ -64,25 +64,26 @@
 {
     <div id="aboutContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper">
         <h2>About @Model.ModelPageEntity.ModelDetails.ModelName</h2>
-        @if (!Model.IsUpcomingBike)
-        {
-            <p class="font14 text-light-grey line-height17 inline">
-                <span class="model-preview-main-content">
+        <p class="font14 text-light-grey line-height17 inline">
+            <span class="model-preview-main-content">
+                @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
+                {
                     @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
-                </span>
+                }
+                else
+                {
+                    @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                }
+            </span>
+            @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
+            {
                 <span class="model-preview-more-content hide">
                     @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
                 </span>
                 <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
-            </p>
-        }
-        else
-        {
-            <p class="font14 text-light-grey line-height-16 inline">
-                @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-            </p>
-        }
+            }
 
+        </p>
     </div>
 }
 
@@ -116,7 +117,7 @@
         @if (Model.IsNewsAvailable)
         {
             <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
-            <h2 class="text-bold">@Model.News.MakeName @Model.News.ModelName News</h2>
+            <h3 class="text-bold">@Model.News.MakeName @Model.News.ModelName News</h3>
             @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
         }
     </div>
@@ -140,7 +141,7 @@
             <div id="makeDealersContent" class="padding-bottom20 padding-top15 font14">
                 <div class="carousel-heading-content">
                     <div class="swiper-heading-left-grid inline-block">
-                        <h3>Showrooms in @Model.Location</h3>
+                        <h3>Showrooms in @(Model.City != null ? Model.City.CityName : "India")</h3>
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
                         <a href="@string.Format("/m/{0}-dealer-showrooms-in-{1}/",Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.City.CityMaskingName)" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
