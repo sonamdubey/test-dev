@@ -5,6 +5,7 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 namespace Bikewale.Models.BikeModels
@@ -18,7 +19,7 @@ namespace Bikewale.Models.BikeModels
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DetailedDealer { get; set; }
         public ManufacturerCampaign ManufacturerCampaign { get; set; }
         public LeadCaptureEntity LeadCapture { get; set; }
-
+        public IEnumerable<BestBikeEntityBase> objBestBikesList { get; set; }
         public uint VersionId { get; set; }
         public uint DealerId { get; set; }
         public uint PQId { get; set; }
@@ -76,7 +77,7 @@ namespace Bikewale.Models.BikeModels
         public bool AreModelPhotosAvailable { get { return (this.ModelPageEntity != null && this.ModelPageEntity.AllPhotos.Count() > 0); } }
         public bool IsNewsAvailable { get { return (News != null && News.FetchedCount > 0); } }
         public bool IsReviewsAvailable { get { return (ExpertReviews != null && ExpertReviews.FetchedCount > 0); } } //includes user reviews need to add
-        public bool IsVideosAvailable { get { return (Videos != null && Videos.FetchedCount > 0); } }
+        public bool IsVideosAvailable { get { return (Videos != null && Videos.VideosList != null && Videos.FetchedCount > 0 && Videos.VideosList.Count() > 0); } }
         public bool IsSimilarBikesAvailable { get { return (SimilarBikes != null && SimilarBikes.Bikes != null && SimilarBikes.Bikes.Count() > 0); } }
         public bool IsOtherDealersAvailable { get { return (OtherDealers != null && OtherDealers.Dealers != null && OtherDealers.Dealers.Count() > 0); } }
         public bool IsServiceCentersAvailable { get { return (ServiceCenters != null && ServiceCenters.ServiceCentersList != null && ServiceCenters.ServiceCentersList.Count() > 0); } }

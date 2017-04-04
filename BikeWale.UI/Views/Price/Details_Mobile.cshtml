@@ -148,7 +148,7 @@
                         <h2>@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City</h2>
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.SelectedVersion.MakeBase.MaskingName, Model.Quotation.CityMaskingName)" title="@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City" class="btn view-all-target-btn">View all</a>
+                        <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.SelectedVersion.MakeBase.MaskingName, Model.Quotation.CityMaskingName))" title="@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City" class="btn view-all-target-btn">View all</a>
                     </div>
                     <div class="clear"></div>
                 </div>

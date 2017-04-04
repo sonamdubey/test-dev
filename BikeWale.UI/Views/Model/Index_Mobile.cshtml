@@ -56,4 +56,6 @@ else if(Model.IsUpcomingBike)
     var clientIP = "@Model.ClientIP";
     var pageUrl = window.location.href;
     var leadSourceId, getCityArea, bikeModelId = '@Model.ModelId';
-</script>
+    var versionsCount = @(Model.ModelPageEntity!=null && Model.ModelPageEntity.ModelVersions!=null ? Model.ModelPageEntity.ModelVersions.Count() : 0);
+    var photosCount = @(Model.AreModelPhotosAvailable ? Model.ModelPageEntity.ModelDetails.PhotosCount - 10 : 0);
+</script>   

@@ -20,34 +20,34 @@
             <div class="swiper-container card-container swiper-type-similar">
                 <div class="swiper-wrapper">
                     @foreach (var bike in Model.SimilarBikes.Bikes)
-                {
-                    string make = bike.MakeBase.MakeName, modelName = bike.ModelBase.ModelName;
-                    var bikeUrl = String.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName));
-                    var bikeName = String.Format("{0} {1}", make, modelName);
-                    <div class="swiper-slide">
-                        <div class="swiper-card">
-                            <a href="@bikeUrl" title="@bikeName">
-                                <div class="swiper-image-preview">
-                                    <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._210x118, "70")" title="@bikeName" alt="@bikeName">
-                                    <span class="swiper-lazy-preloader"></span>
+                    {
+                        string make = bike.MakeBase.MakeName, modelName = bike.ModelBase.ModelName;
+                        var bikeUrl = String.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName));
+                        var bikeName = String.Format("{0} {1}", make, modelName);
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="@bikeUrl" title="@bikeName">
+                                    <div class="swiper-image-preview">
+                                        <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._210x118, "70")" title="@bikeName" alt="@bikeName">
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="target-link font12 text-truncate margin-bottom5">@bikeName</p>
+                                        <p class="text-truncate text-light-grey font11">@String.Format("Ex-showroom, {0}", bike.CityName)</p>
+                                        <p class="text-default">
+                                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">@Bikewale.Utility.Format.FormatPrice(bike.VersionPrice.ToString())</span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="swiper-btn-block">
+                                    <a href="javascript:void(0)" data-pqsourceid="" data-modelid="@bike.ModelBase.ModelId" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
                                 </div>
-                                <div class="swiper-details-block">
-                                    <p class="target-link font12 text-truncate margin-bottom5">@bikeName</p>
-                                    <p class="text-truncate text-light-grey font11">@String.Format("Ex-showroom, {0}", bike.CityName)</p>
-                                    <p class="text-default">
-                                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">@Bikewale.Utility.Format.FormatPrice(bike.VersionPrice.ToString())</span>
-                                    </p>
-                                </div>
-                            </a>
-                            <div class="swiper-btn-block">
-                                <a href="javascript:void(0)" data-pqsourceid="" data-modelid="@bike.ModelBase.ModelId" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
+                                <a class="compare-with-target text-truncate" href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName, bike.VersionBase.VersionId.ToString(), Model.VersionId.ToString(), (uint)bike.ModelBase.ModelId, Model.ModelId, Bikewale.Entities.Compare.CompareSources.Desktop_Model_MostPopular_Compare_Widget)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.ModelPageEntity.ModelDetails.ModelName)">
+                                    <span class="bwmsprite compare-sm"></span>Compare with @Model.ModelPageEntity.ModelDetails.ModelName<span class="bwmsprite right-arrow"></span>
+                                </a>
                             </div>
-                            <a class="compare-with-target text-truncate" href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName, bike.VersionBase.VersionId.ToString(), Model.VersionId.ToString(), (uint)bike.ModelBase.ModelId, Model.ModelId, Bikewale.Entities.Compare.CompareSources.Desktop_Model_MostPopular_Compare_Widget)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.ModelPageEntity.ModelDetails.ModelName)">
-                                <span class="bwmsprite compare-sm"></span>Compare with @Model.ModelPageEntity.ModelDetails.ModelName<span class="bwmsprite right-arrow"></span>
-                            </a>
                         </div>
-                    </div>
-                }
+                    }
                 </div>
             </div>
         </div>
@@ -93,28 +93,31 @@
         <h2>@Model.BikeName Reviews</h2>
         @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
         {
-        <h3 class="model-section-subtitle padding-right10 padding-left10">Expert Reviews</h3>
-        @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+            <h3 class="model-section-subtitle padding-right10 padding-left10">Expert Reviews</h3>
+            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+            <div class="view-all-btn-container">
+                <a title="@String.Format("{0} Expert Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
+            </div>
         }
 
         @if (Model.IsUserReviewsAvailable)
         {
-        <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
-        <div class="user-review-subContent">
-            <h3 class="model-section-subtitle padding-right10 padding-left10">User reviews</h3>
-            @Html.Partial("~/Views/UserReviews/_UserReviewsList_Mobile.cshtml", Model.UserReviews)
-            <div class="padding-left10 view-all-btn-container">
-                <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
+            <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
+            <div class="user-review-subContent">
+                <h3 class="model-section-subtitle padding-right10 padding-left10">User reviews</h3>
+                @Html.Partial("~/Views/UserReviews/_UserReviewsList_Mobile.cshtml", Model.UserReviews)
+                <div class="view-all-btn-container">
+                    <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
+                </div>
             </div>
-        </div>
 
         }
 
         @if (Model.IsNewsAvailable)
         {
-        <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
-
-        @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+            <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
+            <h2 class="text-bold">@Model.News.MakeName @Model.News.ModelName News</h2>
+            @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
         }
     </div>
 }
@@ -122,62 +125,80 @@
 @if (Model.IsVideosAvailable)
 {
     <div id="videosContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
-        <h2 class="padding-right10 padding-left10">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Videos</h2>
+        <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Videos</h2>
         @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
     </div>
 }
 
 @if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable))
 {
-    <div id="dealerAndServiceContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-details-wrapper">
+    <div id="dealerAndServiceContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+
+        <h2 class="padding-top15 padding-right20 padding-left20">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName @((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) ? "Showrooms & Service Centers" : Model.IsOtherDealersAvailable ? "Showrooms" : "Service Centers")</h2>
         @if (Model.IsOtherDealersAvailable)
         {
-        <div id="makeDealersContent" class="padding-bottom20 padding-top15 font14">
-            <div class="carousel-heading-content">
-                <div class="swiper-heading-left-grid inline-block">
-                    <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location</h2>
+            <div id="makeDealersContent" class="padding-bottom20 padding-top15 font14">
+                <div class="carousel-heading-content">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h3>Showrooms in @Model.Location</h3>
+                    </div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="@string.Format("/m/{0}-dealer-showrooms-in-{1}/",Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.City.CityMaskingName)" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-dealer-showrooms-in-@Model.LocationCookie.City/" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
-                </div>
-                <div class="clear"></div>
+                @Html.Partial("~/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.OtherDealers)
             </div>
-            @Html.Partial("~/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.OtherDealers)
-        </div>
+        }
+        @if (Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable && Model.CityId > 0)
+        {
+            <div class="margin-right10 margin-left10 border-solid-bottom"></div>
         }
         @if (Model.IsServiceCentersAvailable && Model.CityId > 0)
         {
-        <div class="margin-right10 margin-left10 margin-bottom15 border-solid-bottom"></div>
-        <div>
-            <div class="carousel-heading-content padding-top20">
-                <div class="swiper-heading-left-grid inline-block">
-                    <h2>@string.Format("{0} service centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.Location)</h2>
-                </div><div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="@string.Format("/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.LocationCookie.City)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.Location)" class="btn view-all-target-btn">View all</a>
+            <div class="margin-right10 margin-left10 margin-bottom15 border-solid-bottom"></div>
+            <div>
+                <div class="carousel-heading-content padding-top20">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h3>@string.Format("Service centers in {0}", Model.Location)</h3>
+                    </div><div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="@string.Format("/m/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, @Model.City.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.Location)" class="btn view-all-target-btn">View all</a>
+                    </div>
+                </div>
+                <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
+                    <div class="swiper-wrapper">
+                        @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard_Mobile.cshtml", Model.ServiceCenters)
+                    </div>
+                    <div class="clear"></div>
                 </div>
             </div>
-            <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
-                <div class="swiper-wrapper">
-                    @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard_Mobile.cshtml", Model.ServiceCenters)
-                </div>
-                <div class="clear"></div>
-            </div>
-        </div>
         }
     </div>
 }
 
 @if (!Model.IsUpcomingBike && Model.IsUsedBikesAvailable)
 {
-    <div id="makeUsedBikeContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+    <div id="makeUsedBikeContent" class="bw-model-tabs-data padding-top15 padding-right10 padding-bottom20 padding-left10 content-box-shadow card-bottom-margin content-details-wrapper font14">
         <h2 class="padding-left10 padding-right10">Used @Model.BikeName bikes in @(Model.City != null ? Model.City.CityName : "India")</h2>
         @Html.Partial("~/Views/Used/_UsedBikesByModelCity_Mobile.cshtml", Model.UsedModels)
         <div class="clear"></div>
         <div class="padding-left10 view-all-btn-container">
-            <a title="@Model.BikeName Used Bikes in @(Model.City!=null ? Model.City.CityName :"India")" href="@Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Model.CityId, (Model.City!=null ? Model.City.CityMaskingName :"india"), Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
+            <a title="@Model.BikeName Used Bikes in @(Model.City!=null ? Model.City.CityName :"India")" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Model.CityId, (Model.City != null ? Model.City.CityMaskingName : "india"), Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
         </div>
     </div>
 
+}
+@if (Model.objBestBikesList != null && Model.objBestBikesList.Count() > 0) 
+{ 
+<section>
+    <div class="container padding-15-20-20 content-box-shadow card-bottom-margin">
+        <h2 class="text-bold margin-bottom10">Top 10 Mileage bikes in India</h2>
+        @Html.Partial("~/Views/Model/_BestBikes_Mobile.cshtml", Model.objBestBikesList)
+        <div class="view-all-btn-container">
+            <a href="@string.Format("/m{0}",@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle))" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+        </div>
+    </div>
+</section>
 }
 
 <div id="modelSpecsFooter"></div>
