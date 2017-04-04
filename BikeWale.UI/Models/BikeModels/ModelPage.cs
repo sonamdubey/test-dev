@@ -557,6 +557,7 @@ namespace Bikewale.Models.BikeModels
                             var colorImages = modelPg.AllPhotos.Where(x => x.ColorId > 0);
                             if (colorImages != null)
                             {
+                                objData.ColourImageUrl = string.Format("/{0}-bikes/{1}/images/?modelpage=true&colorImageId={2}#modelGallery", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName, colorImages.FirstOrDefault().ColorId); 
                                 objData.ModelColorPhotosCount = colorImages.Count();
                             }
 
