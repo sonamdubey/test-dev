@@ -188,6 +188,15 @@
     </div>
 
 }
+<section>
+    <div class="container padding-15-20-20 content-box-shadow card-bottom-margin">
+        <h2 class="text-bold margin-bottom10">Top 10 Mileage bikes in India</h2>
+        @Html.Partial("~/Views/Model/_BestBikes_Mobile.cshtml", Model.objBestBikesList)
+        <div class="view-all-btn-container">
+            <a href="@string.Format("/m{0}",@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle))" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+        </div>
+    </div>
+</section>
 
 <div id="modelSpecsFooter"></div>
 
