@@ -27,7 +27,7 @@
                     </tr>
                 }
                 <tr>
-                    <td colspan="2" class="padding-top5 font12 text-x-light">Above mentioned prices are @(Model.IsLocationSelected ? "On-road price" : "Ex-showroom"),&nbsp;@Model.LocationCookie.City</td>
+                    <td colspan="2" class="padding-top5 font12 text-x-light">Above mentioned prices are @(Model.IsLocationSelected ? "On-road price" : "Ex-showroom"),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</td>
 
                 </tr>
             </tbody>
