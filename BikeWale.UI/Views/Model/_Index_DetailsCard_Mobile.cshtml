@@ -2,7 +2,7 @@
 
 @if (!Model.IsUpcomingBike)
 {
-    if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
+    if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
     {
         @Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
     }
