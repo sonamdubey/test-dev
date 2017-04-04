@@ -2,6 +2,7 @@
 @using Bikewale.Utility
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' />";
+    Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
     Model.Page_JS_Path = "/src/content/details.js";
     Model.AdTags.AdId = "1395995626568";
     Model.AdTags.AdPath = "/1017752/BikeWale_News_";
@@ -144,4 +145,3 @@
     </section>
 }                        
 <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/jquery.floating-social-share.min.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
-<link rel='stylesheet' type='text/css' href='/css/jquery.floating-social-share.min.css' />
