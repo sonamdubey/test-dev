@@ -34,7 +34,7 @@ namespace Bikewale.Controllers
         /// Created by : Aditi Srivastava on 1 Apr 2017
         /// Summary    : Action method for bike care listing -desktop
         /// </summary>
-        [Route("bikecarelanding/")]
+        [Route("bikecare/index/")]
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
@@ -58,7 +58,7 @@ namespace Bikewale.Controllers
         /// Created by : Aditi Srivastava on 1 Apr 2017
         /// Summary    : Action method for bike care listing - Mobile
         /// </summary>
-        [Route("m/bikecarelanding/")]
+        [Route("m/bikecare/index/")]
         public ActionResult Index_Mobile()
         {
             BikeCareIndexPage obj = new BikeCareIndexPage(_cmsCache, _objPager, _upcoming, _bikeModels);

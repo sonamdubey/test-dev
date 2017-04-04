@@ -39,7 +39,7 @@ namespace Bikewale.Controllers
         /// Created by : Aditi srivastava on 27 Mar 2017
         /// Summmary   : Action method to render news listing page- Desktop
         /// </summary>
-        [Route("newslanding/")]
+        [Route("news/index/")]
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
@@ -65,7 +65,7 @@ namespace Bikewale.Controllers
         /// Created by : Aditi srivastava on 27 Mar 2017
         /// Summmary   : Action method to render news listing page -mobile
         /// </summary>
-        [Route("m/newslanding/")]
+        [Route("m/news/index/")]
         public ActionResult Index_Mobile()
         {
             NewsIndexPage obj = new NewsIndexPage(_articles, _pager, _models, _bikeModels,_upcoming);
@@ -91,7 +91,7 @@ namespace Bikewale.Controllers
         /// Created by : Aditi srivastava on 29 Mar 2017
         /// Summmary   : Action method to render news detail page-desktop
         /// </summary>
-        [Route("newsdetail/{basicid}/")]
+        [Route("news/detail/{basicid}/")]
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
@@ -117,7 +117,7 @@ namespace Bikewale.Controllers
         /// Created by : Aditi srivastava on 29 Mar 2017
         /// Summmary   : Action method to render news detail page- mobile
         /// </summary>
-        [Route("m/newsdetail/{basicid}/")]
+        [Route("m/news/detail/{basicid}/")]
         public ActionResult Detail_Mobile(string basicid)
         {
            NewsDetailPage obj = new NewsDetailPage(_articles, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid);
