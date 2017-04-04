@@ -36,6 +36,33 @@ var sortChangeUp = function (sortByDiv) {
     sortListDiv.slideUp();
 };
 
+function secondarydealer_Click(dealerID) {
+    try {
+        var isSuccess = false;
+
+        var objData = {
+            "dealerId": dealerID,
+            "modelId": bikeModelId,
+            "versionId": versionId,
+            "cityId": cityId,
+            "areaId": areaId,
+            "clientIP": clientIP,
+            "pageUrl": pageUrl,
+            "sourceType": 2,
+            "pQLeadId": pqSourceId,
+            "deviceId": getCookie('BWC')
+        };
+
+        isSuccess = dleadvm.registerPQ(objData);
+
+        if (isSuccess) {
+            var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
+            window.location.href = "/m/pricequote/dealer/?MPQ=" + Base64.encode(rediurl);
+        }
+    } catch (e) {
+        console.warn("Unable to create pricequote : " + e.message);
+    }
+}
 
 function LoadTerms(offerId) {
     $("div#termsPopUpContainer").show();
@@ -119,6 +146,73 @@ docReady(function () {
     if (makeDealersContent.length != 0) {
         makeDealersContent.removeClass('bw-model-tabs-data');
     }
+
+    $("#viewprimarydealer, #dealername").on("click", function () {
+        var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
+        window.location.href = "/m/pricequote/dealer/?MPQ=" + Base64.encode(rediurl);
+    });
+
+    $(".leadcapturebtn").click(function (e) {
+        ele = $(this);
+        try {
+            var leadOptions = {
+                "dealerid": ele.attr('data-item-id'),
+                "dealername": ele.attr('data-item-name'),
+                "dealerarea": ele.attr('data-item-area'),
+                "versionid": versionId,
+                "leadsourceid": ele.attr('data-leadsourceid'),
+                "pqsourceid": ele.attr('data-pqsourceid'),
+                "isleadpopup": ele.attr('data-isleadpopup'),
+                "mfgCampid": ele.attr('data-mfgcampid'),
+                "pqid": pqId,
+                "pageurl": pageUrl,
+                "clientip": clientIP,
+                "dealerHeading": ele.attr('data-item-heading'),
+                "dealerMessage": ele.attr('data-item-message'),
+                "dealerDescription": ele.attr('data-item-description'),
+                "pinCodeRequired": ele.attr("data-ispincodrequired"),
+                "gaobject": {
+                    cat: ele.attr("c"),
+                    act: ele.attr("a"),
+                    lab: ele.attr("v")
+                }
+            };
+
+            dleadvm.setOptions(leadOptions);
+        } catch (e) {
+            console.warn("Unable to get submit details : " + e.message);
+        }
+
+    });
+
+    $("#templist input").on("click", function () {
+        if ($(this).attr('data-option-value') == $('#hdnVariant').val()) {
+            return false;
+        }
+        $('.dropdown-select-wrapper #defaultVariant').text($(this).val());
+        $('#hdnVariant').val($(this).attr('data-option-value'));
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
+    });
+
+    if ($('#getMoreDetailsBtn').length > 0) {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
+    }
+    if ($('#btnGetOnRoadPrice').length > 0) {
+        dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': 'Model_Page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
+    }
+    if ($("#getAssistance").length > 0) {
+        dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": myBikeName + "_" + getBikeVersion() + '_' + getCityArea });
+    }
+
+
+    if (bikeVersionLocation == '') {
+        bikeVersionLocation = getBikeVersionLocation();
+    }
+    if (bikeVersion == '') {
+        bikeVersion = getBikeVersion();
+    }
+
+    getCityArea = GetGlobalCityArea();
 
     $(window).scroll(function () {
         var windowScrollTop = $window.scrollTop(),
