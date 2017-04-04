@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Videos
 {
-    [DataContract,Serializable]
+    [DataContract, Serializable]
     public class BikeVideoEntity
     {
         [DataMember]
@@ -48,5 +45,10 @@ namespace Bikewale.Entities.Videos
         public string ImagePath { get; set; }
         [DataMember]
         public string DisplayDate { get; set; }
-    }                              
+    }
+
+    public class VideosListWrapper
+    {
+        public IEnumerable<BikeVideoEntity> Videos { get; set; }
+    }
 }

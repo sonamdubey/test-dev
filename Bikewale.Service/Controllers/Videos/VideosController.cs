@@ -38,11 +38,11 @@ namespace Bikewale.Service.Videos.Controllers
         /// <param name="pageSize">Compulsory. No of videos to be shown on per page.</param>
         /// <returns>Categorized Videos List</returns>
         [ResponseType(typeof(VideosList)), Route("api/videos/cat/{categoryId}/pn/{pageNo}/ps/{pageSize}/")]
-        public IHttpActionResult Get(EnumVideosCategory categoryId, uint pageNo, uint pageSize)
+        public IHttpActionResult Get(string categoryId, uint pageNo, uint pageSize)
         {
             try
             {
-                var objVideosList = GetVideosByCategoryIdViaGrpc((int)categoryId, pageNo, pageSize);
+                var objVideosList = GetVideosByCategoryIdViaGrpc(Convert.ToInt32(categoryId), pageNo, pageSize);
 
                 if (objVideosList != null && objVideosList.Videos != null)
                 {
@@ -83,12 +83,12 @@ namespace Bikewale.Service.Videos.Controllers
                     }
                     else
                     {
-                        videoDTOList = GetVideosByCategoryIdOldWay(categoryId, pageNo, pageSize);
+                        videoDTOList = GetVideosBySubCategoryIdOldWay(categoryId, pageNo, pageSize);
                     }
                 }
                 else
                 {
-                    videoDTOList = GetVideosByCategoryIdOldWay(categoryId, pageNo, pageSize);
+                    videoDTOList = GetVideosBySubCategoryIdOldWay(categoryId, pageNo, pageSize);
                 }
             }
             catch (Exception err)
@@ -120,6 +120,39 @@ namespace Bikewale.Service.Videos.Controllers
 
                     objVideosList.Clear();
                     objVideosList = null;
+
+                    return videoDTOList;
+                }
+                else
+                {
+                    return new VideosList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                return new VideosList();
+            }
+
+        }
+
+        public VideosList GetVideosBySubCategoryIdOldWay(int subCategoryId, uint pageNo, uint pageSize)
+        {
+            try
+            {
+                string _apiUrl = String.Format("/api/v1/videos/subcategory/{0}/?appId={1}&pageNo={2}&pageSize={3}", subCategoryId, _applicationid, pageNo, pageSize);
+
+                VideosListWrapper objVideosListWrapper = null;
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objVideosListWrapper = objClient.GetApiResponseSync<VideosListWrapper>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosListWrapper);
+                }
+
+                if (objVideosListWrapper != null && objVideosListWrapper.Videos != null)
+                {
+                    VideosList videoDTOList = new VideosList();
+                    videoDTOList.Videos = VideosMapper.Convert(objVideosListWrapper.Videos.ToList());
 
                     return videoDTOList;
                 }

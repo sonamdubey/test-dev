@@ -58,4 +58,7 @@ else if(Model.IsUpcomingBike)
     var leadSourceId, getCityArea, bikeModelId = '@Model.ModelId';
     var versionsCount = @(Model.ModelPageEntity!=null && Model.ModelPageEntity.ModelVersions!=null ? Model.ModelPageEntity.ModelVersions.Count() : 0);
     var photosCount = @(Model.AreModelPhotosAvailable ? Model.ModelPageEntity.ModelDetails.PhotosCount - 10 : 0);
-</script>   
+    var leadSourceId,  versionName = "@Model.VersionName", getCityArea;
+</script> 
+
+  
