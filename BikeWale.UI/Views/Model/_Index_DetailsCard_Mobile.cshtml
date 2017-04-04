@@ -112,9 +112,10 @@
 
         @if (Model.IsNewsAvailable)
         {
-            <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
+        <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
+          <h3 class="model-section-subtitle padding-right10 padding-left10">News</h3>
+        @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
 
-            @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
         }
     </div>
 }
