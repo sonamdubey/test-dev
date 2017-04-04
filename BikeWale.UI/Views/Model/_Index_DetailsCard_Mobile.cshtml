@@ -105,7 +105,7 @@
 
 @if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable))
 {
-    <div id="dealerAndServiceContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+    <div id="dealerAndServiceContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-details-wrapper font14 padding-bottom20">
 
         <h2 class="padding-top15 padding-right20 padding-left20">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName @((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) ? "Showrooms & Service Centers" : Model.IsOtherDealersAvailable ? "Showrooms" : "Service Centers")</h2>
         @if (Model.IsOtherDealersAvailable)
@@ -116,7 +116,7 @@
                         <h3>Showrooms in @(Model.City != null ? Model.City.CityName : "India")</h3>
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@string.Format("/m/{0}-dealer-showrooms-in-{1}/",Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.City.CityMaskingName)" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
+                        <a href="@string.Format("/m/{0}-dealer-showrooms-in-{1}/",Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.OtherDealers.CityMaskingName)" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -135,7 +135,7 @@
                     <div class="swiper-heading-left-grid inline-block">
                         <h3>@(string.Format("Service centers in {0}", (Model.IsLocationSelected ? Model.LocationCookie.City : "India")))</h3>
                     </div><div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@string.Format("/m/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.City.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, (Model.City!=null ? Model.City.CityName :"India"))" class="btn view-all-target-btn">View all</a>
+                        <a href="@string.Format("/m/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ServiceCenters.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, (Model.City!=null ? Model.City.CityName :"India"))" class="btn view-all-target-btn">View all</a>
                     </div>
                 </div>
                 <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">

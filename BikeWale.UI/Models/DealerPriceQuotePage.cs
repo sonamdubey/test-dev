@@ -458,10 +458,9 @@ namespace Bikewale.Models
             try
             {
 
-                if (PriceQuoteQueryString.IsPQQueryStringExists() && UInt32.TryParse(PriceQuoteQueryString.PQId, out _pqId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out _versionId))
+                if (PriceQuoteQueryString.IsPQQueryStringExists() && UInt32.TryParse(PriceQuoteQueryString.PQId, out _pqId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out _versionId) && UInt32.TryParse(PriceQuoteQueryString.CityId, out _cityId) && _pqId > 0 && _versionId > 0 && _cityId > 0)
                 {
                     UInt32.TryParse(PriceQuoteQueryString.DealerId, out _dealerId);
-                    UInt32.TryParse(PriceQuoteQueryString.CityId, out _cityId);
                     UInt32.TryParse(PriceQuoteQueryString.AreaId, out _areaId);
                     pageUrl = request.ServerVariables["URL"];
                     mpqQueryString = request.QueryString["MPQ"];
