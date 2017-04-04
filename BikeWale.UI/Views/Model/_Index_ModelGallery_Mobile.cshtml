@@ -17,7 +17,7 @@
             string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
 
             <div class="swiper-slide">
-                <a href="@String.Format(@"{0}?modelpage=true&imageindex={1}#modelGallery",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName),imageIndex)">
+                <a href="@String.Format(@"/m{0}?modelpage=true&imageindex={1}#modelGallery",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName),imageIndex)">
                     @if (imageIndex < 2)
                     {
                         <img src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._393x221,"85")" alt="@imageProperty" title="@imageProperty" border="0" />
