@@ -6,7 +6,7 @@
         @foreach (var modelColor in Model.ModelPageEntity.ModelColors)
         {
             <li>
-                <a href="/m/@(modelColor.ColorImageId > 0 ? string.Format("/{0}-bikes/{1}/images/?modelpage=true&colorImageId={2}#modelGallery", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName, modelColor.ColorImageId) : "javascript:void(0)")">
+                <a href="@(modelColor.ColorImageId > 0 ? string.Format("/m/{0}-bikes/{1}/images/?modelpage=true&colorImageId={2}#modelGallery", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName, modelColor.ColorImageId) : "javascript:void(0)")" class="text-black">
 
                     <div title="@modelColor.ColorName" class="color-box inline-block @(modelColor.HexCodes.Count() == 1 ? " color-count-one" : (modelColor.HexCodes.Count() == 3 ? "color-count-three" : "color-count-two"))">
                         @if (Model.ModelPageEntity.ModelColors != null)
@@ -17,8 +17,8 @@
                             }
                         }
                     </div>
-                    <p class="font14 inline-block text-truncate">@Convert.ToString(modelColor.ColorName)</p>
                 </a>
+                <p class="font14 inline-block text-truncate">@Convert.ToString(modelColor.ColorName)</p>
             </li>
         }
     </ul>

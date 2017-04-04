@@ -9,6 +9,10 @@
     {
         <li data-tabs="#coloursContent">Colours</li>
     }
+    @if (Model.IsSimilarBikesAvailable)
+    {
+        <li data-tabs="#similarContent">Similar Bikes</li>
+    }
     @if (Model.IsVersionSpecsAvailable)
     {
         <li data-tabs="#specsFeaturesContent">Specs & Features</li>
@@ -28,10 +32,6 @@
     @if (Model.IsVideosAvailable)
     {
         <li data-tabs="#videosContent">Videos</li>
-    }
-    @if (Model.IsSimilarBikesAvailable)
-    {
-        <li data-tabs="#similarContent">Similar Bikes</li>
     }
     @if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable))
     {
