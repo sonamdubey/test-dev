@@ -14,48 +14,48 @@
                     @Html.Partial("~/Views/Model/_Index_Tabs_Mobile.cshtml", Model)
                 </div>
             </div>
-        </div>
 
-        <div id="overviewContent" class="bw-model-tabs-data card-bottom-margin content-details-wrapper">
-            <div class="content-box-shadow card-bottom-margin">
-                @Html.Partial("~/Views/Model/_Index_ModelGallery_Mobile.cshtml", Model)
 
-                <div class="elevated-shadow-top">
-                    @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs_Mobile.cshtml", Model)
-                    <div class="clear"></div>
+            <div id="overviewContent" class="bw-model-tabs-data card-bottom-margin content-details-wrapper">
+                <div class="content-box-shadow card-bottom-margin">
+                    @Html.Partial("~/Views/Model/_Index_ModelGallery_Mobile.cshtml", Model)
 
-                    <div class="bike-price-container padding-left20 padding-top10">
-                        <span class="font14 text-grey">@Model.BikeName is now discontinued in India.</span>
-                    </div>
-                    <div class="padding-10-20" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                        <p class="font12 text-light-grey">Last known Ex-showroom price</p>
-                        <div>
-                            <span itemprop="priceCurrency" content="INR">
-                                @if (Model.BikePrice != 0)
-                                {
-                                    <span class="bwmsprite inr-lg-icon"></span>
-                                    <span class="font24 text-bold padding-right5" itemprop="price" content="@Model.BikePrice">@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
-                                }
-                                else
-                                {
-                                    <span class="font18 text-bold" itemprop="price" content="0">Price not available</span>
-                                }
-                            </span>
+                    <div class="elevated-shadow-top">
+                        @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs_Mobile.cshtml", Model)
+                        <div class="clear"></div>
+
+                        <div class="bike-price-container padding-left20 padding-top10">
+                            <span class="font14 text-grey">@Model.BikeName is now discontinued in India.</span>
                         </div>
+                        <div class="padding-10-20" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            <p class="font12 text-light-grey">Last known Ex-showroom price</p>
+                            <div>
+                                <span itemprop="priceCurrency" content="INR">
+                                    @if (Model.BikePrice != 0)
+                                    {
+                                        <span class="bwmsprite inr-lg-icon"></span>
+                                        <span class="font24 text-bold padding-right5" itemprop="price" content="@Model.BikePrice">@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="font18 text-bold" itemprop="price" content="0">Price not available</span>
+                                    }
+                                </span>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
 
+                @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+                {
+                    @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
+                }
+
             </div>
 
-            @if (Model.ModelPageEntity.ModelVersionSpecs != null)
-            {
-                @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
-            }
-
+            @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
         </div>
-
-        @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
-
     </div>
 </section>

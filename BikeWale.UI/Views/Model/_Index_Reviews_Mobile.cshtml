@@ -15,9 +15,9 @@
                 <meta itemprop="itemreviewed" content="@Model.BikeName" />
                 @if (Model.ModelPageEntity.ModelDetails.ReviewRate > 0)
                 {
-                    <span class="border-light-left leftfloat margin-right10 padding-left10 font12 text-black">
+                    <a href="@Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="border-light-left leftfloat margin-right10 padding-left10 font12 ">
                         <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span>&nbsp;<span>Reviews</span>
-                    </span>
+                    </a>
                 }
             </span>
         </div>
