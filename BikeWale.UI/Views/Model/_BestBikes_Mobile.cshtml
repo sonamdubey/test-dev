@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Bikewale.Entities.GenericBikes.BestBikeEntityBase>
+
+<ul class="best-bike-list margin-bottom5">
+
+    @{int i = 0;}
+     @foreach(var Bike in Model)
+            {
+                i = i + 1;
+        <li class="list-item">
+            <a href="" class="list-item-target" title="@Bike.Make.MakeName @Bike.Model.ModelName">
+                <div class="item-image-block inline-block">
+                    <span class="item-rank-label">#@i</span>
+                    <img class="lazy" src="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" />
+                </div>
+                <div class="item-details-block inline-block">
+                    <p class="font14 text-bold text-default text-truncate">@Bike.Make.MakeName @Bike.Model.ModelName</p>
+                    <ul class="key-specs-list font12 text-xx-light margin-bottom5">
+                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(Bike.MinSpecs.Displacement),Convert.ToString( Bike.MinSpecs.FuelEfficiencyOverall), Convert.ToString(Bike.MinSpecs.MaxPower)))
+                    </ul>
+                    <p class="font11 text-grey text-truncate">Ex-showroom price, @Bike.PriceInCity</p>
+                    <span class="bwmsprite inr-xsm-icon"></span>
+                    <span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
+                </div>
+            </a>
+        </li>
+
+            }
+</ul>
