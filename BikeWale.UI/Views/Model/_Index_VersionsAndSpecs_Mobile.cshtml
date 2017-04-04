@@ -24,7 +24,7 @@
             @if (!Model.IsDiscontinuedBike)
             {
                 <div class="font14 text-bold">
-                    <a href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid='@Model.ModelId' class="getquotation changeCity" rel="nofollow">
+                    <a href="javascript:void(0)" data-reload="true" data-pageurl="@Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)" data-persistent=" true" data-modelid='@Model.ModelId' class="getquotation changeCity" rel="nofollow">
                         <span class="selected-location-label inline-block text-default text-truncate">@Model.Location</span>
                         <span class="bwmsprite loc-change-blue-icon"></span>
                     </a>

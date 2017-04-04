@@ -130,12 +130,14 @@
 @if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable))
 {
     <div id="dealerAndServiceContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-details-wrapper">
+
+        <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName @((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) ? "Showrooms & Service Centers" : Model.IsOtherDealersAvailable ? "Showrooms" : "Service Centers")</h2>
         @if (Model.IsOtherDealersAvailable)
         {
         <div id="makeDealersContent" class="padding-bottom20 padding-top15 font14">
             <div class="carousel-heading-content">
                 <div class="swiper-heading-left-grid inline-block">
-                    <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location</h2>
+                    <h3>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location</h3>
                 </div>
                 <div class="swiper-heading-right-grid inline-block text-right">
                     <a href="@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-dealer-showrooms-in-@Model.LocationCookie.City/" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
@@ -151,7 +153,7 @@
         <div>
             <div class="carousel-heading-content padding-top20">
                 <div class="swiper-heading-left-grid inline-block">
-                    <h2>@string.Format("{0} service centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.Location)</h2>
+                    <h3>@string.Format("{0} service centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.Location)</h3>
                 </div><div class="swiper-heading-right-grid inline-block text-right">
                     <a href="@string.Format("/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.LocationCookie.City)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.Location)" class="btn view-all-target-btn">View all</a>
                 </div>

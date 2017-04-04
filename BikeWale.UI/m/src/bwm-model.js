@@ -1,5 +1,5 @@
 var imgTitle, imgTotalCount, getOffersClicked = false, popupDiv, gallery;
-var bodHt, footerHt, scrollPosition, versionCount;
+var bodHt, footerHt, scrollPosition;
 var sortByDiv, sortListDiv, sortCriteria, sortByDiv, sortListDiv, sortListLI;
 
 var dealersPopupDiv, dealerOffersDiv, termsConditions;
@@ -35,6 +35,13 @@ var sortChangeUp = function (sortByDiv) {
     sortByDiv.removeClass("open");
     sortListDiv.slideUp();
 };
+
+$('#ddlNewVersionList').on("change", function () {
+    $('#hdnVariant').val($(this).val());
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": "" });
+    window.location.href = $(this).data("pageurl") + "?versionId=" + $(this).val();
+});
+
 
 function LoadTerms(offerId) {
     $("div#termsPopUpContainer").show();
@@ -352,7 +359,7 @@ docReady(function () {
     });
 
     $(document).ready(function () {
-        if (versionCount > 1) {
+        if (versionsCount > 1) {
             $('#defversion').hide();
             dropdown.setDropdown();
             dropdown.dimension();
@@ -563,7 +570,7 @@ docReady(function () {
     });
 
     $('.view-cities-link').on('click', function () {
-        $('#more-cities-list').slideDown();
+        $('#more-cities-list').show();
         $(this).closest('div').hide();
     });
 
