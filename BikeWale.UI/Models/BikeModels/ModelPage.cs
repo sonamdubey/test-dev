@@ -554,10 +554,10 @@ namespace Bikewale.Models.BikeModels
 
                         if (modelPg.ModelDetails.PhotosCount > 0 && modelPg.AllPhotos != null && modelPg.AllPhotos.Count() > 0)
                         {
-                            var colorImages = modelPg.AllPhotos.Where(x => x.ColorId > 0);
+                            var colorImages = modelPg.ModelColors.Where(x => x.ColorImageId > 0);
                             if (colorImages != null)
                             {
-                                objData.ColourImageUrl = string.Format("/{0}-bikes/{1}/images/?modelpage=true&colorImageId={2}#modelGallery", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName, colorImages.FirstOrDefault().ColorId); 
+                                objData.ColourImageUrl = string.Format("/{0}-bikes/{1}/images/?modelpage=true&colorImageId={2}#modelGallery", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName, colorImages.FirstOrDefault().ColorImageId);
                                 objData.ModelColorPhotosCount = colorImages.Count();
                             }
 
