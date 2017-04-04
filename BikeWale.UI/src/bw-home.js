@@ -1,13 +1,14 @@
-docReady(function () {
-    $('#globalSearch').parent().hide();
-    if (!@Model.IsNewsActive.ToString().ToLower()) $("#ctrlNews").addClass("hide");
-    if (!@Model.IsExpertReviewActive.ToString().ToLower()) $("#ctrlExpertReviews").addClass("hide");
-    if (!@Model.IsVideoActive.ToString().ToLower()) $("#ctrlVideos").addClass("hide");
-});
-
 var preSelectedCityId = 0, clientip, preSelectedCityName = "", selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
 var selectedModel = 0, pageId, onRoadcity, onRoadArea, onRoadMakeModel, viewModelOnRoad;
 var onCookieObj = {}, mname = "";
+
+docReady(function () {
+    $('#globalSearch').parent().hide();
+
+
+});
+
+
 
 
 function RfindCityById(vm, id) {

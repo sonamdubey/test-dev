@@ -263,9 +263,9 @@
                     </div>
                     @if (Model.IsPopularBikesDataAvailable)
                     {
-                        <div id="ctrlMostPopularBikes" class="bw-tabs-data">
+                        <div id="ctrlMostPopularBikes" class="bw-tabs-data padding-bottom20">
                             @Html.Partial("~/Views/BikeModels/_MostPopularBikes.cshtml", Model.PopularBikes)
-                            <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <div class="view-all-btn-container padding-top15">
                                 <a href="/best-bikes-in-india/" class="btn view-all-target-btn" title="Popular Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
                             </div>
                         </div>
@@ -274,7 +274,7 @@
                     {
                         <div class="bw-tabs-data hide padding-top15 padding-bottom20" id="ctrlNewLaunchedBikes">
                             @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunchedBikes)
-                            <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <div class="view-all-btn-container padding-top15">
                                 <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
                             </div>
                         </div>
@@ -283,7 +283,7 @@
                     {
                         <div class="bw-tabs-data hide padding-top15 padding-bottom20" id="ctrlUpcomingBikes">
                             @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.UpcomingBikes)
-                            <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <div class="view-all-btn-container padding-top15">
                                 <a href="/upcoming-bikes/" class="btn view-all-target-btn" title="Upcoming Bikes in India">View upcoming bikes<span class="bwsprite teal-right"></span></a>
                             </div>
                         </div>
@@ -377,7 +377,6 @@
                     {
                         <div class="bw-tabs-data padding-bottom20" id="usedByModel">
                             @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedModels)
-
                             <div class="more-article-target view-all-btn-container padding-top20">
                                 <a href="/used/bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">
                                     View all used bikes<span class="bwsprite teal-right">

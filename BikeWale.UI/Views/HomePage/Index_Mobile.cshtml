@@ -350,8 +350,9 @@
                 {
                     <div class="bw-tabs-data" id="usedByModel">
                         @Html.Partial("~/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedModels)
-                        <a href="/m/used/bikes-in-/@Model.LocationMasking" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
-                    </div>
+                        <div class="padding-left10 view-all-btn-container margin-top15 padding-bottom20">
+                            <a href="/m/used/bikes-in-/@Model.LocationMasking" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
+                        </div>
                 }
                 @if (Model.IsUsedBikeCitiesAvailable)
                 {
