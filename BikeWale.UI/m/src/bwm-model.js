@@ -377,7 +377,7 @@ docReady(function () {
     if (photosCount > 10) {
         var overlayCount = '<span class="black-overlay text-white"><span class="font16 text-bold">+' + photosCount + '</span><br><span class="font14">images</span></span>';
 
-        $("#model-photos-swiper .swiper-slide").last().append(overlayCount);
+        $("#model-photos-swiper .swiper-slide").last().find("a").append(overlayCount);
     }
 
     popupDiv = {

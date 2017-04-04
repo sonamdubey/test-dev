@@ -10,7 +10,7 @@
             <div class="swiper-slide">
                 <div class="swiper-card">
                     <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.GetDealerUrl(Model.MakeMaskingName, Model.CityMaskingName, dealers.Name, Convert.ToInt32(dealers.DealerId)))" title="@dealers.Name" class="block">
-                        @Html.Raw(String.Format("<div class=\"target-link margin-bottom5 text-truncate font14\">{0}</div>", dealers.Name))
+                        @Html.Raw(String.Format("<div class=\"target-link margin-bottom5 text-truncate font14\">{0}, {1}</div>", dealers.Name,dealers.Area))
                         <p class="@string.Format("margin-bottom5 text-light-grey {0}",String.IsNullOrEmpty(dealers.Address)? "hide":"")">
                             <span class="bwmsprite dealership-loc-icon vertical-top"></span>
                             <span class="vertical-top dealership-address details-column">@dealers.Address</span>
