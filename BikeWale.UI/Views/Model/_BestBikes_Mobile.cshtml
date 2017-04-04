@@ -7,7 +7,7 @@
             {
                 i = i + 1;
         <li class="list-item">
-            <a href="" class="list-item-target" title="@Bike.Make.MakeName @Bike.Model.ModelName">
+            <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName))" class="list-item-target" title="@Bike.Make.MakeName @Bike.Model.ModelName">
                 <div class="item-image-block inline-block">
                     <span class="item-rank-label">#@i</span>
                     <img class="lazy" src="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" />
