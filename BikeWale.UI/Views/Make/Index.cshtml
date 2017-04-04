@@ -188,6 +188,9 @@
                         <h2 class="padding-left10 padding-right10">@Model.MakeName Reviews</h2>
                         <h3 class="model-section-subtitle padding-right10 padding-left10">Expert Reviews</h3>
                         @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                        <div class="padding-left10 more-article-target view-all-btn-container">
+                            <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="btn view-all-target-btn">Read all reviews<span class="bwsprite teal-right"></span></a>
+                        </div>
                     </div>
                     }
                     @if (Model.IsVideosAvailable)
