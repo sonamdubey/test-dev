@@ -19,7 +19,7 @@
 
             <div id="overviewContent" class="bw-model-tabs-data card-bottom-margin content-details-wrapper">
                 <div class="content-box-shadow card-bottom-margin">
-                    @Html.Partial("~/Views/Model/_Index_ModelGallery_Mobile.cshtml", Model)
+                    @Html.Partial("~/Views/Model/_Index_ModelGallery_Mobile.cshtml", Model)                 
 
                     <div class="elevated-shadow-top">
                         @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs_Mobile.cshtml", Model)
@@ -41,7 +41,7 @@
                                 </span>
                                 @if (Model.IsLocationSelected)
                                 {
-                                    <a href="/m/pricequote/dealerpricequote.aspx?MPQ=<%= detailedPriceLink %>" class="font14 text-bold viewBreakupText" rel="nofollow">View detailed price</a>
+                                    <a href="/m/pricequote/dealerpricequote.aspx?MPQ=@Model.MPQString" class="font14 text-bold viewBreakupText" rel="nofollow">View detailed price</a>
                                 }
                             </div>
                         </div>
@@ -50,7 +50,16 @@
                         {
                             @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Mobile.cshtml", Model)
                         }
-
+                        
+                        @if (!Model.IsLocationSelected)
+                        {
+                            <div class="floating-btn clearfix">
+                                <div class="grid-12 alpha omega">
+                                    <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" style="width: 100%" class="btn btn-orange getquotation">Check on-road price</a>
+                                </div>
+                            </div>
+                        }
+                        
                     </div>
 
                 </div>
