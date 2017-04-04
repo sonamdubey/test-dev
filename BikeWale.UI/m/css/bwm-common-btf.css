@@ -203,7 +203,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 
 .carousel-heading-content {
     margin-bottom: 10px;
-    padding-right: 20px;
+    padding-right: 15px;
     padding-left: 20px;
 }
 
@@ -1201,14 +1201,6 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     }
     .model-more-info-section .used-target-label {
         width: 92%;
-    }
-
-    /* swiper heading */
-    .swiper-heading-left-grid {
-        width: 73%;
-    }
-    .swiper-heading-right-grid {
-        width: 24%;
     }
 }
 .red-text { font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }

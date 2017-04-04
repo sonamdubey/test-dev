@@ -5,6 +5,8 @@ var sortByDiv, sortListDiv, sortCriteria, sortByDiv, sortListDiv, sortListLI;
 var dealersPopupDiv, dealerOffersDiv, termsConditions;
 var dropdown;
 var window, overallSpecsTabsContainer, modelSpecsTabsContentWrapper, modelSpecsFooter, topNavBarHeight;
+var backToTopBtn, halfBodyHeight, overViewContentHeight;
+var lastScrollTop = 0;
 
 function getBikeVersion() {
     return versionName;
@@ -67,20 +69,6 @@ function scrollHorizontal(pos) {
     $('#overallSpecsTab').animate({ scrollLeft: pos + 'px' }, 500);
 }
 
-function centerItVariableWidth(target, outer) {
-    var out = $(outer);
-    var tar = target;
-    var x = out.width();
-    var y = tar.outerWidth(true);
-    var z = tar.index();
-    var q = 0;
-    var m = out.find('li');
-    for (var i = 0; i < z; i++) {
-        q += $(m[i]).outerWidth(true);
-    }
-    out.animate({ scrollLeft: Math.max(0, q - (x - y) / 2) }, 500, 'swing');
-}
-
 var appendState = function (state) {
     window.history.pushState(state, '', '');
 };
@@ -120,6 +108,11 @@ docReady(function () {
         makeDealersContent.removeClass('bw-model-tabs-data');
     }
 
+    $('#back-to-top').remove();
+    backToTopBtn = $('#scroll-to-top');
+    overViewContentHeight = $('#overviewContent').height();
+    halfBodyHeight = $('body').height() / 2;
+
     $(window).scroll(function () {
         var windowScrollTop = $window.scrollTop(),
             modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
@@ -153,12 +146,12 @@ docReady(function () {
             }
         });
 
-        var scrollToTab = $('#modelSpecsTabsContentWrapper .bw-model-tabs-data:eq(4)');
+        var scrollToTab = $('#modelSpecsTabsContentWrapper .bw-model-tabs-data:eq(3)');
         if (scrollToTab.length != 0) {
             if (windowScrollTop > scrollToTab.offset().top - 45) {
                 if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
                     $('.overall-specs-tabs-container').addClass('scrolled-left');
-                    scrollHorizontal(400);
+                    scrollHorizontal(200);
                 }
             }
 
@@ -169,6 +162,17 @@ docReady(function () {
                 }
             }
         }
+
+        if (windowScrollTop > halfBodyHeight) {
+            if (windowScrollTop < lastScrollTop) {
+                backToTopBtn.fadeIn();
+            }
+        }
+        lastScrollTop = windowScrollTop;
+
+        if (windowScrollTop < overViewContentHeight) {
+            backToTopBtn.fadeOut();
+        };     
 
     });
 
@@ -605,5 +609,10 @@ docReady(function () {
         var newSrc = $(this).find("img").attr("iframe-data");
         videoiFrame.setAttribute("src", newSrc);
         window.dispatchEvent(new Event('resize'));
+    });
+
+    $('#scroll-to-top').click(function (event) {
+        $('html, body').stop().animate({ scrollTop: 0 });
+        event.preventDefault();
     });
 });

@@ -4,7 +4,7 @@
 
     @if(!Model.IsNewBike)
     {
-           <p class="model-ribbon-tag upcoming-ribbon">@(Model.IsUpcomingBike ? "Upcoming" : "Discontinued")</p> 
+        <p class="model-ribbon @(Model.IsUpcomingBike ? " upcoming-ribbon" : " discontinued-ribbon")">@(Model.IsUpcomingBike ? "Upcoming" : "Discontinued")</p> 
     }
 
 @if (Model.AreModelPhotosAvailable)
