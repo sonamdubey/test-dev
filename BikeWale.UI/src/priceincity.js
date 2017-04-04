@@ -1,8 +1,14 @@
 ﻿var bikeName;
-docReady(function () {    
+
+docReady(function () {
+
+    // add divider between version prices table and prices in nearby cities
+    addDivider($('#version-prices-grid'), $('#nearby-prices-grid'));
+
     var $dvPgVar = $("#dvPgVar");
     bikeName = $dvPgVar.data("bikename");
     var modelId = $dvPgVar.data("modelid");
+
     $("#btnDealerPricePopup").click(function () {
         var selArea = '';
         if ($('#ddlAreaPopup option:selected').index() > 0) {
@@ -11,6 +17,7 @@ docReady(function () {
         triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', bikeName + "_" + $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').text() + selArea);
 
     });
+
     $("#dealerDetails").click(function (e) {
         try {
             ele = $(this);
@@ -30,17 +37,30 @@ docReady(function () {
             console.warn(e.message);
         }
     });
+
     $('.model-versions-tabs-wrapper a').on('click', function () {
         var verid = $(this).attr('id');
         showTab(verid);
     });
 });
+
+// add divider
+function addDivider(grid1, grid2) {
+    if (grid1.height() > grid2.height()) {
+        grid1.addClass('border-solid-right');
+    }
+    else {
+        grid2.addClass('border-solid-left');
+    }
+}
+
 function showTab(version) {
     $('.model-versions-tabs-wrapper a').removeClass('active');
     $('.model-versions-tabs-wrapper a[id="' + version + '"]').addClass('active');
     $('.priceTable').hide();
     $('.priceTable[id="' + version + '"]').show();
 }
+
 function getBikeVersionName() {
     var bikeVersion = $('#versions .active').text();
     var bikeNameVersion = bikeName + '_' + bikeVersion;

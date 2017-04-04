@@ -1021,7 +1021,8 @@ input[type="number"] {
 }
 
 /* card */
-.card .details-column.text-truncate {
+.card .details-column.text-truncate,
+.details-column {
     width: 92%
 }
 

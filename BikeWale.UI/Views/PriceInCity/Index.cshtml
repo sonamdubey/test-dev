@@ -9,8 +9,8 @@
     Model.AdTags.Ad_970x90Bottom = true;
     Model.AdTags.AdId = "1442913773076";
     Model.AdTags.AdPath = "/1017752/Bikewale_NewBike_";
-    Model.IsPageTypeLanding = true;
-    Model.IsHeaderFix = true;
+    Model.IsPageTypeLanding = false;
+    Model.IsHeaderFix = false;
 }
 <section class="bg-light-grey padding-top10">
     <div class="container">
@@ -46,6 +46,205 @@
         <div class="clear"></div>
     </div>
 </section>
+
+<!-- model dealers start -->
+<div id="dealerContent" class="bw-model-tabs-data container section-bottom-margin">
+    <div class="grid-12">
+        <div class="content-box-shadow">
+            @if (Model.HasDealers)
+            {
+                <div class="padding-top20 font14">
+                    <div class="carousel-heading-content">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2 class="card-h2-heading">@Model.DealersWidget_H2</h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="@Model.DealersWidget_ViewAll_Href" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
+                        </div>
+                    </div>
+                    @Html.Partial("~/views/dealershowroom/_DealerCard.cshtml", Model.Dealers)
+                    <div class="clear"></div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- model dealers end -->
+
+<!-- model service centers start -->
+<div id="serviceCenterContent" class="bw-model-tabs-data container section-bottom-margin">
+    <div class="grid-12">
+        <div class="content-box-shadow content-inner-block-20">
+            <div class="grid-10-inline margin-right-4">
+                <div class="left-grid-icon">
+
+                </div>
+                <div class="right-grid-label">
+                    <h2 class="card-h2-heading margin-bottom5">20 Bajaj Service centers in @Model.CityEntity.CityName</h2>
+                    <p class="font14 text-slate-grey">Get in touch with your nearest Bajaj service center in Pune for service enquiries, service and repair costs and more!</p>
+                </div>
+            </div>
+            <div class="grid-2-inline text-right">
+                <a href="" class="btn view-all-target-btn">View complete list<span class="bwsprite teal-right"></span></a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- model service centers end -->
+
+<!-- model version prices start -->
+<div id="" class="bw-model-tabs-data container section-bottom-margin">
+    <div class="grid-12">
+        <div class="content-box-shadow content-inner-block-20">
+            <h2 class="card-h2-heading margin-bottom20">@Model.BikeName price list</h2>
+            <div id="version-prices-grid" class="grid-6 alpha padding-right20">
+                <table width="100%" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th colspan="2" align="left" class="padding-bottom10">
+                                <h3>@Model.BikeName version prices in @Model.CityEntity.CityName</h3>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="left" width="72%" class="font12 text-light-grey padding-bottom10 divider-bottom">Version</td>
+                            <td align="left" width="28%" class="font12 text-light-grey padding-bottom10 divider-bottom">Price</td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@Model.BikeModel.ModelName Self Start, Alloy Wheels</td>
+                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwsprite inr-sm-dark"></span>85,000</td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@Model.BikeModel.ModelName Standard</td>
+                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwsprite inr-sm-dark"></span>1,25,000</td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@Model.BikeModel.ModelName CBS</td>
+                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwsprite inr-sm-dark"></span>1,25,000</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="padding-top10 font12 text-light-grey">Above mentioned prices are On-road, @Model.CityEntity.CityName</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="nearby-prices-grid" class="grid-6 omega padding-left20">
+                <h3 class="margin-bottom20">On-road prices in cities near @Model.CityEntity.CityName</h3>
+                <table id="prices-top-cities" width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td class="city-name">
+                                <a title="Bajaj Pulsar RS200 Price in Bangalore" href="" class="text-truncate">Bangalore</a>
+                            </td>
+                            <td align="right" class="city-price text-black">
+                                <span class="bwsprite inr-sm-dark"></span>1,42,987
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="city-name">
+                                <a title="Bajaj Pulsar RS200 Price in Mumbai" href="" class="text-truncate">Mumbai</a>
+                            </td>
+                            <td align="right" class="city-price text-black">
+                                <span class="bwsprite inr-sm-dark"></span>93,750
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="city-name">
+                                <a title="Bajaj Pulsar RS200 Price in Pune" href="" class="text-truncate">Pune</a>
+                            </td>
+                            <td align="right" class="city-price text-black">
+                                <span class="bwsprite inr-sm-dark"></span>93,750
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="city-name">
+                                <a title="Bajaj Pulsar RS200 Price in New Delhi" href="" class="text-truncate">New Delhi</a>
+                            </td>
+                            <td align="right" class="city-price text-black">
+                                <span class="bwsprite inr-sm-dark"></span>1,33,172
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="city-name">
+                                <a title="Bajaj Pulsar RS200 Price in Chennai" href="" class="text-truncate">Chennai</a>
+                            </td>
+                            <td align="right" class="city-price text-black">
+                                <span class="bwsprite inr-sm-dark"></span>1,37,563
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="city-name">
+                                <a title="Bajaj Pulsar RS200 Price in Kolkata" href="" class="text-truncate">Kolkata</a>
+                            </td>
+                            <td align="right" class="city-price text-black">
+                                <span class="bwsprite inr-sm-dark"></span>1,41,371
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="city-name">
+                                <a title="Bajaj Pulsar RS200 Price in Hyderabad" href="" class="text-truncate">Hyderabad</a>
+                            </td>
+                            <td align="right" class="city-price text-black">
+                                <span class="bwsprite inr-sm-dark"></span>1,27,432
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="city-name">
+                                <a title="Bajaj Pulsar RS200 Price in Chandigarh" href="" class="text-truncate">Chandigarh</a>
+                            </td>
+                            <td align="right" class="city-price text-black">
+                                <span class="bwsprite inr-sm-dark"></span>1,29,292
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- model version prices end -->
+
+<!-- model similar start -->
+<div id="similarContent" class="bw-model-tabs-data container section-bottom-margin">
+    <div class="grid-12">
+        <div class="content-box-shadow padding-top20 padding-bottom15">
+            <h2 class="card-h2-heading padding-right20 margin-bottom20 padding-left20">Prices of similar bikes in @Model.CityEntity.CityName</h2>
+            <div class="jcarousel-wrapper inner-content-carousel">
+                <div class="jcarousel">
+                    <ul>
+                        <li>
+                            <a href="" title="TVS Apache RTR 160" class="jcarousel-card">
+                                <div class="model-jcarousel-image-preview">
+                                    <img class="lazy" data-original="https://imgd2.aeplcdn.com//310x174//bw/models/tvs-apachertr160.jpg?20152412215051" alt="TVS Apache RTR 160" src="" border="0" />
+                                </div>
+                                <div class="card-desc-block">
+                                    <p class="bikeTitle">TVS Apache RTR 160</p>
+                                    <p class="text-xt-light-grey margin-bottom10"><span>160 cc</span>, <span>15 bhp</span>, <span>137 kgs</span></p>
+                                    <p class="text-light-grey margin-bottom5">Ex Showroom, Mumbai</p>
+                                    <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">44,000</span>
+                                </div>
+                            </a>
+                            <div class="margin-left20 margin-bottom15">
+                                <a href="javascript:void(0)" class="btn btn-sm btn-grey font14" rel="nofollow">Check on-road price</a>
+                            </div>
+                            <a href="" class="compare-with-target text-truncate">
+                                <span class="bwsprite compare-sm"></span>Compare with Honda Unicorn<span class="bwsprite next-grey-icon"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- model similar end -->
+
 <section>
     <div id="versionPriceInCityWrapper" class="container section-bottom-margin">
         <div class="grid-12 font14">
