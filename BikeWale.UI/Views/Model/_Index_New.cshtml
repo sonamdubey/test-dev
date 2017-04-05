@@ -117,8 +117,8 @@
                         <div class="clear"></div>
 
                         <div>
-                            @if (Model.BikePrice != 0)
-                            {
+                           @if (Model.BikePrice > 0)
+                           {
                                 <span class="bwsprite inr-lg"></span>
                                 <span class="font18 text-bold">@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
                             }
@@ -131,7 +131,7 @@
                     <div class="grid-3 model-orp-btn alpha omega">
 
 
-                        @if (!Model.IsLocationSelected)
+                        @if (!Model.IsLocationSelected || Model.ShowOnRoadButton)
                         {
                             <a href="javascript:void(0)" id="btnCheckOnRoadPriceFloating" data-persistent="true" data-reload="true" data-modelid="@Model.ModelId" class="btn btn-orange font14 @(Model.IsPremiumDealer ? " margin-top5":"margin-top20") getquotation bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Check_On_Road_Price_Button_Clicked" v="myModel.BikeName">Check on-road price</a>
                         }
