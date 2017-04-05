@@ -20,11 +20,11 @@
                     <a href="@String.Format(@"/m{0}?modelpage=true&imageindex={1}#modelGallery",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName),imageIndex)">
                         @if (imageIndex < 2)
                         {
-                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._393x221,"85")" alt="@imageProperty" title="@imageProperty" border="0" />
+                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._360x202,"85")" alt="@imageProperty" title="@imageProperty" border="0" />
                         }
                         else
                         {
-                            <img class="swiper-lazy" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._393x221,"80")" alt="@imageProperty" title="@imageProperty" border="0" />
+                            <img class="swiper-lazy" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._393x221,"85")" alt="@imageProperty" title="@imageProperty" border="0" />
 
                         }
                     </a>
