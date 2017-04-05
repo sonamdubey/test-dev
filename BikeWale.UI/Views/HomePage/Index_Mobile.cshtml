@@ -341,7 +341,7 @@
                         }
                         @if (Model.IsUsedBikeCitiesAvailable)
                         {
-                            <li data-tabs="usedByCity">City</li>
+                            <li class="@(Model.IsUsedModelsAvailable ? "" : "active")" data-tabs="usedByCity">City</li>
                         }
                         <li data-tabs="usedByBudget">Budget</li>
                     </ul>
@@ -357,7 +357,7 @@
                 }
                 @if (Model.IsUsedBikeCitiesAvailable)
                 {
-                    <div id="usedByCity" class="bw-tabs-data hide">
+                    <div id="usedByCity" class="bw-tabs-data @(Model.IsUsedModelsAvailable ? "hide" : "")">
                         @Html.Partial("~/Views/UsedBikes/_usedBikesCities_Mobile.cshtml", Model.UsedBikeCities)
                     </div>
                 }
