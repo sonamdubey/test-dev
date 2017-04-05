@@ -292,11 +292,14 @@ docReady(function () {
     currentCityName = $('#service-schedule-data').data("cityname");
     googleMapAPIKey = $('#service-schedule-data').data("googlekey");
 
-    bikeschedule = JSON.parse($("#service-schedule-data").html().replace(/\s/g, ' '));
-    var vmService = new SchedulesViewModel();
-    ko.applyBindings(vmService, $("#service-schedular")[0]);
-    vmService.selectedModelId(vmService.bikes()[0].ModelId);
-    vmService.currentBikeName($("#selBikes option:selected").text());
+    if ($("#service-schedule-data").html()) {
+        bikeschedule = JSON.parse($("#service-schedule-data").html().replace(/\s/g, ' '));
+        var vmService = new SchedulesViewModel();
+        ko.applyBindings(vmService, $("#service-schedular")[0]);
+        vmService.selectedModelId(vmService.bikes()[0].ModelId);
+        vmService.currentBikeName($("#selBikes option:selected").text());
+
+    }
 
     initializeMap();
 });
