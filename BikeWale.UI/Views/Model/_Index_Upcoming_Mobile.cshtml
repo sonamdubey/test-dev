@@ -13,53 +13,48 @@
                     @Html.Partial("~/Views/Model/_Index_Tabs_Mobile.cshtml", Model)
                 </div>
             </div>
-        </div>
 
-        <div id="overviewContent" class="bw-model-tabs-data card-bottom-margin content-details-wrapper">
-            <div class="content-box-shadow card-bottom-margin">
-                @Html.Partial("~/Views/Model/_Index_ModelGallery_Mobile.cshtml", Model)
-
-                @if (Model.ModelPageEntity != null && Model.ModelPageEntity.UpcomingBike != null)
-                {
-                    <div class="elevated-shadow-top padding-15-20">
-
-                        <p class="font12 text-light-grey">Expected price</p>
-                        @if (Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
-                        {
-                            <div itemscope itemtype="http://schema.org/Offer">
-                                <div itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
-                                    <span class="font24 text-bold">
-                                        <span itemprop="priceCurrency" content="INR"><span class="bwmsprite inr-lg-icon"></span></span>
-                                        <span itemprop="price minPrice">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin))</span>  -
+            <div id="overviewContent" class="bw-model-tabs-data card-bottom-margin content-details-wrapper">
+                <div class="content-box-shadow card-bottom-margin">
+                    @Html.Partial("~/Views/Model/_Index_ModelGallery_Mobile.cshtml", Model)
+                    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.UpcomingBike != null)
+                    {
+                        <div class="elevated-shadow-top padding-15-20">
+                            <p class="font12 text-light-grey">Expected price</p>
+                            @if (Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
+                            {
+                                <div itemscope itemtype="http://schema.org/Offer">
+                                    <div itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+                                        <span class="font24 text-bold">
+                                            <span itemprop="priceCurrency" content="INR"><span class="bwmsprite inr-lg-icon"></span></span>
+                                            <span itemprop="price minPrice">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin))</span>  -
                                         <span class="bwmsprite inr-lg-icon"></span>&nbsp;<span itemprop="maxPrice">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax))</span>
+                                    </div>
                                 </div>
-                            </div>
-                        }
-                        else
-                        {
-                            <p class="font26 default-showroom-text text-light-grey margin-bottom5">Price Unavailable</p>
-                        }
-                        @if (!string.IsNullOrEmpty(Model.ModelPageEntity.UpcomingBike.ExpectedLaunchDate))
-                        {
-                            <div class="border-solid-bottom margin-top10 margin-bottom10"></div>
-                            <p class="font12 text-light-grey">Expected launch date</p>
-                            <p class="font18 margin-bottom5 text-bold">@Model.ModelPageEntity.UpcomingBike.ExpectedLaunchDate</p>
+                            }
+                            else
+                            {
+                                <p class="font26 default-showroom-text text-light-grey margin-bottom5">Price Unavailable</p>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.ModelPageEntity.UpcomingBike.ExpectedLaunchDate))
+                            {
+                                <div class="border-solid-bottom margin-top10 margin-bottom10"></div>
+                                <p class="font12 text-light-grey">Expected launch date</p>
+                                <p class="font18 margin-bottom5 text-bold">@Model.ModelPageEntity.UpcomingBike.ExpectedLaunchDate</p>
 
-                            <p class="font14 text-grey">@Model.BikeName is not launched in India yet. Information on this page is tentative.</p>
-                        }
-                    </div>
+                                <p class="font14 text-grey">@Model.BikeName is not launched in India yet. Information on this page is tentative.</p>
+                            }
+                        </div>
+                    }
+                </div>
+                @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+                {
+                    @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
                 }
-
             </div>
-
-            @if (Model.ModelPageEntity.ModelVersionSpecs != null)
-            {
-                @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
-            }
+            @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
 
         </div>
-
-        @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
 
     </div>
 </section>

@@ -384,8 +384,16 @@ h2.text-bold { font-weight: bold; }
     padding-top: 80px;
 }
 
-#back-to-top {
+#scroll-to-top {
+    display: none;
+    width: 48px;
+    height: 48px;
+    z-index: 8;
+    position: fixed;
     bottom: 60px;
+    right: 20px;
+    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/top-icon.png) no-repeat scroll center center;
+    cursor: pointer;
 }
 
 @media all and (max-width: 350px) {
@@ -448,9 +456,6 @@ h2.text-bold { font-weight: bold; }
     }
 
     /* summary */
-    .summary-specs-list li {
-        width: 65px;
-    }
     .summary-specs-list .font12 {
         font-size: 11px;
     }
