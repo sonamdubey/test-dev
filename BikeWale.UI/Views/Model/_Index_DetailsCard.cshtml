@@ -44,7 +44,7 @@
                                 <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
                             </div>
                             <!-- expert review ends-->
-                            @if (Model.IsUserReviewsAvailable)
+                            if (Model.IsUserReviewsAvailable)
                             {
                                 <div class="margin-top20 padding-top10 border-solid-top"></div>
                             }
@@ -57,7 +57,7 @@
                             <div class="padding-left10 view-all-btn-container">
                                 <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
                             </div>
-                            @if (Model.IsNewsAvailable)
+                            if (Model.IsNewsAvailable)
                             {
                                 <div class="margin-top20 border-solid-top"></div>
                             }
