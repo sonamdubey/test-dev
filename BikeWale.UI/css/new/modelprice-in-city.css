@@ -153,6 +153,63 @@
     width: 100%;
 }
 
+/* ribbon tag */
+.model-ribbon {
+    position: absolute;
+    top: 14px;
+    left: 0;
+    font-size: 12px;
+    padding: 2px 10px;
+    display: inline-block;
+    z-index: 2;
+}
+
+.model-ribbon:after {
+    content: '';
+    position: absolute;
+    border-top: 10px solid transparent;
+    border-right: 10px solid #fff;
+    border-bottom: 10px solid transparent;
+    right: 0;
+}
+
+.model-ribbon:before,
+.model-ribbon:after {
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-style: solid;
+    border-color: transparent;
+    right: -10px;
+}
+
+.model-ribbon:before {
+    top: 0;
+    border-width: 11px 10px 0 0;
+}
+
+.model-ribbon:after {
+    bottom: 0;
+    border-width: 0 10px 11px 0;
+}
+
+.discontinued-ribbon {
+    color: #4d5957;
+    background: #b5b5b5;
+}
+.discontinued-ribbon.model-ribbon:before {
+    border-top-color: #b5b5b5;
+}
+
+.discontinued-ribbon.model-ribbon:after {
+    border-bottom-color: #b5b5b5;
+}
+
+.model-image .model-ribbon {
+    top: 0;
+}
+
 /* floating tabs */
 #modelOverallSpecsTopContent {
     height: 44px;

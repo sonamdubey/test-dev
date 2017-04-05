@@ -73,9 +73,9 @@
                             <div class="orp-left-grid leftfloat margin-top5 padding-right10">
                                 <div class="model-image position-rel margin-bottom10">
                                     @if (Model.IsDiscontinued)
-                                {
-                                        <span class="discontinued-text-label font16 position-abt text-center">Discontinued</span>
-                                }
+                                    {
+                                        <p class="model-ribbon  discontinued-ribbon">Discontinued</p>
+                                    }
                                     <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
                                 </div>
                                 <ul id="version-specs-list">
