@@ -112,7 +112,7 @@ namespace Bikewale.Models
             objVM.PopularBikes.PQSourceId = PQSourceEnum.Desktop_HP_MostPopular;
 
             objVM.NewLaunchedBikes = new NewLaunchedWidgetModel(LaunchedRecordCount, _newLaunches).GetData();
-            objVM.NewLaunchedBikes.PageCatId = 5;
+            objVM.NewLaunchedBikes.PageCatId = 1;
             objVM.NewLaunchedBikes.PQSourceId = (uint)PQSourceEnum.Desktop_New_NewLaunches;
 
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
@@ -225,6 +225,7 @@ namespace Bikewale.Models
                 objPage.Keywords = "new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, Images, news, compare bikes, Instant Bike On-Road Price";
                 objPage.Description = "BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values.";
                 objPage.CanonicalUrl = "https://www.bikewale.com/";
+                objPage.AlternateUrl = "https://www.bikewale.com/m/";
 
             }
             catch (Exception ex)

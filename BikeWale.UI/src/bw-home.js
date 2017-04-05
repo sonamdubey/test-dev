@@ -1,3 +1,4 @@
+ga_pg_id = 1;
 var preSelectedCityId = 0, clientip, preSelectedCityName = "", selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
 var selectedModel = 0, pageId, onRoadcity, onRoadArea, onRoadMakeModel, viewModelOnRoad;
 var onCookieObj = {}, mname = "";
@@ -199,6 +200,7 @@ function getPriceQuoteOnRoad() {
 
 function gtmCodeAppender(pageId, action, label) {
     if (pageId != null) {
+        category = '';
         switch (pageId) {
             case "1":
                 category = 'HP';

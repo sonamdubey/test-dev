@@ -182,6 +182,7 @@ namespace Bikewale.Models
                 objPage.Keywords = "new bikes, new bikes prices, new bikes comparisons, bikes dealers, on-road price, bikes research, bikes india, Indian bikes, bike reviews, bike Images, specs, features, tips & advices";
                 objPage.Description = "New bikes in India. Search for the right new bikes for you, know accurate on-road price and discounts. Compare new bikes and find dealers.";
                 objPage.CanonicalUrl = "https://www.bikewale.com/new-bikes-in-india/";
+                objPage.AlternateUrl = "https://www.bikewale.com/m/new-bikes-in-india/";
             }
             catch (Exception ex)
             {
