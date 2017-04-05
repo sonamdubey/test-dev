@@ -511,7 +511,7 @@ gulp.task('replace-mvc-layout-css-reference', function () {
     for (var i = 0; i < pageLength; i++) {
         var element = mvcLayoutPages[i],
             style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
-			styleTag = "<style type='text/css'>" + style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\/g, "\\") + "</style>",
+			styleTag = "<style type='text/css'>" + style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "") + "</style>",
             styleLink = "<link rel='stylesheet' type='text/css' href='/" + element.stylesheet + "' />";
 
         gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })
@@ -528,7 +528,7 @@ gulp.task('replace-mvc-pageview-css-reference', function () {
     for (var i = 0; i < pageLength; i++) {
         var element = mvcPageViews[i],
             style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
-			styleTag = "<style type='text/css'>@charset 'utf-8';" + style.replace(/\"/g, "'").replace(/\\/g, "\\") + "</style>",
+			styleTag = "<style type='text/css'>@charset 'utf-8';" + style.replace(/\"/g, "'").replace(/\\[0-9]/g, "") + "</style>",
             styleLink = "<link rel='stylesheet' type='text/css' href='/" + element.stylesheet + "' />";
 
         gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })

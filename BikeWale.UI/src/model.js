@@ -505,7 +505,8 @@ docReady(function () {
 
     $("#getdealerdetails").on('click', function (e) {
         triggerGA('Model_Page', 'View_Dealer_Details_Clicked', bikeVersionLocation);
-        secondarydealer_Click(dealerId);
+        var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
+        window.location.href = "/pricequote/dealer/?MPQ=" + Base64.encode(rediurl);
     });
 
     $(".breakupCloseBtn,.blackOut-window").on('click', function (e) {
