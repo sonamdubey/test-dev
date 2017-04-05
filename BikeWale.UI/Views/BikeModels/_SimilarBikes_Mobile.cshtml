@@ -48,7 +48,7 @@
                         }
                         @if (Model.Make != null && Model.Model != null)
                         {
-                            <a class="compare-with-target text-truncate" href="/m//@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Featured_Compare_Widget)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)">
+                            <a class="compare-with-target text-truncate" href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Featured_Compare_Widget)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)">
                                 <span class="bwmsprite compare-sm"></span>Compare with @Model.Model.ModelName<span class="bwmsprite right-arrow"></span>
                             </a>
                         }
