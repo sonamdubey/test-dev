@@ -88,7 +88,7 @@
                         <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to @Model.ModelPageEntity.ModelDetails.ModelName </h2>
                         if (Model.IsSimilarBikesAvailable)
                         {
-                            <div id="modelAlternateBikeContent" class="padding-top20 padding-bottom20 font14">
+                            <div id="modelAlternateBikeContent" class="padding-bottom20 font14">
                                 <h3 class="padding-left20 padding-right20 margin-bottom15">More info about similar bikes</h3>
                                 @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
                             </div>
