@@ -1,22 +1,9 @@
 ﻿@model Bikewale.Models.BrandWidgetVM
-    <div id="brand-type-container" class="brand-type-container">
+<div id="brand-type-container" class="brand-type-container">
     <ul class="text-center">
-        @foreach (var make in Model.TopBrands)
+        @if (Model.TopBrands != null)
         {
-            <li>
-
-                <a href="@string.Format("/m{0}",make.Href)" title="@make.Title">
-
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-@make.MakeId"></span>
-                    </span>
-                    <span class="brand-type-title">@make.MakeName</span>
-                </a>
-            </li>
-        }
-    </ul>
-        <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center hide">
-            @foreach (var make in Model.OtherBrands)
+            foreach (var make in Model.TopBrands)
             {
                 <li>
 
@@ -29,7 +16,26 @@
                     </a>
                 </li>
             }
-        </ul>
+        }
+    </ul>
+    <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center hide">
+        @if (Model.OtherBrands != null)
+        {
+            foreach (var make in Model.OtherBrands)
+            {
+                <li>
+
+                    <a href="@string.Format("/m{0}",make.Href)" title="@make.Title">
+
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-@make.MakeId"></span>
+                        </span>
+                        <span class="brand-type-title">@make.MakeName</span>
+                    </a>
+                </li>
+            }
+        }
+    </ul>
 </div>
 @if (Model.HasOtherBrands)
 {
