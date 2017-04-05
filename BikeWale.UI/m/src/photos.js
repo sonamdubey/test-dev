@@ -34,7 +34,7 @@ var popupGallery = {
 
     close: function () {
         if ((isModelPage) && (colorImageId > 0)) {
-            window.location.href = window.location.pathname.split("images/")[0] + '#modelColoursContent';
+            window.location.href = window.location.pathname.split("images/")[0] + '#coloursContent';
         }
         else if (isModelPage) {
             window.location.href = window.location.pathname.split("images/")[0];
