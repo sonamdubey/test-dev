@@ -51,9 +51,9 @@
                     @if (!string.IsNullOrEmpty(Model.ServiceCenterData.Email))
                     {
                         <div class="margin-bottom10">
-                            <a href="mailto:Model.ServiceCenterData.Email" class="text-light-grey">
+                            <a href="mailto:@Model.ServiceCenterData.Email" class="text-light-grey">
                                 <span class="bwmsprite mail-grey-icon vertical-top"></span>
-                                <span class="vertical-top details-column text-light-grey">Model.ServiceCenterData.Email</span>
+                                <span class="vertical-top details-column text-light-grey">@Model.ServiceCenterData.Email</span>
                             </a>
                         </div>
                     }
