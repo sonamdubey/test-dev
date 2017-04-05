@@ -168,7 +168,7 @@
         <h2 class="text-bold margin-bottom10">Here's a list of best @Model.BestBikeHeading</h2>
         @Html.Partial("~/Views/Model/_BestBikes_Mobile.cshtml", Model.objBestBikesList)
         <div class="view-all-btn-container">
-            <a href="@string.Format("/m{0}",@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle))" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+            <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle))" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
         </div>
     </div>
 </section>
