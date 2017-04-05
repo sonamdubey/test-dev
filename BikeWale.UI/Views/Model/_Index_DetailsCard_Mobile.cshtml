@@ -69,7 +69,7 @@
             <div class="view-all-btn-container">
                 <a title="@String.Format("{0} Expert Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
             </div>
-            if (Model.IsUserReviewsAvailable)
+            if (Model.IsUserReviewsAvailable || Model.IsNewsAvailable)
             {
                 <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
             }
