@@ -190,7 +190,7 @@
                         @Html.Partial("~/Views/UsedBikes/_UsedBikesCIties_Mobile.cshtml", Model.UsedBikesCityWidgetData)
                     </div>
                 }                              
-                <div class="bw-tabs-data @(( Model.UsedBikesModelWidgetData != null && Model.UsedBikesModelWidgetData.UsedBikeModelList != null && Model.UsedBikesModelWidgetData.UsedBikeModelList.Count() > 0 ) ?" hide":"") " id="usedByBudget">
+                <div class="bw-tabs-data @((Model.UsedBikesModelWidgetData != null && Model.UsedBikesModelWidgetData.UsedBikeModelList != null && Model.UsedBikesModelWidgetData.UsedBikeModelList.Count() > 0) || (Model.UsedBikesCityWidgetData != null && Model.UsedBikesCityWidgetData.Cities != null && Model.UsedBikesCityWidgetData.Cities.Count() > 0) ? " hide" : "") " id="usedByBudget">
                     <ul class="elevated-card-list padding-top5">
                         <li>
                             <a href="/m/used/bikes-in-india/#budget=0+35000" rel="nofollow">
