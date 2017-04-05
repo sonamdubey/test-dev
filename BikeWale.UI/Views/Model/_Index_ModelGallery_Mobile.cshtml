@@ -61,7 +61,7 @@
         </a>
     </li>
     }
-    @if (Model.IsModelColorsAvailable && Model.AreModelPhotosAvailable)
+    @if (Model.ModelColorPhotosCount>0)
     {
     <li>
         <a title="@Model.BikeName Colors" href="@string.Format("/m{0}",Model.ColourImageUrl)">
