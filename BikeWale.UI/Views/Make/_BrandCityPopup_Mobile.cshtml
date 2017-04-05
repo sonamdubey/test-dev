@@ -132,7 +132,7 @@
             self.selectedBrand = ko.observable(),
             self.bookingBrands = ko.observableArray([]),
             self.oBrowser = ko.observable(('@Model.IsOperaBrowser').toString().toLowerCase() == "true"),
-            self.makeApiUrl = "/api/makelist/?requesttype=" + '@Convert.ToInt32(Model.PageType)'
+            self.makeApiUrl = "/api/makelist/?requesttype=" + '@Convert.ToInt32(Model.PageType)',
             self.brandFilter = ko.observable(""),
             self.cityFilter = ko.observable(""),
             self.LoadingText = ko.observable("Loading..."),
