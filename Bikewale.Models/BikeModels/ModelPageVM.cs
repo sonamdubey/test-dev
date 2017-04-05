@@ -101,6 +101,8 @@ namespace Bikewale.Models.BikeModels
         public uint CampaignId { get; set; }
 
         public int ModelColorPhotosCount { get; set; }
+
+        public bool ShowOnRoadButton { get; set; }
     }
 
 }

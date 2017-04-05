@@ -30,7 +30,7 @@
                                         <span class="bwsprite inr-md-lg margin-right5"></span>
                                     </span>
                                     <span id="new-bike-price" class="font22 text-bold" itemprop="price" content="@Model.BikePrice">@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
-                                    @if (Model.IsLocationSelected && Model.BikePrice > 0)
+                                    @if ((Model.IsLocationSelected && !Model.ShowOnRoadButton) && Model.BikePrice > 0)
                                     {
                                         <a id="viewBreakupText" href="/pricequote/dealer/?MPQ=@Model.MPQString" rel="nofollow" class="font14 text-bold viewBreakupText">View detailed price</a>
                                         <br>
@@ -43,7 +43,7 @@
 
                             }
                             <div class="clear"></div>
-                            @if (!Model.IsLocationSelected)
+                            @if (!Model.IsLocationSelected || Model.ShowOnRoadButton)
                             {
                                 <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-persistent="true" data-reload="true" data-modelid="@Model.ModelId" class="btn btn-orange margin-top10 getquotation">Check on-road price</a>
                                 <div class="clear"></div>

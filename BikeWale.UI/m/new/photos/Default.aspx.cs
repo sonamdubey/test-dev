@@ -30,6 +30,7 @@ namespace Bikewale.Mobile.New.Photos
         protected PQSourceEnum pqSource;
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
         protected string JSONImageList = string.Empty, JSONVideoList = string.Empty;
+        protected uint imageIndex = 0;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -54,6 +55,11 @@ namespace Bikewale.Mobile.New.Photos
                 {
                     colorImageId = Convert.ToUInt32(Request.QueryString["colorImageId"]);
                 }
+                if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
+                {
+                    imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
+                }
+
                 BindPhotosPage();
             }
             catch (Exception ex)
