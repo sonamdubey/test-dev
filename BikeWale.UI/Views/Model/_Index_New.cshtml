@@ -80,8 +80,8 @@
         <div class="container">
             <div class="grid-12 margin-bottom20">
                 <div class="content-box-shadow">
-                    <div id="partner-dealer-panel" class="content-box-shadow padding-14-20 font18 text-bold text-black position-rel cur-pointer open"> Prices from @Model.DetailedDealer.SecondaryDealerCount more partner dealer@(Model.DetailedDealer.SecondaryDealerCount > 1 ? "s" : "") in @Model.City.CityName<span class="model-sprite plus-icon"></span></div>
-                    <div id="moreDealersList" class="jcarousel-wrapper inner-content-carousel" style="overflow: hidden; display: block;">
+                    <div id="partner-dealer-panel" class="content-box-shadow padding-14-20 font18 text-bold text-black position-rel cur-pointer"> Prices from @Model.DetailedDealer.SecondaryDealerCount more partner dealer@(Model.DetailedDealer.SecondaryDealerCount > 1 ? "s" : "") in @Model.City.CityName<span class="model-sprite plus-icon"></span></div>
+                    <div id="moreDealersList" class="jcarousel-wrapper inner-content-carousel">
                         @Html.Partial("~/Views/Price/_SecondaryDealers.cshtml", Model.DetailedDealer.SecondaryDealers)
                     </div>
                 </div>

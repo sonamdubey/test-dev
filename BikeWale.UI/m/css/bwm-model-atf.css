@@ -291,6 +291,7 @@ h1 {font-weight: 700;}
 .padding-top30 {
     padding-top: 30px;
 }
+.offertext{ width:100%; text-align:center; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
 
 .contact-icon, .offers-icon, .disclaimer-icon, .call-icon { width:14px; height:16px; }
 .disclaimer-icon { background-position: -135px -308px; }

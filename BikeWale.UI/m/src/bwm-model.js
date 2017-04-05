@@ -503,7 +503,7 @@ docReady(function () {
         secondarydealer_Click(dealerId);
     });
 
-    $(".termsPopUpCloseBtn").on('click', function (e) {
+    $(".termsPopUpCloseBtn,.blackOut-window").on('click', function (e) {
         $("div#termsPopUpContainer").hide();
         $(".blackOut-window").hide();
     });
