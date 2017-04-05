@@ -843,6 +843,7 @@ namespace Bikewale.Models.BikeModels
                         var selectedCity = cities.FirstOrDefault(m => m.CityId == _cityId);
 
                         objData.City = selectedCity;
+                        objData.ShowOnRoadButton = selectedCity != null && selectedCity.HasAreas && _areaId <= 0;
                         objData.IsAreaSelected = selectedCity != null && selectedCity.HasAreas && _areaId > 0;
                         if (!objData.IsAreaSelected) _areaId = 0;
                     }

@@ -39,7 +39,7 @@
                                         <span class="font18 text-bold" itemprop="price" content="0">Price not available</span>
                                     }
                                 </span>
-                                @if (Model.IsLocationSelected && Model.BikePrice > 0)
+                                @if ((Model.IsLocationSelected && !Model.ShowOnRoadButton) && Model.BikePrice > 0)
                                 {
                                     <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" class="font14 text-bold viewBreakupText" rel="nofollow">View detailed price</a>
                                 }
@@ -51,7 +51,7 @@
                             @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Mobile.cshtml", Model)
                         }
                         
-                        @if (!Model.IsLocationSelected)
+                        @if (!Model.IsLocationSelected || Model.ShowOnRoadButton)
                         {
                             <div class="floating-btn clearfix">
                                 <div class="grid-12 alpha omega">
