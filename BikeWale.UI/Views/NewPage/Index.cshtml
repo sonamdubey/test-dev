@@ -5,8 +5,8 @@
     Model.Page_JS_Path = "/src/bw-new.js";
     Model.AdTags.AdPath = "1017752/BikeWale_NewBikesHome_";
     Model.AdTags.AdId = "1395986297721";
-    Model.AdTags.Ad_300x250BTF = true;
-    Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/new-bikes-in-india/";
+    Model.AdTags.Ad_976x400First = true;
+    Model.AdTags.Ad_976x400Second = true;
     Model.IsTransparentHeader = true;
     Model.IsPageTypeLanding = true;
 }
@@ -195,6 +195,12 @@
         <div class="clear"></div>
     </div>
 </section>
+@if (Model.AdTags.Ad_976x400First)
+{
+    <section>
+        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_First.cshtml", new { AdId = Model.AdTags.AdId });}
+    </section>
+}
 <section>
     <div class="container section-bottom-margin">
         <div class="grid-12">
@@ -271,6 +277,14 @@
         </div>
     </section>
 }
+
+@if (Model.AdTags.Ad_976x400Second)
+{
+    <section>
+        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Second.cshtml", new { AdId = Model.AdTags.AdId });}
+    </section>
+}
+
 <section class="container">
     <!--  Tools you may need section code starts here -->
     <div class="grid-12">
