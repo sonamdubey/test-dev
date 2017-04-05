@@ -55,6 +55,6 @@
     else
     {
         <p class="font12 text-light-grey">Version</p>
-        <p id="singleversion" class="font14 text-bold margin-bottom15">@Model.SelectedVersion.VersionName</p>
+        <p id="singleversion" class="font14 text-bold margin-bottom15">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : Model.VersionName)</p>    
     }
 }

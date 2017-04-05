@@ -45,7 +45,7 @@
         <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Images" : "Image")" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))">
             <span class="bwmsprite photos-sm"></span>
             <span class="inline-block">
-                <span class="font12">@Model.ModelPageEntity.ModelDetails.PhotosCount</span>&nbsp;<span class="font11">images</span>
+        <span class="font12">@Model.ModelPageEntity.ModelDetails.PhotosCount</span>&nbsp;<span class="font11">@string.Format("{0}", Model.ModelPageEntity.ModelDetails.PhotosCount > 1 ? "images" : "image")</span>
             </span>
         </a>
     </li>
@@ -56,7 +56,7 @@
         <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Videos" : "Video")" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))">
             <span class="bwmsprite videos-sm"></span>
             <span class="inline-block">
-                <span class="font12">@Model.ModelPageEntity.ModelDetails.VideosCount</span>&nbsp;<span class="font11">videos</span>
+                <span class="font12">@Model.ModelPageEntity.ModelDetails.VideosCount</span>&nbsp;<span class="font11">@string.Format("{0}", Model.ModelPageEntity.ModelDetails.VideosCount > 1 ? "videos" : "video")</span>
             </span>
         </a>
     </li>
@@ -67,7 +67,7 @@
         <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Colors" : "Color")" href="@string.Format("/m{0}",Model.ColourImageUrl)">
             <span class="bwmsprite colors-sm"></span>
             <span class="inline-block">
-                <span class="font12">@Model.ModelColorPhotosCount</span>&nbsp;<span class="font11">colours</span>
+                <span class="font12">@Model.ModelColorPhotosCount</span>&nbsp;<span class="font11">@string.Format("{0}", Model.ModelColorPhotosCount > 1 ? "colours" : "colour")</span>
             </span>
         </a>
     </li>
