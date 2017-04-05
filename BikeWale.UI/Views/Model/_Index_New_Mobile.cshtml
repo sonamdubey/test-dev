@@ -39,7 +39,7 @@
                                         <span class="font18 text-bold" itemprop="price" content="0">Price not available</span>
                                     }
                                 </span>
-                                @if ((Model.IsLocationSelected && !Model.ShowOnRoadButton) && Model.BikePrice > 0 && Model.IsNewBike)
+                                @if ((Model.City!=null && Model.IsLocationSelected && !Model.ShowOnRoadButton) && Model.BikePrice > 0 && Model.IsNewBike)
                                 {
                                     <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" class="font14 text-bold viewBreakupText" rel="nofollow">View detailed price</a>
                                 }

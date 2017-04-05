@@ -42,7 +42,9 @@
                         }
                         @if (Model.ShowPriceInCityCTA)
                         {
-                            <a href="@String.Format("/m{0}", UrlFormatter.PriceInCityUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName,bike.CityMaskingName))" class="btn btn-card btn-full-width btn-white getquotation font12" rel="nofollow" title="On-road price in @bike.CityName">On-road price in @bike.CityName</a>
+                            <div class="swiper-btn-block">
+                                <a href="@String.Format("/m{0}", UrlFormatter.PriceInCityUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName,bike.CityMaskingName))" class="btn btn-card btn-full-width btn-white text-truncate getquotation font12" rel="nofollow" title="On-road price in @bike.CityName">On-road price in @bike.CityName</a>
+                            </div>
                         }
                         @if (Model.Make != null && Model.Model != null)
                         {
