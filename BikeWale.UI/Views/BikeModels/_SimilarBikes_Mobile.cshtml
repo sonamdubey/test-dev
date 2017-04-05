@@ -3,7 +3,7 @@
 @using Bikewale.Utility;
 @if (Model != null && Model.Bikes != null && Model.Bikes.Count() > 0)
 {
-    <div class="swiper-container padding-top5 padding-bottom5">
+    <div class="swiper-container card-container swiper-type-similar">
         <div class="swiper-wrapper">
             @foreach (var bike in Model.Bikes)
             {
