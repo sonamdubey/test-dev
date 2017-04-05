@@ -14,6 +14,7 @@ namespace Bikewale.Models
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private ushort _recordCount;
         public uint BodyStyleId { get; set; }
+        public uint MakeId { get; set; }
         public NewLaunchedWidgetModel(ushort recordCount, INewBikeLaunchesBL newLaunches)
         {
             _newLaunches = newLaunches;
@@ -32,7 +33,8 @@ namespace Bikewale.Models
             {
                 PageNo = 1,
                 BodyStyle = BodyStyleId,
-                PageSize = _recordCount
+                PageSize = _recordCount,
+                Make = MakeId
             };
             var bikeBase = _newLaunches.GetBikes(objFilters);
             objData.Bikes = bikeBase.Bikes;

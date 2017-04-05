@@ -50,11 +50,11 @@
                                 <a href="@String.Format(@"{0}?modelpage=true&imageindex={1}#modelGallery",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName),imageIndex)">
                                     @if (imageIndex < 7)
                                     {
-                                        <img data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._110x61)&q=60" alt="@imageProperty" title="@imageProperty" border="0" />
+                                        <img data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
                                     }
                                     else
                                     {
-                                        <img class="lazy"  src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" data-original="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._110x61)&q=60" alt="@imageProperty" title="@imageProperty" border="0" />
+                                        <img class="lazy"  src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" data-original="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._80)" alt="@imageProperty" title="@imageProperty" border="0" />
 
                                     }
                                 </a>

@@ -95,6 +95,7 @@ namespace Bikewale.Models
             try
             {
                 NewLaunchedWidgetModel objNewLaunched = new NewLaunchedWidgetModel(9, _newLaunches);
+                objNewLaunched.MakeId = makeId;
                 NewLaunchedbikes.PQSourceId = (uint)PQSourceEnum.Mobile_DealerLocator_Landing_Check_on_road_price;
                 NewLaunchedbikes = objNewLaunched.GetData();
             }
@@ -192,7 +193,8 @@ namespace Bikewale.Models
                 objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
                 {
                     EndIndex = 9,
-                    StartIndex = 1
+                    StartIndex = 1,
+                    MakeId = (int)makeId
                 };
                 objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
                 objUpcomingBikes = objUpcoming.GetData();
