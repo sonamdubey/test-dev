@@ -601,7 +601,7 @@ namespace Bikewale.Models.BikeModels
                             }
                         }
 
-                        if (modelPg.ModelDetails.PhotosCount > 0 && modelPg.AllPhotos != null && modelPg.AllPhotos.Count() > 0)
+                        if (modelPg.ModelDetails.PhotosCount > 0 && modelPg.ModelColors != null && modelPg.ModelColors.Count() > 0)
                         {
                             var colorImages = modelPg.ModelColors.Where(x => x.ColorImageId > 0);
                             if (colorImages != null)
