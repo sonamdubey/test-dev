@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 
 <div id="modelSummaryContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
-    @if (!Model.IsUpcomingBike && Model.ModelPageEntity.ModelDetails.MinPrice > 0)
+    @if (!Model.IsUpcomingBike)
     {
         <h2 class="margin-bottom0">@Model.BikeName summary</h2>
         <div class="@(Model.BikeRanking != null && Model.BikeRanking.Rank > 0 ? " grid-8 " : " grid-12 omega ") alpha margin-top15">
