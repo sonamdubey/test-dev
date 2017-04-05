@@ -90,7 +90,7 @@
     </section>
 }
 
-@if (Model.ManufacturerCampaign != null && Model.ManufacturerCampaign.ShowAd)
+@if (Model.ManufacturerCampaign != null && Model.ManufacturerCampaign.ShowAd && Model.IsLocationSelected && !Model.ShowOnRoadButton)
 {
     @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
 }
