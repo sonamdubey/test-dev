@@ -18,7 +18,9 @@ namespace Grpc.CMS
         static readonly int m_ChanelWaitTime;
         static readonly int m_retryCount;
         static readonly ILog log = LogManager.GetLogger(typeof(GrpcMethods));
-        static int _msLimit = 100;
+        static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
+        static uint _msLimit = Convert.ToUInt32(Bikewale.Utility.BWConfiguration.Instance.GrpcMaxTimeLimit);
+
         static GrpcMethods()
         {
             m_ChanelWaitTime = Convert.ToInt32(BWConfiguration.Instance.GrpcChannelWaitTime);//2000
@@ -32,10 +34,13 @@ namespace Grpc.CMS
 
         public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx, int makeid = 0, int modelid = 0)
         {
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch sw = null;
             try
             {
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                if (_logGrpcErrors)
+                {
+                    sw = Stopwatch.StartNew();
+                } Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                 int i = m_retryCount;
                 while (i-- >= 0)
                 {
@@ -60,7 +65,7 @@ namespace Grpc.CMS
                             log.Error(e);
                             if (i > 0)
                             {
-                                log.Error("Error104 Get another Channel "+ch.ResolvedTarget);
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
                                 ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                             }
                             else
@@ -80,127 +85,155 @@ namespace Grpc.CMS
             }
             finally
             {
-                sw.Stop();
-                if(sw.ElapsedMilliseconds>_msLimit)
-                    log.Error("Error105 GetArticleListByCategory took "+sw.ElapsedMilliseconds);                
+                if (_logGrpcErrors)
+                {
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetArticleListByCategory took " + sw.ElapsedMilliseconds);
+                }
             }
 
         }
 
         public static GrpcArticleSummaryList MostRecentList(string contenTypes, int totalRecords, int? makeId = 0, int? modelId = 0)
         {
-            Stopwatch sw = Stopwatch.StartNew();
-            try { 
-            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+            Stopwatch sw = null;
 
-            int i = m_retryCount;
-            while (i-- >= 0)
+            try
             {
-                if (ch != null)
+                if (_logGrpcErrors)
                 {
-                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                    try
-                    {
+                    sw = Stopwatch.StartNew();
+                }
 
-                        return client.GetMostRecentArticles
-                            (new GrpcArticleRecentURI()
-                            {
-                                MakeId = makeId == null ? 0 : makeId.Value,
-                                ModelId = modelId == null ? 0 : modelId.Value,
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                                ApplicationId = 2,
-                                ContentTypes = contenTypes,
-                                TotalRecords = (uint)totalRecords
-                            },
-                             null, GetForwardTime(m_ChanelWaitTime));
-                    }
-                    catch (RpcException e)
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
                     {
-                        log.Error(e);
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+
+                            return client.GetMostRecentArticles
+                                (new GrpcArticleRecentURI()
+                                {
+                                    MakeId = makeId == null ? 0 : makeId.Value,
+                                    ModelId = modelId == null ? 0 : modelId.Value,
+
+                                    ApplicationId = 2,
+                                    ContentTypes = contenTypes,
+                                    TotalRecords = (uint)totalRecords
+                                },
+                                 null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
                             if (i > 0)
                             {
-                                 log.Error("Error104 Get another Channel "+ch.ResolvedTarget);
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
                                 ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                             }
                             else
-                            break;
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        log.Error(e);
-                    }
+                    else
+                        break;
                 }
-                else
-                    break;
-            }
-            return null;
+                return null;
             }
             finally
             {
-                sw.Stop();
-                if (sw.ElapsedMilliseconds > _msLimit)
-                    log.Error("Error105 MostRecentList took " + sw.ElapsedMilliseconds);
+                if (_logGrpcErrors)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 MostRecentList took " + sw.ElapsedMilliseconds);
+                }
             }
         }
 
         public static GrpcModelImageList GetArticlePhotos(ulong basicId)
         {
-            Stopwatch sw = Stopwatch.StartNew();
-            try { 
-                
-            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+            Stopwatch sw = null;
 
-            int i = m_retryCount;
-            while (i-- >= 0)
+            try
             {
-                if (ch != null)
+                if (_logGrpcErrors)
                 {
-                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                    try
-                    {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                        return client.GetArticlePhotos
-                            (new GrpcArticleContentURI()
-                            {
-                                BasicId = basicId,
-                                ApplicationId = 2
-                            },
-                             null, GetForwardTime(m_ChanelWaitTime));
-                    }
-                    catch (RpcException e)
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
                     {
-                        log.Error(e);
-                        if (i > 0)
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+
+                            return client.GetArticlePhotos
+                                (new GrpcArticleContentURI()
+                                {
+                                    BasicId = basicId,
+                                    ApplicationId = 2
+                                },
+                                 null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
                             {
-                                 log.Error("Error104 Get another Channel "+ch.ResolvedTarget);
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
                                 ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                             }
                             else
-                            break;
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        log.Error(e);
-                    }
+                    else
+                        break;
                 }
-                else
-                    break;
-            }
-            return null;
+                return null;
             }
             finally
             {
-                sw.Stop();
-                if (sw.ElapsedMilliseconds > _msLimit)
-                    log.Error("Error105 GetArticlePhotos took " + sw.ElapsedMilliseconds);
+                if (_logGrpcErrors)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetArticlePhotos took " + sw.ElapsedMilliseconds);
+                }
             }
         }
 
         public static GrpcModelImageList GetModelPhotosList(uint applicationId, int modelId, string categoryId)
         {
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch sw = null;
+
             try
             {
+                if (_logGrpcErrors)
+                {
+                    sw = Stopwatch.StartNew();
+                }
                 Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
                 int i = m_retryCount;
@@ -226,7 +259,7 @@ namespace Grpc.CMS
                             log.Error(e);
                             if (i > 0)
                             {
-                                 log.Error("Error104 Get another Channel "+ch.ResolvedTarget);
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
                                 ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                             }
                             else
@@ -244,232 +277,281 @@ namespace Grpc.CMS
             }
             finally
             {
-                sw.Stop();
-                if (sw.ElapsedMilliseconds > _msLimit)
-                    log.Error("Error105 GetModelPhotosList took " + sw.ElapsedMilliseconds);
+                if (_logGrpcErrors)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetModelPhotosList took " + sw.ElapsedMilliseconds);
+                }
             }
         }
-      
+
 
         public static GrpcArticleDetails GetContentDetails(ulong basicId)
         {
-            Stopwatch sw = Stopwatch.StartNew();
-            try { 
-            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+            Stopwatch sw = null;
 
-            int i = m_retryCount;
-            while (i-- >= 0)
+            try
             {
-                if (ch != null)
+                if (_logGrpcErrors)
                 {
-                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                    try
-                    {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                        return client.GetContentDetails
-                            (new GrpcArticleContentURI()
-                            {
-                                BasicId = basicId,
-                                ApplicationId = 2
-                            },
-                             null, GetForwardTime(m_ChanelWaitTime));
-                    }
-                    catch (RpcException e)
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
                     {
-                        log.Error(e);
-                        if (i > 0)
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+
+                            return client.GetContentDetails
+                                (new GrpcArticleContentURI()
+                                {
+                                    BasicId = basicId,
+                                    ApplicationId = 2
+                                },
+                                 null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
                             {
-                                 log.Error("Error104 Get another Channel "+ch.ResolvedTarget);
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
                                 ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                             }
                             else
-                            break;
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        log.Error(e);
-                    }
+                    else
+                        break;
                 }
-                else
-                    break;
-            }
-            return null;
+                return null;
             }
             finally
             {
-                sw.Stop();
-                if (sw.ElapsedMilliseconds > _msLimit)
-                    log.Error("Error105 GetContentDetails took " + sw.ElapsedMilliseconds);
+                if (_logGrpcErrors)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetContentDetails took " + sw.ElapsedMilliseconds);
+                }
             }
         }
 
         public static GrpcArticlePageDetails GetContentPages(ulong basicId)
         {
-            Stopwatch sw = Stopwatch.StartNew();
-            try { 
-            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+            Stopwatch sw = null;
 
-            int i = m_retryCount;
-            while (i-- >= 0)
+            try
             {
-                if (ch != null)
+                if (_logGrpcErrors)
                 {
-                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                    try
-                    {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                        return client.GetContentPages
-                            (new GrpcArticleContentURI()
-                            {
-                                BasicId = basicId,
-                                ApplicationId = 2
-                            },
-                             null, GetForwardTime(m_ChanelWaitTime));
-                    }
-                    catch (RpcException e)
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
                     {
-                        log.Error(e);
-                        if (i > 0)
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+
+                            return client.GetContentPages
+                                (new GrpcArticleContentURI()
+                                {
+                                    BasicId = basicId,
+                                    ApplicationId = 2
+                                },
+                                 null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
                             {
-                                 log.Error("Error104 Get another Channel "+ch.ResolvedTarget);
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
                                 ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                             }
                             else
-                            break;
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        log.Error(e);
-                    }
+                    else
+                        break;
                 }
-                else
-                    break;
-            }
-            return null;
+                return null;
             }
             finally
             {
-                sw.Stop();
-                if (sw.ElapsedMilliseconds > _msLimit)
-                    log.Error("Error105 GetContentPages took " + sw.ElapsedMilliseconds);
+                if (_logGrpcErrors)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetContentPages took " + sw.ElapsedMilliseconds);
+                }
             }
         }
 
         public static GrpcVideosList GetVideosByModelId(int modelId, uint startId, uint endId)
         {
-            Stopwatch sw = Stopwatch.StartNew();
-            try { 
-            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+            Stopwatch sw = null;
 
-            int i = m_retryCount;
-            while (i-- >= 0)
+            try
             {
-                if (ch != null)
+                if (_logGrpcErrors)
                 {
-                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                    try
-                    {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                        return client.GetVideosByModelId
-                            (new GrpcVideosByIdURI()
-                            {
-                                Id = modelId,
-                                ApplicationId = 2,
-                                StartIndex = startId,
-                                EndIndex = endId
-                            },
-
-                             null, GetForwardTime(m_ChanelWaitTime));
-                    }
-                    catch (RpcException e)
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
                     {
-                        log.Error(e);
-                        if (i > 0)
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+
+                            return client.GetVideosByModelId
+                                (new GrpcVideosByIdURI()
+                                {
+                                    Id = modelId,
+                                    ApplicationId = 2,
+                                    StartIndex = startId,
+                                    EndIndex = endId
+                                },
+
+                                 null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
                             {
-                                 log.Error("Error104 Get another Channel "+ch.ResolvedTarget);
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
                                 ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                             }
                             else
-                            break;
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        log.Error(e);
-                    }
+                    else
+                        break;
                 }
-                else
-                    break;
-            }
-            return null;
+                return null;
             }
             finally
             {
-                sw.Stop();
-                if (sw.ElapsedMilliseconds > _msLimit)
-                    log.Error("Error105 GetVideosByModelID took " + sw.ElapsedMilliseconds);
+                if (_logGrpcErrors)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetVideosByModelID took " + sw.ElapsedMilliseconds);
+                }
             }
         }
 
         public static GrpcVideosList GetVideosByMakeId(int makeId, uint startId, uint endId)
         {
-            Stopwatch sw = Stopwatch.StartNew();
-            try { 
-            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+            Stopwatch sw = null;
 
-            int i = m_retryCount;
-            while (i-- >= 0)
+            try
             {
-                if (ch != null)
+                if (_logGrpcErrors)
                 {
-                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                    try
-                    {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                        return client.GetVideosByMakeId
-                            (new GrpcVideosByIdURI()
-                            {
-                                Id = makeId,
-                                ApplicationId = 2,
-                                StartIndex = startId,
-                                EndIndex = endId
-                            },
-
-                             null, GetForwardTime(m_ChanelWaitTime));
-                    }
-                    catch (RpcException e)
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
                     {
-                        log.Error(e);
-                        if (i > 0)
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+
+                            return client.GetVideosByMakeId
+                                (new GrpcVideosByIdURI()
+                                {
+                                    Id = makeId,
+                                    ApplicationId = 2,
+                                    StartIndex = startId,
+                                    EndIndex = endId
+                                },
+
+                                 null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
                             {
-                                 log.Error("Error104 Get another Channel "+ch.ResolvedTarget);
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
                                 ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                             }
                             else
-                            break;
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        log.Error(e);
-                    }
+                    else
+                        break;
                 }
-                else
-                    break;
-            }
-            return null;
+                return null;
             }
             finally
             {
-                sw.Stop();
-                if (sw.ElapsedMilliseconds > _msLimit)
-                    log.Error("Error105 GetVideosByMakeId took " + sw.ElapsedMilliseconds);
+                if (_logGrpcErrors)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetVideosByMakeId took " + sw.ElapsedMilliseconds);
+                }
             }
         }
 
         public static GrpcVideosList GetVideosBySubCategory(uint catId, uint startId, uint endId)
         {
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch sw = null;
+
             try
             {
+                if (_logGrpcErrors)
+                {
+                    sw = Stopwatch.StartNew();
+                }
                 Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
                 int i = m_retryCount;
@@ -497,7 +579,7 @@ namespace Grpc.CMS
                             log.Error(e);
                             if (i > 0)
                             {
-                                 log.Error("Error104 Get another Channel "+ch.ResolvedTarget);
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
                                 ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                             }
                             else
@@ -512,14 +594,18 @@ namespace Grpc.CMS
                         break;
                 }
                 return null;
-             }
+            }
             finally
             {
-                sw.Stop();
-                if (sw.ElapsedMilliseconds > _msLimit)
-                    log.Error("Error105 GetVideosBySubCategory took " + sw.ElapsedMilliseconds);
+                if (_logGrpcErrors)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetVideosBySubCategory took " + sw.ElapsedMilliseconds);
+                }
             }
-}
+        }
 
 
         private static GrpcVideoSortOrderCategory MapVideosSortOrder(VideosSortOrder sortOrder)
@@ -539,121 +625,146 @@ namespace Grpc.CMS
 
         public static GrpcVideoListEntity GetVideosBySubCategories(string catIds, uint startIndex, uint endIndex, VideosSortOrder sortOrder)
         {
-            Stopwatch sw = Stopwatch.StartNew();
-            try { 
+            Stopwatch sw = null;
 
-            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-
-            int i = m_retryCount;
-            while (i-- >= 0)
+            try
             {
-                if (ch != null)
+                if (_logGrpcErrors)
                 {
-                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                    try
-                    {
+                    sw = Stopwatch.StartNew();
+                }
 
-                        return client.GetVideosBySubCategories
-                            (new GrpcVideosBySubCategoriesURI()
-                            {
-                                ApplicationId = 2,
-                                SubCategoryIds = catIds,
-                                StartIndex = startIndex,
-                                EndIndex = endIndex,
-                                SortCategory = MapVideosSortOrder(sortOrder)
-                            },
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                             null, GetForwardTime(m_ChanelWaitTime));
-                    }
-                    catch (RpcException e)
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
                     {
-                        log.Error(e);
-                        if (i > 0)
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+
+                            return client.GetVideosBySubCategories
+                                (new GrpcVideosBySubCategoriesURI()
+                                {
+                                    ApplicationId = 2,
+                                    SubCategoryIds = catIds,
+                                    StartIndex = startIndex,
+                                    EndIndex = endIndex,
+                                    SortCategory = MapVideosSortOrder(sortOrder)
+                                },
+
+                                 null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
                             {
-                                 log.Error("Error104 Get another Channel "+ch.ResolvedTarget);
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
                                 ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                             }
                             else
-                            break;
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        log.Error(e);
-                    }
+                    else
+                        break;
                 }
-                else
-                    break;
-            }
-            return null;
+                return null;
             }
             finally
             {
-                sw.Stop();
-                if (sw.ElapsedMilliseconds > _msLimit)
-                    log.Error("Error105 GetVideosBySubcategories took " + sw.ElapsedMilliseconds);
+                if (_logGrpcErrors)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetVideosBySubcategories took " + sw.ElapsedMilliseconds);
+                }
             }
         }
 
         public static GrpcVideosList GetSimilarVideos(int id, int totalCount)
         {
-            Stopwatch sw = Stopwatch.StartNew();
-            try { 
-            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+            Stopwatch sw = null;
 
-            int i = m_retryCount;
-            while (i-- >= 0)
+            try
             {
-                if (ch != null)
+                if (_logGrpcErrors)
                 {
-                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                    try
-                    {
+                    sw = Stopwatch.StartNew();
+                }
+                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                        return client.GetSimilarVideos
-                            (new GrpcVideosByIdURI()
-                            {
-                                ApplicationId = 2,
-                                Id = id,
-                                StartIndex = 1,
-                                EndIndex = (uint)totalCount
-                            },
-
-                             null, GetForwardTime(m_ChanelWaitTime));
-                    }
-                    catch (RpcException e)
+                int i = m_retryCount;
+                while (i-- >= 0)
+                {
+                    if (ch != null)
                     {
-                        log.Error(e);
-                        if (i > 0)
+                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                        try
+                        {
+
+                            return client.GetSimilarVideos
+                                (new GrpcVideosByIdURI()
+                                {
+                                    ApplicationId = 2,
+                                    Id = id,
+                                    StartIndex = 1,
+                                    EndIndex = (uint)totalCount
+                                },
+
+                                 null, GetForwardTime(m_ChanelWaitTime));
+                        }
+                        catch (RpcException e)
+                        {
+                            log.Error(e);
+                            if (i > 0)
                             {
-                                 log.Error("Error104 Get another Channel "+ch.ResolvedTarget);
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
                                 ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                             }
                             else
-                            break;
+                                break;
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e);
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        log.Error(e);
-                    }
+                    else
+                        break;
                 }
-                else
-                    break;
-            }
-            return null;
+                return null;
             }
             finally
             {
-                sw.Stop();
-                if (sw.ElapsedMilliseconds > _msLimit)
-                    log.Error("Error105 GetSimilarVideos took " + sw.ElapsedMilliseconds);
+                if (_logGrpcErrors)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetSimilarVideos took " + sw.ElapsedMilliseconds);
+                }
             }
         }
 
         public static GrpcVideo GetVideoByBasicId(int id)
         {
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch sw = null;
+
             try
             {
+                if (_logGrpcErrors)
+                {
+                    sw = Stopwatch.StartNew();
+                }
                 Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
                 int i = m_retryCount;
@@ -679,7 +790,7 @@ namespace Grpc.CMS
                             log.Error(e);
                             if (i > 0)
                             {
-                                 log.Error("Error104 Get another Channel "+ch.ResolvedTarget);
+                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
                                 ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                             }
                             else
@@ -694,14 +805,18 @@ namespace Grpc.CMS
                         break;
                 }
                 return null;
-            } 
+            }
             finally
             {
-                sw.Stop();
-                if (sw.ElapsedMilliseconds > _msLimit)
-                    log.Error("Error105 GetVideosByID took " + sw.ElapsedMilliseconds);
+                if (_logGrpcErrors)
+                {
+
+                    sw.Stop();
+                    if (sw.ElapsedMilliseconds > _msLimit)
+                        log.Error("Error105 GetVideosByID took " + sw.ElapsedMilliseconds);
+                }
             }
-}
+        }
 
         public static GrpcBool ClearMemCachedKEys(EditCMSCategoryEnum cat)
         {
@@ -725,7 +840,7 @@ namespace Grpc.CMS
                         log.Error(e);
                         if (i > 0)
                         {
-                             log.Error("Error104 Get another Channel "+ch.ResolvedTarget);
+                            log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
                             ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                         }
                         else
