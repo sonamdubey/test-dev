@@ -2,6 +2,7 @@
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Common;
+using Bikewale.DAL.Dealer;
 using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
@@ -32,6 +33,7 @@ namespace Bikewale.BindViewModels.Controls
                 {
                     container.RegisterType<IDealer, Dealer>()
                         .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                        .RegisterType<IDealerRepository, DealersRepository>()
                         .RegisterType<ICacheManager, MemcacheManager>();
 
                     objDealer = container.Resolve<IDealerCacheRepository>();

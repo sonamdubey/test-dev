@@ -606,7 +606,7 @@ namespace Bikewale.BAL.BikeData
                     });
 
                     //Add Color Photos
-                    if (colorPhotos != null)
+                    if (colorImages != null && colorImages.Count() > 0)
                     {
                         allPhotos.AddRange(colorImages);
                     }
@@ -667,7 +667,7 @@ namespace Bikewale.BAL.BikeData
                         ImageCategory = x.ImageCategory,
                         Colors = x.ColorCodes.Select(y => y.HexCode)
                     }) : null;
-                    if (colorPhotos != null)
+                    if (colorImages != null && colorImages.Count() > 0)
                     {
                         allPhotos.AddRange(colorImages);
                     }

@@ -288,6 +288,7 @@ namespace Bikewale.BAL.PriceQuote
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>().
+                            RegisterType<IDealer, Bikewale.BAL.Dealer.Dealer>().
                         RegisterType<IDealerRepository, DealersRepository>();
                         IPriceQuote objPriceQuote = container.Resolve<IPriceQuote>();
                         BikeQuotationEntity quotation = objPriceQuote.GetPriceQuoteById(leadEntity.PQId);
