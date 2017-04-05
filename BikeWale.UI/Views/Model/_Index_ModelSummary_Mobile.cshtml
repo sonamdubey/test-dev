@@ -1,61 +1,61 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 
-<div class="content-box-shadow padding-top15 padding-right20 padding-bottom20 padding-left20">
-    @if (!Model.IsUpcomingBike && Model.ModelPageEntity.ModelDetails.MinPrice > 0)
-    {
+@if (!Model.IsUpcomingBike)
+{
+
+
+    <div class="content-box-shadow padding-top15 padding-right20 padding-bottom20 padding-left20">
         <h2>@Model.BikeName Summary</h2>
-    }
 
-    @if (Model.ModelPageEntity.ModelVersionSpecs != null)
-    {
-        <ul class="summary-specs-list text-center padding-bottom10">
-            <li>
-                <span class="offers-sprite specs-capacity"></span>
-                <p class="font12 text-light-grey">
-                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement)
-                    @if(!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement).Equals("--"))
-                {
-                <span>&nbsp;cc</span>
-                }
-                </p>
-            </li>
-            <li>
-                <span class="offers-sprite specs-maxpower"></span>
-                <p class="font12 text-light-grey">
-                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower)
-                    @if(!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower).Equals("--"))
-                {
-                <span>&nbsp;bhp</span>
-                }
-                </p>
-            </li>
-            <li>
-                <span class="offers-sprite specs-mileage"></span>
-                <p class="font12 text-light-grey">
-                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall)
-                    @if (!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall).Equals("--"))
-                    {
-                        <span>&nbsp;kmpl</span>
-                    }
-                </p>
-            </li>
-            <li>
-                <span class="offers-sprite specs-weight"></span>
-                <p class="font12 text-light-grey">
-                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight)
-                    @if(!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight).Equals("--"))
-                {
-                <span>&nbsp;kgs</span>
-                }
-                </p>
-            </li>
-        </ul>
-        <div class="border-solid-bottom margin-bottom15"></div>
+        @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+        {
+            <ul class="summary-specs-list text-center padding-bottom10">
+                <li>
+                    <span class="offers-sprite specs-capacity"></span>
+                    <p class="font12 text-light-grey">
+                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement)
+                        @if (!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement).Equals("--"))
+                        {
+                            <span>&nbsp;cc</span>
+                        }
+                    </p>
+                </li>
+                <li>
+                    <span class="offers-sprite specs-maxpower"></span>
+                    <p class="font12 text-light-grey">
+                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower)
+                        @if (!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower).Equals("--"))
+                        {
+                            <span>&nbsp;bhp</span>
+                        }
+                    </p>
+                </li>
+                <li>
+                    <span class="offers-sprite specs-mileage"></span>
+                    <p class="font12 text-light-grey">
+                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall)
+                        @if (!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall).Equals("--"))
+                        {
+                            <span>&nbsp;kmpl</span>
+                        }
+                    </p>
+                </li>
+                <li>
+                    <span class="offers-sprite specs-weight"></span>
+                    <p class="font12 text-light-grey">
+                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight)
+                        @if (!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight).Equals("--"))
+                        {
+                            <span>&nbsp;kgs</span>
+                        }
+                    </p>
+                </li>
+            </ul>
+            <div class="border-solid-bottom margin-bottom15"></div>
 
-    }
+        }
 
-    @if (!Model.IsUpcomingBike && Model.ModelPageEntity.ModelDetails.MinPrice > 0)
-    {
+
         <div class="border-solid-bottom padding-bottom10 margin-bottom15">
             <table id="model-key-highlights" cellspacing="0" cellpadding="0" width="100%" border="0" class="font14 text-left">
                 <thead>
@@ -66,41 +66,41 @@
                 <tbody>
                     @if (Model.ModelPageEntity.ModelDetails.MinPrice > 0)
                     {
-                        <tr>
-                            <td valign="top" width="36%">Price</td>
-                            <td valign="top" width="64%">
-                                <span class="bwmsprite inr-dark-grey-xsm-icon"></span><span class="text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.ModelPageEntity.ModelDetails.MinPrice))</span><br />
-                                <span class="font12 text-light-grey">(Ex-showroom @Bikewale.Utility.BWConfiguration.Instance.DefaultName)</span>
-                            </td>
-                        </tr>
+                <tr>
+                    <td valign="top" width="36%">Price</td>
+                    <td valign="top" width="64%">
+                        <span class="bwmsprite inr-dark-grey-xsm-icon"></span><span class="text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.ModelPageEntity.ModelDetails.MinPrice))</span><br />
+                        <span class="font12 text-light-grey">(Ex-showroom @Bikewale.Utility.BWConfiguration.Instance.DefaultName)</span>
+                    </td>
+                </tr>
                     }
                     @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
                     {
-                        <tr>
-                            <td valign="top">Top speed</td>
-                            <td valign="top" class="text-bold">@Model.ModelPageEntity.ModelVersionSpecs.TopSpeed kmph</td>
-                        </tr>
+                <tr>
+                    <td valign="top">Top speed</td>
+                    <td valign="top" class="text-bold">@Model.ModelPageEntity.ModelVersionSpecs.TopSpeed kmph</td>
+                </tr>
                     }
                     @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
                     {
-                        <tr>
-                            <td valign="top">Mileage</td>
-                            <td valign="top" class="text-bold">@Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall kmpl</td>
-                        </tr>
+                <tr>
+                    <td valign="top">Mileage</td>
+                    <td valign="top" class="text-bold">@Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall kmpl</td>
+                </tr>
                     }
                     @if (Model.IsModelColorsAvailable)
                     {
-                        <tr>
-                            <td valign="top">Colours</td>
-                            <td valign="top" class="text-bold">
-                                <ul class="model-color-list">
-                                    @foreach (var colorName in Model.ModelPageEntity.ModelColors)
+                <tr>
+                    <td valign="top">Colours</td>
+                    <td valign="top" class="text-bold">
+                        <ul class="model-color-list">
+                            @foreach (var colorName in Model.ModelPageEntity.ModelColors)
                                     {
-                                        <li class="leftfloat">@colorName.ColorName</li>
+                                <li class="leftfloat">@colorName.ColorName</li>
                                     }
-                                </ul>
-                            </td>
-                        </tr>
+                        </ul>
+                    </td>
+                </tr>
                     }
                 </tbody>
             </table>
@@ -108,20 +108,19 @@
 
         <p class="font14 text-light-grey line-height16">@Model.ModelSummary</p>
 
-        if (Model.BikeRanking != null && Model.BikeRanking.Rank > 0)
+        @if (Model.BikeRanking != null && Model.BikeRanking.Rank > 0)
         {
-            <a href="@(string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)))" title="Top 10 @Model.BikeRanking.StyleName in India" class="model-rank-slug margin-top10">
-                <div class="inline-block icon-red-bg">
-                    <span class="bwmsprite rank-graph"></span>
-                </div>
-                <div class="rank-slug-label inline-block text-bold text-default">
-                    <p class="font14">@Html.Raw(Model.BikeRanking.Rank > 1 ? Model.BikeRanking.RankText : "") Most Popular @Model.BikeRanking.BikeType</p>
-                    <p class="font11">Check out the complete list.</p>
-                </div>
-                <span class="trend-arrow"></span>
-                <span class="bwmsprite right-arrow"></span>
-            </a>
+        <a href="@(string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)))" title="Top 10 @Model.BikeRanking.StyleName in India" class="model-rank-slug margin-top10">
+            <div class="inline-block icon-red-bg">
+                <span class="bwmsprite rank-graph"></span>
+            </div>
+            <div class="rank-slug-label inline-block text-bold text-default">
+                <p class="font14">@Html.Raw(Model.BikeRanking.Rank > 1 ? Model.BikeRanking.RankText : "") Most Popular @Model.BikeRanking.BikeType</p>
+                <p class="font11">Check out the complete list.</p>
+            </div>
+            <span class="trend-arrow"></span>
+            <span class="bwmsprite right-arrow"></span>
+        </a>
         }
-    }
-
-</div>
+    </div>
+}

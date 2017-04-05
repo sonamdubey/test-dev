@@ -346,7 +346,7 @@
         <div class="container">
             <div class="grid-12">
                 <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Find used bikes</h2>
-                <div class="bw-tabs-panel content-box-shadow">
+                <div class="bw-tabs-panel content-box-shadow margin-bottom20">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
                             @if (Model.IsUsedModelsAvailable)
@@ -357,7 +357,7 @@
                             }
                             @if (Model.IsUsedBikeCitiesAvailable)
                             {
-                                <li data-tabs="usedByCity">
+                                <li class="@(Model.IsUsedModelsAvailable ? "" : "active")" data-tabs="usedByCity">
                                     <h3>City</h3>
                                 </li>
                             }
@@ -382,7 +382,7 @@
                     @if (Model.IsUsedBikeCitiesAvailable)
                     {
                         <section>
-                            <div class="bw-tabs-data hide" id="usedByCity">
+                            <div class="bw-tabs-data @(Model.IsUsedModelsAvailable ? "hide" : "")" id="usedByCity">
                                 @Html.Partial("~/Views/UsedBikes/_usedBikesCities.cshtml", Model.UsedBikeCities)
                             </div>
                         </section>
