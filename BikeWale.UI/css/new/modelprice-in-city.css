@@ -50,13 +50,13 @@
 
 .single-version-value,
 .selected-city {
-    padding: 3px 15px 6px 0;
-    border-bottom: 1px solid #ddd;
+    padding: 3px 18px 6px 0;
     position: relative;
 }
 
 .single-version-value {
     background: transparent url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+    border-bottom: 1px solid #ddd;
 }
 
 .single-version-value:after {
@@ -88,9 +88,9 @@
     height: 25px;
 }
 
-#model-version-dropdown .chosen-container .chosen-drop {
+#model-version-dropdown .chosen-drop {
     width: 260px !important;
-    top: -20px;
+    top: -18px;
 }
 
 #model-version-dropdown .chosen-single {
@@ -104,6 +104,29 @@
 
 #model-version-dropdown .result-selected {
     font-weight: 600;
+}
+
+/* city */
+.location-selection {
+    width: 165px;
+}
+
+.selected-city {
+    border-bottom: 1px solid #82888b;
+}
+
+.loc-change-blue-icon {
+    width: 12px;
+    height: 16px;
+    background-position: -205px -9px;
+    cursor: pointer;
+    position: absolute;
+    top: 4px;
+    right: 0;
+}
+
+.loc-change-blue-icon:hover {
+    background-position: -205px -35px;
 }
 
 /* model-image */

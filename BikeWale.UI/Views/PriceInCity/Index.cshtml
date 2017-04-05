@@ -100,14 +100,39 @@
                                 <p class="font12 text-light-grey">Version</p>
                                 <p class="text-bold single-version-value text-truncate">Standard</p>
                             </div>*@
-                            <div class="vertical-top cur-pointer">
+                            <div class="location-selection vertical-top cur-pointer">
                                 <p class="font12 text-light-grey">City</p>
-                                <p class="text-bold selected-city">
-                                    <span>Ghatkopar (E)</span>, <span>Mumbai</span> <span class="margin-left5">
-                                        <span class="bwsprite loc-change-blue-icon"></span>
-                                    </span>
+                                <p class="text-bold selected-city text-truncate position-rel">
+                                    <span>Ghatkopar (E)</span>, <span>Mumbai</span>
+                                    <span class="bwsprite loc-change-blue-icon"></span>
                                 </p>
                             </div>
+
+                            <table width="100%" cellspacing="0" cellpadding="0" class="margin-top15 font14">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" align="left" class="padding-bottom10 text-default text-bold">@Model.BikeName price in @Model.CityEntity.CityName</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td align="left" valign="top" width="70%" class="padding-bottom10 text-slate-grey">Ex-showroom</td>
+                                        <td align="right" valign="top" width="30%" class="padding-bottom10 text-bold"><span class="bwsprite inr-sm"></span>&nbsp;90,489</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" valign="top" width="70%" class="padding-bottom10 text-slate-grey">RTO</td>
+                                        <td align="right" valign="top" width="30%" class="padding-bottom10 text-bold"><span class="bwsprite inr-sm"></span>&nbsp;2,624</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" valign="top" width="70%" class="padding-bottom15 text-slate-grey">Insurance (Comprehensive)</td>
+                                        <td align="right" valign="top" width="30%" class="padding-bottom15 text-bold"><span class="bwsprite inr-sm"></span>&nbsp;637</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" valign="top" width="70%" class="padding-top15 padding-bottom15 border-solid-top">@Model.BikeName price in @Model.CityEntity.CityName</td>
+                                        <td align="right" valign="top" width="30%" class="padding-top15 padding-bottom15 border-solid-top font16 text-bold"><span class="bwsprite inr-sm"></span>&nbsp;93,750</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="clear"></div>
                     </div>
