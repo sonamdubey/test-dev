@@ -95,7 +95,10 @@ namespace Bikewale.Models
                     recentNews.ModelName = _modelName;
                     recentNews.ModelMasking = _modelMasking;
                 }
-                recentNews.FetchedCount = recentNews.ArticlesList.Count();
+
+                if (recentNews.ArticlesList != null)
+                    recentNews.FetchedCount = recentNews.ArticlesList.Count();
+
                 recentNews.Title = _title;
             }
             catch (Exception ex)
