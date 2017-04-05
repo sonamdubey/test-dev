@@ -29,7 +29,7 @@
                             <p class="font12 text-light-grey">@(Model.IsLocationSelected ? "On-road" : "Ex-showroom ") price in @Model.Location</p>
                             <div>
                                 <span itemprop="priceCurrency" content="INR">
-                                    @if (Model.BikePrice != 0)
+                                    @if (Model.BikePrice > 0)
                                     {
                                         <span class="bwmsprite inr-lg-icon"></span>
                                         <span class="font24 text-bold padding-right5" itemprop="price" content="@Model.BikePrice">@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
@@ -39,9 +39,9 @@
                                         <span class="font18 text-bold" itemprop="price" content="0">Price not available</span>
                                     }
                                 </span>
-                                @if (Model.IsLocationSelected)
+                                @if (Model.IsLocationSelected && Model.BikePrice > 0)
                                 {
-                                    <a href="/m/pricequote/dealerpricequote.aspx?MPQ=@Model.MPQString" class="font14 text-bold viewBreakupText" rel="nofollow">View detailed price</a>
+                                    <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" class="font14 text-bold viewBreakupText" rel="nofollow">View detailed price</a>
                                 }
                             </div>
                         </div>
@@ -82,6 +82,18 @@
     </div>
 </section>
 
+@if (Model.objBestBikesList != null && Model.objBestBikesList.Count() > 0)
+{
+    <section>
+        <div class="container padding-15-20-20 content-box-shadow card-bottom-margin">
+            <h2 class="text-bold margin-bottom10">Here's a list of best @Model.BestBikeHeading</h2>
+            @Html.Partial("~/Views/Model/_BestBikes_Mobile.cshtml", Model.objBestBikesList)
+            <div class="view-all-btn-container">
+                <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle))" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+            </div>
+        </div>
+    </section>
+}
 
 @if (Model.LeadCapture != null && Model.IsLocationSelected)
 {

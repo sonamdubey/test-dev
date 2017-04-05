@@ -25,7 +25,7 @@
                                 <span>@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
                             </p>
                             <p class="font12 text-xt-dark-grey">
-                                <span>@(Model.IsLocationSelected ? "On-road price" : "Ex-showroom"),&nbsp;@Model.LocationCookie.City</span>
+                                <span>@(Model.IsLocationSelected ? "On-road price" : "Ex-showroom"),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</span>
                             </p>
                         </td>
 

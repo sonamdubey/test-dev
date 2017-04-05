@@ -54,6 +54,7 @@ namespace Bikewale.Models.BikeModels
         public string MPQString { get; set; }
         public string DealerArea { get { return (IsDealerDetailsExists && DealerDetails.objArea != null ? DealerDetails.objArea.AreaName : LocationCookie.Area); } }
         public string BestBikeHeading { get; set; }
+        public string ColourImageUrl { get; set; }
 
         public string ClientIP { get; set; }
         public string PageUrl { get; set; }
@@ -74,7 +75,7 @@ namespace Bikewale.Models.BikeModels
         public UsedBikeByModelCityVM UsedModels { get; set; }
         public ReviewListBase UserReviews { get; set; }
 
-        public bool AreModelPhotosAvailable { get { return (this.ModelPageEntity != null && this.ModelPageEntity.AllPhotos.Count() > 0); } }
+        public bool AreModelPhotosAvailable { get { return (this.ModelPageEntity != null && ModelPageEntity.AllPhotos != null && this.ModelPageEntity.AllPhotos.Count() > 0); } }
         public bool IsNewsAvailable { get { return (News != null && News.FetchedCount > 0); } }
         public bool IsReviewsAvailable { get { return (ExpertReviews != null && ExpertReviews.FetchedCount > 0); } } //includes user reviews need to add
         public bool IsVideosAvailable { get { return (Videos != null && Videos.VideosList != null && Videos.FetchedCount > 0 && Videos.VideosList.Count() > 0); } }
@@ -88,7 +89,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsModelDescriptionAvailable { get { return (this.IsVersionSpecsAvailable || (this.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(this.ModelPageEntity.ModelDesc.SmallDescription))); } }
         public bool IsModelColorsAvailable { get { return (this.ModelPageEntity != null && this.ModelPageEntity.ModelColors != null && this.ModelPageEntity.ModelColors.Count() > 0); } }
         public bool IsUsedBikesAvailable { get { return (UsedModels != null && UsedModels.RecentUsedBikesList != null && UsedModels.RecentUsedBikesList.Count() > 0); } }
-
+        public bool IsShowPriceTab { get; set; }
         public bool IsUserReviewsAvailable { get { return UserReviews != null && UserReviews.ReviewList != null && UserReviews.ReviewList.Count > 0; } }
 
         #endregion
@@ -97,8 +98,9 @@ namespace Bikewale.Models.BikeModels
         //public ModelPageVM viewModel = null;
         public BikeRankingPropertiesEntity BikeRanking { get; set; }
         public string ModelSummary { get; set; }
-
         public uint CampaignId { get; set; }
+
+        public int ModelColorPhotosCount { get; set; }
     }
 
 }

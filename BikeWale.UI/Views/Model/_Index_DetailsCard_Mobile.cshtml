@@ -2,7 +2,7 @@
 
 @if (!Model.IsUpcomingBike)
 {
-    if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
+    if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
     {
         @Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
     }
@@ -66,7 +66,7 @@
         <h2>@Model.BikeName Reviews</h2>
         @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
         {
-            <h3 class="model-section-subtitle padding-right10 padding-left10">Expert Reviews</h3>
+            <h3 class="model-section-subtitle">Expert Reviews</h3>
             @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
             <div class="view-all-btn-container">
                 <a title="@String.Format("{0} Expert Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
@@ -77,7 +77,7 @@
         {
             <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
             <div class="user-review-subContent">
-                <h3 class="model-section-subtitle padding-right10 padding-left10">User reviews</h3>
+                <h3 class="model-section-subtitle">User reviews</h3>
                 @Html.Partial("~/Views/UserReviews/_UserReviewsList_Mobile.cshtml", Model.UserReviews)
                 <div class="view-all-btn-container">
                     <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
@@ -105,18 +105,18 @@
 
 @if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable))
 {
-    <div id="dealerAndServiceContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+    <div id="dealerAndServiceContent" class="bw-model-tabs-data content-box-shadow padding-bottom20 card-bottom-margin content-details-wrapper font14">
 
         <h2 class="padding-top15 padding-right20 padding-left20">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName @((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) ? "Showrooms & Service Centers" : Model.IsOtherDealersAvailable ? "Showrooms" : "Service Centers")</h2>
         @if (Model.IsOtherDealersAvailable)
         {
-            <div id="makeDealersContent" class="padding-bottom20 padding-top15 font14">
+            <div id="makeDealersContent" class="padding-bottom20 font14">
                 <div class="carousel-heading-content">
                     <div class="swiper-heading-left-grid inline-block">
                         <h3>Showrooms in @(Model.City != null ? Model.City.CityName : "India")</h3>
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@string.Format("/m/{0}-dealer-showrooms-in-{1}/",Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.City.CityMaskingName)" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
+                        <a href="@string.Format("/m/{0}-dealer-showrooms-in-{1}/",Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.OtherDealers.CityMaskingName)" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -129,13 +129,12 @@
         }
         @if (Model.IsServiceCentersAvailable && Model.CityId > 0)
         {
-            <div class="margin-right10 margin-left10 margin-bottom15 border-solid-bottom"></div>
             <div>
                 <div class="carousel-heading-content padding-top20">
                     <div class="swiper-heading-left-grid inline-block">
-                        <h3>@string.Format("Service centers in {0}", Model.Location)</h3>
+                        <h3>@(string.Format("Service centers in {0}", (Model.IsLocationSelected ? Model.LocationCookie.City : "India")))</h3>
                     </div><div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@string.Format("/m/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, @Model.City.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.Location)" class="btn view-all-target-btn">View all</a>
+                        <a href="@string.Format("/m/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ServiceCenters.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, (Model.City!=null ? Model.City.CityName :"India"))" class="btn view-all-target-btn">View all</a>
                     </div>
                 </div>
                 <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
@@ -161,19 +160,5 @@
     </div>
 
 }
-@if (Model.objBestBikesList != null && Model.objBestBikesList.Count() > 0) 
-{ 
-<section>
-    <div class="container padding-15-20-20 content-box-shadow card-bottom-margin">
-        <h2 class="text-bold margin-bottom10">Here's a list of best @Model.BestBikeHeading</h2>
-        @Html.Partial("~/Views/Model/_BestBikes_Mobile.cshtml", Model.objBestBikesList)
-        <div class="view-all-btn-container">
-            <a href="@string.Format("/m{0}",@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle))" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
-        </div>
-    </div>
-</section>
-}
 
 <div id="modelSpecsFooter"></div>
-
-

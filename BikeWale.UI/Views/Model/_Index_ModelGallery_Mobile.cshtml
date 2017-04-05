@@ -4,7 +4,7 @@
 
     @if(!Model.IsNewBike)
     {
-           <p class="model-ribbon-tag upcoming-ribbon">@(Model.IsUpcomingBike ? "Upcoming" : "Discontinued")</p> 
+        <p class="model-ribbon @(Model.IsUpcomingBike ? " upcoming-ribbon" : " discontinued-ribbon")">@(Model.IsUpcomingBike ? "Upcoming" : "Discontinued")</p> 
     }
 
 @if (Model.AreModelPhotosAvailable)
@@ -42,18 +42,18 @@
     @if (Model.AreModelPhotosAvailable)
     {
     <li>
-        <a title="@Model.BikeName Images"  href="/m/@Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)">
-            <span class="bwmsprite photos-sm"></span>
-            <span class="inline-block">
-                <span class="font12">@Model.ModelPageEntity.ModelDetails.PhotosCount</span>&nbsp;<span class="font11">images</span>
-            </span>
-        </a>
+        <a title="@Model.BikeName Images" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))">
+    <span class="bwmsprite photos-sm"></span>
+    <span class="inline-block">
+        <span class="font12">@Model.ModelPageEntity.ModelDetails.PhotosCount</span>&nbsp;<span class="font11">images</span>
+    </span>
+    </a>
     </li>
     }
     @if (Model.IsVideosAvailable)
     {
     <li>
-        <a title="@Model.BikeName Videos"  href="/m/@Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)">
+        <a title="@Model.BikeName Videos" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))">
             <span class="bwmsprite videos-sm"></span>
             <span class="inline-block">
                 <span class="font12">@Model.ModelPageEntity.ModelDetails.VideosCount</span>&nbsp;<span class="font11">videos</span>
@@ -61,13 +61,13 @@
         </a>
     </li>
     }
-    @if (Model.IsModelColorsAvailable)
+    @if (Model.ModelColorPhotosCount>0)
     {
     <li>
-        <a title="@Model.BikeName Colors" href="javascript:void(0)" >
+        <a title="@Model.BikeName Colors" href="@string.Format("/m{0}",Model.ColourImageUrl)">
             <span class="bwmsprite colors-sm"></span>
             <span class="inline-block">
-                <span class="font12">@Model.ModelPageEntity.ModelColors.Count()</span>&nbsp;<span class="font11">colours</span>
+                <span class="font12">@Model.ModelColorPhotosCount</span>&nbsp;<span class="font11">colours</span>
             </span>
         </a>
     </li>
