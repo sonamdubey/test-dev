@@ -2,12 +2,10 @@
 using Bikewale.DTO.Videos;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
-using Bikewale.Service.AutoMappers.Videos;
 using Bikewale.Service.Utilities;
 using Grpc.CMS;
 using log4net;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -22,11 +20,8 @@ namespace Bikewale.Service.Videos.Controllers
     /// </summary>
     public class VideosController : CompressionApiController//ApiController
     {
-        string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
-
-        static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(VideosController));
-        static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
+
 
         #region Videos List
         /// <summary>
@@ -38,11 +33,11 @@ namespace Bikewale.Service.Videos.Controllers
         /// <param name="pageSize">Compulsory. No of videos to be shown on per page.</param>
         /// <returns>Categorized Videos List</returns>
         [ResponseType(typeof(VideosList)), Route("api/videos/cat/{categoryId}/pn/{pageNo}/ps/{pageSize}/")]
-        public IHttpActionResult Get(string categoryId, uint pageNo, uint pageSize)
+        public IHttpActionResult Get(EnumVideosCategory categoryId, uint pageNo, uint pageSize)
         {
             try
             {
-                var objVideosList = GetVideosByCategoryIdViaGrpc(Convert.ToInt32(categoryId), pageNo, pageSize);
+                var objVideosList = GetVideosByCategoryIdViaGrpc((int)categoryId, pageNo, pageSize);
 
                 if (objVideosList != null && objVideosList.Videos != null)
                 {
@@ -70,103 +65,23 @@ namespace Bikewale.Service.Videos.Controllers
             VideosList videoDTOList = null;
             try
             {
-                if (_useGrpc)
-                {
-                    int startIndex, endIndex;
-                    Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
 
-                    var _objVideoList = GrpcMethods.GetVideosBySubCategory((uint)categoryId, (uint)startIndex, (uint)endIndex);
+                int startIndex, endIndex;
+                Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
 
-                    if (_objVideoList != null)
-                    {
-                        videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList);
-                    }
-                    else
-                    {
-                        videoDTOList = GetVideosBySubCategoryIdOldWay(categoryId, pageNo, pageSize);
-                    }
-                }
-                else
+                var _objVideoList = GrpcMethods.GetVideosBySubCategory((uint)categoryId, (uint)startIndex, (uint)endIndex);
+
+                if (_objVideoList != null)
                 {
-                    videoDTOList = GetVideosBySubCategoryIdOldWay(categoryId, pageNo, pageSize);
+                    videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList);
                 }
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
-                videoDTOList = GetVideosByCategoryIdOldWay(categoryId, pageNo, pageSize);
             }
 
             return videoDTOList;
-        }
-
-        public VideosList GetVideosByCategoryIdOldWay(int categoryId, uint pageNo, uint pageSize)
-        {
-            try
-            {
-                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId={1}&pageNo={2}&pageSize={3}", categoryId, _applicationid, pageNo, pageSize);
-
-                List<BikeVideoEntity> objVideosList = null;
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
-                }
-
-                if (objVideosList != null && objVideosList.Count > 0)
-                {
-                    VideosList videoDTOList = new VideosList();
-                    videoDTOList.Videos = VideosMapper.Convert(objVideosList);
-
-                    objVideosList.Clear();
-                    objVideosList = null;
-
-                    return videoDTOList;
-                }
-                else
-                {
-                    return new VideosList();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                return new VideosList();
-            }
-
-        }
-
-        public VideosList GetVideosBySubCategoryIdOldWay(int subCategoryId, uint pageNo, uint pageSize)
-        {
-            try
-            {
-                string _apiUrl = String.Format("/api/v1/videos/subcategory/{0}/?appId={1}&pageNo={2}&pageSize={3}", subCategoryId, _applicationid, pageNo, pageSize);
-
-                VideosListWrapper objVideosListWrapper = null;
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objVideosListWrapper = objClient.GetApiResponseSync<VideosListWrapper>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosListWrapper);
-                }
-
-                if (objVideosListWrapper != null && objVideosListWrapper.Videos != null)
-                {
-                    VideosList videoDTOList = new VideosList();
-                    videoDTOList.Videos = VideosMapper.Convert(objVideosListWrapper.Videos.ToList());
-
-                    return videoDTOList;
-                }
-                else
-                {
-                    return new VideosList();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                return new VideosList();
-            }
-
         }
 
         #endregion
@@ -218,75 +133,24 @@ namespace Bikewale.Service.Videos.Controllers
             VideosList videoDTOList = null;
             try
             {
-                if (_useGrpc)
-                {
-                    int startIndex, endIndex;
-                    Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
+                int startIndex, endIndex;
+                Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
 
-                    var _objVideoList = GrpcMethods.GetVideosByMakeId(makeId, (uint)startIndex, (uint)endIndex);
+                var _objVideoList = GrpcMethods.GetVideosByMakeId(makeId, (uint)startIndex, (uint)endIndex);
 
-                    if (_objVideoList != null)
-                    {
-                        videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList);
-                    }
-                    else
-                    {
-                        videoDTOList = GetVideosByMakeIdOldWay(pageNo, pageSize, makeId);
-                    }
-                }
-                else
+                if (_objVideoList != null)
                 {
-                    videoDTOList = GetVideosByMakeIdOldWay(pageNo, pageSize, makeId);
+                    videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList);
                 }
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
-                videoDTOList = GetVideosByMakeIdOldWay(pageNo, pageSize, makeId);
             }
 
             return videoDTOList;
         }
 
-        private VideosList GetVideosByMakeIdOldWay(uint pageNo, uint pageSize, int makeId)
-        {
-            try
-            {
-                string _apiUrl = string.Empty;
-
-                if (makeId > 0)
-                {
-                    _apiUrl = String.Format("/api/v1/videos/make/{0}/?appId=2&pageNo={1}&pageSize={2}", makeId, pageNo, pageSize);
-
-                    List<BikeVideoEntity> objVideosList = null;
-
-                    using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                    {
-                        objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
-                    }
-
-                    if (objVideosList != null && objVideosList.Count > 0)
-                    {
-                        VideosList videoDTOList = new VideosList();
-                        videoDTOList.Videos = VideosMapper.Convert(objVideosList);
-
-                        objVideosList.Clear();
-                        objVideosList = null;
-
-                        return videoDTOList;
-                    }
-                }
-
-                return new VideosList();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Videos.VideosController");
-                objErr.SendMail();
-                return new VideosList();
-            }
-
-        }
         #endregion
 
 
@@ -333,72 +197,22 @@ namespace Bikewale.Service.Videos.Controllers
             VideosList videoDTOList = null;
             try
             {
-                if (_useGrpc)
-                {
-                    int startIndex, endIndex;
-                    Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
+                int startIndex, endIndex;
+                Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
 
-                    var _objVideoList = GrpcMethods.GetVideosByModelId(modelId, (uint)startIndex, (uint)endIndex);
+                var _objVideoList = GrpcMethods.GetVideosByModelId(modelId, (uint)startIndex, (uint)endIndex);
 
-                    if (_objVideoList != null)
-                    {
-                        videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList);
-                    }
-                    else
-                    {
-                        videoDTOList = GetVideosByModelIdOldWay(pageNo, pageSize, modelId);
-                    }
-                }
-                else
+                if (_objVideoList != null)
                 {
-                    videoDTOList = GetVideosByModelIdOldWay(pageNo, pageSize, modelId);
+                    videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList);
                 }
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
-                videoDTOList = GetVideosByModelIdOldWay(pageNo, pageSize, modelId);
             }
 
             return videoDTOList;
-        }
-
-        private VideosList GetVideosByModelIdOldWay(uint pageNo, uint pageSize, int modelId)
-        {
-            try
-            {
-                string _apiUrl = string.Empty;
-
-                if (modelId > 0)
-                {
-                    _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo={1}&pageSize={2}", modelId, pageNo, pageSize);
-
-                    List<BikeVideoEntity> objVideosList = null;
-
-                    using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                    {
-                        objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
-                    }
-
-                    if (objVideosList != null && objVideosList.Count > 0)
-                    {
-                        VideosList videoDTOList = new VideosList();
-                        videoDTOList.Videos = VideosMapper.Convert(objVideosList);
-
-                        objVideosList.Clear();
-                        objVideosList = null;
-
-                        return videoDTOList;
-                    }
-                }
-
-                return new VideosList();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Videos.VideosController");
-                return null;
-            }
         }
 
         #endregion

@@ -21,7 +21,7 @@
     {
         <li data-tabs="#aboutContent">About</li>
     }
-    @if (Model.IsReviewsAvailable)
+    @if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable)
     {
         <li data-tabs="#reviewsContent">Reviews</li>
     }

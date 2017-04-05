@@ -15,6 +15,7 @@ namespace GRPCLoadBalancer
         private static Queue<Channel> m_WorkingQueue;
         private static object m_reachableQueueLockObject = new object();
         static ILog _logger = LogManager.GetLogger(typeof(CustomGRPCLoadBalancerWithSingleton));
+        static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
 
         static string serverList = BWConfiguration.Instance.GrpcArticleServerList;
 
@@ -48,11 +49,18 @@ namespace GRPCLoadBalancer
                     {
                         return currentChosenChannel;
                     }
-                    else
+                    else if (_logGrpcErrors)
+                    {
                         _logger.Error("Error102 " + currentChosenChannel.ResolvedTarget + " " + currentChosenChannel.State);
+                    }
+
                 }
             }
-            _logger.Error("Error101 No Channel Available");
+            if (_logGrpcErrors)
+            {
+                _logger.Error("Error101 No Channel Available");
+            }
+
             return null;
 
         }
@@ -99,7 +107,11 @@ namespace GRPCLoadBalancer
                     currentChosenChannel = m_WorkingQueue.Dequeue();
                     currentChosenChannel.ShutdownAsync();
 
-                    _logger.Error("Error103 disposed " + currentChosenChannel.ResolvedTarget);
+                    if (_logGrpcErrors)
+                    {
+                        _logger.Error("Error103 disposed " + currentChosenChannel.ResolvedTarget);
+                    }
+
                 }
 
             }

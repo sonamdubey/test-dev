@@ -31,7 +31,7 @@
                     @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures.cshtml", Model)
                 }
 
-                @if (Model.IsReviewsAvailable || Model.IsNewsAvailable)
+                @if (Model.IsReviewsAvailable || Model.IsNewsAvailable || Model.IsUserReviewsAvailable)
                 {
                     <div id="modelReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
                         <h2>@Model.BikeName Reviews</h2>
@@ -44,9 +44,12 @@
                                 <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
                             </div>
                             <!-- expert review ends-->
-                            <div class="margin-top20 padding-top10 border-solid-top"></div>
+                            if (Model.IsUserReviewsAvailable)
+                            {
+                                <div class="margin-top20 padding-top10 border-solid-top"></div>
+                            }
                         }
-                        
+
                         @if (Model.IsUserReviewsAvailable)
                         {
                             <h3 class="model-section-subtitle padding-right10 padding-left10">User reviews</h3>
@@ -54,9 +57,12 @@
                             <div class="padding-left10 view-all-btn-container">
                                 <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
                             </div>
-                            <div class="margin-top20 border-solid-top"></div>
+                           if (Model.IsNewsAvailable)
+                            {
+                                <div class="margin-top20 border-solid-top"></div>
+                            }
                         }
-                        
+
                         @if (Model.IsNewsAvailable)
                         {
                             <!-- News widget starts -->
@@ -84,26 +90,26 @@
                     {
                         <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to @Model.ModelPageEntity.ModelDetails.ModelName </h2>
                         @*if (Model.IsPopularComparisionsAvailable)
-                        {
+                            {
 
-                            <div class="carousel-heading-content">
-                                <div class="swiper-heading-left-grid inline-block">
-                                    <h3 class="padding-right20 margin-bottom15">Most compared alternatives</h3>
+                                <div class="carousel-heading-content">
+                                    <div class="swiper-heading-left-grid inline-block">
+                                        <h3 class="padding-right20 margin-bottom15">Most compared alternatives</h3>
+                                    </div>
+                                    <div class="swiper-heading-right-grid inline-block text-right">
+                                        <a href="/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
-                                <div class="swiper-heading-right-grid inline-block text-right">
-                                    <a href="/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
+                                <div id="comparisonCarousel" class="jcarousel-wrapper inner-content-carousel margin-bottom15 comparison-type-carousel">
+                                    <div class="jcarousel">
+                                        @Html.Partial("~/Views/CompareBikes/_PopularModelCompare.cshtml", Model.PopularComparisions)
+                                    </div>
+                                    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
+                                    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                                 </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div id="comparisonCarousel" class="jcarousel-wrapper inner-content-carousel margin-bottom15 comparison-type-carousel">
-                                <div class="jcarousel">
-                                    @Html.Partial("~/Views/CompareBikes/_PopularModelCompare.cshtml", Model.PopularComparisions)
-                                </div>
-                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
-                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                            </div>
-                            <div class="margin-right10 margin-left10 border-solid-bottom padding-bottom20"></div>
-                        }*@
+                                <div class="margin-right10 margin-left10 border-solid-bottom padding-bottom20"></div>
+                            }*@
                         if (Model.IsSimilarBikesAvailable)
                         {
                             <div id="modelAlternateBikeContent" class="padding-top20 padding-bottom20 font14">
@@ -112,16 +118,16 @@
                             </div>
                         }
                     }
-                    @if(Model.BikeRanking != null)
-                            {
-                        if(Model.BikeRanking.Rank > 0)
-                            {
+                    @if (Model.BikeRanking != null)
+                    {
+                        if (Model.BikeRanking.Rank > 0)
+                        {
                             <div class="margin-left20 margin-right20 padding-bottom20">
                                 <div class="content-inner-block-15 border-solid font14">
                                     <div class="grid-9 alpha omega">
                                         <div class="inline-block">
                                             <span class="item-rank">#@Model.BikeRanking.Rank</span>
-                                        </div><p class="inline-block checkout-list-slug-label">@Model.BikeName is the @Html.Raw((Model.BikeRanking.Rank > 1 ?Model.BikeRanking.RankText:"")) most popular @Model.BikeRanking.BikeType.ToLower(). Check out other @Model.BikeRanking.StyleName.ToLower() which made it to Top 10 list.</p>
+                                        </div><p class="inline-block checkout-list-slug-label">@Model.BikeName is the @Html.Raw((Model.BikeRanking.Rank > 1 ? Model.BikeRanking.RankText : "")) most popular @Model.BikeRanking.BikeType.ToLower(). Check out other @Model.BikeRanking.StyleName.ToLower() which made it to Top 10 list.</p>
                                     </div>
                                     <div class="grid-3 text-right position-rel pos-top5">
                                         <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName in India">
@@ -131,9 +137,9 @@
                                     <div class="clear"></div>
                                 </div>
                             </div>
-                            }
-                            else
-                            {
+                        }
+                        else
+                        {
                             <div class="margin-left20 margin-right20 padding-bottom20">
                                 <div class="content-inner-block-15 border-solid font14">
                                     <div class="grid-9 alpha">
@@ -148,8 +154,8 @@
                                     <div class="clear"></div>
                                 </div>
                             </div>
-                            }
-                     }
+                        }
+                    }
                 </div>
 
 
@@ -169,10 +175,10 @@
                                 <div id="makeDealersContent" class="padding-bottom20 padding-top15 font14">
                                     <div class="carousel-heading-content">
                                         <div class="swiper-heading-left-grid inline-block">
-                                            <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @(!String.IsNullOrEmpty(Model.Location) ? Model.Location : "India")</h2>
+                                            <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @(Model.OtherDealers != null ? Model.OtherDealers.CityName : "India")</h2>
                                         </div>
                                         <div class="swiper-heading-right-grid inline-block text-right">
-                                            <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-dealer-showrooms-in-@Model.OtherDealers.CityMaskingName/" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
+                                            <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-dealer-showrooms-in-@Model.OtherDealers.CityMaskingName/" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.OtherDealers.CityName" class="btn view-all-target-btn">View all</a>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
