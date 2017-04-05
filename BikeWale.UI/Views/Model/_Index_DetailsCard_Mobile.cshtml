@@ -17,11 +17,9 @@
     {
         <div id="similarContent" class="bw-model-tabs-data padding-top15 padding-bottom15 content-box-shadow card-bottom-margin content-details-wrapper">
             <h2 class="padding-left20 padding-right20">Bikes Similar to @Model.BikeName</h2>
-            <div class="swiper-container card-container swiper-type-similar">
-                <div class="swiper-wrapper">
-                    @Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikes)
-                </div>
-            </div>
+
+            @Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikes)
+
         </div>
     }
 
