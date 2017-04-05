@@ -27,7 +27,6 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -323,7 +322,7 @@ namespace Bikewale.BAL.BikeData
             return modelRepository.GetUserReviewSimilarBike(modelId, topCount);
         }
 
-   
+
 
         /// <summary>
         /// Created by: Sangram Nandkhile on 10 Feb 2017
@@ -580,8 +579,12 @@ namespace Bikewale.BAL.BikeData
                                 ImageType = ImageBaseType.ModelGallaryImage
                             }) : null;
 
-                    IEnumerable<ModelColorImage> colorPhotos = GetModelColorPhotos(modelId);
-                    var colorImages = colorPhotos != null ? colorPhotos.Select(x => new ColorImageBaseEntity()
+
+                    var colorPics = GetModelColorPhotos(modelId);
+
+                    IEnumerable<ModelColorImage> colorPhotos = colorPics != null ? colorPics.Where(m => !String.IsNullOrEmpty(m.OriginalImagePath)) : null;
+
+                    var colorImages = (colorPhotos != null && colorPhotos.Count() > 0) ? colorPhotos.Select(x => new ColorImageBaseEntity()
                         {
                             HostUrl = x.Host,
                             OriginalImgPath = x.OriginalImagePath,
@@ -653,8 +656,8 @@ namespace Bikewale.BAL.BikeData
                     });
 
                     //Add Color Photos
-                    IEnumerable<ModelColorImage> colorPhotos = objModelPage.colorPhotos;
-                    var colorImages = colorPhotos != null ? colorPhotos.Select(x => new ColorImageBaseEntity()
+                    IEnumerable<ModelColorImage> colorPhotos = objModelPage.colorPhotos != null ? objModelPage.colorPhotos.Where(m => !String.IsNullOrEmpty(m.OriginalImagePath)) : null;
+                    var colorImages = (colorPhotos != null && colorPhotos.Count() > 0) ? colorPhotos.Select(x => new ColorImageBaseEntity()
                     {
                         HostUrl = x.Host,
                         OriginalImgPath = x.OriginalImagePath,
