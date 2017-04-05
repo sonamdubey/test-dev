@@ -336,7 +336,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 .inr-xsm-grey { width: 7px; height: 10px; background-position: -46px -427px; position: relative; top: 1px; }
 .inr-sm-dark { width:10px; height:12px; background-position:-128px -468px; }
-.inr-md, .inr-md-light { width:8px; height:13px; }
+.inr-md, .inr-md-light { width:9px; height:13px; }
 .inr-md { background-position:-53px -490px; }
 .inr-md-light { background-position:-129px -490px; }
 .inr-lg, .inr-lg-thin { width:10px; height:14px; }
