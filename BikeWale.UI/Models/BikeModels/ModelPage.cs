@@ -464,12 +464,12 @@ namespace Bikewale.Models.BikeModels
                                     {
                                         objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
                                         objData.VersionId = (uint)objData.SelectedVersion.VersionId;
-                                        objData.BikePrice = (uint)objData.SelectedVersion.Price;
+                                        objData.BikePrice = objData.CityId == 0 ? (uint)objData.SelectedVersion.Price : 0;
                                     }
                                     else
                                     {
                                         objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
-                                        objData.BikePrice = (uint)modelPg.ModelVersions.FirstOrDefault().Price;
+                                        objData.BikePrice = objData.CityId == 0 ? (uint)modelPg.ModelVersions.FirstOrDefault().Price : 0;
                                     }
                                 }
                             }
@@ -484,14 +484,19 @@ namespace Bikewale.Models.BikeModels
                                 {
                                     objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
                                     objData.VersionId = (uint)objData.SelectedVersion.VersionId;
-                                    objData.BikePrice = (uint)objData.SelectedVersion.Price;
+                                    objData.BikePrice = objData.CityId == 0 ? (uint)objData.SelectedVersion.Price : 0;
                                 }
                                 else
                                 {
                                     objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
-                                    objData.BikePrice = (uint)modelPg.ModelVersions.FirstOrDefault().Price;
+                                    objData.BikePrice = objData.CityId == 0 ? (uint)objData.SelectedVersion.Price : 0;
                                 }
                             }
+                            foreach (var version in modelPg.ModelVersions)
+                            {
+                                version.Price = objData.CityId == 0 ? version.Price : 0;
+                            }
+
                         }
 
                         if (modelPg.ModelVersions.Count == 1)
