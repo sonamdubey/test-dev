@@ -125,18 +125,18 @@
 
         var BrandCityPopup = function () {
             var self = this;
-            self.selectCity = ko.observable(),
-            self.SelectedMakeId = ko.observable(),
-            self.listCities = ko.observableArray([]),
+            self.selectCity = ko.observable();
+            self.SelectedMakeId = ko.observable();
+            self.listCities = ko.observableArray([]);
             self.SelectedCityId = ko.observable(cityId);
-            self.selectedBrand = ko.observable(),
-            self.bookingBrands = ko.observableArray([]),
-            self.oBrowser = ko.observable(('@Model.IsOperaBrowser').toString().toLowerCase() == "true"),
-            self.makeApiUrl = "/api/makelist/?requesttype=" + '@Convert.ToInt32(Model.PageType)',
-            self.brandFilter = ko.observable(""),
-            self.cityFilter = ko.observable(""),
-            self.LoadingText = ko.observable("Loading..."),
-            self.searchByBrandCityBtnClicked = ko.observable(false),
+            self.selectedBrand = ko.observable();
+            self.bookingBrands = ko.observableArray([]);
+            self.oBrowser = ko.observable(('@Model.IsOperaBrowser').toString().toLowerCase() == "true");
+            self.makeApiUrl = "/api/makelist/?requesttype=" + '@Convert.ToInt32(Model.PageType)';
+            self.brandFilter = ko.observable("");
+            self.cityFilter = ko.observable("");
+            self.LoadingText = ko.observable("Loading...");
+            self.searchByBrandCityBtnClicked = ko.observable(false);
             self.makeMasking = ko.pureComputed(function () {
                 return ko.utils.arrayFirst(self.bookingBrands(), function (child) {
                     return child.makeId === self.selectedBrand().makeId;
