@@ -2,6 +2,7 @@
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Common;
+using Bikewale.DAL.Dealer;
 using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
@@ -52,6 +53,7 @@ namespace Bikewale.Mobile.Controls
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealer, Dealer>()
+                        .RegisterType<IDealerRepository, DealersRepository>()
                         .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
                         .RegisterType<ICacheManager, MemcacheManager>();
 
