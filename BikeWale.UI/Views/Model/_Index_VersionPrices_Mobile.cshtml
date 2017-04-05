@@ -53,9 +53,12 @@
                     @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
                 </tbody>
             </table>
-            <div class="padding-top10 padding-right20 padding-left20 padding-bottom5">
-                <a href="javascript:void(0)" class="view-cities-link position-rel block font14" title="" rel="nofollow">View more cities</a>
-            </div>
+            @if (priceQuotesCities != null && priceQuotesCities.Count() > 4)
+            {
+                <div class="padding-top10 padding-right20 padding-left20 padding-bottom5">
+                    <a href="javascript:void(0)" class="view-cities-link position-rel block font14" title="" rel="nofollow">View more cities</a>
+                </div>
+            }
         }
 
     </div>
