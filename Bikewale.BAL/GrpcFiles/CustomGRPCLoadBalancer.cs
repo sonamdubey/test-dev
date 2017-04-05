@@ -1,5 +1,6 @@
 using Bikewale.Utility;
 using Grpc.Core;
+using log4net;
 using System;
 using System.Collections.Generic;
 
@@ -12,8 +13,8 @@ namespace GRPCLoadBalancer
     static class CustomGRPCLoadBalancerWithSingleton
     {
         private static Queue<Channel> m_WorkingQueue;
-        private static Channel m_currentChosenChannel = null;
         private static object m_reachableQueueLockObject = new object();
+        static ILog _logger = LogManager.GetLogger(typeof(CustomGRPCLoadBalancerWithSingleton));
 
         static string serverList = BWConfiguration.Instance.GrpcArticleServerList;
 
@@ -35,20 +36,25 @@ namespace GRPCLoadBalancer
 
         internal static Channel GetWorkingChannel()
         {
+            Channel currentChosenChannel;
 
             lock (m_reachableQueueLockObject)
             {
                 for (int i = 0; i < m_WorkingQueue.Count; i++)
                 {
-                    m_currentChosenChannel = m_WorkingQueue.Dequeue();
-                    m_WorkingQueue.Enqueue(m_currentChosenChannel);
-                    if (m_currentChosenChannel.State == ChannelState.Idle || m_currentChosenChannel.State == ChannelState.Ready)
+                    currentChosenChannel = m_WorkingQueue.Dequeue();
+                    m_WorkingQueue.Enqueue(currentChosenChannel);
+                    if (currentChosenChannel.State == ChannelState.Idle || currentChosenChannel.State == ChannelState.Ready)
                     {
-                        return m_currentChosenChannel;
+                        return currentChosenChannel;
                     }
+                    else
+                        _logger.Error("Error102 " + currentChosenChannel.ResolvedTarget + " " + currentChosenChannel.State);
                 }
             }
+            _logger.Error("Error101 No Channel Available");
             return null;
+
         }
 
         static bool CheckIfConnectionIsWorking(Channel serverChannel)
@@ -84,14 +90,18 @@ namespace GRPCLoadBalancer
 
         public static void DisposeChannels()
         {
+            Channel currentChosenChannel;
             lock (m_reachableQueueLockObject)
             {
                 int count = m_WorkingQueue.Count;
                 for (int i = 0; i < m_WorkingQueue.Count; i++)
                 {
-                    m_currentChosenChannel = m_WorkingQueue.Dequeue();
-                    m_currentChosenChannel.ShutdownAsync();
+                    currentChosenChannel = m_WorkingQueue.Dequeue();
+                    currentChosenChannel.ShutdownAsync();
+
+                    _logger.Error("Error103 disposed " + currentChosenChannel.ResolvedTarget);
                 }
+
             }
         }
 
