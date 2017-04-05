@@ -34,7 +34,7 @@
             </tbody>
         </table>
     </div>
-    @if (Model.PriceInTopCities != null)
+    @if (Model.IsPriceInTopCitiesAvailable)
     {
         <div id="prices-top-cities" class="grid-6 omega">
             <h3>Price by cities&nbsp;<span class="text-light-grey text-unbold">(@(Model.IsLocationSelected ? "On-road price" : "Ex-showroom price"))</span></h3>

@@ -425,7 +425,8 @@ namespace Bikewale.Models.BikeModels
                                 foreach (var version in modelPg.ModelVersions)
                                 {
                                     var selectVersion = pqOnRoad.DPQOutput.Varients.Where(m => m.objVersion.VersionId == version.VersionId).FirstOrDefault();
-                                    version.Price = selectVersion.OnRoadPrice;
+                                    if (selectVersion != null)
+                                        version.Price = selectVersion.OnRoadPrice;
                                 }
 
                                 ///Choose the min price version of dealer

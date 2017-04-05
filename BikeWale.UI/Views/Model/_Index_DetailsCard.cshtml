@@ -44,7 +44,7 @@
                                 <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
                             </div>
                             <!-- expert review ends-->
-                            if (Model.IsUserReviewsAvailable)
+                            if (Model.IsUserReviewsAvailable || Model.IsNewsAvailable)
                             {
                                 <div class="margin-top20 padding-top10 border-solid-top"></div>
                             }
@@ -88,7 +88,7 @@
                         <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to @Model.ModelPageEntity.ModelDetails.ModelName </h2>
                         if (Model.IsSimilarBikesAvailable)
                         {
-                            <div id="modelAlternateBikeContent" class="padding-top20 padding-bottom20 font14">
+                            <div id="modelAlternateBikeContent" class="padding-bottom20 font14">
                                 <h3 class="padding-left20 padding-right20 margin-bottom15">More info about similar bikes</h3>
                                 @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
                             </div>
