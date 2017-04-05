@@ -639,7 +639,7 @@ namespace Bikewale.Models.BikeModels
             var errorParams = string.Empty;
             try
             {
-                if (_cityId > 0)
+                if (_cityId > 0 && objData.City != null)
                 {
                     pqOnRoad = GetOnRoadPrice();
                     // Set Pricequote Cookie
