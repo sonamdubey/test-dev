@@ -71,11 +71,15 @@
             <div class="view-all-btn-container">
                 <a title="@String.Format("{0} Expert Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
             </div>
+            if (Model.IsUserReviewsAvailable)
+            {
+                <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
+            }
         }
 
         @if (Model.IsUserReviewsAvailable)
         {
-            <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
+
             <div class="user-review-subContent">
                 <h3 class="model-section-subtitle">User reviews</h3>
                 @Html.Partial("~/Views/UserReviews/_UserReviewsList_Mobile.cshtml", Model.UserReviews)
@@ -83,12 +87,14 @@
                     <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
                 </div>
             </div>
-
+            if (Model.IsNewsAvailable)
+            {
+                <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
+            }
         }
 
         @if (Model.IsNewsAvailable)
         {
-            <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
             <h3 class="text-bold">@Model.News.MakeName @Model.News.ModelName News</h3>
             @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
         }
