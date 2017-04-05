@@ -163,56 +163,27 @@ namespace Bikewale.BindViewModels.Controls
             List<BikeVideoEntity> videoDTOList = null;
             try
             {
-                if (_useGrpc)
-                {
-                    int startIndex, endIndex;
-                    Bikewale.Utility.Paging.GetStartEndIndex(1000, 1, out startIndex, out endIndex); 
 
-                    var _objVideoList = GrpcMethods.GetVideosByModelId(ModelId,(uint)startIndex,(uint)endIndex);
+                int startIndex, endIndex;
+                Bikewale.Utility.Paging.GetStartEndIndex(1000, 1, out startIndex, out endIndex);
 
-                    if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count>0)
-                    {
-                        videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList.LstGrpcVideos);
-                    }
-                    else
-                    {
-                        videoDTOList = GetVideosByModelIdOldWay();
-                    }
-                }
-                else
+                var _objVideoList = GrpcMethods.GetVideosByModelId(ModelId, (uint)startIndex, (uint)endIndex);
+
+                if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
                 {
-                    videoDTOList = GetVideosByModelIdOldWay();
-                }
+                    videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList.LstGrpcVideos);
+                }                
+
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
-                videoDTOList = GetVideosByModelIdOldWay();
             }
 
             return videoDTOList;
         }
 
-        private List<BikeVideoEntity> GetVideosByModelIdOldWay()
-        {
-            string _apiUrl = string.Empty;
-            List<BikeVideoEntity> objVideosList = null;
-            try
-            {
-                _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo=1&pageSize=1000", ModelId);
-
-                using (BWHttpClient objClient = new BWHttpClient())
-                {
-                    objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "BindModelGallery.GetVideos");
-                objErr.SendMail();
-            }
-            return objVideosList;
-        }
+  
 
     }
 }

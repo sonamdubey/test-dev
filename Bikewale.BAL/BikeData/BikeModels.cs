@@ -969,43 +969,7 @@ namespace Bikewale.BAL.BikeData
             return modelRepository.GetUserReviewSimilarBike(modelId, topCount);
         }
 
-        private List<ModelImage> GetBikeModelPhotoGalleryOldWay(U modelId)
-        {
-            if (_logGrpcErrors)
-            {
-                _logger.Error(string.Format("Grpc did not work for GetBikeModelPhotoGalleryOldWay {0}", modelId));
-            }
-
-            List<ModelImage> objPhotos = null;
-            string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-
-            string _requestType = "application/json";
-
-            try
-            {
-                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-                categorList.Add(EnumCMSContentType.PhotoGalleries);
-                categorList.Add(EnumCMSContentType.RoadTest);
-                categorList.Add(EnumCMSContentType.ComparisonTests);
-                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
-
-                categorList.Clear();
-                categorList = null;
-
-                string _apiUrl = String.Format("/webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
-                using (BWHttpClient objClient = new BWHttpClient())
-                {
-                    objPhotos = objClient.GetApiResponseSync<List<ModelImage>>(APIHost.CW, _requestType, _apiUrl, objPhotos);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetBikeModelPhotoGallery");
-            }
-
-            return objPhotos;
-        }
+   
         /// <summary>
         /// Created by: Sangram Nandkhile on 10 Feb 2017
         /// Desc: To Fetch model main image and other model images
@@ -1038,33 +1002,21 @@ namespace Bikewale.BAL.BikeData
         {
             try
             {
-                if (_useGrpc)
+
+                string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest, EnumCMSContentType.ComparisonTests });
+
+                var _objGrpcmodelPhotoList = GrpcMethods.GetModelPhotosList(_applicationid, Convert.ToInt32(modelId), contentTypeList);
+
+                if (_objGrpcmodelPhotoList != null && _objGrpcmodelPhotoList.LstGrpcModelImage.Count > 0)
                 {
-                    string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest, EnumCMSContentType.ComparisonTests });
-
-                    var _objGrpcmodelPhotoList = GrpcMethods.GetModelPhotosList(_applicationid, Convert.ToInt32(modelId), contentTypeList);
-
-                    if (_objGrpcmodelPhotoList != null && _objGrpcmodelPhotoList.LstGrpcModelImage.Count > 0)
-                    {
-                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelPhotoList);
-                    }
-                    else
-                    {
-                        return GetBikeModelPhotoGalleryOldWay(modelId);
-                    }
-
-                }
-                else
-                {
-                    return GetBikeModelPhotoGalleryOldWay(modelId);
+                    return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelPhotoList);
                 }
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
-                return GetBikeModelPhotoGalleryOldWay(modelId);
             }
-
+            return null;
         }
 
         /// <summary>
@@ -1139,51 +1091,23 @@ namespace Bikewale.BAL.BikeData
             IEnumerable<BikeVideoEntity> videoDTOList = null;
             try
             {
-                if (_useGrpc)
-                {
-                    var _objVideoList = GrpcMethods.GetVideosByModelId(modelId, 1, UInt32.MaxValue);
 
-                    if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
-                    {
-                        videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList.LstGrpcVideos);
-                    }
-                    else
-                    {
-                        videoDTOList = GetVideosByModelIdOldWay(modelId);
-                    }
+                var _objVideoList = GrpcMethods.GetVideosByModelId(modelId, 1, UInt32.MaxValue);
+
+                if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
+                {
+                    videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList.LstGrpcVideos);
                 }
                 else
-                {
-                    videoDTOList = GetVideosByModelIdOldWay(modelId);
-                }
+                    videoDTOList = null;
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
-                videoDTOList = GetVideosByModelIdOldWay(modelId);
+
             }
 
             return videoDTOList;
-        }
-
-        private IEnumerable<BikeVideoEntity> GetVideosByModelIdOldWay(int modelId)
-        {
-            string _apiUrl = string.Empty;
-            IEnumerable<BikeVideoEntity> objVideos = null;
-            try
-            {
-                _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo=1&pageSize=2", modelId);
-
-                using (BWHttpClient objClient = new BWHttpClient())
-                {
-                    objVideos = objClient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideos);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "BindModelGallery.GetVideos");
-            }
-            return objVideos;
         }
 
         /// <summary>

@@ -67,67 +67,23 @@ namespace Bikewale.BAL.EditCMS
             ArticleDetails objArticle = null;
             try
             {
-                if (_useGrpc)
-                {
-                    var _objGrpcArticle = GrpcMethods.GetContentDetails(Convert.ToUInt64(basicId));
 
-                    if (_objGrpcArticle != null)
-                    {
-                        objArticle = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
-                    }
-                    else
-                    {
-                        objArticle = GetNewsDetailsFromApiOldWay(basicId);
-                    }
-                }
-                else
+                var _objGrpcArticle = GrpcMethods.GetContentDetails(Convert.ToUInt64(basicId));
+
+                if (_objGrpcArticle != null)
                 {
-                    objArticle = GetNewsDetailsFromApiOldWay(basicId);
+                    objArticle = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
                 }
+
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
-                objArticle = GetNewsDetailsFromApiOldWay(basicId);
             }
-
             return objArticle;
         }
 
-        /// <summary>
-        /// Created By : Sushil Kumar on 21st July 2016
-        /// Description : Caching for News Details based on basic id using carwale api call 
-        /// </summary>
-        /// <param name="basicId"></param>
-        /// <returns></returns>
-        private ArticleDetails GetNewsDetailsFromApiOldWay(uint basicId)
-        {
-            ArticleDetails objArticle = null;
-            try
-            {
-                if (_logGrpcErrors)
-                {
-                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", basicId));
-                }
 
-                //sets the base URI for HTTP requests
-                string _apiUrl = String.Format("webapi/article/contentdetail/?applicationId=2&basicid={0}", basicId);
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objArticle = objClient.GetApiResponseSync<ArticleDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objArticle);
-                }
-
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-
-            return objArticle;
-        }
 
         #endregion
 
@@ -188,82 +144,27 @@ namespace Bikewale.BAL.EditCMS
         {
             try
             {
-                if (_useGrpc)
-                {
-                    int intMakeId = Convert.ToInt32(makeId);
-                    int intModelId = Convert.ToInt32(modelId);
 
-                    var _objGrpcArticleSummaryList = GrpcMethods.MostRecentList(categoryIdList, (int)totalRecords, intMakeId, intModelId);
+                int intMakeId = Convert.ToInt32(makeId);
+                int intModelId = Convert.ToInt32(modelId);
 
-                    if (_objGrpcArticleSummaryList != null && _objGrpcArticleSummaryList.LstGrpcArticleSummary.Count > 0)
-                    {
-                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticleSummaryList);
-                    }
-                    else
-                    {
-                        return GetArticlesViaOldWay(categoryIdList, totalRecords, makeId, modelId);
-                    }
-                }
-                else
+                var _objGrpcArticleSummaryList = GrpcMethods.MostRecentList(categoryIdList, (int)totalRecords, intMakeId, intModelId);
+
+                if (_objGrpcArticleSummaryList != null && _objGrpcArticleSummaryList.LstGrpcArticleSummary.Count > 0)
                 {
-                    return GetArticlesViaOldWay(categoryIdList, totalRecords, makeId, modelId);
+                    return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticleSummaryList);
                 }
+
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
-                return GetArticlesViaOldWay(categoryIdList, totalRecords, makeId, modelId);
             }
+            return null;
         }
 
         /// <summary>
         /// Created By : Sushil Kumar on 21st July 2016
-        /// Description : Caching for Most recent Articles Details based on based on contentslistIds and make,model using carwale api call
-        /// </summary>
-        /// <param name="contentTypeList"></param>
-        /// <param name="totalRecords"></param>
-        /// <param name="makeId"></param>
-        /// <param name="modelId"></param>
-        /// <returns></returns>
-        private IEnumerable<ArticleSummary> GetArticlesViaOldWay(string contentTypeList, uint totalRecords, uint makeId, uint modelId)
-        {
-            if (_logGrpcErrors)
-            {
-                _logger.Error(string.Format("Grpc did not work for GetCMSContentOldWay {0}", contentTypeList));
-            }
-
-            IEnumerable<ArticleSummary> objRecentArticles = null;
-
-            try
-            {
-                string _apiUrl = String.Format("webapi/article/mostrecentlist/?applicationid=2&contenttypes={0}&totalrecords={1}", contentTypeList, totalRecords);
-
-                if (makeId > 0 || modelId > 0)
-                {
-                    if (modelId > 0)
-                    {
-                        _apiUrl = String.Format("webapi/article/mostrecentlist/?applicationid=2&contenttypes={0}&totalrecords={1}&makeid={2}&modelid={3}", contentTypeList, totalRecords, makeId, modelId);
-                    }
-                    else
-                    {
-                        _apiUrl = String.Format("webapi/article/mostrecentlist/?applicationid=2&contenttypes={0}&totalrecords={1}&makeid={2}", contentTypeList, totalRecords, makeId);
-                    }
-                }
-
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    return objClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objRecentArticles);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return objRecentArticles;
-        }
         #endregion
 
 
@@ -324,9 +225,7 @@ namespace Bikewale.BAL.EditCMS
         {
             try
             {
-                if (_useGrpc)
-                {
-
+               
                     var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categoryIds, (uint)startIndex, (uint)endIndex, makeId, modelId);
 
                     if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
@@ -334,22 +233,15 @@ namespace Bikewale.BAL.EditCMS
                         return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
 
                     }
-                    else
-                    {
-                        return GetArticlesByCategoryOldWay(categoryIds, startIndex, endIndex, makeId, modelId);
-                    }
+                   
 
-                }
-                else
-                {
-                    return GetArticlesByCategoryOldWay(categoryIds, startIndex, endIndex, makeId, modelId);
-                }
+               
             }
             catch (Exception err)
             {
-                _logger.Error(err.Message, err);
-                return GetArticlesByCategoryOldWay(categoryIds, startIndex, endIndex, makeId, modelId);
+                _logger.Error(err.Message, err);                
             }
+            return null;
         }
 
         /// <summary>
@@ -362,47 +254,7 @@ namespace Bikewale.BAL.EditCMS
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        private CMSContent GetArticlesByCategoryOldWay(string categoryIds, int startIndex, int endIndex, int makeId, int modelId)
-        {
-            CMSContent objFeaturedArticles = null;
-            try
-            {
-                if (_logGrpcErrors)
-                {
-                    _logger.Error(string.Format("Grpc did not work for GetCMSContentOldWay {0}", categoryIds));
-                }
-
-                string apiUrl = string.Format("/webapi/article/listbycategory/?applicationid=2&categoryidlist={0}&startindex={1}&endindex={2}", categoryIds, startIndex, endIndex);
-                if (makeId > 0 && modelId > 0)
-                {
-                    apiUrl = string.Format("{0}&makeid={1}&modelid={2}", apiUrl, makeId, modelId);
-                }
-                else
-                {
-                    if (makeId > 0)
-                    {
-                        apiUrl = string.Format("{0}&makeid={1}", apiUrl, makeId);
-                    }
-                    else
-                    {
-                        apiUrl = string.Format("{0}&modelid={1}", apiUrl, modelId);
-                    }
-                }
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    return objClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objFeaturedArticles);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return objFeaturedArticles;
-        }
-        #endregion
+      #endregion
 
 
         #region Article Details
@@ -418,68 +270,22 @@ namespace Bikewale.BAL.EditCMS
             ArticlePageDetails objFeature = null;
             try
             {
-                if (_useGrpc)
-                {
-                    var _objGrpcFeature = GrpcMethods.GetContentPages((ulong)basicId);
 
-                    if (_objGrpcFeature != null)
-                    {
-                        objFeature = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcFeature);
-                    }
-                    else
-                    {
-                        objFeature = GetArticleDetailsOldWay(basicId);
-                    }
-                }
-                else
+                var _objGrpcFeature = GrpcMethods.GetContentPages((ulong)basicId);
+
+                if (_objGrpcFeature != null)
                 {
-                    objFeature = GetArticleDetailsOldWay(basicId);
+                    objFeature = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcFeature);
                 }
+
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
-                objFeature = GetArticleDetailsOldWay(basicId);
             }
-
-            return objFeature;
-
-        }
-
-        /// <summary>
-        /// Created By : Sushil Kumar on 21st July 2016
-        /// Description : Caching for Articles Details based on basic id using carwale api call
-        /// </summary>
-        /// <param name="basicId"></param>
-        /// <returns></returns>
-        private ArticlePageDetails GetArticleDetailsOldWay(uint basicId)
-        {
-            ArticlePageDetails objFeature = null;
-
-            try
-            {
-
-                string _apiUrl = "webapi/article/contentpagedetail/?applicationId=2&basicid=" + basicId;
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objFeature = objClient.GetApiResponseSync<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeature);
-                }
-
-
-                if (_logGrpcErrors && objFeature != null)
-                {
-                    _logger.Error(string.Format("Grpc did not work for GetFeatureDetailsOldWay {0}", basicId));
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
             return objFeature;
         }
+
 
         #endregion
 
@@ -496,69 +302,22 @@ namespace Bikewale.BAL.EditCMS
             IEnumerable<ModelImage> objImages = null;
             try
             {
-                if (_useGrpc)
+                var _objGrpcArticlePhotos = GrpcMethods.GetArticlePhotos((ulong)basicId);
+
+                if (_objGrpcArticlePhotos != null && _objGrpcArticlePhotos.LstGrpcModelImage.Count > 0)
                 {
-
-                    var _objGrpcArticlePhotos = GrpcMethods.GetArticlePhotos((ulong)basicId);
-
-                    if (_objGrpcArticlePhotos != null && _objGrpcArticlePhotos.LstGrpcModelImage.Count > 0)
-                    {
-                        //following needs to be optimized
-                        objImages = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticlePhotos);
-                    }
-                    else
-                    {
-                        objImages = GetArticlePhotosOldWay(basicId);
-                    }
-
-                }
-                else
-                {
-                    objImages = GetArticlePhotosOldWay(basicId);
+                    //following needs to be optimized
+                    objImages = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticlePhotos);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : in Photos(int basicId)");
-                objErr.SendMail();
-                objImages = GetArticlePhotosOldWay(basicId);
+                _logger.Error(ex);
             }
 
             return objImages;
         }
-
-        /// <summary>
-        /// Created By : Vivek Gupta on 18th July 2016
-        /// Description : Caching for Articles Photos based on basic id using carwale api call
-        /// </summary>
-        /// <param name="basicId"></param>
-        /// <returns></returns>
-        private IEnumerable<ModelImage> GetArticlePhotosOldWay(int basicId)
-        {
-
-            IEnumerable<ModelImage> objImages = null;
-            try
-            {
-                string _apiUrl = "webapi/image/GetArticlePhotos/?applicationId=2&basicid=" + basicId;
-
-                if (_logGrpcErrors)
-                {
-                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", basicId));
-                }
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objImages = objClient.GetApiResponseSync<IEnumerable<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImages);
-                }
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return objImages;
-        }
+       
         #endregion
 
         #region Update the View Count
