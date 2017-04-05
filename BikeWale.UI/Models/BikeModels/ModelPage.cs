@@ -449,7 +449,8 @@ namespace Bikewale.Models.BikeModels
                                 if (objData.VersionId == 0)
                                 {
                                     var nonZeroVersion = pqOnRoad.BPQOutput.Varients.Where(m => m.OnRoadPrice > 0);
-                                    objData.VersionId = (uint)pqOnRoad.BPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().VersionId;
+                                    if (pqOnRoad.BPQOutput.Varients.Count() > 0)
+                                        objData.VersionId = (uint)pqOnRoad.BPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().VersionId;
                                 }
                             }//Version Pricing
                             else
