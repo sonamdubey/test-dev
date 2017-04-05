@@ -19,7 +19,7 @@ namespace Bikewale.Models
         {
             _ICityCache = cache;
             Title = title;
-            Href = !string.IsNullOrEmpty(href) ? href : "/bikes-in-india/";
+            Href = !string.IsNullOrEmpty(href) ? href : "/used-bikes-in-india/";
         }
         /// <summary>
         /// Gets the data for used bike cities and count
