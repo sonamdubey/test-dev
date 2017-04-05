@@ -60,7 +60,7 @@
 }
 
 
-@if (Model.IsReviewsAvailable || Model.IsNewsAvailable)
+@if (Model.IsReviewsAvailable || Model.IsNewsAvailable || Model.IsUserReviewsAvailable)
 {
     <div id="reviewsContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
         <h2>@Model.BikeName Reviews</h2>

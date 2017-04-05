@@ -31,7 +31,7 @@
                     @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures.cshtml", Model)
                 }
 
-                @if (Model.IsReviewsAvailable || Model.IsNewsAvailable)
+                @if (Model.IsReviewsAvailable || Model.IsNewsAvailable || Model.IsUserReviewsAvailable)
                 {
                     <div id="modelReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
                         <h2>@Model.BikeName Reviews</h2>
