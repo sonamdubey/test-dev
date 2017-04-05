@@ -137,6 +137,9 @@
     background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) center no-repeat;
     position: relative;
 }
+.best-bike-list .item-image-block img {
+    height: 57px;
+}
 .best-bike-list .item-details-block {
     width: 65%;
 }
