@@ -101,6 +101,11 @@
 .specs-features-list.model-features-list li:first-child { margin-top:0; }
 #model-more-features-list { display:none; margin-top:10px; }
 
+/*about*/
+#aboutContent img {
+width:100%;
+}
+
 /* reviews and news */
 .user-review-subContent .model-section-subtitle {
     margin-top: 0;

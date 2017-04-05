@@ -35,7 +35,7 @@
                         <p class="margin-bottom5">
                             <span class="offers-sprite @(string.Format(" offerIcon_{0}", offer.OfferCategoryId))_sm"></span>
                         </p>
-                        <p class="text-truncate">
+                        <p class="offertext">
                             @offer.OfferText
                         </p>
                     </li>
@@ -84,7 +84,7 @@
                     <p class="font14">One partner dealer near you</p>
                 </div>
             </div>
-            <a id="viewprimarydealer" c="Model_Page" a="View_Dealer_Details_Clicked" v="bikeVersionLocation" href="javascript:void(0)" class="btn btn-orange btn-sm-0 bw-ga">View dealer details</a>
+            <a id="viewprimarydealer" onclick="secondarydealer_Click(@Model.DealerId);" c="Model_Page" a="View_Dealer_Details_Clicked" v="bikeVersionLocation" href="javascript:void(0)" class="btn btn-orange btn-sm-0 bw-ga">View dealer details</a>
         </div>
     }
 </div>
