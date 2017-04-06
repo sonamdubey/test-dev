@@ -134,7 +134,7 @@ namespace Bikewale.Models
                     {
                         bool isDealeData = objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0;
                         bool isService = objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0;
-                        objData.DealerServiceTitle = string.Format("{0}{1}{2}", isDealeData ? "Dealers" : "", (isDealeData && isService) ? " & " : string.Empty, isService ? " & Service Centers" : "");
+                        objData.DealerServiceTitle = string.Format("{0}{1}{2}", isDealeData ? "Dealers" : "", (isDealeData && isService) ? " & " : string.Empty, isService ? "Service Centers" : "");
 
                     }
                     else
