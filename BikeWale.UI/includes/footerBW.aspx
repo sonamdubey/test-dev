@@ -34,9 +34,6 @@
     <div class="clear"></div>
 </div>
 
-<script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/bwcache.js?<%= staticFileVersion %>"></script>
-<BW:LocationWidget runat="server" id="ctrlChangeLocation" />
-
 <footer class="bg-footer padding-top40 padding-bottom20" id="bg-footer"><!-- Footer section code starts here -->
     <div class="container">
         <div class="text-center border-solid-bottom margin-bottom25 padding-bottom20">
@@ -97,8 +94,17 @@
         <div class="clear"></div>
     </div>
 </footer><!-- Ends here -->
-<BW:Login ID="ctrlLogin" runat="server" />
+<script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/bwcache.js?<%= staticFileVersion %>"></script>
 <script>
-    if ($(window).width() < 996 && $(window).width() > 790)
-        $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
+    docReady(function () {
+        if (window.innerWidth < 996 && window.innerWidth > 790)
+        {
+            $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
+        }           
+    });
+    var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display='none',b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
 </script>
+<BW:Login ID="ctrlLogin" runat="server" />
+<BW:LocationWidget runat="server" id="ctrlChangeLocation" />
+
+

@@ -1,0 +1,110 @@
+﻿@model  Bikewale.Models.IndexVM
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealer/landing.css' />";
+    Model.IsHeaderFix = false;
+    Model.IsTransparentHeader = true;
+    Model.Page_JS_Path = "/src/dealer/landing.js";
+    Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/dealer-showroom-locator/";
+    Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/dealer-showroom-locator/";
+    Model.IsPageTypeLanding = true;
+}
+
+<header class="dealerlocator-banner">
+    <div id="dealer-locator-box" class="container">
+        <div class="welcome-box">
+            <h1 class="font30 text-uppercase margin-bottom30">Showroom Locator</h1>
+            <h2 class="font20 text-unbold text-white margin-bottom50">Find new bike dealers across 200+ cities</h2>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="container section-container">
+        <div class="grid-12">
+            <div class="content-box-shadow negative-50 text-center padding-25-30">
+                <h2 class="section-header">Find bike dealers in your city</h2>
+                <div class="locator-search-container">
+                    <div class="locator-search-brand form-control-box">
+                        <select id="ddlMakes" class="form-control  chosen-select">
+                            <option value="0">Select a brand</option>
+                            @foreach (var Make in Model.MakesList)
+                            {
+                                <option maskingname="@Make.MaskingName" value="@Make.MakeId">@Make.MakeName</option>
+                            }
+                        </select>
+                        <div class="clear"></div>
+                        <span class="bwsprite error-icon errorIcon hide"></span>
+                        <div class="bw-blackbg-tooltip errorText hide"></div>
+                    </div>
+                    <div class="locator-search-city form-control-box">
+                        <select id="ddlCities" class="form-control  chosen-select">
+                            <option value="0">Select a city</option>
+
+                        </select>
+                        <div class="clear"></div>
+                        <span class="bwsprite error-icon errorIcon hide"></span>
+                        <div class="bw-blackbg-tooltip errorText hide"></div>
+                    </div>
+                    <div class="clear"></div>
+                    <input type="button" id="applyFiltersBtn" class="btn btn-orange btn-lg locator-search-btn margin-bottom5" value="Search" />
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+@if (Model.Brands != null)
+{
+    <div class="container section-container">
+        <div class="grid-12">
+            <h2 class="section-header">Explore showroom by brand</h2>
+            <div class="content-box-shadow padding-top20">
+                @Html.Partial("~/Views/Make/_Brands.cshtml", Model.Brands)
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+}
+@if (Model.BestBikes != null)
+{
+    <section>
+        @Html.Partial("~/Views/BestBikes/_BestBikes.cshtml", Model.BestBikes)
+    </section>
+}
+@if (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0)
+{
+    <section>
+        <div class="container section-container">
+            <div class="grid-12">
+                <h2 class="section-header">New Bike Launches in India</h2><div class="content-box-shadow padding-top20">
+                    @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunchedBikes)
+
+                    <div class="view-all-btn-container padding-top15 padding-bottom20">
+                        <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
+@if (Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)
+{
+
+    <section>
+        <div class="container section-container">
+            <div class="grid-12">
+                <h2 class="section-header">Upcoming Bikes in India</h2>
+                <div class="content-box-shadow padding-top20">
+                    @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.objUpcomingBikes)
+                    <div class="view-all-btn-container padding-top15 padding-bottom20">
+                        <a href="/upcoming-bikes/" class="btn view-all-target-btn" title="Upcoming Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}

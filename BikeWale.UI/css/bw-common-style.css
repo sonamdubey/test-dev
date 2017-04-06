@@ -314,7 +314,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .footer-social-icons .fa-gp:hover { background: #db4c3f; }
 
 /* sprite classes */
-.bwsprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?v01Mar2017) no-repeat; display: inline-block; }
+.bwsprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?v04Apr2017) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
 .bw-logo { background-position: -34px 0; width: 93px; height: 27px; }
@@ -564,7 +564,7 @@ a.action-btn:hover{text-decoration:none;}
 .content-inner-block-10 { padding: 10px; }
 .content-inner-block-15 { padding: 15px; }
 .content-inner-block-20 { padding: 20px; }
-.content-box-shadow { background: #fff; -moz-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -webkit-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -o-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -ms-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; border:1px solid #e2e2e2\9; }
+.content-box-shadow { background: #fff; -moz-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -webkit-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -o-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -ms-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; }
 .inline-block { display:inline-block; vertical-align: middle; }
 .vertical-top { display:inline-block; vertical-align: top; }
 .block { display: block; }
@@ -1072,6 +1072,7 @@ input[type="number"] {
 
 .swiper-heading-left-grid {
     width: 75%;
+    margin-right: -4px;
 }
 
 .swiper-heading-right-grid {
@@ -1604,14 +1605,14 @@ input[type="number"] {
 
 /* key specs */
 .key-specs-list li {
-    padding-right: 14px;
-    margin-right: 12px;
+    padding-right: 10px;
+    margin-right: 10px;
     position: relative;
 }
 .key-specs-list li:before {
     content: "";
     width: 1px;
-    height: 15px;
+    height: 12px;
     position: absolute;
     top: 3px;
     right: 0;
@@ -1866,3 +1867,7 @@ input[type="number"] {
   }
 }
 .red-text { font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }
+.inner-content-carousel.carousel-height-360 .jcarousel li {
+    min-height: 360px;
+}
+.brand-style-moreBtn { border-top: 1px solid #e2e2e2; margin-left: 0; }

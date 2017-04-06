@@ -27,7 +27,6 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/css/service/listing.css" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" --> 
     </script>
@@ -66,8 +65,10 @@
                     <div class="bg-white">
                         <h1 class="section-header"><%=makeName%> service center<%=(totalServiceCenters > 1)?"s":""%> in <%=cityName%></h1>
                         <div class="section-inner-padding font14 text-light-grey">
-                            <p id="service-main-content">Is your <%= makeName %> bike due for a service or are you looking to repair your <%= makeName %> bike? BikeWale brings you the list of all authorised  <%= makeName %> service centers in <%= cityName %>. <%= makeName %> has <%= totalServiceCenters %> authorised service center<% if (totalServiceCenters > 1)
-                                                                                                                                                                                                                                                                                                                                               { %>s<%}%> in <%= cityName %>. We recommend availing services only from authorised service centers. Authorised <%= makeName %> service centers abide by the servicing standards of <%= makeName %> with an assurance of genuine <%= makeName %> spare parts..</p>
+                            <p id="service-main-content">
+                                Is your <%= makeName %> bike due for a service or are you looking to repair your <%= makeName %> bike? BikeWale brings you the list of all authorised  <%= makeName %> service centers in <%= cityName %>. <%= makeName %> has <%= totalServiceCenters %> authorised service center<% if (totalServiceCenters > 1)
+                                                                                                                                                                                                                                                                                                                      { %>s<%}%> in <%= cityName %>. We recommend availing services only from authorised service centers. Authorised <%= makeName %> service centers abide by the servicing standards of <%= makeName %> with an assurance of genuine <%= makeName %> spare parts..
+                            </p>
                             <p id="service-more-content">BikeWale strongly recommends to use only <%= makeName %> genuine spare parts for your safety and durability of your bike. For more information on pick-up and drop facility, prices and service schedules get in touch with any of the below mentioned authorised <%= makeName %> service centers in <%= cityName %>. Do check out the maintenance tips and answers to FAQs from BikeWale experts! </p>
                             <a href="javascript:void(0)" id="read-more-target" rel="nofollow">Read more</a>
                         </div>
@@ -84,11 +85,11 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="padding-15-20">
-                            <h2 class="font18 text-black text-bold bg-white inline-block margin-right10"><%=totalServiceCenters %> <%=makeName %> service center<%=(totalServiceCenters > 1)?"s":"" %> in <%=cityName %></h2>
-                            <div class="inline-block">    
-                                <span class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue text-link"></span> <span class="change text-link">change</span></span>
+                            <h2 class="font18 text-black text-bold bg-white inline-block margin-right10"><%= String.Format("{0} {1}", totalServiceCenters,makeName) %> service center<%=(totalServiceCenters > 1)?"s":"" %> in <%=cityName %></h2>
+                            <div class="inline-block">
+                                <span class="edit-blue-link" id="brandSelect"><span class="bwsprite edit-blue text-link"></span><span class="change text-link">change</span></span>
                             </div>
-                            <div class="clear"></div>                                                                                        
+                            <div class="clear"></div>
                         </div>
                         <div id="listing-left-column" class="grid-4 alpha omega">
                             <ul id="center-list">
@@ -143,12 +144,12 @@
                                     </div>
                                 </li>
                                 <% }
-                                       } %>
+                                   } %>
                             </ul>
                         </div>
                         <div id="listing-right-column" class="grid-8 alpha omega">
                             <div class="dealer-map-wrapper">
-                                <div id="dealerMapWrapper" style="width: 661px; height: 530px;">
+                                <div id="dealerMapWrapper" style="width: 661px; height: 530px; background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;">
                                     <div id="dealersMap" style="width: 661px; height: 530px;"></div>
                                 </div>
                             </div>
@@ -190,11 +191,12 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <%if(ctrlNearbyServiceCenters.FetchedRecordsCount>0){ %>
-       <BW:NearbyServiceCenters runat="server" ID="ctrlNearbyServiceCenters" />
+        <%if (ctrlNearbyServiceCenters.FetchedRecordsCount > 0)
+          { %>
+        <BW:NearbyServiceCenters runat="server" ID="ctrlNearbyServiceCenters" />
         <%} %>
-           <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0)
-              { %>
+        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0)
+           { %>
         <section>
             <div class="container">
                 <div class="grid-12">
@@ -204,7 +206,8 @@
                         <div class="carousel-heading-content padding-top20">
                             <div class="swiper-heading-left-grid inline-block">
                                 <h2>Popular <%=makeName %> bikes in <%=cityName %></h2>
-                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
                                 <a href="/<%= makeMaskingName %>-bikes/" title="<%= makeName %> Bikes" class="btn view-all-target-btn">View all</a>
                             </div>
                             <div class="clear"></div>
@@ -212,34 +215,36 @@
                         <BW:MostPopularBikesMake runat="server" ID="ctrlPopoularBikeMake" />
                         <%} %>
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
-                         <div class="clear"></div>
+                        <div class="clear"></div>
                         <!-- Used bikes widget -->
-                             <% if (ctrlusedBikeModel.FetchCount>0)
-                       { %>
-                 
-                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
-                        
-                    <% } %>  
+                        <% if (ctrlusedBikeModel.FetchCount > 0)
+                           { %>
+
+                        <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+
+                        <% } %>
+                        <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <div class="clear"></div>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-          <% } %>
-        <%if(ctrlDealerCard.showWidget) {%>
-       
+        <% } %>
+        <%if (ctrlDealerCard.showWidget)
+          {%>
+
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
-                    <div class="content-box-shadow">                        
+                    <div class="content-box-shadow">
                         <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-   <%} %>
+        <%} %>
 
         <section>
             <div class="container margin-bottom30">
@@ -251,18 +256,20 @@
                 <div class="clear"></div>
             </div>
         </section>
+        <noscript id="asynced-css">
+            <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" />
+            <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        </noscript>
         <script type="text/javascript">
-            var currentCityName = '<%= cityName %>';
-            var pageUrl = '<%= pageUrl %>';
-            var clientip = '<%= clientIP %>';
-           </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+            var currentCityName = '<%= cityName %>', pageUrl = '<%= pageUrl %>', clientip = '<%= clientIP %>';
+        </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <BW:BrandCity ID="ctrlBrandCity" runat="server" />
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/service/listing.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/fontBW.aspx" -->
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
+        <script defer type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/service/listing.js?<%= staticFileVersion %>"></script>
+        <script defer src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeDealerMap"></script>
     </form>
 </body>
 </html>

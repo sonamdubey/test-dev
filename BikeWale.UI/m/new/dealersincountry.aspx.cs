@@ -69,6 +69,7 @@ namespace Bikewale.Mobile.New
                 }
 
                 BindStatesCities();
+                Bindwidget();
             }
         }
         /// <summary>
@@ -93,7 +94,7 @@ namespace Bikewale.Mobile.New
                     ctrlusedBikeModel.MakeId = makeId;
 
                     ctrlusedBikeModel.CityId = cityId;
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? _cityDetails.CityName : "India");
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? _cityDetails.CityName : "India");
                     ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", objMMV.MakeName, cityId > 0 ? _cityDetails.CityName : "India");
                     ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", objMMV.MaskingName, cityId > 0 ? _cityDetails.CityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;
@@ -114,8 +115,8 @@ namespace Bikewale.Mobile.New
                 container.RegisterType<IState, States>();
                 objStatesCity = container.Resolve<IState>();
                 states = objStatesCity.GetDealerStatesCities(Convert.ToUInt32(makeId));
-                DealerCount = states.totalDealers;
-                citiesCount = states.totalCities;
+                DealerCount = states.TotalDealers;
+                citiesCount = states.TotalCities;
 
             }
         }
@@ -216,8 +217,8 @@ namespace Bikewale.Mobile.New
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IDealer, DealersRepository>();
-                        var objCities = container.Resolve<IDealer>();
+                        container.RegisterType<IDealerRepository, DealersRepository>();
+                        var objCities = container.Resolve<IDealerRepository>();
                         _cities = objCities.FetchDealerCitiesByMake(_makeId);
                         if (_cities != null && _cities.Count() > 0)
                         {

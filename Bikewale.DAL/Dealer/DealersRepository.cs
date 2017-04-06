@@ -17,7 +17,7 @@ namespace Bikewale.DAL.Dealer
     /// Created By : Ashwini Todkar on4 June 2014
     /// Summary    : Implements logic to access New Bike Dealers data
     /// </summary>
-    public class DealersRepository : IDealer
+    public class DealersRepository : IDealerRepository
     {
         /// <summary>
         /// Method to get list of make and total dealers for which dealers are available in india
@@ -904,7 +904,7 @@ namespace Bikewale.DAL.Dealer
             IList<NearByCityDealerCountEntity> objDealerCountList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerinnearbycity"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerinnearbycity_31032017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.ToInt32(makeId)));
@@ -924,7 +924,8 @@ namespace Bikewale.DAL.Dealer
                                     CityName = Convert.ToString(dr["name"]),
                                     CityMaskingName = Convert.ToString(dr["citymaskingname"]),
                                     Lattitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]),
-                                    Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"])
+                                    Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
+                                    GoogleMapImg = Convert.ToString(dr["googlemapimgurl"])
                                 });
                             }
                             dr.Close();

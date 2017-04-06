@@ -1,0 +1,61 @@
+﻿@model Bikewale.Models.SimilarBikesWidgetVM
+@using Bikewale.Entities.BikeData;
+@using Bikewale.Utility;
+@if (Model != null && Model.Bikes != null && Model.Bikes.Count() > 0)
+{
+    <div class="swiper-container card-container swiper-type-similar">
+        <div class="swiper-wrapper">
+            @foreach (var bike in Model.Bikes)
+            {
+                string make = bike.MakeBase.MakeName, modelName = bike.ModelBase.ModelName;
+                var bikeUrl = String.Format("/m{0}", UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName));
+                var bikeName = String.Format("{0} {1}", make, modelName);
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="@bikeUrl" title="@bikeName">
+                            <div class="swiper-image-preview">
+                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._210x118,Bikewale.Utility.QualityFactor._70)" title="@bikeName" alt="@bikeName" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                            @if (bike.VersionPrice > 0)
+                            {
+                                <div class="swiper-details-block">
+                                    <p class="target-link font12 text-truncate margin-bottom5">@bikeName</p>
+                                    <p class="text-truncate text-light-grey font11">@String.Format("Ex-showroom, {0}", bike.CityName)</p>
+                                    <p class="text-default">
+                                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">@Bikewale.Utility.Format.FormatPrice(bike.VersionPrice.ToString())</span>
+                                    </p>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-bold text-default">
+                                    <span class="font14">Price not available</span>
+                                </p>
+                            }
+                        </a>
+                        @if (Model.ShowCheckOnRoadCTA)
+                        {
+                            <div class="swiper-btn-block">
+                                <a href="javascript:void(0)" data-pqsourceid="@((int)Model.PQSourceId)" data-modelid="@bike.ModelBase.ModelId" class="btn btn-card btn-full-width btn-white getquotation" rel="nofollow">Check on-road price</a>
+                            </div>
+                        }
+                        @if (Model.ShowPriceInCityCTA)
+                        {
+                            <div class="swiper-btn-block">
+                                <a href="@String.Format("/m{0}", UrlFormatter.PriceInCityUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName,bike.CityMaskingName))" class="btn btn-card btn-full-width btn-white text-truncate getquotation font12" rel="nofollow" title="On-road price in @bike.CityName">On-road price in @bike.CityName</a>
+                            </div>
+                        }
+                        @if (Model.Make != null && Model.Model != null)
+                        {
+                            <a class="compare-with-target text-truncate" href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Featured_Compare_Widget)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)">
+                                <span class="bwmsprite compare-sm"></span>Compare with @Model.Model.ModelName<span class="bwmsprite right-arrow"></span>
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+}

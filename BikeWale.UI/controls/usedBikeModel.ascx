@@ -1,18 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.UsedBikeModel" EnableViewState="false"%>
 <%if (FetchCount > 0)
   { %>
-
-        <div class="carousel-heading-content">
+<%if(!IsLandingPage){ %>
+        <div class="carousel-heading-content <%=IsLandingPage?"":"padding-top20" %>">
             <div class="swiper-heading-left-grid inline-block">
                 <h2><%= header %></h2>
-            </div>
-            <%if(!IsLandingPage){ %>
-            <div class="swiper-heading-right-grid inline-block text-right">
+            </div><div class="swiper-heading-right-grid inline-block text-right">
                 <a href="<%= WidgetHref %>" title="<%= WidgetTitle %>" class="btn view-all-target-btn">View all</a>
             </div>
-            <%} %>
+          
             <div class="clear"></div>
         </div>
+  <%} %>
         <div class="padding-bottom20">
             <div class="jcarousel-wrapper inner-content-carousel">
                 <div class="jcarousel">
@@ -28,11 +27,11 @@
                                     <div class="card-desc-block">
                                         <h3 class="bikeTitle"><%=string.Format("{0} {1}",bikeDetails.MakeName,bikeDetails.ModelName)%></h3>
                                         <p class="text-light-grey margin-bottom5">
-                                            <%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.AvailableBikes)) %> Used bikes Available
+                                            <%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.AvailableBikes)) %> Used bikes available
                                         </p>
                                         <div class="text-bold text-default">
-                                            <span class="bwsprite inr-lg"></span>
-                                            <span class="font18"><%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.BikePrice)) %></span>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;
+                                            <span class="font18"><%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.BikePrice)) %></span>&nbsp;
                                                 <span class="font14">onwards</span>
                                         </div>
                                     </div>
@@ -47,8 +46,8 @@
           
         </div>
    <%if(IsLandingPage) {%>
-             <div class="more-article-target view-all-btn-container"> 
-                            <a href="<%= WidgetHref %>" title="<%= WidgetTitle %>" class="btn view-all-target-btn">View all cities<span class="bwsprite teal-next"></span></a>
-                        </div>
-            <%} %>
+        <div class="more-article-target view-all-btn-container"> 
+            <a href="<%= WidgetHref %>" title="<%= WidgetTitle %>" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
+        </div>
+    <%} %>
 <%} %>

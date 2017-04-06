@@ -2,9 +2,9 @@
 <div id="divControl" class='<%= recordCount > 0 ? "" :"hide" %>'>
     <div class="<%= recordCount > 0 ? "inner-content" : "hide" %>">
         <%if (bikeVersionEntity != null) {  %>
-        <h2 class="margin-bottom5"><%=bikeVersionEntity.MakeBase.MakeName %> <%=bikeVersionEntity.ModelBase.ModelName %> Alternatives</h2>
+        <h2 class="margin-bottom5"><%= String.Format("{0} {1}", bikeVersionEntity.MakeBase.MakeName,bikeVersionEntity.ModelBase.ModelName) %> Alternatives</h2>
         <div class="margin-bottom10">
-        <span>Not sure about the <%=bikeVersionEntity.MakeBase.MakeName %> <%=bikeVersionEntity.ModelBase.ModelName %>? Check out these bikes which are similar to the <%=bikeVersionEntity.MakeBase.MakeName %> <%=bikeVersionEntity.ModelBase.ModelName %> and compete with it in terms of price and features.</span>
+        <span>Not sure about the <%=String.Format("{0} {1}", bikeVersionEntity.MakeBase.MakeName,bikeVersionEntity.ModelBase.ModelName) %>? Check out these bikes which are similar to the <%=String.Format("{0} {1}", bikeVersionEntity.MakeBase.MakeName,bikeVersionEntity.ModelBase.ModelName) %> and compete with it in terms of price and features.</span>
         </div>
         <% } %>
         <div>

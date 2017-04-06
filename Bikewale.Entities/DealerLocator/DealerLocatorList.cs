@@ -8,10 +8,10 @@ namespace Bikewale.Entities.DealerLocator
     public class DealerLocatorList
     {
         [DataMember]
-        public IEnumerable<StateCityEntity> stateCityList { get; set; }
+        public IEnumerable<StateCityEntity> StateCityList { get; set; }
         [DataMember]
-        public uint totalDealers { get; set; }
+        public uint TotalDealers { get; set; }
         [DataMember]
-        public uint totalCities { get; set; }
+        public uint TotalCities { get; set; }
     }
 }

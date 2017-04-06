@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Utility
 {
@@ -13,7 +11,7 @@ namespace Bikewale.Utility
         /// Summary    : Method to get catagory list in string format
         /// </summary>
         /// <returns></returns>
-        public static string GetContentTypesString<T>(List<T> contentList)
+        public static string GetContentTypesString<T>(IList<T> contentList)
         {
             StringBuilder _contentTypes = new StringBuilder();
             if (contentList != null && contentList.Count > 0)
@@ -23,8 +21,8 @@ namespace Bikewale.Utility
                     _contentTypes.Append(Convert.ToUInt16(item)).Append(',');
                 }
             }
-                
-           return _contentTypes.ToString().TrimEnd(',');            
+
+            return _contentTypes.ToString().TrimEnd(',');
 
         } //End of GetContentTypes
     }

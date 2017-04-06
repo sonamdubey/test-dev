@@ -25,17 +25,14 @@
   margin-bottom: 10px;
   font-weight: 700; }
 
-#service-main-content,
-#service-more-content {
+.collapsible-content .main-content {
   display: inline; }
 
-#service-more-content {
+.collapsible-content .more-content {
   display: none; }
-  #service-more-content.active {
-    display: inline; }
 
-.padding-15-20 {
-  padding: 15px 20px; }
+.collapsible-content.active .more-content {
+  display: inline; }
 
 .vertical-top {
   display: inline-block;

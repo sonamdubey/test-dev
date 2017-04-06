@@ -1,5 +1,8 @@
 ﻿using Bikewale.BindViewModels.Webforms.Used;
+using Bikewale.Common;
+using Bikewale.Entities.Location;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using System;
 using System.Web;
 
@@ -12,8 +15,8 @@ namespace Bikewale.Mobile.Used
     public class Default : System.Web.UI.Page
     {
         protected UsedBikeLandingPage viewModel;
-        protected UsedRecentBikes ctrlRecentUsedBikes;
         protected UsedBikeInCities ctrlusedBikeInCities;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected int topCount = 6;
 
         protected override void OnInit(EventArgs e)
@@ -42,11 +45,36 @@ namespace Bikewale.Mobile.Used
             HttpContext.Current.ApplicationInstance.CompleteRequest();
             this.Page.Visible = false;
         }
-
+        /// <summary>
+        /// Modified by :- Subodh Jain 17 March 2017
+        /// Summary :- Bind widget
+        /// </summary>
         private void RenderUserControls()
         {
-            ctrlRecentUsedBikes.WidgetTitle = "Popular used bikes";
-            ctrlRecentUsedBikes.TopCount = 9;
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            string _cityName = currentCityArea.City;
+            if (ctrlusedBikeModel != null)
+            {
+
+                CityEntityBase cityDetails = null;
+
+                if (currentCityArea.CityId > 0)
+                {
+                    cityDetails = new CityHelper().GetCityById(currentCityArea.CityId);
+                    ctrlusedBikeModel.CityId = currentCityArea.CityId;
+                }
+
+                ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", currentCityArea.CityId > 0 ? _cityName : "India");
+                ctrlusedBikeModel.WidgetHref = string.Format("/m/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                ctrlusedBikeModel.TopCount = 9;
+                ctrlusedBikeModel.IsLandingPage = true;
+            }
+            if (ctrlusedBikeInCities != null)
+            {
+                ctrlusedBikeInCities.WidgetHref = "/m/used/bikes-in-india/";
+                ctrlusedBikeInCities.WidgetTitle = "Second Hand Bikes in India";
+
+            }
         }
 
     }

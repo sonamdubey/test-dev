@@ -204,7 +204,7 @@
                 $('#ub-ajax-loader').hide();
             }
         }
-    }
+    };
 
     function ValidateUserDetail(name, email, mobile) {
         var isValid = true;
@@ -318,7 +318,7 @@
                 inputField.closest('.input-box').addClass('not-empty');
             }
         }
-    }
+    };
 
     function usedBikeLead() {
         var self = this;
@@ -338,12 +338,12 @@
         self.pushInitGAObject = function () {
             if (self.leadInitGAObject())
                 triggerGA(self.leadInitGAObject().cat, (self.widgetName() ? self.widgetName() : '') + self.leadInitGAObject().act, self.leadInitGAObject().lab);
-        }
+        };
         self.pushLeadSubmit = function () {
             if (self.profileId()) {
                 triggerGA(self.leadInitGAObject().cat, (self.widgetName() ? self.widgetName() : '') + 'Lead_Submit_Used_Bike', self.profileId());
             }
-        }
+        };
         self.submitPurchaseRequest = function () {
             if (self.profileId()) {
                 var objBuyer = {
@@ -405,7 +405,7 @@
                     }
                 });
             }
-        }
+        };
         self.shownInterest = function () {
             self.message('');
             if (self.profileId()) {
@@ -458,7 +458,7 @@
                     }
                 });
             }
-        }
+        };
         self.validateOTP = function () {
             if (self.profileId()) {
                 $.ajax({
@@ -494,14 +494,14 @@
                     }
                 });
             }
-        }
+        };
         self.setBuyer = function (n, e, m) {
             var buyer = new customerVM();
             buyer.userName(n);
             buyer.emailId(e);
             buyer.mobileNo(m);
             self.buyer(buyer);
-        }
+        };
         self.readTempUserCookie = function () {
             var cookieName = self.userCookieName();
             if (cookieName != undefined && cookieName != null && cookieName != "" && cookieName != "-1") {
@@ -509,11 +509,11 @@
                 var arr = keyValue ? keyValue[2].split("&") : null;
                 return arr;
             }
-        }
+        };
         self.removeUserCookie = function () {
             var cookieName = self.userCookieName();
             $.cookie(cookieName, null, { path: '/' });
-        }
+        };
         self.setSeller = function (s, sa) {
             var slr = new customerVM();
             if (s && sa) {
@@ -523,24 +523,24 @@
                 slr.location(sa);
             }
             self.seller(slr);
-        }
+        };
         self.showInvalidInfoError = function (msg) {
             self.message(msg);
             self.status(code);
-        }
+        };
         self.showInvalidRequest = function (msg) {
 
-        }
+        };
         self.showMaxLimitReached = function (msg, code) {
             self.message(msg);
             self.status(code);
-        }
+        };
         self.reset = function () {
             self.setSeller();
             self.isVerified(true);
             self.message('');
             self.status('');
-        }
+        };
         self.init = function () {
             var arr = self.readTempUserCookie();
             if (arr && arr.length > 1) {
@@ -552,27 +552,23 @@
             self.setSeller();
             ko.cleanNode(document.getElementById(self.targetBindItem));
             ko.applyBindings(self, document.getElementById(self.targetBindItem));
-        }
-
+        };
         self.closePopup = function () {
             getSellerDetailsPopup.close();
             window.history.back();
-        }
-
+        };
         self.submitUserDetails = function () {
             if (ValidateUserDetail(getUserName, getUserEmailID, getUserMobile)) {
                 self.removeUserCookie();
                 self.submitPurchaseRequest();
             }
-        }
-
+        };
         self.editMobile = function () {
             var prevMobile = getUserMobile.val();
             getSellerDetailsPopup.updateMobileSection();
             getUserOTP.val('');
             getUpdatedUserMobile.focus().val(prevMobile);
-        }
-
+        };
         self.submitUpdateMobile = function () {
             if (validateMobile(getUpdatedUserMobile)) {
                 var newMobile = getUpdatedUserMobile.val();
@@ -587,45 +583,42 @@
                 self.removeUserCookie();
                 self.submitPurchaseRequest();
             }
-        }
-
+        };
         self.submitOtp = function () {
             if (validateOTP()) {
                 self.submitPurchaseRequest();
             }
-        }
-
+        };
         self.userNameOnFocus = function (getUserName) {
             validate.onFocus(getUserName);
-        }
+        };
         self.userEmailOnFocus = function (getUserEmailID) {
             validate.onFocus(getUserEmailID);
-        }
+        };
         self.userMobileOnFocus = function (getUserMobile) {
             validate.onFocus(getUserMobile);
-        }
+        };
         self.updatedUserMobileOnFocus = function (getUpdatedUserMobile) {
             validate.onFocus(getUpdatedUserMobile);
-        }
+        };
         self.userOtpOnFocus = function (getUserOTP) {
             validate.onFocus(getUserOTP);
-        }
-
+        };
         self.userNameOnBlur = function (getUserName) {
             validate.onBlur(getUserName);
-        }
+        };
         self.userEmailOnBlur = function (getUserEmailID) {
             validate.onBlur(getUserEmailID);
-        }
+        };
         self.userMobileOnBlur = function (getUserMobile) {
             validate.onBlur(getUserMobile);
-        }
+        };
         self.updatedUserMobileOnBlur = function (getUpdatedUserMobile) {
             validate.onBlur(getUpdatedUserMobile);
-        }
+        };
         self.userOtpOnBlur = function (getUserOTP) {
             validate.onBlur(getUserOTP);
-        }
+        };
     }
 
     function customerVM() {

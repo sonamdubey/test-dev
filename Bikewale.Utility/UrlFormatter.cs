@@ -61,18 +61,28 @@ namespace Bikewale.Utility
         /// <summary>
         /// Modified by :   Sumit Kate on 19 Dec 2016
         /// Description :   If source is passed consider it for url qs for compare tracking
+        /// Modified by:    Sangram Nandkhile on 17 Mar 2017
+        /// Description:    added ModelId1 and ModelId2 and logic to create canonical url
         /// </summary>
-        /// <param name="makeMasking1"></param>
-        /// <param name="modelMasking1"></param>
-        /// <param name="makeMasking2"></param>
-        /// <param name="modelMasking2"></param>
-        /// <param name="versionId1"></param>
-        /// <param name="versionId2"></param>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public static string CreateCompareUrl(string makeMasking1, string modelMasking1, string makeMasking2, string modelMasking2, string versionId1, string versionId2, Bikewale.Entities.Compare.CompareSources? source = null)
+        public static string CreateCompareUrl(string makeMasking1, string modelMasking1, string makeMasking2, string modelMasking2,
+            string versionId1, string versionId2, uint modelId1, uint modelId2,
+            Bikewale.Entities.Compare.CompareSources? source = null)
         {
-            return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}{6}", makeMasking1, modelMasking1, makeMasking2, modelMasking2, versionId1, versionId2, (source.HasValue ? "&source=" + (int)source.Value : ""));
+            var first = new { MakeMaking = makeMasking1, ModelMasking = modelMasking1, VersionId = versionId1, ModelId = Convert.ToUInt32(modelId1) };
+            var second = new { MakeMaking = makeMasking2, ModelMasking = modelMasking2, VersionId = versionId2, ModelId = Convert.ToUInt32(modelId2) };
+
+            if (first.ModelId < second.ModelId)
+            {
+                return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}{6}", first.MakeMaking, first.ModelMasking, second.MakeMaking, second.ModelMasking, first.VersionId, second.VersionId, (source.HasValue ? "&source=" + (int)source.Value : ""));
+            }
+            else if (first.ModelId > second.ModelId)
+            {
+                return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}{6}", second.MakeMaking, second.ModelMasking, first.MakeMaking, first.ModelMasking, first.VersionId, second.VersionId, (source.HasValue ? "&source=" + (int)source.Value : ""));
+            }
+            else
+            {
+                return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}{6}", makeMasking1, modelMasking1, makeMasking2, modelMasking2, versionId1, versionId2, (source.HasValue ? "&source=" + (int)source.Value : ""));
+            }
         }
 
         public static string CreateCompareTitle(string make1, string model1, string make2, string model2)
@@ -269,8 +279,10 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string RemoveSpecialCharUrl(string url)
         {
+
             if (!string.IsNullOrEmpty(url))
             {
+                url = url.Trim();
                 url = (Regex.Replace(url, "[^0-9a-zA-Z]+", "-")).ToLower();
                 url = (Regex.Replace(url, @"\-+", "-")).TrimEnd('-');
             }
@@ -447,6 +459,17 @@ namespace Bikewale.Utility
         public static string FormatMakeWiseBikeLaunchedUrl(string makeMaskingName)
         {
             return string.Format("/new-{0}-bike-launches/", makeMaskingName);
+        }
+
+
+        public static string FormatShowReviewLink(string makeName, string modelName)
+        {
+            return string.Format("/{0}-bikes/{1}/user-reviews/", makeName, modelName);
+        }
+
+        public static string FormatWriteReviewLink(uint modelId)
+        {
+            return String.Format("/content/userreviews/writereviews.aspx?bikem={0}", modelId);
         }
     }
 }

@@ -20,7 +20,7 @@
 		<td id="pgBot" align="right"><span id="divFirstNav1" runat="server"></span><span id="divPages1" runat="server" align="center"></span><span id="divLastNav1" runat="server"></span></td>		
 	</tr>
 </table>
-<script language="javascript">
+<script type="text/javascript">
     function changePageSize(e) {
         var baseUrl = '<%= baseUrlForPs%>';
         var val = e.value;

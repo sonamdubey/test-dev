@@ -10,11 +10,11 @@
                 <div class="swiper-slide">
                     <div class="swiper-card">
                         <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName,centers.CityMaskingName)%>" title="<%=String.Format("{0} Service Centers in {1}",makeName,centers.CityName)%>">
-                            <div class="city-map" data-item-lat="<%=centers.Lattitude%>" data-item-long="<%=centers.Longitude%>">
+                            <div class="swiper-lazy service-location-img" data-background="<%= centers.GoogleMapImg %>" title="<%= String.Format("{0} Service Centers in {1}",makeName,centers.CityName) %>">
                             </div>
                             <div class="swiper-details-block">
                                 <p class="text-bold text-black font12 margin-bottom5 padding-top5"><%=centers.CityName%></p>
-                                <h3 class="text-unbold text-light-grey font11"><%=centers.ServiceCenterCount%> <%=makeName %> service center<%=(centers.ServiceCenterCount)>1?"s":"" %></h3>
+                                <h3 class="text-unbold text-light-grey font11"><%= String.Format("{0} {1}",centers.ServiceCenterCount,makeName) %> service center<%=(centers.ServiceCenterCount)>1?"s":"" %></h3>
                             </div>
                         </a>
                     </div>

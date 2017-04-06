@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.Controls.ExpertReviewVideos" %>
 <section class="bg-white">
-    <div id="expertReviewsWrapper" class="container bottom-shadow">
+    <div id="expertReviewsWrapper" class="container bottom-shadow margin-bottom25">
         <h2 class="text-center padding-top25 padding-bottom15"><%= SectionTitle %></h2>
         <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -30,6 +30,8 @@
                 </ItemTemplate>
             </asp:Repeater>
         </div>  </div>
-    <a href="/m<%= Bikewale.Utility.UrlFormatter.VideoByCategoryPageUrl(SectionTitle,CategoryIdList) %>" class="font16 text-center padding-top15 more-videos-link">View more videos</a>
-    </div>
+   <div class="padding-left10 view-all-btn-container margin-top10 padding-bottom20">
+    <a href="/m<%= Bikewale.Utility.UrlFormatter.VideoByCategoryPageUrl(SectionTitle,CategoryIdList) %>" title="<%=SectionTitle %> Bike Videos" class="btn view-all-target-btn">View more videos<span class="bwmsprite teal-right"></span></a>
+     </div>
+         </div>
 </section>

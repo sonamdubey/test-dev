@@ -1,0 +1,55 @@
+﻿@model Bikewale.Models.NewLaunchedMakeVM
+@{
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewBikes";
+    Model.AdTags.AdId = "1398766302464";
+    Model.AdTags.Ad_320x50 = true;
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new-launch/new-launch.css' />";
+    Model.Page_JS_Path = "/m/src/new-launch.js";
+    Model.PageMetaTags.AlternateUrl = "";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
+<section>
+    <div class="container bg-white card-bottom-margin">
+        <h1 class="card-header">@Model.Page_H1</h1>
+        <div class="card-inner-padding font14 text-light-grey collapsible-content">
+            <p class="main-content">@Model.Make.MakeName is a well-known two-wheeler brand in India. The two-wheeler brands in India have to update their portfolio of bikes vis-à-vis changing behavior pattern and usefulness </p>
+            <p class="more-content">on a regular basis. Every year there are plenty of bike models that hit the market to cater the customer's need. BikeWale brings you an exhaustive list of newly launched @Model.Make.MakeName bikes in India. Explore the list of latest @Model.Make.MakeName bikes.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+        </div>
+    </div>
+</section>
+
+<section id="newlaunched-bikes" data-make-filter="@Model.Make.MakeId" data-city="@Model.CityId">
+    <div class="container bg-white box-shadow card-bottom-margin">
+        <h2 class="padding-15-20 border-solid-bottom">Latest @Model.Make.MakeName bikes in India</h2>
+        @Html.Partial("~/Views/NewLaunches/_NewLaunchedBikes_Mobile.cshtml",Model.NewLaunched)
+    </div>
+</section>
+@if (Model.HasUpcoming) {
+<section>
+    <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
+        <div class="carousel-heading-content">
+            <div class="swiper-heading-left-grid inline-block">
+                <h2>Upcoming @Model.Make.MakeName bikes in India</h2>
+            </div><div class="swiper-heading-right-grid inline-block text-right">
+                <a href="/m/@Model.Make.MaskingName-bikes/upcoming/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+          @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.Upcoming)
+        </div>
+</section>
+}
+<section>
+    <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
+        <div class="carousel-heading-content">
+            <div class="swiper-heading-left-grid inline-block">
+                <h2>New launches of other brands</h2>
+            </div>
+            <div class="swiper-heading-right-grid inline-block text-right">
+                <a href="/m/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all</a>
+            </div>
+            <div class="clear"></div>
+            </div>
+            @{Html.RenderAction("Makes_Mobile", "NewLaunches", new { makeId = Model.Make.MakeId });}
+        </div>
+</section>

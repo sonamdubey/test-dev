@@ -1,43 +1,29 @@
-﻿@using Bikewale.Entities.BikeData.NewLaunched;
+﻿@model Bikewale.Models.NewLaunchesBikesVM
 @{
-
-    NewLaunchedBikeResult objBikeList = ViewBag.Bikes;
-    IEnumerable<BikesCountByYearEntityBase> objYears = ViewBag.Years;
-    IEnumerable<BikesCountByMakeEntityBase> objMakes = ViewBag.Makes;
     ushort i = 0;
 }
-@if (objBikeList != null)
+@if (Model != null && Model.HasBikes)
 {
     <div class="content-box-shadow position-rel">
         <div class="padding-right20 padding-left20">
             <div class="padding-top15 padding-bottom15 border-solid-bottom">
-                <p class="font18 text-bold text-black grid-5 alpha">@ViewBag.pageHeading</p>
+                <h2 class="font18 text-bold text-black grid-5 alpha">@Model.Page_H2</h2>
                 <div class="grid-7 omega text-right new-launch-filter">
-                    <p class="font14 text-light-grey inline-block margin-right5">Filter by:</p>
-                    @if (objMakes != null)
+                   
+                    @if (Model.HasMakes)
                     {
+                         <p class="font14 text-light-grey inline-block margin-right5">Filter by:</p>
                         <div class="select-box inline-block margin-right15 brand-type-filter">
                             <select class="chosen-select" data-placeholder="Select brand" id="makeFilter" data-filter="makewise" data-bind="chosen:{width: '100%'},event : { change : function(d,e) { setMakeFilter(e);}}">
                                 <option value="0">All brands</option>
-                                @foreach (var make in objMakes)
+                                @foreach (var make in Model.Makes)
                                 {
                                     <option value="@make.Make.MakeId" data-makeid="@make.Make.MakeId" data-makename="@make.Make.MakeName">@make.Make.MakeName</option>
                                 }
                             </select>
                         </div>
                     }
-                    @if (objYears != null)
-                    {
-                        <div class="select-box select-box-no-input inline-block right-align-box">
-                            <select class="chosen-select" data-title="Select year" id="yearFilter" data-filter="yearwise" data-bind="chosen:{width: '100%'},event : { change : function(d,e) { setYearFilter(e);}}">
-                                <option value="0" >All years</option>
-                                @foreach (var year in objYears)
-                                {
-                                    <option value="@year.Year" data-bikeyear="@year.Year">@year.Year</option>
-                                }
-                            </select>
-                        </div>
-                    }
+                 
                 </div>
                 <div class="clear"></div>
             </div>
@@ -45,7 +31,7 @@
         <div class="new-launches-wrapper"  data-bind=" visible:TotalBikes() > 0">
             <!-- ko if : models() && models().length > 0 -->
             <ul class="new-launches-list" data-bind="visible : (!noBikes() && TotalBikes() !== 0), css: IsLoading() ? 'loader-active' : '' ">
-                @foreach (var bike in objBikeList.Bikes)
+                @foreach (var bike in Model.Bikes.Bikes)
             {
                 <!-- ko if : models()[@i] -->
                 string bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
@@ -92,7 +78,7 @@
                         </div>
                     </a>
                     <div class="margin-bottom10 margin-left20 " @(bike.Price > 0 ? "" : " style=display:none ") data-bind="visible : models()[@i].price != 0">
-                        <a href="javascript:void(0)" data-pqsourceid="@ViewBag.PqSource" data-bind="attr : { 'data-modelid' : models()[@i].model.modelId }" data-modelid="@bike.Model.ModelId" class="btn btn-white btn-180-32 getquotation">Check on-road price</a>
+                        <a href="javascript:void(0)" data-pqsourceid="@Model.PqSource" data-bind="attr : { 'data-modelid' : models()[@i].model.modelId }" data-modelid="@bike.Model.ModelId" class="btn btn-white btn-180-32 getquotation">Check on-road price</a>
                     </div>
                 </li>
                 <!-- /ko -->
@@ -101,19 +87,19 @@
             </ul>
             <!-- /ko -->
         </div>
-        <div class="text-center" style="display: @(ViewBag.pager.TotalResults > 0 ? "none" : "block")" data-bind="visible:noBikes() || TotalBikes()==0">
+        <div class="text-center" style="display: @(Model.HasPages ? "none" : "block")" data-bind="visible:noBikes() || TotalBikes()==0">
             <div id="nobike" data-bind="visible : noBikes()">
                 <img src="https://imgd3.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">
             </div>
         </div>
-        <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0" style="display: @(ViewBag.pager.TotalResults > 0 ? "block" : "none")">
+        <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0" style="display: @(Model.HasPages ? "block" : "none")">
             <div class="footer-pagination font14 border-solid-top padding-top10">
                 <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalBikes() > 0">
-                    <p>Showing <span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((ViewBag.pager.PageNo - 1) * ViewBag.pager.PageSize + 1)</span>-<span class="text-bold" data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(ViewBag.pager.PageNo * ViewBag.pager.PageSize, ViewBag.pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()">@ViewBag.pager.TotalResults</span> bikes</p>
+                    <p>Showing <span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()">@Model.Pager.TotalResults</span> bikes</p>
                 </div>
-                @if (ViewBag.pager.TotalResults > 15)
+                @if (Model.Pager.TotalResults > 15)
                 {
-                    Html.RenderAction("Index", "Pager", new { objPager = @ViewBag.pager }); 
+                    Html.RenderAction("Index", "Pager", new { objPager = @Model.Pager }); 
                 }
                 <div class="clear"></div>
             </div>

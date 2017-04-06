@@ -34,7 +34,7 @@ var popupGallery = {
 
     close: function () {
         if ((isModelPage) && (colorImageId > 0)) {
-            window.location.href = window.location.pathname.split("images/")[0] + '#modelColoursContent';
+            window.location.href = window.location.pathname.split("images/")[0] + '#coloursContent';
         }
         else if (isModelPage) {
             window.location.href = window.location.pathname.split("images/")[0];
@@ -197,7 +197,10 @@ var modelGallery = function () {
             self.photoSwiperActive(true);
             self.photoThumbnailScreen(true);
 
-            //gallerySwiper.update(true);
+            if (colorImageId > 0) {
+                gallerySwiper.update(true);
+            }
+
             thumbnailSwiper.update(true);
             thumbnailSwiperEvents.focusThumbnail(thumbnailSwiper, self.activePhotoIndex(), true); // (swiperName, activeIndex, slideToFlag)
             triggerGA('Gallery_Page', 'All_Photos_Tab_Clicked_Opened', modelName);

@@ -3,21 +3,6 @@
     $('#no-result').text('No result found!');
 });
 
-// read more-collapse
-var readMoreTarget = $('#read-more-target'),
-    serviceMoreContent = $('#service-more-content');
-
-readMoreTarget.on('click', function () {
-    if (!serviceMoreContent.hasClass('active')) {
-        serviceMoreContent.addClass('active');
-        readMoreTarget.text('Collapse');
-    }
-    else {
-        serviceMoreContent.removeClass('active');
-        readMoreTarget.text('... Read more');
-    }
-});
-
 /* state links */
 $('#location-list').on('click', '.type-state', function (event) {
     var item = $(this);

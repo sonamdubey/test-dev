@@ -1,0 +1,95 @@
+﻿@using Bikewale.Utility;
+@model Bikewale.Models.Shared.ShowroomsVM
+
+@if (Model.CityId > 0 && Model.dealers.Dealers != null && Model.dealers.Dealers.Count() > 0)
+{
+    <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+        <div class="carousel-heading-content">
+            <div class="swiper-heading-left-grid inline-block">
+                <h2>@Model.MakeName Showrooms in @Model.CityName</h2>
+            </div>
+            <div class="swiper-heading-right-grid inline-block text-right">
+                <a href="@string.Format("/m{0}",UrlFormatter.DealerLocatorUrl(Model.MakeMaskingName, Model.CityMaskingName))" title="@Model.MakeName Showrooms in @Model.CityName" class="btn view-all-target-btn">View all</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="swiper-container card-container dealer-horizontal-swiper">
+            <!-- dealers by city -->
+            <div class="swiper-wrapper">
+                @foreach (var dealers in Model.dealers.Dealers)
+                {
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="@String.Format("/m{0}",UrlFormatter.GetDealerUrl(Model.MakeMaskingName, Model.CityMaskingName, dealers.Name,Convert.ToInt32(dealers.DealerId)))" title="@dealers.Name" class="block">
+                                <div class="target-link margin-bottom5 text-truncate font14">@dealers.Name</div>
+                                <p class="margin-bottom5 text-light-grey @(String.IsNullOrEmpty(dealers.Address)?" hide":string.Empty)">
+                                    <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                    <span class="vertical-top dealership-address details-column">@dealers.Address</span>
+                                </p>
+                            </a>
+                            <a href="tel:@dealers.MaskingNumber" class="text-default text-bold text-truncate @(String.IsNullOrEmpty(dealers.MaskingNumber)? " hide":"block")"><span class="bwmsprite tel-sm-grey-icon"></span>@dealers.MaskingNumber</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+}
+
+else
+{
+    if (Model.dealerServiceCenter != null)
+    {
+
+        <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+            <h2 class="padding-right20 padding-left20">@Model.MakeName @(Model.dealerServiceCenter.TotalDealerCount > 0 ? "Showrooms" : "") @((Model.dealerServiceCenter.TotalDealerCount > 0 && Model.dealerServiceCenter.TotalServiceCenterCount > 0) ? "&" : "") @(Model.dealerServiceCenter.TotalServiceCenterCount > 0 ? "Service Centers" : "")</h2>
+            <div class="swiper-container card-container dealer-horizontal-swiper no-city-selection-carousel">
+                <!-- dealers when no city selected -->
+                <div class="swiper-wrapper">
+
+                    @foreach (var details in Model.dealerServiceCenter.DealerDetails)
+                    {
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <span class="dealer-city-image-preview">
+                                    <span class="city-sprite @details.CityMaskingName-icon"></span>
+                                </span>
+                                <p class="text-default text-bold margin-bottom5">@Model.MakeName outlets in @details.CityName</p>
+                                @if (details.DealerCount > 0)
+                                {
+                                    <a href="/m/@Model.MakeMaskingName-dealer-showrooms-in-@details.CityMaskingName/" title="@Model.MakeName showroom in @details.CityName" class="block">@details.DealerCount @(details.DealerCount > 1 ? "showrooms" : "showroom")</a>
+                                }
+                                @if (details.ServiceCenterCount > 0)
+                                {
+                                    <a href="/m/@Model.MakeMaskingName-service-center-in-@details.CityMaskingName/" title="@Model.MakeName service center in @details.CityName" class="block">@details.ServiceCenterCount service center@(details.ServiceCenterCount > 1 ? "s" : "")</a>
+                                }
+                            </div>
+                        </div>
+                    }
+                    @if (Model.dealerServiceCenter.TotalDealerCount > 0 || Model.dealerServiceCenter.TotalServiceCenterCount > 0)
+                    {
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <span class="dealer-city-image-preview">
+                                    <span class="city-sprite india-icon"></span>
+                                </span>
+                                <p class="text-default text-bold margin-bottom5">@Model.MakeName outlets in India</p>
+                                @if (Model.dealerServiceCenter.TotalDealerCount > 0)
+                                {
+                                    <a href="/m/@Model.MakeMaskingName-dealer-showrooms-in-india/" title="@Model.MakeName showroom in India" class="block">@Model.dealerServiceCenter.TotalDealerCount @(Model.dealerServiceCenter.TotalDealerCount > 1 ? "showrooms" : "showroom")</a>
+                                }
+                                @if (Model.dealerServiceCenter.TotalServiceCenterCount > 0)
+                                {
+                                    <a href="/m/@Model.MakeMaskingName-service-center-in-india/" title="@Model.MakeName service center in India" class="block">@Model.dealerServiceCenter.TotalServiceCenterCount service center@(Model.dealerServiceCenter.TotalServiceCenterCount > 1 ? "s" : "")</a>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
+}
+

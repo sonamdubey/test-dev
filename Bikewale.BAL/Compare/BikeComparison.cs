@@ -51,12 +51,7 @@ namespace Bikewale.BAL.Compare
 
             try
             {
-
-                if (_logGrpcErrors)
-                {
-                    _logger.Error(string.Format("Grpc did not work for GetFeaturedBikeOldWay {0}", versions));
-                }
-
+           
                 //sets the base URI for HTTP requests
                 string _apiUrl = String.Format("/webapi/SponsoredCarVersion/GetSponsoredCarVersion/?vids={0}&categoryId=1&platformId=2", versions);
 
@@ -67,8 +62,7 @@ namespace Bikewale.BAL.Compare
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"] + "GetFeaturedBikeOldWay");
-                objErr.SendMail();
+                _logger.Error(err);
             }
 
             return featuredBikeId;
@@ -970,15 +964,6 @@ namespace Bikewale.BAL.Compare
         public IEnumerable<TopBikeCompareBase> ScooterCompareList(uint topCount)
         {
             return _objCompare.ScooterCompareList(topCount);
-        }
-
-        /// <summary>
-        /// Created By :- Subodh Jain 10 March 2017
-        /// Summary :- Populate Compare ScootersList version list wise
-        /// </summary>
-        public ICollection<SimilarCompareBikeEntity> ScooterCompareList(string versionList, uint topCount, uint cityId)
-        {
-            return _objCompare.ScooterCompareList(versionList, topCount, cityId);
         }
     }
 }

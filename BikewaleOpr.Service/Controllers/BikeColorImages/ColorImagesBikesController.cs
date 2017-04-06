@@ -34,6 +34,7 @@ namespace BikewaleOpr.Service.Controllers.BikeColorImages
                 {
 
                     MemCachedUtil.Remove(string.Format("BW_ModelPhotosColorWise_{0}", objBikeColorDetails.Modelid));
+                    MemCachedUtil.Remove(string.Format("BW_ModelColor_{0}", objBikeColorDetails.Modelid));
                     return Ok(_objColorImagesBikes.FetchPhotoId(objBikeColorDetails));
                 }
                 else
@@ -62,6 +63,7 @@ namespace BikewaleOpr.Service.Controllers.BikeColorImages
                 if (photoId > 0)
                 {
                     MemCachedUtil.Remove(string.Format("BW_ModelPhotosColorWise_{0}", modelid));
+                    MemCachedUtil.Remove(string.Format("BW_ModelColor_{0}", modelid));
                     return Ok(_objColorImagesBikes.DeleteBikeColorDetails(photoId));
                 }
                 else

@@ -32,23 +32,13 @@ $(document).ready(function () {
     comparisonCarousel.find(".jcarousel-control-next").jcarouselControl({
         target: '+=2'
     });
-});
 
-// read more - collapse
-$('.read-more-target').on('click', function () {
-    var element = $(this),
-        parentElemtent = element.closest('.collapsible-content');
+    var makeDealersContent = $('#makeDealersContent');
 
-    if (!parentElemtent.hasClass('active')) {
-        parentElemtent.addClass('active');
-        element.text(' Collapse');
-    }
-    else {
-        parentElemtent.removeClass('active');
-        element.text('Read more');
+    if (makeDealersContent.length != 0) {
+        makeDealersContent.removeClass('bw-model-tabs-data');
     }
 });
-
 
 // floating tabs
 var makeOverallTabs = $('#makeOverallTabs'),
@@ -57,11 +47,7 @@ var makeOverallTabs = $('#makeOverallTabs'),
 
 makeOverallTabs.find('.overall-specs-tabs-wrapper a').first().addClass('active');
 
-var makeDealersContent = $('#makeDealersContent');
 
-if (makeDealersContent.length != 0) {
-    makeDealersContent.removeClass('bw-model-tabs-data');
-}
 
 if (makeOverallTabs.length > 0) {
     attachListener('scroll', window, highlightSpecTabs);
@@ -105,3 +91,14 @@ function highlightSpecTabs() {
         }
     });
 }
+$('.read-more-target').on('click', function () {
+    var element = $(this),
+        parentElemtent = element.closest('.collapsible-content');
+
+    if (!parentElemtent.hasClass('active')) {
+        parentElemtent.find('.main-content').hide();
+    }
+    else {
+        parentElemtent.find('.main-content').show();
+    }
+});

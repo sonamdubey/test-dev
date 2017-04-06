@@ -11,10 +11,10 @@
                     { %>
                     <li>
                         <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName,centers.CityMaskingName)%>" title="<%=String.Format("{0} Service Centers in {1}",makeName,centers.CityName)%>" class="jcarousel-card">
-                            <div class="city-map" data-item-lat="<%=centers.Lattitude%>" data-item-long="<%=centers.Longitude%>"></div>
+                            <div class="lazy service-location-img" data-original="<%= centers.GoogleMapImg %>" title="<%= String.Format("{0} Service Centers in {1}",makeName,centers.CityName) %>"></div>
                             <div class="card-desc-block">
                                 <p class="card-heading font14 text-bold text-black padding-top5"><%= centers.CityName%></p>
-                                <h3 class="text-unbold text-light-grey"><%=centers.ServiceCenterCount %> <%=makeName %> service center<%=(centers.ServiceCenterCount)>1?"s":"" %></h3>
+                                <h3 class="text-unbold text-light-grey"><%= String.Format("{0} {1}", centers.ServiceCenterCount,makeName) %> service center<%=(centers.ServiceCenterCount)>1?"s":"" %></h3>
                             </div>
                         </a>
                     </li>

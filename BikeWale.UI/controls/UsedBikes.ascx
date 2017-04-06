@@ -11,7 +11,7 @@
             <ItemTemplate>
                 <div class="grid-4 margin-bottom20">
                     <a title="Used <%=pageHeading%> bikes in <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName"))%>" href="<%#Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeMaskingName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"ModelMaskingName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"CityMaskingName")))%>">Used <%=pageHeading%> bikes in <%#Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName"))%></a>
-                    <p class="margin-top10"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"AvailableBikes")))%> <%#Convert.ToString(DataBinder.Eval(Container.DataItem,"AvailableBikes")) == "1" ? "bike" : "bikes" %> available</p>
+                    <p class="margin-top10"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"AvailableBikes")))%><%#Convert.ToString(DataBinder.Eval(Container.DataItem,"AvailableBikes")) == "1" ? " bike" : " bikes" %> available</p>
                 </div>
             </ItemTemplate>
         </asp:Repeater>

@@ -129,7 +129,6 @@ namespace Bikewale.New
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 3;
                 ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", makeName, cityName);
-                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
 
                 if (ctrlChangeLocation != null)
                 {
@@ -142,7 +141,7 @@ namespace Bikewale.New
                     ctrlusedBikeModel.MakeId = makeId;
                     if (cityId > 0)
                         ctrlusedBikeModel.CityId = cityId;
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? cityName : "India");
                     ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, cityId > 0 ? cityName : "India");
                     ctrlusedBikeModel.WidgetHref = string.Format("/used/{0}-bikes-in-{1}/", makeMaskingName, cityId > 0 ? cityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;
@@ -168,7 +167,7 @@ namespace Bikewale.New
                 {
                     container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
                              .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IDealer, DealersRepository>()
+                             .RegisterType<IDealerRepository, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
                     _dealers = objCache.GetDealerByMakeCity(cityId, makeId);
@@ -258,9 +257,9 @@ namespace Bikewale.New
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealer, DealersRepository>();
+                    container.RegisterType<IDealerRepository, DealersRepository>();
 
-                    var objCities = container.Resolve<IDealer>();
+                    var objCities = container.Resolve<IDealerRepository>();
                     _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {

@@ -14,7 +14,7 @@
         return $.ajax({
             type: "POST",
             async: false,
-            url: self.baseURL + "/api/image/request/",
+            url: "/api/image/request/",
             dataType: 'json',
             crossDomain: true,
             contentType: "application/json;charset=utf-8", data: JSON.stringify(request),
@@ -38,9 +38,11 @@
                 objData.append('acl', 'public-read');
                 objData.append('success_action_status', '201');
                 objData.append('Content-Type', file.type);
-                objData.append('AWSAccessKeyId', response.accessKeyId);
+                objData.append('x-amz-credential', response.accessKeyId + "/" + response.datetimeiso + "/ap-south-1/s3/aws4_request");
+                objData.append('x-amz-algorithm', 'AWS4-HMAC-SHA256');
+                objData.append('x-amz-date', response.datetimeisolong);
                 objData.append('policy', response.policy);
-                objData.append('signature', response.signature);
+                objData.append('x-amz-signature', response.signature);
                 objData.append("file", file);
 
                 var awsReqPromise = $.ajax({
@@ -73,7 +75,7 @@
                 $.ajax({
                     type: "POST",
                     async: false,
-                    url: self.baseURL + "/api/image/savepath/",
+                    url: "/api/image/savepath/",
                     dataType: 'json',
                     contentType: "application/json;charset=utf-8",
                     crossDomain: true,

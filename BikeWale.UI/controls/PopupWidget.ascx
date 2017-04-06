@@ -65,8 +65,9 @@
 <!-- widget script starts here-->
 <script type="text/javascript">
     var onCookieObj = {};
+    var vmquotation, timeOutVariable, pqPopupContent, progressBar;
 
-    $(document).ready(function(){
+    docReady(function(){
         $(document).on("click",".blackOut-window, #priceQuoteWidget .close-btn",function(){
             pqPopupContent.close();
         });
@@ -78,7 +79,6 @@
             $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
         });
  
-    });
 
     $(document).keydown(function(event){
         if(event.keyCode == 27){
@@ -119,26 +119,6 @@
 
     });
 
-    ko.bindingHandlers.chosen = {
-        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var $element = $(element);
-            var options = ko.unwrap(valueAccessor());
-            if (typeof options === 'object')
-                $element.chosen(options);
-
-            ['options', 'selectedOptions', 'value'].forEach(function (propName) {
-                if (allBindings.has(propName)) {
-                    var prop = allBindings.get(propName);
-                    if (ko.isObservable(prop)) {
-                        prop.subscribe(function () {
-                            $element.trigger('chosen:updated');
-                        });
-                    }
-                }
-            });
-        }
-    }
-
     var mPopup = function () {
         var self = this;
         self.MakeName = "";
@@ -170,7 +150,7 @@
                 self.IsLoading(true);
                 self.SelectedModelId(options.modelId || 0);
                 self.SelectedCityId(options.cityId || 0);
-                if (self.SelectedCityId() == 0)  self.LoadingText('Fetching Cities...');
+                if (self.SelectedCityId() == 0) self.LoadingText('Fetching Cities...');
                 self.SelectedAreaId(options.areaId || 0);
                 self.SelectedCity(options.city || null);
                 self.SelectedArea(options.area || null);
@@ -182,12 +162,12 @@
                 self.IsReload(options.isreload || false);
                 self.DealerId(options.dealerid || 0);
                 self.VersionId(options.versionid || 0);
-                if (self.IsPersistance())  self.LoadingText("Loading locations...");
+                if (self.IsPersistance()) self.LoadingText("Loading locations...");
 
                 if (self.SelectedModelId()) {
                     self.InitializePQ();
                 }
-                if(self.IsOnRoadPriceClicked()){
+                if (self.IsOnRoadPriceClicked()) {
                     gtmCodeAppender(self.PageCatId, "Get_On_Road_Price_Click", self.MakeName + self.ModelName);
                 }
             }
@@ -195,7 +175,7 @@
 
         self.createMPQ = function (pqId) {
             if (self.SelectedCityId() && self.SelectedModelId() && self.VersionId() && pqId) {
-                return btoa("CityId=" + self.SelectedCityId() + "&AreaId=" + +self.SelectedAreaId() +"&PQId=" + pqId +"&VersionId=" + self.VersionId() + "&DealerId=" + self.DealerId());
+                return btoa("CityId=" + self.SelectedCityId() + "&AreaId=" + +self.SelectedAreaId() + "&PQId=" + pqId + "&VersionId=" + self.VersionId() + "&DealerId=" + self.DealerId());
             }
         };
 
@@ -215,7 +195,7 @@
                     'isPersistance': self.IsPersistance(),
                     'refPQId': typeof pqId != 'undefined' ? pqId : '',
                     'isReload': self.IsReload()
-                }
+                };
 
                 $.ajax({
                     type: "POST",
@@ -227,7 +207,7 @@
                         xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                     },
                     success: function (response) {
-                        var _responseData = ko.toJS(response);                        
+                        var _responseData = ko.toJS(response);
                         if (_responseData && _responseData.pqCities && _responseData.pqCities.length > 0) {
 
                             var cities = ko.toJS(_responseData.pqCities);
@@ -235,7 +215,7 @@
                                 cities.splice(0, 0, dummyOption);
                                 self.BookingCities(cities);
                                 if (self.SelectedCityId() > 0) {
-                                    self.SelectedCity(self.findItemById(self.BookingCities(),"id",self.SelectedCityId()));
+                                    self.SelectedCity(self.findItemById(self.BookingCities(), "id", self.SelectedCityId()));
                                     self.hasAreas((self.SelectedCity() != null && self.SelectedCity().hasAreas) ? true : false);
                                     var areas = ko.toJS(_responseData.pqAreas);
                                     progressBar.stopLoading('#area-dropdown-field');
@@ -243,11 +223,11 @@
                                         areas.splice(0, 0, dummyOption);
                                         self.BookingAreas(areas);
                                         if (self.SelectedAreaId() > 0) {
-                                            self.SelectedArea(self.findItemById(self.BookingAreas(),"id",self.SelectedAreaId()));
+                                            self.SelectedArea(self.findItemById(self.BookingAreas(), "id", self.SelectedAreaId()));
                                         }
                                         else self.SelectedArea(null);
                                     }
-                                    else{
+                                    else {
                                         self.BookingAreas([]);
                                         self.SelectedArea(null);
                                         self.SelectedAreaId(0);
@@ -259,15 +239,15 @@
                         }
                         else if (_responseData.priceQuote != null) {
 
-                            var jsonObj = _responseData.priceQuote; 
+                            var jsonObj = _responseData.priceQuote;
                             gaLabel = GetGlobalCityArea() + ', ';
 
                             if (self.MakeName || self.ModelName)
-                                gaLabel += self.MakeName + ',' + self.ModelName + ','; 
+                                gaLabel += self.MakeName + ',' + self.ModelName + ',';
 
                             if (self.SelectedCityId() > 0) {
                                 if (self.SelectedCity() && self.SelectedCity().id > 0) {
-                                    lbtext  = "Fetching on-road price for " + self.SelectedCity().name;
+                                    lbtext = "Fetching on-road price for " + self.SelectedCity().name;
                                     cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name;
                                     if (self.SelectedArea() && jsonObj.isDealerAvailable) {
                                         cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
@@ -287,7 +267,7 @@
                                 _responseData.qStr = self.createMPQ(_responseData.priceQuote.quoteId);
                             }
                             if (!self.IsReload() && _responseData.qStr != '') {
-                                window.location = "/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
+                                window.location = "/pricequote/dealer/" + "?MPQ=" + _responseData.qStr;
                             }
                             else window.location.reload(true);
                         }
@@ -310,19 +290,16 @@
                             window.location.reload(true);
                         }
                     },
-                    complete : function()
-                    {                       
-                        if(self.SelectedCityId() > 0)
-                        {
+                    complete: function () {
+                        if (self.SelectedCityId() > 0) {
                             $('#ddlCitiesPopup').parent().addClass('done');
-                            if(self.SelectedAreaId() > 0)
-                            {
+                            if (self.SelectedAreaId() > 0) {
                                 $('#ddlAreaPopup').parent().addClass('done');
                             }
                         }
-                        pqPopupContent.updateChosen( $('#ddlCitiesPopup'));
-                        pqPopupContent.updateChosen( $('#ddlAreaPopup'));
-                        
+                        pqPopupContent.updateChosen($('#ddlCitiesPopup'));
+                        pqPopupContent.updateChosen($('#ddlAreaPopup'));
+
                     }
                 });
             }
@@ -332,18 +309,18 @@
         self.selectCity = function (nVal) {
 
             try {
-                self.SelectedCity(self.findItemById(self.BookingCities(),"id",self.SelectedCityId()));
+                self.SelectedCity(self.findItemById(self.BookingCities(), "id", self.SelectedCityId()));
 
-                if (self.SelectedCity() != null &&  self.SelectedCity().id > 0) {
+                if (self.SelectedCity() != null && self.SelectedCity().id > 0) {
                     $('#ddlCitiesPopup').parent().addClass('done');
 
                     self.SelectedArea(null);
                     self.SelectedAreaId(0);
                     self.BookingAreas([]);
 
-                    pqPopupContent.updateChosen( $('#ddlAreaPopup'));
+                    pqPopupContent.updateChosen($('#ddlAreaPopup'));
 
-                    if (!self.SelectedCity().hasAreas) {                       
+                    if (!self.SelectedCity().hasAreas) {
                         self.LoadingText("Fetching on-road price for " + self.SelectedCity().name);
                         self.IsLoading(true);
                         self.IsPersistance(false);
@@ -355,9 +332,9 @@
                     }
 
                     if (self.SelectedCity().hasAreas || self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
-                        self.InitializePQ(); 
+                        self.InitializePQ();
                     }
-                    else{
+                    else {
                         self.IsLoading(false);
                     }
 
@@ -372,7 +349,7 @@
                         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': actText, 'lab': getBikeVersion() + '_' + self.SelectedCity().name });
                     }
 
-                    
+
                 }
             } catch (e) {
                 console.warn(e);
@@ -384,9 +361,9 @@
 
             try {
 
-                self.SelectedArea(self.findItemById(self.BookingAreas(),"id",self.SelectedAreaId()));
+                self.SelectedArea(self.findItemById(self.BookingAreas(), "id", self.SelectedAreaId()));
 
-                if (self.SelectedArea()!=null && self.SelectedArea().id > 0) {
+                if (self.SelectedArea() != null && self.SelectedArea().id > 0) {
                     $('#ddlAreaPopup').trigger("chosen:updated").parent().addClass('done');
                     self.IsPersistance(false);
 
@@ -406,8 +383,7 @@
 
         };
 
-        self.CheckCookies = function()
-        {
+        self.CheckCookies = function () {
             try {
                 c = document.cookie.split('; ');
                 for (i = c.length - 1; i >= 0; i--) {
@@ -426,14 +402,62 @@
             }
         };
 
-        self.findItemById = function(items,attr,item)
-        {
+        self.findItemById = function (items, attr, item) {
             return ko.utils.arrayFirst(items, function (child) {
-                return (child[attr]==item);
+                return (child[attr] == item);
             });
         };
-    }
+    };
 
+    pqPopupContent = {
+        
+        active: function(){
+            timeOutVariable = setTimeout(function(){
+                    $('#priceQuoteWidget').addClass('activate-popup-content');
+            }, 200);
+        },
+
+        inactive: function(){
+            $('#priceQuoteWidget').removeClass('activate-popup-content');
+            clearTimeout(timeOutVariable);
+        },
+
+        updateChosen: function(element){
+            $(element).trigger("chosen:updated");
+        },
+
+        close: function(){
+            $('.getquotation').removeClass('ui-btn-active');
+            $("#popupContent,#priceQuoteWidget,.blackOut-window").hide();
+            pqPopupContent.inactive();
+        }
+    };
+
+    progressBar = {
+        startLoading: function (element, message) {
+            try {
+                var _self = $(element).find(".progress-bar").css({ 'width': '0' }).show();
+                _self.animate({ width: '100%' }, 7000);
+                $(element).find(".progress-bar-label").text(message);
+            }
+            catch (e) { return };
+        },
+
+        stopLoading: function (element) {
+            try {
+                var _self = $(element).find(".progress-bar");
+                _self.stop(true, true).css({ 'width': '100%' }).fadeOut(1000);
+                $(element).find(".progress-bar-label").empty();
+            }
+            catch (e) { return };
+        }
+    };
+
+    vmquotation = new mPopup;
+    ko.applyBindings(vmquotation, $("#priceQuoteWidget")[0]);
+    $('#ddlCitiesPopup,#ddlAreaPopup').chosen();
+
+    });
 
     function gtmCodeAppender(pageId, action, label) {
         var category = '';
@@ -468,57 +492,5 @@
             }
         }
 
-    }
-
-    var timeOutVariable;
-
-    var pqPopupContent = {
-        
-        active: function(){
-            timeOutVariable = setTimeout(function(){
-                    $('#priceQuoteWidget').addClass('activate-popup-content');
-            }, 200);
-        },
-
-        inactive: function(){
-            $('#priceQuoteWidget').removeClass('activate-popup-content');
-            clearTimeout(timeOutVariable);
-        },
-
-        updateChosen: function(element){
-            $(element).trigger("chosen:updated");
-        },
-
-        close: function(){
-            $('.getquotation').removeClass('ui-btn-active');
-            $("#popupContent,#priceQuoteWidget,.blackOut-window").hide();
-            pqPopupContent.inactive();
-        }
     };
-
-    var progressBar = {
-        startLoading: function (element, message) {    
-            try {
-                var _self = $(element).find(".progress-bar").css({'width':'0'}).show();
-                _self.animate({ width: '100%' }, 7000);
-                $(element).find(".progress-bar-label").text(message);
-            }
-            catch (e) { return };
-        },
-
-        stopLoading: function(element){
-            try {
-                var _self = $(element).find(".progress-bar");
-                _self.stop(true, true).css({'width':'100%'}).fadeOut(1000);
-                $(element).find(".progress-bar-label").empty();
-            }
-            catch (e) { return };
-        }
-    }
-
-    var vmquotation = new mPopup;
-    ko.applyBindings(vmquotation, $("#priceQuoteWidget")[0]);
-    $('#ddlCitiesPopup,#ddlAreaPopup').chosen();
-
-
 </script>

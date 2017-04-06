@@ -1,0 +1,188 @@
+﻿@model  Bikewale.Models.DealerShowroomIndiaPageVM
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_JS_Path = "/src/dealer/location.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealer/location.css' />";
+    Model.AdTags.Ad_970x90 = true;
+    Model.AdTags.Ad_970x90Bottom = true;
+    Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-india/", Model.Make.MaskingName);
+    Model.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-dealer-showrooms-in-india/", Model.Make.MaskingName);
+
+}
+<section>
+    <div class="container padding-top10">
+        <div class="grid-12">
+            <div class="breadcrumb margin-bottom15">
+                <ul>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
+                    </li>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Showroom Locator</span></a>
+                    </li>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <span class="bwsprite fa-angle-right margin-right10"></span>@Model.Make.MakeName Showrooms in India
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+<section>
+    <div class="container margin-bottom20">
+        <div class="grid-12">
+            <div class="content-box-shadow">
+                <div class="content-box-shadow padding-14-20">
+                    <h1>@Model.Make.MakeName Showrooms in India</h1>
+                </div>
+                <div class="padding-14-20 font14 text-light-grey collapsible-content">
+                    <p class="main-content">BikeWale recommends to buy your @Model.Make.MakeName bike only from authorized @Model.Make.MakeName showrooms. We bring you a list of @String.Format("{0} {1} showroom{2}", Model.DealerCount, Model.Make.MakeName, Model.DealerCount > 1 ? "s" : "") present in @string.Format("{0} {1}", Model.CitiesCount, Model.CitiesCount > 1 ? "cities" : "city") in India. The showroom locator tool will help you find the @Model.Make.MakeName showroom in your city.</p>
+                    <p class="more-content"> BikeWale works with more than 200+ bike showrooms in India to provide you a hassle-free bike buying experience. Get @Model.Make.MakeName showroom's address, contact details, EMI options for your nearest dealer.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+@if (Model.States != null)
+{
+    <section>
+        <div class="container margin-bottom20">
+            <div class="grid-12">
+                <div class="content-box-shadow">
+                    <h2 class="font18 bg-white padding-18-20">@String.Format("{0} {1}", Model.DealerCount, Model.Make.MakeName) dealers in @string.Format("{0} {1}", Model.CitiesCount, Model.CitiesCount > 1 ? "cities" : "city")</h2>
+                    <div id="listing-left-column" class="grid-4">
+                        <div id="filter-input" class="form-control-box">
+                            <span class="bwsprite search-icon-grey"></span>
+                            <input type="text" class="form-control padding-right40" placeholder="Type to search city" id="getCityInput" />
+                            <span class="fa fa-spinner fa-spin position-abt text-black"></span>
+                            <span class="bwsprite error-icon errorIcon"></span>
+                            <div class="bw-blackbg-tooltip errorText"></div>
+                        </div>
+                        <ul id="location-list">
+                            @foreach (Bikewale.Entities.DealerLocator.StateCityEntity st in Model.States.StateCityList)
+                            {
+                                <li class="item-state">
+                                    <p data-item-id="@st.Id" data-item-name="@st.Name" data-lat="@st.Lat" data-long="@st.Long" data-dealercount="@st.DealerCountState" class="type-state cur-pointer">@st.Name</p>
+                                    <ul class="location-list-city">
+                                        @foreach (Bikewale.Entities.Location.DealerCityEntity stcity in st.Cities)
+                                        {
+
+                                            <li>
+                                                <a data-item-id="@stcity.CityId" data-item-name="@stcity.CityName" data-lat="@stcity.Lattitude" data-long="@stcity.Longitude" data-link="@stcity.Link" data-dealercount="@stcity.DealersCount" title="@string.Format("{0} dealer showrooms in {1}",Model.Make.MakeName,stcity.CityName)" href="/@Model.Make.MaskingName-dealer-showrooms-in-@stcity.CityMaskingName/">@string.Format("{0} ({1})", stcity.CityName, stcity.DealersCount)</a>
+                                            </li>
+                                        }
+                                    </ul>
+
+                                </li>
+                            }
+
+                        </ul>
+                        <div id="no-result"></div>
+                    </div>
+                    <div id="listing-right-column" class="grid-8 alpha omega">
+                        <div class="dealer-map-wrapper">
+                            <div id="dealerMapWrapper" style="width: 661px; height: 530px; background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;">
+                                <div id="dealersMap" style="width: 661px; height: 530px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div id="listing-footer"></div>
+    </section>
+}
+
+@if (Model.AllDealers != null && Model.AllDealers.Count() > 0)
+{
+    <section>
+        <div class="container section-container">
+            <div class="grid-12 margin-bottom20">
+                <div class="content-box-shadow padding-top20 padding-bottom20">
+                    <h2 class="font18 padding-bottom20 padding-left20">Find showroom for other brands</h2>
+
+                    @Html.Partial("~/Views/DealerShowroom/_DealersByBrand.cshtml", Model.AllDealers)
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+
+    </section>
+}
+@if ((Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0) || (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0) || (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0))
+{
+    <section>
+        <div class="container section-container">
+            <div class="grid-12 margin-bottom20">
+                <div class="content-box-shadow padding-bottom20">
+                    @if (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0)
+                    {
+
+                        <div class="carousel-heading-content padding-top20 padding-bottom15">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>New @Model.Make.MakeName bike launches</h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right ">
+                                <a href="@string.Format("/new-{0}-bike-launches/", Model.Make.MaskingName)" title="@string.Format("{0} Bike Launches in India", Model.Make.MakeName)" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunchedBikes)
+
+
+
+                    }
+                    @if (Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)
+                    {
+                        <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+
+                        <div class="carousel-heading-content padding-top20 padding-bottom15">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>Upcoming @Model.Make.MakeName Bikes</h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right ">
+                                <a href="@string.Format("/{0}-bikes/upcoming/", Model.Make.MaskingName)" title="@string.Format("Upcoming {0} Bikes in India", Model.Make.MakeName)" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="padding-top20 ">
+                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.objUpcomingBikes)
+                        </div>
+
+
+                    }
+                    @if (Model.UsedBikeModel != null && Model.UsedBikeModel.UsedBikeModelList != null && Model.UsedBikeModel.UsedBikeModelList.Count() > 0)
+                    {
+                        <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+
+
+                        <div class="carousel-heading-content padding-top15">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>Used @Model.Make.MakeName bikes in India</h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="@string.Format("/used/{0}-bikes-in-india/",Model.Make.MaskingName)" title="Second Hand Bikes in India" class="btn view-all-target-btn">View all</a>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+                        <div class="padding-top20 padding-bottom20">
+                            @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedBikeModel)
+                        </div>
+
+
+
+                    }
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
+<script defer src="@string.Format("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places",Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey)"></script>
+<script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/new/markerwithlabel.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>

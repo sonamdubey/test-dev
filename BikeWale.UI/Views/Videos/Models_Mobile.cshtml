@@ -1,0 +1,98 @@
+﻿@model Bikewale.Models.Videos.ModelWiseVideoPageVM
+
+@using Bikewale.Utility;
+
+@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/videos/videosByModel.css' />";
+    Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/videos/", Model.Make.MaskingName, Model.Model.MaskingName);
+    Model.IsHeaderFix = false;
+    Model.IsHeaderRequired = false;
+    Model.IsAppBannerNeeded = false;
+}
+
+@if (Model != null && Model.Make != null && Model.Model != null)
+{
+    <header id="categoryHeader">
+        <div class="category-back-btn">
+            <span class="bwmsprite fa-arrow-back"></span>
+        </div>
+        <h1 class="font18">@String.Format("{0} {1} Videos", @Model.Make.MakeName, @Model.Model.ModelName)</h1>
+    </header>
+
+    if (Model.VideosList != null)
+    {
+        <section class="bg-white padding-top50 bottom-shadow margin-bottom10" id="section-videos-list">
+            <div class="miscWrapper container">
+                <ul id="listVideos1">
+                    @foreach (var video in Model.VideosList)
+                    {
+                        <li>
+                            <div class="misc-container margin-bottom10">
+                                <a href="@string.Format("/m/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))"
+                                   class="misc-list-image margin-right20">
+                                    <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg", video.VideoId)" alt="@video.VideoTitle" title="@video.VideoTitle" src="" border="0" />
+                                </a>
+                                <a href="@string.Format("/m/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))"
+                                   title="@video.VideoTitle" class="font14 text-default text-bold padding-left20">@video.VideoTitle</a>
+                            </div>
+                            <div class="video-views-count-container font14 leftfloat padding-right10 border-light-right">
+                                <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Views))</span>
+                            </div>
+                            <div class="video-views-count-container font14 leftfloat padding-left20 padding-right10">
+                                <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Likes))</span>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </section>
+    }
+
+    if (Model.BikeInfoWidgetData != null)
+    {
+        <section >
+            <div class="container bg-white box-shadow section-bottom-margin margin-bottom10">
+                @Html.Partial("~/Views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfoWidgetData)
+            </div>
+        </section>
+    }
+
+    if (Model.SimilarBikeVideoList != null && Model.SimilarBikeVideoList.Count() > 0)
+    {
+        <div class="container content-box-shadow margin-bottom10 padding-bottom20">
+            <div class="padding-top20 font14">
+                <h2 class="padding-left20 padding-right20 margin-bottom15">Videos of similar bikes</h2>
+                <div class="swiper-container card-container alternate-bikes-photo-swiper overlay-carousel">
+                    <div class="swiper-wrapper">
+                        @foreach (var BikeInfo in Model.SimilarBikeVideoList)
+                        {
+                            string bikeName = string.Empty;
+                            if (BikeInfo.Make != null && BikeInfo.Model != null) { bikeName = string.Format("{0} {1}", BikeInfo.Make.MakeName, BikeInfo.Model.ModelName); }
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <a href="@string.Format("/m{0}", UrlFormatter.FormatVideoPageUrl(Model.Make.MaskingName, Model.Model.MaskingName))" title="@bikeName videos" class="block swiper-card-target">
+                                        <div class="swiper-image-preview">
+                                            <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(BikeInfo.OriginalImagePath, BikeInfo.HostUrl, Bikewale.Utility.ImageSize._160x89)" alt="@bikeName videos" src="" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                            <span class="black-overlay">
+                                                <span class="bwmsprite video-play-icon"></span>
+                                            </span>
+                                        </div>
+                                        <div class="swiper-details-block">
+                                            <h3 class="margin-bottom5 text-truncate">@bikeName</h3>
+                                            <p class="font14 text-default text-truncate">@String.Format("{0} {1}", BikeInfo.VideoCount, (BikeInfo.VideoCount > 1 ? "Videos" : "Video"))</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    { Html.RenderAction("PopularBodyStyleMobile", "PopularBikes", new { modelId = Model.Model.ModelId, topCount = 9, cityId = Model.CityId }); }
+}

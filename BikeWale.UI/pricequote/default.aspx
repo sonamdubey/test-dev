@@ -17,7 +17,6 @@
 <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
 <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/price_quote.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>
-<%--<script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/MetroCities.js?<%= staticFileVersion %>"></script>--%>
 <div class="main-container">
     <div class="container_12  container-min-height">
         <div class="grid_12">
@@ -150,7 +149,7 @@
                 }
             });
         }
-    }
+    };
 
     $(document).ready(function () {
 

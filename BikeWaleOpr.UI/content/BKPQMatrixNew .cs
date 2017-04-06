@@ -69,7 +69,7 @@ namespace BikeWaleOpr.Content
         private void Page_Load(object sender, System.EventArgs e)
         {
             if (User.Identity.IsAuthenticated != true)
-                Response.Redirect("../users/Login.aspx?ReturnUrl=../WebAnalytics/PQMatrix.aspx");
+                Response.Redirect("../users/Login?ReturnUrl=../WebAnalytics/PQMatrix.aspx");
 
             if (!IsPostBack)
             {

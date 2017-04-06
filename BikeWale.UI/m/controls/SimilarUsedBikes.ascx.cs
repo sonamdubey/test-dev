@@ -35,7 +35,8 @@ namespace Bikewale.Mobile.Controls
         public uint InquiryId { get; set; }
         public uint CityId { get; set; }
         public uint ModelId { get; set; }
-
+        public string WidgetHref { get; set; }
+        public string WidgetTitle { get; set; }
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);

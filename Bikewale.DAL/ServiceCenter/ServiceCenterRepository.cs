@@ -199,6 +199,8 @@ namespace Bikewale.DAL.ServiceCenter
         /// <summary>
         /// Created By : Sajal Gupta on 07/11/2016
         /// Description: DAL layer Function for fetching service center data.
+        /// Modified by : Sajal Gupta on 03-04-2017
+        /// Description : Added CityMaskingName, MakeMaskingName
         /// </summary>     
         public ServiceCenterData GetServiceCentersByCity(uint cityId, int makeId)
         {
@@ -207,7 +209,7 @@ namespace Bikewale.DAL.ServiceCenter
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecentersbycity"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecentersbycity_03042017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId));
@@ -231,6 +233,8 @@ namespace Bikewale.DAL.ServiceCenter
                                 objServiceCenterDetails.Mobile = Convert.ToString(dr["mobile"]);
                                 objServiceCenterDetails.Lattitude = Convert.ToString(dr["lattitude"]);
                                 objServiceCenterDetails.Longitude = Convert.ToString(dr["longitude"]);
+                                objServiceCenterDetails.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
+                                objServiceCenterDetails.MakeMaskingName = Convert.ToString(dr["makeMaskingName"]);
                                 objServiceCenterList.Add(objServiceCenterDetails);
                             }
 
@@ -490,7 +494,7 @@ namespace Bikewale.DAL.ServiceCenter
             IList<CityBrandServiceCenters> listServiceCenter = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecentersfornearbycities"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecentersfornearbycities_31032017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
@@ -511,6 +515,7 @@ namespace Bikewale.DAL.ServiceCenter
                                 objServiceCenters.ServiceCenterCount = SqlReaderConvertor.ToInt32(dr["ServiceCenterCount"]);
                                 objServiceCenters.Lattitude = SqlReaderConvertor.ToFloat(dr["Lattitude"]);
                                 objServiceCenters.Longitude = SqlReaderConvertor.ToFloat(dr["Longitude"]);
+                                objServiceCenters.GoogleMapImg = Convert.ToString(dr["googlemapimgurl"]);
                                 listServiceCenter.Add(objServiceCenters);
                             }
                             dr.Close();

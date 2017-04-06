@@ -136,8 +136,7 @@
 							</ul>
 							<% if (objVideo.OtherMakeList!=null&&objVideo.OtherMakeList.Count() >0)
                                { %>
-							<div class="brand-bottom-border border-solid-top hide"></div>
-							<ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
+                            <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
 							 <% foreach (var make in objVideo.OtherMakeList)
                                 { %>
 									   <li>

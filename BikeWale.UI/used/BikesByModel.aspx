@@ -34,11 +34,6 @@
         <!-- Left container start here-->
         <h1 class="grid_8  margin-top10">Model wise used bike listings</h1>
         <div id="divContent" class="grid_8 margin-top10 border-light">
-          <%--  <asp:repeater id="rptModel" runat="server">
-                <headerTemplate><ul class="ul-hrz margin-top10" style="font-size:13px;"></HeaderTemplate>
-                <itemTemplate><li style="width:200px;padding-left:5px;"><a class="href-grey" href="/used/<%#DataBinder.Eval( Container.DataItem, "MakeMaskingName") %>-<%#DataBinder.Eval( Container.DataItem, "ModelMaskingName")%>-bikes/"><%#DataBinder.Eval( Container.DataItem, "MakeName")%> <%#DataBinder.Eval( Container.DataItem, "ModelName") %> (<%#DataBinder.Eval( Container.DataItem, "ModelCount")%>) </a></li></itemTemplate>
-                <footerTemplate></ul></FooterTemplate>
-            </asp:repeater>--%>
             <asp:DataList ID="dlModel" runat="server"
 	            RepeatColumns="4"
 	            RepeatDirection="Horizontal" CellPadding="5" CellSpacing="5"  

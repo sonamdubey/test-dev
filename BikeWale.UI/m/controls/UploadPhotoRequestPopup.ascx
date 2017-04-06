@@ -52,7 +52,6 @@
 </div>
 <!-- request for image popup ends -->
 
-
 <script type="text/javascript">
     var requesterName = $('#requesterName'),
     requesterEmail = $('#requesterEmail'),
@@ -102,7 +101,7 @@
             requestMediaPopup.userDetails.hide();
             requestMediaPopup.acknowledgment.show();
         },
-    }
+    };
 
     function shownInterestInThisBike(profileId) {
         $.ajax({
@@ -112,7 +111,8 @@
             dataType: 'json',            
             success: function (response) {
                 var ds = response;
-                if (ds.shownInterest) { // buyer already shown interest; Show seller information;                                    
+                // buyer already shown interest; Show seller information;        
+                if (ds.shownInterest) {                             
                     $('#request-media-btn').hide();                    
                 } else { // first time showing interest
                     if (ds.buyer && ds.buyer.customerName && ds.buyer.customerEmail && ds.buyer.customerMobile) {
@@ -146,7 +146,7 @@
 		            },
             "profileId": "<%= ProfileId %>",
             "bikeName": "<%= BikeName %>"
-        }
+        };
         $.ajax({
             type: "POST",
             url: "/api/bikebuyer/requestphotos/",

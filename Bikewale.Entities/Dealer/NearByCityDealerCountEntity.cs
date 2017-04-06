@@ -1,5 +1,7 @@
-﻿using Bikewale.Entities.Location;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.Dealer
@@ -15,5 +17,11 @@ namespace Bikewale.Entities.Dealer
         public uint DealersCount { get; set; }
         public double Lattitude { get; set; }
         public double Longitude { get; set; }
+    }
+    [Serializable, DataContract]
+    public class NearByCityDealer
+    {
+        public IEnumerable<NearByCityDealerCountEntity> objDealerInNearCityList;
+        public BikeMakeEntityBase Make;
     }
 }

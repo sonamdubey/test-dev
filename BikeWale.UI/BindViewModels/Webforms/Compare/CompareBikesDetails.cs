@@ -144,14 +144,14 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                     }
 
                     ComparisionText = string.Join(" vs ", bikeList);
-                    ComparisionUrls = string.Join("-vs-", bikeMaskingList);
                     TargetedModels = string.Join(",", bikeModels);
 
                     PageMetas.Title = string.Format("Compare {0} - BikeWale", ComparisionText);
                     PageMetas.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison India";
                     PageMetas.Description = string.Format("Compare {0} at Bikewale. Compare Price, Mileage, Engine Power, Space, Features, Specifications, Colours and much more.", string.Join(" and ", bikeList));
-                    PageMetas.CanonicalUrl = string.Format("{0}/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, ComparisionUrls);
-                    PageMetas.AlternateUrl = string.Format("{0}/m/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, ComparisionUrls);
+                    string compareUrl = CreateCanonicalUrl(comparedBikes.BasicInfo);
+                    PageMetas.CanonicalUrl = string.Format("{0}/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, compareUrl);
+                    PageMetas.AlternateUrl = string.Format("{0}/m/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, compareUrl);
                 }
 
             }
@@ -159,6 +159,13 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.GetCompareBikeDetails.GetComparisionTextAndMetas");
             }
+        }
+
+        private string CreateCanonicalUrl(IEnumerable<BikeEntityBase> basicInfo)
+        {
+            string canon = string.Empty;
+            canon = string.Join("-vs-", basicInfo.OrderBy(x => x.ModelId).Select(x => string.Format("{0}-{1}", x.MakeMaskingName, x.ModelMaskingName)));
+            return canon;
         }
 
 

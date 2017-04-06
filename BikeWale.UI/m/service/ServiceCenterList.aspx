@@ -45,8 +45,9 @@
         <section>
             <div class="container bg-white card-bottom-margin">
                 <h1 class="card-header"><%=makeName%> service center<%=(totalServiceCenters > 1 )?"s":"" %> in <%=cityName%></h1>
-                <div class="card-inner-padding font14 text-light-grey">
-                    <p id="service-main-content">Is your <%= makeName %> bike due for a service or are you looking to repair your <%= makeName %> bike? BikeWale brings you the list of all authorised <%= makeName %> service centers in <%= cityName %>.<% if(totalServiceCenters > 0 ) { %> <%= makeName %> has <%= totalServiceCenters %> authorised</p><p id="service-more-content"> service center<% if(totalServiceCenters > 1 ) { %>s<%} %> in <%= cityName %>. <%} %> We recommend availing services only from authorised service centers.<br />Authorised <%= makeName %> service centers abide by the servicing standards of Honda with an assurance of genuine <%= makeName %> spare parts. BikeWale strongly recommends to use only <%= makeName %> genuine spare parts for your safety and durability of your bike. For more information on pick-up and drop facility, prices and service schedules get in touch with any of the below mentioned authorised <%= makeName %> service centers in City. Do check out the maintenance tips and answers to FAQs from BikeWale experts! </p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">... Read more</a>
+                <div class="card-inner-padding font14 text-light-grey collapsible-content">
+                    <p class="main-content">Is your <%= makeName %> bike due for a service or are you looking to repair your <%= makeName %> bike? BikeWale brings you the list of all authorised <%= makeName %> service centers in <%= cityName %>. <% if(totalServiceCenters > 0 ) { %><%= makeName %> has <%= totalServiceCenters %> authorised</p>
+                    <p class="more-content"> service center<% if(totalServiceCenters > 1 ) { %>s<%} %> in <%= cityName %>. <%} %> We recommend availing services only from authorised service centers.<br />Authorised <%= makeName %> service centers abide by the servicing standards of Honda with an assurance of genuine <%= makeName %> spare parts. BikeWale strongly recommends to use only <%= makeName %> genuine spare parts for your safety and durability of your bike. For more information on pick-up and drop facility, prices and service schedules get in touch with any of the below mentioned authorised <%= makeName %> service centers in City. Do check out the maintenance tips and answers to FAQs from BikeWale experts! </p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                 </div>
             </div>
         </section>
@@ -55,7 +56,7 @@
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
                 <div class="border-solid-bottom padding-15-20">
-                    <h2 class="vertical-middle font18 text-black text-bold bg-white dealer-heading padding-right10"><%=listingHeading %></h2>
+                    <h2 class="vertical-middle text-bold dealer-heading padding-right10"><%=listingHeading %></h2>
                     <div class="vertical-middle text-center">
                         <span class="edit-blue-link" id="changeOptions" ><span class="bwmsprite edit-blue margin-right5"></span><span class="change-text text-link">change</span></span>
                     </div>
@@ -146,7 +147,6 @@
               {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
-             <div class="container bg-white box-shadow margin-bottom15">
                 <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                  {%> 
                  <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
@@ -157,19 +157,14 @@
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                         <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                 
+                     <div class="padding-top15">
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
-                        
+                        </div>
                     <% } %>  
                  <% if (ctrlDealerCard.showWidget) { %>
-                    <div class="margin-right20 margin-left20 padding-top5">
-                    <h2 class="margin-bottom5">Looking to buy a new <%= makeName %> bike in <%=cityName %>?</h2>
-                    <p>Check out authorised <%= makeName %> dealers in <%=cityName %></p>
-                    </div>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                  <% }  %>
             </div>
-                </div>
         </section>
         <% } %>
         <section>
@@ -185,7 +180,6 @@
         <BW:BrandCity runat="server" ID="ctrlBrandCity" />
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
-         <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeCityMaps" async defer></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/service/listing.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
 

@@ -1,6 +1,5 @@
 ﻿
 using BikewaleOpr.Entity.BikeData;
-using System.Collections.Generic;
 namespace BikewaleOpr.Interface.BikeData
 {
     /// <summary>
@@ -9,6 +8,6 @@ namespace BikewaleOpr.Interface.BikeData
     /// </summary>
     public interface IBikeModels
     {
-        IEnumerable<UsedModelsByMake> GetPendingUsedBikesWithoutModelImage();
+        UsedBikeImagesByMakeNotificationData GetPendingUsedBikesWithoutModelImage();
     }
 }

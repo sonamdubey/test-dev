@@ -54,7 +54,7 @@
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                             <span class="bwsprite fa-angle-right margin-right10"></span>
                             <a href="<%= String.Format("/{0}-bikes/{1}/",objNews.objMake.MaskingName,objNews.objModel.MaskingName) %>" itemprop="url">
-                                <span itemprop="title"><%= objNews.objMake.MakeName %> <%= objNews.objModel.ModelName %> Bikes</span>
+                                <span itemprop="title"><%= String.Format("{0} {1}", objNews.objMake.MakeName, objNews.objModel.ModelName) %> Bikes</span>
                             </a>
                         </li>
                         <%} %>

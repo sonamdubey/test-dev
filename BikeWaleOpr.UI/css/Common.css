@@ -4,7 +4,7 @@
    
 /* default styles
    -------------- */
-body { padding: 0; margin: 0; font: 11px Segoe UI, sans-serif; line-height: 1.5em; background: #fff; color: #454545; font-weight: 500; }
+body { padding: 0; padding-bottom: 60px; margin: 0; font: 11px Segoe UI, sans-serif; line-height: 1.5em; background: #fff; color: #454545; font-weight: 500; }
 input{font-size:11px; padding: 6px; cursor:pointer;}
 select {font-size:11px; padding: 6px; cursor: pointer; vertical-align: top;}
 
@@ -490,3 +490,4 @@ body.black-overlay-active #black-overlay {
 #page-footer.footer-relative {
     display: block;
 }
+.toast{height:17px;position:fixed;right:5%;margin-left:-100px;bottom:70px;background-color:#383838;color:#F0F0F0;padding:10px;text-align:center;border-radius:2px;font-size:13px;font-family:Segoe UI,sans-serif;-webkit-box-shadow:0 0 24px -1px rgba(56,56,56,1);-moz-box-shadow:0 0 24px -1px rgba(56,56,56,1);box-shadow:0 0 24px -1px rgba(56,56,56,1)}

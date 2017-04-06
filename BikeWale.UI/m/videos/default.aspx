@@ -81,7 +81,7 @@
            {  %>
         <section>
              <h2 class="text-center padding-top10 padding-bottom15">Browse videos by brands</h2>
-            <div class="container bg-white box-shadow card-bottom-margin padding-top25 padding-bottom20 collapsible-brand-content">
+            <div class="container bg-white box-shadow card-bottom-margin padding-top25 padding-bottom20 collapsible-brand-content margin-bottom25">
                 <div id="brand-type-container" class="brand-type-container">
                     <ul class="text-center">
                         <%foreach (var bikebrand in objVideo.TopMakeList)
@@ -150,15 +150,6 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $("img.lazy").lazyload();
-            });
-            $("#view-brandType").click(function () {
-                $(".brandTypeMore").slideToggle();
-                var targetLink = $(this);
-                targetLink.text(targetLink.text() == 'View more brands' ? 'View less brands' : 'View more brands');
-                if (targetLink.text() === "View more brands")
-                    targetLink.attr("href", "#more");
-                else
-                    targetLink.attr("href", "javascript:void(0)");
             });
         </script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->

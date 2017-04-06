@@ -6,7 +6,7 @@
         <div class="grid-12">
             <div class="content-box-shadow padding-top20 padding-bottom20">
                 <div class="grid-6">
-                    <a href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.First().MakeMaskingName1, Model.First().ModelMaskingName1, Model.First().MakeMaskingName2, Model.First().ModelMaskingName2, Convert.ToString(Model.First().VersionId1), Convert.ToString(Model.First().VersionId2), Bikewale.Entities.Compare.CompareSources.Desktop_Featured_Compare_Widget)" title="Compare @Model.First().Bike1 vs @Model.First().Bike2" id="main-compare-bikes-target">
+                    <a href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.First().MakeMaskingName1, Model.First().ModelMaskingName1, Model.First().MakeMaskingName2, Model.First().ModelMaskingName2, Convert.ToString(Model.First().VersionId1), Convert.ToString(Model.First().VersionId2),Model.First().ModelId1, Model.First().ModelId2, Bikewale.Entities.Compare.CompareSources.Desktop_Featured_Compare_Widget)" title="Compare @Model.First().Bike1 vs @Model.First().Bike2" id="main-compare-bikes-target">
                         <div class="grid-6 padding-left20 border-light-right">
                             <div class="imageWrapper margin-bottom30">
                                 <div class="comparison-image">
@@ -51,7 +51,7 @@
                 for (int i = 1; i < Bikedetails.Count(); i++)
                 {
                     <li>
-                        <a href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Bikedetails[i].MakeMaskingName1,Bikedetails[i].ModelMaskingName1, Bikedetails[i].MakeMaskingName2, Bikedetails[i].ModelMaskingName2, Convert.ToString(Bikedetails[i].VersionId1),Convert.ToString(Bikedetails[i].VersionId2),Bikewale.Entities.Compare.CompareSources.Desktop_Featured_Compare_Widget)" title="Compare @Bikedetails[i].Bike1 vs @Bikedetails[i].Bike2" class="compare-bikes-target">
+                        <a href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Bikedetails[i].MakeMaskingName1,Bikedetails[i].ModelMaskingName1, Bikedetails[i].MakeMaskingName2, Bikedetails[i].ModelMaskingName2, Convert.ToString(Bikedetails[i].VersionId1),Convert.ToString(Bikedetails[i].VersionId2),Bikedetails[i].ModelId1,Bikedetails[i].ModelId2, Bikewale.Entities.Compare.CompareSources.Desktop_Featured_Compare_Widget)" title="Compare @Bikedetails[i].Bike1 vs @Bikedetails[i].Bike2" class="compare-bikes-target">
                             <div class="grid-6 compare-bike-box">
                                 <div class="sidebar-image inline-block">
                                     <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Bikedetails[i].VersionImgUrl1, Bikedetails[i].HostUrl1, Bikewale.Utility.ImageSize._210x118)" src="" />
@@ -79,7 +79,7 @@
                         </ul>
                         
                         <div class="view-all-btn-container">
-                            <a href="/comparebikes/" class="btn view-all-target-btn" title="New Bike Comparisons in India">View all comparisons<span class="bwsprite teal-right"></span></a>
+                            <a href="/comparebikes/" class="btn view-all-target-btn" title="New Scooter Comparisons in India">View all comparisons<span class="bwsprite teal-right"></span></a>
                         </div>
 
                     </div>

@@ -1,8 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.ManageDealers" AsyncTimeout="45" Async="true" %>
-<%@ import Namespace="BikeWaleOpr.Common" %>
+
+<%@ Import Namespace="BikeWaleOpr.Common" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<%--<script src="https://st1.aeplcdn.com/bikewale/src/frameworks.js?01July2016v1" type="text/javascript"></script>--%>
-<%--<link href="https://st2.aeplcdn.com/bikewale/css/chosen.min.css?v15416" rel="stylesheet" />--%>
 
 <style type="text/css">
     .greenMessage {
@@ -89,7 +88,14 @@
                         <td style="width: 20%"><strong>Campaign Name :</strong> </td>
                         <td>
                             <asp:textbox runat="server" name="maskingNumber" id="txtCampaignName" maxlength="100" class="req width300" enabled="true" />
-                            <span style="color:red">Please do not add area names in the campaign name.</span>
+                            <span style="color: red">Please do not add area names in the campaign name.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%"><strong>Campaign Dealer Number :</strong></td>
+                        <td>
+                            <asp:textbox runat="server" name="dealerNumber" id="txtDealerNumber" class="width300" disabled />
+                            <span style="color: red" id="dealerNumberMsg">Mapping a masking number will result in calling to both masking and dealer numbers one after another.</span>
                         </td>
                     </tr>
                     <tr>
@@ -97,11 +103,11 @@
                         <td>
                             <asp:textbox runat="server" readonly="true" name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="numeric width300" enabled="true" />
                             <%
-                                if (ddlMaskingNumber.DataSource != null) { 
-                                 %>
-                            <asp:dropdownlist id="ddlMaskingNumber" runat="server">                                
-                            </asp:dropdownlist>
-                            <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />                            
+                                if (ddlMaskingNumber.DataSource != null)
+                                { 
+                            %>
+                            <asp:dropdownlist id="ddlMaskingNumber" runat="server"></asp:dropdownlist>
+                            <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />
                             <% if (isCampaignPresent)
                                { %> <a id="releaseMaskingNumber" href="javascript:void(0)">Release Masking number</a><%} %>
                             <%} %>
@@ -129,11 +135,11 @@
                     <tr>
                         <td style="width: 20%"><strong>Call to Action :</strong></td>
                         <td>
-                            <asp:checkbox runat="server" id="chkUseDefaultCallToAction" text="Use Default" autopostback="false" ></asp:checkbox>
+                            <asp:checkbox runat="server" id="chkUseDefaultCallToAction" text="Use Default" autopostback="false"></asp:checkbox>
                             <asp:dropdownlist id="ddlCallToAction" autopostback="false" runat="server">                                
                             </asp:dropdownlist>
                             <br />
-                            <span style="color:red">Call to action should be changed only when dealer has specifically asked for it. Inform the product team when a change in CTA is made.</span>
+                            <span style="color: red">Call to action should be changed only when dealer has specifically asked for it. Inform the product team when a change in CTA is made.</span>
                         </td>
                     </tr>
                     <tr>
@@ -157,7 +163,7 @@
 
     <% if (isCampaignPresent)
        { %>
-    <fieldset style="margin-left: 12%; margin-bottom: 20px;">
+    <fieldset>
         <legend>Define Components</legend>
 
         <strong>Edit rules:</strong><span><a href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Rules</a></span>
@@ -170,130 +176,184 @@
     var campaignId = "<%= campaignId %>";
     var dealerId = "<%= dealerId %>";
     var dialog;
-    $(document).on("keyup", ".numeric", function (event) {
-        this.value = this.value.replace(/[^0-9]/g, '');
-    });
-
+    var dealerNoEle = $('#txtDealerNumber');
     var txtMaskingNumber = "<%= oldMaskingNumber %>";
 
-    $("#ddlMaskingNumber option[Value='True']").each(function () {
-        $(this).prop("disabled", true);
-        if($(this).text() == txtMaskingNumber)
-        {
-            $('#txtMaskingNumber').val($(this).text());
-        }
-    });
+
 
     function ValidateForm() {
         var isValid = true;
-        $('#lblErrorSummary').html('');
-        $('.req').each(function () {
-            if ($.trim($(this).val()) == '') {
-                isValid = false;
-                $(this).addClass('redmsg');
-            }
-            else {
-                $(this).removeClass('redmsg');
-            }
-        });
-
-        if (!isValid) {
-            $('#lblErrorSummary').html('Please fill values');
-        }
-        if (isValid) {
-            if ($('#txtdealerRadius').val() == '0') {
-                var r = confirm("By selecting dealer radius as 0 KM, You are allocating a dealer to entire city. Do you confirm ?");
-                if (!r)
+        try {
+            $('#lblErrorSummary').html('');
+            $('.req').each(function () {
+                if ($.trim($(this).val()) == '') {
                     isValid = false;
+                    $(this).addClass('redmsg');
+                }
+                else {
+                    $(this).removeClass('redmsg');
+                }
+            });
+
+            if (!isValid) {
+                $('#lblErrorSummary').html('Please fill values');
             }
-            $("#pageloaddiv").show();
+
+            if (isValid) {
+                if ($('#txtdealerRadius').val() == '0') {
+                    var r = confirm("By selecting dealer radius as 0 KM, You are allocating a dealer to entire city. Do you confirm ?");
+                    if (!r)
+                        isValid = false;
+                }
+                $("#pageloaddiv").show();
+            }
+
+            if (isValid) {
+                var maskingNumber = $("#txtMaskingNumber").val().trim();
+                var nos = parseInt(dealerNoEle.attr("data-numberCount"));
+                if (nos && maskingNumber != txtMaskingNumber && maskingNumber != "") {
+                    var r = confirm("You are mapping " + nos + " dealer numbers to 1 masking number. Are you sure you want to continue?");
+                    if (!r) {
+                        isValid = false;
+                        alert("Please ensure that there is only one number for this dealer in DCRM. Campaign has not been saved.");
+                    }
+
+                }
+                $("#pageloaddiv").show();
+
+            }
+
+
+        } catch (e) {
+            console.warn(e.message);
+            isValid = false;
         }
         return isValid;
     }
+
     function isValidEmailAddress(emailAddress) {
         var pattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
         return pattern.test(emailAddress);
     };
 
-    $("#ddlMaskingNumber").change(function () {
-        $('#txtMaskingNumber').val($(this).find("option:selected").text());
-    });
+    function releaseMaskingNumber(maskingNumber) {
+        try {
+            if (confirm("Do you want to release the number?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+                    data: '{"dealerId":"' + dealerId + '","campaignId":"' + campaignId + '", "maskingNumber":"' + maskingNumber + '"}',
+                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ReleaseNumber"); },
+                    success: function (response) {
+                        if (JSON.parse(response).value) {
+                            $("#txtMaskingNumber").val('');
+                            //bindMaskingNumber(dealerId);                                
+                            alert("Masking Number is released successful.");
+                            location.reload();
+                        }
+                        else {
+                            alert("There was error while releasing masking number. Please contact System Administrator for more details.");
+                        }
+                    }
 
-    $("#backbutton").on("click", function () {
-        window.location.href = '/campaign/MapCampaign.aspx?dealerId=' + '<%= dealerId %>' + '&contractid=' + '<%=  contractId %>';
-    });
-
-    $("#chkUseDefaultCallToAction").change(function () {
-        if ($(this).is(":checked")) {
-            $("#ddlCallToAction").hide();
+                });
+            }
+        } catch (e) {
+            alert("An error occured. Please contact System Administrator for more details.");
         }
-        else {
-            $("#ddlCallToAction").show();
-        }
-    });
+    }
 
-        $(window).ready(function () {
-            $("#pageloaddiv").hide();            
-        });
+    function bindMaskingNumber(dealerId) {
+        try {
+
+            $.ajax({
+                type: "POST",
+                url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+                data: '{"dealerId":"' + dealerId + '"}',
+                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetDealerMaskingNumbers"); },
+                success: function (response) {
+                    var res = JSON.parse(response);
+                    if (res) {
+                        $('#ddlMaskingNumber').empty();
+                        $.each(res.value, function (index, value) {
+                            ('#ddlMaskingNumber').append($('<option>').text(value.Number).attr('value', value.IsAssigned));
+                        });
+                    }
+                }
+
+            });
+        } catch (e) {
+            alert("An error occured. Please contact System Administrator for more details.");
+        }
+    }
+
+    function handleMaskingNumber() {
+        try {
+            $("#ddlMaskingNumber option[Value='True']").each(function () {
+                var ele = $(this), txt = ele.text();
+                if (txt == txtMaskingNumber) {
+                    $('#txtMaskingNumber').val(txt);
+                    $(this).prop("selected", true);
+                }
+                ele.text(ele.text() + " (Assigned)");
+            });
+
+            //show dealernumber message
+            var nos = (dealerNoEle.val().match(/,/g) || []).length;
+            dealerNoEle.attr("data-numberCount", ++nos);
+            if (nos > 1) {
+                $("#dealerNumberMsg").text("There are " + nos + " numbers for this dealer. Mapping a masking number will result in calls going to both numbers one after another.");
+            }
+        } catch (e) {
+            console.warn("Unable to set masking numbers : " + e.message);
+        }
+    }
+
+    $(function () {
+
+        handleMaskingNumber();
+
+        $("#ddlMaskingNumber").chosen({ width: "150px", no_results_text: "No matches found!!", search_contains: true });
+
+        $("#pageloaddiv").hide();
 
         $("#releaseMaskingNumber").on("click", function () {
-            var maskingNumber = $("#txtMaskingNumber").val();
+            var maskingNumber = $("#txtMaskingNumber").val().trim();
             if (maskingNumber.length > 0) {
                 releaseMaskingNumber(maskingNumber);
             }
             return false;
         });
 
-        function releaseMaskingNumber(maskingNumber) {
-            try {
-                if (confirm("Do you want to release the number?")) {
-                    $.ajax({
-                        type: "POST",
-                        url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                        data: '{"dealerId":"' + dealerId + '","campaignId":"' + campaignId + '", "maskingNumber":"' + maskingNumber + '"}',
-                        beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ReleaseNumber"); },
-                        success: function (response) {
-                            if (JSON.parse(response).value) {
-                                $("#txtMaskingNumber").val('');
-                                //bindMaskingNumber(dealerId);                                
-                                alert("Masking Number is released successful.");
-                                location.reload();
-                            }
-                            else {
-                                alert("There was error while releasing masking number. Please contact System Administrator for more details.");
-                            }
-                        }
-
-                    });
-                }
-            } catch (e) {
-                alert("An error occured. Please contact System Administrator for more details.");
+        $("#ddlMaskingNumber").change(function () {
+            var ele = $(this);
+            if (ele.val() && ele.val() != "") {
+                var val = $(this).find("option:selected").text();
+                val = val.replace(" (Assigned)", "");
+                $('#txtMaskingNumber').val(val);
             }
-        }
+            else $('#txtMaskingNumber').val("");
+        });
 
-        function bindMaskingNumber(dealerId) {
-            try {
-                
-                    $.ajax({
-                        type: "POST",
-                        url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                        data: '{"dealerId":"' + dealerId + '"}',
-                        beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetDealerMaskingNumbers"); },
-                        success: function (response) {
-                            var res = JSON.parse(response);
-                            if (res) {
-                                $('#ddlMaskingNumber').empty();
-                                $.each(res.value, function (index, value) {
-                                    ('#ddlMaskingNumber').append($('<option>').text(value.Number).attr('value', value.IsAssigned));
-                                });                                
-                            }                            
-                        }
+        $("#backbutton").on("click", function () {
+            window.location.href = '/campaign/MapCampaign.aspx?dealerId=' + '<%= dealerId %>' + '&contractid=' + '<%=  contractId %>';
+        });
 
-                    });
-            } catch (e) {
-                alert("An error occured. Please contact System Administrator for more details.");
+        $("#chkUseDefaultCallToAction").change(function () {
+            if ($(this).is(":checked")) {
+                $("#ddlCallToAction").hide();
             }
-        }
+            else {
+                $("#ddlCallToAction").show();
+            }
+        });
+
+        $(document).on("keyup", ".numeric", function (event) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+
+    });
 
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

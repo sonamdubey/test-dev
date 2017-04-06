@@ -546,7 +546,7 @@ namespace Bikewale.DAL.Compare
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarcomparebikeslist_13102016";
+                    cmd.CommandText = "getsimilarcomparebikeslist_17032017";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
@@ -571,6 +571,8 @@ namespace Bikewale.DAL.Compare
                                     ModelMasking2 = Convert.ToString(reader["ModelMaskingName2"]),
                                     VersionId1 = Convert.ToString(reader["VersionId1"]),
                                     VersionId2 = Convert.ToString(reader["VersionId2"]),
+                                    ModelId1 = SqlReaderConvertor.ToUInt32(reader["ModelId1"]),
+                                    ModelId2 = SqlReaderConvertor.ToUInt32(reader["ModelId2"]),
                                     ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName1"]),
                                     ModelMaskingName2 = Convert.ToString(reader["ModelMaskingName2"]),
                                     OriginalImagePath1 = Convert.ToString(reader["OriginalImagePath1"]),
@@ -731,67 +733,6 @@ namespace Bikewale.DAL.Compare
 
             return topBikeList;
 
-        }
-
-        /// <summary>
-        /// Created By :- Subodh Jain 10 March 2017
-        /// Summary :- Populate Compare ScootersList version list wise
-        /// </summary>
-        public ICollection<SimilarCompareBikeEntity> ScooterCompareList(string versionList, uint topCount, uint cityId)
-        {
-            IList<SimilarCompareBikeEntity> similarBikeList = null;
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
-                {
-                    cmd.CommandText = "getsimilarcomparebikeslist_13102016";
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, versionList));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
-                    // LogLiveSps.LogSpInGrayLog(command);
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (reader != null)
-                        {
-                            similarBikeList = new List<SimilarCompareBikeEntity>();
-                            while (reader.Read())
-                            {
-                                similarBikeList.Add(new SimilarCompareBikeEntity()
-                                {
-                                    Make1 = Convert.ToString(reader["Make1"]),
-                                    MakeMasking1 = Convert.ToString(reader["MakeMaskingName1"]),
-                                    Make2 = Convert.ToString(reader["Make2"]),
-                                    MakeMasking2 = Convert.ToString(reader["MakeMaskingName2"]),
-                                    Model1 = Convert.ToString(reader["Model1"]),
-                                    ModelMasking1 = Convert.ToString(reader["ModelMaskingName1"]),
-                                    Model2 = Convert.ToString(reader["Model2"]),
-                                    ModelMasking2 = Convert.ToString(reader["ModelMaskingName2"]),
-                                    VersionId1 = Convert.ToString(reader["VersionId1"]),
-                                    VersionId2 = Convert.ToString(reader["VersionId2"]),
-                                    ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName1"]),
-                                    ModelMaskingName2 = Convert.ToString(reader["ModelMaskingName2"]),
-                                    OriginalImagePath1 = Convert.ToString(reader["OriginalImagePath1"]),
-                                    OriginalImagePath2 = Convert.ToString(reader["OriginalImagePath2"]),
-                                    Price1 = SqlReaderConvertor.ToInt32(reader["Price1"]),
-                                    Price2 = SqlReaderConvertor.ToInt32(reader["Price2"]),
-                                    HostUrl1 = Convert.ToString(reader["HostUrl1"]),
-                                    HostUrl2 = Convert.ToString(reader["HostUrl2"]),
-                                    City1 = Convert.ToString(reader["city1"]),
-                                    City2 = Convert.ToString(reader["city2"])
-                                });
-                            }
-                            reader.Close();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository_GetSimilarCompareBikes_{0}_Cnt_{1}_City_{2}", versionList, topCount, cityId));
-            }
-
-            return similarBikeList;
         }
     }
 }

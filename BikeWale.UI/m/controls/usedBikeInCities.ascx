@@ -1,10 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Controls.UsedBikeInCities" EnableViewState="false" %>
  <% if (objCitiesWithCount != null)
     { %>
-        <section>
-            <div class="container text-center section-container">
-                <h2 class="font18 section-heading">Search used bikes by cities</h2>
-                <div class="bg-white box-shadow padding-top20 padding-bottom20">
+        <div class="bg-white box-shadow padding-top20 padding-bottom20">
                     <div class="swiper-container card-container swiper-city">
                         <div class="swiper-wrapper">
                                    <%foreach (var objCity in objCitiesWithCount)
@@ -25,8 +22,9 @@
                                     <%} %>
                          </div>
                     </div>
-                    <a href="/m/used/browse-bikes-by-cities/" class="btn btn-inv-teal inv-teal-sm margin-top10">View all cities<span class="bwmsprite teal-next"></span></a>
-                </div>
+<div class="padding-left10 view-all-btn-container  margin-top15">
+                    <a href="<%=WidgetHref %>" title="<%=WidgetTitle %>" class="btn view-all-target-btn inv-teal-sm margin-top10">View all used bikes<span class="bwmsprite teal-right"></span></a>
+               </div>
             </div>
-        </section>
+            
         <% } %>

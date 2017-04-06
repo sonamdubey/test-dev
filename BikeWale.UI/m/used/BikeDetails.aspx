@@ -1,10 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.Used.BikeDetails" %>
 
 <%@ Register Src="~/m/controls/SimilarUsedBikes.ascx" TagPrefix="BW" TagName="SimilarUsedBikes" %>
-<%@ Register Src="~/m/controls/UsedOtherBikeByCity.ascx" TagPrefix="BW" TagName="OtherUsedBikes" %>
 <%@ Register Src="~/m/controls/UploadPhotoRequestPopup.ascx" TagPrefix="BW" TagName="UploadPhotoRequestPopup" %>
 <%@ Register Src="~/m/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +41,7 @@
                     <%if (inquiryDetails.PhotosCount > 0)
                       { %>
                     <a href="javascript:void(0)" class="model-main-image-wrapper <%= inquiryDetails.PhotosCount > 1 ? "model-gallery-target " : string.Empty %>" rel="nofollow">
-                        <img src="<%= (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._360x202) : string.Empty %>" alt="Used <%= modelYear %> <%= bikeName %>" title="Used <%= modelYear %> <%= bikeName %>" />
+                        <img src="<%= (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._360x202) : string.Empty %>" alt="Used <%= String.Format("{0} {1}", modelYear, bikeName) %>" title="Used <%= String.Format("{0} {1}", modelYear, bikeName) %>" />
                         <% if (inquiryDetails.PhotosCount > 1)
                            { %>
                         <div class="model-media-details">
@@ -175,7 +175,7 @@
         <% } %>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-                <% if ((inquiryDetails.SpecsFeatures != null && !isBikeSold) || ctrlOtherUsedBikes.FetchedRecordsCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
+                <% if ((inquiryDetails.SpecsFeatures != null && !isBikeSold) || ctrlusedBikeModel.FetchCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
            { %>
         <section>
             <div id="model-bottom-card-wrapper" class="container bg-white clearfix box-shadow margin-bottom30">
@@ -191,7 +191,7 @@
                                { %>
                             <li class="<%= (inquiryDetails.SpecsFeatures!=null)?string.Empty:"active" %>" data-tabs="#modelSimilar">Similar bikes</li>
                             <% } %>
-                            <% if (ctrlOtherUsedBikes.FetchedRecordsCount > 0)
+                            <% if (ctrlusedBikeModel.FetchCount > 0)
                                { %>
                             <li data-tabs="#modelOtherBikes">Other bikes</li>
                             <% } %>
@@ -274,7 +274,12 @@
                 <BW:SimilarUsedBikes ID="ctrlSimilarUsedBikes" runat="server" />
                 <!-- Similar used bikes ends -->
                 <!-- Other used bikes starts -->
-                <BW:OtherUsedBikes ID="ctrlOtherUsedBikes" runat="server" />
+                  <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+                 <div id="modelOtherBikes" class="bw-model-tabs-data padding-top15 active"><BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" /></div>
+                    
+                        
+                    <% } %> 
                 <!-- Other used bikes ends -->
             </div>
             <div id="modelSpecsFooter"></div>
@@ -347,13 +352,12 @@
         
          <% if (ctrlServiceCenterCard.showWidget)
                    { %>
+        <div class="container bg-white box-shadow padding-top15 margin-bottom10">
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
-                <% }  %>
+            </div>    
+            <% }  %>
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!--[if lt IE 9]>
-            <script src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/html5.js"></script>
-        <![endif]-->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used-details.js?<%= staticFileVersion%>"></script>        

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.Controls.LeadCaptureControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.LeadCaptureControl" %>
 <!-- Lead Capture pop up start  -->
 <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
     <div class="popup-inner-container text-center">
@@ -102,106 +102,13 @@
 
 <script type="text/javascript">
 
-    var leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
-    var fullName = $("#getFullName");
-    var emailid = $("#getEmailID");
-    var mobile = $("#getMobile");
-    var detailsSubmitBtn = $("#user-details-submit-btn");
-    var prevEmail = "";
-    var prevMobile = "";
-    var prevPinCode = "";
+    var leadBtnBookNow, leadCapturePopup , leadBike;
+    var fullName , emailid , mobile,detailsSubmitBtn;
+    var prevEmail = "",prevMobile = "",prevPinCode = "";
     var leadmodelid = '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid = '<%= AreaId %>';
     var CityArea = '<%=cityName%>' + '<%=areaName != "" ? "_" + areaName : "" %>';
-    var objPinCodes = new Object();
-
-
-    $(function () {
-
-        leadBtnBookNow.on('click', function () {
-            $('#selectedbike').html('Select a bike<sup>*</sup>');
-            dleadvm.selectedBike(null);
-            leadCapturePopup.show();
-            $("#notify-response").hide();
-            $("div#contactDetailsPopup").show();
-            appendState('leadCapture');
-            lockPopup();
-        });
-
-        $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
-            leadCapturePopup.hide();
-            $("#notify-response").hide();
-            $('body').removeClass('lock-browser-scroll');
-            unlockPopup();
-        });
-
-        $(document).on('click', '#notifyOkayBtn', function () {
-            $(".leadCapture-close-btn").trigger("click");
-        });
-
-        $(document).on('keydown', function (e) {
-            if (e.keyCode === 27) {
-                leadCapturePopup.find(".leadCapture-close-btn").trigger("click");
-            }
-        });
-
-        $("#getFullName").on("focus", function () {
-            validate.onFocus($(this), leadCapturePopup);
-        });
-
-        $(document).on("focus", "#getPinCode", function () {
-            validate.onFocus($(this), leadCapturePopup);
-            prevPinCode = $(this).val().trim().substring(0, 6);
-        });
-
-        $("#getEmailID").on("focus", function () {
-            validate.onFocus($(this), leadCapturePopup);
-            prevEmail = $(this).val().trim();
-        });
-
-        $("#getMobile").on("focus", function () {
-            validate.onFocus($(this), leadCapturePopup);
-            prevMobile = $(this).val().trim();
-        });
-
-        $("#getFullName").on("blur", function () {
-            validate.onBlur($(this));
-        });
-
-        $(document).on("blur", "#getPinCode", function () {
-            validate.onBlur($(this));
-            var pincode = $("#getPinCode");
-            var pc = pincode.val().trim();
-
-            if (pc.length > 0 && !(/^[1-9][0-9]{5}$/.test(pc))) {
-                validate.setError($("#getPinCode"), 'Invalid pincode');
-                if (dleadvm.validatePinCode(pincode)) {
-                    dleadvm.IsVerified(false);
-                    validate.hideError(pincode);
-                }
-            }
-           
-        });
-
-        $("#getEmailID").on("blur", function () {
-            validate.onBlur($(this));
-            if (prevEmail != $(this).val().trim()) {
-                if (dleadvm.validateEmailId($(this))) {
-                    dleadvm.IsVerified(false);
-                }
-            }
-        });
-
-        $("#getMobile").on("blur", function () {
-            validate.onBlur($(this));
-            if (prevMobile != $(this).val().trim()) {
-                if (dleadvm.validateMobileNo($(this))) {
-                    dleadvm.IsVerified(false);
-                }
-            }
-        });
-
-    });
-
+    var objPinCodes = new Object(), validate, validateInputSelection;
+    var brandSearchBar , dealerSearchBrand , dealerSearchBrandForm ;
 
     function leadModel() {
         var arr = setuserDetails();
@@ -209,7 +116,7 @@
         if (arr != null && arr.length > 0) {
             self.fullName = ko.observable(arr[0]);
             self.emailId = ko.observable(arr[1]);
-            self.mobileNo = ko.observable(arr[2]);            
+            self.mobileNo = ko.observable(arr[2]);
         }
         else {
             self.fullName = ko.observable();
@@ -381,13 +288,13 @@
                     "sourceType": 2,
                     "pQLeadId": self.pqSourceId(),
                     "deviceId": getCookie('BWC')
-                }
+                };
                 return self.registerPQ(objData);
 
             }
             return isSuccess;
 
-        }
+        };
 
         self.registerPQ = function (objPQData) {
             var isSuccess = false;
@@ -420,7 +327,7 @@
             }
 
             return isSuccess;
-        }
+        };
 
         self.pushToGA = function (data, event) {
 
@@ -430,7 +337,7 @@
                 }
                 triggerGA(data.cat, data.act, data.lab)
             }
-        }
+        };
 
         self.verifyCustomer = function (data, event) {
 
@@ -450,7 +357,7 @@
                     "PageUrl": pageUrl,
                     "leadSourceId": self.leadSourceId(),
                     "deviceId": getCookie('BWC')
-                }
+                };
                 $.ajax({
                     type: "POST",
                     url: "/api/PQCustomerDetail/",
@@ -493,7 +400,7 @@
                     if (self.IsVerified()) {
 
                         $("#contactDetailsPopup").hide();
-                        $("#personalInfo").hide()
+                        $("#personalInfo").hide();
                         $("#notify-response").fadeIn();
                     }
                     else {
@@ -512,12 +419,11 @@
             isValid = self.validateUserName();
             isValid &= self.validateEmailId();
             isValid &= self.validateMobileNo();
-            if (self.pinCodeRequired())
-            {
+            if (self.pinCodeRequired()) {
                 isValid &= self.validatePinCode();
                 if (isValid)
                     isValid &= self.checkPinCode(self.pincode());
-            }  
+            }
             if (self.isDealerBikes())
                 isValid &= self.validateBike();
             return isValid;
@@ -641,7 +547,7 @@
                     "leadSourceId": self.leadSourceId(),
                     "PinCode": self.pincode(),
                     "deviceId": getCookie('BWC')
-                }
+                };
                 $.ajax({
                     type: "POST",
                     url: "/api/ManufacturerLead/",
@@ -676,6 +582,10 @@
         };
 
         self.setPinCodeSuggestion = function () {
+
+            $.fn.hint = bwHint;
+            $.fn.bw_autocomplete = bwAutoComplete;
+
             $("#getPinCode").bw_autocomplete({
                 source: 4,
                 recordCount: 3,
@@ -701,7 +611,7 @@
                 },
                 focusout: function () {
                     if ($('#getPinCode').find('li.ui-state-focus a:visible').text() != "") {
-                        $('#errPinCodeSearch').hide()
+                        $('#errPinCodeSearch').hide();
                         focusedMakeModel = new Object();
                         focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
                     }
@@ -788,20 +698,192 @@
 
         self.showLoader = function () {
             $('#ub-ajax-loader').show();
-        }
+        };
 
         self.hideLoader = function () {
             $('#ub-ajax-loader').hide();
-        }
+        };
     }
 
-    var dleadvm = new leadModel();
-    ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
-    dleadvm.setInputValues();
+    docReady(function () {
 
-    $(function () {
-        dleadvm.setPinCodeSuggestion();
+        leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
+        fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile"), detailsSubmitBtn = $("#user-details-submit-btn");
+
+        leadBtnBookNow.on('click', function () {
+            $('#selectedbike').html('Select a bike<sup>*</sup>');
+            dleadvm.selectedBike(null);
+            leadCapturePopup.show();
+            $("#notify-response").hide();
+            $("div#contactDetailsPopup").show();
+            appendState('leadCapture');
+            lockPopup();
+        });
+
+        $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
+            leadCapturePopup.hide();
+            $("#notify-response").hide();
+            $('body').removeClass('lock-browser-scroll');
+            unlockPopup();
+        });
+
+        $(document).on('click', '#notifyOkayBtn', function () {
+            $(".leadCapture-close-btn").trigger("click");
+        });
+
+        $(document).on('keydown', function (e) {
+            if (e.keyCode === 27) {
+                leadCapturePopup.find(".leadCapture-close-btn").trigger("click");
+            }
+        });
+
+        $("#getFullName").on("focus", function () {
+            validate.onFocus($(this), leadCapturePopup);
+        });
+
+        $(document).on("focus", "#getPinCode", function () {
+            validate.onFocus($(this), leadCapturePopup);
+            prevPinCode = $(this).val().trim().substring(0, 6);
+        });
+
+        $("#getEmailID").on("focus", function () {
+            validate.onFocus($(this), leadCapturePopup);
+            prevEmail = $(this).val().trim();
+        });
+
+        $("#getMobile").on("focus", function () {
+            validate.onFocus($(this), leadCapturePopup);
+            prevMobile = $(this).val().trim();
+        });
+
+        $("#getFullName").on("blur", function () {
+            validate.onBlur($(this));
+        });
+
+        $(document).on("blur", "#getPinCode", function () {
+            validate.onBlur($(this));
+            var pincode = $("#getPinCode");
+            var pc = pincode.val().trim();
+
+            if (pc.length > 0 && !(/^[1-9][0-9]{5}$/.test(pc))) {
+                validate.setError($("#getPinCode"), 'Invalid pincode');
+                if (dleadvm.validatePinCode(pincode)) {
+                    dleadvm.IsVerified(false);
+                    validate.hideError(pincode);
+                }
+            }
+           
+        });
+
+        $("#getEmailID").on("blur", function () {
+            validate.onBlur($(this));
+            if (prevEmail != $(this).val().trim()) {
+                if (dleadvm.validateEmailId($(this))) {
+                    dleadvm.IsVerified(false);
+                }
+            }
+        });
+
+        $("#getMobile").on("blur", function () {
+            validate.onBlur($(this));
+            if (prevMobile != $(this).val().trim()) {
+                if (dleadvm.validateMobileNo($(this))) {
+                    dleadvm.IsVerified(false);
+                }
+            }
+        });
+
+        dleadvm = new leadModel();
+        ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
+        dleadvm.setInputValues();
+
+        if ($("#getPinCode") && $("#getPinCode").length > 0) {
+            dleadvm.setPinCodeSuggestion();
+        }
+
+
+        leadCapturePopup.on('click', ".dealer-search-brand", function () {
+            $('.dealer-brand-wrapper').show();
+            $("#brandSearchBar").addClass('open').animate({ 'left': '0px' }, 500);
+            $("#brandSearchBar").find(".user-input-box").animate({ 'left': '0px' }, 500);
+            $("#assistanceBrandInput").focus();
+        });
+
+        leadCapturePopup.on("click", "#sliderBrandList li", function () {
+            var _self = $(this),
+                selectedElement = _self.text();
+            setSelectedElement(_self, selectedElement);
+            _self.addClass('activeBrand').siblings().removeClass('activeBrand');
+            $(".dealer-search-brand-form").addClass('selection-done').find("span").text(selectedElement);
+            $("#brandSearchBar").find(".user-input-box").animate({ 'left': '100%' }, 500);
+            validateInputSelection.hideError($(".dealer-search-brand-form"));
+        });
+
+        leadCapturePopup.on("click", ".dealer-brand-wrapper .back-arrow-box", function () {
+            $("#brandSearchBar").removeClass("open").animate({ 'left': '100%' }, 500);
+            $("#brandSearchBar").find(".user-input-box").animate({ 'left': '100%' }, 500);
+        });
+
+        /* form validation */
+        validate = {
+            setError: function (element, message) {
+                var elementLength = element.val().length,
+                    errorTag = element.siblings('span.error-text');
+
+                errorTag.show().text(message);
+                if (!elementLength) {
+                    element.closest('.input-box').removeClass('not-empty').addClass('invalid');
+                }
+                else {
+                    element.closest('.input-box').addClass('not-empty invalid');
+                }
+            },
+
+            hideError: function (element) {
+                element.closest('.input-box').removeClass('invalid').addClass('not-empty');
+                element.siblings('span.error-text').text('').hide();
+            },
+
+            onFocus: function (inputField, popupContainer) {
+                var inputBox = inputField.closest('.input-box');
+
+                if (inputBox.hasClass('invalid')) {
+                    validate.hideError(inputField);
+                }
+
+                popupContainer.animate({ scrollTop: inputBox.offset().top - 20 });
+            },
+
+            onBlur: function (inputField) {
+                var inputLength = inputField.val().length;
+                if (!inputLength) {
+                    inputField.closest('.input-box').removeClass('not-empty');
+                }
+                else {
+                    inputField.closest('.input-box').addClass('not-empty');
+                }
+            }
+        };
+
+        validateInputSelection = {
+            setError: function (element, message) {
+                var errorTag = element.siblings('span.error-text');
+
+                element.closest('.input-select-box').addClass('invalid');
+                errorTag.text(message);
+            },
+
+            hideError: function (element) {
+                element.closest('.input-select-box').removeClass('invalid');
+                element.siblings('span.error-text').text('');
+            }
+        };
+
+        brandSearchBar = $("#brandSearchBar"), dealerSearchBrand = $(".dealer-search-brand"), dealerSearchBrandForm = $(".dealer-search-brand-form");
+
     });
+    
+
 
     function setuserDetails() {
         var cookieName = "_PQUser";
@@ -826,61 +908,6 @@
         element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
     };
 
-    /* form validation */
-    var validate = {
-        setError: function (element, message) {
-            var elementLength = element.val().length,
-                errorTag = element.siblings('span.error-text');
-
-            errorTag.show().text(message);
-            if (!elementLength) {
-                element.closest('.input-box').removeClass('not-empty').addClass('invalid');
-            }
-            else {
-                element.closest('.input-box').addClass('not-empty invalid');
-            }
-        },
-
-        hideError: function (element) {
-            element.closest('.input-box').removeClass('invalid').addClass('not-empty');
-            element.siblings('span.error-text').text('').hide();
-        },
-
-        onFocus: function (inputField, popupContainer) {
-            var inputBox = inputField.closest('.input-box');
-
-            if (inputBox.hasClass('invalid')) {
-                validate.hideError(inputField);
-            }
-
-            popupContainer.animate({ scrollTop: inputBox.offset().top - 20 });
-        },
-
-        onBlur: function (inputField) {
-            var inputLength = inputField.val().length;
-            if (!inputLength) {
-                inputField.closest('.input-box').removeClass('not-empty');
-            }
-            else {
-                inputField.closest('.input-box').addClass('not-empty');
-            }
-        }
-    }
-
-    var validateInputSelection = {
-        setError: function (element, message) {
-            var errorTag = element.siblings('span.error-text');
-
-            element.closest('.input-select-box').addClass('invalid');
-            errorTag.text(message);
-        },
-
-        hideError: function (element) {
-            element.closest('.input-select-box').removeClass('invalid');
-            element.siblings('span.error-text').text('');
-        }
-    }
-
     function startLoading(ele) {
         try {
             var _self = $(ele).find(".progress-bar").css({ 'width': '0' }).show();
@@ -897,33 +924,9 @@
         catch (e) { return };
     }
 
-    var brandSearchBar = $("#brandSearchBar"), dealerSearchBrand = $(".dealer-search-brand"), dealerSearchBrandForm = $(".dealer-search-brand-form");
-
-
-    leadCapturePopup.on('click', ".dealer-search-brand", function () {
-        $('.dealer-brand-wrapper').show();
-        $("#brandSearchBar").addClass('open').animate({ 'left': '0px' }, 500);
-        $("#brandSearchBar").find(".user-input-box").animate({ 'left': '0px' }, 500);
-        $("#assistanceBrandInput").focus();
-    });
-
-    leadCapturePopup.on("click", "#sliderBrandList li", function () {
-        var _self = $(this),
-            selectedElement = _self.text();
-        setSelectedElement(_self, selectedElement);
-        _self.addClass('activeBrand').siblings().removeClass('activeBrand');
-        $(".dealer-search-brand-form").addClass('selection-done').find("span").text(selectedElement);
-        $("#brandSearchBar").find(".user-input-box").animate({ 'left': '100%' }, 500);
-        validateInputSelection.hideError($(".dealer-search-brand-form"));
-    });
-
     function setSelectedElement(_self, selectedElement) {
         _self.parent().prev("input[type='text']").val(selectedElement);
         $("#brandSearchBar").addClass('open').animate({ 'left': '100%' }, 500);
     };
 
-    leadCapturePopup.on("click", ".dealer-brand-wrapper .back-arrow-box", function () {
-        $("#brandSearchBar").removeClass("open").animate({ 'left': '100%' }, 500);
-        $("#brandSearchBar").find(".user-input-box").animate({ 'left': '100%' }, 500);
-    });
 </script>

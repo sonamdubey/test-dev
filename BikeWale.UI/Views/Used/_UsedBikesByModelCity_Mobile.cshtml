@@ -1,0 +1,40 @@
+﻿@model Bikewale.Models.UsedBikeByModelCityVM
+@using Bikewale.Utility;
+
+@if (Model != null && Model.City != null && Model.RecentUsedBikesList != null)
+{
+    <ul class="padding-right10 padding-left10">
+        @if (Model.City.CityId == 0)
+        {
+            foreach (var bike in Model.RecentUsedBikesList)
+            {
+                <li class="margin-bottom20">
+                    @if (Model.Make != null && Model.Model != null)
+                    {
+                        <a href="@string.Format("/m{0}", UrlFormatter.UsedBikesUrlNoCity(@bike.MakeMaskingName, @bike.ModelMaskingName, @bike.CityMaskingName))" title="@Model.Make.MakeName@(Model.Model.ModelId > 0 ? String.Format(" {0} ", Model.Model.ModelName) :"" )Used Bikes in @bike.CityName">Used @Model.Make.MakeName @(Model.Model.ModelId > 0 ? String.Format(" {0} ", Model.Model.ModelName) : "") bikes in @bike.CityName</a>
+                    }
+                    <p class="margin-top5 text-black">@Format.FormatPrice(Convert.ToString(@bike.AvailableBikes)) @(bike.AvailableBikes == 1 ? " bike" : " bikes") available</p>
+                </li>
+            }
+        }
+        else
+        {
+        <!-- when city is selected -->
+            foreach (var bike in Model.RecentUsedBikesList)
+            {
+                <li class="margin-bottom20">
+                    @if (Model.Make != null)
+                    {
+                        <a href="@string.Format("/m{0}", UrlFormatter.UsedBikesUrl(bike.CityMaskingName, bike.MakeMaskingName, bike.ModelMaskingName, Convert.ToString(bike.ProfileId)))" title="@string.Format("Used {0} {1} bikes in {2}", Model.Make.MakeName, bike.ModelName, Model.City.CityName)">
+                            @String.Format("{0}, {1} {2} {3}", Convert.ToString(bike.MakeYear), bike.MakeName, bike.ModelName, bike.VersionName)
+                        </a>
+                    }
+                    <p class="margin-top5 text-black">
+                        <span class="bwmsprite inr-xxsm-icon"></span><span>@Format.FormatPrice(Convert.ToString(bike.BikePrice))</span>
+                    </p>
+                </li>
+            }
+        }
+    </ul>
+}
+

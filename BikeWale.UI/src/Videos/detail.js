@@ -1,3 +1,3 @@
-﻿$(function () {
+﻿docReady(function () {
     $("body").floatingSocialShare();
 });

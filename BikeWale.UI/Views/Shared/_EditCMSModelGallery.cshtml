@@ -1,0 +1,49 @@
+﻿@model Bikewale.Models.EditCMSPhotoGalleryVM
+@using Bikewale.Utility
+           <div class="bw-tabs-data" id="Photos">
+                    <div class="connected-carousels-photos">
+                        <div class="stage-photos stage-media">
+                            <div class="carousel-photos carousel-stage-photos carousel-stage-media">
+                                <ul>
+                                    @foreach (var photo in Model.Images)
+                                    {
+                                        <li>
+                                            <div class="gallery-photo-img-container">
+                                                <span>
+                                                    <img class="lazy" data-original="@Image.GetPathToShowImages(photo.OriginalImgPath,photo.HostUrl,ImageSize._640x348)" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" title="@photo.ImageCategory">
+                                                </span>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="bike-gallery-details">
+                                <span class="leftfloatbike-gallery-details"></span>
+                                <span class="rightfloat bike-gallery-count"></span>
+                            </div>
+                            <a href="#" class="prev photos-prev-stage bwsprite media-prev-next-stage" rel="nofollow"></a>
+                            <a href="#" class="next photos-next-stage bwsprite media-prev-next-stage" rel="nofollow"></a>
+                        </div>
+
+                        <div class="navigation-photos navigation-media">
+                            <a href="#" class="prev photos-prev-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
+                            <a href="#" class="next photos-next-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
+                            <div class="carousel-photos carousel-navigation-photos carousel-navigation-media">
+                                <ul>
+                                    @foreach (var photo in Model.Images)
+                                    {
+                                        <li>
+                                            <div class="gallery-photo-nav-img-container">
+                                                <span>
+                                                    <img class="lazy" data-original="@Image.GetPathToShowImages(photo.OriginalImgPath,photo.HostUrl,ImageSize._144x81)" src="https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" title="@photo.ImageCategory" />
+                                                </span>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+          

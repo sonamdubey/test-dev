@@ -1,21 +1,6 @@
 ﻿var redMarkerImage = 'https://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
 var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
-var customerViewModel, dealerDetailsViewModel;
-
-$(document).ready(function () {
-    chosenSelectBox.setPlaceholder();
-});
-
-$('.chosen-select').chosen();
-
-var chosenSelectBox = {    
-    setPlaceholder: function() {
-        $('.chosen-select').each(function () {
-            var text = $(this).attr('data-placeholder');
-            $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
-        });
-    }
-};
+var customerViewModel, dealerDetailsViewModel, chosenSelectBox, vmService, bikeschedule;
 
 function initializeMap() {
     var mapCanvas = document.getElementById("dealer-map");
@@ -100,7 +85,6 @@ function savePosition(position) {
 
 }
 
-
 function getLocation() {
     if (userAddress != "") {
         $("#locationSearch").val("").val(userAddress);
@@ -116,8 +100,6 @@ function getLocation() {
         }
     }
 }
-
-$(document).on("click", "#getUserLocation", function () { getLocation(); })
 
 function route(origin_place_id, travel_mode, directionsService, directionsDisplay) {
     _lat = serviceLat;
@@ -181,6 +163,105 @@ String.prototype.toHHMMSS = function () {
     var o = a + " hrs " + t + " mins ";
     return o
 }
+
+function SchedulesViewModel() {
+    var self = this;
+    self.bikes = ko.observable(bikeschedule);
+    self.currentBikeName = ko.observable();
+    self.bikesList = ko.observable(self.bikes());
+    self.isDataExist = ko.observable();
+    self.imagePath = ko.observable();
+    self.isDays = ko.observable();
+    self.isKms = ko.observable();
+    self.selectedModelId = ko.observable();
+    self.GetModelId = function (data, event) {
+        self.selectedModelId($(event.target).val());
+        var bikename = ko.utils.arrayFirst(self.bikes(), function (bike) {
+            return bike.ModelId == self.selectedModelId();
+        });
+        if (bikename != null) {
+            self.currentBikeName(bikename.ModelName);
+        }
+    };
+    function isDaysDataExists(sch) {
+        var isFound = false;
+        ko.utils.arrayForEach(sch, function (s) {
+            if (s.Days && s.Days > 0) {
+                isFound = true;
+            }
+        });
+        return isFound;
+    }
+    function isKmsDataExists(sch) {
+        var isFound = false;
+        ko.utils.arrayForEach(sch, function (s) {
+            if (s.Kms && s.Kms.length > 0) {
+                isFound = true;
+            }
+        });
+        return isFound;
+    }
+    self.selectedModelId.subscribe(function () {
+        var selbike = ko.utils.arrayFirst(self.bikes(), function (b) {
+            return b.ModelId == self.selectedModelId();
+        });
+        self.bikesList(null);
+        self.bikesList(selbike);
+        if (selbike != null && selbike.Schedules.length > 0)
+            self.isDataExist(true);
+        else
+            self.isDataExist(false);
+        self.isDays(isDaysDataExists(selbike.Schedules));
+        self.isKms(isKmsDataExists(selbike.Schedules));
+        if (selbike.HostUrl != '' && selbike.OriginalImagePath != '') {
+            self.imagePath(selbike.HostUrl + "227x128" + selbike.OriginalImagePath);
+        }
+        else {
+            self.imagePath('https://imgd3.aeplcdn.com/0x0/bikewaleimg/images/noimage.png');
+        }        
+    });
+
+   
+}
+
 function setUserLocation(position) {
     $("#linkMap").attr("href", "https://maps.google.com/?saddr=" + position.lat() + "," + position.lng() + "&daddr=" + serviceLat + "," + serviceLong + '');
 }
+
+
+    docReady(function () {
+
+        chosenSelectBox = {    
+            setPlaceholder: function() {
+                $('.chosen-select').each(function () {
+                    var text = $(this).attr('data-placeholder');
+                    $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
+                });
+            }
+        };
+
+        $('.chosen-select').chosen();
+
+        if ($("#service-schedule-data").html()) {
+            bikeschedule = JSON.parse($("#service-schedule-data").html().replace(/\s/g, ' '));
+            vmService = new SchedulesViewModel();
+            ko.applyBindings(vmService, $("#service-scheduler")[0]);
+            vmService.selectedModelId(vmService.bikes()[0].ModelId);
+        }
+
+
+
+
+        chosenSelectBox.setPlaceholder();
+
+        serviceLat = $('#dealer-map').data("servicelat");
+        serviceLong = $('#dealer-map').data("servicelong");
+        currentCityName = $('#dealer-map').data("cityname");
+        googleMapAPIKey = document.getElementById("locationSearch").getAttribute("data-Map");
+        clientIP = document.getElementById("locationSearch").getAttribute("data-clietIp");
+
+        initializeMap();
+
+        $(document).on("click", "#getUserLocation", function () { getLocation(); })
+
+    });

@@ -114,6 +114,7 @@ namespace Bikewale.Mobile.New
                 ctrlPopoularBikeMake.cityname = cityName;
                 ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
+                ctrlPopoularBikeMake.makeMaskingName = makeMaskingName;
                 ctrlLeadCapture.CityId = cityId;
                 ctrlBrandCity.requestType = EnumBikeType.Dealer;
                 ctrlBrandCity.makeId = makeId;
@@ -126,8 +127,7 @@ namespace Bikewale.Mobile.New
                 ctrlServiceCenterCard.cityName = cityName;
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 9;
-                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
-                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
+                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", makeName, cityName);
 
                 if (ctrlChangeLocation != null)
                 {
@@ -140,9 +140,9 @@ namespace Bikewale.Mobile.New
                     ctrlusedBikeModel.MakeId = makeId;
                     if (cityId > 0)
                         ctrlusedBikeModel.CityId = cityId;
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? cityName : "India");
                     ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, cityId > 0 ? cityName : "India");
-                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", makeName, cityId > 0 ? cityMaskingName : "india");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", makeMaskingName, cityId > 0 ? cityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;
                 }
 
@@ -169,7 +169,7 @@ namespace Bikewale.Mobile.New
                 {
                     container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
                              .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IDealer, DealersRepository>()
+                             .RegisterType<IDealerRepository, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
                     _dealers = objCache.GetDealerByMakeCity(cityId, makeId);
@@ -239,9 +239,9 @@ namespace Bikewale.Mobile.New
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealer, DealersRepository>();
+                    container.RegisterType<IDealerRepository, DealersRepository>();
 
-                    var objCities = container.Resolve<IDealer>();
+                    var objCities = container.Resolve<IDealerRepository>();
                     _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {

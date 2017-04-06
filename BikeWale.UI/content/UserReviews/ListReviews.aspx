@@ -53,7 +53,7 @@
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                             <span class="bwsprite fa-angle-right margin-right10"></span>
                             <a href="/<%=  MakeMaskingName %>-bikes/<%= ModelMaskingName %>/" itemprop="url">
-                                <span itemprop="title"> <%= MakeName%> <%= ModelName%></span>
+                                <span itemprop="title"><%= String.Format("{0} {1}", MakeName,ModelName) %></span>
                             </a>
                         </li>
                         <li>
@@ -181,7 +181,7 @@
                 </div>
 
                <%if (ModelReviewCount>0) {%> <div class="bg-white padding-18-20 content-box-shadow margin-bottom20">
-                    <h2 class="font18 margin-bottom10"><%= totalReviewCount %> <%= BikeName %> User <%=(totalReviewCount >1?" reviews":" review") %></h2>
+                    <h2 class="font18 margin-bottom10"><%= String.Format("{0} {1}", totalReviewCount,BikeName) %> User <%=(totalReviewCount >1?" reviews":" review") %></h2>
                  <div>
                          <%if (ModelReviewCount > 1)
                            { %>  <div class="leftfloat review-dropdown margin-right20">
@@ -278,7 +278,7 @@
 
         selectDropdownBox.each(function () {
             var text = $(this).find('.chosen-select').attr('data-title'),
-                searchBox = $(this).find('.chosen-search')
+                searchBox = $(this).find('.chosen-search');
 
             searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
         });
