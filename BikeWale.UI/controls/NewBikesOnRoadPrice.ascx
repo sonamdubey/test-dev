@@ -209,7 +209,7 @@
                             gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
                         }
 
-                        window.location = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
+                        window.location = "/pricequote/dealer/?MPQ=" + Base64.encode(cookieValue);
 
                     } else {
                         gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);

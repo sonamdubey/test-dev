@@ -194,6 +194,7 @@
     <Compile Include="DealerLocator\DealerLocatorList.cs" />
     <Compile Include="DealerLocator\Dealers.cs" />
     <Compile Include="DealerLocator\DealersList.cs" />
+    <Compile Include="Dealer\MakeEnitityBase.cs" />
     <Compile Include="Dealer\NearByCityDealerCountEntity.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />
     <Compile Include="Dealer\DealerBrandEntity.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
     <Compile Include="GenericBikes\BestBikesList.cs" />
     <Compile Include="GenericBikes\BikeRankingEntity.cs" />
+    <Compile Include="GenericBikes\BikeRankingPropertiesEntity.cs" />
     <Compile Include="GenericBikes\EnumBikeBodyStyles.cs" />
     <Compile Include="GenericBikes\GenericBikeInfo.cs" />
     <Compile Include="HomePage\HomePageBannerEntity.cs" />
@@ -246,6 +248,9 @@
     <Compile Include="MobileAppAlert\MobileAppNotificationBase.cs" />
     <Compile Include="MobileAppAlert\MobileAppNotifications.cs" />
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />
+    <Compile Include="Models\AdTags.cs" />
+    <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\PageMetaTags.cs" />
     <Compile Include="NewBikeSearch\FilterEnum.cs" />
     <Compile Include="NewBikeSearch\FilterInput.cs" />
     <Compile Include="NewBikeSearch\InputBaseEntity.cs" />
@@ -273,6 +278,8 @@
     <Compile Include="PriceQuote\DetailedDealerQuotationEntity.cs" />
     <Compile Include="PriceQuote\DPQSmsEntity.cs" />
     <Compile Include="PriceQuote\DPQTypes.cs" />
+    <Compile Include="PriceQuote\LeadCaptureEntity.cs" />
+    <Compile Include="PriceQuote\ManufacturerCampaign.cs" />
     <Compile Include="PriceQuote\NewBikeDealerBase.cs" />
     <Compile Include="PriceQuote\OfferHtmlEntity.cs" />
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
@@ -300,6 +307,7 @@
     <Compile Include="ServiceCenters\ServiceCenterData.cs" />
     <Compile Include="ServiceCenters\ServiceCenterDetails.cs" />
     <Compile Include="service\ServiceCityEntity.cs" />
+    <Compile Include="StatusCodes.cs" />
     <Compile Include="UrlShortner\UrlShortnerResponse.cs" />
     <Compile Include="Used\BikeDetails.cs" />
     <Compile Include="Used\BikeDetailsMin.cs" />

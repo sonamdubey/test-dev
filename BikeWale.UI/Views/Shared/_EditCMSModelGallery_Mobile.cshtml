@@ -1,0 +1,44 @@
+﻿@model Bikewale.Models.EditCMSPhotoGalleryVM
+@using Bikewale.Utility
+   <div id="bike-gallery-popup">
+                          <div class="bw-tabs-data" id="photos">
+                            <div class="font14 text-white margin-bottom15">
+                                <span class="leftfloat media-title"></span>
+                                <span class="rightfloat gallery-count"></span>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="connected-carousels-photos">
+                                <div class="stage-photos">
+                                    <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
+                                        <div class="swiper-wrapper">
+                                            @foreach (var photo in Model.Images)
+                                            {
+                                                <div class="swiper-slide">
+                                                    <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(photo.OriginalImgPath,photo.HostUrl,ImageSize._476x268)" alt="@photo.ImageCategory" title="@string.Format("{0} {1}",photo.ModelBase.ModelName,photo.ImageCategory)" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="bwmsprite swiper-button-next"></div>
+                                        <div class="bwmsprite swiper-button-prev"></div>
+                                    </div>
+                                </div>
+
+                                <div class="navigation-photos">
+                                    <div class="swiper-container noSwiper carousel-navigation-photos">
+                                        <div class="swiper-wrapper">
+                                            @foreach (var photo in Model.Images)
+                                            {
+                                                <div class="swiper-slide">
+                                                    <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(photo.OriginalImgPath,photo.HostUrl,ImageSize._476x268)" alt="@photo.ImageCategory" title="@string.Format("{0} {1}", photo.ModelBase.ModelName, photo.ImageCategory)" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="bwmsprite swiper-button-next hide"></div>
+                                        <div class="bwmsprite swiper-button-prev hide"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+              </div>

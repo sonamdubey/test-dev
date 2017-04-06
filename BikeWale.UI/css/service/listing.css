@@ -187,6 +187,14 @@
   position: relative;
   top: 3px; }
 
+.service-location-img {
+  width: 290px;
+  height: 90px;
+  display: block;
+  background-color: #e5e3df;
+  background-size: cover;
+  background-position: center center; }
+
 @media only screen and (max-width: 1024px) {
   .submit-lead-mobile-btn {
     margin-left: 10px; } }
@@ -381,15 +389,6 @@ input[type="number"] {
       text-decoration: none; }
   .card .text-truncate {
     width: 100%; }
-
-.service-location-img{
-    width:290px;
-    height:90px;
-    display: block;
-    background-color: rgb(229, 227, 223);
-    background-size: cover;
-    background-position: center center;
-}
 
 @media only screen and (max-width: 1024px) {
   .card {

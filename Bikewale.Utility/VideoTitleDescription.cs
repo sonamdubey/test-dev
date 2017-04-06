@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.Entities.Videos;
 using System;
 namespace Bikewale.Utility
 {
@@ -80,5 +81,37 @@ namespace Bikewale.Utility
 
             }
         }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 25 Mar 2017
+        /// Summary    : To create title for videos according to category
+        /// </summary>
+        public static string VideoCategoryTitle(string categoryId)
+        {
+            switch (categoryId)
+            {
+                case "51":
+                    return "Motorsports";
+                case "55":
+                    return "Expert Reviews";
+                case "57":
+                    return "First Ride Impressions";
+                case "58":
+                    return "Miscellaneous";
+                case "59":
+                    return "Launch Alert";
+                case "60":
+                    return "PowerDrift Top Music";
+                case "61":
+                    return "First Look";
+                case "62":
+                    return "PowerDrift Blockbuster";
+                case "63":
+                    return "PowerDrift Specials";
+                default:
+                    return "";
+            }
+        }
+
     }//class end
 }//namespae ended

@@ -1,0 +1,36 @@
+﻿@model Bikewale.Models.UsedBikeModelsWidgetVM
+@if (Model != null ) {
+    <div class="swiper-container card-container used-swiper">
+        <div class="swiper-wrapper">
+          @foreach (var bikeDetails in Model.UsedBikeModelList)
+            {
+            <div class="swiper-slide">
+                <div class="swiper-card">
+                    <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeDetails.MakeMaskingName, bikeDetails.ModelMaskingName, Model.CityDetails != null ? Model.CityDetails .CityMaskingName : "india"))" title="@string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,Model.CityDetails !=null?Model.CityDetails.CityName:"India")">
+                        <div class="swiper-image-preview">
+                            <div class="image-thumbnail">
+                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.UsedOriginalImagePath, bikeDetails.HostUrl, Bikewale.Utility.ImageSize._174x98, Bikewale.Utility.QualityFactor._70)" alt="@string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,Model.CityDetails !=null?Model.CityDetails.CityName:"India")" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                        </div>
+                        <div class="swiper-details-block">
+                            <h3 class="target-link font12 margin-bottom5 text-truncate">@string.Format("{0} {1}",bikeDetails.MakeName,bikeDetails.ModelName)</h3>
+                            <p class="font13 text-light-grey">
+                                @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.AvailableBikes)) Used bikes available
+                            </p>
+                            <div class="margin-bottom5 text-default">
+                                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;
+                                <span class="font16 text-bold">
+                                    @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.BikePrice))
+                                </span>&nbsp;
+                                <span class="font12">onwards</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+        }

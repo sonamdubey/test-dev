@@ -1,0 +1,107 @@
+﻿@model  Bikewale.Models.ServiceCenters.ServiceCenterIndiaPageVM
+
+@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/service/location.css' />";
+    Model.Page_JS_Path = "/m/src/service/location.js";
+    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.AdId = "1444028976556";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Model";
+    Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-service-center-in-india/", Model.Make.MaskingName);
+}
+
+@if (Model != null && Model.Make != null)
+{
+    <section>
+        <div class="container bg-white card-bottom-margin">
+            <h1 class="card-header">@Model.Make.MakeName service centers in India</h1>
+            <div class="card-inner-padding font14 text-light-grey collapsible-content">
+                <p class="main-content">There are @Model.ServiceCentersCityList.ServiceCenterCount authorised @Model.Make.MakeName service centers in India. BikeWale strongly recommends you to avail services only from authorized @Model.Make.MakeName service centers. These authorised service centers are</p>
+                <p class="more-content"> spread over @Model.ServiceCentersCityList.CityCount cities to service your @Model.Make.MakeName bike and keep your bike moving. Enter the name of your city in the search box provided below to find authorised @Model.Make.MakeName service centers in your city. </p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container bg-white box-shadow card-bottom-margin">
+            <h2 class="padding-15-20 border-solid-bottom">@String.Format("{0} {1}", @Model.ServiceCentersCityList.ServiceCenterCount, @Model.Make.MakeName) service centers in @Model.ServiceCentersCityList.CityCount cities</h2>
+            <div class="content-inner-block-20">
+                <div class="form-control-box">
+                    <span class="bwmsprite search-icon-grey"></span>
+                    <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="getCityInput" />
+                </div>
+                <ul id="location-list">
+                    @foreach (var st in Model.ServiceCentersCityList.ServiceCenterDetailsList)
+                    {
+                        <li class="item-state">
+                            <a data-item-id="@st.Id" data-item-name="@st.Name" data-lat="@st.Lat" data-long="@st.Long" data-servicecentercount="@st.ServiceCenterCountState" href="javascript:void(0)" rel="nofollow" class="type-state">@st.Name</a>
+                            <ul class="location-list-city">
+                                @foreach (var stcity in st.Cities)
+                                {
+                                    <li>
+                                        <a data-item-id="@stcity.Id" data-item-name="@stcity.CityName" data-lat="@stcity.Lattitude" data-long="@stcity.Longitude" data-link="@stcity.Link" data-servicecentercount="@stcity.ServiceCenterCountCity" title="@Model.Make.MakeName service center in @stcity.CityMaskingName" href="/m/@Model.Make.MaskingName-service-center-in-@stcity.CityMaskingName/">@stcity.CityName (@stcity.ServiceCenterCountCity)</a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                <div id="no-result"></div>
+            </div>
+        </div>
+    </section>
+
+    if (Model.ServiceCenterBrandsList != null && Model.ServiceCenterBrandsList.Count() > 0)
+    {
+        <section>
+            <div class="container bg-white box-shadow padding-top15">
+                <h2 class="padding-right20 padding-bottom15 padding-left20">Find service centers for other brands</h2>
+
+                <div class="swiper-container card-container brand-type-carousel">
+                    <div class="swiper-wrapper">
+                        @{Html.RenderPartial("/Views/ServiceCenters/_ServiceCentersByBrand_Mobile.cshtml", Model.ServiceCenterBrandsList);}
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+
+    if (Model.UsedBikesByMakeList != null && Model.UsedBikesByMakeList.UsedBikeModelList != null && Model.UsedBikesByMakeList.UsedBikeModelList.Count() > 0)
+    {
+        <div class="margin-top20 margin-right20 margin-left20 border-solid-bottom"></div>
+        <div class="container bg-white box-shadow padding-top15">
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>@string.Format("Used {0} bikes in India", Model.Make.MakeName)</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="@string.Format("/m/used/{0}-bikes-in-india/", Model.Make.MaskingName)" title="Second Hand Bikes in India" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-shadow padding-bottom20">
+                @Html.Partial("~/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedBikesByMakeList)
+            </div>
+        </div>
+    }
+
+    if (Model.BikeCareWidgetVM != null && Model.BikeCareWidgetVM.ArticlesList != null && Model.BikeCareWidgetVM.ArticlesList.Count() > 0)
+    {
+        <section>
+            <h2 class="section-heading">Bike Care - Maintenance tips</h2>
+            @Html.Partial("~/Views/BikeCare/_RecentBikeCare_Mobile.cshtml", Model.BikeCareWidgetVM)
+        </section>
+    }
+
+    <section>
+        <h2 class="section-heading">Bike Troubleshooting - FAQs</h2>
+        <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">
+            @Html.Partial("~/Views/BikeCare/_BikeTroubleshootingFAQ_Mobile.cshtml")
+            <div class="padding-left20">
+                <a href="/m/bike-troubleshooting/" target="_blank" class="font14">Read all FAQs<span class="bwmsprite blue-right-arrow-icon"></span></a>
+            </div>
+        </div>
+    </section>
+
+}

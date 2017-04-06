@@ -1,0 +1,31 @@
+﻿@model Bikewale.Models.BikeCare.RecentBikeCareVM
+@using Bikewale.Utility
+@if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Count() > 0) {
+<ul class="article-list">
+    @foreach(var article in Model.ArticlesList) {
+    <li>
+        <div class="grid-4 alpha">
+            <div class="model-preview-image-container">
+                <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId),article.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.TipsAndAdvices))" title="@article.Title">
+                    <img class="lazy" alt="@article.Title" src="@Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._310x174, QualityFactor._75)">
+                </a>
+            </div>
+        </div>
+        <div class="grid-8 padding-left5 omega">
+            <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId),article.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.TipsAndAdvices))" title="@article.Title" class="article-target-link line-height">@article.Title</a>
+            <div class="article-stats-left-grid margin-bottom10">
+                <span class="bwsprite calender-grey-sm-icon"></span>
+                <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(article.DisplayDate), "MMM dd, yyyy")</span>
+            </div>
+            <div class="article-stats-right-grid margin-bottom10">
+                <span class="bwsprite author-grey-sm-icon"></span>
+                <span class="article-stats-content">@article.AuthorName</span>
+            </div>
+            <p class="font14 line-height17">@FormatDescription.TruncateDescription(article.Description,280)</p>
+        </div>
+        <div class="clear"></div>
+    </li>
+    } 
+</ul>
+<a href="/bike-care/" title="Bike Maintenace Tips" class="font14">Read all bike maintenance tips<span class="bwsprite blue-right-arrow-icon"></span></a>
+}

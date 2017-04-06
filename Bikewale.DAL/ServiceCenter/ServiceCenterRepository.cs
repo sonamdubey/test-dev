@@ -199,6 +199,8 @@ namespace Bikewale.DAL.ServiceCenter
         /// <summary>
         /// Created By : Sajal Gupta on 07/11/2016
         /// Description: DAL layer Function for fetching service center data.
+        /// Modified by : Sajal Gupta on 03-04-2017
+        /// Description : Added CityMaskingName, MakeMaskingName
         /// </summary>     
         public ServiceCenterData GetServiceCentersByCity(uint cityId, int makeId)
         {
@@ -207,7 +209,7 @@ namespace Bikewale.DAL.ServiceCenter
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecentersbycity"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecentersbycity_03042017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId));
@@ -231,6 +233,8 @@ namespace Bikewale.DAL.ServiceCenter
                                 objServiceCenterDetails.Mobile = Convert.ToString(dr["mobile"]);
                                 objServiceCenterDetails.Lattitude = Convert.ToString(dr["lattitude"]);
                                 objServiceCenterDetails.Longitude = Convert.ToString(dr["longitude"]);
+                                objServiceCenterDetails.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
+                                objServiceCenterDetails.MakeMaskingName = Convert.ToString(dr["makeMaskingName"]);
                                 objServiceCenterList.Add(objServiceCenterDetails);
                             }
 

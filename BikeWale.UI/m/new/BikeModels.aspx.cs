@@ -335,11 +335,11 @@ namespace Bikewale.Mobile.New
         {
             try
             {
-                 if (cityId > 0)
-               {
-                cityDetails = new CityHelper().GetCityById(cityId);
-                if (cityDetails != null)
-                    cityMaskingName = cityDetails.CityMaskingName;
+                if (cityId > 0)
+                {
+                    cityDetails = new CityHelper().GetCityById(cityId);
+                    if (cityDetails != null)
+                        cityMaskingName = cityDetails.CityMaskingName;
                 }
                 if (!isDiscontinued)
                 {
@@ -848,7 +848,7 @@ namespace Bikewale.Mobile.New
                     if (pqOnRoad != null)
                     {
                         if (pqOnRoad.BPQOutput != null)
-                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty, pqOnRoad.BPQOutput.LeadCapturePopupHeading, pqOnRoad.BPQOutput.LeadCapturePopupDescription, pqOnRoad.BPQOutput.LeadCapturePopupMessage, pqOnRoad.BPQOutput.PinCodeRequired);
+                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, pqOnRoad.BPQOutput.ManufacturerId, pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty, pqOnRoad.BPQOutput.LeadCapturePopupHeading, pqOnRoad.BPQOutput.LeadCapturePopupDescription, pqOnRoad.BPQOutput.LeadCapturePopupMessage, pqOnRoad.BPQOutput.PinCodeRequired);
 
                         versionId = pqOnRoad.PriceQuote.VersionId;
                         if (pqOnRoad.PriceQuote != null)
@@ -891,29 +891,31 @@ namespace Bikewale.Mobile.New
                                 SetBikeWalePQ(pqOnRoad);
                             }
 
-                            if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
-                            {
-                                // New model page offers section
-                                IEnumerable<OfferEntity> distictOfferCategories = pqOnRoad.DPQOutput.objOffers.GroupBy(offer => offer.OfferCategoryId).Select(g => g.First());
-                                int distictOfferCount = distictOfferCategories.Count();
-                                if (distictOfferCount > 3)
-                                {
-                                    rptNewOffers.DataSource = distictOfferCategories.Take(2);
-                                    moreOffersCount = Convert.ToUInt16(pqOnRoad.DPQOutput.objOffers.Count() - 2);
-                                }
-                                else
-                                {
-                                    rptNewOffers.DataSource = distictOfferCategories;
-                                }
-                                rptNewOffers.DataBind();
-                                isOfferAvailable = true;
-                            }
                             #endregion
                         }
                         else
                         {
                             SetBikeWalePQ(pqOnRoad);
                         }
+
+                        if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
+                        {
+                            // New model page offers section
+                            IEnumerable<OfferEntity> distictOfferCategories = pqOnRoad.DPQOutput.objOffers.GroupBy(offer => offer.OfferCategoryId).Select(g => g.First());
+                            int distictOfferCount = distictOfferCategories.Count();
+                            if (distictOfferCount > 3)
+                            {
+                                rptNewOffers.DataSource = distictOfferCategories.Take(2);
+                                moreOffersCount = Convert.ToUInt16(pqOnRoad.DPQOutput.objOffers.Count() - 2);
+                            }
+                            else
+                            {
+                                rptNewOffers.DataSource = distictOfferCategories;
+                            }
+                            rptNewOffers.DataBind();
+                            isOfferAvailable = true;
+                        }
+
                         // If DPQ or BWPQ Found change Version Pricing as well
                         if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                         {

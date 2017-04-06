@@ -161,6 +161,8 @@ namespace Bikewale.DAL.BikeData
                         modelPage.ModelColors = GetModelColor(modelId);
                         modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
                     }
+
+                    modelPage.colorPhotos = GetModelColorPhotos(modelId);
                 }
             }
             catch (Exception ex)
@@ -360,6 +362,7 @@ namespace Bikewale.DAL.BikeData
                                 t.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 t.PhotosCount = Convert.ToInt32(dr["PhotosCount"]);
                                 t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
+                                t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
                             }
                             dr.Close();
                         }
@@ -2002,7 +2005,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getgenericbikelisting_02022017";
+                    cmd.CommandText = "getgenericbikelisting_03042017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbType.Int32, bodyStyle));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, (cityId.HasValue && cityId.Value > 0) ? cityId.Value : Convert.DBNull));
 
@@ -2320,7 +2323,7 @@ namespace Bikewale.DAL.BikeData
             }
             return newLaunchedBikes;
         }
- /// <summary>
+        /// <summary>
         /// Created By : Aditi Srivastava on 9 Mar 2017
         /// Summary    : Return list of popular scooters
         /// </summary>
@@ -2347,6 +2350,12 @@ namespace Bikewale.DAL.BikeData
                                 popularScooters.Add(
                                    new MostPopularBikesBase()
                                   {
+                                      objMake = new BikeMakeEntityBase()
+                                      {
+                                          MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                          MakeName = Convert.ToString(dr["make"]),
+                                          MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                      },
                                       objModel = new BikeModelEntityBase()
                                       {
                                           ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
@@ -2385,7 +2394,7 @@ namespace Bikewale.DAL.BikeData
             }
             return popularScooters;
         }
-         /// <summary>
+        /// <summary>
         /// Created by:- Subodh Jain 10 March 2017
         /// Summary :- Get comparision list of popular bike 
         /// </summary>
@@ -2447,11 +2456,81 @@ namespace Bikewale.DAL.BikeData
             return objList;
         }
 
-
-
+        /// <summary>
+        /// Created by  :   Sumit Kate on 24 Mar 2017
+        /// Description :   Returns GetMostPopularScooters by make and city
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
         {
-            throw new NotImplementedException();
+            ICollection<MostPopularBikesBase> popularScooters = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmostpopularscootersbymakecity";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            popularScooters = new Collection<MostPopularBikesBase>();
+
+                            while (dr.Read())
+                            {
+                                popularScooters.Add(
+                                   new MostPopularBikesBase()
+                                   {
+                                       objMake = new BikeMakeEntityBase()
+                                       {
+                                           MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                           MakeName = Convert.ToString(dr["make"]),
+                                           MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                       }
+                                       ,
+                                       objModel = new BikeModelEntityBase()
+                                       {
+                                           ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                           ModelName = Convert.ToString(dr["model"]),
+                                           MaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                       },
+                                       Specs = new MinSpecsEntity()
+                                       {
+                                           Displacement = SqlReaderConvertor.ToUInt32(dr["displacement"]),
+                                           KerbWeight = SqlReaderConvertor.ToUInt16(dr["KerbWeight"]),
+                                           MaximumTorque = SqlReaderConvertor.ToUInt32(dr["maximumtorque"]),
+                                           MaxPower = SqlReaderConvertor.ToUInt32(dr["maxpower"]),
+                                           FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"])
+                                       },
+                                       BikeName = Convert.ToString(dr["bikename"]),
+                                       MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                       MakeName = Convert.ToString(dr["make"]),
+                                       MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
+                                       HostURL = Convert.ToString(dr["hosturl"]),
+                                       OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
+                                       VersionPrice = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]),
+                                       ReviewCount = SqlReaderConvertor.ToInt32(dr["reviewcount"]),
+                                       CityName = Convert.ToString(dr["cityname"]),
+                                       CityMaskingName = Convert.ToString(dr["citymasking"])
+                                   }
+                                  );
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetMostPopularScooters");
+            }
+            return popularScooters;
         }
     }   // class
 }   // namespace

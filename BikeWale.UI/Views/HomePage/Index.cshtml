@@ -1,0 +1,495 @@
+﻿@model Bikewale.Models.HomePageVM
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/home.css' />";
+    Model.Page_JS_Path = "/src/bw-home.js";
+    Model.AdTags.AdPath = "/1017752/BikeWale_HomePage_";
+    Model.AdTags.AdId = "1395985604192";
+    Model.AdTags.Ad_976x400First = true;
+    Model.AdTags.Ad_976x400Second = true;
+    Model.IsTransparentHeader = true;
+    Model.IsPageTypeLanding = true;
+}
+<body class="page-type-landing">
+    <header class="home-top-banner">
+        <div class="container top-campaign-banner-container">
+            <div class="welcome-box">
+                <h1>Find your bike</h1>
+                <p class="banner-subheading font20">Get Comprehensive Information on Bike Prices, Specs, Reviews & More!</p>
+                <div class="margin-top60">
+                    <div class="bike-search-container position-rel">
+                        <div class="bike-search new-bike-search position-rel">
+                            <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" tabindex="1">
+                            <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
+                        </div>
+                        <div class="findBtn">
+                            <input type="button" id="btnSearch" class="btn btn-orange btn-md font16" tabindex="2" value="Search" />
+                        </div>
+                        <div class="clear"></div>
+                        <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
+                            <li class="ui-menu-item" tabindex="-1">
+                                <span class="text-bold">Oops! No suggestions found</span><br />
+                                <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
+                            </li>
+                        </ul>
+                        <ul id="new-global-recent-searches" class="recent-searches-dropdown"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (Model.Banner != null)
+        {
+            @Html.Raw(Model.Banner.DesktopCss);
+            @Html.Raw(Model.Banner.DesktopHtml);
+            @Html.Raw(Model.Banner.DesktopJS);
+        }
+    </header>
+    @if (Model.AdTags.Ad_976x400First)
+    {
+        <section>
+            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_First.cshtml", new { AdId = Model.AdTags.AdId });}
+        </section>
+    }
+    <section>
+        <!--  Discover your bike code starts here -->
+        <div class="container">
+            <div class="grid-12">
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Discover your bike</h2>
+                <div class="bw-tabs-panel content-box-shadow brand-budget-mileage-style-wrapper">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul class="brand-collapsible-present">
+                            <li class="active" data-tabs="discoverBrand">
+                                <h3>Brand</h3>
+                            </li>
+                            <li data-tabs="discoverBudget">
+                                <h3>Budget</h3>
+                            </li>
+                            <li data-tabs="discoverMileage">
+                                <h3>Mileage</h3>
+                            </li>
+                            <li data-tabs="discoverStyle">
+                                <h3>Style</h3>
+                            </li>
+                        </ul>
+                    </div>
+                    @Html.Partial("~/Views/Make/_Brands.cshtml", Model.Brands)
+                    <div class="bw-tabs-data hide" id="discoverBudget">
+                        <div class="budget-container margin-bottom20">
+                            <ul class="text-center">
+                                <li>
+                                    <a href="/new/bike-search/#budget=0-50000">
+                                        <span class="budget-title-box font16">
+                                            Upto
+                                        </span>
+                                        <span class="budget-amount-box">
+                                            <span class="bwsprite inr-budget"></span>
+                                            <span class="font20">50,000</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/new/bike-search/#budget=50000-100000">
+                                        <span class="budget-title-box font16">
+                                            Between
+                                        </span>
+                                        <span class="budget-amount-box">
+                                            <span class="bwsprite inr-budget"></span>
+                                            <span class="font20">50,000 - </span>
+                                            <span class="bwsprite inr-budget"></span>
+                                            <span class="font20">1</span>
+                                            <span class="budget-amount-text-box font16">Lakhs</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/new/bike-search/#budget=100000-250000">
+                                        <span class="budget-title-box font16">
+                                            Between
+                                        </span>
+                                        <span class="budget-amount-box">
+                                            <span class="bwsprite inr-budget"></span>
+                                            <span class="font20">1</span>
+                                            <span class="budget-amount-text-box font16">Lakhs</span>
+                                            <span>- </span>
+                                            <span class="bwsprite inr-budget"></span>
+                                            <span class="font20">2.5</span>
+                                            <span class="budget-amount-text-box font16">Lakhs</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/new/bike-search/#budget=250000-">
+                                        <span class="budget-title-box font16">
+                                            Above
+                                        </span>
+                                        <span class="budget-amount-box">
+                                            <span class="bwsprite inr-budget"></span>
+                                            <span class="font20">2.5</span>
+                                            <span class="budget-amount-text-box font16">Lakhs</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bw-tabs-data hide" id="discoverMileage">
+                        <div class="mileage-container margin-bottom20">
+                            <ul class="text-center">
+                                <li>
+                                    <a href="/new/bike-search/#mileage=1">
+                                        <span class="mileage-title-box font16">
+                                            Above
+                                        </span>
+                                        <span class="mileage-amount-box font20">
+                                            <span>70 <span class="font16">Kmpl</span></span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/new/bike-search/#mileage=2">
+                                        <span class="mileage-title-box font16">
+                                            Between
+                                        </span>
+                                        <span class="mileage-amount-box">
+                                            <span class="font20">70</span>
+                                            <span class="mileage-amount-text-box font16">Kmpl</span>
+                                            <span class="font20">- 50</span>
+                                            <span class="mileage-amount-text-box font16">Kmpl</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/new/bike-search/#mileage=3">
+                                        <span class="mileage-title-box font16">
+                                            Between
+                                        </span>
+                                        <span class="mileage-amount-box">
+                                            <span class="font20">50</span>
+                                            <span class="mileage-amount-text-box font16">Kmpl</span>
+                                            <span class="font20">- 30</span>
+                                            <span class="mileage-amount-text-box font16">Kmpl</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/new/bike-search/#mileage=4">
+                                        <span class="mileage-title-box font16">
+                                            Upto
+                                        </span>
+                                        <span class="mileage-amount-box">
+                                            <span class="font20">30</span>
+                                            <span class="mileage-amount-text-box font16">Kmpl</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bw-tabs-data hide" id="discoverStyle">
+                        <div class="style-type-container margin-bottom35">
+                            <ul class="text-center">
+                                <li>
+                                    <a href="/new/bike-search/#ridestyle=5">
+                                        <span class="style-type">
+                                            <span class="styletypesprite style-scooters"></span>
+                                        </span>
+                                        <span class="style-type-title">Scooters</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/new/bike-search/#ridestyle=3">
+                                        <span class="style-type">
+                                            <span class="styletypesprite style-street"></span>
+                                        </span>
+                                        <span class="style-type-title">Street</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/new/bike-search/#ridestyle=1">
+                                        <span class="style-type">
+                                            <span class="styletypesprite style-cruiser"></span>
+                                        </span>
+                                        <span class="style-type-title">Cruiser</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/new/bike-search/#ridestyle=2">
+                                        <span class="style-type">
+                                            <span class="styletypesprite style-sports"></span>
+                                        </span>
+                                        <span class="style-type-title">Sports</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <section>
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Featured bikes</h2>
+                <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul>
+                            @if (Model.IsPopularBikesDataAvailable)
+                            {
+                                <li class="active" data-tabs="ctrlMostPopularBikes">
+                                    <h3>Most Popular</h3>
+                                </li>
+                            }
+                            @if (Model.IsNewLaunchedDataAvailable)
+                            {
+                                <li data-tabs="ctrlNewLaunchedBikes">
+                                    <h3>New launches</h3>
+                                </li>
+                            }
+                            @if (Model.IsUpcomingBikeAvailable)
+                            {
+                                <li data-tabs="ctrlUpcomingBikes">
+                                    <h3>Upcoming</h3>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    @if (Model.IsPopularBikesDataAvailable)
+                    {
+                        <div id="ctrlMostPopularBikes" class="bw-tabs-data padding-bottom20">
+                            @Html.Partial("~/Views/BikeModels/_MostPopularBikes.cshtml", Model.PopularBikes)
+                            <div class="view-all-btn-container padding-top15">
+                                <a href="/best-bikes-in-india/" class="btn view-all-target-btn" title="Popular Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.IsNewLaunchedDataAvailable)
+                    {
+                        <div class="bw-tabs-data hide padding-top15 padding-bottom20" id="ctrlNewLaunchedBikes">
+                            @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunchedBikes)
+                            <div class="view-all-btn-container padding-top15">
+                                <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.IsUpcomingBikeAvailable)
+                    {
+                        <div class="bw-tabs-data hide padding-top15 padding-bottom20" id="ctrlUpcomingBikes">
+                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.UpcomingBikes)
+                            <div class="view-all-btn-container padding-top15">
+                                <a href="/upcoming-bikes/" class="btn view-all-target-btn" title="Upcoming Bikes in India">View upcoming bikes<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <section class="lazy home-getFinalPrice-banner" data-original="https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/get-final-price-banner.jpg">
+        <div class="container">
+            <div class="grid-5 leftfloat">
+                <div class="bg-white content-inner-block-15 light-box-shadow rounded-corner2 margin-top70" id="OnRoadContent">
+                    <h2 class="text-bold margin-bottom20 font22">On-road price</h2>
+                    <!-- On road pricequote control -->
+                    <div class="form-control-box margin-bottom20">
+                        <input value="" class="form-control ui-autocomplete-input" type="text" placeholder="Search Make and Model" id="makemodelFinalPrice" tabindex="1" autocomplete="off">
+                        <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
+                        <span class="bwsprite error-icon hide"></span>
+                        <div class="bw-blackbg-tooltip hide">Please enter make/model name</div>
+                    </div>
+                    <div class="form-control-box margin-bottom20 finalPriceCitySelect ">
+                        <select data-placeholder="--Select City--" class="form-control" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: '--Select City--', event: { change: cityChangedOnRoad },chosen: { width: '100%' }"></select>
+                        <span class="bwsprite error-icon hide"></span>
+                        <div class="bw-blackbg-tooltip hide">Please Select City</div>
+                    </div>
+                    <div class="form-control-box margin-bottom20 finalPriceAreaSelect " data-bind="visible: bookingAreas().length > 0">
+                        <select data-placeholder="--Select Area--" class="form-control" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'areaName', optionsValue: 'areaId', optionsCaption: '--Select Area--', chosen: { width: '100%' }"></select>
+                        <span class="bwsprite error-icon hide"></span>
+                        <div class="bw-blackbg-tooltip hide">Please Select Area</div>
+                    </div>
+                    <button id="btnDealerPriceOnRoad" tabindex="4" class="btn btn-orange margin-bottom20" type="button" data-bind="event: { click: getPriceQuoteOnRoad }">Check on-road price</button>
+                    <p class="margin-bottom5">Its private, no need to share your number and email</p>
+                </div>
+                <!-- Onroad price quote ends here -->
+            </div>
+        </div>
+    </section>
+
+    @if (Model.AdTags.Ad_976x400Second)
+    {
+        <section>
+            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Second.cshtml", new { AdId = Model.AdTags.AdId });}
+        </section>
+    }
+
+    <section>
+        @Html.Partial("~/Views/BestBikes/_BestBikes.cshtml", Model.BestBikes)
+    </section>
+
+    @if (Model.CompareBikes != null)
+    {
+        <section>
+            <div class="container">
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Compare bikes</h2>
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-top20 padding-bottom20">
+                        @Html.Partial("~/Views/CompareBikes/_ComparisonMin.cshtml", Model.CompareBikes)
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    <section>
+        <!--  Discover your bike code starts here -->
+        <div class="container">
+            <div class="grid-12">
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Find used bikes</h2>
+                <div class="bw-tabs-panel content-box-shadow margin-bottom20">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul>
+                            @if (Model.IsUsedModelsAvailable)
+                            {
+                                <li class="active" data-tabs="usedByModel">
+                                    <h3>Model</h3>
+                                </li>
+                            }
+                            @if (Model.IsUsedBikeCitiesAvailable)
+                            {
+                                <li class="@(Model.IsUsedModelsAvailable ? "" : "active")" data-tabs="usedByCity">
+                                    <h3>City</h3>
+                                </li>
+                            }
+                            <li data-tabs="usedByBudget">
+                                <h3>Budget</h3>
+                            </li>
+                        </ul>
+                    </div>
+
+                    @if (Model.IsUsedModelsAvailable)
+                    {
+                        <div class="bw-tabs-data padding-bottom20" id="usedByModel">
+                            @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedModels)
+                            <div class="more-article-target view-all-btn-container padding-top20">
+                                <a href="/used/bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">
+                                    View all used bikes<span class="bwsprite teal-right">
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.IsUsedBikeCitiesAvailable)
+                    {
+                        <section>
+                            <div class="bw-tabs-data @(Model.IsUsedModelsAvailable ? "hide" : "")" id="usedByCity">
+                                @Html.Partial("~/Views/UsedBikes/_usedBikesCities.cshtml", Model.UsedBikeCities)
+                            </div>
+                        </section>
+                    }
+                    <div id="usedByBudget" class="bw-tabs-data hide">
+                        <ul class="elevated-card-list">
+                            <li>
+                                <a href="/used/bikes-in-india/#budget=0+35000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwsprite budget-one"></span>
+                                        </div>
+                                        <span class="key-size-14">Upto</span><br />
+                                        <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">35,000</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/used/bikes-in-india/#budget=35000+80000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwsprite budget-two"></span>
+                                        </div>
+                                        <span class="key-size-14">Between</span><br />
+                                        <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">35,000 -</span>
+                                        &nbsp<span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">80,000</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/used/bikes-in-india/#budget=80000+200000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwsprite budget-three"></span>
+                                        </div>
+                                        <span class="key-size-14">Above</span><br />
+                                        <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">80,000</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="more-article-target view-all-btn-container padding-top10 padding-bottom20">
+                            <a href="/used/bikes-in-india/" title="Second Hand Bikes in India" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <section>
+        <!--  News Bikes latest updates code starts here -->
+        <div class="@string.Format("container {0}", Model.TabCount == 0 ? "hide" : string.Empty)">
+            <div class="grid-12">
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest updates from the bike industry</h2>
+                <div class="bw-tabs-panel margin-bottom30 padding-bottom20 content-box-shadow article-control">
+                    <div class="@string.Format("text-center {0}", Model.TabCount > 2 ? string.Empty : Model.TabCount > 1 ? "margin-top30 margin-bottom30" : "margin-top10")">
+                        <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", Model.TabCount > 2 ? "bw-tabs-flex" : Model.TabCount > 1 ? "home-tabs" : "hide")">
+                            <ul>
+                                @if (Model.News.FetchedCount > 0)
+                                {
+                                    <li class="@string.Format("{0}", Model.IsNewsActive ? "active" : "hide")" data-tabs="ctrlNews">
+                                        <h3>News</h3>
+                                    </li>
+                                }
+                                @if (Model.ExpertReviews.FetchedCount > 0)
+                                {
+                                    <li class="@string.Format("{0}", Model.IsExpertReviewActive ? "active" : "hide")" data-tabs="ctrlExpertReviews">
+                                        <h3>Expert Reviews</h3>
+                                    </li>
+                                }
+                                @if (Model.Videos.FetchedCount > 0)
+                                {
+                                    <li class="@string.Format("{0}", Model.IsVideoActive ? "active" : "hide")" data-tabs="ctrlVideos">
+                                        <h3>Videos</h3>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bw-tabs-data padding-left10 padding-right10" id="ctrlNews">
+                        @if (Model.News.FetchedCount > 0)
+                        {
+                            @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+                        }
+                    </div>
+                    <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlExpertReviews">
+                        @if (Model.ExpertReviews.FetchedCount > 0)
+                        {
+                            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                            <div class="padding-left10 more-article-target view-all-btn-container">
+                                <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="btn view-all-target-btn">Read all reviews<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        }
+                    </div>
+                    <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlVideos">
+                        @if (Model.Videos.FetchedCount > 0)
+                        {
+                            @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <!-- Ends here -->
+
+</body>
