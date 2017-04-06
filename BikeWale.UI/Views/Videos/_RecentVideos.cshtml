@@ -1,0 +1,38 @@
+﻿@model Bikewale.Models.RecentVideosVM
+@using Bikewale.Utility
+@if (Model != null && Model.VideosList != null && Model.VideosList != null) { 
+foreach(var video in Model.VideosList){
+<div class="margin-bottom20">
+    <div class="grid-4">
+        <div class="model-preview-image-container">
+            <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))"
+                title="@video.VideoTitle">
+                <img class="lazy" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)" title="@video.VideoTitle" alt="" src="" />
+                <span class="play-icon-wrapper">
+                    <span class="bwsprite video-play-icon"></span>
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="grid-8">
+        <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" class="article-target-link"  title="@video.VideoTitle">@video.VideoTitle</a>
+        <div class="article-stats-left-grid">
+            <span class="bwsprite calender-grey-sm-icon"></span>
+            <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "MMM dd, yyyy")</span>
+        </div>
+        <div class="article-stats-right-grid">
+            <span class="bwsprite review-sm-lgt-grey"></span>
+            <span class="article-stats-content">@Format.FormatPrice(Convert.ToString(video.Views))</span>
+        </div>
+        <p class="margin-top12 line-height17">
+            @FormatDescription.TruncateDescription(video.Description,200)
+        </p>
+    </div>
+    <div class="clear"></div>
+</div>
+        }
+        <!--To be included on specific page -->
+<div class="padding-left10 more-article-target view-all-btn-container">
+    <a title="@Model.LinkTitle" href="@Model.MoreVideoUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="View_all_videos_link_cliked" v="@Model.BikeName">View all videos<span class="bwsprite teal-right"></span></a>
+</div>
+}

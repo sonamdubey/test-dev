@@ -267,7 +267,7 @@
                                 _responseData.qStr = self.createMPQ(_responseData.priceQuote.quoteId);
                             }
                             if (!self.IsReload() && _responseData.qStr != '') {
-                                window.location = "/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
+                                window.location = "/pricequote/dealer/" + "?MPQ=" + _responseData.qStr;
                             }
                             else window.location.reload(true);
                         }

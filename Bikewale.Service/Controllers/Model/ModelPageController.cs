@@ -57,15 +57,13 @@ namespace Bikewale.Service.Controllers.Model
         {
             BikeModelPageEntity objModelPage = null;
             Bikewale.DTO.Model.ModelPage objDTOModelPage = null;
-          
+
             try
             {
                 objModelPage = _modelBL.GetModelPageDetails(Convert.ToInt32(modelId));
 
                 if (objModelPage != null)
                 {
-                    objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelId);
-                                       
                     // If android, IOS client sanitize the article content 
                     string platformId = string.Empty;
 
@@ -129,11 +127,6 @@ namespace Bikewale.Service.Controllers.Model
                         {
                             objModelPage.objSpecs.SpecsCategory.Clear();
                             objModelPage.objSpecs.SpecsCategory = null;
-                        }
-                        if (objModelPage.Photos != null)
-                        {
-                            objModelPage.Photos.Clear();
-                            objModelPage.Photos = null;
                         }
                     }
 
@@ -209,7 +202,6 @@ namespace Bikewale.Service.Controllers.Model
                             objModelPage.objSpecs = null;
                         }
                     }
-                    objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelId);
                     // Auto map the properties
                     objDTOModelPage = new Bikewale.DTO.Model.v2.ModelPage();
                     objDTOModelPage = ModelMapper.ConvertV2(objModelPage);
@@ -239,11 +231,6 @@ namespace Bikewale.Service.Controllers.Model
                         {
                             objModelPage.objSpecs.SpecsCategory.Clear();
                             objModelPage.objSpecs.SpecsCategory = null;
-                        }
-                        if (objModelPage.Photos != null)
-                        {
-                            objModelPage.Photos.Clear();
-                            objModelPage.Photos = null;
                         }
                     }
 
@@ -286,7 +273,6 @@ namespace Bikewale.Service.Controllers.Model
                 objModelPage = _modelBL.GetModelPageDetails(Convert.ToInt32(modelId));
                 if (objModelPage != null)
                 {
-                    objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelID);
                     if (Request.Headers.Contains("platformId"))
                     {
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
@@ -343,7 +329,6 @@ namespace Bikewale.Service.Controllers.Model
                 objModelPage = _modelBL.GetModelPageDetails(Convert.ToInt32(modelId));
                 if (objModelPage != null)
                 {
-                    objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelID);
                     if (Request.Headers.Contains("platformId"))
                     {
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();

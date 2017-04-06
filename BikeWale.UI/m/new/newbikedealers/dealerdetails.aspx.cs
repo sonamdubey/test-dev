@@ -142,7 +142,7 @@ namespace Bikewale.Mobile
                 {
                     container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
                              .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IDealer, DealersRepository>()
+                             .RegisterType<IDealerRepository, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
                     dealer = objCache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);

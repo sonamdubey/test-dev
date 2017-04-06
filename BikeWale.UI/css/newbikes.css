@@ -62,6 +62,11 @@
 .interest-rate-boxSelect { width:322px; height:40px; float:left; }
 .interest-rate-boxSelect input[type="text"] { width:320px; height: 38px; }
 #btnLocateDealer, #btnCalcEmi { width:166px; }
+#OnRoadContent .chosen-container {
+                            border: 0;
+                            border-radius: 0;
+                            padding: 9px;
+                        }
 #main-compare-bikes-target {
     width: 100%;
     min-height: 384px;

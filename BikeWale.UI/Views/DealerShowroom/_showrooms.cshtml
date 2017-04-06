@@ -1,0 +1,86 @@
+﻿@using Bikewale.Utility;
+@model Bikewale.Models.Shared.ShowroomsVM
+
+@if (Model.CityId > 0 && Model.dealers.Dealers != null && Model.dealers.Dealers.Count() > 0)
+{ 
+    <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
+        <div class="carousel-heading-content">
+            <div class="swiper-heading-left-grid inline-block">
+                <h2>@Model.MakeName Showrooms in @Model.CityName</h2>
+            </div>
+            <div class="swiper-heading-right-grid inline-block text-right">
+                <a href="@UrlFormatter.DealerLocatorUrl(Model.dealers.MakeMaskingName, Model.dealers.CityMaskingName)" title="@Model.dealers.MakeName Showrooms in @Model.dealers.CityName" class="btn view-all-target-btn">View all</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <ul id="city-dealer-list" class="bw-horizontal-cards">
+            @foreach(var dealer in Model.dealers.Dealers){
+            <li class="card">
+                <a href="@UrlFormatter.GetDealerUrl(Model.dealers.MakeMaskingName, Model.dealers.CityMaskingName,dealer.Name,Convert.ToInt32(dealer.DealerId))" title="@dealer.Name" class="card-target">
+                    <p class="text-black text-bold text-truncate margin-bottom5">@dealer.Name</p>
+                    <p class="text-light-grey margin-bottom5 @(String.IsNullOrEmpty(dealer.Address)?"hide":"")">
+                        <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                        <span class="vertical-top details-column">@FormatDescription.TruncateDescription(dealer.Address, 95)</span>
+                    </p>
+                    <p class="text-default @(String.IsNullOrEmpty(dealer.MaskingNumber)?"hide":"")">
+                        <span class="bwsprite phone-black-icon vertical-top"></span>
+                        <span class="text-bold vertical-top details-column text-truncate">@dealer.MaskingNumber</span>
+                    </p>
+                </a>
+            </li>
+            }
+           </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+}
+else { 
+    if (Model.dealerServiceCenter != null) { 
+          <div id="makeDealerContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
+            <h2 class="padding-left20 padding-right20">@Model.MakeName @(Model.dealerServiceCenter.TotalDealerCount>0?"Showrooms":"")  @((Model.dealerServiceCenter.TotalDealerCount>0 && @Model.dealerServiceCenter.TotalServiceCenterCount>0)?"&":"")  @(Model.dealerServiceCenter.TotalServiceCenterCount>0?"Service Centers":"") </h2>
+            <div class="jcarousel-wrapper inner-content-carousel no-city-selection-carousel">
+                <div class="jcarousel">
+                    <ul>
+                        @foreach (var details in Model.dealerServiceCenter.DealerDetails) { 
+                        <li>
+                            <div class="dealer-jcarousel-image-preview">
+                                <span class="city-sprite @details.CityMaskingName-icon"></span>
+                            </div>
+                            <div class="font14 padding-left20 padding-right20 padding-bottom20">
+                                <p class="text-default text-bold margin-bottom5">@Model.MakeName outlets in @details.CityName</p>
+                                @if (details.DealerCount>0) {
+                                <a href="/@Model.MakeMaskingName-dealer-showrooms-in-@details.CityMaskingName/" title="@Model.MakeName showroom in @details.CityName" class="block">@details.DealerCount @((details.DealerCount > 1 )? "showrooms" : "showroom")</a>
+                                } 
+                                @if (details.ServiceCenterCount>0){
+                                <a href="/@Model.MakeMaskingName-service-center-in-@details.CityMaskingName/" title="@Model.MakeName service center in @details.CityName" class="block">@details.ServiceCenterCount service center@((details.ServiceCenterCount > 1 )? "s" : "")</a>
+                                } 
+                            </div>
+                        </li>
+                        } 
+                        @if (Model.dealerServiceCenter.TotalDealerCount > 0 || Model.dealerServiceCenter.TotalServiceCenterCount > 0)
+                        {
+                        <li>
+                            <div class="dealer-jcarousel-image-preview">
+                                <span class="city-sprite india-icon"></span>
+                            </div>
+                            <div class="font14 padding-left20 padding-right20 padding-bottom20">
+                                <p class="text-default text-bold margin-bottom5">@Model.MakeName outlets in India</p>
+                                @if (Model.dealerServiceCenter.TotalDealerCount > 0)
+                                {
+                                <a href="/@Model.MakeMaskingName-dealer-showrooms-in-india/" title="@Model.MakeName showroom in India" class="block">@Model.dealerServiceCenter.TotalDealerCount @((Model.dealerServiceCenter.TotalDealerCount>0 )? "showrooms" : "showroom" )</a>
+                                } 
+                                @if (Model.dealerServiceCenter.TotalServiceCenterCount > 0)
+                                {
+                                <a href="/@Model.MakeMaskingName-service-center-in-india/" title="@Model.MakeName service center in India" class="block">@Model.dealerServiceCenter.TotalServiceCenterCount service center@((Model.dealerServiceCenter.TotalServiceCenterCount > 1 )? "s" : "")</a>
+                                } 
+                            </div>
+                        </li>
+                        } 
+                    </ul>
+                </div>
+                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+            </div>
+        </div>
+    }
+}

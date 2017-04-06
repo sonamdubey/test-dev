@@ -1,0 +1,225 @@
+﻿@model Bikewale.Models.NewPageVM
+@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-newbikes.css' />";
+    Model.Page_BTF_CSS_Path = "/m/css/bwm-common-btf.css";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewHome";
+    Model.AdTags.AdId = "1450262524302";
+    Model.AdTags.Ad320x150_Top = true;
+    Model.AdTags.Ad320x150_Bottom = true;
+    Model.IsTransparentHeader = true;
+}
+<section>
+    <div class="container">
+        <div class="newbikes-banner-div text-center">
+            <!-- Top banner code starts here -->
+            <h1 class="font22 text-uppercase text-white">New Bikes in India</h1>
+            <p class="font14 text-white">All new bikes under one roof</p>
+        </div>
+        <!-- Top banner code ends here -->
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="grid-12">
+                    <div class="bg-white brand-wrapper content-box-shadow margin-minus60 padding-bottom20 collapsible-brand-content">
+                        <h2 class="content-inner-block-10 text-uppercase text-center margin-top30 margin-bottom20">Brand</h2>
+                        @Html.Partial("~/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
+                    </div>
+                    <div class="clear"></div>
+                </div>
+        </div>
+</section>
+<section>
+    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_First.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+<section>
+    <!--  Upcoming, New Launches and Top Selling code starts here -->
+    <div class="container">
+        <div class="grid-12 alpha omega">
+            <h2 class="font18 text-center margin-top20 margin-bottom10">Featured bikes</h2>
+            <div class="featured-bikes-panel content-box-shadow padding-bottom15">
+                <div class="bw-tabs-panel">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul>
+                            @if (Model.IsPopularBikesDataAvailable)
+                            {
+                                <li class="active" data-tabs="mctrlMostPopularBikes">Most Popular</li>
+                            }
+                            @if (Model.IsNewLaunchedDataAvailable)
+                            {
+                                <li data-tabs="mctrlNewLaunchedBikes">New launches</li>
+                            }
+                            @if (Model.IsUpcomingBikeAvailable)
+                            {
+                                <li data-tabs="mctrlUpcomingBikes">Upcoming </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="grid-12 alpha omega">
+                        @if (Model.IsPopularBikesDataAvailable)
+                        {
+                            <div class="bw-tabs-data features-bikes-container" id="mctrlMostPopularBikes">
+
+                                @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularBikes)
+
+                                <div class="padding-left10 view-all-btn-container margin-top10">
+                                    <a href="/m/best-bikes-in-india/" title="Popular Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+                                </div>
+                            </div>
+                        }
+                        @if (Model.IsNewLaunchedDataAvailable)
+                        {
+                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
+
+                                @Html.Partial("~/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunchedBikes)
+
+                                <div class="padding-left10 view-all-btn-container margin-top10">
+                                    <a href="/m/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all launches<span class="bwmsprite teal-right"></span></a>
+                                </div>
+                            </div>
+                        }
+                        @if (Model.IsUpcomingBikeAvailable)
+                        {
+                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
+
+                                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingBikes)
+                                <div class="padding-left10 view-all-btn-container margin-top10">
+                                    <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+@if (Model.BestBikes != null)
+{
+    <section>
+        @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
+    </section>
+}
+<section>
+    <div class="container">
+        <h2 class="font18 text-center margin-top20 margin-bottom10">Compare bikes</h2>
+        @Html.Partial("~/Views/CompareBikes/_ComparisonMin_Mobile.cshtml", Model.CompareBikes)
+     </div>
+</section>
+<section>
+    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = Model.AdTags.AdId });}
+</section>
+
+<section class="container">
+    <!-- Tools you may need code starts here -->
+    <div class="grid-12">
+        <h2 class="font18 text-center margin-top20 margin-bottom10">New bike buying tools</h2>
+        <div class="tools-need-container margin-bottom10 text-center">
+            <ul>
+                <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
+                    <a href="/m/pricequote/">
+                        <span class="tools-need-logo">
+                            <span class="bwm-circle-icon getfinalprice-icon"></span>
+                        </span>
+                        <span class="tools-need-desc text-left">
+                            <span class="font18 text-bold">Get final price</span>
+                            <br>
+                            <span class="font14 tools-need-text">Get final price without filling any form</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
+                    <a href="/m/dealer-showroom-locator/">
+                        <span class="tools-need-logo">
+                            <span class="bwm-circle-icon locatedealer-icon"></span>
+                        </span>
+                        <span class="tools-need-desc text-left">
+                            <span class="font18 text-bold">Locate dealer</span>
+                            <br>
+                            <span class="font14 tools-need-text">Find a dealer near your current location</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20 hide">
+                    <a href="javascript:void(0)">
+                        <span class="tools-need-logo">
+                            <span class="bwm-circle-icon checkcarvalue-icon"></span>
+                        </span>
+                        <span class="tools-need-desc text-left">
+                            <span class="font18 text-bold">Calculate EMI's</span>
+                            <br>
+                            <span class="font14 tools-need-text">Instant calculate loan EMI</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+
+@if (Model.TabCount > 0)
+{
+    <section class="container">
+        <!--  News, reviews and videos code starts here -->
+        <div class="container">
+            <div class="grid-12 alpha omega margin-bottom20">
+                <h2 class="font18 text-center margin-top20 margin-bottom10">Latest updates</h2>
+                <div class="content-box-shadow">
+                    <div class="bw-tabs-panel article-control padding-bottom20">
+                        <div class="bw-tabs">
+                            <div class="@string.Format("text-center {0}", Model.TabCount > 2 ? string.Empty : Model.TabCount > 1 ? "margin-top30 margin-bottom30" : "margin-top10")">
+                                <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", Model.TabCount > 2 ? "bw-tabs-flex" : Model.TabCount > 1 ? "home-tabs" : "hide")">
+                                    <ul>
+                                        @if (Model.News.FetchedCount > 0)
+                                        {
+                                            <li data-tabs="ctrlNews" class="@string.Format("{0}", Model.IsNewsActive ? "active" : "hide")">News</li>
+                                        }
+                                        @if (Model.ExpertReviews.FetchedCount > 0)
+                                        {
+                                            <li data-tabs="ctrlExpertReviews" class="@string.Format("{0}", Model.IsExpertReviewActive ? "active" : "hide")">Expert Reviews</li>
+                                        }
+                                        @if (Model.Videos.FetchedCount > 0)
+                                        {
+                                            <li data-tabs="ctrlVideos" class="@string.Format("{0}", Model.IsVideoActive ? "active" : "hide")">Videos</li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bw-tabs-data margin-right20 margin-left20" id="ctrlNews">
+                            @if (Model.News.FetchedCount > 0)
+                            {
+                                @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                            }
+                        </div>
+                        <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlExpertReviews">
+                            @if (Model.ExpertReviews.FetchedCount > 0)
+                            {
+                                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+                                <div class="view-all-btn-container">
+                                    <a title="@Model.ExpertReviews.LinkTitle" href="@string.Format("/m{0}",Model.ExpertReviews.MoreExpertReviewUrl)" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
+                                </div>
+                            }
+                        </div>
+                        <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlVideos">
+                            @if (Model.Videos.FetchedCount > 0)
+                            {
+                                @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
+<span id="jsvalues" data-clientip='@Bikewale.Common.CommonOpn.GetClientIP()'></span>
+
+

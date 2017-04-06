@@ -93,6 +93,14 @@
   position: relative;
   top: 3px; }
 
+.service-location-img {
+  width: 200px;
+  height: 75px;
+  display: block;
+  background-color: #e5e3df;
+  background-size: cover;
+  background-position: center center; }
+
 @media only screen and (max-width: 420px) {
   .change-text {
     display: block; }
@@ -239,12 +247,3 @@
     width: 275px; }
   .bw-horizontal-swiper .swiper-card {
     width: 275px; } }
-
-.service-location-img{
-    width:200px;
-    height:75px;
-    display: block;
-    background-color: rgb(229, 227, 223);
-    background-size: cover;
-    background-position: center center;
-}

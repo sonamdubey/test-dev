@@ -1,0 +1,39 @@
+﻿@model Bikewale.Entities.UserReviews.ReviewListBase
+@using Bikewale.Utility;
+@if (Model != null && Model.ReviewList != null && Model.ReviewList.Count > 0)
+{
+    <div class="bw-tabs-data" id="ctrlUserReviews">
+        <!-- Reviews data code starts here-->
+        <div class="model-user-review-container">
+            @foreach (var review in Model.ReviewList)
+            {
+                <div class="grid-12 margin-bottom20">
+                    <div class="model-user-review-rating-container leftfloat">
+                        <p>@review.OverAllRating.OverAllRating</p>
+                        <p class="inline-block margin-bottom5 margin-top5">
+                            @Html.Raw(ReviewsRating.GetRateImage(Convert.ToDouble(review.OverAllRating.OverAllRating)))
+                        </p>
+                    </div>
+                    <div class="model-user-review-title-container">
+                        <a class="article-target-link line-height" title="@review.ReviewTitle" href="@String.Format("/{0}-bikes/{1}/user-reviews/{2}.html",review.MakeMaskingName,review.ModelMaskingName,review.ReviewId)">
+                            @review.ReviewTitle
+                        </a>
+                        <div class="article-stats-left-grid">
+                            <span class="bwsprite calender-grey-sm-icon"></span>
+                            <span class="article-stats-content">@review.ReviewDate.ToString("MMM dd, yyyy")</span>
+                        </div>
+                        <div class="article-stats-right-grid">
+                            <span class="bwsprite author-grey-sm-icon"></span>
+                            <span class="article-stats-content">@review.WrittenBy</span>
+                        </div>
+                        <p class="margin-top12 line-height17">
+                            @FormatDescription.TruncateDescription(review.Comments, 200)
+                        </p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            }
+        </div>
+        <div class="clear"></div>
+    </div>
+}

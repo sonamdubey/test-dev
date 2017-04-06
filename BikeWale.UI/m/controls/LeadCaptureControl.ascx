@@ -583,8 +583,8 @@
 
         self.setPinCodeSuggestion = function () {
 
-            //$.fn.hint = bwHint;
-            //$.fn.bw_autocomplete = bwAutoComplete;
+            $.fn.hint = bwHint;
+            $.fn.bw_autocomplete = bwAutoComplete;
 
             $("#getPinCode").bw_autocomplete({
                 source: 4,
@@ -797,7 +797,7 @@
         ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
         dleadvm.setInputValues();
 
-        if ($("#getPinCode").is(":visible")) {
+        if ($("#getPinCode") && $("#getPinCode").length > 0) {
             dleadvm.setPinCodeSuggestion();
         }
 

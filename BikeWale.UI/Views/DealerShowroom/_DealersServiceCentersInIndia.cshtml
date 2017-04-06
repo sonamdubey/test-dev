@@ -1,0 +1,50 @@
+﻿@using Bikewale.Utility;
+@model Bikewale.Models.DealersServiceCentersIndiaWidgetVM
+
+@if (Model != null) {
+<div class="jcarousel-wrapper inner-content-carousel no-city-selection-carousel">
+    <div class="jcarousel">
+        <ul>
+            @foreach (var details in Model.DealerServiceCenters.DealerDetails)
+            {
+                            <li>
+                                <div class="dealer-jcarousel-image-preview">
+                                    <span class="city-sprite @details.CityMaskingName-icon"></span>
+                                </div>
+                                <div class="font14 padding-left20 padding-right20 padding-bottom20">
+                                    <p class="text-default text-bold margin-bottom5">@Model.MakeName outlets in @details.CityName</p>
+                                    @if (details.DealerCount>0) {
+                                    <a href="/@Model.MakeMaskingName-dealer-showrooms-in-@details.CityMaskingName/" title="@Model.MakeName showroom in @details.CityName" class="block">@details.DealerCount @((details.DealerCount > 1 )? "showrooms" : "showroom")</a>
+                                    }
+                                    @if (details.ServiceCenterCount>0){
+                                    <a href="/@Model.MakeMaskingName-service-center-in-@details.CityMaskingName/" title="@Model.MakeName service center in @details.CityName" class="block">@details.ServiceCenterCount service center@((details.ServiceCenterCount > 1 )? "s" : "")</a>
+                                    }
+                                </div>
+                            </li>
+                            }
+                        @if (Model.DealerServiceCenters.TotalDealerCount > 0 || Model.DealerServiceCenters.TotalServiceCenterCount > 0)
+                            {
+                            <li>
+                                <div class="dealer-jcarousel-image-preview">
+                                    <span class="city-sprite india-icon"></span>
+                                </div>
+                                <div class="font14 padding-left20 padding-right20 padding-bottom20">
+                                    <p class="text-default text-bold margin-bottom5">@Model.MakeName outlets in India</p>
+                                    @if (Model.DealerServiceCenters.TotalDealerCount > 0)
+                                    {
+                                    <a href="/@Model.MakeMaskingName-dealer-showrooms-in-india/" title="@Model.MakeName showroom in India" class="block">@Model.DealerServiceCenters.TotalDealerCount @((Model.DealerServiceCenters.TotalDealerCount>0 )? "showrooms" : "showroom" )</a>
+                                    }
+                                    @if (Model.DealerServiceCenters.TotalServiceCenterCount > 0)
+                                    {
+                                    <a href="/@Model.MakeMaskingName-service-center-in-india/" title="@Model.MakeName service center in India" class="block">@Model.DealerServiceCenters.TotalServiceCenterCount service center@((Model.DealerServiceCenters.TotalServiceCenterCount > 1 )? "s" : "")</a>
+                                    }
+                                </div>
+                            </li>
+                            }
+        </ul>
+    </div>
+    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+</div>
+
+        }

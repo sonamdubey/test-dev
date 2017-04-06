@@ -39,14 +39,76 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BikeCare\BikeCareDetailPageVM.cs" />
+    <Compile Include="BikeModels\ModelPageVM.cs" />
+    <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
+    <Compile Include="DealerShowroom\DealerCardVM.cs" />
+    <Compile Include="DealerShowroom\DealersServiceCentersIndiaWidgetVM.cs" />
+    <Compile Include="DealerShowroom\IndexVM.cs" />
+    <Compile Include="Features\DetailFeatureVM.cs" />
+    <Compile Include="Features\IndexFeatureVM.cs" />
+    <Compile Include="ExpertReviews\ExpertReviewsDetailPageVM.cs" />
+    <Compile Include="Make\BrandCityPopupVM.cs" />
+    <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />
+    <Compile Include="Make\MakePageVM.cs" />
+    <Compile Include="BikeCare\RecentBikeCareVM.cs" />
+    <Compile Include="BikeModels\BikeModelRankVM.cs" />
+    <Compile Include="DealerShowroom\DealerShowroomCityPageVM.cs" />
+    <Compile Include="DealerShowroom\DealerShowroomDealerDetailsVM.cs" />
+    <Compile Include="DealerShowroom\DealerShowroomIndiaPageVM.cs" />
+    <Compile Include="BestBikes\PopularBodyStyleVM.cs" />
+    <Compile Include="BikeModels\BikeInfoVM.cs" />
+    <Compile Include="BestBikes\BestBikeWidgetVM.cs" />
+    <Compile Include="Make\BrandWidgetVM.cs" />
+    <Compile Include="CompareBikes\ComparisonMinWidgetVM.cs" />
+    <Compile Include="ExpertReviews\ExpertReviewsIndexPageVM.cs" />
+    <Compile Include="ExpertReviews\RecentExpertReviewsVM.cs" />
+    <Compile Include="BikeModels\MostPopularBikeWidgetVM.cs" />
+    <Compile Include="BikeModels\SimilarBikesWidgetVM.cs" />
+    <Compile Include="HomePage\HomePageVM.cs" />
+    <Compile Include="Location\ChangeLocationPopupVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
+    <Compile Include="NewPage\NewPageVM.cs" />
+    <Compile Include="News\NewsDetailPageVM.cs" />
+    <Compile Include="NewLaunches\NewLaunchedIndexVM.cs" />
+    <Compile Include="NewLaunches\NewLaunchedMakeVM.cs" />
+    <Compile Include="NewLaunches\NewLaunchesBikesVM.cs" />
+    <Compile Include="News\NewsIndexPageVM.cs" />
+    <Compile Include="NewLaunches\NewLaunchedWidgetVM.cs" />
+    <Compile Include="Price\DealerPriceQuotePageVM.cs" />
+    <Compile Include="News\RecentNewsVM.cs" />
+    <Compile Include="PriceInCity\PriceInCityPageVM.cs" />
+    <Compile Include="PriceInCity\PriceInTopCitiesWidgetVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scooters\ScooterComparesVM.cs" />
+    <Compile Include="Scooters\ScootersIndexPageVM.cs" />
+    <Compile Include="Scooters\ScootersMakePageVM.cs" />
+    <Compile Include="ServiceCenters\ServiceCenterCityPageVM.cs" />
+    <Compile Include="ServiceCenters\ServiceCenterDetailsPageVM.cs" />
+    <Compile Include="ServiceCenters\ServiceCenterDetailsWidgetVM.cs" />
+    <Compile Include="ServiceCenters\ServiceCenterIndiaPageVM.cs" />
+    <Compile Include="ServiceCenters\ServiceCenterLandingPageVM.cs" />
+    <Compile Include="ServiceCenters\ServiceCentersNearByCityWidgetVM.cs" />
     <Compile Include="Shared\BikeInfo.cs" />
     <Compile Include="Shared\Brands.cs" />
+    <Compile Include="Shared\EditCMSPhotoGalleryVM.cs" />
     <Compile Include="Shared\Pager.cs" />
     <Compile Include="Shared\PopularScootersList.cs" />
     <Compile Include="Shared\Showrooms.cs" />
+    <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
+    <Compile Include="Videos\MakeVideosPageVM.cs" />
+    <Compile Include="Videos\ModelWiseVideoPageVM.cs" />
+    <Compile Include="Videos\SimilarVideoModelsVM.cs" />
+    <Compile Include="Videos\VideoDetailsPageVM.cs" />
+    <Compile Include="Videos\VideosByCategoryPageVM.cs" />
+    <Compile Include="Videos\VideosBySubcategoryVM.cs" />
+    <Compile Include="Used\UsedBikeCitiesWidgetVM.cs" />
+    <Compile Include="Used\UsedBikeByModelCityVM.cs" />
+    <Compile Include="Used\UsedBikeByModelVM.cs" />
+    <Compile Include="Used\UsedModelsVM.cs" />
+    <Compile Include="Videos\RecentVideosVM.cs" />
+    <Compile Include="Videos\VideosLandingPageVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
@@ -55,6 +117,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="BikeMakes\" />
     <Folder Include="Desktop\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

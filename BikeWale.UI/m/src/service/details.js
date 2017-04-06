@@ -1,9 +1,4 @@
-﻿var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
-
-$(document).ready(function () {
-    $('.chosen-select').chosen();
-});
-
+﻿var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "", bikeschedule, serviceLat, serviceLong, currentCityName, googleMapAPIKey;
 
 function getLocation() {
     if (navigator.geolocation) {
@@ -14,8 +9,6 @@ function getLocation() {
         );
     }
 }
-
-$(document).on("click", "#getUserLocation", function () { getLocation(); });
 
 function savePosition(position) {
     userLocation = {
@@ -38,11 +31,10 @@ function savePosition(position) {
 }
 
 function setUserLocation(position) {
-    $("#linkMap").attr("href", "https://maps.google.com/?saddr=" + position.lat() + "," + position.lng() + "&daddr=" + serviceLat + "," + serviceLong + '');
+    if (position != null) {
+        $("#linkMap").attr("href", "https://maps.google.com/?saddr=" + position.coords.latitude + "," + position.coords.longitude + "&daddr=" + serviceLat + "," + serviceLong + '');
+    }
 }
-$("#assistanceBrandInput").on("keyup", function () {
-    locationFilter($(this));
-});
 
 function initializeMap() {
     getLocation();
@@ -236,4 +228,78 @@ $(window).on('popstate', function (event) {
     if ($('#contact-service-popup').is(':visible')) {
         modalPopup.close('#contact-service-popup');
     }
+});
+
+function SchedulesViewModel() {
+    var self = this;
+    self.bikes = ko.observable(bikeschedule);
+    self.currentBikeName = ko.observable();
+    self.bikesList = ko.observable(self.bikes());
+    self.isDataExist = ko.observable();
+    self.isDays = ko.observable();
+    self.isKms = ko.observable();
+    self.selectedModelId = ko.observable();
+    self.GetModelId = function (data, event) {
+        self.selectedModelId($(event.target).val());
+        var bikename = ko.utils.arrayFirst(self.bikes(), function (bike) {
+            return bike.ModelId == self.selectedModelId();
+        });
+        if (bikename != null)
+            self.currentBikeName(bikename.ModelName);
+    };
+    function isDaysDataExists(sch) {
+        var isFound = false;
+        ko.utils.arrayForEach(sch, function (s) {
+            if (s.Days && s.Days > 0) {
+                isFound = true;
+            }
+        });
+        return isFound;
+    }
+    function isKmsDataExists(sch) {
+        var isFound = false;
+        ko.utils.arrayForEach(sch, function (s) {
+            if (s.Kms && s.Kms.length > 0) {
+                isFound = true;
+            }
+        });
+        return isFound;
+    }
+    self.selectedModelId.subscribe(function () {
+        var arr = ko.utils.arrayFirst(self.bikes(), function (b) {
+            return b.ModelId == self.selectedModelId();
+        });
+        self.bikesList(null);
+        self.bikesList(arr);
+        if (arr.Schedules.length > 0)
+            self.isDataExist(true);
+        else
+            self.isDataExist(false);
+        self.isDays(isDaysDataExists(arr.Schedules));
+        self.isKms(isKmsDataExists(arr.Schedules));
+    });
+}
+
+docReady(function () {
+    $('.chosen-select').chosen();
+    $(document).on("click", "#getUserLocation", function () { getLocation(); });
+    $("#assistanceBrandInput").on("keyup", function () {
+        locationFilter($(this));
+    });
+
+    serviceLat = $('#service-schedule-data').data("servicelat");
+    serviceLong = $('#service-schedule-data').data("servicelong");
+    currentCityName = $('#service-schedule-data').data("cityname");
+    googleMapAPIKey = $('#service-schedule-data').data("googlekey");
+
+    if ($("#service-schedule-data").html()) {
+        bikeschedule = JSON.parse($("#service-schedule-data").html().replace(/\s/g, ' '));
+        var vmService = new SchedulesViewModel();
+        ko.applyBindings(vmService, $("#service-schedular")[0]);
+        vmService.selectedModelId(vmService.bikes()[0].ModelId);
+        vmService.currentBikeName($("#selBikes option:selected").text());
+
+    }
+
+    initializeMap();
 });

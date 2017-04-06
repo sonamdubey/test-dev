@@ -1,0 +1,32 @@
+﻿@model Bikewale.Models.BikeCare.RecentBikeCareVM
+@using Bikewale.Utility
+@if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
+{
+        <div class="container bg-white box-shadow card-bottom-margin content-inner-block-20">
+        @foreach(var article in Model.ArticlesList) {
+        <div class="margin-bottom20 font14">
+            <div class="review-image-wrapper">
+                <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId),article.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.TipsAndAdvices)))" title="@article.Title">
+                    <img class="lazy" alt="@article.Title" src="@Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._144x81, QualityFactor._70)">
+                </a>
+            </div>
+            <div class="review-heading-wrapper">
+                <a href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId),article.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.TipsAndAdvices)))" title="@article.Title" class="target-link">@FormatDescription.TruncateDescription( article.Title, 44)</a>
+                <div class="grid-7 alpha padding-right5">
+                    <span class="bwmsprite calender-grey-sm-icon"></span>
+                    <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(article.DisplayDate), "MMM dd, yyyy")</span>
+                </div>
+                <div class="grid-5 alpha omega">
+                    <span class="bwmsprite author-grey-sm-icon"></span>
+                    <span class="article-stats-content">@article.AuthorName</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <p class="margin-top10">
+                @FormatDescription.TruncateDescription(article.Description,180)
+            </p>
+        </div>
+        } 
+        <a href="/m/bike-care/" title="Bike Maintenace Tips" class="font14">Read all bike maintenance tips<span class="bwmsprite blue-right-arrow-icon"></span></a>
+    </div>
+}

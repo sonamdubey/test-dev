@@ -88,76 +88,37 @@ namespace Bikewale.BindViewModels.Controls
             List<BikeVideoEntity> videoDTOList = null;
             try
             {
-                if (_useGrpc)
+
+                GrpcVideosList _objVideoList;
+                int startIndex, endIndex;
+                Bikewale.Utility.Paging.GetStartEndIndex((int)TotalRecords, (int)pageNo, out startIndex, out endIndex);
+
+                if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
                 {
-
-                    GrpcVideosList _objVideoList;
-                    int startIndex, endIndex;
-                    Bikewale.Utility.Paging.GetStartEndIndex((int)TotalRecords, (int)pageNo, out startIndex, out endIndex);
-
-                    if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
-                    {
-                        if (ModelId.HasValue && ModelId.Value > 0)
-                            _objVideoList = GrpcMethods.GetVideosByModelId(ModelId.Value, (uint)startIndex, (uint)endIndex);
-                        else
-                            _objVideoList = GrpcMethods.GetVideosByMakeId(MakeId.Value, (uint)startIndex, (uint)endIndex);
-                    }
+                    if (ModelId.HasValue && ModelId.Value > 0)
+                        _objVideoList = GrpcMethods.GetVideosByModelId(ModelId.Value, (uint)startIndex, (uint)endIndex);
                     else
-                    {
-                        _objVideoList = GrpcMethods.GetVideosBySubCategory((int)EnumVideosCategory.JustLatest, (uint)startIndex, (uint)endIndex);
-                    }
-
-                    if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
-                    {
-                        videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList.LstGrpcVideos);
-                    }
-                    else
-                    {
-                        videoDTOList = GetVideosByMakeModelOldWay();
-                    }
+                        _objVideoList = GrpcMethods.GetVideosByMakeId(MakeId.Value, (uint)startIndex, (uint)endIndex);
                 }
                 else
                 {
-                    videoDTOList = GetVideosByMakeModelOldWay();
+                    _objVideoList = GrpcMethods.GetVideosBySubCategory((int)EnumVideosCategory.JustLatest, (uint)startIndex, (uint)endIndex);
                 }
+
+                if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
+                {
+                    videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList.LstGrpcVideos);
+                }
+
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
-                videoDTOList = GetVideosByMakeModelOldWay();
             }
 
             return videoDTOList;
         }
 
-        public List<BikeVideoEntity> GetVideosByMakeModelOldWay()
-        {
-            List<BikeVideoEntity> objVideosList = null;
 
-            try
-            {
-                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)EnumVideosCategory.JustLatest, pageNo, TotalRecords);
-
-                if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
-                {
-                    if (ModelId.HasValue && ModelId.Value > 0)
-                        _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo={1}&pageSize={2}", ModelId.Value, pageNo, TotalRecords);
-                    else
-                        _apiUrl = String.Format("/api/v1/videos/make/{0}/?appId=2&pageNo={1}&pageSize={2}", MakeId.Value, pageNo, TotalRecords);
-                }
-
-                using (BWHttpClient objclient = new BWHttpClient())
-                {
-                    objVideosList = objclient.GetApiResponseSync<List<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return objVideosList;
-        }
     }
 }

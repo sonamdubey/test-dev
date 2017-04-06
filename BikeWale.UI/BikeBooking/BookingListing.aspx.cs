@@ -3,6 +3,7 @@ using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
@@ -97,7 +98,7 @@ namespace Bikewale.BikeBooking
                 bookingCities = new List<CityEntityBase>();
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealer, Dealer>();
+                    container.RegisterType<IDealer, Dealer>().RegisterType<IDealerRepository, DealersRepository>();
                     IDealer _objDealerPricequote = container.Resolve<IDealer>();
 
                     bookingCities = _objDealerPricequote.GetDealersBookingCitiesList();

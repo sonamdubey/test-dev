@@ -31,7 +31,6 @@
 .prices-by-cities-list li a {width: 55%;}
 .prices-by-cities-list li .nearby-city-price {width: 42%;color: #2a2a2a;text-align:right}
 .inr-dark-grey-xsm-icon {width: 9px;height: 12px;background-position: 0px -459px;position: relative;top: 1px;}
-#modelAlternateBikeContent .swiper-slide {width: 186px;min-height: 252px;border: 1px solid #e2e2e2;background: #fff;}
 #modelAlternateBikeContent .swiper-slide h3 {margin-bottom: 7px;}
 .model-swiper-image-preview {width: 100%;height: 103px;position: relative;}
 .model-swiper-image-preview a {display: block;}

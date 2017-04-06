@@ -110,8 +110,8 @@ namespace Bikewale.New
                 container.RegisterType<IState, States>();
                 objStatesCity = container.Resolve<IState>();
                 states = objStatesCity.GetDealerStatesCities(Convert.ToUInt32(makeId));
-                DealerCount = states.totalDealers;
-                citiesCount = states.totalCities;
+                DealerCount = states.TotalDealers;
+                citiesCount = states.TotalCities;
 
             }
         }
@@ -210,8 +210,8 @@ namespace Bikewale.New
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IDealer, DealersRepository>();
-                        var objCities = container.Resolve<IDealer>();
+                        container.RegisterType<IDealerRepository, DealersRepository>();
+                        var objCities = container.Resolve<IDealerRepository>();
                         _cities = objCities.FetchDealerCitiesByMake(_makeId);
                         if (_cities != null && _cities.Count() > 0)
                         {

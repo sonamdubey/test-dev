@@ -86,8 +86,11 @@ namespace Bikewale.Cache.Compare
             string key = string.Empty;
             try
             {
-                key = string.Format("BW_SimilarCompareBikes_{0}_City_{1}_Cnt_{2}", versionList.Replace(',', '_'), cityid, topCount);
-                compareEntity = _cache.GetFromCache<ICollection<SimilarCompareBikeEntity>>(key, new TimeSpan(1, 0, 0), () => _compareRepository.GetSimilarCompareBikes(versionList, topCount, cityid));
+                if (!String.IsNullOrEmpty(versionList))
+                {
+                    key = string.Format("BW_SimilarCompareBikes_{0}_City_{1}_Cnt_{2}", versionList.Replace(',', '_'), cityid, topCount);
+                    compareEntity = _cache.GetFromCache<ICollection<SimilarCompareBikeEntity>>(key, new TimeSpan(1, 0, 0), () => _compareRepository.GetSimilarCompareBikes(versionList, topCount, cityid));
+                }
             }
             catch (Exception ex)
             {

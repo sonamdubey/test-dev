@@ -589,6 +589,7 @@
 			</div>
 		</div>
 		<%} %>
+
 		<!-- Lead Capture pop up start  -->               
 		<BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 		 <!-- Lead Capture pop up end  -->
@@ -739,7 +740,7 @@
 						var jsonObj = json;
 						if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
 							cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + versionId + "&DealerId=" + secondaryDealerId;
-							window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
+							window.location.href = "/m/pricequote/dealer/?MPQ=" + Base64.encode(cookieValue);
 						}
 					}
 				});

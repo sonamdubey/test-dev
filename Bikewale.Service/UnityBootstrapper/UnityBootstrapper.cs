@@ -124,6 +124,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
             container.RegisterType<ICustomerRepository<CustomerEntity, UInt32>, CustomerRepository<CustomerEntity, UInt32>>();
             container.RegisterType<IDealer, Dealer>();
+            container.RegisterType<IDealerRepository, DealersRepository>();
             container.RegisterType<IFeedback, FeedbackRepository>();
             container.RegisterType<IBikeSeries<BikeSeriesEntity, int>>();
             container.RegisterType<IState, StateRepository>();
@@ -176,6 +177,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IMobileAppAlert, Bikewale.BAL.MobileAppAlert.MobileFCMNotifications>();
             container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>();
             container.RegisterType<INewBikeLaunchesBL, NewBikeLaunchesBL>();
+            container.RegisterType<IDealerRepository, DealersRepository>();
             return container;
         }
     }
