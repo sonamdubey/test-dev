@@ -59,6 +59,9 @@ docReady(function () {
             $(this).addClass('active');
             showTab($(this).attr('id'));
         });
+
+        $('.model-versions-tabs-wrapper li').first().trigger("click");
+
     } catch (e) {
         console.warn(e.message);
     }

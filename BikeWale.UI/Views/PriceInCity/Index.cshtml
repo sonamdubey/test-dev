@@ -37,7 +37,7 @@
                     </li>
                     <li>
                         <span class="bwsprite fa-angle-right margin-right10"></span>
-                        <span>@String.Format("Price in {0}",Model.CityEntity.CityName)</span>
+                        <span>@String.Format("Price in {0}", Model.CityEntity.CityName)</span>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -65,8 +65,12 @@
                 <div id="modelVersionDetailsWrapper" class="text-light-grey padding-bottom20">
                     <div class="grid-4 padding-top10">
                         <div class="model-version-image-content">
-                            @if(Model.IsDiscontinued) { <span class="discontinued-text-label font16 position-abt text-center">Discontinued</span>}
-                            <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
+                            @if (Model.IsDiscontinued)
+                            { <span class="discontinued-text-label font16 position-abt text-center">Discontinued</span>}
+                            @if (Model.FirstVersion != null)
+                            {
+                                <img src="@Image.GetPathToShowImages(Model.FirstVersion.OriginalImage,Model.FirstVersion.HostUrl,ImageSize._310x174,QualityFactor._75)" title="@Model.BikeName" alt="@Model.BikeName" />
+                            }
                         </div>
                     </div>
                     <div class="grid-4 padding-top15">
@@ -157,7 +161,7 @@
                         else
                         {
                             <script type='text/javascript' src='https://www.googletagservices.com/tag/js/gpt.js'>
-							      googletag.pubads().definePassback('/1017752/Bikewale_PQ_300x250', [300, 250]).display();
+                                googletag.pubads().definePassback('/1017752/Bikewale_PQ_300x250', [300, 250]).display();
                             </script>
                         }
                     </div>
@@ -174,30 +178,31 @@
                     </div>
                 }
 
-                        @if (Model.HasServiceCenters)
-                        {
-                            <div class="margin-left10 margin-right10 border-solid-bottom"></div>
-                            <div class="carousel-heading-content padding-top20">
-                                <div class="swiper-heading-left-grid inline-block">
-                                    <h2>@Model.ServiceCenterWidget_H2</h2></div><div class="swiper-heading-right-grid inline-block text-right">
-                                    <a href="@Model.ServiceCenterWidget_ViewAll_Href" title="@Model.ServiceCenterWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            @Html.Partial("~/views/servicecenters/_ServiceCentersCard.cshtml", Model.ServiceCenters)
-                            <div class="clear"></div>
-                            <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-                        }
-
-                        @if (Model.HasNearestPriceCities)
-                        {
-                            <div id="modelPriceInNearbyCities" class="content-inner-block-20">
-                                <h2 class="font14 text-bold text-x-black margin-bottom15">@Model.NearestPriceCitiesWidget_H2<span class="text-light-grey text-unbold margin-left5">(@(Model.IsNew ? "On road price" : "Ex-showroom price"))</span></h2>
-                                @Html.Partial("~/views/priceincity/_ModelPriceInNearestCities.cshtml", Model.PriceInNearestCities)
-                                <div class="clear"></div>
-                            </div>
-                        }
+                @if (Model.HasServiceCenters)
+                {
+                    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+                    <div class="carousel-heading-content padding-top20">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2>@Model.ServiceCenterWidget_H2</h2>
+                        </div><div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="@Model.ServiceCenterWidget_ViewAll_Href" title="@Model.ServiceCenterWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
+                        </div>
+                        <div class="clear"></div>
                     </div>
+                    @Html.Partial("~/views/servicecenters/_ServiceCentersCard.cshtml", Model.ServiceCenters)
+                    <div class="clear"></div>
+                    <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                }
+
+                @if (Model.HasNearestPriceCities)
+                {
+                    <div id="modelPriceInNearbyCities" class="content-inner-block-20">
+                        <h2 class="font14 text-bold text-x-black margin-bottom15">@Model.NearestPriceCitiesWidget_H2<span class="text-light-grey text-unbold margin-left5">(@(Model.IsNew ? "On road price" : "Ex-showroom price"))</span></h2>
+                        @Html.Partial("~/views/priceincity/_ModelPriceInNearestCities.cshtml", Model.PriceInNearestCities)
+                        <div class="clear"></div>
+                    </div>
+                }
+            </div>
         </div>
         <div class="clear"></div>
     </div>
@@ -205,7 +210,7 @@
 
 @if (Model.BikeInfo != null)
 {
-    @Html.Partial("~/views/Bikemodels/_BikeInfoCard.cshtml",Model.BikeInfo)
+    @Html.Partial("~/views/Bikemodels/_BikeInfoCard.cshtml", Model.BikeInfo)
 }
 
 <section>
@@ -214,47 +219,49 @@
             <div class="content-box-shadow">
 
                 @if (Model.HasAlternateBikes)
-                { 
+                {
                     <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14 ">
                         <h2 class="padding-left20 padding-right20 margin-bottom15">@String.Format("Prices of alternative bikes for {0} in {1}", Model.BikeModel.ModelName, Model.CityEntity.CityName)</h2>
-                    @Html.Partial("~/views/Bikemodels/_SimilarBikes.cshtml",Model.AlternateBikes)
+                        @Html.Partial("~/views/Bikemodels/_SimilarBikes.cshtml", Model.AlternateBikes)
 
-                        
-                        </div>
-                 }
-                @if(Model.BikeRank !=null && Model.BikeRank.Rank != null)
-                { 
-                if(Model.BikeRank.Rank.Rank>0){
-                <div class="margin-left20 margin-right20 padding-bottom20 @(Model.HasAlternateBikes?string.Empty:" padding-top20")">
-                    <div class="content-inner-block-15 border-solid font14">
-                        <div class="grid-9 alpha omega">
-                            <div class="inline-block">
-                                <span class="item-rank">#@Model.BikeRank.Rank.Rank</span>
-                            </div><p class="inline-block checkout-list-slug-label">@Model.BikeModel.ModelName is the @(Html.Raw(Model.BikeRank.Rank.Rank>1?Model.BikeRank.RankText:"")) most popular @Model.BikeRank.BikeType.ToLower(). Check out other @Model.BikeRank.StyleName.ToLower() which made it to Top 10 list.</p>
-                        </div>
-                        <div class="grid-3 text-right position-rel pos-top5">
-                            <a href="@UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle)" title="Best @Model.BikeRank.StyleName in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
-                        </div>
-                        <div class="clear"></div>
+
                     </div>
-                </div>
                 }
-                else{
-                    <div class="margin-left20 margin-right20 padding-bottom20 @(Model.HasAlternateBikes?string.Empty:" padding-top20")">
-                        <div class="content-inner-block-15 border-solid font14">
-                            <div class="grid-9 alpha">
-                                <div class="inline-block icon-red-bg">
-                                    <span class="bwsprite rank-graph"></span>
+                @if (Model.BikeRank != null && Model.BikeRank.Rank != null)
+                {
+                    if (Model.BikeRank.Rank.Rank > 0)
+                    {
+                        <div class="margin-left20 margin-right20 padding-bottom20 @(Model.HasAlternateBikes?string.Empty:" padding-top20")">
+                            <div class="content-inner-block-15 border-solid font14">
+                                <div class="grid-9 alpha omega">
+                                    <div class="inline-block">
+                                        <span class="item-rank">#@Model.BikeRank.Rank.Rank</span>
+                                    </div><p class="inline-block checkout-list-slug-label">@Model.BikeModel.ModelName is the @(Html.Raw(Model.BikeRank.Rank.Rank > 1 ? Model.BikeRank.RankText : "")) most popular @Model.BikeRank.BikeType.ToLower(). Check out other @Model.BikeRank.StyleName.ToLower() which made it to Top 10 list.</p>
                                 </div>
-                                <p class="inline-block checkout-list-slug-label">Not sure what to buy? List of Top 10 @Model.BikeRank.StyleName.ToLower() can come in handy.</p>
+                                <div class="grid-3 text-right position-rel pos-top5">
+                                    <a href="@UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle)" title="Best @Model.BikeRank.StyleName in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                </div>
+                                <div class="clear"></div>
                             </div>
-                            <div class="grid-3 text-right position-rel pos-top5">
-                                <a href="@UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle)" title="Best @Model.BikeRank.StyleName in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
-                            </div>
-                            <div class="clear"></div>
                         </div>
-                    </div>
-                }
+                    }
+                    else
+                    {
+                        <div class="margin-left20 margin-right20 padding-bottom20 @(Model.HasAlternateBikes?string.Empty:" padding-top20")">
+                            <div class="content-inner-block-15 border-solid font14">
+                                <div class="grid-9 alpha">
+                                    <div class="inline-block icon-red-bg">
+                                        <span class="bwsprite rank-graph"></span>
+                                    </div>
+                                    <p class="inline-block checkout-list-slug-label">Not sure what to buy? List of Top 10 @Model.BikeRank.StyleName.ToLower() can come in handy.</p>
+                                </div>
+                                <div class="grid-3 text-right position-rel pos-top5">
+                                    <a href="@UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle)" title="Best @Model.BikeRank.StyleName in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    }
                 }
             </div>
             <div class="clear"></div>

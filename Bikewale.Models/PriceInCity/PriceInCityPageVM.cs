@@ -44,6 +44,8 @@ namespace Bikewale.Models
 
         public String NearestPriceCitiesWidget_H2 { get { return (HasNearestPriceCities ? String.Format("{0} price in cities near {1}", BikeModel.ModelName, CityEntity.CityName) : ""); } }
 
+        public BikeQuotationEntity FirstVersion { get { return (BikeVersionPrices != null && BikeVersionPrices.Count() > 0 ? BikeVersionPrices.FirstOrDefault() : null); } }
+
         public bool IsDiscontinued { get { return !IsNew; } }
         public bool HasNearestPriceCities { get { return (PriceInNearestCities != null && PriceInNearestCities.Count() > 0); } }
         public bool HasDealers { get { return (Dealers != null && Dealers.Dealers != null && Dealers.Dealers.Count() > 0); } }
