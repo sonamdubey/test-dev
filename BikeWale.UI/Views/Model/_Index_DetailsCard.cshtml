@@ -186,7 +186,7 @@
                             if (Model.IsDealersServiceCenterAvailable)
                             {
                                 <div class="margin-top20">
-                                    <h2 class="padding-left20 padding-right20">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Showrooms &amp; Service Centers</h2>
+                                    <h2 class="padding-left20 padding-right20">@String.Format("{0} {1} {2} {3}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0) ? "Showrooms" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "&" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "Service Centers" : ""))</h2>
                                     @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
                                 </div>
                                 <div class="margin-top20 margin-right10 margin-left10 border-solid-bottom"></div>
