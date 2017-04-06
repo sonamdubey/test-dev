@@ -2,8 +2,6 @@
 @if (Model.IsShowPriceTab)
 {
     <div id="pricesContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin padding-top15 content-details-wrapper">
-        @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null)
-        {
             <h2 class="padding-right20 padding-left20">@Model.BikeName Price List</h2>
 
             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 margin-bottom20">
@@ -35,7 +33,7 @@
                     </tr>
                 </tbody>
             </table>
-        }
+
         @if (Model.IsPriceInTopCitiesAvailable)
         {
             var priceQuotesCities = Model.PriceInTopCities.PriceQuoteList;

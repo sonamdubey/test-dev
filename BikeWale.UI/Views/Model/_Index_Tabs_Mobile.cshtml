@@ -33,11 +33,18 @@
     {
         <li data-tabs="#videosContent">Videos</li>
     }
-    @if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable || Model.IsDealersServiceCenterAvailable))
+
+    @if (Model.IsNewBike && ((Model.IsServiceCentersAvailable || Model.IsOtherDealersAvailable)))
     {
-        
         <li data-tabs="#dealerAndServiceContent">
-            @((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) || Model.IsDealersServiceCenterAvailable ? "Dealers & Service Centers" : (Model.IsOtherDealersAvailable ? "Dealers" : "Service Centers"))
+            @String.Format("{0} {1} {2}", ((Model.IsOtherDealersAvailable) ? "Dealers" : ""), (((Model.IsServiceCentersAvailable && Model.IsOtherDealersAvailable)) ? "&" : ""), ((Model.IsServiceCentersAvailable) ? "Service Centers" : ""))
+        </li>
+    }
+    @if (Model.DealersServiceCenter != null && Model.DealersServiceCenter.DealerServiceCenters != null)
+    {
+
+        <li data-tabs="#dealerAndServiceContent">
+            @String.Format("{0} {1} {2}", ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0) ? "Dealers" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "&" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "Service Centers" : ""))
         </li>
     }
     @if (Model.IsUsedBikesAvailable)

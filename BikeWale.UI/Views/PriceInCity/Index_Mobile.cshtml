@@ -17,9 +17,13 @@
     <div class="discont-text-label font14 text-white text-center">Discontinued</div>
     }
     <div id="modelCityPriceDetails">
-        <div class="bike-image">
-            <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
-        </div>
+        @if (Model.FirstVersion != null)
+        {
+            <div class="bike-image">
+                <img src="@Image.GetPathToShowImages(Model.FirstVersion.OriginalImage,Model.FirstVersion.HostUrl,ImageSize._110x61,QualityFactor._75)" title="@Model.BikeName" alt="@Model.BikeName" />
+            </div>
+        }
+       
         <h1 class="text-dark-black font18">@Model.Page_H1</h1>
     </div>
     <p class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10">

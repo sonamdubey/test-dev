@@ -16,6 +16,7 @@ namespace Bikewale
             routes.IgnoreRoute("{*allaspx}", new { allaspx = @".*\.aspx(/.*)?" });
             routes.IgnoreRoute("{*allcss}", new { allcss = @".*\.css(/.*)?" });
             routes.IgnoreRoute("{*alljs}", new { alljs = @".*\.js(/.*)?" });
+            routes.IgnoreRoute("{*ico}", new { alljs = @".*\.ico(/.*)?" });
 
 
             routes.MapRoute(
