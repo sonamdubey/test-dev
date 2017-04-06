@@ -44,6 +44,7 @@
         {
             <link rel="next" href="@Model.PageMetaTags.NextPageUrl" />
         }
+        if(!String.IsNullOrEmpty(Model.PageMetaTags.AmpUrl)) { <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> }
     }
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
