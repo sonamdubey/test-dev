@@ -502,7 +502,7 @@ namespace Bikewale.Models.BikeModels
 
                         }
 
-                        if (modelPg.ModelVersions.Count == 1)
+                        if (modelPg.ModelVersions.Count > 0)
                         {
                             var firstVer = modelPg.ModelVersions.FirstOrDefault();
                             if (firstVer != null)
