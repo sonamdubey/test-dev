@@ -317,21 +317,23 @@
 <section>
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>
-@if (Model.CompareBikes != null)
-{
+
     <section>
         @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
     </section>
-}
 
+
+@if (Model.CompareBikes != null)
+{
 <section>
     <div class="container">
         <div class="grid-12">
-            <h2 class="font18 margin-top20 margin-bottom20 text-white text-center">Compare Bikes</h2>
+            <h2 class="font18 margin-top20 margin-bottom20 text-center">Compare Bikes</h2>
             @Html.Partial("~/Views/CompareBikes/_ComparisonMin_Mobile.cshtml", Model.CompareBikes)
         </div>
     </div>
 </section>
+}
 
 <section>
     <div class="container padding-top10">
