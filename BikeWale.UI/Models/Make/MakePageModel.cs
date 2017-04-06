@@ -132,12 +132,14 @@ namespace Bikewale.Models
                         objData.IsExpertReviewsAvailable || objData.IsVideosAvailable || objData.IsUsedModelsBikeAvailable || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable);
                     if (cityId == 0 && objData.IsDealerServiceDataInIndiaAvailable)
                     {
-                        objData.DealerServiceTitle = string.Format("{0}{1}", (objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0) ? "Dealers" : "", (objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? " & Service Centers" : "");
+                        bool isDealeData = objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0;
+                        bool isService = objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0;
+                        objData.DealerServiceTitle = string.Format("{0}{1}{2}", isDealeData ? "Dealers" : "", (isDealeData && isService) ? " & " : string.Empty, isService ? " & Service Centers" : "");
 
                     }
                     else
                     {
-                        objData.DealerServiceTitle = string.Format("{0}{1}", objData.IsDealerAvailable ? "Dealers" : "", objData.IsServiceDataAvailable ? " & Service Centers" : "");
+                        objData.DealerServiceTitle = string.Format("{0}{1}{2}", objData.IsDealerAvailable ? "Dealers" : string.Empty, (objData.IsDealerAvailable && objData.IsServiceDataAvailable) ? " & " : string.Empty, objData.IsServiceDataAvailable ? "Service Centers" : string.Empty);
                     }
                 }
                 #endregion
