@@ -23,6 +23,12 @@
         </div>
     }
 
+
+    <div class="margin-bottom20 text-center">
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+    </div>
+
+
     if (Model.ModelPageEntity.ModelVersionSpecs != null)
     {
         @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures_Mobile.cshtml", Model)
@@ -158,7 +164,7 @@
             if (Model.IsDealersServiceCenterAvailable)
             {
                 <h2 class="padding-top15 padding-right20 padding-left20">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Showrooms and Service Centers</h2>
-                @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia_Mobile.cshtml", Model.DealersServiceCenter)                
+                @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia_Mobile.cshtml", Model.DealersServiceCenter)
             }
         }
     </div>

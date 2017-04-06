@@ -37,48 +37,48 @@
                     <tbody>
                         @if (Model.ModelPageEntity.ModelDetails.MinPrice > 0)
                         {
-                            <tr>
-                                <td width="36%">Price</td>
-                                <td width="64%">
-                                    <span class="bwsprite inr-sm-dark"></span>
-                                    <span class="text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.ModelPageEntity.ModelDetails.MinPrice))</span>
-                                    <span class="font12 text-light-grey">(Ex-showroom @Bikewale.Utility.BWConfiguration.Instance.DefaultName)</span>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td width="36%">Price</td>
+                            <td width="64%">
+                                <span class="bwsprite inr-sm-dark"></span>
+                                <span class="text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.ModelPageEntity.ModelDetails.MinPrice))</span>
+                                <span class="font12 text-light-grey">(Ex-showroom @Bikewale.Utility.BWConfiguration.Instance.DefaultName)</span>
+                            </td>
+                        </tr>
                         }
                         @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
                         {
-                            <tr>
-                                <td>Top speed</td>
-                                <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.TopSpeed kmph</td>
-                            </tr>
+                        <tr>
+                            <td>Top speed</td>
+                            <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.TopSpeed kmph</td>
+                        </tr>
                         }
                         @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
                         {
-                            <tr>
-                                <td>Mileage</td>
-                                <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall kmpl</td>
-                            </tr>
+                        <tr>
+                            <td>Mileage</td>
+                            <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall kmpl</td>
+                        </tr>
                         }
                         @if (Model.IsModelColorsAvailable)
                         {
-                            <tr>
-                                <td valign="top">Colours</td>
-                                <td valign="top" class="text-bold">
-                                    <ul class="model-color-list">
-                                        @foreach (var colorName in Model.ModelPageEntity.ModelColors)
+                        <tr>
+                            <td valign="top">Colours</td>
+                            <td valign="top" class="text-bold">
+                                <ul class="model-color-list">
+                                    @foreach (var colorName in Model.ModelPageEntity.ModelColors)
                                         {
                                         <li class="leftfloat">@colorName.ColorName</li>
                                         }
-                                    </ul>
-                                </td>
-                            </tr>
+                                </ul>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
             </div>
             <div class="grid-4 text-center alpha omega margin-bottom10">
-                <!-- #include file="/ads/Ad300x250.aspx" -->
+                @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
             </div>
             <div class="clear"></div>
         </div>
@@ -87,25 +87,34 @@
     {
         <div id="model-overview-content" class="margin-bottom20">
             <h3>@Model.ModelPageEntity.ModelDetails.ModelName preview</h3>
-            <p class="font14 text-light-grey line-height17 inline">
-                <span class="model-preview-main-content">
-                    @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
-                    {
-                        @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
-                    }
-                    else
-                    {
-                        @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                    }
-                </span>
-                @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
-                {
-                    <span class="model-preview-more-content hide">
-                        @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+            <div class="@(Model.IsUpcomingBike ? " grid-8 " : " grid-12 omega ") alpha margin-top15">
+                <p class="font14 text-light-grey line-height17 inline">
+                    <span class="model-preview-main-content">
+                        @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
+                        {
+                            @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                        }
+                        else
+                        {
+                            @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                        }
                     </span>
-                    <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
-                }
-            </p>
+                    @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
+                    {
+                        <span class="model-preview-more-content hide">
+                            @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                        </span>
+                        <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
+                    }
+                </p>
+            </div>
+            @if (Model.IsUpcomingBike)
+            {
+                <div class="grid-4 text-center alpha omega margin-bottom10">
+                    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+                </div>
+            }
+
         </div>
     }
 </div>

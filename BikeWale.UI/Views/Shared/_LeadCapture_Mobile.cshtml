@@ -1,5 +1,6 @@
 ﻿@model Bikewale.Entities.PriceQuote.LeadCaptureEntity
-@if(Model!=null){
+@if (Model != null)
+{
 
     <!-- Lead Capture pop up start  -->
     <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
@@ -104,13 +105,13 @@
 
     <script type="text/javascript">
 
-        var leadBtnBookNow, leadCapturePopup , leadBike;
-        var fullName , emailid , mobile,detailsSubmitBtn;
-        var prevEmail = "",prevMobile = "",prevPinCode = "";
+        var leadBtnBookNow, leadCapturePopup, leadBike;
+        var fullName, emailid, mobile, detailsSubmitBtn;
+        var prevEmail = "", prevMobile = "", prevPinCode = "";
         var leadmodelid = '@Model.ModelId', leadcityid = '@Model.CityId', leadareaid = '@Model.AreaId';
-        var leadBikeName = '@Model.BikeName',leadLocation = '@Model.Location',CityArea = leadLocation;
+        var leadBikeName = '@Model.BikeName', leadLocation = '@Model.Location', CityArea = leadLocation;
         var objPinCodes = new Object(), validate, validateInputSelection;
-        var brandSearchBar , dealerSearchBrand , dealerSearchBrandForm ;
+        var brandSearchBar, dealerSearchBrand, dealerSearchBrandForm;
 
         function leadModel() {
             var arr = setuserDetails();
@@ -843,10 +844,9 @@
             ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
             dleadvm.setInputValues();
 
-            if ($("#getPinCode").is(":visible")) {
+            if ($("#getPinCode") && $("#getPinCode").length > 0) {
                 dleadvm.setPinCodeSuggestion();
             }
-
 
             leadCapturePopup.on('click', ".dealer-search-brand", function () {
                 $('.dealer-brand-wrapper').show();
@@ -930,7 +930,7 @@
         });
 
     </script>
-    
+
 }
 
 
