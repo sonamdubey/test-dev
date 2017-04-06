@@ -237,7 +237,7 @@
                         else if (Model.IsDealerServiceDataInIndiaAvailable)
                         {
                             <div id="makeDealersContent" class="padding-top20 padding-bottom20 font14">
-                                <h2 class="padding-left20 padding-right20">Honda Showrooms &amp; Service Centers</h2>
+                                <h2 class="padding-left20 padding-right20"> @string.Format("{0} {1}", Model.MakeName, Model.DealerServiceTitle.Replace("Dealers", "Showrooms"))</h2>
                                 @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
                             </div>
                         }
