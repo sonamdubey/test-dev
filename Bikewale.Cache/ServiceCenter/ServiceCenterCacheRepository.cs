@@ -42,7 +42,7 @@ namespace Bikewale.Cache.ServiceCenter
             try
             {
                 key = String.Format("BW_ServiceCenterList_Make_{0}", makeId);
-                objStateCityList = _cache.GetFromCache<ServiceCenterLocatorList>(key, new TimeSpan(1, 0, 0), () => _objServiceCenter.GetServiceCenterList(makeId));
+                objStateCityList = _cache.GetFromCache<ServiceCenterLocatorList>(key, new TimeSpan(12, 0, 0), () => _objServiceCenter.GetServiceCenterList(makeId));
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace Bikewale.Cache.ServiceCenter
             try
             {
                 key = String.Format("BW_ServiceCenterCity_Mk_{0}", makeId);
-                objStateCityList = _cache.GetFromCache<IEnumerable<CityEntityBase>>(key, new TimeSpan(1, 0, 0), () => _objServiceCenter.GetServiceCenterCities(makeId));
+                objStateCityList = _cache.GetFromCache<IEnumerable<CityEntityBase>>(key, new TimeSpan(6, 0, 0), () => _objServiceCenter.GetServiceCenterCities(makeId));
             }
             catch (Exception ex)
             {
@@ -88,7 +88,7 @@ namespace Bikewale.Cache.ServiceCenter
             string key = String.Format("BW_ServiceCenterList_City_{0}_Make_{1}", cityId, makeId);
             try
             {
-                return _cache.GetFromCache<ServiceCenterData>(key, new TimeSpan(1, 0, 0), () => _objServiceCenter.GetServiceCentersByCity(cityId, makeId));
+                return _cache.GetFromCache<ServiceCenterData>(key, new TimeSpan(6, 0, 0), () => _objServiceCenter.GetServiceCentersByCity(cityId, makeId));
             }
             catch (Exception ex)
             {

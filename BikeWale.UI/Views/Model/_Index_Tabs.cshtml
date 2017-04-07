@@ -32,10 +32,17 @@
 {
     <a href="#modelSimilarContent" rel="nofollow">Similar Bikes</a>
 }
-@if (Model.IsNewBike && (((Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable) && Model.CityId > 0) || (Model.IsDealersServiceCenterAvailable && Model.CityId == 0)))
+@if (Model.IsNewBike &&((Model.IsServiceCentersAvailable||Model.IsOtherDealersAvailable)))
 {
     <a href="#dealerAndServiceContent" rel="nofollow">
-        @(((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) || Model.IsDealersServiceCenterAvailable) ? "Dealers & Service Centers" : (Model.IsOtherDealersAvailable ? "Dealers" : "Service Centers"))
+        @String.Format("{0} {1} {2}", ((Model.IsOtherDealersAvailable ) ? "Dealers" : ""), (((Model.IsServiceCentersAvailable && Model.IsOtherDealersAvailable)) ? "&" : ""), ((Model.IsServiceCentersAvailable) ? "Service Centers" : ""))
+    </a>
+}
+@if (Model.DealersServiceCenter != null && Model.DealersServiceCenter.DealerServiceCenters!=null)
+{
+
+    <a href="#dealerAndServiceContent" rel="nofollow">
+        @String.Format("{0} {1} {2}", ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0) ? "Dealers" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "&" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "Service Centers" : ""))
     </a>
 }
 @if (Model.IsUsedBikesAvailable)

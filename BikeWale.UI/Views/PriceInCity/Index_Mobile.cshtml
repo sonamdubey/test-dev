@@ -12,14 +12,19 @@
     Model.Page_JS_Path = "/m/src/priceincity.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
+@if (Model != null && Model.BikeModel != null && Model.CityEntity != null) {
 <section class="bg-white box-shadow padding-top10 margin-bottom10">
     @if (Model.IsDiscontinued) {
     <div class="discont-text-label font14 text-white text-center">Discontinued</div>
     }
     <div id="modelCityPriceDetails">
-        <div class="bike-image">
-            <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
-        </div>
+        @if (Model.FirstVersion != null)
+        {
+            <div class="bike-image">
+                <img src="@Image.GetPathToShowImages(Model.FirstVersion.OriginalImage,Model.FirstVersion.HostUrl,ImageSize._110x61,QualityFactor._75)" title="@Model.BikeName" alt="@Model.BikeName" />
+            </div>
+        }
+       
         <h1 class="text-dark-black font18">@Model.Page_H1</h1>
     </div>
     <p class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10">
@@ -141,7 +146,7 @@
         <div class="clear"></div>
     </div>
 </section>
-@if (Model.HasAlternateBikes || Model.BikeRank!=null) 
+if (Model.HasAlternateBikes || Model.BikeRank!=null) 
 {   
 <section>
     <div class="container box-shadow bg-white margin-bottom10">
@@ -196,3 +201,4 @@
     price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank"> visitor agreement </a>and  <a href="/privacypolicy.aspx" target="_blank">privacy policy</a>.
 </p>
 <div class="hide" id="dvPgVar" data-modelid="@Model.BikeModel.ModelId"></div>
+}

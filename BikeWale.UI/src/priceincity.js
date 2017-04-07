@@ -3,6 +3,7 @@ docReady(function () {
     var $dvPgVar = $("#dvPgVar");
     bikeName = $dvPgVar.data("bikename");
     var modelId = $dvPgVar.data("modelid");
+
     $("#btnDealerPricePopup").click(function () {
         var selArea = '';
         if ($('#ddlAreaPopup option:selected').index() > 0) {
@@ -34,6 +35,9 @@ docReady(function () {
         var verid = $(this).attr('id');
         showTab(verid);
     });
+
+    $('.model-versions-tabs-wrapper a').first().trigger("click");
+
 });
 function showTab(version) {
     $('.model-versions-tabs-wrapper a').removeClass('active');
