@@ -1,0 +1,88 @@
+﻿@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/write-review.css' />";
+    Model.Page_JS_Path = "/m/src/user-review/write-review.js";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
+
+<section>
+    <div id="rate-bike-form" class="container content-box-shadow card-bottom-margin font14">
+        <div class="padding-15-20 content-box-shadow">
+            <div class="model-image-grid inline-block">
+                <img src="https://imgd.aeplcdn.com//110x61//bw/models/bajaj-pulsar-rs200.jpg" alt="" />
+            </div>
+            <h1 class="model-details-grid inline-block">Bajaj Pulsar RS200</h1>
+        </div>
+        <div class="padding-15-20">
+            <div class="margin-bottom20">
+                <h2 class="margin-bottom10">How much do you like this bike?</h2>
+                <p class="text-slate-grey">Consider looks & styling, performance, servicing experience, mileage etc. before you rate.</p>
+            </div>
+
+            <div class="question-field">
+                <p class="text-bold question-item">What do you use this bike for?</p>
+                <p class="error-text" data-bind="slideIn: validationStatus() && bikeUseType() == 0" style="display: none">This is a compulsory field.</p>
+                <ul class="answer-list">
+                    <li data-value="1" data-bind="click: setBikeUseType">Daily Commute</li>
+                    <li data-value="2" data-bind="click: setBikeUseType">Occasional Commute</li>
+                    <li data-value="3" data-bind="click: setBikeUseType">Leisure Rides</li>
+                    <li data-value="4" data-bind="click: setBikeUseType">Tours</li>
+                    <li data-value="5" data-bind="click: setBikeUseType">All</li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <div class="question-field">
+                <p class="text-bold question-item">How long have you owned this bike for?</p>
+                <p class="error-text" data-bind="slideIn: validationStatus() && bikeTimeSpan() == 0" style="display: none">This is a compulsory field.</p>
+                <ul class="answer-list">
+                    <li data-value="1" data-bind="click: setBikeTimeSpan">Don't own</li>
+                    <li data-value="2" data-bind="click: setBikeTimeSpan">< 3 months</li>
+                    <li data-value="3" data-bind="click: setBikeTimeSpan">3-6 months</li>
+                    <li data-value="4" data-bind="click: setBikeTimeSpan">6 months-1 yr</li>
+                    <li data-value="5" data-bind="click: setBikeTimeSpan">> 1 yr</li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <div id="question-bike-distance" class="question-field" data-bind="slideIn: bikeTimeSpan() > 1">
+                <p class="text-bold question-item">How much have you ridden this bike?</p>
+                <p class="error-text" data-bind="slideIn: validateDistance()" style="display: none">This is a compulsory field.</p>
+                <ul class="answer-list">
+                    <li data-value="1" data-bind="click: setBikeDistance">< 5000 kms</li>
+                    <li data-value="2" data-bind="click: setBikeDistance">5000-10000 kms</li>
+                    <li data-value="3" data-bind="click: setBikeDistance">10000-15000 kms</li>
+                    <li data-value="4" data-bind="click: setBikeDistance">> 15000 kms</li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <div class="margin-bottom20">
+                <h2 class="margin-bottom10">Personal details</h2>
+                <p class="text-slate-grey">We wish to credit this rating to you. We will never spam your inbox.</p>
+            </div>
+
+            @*<div class="input-box form-control-box" data-bind="css: personalDetails().sellerName().length > 0 ? 'not-empty' : ''">
+                <input type="text" id="sellerName" data-bind="textInput: personalDetails().sellerName, validationElement: personalDetails().sellerName" />
+                <label for="sellerName">Name<sup>*</sup></label>
+                <span class="boundary"></span>
+                <span class="error-text" data-bind="validationMessage: personalDetails().sellerName"></span>
+            </div>*@
+
+            <div class="input-box form-control-box margin-bottom15" data-bind="css: personalDetails().userName().length > 0 ? 'not-empty' : ''">
+                <input type="text" id="getUserName" data-bind="textInput: personalDetails().userName" />
+                <label for="getUserName">Name<sup>*</sup></label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+            </div>
+
+            <div class="input-box form-control-box margin-bottom15" data-bind="css: personalDetails().emailId().length > 0 ? 'not-empty' : ''">
+                <input type="text" id="getEmailID" data-bind="textInput: personalDetails().emailId" />
+                <label for="getEmailID">Email ID<sup>*</sup></label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+            </div>
+
+            <input type="button" class="btn btn-orange" value="Submit rating" data-bind="click: submitRating" />
+        </div>
+    </div>
+</section>

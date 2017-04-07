@@ -466,6 +466,7 @@
     <Compile Include="Controllers\NewLaunchesController.cs" />
     <Compile Include="Controllers\ScootersController.cs" />
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
+    <Compile Include="Controllers\UserReviewController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
     <Compile Include="Controllers\PriceController.cs" />
@@ -2888,6 +2889,7 @@
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\user-review\listing.css" />
+    <Content Include="m\css\user-review\write-review.css" />
     <Content Include="m\css\videos\bwm-videos-landing.css" />
     <Content Include="m\css\videos\video-detail.css" />
     <Content Include="m\css\videos\videos-by-make.css" />
@@ -3015,6 +3017,7 @@
     <Content Include="m\src\used-search.js" />
     <Content Include="m\src\used\bikes-in-city.js" />
     <Content Include="m\src\used\landing.js" />
+    <Content Include="m\src\user-review\write-review.js" />
     <Content Include="m\src\video\details.js" />
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
@@ -3074,6 +3077,9 @@
     <Content Include="m\sass\scooters\_listing-style.sass" />
     <Content Include="m\sass\modules\_comparison-carousel.sass" />
     <Content Include="m\sass\modules\_city-icons.sass" />
+    <Content Include="m\sass\user-review\write-review.sass" />
+    <Content Include="m\sass\user-review\_write-review-style.sass" />
+    <Content Include="m\sass\user-review\_write-review-media-query.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="new\photos\Default.aspx" />
@@ -3710,6 +3716,8 @@
     <Content Include="Views\UserReviews\_UserReviewsList_Mobile.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikes_Editorial_Mobile.cshtml" />
     <Content Include="Views\Videos\Index.cshtml" />
+    <Content Include="Views\UserReview\WriteReview_Mobile.cshtml" />
+    <Content Include="Views\UserReview\RateBike_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,51 @@
+.model-image-grid {
+  width: 82px;
+  height: 46px; }
+  .model-image-grid img {
+    width: auto;
+    height: 46px; }
+
+.model-details-grid {
+  width: 72%;
+  padding-left: 10px; }
+
+.text-bold {
+  font-weight: 600 !important; }
+
+.text-slate-grey {
+  color: #787878; }
+
+.question-field {
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee; }
+  .question-field .error-text {
+    top: -6px; }
+
+.question-item {
+  margin-bottom: 10px; }
+
+.answer-list li {
+  float: left;
+  color: #82888b;
+  margin: 4px 8px 4px 0;
+  padding: 5px 14px;
+  cursor: pointer;
+  border: 1px solid #e2e2e2;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px; }
+  .answer-list li.active {
+    color: #fff;
+    background: #41B4C4;
+    border-color: #41B4C4;
+    cursor: default;
+    pointer-events: none; }
+
+#rate-bike-form {
+  -webkit-tap-highlight-color: transparent; }
+
+@media only screen and (max-width: 320px) {
+  .model-details-grid {
+    width: 68%; } }

@@ -1,0 +1,50 @@
+﻿.model-image-grid
+	width: 82px
+	height: 46px
+
+	img
+		width: auto
+		height: 46px
+
+.model-details-grid
+	width: 72%
+	padding-left: 10px
+
+// common classes
+.text-bold
+	font-weight: 600 !important
+
+.text-slate-grey
+	color: #787878
+
+// questions and answers
+.question-field
+	padding-bottom: 10px
+	margin-bottom: 15px
+	border-bottom: 1px solid #eee
+
+	.error-text
+		top: -6px
+
+.question-item
+	margin-bottom: 10px
+
+.answer-list
+	li
+		float: left
+		color: $text-light
+		margin: 4px 8px 4px 0
+		padding: 5px 14px
+		cursor: pointer
+		border: 1px solid #e2e2e2
+		@include border-radius(2px)
+
+		&.active
+			color: $white
+			background: #41B4C4
+			border-color: #41B4C4
+			cursor: default
+			pointer-events: none
+
+#rate-bike-form
+	-webkit-tap-highlight-color: rgba(0,0,0,0)
