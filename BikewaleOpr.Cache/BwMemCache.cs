@@ -75,5 +75,18 @@ namespace BikewaleOpr.Cache
             }
             return cacheKeyClearStatus;
         }
+
+        public static void ClearVersionPrice(string model, string city)
+        {
+            try
+            {
+                string key = String.Format("BW_VersionPrices_{0}_C_{1}", model, city);
+                MemCachedUtil.Remove(key);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearVersionPrice({0},{1})", city, model));
+            }
+        }
     }
 }

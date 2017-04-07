@@ -582,5 +582,57 @@ namespace Bikewale.DAL.PriceQuote
 
             return bikePrices;
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 07 Apr 2017
+        /// Description :   GetOtherVersionsPrices
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<OtherVersionInfoEntity> GetOtherVersionsPrices(uint modelId, uint cityId)
+        {
+            ICollection<OtherVersionInfoEntity> objVersionInfo = null;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getpricequoteversionsbymodelcity";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    objVersionInfo = new List<OtherVersionInfoEntity>();
+
+
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                objVersionInfo.Add(new OtherVersionInfoEntity
+                                {
+                                    VersionId = SqlReaderConvertor.ToUInt32(dr["VersionId"]),
+                                    VersionName = Convert.ToString(dr["VersionName"]),
+                                    OnRoadPrice = SqlReaderConvertor.ToUInt64(dr["OnRoadPrice"]),
+                                    Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
+                                    RTO = SqlReaderConvertor.ToUInt32(dr["RTO"]),
+                                    Insurance = SqlReaderConvertor.ToUInt32(dr["Insurance"])
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetOtherVersionsPrices({0},{1})", modelId, cityId));
+            }
+            return objVersionInfo;
+        }
     }   // Class
 }   // namespace
