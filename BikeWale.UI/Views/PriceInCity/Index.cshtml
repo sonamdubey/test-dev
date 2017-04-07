@@ -12,6 +12,7 @@
     Model.IsPageTypeLanding = true;
     Model.IsHeaderFix = true;
 }
+@if (Model != null && Model.BikeModel != null && Model.CityEntity != null) { 
 <section class="bg-light-grey padding-top10">
     <div class="container">
         <div class="grid-12">
@@ -208,7 +209,7 @@
     </div>
 </section>
 
-@if (Model.BikeInfo != null)
+if (Model.BikeInfo != null)
 {
     @Html.Partial("~/views/Bikemodels/_BikeInfoCard.cshtml", Model.BikeInfo)
 }
@@ -278,4 +279,5 @@
     </div>
 </section>
 <div class="hide" id="dvPgVar" data-cityarea="@Model.CookieCityArea" data-bikename="@Model.BikeName" data-modelid="@Model.BikeModel.ModelId"></div>
-@{Html.RenderAction("ChangeLocation", "Location", new { cityId = Model.CityEntity.CityId, cityName = Model.CityEntity.CityName });}
+{Html.RenderAction("ChangeLocation", "Location", new { cityId = Model.CityEntity.CityId, cityName = Model.CityEntity.CityName });}
+}

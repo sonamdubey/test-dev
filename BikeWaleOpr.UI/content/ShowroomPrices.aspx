@@ -49,7 +49,7 @@
 						<%# DataBinder.Eval( Container.DataItem, "VersionName" ) %>
 					</td>						
 					<td>
-						<asp:TextBox ID="txtPrice" Index='<%# Container.ItemIndex %>' VersionId='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' Text='<%# DataBinder.Eval( Container.DataItem, "Price" ).ToString() %>' onchange="calculatePrices(this)" Columns="10" MaxLength="9" runat="server" />							
+						<asp:TextBox ID="txtPrice" Index='<%# Container.ItemIndex %>' data-modeldid='<%# DataBinder.Eval(Container.DataItem, "BikeModelId") %>' VersionId='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' Text='<%# DataBinder.Eval( Container.DataItem, "Price" ).ToString() %>' onchange="calculatePrices(this)" Columns="10" MaxLength="9" runat="server" />							
 					</td>
 					<td>
 						<asp:TextBox ID="txtInsurance" Text='<%# DataBinder.Eval( Container.DataItem, "Insurance" ).ToString() %>' Columns="10" MaxLength="9" runat="server" />						

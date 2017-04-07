@@ -74,7 +74,14 @@ namespace Bikewale.Controllers
                 model.NearestCityCount = 8;
                 model.TopCount = 3;
                 objVM = model.GetData();
-                return View(objVM);
+                if (model.Status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/pagenotfound.aspx");
+                }
+                else
+                {
+                    return View(objVM);
+                }
             }
             else if (model.Status == Entities.StatusCodes.ContentNotFound)
             {
@@ -109,7 +116,14 @@ namespace Bikewale.Controllers
                 model.NearestCityCount = 4;
                 model.TopCount = 9;
                 objVM = model.GetData();
-                return View(objVM);
+                if (model.Status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/pagenotfound.aspx");
+                }
+                else
+                {
+                    return View(objVM);
+                }
             }
             else if (model.Status == Entities.StatusCodes.ContentNotFound)
             {

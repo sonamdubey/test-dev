@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace BikewaleOpr.Entities.BikePricing
 {
     /// <summary>
@@ -21,5 +16,6 @@ namespace BikewaleOpr.Entities.BikePricing
         public string Insurance { get; set; }
         public string LastUpdatedDate { get; set; }
         public string LastUpdatedBy { get; set; }
+        public uint BikeModelId { get; set; }
     }
 }

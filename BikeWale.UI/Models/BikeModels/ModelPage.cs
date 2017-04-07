@@ -417,14 +417,14 @@ namespace Bikewale.Models.BikeModels
         {
             try
             {
-                if (modelPg != null)
+                if (modelPg != null && modelPg.ModelDetails != null)
                 {
                     if (modelPg.ModelVersions != null && !modelPg.ModelDetails.Futuristic)
                     {
                         if (pqOnRoad != null)
                         {
                             ///Dealer Pricing
-                            if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null)
+                            if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null && pqOnRoad.DPQOutput.Varients.Count() > 0)
                             {
                                 foreach (var version in modelPg.ModelVersions)
                                 {
@@ -436,7 +436,6 @@ namespace Bikewale.Models.BikeModels
                                 ///Choose the min price version of dealer
                                 if (objData.VersionId == 0)
                                 {
-                                    var nonZeroVersion = pqOnRoad.DPQOutput.Varients.Where(m => m.OnRoadPrice > 0);
                                     objData.VersionId = (uint)pqOnRoad.DPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().objVersion.VersionId;
                                 }
                             }//Bikewale Pricing
@@ -453,7 +452,6 @@ namespace Bikewale.Models.BikeModels
                                 ///Choose the min price version of city level pricing
                                 if (objData.VersionId == 0)
                                 {
-                                    var nonZeroVersion = pqOnRoad.BPQOutput.Varients.Where(m => m.OnRoadPrice > 0);
                                     if (pqOnRoad.BPQOutput.Varients.Count() > 0)
                                         objData.VersionId = (uint)pqOnRoad.BPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().VersionId;
                                 }
@@ -593,11 +591,11 @@ namespace Bikewale.Models.BikeModels
 
                         if (objData.VersionId > 0 && objData.SelectedVersion != null)
                         {
-                            objData.BikePrice = Convert.ToUInt32(objData.SelectedVersion.Price);
+                            objData.BikePrice = objData.CityId == 0 ? Convert.ToUInt32(objData.SelectedVersion.Price) : 0;
                         }
                         else if (modelPg.ModelDetails != null)
                         {
-                            objData.BikePrice = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
+                            objData.BikePrice = objData.CityId == 0 ? Convert.ToUInt32(modelPg.ModelDetails.MinPrice) : 0;
                         }
 
                         // for new bike
@@ -729,12 +727,9 @@ namespace Bikewale.Models.BikeModels
         /// <param name="pqOnRoad"></param>
         private void SetBikeWalePQ(PQOnRoadPrice pqOnRoad)
         {
-            var bpqOutput = _objPQ.GetPriceQuoteById(pqOnRoad.PriceQuote.PQId, LeadSourceEnum.Model_Desktop);
-            bpqOutput.Varients = _objPQ.GetOtherVersionsPrices(pqOnRoad.PriceQuote.PQId);
-            if (bpqOutput != null)
+            if (pqOnRoad != null && pqOnRoad.BPQOutput != null)
             {
-                pqOnRoad.BPQOutput = bpqOutput;
-                objData.CampaignId = bpqOutput.CampaignId;
+                objData.CampaignId = pqOnRoad.BPQOutput.CampaignId;
             }
 
             objData.ManufacturerCampaign = new ManufacturerCampaign()
@@ -792,7 +787,7 @@ namespace Bikewale.Models.BikeModels
                     {
                         objData.PQId = (uint)objPQOutput.PQId;
                         bpqOutput = _objPQ.GetPriceQuoteById(objPQOutput.PQId, LeadSourceEnum.Model_Desktop);
-                        bpqOutput.Varients = _objPQ.GetOtherVersionsPrices(objPQOutput.PQId);
+                        bpqOutput.Varients = _objPQCache.GetOtherVersionsPrices(_modelId, _cityId);
                         if (bpqOutput != null)
                         {
                             pqOnRoad.BPQOutput = bpqOutput;

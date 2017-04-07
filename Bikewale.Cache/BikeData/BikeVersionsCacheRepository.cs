@@ -41,7 +41,12 @@ namespace Bikewale.Cache.BikeData
             string key = String.Format("BW_SimilarBikes_{0}_Cnt_{1}_{2}", versionId, topCount, cityid);
             try
             {
-                versions = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, new TimeSpan(1, 0, 0), () => _objVersions.GetSimilarBikesList(versionId, topCount, cityid));
+                TimeSpan cacheTime = new TimeSpan(3, 0, 0);
+                if (cityid == 0)
+                {
+                    cacheTime = new TimeSpan(23, 0, 0);
+                }
+                versions = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, cacheTime, () => _objVersions.GetSimilarBikesList(versionId, topCount, cityid));
             }
             catch (Exception ex)
             {
