@@ -1,9 +1,9 @@
-﻿using Bikewale.Interfaces.Cache.Core;
+﻿using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.Cache.PriceQuote
 {
@@ -54,7 +54,7 @@ namespace Bikewale.Cache.PriceQuote
         public IEnumerable<Entities.PriceQuote.PriceQuoteOfTopCities> GetModelPriceInNearestCities(uint modelId, uint cityId, ushort topCount)
         {
             IEnumerable<PriceQuoteOfTopCities> prices = null;
-            
+
             string key = String.Format("BW_PriceInNearestCities_m_{0}_c_{1}_t_{2}", modelId, cityId, topCount);
 
             try
@@ -64,9 +64,25 @@ namespace Bikewale.Cache.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "PriceQuoteCache.GetModelPriceInNearestCities");
-                objErr.SendMail();
             }
             return prices;
+        }
+
+
+        public IEnumerable<OtherVersionInfoEntity> GetOtherVersionsPrices(uint modelId, uint cityId)
+        {
+            IEnumerable<OtherVersionInfoEntity> versions = null;
+
+            string key = String.Format("BW_VersionPrices_{0}_C_{1}", modelId, cityId);
+            try
+            {
+                versions = _cache.GetFromCache<IEnumerable<OtherVersionInfoEntity>>(key, new TimeSpan(6, 0, 0), () => _obPriceQuote.GetOtherVersionsPrices(modelId, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "PriceQuoteCache.GetOtherVersionsPrices");
+            }
+            return versions;
         }
     }
 }

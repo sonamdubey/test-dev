@@ -1147,7 +1147,7 @@ namespace Bikewale.Cache.BikeData
             GenericBikeInfo objSearchList = null;
             try
             {
-                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBikeInfo(modelId));
+                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, new TimeSpan(23, 0, 0), () => _modelRepository.GetBikeInfo(modelId));
 
             }
             catch (Exception ex)
@@ -1168,7 +1168,12 @@ namespace Bikewale.Cache.BikeData
             GenericBikeInfo objSearchList = null;
             try
             {
-                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBikeInfo(modelId, cityId));
+                TimeSpan cacheTime = new TimeSpan(3, 0, 0);
+                if (cityId == 0)
+                {
+                    cacheTime = new TimeSpan(23, 0, 0);
+                }
+                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, cacheTime, () => _modelRepository.GetBikeInfo(modelId, cityId));
 
             }
             catch (Exception ex)
