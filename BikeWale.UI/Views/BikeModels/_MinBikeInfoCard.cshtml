@@ -14,7 +14,7 @@
         <div class="clear"></div>
         <div class="grid-8 alpha border-solid-right">
             <a href="@Model.BikeUrl" title="@Model.BikeName" class="model-image-target vertical-top">
-                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath, Model.BikeInfo.HostUrl, Bikewale.Utility.ImageSize._160x89)" src="" alt="@Model.BikeName" />
+                <img class="lazy" data-original="@Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath, Model.BikeInfo.HostUrl, ImageSize._160x89, QualityFactor._70)" src="" alt="@Model.BikeName" />
             </a>
             <div class="model-details-block vertical-top">
                 <a href="@Model.BikeUrl" title="@Model.BikeName" class="block text-default">
@@ -65,7 +65,7 @@
         @if (Model.BikeInfo.UsedBikeCount > 0)
         {
             <div class="border-solid-bottom margin-top15 margin-bottom10"></div>
-            <a href="@UrlFormatter.UsedBikesUrlNoCity(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName,(Model.CityDetails!=null)?Model.CityDetails.CityMaskingName:" india")" title="@Model.BikeInfo.UsedBikeCount used @Model.BikeName bikes" class="block text-default hover-no-underline">
+            <a href="@UrlFormatter.UsedBikesUrlNoCity(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName,(Model.CityDetails!=null)?Model.CityDetails.CityMaskingName:"india")" title="@Model.BikeInfo.UsedBikeCount used @Model.BikeName bikes" class="block text-default hover-no-underline">
                 <span class="used-target-label inline-block">
                     <span class="font14 text-bold margin-right5">@Model.BikeInfo.UsedBikeCount Used @Model.BikeName bikes</span><span class="font12 text-light-grey">starting at <span class="bwsprite inr-xsm-grey margin-right5"></span>@Format.FormatNumeric(Convert.ToString(Model.BikeInfo.UsedBikeMinPrice))</span>
                 </span>

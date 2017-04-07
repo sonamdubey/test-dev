@@ -1,13 +1,16 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Models.BikeCare;
+using Bikewale.Utility;
 using System;
+using System.Linq;
 
 namespace Bikewale.Models.ServiceCenters
 {
@@ -24,8 +27,11 @@ namespace Bikewale.Models.ServiceCenters
         private readonly ICMSCacheContent _articles = null;
 
         public StatusCodes status;
+        public string redirectUrl;
 
         private uint _makeId;
+        private uint _cookieCityId;
+
         public MakeMaskingResponse objResponse;
 
         private uint _usedBikesTopCount = 9;
@@ -84,13 +90,39 @@ namespace Bikewale.Models.ServiceCenters
         {
             try
             {
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                _cookieCityId = currentCityArea.CityId;
+
                 objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
                 if (objResponse != null)
                 {
                     if (objResponse.StatusCode == 200)
                     {
                         _makeId = objResponse.MakeId;
-                        status = StatusCodes.ContentFound;
+                        var _cities = _objCache.GetServiceCenterCities(_makeId);                        
+
+                        CityEntityBase city = null;
+
+                        if (_cities != null && _cities.Count() > 0)
+                        {
+                            var _city = _cities.FirstOrDefault(x => x.CityId == _cookieCityId);
+
+                            if (_city != null)
+                            {
+                                city = new CityHelper().GetCityById(_cookieCityId);
+
+                                if (city != null)
+                                {
+                                    redirectUrl = String.Format("/{0}-service-center-in-{1}/", makeMaskingName, city.CityMaskingName);
+                                    status = StatusCodes.RedirectTemporary;
+                                }
+                            }
+                            else
+                            {
+                                status = StatusCodes.ContentFound;
+                            }
+                        }
+
                     }
                     else if (objResponse.StatusCode == 301)
                     {
@@ -112,9 +144,9 @@ namespace Bikewale.Models.ServiceCenters
             }
         }
 
-        private UsedBikeModels BindUsedBikeByModel(uint topCount)
+        private UsedBikeModelsWidgetVM BindUsedBikeByModel(uint topCount)
         {
-            UsedBikeModels UsedBikeModel = new UsedBikeModels();
+            UsedBikeModelsWidgetVM UsedBikeModel = new UsedBikeModelsWidgetVM();
             try
             {
                 if (_makeId > 0)

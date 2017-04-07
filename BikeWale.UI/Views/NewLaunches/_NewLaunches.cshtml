@@ -1,7 +1,7 @@
 ﻿@model  Bikewale.Models.NewLaunchedWidgetVM
 @if (Model != null && Model.Bikes != null)
 {
-    <div class="jcarousel-wrapper inner-content-carousel">
+    <div class="jcarousel-wrapper inner-content-carousel carousel-height-360">
         <div class="jcarousel">
             <ul>
                 @foreach (var bikedetails in Model.Bikes)
@@ -11,7 +11,7 @@
                         <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.Make.MaskingName, bikedetails.Model.MaskingName)" title="@bikeName" class="jcarousel-card">
                             <div class="model-jcarousel-image-preview">
                                 <span class="card-image-block">
-                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostUrl, Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" border="0" />
+                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostUrl, Bikewale.Utility.ImageSize._310x174,Bikewale.Utility.QualityFactor._75)" alt="@bikeName" src="" border="0" />
                                 </span>
                             </div>
                             <div class="card-desc-block">

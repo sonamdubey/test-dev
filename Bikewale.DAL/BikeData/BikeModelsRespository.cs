@@ -161,6 +161,8 @@ namespace Bikewale.DAL.BikeData
                         modelPage.ModelColors = GetModelColor(modelId);
                         modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
                     }
+
+                    modelPage.colorPhotos = GetModelColorPhotos(modelId);
                 }
             }
             catch (Exception ex)
@@ -360,6 +362,7 @@ namespace Bikewale.DAL.BikeData
                                 t.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 t.PhotosCount = Convert.ToInt32(dr["PhotosCount"]);
                                 t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
+                                t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
                             }
                             dr.Close();
                         }
@@ -2002,7 +2005,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getgenericbikelisting_02022017";
+                    cmd.CommandText = "getgenericbikelisting_03042017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbType.Int32, bodyStyle));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, (cityId.HasValue && cityId.Value > 0) ? cityId.Value : Convert.DBNull));
 

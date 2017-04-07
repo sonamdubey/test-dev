@@ -338,6 +338,7 @@
                 var modelName = "<%= vmModelPhotos.bikeName %>";            
                 var encodedVideoList = "<%= JSONVideoList%>";
                 var encodedImageList = "<%= JSONImageList %>";
+                var imageIndex = "<%= imageIndex %>";
             }catch(e)
             {
                 console.warn(e);
@@ -348,7 +349,7 @@
         <script type="text/javascript">            
             $(document).ready(function () {
                 if(isModelPage) {
-                    popupGallery.bindGallery(0);
+                    popupGallery.bindGallery(imageIndex);
                 }
             });
         </script>

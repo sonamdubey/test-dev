@@ -31,7 +31,12 @@
 
 
     <style type="text/css">
-       .miscWrapper li{width:312px;height:312px;background:#fff;float:left;border:1px solid #e2e2e2;padding:20px;margin-right:10px;margin-bottom:20px;margin-left:10px}.video-image-wrapper{width:271px;height:153px;margin-bottom:15px;overflow:hidden;text-align:center}.video-image-wrapper a,.video-image-wrapper img{width:100%;height:100%}.video-image-wrapper a{display:block;background:url(https://img.aeplcdn.com/bikewaleimg/images/loader.gif) center center no-repeat}.border-light-right{border-right:1px solid #e2e2e2}</style>
+        .miscWrapper li { width: 312px; height: 312px; background: #fff; float: left; border: 1px solid #e2e2e2; padding: 20px; margin-right: 10px; margin-bottom: 20px; margin-left: 10px; }
+        .video-image-wrapper { width: 271px; height: 153px; margin-bottom: 15px; overflow: hidden; text-align: center; }
+            .video-image-wrapper a, .video-image-wrapper img { width: 100%; height: 100%; }
+            .video-image-wrapper a { display: block; background: url(https://img.aeplcdn.com/bikewaleimg/images/loader.gif) center center no-repeat; }
+        .border-light-right { border-right: 1px solid #e2e2e2; }
+    </style>
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
@@ -41,16 +46,16 @@
                 <div class="grid-12">
                     <div class="breadcrumb margin-top15 margin-bottom10">
                         <ul>
-     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title" title="BikeWale">Home</span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title" title="BikeWale">Home</span></a></li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/" title="><%=make %> bikes"><span itemprop="title"><%=make %> Bikes</span></a></li>
                             <% if (isModel)
                                { %>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/<%=modelMaskingName %>/" title="<%= String.Format("{0} {1}", make,model) %> bikes"><span itemprop="title"><%=String.Format("{0} {1}", make,model) %></span></a></li>
                             <%}%>
 
-                                                       <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><span itemprop="title">Videos</span></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><span itemprop="title">Videos</span></li>
 
-                           
+
                         </ul>
                     </div>
                     <h1 class="font26 margin-bottom5"><%= pageHeading %></h1>
@@ -97,9 +102,11 @@
             </div>
         </section>
 
-        <%if(ctrlGenericBikeInfo.ModelId>0){ %><BW:GenericBikeInfo runat="server" ID="ctrlGenericBikeInfo" /><%} %>
+        <%if (ctrlGenericBikeInfo.ModelId > 0)
+          { %><BW:GenericBikeInfo runat="server" ID="ctrlGenericBikeInfo" />
+        <%} %>
 
- <% if (ctrlSimilarBikeVideos.FetchCount > 0)
+        <% if (ctrlSimilarBikeVideos.FetchCount > 0)
            {%>
         <section>
             <div class="container margin-bottom20">
@@ -124,13 +131,14 @@
                     <div class="content-box-shadow">
                         <div class="padding-top20 font14">
                             <div class="carousel-heading-content">
-                            <div class="swiper-heading-left-grid inline-block">
-                                <h2>Explore other popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
-                            </div><div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="<%= Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(ctrlBikesByBodyStyle.BodyStyle) %>" title="Best <%= ctrlBikesByBodyStyle.BodyStyleLinkTitle %> in India" class="btn view-all-target-btn">View all</a>
+                                <div class="swiper-heading-left-grid inline-block">
+                                    <h2>Explore other popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+                                </div>
+                                <div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(ctrlBikesByBodyStyle.BodyStyle) %>" title="Best <%= ctrlBikesByBodyStyle.BodyStyleLinkTitle %> in India" class="btn view-all-target-btn">View all</a>
+                                </div>
+                                <div class="clear"></div>
                             </div>
-                            <div class="clear"></div>
-                        </div>
                             <BW:PopularBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server" />
                         </div>
                     </div>

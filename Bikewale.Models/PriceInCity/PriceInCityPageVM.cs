@@ -14,7 +14,7 @@ namespace Bikewale.Models
     public class PriceInCityPageVM : ModelBase
     {
         public IEnumerable<PriceQuoteOfTopCities> PriceInNearestCities { get; set; }
-        public DealersEntity Dealers { get; set; }
+        public DealerCardVM Dealers { get; set; }
         public SimilarBikesWidgetVM AlternateBikes { get; set; }
         public ServiceCenterDetailsWidgetVM ServiceCenters { get; set; }
         public BikeInfoVM BikeInfo { get; set; }
@@ -38,11 +38,13 @@ namespace Bikewale.Models
         public String DealersWidget_ViewAll_Title { get { return String.Format("{0} Showrooms in {1}", Make.MakeName, CityEntity.CityName); } }
         public String DealersWidget_ViewAll_Href { get { return String.Format("/{0}-dealer-showrooms-in-{1}/", Make.MaskingName, CityEntity.CityMaskingName); } }
 
-        public String ServiceCenterWidget_H2 { get { return (HasDealers ? String.Format("{0} service centers in {1}", Make.MakeName, CityEntity.CityName) : ""); } }
+        public String ServiceCenterWidget_H2 { get { return (HasServiceCenters ? String.Format("{0} service centers in {1}", Make.MakeName, CityEntity.CityName) : ""); } }
         public String ServiceCenterWidget_ViewAll_Title { get { return String.Format("{0} Service Centers in {1}", Make.MakeName, CityEntity.CityName); } }
         public String ServiceCenterWidget_ViewAll_Href { get { return String.Format("/{0}-service-center-in-{1}/", Make.MaskingName, CityEntity.CityMaskingName); } }
 
-        public String NearestPriceCitiesWidget_H2 { get { return (HasDealers ? String.Format("{0} price in cities near {1}", BikeModel.ModelName, CityEntity.CityName) : ""); } }
+        public String NearestPriceCitiesWidget_H2 { get { return (HasNearestPriceCities ? String.Format("{0} price in cities near {1}", BikeModel.ModelName, CityEntity.CityName) : ""); } }
+
+        public BikeQuotationEntity FirstVersion { get { return (BikeVersionPrices != null && BikeVersionPrices.Count() > 0 ? BikeVersionPrices.FirstOrDefault() : null); } }
 
         public bool IsDiscontinued { get { return !IsNew; } }
         public bool HasNearestPriceCities { get { return (PriceInNearestCities != null && PriceInNearestCities.Count() > 0); } }

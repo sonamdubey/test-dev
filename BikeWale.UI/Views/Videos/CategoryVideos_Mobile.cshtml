@@ -1,0 +1,80 @@
+﻿@model Bikewale.Models.Videos.VideosByCategoryPageVM
+
+@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/videos/VideosByCategory.css' />";
+    Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/bike-videos/category/{0}-{1}/", Model.CanonicalTitle, Model.CategoryId.Replace(',', '-'));
+    Model.Page_JS_Path = "/m/src/video/videoByCategory.js";
+    Model.IsHeaderRequired = false;
+    Model.IsAppBannerNeeded = false;
+}
+
+
+@if (Model != null)
+{
+    <header id="categoryHeader">
+        <div class="category-back-btn">
+            <span class="bwmsprite fa-arrow-back"></span>
+        </div>
+        <h1 class="font18">@Model.PageHeading</h1>
+    </header>
+
+    if (Model.Videos != null && Model.Videos.TotalRecords > 0)
+    {
+        <section class="bg-white padding-top50 bottom-shadow margin-bottom30">
+            <div class="miscWrapper container">
+                <ul id="listVideos1">
+                    @foreach (var video in Model.Videos.Videos)
+                    {
+                        <li>
+                            <div class="misc-container margin-bottom10">
+                                <a href="@string.Format("/m/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))"
+                                   class="misc-list-image margin-right20">
+                                    <img class="lazy" data-original="@String.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg", video.VideoId)" title="@video.VideoTitle" src="" border="0" />
+                                </a>
+                                <a href="@string.Format("/m/bike-videos/{0}-{1}/", video.VideoTitleUrl, Convert.ToString(video.BasicId))"
+                                   title="@video.VideoTitle" class="font14 text-default text-bold padding-left20">@video.VideoTitle</a>
+                            </div>
+                            <div class="video-views-count-container font14 leftfloat padding-right10 border-light-right">
+                                <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(video.Views))</span>
+                            </div>
+                            <div class="video-views-count-container font14 leftfloat padding-left20 padding-right10">
+                                <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(video.Likes))</span>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </section>
+    }
+
+    <section>
+        <div class="text-center">
+            <div id="loading">
+                <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+            </div>
+        </div>
+    </section>
+        <!--template script-->
+    <script type="text/html" id="templetVideos">
+        <li>
+            <div class="misc-container margin-bottom10">
+                <a data-bind="attr: { href: '/m/bike-videos/' + VideoTitleUrl() + '-' + BasicId() + '/' }" class="misc-list-image margin-right20">
+                    <img class="lazy" data-bind="attr: { title: VideoTitle(), alt: VideoTitle(), src: '' }, lazyload: 'https://img.youtube.com/vi/' + VideoId() + '/mqdefault.jpg' " border="0" />
+                </a>
+                <a data-bind="text: VideoTitle(), attr: { href: '/m/bike-videos/' + VideoTitleUrl() + '-' + BasicId() + '/' }" class="font14 text-default text-bold padding-left20"></a>
+            </div>
+            <div class="video-views-count-container font14 leftfloat padding-right10 border-light-right">
+                <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default" data-bind="CurrencyText: Views()"></span>
+            </div>
+            <div class="video-views-count-container font14 leftfloat padding-left20 padding-right10">
+                <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default" data-bind="CurrencyText: Likes()"></span>
+            </div>
+            <div class="clear"></div>
+        </li>
+    </script>
+
+    <div id="js-variable" class="hide" data-catid="@Model.CategoryId" data-maxpage="@Model.Videos.TotalRecords" data-apiurl="/api/videos/cat/" data-cachekey="@Model.CategoryId"></div>
+
+}

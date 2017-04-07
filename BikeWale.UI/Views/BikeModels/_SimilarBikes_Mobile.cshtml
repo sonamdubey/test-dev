@@ -3,7 +3,7 @@
 @using Bikewale.Utility;
 @if (Model != null && Model.Bikes != null && Model.Bikes.Count() > 0)
 {
-    <div class="swiper-container padding-top5 padding-bottom5">
+    <div class="swiper-container card-container swiper-type-similar">
         <div class="swiper-wrapper">
             @foreach (var bike in Model.Bikes)
             {
@@ -11,36 +11,46 @@
                 var bikeUrl = String.Format("/m{0}", UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName));
                 var bikeName = String.Format("{0} {1}", make, modelName);
                 <div class="swiper-slide">
-                    <div class="model-swiper-image-preview">
-                        <a href="@bikeUrl">
-                            <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._210x118)" title="@bikeName" alt="@bikeName" />
-                            <span class="swiper-lazy-preloader"></span>
+                    <div class="swiper-card">
+                        <a href="@bikeUrl" title="@bikeName">
+                            <div class="swiper-image-preview">
+                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._210x118,Bikewale.Utility.QualityFactor._70)" title="@bikeName" alt="@bikeName" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                            @if (bike.VersionPrice > 0)
+                            {
+                                <div class="swiper-details-block">
+                                    <p class="target-link font12 text-truncate margin-bottom5">@bikeName</p>
+                                    <p class="text-truncate text-light-grey font11">@String.Format("Ex-showroom, {0}", bike.CityName)</p>
+                                    <p class="text-default">
+                                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">@Bikewale.Utility.Format.FormatPrice(bike.VersionPrice.ToString())</span>
+                                    </p>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-bold text-default">
+                                    <span class="font14">Price not available</span>
+                                </p>
+                            }
                         </a>
-                    </div>
-                    <div class="model-swiper-details">
-                        <a href="@bikeUrl"
-                           class="target-link font13 text-truncate" title="@bikeName">@bikeName</a>
-                        @if (bike.VersionPrice > 0)
-                        {
-                            <p class="text-truncate text-light-grey font12 margin-top5">@String.Format("Ex-showroom, {0}", bike.CityName)</p>
-                            <p class="font18 text-bold margin-bottom10">
-                                <span class="bwmsprite inr-xsm-icon"></span>
-                                <span>@Format.FormatPrice(bike.VersionPrice.ToString())</span>
-                            </p>
-                        }
-                        else
-                        {
-                            <p class="text-bold text-default">
-                                <span class="font14">Price not available</span>
-                            </p>
-                        }
                         @if (Model.ShowCheckOnRoadCTA)
                         {
-                            <a href="javascript:void(0)" data-pqsourceid="@((int)Model.PQSourceId)" data-modelid="@bike.ModelBase.ModelId" class="btn btn-xs btn-full-width btn-white margin-top10 getquotation font12" rel="nofollow">Check on-road price</a>
+                            <div class="swiper-btn-block">
+                                <a href="javascript:void(0)" data-pqsourceid="@((int)Model.PQSourceId)" data-modelid="@bike.ModelBase.ModelId" class="btn btn-card btn-full-width btn-white getquotation" rel="nofollow">Check on-road price</a>
+                            </div>
                         }
                         @if (Model.ShowPriceInCityCTA)
                         {
-                            <a href="@String.Format("/m{0}", UrlFormatter.PriceInCityUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName,bike.CityMaskingName))" class="btn btn-xs btn-full-width btn-white margin-top10 font12" rel="nofollow" title="On-road price in @bike.CityName">On-road price in @bike.CityName</a>
+                            <div class="swiper-btn-block">
+                                <a href="@String.Format("/m{0}", UrlFormatter.PriceInCityUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName,bike.CityMaskingName))" class="btn btn-card btn-full-width btn-white text-truncate getquotation font12" rel="nofollow" title="On-road price in @bike.CityName">On-road price in @bike.CityName</a>
+                            </div>
+                        }
+                        @if (Model.Make != null && Model.Model != null)
+                        {
+                            <a class="compare-with-target text-truncate" href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Featured_Compare_Widget)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.Model.ModelName)">
+                                <span class="bwmsprite compare-sm"></span>Compare with @Model.Model.ModelName<span class="bwmsprite right-arrow"></span>
+                            </a>
                         }
                     </div>
                 </div>

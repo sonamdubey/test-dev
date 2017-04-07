@@ -12,7 +12,7 @@
                 <li>
                     <a href="@UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName)" title="@bikeName" class="jcarousel-card">
                         <div class="model-jcarousel-image-preview">
-                            <img class="lazy" data-original="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._310x174)" alt="@bikeName" src="" border="0" />
+                            <img class="lazy" data-original="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._310x174,Bikewale.Utility.QualityFactor._75)" alt="@bikeName" src="" border="0" />
                         </div>
                         <div class="card-desc-block">
                             <p class="bikeTitle">@bikeName</p>
@@ -43,6 +43,11 @@
                         <div class="margin-left20 margin-bottom20">
                             <a href="@Bikewale.Utility.UrlFormatter.PriceInCityUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName,bike.CityMaskingName)" class="btn btn-white btn-truncate font14 btn-size-2" title="@String.Format("{0} {1} On-road price in {2}",make,modelName,bike.CityName)">@String.Format("On-road price in {0}", bike.CityName)</a>
                         </div>
+                    }
+                    @if (Model.Make != null && Model.Model != null) { 
+                    <a title="Compare with @Model.Model.ModelName" href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.Make.MaskingName, Model.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)Model.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Desktop_Model_MostPopular_Compare_Widget)" class="compare-with-target text-truncate">
+                        <span class="bwsprite compare-sm"></span>Compare with @Model.Model.ModelName<span class="bwsprite next-grey-icon"></span>
+                    </a>
                     }
                 </li>
             }

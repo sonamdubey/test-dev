@@ -10,7 +10,7 @@
                     <div class="swiper-card">
                         <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.Make.MaskingName, bikedetails.Model.MaskingName))" title="@bikeName">
                             <div class="swiper-image-preview">
-                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostUrl, Bikewale.Utility.ImageSize._174x98)" title="@bikeName" alt="@bikeName" src="" />
+                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostUrl, Bikewale.Utility.ImageSize._174x98,Bikewale.Utility.QualityFactor._70)" title="@bikeName" alt="@bikeName" src="" />
                                 <span class="swiper-lazy-preloader"></span>
                             </div>
                             <div class="swiper-details-block">
@@ -25,9 +25,12 @@
                                 </p>
                             </div>
                         </a>
+                        @if (bikedetails.MinPrice>0)
+                        {
                         <div class="swiper-btn-block">
-                            <a href="javascript:void(0)" data-pagecatid="@ViewBag.PageCatId" data-makename="@bikedetails.Make.MakeName" data-modelname="@bikedetails.Model.ModelName" data-pqsourceid="@Model.PQSourceId" data-modelid="@bikedetails.Model.ModelId" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
+                            <a href="javascript:void(0)" data-pagecatid="@Model.PageCatId" data-makename="@bikedetails.Make.MakeName" data-modelname="@bikedetails.Model.ModelName" data-pqsourceid="@Model.PQSourceId" data-modelid="@bikedetails.Model.ModelId" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
                         </div>
+                        }
                     </div>
                 </div>
 

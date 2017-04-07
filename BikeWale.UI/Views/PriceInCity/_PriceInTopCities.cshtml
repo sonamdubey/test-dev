@@ -1,8 +1,8 @@
 ﻿@model Bikewale.Models.PriceInCity.PriceInTopCitiesWidgetVM
 
-@if (@Model != null)
+@if (Model != null && Model.PriceQuoteList != null)
 {
-    foreach (var priceQuote in @Model.PriceQuoteList)
+    foreach (var priceQuote in Model.PriceQuoteList)
     {
         <tr>
             <td class="city-name padding-bottom20">

@@ -568,6 +568,9 @@ function applyTabsLazyLoad() {
     $("img.lazy").lazyload({
         event: "imgLazyLoad"
     });
+    $("div.lazy").lazyload({
+        event: "divLazyLoad"
+    });
 }
 
 function CloseCityPopUp() {
@@ -848,7 +851,7 @@ docReady(function () {
     //App Banner
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
     var appbanner = getCookie("AppBanner");
-    if ((appbanner == null || appbanner == "show") && !isSafari) {
+    if ((appbanner == null || appbanner == "show") && !isSafari) {        
         var hideBannerPages = ['7', '14'];
         if (ga_pg_id == 2) {
             if (typeof isDealerPQ !== 'undefined') {
@@ -1900,7 +1903,7 @@ docReady(function () {
     });
 
     // read more - collapse
-    $('.read-more-target').on('click', function () {
+    $(document).on('click','.read-more-target', function () {
         var element = $(this),
             parentElemtent = element.closest('.collapsible-content');
 

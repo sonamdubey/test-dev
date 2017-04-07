@@ -8,6 +8,7 @@
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
     Model.AdTags.AdId = "1398766000399";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    ViewBag.TotalPrice = Model.TotalPrice; // to pass price component on dealer campaign if dealerprice not available
 }
 
 <div class="bg-white padding-10-5 bottom-shadow margin-bottom10">
@@ -30,7 +31,7 @@
             <p class="single-version-label font14 margin-left5">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
         }
         <div class="text-center">
-            <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.DetailedDealer.OriginalImagePath, Model.DetailedDealer.HostUrl, Bikewale.Utility.ImageSize._210x118)" title="@Model.BikeName Images" alt="@Model.BikeName Images" border="0" />
+            <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.SelectedVersion.OriginalImagePath, Model.SelectedVersion.HostUrl, Bikewale.Utility.ImageSize._210x118)" title="@Model.BikeName Images" alt="@Model.BikeName Images" border="0" />
         </div>
         <p class="font12 text-light-grey padding-left15 padding-right15">Location:</p>
         <p class="font16 text-bold padding-left15 padding-right15">
@@ -66,7 +67,10 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="right" class="text-light-grey padding-bottom15">
-                        <a id='getMoreDetails' class="get-offer-link bw-ga leadcapturebtn" data-item-registerpq="false" data-leadsourceid="23" data-item-id="@Model.DealerId" data-item-name="@@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a>
+                        @if (Model.IsPrimaryDealerAvailable)
+                        {
+                            <a id='getMoreDetails' class="get-offer-link bw-ga leadcapturebtn" data-item-registerpq="false" data-leadsourceid="23" data-item-id="@Model.DealerId" data-item-name="@@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a>
+                        }
                     </td>
                 </tr>
             </table>
@@ -137,7 +141,7 @@
     @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.ManufacturerCampaign)
 }
 
-@if (Model.DealerId == 0 && Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount == 0 && Model.Quotation != null && string.IsNullOrEmpty(Model.Quotation.ManufacturerAd))
+@if (Model.ShowOtherDealers && Model.AreOtherDealersAvailable)
 {
     <section class="container bg-white margin-bottom10">
         <div class="box-shadow">
@@ -147,7 +151,7 @@
                         <h2>@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City</h2>
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.SelectedVersion.MakeBase.MaskingName, Model.Quotation.CityMaskingName)" title="@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City" class="btn view-all-target-btn">View all</a>
+                        <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.SelectedVersion.MakeBase.MaskingName, Model.Quotation.CityMaskingName))" title="@Model.SelectedVersion.MakeBase.MakeName Showrooms in @Model.Quotation.City" class="btn view-all-target-btn">View all</a>
                     </div>
                     <div class="clear"></div>
                 </div>

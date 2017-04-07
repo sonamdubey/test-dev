@@ -11,12 +11,14 @@ namespace Bikewale.Models
     public class NewLaunchedWidgetModel
     {
         public IEnumerable<NewLaunchedBikeEntityBase> Bikes { get; set; }
-        private INewBikeLaunchesBL _newLaunches { get; set; }
+        private readonly INewBikeLaunchesBL _newLaunches = null;
         private ushort _recordCount;
-        public NewLaunchedWidgetModel(ushort recodCount, INewBikeLaunchesBL newLaunches)
+        public uint BodyStyleId { get; set; }
+        public uint MakeId { get; set; }
+        public NewLaunchedWidgetModel(ushort recordCount, INewBikeLaunchesBL newLaunches)
         {
             _newLaunches = newLaunches;
-            _recordCount = recodCount;
+            _recordCount = recordCount;
         }
         /// <summary>
         /// Gets the data.
@@ -30,7 +32,9 @@ namespace Bikewale.Models
             var objFilters = new InputFilter()
             {
                 PageNo = 1,
-                PageSize = 9
+                BodyStyle = BodyStyleId,
+                PageSize = _recordCount,
+                Make = MakeId
             };
             var bikeBase = _newLaunches.GetBikes(objFilters);
             objData.Bikes = bikeBase.Bikes;

@@ -38,9 +38,11 @@
                 objData.append('acl', 'public-read');
                 objData.append('success_action_status', '201');
                 objData.append('Content-Type', file.type);
-                objData.append('AWSAccessKeyId', response.accessKeyId);
+                objData.append('x-amz-credential', response.accessKeyId + "/" + response.datetimeiso + "/ap-south-1/s3/aws4_request");
+                objData.append('x-amz-algorithm', 'AWS4-HMAC-SHA256');
+                objData.append('x-amz-date', response.datetimeisolong);
                 objData.append('policy', response.policy);
-                objData.append('signature', response.signature);
+                objData.append('x-amz-signature', response.signature);
                 objData.append("file", file);
 
                 var awsReqPromise = $.ajax({

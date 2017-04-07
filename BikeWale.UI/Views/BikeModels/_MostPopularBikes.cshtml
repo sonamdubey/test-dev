@@ -3,49 +3,56 @@
 @using Bikewale.Utility;
 @if (Model != null && Model.Bikes != null && Model.Bikes.Count() > 0)
 {
-<div class="jcarousel-wrapper inner-content-carousel">
-    <div class="jcarousel">
-        <ul>
-            @foreach (var bike in Model.Bikes)
-            {
-                var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
-                <li>
-                    <a href="@UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName)" title="@bikeName" class="jcarousel-card">
-                        <div class="model-jcarousel-image-preview">
-                            <span class="card-image-block">
-                                <img class="lazy" data-original="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostURL,ImageSize._310x174)" alt="@bikeName" src="" border="0" />
-                            </span>
-                        </div>
-                        <div class="card-desc-block">
-                            <h3 class="bikeTitle">@bikeName</h3>
-                            <p class="text-xt-light-grey font14 margin-bottom10">
-                                @Html.Raw(FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower)))
-                            </p>
-                            @if (bike.VersionPrice > 0)
-                            {
-                                <p class="font14 text-light-grey margin-bottom5">Ex-showroom, @(!String.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.GetDefaultCityName)</p>
-                                <p class="text-bold text-default">
-                                    <span class="bwsprite inr-lg"></span> <span class="font18">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span><span class="font14"> onwards</span>
+    <div class="jcarousel-wrapper inner-content-carousel carousel-height-360">
+        <div class="jcarousel">
+            <ul>
+                @foreach (var bike in Model.Bikes)
+                {
+                    var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+                    <li>
+                        <a href="@UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName)" title="@bikeName" class="jcarousel-card">
+                            <div class="model-jcarousel-image-preview">
+                                <span class="card-image-block">
+                                    <img class="lazy" data-original="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostURL,ImageSize._310x174,QualityFactor._75)" alt="@bikeName" src="" border="0" />
+                                </span>
+                            </div>
+                            <div class="card-desc-block">
+                                <h3 class="bikeTitle">@bikeName</h3>
+                                <p class="text-xt-light-grey font14 margin-bottom10">
+                                    @Html.Raw(FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
                                 </p>
-                            }
-                            else
-                            {
-                                <p class="text-bold text-default">
-                                    <span class="font14">Price not available</span>
-                                </p>
-                            }
-                        </div>
-                    </a>
-                    @if (Model.ShowCheckOnRoadCTA) { 
-                    <div class="margin-left20 margin-bottom20">
-                        <a href="javascript:void(0);" data-pagecatid="@Model.PageCatId" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm font14  @(bike.VersionPrice!=0 ?"":"hide") getquotation" rel="nofollow">Check on-road price</a>
-                    </div>
-                    }
-                </li>
-            }
-        </ul>
+                                @if (bike.VersionPrice > 0)
+                                {
+                                    <p class="font14 text-light-grey margin-bottom5">Ex-showroom, @(!String.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.GetDefaultCityName)</p>
+                                    <p class="text-bold text-default">
+                                        <span class="bwsprite inr-lg"></span> <span class="font18">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span><span class="font14"> onwards</span>
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="text-bold text-default">
+                                        <span class="font14">Price not available</span>
+                                    </p>
+                                }
+                            </div>
+                        </a>
+                        @if (Model.ShowCheckOnRoadCTA && bike.VersionPrice > 0)
+                        {
+                            <div class="margin-left20 margin-bottom20">
+                                <a href="javascript:void(0);" data-pagecatid="@Model.PageCatId" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm font14 getquotation" rel="nofollow">Check on-road price</a>
+                            </div>
+                        }
+                        @if (Model.ShowPriceInCityCTA && bike.VersionPrice > 0)
+                        {
+                            <div class="margin-left20 margin-bottom20">
+                                <a href="@Bikewale.Utility.UrlFormatter.PriceInCityUrl(bike.objMake.MaskingName, bike.objModel.MaskingName, bike.CityMaskingName)" class="btn btn-white btn-truncate font14 btn-size-2" title="@String.Format("{0} {1} On-road price in {2}", bike.objMake.MakeName, bike.objModel.ModelName, bike.CityName)">@String.Format("On-road price in {0}", bike.CityName)</a>
+                            </div>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
     </div>
-    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-</div>
 }

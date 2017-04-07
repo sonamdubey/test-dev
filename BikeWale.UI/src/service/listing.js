@@ -27,6 +27,7 @@ function initializeMap(dealerArr) {
     }
 
     var i, marker, dealer, markerPosition, content, zIndex;
+    var currentCityName = document.getElementById("dealerMapWrapper").getAttribute("data-currentcityname");
 
     var mapProp = {
         scrollwheel: false,
@@ -83,26 +84,7 @@ function initializeMap(dealerArr) {
                 map.fitBounds(results[0].geometry.viewport);
             }
         });
-    }
-    initializeCityMaps();
-}
-
-function initializeCityMaps() {
-    $(".city-map").each(function (index) {
-        var lat = $(this).attr("data-item-lat");
-        var lng = $(this).attr("data-item-long");
-        var latlng = new google.maps.LatLng(lat, lng);
-        var mapOptions = {
-            zoom: 10,
-            center: latlng,
-            scrollwheel: false,
-            draggable: false,
-            streetViewControl: false,
-            mapTypeControl: false,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map($(".city-map")[index], mapOptions);
-    });
+    }    
 }
 
 function mapDealersArray() {
@@ -379,9 +361,11 @@ docReady(function () {
                 }
             }
         }
-    });
+    });    
 
     $(window).resize(function () {
         mapDimension();
     });
+
+    initializeDealerMap();
 });

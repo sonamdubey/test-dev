@@ -1,4 +1,4 @@
-﻿@model Bikewale.Models.BestBikes.PopularBodyStyleVM
+﻿@model Bikewale.Models.PopularBodyStyleVM
 @using Bikewale.Utility
 @if (Model != null && Model.PopularBikes != null && Model.PopularBikes.Count() > 0) { 
 <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
@@ -10,7 +10,7 @@
                 <a href="@UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName)" title="@bikeName" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <span class="card-image-block">
-                            <img class="lazy" data-original="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostURL,ImageSize._310x174)" alt="@bikeName" src="" border="0">
+                            <img class="lazy" data-original="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._310x174, QualityFactor._75)" alt="@bikeName" src="" border="0">
                         </span>
                     </div>
                     <div class="card-desc-block">
@@ -22,7 +22,7 @@
                          }
                         else
                         { 
-                        <span class="font16 text-default">Price not available</span>
+                        <span class="font16 text-default text-light-grey">Price not available</span>
                         }
                     </div>
                 </a>

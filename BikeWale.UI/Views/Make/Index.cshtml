@@ -1,0 +1,295 @@
+﻿@model Bikewale.Models.MakePageVM
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' />";
+    Model.Page_JS_Path = "/src/new/bikemake.js";
+    Model.AdTags.AdPath = "/1017752/Bikewale_NewBike_";
+    Model.AdTags.AdId = "1442913773076";
+    Model.AdTags.Ad_970x90 = true;
+    Model.AdTags.Ad_970x90Bottom = true;
+    Model.AdTags.Ad_300x250 = true; 
+}
+
+ <section class="container padding-top10">
+    <div class="grid-12">
+        <div class="breadcrumb margin-bottom15">
+            <ul>
+                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="/" itemprop="url">
+                        <span itemprop="title">Home</span>
+                    </a>
+                </li>
+                <li><span class="bwsprite fa-angle-right margin-right10"></span>@Model.MakeName Bikes</li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+<section class="container margin-bottom20">
+    <div class="grid-12">
+        <div class="content-box-shadow">
+            <div class="content-box-shadow content-inner-block-1420">
+                <div class="grid-8 alpha">
+                    <h1 class="leftfloat font24 text-x-black">@Model.MakeName Bikes</h1>
+                </div>
+                <div class="grid-4 rightfloat omega font14" id="sortByContainer">
+                    <div class="leftfloat sort-by-text text-light-grey margin-left50">
+                        <p>Sort by:</p>
+                    </div>
+                    <div class="rightfloat">
+                        <div class="sort-div rounded-corner2">
+                            <div class="sort-by-title" id="sort-by-container">
+                                <span class="leftfloat sort-select-btn text-truncate">Price: Low to High</span>
+                                <span class="clear"></span>
+                            </div>
+                            <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
+                        </div>
+                        <div class="sort-selection-div sort-list-items hide">
+                            <ul id="sortbike">
+                                <li id="0" class="selected">Price: Low to High</li>
+                                <li id="1">Popular</li>
+                                <li id="2">Price: High to Low</li>
+                                <li id="3">Mileage: High to Low</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div id="bikeMakeList" class="padding-top25 padding-left20 rounded-corner2 inner-content-card">
+                <ul id="listitems" class="listitems">
+                    @foreach(var bike in Model.Bikes)
+                                    {
+                                        var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
+                                        var bikeName = string.Format("{0} {1}", bike.objMake.MakeName,bike.objModel.ModelName);
+                            <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a class="modelurl" href='@modelUrl'>
+                                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" title="@bikeName" alt="@bike.objModel.ModelName" />
+                                        </a>
+                                    </div>
+                                    <div class="bikeDescWrapper">
+                                        <h3 class="bikeTitle margin-bottom10"><a class="modelurl" href='@modelUrl'>@bikeName</a></h3>
+                                        <div class="text-xt-light-grey font14 margin-bottom15">
+                                            @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
+                                        </div>
+                                        <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</div>
+                                        <div class="text-bold">
+                                            @{ if (bike.VersionPrice == 0)
+                                                     { @Html.Raw("<span class='font16'>Price Unavailable</span>"); }
+                                                     else { @Html.Raw(String.Format("<span class='bwsprite inr-lg'></span> <span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice)))); }
+                                            }
+                                        </div>
+                                        @if (bike.VersionPrice > 0) { 
+                                        <a rel="nofollow" href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+                            }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+@if (Model.IsUpComingBikesAvailable)
+{
+    <section>
+        <div id="makeUpcomingBikesContent" class="container margin-bottom20">
+            <div class="grid-12">
+                <div class="content-box-shadow padding-top20 padding-bottom25">
+                    <div class="carousel-heading-content">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2>Upcoming @Model.MakeName Bikes</h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="/@Model.MakeMaskingName-bikes/upcoming/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.UpcomingBikes)
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
+@if (Model.IsMakeTabsDataAvailable)
+{
+    <section class="container">
+        <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20 content-details-wrapper">
+            <div class="content-box-shadow">
+                <div id="makeOverallTabsWrapper">
+                    <div id="makeOverallTabs" class="overall-floating-tabs">
+                        <div class="overall-specs-tabs-wrapper">
+                            @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription.Length > 0)
+                                {
+                                <a href="#makeAboutContent" rel="nofollow">About</a>
+                                }
+                            @if (Model.IsNewsAvailable)
+                                {
+                                <a href="#modelNewsContent" rel="nofollow">News</a>
+                                }
+                            @if (Model.IsExpertReviewsAvailable)
+                                {
+                                <a href="#makeReviewsContent" rel="nofollow">Reviews</a>
+                                }
+                            @if (Model.IsVideosAvailable)
+                                {
+                                <a href="#makeVideosContent" rel="nofollow">Videos</a>
+                                }
+                            @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
+                                {
+                                <a href="#dealerAndServiceContent" rel="nofollow">@Model.DealerServiceTitle</a>
+                                }
+                                @if (Model.IsUsedModelsBikeAvailable)
+                                {
+                                <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription.Length > 0)
+                    {
+                    <div id="makeAboutContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
+                        <div class="grid-8 alpha">
+                            <h2>@Model.MakeName Summary</h2>
+                            <p class="font14 text-light-grey line-height17">
+                                <span class="preview-main-content">
+                                    @Bikewale.Utility.FormatDescription.TruncateDescription(Model.BikeDescription.FullDescription, 700)
+                                </span>
+                                <span class="preview-more-content hide" style="display: none;">
+                                    @Html.Raw(Model.BikeDescription.FullDescription)
+                                </span>
+                                @if (Model.BikeDescription.FullDescription.Length > 700)
+                                {
+                                <a href="javascript:void(0)" class="read-more-bike-preview" rel="nofollow">Read more</a>
+                                }
+                            </p>
+                        </div>
+                        <div class="grid-4 text-center alpha omega">
+                            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    }
+                    <!-- news control starts here -->
+                    @if (Model.IsNewsAvailable){
+                    @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+                    }
+                    <!-- news control ends here -->
+                    @if (Model.IsExpertReviewsAvailable){
+                    <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <h2 class="padding-left10 padding-right10">@Model.MakeName Reviews</h2>
+                        <h3 class="model-section-subtitle padding-right10 padding-left10">Expert Reviews</h3>
+                        @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                        <div class="padding-left10 more-article-target view-all-btn-container">
+                            <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="btn view-all-target-btn">Read all reviews<span class="bwsprite teal-right"></span></a>
+                        </div>
+                    </div>
+                    }
+                    @if (Model.IsVideosAvailable)
+                    {
+                    <div id="makeVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <h2 class="padding-right10 padding-left10">@Model.MakeName Videos</h2>
+                        @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
+                    </div>
+                    }
+                    @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
+                    {
+                    <div id="dealerAndServiceContent" class="bw-model-tabs-data">
+                        @if (Model.IsDealerAvailable)
+                        {
+                            <div id="makeDealersContent" class="padding-bottom20 padding-top15 font14">
+                                <div class="carousel-heading-content">
+                                    <div class="swiper-heading-left-grid inline-block">
+                                        <h2>@Model.MakeName showrooms in @Model.Location</h2>
+                                    </div>
+                                    <div class="swiper-heading-right-grid inline-block text-right">
+                                        <a href="@Model.MakeMaskingName-dealer-showrooms-in-@Model.LocationMasking/" title="@Model.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.Dealers)
+                            </div>
+                        }
+                        @if (Model.IsServiceDataAvailable) { 
+                            <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                            <div>
+                                <div class="carousel-heading-content padding-top20">
+                                    <div class="swiper-heading-left-grid inline-block">
+                                        <h2>@string.Format("{0} service centers in {1}", Model.MakeName, Model.Location)</h2>
+                                    </div><div class="swiper-heading-right-grid inline-block text-right">
+                                        <a href="@string.Format("/{0}-service-center-in-{1}/", Model.MakeMaskingName, Model.LocationMasking)" title="@string.Format("{0} Service Centers in {1}", Model.MakeName, Model.Location)" class="btn view-all-target-btn">View all</a>
+                                    </div>
+                                </div>
+                                <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
+                                    <div class="swiper-wrapper">
+                                        @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.ServiceCenters)
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        }
+                        else if (Model.IsDealerServiceDataInIndiaAvailable)
+                        {
+                            <div id="makeDealersContent" class="padding-top20 padding-bottom20 font14">
+                                <h2 class="padding-left20 padding-right20"> @string.Format("{0} {1}", Model.MakeName, Model.DealerServiceTitle.Replace("Dealers", "Showrooms"))</h2>
+                                @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
+                            </div>
+                        }
+
+                    </div>
+                    <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                    }
+                    @if (Model.IsUsedModelsBikeAvailable)
+                    {
+                    <div id="makeUsedBikeContent" class="bw-model-tabs-data">
+                        <div class="carousel-heading-content padding-top20">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>Used @Model.MakeName bikes in @Model.Location</h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                      <a href="/used/@Model.MakeMaskingName-bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="padding-bottom20">
+                            @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedModels)
+                        </div>
+                    </div>
+                    }
+                    <div id="overallMakeDetailsFooter"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </section>
+}
+@if (Model.IsDiscontinuedBikeAvailable)
+{
+    <section>
+        <div class="container">
+            <div class="grid-12">
+                <div id="discontinuedModels">
+                    <div class="content-inner-block-10 margin-bottom20 font14">
+                        <div id="discontinuedLess">
+                            Discontinued @Model.MakeName models: - <span id="spnContent"></span>
+                        </div>
+                        <div id="discontinuedMore" class="hide">
+                            Discontinued @Model.MakeName models: -
+                            @foreach (var bike in Model.DiscontinuedBikes)
+                                {
+                                    <a title="@bike.BikeName" href="@bike.Href">@bike.BikeName</a>
+                                }                                                                                                                                       }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
+

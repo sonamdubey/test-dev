@@ -74,7 +74,7 @@ namespace Bikewale.Utility
 
         private readonly bool _CORSEnabled = false, _IsAppTrackDayVisible = false;
         private readonly int _SecurityHashLength = 0, _UnitSoldDataNotificationDay;
-
+        private string _AWSS3Region = String.Empty;
         // Private constructor, so no outsiders have access.
         private BWOprConfiguration()
         {
@@ -137,6 +137,7 @@ namespace Bikewale.Utility
             _AWSImageQueueName = ConfigurationManager.AppSettings["AWSImageQueueName"];
             _SecurityHashLength = Convert.ToInt32(ConfigurationManager.AppSettings["SecurityHashLength"]);
             _UnitSoldDataNotificationDay = Convert.ToInt32(ConfigurationManager.AppSettings["unitSoldDataNotificationDay"]);
+            _AWSS3Region = Convert.ToString(ConfigurationManager.AppSettings["AWSS3Region"]);
         }
 
         // Static method to provide access to instance
@@ -274,5 +275,6 @@ namespace Bikewale.Utility
         public string AWSImageQueueName { get { return _AWSImageQueueName; } }
         public int SecurityHashLength { get { return _SecurityHashLength; } }
         public int UnitSoldDataNotificationDay { get { return _UnitSoldDataNotificationDay; } }
+        public String AWSS3Region { get { return _AWSS3Region; } }
     }   // class
 }   // namespace

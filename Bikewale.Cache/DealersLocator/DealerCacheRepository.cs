@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
@@ -41,7 +42,12 @@ namespace Bikewale.Cache.DealersLocator
             string key = modelId > 0 ? String.Format("BW_DealerList_Make_{0}_{1}_City_{2}", makeId, modelId, cityId) : String.Format("BW_DealerList_Make_{0}_City_{1}", makeId, cityId);
             try
             {
-                dealers = _cache.GetFromCache<Entities.DealerLocator.DealersEntity>(key, new TimeSpan(0, 30, 0), () => _objDealersRepository.GetDealerByMakeCity(cityId, makeId, modelId));
+                TimeSpan cacheTime = new TimeSpan(1, 0, 0);
+                if (modelId > 0)
+                {
+                    cacheTime = new TimeSpan(12, 0, 0);
+                }
+                dealers = _cache.GetFromCache<Entities.DealerLocator.DealersEntity>(key, cacheTime, () => _objDealersRepository.GetDealerByMakeCity(cityId, makeId, modelId));
             }
             catch (Exception ex)
             {
@@ -167,7 +173,7 @@ namespace Bikewale.Cache.DealersLocator
         public IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId)
         {
             IEnumerable<NearByCityDealerCountEntity> objDealerCountList = null;
-            string key = String.Format("BW_NearByCityDealerCount_{0}_{1}", makeId, cityId);
+            string key = String.Format("BW_NearByCityDealers_{0}_{1}", makeId, cityId);
             try
             {
                 objDealerCountList = _cache.GetFromCache<IEnumerable<NearByCityDealerCountEntity>>(key, new TimeSpan(1, 0, 0), () => _objDealersRepository.FetchNearByCityDealersCount(makeId, cityId));
@@ -178,6 +184,22 @@ namespace Bikewale.Cache.DealersLocator
                 objErr.SendMail();
             }
             return objDealerCountList;
+        }
+
+        public IEnumerable<CityEntityBase> FetchDealerCitiesByMake(uint makeId)
+        {
+            IEnumerable<CityEntityBase> objDealerCitytList = null;
+            string key = String.Format("BW_CityDealerCount_{0}", makeId);
+            try
+            {
+                objDealerCitytList = _cache.GetFromCache<IEnumerable<CityEntityBase>>(key, new TimeSpan(1, 0, 0), () => _objDealersRepository.FetchDealerCitiesByMake(makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("exception in CAche layer for FetchDealerCitiesByMake {0}", makeId));
+            }
+            return objDealerCitytList;
+
         }
     }
 }

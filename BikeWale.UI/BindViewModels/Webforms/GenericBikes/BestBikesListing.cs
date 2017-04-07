@@ -170,7 +170,7 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
         {
             string formattedDate = Bikewale.Utility.FormatDate.GetFormatDate(DateTime.Now.AddMonths(-1).ToString(), "Y");
             PageMetas.Description = string.Format("BikeWale brings the list of best {0} in  India for {1}. Explore the top 10 {0} to buy the best bike of your  choice.", pgMaskingName, formattedDate);
-            PageMetas.Title = string.Format("Best {0} in India - {1} | Top 10 Bikes - BikeWale", pgName, formattedDate);
+            PageMetas.Title = string.Format("Best {0} in India - {1} | Top 10 {0} - BikeWale", pgName, formattedDate);
             PageMetas.CanonicalUrl = string.Format("https://www.bikewale.com/best-{0}-in-india/", pgMaskingName);
             PageMetas.AlternateUrl = string.Format("https://www.bikewale.com/m/best-{0}-in-india/", pgMaskingName);
 

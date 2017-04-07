@@ -1,19 +1,17 @@
 ﻿@model  Bikewale.Models.MostPopularBikeWidgetVM
 @using Bikewale.Entities.BikeData;
 @using Bikewale.Utility;
-@if (Model != null && Model.Bikes != null && Model.Bikes.Count() > 0)
-{
-<div class="swiper-container card-container">
+<div class="swiper-container card-container swiper-small">
     <div class="swiper-wrapper discover-bike-carousel">
         @foreach (var bike in Model.Bikes)
         {
-            var bikeName = String.Format("{0} {1}",bike.objMake.MakeName, bike.objModel.ModelName);
+            var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
             <div class="swiper-slide">
                 <div class="swiper-card">
                     <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName))" title="@bikeName">
                         <div class="swiper-image-preview">
-                            <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostURL,ImageSize._174x98)" title="@bikeName" alt="@bikeName" src="" />
-                            <span class="swiper-lazy-preloader"></span>
+                            <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._174x98, QualityFactor._70)" title="@bikeName" alt="@bikeName" src="" />
+                          <span class="swiper-lazy-preloader"></span>
                         </div>
                         <div class="swiper-details-block">
                             <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
@@ -27,19 +25,25 @@
                             else
                             {
                                 <p class="text-default">
-                                    <span class="font14 text-bold">Price not available </span>
+                                    <span class="font14 text-light-grey">Price not available </span>
                                 </p>
                             }
                         </div>
                     </a>
-                    @if (Model.ShowCheckOnRoadCTA) {
-                    <div class="swiper-btn-block">
-                        <a href="javascript:void(0)" data-pagecatid="@Model.PageCatId" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-card btn-full-width btn-white @(bike.VersionPrice!=0 ?"":"hide") getquotation">Check on-road price</a>
-                    </div>
+                    @if (Model.ShowCheckOnRoadCTA && bike.VersionPrice > 0)
+                    {
+                        <div class="swiper-btn-block">
+                            <a href="javascript:void(0)" data-pagecatid="@Model.PageCatId" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
+                        </div>
+                    }
+                    @if (Model.ShowPriceInCityCTA && bike.VersionPrice > 0)
+                    {
+                        <div class="swiper-btn-block">
+                            <a href="@Bikewale.Utility.UrlFormatter.PriceInCityUrl(bike.objMake.MaskingName, bike.objModel.MaskingName, bike.CityMaskingName)" class="btn btn-card btn-full-width btn-white font14 text-truncate" rel="nofollow" title="@String.Format("{0} {1} On-road price in {2}", bike.objMake.MakeName, bike.objModel.ModelName, bike.CityName)">@String.Format("On-road price in {0}", bike.CityName)</a>
+                        </div>
                     }
                 </div>
             </div>
         }
     </div>
 </div>
-}

@@ -3,9 +3,8 @@
 {
     var bikeInfo = Model.BikeInfo;
     var cityDetails = Model.CityDetails;
-    var className = Model.IsSmallSlug ? "model-more-info-section model-slug-type-news" : "model-more-info-section";
-    <section>
-        <div class="bg-white padding-15-20 section-bottom-margin margin-bottom10">
+    var className = Model.IsSmallSlug ? "model-more-info-section model-slug-type-news" : "model-more-info-section";    
+        <div class="padding-15-20">
             <div class="@className">
                 @if (Model.IsUpcoming)
                 {
@@ -34,7 +33,7 @@
                     }
                     <div class="clear"></div>
                     <a href="@string.Format("/m{0}", Model.BikeUrl)" class="item-image-content vertical-top" title="@Model.BikeName ">
-                        <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61) " src="" alt="@Model.BikeName " />
+                        <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath, bikeInfo.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._70) " src="" alt="@Model.BikeName " />
                     </a>
                     <div class="bike-details-block vertical-top">
                         @if (Model.IsSmallSlug)
@@ -109,6 +108,5 @@
                     </a>
                 }
             </div>
-        </div>
-    </section>
+        </div> 
 }

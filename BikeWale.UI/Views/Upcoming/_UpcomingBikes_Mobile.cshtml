@@ -1,15 +1,15 @@
-﻿@model  IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity>
-            @if (Model != null) { 
+﻿@model Bikewale.Models.UpcomingBikesWidgetVM
+@if (Model != null) { 
     <div class="swiper-container card-container">
         <div class="swiper-wrapper">
-            @foreach (var bike in Model)
+            @foreach (var bike in Model.UpcomingBikes)
             {
                 string bikeName = string.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName);
                 <div class="swiper-slide">
                     <div class="swiper-card">
                         <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName))" title="@bikeName">
                             <div class="swiper-image-preview position-rel">
-                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._174x98)" alt="@bikeName" src="" />
+                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._174x98,Bikewale.Utility.QualityFactor._70)" alt="@bikeName" src="" />
                                 <span class="swiper-lazy-preloader"></span>
                             </div>
                             <div class="swiper-details-block">
@@ -32,6 +32,12 @@
                                         </div>
                                     </div>
                                 }
+                                else
+                                {
+                                    <div class="text-default">
+                                     <span class="font14 text-light-grey">Price not available</span>                   
+                                    </div>
+                                 }
                             </div>
                         </a>
                     </div>
@@ -39,4 +45,4 @@
             }
         </div>
     </div>
-            }
+}

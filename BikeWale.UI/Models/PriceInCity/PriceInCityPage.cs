@@ -41,7 +41,9 @@ namespace Bikewale.Models
         private bool isNew, isAreaSelected, hasAreaAvailable;
         public StatusCodes Status { get; private set; }
         public String RedirectUrl { get; private set; }
-
+        public uint NearestCityCount { get; set; }
+        public uint BikeInfoTabCount { get; set; }
+        public uint TopCount { get; set; }
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
         /// Description :   Constructor to initialize the member variables
@@ -201,7 +203,6 @@ namespace Bikewale.Models
                         var locationCookie = GlobalCityArea.GetGlobalCityArea();
 
                         objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
-                        BuildPageAd(objVM.AdTags);
                         BuildPageMetas(objVM.PageMetaTags);
                     }
                     else
@@ -228,7 +229,7 @@ namespace Bikewale.Models
             {
                 objVM.Make = new BikeMakeEntityBase() { MakeName = firstVersion.MakeName, MaskingName = firstVersion.MakeMaskingName, MakeId = (int)firstVersion.MakeId };
                 objVM.BikeModel = new BikeModelEntityBase() { ModelId = (int)modelId, ModelName = firstVersion.ModelName, MaskingName = firstVersion.ModelMaskingName };
-                objVM.ModelImage = objVM.PageMetaTags.OGImage = Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, ImageSize._310x174);
+                objVM.ModelImage = objVM.PageMetaTags.OGImage = Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, ImageSize._310x174, QualityFactor._75);
                 objVM.CityEntity = new CityEntityBase() { CityId = cityId, CityMaskingName = cityMaskingName, CityName = firstVersion.City };
                 objVM.VersionId = firstVersion.VersionId;
             }
@@ -247,7 +248,7 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.BikeInfo = (new BikeInfoWidget(_bikeInfo, _cityCache, modelId, cityId, 4, Entities.GenericBikes.BikeInfoTabType.PriceInCity)).GetData();
+                objVM.BikeInfo = (new BikeInfoWidget(_bikeInfo, _cityCache, modelId, cityId, BikeInfoTabCount, Entities.GenericBikes.BikeInfoTabType.PriceInCity)).GetData();
                 objVM.BikeRank = (new BikeModelRank(_modelCache, modelId)).GetData();
             }
             catch (Exception ex)
@@ -285,7 +286,7 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.ServiceCenters = (new ServiceCentersCard(_objServiceCenter, 3, objVM.Make, objVM.CityEntity)).GetData();
+                objVM.ServiceCenters = (new ServiceCentersCard(_objServiceCenter, 3, Convert.ToUInt32(objVM.Make.MakeId), objVM.CityEntity.CityId)).GetData();
             }
             catch (Exception ex)
             {
@@ -302,7 +303,10 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.Dealers = _objDealerCache.GetDealerByMakeCity(cityId, firstVersion.MakeId, modelId);
+                DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, cityId, firstVersion.MakeId);
+                objDealer.ModelId = modelId;
+                objDealer.TopCount = TopCount;
+                objVM.Dealers = objDealer.GetData();
                 dealerCount = (uint)(objVM.HasDealers ? objVM.Dealers.Dealers.Count() : 0);
             }
             catch (Exception ex)
@@ -320,7 +324,7 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.PriceInNearestCities = (new ModelPriceInNearestCities(_objPQCache, modelId, cityId, 8)).GetData();
+                objVM.PriceInNearestCities = (new ModelPriceInNearestCities(_objPQCache, modelId, cityId, (ushort)NearestCityCount)).GetData();
             }
             catch (Exception ex)
             {
@@ -375,19 +379,6 @@ namespace Bikewale.Models
                 ErrorClass objErr = new ErrorClass(ex, String.Format("PageDescription({0},{1})", modelMaskingName, cityMaskingName));
             }
             return pageDescription;
-        }
-
-        /// <summary>
-        /// Created by  :   Sumit Kate on 28 Mar 2017
-        /// Description :   Binds te Ad tags
-        /// </summary>
-        /// <param name="ad"></param>
-        private void BuildPageAd(AdTags ad)
-        {
-            ad.Ad_970x90 = true;
-            ad.Ad_970x90Bottom = true;
-            ad.AdId = "1442913773076";
-            ad.AdPath = "/1017752/Bikewale_NewBike_";
         }
 
         /// <summary>

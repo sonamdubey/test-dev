@@ -61,6 +61,8 @@ namespace Bikewale.Models
                 objVM.BikeInfo.Tabs = BindInfoWidgetDatas(objVM.BikeInfo, objVM.CityDetails, _tabCount, _pageId);
                 objVM.BikeName = string.Format("{0} {1}", objVM.BikeInfo.Make.MakeName, objVM.BikeInfo.Model.ModelName);
                 objVM.BikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(objVM.BikeInfo.Make.MaskingName, objVM.BikeInfo.Model.MaskingName));
+                objVM.IsDiscontinued = (!objVM.BikeInfo.IsNew && !objVM.BikeInfo.IsFuturistic);
+                objVM.IsUpcoming = objVM.BikeInfo.IsFuturistic;
             }
             catch (Exception ex)
             {

@@ -1,12 +1,25 @@
 ﻿var redMarkerImage = 'https://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
 var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
 var customerViewModel, dealerDetailsViewModel;
-var dealerLat = document.getElementById("locationSearch").getAttribute("data-lat");
-var dealerLong = document.getElementById("locationSearch").getAttribute("data-long"), dropdown, assistGetModel, currentCityName;
+var dealerLat;
+var googleMapAPIKey;
+var dealerLong, dropdown, assistGetModel, currentCityName, pqId, pageUrl, clientIP;
+
 docReady(function () {
+    pageUrl = window.location.href;
     assistGetModel = $('#getLeadBike');
+    dealerLong = document.getElementById("locationSearch").getAttribute("data-long");
+    dealerLat = document.getElementById("locationSearch").getAttribute("data-lat");
+    googleMapAPIKey = document.getElementById("locationSearch").getAttribute("data-Map");
+    clientIP = document.getElementById("locationSearch").getAttribute("data-clietIp");
     initializeMap();
     dropdown.setDropdown();
+    $("#getLeadBike").change(function () {
+        var val = $(this).val();
+        if (val && val != "" && val != "0") {
+            versionId = val;
+        }
+    });
     $(".dealerDetails").click(function () {
         var btnDpq = $(this);
         var pqSourceId = btnDpq.data("pqsourceid");
@@ -16,6 +29,7 @@ docReady(function () {
         var cityId = btnDpq.data("cityid");
         var cityName = btnDpq.data("cityname");
         var areaName = btnDpq.data("areaname");
+        var dealerid = btnDpq.data("dealerid");
         vmquotation.CheckCookies();
         vmquotation.IsLoading(true);
         $('#priceQuoteWidget,#popupContent,.blackOut-window').show();

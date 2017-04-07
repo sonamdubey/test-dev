@@ -1,29 +1,39 @@
 ﻿@model Bikewale.Models.BrandWidgetVM
-    <div id="brand-type-container" class="brand-type-container">
-    <ul>
-        @foreach (var make in Model.TopBrands)
+<div id="brand-type-container" class="brand-type-container">
+    <ul class="text-center">
+        @if (Model.TopBrands != null)
         {
-            <li>
-                <a href="@make.HostUrl" title="@make.Title">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-@make.MakeId"></span>
-                    </span>
-                    <span class="brand-type-title">@make.MakeName</span>
-                </a>
-            </li>
+            foreach (var make in Model.TopBrands)
+            {
+                <li>
+
+                    <a href="@string.Format("/m{0}",make.Href)" title="@make.Title">
+
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-@make.MakeId"></span>
+                        </span>
+                        <span class="brand-type-title">@make.MakeName</span>
+                    </a>
+                </li>
+            }
         }
     </ul>
-    <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 hide">
-        @foreach (var make in Model.OtherBrands)
+    <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center hide">
+        @if (Model.OtherBrands != null)
         {
-            <li>
-                <a href="@make.HostUrl" title="@make.Title">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-@make.MakeId"></span>
-                    </span>
-                    <span class="brand-type-title">@make.MakeName</span>
-                </a>
-            </li>
+            foreach (var make in Model.OtherBrands)
+            {
+                <li>
+
+                    <a href="@string.Format("/m{0}",make.Href)" title="@make.Title">
+
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-@make.MakeId"></span>
+                        </span>
+                        <span class="brand-type-title">@make.MakeName</span>
+                    </a>
+                </li>
+            }
         }
     </ul>
 </div>

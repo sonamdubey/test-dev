@@ -32,6 +32,7 @@ namespace Bikewale.Models
         private readonly IPriceQuote _objPQ = null;
 
         public string RedirectUrl { get; set; }
+        public uint OtherTopCount { get; set; }
         public StatusCodes Status { get; set; }
 
         private uint _modelId, _versionId, _cityId, _areaId, _pqId, _dealerId, _makeId;
@@ -147,8 +148,10 @@ namespace Bikewale.Models
             {
                 if (objData != null)
                 {
-                    objData.OtherDealers = _objDealerCache.GetDealerByMakeCity(_cityId, _makeId);
-                    objData.OtherDealers.Dealers = objData.OtherDealers.Dealers.Take(3);
+
+                    DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, _cityId, _makeId);
+                    objDealer.TopCount = OtherTopCount;
+                    objData.OtherDealers = objDealer.GetData();
 
 
                     objData.LeadCapture = new LeadCaptureEntity()
@@ -455,10 +458,9 @@ namespace Bikewale.Models
             try
             {
 
-                if (PriceQuoteQueryString.IsPQQueryStringExists() && UInt32.TryParse(PriceQuoteQueryString.PQId, out _pqId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out _versionId))
+                if (PriceQuoteQueryString.IsPQQueryStringExists() && UInt32.TryParse(PriceQuoteQueryString.PQId, out _pqId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out _versionId) && UInt32.TryParse(PriceQuoteQueryString.CityId, out _cityId) && _pqId > 0 && _versionId > 0 && _cityId > 0)
                 {
                     UInt32.TryParse(PriceQuoteQueryString.DealerId, out _dealerId);
-                    UInt32.TryParse(PriceQuoteQueryString.CityId, out _cityId);
                     UInt32.TryParse(PriceQuoteQueryString.AreaId, out _areaId);
                     pageUrl = request.ServerVariables["URL"];
                     mpqQueryString = request.QueryString["MPQ"];

@@ -23,7 +23,7 @@ namespace BikeWaleOpr.Content
         protected HiddenField hdnSelectedCity, hdnSelectedCities;
         protected Repeater rptPrices;
         protected string qryStrVersion;
-
+        private string modelIds;
 
         protected override void OnInit(EventArgs e)
         {
@@ -219,6 +219,14 @@ namespace BikeWaleOpr.Content
             {
                 BwMemCache.ClearNewLaunchesBikes(cityId);
             }
+            string[] arrModel = modelIds.Split(',');
+            foreach (string model in arrModel)
+            {
+                foreach (string city in arrCity)
+                {
+                    BwMemCache.ClearVersionPrice(model, city);
+                }
+            }
         }
 
         /// <summary>
@@ -242,10 +250,11 @@ namespace BikeWaleOpr.Content
                     CheckBox chkUpdate = (CheckBox)rptPrices.Items[i].FindControl("chkUpdate");
 
                     string versionid = txtPrice.Attributes["VersionId"];
+                    string modelId = txtPrice.Attributes["data-modeldid"];
                     string price = txtPrice.Text;
                     string insurance = txtInsurance.Text;
                     string rto = txtRTO.Text;
-
+                    modelIds += String.Format("{0},", modelId);
                     if (chkUpdate.Checked)
                     {
                         Trace.Warn("Saving Prices...");
@@ -255,9 +264,12 @@ namespace BikeWaleOpr.Content
                             priceData += String.Format("{0}#c0l#{1}#c0l#{2}#c0l#{3}|r0w|", versionid, price, insurance, rto);
                         }
                     }
+
                 }
 
                 priceData = priceData.Substring(0, priceData.LastIndexOf("|r0w|"));
+                modelIds = modelIds.Substring(0, modelIds.LastIndexOf(","));
+
             }
             catch (Exception ex)
             {

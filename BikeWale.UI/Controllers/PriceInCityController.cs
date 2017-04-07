@@ -55,6 +55,13 @@ namespace Bikewale.Controllers
             _modelCache = modelCache;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Mar 2017
+        /// Description :   Model Price in city dekstop view action method
+        /// </summary>
+        /// <param name="modelName"></param>
+        /// <param name="cityName"></param>
+        /// <returns></returns>
         [Filters.DeviceDetection()]
         [Route("model/{modelName}/pricein/{cityName}/")]
         public ActionResult Index(string modelName, string cityName)
@@ -63,8 +70,18 @@ namespace Bikewale.Controllers
             PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _cityCache, _modelCache, PQSourceEnum.Desktop_PriceInCity_Alternative, modelName, cityName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
+                model.BikeInfoTabCount = 4;
+                model.NearestCityCount = 8;
+                model.TopCount = 3;
                 objVM = model.GetData();
-                return View(objVM);
+                if (model.Status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/pagenotfound.aspx");
+                }
+                else
+                {
+                    return View(objVM);
+                }
             }
             else if (model.Status == Entities.StatusCodes.ContentNotFound)
             {
@@ -79,6 +96,47 @@ namespace Bikewale.Controllers
                 return Redirect("/pagenotfound.aspx");
             }
 
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Mar 2017
+        /// Description :   Model Price in city mobile view action method
+        /// </summary>
+        /// <param name="modelName"></param>
+        /// <param name="cityName"></param>
+        /// <returns></returns>
+        [Route("m/model/{modelName}/pricein/{cityName}/")]
+        public ActionResult Index_Mobile(string modelName, string cityName)
+        {
+            PriceInCityPageVM objVM = new PriceInCityPageVM();
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _cityCache, _modelCache, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName);
+            if (model.Status == Entities.StatusCodes.ContentFound)
+            {
+                model.BikeInfoTabCount = 3;
+                model.NearestCityCount = 4;
+                model.TopCount = 9;
+                objVM = model.GetData();
+                if (model.Status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/pagenotfound.aspx");
+                }
+                else
+                {
+                    return View(objVM);
+                }
+            }
+            else if (model.Status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+            else if (model.Status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(model.RedirectUrl);
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
         }
     }
 }

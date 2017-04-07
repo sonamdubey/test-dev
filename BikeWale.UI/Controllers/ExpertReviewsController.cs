@@ -7,10 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Bikewale.Models;
-using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.Pager;
+using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.BikeData.UpComing;
+using Bikewale.Entities;
 
 namespace Bikewale.Controllers
 {
@@ -20,39 +22,38 @@ namespace Bikewale.Controllers
     /// </summary>
     public class ExpertReviewsController : Controller
     {
-        private readonly ICMSCacheContent cache = null;
-        private readonly IArticles articles = null;
-        private readonly IBikeModels<BikeModelEntity, int> bikeModels = null;
-        private readonly IBikeMakesCacheRepository<int> bikeMakesCache = null;
-        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMaskingCache = null;
-        private readonly IPager pager = null;
-        private ExpertReviewsIndexPage obj = null;
-
-
-        /// <summary>
-        /// Constructor to pass all the dependencies
-        /// </summary>
-        /// <param name="_cache"></param>
-        public ExpertReviewsController(ICMSCacheContent _cache, IArticles _articles, IBikeModels<BikeModelEntity, int> _bikeModels, IBikeMakesCacheRepository<int> _bikeMakesCache, IBikeMaskingCacheRepository<BikeModelEntity, int> _bikeMaskingCache, IPager _pager)
+        private readonly ICMSCacheContent _cmsCache = null;
+        private readonly IPager _pager = null;
+        private readonly IBikeModelsCacheRepository<int> _models = null;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
+        private readonly IUpcoming _upcoming = null;
+        private readonly IBikeInfo _bikeInfo = null;
+        private readonly ICityCacheRepository _cityCache = null;
+        
+        #region Constructor
+        public ExpertReviewsController(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache)
         {
-            cache = _cache;
-            articles = _articles;
-            bikeModels = _bikeModels;
-            bikeMakesCache = _bikeMakesCache;
-            bikeMaskingCache = _bikeMaskingCache;
-            pager = _pager;
+            _cmsCache = cmsCache;
+            _pager = pager;
+            _models = models;
+            _bikeModels = bikeModels;
+            _upcoming = upcoming;
+            _bikeInfo = bikeInfo;
+            _cityCache = cityCache;
         }
+        #endregion
 
+        #region Action Methods
 
         /// <summary>
-        /// Action to get the expertreviews list page for the first page
+        /// Created by : Aditi srivastava on 30 Mar 2017
+        /// Summmary   : Action method to render news listing page- Desktop
         /// </summary>
-        /// <returns></returns>
         [Route("expertreviews/")]
+        [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(cache, articles, bikeModels, bikeMakesCache, bikeMaskingCache, pager);
-
+            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {                
                 return Redirect("/pagenotfound.aspx");
@@ -61,21 +62,77 @@ namespace Bikewale.Controllers
             {
                 return RedirectPermanent(obj.redirectUrl);
             } else {
-                ExpertReviewsIndexPageVM objData = obj.GetData();
+                ExpertReviewsIndexPageVM objData = obj.GetData(4);
+                if(obj.status==StatusCodes.ContentNotFound)
+                    return Redirect("/pagenotfound.aspx");
+                else
+                    return View(objData);
+            }
+        }
 
+        /// <summary>
+        /// Created by : Aditi srivastava on 27 Mar 2017
+        /// Summmary   : Action method to render news listing page - mobile
+        /// </summary>
+        [Route("m/expertreviews/")]
+        public ActionResult Index_Mobile()
+        {
+             ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming);
+            obj.IsMobile = true;
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/m/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(string.Format("/m{0}",obj.redirectUrl));
+            }
+            else
+            {
+                ExpertReviewsIndexPageVM objData = obj.GetData(9);
+                if(obj.status==StatusCodes.ContentNotFound)
+                    return Redirect("/m/pagenotfound.aspx");
+                else
                 return View(objData);
             }
         }
 
         /// <summary>
-        /// Action to get the expertreviews list page for the first page
+        /// Created by : Aditi Srivastava on 31 Mar 2017
+        /// Summary    : Action method for expert review details page - Mobile
         /// </summary>
-        /// <returns></returns>
-        [Route("m/expertreviews/")]
-        public ActionResult Index_Mobile()
+        [Route("m/expertreviews/details/{basicid}/")]
+        public ActionResult Detail_Mobile(string basicid)
         {
-            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(cache, articles, bikeModels, bikeMakesCache, bikeMaskingCache, pager);
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid);
+            obj.IsMobile = true;
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/m/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
+            }
+            else
+            {
+                ExpertReviewsDetailPageVM objData = obj.GetData(9);
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pagenotfound.aspx");
+                else
+                    return View(objData);
+            }
+        }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava on 31 Mar 2017
+        /// Summary    : Action method for expert review details page - Desktop
+        /// </summary>
+        [Route("expertreviews/details/{basicid}/")]
+        [Filters.DeviceDetection()]
+        public ActionResult Detail(string basicid)
+        {
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -86,56 +143,12 @@ namespace Bikewale.Controllers
             }
             else
             {
-                ExpertReviewsIndexPageVM objData = obj.GetData();
-
-                return View(objData);
+                ExpertReviewsDetailPageVM objData = obj.GetData(3);
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/pagenotfound.aspx");
+                else
+                    return View(objData);
             }
-        }
-
-        /// <summary>
-        /// Action to get the expertreviews list page for the given pageid
-        /// </summary>
-        /// <param name="pageId"></param>
-        /// <returns></returns>
-        [Route("m/expertreviews/page/{pageId}/")]
-        public ActionResult Index(int pageId)
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// Action to get the expertreviews list page for the given pageid and for a given make
-        /// </summary>
-        /// <param name="pageId"></param>
-        /// <param name="makeId"></param>
-        /// <returns></returns>
-        [Route("m/expertreviews/make/{makeId}/page/{pageId}/")]
-        public ActionResult ExpertReviewsListByMake(int pageId, int makeId)
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// Action to get the expertreviews list page for the given pageid and for a given model
-        /// </summary>
-        /// <param name="pageId"></param>
-        /// <param name="makeId"></param>
-        /// <returns></returns>
-        [Route("m/expertreviews/model/{modelId}/page/{pageId}/")]
-        public ActionResult ExpertReviewsListByModel(int pageId, int modelId)
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// Action to get the expertreviews details
-        /// </summary>
-        /// <param name="basicid"></param>
-        /// <returns></returns>
-        [Route("m/expertreviews/details/{basicid}/")]
-        public ActionResult Details(uint basicid)
-        {
-            return View();
         }
 
         /// <summary>
@@ -150,7 +163,7 @@ namespace Bikewale.Controllers
 
             try
             {
-                objExpertReviews = cache.GetArticlesDetails(basicid);
+                objExpertReviews = _cmsCache.GetArticlesDetails(basicid);
 
                 if (objExpertReviews != null)
                 {
@@ -176,7 +189,7 @@ namespace Bikewale.Controllers
                     }
 
                     // code to get article photos
-                    IEnumerable<ModelImage> objImg = cache.GetArticlePhotos(Convert.ToInt32(basicid));
+                    IEnumerable<ModelImage> objImg = _cmsCache.GetArticlePhotos(Convert.ToInt32(basicid));
                     ViewBag.PhotosCnt = 0;
 
                     if (objImg != null)
@@ -195,39 +208,6 @@ namespace Bikewale.Controllers
             return View("~/views/m/content/expertreviews/details_amp.cshtml", objExpertReviews);
         }
 
-        /// <summary>
-        /// Action to get the latest expertreviews
-        /// </summary>
-        /// <param name="count">no of expertreviews required</param>
-        /// <returns></returns>
-        [Route("m/expertreviews/latest/{count}/")]
-        public ActionResult Latest(int count)
-        {
-            return PartialView();
-        }
-
-        /// <summary>
-        /// Action to get the latst expertreviews for a given make
-        /// </summary>
-        /// <param name="makeId">make id for which expertreviews are required</param>
-        /// <param name="count">no of expertreviews required</param>
-        /// <returns></returns>
-        [Route("m/expertreviews/make/{makeId}/latest/{count}/")]
-        public ActionResult LatestExpertReviewsByMake(int makeId, int count)
-        {
-            return PartialView();
-        }
-
-        /// <summary>
-        /// Action to get the latest expertreviews for a given model
-        /// </summary>
-        /// <param name="modelId">model id for which expertreviews are required</param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        [Route("m/expertreviews/model/{modelId}/latest/{count}/")]
-        public ActionResult LatestExpertReviewsByModel(int modelId, int count)
-        {
-            return PartialView();
-        }
+        #endregion
     }
 }

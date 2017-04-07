@@ -61,6 +61,10 @@ namespace Bikewale.Filters
             {
                 ErrorClass objErr = new ErrorClass(ex, "DeviceDetectionFilterAttribute.OnActionExecuting");
             }
+            finally
+            {
+                _mobilePageUrl = string.Empty;  //** Do not remove this variable
+            }
         }
     }
 }

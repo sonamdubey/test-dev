@@ -1,7 +1,7 @@
 ﻿using Bikewale.Entities.Videos;
 using System.Collections.Generic;
 
-namespace Bikewale.Models.Videos
+namespace Bikewale.Models
 {
     /// <summary>
     /// Created by : Aditi Srivastava on 24 Mar 2017
@@ -17,5 +17,6 @@ namespace Bikewale.Models.Videos
         public string LinkTitle { get; set; }
         public string MoreVideoUrl { get; set; }
         public string BikeName { get; set; }
+        public int FetchedCount { get; set; }
     }
 }
