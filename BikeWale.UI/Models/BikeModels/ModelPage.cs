@@ -591,11 +591,11 @@ namespace Bikewale.Models.BikeModels
 
                         if (objData.VersionId > 0 && objData.SelectedVersion != null)
                         {
-                            objData.BikePrice = Convert.ToUInt32(objData.SelectedVersion.Price);
+                            objData.BikePrice = objData.CityId == 0 ? Convert.ToUInt32(objData.SelectedVersion.Price) : 0;
                         }
                         else if (modelPg.ModelDetails != null)
                         {
-                            objData.BikePrice = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
+                            objData.BikePrice = objData.CityId == 0 ? Convert.ToUInt32(modelPg.ModelDetails.MinPrice) : 0;
                         }
 
                         // for new bike
