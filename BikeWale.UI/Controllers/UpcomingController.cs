@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
-    public class UpcomingBikesController : Controller
+    public class UpcomingController : Controller
     {
         // GET: UpcomingBikes
         [Route("upcomingbikes/")]
