@@ -20,6 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +46,9 @@
     <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Bikewale.PWA.Entities">
+      <HintPath>..\Bikewale.PWA.Entities\bin\Release\Bikewale.PWA.Entities.dll</HintPath>
     </Reference>
     <Reference Include="Carwale.DAL">
       <HintPath>..\Libs\Carwale.DAL.dll</HintPath>
@@ -100,9 +104,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Nest.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\mvc 5\newtonsoft 6.0.4\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -282,6 +286,8 @@
     <Compile Include="Controllers\BookingSummary\BookingSummaryController.cs" />
     <Compile Include="Controllers\City\DealerCityController.cs" />
     <Compile Include="Controllers\CMS\CMSListController.cs" />
+    <Compile Include="Controllers\CMS\ConverterUtility.cs" />
+    <Compile Include="Controllers\CMS\PwaCMSListController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareListController.cs" />
     <Compile Include="Controllers\Customer\CustomerController.cs" />

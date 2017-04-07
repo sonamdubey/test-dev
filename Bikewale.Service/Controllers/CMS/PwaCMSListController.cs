@@ -1,0 +1,183 @@
+﻿using Bikewale.DTO.CMS.Articles;
+using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.PWA.Articles;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Pager;
+using Bikewale.Notifications;
+using Bikewale.PWA.Service.Utilities;
+using Bikewale.Service.AutoMappers.CMS;
+using Bikewale.Service.Utilities;
+using EditCMSWindowsService.Messages;
+using Grpc.CMS;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Description;
+
+namespace Bikewale.Service.Controllers.PWA.CMS
+{
+
+    /// <summary>
+    /// Edit CMS List Controller :  Operations related to list of content 
+    /// Author : Sushil Kumar
+    /// Created On : 24th August 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// </summary>
+    public class PwaCMSListController : CompressionApiController//ApiController
+    {
+        ICMSCacheContent _objCMSContent = null;
+        private readonly IPager _pager = null;
+        public PwaCMSListController(IPager pager, ICMSCacheContent objCMSContent)
+        {
+            _pager = pager;
+            _objCMSContent = objCMSContent;
+        }
+
+        #region List Category Content PWA
+        /// <summary>
+        /// Modified By : Prasad Gawde
+        /// Summary : API to get recent content of specified category for the given make or model. This api return data for given page number.
+        /// Modified By : Sangram Nandkhile on 04 Mar 2016
+        /// Summary : Utility function to fetch shareurl is used
+        /// </summary>
+        /// <param name="categoryId">Id of the category whose data is required.</param>
+        /// <param name="makeId">Mandatory parameter.</param>
+        /// <param name="modelId">Optional parameter.</param>        
+        /// <param name="posts">No of records per page. Should be greater than 0.</param>
+        /// <param name="pageNumber">page number for which data is required.</param>
+        /// <returns>Category Content List</returns>
+        [ResponseType(typeof(IEnumerable<Bikewale.DTO.CMS.Articles.CMSContent>)), Route("api/pwa/cat/{categoryId}/posts/{posts}/pn/{pageNumber}/")]
+        public IHttpActionResult Get(EnumCMSContentType categoryId, int posts, int pageNumber)
+        {
+            Bikewale.Entities.CMS.Articles.CMSContent objFeaturedArticles = null;
+            try
+            {
+                int startIndex = 0, endIndex = 0;
+                _pager.GetStartEndIndex(Convert.ToInt32(posts), Convert.ToInt32(pageNumber), out startIndex, out endIndex);
+
+                objFeaturedArticles = _objCMSContent.GetArticlesByCategoryList(Convert.ToString((int)categoryId), startIndex, endIndex, 0, 0);
+
+                if (objFeaturedArticles != null && objFeaturedArticles.Articles.Count > 0)
+                {
+                    PwaContentBase objPWAArticles = new PwaContentBase();
+                    var pwaArticleSummaryList = new List<PwaArticleSummary>();
+                    objPWAArticles.Articles = pwaArticleSummaryList;
+
+                    foreach(var inpSummary in objFeaturedArticles.Articles)
+                    {
+                        pwaArticleSummaryList.Add(ConverterUtility.MapArticleSummaryToPwaArticleSummary(inpSummary));
+                    }
+                    objPWAArticles.RecordCount = objFeaturedArticles.RecordCount;
+                    objPWAArticles.StartIndex = (uint)startIndex;
+                    objPWAArticles.EndIndex = (uint)endIndex;
+                    return Ok(objPWAArticles);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Pwa.CMS.CMSController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+            return NotFound();
+        }  //get 
+        
+        #endregion
+
+
+        #region News Details Api
+        /// <summary>
+        /// Modified By : Ashish G. Kamble
+        /// Summary : API to get details of article. This is api is used for the articles single page. e.g. News.
+        /// Modified By : Sangram Nandkhile on 04 Mar 2016
+        /// Summary : Utility function to fetch shareurl is used
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns>News Details</returns>
+        [ResponseType(typeof(CMSArticleDetails)), Route("api/pwa/id/{basicId}/page/")]
+        public IHttpActionResult GetArticleDetailsPage(string basicId)
+        {
+            uint _basicId = default(uint);
+            DTO.CMS.Articles.HtmlContent htmlContent = null;
+            CMSArticleDetails objCMSFArticles = null;
+            try
+            {
+                if (!String.IsNullOrEmpty(basicId) && uint.TryParse(basicId, out _basicId))
+                {
+
+                    ArticleDetails objNews = _objCMSContent.GetNewsDetails(_basicId);
+
+                    if (objNews != null)
+                    {
+                        objCMSFArticles = new CMSArticleDetails();
+                        objCMSFArticles = CMSMapper.Convert(objNews);
+
+                        if (objNews.TagsList != null)
+                        {
+                            objNews.TagsList.Clear();
+                            objNews.TagsList = null;
+                        }
+
+                        if (objNews.VehiclTagsList != null)
+                        {
+                            objNews.VehiclTagsList.Clear();
+                            objNews.VehiclTagsList = null;
+                        }
+
+                        objCMSFArticles.FormattedDisplayDate = objNews.DisplayDate.ToString("MMMM dd, yyyy hh:mm tt");
+
+                        // If android, IOS client execute this code
+                        string platformId = string.Empty;
+
+                        if (Request.Headers.Contains("platformId"))
+                        {
+                            platformId = Request.Headers.GetValues("platformId").First().ToString();
+                        }
+
+                        if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
+                        {
+                            Bikewale.Entities.CMS.Articles.HtmlContent objContent = Bikewale.Utility.SanitizeHtmlContent.GetFormattedContent(objNews.Content);
+
+                            if (objContent.HtmlItems != null && objContent.HtmlItems.Count > 0)
+                            {
+                                htmlContent = new DTO.CMS.Articles.HtmlContent();
+                                htmlContent.HtmlItems = objContent.HtmlItems.Select(item => new DTO.CMS.Articles.HtmlItem() { Content = item.Content, ContentList = item.ContentList, SetMargin = item.SetMargin, Type = item.Type }).ToList();
+
+                                if (objContent.HtmlItems != null)
+                                {
+                                    objContent.HtmlItems.Clear();
+                                    objContent.HtmlItems = null;
+                                }
+
+                                objCMSFArticles.htmlContent = htmlContent;
+                                objCMSFArticles.Content = "";
+                            }
+                        }
+                        {
+                            objCMSFArticles.ShareUrl = new CMSShareUrl().ReturnShareUrl(objCMSFArticles);
+                        }
+                        return Ok(objCMSFArticles);
+                    }
+                }
+                else
+                {
+                    BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Pwa.CMS.CMSController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+            return NotFound();
+        }  //get News Details
+
+        #endregion
+    }   // class
+}   // namespace
+
+
