@@ -41,17 +41,17 @@ namespace Bikewale.Models
         /// <returns>
         /// Created by : Sangram Nandkhile on 07-Apr-2017 
         /// </returns>
-        public UpcomingBikesWidgetVM GetData()
+        public UpcomingPageVM GetData()
         {
-            UpcomingBikesWidgetVM objUpcoming = new UpcomingBikesWidgetVM();
+            UpcomingPageVM objUpcoming = new UpcomingPageVM();
             try
             {
-                objUpcoming.UpcomingBikes = _upcoming.GetModels(Filters, SortBy);
+                //objUpcoming.UpcomingBikes = _upcoming.GetModels(Filters, SortBy);
             }
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingBikesWidget.GetData");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingPageModel.GetData");
             }
             return objUpcoming;
         }

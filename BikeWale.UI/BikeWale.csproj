@@ -466,6 +466,7 @@
     <Compile Include="Controllers\NewLaunchesController.cs" />
     <Compile Include="Controllers\ScootersController.cs" />
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
+    <Compile Include="Controllers\UpcomingController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
     <Compile Include="Controllers\PriceController.cs" />
@@ -474,7 +475,6 @@
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\GenericBikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
-    <Compile Include="Controllers\UpcomingController.cs" />
     <Compile Include="Controllers\UsedController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
@@ -947,6 +947,7 @@
     <Compile Include="Models\ServiceCenters\ServiceCenterCityPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterDetailsPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterLandingPage.cs" />
+    <Compile Include="Models\Upcoming\UpcomingPageModel.cs" />
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
@@ -3653,9 +3654,9 @@
     <Content Include="Views\Model\_Index_Discontinued.cshtml" />
     <Content Include="Views\Price\_SecondaryDealers_Mobile.cshtml" />
     <Content Include="Views\Price\_ManufacturerCampaign_Mobile.cshtml" />
-    <Content Include="Views\Upcoming\Index_Mobile.cshtml" />
-    <Content Include="Views\Upcoming\UpcomingBikesByMake_Mobile.cshtml" />
-    <Content Include="Views\Upcoming\Index.cshtml" />
+    <Content Include="Views\UpcomingBikes\Index_Mobile.cshtml" />
+    <Content Include="Views\UpcomingBikes\UpcomingBikesByMake_Mobile.cshtml" />
+    <Content Include="Views\UpcomingBikes\Index.cshtml" />
     <Content Include="Views\Model\_Index_Upcoming.cshtml" />
     <Content Include="Views\Model\_Index_Reviews.cshtml" />
     <Content Include="Views\Model\_Index_VersionsAndSpecs.cshtml" />

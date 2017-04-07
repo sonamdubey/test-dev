@@ -1,22 +1,25 @@
-﻿using Bikewale.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Bikewale.Interfaces.BikeData.UpComing;
+using Bikewale.Models;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
     public class UpcomingController : Controller
     {
+        private IUpcoming _upcoming = null;
+        public UpcomingController(IUpcoming upcoming)
+        {
+            _upcoming = upcoming;
+        }
         // GET: UpcomingBikes
         [Route("upcomingbikes/")]
         public ActionResult Index()
         {
-            ModelBase m = new ModelBase();
-            return View(m);
+            UpcomingPageModel objData = new UpcomingPageModel(_upcoming);
+            UpcomingPageVM vm = objData.GetData();
+            return View(vm);
         }
-        
+
         // GET: UpcomingBikes
         [Route("m/upcomingbikes/")]
         public ActionResult Index_Mobile()
