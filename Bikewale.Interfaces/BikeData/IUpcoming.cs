@@ -10,5 +10,8 @@ namespace Bikewale.Interfaces.BikeData.UpComing
     public interface IUpcoming
     {
         IEnumerable<UpcomingBikeEntity> GetModels(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy);
+        IEnumerable<int> GetYearList();
+        IEnumerable<BikeMakeEntityBase> GetMakeList();
+        int GetTotalBikes();
     }
 }

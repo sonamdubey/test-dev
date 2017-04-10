@@ -3654,9 +3654,6 @@
     <Content Include="Views\Model\_Index_Discontinued.cshtml" />
     <Content Include="Views\Price\_SecondaryDealers_Mobile.cshtml" />
     <Content Include="Views\Price\_ManufacturerCampaign_Mobile.cshtml" />
-    <Content Include="Views\UpcomingBikes\Index_Mobile.cshtml" />
-    <Content Include="Views\UpcomingBikes\UpcomingBikesByMake_Mobile.cshtml" />
-    <Content Include="Views\UpcomingBikes\Index.cshtml" />
     <Content Include="Views\Model\_Index_Upcoming.cshtml" />
     <Content Include="Views\Model\_Index_Reviews.cshtml" />
     <Content Include="Views\Model\_Index_VersionsAndSpecs.cshtml" />
@@ -3722,6 +3719,10 @@
     <Content Include="Views\UserReviews\_UserReviewsList_Mobile.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikes_Editorial_Mobile.cshtml" />
     <Content Include="Views\Videos\Index.cshtml" />
+    <Content Include="Views\Upcoming\Index.cshtml" />
+    <Content Include="Views\Upcoming\Index_Mobile.cshtml" />
+    <Content Include="Views\Upcoming\UpcomingBikesByMake_Mobile.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikesList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -15,5 +15,6 @@ namespace Bikewale.Entities.BikeData
         public int StartIndex { get; set; }
         public int EndIndex { get; set; }
         public uint BodyStyleId { get; set; }
+        public uint Year { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Bikewale.Interfaces.BikeData.UpComing;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Filters;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Models;
 using System.Web.Mvc;
 
@@ -13,11 +15,26 @@ namespace Bikewale.Controllers
         }
         // GET: UpcomingBikes
         [Route("upcomingbikes/")]
-        public ActionResult Index()
+        [DeviceDetection]
+        public ActionResult Index(ushort? pageNumber)
         {
-            UpcomingPageModel objData = new UpcomingPageModel(_upcoming);
-            UpcomingPageVM vm = objData.GetData();
-            return View(vm);
+            UpcomingPageModel objData = null;
+            if (pageNumber.HasValue)
+            {
+                objData = new UpcomingPageModel(_upcoming, (ushort)pageNumber);
+            }
+            else
+            {
+                objData = new UpcomingPageModel(_upcoming, 1);
+            }
+            objData.Filters = new UpcomingBikesListInputEntity();
+            objData.Filters.StartIndex = 0;
+            objData.Filters.EndIndex = 15;
+            objData.SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
+            objData.BaseUrl = "/upcoming-bikes/";
+            objData.PageSize = 15;
+            UpcomingPageVM objVM = objData.GetData();
+            return View(objVM);
         }
 
         // GET: UpcomingBikes
