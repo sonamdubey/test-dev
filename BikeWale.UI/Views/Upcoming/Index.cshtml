@@ -1,9 +1,11 @@
-﻿@{
-    ViewBag.IsHeaderFix = false;
-    ViewBag.IsTransparentHeader = true;
-    ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/upcoming-bikes/upcoming-bikes.css' />";
-    ViewBag.Page_JS_Path = "/src/upcoming-bikes.js";
-    Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
+﻿@model Bikewale.Models.UpcomingPageVM
+@{
+    Model.IsHeaderFix = false;
+    Model.IsTransparentHeader = true;
+    Model.IsPageTypeLanding = true;
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/upcoming-bikes/upcoming-bikes.css' />";
+    Model.Page_JS_Path = "/src/upcoming-bikes.js";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <header class="upcoming-bikes-banner">
@@ -19,7 +21,9 @@
     <div class="container">
         <div class="grid-12">
             <div class="content-box-shadow negative-50 padding-15-20 font14 text-light-grey collapsible-content">
-                <p class="main-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                <p class="main-content">India is one of the largest two-wheeler markets in the world. Every year the bike enthusiasts around the country eagerly wait for upcoming bikes from different brands
+- In order to meet the expectation of these young enthusiasts, most of the motorcycle brands announce some of their key expected launches at the beginning of a year. BikeWale is dedicated to serving its users the correct information about the expected launch dates and the price of these upcoming bikes. Explore the list of upcoming
+ bikes and get ready to buy your favorite one.</p>
             </div>
         </div>
         <div class="clear"></div>
@@ -200,77 +204,8 @@
         <h2 class="section-heading">Upcoming bikes by brands</h2>
         <div class="grid-12">
             <div class="content-box-shadow padding-top20 padding-bottom25 text-center collapsible-brand-content">
-                <div id="brand-type-container" class="brand-type-container">
-                    <ul>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-7"></span></span><span class="brand-type-title">Honda</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-1"></span></span><span class="brand-type-title">Bajaj</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-6"></span></span><span class="brand-type-title">Hero</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-15"></span></span><span class="brand-type-title">TVS</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-11"></span></span><span class="brand-type-title">Royal Enfield</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-13"></span></span><span class="brand-type-title">Yamaha</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-12"></span></span><span class="brand-type-title">Suzuki</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-9"></span></span><span class="brand-type-title">KTM</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-10"></span></span><span class="brand-type-title">Mahindra</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-5"></span></span><span class="brand-type-title">Harley Davidson</span></a>
-                        </li>
-                    </ul>
-                    <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide border-solid-top">
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-7"></span></span><span class="brand-type-title">Honda</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-1"></span></span><span class="brand-type-title">Bajaj</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-6"></span></span><span class="brand-type-title">Hero</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-15"></span></span><span class="brand-type-title">TVS</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-11"></span></span><span class="brand-type-title">Royal Enfield</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-13"></span></span><span class="brand-type-title">Yamaha</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-12"></span></span><span class="brand-type-title">Suzuki</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-9"></span></span><span class="brand-type-title">KTM</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-10"></span></span><span class="brand-type-title">Mahindra</span></a>
-                        </li>
-                        <li>
-                            <a href="" title=""><span class="brand-type"><span class="lazy brandlogosprite brand-5"></span></span><span class="brand-type-title">Harley Davidson</span></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="view-all-btn-container">
-                    <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwsprite teal-right"></span></a>
-                </div>
+                @Html.Partial("~/Views/Make/_Brands.cshtml", Model.Brands)
             </div>
-        </div>
         <div class="clear"></div>
     </div>
 </section>
@@ -280,119 +215,9 @@
         <h2 class="section-heading">Newly launched bikes</h2>
         <div class="grid-12">
             <div class="content-box-shadow padding-top20">
-                <div class="jcarousel-wrapper inner-content-carousel carousel-height-360">
-                    <div class="jcarousel">
-                        <ul>
-                            <li>
-                                <a href="" title="Bajaj model420x" class="jcarousel-card">
-                                    <div class="model-jcarousel-image-preview">
-                                        <span class="card-image-block">
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/aprilia-sr150.jpg?20161002174559" alt="Bajaj model420x" src="" border="0" /></span>
-                                    </div>
-                                    <div class="card-desc-block">
-                                        <h3 class="bikeTitle">Bajaj model420x</h3>
-                                        <p class="text-xt-light-grey font14 margin-bottom10">
-                                            <span>54 cc</span>,
-                                            <span>54 bhp</span>
-                                        </p>
-                                        <p class="font14 text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                        <div class="text-default text-bold">
-                                            <span class="bwsprite inr-lg"></span>
-                                            <span class="font18">5,454</span>
-                                            <span class="font14"> onwards</span>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div>
-                                    <a href="#" class="btn btn-grey btn-sm font14 margin-left20 margin-bottom20">Check on-road price</a>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="" title="Bajaj model420x" class="jcarousel-card">
-                                    <div class="model-jcarousel-image-preview">
-                                        <span class="card-image-block">
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/aprilia-sr150.jpg?20161002174559" alt="Bajaj model420x" src="" border="0" />
-                                        </span>
-                                    </div>
-                                    <div class="card-desc-block">
-                                        <h3 class="bikeTitle">Bajaj model420x</h3>
-                                        <p class="text-xt-light-grey font14 margin-bottom10">
-                                            <span>54 cc</span>,
-                                            <span>54 bhp</span>
-                                        </p>
-                                        <p class="font14 text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                        <div class="text-default text-bold">
-                                            <span class="bwsprite inr-lg"></span>
-                                            <span class="font18">5,454</span>
-                                            <span class="font14"> onwards</span>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div>
-                                    <a href="#" class="btn btn-grey btn-sm font14 margin-left20 margin-bottom20">Check on-road price</a>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="" title="Bajaj model420x" class="jcarousel-card">
-                                    <div class="model-jcarousel-image-preview">
-                                        <span class="card-image-block">
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/aprilia-sr150.jpg?20161002174559" alt="Bajaj model420x" src="" border="0" />
-                                        </span>
-                                    </div>
-                                    <div class="card-desc-block">
-                                        <h3 class="bikeTitle">Bajaj model420x</h3>
-                                        <p class="text-xt-light-grey font14 margin-bottom10">
-                                            <span>54 cc</span>,
-                                            <span>54 bhp</span>
-                                        </p>
-                                        <p class="font14 text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                        <div class="text-default text-bold">
-                                            <span class="bwsprite inr-lg"></span>
-                                            <span class="font18">5,454</span>
-                                            <span class="font14"> onwards</span>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div>
-                                    <a href="#" class="btn btn-grey btn-sm font14 margin-left20 margin-bottom20">Check on-road price</a>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="" title="Bajaj model420x" class="jcarousel-card">
-                                    <div class="model-jcarousel-image-preview">
-                                        <span class="card-image-block">
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/aprilia-sr150.jpg?20161002174559" alt="Bajaj model420x" src="" border="0" />
-                                        </span>
-                                    </div>
-                                    <div class="card-desc-block">
-                                        <h3 class="bikeTitle">Bajaj model420x</h3>
-                                        <p class="text-xt-light-grey font14 margin-bottom10">
-                                            <span>54 cc</span>,
-                                            <span>54 bhp</span>
-                                        </p>
-                                        <p class="font14 text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                        <div class="text-default text-bold">
-                                            <span class="bwsprite inr-lg"></span>
-                                            <span class="font18">5,454</span>
-                                            <span class="font14"> onwards</span>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div>
-                                    <a href="#" class="btn btn-grey btn-sm font14 margin-left20 margin-bottom20">Check on-road price</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <span class="jcarousel-control-left">
-                        <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
-                    </span>
-                    <span class="jcarousel-control-right">
-                        <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
-                    </span>
-                </div>
-                <div class="view-all-btn-container padding-top15 padding-bottom20">
-                    <a href="" class="btn view-all-target-btn" title="">View all launches<span class="bwsprite teal-right"></span></a>
+                @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunches)
+                <div class="view-all-btn-container padding-top15">
+                    <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
                 </div>
             </div>
         </div>

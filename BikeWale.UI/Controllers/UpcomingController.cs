@@ -1,4 +1,5 @@
-﻿using Bikewale.Interfaces.BikeData.UpComing;
+﻿using Bikewale.Interfaces.BikeData.NewLaunched;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Models;
 using System.Web.Mvc;
 
@@ -7,15 +8,17 @@ namespace Bikewale.Controllers
     public class UpcomingController : Controller
     {
         private IUpcoming _upcoming = null;
-        public UpcomingController(IUpcoming upcoming)
+        private readonly INewBikeLaunchesBL _newLaunches = null;
+        public UpcomingController(IUpcoming upcoming, INewBikeLaunchesBL newLaunches)
         {
             _upcoming = upcoming;
+            _newLaunches = newLaunches;
         }
         // GET: UpcomingBikes
         [Route("upcomingbikes/")]
         public ActionResult Index()
         {
-            UpcomingPageModel objData = new UpcomingPageModel(_upcoming);
+            UpcomingPageModel objData = new UpcomingPageModel(10, _upcoming, _newLaunches);
             UpcomingPageVM vm = objData.GetData();
             return View(vm);
         }

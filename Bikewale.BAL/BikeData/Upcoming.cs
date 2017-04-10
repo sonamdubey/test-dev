@@ -2,6 +2,7 @@
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Models;
 using Bikewale.Notifications;
 using Bikewale.Utility.LinqHelpers;
 using System;
@@ -121,5 +122,59 @@ namespace Bikewale.BAL.BikeData.UpComingBike
         }
 
 
+        /// <summary>
+        /// Binds the makes.
+        /// </summary>
+        /// <param name="upcomingBikes">The upcoming bikes.</param>
+        /// <param name="topCount">The top count.</param>
+        /// <returns>
+        /// Created by : Sangram Nandkhile on 10-Apr-2017 
+        /// </returns>
+        public BrandWidgetVM BindUpcomingMakes(uint topCount)
+        {
+            BrandWidgetVM brands = null;
+            try
+            {
+                brands = new BrandWidgetVM();
+                IEnumerable<UpcomingBikeEntity> upcomingBikes = _upcomingRepo.GetUpcomingModels();
+                ICollection<BikeMakeEntityBase> topBrands = new List<BikeMakeEntityBase>();
+                ICollection<BikeMakeEntityBase> otherBrands = new List<BikeMakeEntityBase>();
+                var makes = upcomingBikes.GroupBy(x => x.MakeBase.MakeId)
+                    .Select(x => x.First().MakeBase).ToList();
+
+                int i = 0;
+                foreach (var make in makes)
+                {
+                    if (i < topCount)
+                    {
+                        topBrands.Add(new BikeMakeEntityBase()
+                        {
+                            MakeId = make.MakeId,
+                            MakeName = make.MakeName,
+                            Href = String.Format("/{0}-bikes/upcoming/", make.MaskingName),
+                            Title = String.Format("Upcoming {0} bikes/", make.MaskingName)
+                        });
+                    }
+                    else
+                    {
+                        otherBrands.Add(new BikeMakeEntityBase()
+                        {
+                            MakeId = make.MakeId,
+                            MakeName = make.MakeName,
+                            Href = String.Format("/{0}-bikes/upcoming/", make.MaskingName),
+                            Title = String.Format("Upcoming {0} bikes/", make.MaskingName)
+                        });
+                    }
+                    i++;
+                }
+                brands.TopBrands = topBrands;
+                brands.OtherBrands = otherBrands;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.BindMakes()");
+            }
+            return brands;
+        }
     }   // class
 }   // namespace

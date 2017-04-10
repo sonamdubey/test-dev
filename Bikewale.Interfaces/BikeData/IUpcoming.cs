@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.Entities.BikeData;
+using Bikewale.Models;
 using System.Collections.Generic;
 namespace Bikewale.Interfaces.BikeData.UpComing
 {
@@ -10,5 +11,6 @@ namespace Bikewale.Interfaces.BikeData.UpComing
     public interface IUpcoming
     {
         IEnumerable<UpcomingBikeEntity> GetModels(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy);
+        BrandWidgetVM BindUpcomingMakes(uint topCount);
     }
 }
