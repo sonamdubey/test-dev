@@ -3658,6 +3658,7 @@
     <Content Include="Views\Model\_Index_Reviews.cshtml" />
     <Content Include="Views\Model\_Index_VersionsAndSpecs.cshtml" />
     <Content Include="Views\Model\_Index_ModelGallery.cshtml" />
+    <Content Include="Views\UpcomingBikes\UpcomingBikesByMake.cshtml" />
     <Content Include="Views\Model\_Index_DealerDetails_TopCard.cshtml" />
     <Content Include="Views\Model\_Index_DealerDetails_TopCard_Right.cshtml" />
     <Content Include="Views\DealerShowroom\Index.cshtml" />
