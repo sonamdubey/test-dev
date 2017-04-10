@@ -8,12 +8,50 @@
 .model-details-grid {
   width: 72%;
   padding-left: 10px; }
+  .model-details-grid .star-one {
+    transform: scale(0.6);
+    position: relative;
+    top: -2px; }
+
+.font-bold {
+  font-weight: 700; }
 
 .text-bold {
   font-weight: 600 !important; }
 
 .text-slate-grey {
   color: #787878; }
+
+.font15 {
+  font-size: 15px; }
+
+#bike-rating-box {
+  width: 100%;
+  min-height: 146px;
+  margin-top: 50px;
+  padding-bottom: 15px;
+  background: #F5F5F5;
+  text-align: center; }
+  #bike-rating-box .rating-placeholder {
+    position: relative;
+    top: -10px; }
+  #bike-rating-box .item-rating-list li {
+    margin-right: 10px;
+    margin-left: 10px; }
+
+.circle-placeholder {
+  width: 61px;
+  height: 61px;
+  margin: 0 auto;
+  padding-top: 15px;
+  border: 1px solid #e2e2e2;
+  background: #fff;
+  position: relative;
+  top: -31px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%; }
 
 .question-field {
   padding-bottom: 10px;
@@ -43,9 +81,118 @@
     cursor: default;
     pointer-events: none; }
 
+.numeric-list {
+  list-style: decimal;
+  margin-left: 15px; }
+  .numeric-list li {
+    margin-bottom: 5px; }
+
+.textarea-box {
+  position: relative; }
+  .textarea-box textarea {
+    width: 100%;
+    border: 1px solid #a2a2a2;
+    font-family: "Open Sans", sans-serif, Arial;
+    font-size: 14px;
+    padding: 20px;
+    resize: none; }
+    .textarea-box textarea:focus {
+      border-color: #82888b;
+      box-shadow: none; }
+
+.textarea-error {
+  left: 7px;
+  bottom: 7px;
+  padding: 5px; }
+  .textarea-error .error-text {
+    top: 0; }
+
+.review-char-count {
+  background: rgba(255, 255, 255, 0.9);
+  bottom: 7px;
+  right: 7px;
+  color: #41B4C4;
+  padding: 5px; }
+
+.detailed-question-list .list-item {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee; }
+
+.detailed-question-list .item-title {
+  font-weight: 600;
+  margin-bottom: 8px; }
+
+.detailed-question-list .item-subtitle {
+  margin-bottom: 10px; }
+
+.detailed-question-list .item-rating-list li {
+  margin-right: 4px;
+  margin-left: 4px; }
+
 #rate-bike-form {
   -webkit-tap-highlight-color: transparent; }
 
+.user-rated-list .list-item {
+  margin-bottom: 8px; }
+
+.user-rated-list .star-one,
+.user-rated-list .star-zero {
+  transform: scale(0.7); }
+
+.inline-grid-6 {
+  width: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: -4px; }
+
+.star-zero,
+.star-one {
+  width: 26px;
+  height: 25px;
+  vertical-align: middle; }
+
+.star-zero {
+  background-position: 0 -308px; }
+
+.star-one {
+  background-position: 0 -278px; }
+
+.opacity-active .star-zero {
+  opacity: 0.5; }
+
+.feedback-1,
+.feedback-2,
+.feedback-3,
+.feedback-4,
+.feedback-5 {
+  width: 26px;
+  height: 25px; }
+
+.feedback-3,
+.feedback-4,
+.feedback-5 {
+  background-position: -183px -569px; }
+
+.feedback-3 {
+  opacity: 0.4; }
+
+.feedback-4 {
+  opacity: 0.6; }
+
+.feedback-1,
+.feedback-2 {
+  background-position: -171px -610px;
+  position: relative;
+  top: 3px; }
+
+.feedback-2 {
+  opacity: 0.6; }
+
 @media only screen and (max-width: 320px) {
   .model-details-grid {
-    width: 68%; } }
+    width: 68%; }
+  .user-rated-list p.inline-grid-6 {
+    width: 45%; }
+  .user-rated-list ul.inline-grid-6 {
+    width: 55%; } }
