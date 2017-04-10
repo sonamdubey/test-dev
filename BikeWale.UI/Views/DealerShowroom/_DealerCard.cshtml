@@ -7,14 +7,14 @@
         {
             <li class="card">
                 <a href="@Bikewale.Utility.UrlFormatter.GetDealerUrl(Model.MakeMaskingName, Model.CityMaskingName, dealerDetails.Name, Convert.ToInt32(dealerDetails.DealerId)) " title="@dealerDetails.Name" class="card-target">
-                    <p class="text-black text-bold text-truncate margin-bottom5">@dealerDetails.Name</p>
-                    <p class="@string.Format("{0}", string.IsNullOrEmpty(dealerDetails.Address) ? "hide" : "text-light-grey margin-bottom5")">
+                    <p class="text-black text-bold text-truncate margin-bottom10 font15">@dealerDetails.Name</p>
+                    <p class="@string.Format("{0}", string.IsNullOrEmpty(dealerDetails.Address) ? "hide" : "margin-bottom10")">
                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                        <span class="vertical-top details-column">@Bikewale.Utility.FormatDescription.TruncateDescription((dealerDetails.Address), 95)</span>
+                        <span class="text-slate-grey vertical-top details-column">@Bikewale.Utility.FormatDescription.TruncateDescription((dealerDetails.Address), 95)</span>
                     </p>
-                    <p class="@string.Format("{0}", string.IsNullOrEmpty(dealerDetails.MaskingNumber) ? "hide" : "text-default")">
+                    <p class="@string.Format("{0}", string.IsNullOrEmpty(dealerDetails.MaskingNumber) ? "hide" : "")">
                         <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
-                        <span class="text-bold vertical-top details-column text-truncate">@dealerDetails.MaskingNumber</span>
+                        <span class="text-default text-bold vertical-top details-column text-truncate">@dealerDetails.MaskingNumber</span>
                     </p>
                 </a>
             </li>

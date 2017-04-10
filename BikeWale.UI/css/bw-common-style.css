@@ -335,8 +335,8 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .video-likes-icon {width: 15px;height: 15px;background-position: -84px -277px; position: relative;top: 2px;}
 
 .inr-xsm-grey { width: 7px; height: 10px; background-position: -46px -427px; position: relative; top: 1px; }
-.inr-sm-dark { width:8px; height:12px; background-position:-128px -468px; }
-.inr-md, .inr-md-light { width:8px; height:13px; }
+.inr-sm-dark { width:10px; height:12px; background-position:-128px -468px; }
+.inr-md, .inr-md-light { width:9px; height:13px; }
 .inr-md { background-position:-53px -490px; }
 .inr-md-light { background-position:-129px -490px; }
 .inr-lg, .inr-lg-thin { width:10px; height:14px; }
@@ -767,8 +767,8 @@ a.action-btn:hover{text-decoration:none;}
 .bikeTitle {
     margin-bottom: 10px;
     color: #2a2a2a;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 600;
     text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -1384,7 +1384,8 @@ input[type="number"] {
 }
 
 /* card */
-.card .details-column.text-truncate {
+.card .details-column.text-truncate,
+.details-column {
     width: 92%
 }
 
