@@ -3,7 +3,9 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using System;
+using System.Linq;
 
 namespace Bikewale.Models
 {
@@ -19,24 +21,33 @@ namespace Bikewale.Models
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private uint _topbrandCount;
         private EnumUpcomingBikesFilter filter = EnumUpcomingBikesFilter.Default;
+        private readonly ushort _pageNumber;
+
+        #endregion
+
+        public UpcomingPageModel(uint topbrandCount, IUpcoming upcoming, INewBikeLaunchesBL newLaunches)
+        {
+            _topbrandCount = topbrandCount;
+            _upcoming = upcoming;
+            _newLaunches = newLaunches;
+        }
+        #region Public members
+
+        public UpcomingBikesListInputEntity Filters { get; set; }
+        public EnumUpcomingBikesFilter SortBy { get; set; }
+        public int PageSize { get; set; }
+        public string BaseUrl { get; set; }
 
         #endregion
 
         #region Constructor
 
-        public UpcomingPageModel(uint topbrandCount, IUpcoming upcoming, INewBikeLaunchesBL newLaunches)
+        public UpcomingPageModel(IUpcoming upcoming, ushort pageNumber, INewBikeLaunchesBL newLaunches)
         {
             _upcoming = upcoming;
-            _topbrandCount = topbrandCount;
+            _pageNumber = pageNumber;
             _newLaunches = newLaunches;
         }
-        #endregion
-
-        #region Public members
-
-        public UpcomingBikesListInputEntity Filters { get; set; }
-        public EnumUpcomingBikesFilter SortBy { get; set; }
-
         #endregion
 
         #region Functions
@@ -58,6 +69,12 @@ namespace Bikewale.Models
                 objUpcoming.NewLaunches = new NewLaunchedWidgetModel(9, _newLaunches).GetData();
                 //objUpcoming.NewLaunches.PageCatId = 1;
                 objUpcoming.NewLaunches.PQSourceId = (uint)PQSourceEnum.Desktop_UpcomiingBikes_NewLaunchesWidget;
+                objUpcoming.UpcomingBikeModels = _upcoming.GetModels(Filters, SortBy);
+                objUpcoming.TotalBikes = (uint)_upcoming.GetTotalBikes();
+                objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels.Count() > 0);
+                objUpcoming.YearsList = _upcoming.GetYearList();
+                objUpcoming.MakesList = _upcoming.GetMakeList();
+                CreatePager(objUpcoming, objUpcoming.PageMetaTags);
             }
             catch (Exception ex)
             {
@@ -86,6 +103,38 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingPageModel.BindPageMetaTags");
+            }
+        }
+        /// Created by  :   Sumit Kate on 30 Mar 2017
+        /// Description :   Binds Pager
+        /// </summary>
+        /// <param name="newLaunchesBikesVM"></param>
+        /// <param name="objMeta"></param>
+        private void CreatePager(UpcomingPageVM objUpcoming, PageMetaTags objMeta)
+        {
+            try
+            {
+                objUpcoming.Pager = new Entities.Pager.PagerEntity()
+                {
+                    PageNo = (int)_pageNumber,
+                    PageSize = PageSize,
+                    PagerSlotSize = 5,
+                    BaseUrl = BaseUrl,
+                    PageUrlType = "page/",
+                    TotalResults = (int)(objUpcoming.TotalBikes)
+                };
+                int pages = (int)(objUpcoming.TotalBikes / PageSize);
+
+                if ((objUpcoming.TotalBikes % PageSize) > 0)
+                    pages += 1;
+                string prevUrl = string.Empty, nextUrl = string.Empty;
+                Paging.CreatePrevNextUrl(pages, BaseUrl, (int)objUpcoming.Pager.PageNo, ref nextUrl, ref prevUrl);
+                objMeta.NextPageUrl = nextUrl;
+                objMeta.PreviousPageUrl = prevUrl;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedIndexModel.CreatePager()");
             }
         }
 

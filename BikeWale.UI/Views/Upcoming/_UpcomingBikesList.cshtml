@@ -1,0 +1,94 @@
+﻿@model Bikewale.Models.UpcomingPageVM
+
+@if (Model != null)
+{
+    <div class="content-box-shadow">
+        <div class="padding-right20 padding-left20">
+            <div class="padding-top15 padding-bottom15 border-solid-bottom">
+                <h3 class="font18 text-black grid-5 alpha">@Model.TotalBikes bikes</h3>
+                <div class="grid-7 omega text-right upcoming-filter">
+                    <p class="font14 text-light-grey inline-block margin-right5">Filter by:</p>
+
+                    @if (Model.MakesList != null && Model.MakesList.Count() > 0)
+                    {
+                        <div class="select-box inline-block margin-right15 brand-type-filter">
+                            <select class="chosen-select" data-placeholder="Select brand">
+                                <option value="0">All brands</option>
+                                @foreach (var make in Model.MakesList)
+                                {
+                                    <option value="@make.MakeId">@make.MakeName</option>
+                                }
+                            </select>
+                        </div>
+                    }
+                    @if (Model.YearsList!= null && Model.YearsList.Count() > 0)
+                    {
+                        <div class="select-box select-box-no-input inline-block right-align-box">
+                            <select class="chosen-select" data-title="Select year">
+                                <option value="0">All years</option>
+                                @foreach (var year in Model.YearsList)
+                                {
+                                    <option value="@year">@year</option>
+                                }
+                            </select>
+                        </div>
+                    }
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        @if (Model.HasBikes)
+        {
+            <div class="upcoming-bikes-wrapper">
+                <ul class="bike-listing-horizontal">
+                    @foreach (var bike in Model.UpcomingBikeModels)
+                    {
+                        <li class="list-item">
+                            <div class="launching-label">
+                                @if (Convert.ToDateTime(bike.ExpectedLaunchDate).Month == DateTime.Now.Month)
+                                {
+                                    <p class="border-red-left font12 text-bold margin-bottom10 margin-left10">Launching this month</p>
+                                }
+                            </div>
+                            <a href="@string.Format("/{0}-bikes/{1}", bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bike.MakeBase.MakeName @bike.ModelBase.ModelName" class="block">
+                                <div class="model-jcarousel-image-preview">
+                                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" alt="@bike.MakeBase.MakeName @bike.ModelBase.ModelName">
+                                </div>
+                                <div class="card-desc-block">
+                                    <h3 class="bikeTitle">@bike.MakeBase.MakeName @bike.ModelBase.ModelName</h3>
+                                    <p class="key-size-14 text-truncate">Expected launch</p>
+                                    <span class="value-size-16">@Convert.ToDateTime(bike.ExpectedLaunchDate).ToString("MMMM yyyy")</span>
+                                    <p class="key-size-14 text-truncate margin-top10">Expected price</p>
+                                    <span class="bwsprite inr-lg"></span>&nbsp;
+                                    <span class="value-size-18">@(bike.EstimatedPriceMin > 0 ? Bikewale.Common.CommonOpn.FormatNumeric(Convert.ToString(bike.EstimatedPriceMin)) : "N/A")</span>&nbsp;
+                                    <span class="value-size-14">onwards</span>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0" style="display: @(Model.HasPages ? "block" : "none")">
+            <div class="footer-pagination font14 border-solid-top padding-top10">
+                <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalBikes() > 0">
+                    <p>Showing <span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()">@Model.Pager.TotalResults</span> bikes</p>
+                </div>
+                @if (Model.Pager.TotalResults > 15)
+                {
+                    Html.RenderAction("Index", "Pager", new { objPager = @Model.Pager });
+                }
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="spinner-content" style="display: none">
+            <svg class="bw-spinner" width="50px" height="50px" viewBox="0 0 50 50">
+                <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+            </svg>
+        </div>
+
+    </div>
+}

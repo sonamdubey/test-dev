@@ -3,7 +3,7 @@
     Model.IsHeaderFix = false;
     Model.IsTransparentHeader = true;
     Model.IsPageTypeLanding = true;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/upcoming-bikes/upcoming-bikes.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/upcoming-bikes/upcoming-bikes.css' />";    
     Model.Page_JS_Path = "/src/upcoming-bikes.js";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -21,9 +21,11 @@
     <div class="container">
         <div class="grid-12">
             <div class="content-box-shadow negative-50 padding-15-20 font14 text-light-grey collapsible-content">
-                <p class="main-content">India is one of the largest two-wheeler markets in the world. Every year the bike enthusiasts around the country eagerly wait for upcoming bikes from different brands
-- In order to meet the expectation of these young enthusiasts, most of the motorcycle brands announce some of their key expected launches at the beginning of a year. BikeWale is dedicated to serving its users the correct information about the expected launch dates and the price of these upcoming bikes. Explore the list of upcoming
- bikes and get ready to buy your favorite one.</p>
+                <p class="main-content">
+                    India is one of the largest two-wheeler markets in the world. Every year the bike enthusiasts around the country eagerly wait for upcoming bikes from different brands.
+                    In order to meet the expectation of these young enthusiasts, most of the motorcycle brands announce some of their key expected launches at the beginning of a year. BikeWale is dedicated to serving its users the correct information about the expected launch dates and the price of these upcoming bikes. Explore the list of upcoming
+                    bikes and get ready to buy your favorite one.
+                </p>
             </div>
         </div>
         <div class="clear"></div>
@@ -35,191 +37,15 @@
         <div class="grid-12">
             <h2 class="section-heading">Upcoming bikes in India</h2>
 
-            <div class="content-box-shadow">
-                <div class="padding-right20 padding-left20">
-                    <div class="padding-top15 padding-bottom15 border-solid-bottom">
-                        <h3 class="font18 text-black grid-5 alpha">200 bikes</h3>
-                        <div class="grid-7 omega text-right upcoming-filter">
-                            <p class="font14 text-light-grey inline-block margin-right5">Filter by:</p>
-                            <div class="select-box inline-block margin-right15 brand-type-filter">
-                                <select class="chosen-select" data-placeholder="Select brand">
-                                    <option value="0">All brands</option>
-                                    <option value="1">Bajaj</option>
-                                    <option value="11">Benelli</option>
-                                    <option value="12">Ducati</option>
-                                    <option value="13">Harley Davidson</option>
-                                    <option value="14">Hero Electric</option>
-                                    <option value="1">Bajaj</option>
-                                    <option value="11">Benelli</option>
-                                    <option value="12">Ducati</option>
-                                    <option value="13">Harley Davidson</option>
-                                    <option value="14">Hero Electric</option>
-                                </select>
-                            </div>
 
-                            <div class="select-box select-box-no-input inline-block right-align-box">
-                                <select class="chosen-select" data-title="Select year">
-                                    <option value="0">All years</option>
-                                    <option value="1">2017</option>
-                                    <option value="2">2016</option>
-                                    <option value="3">2015</option>
-                                    <option value="4">2014</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
+            @Html.Partial("~/Views/Upcoming/_UpcomingBikesList.cshtml", Model)
 
-                <div class="upcoming-bikes-wrapper">
-                    <ul class="bike-listing-horizontal">
-                        <li class="list-item">
-                            <div class="launching-label">
-                                <p class="border-red-left font12 text-bold margin-bottom10 margin-left10">Launching this month</p>
-                            </div>
-                            <a href="" title="Bajaj model420x" class="block">
-                                <div class="model-jcarousel-image-preview">
-                                    <img src="https://imgd.aeplcdn.com//310x174//bw/models/ducati-multistrada-1200-enduro.jpg?20150612185045" alt="Bajaj model420x">
-                                </div>
-                                <div class="card-desc-block">
-                                    <h3 class="bikeTitle">Bajaj model420x</h3>
-                                    <p class="key-size-14 text-truncate">Expected launch</p>
-                                    <span class="value-size-16">June 2016</span>
-                                    <p class="key-size-14 text-truncate margin-top10">Expected price</p>
-                                    <span class="bwsprite inr-lg"></span>&nbsp;
-                                    <span class="value-size-18">12,489</span>&nbsp;
-                                    <span class="value-size-14">onwards</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="list-item">
-                            <div class="launching-label"></div>
-                            <a href="" title="Bajaj model420x" class="block">
-                                <div class="model-jcarousel-image-preview">
-                                    <img src="https://imgd.aeplcdn.com//310x174//bw/models/suzuki-gixxer-fi.jpg?20161002175445" alt="Bajaj model420x">
-                                </div>
-                                <div class="card-desc-block">
-                                    <h3 class="bikeTitle">Bajaj model420x</h3>
-                                    <p class="key-size-14 text-truncate">Expected launch</p>
-                                    <span class="value-size-16">June 2016</span>
-                                    <p class="key-size-14 text-truncate margin-top10">Expected price</p>
-                                    <span class="bwsprite inr-lg"></span>&nbsp;
-                                    <span class="value-size-18">12,489</span>&nbsp;
-                                    <span class="value-size-14">onwards</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="list-item">
-                            <div class="launching-label"></div>
-                            <a href="" title="Bajaj model420x" class="block">
-                                <div class="model-jcarousel-image-preview">
-                                    <img src="https://imgd.aeplcdn.com//310x174//bw/models/benelli-tornado-302.jpg?20152511122705" alt="Bajaj model420x">
-                                </div>
-                                <div class="card-desc-block">
-                                    <h3 class="bikeTitle">Bajaj model420x</h3>
-                                    <p class="key-size-14 text-truncate">Expected launch</p>
-                                    <span class="value-size-16">June 2016</span>
-                                    <p class="key-size-14 text-truncate margin-top10">Expected price</p>
-                                    <span class="bwsprite inr-lg"></span>&nbsp;
-                                    <span class="value-size-18">12,489</span>&nbsp;
-                                    <span class="value-size-14">onwards</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="list-item">
-                            <div class="launching-label">
-                                <p class="border-red-left font12 text-bold margin-bottom10 margin-left10">Launching this month</p>
-                            </div>
-                            <a href="" title="Bajaj model420x" class="block">
-                                <div class="model-jcarousel-image-preview">
-                                    <img src="https://imgd.aeplcdn.com//310x174//bw/models/aprilia-sr150.jpg?20161002174559" alt="Bajaj model420x">
-                                </div>
-                                <div class="card-desc-block">
-                                    <h3 class="bikeTitle">Bajaj model420x</h3>
-                                    <p class="key-size-14 text-truncate">Expected launch</p>
-                                    <span class="value-size-16">June 2016</span>
-                                    <p class="key-size-14 text-truncate margin-top10">Expected price</p>
-                                    <span class="bwsprite inr-lg"></span>&nbsp;
-                                    <span class="value-size-18">12,489</span>&nbsp;
-                                    <span class="value-size-14">onwards</span>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
 
-                <div class="padding-right20 padding-bottom10 padding-left20">
-                    <div class="footer-pagination font14 border-solid-top padding-top10">
-                        <div class="grid-5 alpha omega text-light-grey">
-                            <p>
-                                Showing
-                                <span class="text-bold">1</span>-
-                                <span class="text-bold">10</span> of
-                                <span class="text-bold" data-bind="CurrencyText: TotalBikes()">1000</span> bikes
-                            </p>
-                        </div>
-                        <div id="pagination-list-content" class="grid-7 alpha omega position-rel rightfloat pagination-list-content">
-                            <ul id="pagination-list" class="pagination-list">
-                                <li class="active">
-                                    <a href="">1</a>
-                                </li>
-                                <li>
-                                    <a href="">2</a>
-                                </li>
-                                <li>
-                                    <a href="">3</a>
-                                </li>
-                                <li>
-                                    <a href="">4</a>
-                                </li>
-                                <li>
-                                    <a href="">5</a>
-                                </li>
-                            </ul>
-                            <span class="pagination-control-prev inactive">
-                                <a href="" class="bwmsprite bwsprite prev-page-icon"></a>
-                            </span>
-                            <span class="pagination-control-next">
-                                <a href="" class="bwmsprite bwsprite next-page-icon"></a>
-                            </span>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
-
-                <div class="spinner-content" style="display: none">
-                    <svg class="bw-spinner" width="50px" height="50px" viewBox="0 0 50 50">
-                        <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
-                    </svg>
-                </div>
-
-            </div>
-        </div>
-        <div class="clear"></div>
-    </div>
-</section>
-
-<section>
-    <div class="container section-bottom-margin">
-        <h2 class="section-heading">Upcoming bikes by brands</h2>
-        <div class="grid-12">
-            <div class="content-box-shadow padding-top20 padding-bottom25 text-center collapsible-brand-content">
                 @Html.Partial("~/Views/Make/_Brands.cshtml", Model.Brands)
             </div>
-        <div class="clear"></div>
-    </div>
-</section>
-
-<section>
-    <div class="container section-bottom-margin">
-        <h2 class="section-heading">Newly launched bikes</h2>
-        <div class="grid-12">
-            <div class="content-box-shadow padding-top20">
                 @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunches)
                 <div class="view-all-btn-container padding-top15">
                     <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
-                </div>
-            </div>
         </div>
         <div class="clear"></div>
     </div>

@@ -18,17 +18,17 @@ namespace Bikewale.BAL.BikeData.UpComingBike
     public class Upcoming : IUpcoming
     {
         private readonly ICacheManager _cache;
-        private readonly IModelsCache _upcomingRepo = null;
+        private readonly IModelsCache _upcomingCacheRepo = null;
         private readonly IModelsRepository _modelsRepo = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="upcomingRepo"></param>
-        public Upcoming(ICacheManager cache, IModelsCache upcomingRepo, IModelsRepository modelsRepo)
+        public Upcoming(ICacheManager cache, IModelsCache upcomingCacheRepo, IModelsRepository modelsRepo)
         {
             _cache = cache;
-            _upcomingRepo = upcomingRepo;
+            _upcomingCacheRepo = upcomingCacheRepo;
             _modelsRepo = modelsRepo;
         }
 
@@ -45,7 +45,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             try
             {
 
-                objUpcomingList = _upcomingRepo.GetUpcomingModels();
+                objUpcomingList = _upcomingCacheRepo.GetUpcomingModels();
                 if (objUpcomingList != null && objUpcomingList.Count() > 0)
                 {
                     objUpcomingList = objUpcomingList.Where(ProcessInputFilter(inputParams));
@@ -117,10 +117,123 @@ namespace Bikewale.BAL.BikeData.UpComingBike
                 {
                     filterExpression = filterExpression.And(m => m.BodyStyleId == filters.BodyStyleId);
                 }
+                if (filters.Year > 0)
+                {
+                    filterExpression = filterExpression.And(m => m.ExpectedLaunchedDate.Year == filters.Year);
+                }
             }
             return filterExpression.Compile();
         }
 
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 10-04-2017
+        /// Description :   Returns Upcoming Years list 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<int> GetYearList()
+        {
+            IEnumerable<int> years = null;
+            try
+            {
+                var bikes = _upcomingCacheRepo.GetUpcomingModels();
+                if (bikes != null)
+                {
+                    years = bikes.Select(p => p.ExpectedLaunchedDate.Year).Distinct().OrderBy(m => m);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
+            }
+            return years;
+        }
+
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 10-04-2017
+        /// Description :   Returns total number of bikes.
+        /// </summary>
+        /// <returns></returns>
+        public int GetTotalBikes()
+        {
+            try
+            {
+                return (_upcomingCacheRepo.GetUpcomingModels()).Count();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 10-04-2017
+        /// Description :   Returns Upcoming MakeBase list 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeEntityBase> GetMakeList()
+        {
+            IEnumerable<BikeMakeEntityBase> makes = null;
+            try
+            {
+                var bikes = _upcomingCacheRepo.GetUpcomingModels();
+                if (bikes != null)
+                {
+                    makes = bikes.GroupBy(x => x.MakeBase.MakeId).Select(x => x.First().MakeBase).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
+            }
+            return makes;
+        }
+
+        /// <summary>
+        /// Binds the makes.
+        /// </summary>
+        /// <param name="upcomingBikes">The upcoming bikes.</param>
+        /// <param name="topCount">The top count.</param>
+        /// <returns>
+        /// Created by : Sangram Nandkhile on 10-Apr-2017
+        /// </returns>
+        private BrandWidgetVM BindMakes(IEnumerable<UpcomingBikeEntity> upcomingBikes, uint topCount)
+        {
+            BrandWidgetVM brands = new BrandWidgetVM();
+            ICollection<BikeMakeEntityBase> topBrands = new List<BikeMakeEntityBase>();
+            ICollection<BikeMakeEntityBase> otherBrands = new List<BikeMakeEntityBase>();
+            var makes = upcomingBikes.GroupBy(x => x.MakeBase.MakeId)
+                .Select(x => x.First().MakeBase).ToList();
+
+            int i = 0;
+            foreach (var make in makes)
+            {
+                if (i < topCount)
+                {
+                    topBrands.Add(new BikeMakeEntityBase()
+                    {
+                        MakeId = make.MakeId,
+                        MakeName = make.MakeName,
+                        Href = String.Format("/upcoming-{0}-bikes/", make.MaskingName),
+                        Title = String.Format("Upcoming {0} bikes/", make.MaskingName)
+                    });
+                }
+                else
+                {
+                    otherBrands.Add(new BikeMakeEntityBase()
+                    {
+                        MakeId = make.MakeId,
+                        MakeName = make.MakeName,
+                        Href = String.Format("/upcoming-{0}-bikes/", make.MaskingName),
+                        Title = String.Format("Upcoming {0} bikes/", make.MaskingName)
+                    });
+                }
+                i++;
+            }
+            brands.TopBrands = topBrands;
+            brands.OtherBrands = otherBrands;
+            return brands;
+        }
 
         /// <summary>
         /// Binds the makes.
@@ -136,7 +249,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             try
             {
                 brands = new BrandWidgetVM();
-                IEnumerable<UpcomingBikeEntity> upcomingBikes = _upcomingRepo.GetUpcomingModels();
+                IEnumerable<UpcomingBikeEntity> upcomingBikes = _upcomingCacheRepo.GetUpcomingModels();
                 ICollection<BikeMakeEntityBase> topBrands = new List<BikeMakeEntityBase>();
                 ICollection<BikeMakeEntityBase> otherBrands = new List<BikeMakeEntityBase>();
                 var makes = upcomingBikes.GroupBy(x => x.MakeBase.MakeId)
