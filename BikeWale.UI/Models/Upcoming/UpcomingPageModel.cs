@@ -2,6 +2,8 @@
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Notifications;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Models
 {
@@ -46,7 +48,8 @@ namespace Bikewale.Models
             UpcomingPageVM objUpcoming = new UpcomingPageVM();
             try
             {
-                //objUpcoming.UpcomingBikes = _upcoming.GetModels(Filters, SortBy);
+                var upcomingBikes = _upcoming.GetModels(Filters, SortBy);
+                BindMakes(upcomingBikes, 6);
             }
             catch (Exception ex)
             {
@@ -54,6 +57,38 @@ namespace Bikewale.Models
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingPageModel.GetData");
             }
             return objUpcoming;
+        }
+
+        private BrandWidgetVM BindMakes(IEnumerable<UpcomingBikeEntity> upcomingBikes, uint topCount)
+        {
+            topCount = 6;
+            BrandWidgetVM brands = new BrandWidgetVM();
+            ICollection<BikeMakeEntityBase> topBrands = new List<BikeMakeEntityBase>();
+            ICollection<BikeMakeEntityBase> otherBrands = new List<BikeMakeEntityBase>();
+            var makes = upcomingBikes.Select(x => x.MakeBase);
+            int i = 0;
+            foreach (var make in makes)
+            {
+                if (i < topCount)
+                {
+                    topBrands.Add(new BikeMakeEntityBase()
+                    {
+                        MakeId = make.MakeId,
+                        MakeName = make.MakeName
+                    });
+                }
+                else
+                {
+                    otherBrands.Add(new BikeMakeEntityBase()
+                    {
+                        MakeId = make.MakeId,
+                        MakeName = make.MakeName
+                    });
+                }
+            }
+            brands.TopBrands = topBrands;
+            brands.OtherBrands = otherBrands;
+            return brands;
         }
 
         #endregion
