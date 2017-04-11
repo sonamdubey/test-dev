@@ -459,13 +459,11 @@
     <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
-    <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
     <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
     <Compile Include="Controllers\NewPageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NewLaunchesController.cs" />
     <Compile Include="Controllers\ScootersController.cs" />
-    <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\UpcomingController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
@@ -3741,6 +3739,8 @@
     <Folder Include="community\pms\" />
     <Folder Include="content\ComparisonTest\" />
     <Folder Include="Controllers\m\new\Scooters\" />
+    <Folder Include="Controllers\m\new\Upcoming\" />
+    <Folder Include="Controllers\new\Upcoming\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />

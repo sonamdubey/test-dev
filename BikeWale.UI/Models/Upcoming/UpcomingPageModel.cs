@@ -19,18 +19,13 @@ namespace Bikewale.Models
 
         private IUpcoming _upcoming = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
-        private uint _topbrandCount;
+        public uint topbrandCount { get; set; }
         private EnumUpcomingBikesFilter filter = EnumUpcomingBikesFilter.Default;
         private readonly ushort _pageNumber;
 
         #endregion
 
-        public UpcomingPageModel(uint topbrandCount, IUpcoming upcoming, INewBikeLaunchesBL newLaunches)
-        {
-            _topbrandCount = topbrandCount;
-            _upcoming = upcoming;
-            _newLaunches = newLaunches;
-        }
+
         #region Public members
 
         public UpcomingBikesListInputEntity Filters { get; set; }
@@ -65,7 +60,7 @@ namespace Bikewale.Models
             {
                 BindPageMetaTags(objUpcoming.PageMetaTags);
                 var upcomingBikes = _upcoming.GetModels(Filters, SortBy);
-                objUpcoming.Brands = _upcoming.BindUpcomingMakes(_topbrandCount);
+                objUpcoming.Brands = _upcoming.BindUpcomingMakes(topbrandCount);
                 objUpcoming.NewLaunches = new NewLaunchedWidgetModel(9, _newLaunches).GetData();
                 //objUpcoming.NewLaunches.PageCatId = 1;
                 objUpcoming.NewLaunches.PQSourceId = (uint)PQSourceEnum.Desktop_UpcomiingBikes_NewLaunchesWidget;

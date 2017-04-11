@@ -179,7 +179,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
                 var bikes = _upcomingCacheRepo.GetUpcomingModels();
                 if (bikes != null)
                 {
-                    makes = bikes.GroupBy(x => x.MakeBase.MakeId).Select(x => x.First().MakeBase).ToList();
+                    makes = bikes.GroupBy(x => x.MakeBase.MakeId).Select(x => x.First().MakeBase);
                 }
             }
             catch (Exception ex)
@@ -189,51 +189,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             return makes;
         }
 
-        /// <summary>
-        /// Binds the makes.
-        /// </summary>
-        /// <param name="upcomingBikes">The upcoming bikes.</param>
-        /// <param name="topCount">The top count.</param>
-        /// <returns>
-        /// Created by : Sangram Nandkhile on 10-Apr-2017
-        /// </returns>
-        private BrandWidgetVM BindMakes(IEnumerable<UpcomingBikeEntity> upcomingBikes, uint topCount)
-        {
-            BrandWidgetVM brands = new BrandWidgetVM();
-            ICollection<BikeMakeEntityBase> topBrands = new List<BikeMakeEntityBase>();
-            ICollection<BikeMakeEntityBase> otherBrands = new List<BikeMakeEntityBase>();
-            var makes = upcomingBikes.GroupBy(x => x.MakeBase.MakeId)
-                .Select(x => x.First().MakeBase).ToList();
 
-            int i = 0;
-            foreach (var make in makes)
-            {
-                if (i < topCount)
-                {
-                    topBrands.Add(new BikeMakeEntityBase()
-                    {
-                        MakeId = make.MakeId,
-                        MakeName = make.MakeName,
-                        Href = String.Format("/upcoming-{0}-bikes/", make.MaskingName),
-                        Title = String.Format("Upcoming {0} bikes/", make.MaskingName)
-                    });
-                }
-                else
-                {
-                    otherBrands.Add(new BikeMakeEntityBase()
-                    {
-                        MakeId = make.MakeId,
-                        MakeName = make.MakeName,
-                        Href = String.Format("/upcoming-{0}-bikes/", make.MaskingName),
-                        Title = String.Format("Upcoming {0} bikes/", make.MaskingName)
-                    });
-                }
-                i++;
-            }
-            brands.TopBrands = topBrands;
-            brands.OtherBrands = otherBrands;
-            return brands;
-        }
 
         /// <summary>
         /// Binds the makes.
@@ -253,7 +209,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
                 ICollection<BikeMakeEntityBase> topBrands = new List<BikeMakeEntityBase>();
                 ICollection<BikeMakeEntityBase> otherBrands = new List<BikeMakeEntityBase>();
                 var makes = upcomingBikes.GroupBy(x => x.MakeBase.MakeId)
-                    .Select(x => x.First().MakeBase).ToList();
+                    .Select(x => x.First().MakeBase);
 
                 int i = 0;
                 foreach (var make in makes)
@@ -265,7 +221,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
                             MakeId = make.MakeId,
                             MakeName = make.MakeName,
                             Href = String.Format("/{0}-bikes/upcoming/", make.MaskingName),
-                            Title = String.Format("Upcoming {0} bikes/", make.MaskingName)
+                            Title = String.Format("Upcoming {0} bikes", make.MaskingName)
                         });
                     }
                     else
@@ -275,7 +231,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
                             MakeId = make.MakeId,
                             MakeName = make.MakeName,
                             Href = String.Format("/{0}-bikes/upcoming/", make.MaskingName),
-                            Title = String.Format("Upcoming {0} bikes/", make.MaskingName)
+                            Title = String.Format("Upcoming {0} bikes", make.MaskingName)
                         });
                     }
                     i++;

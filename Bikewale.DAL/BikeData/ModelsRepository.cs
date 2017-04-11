@@ -29,7 +29,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getupcomingbikeslist_new_09032017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getupcomingbikeslist_new_11042017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
