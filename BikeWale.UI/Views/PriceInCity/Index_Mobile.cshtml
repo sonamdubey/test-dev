@@ -4,6 +4,7 @@
 @{
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.Ad_300x250 = true;
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Model";
     Model.AdTags.AdId = "1444028976556";
     Model.PageMetaTags.AlternateUrl = "";
@@ -121,7 +122,7 @@
 
             <!-- model dealers start -->
             <div id="dealerContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
-                @if (Model.IsAreaAvailable && Model.IsNew)
+                @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && Model.IsNew)
                 { 
                 <div class="padding-right20 padding-bottom20 padding-left20">
                     <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Dealers in @Model.CityEntity.CityName</h2>
@@ -138,36 +139,37 @@
                 }
                 else
                 {
-                    if (Model.IsAreaSelected && Model.IsNew) { 
+                    if (Model.HasCampaignDealer && Model.IsNew) { 
                     <div class="padding-right20 padding-bottom20 padding-left20">
                         <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Dealer near you</h2>
                         <div class="margin-bottom10">
                             <span class="rank-graph-black"></span>
                             <div class="inline-block rank-graph-label">
-                                <h3>Executive Bajaj, Ghatkopar (W)</h3>
-                                <p class="font12 text-xx-light">Ghatkopar (W)</p>
+                                <h3>@String.Format("{0}, {1}", Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization, Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName)</h3>
+                                <p class="font12 text-xx-light">@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName</p>
                             </div>
                         </div>
                         <div class="font14 text-slate-grey">
-                            <p class="margin-bottom10">Get in touch with Executive Bajaj for:</p>
+                            <p class="margin-bottom10">Get in touch with @Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization for:</p>
                             <ul class="list-type-disc margin-bottom15">
                                 <li>Best offers</li>
                                 <li>EMI options</li>
                                 <li>Complete buying assistance</li>
                             </ul>
-                            <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click)" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="View_dealer_details_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.BikeVersionPrices.FirstOrDefault().VersionName)" class="btn btn-orange btn-180-32" rel="nofollow">View dealer details</a>
+                            <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" c="Price_in_City_Page" a="View_dealer_details_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.FirstVersion.VersionName)" class="btn btn-orange btn-180-32" rel="nofollow">View dealer details</a>
                         </div>
                     </div>
                     }
                 }
                 @if (Model.HasDealers)
                 {
-                    if (Model.IsNew) { 
+                    if (Model.IsNew && (Model.HasCampaignDealer || Model.IsAreaAvailable))
+                    { 
                     <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
                     }
                 <div class="carousel-heading-content">
                     <div class="swiper-heading-left-grid inline-block">                        
-                        @if (Model.IsNew && Model.IsAreaSelected)
+                        @if (Model.IsNew && (Model.HasCampaignDealer || Model.IsAreaAvailable))
                         { 
                         <h3>@Model.Dealers.TotalCount Authorised dealers</h3>
                         }
@@ -199,18 +201,22 @@
             </div>
             <!-- model service centers end -->
             }
+            
+            <div class="margin-bottom20 text-center">
+                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+            </div>
+
             <!-- model emi calculator start -->
             @if (Model.IsNew) { 
             <div id="emiContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
-                <h2 class="card-h2-heading margin-bottom10">@Model.BikeName EMI Calculator</h2>
+                <h2 class="card-h2-heading margin-bottom10">@Model.BikeModel.ModelName EMI Calculator</h2>
 
                 <div class="finance-emi-container font14">                    
                     <div class="emi-slider-box">
                         <div class="emi-slider-box-left-section">
                             <p class="grid-8 alpha text-slate-grey">Down payment</p>
                             <div class="emi-slider-box-right-section grid-4 omega">
-                                <span class="bwmsprite inr-xxsm-icon"></span>
-                                <span id="downPaymentAmount" data-bind="text: formatPrice(Math.round(downPayment()))" class="text-bold"></span>
+                                <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="downPaymentAmount" data-bind="text: formatPrice(Math.round(downPayment()))" class="text-bold"></span>
                             </div>
                             <div class="clear"></div>
 
@@ -228,8 +234,7 @@
                         <div class="emi-slider-box-left-section">
                             <p class="grid-8 alpha text-slate-grey">Loan amount</p>
                             <div class="emi-slider-box-right-section grid-4 omega">
-                                <span class="bwmsprite inr-xxsm-icon"></span>
-                                <span id="loanAmount" data-bind="text: formatPrice(Math.round(loan()))" class="text-bold"></span>
+                                <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="loanAmount" data-bind="text: formatPrice(Math.round(loan()))" class="text-bold"></span>
                             </div>
                             <div class="clear"></div>
 
@@ -282,14 +287,14 @@
                     <div class="border-solid-top padding-top20 padding-bottom20">
                         <p class="grid-9 alpha text-slate-grey omega">Total amount (Principal + Interest)</p>
                         <div class="emi-slider-box-right-section grid-3 omega alpha">
-                            <span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>
+                            <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span class="text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>
                         </div>
                         <div class="clear"></div>
                     </div>
 
                     <p class="grid-5 text-default alpha position-rel pos-top2">Indicative EMI</p>
                     <div class="text-right grid-7 omega font16 text-bold">
-                        <span class="bwmsprite inr-sm-icon"></span><span data-bind="text: formatPrice(monthlyEMI())"></span>/month
+                        <span class="bwmsprite inr-sm-icon margin-right5"></span><span data-bind="text: formatPrice(monthlyEMI())"></span>/month
                     </div>
                     <div class="clear"></div>
 
@@ -303,7 +308,7 @@
                     <thead>
                         <tr>
                             <th colspan="2" align="left" class="padding-bottom10">
-                                <h2 class="card-h2-heading">@Model.BikeModel.ModelName version prices in @Model.CityEntity.CityName</h2>
+                                <h2 class="card-h2-heading">@Model.BikeName version price@(Model.BikeVersionPrices.Count() > 1 ?"s" :"") in @Model.CityEntity.CityName</h2>
                             </th>
                         </tr>
                     </thead>
@@ -316,8 +321,8 @@
                         @foreach (var version in Model.BikeVersionPrices)
                         {
                             <tr>
-                                <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@String.Format("{0} {1}",Model.BikeModel.ModelName, version.VersionName)</td>
-                                <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon"></span>@Bikewale.Utility.Format.FormatPrice(Convert.ToString(version.OnRoadPrice))</td>
+                                <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@String.Format("{0} {1}", Model.BikeName, version.VersionName)</td>
+                                <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon margin-right5"></span>@Bikewale.Utility.Format.FormatPrice(Convert.ToString(version.OnRoadPrice))</td>
                             </tr>
                         }
                         <tr>
@@ -335,7 +340,7 @@
                 Model.NearestPriceCities.PriceQuoteList = top4Cities;
                 
             <div id="nearbyCityContent" class="bw-model-tabs-data padding-top20 padding-bottom10 content-box-shadow card-bottom-margin">
-                <h2 class="card-h2-heading margin-bottom10 padding-left20 padding-right20">@Model.BikeName price in cities near @Model.CityEntity.CityName<span class="font14 text-slate-grey text-unbold">&nbsp;(On-road price)</span></h2>
+                <h2 class="card-h2-heading margin-bottom10 padding-left20 padding-right20">@Model.BikeModel.ModelName price in cities near @Model.CityEntity.CityName<span class="font14 text-slate-grey text-unbold">&nbsp;(On-road price)</span></h2>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14">
                     <tbody>
                         @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.NearestPriceCities)
