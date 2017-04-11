@@ -13,6 +13,7 @@
     position: relative;
     top: -2px; }
 
+h1,
 .font-bold {
   font-weight: 700; }
 
@@ -111,8 +112,11 @@
   background: rgba(255, 255, 255, 0.9);
   bottom: 7px;
   right: 7px;
-  color: #41B4C4;
+  color: #787878;
   padding: 5px; }
+
+#getReviewTitle {
+  font-weight: 600; }
 
 .detailed-question-list .list-item {
   padding-top: 15px;
@@ -124,27 +128,80 @@
   margin-bottom: 8px; }
 
 .detailed-question-list .item-subtitle {
+  color: #787878;
   margin-bottom: 10px; }
 
 .detailed-question-list .item-rating-list li {
   margin-right: 4px;
   margin-left: 4px; }
 
+.detailed-question-list .answer-list li {
+  margin-right: 6px;
+  margin-left: 0; }
+
+.detailed-question-list .feedback-text {
+  font-size: 13px;
+  position: relative;
+  top: 1px;
+  color: #4d5057; }
+
 #rate-bike-form {
   -webkit-tap-highlight-color: transparent; }
 
+#review-summary-page ~ footer {
+  display: none; }
+
+#thankyou-card .model-image-grid {
+  height: 66px; }
+
+#thankyou-card .icon-outer-container {
+  width: 66px;
+  height: 66px; }
+
+#thankyou-card .icon-inner-container {
+  width: 62px;
+  height: 62px;
+  margin: 1px auto; }
+
+#review-summary-card #bike-rating-box {
+  margin-top: 35px; }
+
+#summary-review-box p {
+  margin-bottom: 10px; }
+
 .user-rated-list .list-item {
-  margin-bottom: 8px; }
+  margin-bottom: 10px; }
 
 .user-rated-list .star-one,
 .user-rated-list .star-zero {
-  transform: scale(0.7); }
+  transform: scale(0.7);
+  margin-right: -1px; }
 
-.inline-grid-6 {
-  width: 50%;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: -4px; }
+.category-label {
+  width: 55%;
+  line-height: 25px; }
+
+.category-rating {
+  width: 140px;
+  font-weight: 600;
+  line-height: 25px; }
+
+.floating-btn {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 8;
+  box-shadow: 0 0 2px 2px #e2e2e2; }
+  .floating-btn .btn {
+    padding: 10px 5px;
+    border-radius: 0; }
+  .floating-btn .btn-white {
+    border-color: #fff;
+    color: #4d5057; }
+
+#back-to-top {
+  bottom: 60px; }
 
 .star-zero,
 .star-one {
@@ -192,7 +249,5 @@
 @media only screen and (max-width: 320px) {
   .model-details-grid {
     width: 68%; }
-  .user-rated-list p.inline-grid-6 {
-    width: 45%; }
-  .user-rated-list ul.inline-grid-6 {
-    width: 55%; } }
+  .category-label {
+    width: 45%; } }

@@ -1,8 +1,5 @@
-﻿var userNameField,
-    userEmailIdField;
-
-var detailedReviewField,
-    reviewTitleField;
+﻿var userNameField, userEmailIdField;
+var detailedReviewField, reviewTitleField;
 
 docReady(function () {
 
@@ -103,58 +100,57 @@ docReady(function () {
             self.validationFlag(true);
 
             if (self.validateRateBikeForm()) {
-                console.log('success');
-            }
-            else {
-                console.log('error');
+                // go to step 2
             }
         };
 
         self.validateRateBikeForm = function () {
             var isValid = false;
 
-            isValid = self.validateRatingCount();
-            isValid &= self.validateRatingForm();
+            isValid = self.validate.ratingCount();
+            isValid &= self.validate.ratingForm();
             isValid &= self.personalDetails().validateDetails();
 
             return isValid;
         };
 
-        self.validateRatingCount = function () {
-            if (self.ratingCount() == 0) {
-                self.validateRatingCountFlag(true);
-                self.focusFormActive(true);
-                answer.focusForm($('#bike-rating-box'));
-            }
-            
-            return self.validateRatingCountFlag();
-        };
+        self.validate = {
+            ratingCount: function () {
+                if (self.ratingCount() == 0) {
+                    self.validateRatingCountFlag(true);
+                    self.focusFormActive(true);
+                    answer.focusForm($('#bike-rating-box'));
+                }
 
-        self.validateRatingForm = function () {
-            var isValid = false;
+                return self.validateRatingCountFlag();
+            },
 
-            if (self.bikeUseType() > 0 && self.bikeTimeSpan() > 0) {
-                if (!self.bikeDistance()) {
-                    self.validateDistanceFlag(true);
-                    if (!self.focusFormActive()) {
-                        answer.focusForm($('#question-bike-distance'));
+            ratingForm: function () {
+                var isValid = false;
+
+                if (self.bikeUseType() > 0 && self.bikeTimeSpan() > 0) {
+                    if (!self.bikeDistance()) {
+                        self.validateDistanceFlag(true);
+                        if (!self.focusFormActive()) {
+                            answer.focusForm($('#question-bike-distance'));
+                        }
+                    }
+                    else {
+                        isValid = true;
                     }
                 }
                 else {
-                    isValid = true;
+                    if (!self.focusFormActive()) {
+                        answer.focusForm($('#rate-bike-questions'));
+                    }
                 }
-            }
-            else {
-                if (!self.focusFormActive()) {
-                    answer.focusForm($('#rate-bike-questions'));
-                }
-            }
 
-            self.focusFormActive(false);
+                self.focusFormActive(false);
 
-            return isValid;
+                return isValid;
+            }
         };
-
+        
     };
 
     userNameField = $('#getUserName');
@@ -257,12 +253,29 @@ docReady(function () {
 
         self.detailedReviewFlag = ko.observable(false);
         self.detailedReviewError = ko.observable('');
+        self.focusFormActive = ko.observable(false);
 
         // optional rating section
         self.visualAppealCount = ko.observable(0);
-        self.comfortCount = ko.observable(0);
+        self.visualAppealFeedback = ko.observable('');
+
+        self.reliabilityCount = ko.observable(0);
+        self.reliabilityFeedback = ko.observable('');
+
+        self.performanceCount = ko.observable(0);
+        self.performanceFeedback = ko.observable('');
+
         self.serviceExperienceCount = ko.observable(0);
+        self.serviceExperienceFeedback = ko.observable('');
+
+        self.comfortCount = ko.observable(0);
+        self.comfortFeedback = ko.observable('');
+
+        self.maintenanceCount = ko.observable(0);
         self.valueForMoneyCount = ko.observable(0);
+
+        self.extraFeaturesCount = ko.observable(0);
+        self.extraFeaturesFeedback = ko.observable('');
         
         self.setHeading = function () {
             switch (ratingCount) {
@@ -287,23 +300,185 @@ docReady(function () {
 
         self.setRating = function (data, event) {
             var element = $(event.target),
-                elementType = Number(element.closest('.item-rating-list').attr('data-list-type'));
+                elementType = element.closest('.item-rating-list').attr('data-list-type');
 
             switch (elementType) {
-                case 0:
+                case "visualAppeal":
                     self.visualAppealCount(Number(element.attr('data-count')));
+                    self.setFeedback.visualAppeal();
                     break;
-                case 1:
-                    self.comfortCount(Number(element.attr('data-count')));
+                case "reliability":
+                    self.reliabilityCount(Number(element.attr('data-count')));
+                    self.setFeedback.reliability();
                     break;
-                case 2:
+                case "performance":
+                    self.performanceCount(Number(element.attr('data-count')));
+                    self.setFeedback.performance();
+                    break;
+                case "serviceExperience":
                     self.serviceExperienceCount(Number(element.attr('data-count')));
+                    self.setFeedback.serviceExperience();
                     break;
-                case 3:
-                    self.valueForMoneyCount(Number(element.attr('data-count')));
+                case "comfort":
+                    self.comfortCount(Number(element.attr('data-count')));
+                    self.setFeedback.comfort();
+                    break;
+                case "extraFeatures":
+                    self.extraFeaturesCount(Number(element.attr('data-count')));
+                    self.setFeedback.extraFeatures();
                     break;
                 default:
                     break;
+            }
+        };
+
+        self.setMaintenanceCost = function (data, event) {
+            var element = $(event.target),
+                elementValue = Number(element.attr('data-value'));
+
+            answer.selection(element);
+            self.maintenanceCount(elementValue);
+        };
+
+        self.setValueForMoney = function (data, event) {
+            var element = $(event.target),
+                elementValue = Number(element.attr('data-value'));
+
+            answer.selection(element);
+            self.valueForMoneyCount(elementValue);
+        };
+
+        self.setFeedback = {
+            visualAppeal: function () {
+                switch (self.visualAppealCount()) {
+                    case 1:
+                        self.visualAppealFeedback("Terrible!");
+                        break;
+                    case 2:
+                        self.visualAppealFeedback("It's bad");
+                        break;
+                    case 3:
+                        self.visualAppealFeedback("Okay");
+                        break;
+                    case 4:
+                        self.visualAppealFeedback("Excellent");
+                        break;
+                    case 5:
+                        self.visualAppealFeedback("Gorgeous");
+                        break;
+                    default:
+                        break;
+                }
+            },
+
+            reliability: function () {
+                switch (self.reliabilityCount()) {
+                    case 1:
+                        self.reliabilityFeedback("Unpredictable");
+                        break;
+                    case 2:
+                        self.reliabilityFeedback("Unreliable");
+                        break;
+                    case 3:
+                        self.reliabilityFeedback("You can rely!");
+                        break;
+                    case 4:
+                        self.reliabilityFeedback("Dependable");
+                        break;
+                    case 5:
+                        self.reliabilityFeedback("Trustworthy");
+                        break;
+                    default:
+                        break;
+                }
+            },
+
+            performance: function () {
+                switch (self.performanceCount()) {
+                    case 1:
+                        self.performanceFeedback("Very poor");
+                        break;
+                    case 2:
+                        self.performanceFeedback("Poor");
+                        break;
+                    case 3:
+                        self.performanceFeedback("Not bad");
+                        break;
+                    case 4:
+                        self.performanceFeedback("Good");
+                        break;
+                    case 5:
+                        self.performanceFeedback("Excellent");
+                        break;
+                    default:
+                        break;
+                }
+            },
+
+            serviceExperience: function () {
+                switch (self.serviceExperienceCount()) {
+                    case 1:
+                        self.serviceExperienceFeedback("Very poor");
+                        break;
+                    case 2:
+                        self.serviceExperienceFeedback("Poor");
+                        break;
+                    case 3:
+                        self.serviceExperienceFeedback("It was okay!");
+                        break;
+                    case 4:
+                        self.serviceExperienceFeedback("It was good!");
+                        break;
+                    case 5:
+                        self.serviceExperienceFeedback("Awesome!");
+                        break;
+                    default:
+                        break;
+                }
+            },
+
+            comfort: function () {
+                switch (self.comfortCount()) {
+                    case 1:
+                        self.comfortFeedback("It's tough");
+                        break;
+                    case 2:
+                        self.comfortFeedback("Not comfortable");
+                        break;
+                    case 3:
+                        self.comfortFeedback("Can live with it!");
+                        break;
+                    case 4:
+                        self.comfortFeedback("Comfortable");
+                        break;
+                    case 5:
+                        self.comfortFeedback("Very comfortable");
+                        break;
+                    default:
+                        break;
+                }
+            },
+
+            extraFeatures: function () {
+                switch (self.extraFeaturesCount()) {
+                    case 1:
+                        self.extraFeaturesFeedback("Useless");
+                        break;
+                    case 2:
+                        self.extraFeaturesFeedback("Not useful");
+                        break;
+                    case 3:
+                        self.extraFeaturesFeedback("Rarely useful");
+                        break;
+                    case 4:
+                        self.extraFeaturesFeedback("Fairly useful");
+                        break;
+                    case 5:
+                        self.extraFeaturesFeedback("Very useful");
+                        break;
+                    default:
+                        break;
+                }
             }
         };
 
@@ -313,6 +488,7 @@ docReady(function () {
             }
             else {
                 self.detailedReviewFlag(false);
+                validate.hideError(reviewTitleField);
                 // go to step 3
             }
         };
@@ -323,6 +499,7 @@ docReady(function () {
             isValid = self.validate.detailedReview();
             isValid &= self.validate.reviewTitle();
 
+            self.focusFormActive(false);
             return isValid;
         };
 
@@ -331,6 +508,7 @@ docReady(function () {
                 if (self.detailedReview().length < 300) {
                     self.detailedReviewFlag(true);
                     self.detailedReviewError('Your review should contain at least 300 characters.');
+                    self.focusFormActive(true);
                     answer.focusForm(detailedReviewField);
                 }
                 else {
@@ -345,6 +523,9 @@ docReady(function () {
 
                 if (self.reviewTitle().length == 0) {
                     validate.setError(reviewTitleField, 'Please provide a title for your review!');
+                    if (!self.focusFormActive()) {
+                        answer.focusForm(detailedReviewField);
+                    }
                 }
                 else {
                     validate.hideError(reviewTitleField);
@@ -375,6 +556,7 @@ docReady(function () {
     reviewTitleField.on("blur", function () {
         validate.onBlur($(this));
     });
+
 });
 
 var answer = {
@@ -404,7 +586,12 @@ var validate = {
     },
 
     hideError: function (element) {
-        element.closest('.input-box').removeClass('invalid').addClass('not-empty');
+        var inputBox = element.closest('.input-box');
+
+        inputBox.removeClass('invalid');
+        if (element.val().length > 0) {
+            inputBox.addClass('not-empty');
+        }
         element.siblings('span.error-text').text('').hide();
     },
 

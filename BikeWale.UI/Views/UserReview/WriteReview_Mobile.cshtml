@@ -31,7 +31,7 @@
                 <div class="textarea-box margin-bottom15">
                     <textarea data-bind="textInput: detailedReview" id="getDetailedReview" rows="9" cols="42" placeholder="The more detailed your review, the more useful it will be. Write your review."></textarea>
 
-                    <div data-bind="visible: !detailedReviewFlag()" class="review-char-count position-abt font12">
+                    <div data-bind="visible: !detailedReviewFlag() && detailedReview().length < 300" class="review-char-count position-abt font12">
                         <span data-bind="visible: detailedReview().length > 0"><span data-bind="text: detailedReview().length"></span>/</span><span data-bind="text: reviewCharLimit"></span>&nbsp;min
                     </div>
 
@@ -58,108 +58,125 @@
             <ul class="detailed-question-list margin-bottom20">
                 <li class="list-item">
                     <p class="item-title">Visual appeal</p>
-                    <p class="item-subtitle">Remember, what others thought when they first saw this bike!</p>
+                    <p class="item-subtitle">Remember, what others thought when they first saw your bike!</p>
 
-                    <ul class="item-rating-list" data-list-type="0" data-bind="css: visualAppealCount() > 0 ? 'opacity-active' : ''">
+                    <ul class="item-rating-list inline-block" data-list-type="visualAppeal" data-bind="css: visualAppealCount() > 0 ? 'opacity-active' : ''">
                         <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 1}, css: visualAppealCount() > 0 ? 'star-one' : 'star-zero'"></li>
                         <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 2}, css: visualAppealCount() > 1 ? 'star-one' : 'star-zero'"></li>
                         <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 3}, css: visualAppealCount() > 2 ? 'star-one' : 'star-zero'"></li>
                         <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 4}, css: visualAppealCount() > 3 ? 'star-one' : 'star-zero'"></li>
                         <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 5}, css: visualAppealCount() > 4 ? 'star-one' : 'star-zero'"></li>
                     </ul>
+                    <p class="feedback-text inline-block" data-bind="text: visualAppealFeedback"></p>
                 </li>
 
                 <li class="list-item">
-                    <p class="item-title">Comfort</p>
-                    <p class="item-subtitle">Tell us how comfortable do you feel while riding this bike in traffic, long drives etc.</p>
+                    <p class="item-title">Reliability</p>
+                    <p class="item-subtitle">The more trips you had to make to the mechanic/service centers, the lower the score.</p>
 
-                    <ul class="item-rating-list" data-list-type="1" data-bind="css: comfortCount() > 0 ? 'opacity-active' : ''">
-                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 1}, css: comfortCount() > 0 ? 'star-one' : 'star-zero'"></li>
-                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 2}, css: comfortCount() > 1 ? 'star-one' : 'star-zero'"></li>
-                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 3}, css: comfortCount() > 2 ? 'star-one' : 'star-zero'"></li>
-                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 4}, css: comfortCount() > 3 ? 'star-one' : 'star-zero'"></li>
-                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 5}, css: comfortCount() > 4 ? 'star-one' : 'star-zero'"></li>
+                    <ul class="item-rating-list inline-block" data-list-type="reliability" data-bind="css: reliabilityCount() > 0 ? 'opacity-active' : ''">
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 1}, css: reliabilityCount() > 0 ? 'star-one' : ' star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 2}, css: reliabilityCount() > 1 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 3}, css: reliabilityCount() > 2 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 4}, css: reliabilityCount() > 3 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 5}, css: reliabilityCount() > 4 ? 'star-one' : 'star-zero'"></li>
                     </ul>
+                    <p class="feedback-text inline-block" data-bind="text: reliabilityFeedback"></p>
+                </li>
+
+                <li class="list-item">
+                    <p class="item-title">Performance</p>
+                    <p class="item-subtitle">Think about the acceleration and top speed. How are brakes and tyres?</p>
+
+                    <ul class="item-rating-list inline-block" data-list-type="performance" data-bind="css: performanceCount() > 0 ? 'opacity-active' : ''">
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 1}, css: performanceCount() > 0 ? 'star-one' : ' star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 2}, css: performanceCount() > 1 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 3}, css: performanceCount() > 2 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 4}, css: performanceCount() > 3 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 5}, css: performanceCount() > 4 ? 'star-one' : 'star-zero'"></li>
+                    </ul>
+                    <p class="feedback-text inline-block" data-bind="text: performanceFeedback"></p>
                 </li>
 
                 <li class="list-item">
                     <p class="item-title">Service experience</p>
-                    <p class="item-subtitle">Tell us how comfortable do you feel while riding this bike in traffic, long drives etc.</p>
+                    <p class="item-subtitle">Rate the experience of your trip to service centers. Count in the charges, delivery, staffs etc.</p>
 
-                    <ul class="item-rating-list" data-list-type="2" data-bind="css: serviceExperienceCount() > 0 ? 'opacity-active' : ''">
+                    <ul class="item-rating-list inline-block" data-list-type="serviceExperience" data-bind="css: serviceExperienceCount() > 0 ? 'opacity-active' : ''">
                         <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 1}, css: serviceExperienceCount() > 0 ? 'star-one' : ' star-zero'"></li>
                         <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 2}, css: serviceExperienceCount() > 1 ? 'star-one' : 'star-zero'"></li>
                         <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 3}, css: serviceExperienceCount() > 2 ? 'star-one' : 'star-zero'"></li>
                         <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 4}, css: serviceExperienceCount() > 3 ? 'star-one' : 'star-zero'"></li>
                         <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 5}, css: serviceExperienceCount() > 4 ? 'star-one' : 'star-zero'"></li>
                     </ul>
+                    <p class="feedback-text inline-block" data-bind="text: serviceExperienceFeedback"></p>
                 </li>
 
                 <li class="list-item">
-                    <p class="item-title">Value for money</p>
-                    <p class="item-subtitle">How satisfied are you with your motorcycle? Did you get a bike worth the money?</p>
+                    <p class="item-title">Comfort</p>
+                    <p class="item-subtitle">Tell us how comfortable do you feel while riding this bike in traffic, long drives etc.</p>
 
-                    <ul class="item-rating-list" data-list-type="3" data-bind="css: valueForMoneyCount() > 0 ? 'opacity-active' : ''">
-                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 1}, css: valueForMoneyCount() > 0 ? 'star-one' : 'star-zero'"></li>
-                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 2}, css: valueForMoneyCount() > 1 ? 'star-one' : 'star-zero'"></li>
-                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 3}, css: valueForMoneyCount() > 2 ? 'star-one' : 'star-zero'"></li>
-                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 4}, css: valueForMoneyCount() > 3 ? 'star-one' : 'star-zero'"></li>
-                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 5}, css: valueForMoneyCount() > 4 ? 'star-one' : 'star-zero'"></li>
+                    <ul class="item-rating-list inline-block" data-list-type="comfort" data-bind="css: comfortCount() > 0 ? 'opacity-active' : ''">
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 1}, css: comfortCount() > 0 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 2}, css: comfortCount() > 1 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 3}, css: comfortCount() > 2 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 4}, css: comfortCount() > 3 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 5}, css: comfortCount() > 4 ? 'star-one' : 'star-zero'"></li>
                     </ul>
+                    <p class="feedback-text inline-block" data-bind="text: comfortFeedback"></p>
+                </li>
+
+                <li class="list-item">
+                    <p class="item-title">Maintenance cost</p>
+                    <p class="item-subtitle">Are regular replacement parts reasonably priced? How much does it cost to fix a broken part?</p>
+
+                    <ul class="answer-list item-rating-list" data-list-type="">
+                        <li data-value="1" data-bind="click: setMaintenanceCost">Unreasonably High</li>
+                        <li data-value="2" data-bind="click: setMaintenanceCost">Very High</li>
+                        <li data-value="3" data-bind="click: setMaintenanceCost">High</li>
+                        <li data-value="4" data-bind="click: setMaintenanceCost">Reasonable</li>
+                        <li data-value="5" data-bind="click: setMaintenanceCost">Well priced</li>
+                    </ul>
+                    <div class="clear"></div>
+                </li>
+
+                <li class="list-item">
+                    <p class="item-title">Value for Money</p>
+                    <p class="item-subtitle">How satisfied are you with your motorcycle? Did you get a bike worth your money?</p>
+
+                    <ul class="answer-list item-rating-list" data-list-type="">
+                        <li data-value="1" data-bind="click: setValueForMoney">Not at all</li>
+                        <li data-value="2" data-bind="click: setValueForMoney">Nah! I am not</li>
+                        <li data-value="3" data-bind="click: setValueForMoney">Umm.. Okay</li>
+                        <li data-value="4" data-bind="click: setValueForMoney">Satisfied</li>
+                        <li data-value="5" data-bind="click: setValueForMoney">Feels great!</li>
+                    </ul>
+                    <div class="clear"></div>
+                </li>
+
+                <li class="list-item">
+                    <p class="item-title">Extra Features</p>
+                    <p class="item-subtitle">How often do you use the extra features on your bike? Rate basis the usage of these features.</p>
+
+                    <ul class="item-rating-list inline-block" data-list-type="extraFeatures" data-bind="css: extraFeaturesCount() > 0 ? 'opacity-active' : ''">
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 1}, css: extraFeaturesCount() > 0 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 2}, css: extraFeaturesCount() > 1 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 3}, css: extraFeaturesCount() > 2 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 4}, css: extraFeaturesCount() > 3 ? 'star-one' : 'star-zero'"></li>
+                        <li class="bwmsprite" data-bind="click: setRating, attr: {'data-count': 5}, css: extraFeaturesCount() > 4 ? 'star-one' : 'star-zero'"></li>
+                    </ul>
+                    <p class="feedback-text inline-block" data-bind="text: extraFeaturesFeedback"></p>
                 </li>
             </ul>
+            <div class="clear"></div>
 
             <h3 class="font15 margin-bottom10">Tips for prospective buyers</h3>
-            <p class="text-light-grey margin-bottom10">Share key tips which you think were useful while owning/riding this bike. Helps others with your key advice.</p>
+            <p class="text-light-grey margin-bottom10">Share key tips which you think were useful while owning/riding this bike.</p>
             <div class="textarea-box margin-bottom15">
-                <textarea rows="4" cols="42" placeholder="Your tips"></textarea>
+                <textarea rows="3" cols="42" placeholder="Write your tips here.."></textarea>
             </div>
 
             <input type="button" class="btn btn-orange" value="Submit review" data-bind="click: submitReview" />
-
-            <ul class="user-rated-list">
-                <li class="list-item">
-                    <p class="inline-grid-6">Visual appeal</p>
-                    <ul class="inline-grid-6 text-right">
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-zero"></li>
-                    </ul>
-                </li>
-                <li class="list-item">
-                    <p class="inline-grid-6">Comfort</p>
-                    <ul class="inline-grid-6 text-right">
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-zero"></li>
-                    </ul>
-                </li>
-                <li class="list-item">
-                    <p class="inline-grid-6">Service experience</p>
-                    <ul class="inline-grid-6 text-right">
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-zero"></li>
-                    </ul>
-                </li>
-                <li class="list-item">
-                    <p class="inline-grid-6">Value for money</p>
-                    <ul class="inline-grid-6 text-right">
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-zero"></li>
-                    </ul>
-                </li>
-            </ul>
-
         </div>
     </div>
 </section>

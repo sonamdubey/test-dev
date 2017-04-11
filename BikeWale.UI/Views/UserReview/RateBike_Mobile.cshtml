@@ -23,7 +23,7 @@
                     </div>
                     <div class="rating-placeholder">
                         <h3 class="font20 font-bold" data-bind="text: feedbackTitle">Rate your bike</h3>
-                        <p data-bind="text: feedbackSubtitle"></p>
+                        <p class="margin-top5" data-bind="text: feedbackSubtitle"></p>
                         <p class="error-text" data-bind="slideIn: validateRatingCountFlag() && ratingCount() == 0" style="display: none">Please rate the bike before submitting!</p>
 
                         <ul class="margin-top15 item-rating-list" data-bind="css: ratingCount() > 0 ? 'opacity-active' : ''">
@@ -41,7 +41,7 @@
 
             <div id="rate-bike-questions">
                 <div class="question-field">
-                    <p class="text-bold question-item">What do you use this bike for?</p>
+                    <h3 class="question-item">What do you use this bike for?</h3>
                     <p class="error-text" data-bind="slideIn: validationFlag() && bikeUseType() == 0" style="display: none">This is a compulsory field.</p>
                     <ul class="answer-list">
                         <li data-value="1" data-bind="click: setBikeUseType">Daily Commute</li>
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="question-field">
-                    <p class="text-bold question-item">How long have you owned this bike for?</p>
+                    <h3 class="question-item">How long have you owned this bike for?</h3>
                     <p class="error-text" data-bind="slideIn: validationFlag() && bikeTimeSpan() == 0" style="display: none">This is a compulsory field.</p>
                     <ul class="answer-list">
                         <li data-value="1" data-bind="click: setBikeTimeSpan">Don't own</li>
@@ -67,7 +67,7 @@
                 </div>
 
                 <div id="question-bike-distance" class="question-field" data-bind="slideIn: bikeTimeSpan() > 1">
-                    <p class="text-bold question-item">How much have you ridden this bike?</p>
+                    <h3 class="question-item">How much have you ridden this bike?</h3>
                     <p class="error-text" data-bind="slideIn: validateDistanceFlag()" style="display: none">This is a compulsory field.</p>
                     <ul class="answer-list">
                         <li data-value="1" data-bind="click: setBikeDistance">< 5000 kms</li>

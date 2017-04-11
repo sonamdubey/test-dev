@@ -3718,6 +3718,7 @@
     <Content Include="Views\Videos\Index.cshtml" />
     <Content Include="Views\UserReview\WriteReview_Mobile.cshtml" />
     <Content Include="Views\UserReview\RateBike_Mobile.cshtml" />
+    <Content Include="Views\UserReview\ReviewSummary_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

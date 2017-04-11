@@ -16,6 +16,7 @@
 		top: -2px
 
 // common classes
+h1,
 .font-bold
 	font-weight: 700
 
@@ -122,8 +123,11 @@
 	background: rgba(255,255,255,0.9)
 	bottom: 7px
 	right: 7px
-	color: #41B4C4
+	color: #787878
 	padding: 5px
+
+#getReviewTitle
+	font-weight: 600
 
 // detailed-question-list
 .detailed-question-list
@@ -137,6 +141,7 @@
 		margin-bottom: 8px
 
 	.item-subtitle
+		color: #787878
 		margin-bottom: 10px
 
 	.item-rating-list
@@ -144,25 +149,83 @@
 			margin-right: 4px
 			margin-left: 4px
 
+	.answer-list
+		li
+			margin-right: 6px
+			margin-left: 0
+
+	.feedback-text
+		font-size: 13px
+		position: relative
+		top: 1px
+		color: #4d5057
+
 #rate-bike-form
 	-webkit-tap-highlight-color: rgba(0,0,0,0)
 
+#review-summary-page ~ footer
+	display: none
+
 // review summary
+#thankyou-card
+	.model-image-grid
+		height: 66px
+
+	.icon-outer-container
+		width: 66px
+		height: 66px
+
+	.icon-inner-container
+		width: 62px
+		height: 62px
+		margin: 1px auto
+
+#review-summary-card
+	#bike-rating-box
+		margin-top: 35px
+
+#summary-review-box
+	p
+		margin-bottom: 10px
+
 // user-rated-list
 .user-rated-list
 	.list-item
-		margin-bottom: 8px
+		margin-bottom: 10px
 
 	.star-one,
 	.star-zero
 		transform: scale(0.7)
+		margin-right: -1px
 
-.inline-grid-6
-	width: 50%
-	display: inline-block
-	vertical-align: middle
-	margin-right: -4px
+.category-label
+	width: 55%
+	line-height: 25px
 
+.category-rating
+	width: 140px
+	font-weight: 600
+	line-height: 25px
+
+// floating button
+.floating-btn
+	position: fixed
+	bottom: 0
+	right: 0
+	left: 0
+	z-index: 8
+	box-shadow: 0 0 2px 2px #e2e2e2
+
+	.btn
+		padding: 10px 5px
+		border-radius: 0
+
+	.btn-white
+		border-color: #fff
+		color: #4d5057
+
+#back-to-top
+	bottom: 60px
 
 // icons
 .star-zero,
