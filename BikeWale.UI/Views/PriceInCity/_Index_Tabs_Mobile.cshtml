@@ -1,0 +1,26 @@
+﻿@model Bikewale.Models.PriceInCityPageVM
+<ul class="overall-specs-tabs-wrapper">    
+    <li data-tabs="#orpContent">On-road price</li>    
+    <li data-tabs="#aboutContent">About</li>
+    @if (Model.HasDealers) { 
+    <li data-tabs="#dealerContent">Dealers</li>
+    }
+    @if (Model.HasServiceCenters) { 
+    <li data-tabs="#serviceCenterContent">Service centers</li>
+    }
+    @if (Model.IsNew) { 
+    <li data-tabs="#emiContent">EMI calculator</li>
+    }    
+    @if (Model.FirstVersion != null) {
+    <li data-tabs="#versionContent">Versions</li>
+    }
+    @if (Model.HasNearestPriceCities) { 
+    <li data-tabs="#nearbyCityContent">Nearby cities</li>
+    }
+    @if (Model.HasAlternateBikes) { 
+    <li data-tabs="#similarContent">Similar bikes</li>
+    }
+    @if (Model.HasPopularCities) { 
+    <li data-tabs="#otherCityContent">Other cities</li>
+    }
+</ul>

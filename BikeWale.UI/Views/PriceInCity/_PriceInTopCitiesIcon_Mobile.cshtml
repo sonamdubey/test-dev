@@ -1,0 +1,25 @@
+﻿@model Bikewale.Models.PriceInCity.PriceInTopCitiesWidgetVM
+@using Bikewale.Utility
+@if (Model != null && Model.PriceQuoteList != null && Model.PriceQuoteList.Count() > 0)
+{
+    <div class="swiper-wrapper">
+        @foreach (var city in Model.PriceQuoteList)
+        {
+            <div class="swiper-slide">
+                <div class="swiper-card">
+                    <a href="" class="card-target-link">
+                        <div class="swiper-image-preview">
+                            <span class="city-sprite @string.Format("c-{0}-icon",city.CityMaskingName)"></span>
+                        </div>
+                        <div class="swiper-details-block font12">
+                            <h3 class="font12 text-black margin-bottom5">@city.CityName</h3>
+                            <div class="text-default">
+                                <span class="bwmsprite inr-xxsm-icon"></span><span>@Format.FormatPrice(Convert.ToString(city.OnRoadPrice)) onwards</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+}
