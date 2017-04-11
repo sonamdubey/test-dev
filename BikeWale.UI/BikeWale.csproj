@@ -3710,6 +3710,8 @@
     <Content Include="Views\UserReviews\_UserReviewsList_Mobile.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikes_Editorial_Mobile.cshtml" />
     <Content Include="Views\Videos\Index.cshtml" />
+    <Content Include="Views\PriceInCity\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

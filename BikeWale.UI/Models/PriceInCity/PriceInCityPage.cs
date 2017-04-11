@@ -9,7 +9,6 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Models.PriceInCity;
-using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
 using System;
 using System.Linq;
@@ -186,11 +185,16 @@ namespace Bikewale.Models
                         versionCount = (uint)objVM.BikeVersionPrices.Count();
 
                         BindBikeBasicDetails(objVM);
-                        BindPriceInNearestCities(objVM);
                         BindDealersWidget(objVM);
                         BindServiceCenters(objVM);
                         BindSimilarBikes(objVM);
                         BindBikeInfoRank(objVM);
+
+                        if (objVM.IsNew)
+                        {
+                            BindPriceInNearestCities(objVM);
+                            BindPriceInTopCities(objVM);
+                        }
 
                         var objModelColours = _modelCache.GetModelColor(Convert.ToInt16(modelId));
                         colorCount = (uint)(objModelColours != null ? objModelColours.Count() : 0);
@@ -216,6 +220,23 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("FetchVersionPrices({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 11 Apr 2017
+        /// Description :   Bind Price in Top Cities
+        /// </summary>
+        /// <param name="objVM"></param>
+        private void BindPriceInTopCities(PriceInCityPageVM objVM)
+        {
+            try
+            {
+                objVM.PriceInTopCities = new PriceInTopCities(_objPQCache, modelId, 8).GetData();
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindPriceInTopCities({0},{1})", modelMaskingName, cityMaskingName));
+            }
         }
 
         /// <summary>
@@ -269,7 +290,10 @@ namespace Bikewale.Models
                 var similarBikes = new SimilarBikesWidget(_versionCache, firstVersion.VersionId, pqSource, false, true);
                 similarBikes.CityId = cityId;
                 similarBikes.TopCount = 9;
-                objVM.AlternateBikes = similarBikes.GetData();
+                var similarBikesVM = similarBikes.GetData();
+                similarBikesVM.Make = objVM.Make;
+                similarBikesVM.Model = objVM.BikeModel;
+                objVM.AlternateBikes = similarBikesVM;
             }
             catch (Exception ex)
             {
@@ -286,7 +310,9 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.ServiceCenters = (new ServiceCentersCard(_objServiceCenter, 3, Convert.ToUInt32(objVM.Make.MakeId), objVM.CityEntity.CityId)).GetData();
+                var serviceCenters = _objServiceCenter.GetServiceCentersByCity(cityId, objVM.Make.MakeId);
+                if (serviceCenters != null)
+                    objVM.ServiceCentersCount = serviceCenters.Count;
             }
             catch (Exception ex)
             {
@@ -307,7 +333,7 @@ namespace Bikewale.Models
                 objDealer.ModelId = modelId;
                 objDealer.TopCount = TopCount;
                 objVM.Dealers = objDealer.GetData();
-                dealerCount = (uint)(objVM.HasDealers ? objVM.Dealers.Dealers.Count() : 0);
+                dealerCount = (uint)(objVM.HasDealers ? objVM.Dealers.TotalCount : 0);
             }
             catch (Exception ex)
             {
@@ -324,7 +350,13 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.PriceInNearestCities = (new ModelPriceInNearestCities(_objPQCache, modelId, cityId, (ushort)NearestCityCount)).GetData();
+                var nearestCityModel = new ModelPriceInNearestCities(_objPQCache, modelId, cityId, (ushort)NearestCityCount);
+                var cityPriceList = nearestCityModel.GetData();
+                if (cityPriceList != null && cityPriceList.Count() > 0)
+                {
+                    objVM.NearestPriceCities = new PriceInTopCitiesWidgetVM();
+                    objVM.NearestPriceCities.PriceQuoteList = cityPriceList;
+                }
             }
             catch (Exception ex)
             {

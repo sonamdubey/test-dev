@@ -22,17 +22,7 @@
         <div id="modelSpecsTabsContentWrapper">
             <div id="modelOverallSpecsTopContent" class="bg-white position-rel">
                 <div id="overallSpecsTab" class="overall-specs-tabs-container">
-                    <ul class="overall-specs-tabs-wrapper">
-                        <li data-tabs="#orpContent">On-road price</li>
-                        <li data-tabs="#aboutContent">About</li>
-                        <li data-tabs="#dealerContent">Dealers</li>
-                        <li data-tabs="#serviceCenterContent">Service centers</li>
-                        <li data-tabs="#emiContent">EMI calculator</li>
-                        <li data-tabs="#versionContent">Versions</li>
-                        <li data-tabs="#nearbyCityContent">Nearby cities</li>
-                        <li data-tabs="#similarContent">Similar bikes</li>
-                        <li data-tabs="#otherCityContent">Other cities</li>
-                    </ul>
+                    @Html.Partial("~/views/priceincity/_index_Tabs_Mobile.cshtml", Model)
                 </div>
             </div>
 
@@ -47,23 +37,35 @@
                         <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
                     </div>
                     <div class="model-version-block inline-block padding-left15">
-                        <p class="font12 text-light-grey">Version:</p>
-                        <div class="dropdown-select-wrapper">
-                            <select class="dropdown-select" data-title="Version">
-                                <option value="4514">2017</option>
-                                <option value="111">Kick/Drum/Spokes</option>
-                                <option value="112">Electric Start/Drum/Alloy</option>
-                            </select>
-                        </div>
+                        @if (Model.IsDiscontinued)
+                        {
+                            <div class="font14 text-default text-bold">
+                                <span>Last known Ex-showroom price</span>
+                                <div><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold" data-bind="text: exshowroomPrice()">@Model.FirstVersion.ExShowroomPrice</span></div>
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="font12 text-light-grey">Version:</p>
+                            if (Model.BikeVersionPrices.Count() > 1)
+                            {
+                                <div class="dropdown-select-wrapper">
+                                    <select class="dropdown-select" data-title="Version">
+                                        @foreach (var version in Model.BikeVersionPrices)
+                                        {
+                                            <option value="@version.VersionId">@version.VersionName</option>
+                                        }
+                                    </select>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="font14 text-bold">@Model.FirstVersion.VersionName</p>
+                            }
+                        }
                     </div>
                 </div>
-
-                @*<h2 class="font14 text-default margin-bottom10">@Model.BikeName is now discontinued in India.</h2>
-                <div class="font14 text-default">
-                    <span>Last known Ex-showroom price</span>
-                    <span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">1,00,000</span>
-                </div>*@
-
+                @if (Model.IsNew) { 
                 <table width="100%" cellspacing="0" cellpadding="0" class="font14">
                     <thead>
                         <tr>
@@ -95,73 +97,34 @@
                         </tr>
                     </tbody>
                 </table>
-
+                }
+                @if (Model.IsNew) { 
                 <div class="margin-top15 font14">
                     <p class="font-bold margin-bottom10">Quick facts about @Model.BikeModel.ModelName</p>
                     <p class="text-slate-grey line-height16">@Model.PageDescription</p>
                 </div>
+                }
+                @if (Model.IsDiscontinued)
+                {
+                <div class="margin-top15 font14">
+                    <p class="text-slate-grey line-height16">@String.Format("{0} has discontinued the {0} and the bike is out of production.",Model.Make.MakeName,Model.BikeModel.ModelName)</p>
+                </div>    
+                }
             </div>
             <!-- model orp end -->
 
             <!-- model about start -->
             <div id="aboutContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin">
-                <div class="padding-15-20">
-                    <div class="model-more-info-section">
-                        <div class="clear"></div>
-                        <a href="/m/bajaj-bikes/pulsar-rs/" class="leftfloat text-default margin-bottom15" title="Bajaj Pulsar RS200">
-                            <h2>Bajaj Pulsar RS200</h2>
-                        </a>
-                        <div class="margin-bottom10">
-                            <div class="clear"></div>
-                            <a href="/m/bajaj-bikes/pulsar-rs/" class="item-image-content vertical-top" title="Bajaj Pulsar RS200 ">
-                                <img class="lazy" data-original="https://imgd1.aeplcdn.com//110x61//bw/models/bajaj-pulsar-rs200.jpg?20150710124439 " src="" alt="Bajaj Pulsar RS200">
-                            </a>
-                            <div class="bike-details-block vertical-top">
-                                <p class="price-label-size-12 text-truncate">Ex-showroom, Mumbai</p>
-                                <div>
-                                    <span class="bwmsprite inr-sm-icon margin-right5"></span><span class="price-value-size-18">89,000 </span>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="/m/bajaj-bikes/pulsar-rs/" title="Bajaj Pulsar RS200" class="btn btn-white btn-180-34  margin-bottom15">View model details <span class="bwmsprite btn-red-arrow"></span></a>
-                        <ul class="item-more-details-list">
-                            <li>
-                                <a href="/m/bajaj-bikes/pulsar-rs/images/" title="Bajaj Pulsar RS200  Images">
-                                    <span class="bwmsprite photos-sm"></span>
-                                    <span class="icon-label">Images </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/bajaj-bikes/pulsar-rs/specifications-features/" title="Bajaj Pulsar RS200  Specification">
-                                    <span class="bwmsprite specs-sm"></span>
-                                    <span class="icon-label">Specs </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/bajaj-bikes/pulsar-rs/news/" title="Bajaj Pulsar RS200  News">
-                                    <span class="bwmsprite reviews-sm"></span>
-                                    <span class="icon-label">News </span>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="clear"></div>
-                        <div class="border-solid-bottom margin-top5 margin-bottom10"></div>
-                        <a href="/m/used/bajaj-pulsar-rs-bikes-in-mumbai/" title="Used Bajaj Pulsar RS200" class="block text-default hover-no-underline">
-                            <span class="used-target-label inline-block">
-                                <span class="font14 text-bold">10  Used Pulsar RS200  bikes</span><br>
-                                <span class="font12 text-light-grey">starting at <span class="bwmsprite inr-12-grey margin-right5"></span>456</span>
-                            </span>
-                            <span class="bwmsprite next-grey-icon"></span>
-                        </a>
-                    </div>
-                </div>
+                    @Html.Partial("~/views/Bikemodels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfo)
             </div>
             <!-- model about end -->
 
             <!-- model dealers start -->
             <div id="dealerContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
+                @if (Model.IsAreaAvailable && Model.IsNew)
+                { 
                 <div class="padding-right20 padding-bottom20 padding-left20">
-                    <h2 class="card-h2-heading margin-bottom10">Bajaj Dealers in @Model.CityEntity.CityName</h2>
+                    <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Dealers in @Model.CityEntity.CityName</h2>
                     <div class="font14 text-slate-grey">
                         <p class="margin-bottom10">Please provide your location to get information on:</p>
                         <ul class="list-type-disc margin-bottom15">
@@ -169,101 +132,75 @@
                             <li>Exclusive offers</li>
                             <li>Complete buying assistance</li>
                         </ul>
-                        <a href="javascript:void(0)" class="btn btn-orange btn-auto-32" rel="nofollow">Select your location</a>
+                        <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea)" data-preselcity="@Model.CityEntity.CityId" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="Select_Area_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.BikeVersionPrices.FirstOrDefault().VersionName)" class="btn btn-orange btn-auto-32 getquotation changeCity" rel="nofollow">Select your location</a>
                     </div>
                 </div>
-                @*<div class="padding-right20 padding-bottom20 padding-left20">
-                    <h2 class="card-h2-heading margin-bottom10">Bajaj Dealer near you</h2>
-                    <div class="margin-bottom10">
-                        <span class="rank-graph-black"></span>
-                        <div class="inline-block rank-graph-label">
-                            <h3>Executive Bajaj, Ghatkopar (W)</h3>
-                            <p class="font12 text-xx-light">Ghatkopar (W)</p>
+                }
+                else
+                {
+                    if (Model.IsAreaSelected && Model.IsNew) { 
+                    <div class="padding-right20 padding-bottom20 padding-left20">
+                        <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Dealer near you</h2>
+                        <div class="margin-bottom10">
+                            <span class="rank-graph-black"></span>
+                            <div class="inline-block rank-graph-label">
+                                <h3>Executive Bajaj, Ghatkopar (W)</h3>
+                                <p class="font12 text-xx-light">Ghatkopar (W)</p>
+                            </div>
+                        </div>
+                        <div class="font14 text-slate-grey">
+                            <p class="margin-bottom10">Get in touch with Executive Bajaj for:</p>
+                            <ul class="list-type-disc margin-bottom15">
+                                <li>Best offers</li>
+                                <li>EMI options</li>
+                                <li>Complete buying assistance</li>
+                            </ul>
+                            <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click)" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="View_dealer_details_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.BikeVersionPrices.FirstOrDefault().VersionName)" class="btn btn-orange btn-180-32" rel="nofollow">View dealer details</a>
                         </div>
                     </div>
-                    <div class="font14 text-slate-grey">
-                        <p class="margin-bottom10">Get in touch with Executive Bajaj for:</p>
-                        <ul class="list-type-disc margin-bottom15">
-                            <li>Best offers</li>
-                            <li>EMI options</li>
-                            <li>Complete buying assistance</li>
-                        </ul>
-                        <a href="javascript:void(0)" class="btn btn-orange btn-180-32" rel="nofollow">View dealer details</a>
-                    </div>
-                </div>*@
-                <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+                    }
+                }
+                @if (Model.HasDealers)
+                {
+                    if (Model.IsNew) { 
+                    <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+                    }
                 <div class="carousel-heading-content">
-                    <div class="swiper-heading-left-grid inline-block">
-                        @*<h2 class="card-h2-heading">Bajaj Dealers in @Model.CityEntity.CityName</h2> <!-- when only dealer swiper --> *@
-                        <h3>6 Authorised dealers</h3>
+                    <div class="swiper-heading-left-grid inline-block">                        
+                        @if (Model.IsNew && Model.IsAreaSelected)
+                        { 
+                        <h3>@Model.Dealers.TotalCount Authorised dealers</h3>
+                        }
+                        else
+                        {
+                            <h2>@Model.DealersWidget_H2</h2>
+                        }
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="" title="" class="btn view-all-target-btn">View all</a>
+                        <a href="@String.Format("/m{0}", Model.DealersWidget_ViewAll_Href)" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
                     </div>
                 </div>
-                <div class="swiper-container card-container dealer-horizontal-swiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="" class="block">
-                                    <div class="target-link margin-bottom10 text-truncate font15">Executive Bajaj</div>
-                                    <p class="margin-bottom10 text-light-grey">
-                                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                                        <span class="vertical-top dealership-address details-column font14">Paragon Plaza, Phoenix MarketCity, Unit Nos 24/25, Next to Maruti Showroom, LBS Road, Ghatkopar (W)</span>
-                                    </p>
-                                </a>
-                                <a href="" class="text-default text-bold text-truncate block font14">
-                                    <span class="bwmsprite tel-sm-grey-icon"></span>8268158187
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="" class="block">
-                                    <div class="target-link margin-bottom10 text-truncate font15">Executive Bajaj</div>
-                                    <p class="margin-bottom10 text-light-grey">
-                                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                                        <span class="vertical-top dealership-address details-column font14">Paragon Plaza, Phoenix MarketCity, Unit Nos 24/25, Next to Maruti Showroom, LBS Road, Ghatkopar (W)</span>
-                                    </p>
-                                </a>
-                                <a href="" class="text-default text-bold text-truncate block font14">
-                                    <span class="bwmsprite tel-sm-grey-icon"></span>8268158187
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="" class="block">
-                                    <div class="target-link margin-bottom10 text-truncate font15">Executive Bajaj</div>
-                                    <p class="margin-bottom10 text-light-grey">
-                                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                                        <span class="vertical-top dealership-address details-column font14">Paragon Plaza, Phoenix MarketCity, Unit Nos 24/25, Next to Maruti Showroom, LBS Road, Ghatkopar (W)</span>
-                                    </p>
-                                </a>
-                                <a href="" class="text-default text-bold text-truncate block font14">
-                                    <span class="bwmsprite tel-sm-grey-icon"></span>8268158187
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    @Html.Partial("~/views/dealershowroom/_DealerCard_Mobile.cshtml", Model.Dealers)
+                }
             </div>
             <!-- model dealers end -->
 
+            @if (Model.HasServiceCenters) { 
             <!-- model service centers start -->
             <div id="serviceCenterContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
                 <div class="margin-bottom10">
                     <span class="rank-graph-black"></span>
                     <div class="inline-block rank-graph-label">
-                        <h2 class="card-h2-heading">20 Bajaj Service centers in Pune</h2>
+                        <h2 class="card-h2-heading">@String.Format("{0} {1}",Model.ServiceCentersCount, Model.ServiceCenterWidget_H2)</h2>
                     </div>
                 </div>
-                <p class="font14 text-slate-grey margin-bottom15">Get in touch with your nearest Bajaj service center in Pune for service enquiries, service and repair costs and more!</p>
-                <a href="" title="" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+                <p class="font14 text-slate-grey margin-bottom15">Get in touch with your nearest @Model.Make.MakeName service center in @Model.CityEntity.CityName for service enquiries, service and repair costs and more!</p>
+                <a href="@String.Format("/m{0}", Model.ServiceCenterWidget_ViewAll_Href)" title="@Model.ServiceCenterWidget_ViewAll_Title" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
             </div>
             <!-- model service centers end -->
-
+            }
             <!-- model emi calculator start -->
+            @if (Model.IsNew) { 
             <div id="emiContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
                 <h2 class="card-h2-heading margin-bottom10">@Model.BikeName EMI Calculator</h2>
 
@@ -345,21 +282,21 @@
                     <div class="border-solid-top padding-top20 padding-bottom20">
                         <p class="grid-9 alpha text-slate-grey omega">Total amount (Principal + Interest)</p>
                         <div class="emi-slider-box-right-section grid-3 omega alpha">
-                            <span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">1,25,000</span>
+                            <span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>
                         </div>
                         <div class="clear"></div>
                     </div>
 
                     <p class="grid-5 text-default alpha position-rel pos-top2">Indicative EMI</p>
                     <div class="text-right grid-7 omega font16 text-bold">
-                        <span class="bwmsprite inr-sm-icon"></span><span data-bind="text: monthlyEMI"></span>/month
+                        <span class="bwmsprite inr-sm-icon"></span><span data-bind="text: formatPrice(monthlyEMI())"></span>/month
                     </div>
                     <div class="clear"></div>
 
                 </div>
             </div>
+            
             <!-- model emi calculator end -->
-
             <!-- model version prices start -->
             <div id="versionContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
                 <table width="100%" cellspacing="0" cellpadding="0">
@@ -375,18 +312,14 @@
                             <td align="left" width="72%" class="font12 text-light-grey padding-bottom10 border-solid-bottom">Version</td>
                             <td align="left" width="28%" class="font12 text-light-grey padding-bottom10 border-solid-bottom">Price</td>
                         </tr>
-                        <tr>
-                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@Model.BikeModel.ModelName Self Start, Alloy Wheels</td>
-                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon"></span>85,000</td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@Model.BikeModel.ModelName Standard</td>
-                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon"></span>1,25,000</td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@Model.BikeModel.ModelName CBS</td>
-                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon"></span>25,15,000</td>
-                        </tr>
+                        
+                        @foreach (var version in Model.BikeVersionPrices)
+                        {
+                            <tr>
+                                <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@String.Format("{0} {1}",Model.BikeModel.ModelName, version.VersionName)</td>
+                                <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon"></span>@Bikewale.Utility.Format.FormatPrice(Convert.ToString(version.OnRoadPrice))</td>
+                            </tr>
+                        }
                         <tr>
                             <td colspan="2" class="padding-top10 font12 text-light-grey">Above mentioned prices are On-road, @Model.CityEntity.CityName</td>
                         </tr>
@@ -396,429 +329,90 @@
             <!-- model version prices end -->
 
             <!-- model prices in nearby cities start -->
+            if (Model.HasNearestPriceCities) {
+                var priceQuotesCities = Model.NearestPriceCities.PriceQuoteList;
+                var top4Cities = priceQuotesCities.Take(4);
+                Model.NearestPriceCities.PriceQuoteList = top4Cities;
+                
             <div id="nearbyCityContent" class="bw-model-tabs-data padding-top20 padding-bottom10 content-box-shadow card-bottom-margin">
                 <h2 class="card-h2-heading margin-bottom10 padding-left20 padding-right20">@Model.BikeName price in cities near @Model.CityEntity.CityName<span class="font14 text-slate-grey text-unbold">&nbsp;(On-road price)</span></h2>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14">
                     <tbody>
-                        <tr>
-                            <td align="left" width="60%" class="city-name padding-bottom20">
-                                <a title="Bajaj Pulsar RS200 Price in Bangalore" href="">Bangalore</a>
-                            </td>
-                            <td align="right" width="40%" class="city-price padding-bottom20">
-                                <span class="bwmsprite inr-dark-grey-xsm-icon"></span>1,42,987
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="left" width="60%" class="city-name padding-bottom20">
-                                <a title="Bajaj Pulsar RS200 Price in Mumbai" href="">Mumbai</a>
-                            </td>
-                            <td align="right" width="40%" class="city-price padding-bottom20">
-                                <span class="bwmsprite inr-dark-grey-xsm-icon"></span>93,750
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="left" width="60%" class="city-name padding-bottom20">
-                                <a title="Bajaj Pulsar RS200 Price in Pune" href="">Pune</a>
-                            </td>
-                            <td align="right" width="40%" class="city-price padding-bottom20">
-                                <span class="bwmsprite inr-dark-grey-xsm-icon"></span>93,750
-                            </td>
-                        </tr>
+                        @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.NearestPriceCities)
                     </tbody>
                 </table>
+                @if (priceQuotesCities.Count() > 4)
+                {
+                    Model.NearestPriceCities.PriceQuoteList = priceQuotesCities.Skip(4);
                 <table id="more-cities-list" width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14 hide">
                     <tbody>
-                        <tr>
-                            <td align="left" width="60%" class="city-name padding-bottom20">
-                                <a title="Bajaj Pulsar RS200 Price in Bangalore" href="">Bangalore</a>
-                            </td>
-                            <td align="right" width="40%" class="city-price padding-bottom20">
-                                <span class="bwmsprite inr-dark-grey-xsm-icon"></span>1,42,987
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="left" width="60%" class="city-name padding-bottom20">
-                                <a title="Bajaj Pulsar RS200 Price in Mumbai" href="">Mumbai</a>
-                            </td>
-                            <td align="right" width="40%" class="city-price padding-bottom20">
-                                <span class="bwmsprite inr-dark-grey-xsm-icon"></span>93,750
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="left" width="60%" class="city-name padding-bottom20">
-                                <a title="Bajaj Pulsar RS200 Price in Pune" href="">Pune</a>
-                            </td>
-                            <td align="right" width="40%" class="city-price padding-bottom20">
-                                <span class="bwmsprite inr-dark-grey-xsm-icon"></span>93,750
-                            </td>
-                        </tr>
+                        @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.NearestPriceCities)
                     </tbody>
                 </table>
                 <div class="padding-right20 padding-left20 padding-bottom5">
                     <a href="javascript:void(0)" class="view-cities-link position-rel block font14" title="" rel="nofollow">View more cities</a>
-                </div>
+                </div>                                
+                }
             </div>
+            }
+            }
             <!-- model prices in nearby cities end -->
-
             <!-- model prices similar bikes start -->
+            @if (Model.HasAlternateBikes) { 
             <div id="similarContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
-                <h2 class="card-h2-heading margin-bottom10 padding-left20 padding-right20">Prices of similar bikes in Mumbai</h2>
-                <div class="swiper-container card-container swiper-type-similar">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Bajaj Pulsar RS200">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/bajaj-pulsar-rs200.jpg?20150710124439" alt="">
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <p class="target-link font12 text-truncate margin-bottom5">Bajaj Pulsar RS200</p>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p class="text-default">
-                                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">90,000</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="swiper-btn-block">
-                                    <a href="" class="btn btn-card btn-full-width btn-white">On-road price in Mumbai</a>
-                                </div>
-                                <a class="compare-with-target text-truncate">
-                                    <span class="bwmsprite compare-sm"></span>Compare with Honda Unicorn<span class="bwmsprite right-arrow"></span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Bajaj Pulsar RS200">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/bajaj-pulsar-rs200.jpg?20150710124439" alt="">
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <p class="target-link font12 text-truncate margin-bottom5">Bajaj Pulsar RS200</p>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Pune</p>
-                                        <p class="text-default">
-                                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">90,000</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="swiper-btn-block">
-                                    <a href="" class="btn btn-card btn-full-width btn-white">On-road price in Pune</a>
-                                </div>
-                                <a class="compare-with-target text-truncate">
-                                    <span class="bwmsprite compare-sm"></span>Compare with Unicorn<span class="bwmsprite right-arrow"></span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Bajaj Pulsar RS200">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/bajaj-pulsar-rs200.jpg?20150710124439" alt="">
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <p class="target-link font12 text-truncate margin-bottom5">Bajaj Pulsar RS200</p>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p class="text-default">
-                                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">90,000</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="swiper-btn-block">
-                                    <a href="" class="btn btn-card btn-full-width btn-white">On-road price in Mumbai</a>
-                                </div>
-                                <a class="compare-with-target text-truncate">
-                                    <span class="bwmsprite compare-sm"></span>Compare with Unicorn<span class="bwmsprite right-arrow"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h2 class="card-h2-heading margin-bottom10 padding-left20 padding-right20">Prices of similar bikes in @Model.CityEntity.CityName</h2>
+                @Html.Partial("~/views/Bikemodels/_SimilarBikes_Mobile.cshtml", Model.AlternateBikes)
             </div>
+            }
             <!-- model prices similar bikes end -->
-
+            @if (Model.HasPriceInTopCities && Model.IsNew) { 
             <!-- model prices in other cities start -->
             <div id="otherCityContent" class="bw-model-tabs-data content-box-shadow padding-bottom5 card-bottom-margin">
                 <div class="content-inner-block-20">
                     <h2 class="card-h2-heading margin-bottom10">@Model.BikeModel.ModelName prices in other cities</h2>
-                    <p class="font14 text-slate-grey margin-bottom15">You are currently viewing price of Bajaj Dominar 400 in Pune. Not from Pune? Select your city to see price in your city.</p>
+                    <p class="font14 text-slate-grey margin-bottom15">You are currently viewing price of @Model.BikeName in @Model.CityEntity.CityName. Not from @Model.CityEntity.CityName? Select your city to see price in your city.</p>
                     <a href="" class="btn btn-white btn-170-32">Select your city</a>
                 </div>
                 <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
                 <h3 class="margin-right20 margin-bottom10 margin-left20">@Model.BikeModel.ModelName prices in popular cities</h3>
                 <div class="swiper-container card-container swiper-city">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" class="card-target-link">
-                                    <div class="swiper-image-preview">
-                                        <span class="city-sprite c1-icon"></span>
-                                    </div>
-                                    <div class="swiper-details-block font12">
-                                        <h3 class="font12 text-black margin-bottom5">Mumbai</h3>
-                                        <div class="text-default">
-                                            <span class="bwmsprite inr-xxsm-icon"></span><span>1,25,000 onwards</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" class="card-target-link">
-                                    <div class="swiper-image-preview">
-                                        <span class="city-sprite c12-icon"></span>
-                                    </div>
-                                    <div class="swiper-details-block font12">
-                                        <h3 class="font12 text-black margin-bottom5">Pune</h3>
-                                        <div class="text-default">
-                                            <span class="bwmsprite inr-xxsm-icon"></span><span>1,25,000 onwards</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" class="card-target-link">
-                                    <div class="swiper-image-preview">
-                                        <span class="city-sprite c2-icon"></span>
-                                    </div>
-                                    <div class="swiper-details-block font12">
-                                        <h3 class="font12 text-black margin-bottom5">Bangalore</h3>
-                                        <div class="text-default">
-                                            <span class="bwmsprite inr-xxsm-icon"></span><span>1,25,000 onwards</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    @Html.Partial("~/views/priceincity/_PriceInTopCitiesIcon_Mobile.cshtml",Model.PriceInTopCities)
                 </div>
             </div>
             <!-- model prices in other cities end -->
+            }
 
             <div id="modelSpecsFooter"></div>
         </div>
     </div>
 </section>
 
-<section>
-    <div class="container content-box-shadow content-inner-block-20 card-bottom-margin">
-        <div class="margin-bottom10">
-            <span class="rank-graph-black"></span>
-            <div class="inline-block rank-graph-label">
-                <h2 class="card-h2-heading">Top 10 Sports bikes in India</h2>
+    if (Model.BikeRank != null)
+    {
+        <section>
+            <div class="container content-box-shadow content-inner-block-20 card-bottom-margin">
+                <div class="margin-bottom10">
+                    <span class="rank-graph-black"></span>
+                    <div class="inline-block rank-graph-label">
+                        <h2 class="card-h2-heading">Top 10 @Model.BikeRank.StyleName in India</h2>
+                    </div>
+                </div>
+                <p class="font14 margin-bottom15 text-slate-grey">Are you looking for a @Model.BikeRank.BikeType.ToLower() bike? Check out our list of top 10 @Model.BikeRank.BikeType.ToLower() in India.</p>
+                <a href="@String.Format("/m{0}", UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle))" title="Best @Model.BikeRank.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
             </div>
-        </div>
-        <p class="font14 margin-bottom15 text-slate-grey">Are you looking for a sports bike? Check out our list of top 10 sports bike in India.</p>
-        <a href="" title="" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
-    </div>
-</section>
-
-<section>
-    <div class="container card-bottom-margin padding-right20 padding-left20 font12 text-slate-grey">
-        <p class="text-default text-bold">Disclaimer:</p>
-        <p>BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank">&nbsp;visitor agreement</a>&nbsp;and&nbsp;<a href="/privacypolicy.aspx" target="_blank">privacy policy</a>.
-        </p>
-    </div>
-    <div class="hide" id="dvPgVar" data-modelid="@Model.BikeModel.ModelId"></div>
-</section>
-
-<section class="bg-white box-shadow padding-top10 margin-bottom10">
-    @if (Model.IsDiscontinued) {
-    <div class="discont-text-label font14 text-white text-center">Discontinued</div>
+        </section>
     }
-    <div id="modelCityPriceDetails">
-        @if (Model.FirstVersion != null)
-        {
-            <div class="bike-image">
-                <img src="@Image.GetPathToShowImages(Model.FirstVersion.OriginalImage,Model.FirstVersion.HostUrl,ImageSize._110x61,QualityFactor._75)" title="@Model.BikeName" alt="@Model.BikeName" />
-            </div>
-        }
-       
-        <h1 class="text-dark-black font18">@Model.Page_H1</h1>
-    </div>
-    <p class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10">
-        @Model.PageDescription
-    </p>
-
-    <div>
-        <div id="versionTabsWrapper">
-            <ul id='versions' class="model-versions-tabs-wrapper">
-                @foreach (var version in Model.BikeVersionPrices)
-                {
-                    <li class="@(version.VersionId != Model.VersionId ? string.Empty : "active")" id="@version.VersionId"
-                        @((Model.BikeVersionPrices.Count() == 1) ? "style='display:inline-block; width:auto;'" : "") >@version.VersionName
-                    </li>
-                }
-            </ul>
+    <section>
+        <div class="container card-bottom-margin padding-right20 padding-left20 font12 text-slate-grey">
+            <p class="text-default text-bold">Disclaimer:</p>
+            <p>
+                BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank">&nbsp;visitor agreement</a>&nbsp;and&nbsp;<a href="/privacypolicy.aspx" target="_blank">privacy policy</a>.
+            </p>
         </div>
-        @foreach (var version in Model.BikeVersionPrices)
-                {
-                if (Model.IsNew)
-                {
-                    <div class="content-inner-block-20 font14 priceTable @(version.VersionId != Model.VersionId ? "hide" : string.Empty)" id="@version.VersionId">
-                        <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                            <tr>
-                                <td width="65%" class="padding-bottom15 text-light-grey">Ex-showroom</td>
-                                <td width="45%" align="right" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">@CommonOpn.FormatPrice(version.ExShowroomPrice.ToString())</span></td>
-                            </tr>
-                            <tr>
-                                <td class="padding-bottom15 text-light-grey">RTO</td>
-                                <td align="right" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">@CommonOpn.FormatPrice(version.RTO.ToString())</span></td>
-                            </tr>
-                            <tr>
-                                <td class="padding-bottom15 text-light-grey">Insurance (comprehensive)</td>
-                                <td align="right" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">@CommonOpn.FormatPrice(version.Insurance.ToString())</span></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="padding-bottom15 border-divider"></td>
-                            </tr>
-                            <tr>
-                                <td class="text-bold">@Model.BikeModel.ModelName On-road price in @Model.CityEntity.CityName</td>
-                                <td align="right"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">@CommonOpn.FormatPrice(version.OnRoadPrice.ToString())</span></td>
-                            </tr>
-                        </table>
-                    </div>
-                }
-                else
-                {
-                    <div class="content-inner-block-20 margin-top5 font14 priceTable @(version.VersionId != Model.VersionId ? "hide" : string.Empty)" id="@version.VersionId">
-                        <p class="text-x-grey margin-bottom15">@Model.BikeName is now discontinued in India.</p>
-                        <div class="version-details-row">
-                            <p class="text-default text-bold">
-                                <span class="margin-right5">Last known Ex-showroom price</span>
-                                <span class="bwmsprite inr-xxsm-icon"></span>
-                                <span class="text-bold">@CommonOpn.FormatPrice(version.ExShowroomPrice.ToString())</span>
-                            </p>
-                        </div>
-                    </div>
-                }
-                }
-
-        @if (Model.HasDealers)
-        {
-            <div class="margin-right20 margin-left20 border-divider"></div>
-            <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">        
-    <div class="carousel-heading-content"><div class="swiper-heading-left-grid inline-block"><h2>@Model.DealersWidget_H2</h2></div><div class="swiper-heading-right-grid inline-block text-right"><a href="@String.Format("/m{0}", Model.DealersWidget_ViewAll_Href)" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a></div><div class="clear"></div></div>
-        @Html.Partial("~/views/dealershowroom/_DealerCard_Mobile.cshtml", Model.Dealers)
-                </div>
-        }
-            @if (Model.BikeInfo != null)
-            {                
-                    <div class="margin-right20 margin-left20 border-divider"></div>
-                    @Html.Partial("~/views/Bikemodels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfo)             
-            }                
-
-        @if (Model.HasServiceCenters)
-        {
-            <section>
-                <div class="margin-right20 margin-left20 border-divider"></div>
-                <div class="bg-white padding-top20">
-                    <div class="container card-bottom-margin padding-bottom20">
-                        <div class="carousel-heading-content"><div class="swiper-heading-left-grid inline-block"><h2>@Model.ServiceCenterWidget_H2</h2></div><div class="swiper-heading-right-grid inline-block text-right"><a href="@String.Format("/m{0}", Model.ServiceCenterWidget_ViewAll_Href)" title="@Model.ServiceCenterWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a></div><div class="clear"></div></div>
-                        <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14 sw-1 swiper-container-horizontal">
-                            <div class="swiper-wrapper">
-                                @Html.Partial("~/views/servicecenters/_ServiceCentersCard_Mobile.cshtml", Model.ServiceCenters)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        }
-        @if (Model.HasNearestPriceCities)
-        {
-            <div class="margin-right20 margin-left20 border-divider"></div>
-            <div id="modelPriceInNearbyCities" class="padding-top20 padding-right20 padding-bottom10 padding-left20 font14">
-                <h2 class="font14 margin-bottom15">@Model.BikeName price in cities near @Model.CityEntity.CityName<span class="text-light-grey text-unbold margin-left5">(On road price)</span></h2>
-                @Html.Partial("~/views/priceincity/_ModelPriceInNearestCities_Mobile.cshtml", Model.PriceInNearestCities)
-            </div>
-            <div class="clear"></div>
-        }
-
-        @if (Model.IsAreaSelected && Model.IsNew)
-        {
-            <div class="grid-12 float-button float-fixed">
-                <p class="grid-6 font13 select-area-label text-light-grey">Please Get in touch with nearby dealer</p>
-                <p class="grid-6 alpha">
-                    <a id="dealerDetails" href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click)" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="View_dealer_details_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.BikeVersionPrices.FirstOrDefault().VersionName)" class="bw-ga btn btn-xs btn-full-width font16 btn-orange" rel="nofollow">View dealer details</a>
-                </p>
-            </div>
-        }
-        else if (Model.IsAreaAvailable && Model.IsNew)
-        {
-            <div class="grid-12 float-button float-fixed">
-                <p class="grid-6 font13 select-area-label text-light-grey">Please select area to get accurate on-road price</p>
-                <p class="grid-6 alpha">
-                    <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea)" data-preselcity="@Model.CityEntity.CityId" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="Select_Area_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.BikeVersionPrices.FirstOrDefault().VersionName)" class="bw-ga btn btn-xs btn-full-width font16 btn-orange getquotation changeCity" rel="nofollow">Select your area</a>
-                </p>
-            </div>
-        }
-        <div class="clear"></div>
-    </div>
-</section>
-if (Model.HasAlternateBikes || Model.BikeRank!=null) 
-{   
-<section>
-    <div class="container box-shadow bg-white margin-bottom10">
-        @if (Model.HasAlternateBikes)
-        {
-            <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top15 font14 margin-bottom20">
-                <h2 class="padding-left20 padding-right20 margin-bottom20">Prices of @Model.BikeModel.ModelName alternative bikes in @Model.CityEntity.CityName</h2>
-                @Html.Partial("~/views/Bikemodels/_SimilarBikes_Mobile.cshtml", Model.AlternateBikes)
-            </div>
-        }
-        @if (Model.BikeRank != null)
-        {
-
-            if (Model.BikeRank.Rank!=null && Model.BikeRank.Rank.Rank > 0)
-            {
-
-            <div class="margin-left20 margin-right20 margin-top15 padding-bottom20 @(Model.HasAlternateBikes?string.Empty:" padding-top20")">
-                <a href="@String.Format("/m{0}", UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle))" title="Best @Model.BikeRank.StyleName in India" class="model-rank-slug">
-                    <div class="inline-block">
-                        <span class="item-rank">#@Model.BikeRank.Rank.Rank</span>
-                    </div>
-                    <p class="rank-slug-label inline-block text-default font14">@Model.BikeModel.ModelName is the @(Html.Raw(Model.BikeRank.Rank.Rank>1?Model.BikeRank.RankText:"")) most popular @Model.BikeRank.BikeType.ToLower(). Check out other @Model.BikeRank.StyleName.ToLower() which made it to Top 10 list.</p>
-                    <span class="bwmsprite right-arrow"></span>
-                </a>
-            </div>
-        }
-        else
-        {
-            <div class="margin-left20 margin-right20 margin-top15 padding-bottom20 @(Model.HasAlternateBikes?string.Empty:" padding-top20")">
-                <a href="@String.Format("/m{0}", UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle))" title="Best @Model.BikeRank.StyleName in India" class="model-rank-slug">
-                    <div class="inline-block icon-red-bg">
-                        <span class="bwmsprite rank-graph"></span>
-                    </div>
-                    <p class="rank-slug-label inline-block text-default font14">
-                        Not sure what to buy?<br />
-                        List of Top 10 @Model.BikeRank.StyleName.ToLower()<br />
-                        can come in handy.
-                    </p>
-                    <span class="bwmsprite right-arrow"></span>
-                </a>
-            </div>
-
-        }
-
-        }
-            </div>
-</section>
+        <div class="hide" id="dvPgVar" data-modelid="@Model.BikeModel.ModelId"></div>
+    </section>
+    <script type="text/javascript">
+        var versionCount = @Model.BikeVersionPrices.Count(),bikeVersionPrice = "@Model.FirstVersion.OnRoadPrice";
+    </script>
+    <div class="hide" id="dvVersionPrice" data-isdiscontinued="@Model.IsDiscontinued">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices))</div>
 }
-<span class="font13 text-light-grey padding-right20 padding-left20 margin-bottom10"><strong>Disclaimer</strong>:</span>
-<p class="font12 text-light-grey padding-right20 padding-left20 margin-bottom10">
-    BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName
-    price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank"> visitor agreement </a>and  <a href="/privacypolicy.aspx" target="_blank">privacy policy</a>.
-</p>
-<div class="hide" id="dvPgVar" data-modelid="@Model.BikeModel.ModelId"></div>
-}
-<script type="text/javascript">
-    var versionCount = @Model.BikeVersionPrices.Count(),
-    bikeVersionPrice = "93750";
-</script>

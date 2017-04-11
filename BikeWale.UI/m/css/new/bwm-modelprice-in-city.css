@@ -349,45 +349,45 @@
     background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat;
     display: inline-block;
 }
-.c1-icon,
-.c12-icon,
-.c2-icon,
-.c10-icon,
-.c176-icon,
-.c105-icon,
-.c198-icon,
-.c220-icon {
+.c-mumbai-icon,
+.c-pune-icon,
+.c-bangalore-icon,
+.c-newdelhi-icon,
+.c-chennai-icon,
+.c-hyderabad-icon,
+.c-kolkata-icon,
+.c-lucknow-icon {
     height: 48px;
 }
-.c1-icon {
+.c-mumbai-icon {
     width: 78px;
     background-position: 0 0;
 }
-.c12-icon {
+.c-pune-icon {
     width: 112px;
     background-position: -84px 0;
 }
-.c2-icon {
+.c-bangalore-icon {
     width: 82px;
     background-position: -202px 0;
 }
-.c10-icon {
+.c-newdelhi-icon {
     width: 38px;
     background-position: -290px 0;
 }
-.c176-icon {
+.c-chennai-icon {
     width: 33px;
     background-position: -334px 0;
 }
-.c105-icon {
+.c-hyderabad-icon {
     width: 34px;
     background-position: -373px 0;
 }
-.c198-icon {
+.c-kolkata-icon {
     width: 110px;
     background-position: -413px 0;
 }
-.c220-icon {
+.c-lucknow-icon {
     width: 106px;
     background-position: -529px 0;
 }
