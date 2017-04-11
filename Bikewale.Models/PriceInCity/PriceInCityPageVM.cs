@@ -52,6 +52,9 @@ namespace Bikewale.Models
         public bool HasAlternateBikes { get { return (AlternateBikes != null && AlternateBikes.Bikes != null && AlternateBikes.Bikes.Count() > 0); } }
         public bool HasServiceCenters { get { return (ServiceCentersCount > 0); } }
         public bool HasPopularCities { get; set; }
+        public bool HasCampaignDealer { get; set; }
 
+        public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DetailedDealer { get; set; }
+        public string MPQString { get; set; }
     }
 }
