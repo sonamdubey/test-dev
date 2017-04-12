@@ -10,6 +10,7 @@ namespace Bikewale.Models
     /// </summary>
     public class UpcomingPageVM : ModelBase
     {
+        public BikeMakeEntityBase Make { get; set; }
         public BrandWidgetVM Brands { get; set; }
         public NewLaunchedWidgetVM NewLaunches { get; set; }
         public IEnumerable<UpcomingBikeEntity> UpcomingBikeModels { get; set; }
