@@ -1,5 +1,5 @@
 ﻿using Bikewale.Common;
-using Bikewale.Filters;
+using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Models;
@@ -56,8 +56,6 @@ namespace Bikewale.Controllers
         [Route("upcomingbikes/make/{maskingName}")]
         public ActionResult BikesByMake(string maskingName, ushort? pageNumber)
         {
-
-
             UpcomingByMakePageModel objData = null;
             if (pageNumber.HasValue)
             {

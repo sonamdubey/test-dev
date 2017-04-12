@@ -24,7 +24,6 @@ namespace Bikewale.Models.Upcoming
 
         #endregion
 
-
         #region Public members
 
         public UpcomingBikesListInputEntity Filters { get; set; }
@@ -63,16 +62,15 @@ namespace Bikewale.Models.Upcoming
             UpcomingPageVM objUpcoming = new UpcomingPageVM();
             try
             {
-                BindPageMetaTags(objUpcoming.PageMetaTags);
+                objUpcoming.Make = new MakeHelper().GetMakeNameByMakeId(MakeId);
+                BindPageMetaTags(objUpcoming.PageMetaTags, _makeMaskingName, objUpcoming.Make.MakeName);
                 var upcomingBikes = _upcoming.GetModels(Filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(topbrandCount);
-                objUpcoming.NewLaunches = new NewLaunchedWidgetModel(9, _newLaunches).GetData();
+                objUpcoming.NewLaunches = new NewLaunchedWidgetModel(MakeId,9, _newLaunches).GetData();
                 Filters.PageNo = _pageNumber;
                 UpcomingBikeResult bikeResult = _upcoming.GetBikes(Filters, SortBy);
                 objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
                 objUpcoming.TotalBikes = bikeResult.TotalCount;
-                //objUpcoming.NewLaunches.PageCatId = 1;
-                objUpcoming.Make = new MakeHelper().GetMakeNameByMakeId(MakeId);
                 objUpcoming.NewLaunches.PQSourceId = (uint)PQSourceEnum.Desktop_UpcomiingBikes_NewLaunchesWidget;
                 objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels.Count() > 0);
                 objUpcoming.YearsList = _upcoming.GetYearList(MakeId);
@@ -80,7 +78,7 @@ namespace Bikewale.Models.Upcoming
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingPageModel.GetData");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingByMakePageModel.GetData");
             }
             return objUpcoming;
         }
@@ -89,22 +87,20 @@ namespace Bikewale.Models.Upcoming
         /// Binds the page meta tags.
         /// </summary>
         /// <param name="pageMetaTags">The page meta tags.</param>
-        private void BindPageMetaTags(PageMetaTags pageMetaTags)
+        private void BindPageMetaTags(PageMetaTags pageMetaTags, string makeMaskingName, string makeName)
         {
             try
             {
                 int currentYear = DateTime.Now.Year;
-                string nextYear = DateTime.Now.AddYears(1).Year.ToString().Substring(2);
-                string year = string.Format("{0}-{1}", currentYear, nextYear);
-                pageMetaTags.CanonicalUrl = "https://www.bikewale.com/upcoming-bikes/";
-                pageMetaTags.AlternateUrl = "https://www.bikewale.com/m/upcoming-bikes/";
-                pageMetaTags.Keywords = "Upcoming bikes, expected launch, new bikes, upcoming scooter, upcoming, to be released bikes, bikes to be launched";
-                pageMetaTags.Description = string.Format("Find a list of upcoming bikes in India in {0}. Get details on expected launch date, prices for bikes expected to launch in {1}.", year, currentYear);
-                pageMetaTags.Title = string.Format("Upcoming Bikes in India | Expected Launches in {0} - BikeWale", currentYear);
+                pageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/upcoming/", makeMaskingName);
+                pageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/upcoming/", makeMaskingName);
+                pageMetaTags.Keywords = string.Format("{0} upcoming, Expected {0} Launch, upcoming {0}, Latest {0} bikes", makeName);
+                pageMetaTags.Description = string.Format("Find {0} upcoming bikes in India. Get details on expected launch date, prices for {0} bikes expected to launch in {1}.", makeName, currentYear);
+                pageMetaTags.Title = string.Format("Upcoming {0} Bikes| Expected {0} Launches in {1} - BikeWale", makeName, currentYear);
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingPageModel.BindPageMetaTags");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingByMakePageModel.BindPageMetaTags");
             }
         }
         /// Created by  :   Sumit Kate on 30 Mar 2017
