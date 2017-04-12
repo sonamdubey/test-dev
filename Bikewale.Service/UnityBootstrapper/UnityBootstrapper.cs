@@ -3,6 +3,7 @@ using Bikewale.BAL.AutoComplete;
 using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.BikeData.NewLaunched;
+using Bikewale.BAL.BikeData.UpComingBike;
 using Bikewale.BAL.Compare;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
@@ -47,6 +48,7 @@ using Bikewale.Interfaces.AutoComplete;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
@@ -178,6 +180,9 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>();
             container.RegisterType<INewBikeLaunchesBL, NewBikeLaunchesBL>();
             container.RegisterType<IDealerRepository, DealersRepository>();
+            container.RegisterType<IModelsCache, ModelsCache>();            
+            container.RegisterType<IModelsRepository, ModelsRepository>();
+            container.RegisterType<IUpcoming, Upcoming>();
             return container;
         }
     }

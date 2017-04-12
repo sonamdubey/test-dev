@@ -44,5 +44,8 @@ namespace Bikewale.Entities.BikeData
         public string BikeName { get; set; }
         [DataMember]
         public uint BodyStyleId { get; set; }
+
+        [DataMember]
+        public bool IsLaunchingThisMonth { get { return (ExpectedLaunchedDate.Month == DateTime.Now.Month && ExpectedLaunchedDate.Year == DateTime.Now.Year); } }
     }
 }

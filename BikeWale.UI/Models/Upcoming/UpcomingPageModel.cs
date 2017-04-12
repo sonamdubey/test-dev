@@ -62,20 +62,40 @@ namespace Bikewale.Models
                 var upcomingBikes = _upcoming.GetModels(Filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(topbrandCount);
                 objUpcoming.NewLaunches = new NewLaunchedWidgetModel(9, _newLaunches).GetData();
+                Filters.PageNo = _pageNumber;
+                UpcomingBikeResult bikeResult = _upcoming.GetBikes(Filters, SortBy);
+                objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
+                objUpcoming.TotalBikes = bikeResult.TotalCount;
                 //objUpcoming.NewLaunches.PageCatId = 1;
                 objUpcoming.NewLaunches.PQSourceId = (uint)PQSourceEnum.Desktop_UpcomiingBikes_NewLaunchesWidget;
-                objUpcoming.UpcomingBikeModels = _upcoming.GetModels(Filters, SortBy);
-                objUpcoming.TotalBikes = (uint)_upcoming.GetTotalBikes();
                 objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels.Count() > 0);
                 objUpcoming.YearsList = _upcoming.GetYearList();
                 objUpcoming.MakesList = _upcoming.GetMakeList();
                 CreatePager(objUpcoming, objUpcoming.PageMetaTags);
+                BindPageMetas(objUpcoming);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingPageModel.GetData");
             }
             return objUpcoming;
+        }
+
+        private void BindPageMetas(UpcomingPageVM objPageVM)
+        {
+            try
+            {
+                if (objPageVM != null && objPageVM.PageMetaTags != null && objPageVM.YearsList != null)
+                {
+                    objPageVM.PageMetaTags.Title = string.Format(" Upcoming Bikes in India | Expected Launches in {0} - BikeWale", objPageVM.YearsList.FirstOrDefault());
+                    objPageVM.PageMetaTags.Keywords = "Upcoming bikes, expected launch, new bikes, upcoming scooter, upcoming, to be released bikes, bikes to be launched";
+                    objPageVM.PageMetaTags.Description = string.Format("Find a list of upcoming bikes in India in {0}-{1}. Get details on expected launch date, prices for bikes expected to launch in {0}", objPageVM.YearsList.FirstOrDefault(), (objPageVM.YearsList.FirstOrDefault() + 1).ToString().Substring(2, 2));
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterLandingPage.BindPageMetas()");
+            }
         }
 
         /// <summary>

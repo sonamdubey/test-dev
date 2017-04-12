@@ -32,40 +32,8 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             _modelsRepo = modelsRepo;
         }
 
-        /// <summary>
-        /// Summary : Function to get the upcoming bikes as per filter criteria
-        /// </summary>
-        /// <param name="inputParams"></param>
-        /// <param name="sortBy"></param>
-        /// <param name="recordCount"></param>
-        /// <returns></returns>
-        public IEnumerable<UpcomingBikeEntity> GetModels(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy)
-        {
-            IEnumerable<UpcomingBikeEntity> objUpcomingList = null; bool isAsc;
-            try
-            {
 
-                objUpcomingList = _upcomingCacheRepo.GetUpcomingModels();
-                if (objUpcomingList != null && objUpcomingList.Count() > 0)
-                {
-                    objUpcomingList = objUpcomingList.Where(ProcessInputFilter(inputParams));
-                    if (objUpcomingList != null && objUpcomingList.Count() > 0)
-                    {
-                        objUpcomingList = objUpcomingList.Sort(ProcessOrderBy(sortBy, out isAsc), isAsc);
-                        objUpcomingList = objUpcomingList.Page(inputParams.StartIndex, inputParams.EndIndex);
 
-                    }
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-                ErrorClass objErr = new ErrorClass(ex, "Upcoming.GetModels");
-            }
-            return objUpcomingList;
-        }
         /// <summary>
         /// Created By:- Subodh Jain 17 Feb 2017
         /// Summary :- Process orderby filter
@@ -81,7 +49,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
                 case EnumUpcomingBikesFilter.Default:
                 case EnumUpcomingBikesFilter.LaunchDateSooner:
                 default:
-                    return m => (ulong)Convert.ToDateTime(m.ExpectedLaunchDate).Ticks;
+                    return m => (ulong)(m.ExpectedLaunchedDate).Ticks;
                 case EnumUpcomingBikesFilter.PriceLowToHigh:
                     return m => m.EstimatedPriceMin;
                 case EnumUpcomingBikesFilter.PriceHighToLow:
@@ -124,71 +92,6 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             return filterExpression.Compile();
         }
-
-        /// <summary>
-        /// Created by  :   Sajal Gupta on 10-04-2017
-        /// Description :   Returns Upcoming Years list 
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<int> GetYearList()
-        {
-            IEnumerable<int> years = null;
-            try
-            {
-                var bikes = _upcomingCacheRepo.GetUpcomingModels();
-                if (bikes != null)
-                {
-                    years = bikes.Select(p => p.ExpectedLaunchedDate.Year).Distinct().OrderBy(m => m);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
-            }
-            return years;
-        }
-
-        /// <summary>
-        /// Created by  :   Sajal Gupta on 10-04-2017
-        /// Description :   Returns total number of bikes.
-        /// </summary>
-        /// <returns></returns>
-        public int GetTotalBikes()
-        {
-            try
-            {
-                return (_upcomingCacheRepo.GetUpcomingModels()).Count();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
-                return 0;
-            }
-        }
-
-        /// <summary>
-        /// Created by  :   Sajal Gupta on 10-04-2017
-        /// Description :   Returns Upcoming MakeBase list 
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<BikeMakeEntityBase> GetMakeList()
-        {
-            IEnumerable<BikeMakeEntityBase> makes = null;
-            try
-            {
-                var bikes = _upcomingCacheRepo.GetUpcomingModels();
-                if (bikes != null)
-                {
-                    makes = bikes.GroupBy(x => x.MakeBase.MakeId).Select(x => x.First().MakeBase);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
-            }
-            return makes;
-        }
-
 
 
         /// <summary>
@@ -244,6 +147,122 @@ namespace Bikewale.BAL.BikeData.UpComingBike
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.BindMakes()");
             }
             return brands;
+        }
+        /// <summary>
+        /// Summary : Function to get the upcoming bikes as per filter criteria
+        /// </summary>
+        /// <param name="inputParams"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="recordCount"></param>
+        /// <returns></returns>
+        IEnumerable<UpcomingBikeEntity> IUpcoming.GetModels(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy)
+        {
+            return GetModels(inputParams, sortBy);
+        }
+
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 10-04-2017
+        /// Description :   Returns Upcoming Years list 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<int> IUpcoming.GetYearList()
+        {
+            IEnumerable<int> years = null;
+            try
+            {
+                var bikes = _upcomingCacheRepo.GetUpcomingModels();
+                if (bikes != null)
+                {
+                    years = bikes.Select(p => p.ExpectedLaunchedDate.Year).Distinct().OrderBy(m => m);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
+            }
+            return years;
+        }
+
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 10-04-2017
+        /// Description :   Returns Upcoming MakeBase list 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<BikeMakeEntityBase> IUpcoming.GetMakeList()
+        {
+            IEnumerable<BikeMakeEntityBase> makes = null;
+            try
+            {
+                var bikes = _upcomingCacheRepo.GetUpcomingModels();
+                if (bikes != null)
+                {
+                    makes = bikes.GroupBy(x => x.MakeBase.MakeId).Select(x => x.First().MakeBase).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
+            }
+            return makes;
+        }
+
+        private IEnumerable<UpcomingBikeEntity> GetModels(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy)
+        {
+            IEnumerable<UpcomingBikeEntity> objUpcomingList = null; bool isAsc;
+            try
+            {
+
+                objUpcomingList = _upcomingCacheRepo.GetUpcomingModels();
+                if (objUpcomingList != null && objUpcomingList.Count() > 0)
+                {
+                    objUpcomingList = objUpcomingList.Sort(ProcessOrderBy(sortBy, out isAsc), isAsc);
+                    objUpcomingList = objUpcomingList.Where(ProcessInputFilter(inputParams));
+                    if (objUpcomingList != null && objUpcomingList.Count() > 0)
+                    {
+                        objUpcomingList = objUpcomingList.Page(inputParams.PageNo, inputParams.PageSize);
+
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Upcoming.GetModels");
+            }
+            return objUpcomingList;
+        }
+
+        UpcomingBikeResult IUpcoming.GetBikes(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy)
+        {
+            UpcomingBikeResult objBikes = null;
+            bool isAsc;
+            try
+            {
+                objBikes = new UpcomingBikeResult();
+
+                IEnumerable<UpcomingBikeEntity> objUpcomingList = _upcomingCacheRepo.GetUpcomingModels();
+
+                if (objUpcomingList != null && objUpcomingList.Count() > 0)
+                {
+                    objUpcomingList = objUpcomingList.Sort(ProcessOrderBy(sortBy, out isAsc), isAsc);
+                    objUpcomingList = objUpcomingList.Where(ProcessInputFilter(inputParams));
+
+                    if (objUpcomingList != null && objUpcomingList.Count() > 0)
+                    {
+                        objBikes.TotalCount = (uint)objUpcomingList.Count();
+                        objBikes.Bikes = objUpcomingList.Page(inputParams.PageNo, inputParams.PageSize);
+                    }
+
+                }
+                objBikes.Filter = inputParams;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
+            }
+            return objBikes;
         }
     }   // class
 }   // namespace

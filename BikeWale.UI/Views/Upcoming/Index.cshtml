@@ -6,6 +6,8 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/upcoming-bikes/upcoming-bikes.css' />";    
     Model.Page_JS_Path = "/src/upcoming-bikes.js";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/upcoming-bikes/";
+    Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/upcoming-bikes/";
 }
 
 <header class="upcoming-bikes-banner">
@@ -33,7 +35,7 @@
 </section>
 
 <section>
-    <div class="container section-bottom-margin">
+    <div id="upcoming-bikes" class="container section-bottom-margin">
         <div class="grid-12">
             <h2 class="section-heading">Upcoming bikes in India</h2>
 
@@ -75,4 +77,4 @@
             </section>
         }
 
-        <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/frameworks.js?@ViewBag.staticFileVersion"></script>
+        

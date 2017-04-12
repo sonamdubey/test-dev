@@ -225,8 +225,8 @@ namespace Bikewale.Models
 
                 UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
                 objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
-                objUpcomingBikes.Filters.StartIndex = 1;
-                objUpcomingBikes.Filters.EndIndex = topCount;
+                objUpcomingBikes.Filters.PageNo = 1;
+                objUpcomingBikes.Filters.PageSize = topCount;
                 objUpcomingBikes.SortBy = EnumUpcomingBikesFilter.Default;
                 objData.UpcomingBikes = objUpcomingBikes.GetData();
                 objData.UpcomingBikes.WidgetHeading = "Upcoming bikes";

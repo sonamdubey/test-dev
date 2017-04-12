@@ -8,12 +8,12 @@ namespace Bikewale.Entities.BikeData
     /// modified by :- Subodh Jain 09 march 2017
     /// Summary :- Added BodyStyleId
     /// </summary>
-    public class UpcomingBikesListInputEntity
+    public class UpcomingBikesListInputEntity 
     {
         public int MakeId { get; set; }
         public int ModelId { get; set; }
-        public int StartIndex { get; set; }
-        public int EndIndex { get; set; }
+        public int PageNo { get; set; }
+        public int PageSize { get; set; }
         public uint BodyStyleId { get; set; }
         public uint Year { get; set; }
     }
