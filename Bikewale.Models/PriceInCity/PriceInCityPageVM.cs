@@ -20,11 +20,9 @@ namespace Bikewale.Models
         public DealerCardVM Dealers { get; set; }
         public SimilarBikesWidgetVM AlternateBikes { get; set; }
         public ServiceCenterDetailsWidgetVM ServiceCenters { get; set; }
-        public uint ServiceCenterCount { get; set; } 
+        public uint ServiceCenterCount { get; set; }
 
         public PriceInTopCitiesWidgetVM PriceInTopCities { get; set; }
-        public DealerCardVM Dealers { get; set; }
-        public SimilarBikesWidgetVM AlternateBikes { get; set; }
         public uint ServiceCentersCount { get; set; }
 
         public BikeInfoVM BikeInfo { get; set; }
@@ -62,7 +60,7 @@ namespace Bikewale.Models
         public bool HasAlternateBikes { get { return (AlternateBikes != null && AlternateBikes.Bikes != null && AlternateBikes.Bikes.Count() > 0); } }
         public bool HasTopCities { get { return (PriceTopCities != null && PriceTopCities.PriceQuoteList != null && PriceTopCities.PriceQuoteList.Count() > 0); } }
         public string JSONBikeVersions { get; set; }
-  
+
         public bool HasServiceCenters { get { return (ServiceCentersCount > 0); } }
         public bool HasCampaignDealer { get; set; }
 
