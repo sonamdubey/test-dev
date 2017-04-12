@@ -12,6 +12,7 @@
     Model.Page_BTF_CSS_Path = "/m/css/bwm-common-btf.css";
     Model.Page_JS_Path = "/m/src/priceincity.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    var gaBikeName = String.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName);
 }
 @if (Model != null && Model.BikeModel != null && Model.CityEntity != null) {
 
@@ -42,7 +43,7 @@
                         @if (Model.BikeVersionPrices.Count() > 1)
                         {
                         <div class="dropdown-select-wrapper">
-                            <select class="dropdown-select" data-title="Version">
+                            <select class="dropdown-select" data-title="Version" c="Price_in_City_Page" a="Version_Changed" l="@gaBikeName">
                                 @foreach (var version in Model.BikeVersionPrices)
                                 {
                                     <option value="@version.VersionId">@version.VersionName</option>
@@ -214,8 +215,8 @@
                             <div class="clear"></div>
 
                             <div id="downPaymentSlider"
-                                    data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2) + minDnPay()) }"
-                                    class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                 data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2) + minDnPay()) }"
+                                 class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Price_in_City_Page" a="Interacted_with_EMI_Calculator" l="@gaBikeName">
                                 <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                             </div>
@@ -232,8 +233,8 @@
                             <div class="clear"></div>
 
                             <div id="loanAmountSlider"
-                                    data-bind="slider: loan, sliderOptions: { min: bikePrice() - maxDnPay(), max: bikePrice() - minDnPay(), range: 'min', step: 1 }"
-                                    class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                 data-bind="slider: loan, sliderOptions: { min: bikePrice() - maxDnPay(), max: bikePrice() - minDnPay(), range: 'min', step: 1 }"
+                                 class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Price_in_City_Page" a="Interacted_with_EMI_Calculator" l="@gaBikeName">
                                 <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                             </div>
@@ -250,8 +251,8 @@
                             <div class="clear"></div>
 
                             <div id="tenureSlider"
-                                    data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
-                                    class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                 data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
+                                 class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Price_in_City_Page" a="Interacted_with_EMI_Calculator" l="@gaBikeName">
                                 <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                             </div>
@@ -268,8 +269,8 @@
                             <div class="clear"></div>
 
                             <div id="rateOfInterestSlider"
-                                    data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
-                                    class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                 data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
+                                 class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Price_in_City_Page" a="Interacted_with_EMI_Calculator" l="@gaBikeName">
                                 <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                             </div>
@@ -369,7 +370,7 @@
                 <div class="content-inner-block-20">
                     <h2 class="card-h2-heading margin-bottom10">@Model.BikeModel.ModelName prices in other cities</h2>
                     <p class="font14 text-slate-grey margin-bottom15">You are currently viewing price of @Model.BikeName in @Model.CityEntity.CityName. Not from @Model.CityEntity.CityName? Select your city to see price in your city.</p>
-                    <a href="" class="btn btn-white btn-170-32">Select your city</a>
+                    <a href="javascript:void(0)" class="btn btn-white btn-170-32 bw-ga" rel="nofollow" c="Price_in_City_Page" a="City_Change_Initiated_Bottom_Card" l="@gaBikeName">Select your city</a>
                 </div>
                 <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
                 <h3 class="margin-right20 margin-bottom10 margin-left20">@Model.BikeModel.ModelName prices in popular cities</h3>

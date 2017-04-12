@@ -7,7 +7,7 @@
         {
             <div class="swiper-slide">
                 <div class="swiper-card">
-                    <a href="@String.Format("/m/{0}",UrlFormatter.PriceInCityUrl(city.MakeMaskingName,city.ModelMaskingName,city.CityMaskingName))" class="card-target-link">
+                    <a href="@String.Format("/m{0}",UrlFormatter.PriceInCityUrl(city.MakeMaskingName,city.ModelMaskingName,city.CityMaskingName))" class="card-target-link">
                         <div class="swiper-image-preview">
                             <span class="city-sprite @string.Format("c-{0}-icon",city.CityMaskingName)"></span>
                         </div>
