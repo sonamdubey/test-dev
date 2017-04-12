@@ -23,7 +23,7 @@ namespace Bikewale.DTO.PriceQuote.City
         public string CityName { get; set; }
 
         [JsonProperty("maskingName")]
-        public string MaskingName { get; set; }
+        public string CityMaskingName { get; set; }
 
         [JsonProperty("isPopular")]
         public bool IsPopular { get; set; }
