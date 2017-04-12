@@ -6,8 +6,6 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/upcoming-bikes/upcoming-bikes.css' />";    
     Model.Page_JS_Path = "/src/upcoming-bikes.js";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/upcoming-bikes/";
-    Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/upcoming-bikes/";
 }
 
 <header class="upcoming-bikes-banner">
@@ -38,12 +36,9 @@
     <div id="upcoming-bikes" class="container section-bottom-margin">
         <div class="grid-12">
             <h2 class="section-heading">Upcoming bikes in India</h2>
-
-
             @Html.Partial("~/Views/Upcoming/_UpcomingBikesList.cshtml", Model)
             <div class="clear"></div>
         </div>
-        
         <div class="clear"></div>
         </div>
     </section>
@@ -53,7 +48,6 @@
                 <div class="grid-12">
                     <h2 class="section-heading">Explore showroom by brand</h2>
                     <div class="content-box-shadow padding-top20">
-
                         @Html.Partial("~/Views/Make/_Brands.cshtml", Model.Brands)
                     </div>
                 </div>

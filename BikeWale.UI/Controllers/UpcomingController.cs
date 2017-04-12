@@ -1,5 +1,4 @@
-﻿using Bikewale.Entities.BikeData;
-using Bikewale.Filters;
+﻿using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Models;
@@ -30,22 +29,25 @@ namespace Bikewale.Controllers
             {
                 objData = new UpcomingPageModel(_upcoming, 1, _newLaunches);
             }
-            objData.Filters = new UpcomingBikesListInputEntity();
-            objData.Filters.PageSize = 15;
-            objData.SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
-            objData.BaseUrl = "/upcoming-bikes/";
-            objData.PageSize = 15;
-            objData.topbrandCount = 10;
             UpcomingPageVM objVM = objData.GetData();
             return View(objVM);
         }
 
         // GET: UpcomingBikes
         [Route("m/upcomingbikes/")]
-        public ActionResult Index_Mobile()
+        public ActionResult Index_Mobile(ushort? pageNumber)
         {
-            ModelBase m = new ModelBase();
-            return View(m);
+            UpcomingPageModel objData = null;
+            if (pageNumber.HasValue)
+            {
+                objData = new UpcomingPageModel(_upcoming, (ushort)pageNumber, _newLaunches);
+            }
+            else
+            {
+                objData = new UpcomingPageModel(_upcoming, 1, _newLaunches);
+            }
+            UpcomingPageVM objVM = objData.GetData();
+            return View(objVM);
         }
 
         // GET: UpcomingBikes by Make

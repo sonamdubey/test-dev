@@ -4,6 +4,10 @@ using Bikewale.Entities.Pager;
 using System.Collections.Generic;
 namespace Bikewale.Models
 {
+    /// <summary>
+    /// Create by: Sangram Nandkhile on 12-Apr-2017
+    /// Summary:  View Model for upcoming page
+    /// </summary>
     public class UpcomingPageVM : ModelBase
     {
         public BrandWidgetVM Brands { get; set; }
