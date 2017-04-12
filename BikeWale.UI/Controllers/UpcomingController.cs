@@ -31,12 +31,6 @@ namespace Bikewale.Controllers
             {
                 objData = new UpcomingPageModel(_upcoming, 1, _newLaunches);
             }
-            objData.Filters = new UpcomingBikesListInputEntity();
-            objData.Filters.PageSize = 15;
-            objData.SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
-            objData.BaseUrl = "/upcoming-bikes/";
-            objData.PageSize = 15;
-            objData.topbrandCount = 10;
             UpcomingPageVM objVM = objData.GetData();
             return View(objVM);
         }
@@ -69,8 +63,6 @@ namespace Bikewale.Controllers
         [Bikewale.Filters.DeviceDetection]
         public ActionResult BikesByMake(string maskingName, ushort? pageNumber)
         {
-
-
             UpcomingByMakePageModel objData = null;
             if (pageNumber.HasValue)
             {

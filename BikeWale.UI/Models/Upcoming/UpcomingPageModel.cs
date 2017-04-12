@@ -20,7 +20,6 @@ namespace Bikewale.Models
         private IUpcoming _upcoming = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         public uint topbrandCount { get; set; }
-        private EnumUpcomingBikesFilter filter = EnumUpcomingBikesFilter.Default;
         private readonly ushort _pageNumber;
 
         #endregion
@@ -42,6 +41,12 @@ namespace Bikewale.Models
             _upcoming = upcoming;
             _pageNumber = pageNumber;
             _newLaunches = newLaunches;
+            Filters = new UpcomingBikesListInputEntity();
+            Filters.PageSize = 15;
+            SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
+            BaseUrl = "/upcoming-bikes/";
+            PageSize = 15;
+            topbrandCount = 10;
         }
         #endregion
 
@@ -72,6 +77,7 @@ namespace Bikewale.Models
                 objUpcoming.YearsList = _upcoming.GetYearList();
                 objUpcoming.MakesList = _upcoming.GetMakeList();
                 CreatePager(objUpcoming, objUpcoming.PageMetaTags);               
+
             }
             catch (Exception ex)
             {

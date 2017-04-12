@@ -3,6 +3,8 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/upcoming-bikes/upcoming-bikes.css' />";
     Model.Page_JS_Path = "/m/src/upcoming-bikes.js";
+    Model.IsTransparentHeader = true;
+    Model.IsPageTypeLanding = true;
 }
 
 <section>
@@ -37,191 +39,14 @@
 <section>
     <h2 class="section-heading">Upcoming bikes by brands</h2>
     <div class="container content-box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
-        <div id="brand-type-container" class="brand-type-container">
-            <ul>
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-7"></span>
-                        </span>
-                        <span class="brand-type-title">Honda</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-1"></span>
-                        </span>
-                        <span class="brand-type-title">Bajaj</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-6"></span>
-                        </span>
-                        <span class="brand-type-title">Hero</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-11"></span>
-                        </span>
-                        <span class="brand-type-title">Royal Enfield</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-13"></span>
-                        </span>
-                        <span class="brand-type-title">Yamaha</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-12"></span>
-                        </span>
-                        <span class="brand-type-title">Suzuki</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 hide">
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-7"></span>
-                        </span>
-                        <span class="brand-type-title">Honda</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-1"></span>
-                        </span>
-                        <span class="brand-type-title">Bajaj</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-6"></span>
-                        </span>
-                        <span class="brand-type-title">Hero</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-11"></span>
-                        </span>
-                        <span class="brand-type-title">Royal Enfield</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-13"></span>
-                        </span>
-                        <span class="brand-type-title">Yamaha</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-12"></span>
-                        </span>
-                        <span class="brand-type-title">Suzuki</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="view-all-btn-container">
-            <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwmsprite teal-right"></span></a>
-        </div>
+        @Html.Partial("~/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
     </div>
 </section>
 
 <section>
     <h2 class="section-heading">Newly launched bikes</h2>
     <div class="contaner content-box-shadow section-bottom-margin padding-top15 padding-bottom15">
-        <div class="swiper-container card-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="/m/bajaj-bikes/model420x/" title="Bajaj model420x">
-                            <div class="swiper-image-preview position-rel">
-                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/suzuki-gixxer-fi.jpg?20161002175445" alt="Suzuki Gixxer Fi">
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="target-link font12 text-truncate margin-bottom5">Bajaj model420x</h3>
-                                <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                <p>
-                                    <span class="text-default text-bold"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">5,454</span><span class="font14"> onwards</span></span>
-                                </p>
-                            </div>
-                        </a>
-                        <div class="swiper-btn-block">
-                            <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="/m/bajaj-bikes/model420x/" title="Bajaj model420x">
-                            <div class="swiper-image-preview position-rel">
-                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/suzuki-gixxer-fi.jpg?20161002175445" alt="Suzuki Gixxer Fi">
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="target-link font12 text-truncate margin-bottom5">Bajaj model420x</h3>
-                                <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                <p>
-                                    <span class="text-default text-bold"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">5,454</span><span class="font14"> onwards</span></span>
-                                </p>
-                            </div>
-                        </a>
-                        <div class="swiper-btn-block">
-                            <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="/m/bajaj-bikes/model420x/" title="Bajaj model420x">
-                            <div class="swiper-image-preview position-rel">
-                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/suzuki-gixxer-fi.jpg?20161002175445" alt="Suzuki Gixxer Fi">
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="target-link font12 text-truncate margin-bottom5">Bajaj model420x</h3>
-                                <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                <p>
-                                    <span class="text-default text-bold"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">5,454</span><span class="font14"> onwards</span></span>
-                                </p>
-                            </div>
-                        </a>
-                        <div class="swiper-btn-block">
-                            <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("~/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunches)
         <div class="view-all-btn-container margin-top10">
             <a href="" title="" class="btn view-all-target-btn">View all launches<span class="bwmsprite teal-right"></span></a>
         </div>
