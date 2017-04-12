@@ -102,6 +102,9 @@
     <Compile Include="BikeData\NewLaunched\InputFilterDTO.cs" />
     <Compile Include="BikeData\NewLaunched\NewLaunchedBikeDTOBase.cs" />
     <Compile Include="BikeData\NewLaunched\NewLaunchedBikeResultDTO.cs" />
+    <Compile Include="BikeData\Upcoming\InputFilterDTO.cs" />
+    <Compile Include="BikeData\Upcoming\UpcomingBikeDTOBase.cs" />
+    <Compile Include="BikeData\Upcoming\UpcomingBikeResultDTO.cs" />
     <Compile Include="BikeData\v2\MinSpecs.cs" />
     <Compile Include="Compare\BikeColorDTO.cs" />
     <Compile Include="BikeBooking\BikeCancellationCustomer.cs" />

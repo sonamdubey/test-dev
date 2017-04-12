@@ -52,8 +52,10 @@ namespace Bikewale.Models
             UpcomingPageVM objUpcoming = new UpcomingPageVM();
             try
             {
-                objUpcoming.UpcomingBikeModels = _upcoming.GetModels(Filters, SortBy);
-                objUpcoming.TotalBikes = (uint)_upcoming.GetTotalBikes();
+                Filters.PageNo = _pageNumber;
+                UpcomingBikeResult bikeResult = _upcoming.GetBikes(Filters, SortBy);
+                objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
+                objUpcoming.TotalBikes = bikeResult.TotalCount;
                 objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels.Count() > 0);
                 objUpcoming.YearsList = _upcoming.GetYearList();
                 objUpcoming.MakesList = _upcoming.GetMakeList();

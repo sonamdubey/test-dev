@@ -28,8 +28,7 @@ namespace Bikewale.Controllers
                 objData = new UpcomingPageModel(_upcoming, 1);
             }
             objData.Filters = new UpcomingBikesListInputEntity();
-            objData.Filters.StartIndex = 0;
-            objData.Filters.EndIndex = 15;
+            objData.Filters.PageSize = 15;
             objData.SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
             objData.BaseUrl = "/upcoming-bikes/";
             objData.PageSize = 15;

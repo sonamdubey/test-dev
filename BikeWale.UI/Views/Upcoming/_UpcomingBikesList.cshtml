@@ -1,22 +1,25 @@
 ﻿@model Bikewale.Models.UpcomingPageVM
-
+@{
+    ushort i = 0;
+}
 @if (Model != null)
 {
     <div class="content-box-shadow">
         <div class="padding-right20 padding-left20">
             <div class="padding-top15 padding-bottom15 border-solid-bottom">
-                <h3 class="font18 text-black grid-5 alpha">@Model.TotalBikes bikes</h3>
+                <h3 class="font18 text-black grid-5 alpha" data-bind="visible:TotalBikes() > 0, text:TotalBikes() > 1 ? TotalBikes() + ' bikes' : TotalBikes() + ' bike'">@Model.TotalBikes bikes</h3>
+
                 <div class="grid-7 omega text-right upcoming-filter">
                     <p class="font14 text-light-grey inline-block margin-right5">Filter by:</p>
 
                     @if (Model.MakesList.Count() > 0)
                     {
                         <div class="select-box inline-block margin-right15 brand-type-filter">
-                            <select class="chosen-select" data-placeholder="Select brand">
+                            <select class="chosen-select" data-placeholder="Select brand" id="makeFilter" data-filter="makewise" data-bind="chosen:{width: '100%'},event : { change : function(d,e) { setMakeFilter(e);}}">
                                 <option value="0">All brands</option>
                                 @foreach (var make in Model.MakesList)
                                 {
-                                    <option value="@make.MakeId">@make.MakeName</option>
+                                    <option value="@make.MakeId" data-makeid="@make.MakeId" data-makename="@make.MakeName">@make.MakeName</option>
                                 }
                             </select>
                         </div>
@@ -24,11 +27,11 @@
                     @if (Model.YearsList.Count() > 0)
                     {
                         <div class="select-box select-box-no-input inline-block right-align-box">
-                            <select class="chosen-select" data-title="Select year">
+                            <select class="chosen-select" data-title="Select year" id="yearFilter" data-filter="yearwise" data-bind="chosen:{width: '100%'},event : { change : function(d,e) { setYearFilter(e);}}">
                                 <option value="0">All years</option>
                                 @foreach (var year in Model.YearsList)
                                 {
-                                    <option value="@year">@year</option>
+                                    <option value="@year" data-bikeyear="@year">@year</option>
                                 }
                             </select>
                         </div>
@@ -40,34 +43,36 @@
 
         @if (Model.HasBikes)
         {
-            <div class="upcoming-bikes-wrapper">
-                <ul class="bike-listing-horizontal">
+            <div class="upcoming-bikes-wrapper" data-bind=" visible:TotalBikes() > 0">
+                <!-- ko if : models() && models().length > 0 -->
+                <ul class="bike-listing-horizontal" data-bind="visible : (!noBikes() && TotalBikes() !== 0), css: IsLoading() ? 'loader-active' : '' ">
                     @foreach (var bike in Model.UpcomingBikeModels)
                     {
+                        <!-- ko if : models()[@i] -->
                         <li class="list-item">
-                            <div class="launching-label">
-                                @if (Convert.ToDateTime(bike.ExpectedLaunchDate).Month == DateTime.Now.Month)
-                                {
-                                    <p class="border-red-left font12 text-bold margin-bottom10 margin-left10">Launching this month</p>
-                                }
+                            <div class="launching-label">                                
+                                <p class="border-red-left font12 text-bold margin-bottom10 margin-left10" style="display: @(bike.IsLaunchingThisMonth ? "block" : "none")"  data-bind="visible: models()[@i].isLaunchingThisMonth, text: 'Launching this month'">Launching this month</p>                                                             
                             </div>
-                            <a href="@string.Format("/{0}-bikes/{1}", bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bike.MakeBase.MakeName @bike.ModelBase.ModelName" class="block">
+                            <a href="@string.Format("/{0}-bikes/{1}", bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bike.MakeBase.MakeName @bike.ModelBase.ModelName" class="block" data-bind="attr : {'href' : '/' + models()[@i].makeBase.maskingName + '-bikes/' + models()[@i].modelBase.maskingName + '/',title :models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName  }">
                                 <div class="model-jcarousel-image-preview">
-                                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" alt="@bike.MakeBase.MakeName @bike.ModelBase.ModelName">
+                                    <img data-bind="attr : { 'src' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' )},'alt' : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName,'title' : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" alt="@bike.MakeBase.MakeName @bike.ModelBase.ModelName">
                                 </div>
                                 <div class="card-desc-block">
-                                    <h3 class="bikeTitle">@bike.MakeBase.MakeName @bike.ModelBase.ModelName</h3>
+                                    <h3 class="bikeTitle" data-bind="text : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName ">@bike.MakeBase.MakeName @bike.ModelBase.ModelName</h3>
                                     <p class="key-size-14 text-truncate">Expected launch</p>
-                                    <span class="value-size-16">@Convert.ToDateTime(bike.ExpectedLaunchDate).ToString("MMMM yyyy")</span>
+                                    <span class="value-size-16" data-bind="formatDate : models()[@i].expectedLaunchedDate">@Convert.ToDateTime(bike.ExpectedLaunchDate).ToString("MMMM yyyy")</span>
                                     <p class="key-size-14 text-truncate margin-top10">Expected price</p>
                                     <span class="bwsprite inr-lg"></span>&nbsp;
-                                    <span class="value-size-18">@(bike.EstimatedPriceMin > 0 ? Bikewale.Common.CommonOpn.FormatNumeric(Convert.ToString(bike.EstimatedPriceMin)) : "N/A")</span>&nbsp;
+                                    <span class="value-size-18" data-bind="CurrencyText : models()[@i].estimatedPriceMin ">@(bike.EstimatedPriceMin > 0 ? Bikewale.Common.CommonOpn.FormatNumeric(Convert.ToString(bike.EstimatedPriceMin)) : "N/A")</span>&nbsp;
                                     <span class="value-size-14">onwards</span>
                                 </div>
                             </a>
                         </li>
+                        <!-- /ko -->
+                                i++;
                     }
                 </ul>
+                <!-- /ko -->
             </div>
         }
 
@@ -84,7 +89,7 @@
             </div>
         </div>
 
-        <div class="spinner-content" style="display: none">
+        <div class="spinner-content" style="display: none" data-bind="visible : IsLoading()">
             <svg class="bw-spinner" width="50px" height="50px" viewBox="0 0 50 50">
                 <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
             </svg>
