@@ -3724,6 +3724,7 @@
     <Content Include="Views\Upcoming\_UpcomingBikesList.cshtml" />
     <Content Include="Views\Upcoming\BikesByMake.cshtml" />
     <Content Include="Views\Upcoming\_OtherUpcomingBrands.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikesList_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
