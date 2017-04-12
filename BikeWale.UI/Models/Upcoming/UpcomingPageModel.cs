@@ -19,7 +19,7 @@ namespace Bikewale.Models
 
         private IUpcoming _upcoming = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
-        public uint topbrandCount { get; set; }
+        private readonly uint _topBrandsCount;
         private readonly ushort _pageNumber;
 
         #endregion
@@ -36,17 +36,17 @@ namespace Bikewale.Models
 
         #region Constructor
 
-        public UpcomingPageModel(IUpcoming upcoming, ushort pageNumber, INewBikeLaunchesBL newLaunches)
+        public UpcomingPageModel(uint topbrandCount, ushort pageNumber, int pageSize, IUpcoming upcoming, INewBikeLaunchesBL newLaunches)
         {
             _upcoming = upcoming;
             _pageNumber = pageNumber;
             _newLaunches = newLaunches;
+            _topBrandsCount = topbrandCount;
             Filters = new UpcomingBikesListInputEntity();
-            Filters.PageSize = 15;
+            Filters.PageSize = pageSize;
             SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
             BaseUrl = "/upcoming-bikes/";
             PageSize = 15;
-            topbrandCount = 10;
         }
         #endregion
 
@@ -65,7 +65,7 @@ namespace Bikewale.Models
             {
                 BindPageMetaTags(objUpcoming.PageMetaTags);
                 var upcomingBikes = _upcoming.GetModels(Filters, SortBy);
-                objUpcoming.Brands = _upcoming.BindUpcomingMakes(topbrandCount);
+                objUpcoming.Brands = _upcoming.BindUpcomingMakes(_topBrandsCount);
                 objUpcoming.NewLaunches = new NewLaunchedWidgetModel(9, _newLaunches).GetData();
                 Filters.PageNo = _pageNumber;
                 UpcomingBikeResult bikeResult = _upcoming.GetBikes(Filters, SortBy);
@@ -76,7 +76,7 @@ namespace Bikewale.Models
                 objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels.Count() > 0);
                 objUpcoming.YearsList = _upcoming.GetYearList();
                 objUpcoming.MakesList = _upcoming.GetMakeList();
-                CreatePager(objUpcoming, objUpcoming.PageMetaTags);               
+                CreatePager(objUpcoming, objUpcoming.PageMetaTags);
 
             }
             catch (Exception ex)
@@ -85,7 +85,7 @@ namespace Bikewale.Models
             }
             return objUpcoming;
         }
-       
+
         /// <summary>
         /// Binds the page meta tags.
         /// </summary>

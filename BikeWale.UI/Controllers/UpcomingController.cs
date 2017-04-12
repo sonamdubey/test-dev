@@ -25,11 +25,11 @@ namespace Bikewale.Controllers
             UpcomingPageModel objData = null;
             if (pageNumber.HasValue)
             {
-                objData = new UpcomingPageModel(_upcoming, (ushort)pageNumber, _newLaunches);
+                objData = new UpcomingPageModel(10, (ushort)pageNumber, 15, _upcoming, _newLaunches);
             }
             else
             {
-                objData = new UpcomingPageModel(_upcoming, 1, _newLaunches);
+                objData = new UpcomingPageModel(10, 1, 15, _upcoming, _newLaunches);
             }
             UpcomingPageVM objVM = objData.GetData();
             return View(objVM);
@@ -42,18 +42,12 @@ namespace Bikewale.Controllers
             UpcomingPageModel objData = null;
             if (pageNumber.HasValue)
             {
-                objData = new UpcomingPageModel(_upcoming, (ushort)pageNumber, _newLaunches);
+                objData = new UpcomingPageModel(6, (ushort)pageNumber, 10, _upcoming, _newLaunches);
             }
             else
             {
-                objData = new UpcomingPageModel(_upcoming, 1, _newLaunches);
+                objData = new UpcomingPageModel(6, 1, 10, _upcoming, _newLaunches);
             }
-            objData.Filters = new UpcomingBikesListInputEntity();
-            objData.Filters.PageSize = 10;
-            objData.SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
-            objData.BaseUrl = "/upcoming-bikes/";
-            objData.PageSize = 10;
-            objData.topbrandCount = 10;
             UpcomingPageVM objVM = objData.GetData();
             return View(objVM);
         }
