@@ -185,6 +185,29 @@ namespace Bikewale.BAL.BikeData.UpComingBike
 
         /// <summary>
         /// Created by  :   Sajal Gupta on 10-04-2017
+        /// Description :   Returns Upcoming Years list make wise
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<int> IUpcoming.GetYearList(uint makeId)
+        {
+            IEnumerable<int> years = null;
+            try
+            {
+                var bikes = _upcomingCacheRepo.GetUpcomingModels();
+                if (bikes != null)
+                {
+                    years = bikes.Where(m => m.MakeBase.MakeId == makeId).Select(p => p.ExpectedLaunchedDate.Year).Distinct().OrderBy(m => m);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
+            }
+            return years;
+        }
+
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 10-04-2017
         /// Description :   Returns Upcoming MakeBase list 
         /// </summary>
         /// <returns></returns>

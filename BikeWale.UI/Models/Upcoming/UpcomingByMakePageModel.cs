@@ -1,19 +1,17 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.Common;
+using Bikewale.Entities;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
-using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Linq;
+using System.Web;
 
-namespace Bikewale.Models
+namespace Bikewale.Models.Upcoming
 {
-    /// <summary>
-    /// Created by: Sangram Nandkhile on 07-Apr-2017
-    /// summary: Upcoming bikes page model
-    /// </summary>
-    public class UpcomingPageModel
+    public class UpcomingByMakePageModel
     {
         #region Private variables
 
@@ -22,6 +20,7 @@ namespace Bikewale.Models
         public uint topbrandCount { get; set; }
         private EnumUpcomingBikesFilter filter = EnumUpcomingBikesFilter.Default;
         private readonly ushort _pageNumber;
+        private readonly string _makeMaskingName;
 
         #endregion
 
@@ -33,15 +32,21 @@ namespace Bikewale.Models
         public int PageSize { get; set; }
         public string BaseUrl { get; set; }
 
+        public StatusCodes Status { get; private set; }
+        public String RedirectUrl { get; private set; }
+        public uint MakeId { get; private set; }
+
         #endregion
 
         #region Constructor
 
-        public UpcomingPageModel(IUpcoming upcoming, ushort pageNumber, INewBikeLaunchesBL newLaunches)
+        public UpcomingByMakePageModel(string makeMaskingName, IUpcoming upcoming, ushort pageNumber, INewBikeLaunchesBL newLaunches)
         {
             _upcoming = upcoming;
             _pageNumber = pageNumber;
             _newLaunches = newLaunches;
+            _makeMaskingName = makeMaskingName;
+            ProcessQueryString();
         }
         #endregion
 
@@ -67,11 +72,11 @@ namespace Bikewale.Models
                 objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
                 objUpcoming.TotalBikes = bikeResult.TotalCount;
                 //objUpcoming.NewLaunches.PageCatId = 1;
+                objUpcoming.Make = new MakeHelper().GetMakeNameByMakeId(MakeId);
                 objUpcoming.NewLaunches.PQSourceId = (uint)PQSourceEnum.Desktop_UpcomiingBikes_NewLaunchesWidget;
                 objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels.Count() > 0);
-                objUpcoming.YearsList = _upcoming.GetYearList();
-                objUpcoming.MakesList = _upcoming.GetMakeList();
-                CreatePager(objUpcoming, objUpcoming.PageMetaTags);               
+                objUpcoming.YearsList = _upcoming.GetYearList(MakeId);
+                CreatePager(objUpcoming, objUpcoming.PageMetaTags);
             }
             catch (Exception ex)
             {
@@ -79,7 +84,7 @@ namespace Bikewale.Models
             }
             return objUpcoming;
         }
-       
+
         /// <summary>
         /// Binds the page meta tags.
         /// </summary>
@@ -132,6 +137,50 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedIndexModel.CreatePager()");
+            }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 30 Mar 2017
+        /// Description :   ProcessQueryString to process make masking name
+        /// </summary>
+        private void ProcessQueryString()
+        {
+            String rawUrl = HttpContext.Current.Request.RawUrl;
+            MakeMaskingResponse objMakeResponse = null;
+            try
+            {
+                objMakeResponse = new MakeHelper().GetMakeByMaskingName(_makeMaskingName);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("NewLaunchedMakePageModel.ProcessQueryString({0})", _makeMaskingName));
+                Status = StatusCodes.ContentNotFound;
+            }
+            finally
+            {
+                if (objMakeResponse != null)
+                {
+                    if (objMakeResponse.StatusCode == 200)
+                    {
+                        MakeId = objMakeResponse.MakeId;
+                        Status = StatusCodes.ContentFound;
+                    }
+                    else if (objMakeResponse.StatusCode == 301)
+                    {
+                        rawUrl = rawUrl.Replace(_makeMaskingName, objMakeResponse.MaskingName);
+                        Status = StatusCodes.RedirectPermanent;
+                    }
+                    else
+                    {
+                        Status = StatusCodes.ContentNotFound;
+                    }
+                    RedirectUrl = rawUrl;
+                }
+                else
+                {
+                    Status = StatusCodes.ContentNotFound;
+                }
             }
         }
 

@@ -945,6 +945,7 @@
     <Compile Include="Models\ServiceCenters\ServiceCenterCityPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterDetailsPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterLandingPage.cs" />
+    <Compile Include="Models\Upcoming\UpcomingByMakePageModel.cs" />
     <Compile Include="Models\Upcoming\UpcomingPageModel.cs" />
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
@@ -3656,7 +3657,6 @@
     <Content Include="Views\Model\_Index_Reviews.cshtml" />
     <Content Include="Views\Model\_Index_VersionsAndSpecs.cshtml" />
     <Content Include="Views\Model\_Index_ModelGallery.cshtml" />
-    <Content Include="Views\UpcomingBikes\UpcomingBikesByMake.cshtml" />
     <Content Include="Views\Model\_Index_DealerDetails_TopCard.cshtml" />
     <Content Include="Views\Model\_Index_DealerDetails_TopCard_Right.cshtml" />
     <Content Include="Views\DealerShowroom\Index.cshtml" />
@@ -3722,7 +3722,7 @@
     <Content Include="Views\Upcoming\Index_Mobile.cshtml" />
     <Content Include="Views\Upcoming\UpcomingBikesByMake_Mobile.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikesList.cshtml" />
-    <Content Include="Views\Upcoming\UpcomingBikesByMake.cshtml" />
+    <Content Include="Views\Upcoming\BikesByMake.cshtml" />
     <Content Include="Views\Upcoming\_OtherUpcomingBrands.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

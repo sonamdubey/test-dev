@@ -1,8 +1,10 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.Common;
+using Bikewale.Entities.BikeData;
 using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Models;
+using Bikewale.Models.Upcoming;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -18,7 +20,7 @@ namespace Bikewale.Controllers
         }
         // GET: UpcomingBikes
         [Route("upcomingbikes/")]
-        [DeviceDetection]
+        [Bikewale.Filters.DeviceDetection]
         public ActionResult Index(ushort? pageNumber)
         {
             UpcomingPageModel objData = null;
@@ -49,11 +51,44 @@ namespace Bikewale.Controllers
         }
 
         // GET: UpcomingBikes by Make
-        [Route("upcomingbikes/make/")]
-        public ActionResult UpcomingBikesByMake()
+        [Route("upcomingbikes/make/{maskingName}")]
+        public ActionResult BikesByMake(string maskingName, ushort? pageNumber)
         {
-            ModelBase m = new ModelBase();
-            return View(m);
+
+
+            UpcomingByMakePageModel objData = null;
+            if (pageNumber.HasValue)
+            {
+                objData = new UpcomingByMakePageModel(maskingName, _upcoming, (ushort)pageNumber, _newLaunches);
+            }
+            else
+            {
+                objData = new UpcomingByMakePageModel(maskingName, _upcoming, 1, _newLaunches);
+            }
+
+            if (objData.Status == Entities.StatusCodes.ContentFound)
+            {
+                objData.Filters = new UpcomingBikesListInputEntity();
+                objData.Filters.PageSize = 15;
+                objData.Filters.MakeId = (int)objData.MakeId;
+                objData.SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
+                objData.BaseUrl = "/upcoming-bikes/";
+                objData.PageSize = 15;
+                objData.topbrandCount = 10;
+                UpcomingPageVM objVM = objData.GetData();
+                if (objVM.TotalBikes > 0)
+                    return View(objVM);
+                else
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+            else if (objData.Status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+            else
+            {
+                return Redirect("pageNotFound.aspx");
+            }
         }
 
         // GET: UpcomingBikes by Make
