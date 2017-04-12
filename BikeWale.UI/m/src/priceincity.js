@@ -188,8 +188,6 @@ docReady(function () {
             $(this).closest('div').hide();
         });
 
-        $('.model-versions-tabs-wrapper li').first().trigger("click");
-
         // dropdown events
         $('.dropdown-select-wrapper').on('click', '.dropdown-label', function () {
             dropdown.active($(this));
@@ -203,6 +201,23 @@ docReady(function () {
                 dropdown.inactive();
 
                 vmVersionTable.getVersionObject(element.attr('data-option-value'));
+            }
+        });
+
+        $('.dropdown-select-wrapper').on('change', '.dropdown-select',function () {
+            try {
+                var obj = $(this);
+                if (obj.attr('l') !== undefined) {
+                    triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+                }
+                else if (obj.attr('v') !== undefined) {
+                    triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+                }
+                else if (obj.attr('f') !== undefined) {
+                    triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+                }
+            }
+            catch (e) {
             }
         });
 
@@ -222,6 +237,20 @@ docReady(function () {
                 var options = allBindingsAccessor().sliderOptions || {};
                 $("#" + element.id).slider(options);
                 ko.utils.registerEventHandler("#" + element.id, "slide", function (event, ui) {
+                    try {
+                        var obj = $("#" + element.id);
+                        if (obj.attr('l') !== undefined) {
+                            triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+                        }
+                        else if (obj.attr('v') !== undefined) {
+                            triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+                        }
+                        else if (obj.attr('f') !== undefined) {
+                            triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+                        }
+                    }
+                    catch (e) {
+                    }
                     var observable = valueAccessor();
                     observable(ui.value);
                 });
