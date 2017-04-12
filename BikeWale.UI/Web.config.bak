@@ -12,10 +12,10 @@
     <!-- To revert to the behavior of the ASP.NET 2.0 request validation -->
     <httpRuntime targetFramework="4.5.1" requestValidationMode="2.0" />
     <compilation debug="true" targetFramework="4.5.1">
-	<!--<assemblies>
+	<assemblies>
 				<remove assembly="ClearScriptV8-64" />
                 <remove assembly="ClearScriptV8-32" />
-	</assemblies>-->
+	</assemblies>
 	</compilation>    
     <authentication mode="Forms">
       <forms name="_bikewale" loginUrl="http://localhost:9011/users/login.aspx" />
@@ -93,7 +93,7 @@
     <add key="GoogleMapApiKey" value="AIzaSyC9JjTQyUpYSQMKBsYi5fQQwv_qRuP-k-s" />
     <add key="ApiMaxWaitTime" value="5000" />
     <add key="GrpcChannelWaitTime" value="15000" />
-    <add key="GrpcArticleServerList" value="172.16.2.171:55557" />
+    <add key="GrpcArticleServerList" value="172.16.0.11:55555;172.16.0.11:55554" />
     <add key="UseGrpc" value="true" />
     <add key="EnableLiveCallLogs" value="true" />
     <add key="CwWebServiceHostUrl" value="http://webserver:8086" />
@@ -121,7 +121,7 @@
     <add key="webpages:Version" value="3.0.0.0" />
     <add key="webpages:Enabled" value="false" />
     <add key="LeadConsumerQueue" value="BWNewBikeLeadProcessingQueue" />    
-    <add key="AWSS3Region" value="ap-south-1" />
+    <add key="AWSS3Region" value="ap-south-1"/>
     <add key="PinCodesIndexName" value="bwpincodessuggestions" />
     <add key="AWSS3Region" value="ap-south-1" />
     <add key="DebugMobileSite" value="true" />
@@ -158,7 +158,6 @@
             <customHeaders>
               <add name="Access-Control-Allow-Headers" value="Origin, X-Requested-With, Content-Type, Accept" />
               <add name="Access-Control-Allow-Methods" value="GET,POST" />
-                <add name="Access-Control-Allow-Origin-Headers" value="172.16.2.138:54955" />
             </customHeaders>
         </httpProtocol>
   </system.webServer>
@@ -204,10 +203,6 @@
         <assemblyIdentity name="Microsoft.Practices.ServiceLocation" publicKeyToken="31bf3856ad364e35" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-1.3.0.0" newVersion="1.3.0.0" />
       </dependentAssembly>
-      <!--<dependentAssembly>
-        <assemblyIdentity name="ClearScript" publicKeyToken="935d0c957da47c73" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-5.4.7.0" newVersion="5.4.7.0" />
-      </dependentAssembly>-->
     </assemblyBinding>
   </runtime>
   <dealerInsurance>

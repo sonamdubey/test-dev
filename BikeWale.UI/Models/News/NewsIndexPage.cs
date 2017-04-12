@@ -5,11 +5,13 @@ using Bikewale.Entities.CMS;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models.BestBikes;
+using Bikewale.PWA.UI.Utilities;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -101,6 +103,13 @@ namespace Bikewale.Models
                     objData.Model = objModel;
 
                 objData.Articles = _articles.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
+                //setting the store for Redux
+                objData.ReduxStore = new PwaReduxStore();
+                var tempStoreArticleList = objData.ReduxStore.NewsReducer.NewsArticleListReducer.ArticleListData.ArticleList;
+                tempStoreArticleList.Articles = ConverterUtility.MapArticleSummaryListToPwaArticleSummaryList(objData.Articles.Articles);
+                tempStoreArticleList.EndIndex = (uint)_startIndex;
+                tempStoreArticleList.StartIndex = (uint)(_endIndex > objData.Articles.RecordCount ? Convert.ToInt32(objData.Articles.RecordCount) : _endIndex);
+                tempStoreArticleList.RecordCount = (uint)objData.Articles.RecordCount;
 
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {

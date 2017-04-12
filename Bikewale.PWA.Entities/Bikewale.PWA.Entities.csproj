@@ -42,8 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditCms\Articles\PwaArticleDetails.cs" />
     <Compile Include="EditCms\Articles\PwaArticleBase.cs" />
     <Compile Include="EditCms\Articles\PwaArticleListData.cs" />
+    <Compile Include="EditCms\Articles\PwaBikeDetails.cs" />
+    <Compile Include="EditCms\Articles\PwaBikeInfo.cs" />
+    <Compile Include="EditCms\Articles\PwaBikeNews.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EditCms\Articles\PwaArticleSummary.cs" />
     <Compile Include="EditCms\Articles\PwaContentBase.cs" />

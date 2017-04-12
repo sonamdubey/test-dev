@@ -24,6 +24,10 @@ namespace Bikewale.Entities.PWA.Articles
         [DataMember]
         public string DisplayDate { get; set; }
         [DataMember]
+        public string DisplayDateTime { get; set; }
+        [DataMember]
         public string ArticleApi { get; set; }
+        [DataMember]
+        public string ShareUrl { get; set; }
     }
 }
