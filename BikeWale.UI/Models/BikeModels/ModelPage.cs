@@ -2,6 +2,7 @@
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.common;
 using Bikewale.Common;
+using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
@@ -70,7 +71,9 @@ namespace Bikewale.Models.BikeModels
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
         public uint OtherDealersTopCount { get; set; }
-
+        public PQSources Source { get; set; }
+        public PQSourceEnum PQSource { get; set; }
+        public LeadSourceEnum LeadSource { get; set; }
         public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes)
         {
             _objModel = objModel;
@@ -479,7 +482,7 @@ namespace Bikewale.Models.BikeModels
                         else
                         {
                             ///Choose the min price version
-                            if (objData.VersionId == 0)
+                            if (objData.VersionId == 0 && !objData.IsDiscontinuedBike)
                             {
                                 var nonZeroVersion = modelPg.ModelVersions.Where(m => m.Price > 0);
                                 if (nonZeroVersion != null && nonZeroVersion.Count() > 0)
@@ -494,8 +497,22 @@ namespace Bikewale.Models.BikeModels
                                     objData.BikePrice = objData.CityId == 0 ? (uint)objData.SelectedVersion.Price : 0;
                                 }
                             }
-
-                            if (objData.CityId != 0)
+                            else if (objData.IsDiscontinuedBike && objData.VersionId == 0)
+                            {
+                                var nonZeroVersion = modelPg.ModelVersions.Where(m => m.Price > 0);
+                                if (nonZeroVersion != null && nonZeroVersion.Count() > 0)
+                                {
+                                    objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
+                                    objData.VersionId = (uint)objData.SelectedVersion.VersionId;
+                                    objData.BikePrice = (uint)objData.SelectedVersion.Price;
+                                }
+                                else
+                                {
+                                    objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
+                                    objData.BikePrice = (uint)objData.SelectedVersion.Price;
+                                }
+                            }
+                            if (objData.CityId != 0 && !objData.IsDiscontinuedBike)
                             {
                                 foreach (var version in modelPg.ModelVersions)
                                 {
@@ -767,10 +784,10 @@ namespace Bikewale.Models.BikeModels
                 objPQEntity.CityId = Convert.ToUInt16(_cityId);
                 objPQEntity.AreaId = Convert.ToUInt32(_areaId);
                 objPQEntity.ClientIP = "";
-                objPQEntity.SourceId = 1;
+                objPQEntity.SourceId = Convert.ToUInt16(Source);
                 objPQEntity.ModelId = _modelId;
                 objPQEntity.VersionId = objData.VersionId;
-                objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_ModelPage);
+                objPQEntity.PQLeadId = Convert.ToUInt16(PQSource);
                 objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
                 objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
                 objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";
@@ -786,7 +803,7 @@ namespace Bikewale.Models.BikeModels
                     if (objPQOutput != null && objPQOutput.PQId > 0)
                     {
                         objData.PQId = (uint)objPQOutput.PQId;
-                        bpqOutput = _objPQ.GetPriceQuoteById(objPQOutput.PQId, LeadSourceEnum.Model_Desktop);
+                        bpqOutput = _objPQ.GetPriceQuoteById(objPQOutput.PQId, LeadSource);
                         bpqOutput.Varients = _objPQCache.GetOtherVersionsPrices(_modelId, _cityId);
                         if (bpqOutput != null)
                         {
