@@ -216,64 +216,6 @@ namespace Bikewale.Models
             }
         }
 
-        /// <summary>
-        /// Created by  :   Sumit Kate on 28 Mar 2017
-        /// Description :   returns Price in city page view model
-        /// </summary>
-        /// <returns></returns>
-        //public PriceInCityPageVM GetData()
-        //{
-        //    PriceInCityPageVM objVM = null;
-        //    try
-        //    {
-        //        if (Status == StatusCodes.ContentFound)
-        //        {
-        //            objVM = new PriceInCityPageVM();
-        //            //Get Bike version Prices
-        //            objVM.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(modelId, cityId, out hasAreaAvailable);
-        //            if (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Count() > 0)
-        //            {
-        //                firstVersion = objVM.BikeVersionPrices.FirstOrDefault();
-        //                objVM.IsNew = isNew = firstVersion.IsModelNew;
-        //                if (isNew)
-        //                {
-        //                    objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(m => m.IsVersionNew);
-        //                }
-        //                versionCount = (uint)objVM.BikeVersionPrices.Count();
-
-        //                BindBikeBasicDetails(objVM);
-        //                BindPriceInNearestCities(objVM);
-        //                BindDealersWidget(objVM);
-        //                BindServiceCenters(objVM);
-        //                BindSimilarBikes(objVM);
-        //                BindBikeInfoRank(objVM);
-
-        //                var objModelColours = _modelCache.GetModelColor(Convert.ToInt16(modelId));
-        //                colorCount = (uint)(objModelColours != null ? objModelColours.Count() : 0);
-
-        //                objVM.PageDescription = PageDescription();
-        //                objVM.IsAreaSelected = isAreaSelected;
-        //                objVM.IsAreaAvailable = hasAreaAvailable;
-        //                objVM.Page_H1 = String.Format("{0} price in {1}", objVM.BikeName, objVM.CityEntity.CityName);
-
-        //                var locationCookie = GlobalCityArea.GetGlobalCityArea();
-
-        //                objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
-        //                BuildPageMetas(objVM.PageMetaTags);
-        //            }
-        //            else
-        //            {
-        //                Status = StatusCodes.ContentNotFound;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("FetchVersionPrices({0},{1})", modelMaskingName, cityMaskingName));
-        //    }
-        //    return objVM;
-        //}
-
         public PriceInCityPageVM GetData()
         {
             PriceInCityPageVM objVM = null;
@@ -286,19 +228,12 @@ namespace Bikewale.Models
                     objVM.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(modelId, cityId, out hasAreaAvailable);
                     if (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Count() > 0)
                     {
-                        objVM.JSONBikeVersions = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(objVM.BikeVersionPrices));
-
+                     
                         firstVersion = objVM.BikeVersionPrices.FirstOrDefault();
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
-                        //if (isNew)
-                        //{
-                        //    objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(m => m.IsVersionNew);
-                        //}
                         versionCount = (uint)objVM.BikeVersionPrices.Count();
 
-                        BindBikeBasicDetails(objVM);
-                        BindPriceInNearestCities(objVM);
-                        BindPriceinTopCitis(objVM);
+                        BindBikeBasicDetails(objVM);                        
                         BindDealersWidget(objVM);
                         BindServiceCenters(objVM);
                         BindSimilarBikes(objVM);
@@ -436,7 +371,7 @@ namespace Bikewale.Models
         {
             try
             {
-      var serviceCenters = _objServiceCenter.GetServiceCentersByCity(cityId, objVM.Make.MakeId);
+              var serviceCenters = _objServiceCenter.GetServiceCentersByCity(cityId, objVM.Make.MakeId);
                 if (serviceCenters != null)
                     objVM.ServiceCentersCount = serviceCenters.Count;
             }
@@ -490,23 +425,7 @@ namespace Bikewale.Models
             }
         }
 
-        /// <summary>
-        /// Created by : Aditi Srivastava on 11 Apr 2017
-        /// summary    : Bind price in top cities widget
-        /// </summary>
-        private void BindPriceinTopCitis(PriceInCityPageVM objVM)
-        {
-            try
-            {
-                PriceInTopCities objPricesTop = new PriceInTopCities(_objPQCache, modelId, 6);
-                objVM.PriceTopCities = objPricesTop.GetData();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("BindPriceinTopCitis({0},{1})", modelMaskingName, cityMaskingName));
-            }
-        }
-
+       
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
         /// Description :   Page Description
