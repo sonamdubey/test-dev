@@ -3720,7 +3720,7 @@
     <Content Include="Views\Videos\Index.cshtml" />
     <Content Include="Views\Upcoming\Index.cshtml" />
     <Content Include="Views\Upcoming\Index_Mobile.cshtml" />
-    <Content Include="Views\Upcoming\UpcomingBikesByMake_Mobile.cshtml" />
+    <Content Include="Views\Upcoming\BikesByMake_Mobile.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikesList.cshtml" />
     <Content Include="Views\Upcoming\BikesByMake.cshtml" />
     <Content Include="Views\Upcoming\_OtherUpcomingBrands.cshtml" />
