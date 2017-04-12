@@ -61,6 +61,8 @@
                     <span class="bwmsprite search-icon-grey"></span>
                 </div>
             </div>
+            @if (Model.MakesList != null)
+            { 
             <ul class="filter-list" data-filter="makewise">
                 <li data-bind="click : function(d,e) { setMakeFilter(e);}"> <span>All brands</span> </li>
                 @foreach (var make in Model.MakesList)
@@ -70,6 +72,7 @@
                     </li>
                 }
             </ul>
+            }
         </div>
     </div>
 

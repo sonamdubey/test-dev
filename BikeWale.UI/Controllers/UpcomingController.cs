@@ -99,11 +99,42 @@ namespace Bikewale.Controllers
         }
 
         // GET: UpcomingBikes by Make
-        [Route("m/upcomingbikes/make/")]
-        public ActionResult UpcomingBikesByMake_Mobile()
+        [Route("m/upcomingbikes/make/{maskingName}")]
+        public ActionResult BikesByMake_Mobile(string maskingName, ushort? pageNumber)
         {
-            ModelBase m = new ModelBase();
-            return View(m);
+            UpcomingByMakePageModel objData = null;
+            if (pageNumber.HasValue)
+            {
+                objData = new UpcomingByMakePageModel(maskingName, _upcoming, (ushort)pageNumber, _newLaunches);
+            }
+            else
+            {
+                objData = new UpcomingByMakePageModel(maskingName, _upcoming, 1, _newLaunches);
+            }
+
+            if (objData.Status == Entities.StatusCodes.ContentFound)
+            {
+                objData.Filters = new UpcomingBikesListInputEntity();
+                objData.Filters.PageSize = 10;
+                objData.Filters.MakeId = (int)objData.MakeId;
+                objData.SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
+                objData.BaseUrl = "/upcoming-bikes/";
+                objData.PageSize = 10;
+                objData.topbrandCount = 10;
+                UpcomingPageVM objVM = objData.GetData();
+                if (objVM.TotalBikes > 0)
+                    return View(objVM);
+                else
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+            else if (objData.Status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+            else
+            {
+                return Redirect("pageNotFound.aspx");
+            }
         }
     }
 }
