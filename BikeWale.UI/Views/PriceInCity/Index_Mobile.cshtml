@@ -28,7 +28,7 @@
             </div>
 
             <!-- model orp start -->
-            <div id="orpContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
+            <div id="orpContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20 @(Model.IsDiscontinued ? " padding-top40" : "") ">
                 <div class="margin-bottom15">
                     <div class="model-image inline-block position-rel">
                         @if (Model.IsDiscontinued)
@@ -38,31 +38,21 @@
                         <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
                     </div>
                     <div class="model-version-block inline-block padding-left15">
-                        @if (Model.IsDiscontinued)
+                        <p class="font12 text-light-grey">Version:</p>
+                        @if (Model.BikeVersionPrices.Count() > 1)
                         {
-                            <div class="font14 text-default text-bold">
-                                <span>Last known Ex-showroom price</span>
-                                <div><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold" data-bind="text: exshowroomPrice()">@Model.FirstVersion.ExShowroomPrice</span></div>
-                            </div>
+                        <div class="dropdown-select-wrapper">
+                            <select class="dropdown-select" data-title="Version">
+                                @foreach (var version in Model.BikeVersionPrices)
+                                {
+                                    <option value="@version.VersionId">@version.VersionName</option>
+                                }
+                            </select>
+                        </div>
                         }
                         else
                         {
-                            <p class="font12 text-light-grey">Version:</p>
-                            if (Model.BikeVersionPrices.Count() > 1)
-                            {
-                                <div class="dropdown-select-wrapper">
-                                    <select class="dropdown-select" data-title="Version">
-                                        @foreach (var version in Model.BikeVersionPrices)
-                                        {
-                                            <option value="@version.VersionId">@version.VersionName</option>
-                                        }
-                                    </select>
-                                </div>
-                            }
-                            else
-                            {
-                                <p class="font14 text-bold">@Model.FirstVersion.VersionName</p>
-                            }
+                        <p class="font14 text-bold">@Model.FirstVersion.VersionName</p>
                         }
                     </div>
                 </div>
@@ -107,9 +97,12 @@
                 }
                 @if (Model.IsDiscontinued)
                 {
-                <div class="margin-top15 font14">
-                    <p class="text-slate-grey line-height16">@String.Format("{0} has discontinued the {0} and the bike is out of production.",Model.Make.MakeName,Model.BikeModel.ModelName)</p>
-                </div>    
+                    <div class="font14 text-default text-bold">
+                        <span>Last known Ex-showroom price</span><span class="rightfloat"><span class="bwmsprite inr-xsm-icon margin-right5"></span><span class="text-bold font16" data-bind="text: exshowroomPrice()">@Model.FirstVersion.ExShowroomPrice</span></span>
+                    </div>
+                    <div class="margin-top15 font14">
+                        <p class="text-slate-grey line-height16">@String.Format("{0} has discontinued the {0} and the bike is out of production.", Model.Make.MakeName, Model.BikeModel.ModelName)</p>
+                    </div>
                 }
             </div>
             <!-- model orp end -->

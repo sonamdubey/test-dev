@@ -77,7 +77,7 @@
                         }
                     </div>
                 </div>
-                @if (!Model.IsDiscontinued && !Model.IsUpcoming && bikeInfo.BikePrice > 0 && !Model.IsSmallSlug)
+                @if (!Model.IsSmallSlug)
                 {
                     <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName))" title="@Model.BikeName" class="btn btn-white btn-180-34  margin-bottom15">View model details <span class="bwmsprite btn-red-arrow"></span></a>
                 }

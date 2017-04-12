@@ -358,6 +358,7 @@ namespace Bikewale.Models
                 var similarBikesVM = similarBikes.GetData();
                 similarBikesVM.Make = objVM.Make;
                 similarBikesVM.Model = objVM.BikeModel;
+                similarBikesVM.VersionId = objVM.FirstVersion.VersionId;
                 objVM.AlternateBikes = similarBikesVM;
             }
             catch (Exception ex)
