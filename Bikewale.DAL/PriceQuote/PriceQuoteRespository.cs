@@ -418,6 +418,7 @@ namespace Bikewale.DAL.PriceQuote
                         {
                             objPrice.Add(new PriceQuoteOfTopCities
                             {
+                                CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
                                 CityName = Convert.ToString(dr["City"]),
                                 CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
                                 OnRoadPrice = SqlReaderConvertor.ToUInt32(dr["OnRoadPrice"]),

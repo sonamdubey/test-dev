@@ -1,15 +1,17 @@
 ﻿using Bikewale.Common;
+using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Models.PriceInCity;
-using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
 using System;
 using System.Linq;
@@ -33,8 +35,12 @@ namespace Bikewale.Models
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
+        private readonly IDealerPriceQuoteDetail _objDealerDetails = null;
+        private readonly IDealerPriceQuote _objDealerPQ = null;
+        private readonly ICityCacheRepository _objCityCache = null;
+        private readonly IAreaCacheRepository _objAreaCache = null;
 
-        private uint cityId, modelId, versionCount, colorCount, dealerCount;
+        private uint cityId, modelId, versionCount, colorCount, dealerCount, areaId;
         private string modelMaskingName, cityMaskingName, pageDescription;
 
         private BikeQuotationEntity firstVersion;
@@ -44,6 +50,8 @@ namespace Bikewale.Models
         public uint NearestCityCount { get; set; }
         public uint BikeInfoTabCount { get; set; }
         public uint TopCount { get; set; }
+        public PQSourceEnum PQSource { get; set; }
+        public PQSources Platform { get; set; }
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
         /// Description :   Constructor to initialize the member variables
@@ -61,7 +69,7 @@ namespace Bikewale.Models
         /// <param name="pqSource"></param>
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IBikeModelsCacheRepository<int> modelCache, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -73,6 +81,10 @@ namespace Bikewale.Models
             _bikeInfo = bikeInfo;
             _cityCache = cityCache;
             _modelCache = modelCache;
+            _objDealerDetails = objDealerDetails;
+            _objDealerPQ = objDealerPQ;
+            _objCityCache = objCityCache;
+            _objAreaCache = objAreaCache;
             this.pqSource = pqSource;
             this.modelMaskingName = modelMaskingName;
             this.cityMaskingName = cityMaskingName;
@@ -115,7 +127,7 @@ namespace Bikewale.Models
                         GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
                         if (currentCityArea.CityId > 0 && currentCityArea.CityId == cityId && currentCityArea.AreaId > 0)
                         {
-                            isAreaSelected = true;
+                            areaId = currentCityArea.AreaId;
                         }
                     }
                     else if (objCityResponse.StatusCode == 301)
@@ -149,6 +161,7 @@ namespace Bikewale.Models
                     if (objCityResponse.StatusCode == 200 && objModelResponse.StatusCode == 200)
                     {
                         Status = StatusCodes.ContentFound;
+                        CheckCityCookie();
                     }
                     RedirectUrl = rawUrl;
                 }
@@ -157,6 +170,49 @@ namespace Bikewale.Models
                     Status = StatusCodes.ContentNotFound;
                 }
 
+            }
+        }
+
+        /// <summary>
+        /// Modified by :   Sumit Kate on 05 Jan 2016
+        /// Description :   Replaced the Convert.ToXXX with XXX.TryParse method
+        /// Modified By : Sushil Kumar on 26th August 2016
+        /// Description : Replaced location name from location cookie to selected location objects for city and area respectively.
+        /// </summary>
+        private void CheckCityCookie()
+        {
+            try
+            {
+                if (modelId > 0)
+                {
+                    if (cityId > 0)
+                    {
+                        var cities = _objCityCache.GetPriceQuoteCities(modelId);
+
+                        if (cities != null)
+                        {
+                            var selectedCity = cities.FirstOrDefault(m => m.CityId == cityId);
+                            if (selectedCity != null && selectedCity.HasAreas && areaId > 0)
+                            {
+                                var areas = _objAreaCache.GetAreaList(modelId, cityId);
+                                if (areas != null && areas.Count() > 0)
+                                {
+                                    var selectedArea = areas.FirstOrDefault(m => m.AreaId == areaId);
+                                    if (selectedArea != null)
+                                    {
+                                        isAreaSelected = true;
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("CheckCityCookie({0},{1})", modelMaskingName, cityMaskingName));
             }
         }
 
@@ -248,6 +304,14 @@ namespace Bikewale.Models
                         BindSimilarBikes(objVM);
                         BindBikeInfoRank(objVM);
 
+                        if (objVM.IsNew)
+                        {
+                            BindPriceInNearestCities(objVM);
+                            BindPriceInTopCities(objVM);
+                            if (isAreaSelected)
+                                GetDealerPriceQuote(objVM);
+                        }
+
                         var objModelColours = _modelCache.GetModelColor(Convert.ToInt16(modelId));
                         colorCount = (uint)(objModelColours != null ? objModelColours.Count() : 0);
 
@@ -272,6 +336,29 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("FetchVersionPrices({0},{1})", modelMaskingName, cityMaskingName));
             }
             return objVM;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 11 Apr 2017
+        /// Description :   Bind Price in Top Cities
+        /// </summary>
+        /// <param name="objVM"></param>
+        private void BindPriceInTopCities(PriceInCityPageVM objVM)
+        {
+            try
+            {
+                uint[] topCityId = new uint[] { 1, 2, 10, 12, 105, 176, 198, 220 };
+                objVM.PriceInTopCities = new PriceInTopCities(_objPQCache, modelId, 8).GetData();
+                if (objVM.HasPriceInTopCities)
+                {
+                    objVM.PriceInTopCities.PriceQuoteList = objVM.PriceInTopCities.PriceQuoteList.Where(m => !m.CityMaskingName.Equals(cityMaskingName));
+                    objVM.PriceInTopCities.PriceQuoteList = objVM.PriceInTopCities.PriceQuoteList.Where(m => topCityId.Contains(m.CityId));
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("BindPriceInTopCities({0},{1})", modelMaskingName, cityMaskingName));
+            }
         }
 
         /// <summary>
@@ -326,9 +413,11 @@ namespace Bikewale.Models
                 var similarBikes = new SimilarBikesWidget(_versionCache, firstVersion.VersionId, pqSource, false, true);
                 similarBikes.CityId = cityId;
                 similarBikes.TopCount = 9;
-                objVM.AlternateBikes = similarBikes.GetData();
-                objVM.AlternateBikes.Make = objVM.Make;
-                objVM.AlternateBikes.Model = objVM.BikeModel;
+                var similarBikesVM = similarBikes.GetData();
+                similarBikesVM.Make = objVM.Make;
+                similarBikesVM.Model = objVM.BikeModel;
+                similarBikesVM.VersionId = objVM.FirstVersion.VersionId;
+                objVM.AlternateBikes = similarBikesVM;
             }
             catch (Exception ex)
             {
@@ -347,8 +436,9 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.ServiceCenters = (new ServiceCentersCard(_objServiceCenter, 3, Convert.ToUInt32(objVM.Make.MakeId), objVM.CityEntity.CityId)).GetData();
-                objVM.ServiceCenterCount = objVM.ServiceCenters.Count;
+      var serviceCenters = _objServiceCenter.GetServiceCentersByCity(cityId, objVM.Make.MakeId);
+                if (serviceCenters != null)
+                    objVM.ServiceCentersCount = serviceCenters.Count;
             }
             catch (Exception ex)
             {
@@ -369,7 +459,7 @@ namespace Bikewale.Models
                 objDealer.ModelId = modelId;
                 objDealer.TopCount = TopCount;
                 objVM.Dealers = objDealer.GetData();
-                dealerCount = (uint)(objVM.HasDealers ? objVM.Dealers.Dealers.Count() : 0);
+                dealerCount = (uint)(objVM.HasDealers ? objVM.Dealers.TotalCount : 0);
             }
             catch (Exception ex)
             {
@@ -386,7 +476,13 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.PriceInNearestCities = (new ModelPriceInNearestCities(_objPQCache, modelId, cityId, (ushort)NearestCityCount)).GetData();
+                var nearestCityModel = new ModelPriceInNearestCities(_objPQCache, modelId, cityId, (ushort)NearestCityCount);
+                var cityPriceList = nearestCityModel.GetData();
+                if (cityPriceList != null && cityPriceList.Count() > 0)
+                {
+                    objVM.NearestPriceCities = new PriceInTopCitiesWidgetVM();
+                    objVM.NearestPriceCities.PriceQuoteList = cityPriceList;
+                }
             }
             catch (Exception ex)
             {
@@ -483,6 +579,45 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("BuildPageMetas({0},{1})", modelMaskingName, cityMaskingName));
+            }
+        }
+
+        private void GetDealerPriceQuote(PriceInCityPageVM objVM)
+        {
+            PQOutputEntity objPQOutput = null;
+            try
+            {
+                PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
+                objPQEntity.CityId = Convert.ToUInt16(cityId);
+                objPQEntity.AreaId = areaId;
+                objPQEntity.ClientIP = "";
+                objPQEntity.SourceId = Convert.ToUInt16(Platform);
+                objPQEntity.ModelId = modelId;
+                objPQEntity.PQLeadId = Convert.ToUInt16(PQSource);
+                objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
+                objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
+                objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";
+                objPQOutput = _objDealerPQ.ProcessPQV2(objPQEntity);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetDealerPriceQuote({0},{1})", modelMaskingName, cityMaskingName));
+            }
+            finally
+            {
+                if (objPQOutput != null && objPQOutput.IsDealerAvailable)
+                {
+                    try
+                    {
+                        objVM.DetailedDealer = _objDealerDetails.GetDealerQuotationV2(cityId, objPQOutput.VersionId, objPQOutput.DealerId, areaId);
+                        objVM.HasCampaignDealer = true;
+                        objVM.MPQString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString()));
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorClass objErr = new ErrorClass(ex, String.Format("GetDealerQuotationV2({0},{1})", modelMaskingName, cityMaskingName));
+                    }
+                }
             }
         }
     }

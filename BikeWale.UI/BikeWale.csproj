@@ -3715,6 +3715,9 @@
     <Content Include="Views\PriceInCity\_PriceInNearbyCitiesTable.cshtml" />
     <Content Include="Views\Price\_PriceInCityPopUp.cshtml" />
     <Content Include="Views\Price\_PriceInCityPopUp_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

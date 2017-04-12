@@ -93,110 +93,7 @@ docReady(function () {
 
         dropdown.setDropdown();
 
-        var bikeVersions = [
-            {
-                "PriceQuoteId": 0,
-                "ManufacturerName": null,
-                "MaskingNumber": null,
-                "ExShowroomPrice": 50000,
-                "RTO": 1500,
-                "Insurance": 2000,
-                "OnRoadPrice": 53500,
-                "MakeName": "Honda",
-                "MakeMaskingName": "honda",
-                "ModelName": "CB Shine",
-                "ModelMaskingName": "shine",
-                "VersionName": "2017",
-                "CityId": 1,
-                "CityMaskingName": "mumbai",
-                "City": "Mumbai",
-                "Area": null,
-                "HasArea": false,
-                "VersionId": 4514,
-                "CampaignId": 0,
-                "ManufacturerId": 0,
-                "Varients": null,
-                "OriginalImage": "",
-                "HostUrl": "",
-                "MakeId": 7,
-                "IsModelNew": true,
-                "IsVersionNew": true,
-                "State": null,
-                "ManufacturerAd": null,
-                "LeadCapturePopupHeading": null,
-                "LeadCapturePopupDescription": null,
-                "LeadCapturePopupMessage": null,
-                "PinCodeRequired": false
-            },
-            {
-                "PriceQuoteId": 0,
-                "ManufacturerName": null,
-                "MaskingNumber": null,
-                "ExShowroomPrice": 50615,
-                "RTO": 5043,
-                "Insurance": 1315,
-                "OnRoadPrice": 56973,
-                "MakeName": "Honda",
-                "MakeMaskingName": "honda",
-                "ModelName": "CB Shine",
-                "ModelMaskingName": "shine",
-                "VersionName": "Kick/Drum/Spokes",
-                "CityId": 1,
-                "CityMaskingName": "mumbai",
-                "City": "Mumbai",
-                "Area": null,
-                "HasArea": false,
-                "VersionId": 111,
-                "CampaignId": 0,
-                "ManufacturerId": 0,
-                "Varients": null,
-                "OriginalImage": "/bw/models/honda-cb-shine-kick/drum/spokes-111.jpg?20151209184344",
-                "HostUrl": "https://imgd1.aeplcdn.com/",
-                "MakeId": 7,
-                "IsModelNew": true,
-                "IsVersionNew": true,
-                "State": null,
-                "ManufacturerAd": null,
-                "LeadCapturePopupHeading": null,
-                "LeadCapturePopupDescription": null,
-                "LeadCapturePopupMessage": null,
-                "PinCodeRequired": false
-            },
-            {
-                "PriceQuoteId": 0,
-                "ManufacturerName": null,
-                "MaskingNumber": null,
-                "ExShowroomPrice": 57300,
-                "RTO": 5511,
-                "Insurance": 1773,
-                "OnRoadPrice": 64584,
-                "MakeName": "Honda",
-                "MakeMaskingName": "honda",
-                "ModelName": "CB Shine",
-                "ModelMaskingName": "shine",
-                "VersionName": "Electric Start/Drum/Alloy",
-                "CityId": 1,
-                "CityMaskingName": "mumbai",
-                "City": "Mumbai",
-                "Area": null,
-                "HasArea": false,
-                "VersionId": 112,
-                "CampaignId": 0,
-                "ManufacturerId": 0,
-                "Varients": null,
-                "OriginalImage": "/bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg?20151209184344",
-                "HostUrl": "https://imgd1.aeplcdn.com/",
-                "MakeId": 7,
-                "IsModelNew": true,
-                "IsVersionNew": true,
-                "State": null,
-                "ManufacturerAd": null,
-                "LeadCapturePopupHeading": null,
-                "LeadCapturePopupDescription": null,
-                "LeadCapturePopupMessage": null,
-                "PinCodeRequired": false
-            }
-        ];
+        var bikeVersions = JSON.parse(Base64.decode($("#dvVersionPrice").text())), isDiscontinued = $("#dvVersionPrice").data("isdiscontinued");
 
         var versionTable = function () {
             var self = this;
@@ -206,12 +103,13 @@ docReady(function () {
             self.rtoPrice = ko.observable();
             self.insurancePrice = ko.observable();
             self.onRoadPrice = ko.observable();
-
+            self.isDiscontinued = ko.observable(isDiscontinued.toLowerCase() == "true");
             self.setVersionDetails = function (version) {
                 self.exshowroomPrice(formatPrice(version.ExShowroomPrice));
                 self.rtoPrice(formatPrice(version.RTO));
                 self.insurancePrice(formatPrice(version.Insurance));
                 self.onRoadPrice(formatPrice(version.OnRoadPrice));
+                $(".version-price").text(formatPrice(!self.isDiscontinued() ? version.OnRoadPrice : version.ExShowroomPrice));
             };
 
             self.getVersionObject = function (verId) {
@@ -290,8 +188,6 @@ docReady(function () {
             $(this).closest('div').hide();
         });
 
-        $('.model-versions-tabs-wrapper li').first().trigger("click");
-
         // dropdown events
         $('.dropdown-select-wrapper').on('click', '.dropdown-label', function () {
             dropdown.active($(this));
@@ -305,6 +201,23 @@ docReady(function () {
                 dropdown.inactive();
 
                 vmVersionTable.getVersionObject(element.attr('data-option-value'));
+            }
+        });
+
+        $('.dropdown-select-wrapper').on('change', '.dropdown-select',function () {
+            try {
+                var obj = $(this);
+                if (obj.attr('l') !== undefined) {
+                    triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+                }
+                else if (obj.attr('v') !== undefined) {
+                    triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+                }
+                else if (obj.attr('f') !== undefined) {
+                    triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+                }
+            }
+            catch (e) {
             }
         });
 
@@ -324,6 +237,20 @@ docReady(function () {
                 var options = allBindingsAccessor().sliderOptions || {};
                 $("#" + element.id).slider(options);
                 ko.utils.registerEventHandler("#" + element.id, "slide", function (event, ui) {
+                    try {
+                        var obj = $("#" + element.id);
+                        if (obj.attr('l') !== undefined) {
+                            triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+                        }
+                        else if (obj.attr('v') !== undefined) {
+                            triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+                        }
+                        else if (obj.attr('f') !== undefined) {
+                            triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+                        }
+                    }
+                    catch (e) {
+                    }
                     var observable = valueAccessor();
                     observable(ui.value);
                 });
@@ -373,6 +300,12 @@ docReady(function () {
                 },
                 owner: this
             });
+            self.totalPayable = ko.pureComputed({
+                read: function () {
+                    return (self.downPayment() + (self.monthlyEMI() * self.tenure()));
+                },
+                owner: this
+            });
         };
 
         $.calculateEMI = function (loanAmount, tenure, rateOfInterest, proFees) {
@@ -384,7 +317,7 @@ docReady(function () {
             }
             catch (e) {
             }
-            return formatPrice(finalEmi);
+            return finalEmi;
         };
 
         $.LoanAmount = function (onRoadPrice, percentage) {
