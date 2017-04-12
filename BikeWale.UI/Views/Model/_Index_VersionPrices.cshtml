@@ -3,7 +3,7 @@
 <div id="modelPricesContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-right10 padding-bottom15 padding-left10 border-solid-bottom">
     <h2>@Model.BikeName Price List</h2>
     <div id="prices-by-version-content" class="grid-6 alpha padding-right20">
-        <h3 class="margin-bottom20">Price by versions</h3>
+        <h3 class="margin-bottom20">@Model.BikeName Price (versions)</h3>
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
@@ -16,7 +16,7 @@
                 {
                     <tr class="version-prices-tr">
                         <td width="70%" class="padding-bottom15 padding-top10 padding-right10 font14" valign="top">
-                            <p class="margin-bottom5">@version.VersionName</p>
+                            <p class="margin-bottom5">@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.ModelName, version.VersionName)</p>
                             <p class="font12 text-xt-light-grey">@Bikewale.Utility.FormatMinSpecs.GetMinVersionSpecs(version.AlloyWheels, version.ElectricStart, version.AntilockBrakingSystem, version.BrakeType)</p>
                         </td>
                         <td width="30%" class="padding-bottom10 padding-top10 font14 divider-bottom" valign="top">

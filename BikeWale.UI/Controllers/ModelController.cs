@@ -66,6 +66,9 @@ namespace Bikewale.Controllers
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
+                obj.Source = DTO.PriceQuote.PQSources.Desktop;
+                obj.PQSource = Entities.PriceQuote.PQSourceEnum.Desktop_ModelPage;
+                obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.Model_Desktop;
                 ModelPageVM objData = obj.GetData(versionId);
                 //if data is null check for new bikes page redirection
                 if (obj.Status.Equals(StatusCodes.RedirectPermanent))
@@ -92,6 +95,9 @@ namespace Bikewale.Controllers
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
+                obj.Source = DTO.PriceQuote.PQSources.Mobile;
+                obj.PQSource = Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage;
+                obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.Model_Mobile;
                 ModelPageVM objData = obj.GetData(versionId);
                 //if data is null check for new bikes page redirection
                 if (obj.Status.Equals(StatusCodes.RedirectPermanent))
