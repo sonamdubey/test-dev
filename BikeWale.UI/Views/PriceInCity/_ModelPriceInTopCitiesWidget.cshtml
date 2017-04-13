@@ -3,17 +3,17 @@
 <div class="jcarousel-wrapper inner-content-carousel carousel-type-city">
     <div class="jcarousel">
         <ul>
-            @foreach (var priceQuote in Model.PriceQuoteList)
+            @foreach (var city in Model.PriceQuoteList)
             {
                 <li>
-                    <a href="@UrlFormatter.PriceInCityUrl(priceQuote.MakeMaskingName, priceQuote.ModelMaskingName, priceQuote.CityMaskingName)" title="@string.Format("{0} price in {1}", Model.BikeName, priceQuote.CityName)" class="card-target-link">
+                    <a href="@UrlFormatter.PriceInCityUrl(city.MakeMaskingName, city.ModelMaskingName, city.CityMaskingName)" title="@string.Format("{0} price in {1}", Model.BikeName, city.CityName)" class="card-target-link">
                         <div class="city-image-preview">
-                            <span class="city-sprite c1-icon"></span>
+                            <span class="city-sprite @string.Format("{0}-icon",city.CityMaskingName)"></span>
                         </div>
                         <div class="text-left padding-top15 padding-left20 padding-right20 padding-bottom20">
-                            <p class="font15 text-default text-bold margin-bottom5">@priceQuote.CityName</p>
+                            <p class="font15 text-default text-bold margin-bottom5">@city.CityName</p>
                             <p class="text-light-grey font14">
-                                <span class="bwsprite inr-sm-grey"></span>&nbsp;@Format.FormatPrice(Convert.ToString(priceQuote.OnRoadPrice)) onwards
+                                <span class="bwsprite inr-sm-grey"></span>&nbsp;@Format.FormatPrice(Convert.ToString(city.OnRoadPrice)) onwards
                             </p>
                         </div>
                     </a>
