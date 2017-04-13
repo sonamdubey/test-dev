@@ -30,8 +30,8 @@
 
             <div class="padding-top10" id="priceInCityPopUpContent">
                 <div class="select-box margin-top10">
-                    <select class="chosen-select" data-placeholder="Select city" id="ddlCitiesPopup" tabindex="2"
-                            data-bind="options: ListCities(),value: SelectedCityId, optionsCaption:'--Select city--' , optionsText: 'cityName', optionsValue: 'cityId',chosen: { width: '100%',search_contains: true }"></select>
+                    <select class="chosen-select" data-placeholder="Select city" id="priceinCityPopupList" tabindex="2"
+                            data-bind="options: ListCities(),value: SelectedCityId, optionsCaption:'--Select City--', optionsText: 'cityName', optionsValue: 'cityId',chosen: { width: '100%',search_contains: true }"></select>
                     <span class="boundary"></span>
                     <span class="error-text" data-bind="value: errMsg"></span>
                     <p class="position-abt progress-bar"></p>
@@ -125,7 +125,7 @@
                     try {
                         CitiesKey = "pqPriceInCityPopUp_" + self.SelectedModelId();
                         self.IsLoading(false);
-                        pcPopupContent.updateChosen('#ddlCitiesPopup');
+                        pcPopupContent.updateChosen('#priceinCityPopupList');
                         $.ajax({
                             type: "GET",
                             url: self.pqCityApiUrl,
@@ -152,25 +152,25 @@
                                     bwcache.set(CitiesKey, cities, 60);
                                     progressBar.stopLoading();
                                     self.ListCities(cities);
-                                    pcPopupContent.updateChosen($('#ddlCitiesPopup'));
+                                    pcPopupContent.updateChosen($('#priceinCityPopupList'));
 
                                 }
                                 else {
                                     self.ListCities([]);
-                                    pcPopupContent.updateChosen($('#ddlCitiesPopup'));
+                                    pcPopupContent.updateChosen($('#priceinCityPopupList'));
                                 }
                             },
                             complete: function () {
                                 if (self.SelectedCityId() > 0) {
-                                    $('#ddlCitiesPopup').parent().addClass('done');
+                                    $('#priceinCityPopupList').parent().addClass('done');
 
                                 }
-                                pcPopupContent.updateChosen($('#ddlCitiesPopup'));
+                                pcPopupContent.updateChosen($('#priceinCityPopupList'));
                             }
                         });
 
                         if (isAborted) {
-                            pcPopupContent.updateChosen($('#ddlCitiesPopup'));
+                            pcPopupContent.updateChosen($('#priceinCityPopupList'));
                         }
                     }
                     catch (e) {
@@ -200,7 +200,7 @@
                         self.SelectedCity(self.findById(self.ListCities(), "cityId", self.SelectedCityId()));
                         self.SelectedCityMasking(self.SelectedCity().maskingName);
                         if (self.SelectedCity() != null && self.SelectedCity().cityId > 0) {
-                            $('#ddlCitiesPopup').parent().addClass('done');
+                            $('#priceinCityPopupList').parent().addClass('done');
 
                             self.LoadingText("Fetching on-road price for " + self.SelectedCity().cityName);
                             self.IsLoading(true);
@@ -268,7 +268,7 @@
 
             vmPriceInCity = new pcPopup;
             ko.applyBindings(vmPriceInCity, $("#priceInCityPopUp")[0]);
-            $('#ddlCitiesPopup').chosen();
+            $('#priceinCityPopupList').chosen();
 
         });
    
