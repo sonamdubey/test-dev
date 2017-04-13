@@ -14,6 +14,7 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 namespace Bikewale.Models
@@ -219,6 +220,7 @@ namespace Bikewale.Models
         public PriceInCityPageVM GetData()
         {
             PriceInCityPageVM objVM = null;
+            IEnumerable<BikeVersionMinSpecs> minSpecs = null;
             try
             {
                 if (Status == StatusCodes.ContentFound)
@@ -228,10 +230,13 @@ namespace Bikewale.Models
                     objVM.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(modelId, cityId, out hasAreaAvailable);
                     if (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Count() > 0)
                     {
-                     
                         firstVersion = objVM.BikeVersionPrices.FirstOrDefault();
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
                         versionCount = (uint)objVM.BikeVersionPrices.Count();
+                        minSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
+                          var objMin = minSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
+                            if (objMin != null)
+                                objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
 
                         BindBikeBasicDetails(objVM);                        
                         BindDealersWidget(objVM);
@@ -425,7 +430,44 @@ namespace Bikewale.Models
             }
         }
 
-       
+        /// <summary>
+        /// Created by : Aditi Srivastava on 12 Apr 2017
+        /// Summary    : Format min specs
+        /// </summary>
+        private string FormatVarientMinSpec(BikeVersionMinSpecs objVersion)
+        {
+            string minSpecsStr = string.Empty;
+
+            try
+            {
+                minSpecsStr = string.Format("{0}<li>{1} Wheels</li>", minSpecsStr, objVersion.AlloyWheels ? "Alloy" : "Spoke");
+                minSpecsStr = string.Format("{0}<li>{1} Start</li>", minSpecsStr, objVersion.ElectricStart ? "Electric" : "Kick");
+
+                if (objVersion.AntilockBrakingSystem)
+                {
+                    minSpecsStr = string.Format("{0}<li>ABS</li>", minSpecsStr);
+                }
+
+                if (!String.IsNullOrEmpty(objVersion.BrakeType))
+                {
+                    minSpecsStr = string.Format("{0}<li>{1} Brake</li>", minSpecsStr, objVersion.BrakeType);
+                }
+
+
+                if (!string.IsNullOrEmpty(minSpecsStr))
+                {
+                    minSpecsStr = string.Format("<ul id='version-specs-list'>{0}</ul>", minSpecsStr);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.PriceInCityPAge.FormatVarientMinSpec(): versionId {0}", objVersion.VersionId));
+            }
+
+            return minSpecsStr;
+
+        }
+
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
         /// Description :   Page Description

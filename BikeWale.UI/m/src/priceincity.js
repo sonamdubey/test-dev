@@ -2,7 +2,7 @@
 
 var dropdown;
 var overallSpecsTabsContainer, modelSpecsTabsContentWrapper, modelSpecsFooter, topNavBarHeight;
-
+var bikeVersionPrice, versionCount, bikeVersions;
 function formatPrice(price) {
     if (price != null) {
         price = price.toString();
@@ -93,8 +93,9 @@ docReady(function () {
 
         dropdown.setDropdown();
 
-        var bikeVersions = JSON.parse(Base64.decode($("#dvVersionPrice").text())), isDiscontinued = $("#dvVersionPrice").data("isdiscontinued");
-
+        bikeVersions = JSON.parse(Base64.decode($("#dvVersionPrice").text())), isDiscontinued = $("#dvVersionPrice").data("isdiscontinued");
+        bikeVersionPrice = JSON.parse(Base64.decode($("#versionPrice").text()));
+        versionCount = JSON.parse(Base64.decode($("#versionCount").text()));
         var versionTable = function () {
             var self = this;
 

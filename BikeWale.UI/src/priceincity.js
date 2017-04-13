@@ -1,4 +1,4 @@
-﻿var bikeName;
+﻿var bikeName, isDiscontinued, versionCount, bikeVersionPrice;
 var selectDropdownBox;
 var bikeVersions = [];
 
@@ -19,41 +19,10 @@ docReady(function () {
         searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
     });
 
-    bikeVersions = JSON.parse(Base64.decode(encodedBikeVersions));
-       
-        //    "PriceQuoteId": 0,
-        //    "ManufacturerName": null,
-        //    "MaskingNumber": null,
-        //    "ExShowroomPrice": 50615,
-        //    "RTO": 5043,
-        //    "Insurance": 1315,
-        //    "OnRoadPrice": 56973,
-        //    "MakeName": "Honda",
-        //    "MakeMaskingName": "honda",
-        //    "ModelName": "CB Shine",
-        //    "ModelMaskingName": "shine",
-        //    "VersionName": "Kick/Drum/Spokes",
-        //    "CityId": 1,
-        //    "CityMaskingName": "mumbai",
-        //    "City": "Mumbai",
-        //    "Area": null,
-        //    "HasArea": false,
-        //    "VersionId": 111,
-        //    "CampaignId": 0,
-        //    "ManufacturerId": 0,
-        //    "Varients": null,
-        //    "OriginalImage": "/bw/models/honda-cb-shine-kick/drum/spokes-111.jpg?20151209184344",
-        //    "HostUrl": "https://imgd1.aeplcdn.com/",
-        //    "MakeId": 7,
-        //    "IsModelNew": true,
-        //    "IsVersionNew": true,
-        //    "State": null,
-        //    "ManufacturerAd": null,
-        //    "LeadCapturePopupHeading": null,
-        //    "LeadCapturePopupDescription": null,
-        //    "LeadCapturePopupMessage": null,
-        //    "PinCodeRequired": false
-        
+    bikeVersions = JSON.parse(Base64.decode($("#dvVersionPrice").text()));
+    isDiscontinued = $("#dvVersionPrice").data("isdiscontinued");
+    bikeVersionPrice = JSON.parse(Base64.decode($("#versionPrice").text()));
+    versionCount = JSON.parse(Base64.decode($("#versionCount").text()));
 
     var versionTable = function () {
         var self = this;
@@ -65,11 +34,13 @@ docReady(function () {
         self.onRoadPrice = ko.observable();
         self.selectedVersion = ko.observable(self.defaultVersion);
         self.bikeVersions = ko.observableArray(bikeVersions);
+        self.isDiscontinued = ko.observable(isDiscontinued.toLowerCase() == "true");
         self.setVersionDetails = function (version) {
             self.exshowroomPrice(formatPrice(version.ExShowroomPrice));
             self.rtoPrice(formatPrice(version.RTO));
             self.insurancePrice(formatPrice(version.Insurance));
             self.onRoadPrice(formatPrice(version.OnRoadPrice));
+            $(".version-price").text(formatPrice(!self.isDiscontinued() ? version.OnRoadPrice : version.ExShowroomPrice));
         };
 
         self.getVersionObject = function (verId) {
@@ -140,14 +111,29 @@ docReady(function () {
     // add divider between version prices table and prices in nearby cities
     addDivider($('#version-prices-grid'), $('#nearby-prices-grid'));
 
-    var bikeVersionPrice = 93750;
 
-    // emi calculator
+
+      // emi calculator
     ko.bindingHandlers.slider = {
         init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
             var options = allBindingsAccessor().sliderOptions || {};
             $("#" + element.id).slider(options);
             ko.utils.registerEventHandler("#" + element.id, "slide", function (event, ui) {
+                try{
+                    var obj = $("#" + element.id);
+                    if (obj.attr('l') !== undefined) {
+                        triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+                    }
+                    else if (obj.attr('v') !== undefined) {
+                        triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+                    }
+                    else if (obj.attr('f') !== undefined) {
+                        triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+                    }
+                }
+                catch(e){
+                    console.warn(e);
+                }
                 var observable = valueAccessor();
                 observable(ui.value);
             });

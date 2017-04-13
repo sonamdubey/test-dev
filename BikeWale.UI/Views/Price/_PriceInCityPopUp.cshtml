@@ -1,5 +1,4 @@
-﻿
-<div id="priceInCityPopUp" class="hide">
+﻿<div id="priceInCityPopUp" class="hide">
     <div class="bw-popup bw-popup-sm" data-bind="css: IsLoading() ? 'location-loader-active' : ''">
         <!-- ko if : IsLoading() -->
         <div class="content-inner-block-20">
@@ -50,7 +49,6 @@
     var vmPriceInCity, timeOutVariable, pcPopupContent, progressBar;
     var CitiesKey,isAborted = false;
     docReady(function () {
-        debugger;
         bwcache.removeAll(true);
         
         $(document).on("click", ".blackOut-window, #priceInCityPopUp .close-btn", function () {
@@ -78,19 +76,14 @@
         bwcache.setScope('PriceInCityPopUp');
      
         $("#changeCity").click(function (e) {
-            debugger;
             var ele = $(this); e.stopPropagation(); e.preventDefault();
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Price_in_City_Page', 'act': 'City_Change_Initiated_Bottom_Card', 'lab': self.MakeName + ' ' + self.ModelName + '_' + self.currentCity });
             $('#priceInCityPopUp,#priceInCityPopUpContent,.blackOut-window').show();
             $('#priceInCityPopUp').addClass('loader-active');
             var options = {
                 "modelId": ele.attr('data-modelid'),
-                "makename": ele.attr('data-makeName'),
-                "modelname": ele.attr('data-modelName'),
                 "makemasking": ele.attr('data-makemasking'),
                 "modelmasking": ele.attr('data-modelmasking'),
-                "cityName"    : ele.attr('data-cityname')
-             };
+              };
 
              vmPriceInCity.IsLoading(true);
              vmPriceInCity.setOptions(options);
@@ -101,11 +94,8 @@
         
         var pcPopup = function () {
             var self = this;
-            self.MakeName = "";
-            self.ModelName = "";
             self.MakeMasking = "";
             self.ModelMasking = "";
-            self.currentCity = "";
             self.SelectedModelId = ko.observable();
             self.SelectedCity = ko.observable();
             self.SelectedCityMasking = ko.observable();
@@ -126,16 +116,11 @@
                     if (options != null) {
                         self.IsLoading(true);
                         self.SelectedModelId(options.modelId || 0);
-                        self.ModelName = options.modelname || "";
-                        self.MakeName = options.makename || "";
                         self.MakeMasking = options.makemasking || "";
                         self.ModelMasking = options.modelmasking || "";
-                        self.currentCity = options.cityName || "";
                         self.pqCityApiUrl = "/api/pqcitylist/?modelId=" + self.SelectedModelId();
-                       
                     }
                 };
-                debugger;
                 self.LoadCities = function () {
                     try {
                         CitiesKey = "pqPriceInCityPopUp_" + self.SelectedModelId();
@@ -162,7 +147,6 @@
                                 }
                             },
                             success: function (response) {
-                                debugger;
                                 var cities = ko.toJS(response.cities);
                                 if (cities) {
                                     bwcache.set(CitiesKey, cities, 60);
@@ -197,7 +181,6 @@
 
                 self.redirectToPriceInCity = function () {
                     try {
-                        debugger;
                         if (self.SelectedCity() != null && self.SelectedModelId() > 0) {
                             window.location = "/" + self.MakeMasking + "-bikes/" + self.ModelMasking + "/price-in-" + self.SelectedCityMasking() + "/";
                         }
