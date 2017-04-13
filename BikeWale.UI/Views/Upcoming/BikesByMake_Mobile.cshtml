@@ -29,140 +29,30 @@
                 <h2>Upcoming bikes of other brands</h2>
             </div>
             <div class="swiper-heading-right-grid inline-block text-right">
-                <a href="" title="" class="btn view-all-target-btn">View all</a>
+                <a href="/m/upcoming-bikes/" title="Upcoming bikes in India" class="btn view-all-target-btn">View all</a>
             </div>
             <div class="clear"></div>
         </div>
         <div class="swiper-container card-container brand-type-carousel">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="/m/new-honda-bike-launches/" title="Newly launched Honda bikes">
-                            <div class="brand-logo-image">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-7"></span>
-                                </span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Honda</p>
-                                <h3 class="text-unbold text-light-grey font11">11 bikes</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="/m/new-hero-bike-launches/" title="Newly launched Hero bikes">
-                            <div class="brand-logo-image">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-6"></span>
-                                </span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Hero</p>
-                                <h3 class="text-unbold text-light-grey font11">12 bikes</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="/m/new-tvs-bike-launches/" title="Newly launched TVS bikes">
-                            <div class="brand-logo-image">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-15"></span>
-                                </span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">TVS</p>
-                                <h3 class="text-unbold text-light-grey font11">5 bikes</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                @Html.Partial("~/Views/Make/_OtherMakes_Mobile.cshtml", Model.OtherMakes)
             </div>
         </div>
     </div>
 </section>
-
 <section>
     <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
         <div class="carousel-heading-content">
             <div class="swiper-heading-left-grid inline-block">
-                <h2>New Bajaj bike launches</h2>
-            </div>
-            <div class="swiper-heading-right-grid inline-block text-right">
-                <a href="" title="" class="btn view-all-target-btn">View all</a>
+                <h2>New @Model.Make.MakeName bike launches</h2>
+            </div><div class="swiper-heading-right-grid inline-block text-right">
+              <a href="/m/new-@Model.Make.MaskingName-bike-launches/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all</a>
             </div>
             <div class="clear"></div>
         </div>
-        <div class="swiper-container card-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="/m/bajaj-bikes/model420x/" title="Bajaj model420x">
-                            <div class="swiper-image-preview position-rel">
-                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/suzuki-gixxer-fi.jpg?20161002175445" alt="Suzuki Gixxer Fi">
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="target-link font12 text-truncate margin-bottom5">Bajaj model420x</h3>
-                                <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                <p>
-                                    <span class="text-default text-bold"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">5,454</span><span class="font14"> onwards</span></span>
-                                </p>
-                            </div>
-                        </a>
-                        <div class="swiper-btn-block">
-                            <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="/m/bajaj-bikes/model420x/" title="Bajaj model420x">
-                            <div class="swiper-image-preview position-rel">
-                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/suzuki-gixxer-fi.jpg?20161002175445" alt="Suzuki Gixxer Fi">
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="target-link font12 text-truncate margin-bottom5">Bajaj model420x</h3>
-                                <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                <p>
-                                    <span class="text-default text-bold"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">5,454</span><span class="font14"> onwards</span></span>
-                                </p>
-                            </div>
-                        </a>
-                        <div class="swiper-btn-block">
-                            <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="/m/bajaj-bikes/model420x/" title="Bajaj model420x">
-                            <div class="swiper-image-preview position-rel">
-                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//174x98//bw/models/suzuki-gixxer-fi.jpg?20161002175445" alt="Suzuki Gixxer Fi">
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="target-link font12 text-truncate margin-bottom5">Bajaj model420x</h3>
-                                <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                <p>
-                                    <span class="text-default text-bold"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">5,454</span><span class="font14"> onwards</span></span>
-                                </p>
-                            </div>
-                        </a>
-                        <div class="swiper-btn-block">
-                            <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("~/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunches)
     </div>
 </section>
-
 <div id="sort-filters-loader" style="display: none;">
     <div id="popup-loader"></div>
 </div>

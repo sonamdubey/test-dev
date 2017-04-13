@@ -66,7 +66,7 @@ namespace Bikewale.Models.Upcoming
                 BindPageMetaTags(objUpcoming.PageMetaTags, _makeMaskingName, objUpcoming.Make.MakeName);
                 var upcomingBikes = _upcoming.GetModels(Filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(topbrandCount);
-                objUpcoming.NewLaunches = new NewLaunchedWidgetModel(MakeId,9, _newLaunches).GetData();
+                objUpcoming.NewLaunches = new NewLaunchedWidgetModel(MakeId, 9, _newLaunches).GetData();
                 Filters.PageNo = _pageNumber;
                 UpcomingBikeResult bikeResult = _upcoming.GetBikes(Filters, SortBy);
                 objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
@@ -75,6 +75,8 @@ namespace Bikewale.Models.Upcoming
                 objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels.Count() > 0);
                 objUpcoming.YearsList = _upcoming.GetYearList(MakeId);
                 CreatePager(objUpcoming, objUpcoming.PageMetaTags);
+                objUpcoming.OtherMakes = new OtherMakesVM();
+                objUpcoming.OtherMakes.Makes = _upcoming.OtherMakes(MakeId,9);
             }
             catch (Exception ex)
             {
