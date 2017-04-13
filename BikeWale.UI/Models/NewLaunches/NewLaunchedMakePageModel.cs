@@ -109,7 +109,7 @@ namespace Bikewale.Models
             {
                 UpcomingBikesWidget upcomingModel = new UpcomingBikesWidget(_upcoming);
                 upcomingModel.SortBy = EnumUpcomingBikesFilter.Default;
-                upcomingModel.Filters = new UpcomingBikesListInputEntity() { StartIndex = 1, EndIndex = 9, MakeId = (int)MakeId };
+                upcomingModel.Filters = new UpcomingBikesListInputEntity() { PageNo = 1, PageSize = 9, MakeId = (int)MakeId };
                 objVM.Upcoming = upcomingModel.GetData();
             }
             catch (Exception ex)

@@ -1,0 +1,78 @@
+﻿@model Bikewale.Models.UpcomingPageVM
+
+@{
+    Model.IsHeaderFix = false;
+    Model.IsTransparentHeader = true;
+    Model.IsPageTypeLanding = true;
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/upcoming-bikes/upcoming-bikes.css' />";
+    Model.Page_JS_Path = "/src/upcoming-bikes.js";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+    <header class="upcoming-bikes-banner">
+        <div id="upcoming-bikes-center-box" class="container">
+            <div class="welcome-box">
+                <h1 class="font30 text-uppercase margin-bottom30">Upcoming bikes</h1>
+                <p class="font20 text-unbold text-white margin-bottom50">Things to be excited about</p>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <div class="grid-12">
+                <div class="content-box-shadow negative-50 padding-15-20 font14 text-light-grey collapsible-content">
+                    <p class="main-content">
+                        India is one of the largest two-wheeler markets in the world. Every year the bike enthusiasts around the country eagerly wait for upcoming bikes from different brands.
+                        In order to meet the expectation of these young enthusiasts, most of the motorcycle brands announce some of their key expected launches at the beginning of a year. BikeWale is dedicated to serving its users the correct information about the expected launch dates and the price of these upcoming bikes. Explore the list of upcoming
+                        bikes and get ready to buy your favorite one.
+                    </p>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section>
+        <div id="upcoming-bikes" class="container section-bottom-margin">
+            <div class="grid-12">
+                <h2 class="section-heading">Upcoming bikes in India</h2>
+                @Html.Partial("~/Views/Upcoming/_UpcomingBikesList.cshtml", Model)
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    if (Model.Brands != null)
+    {
+        <div class="container section-container">
+            <div class="grid-12">
+                <h2 class="section-heading">Upcoming bikes by brand</h2>
+                <div class="content-box-shadow padding-top20">
+                    @Html.Partial("~/Views/Make/_Brands.cshtml", Model.Brands)
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    }
+    
+    if (Model.NewLaunches != null && Model.NewLaunches.Bikes != null && Model.NewLaunches.Bikes.Count() > 0)
+    {
+        <section>
+            <div class="container section-container padding-bottom20">
+                <div class="grid-12">
+                    <h2 class="section-heading">New Bike Launches in India</h2><div class="content-box-shadow padding-top20">
+                        @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunches)
+                        <div class="view-all-btn-container padding-top15 padding-bottom10">
+                            <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
+}

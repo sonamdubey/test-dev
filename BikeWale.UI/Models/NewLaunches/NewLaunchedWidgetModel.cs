@@ -15,11 +15,20 @@ namespace Bikewale.Models
         private ushort _recordCount;
         public uint BodyStyleId { get; set; }
         public uint MakeId { get; set; }
+
         public NewLaunchedWidgetModel(ushort recordCount, INewBikeLaunchesBL newLaunches)
         {
             _newLaunches = newLaunches;
             _recordCount = recordCount;
         }
+
+        public NewLaunchedWidgetModel(uint makeId, ushort recordCount, INewBikeLaunchesBL newLaunches)
+        {
+            _newLaunches = newLaunches;
+            _recordCount = recordCount;
+            MakeId = makeId;
+        }
+
         /// <summary>
         /// Gets the data.
         /// </summary>

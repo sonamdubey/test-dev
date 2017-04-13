@@ -895,8 +895,8 @@ namespace Bikewale.Cache.BikeData
 
             UpcomingBikesListInputEntity inputParams = new UpcomingBikesListInputEntity()
             {
-                StartIndex = startIndex,
-                EndIndex = endIndex,
+                PageNo = startIndex,
+                PageSize = endIndex,
                 MakeId = makeId.HasValue ? makeId.Value : 0,
                 ModelId = modelId.HasValue ? modelId.Value : 0
             };
@@ -957,7 +957,7 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> objBikes = null;
-            string key = "BW_PopularBikesByMake_" + makeId;
+            string key = "BW_PopularBikesByMake_" + makeId + "_TC_" + topCount;
             if (cityId > 0)
                 key = key + "_City_" + cityId;
 

@@ -1,0 +1,33 @@
+﻿@model Bikewale.Models.UpcomingPageVM
+@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/upcoming-bikes/upcoming-bikes.css' />";
+    Model.Page_JS_Path = "/m/src/upcoming-bikes.js";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewBikes";
+    Model.AdTags.AdId = "1398766302464";
+    Model.AdTags.Ad_320x50 = true;
+}
+
+@if (Model != null && Model.Make != null)
+{
+    <section>
+        <div class="container bg-white card-bottom-margin">
+            <h1 class="card-header">Upcoming @Model.Make.MakeName bikes</h1>
+            <div class="card-inner-padding font14 text-light-grey collapsible-content">
+                <p class="main-content">@Model.Make.MakeName is a well-known two-wheeler brand in India. @Model.Make.MakeName bikes announces some of its key upcoming models at the beginning of a year. Either we are a first-time bike buyer or a seasoned rider, we eagerly wait to know the expected launches of different brands. </p>
+                <p class="more-content">BikeWale brings you a list of all expected @Model.Make.MakeName bike launches along with their expected price. Explore the list of upcoming @Model.Make.MakeName bikes and get ready to pick your favorite one for this year.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div id="upcoming-bikes" data-make-filter="@Model.Make.MakeId" class="container bg-white box-shadow card-bottom-margin">
+            <h2 class="padding-15-20 border-solid-bottom">@Model.TotalBikes Upcoming @Model.Make.MakeName bike@(Model.TotalBikes > 1 ? "s" : "")</h2>
+            @Html.Partial("~/Views/Upcoming/_UpcomingBikesList_Mobile.cshtml", Model)
+        </div>
+    </section>        
+
+    <div id="sort-filters-loader" style="display: none;">
+        <div id="popup-loader"></div>
+    </div>
+}

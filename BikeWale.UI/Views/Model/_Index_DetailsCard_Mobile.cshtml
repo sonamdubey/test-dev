@@ -16,7 +16,7 @@
     if (Model.IsSimilarBikesAvailable)
     {
         <div id="similarContent" class="bw-model-tabs-data padding-top15 padding-bottom15 content-box-shadow card-bottom-margin content-details-wrapper">
-            <h2 class="padding-left20 padding-right20">Bikes Similar to @Model.BikeName</h2>
+            <h2 class="padding-left20 padding-right20">Bikes Similar to @Model.ModelPageEntity.ModelDetails.ModelName</h2>
 
             @Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikes)
 
@@ -67,7 +67,7 @@
 @if (Model.IsReviewsAvailable || Model.IsNewsAvailable || Model.IsUserReviewsAvailable)
 {
     <div id="reviewsContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
-        <h2>@Model.BikeName Reviews</h2>
+        <h2>@Model.BikeName Reviews & News</h2>
         @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
         {
             <h3 class="model-section-subtitle">Expert Reviews</h3>
@@ -99,7 +99,7 @@
 
         @if (Model.IsNewsAvailable)
         {
-            <h3 class="text-bold">@Model.News.MakeName @Model.News.ModelName News</h3>
+            <h3 class="text-bold">News</h3>
             @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
         }
     </div>
@@ -108,7 +108,7 @@
 @if (Model.IsVideosAvailable)
 {
     <div id="videosContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
-        <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Videos</h2>
+        <h2>@Model.BikeName Videos</h2>
         @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
     </div>
 }

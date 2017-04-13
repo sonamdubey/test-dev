@@ -117,8 +117,8 @@ namespace Bikewale.Mobile.New
 
                     int startIndex = 0, endIndex = 0, totalCount = 0, pageSize = 10;
                     objPager.GetStartEndIndex(pageSize, curPageNo, out startIndex, out endIndex);
-                    objInput.StartIndex = startIndex;
-                    objInput.EndIndex = endIndex;
+                    objInput.PageNo = startIndex;
+                    objInput.PageSize = endIndex;
                     if (isMake)
                         objInput.MakeId = (int)makeId;
                     objList = objModel.GetUpcomingBikesList(objInput, EnumUpcomingBikesFilter.Default, out totalCount);

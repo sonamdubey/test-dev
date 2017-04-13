@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using Bikewale.DTO.BikeData;
+using Bikewale.DTO.BikeData.Upcoming;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.Entities.BikeData;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Service.AutoMappers.BikeData
 {
@@ -20,6 +18,22 @@ namespace Bikewale.Service.AutoMappers.BikeData
             Mapper.CreateMap<UpcomingBikeEntity, UpcomingBike>();
 
             return Mapper.Map<IEnumerable<UpcomingBikeEntity>, List<UpcomingBike>>(objUpcoming);
+        }
+
+        internal static UpcomingBikesListInputEntity Convert(InputFilterDTO objFilter)
+        {
+            Mapper.CreateMap<InputFilterDTO, UpcomingBikesListInputEntity>();
+            return Mapper.Map<InputFilterDTO, UpcomingBikesListInputEntity>(objFilter);
+        }
+
+        internal static UpcomingBikeResultDTO Convert(UpcomingBikeResult objResult)
+        {
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<UpcomingBikeEntity, UpcomingBikeDTOBase>();
+            Mapper.CreateMap<UpcomingBikesListInputEntity, InputFilterDTO>();
+            Mapper.CreateMap<UpcomingBikeResult, UpcomingBikeResultDTO>();
+            return Mapper.Map<UpcomingBikeResult, UpcomingBikeResultDTO>(objResult);
         }
     }
 }

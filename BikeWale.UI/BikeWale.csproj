@@ -459,13 +459,12 @@
     <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
-    <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
     <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
     <Compile Include="Controllers\NewPageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NewLaunchesController.cs" />
     <Compile Include="Controllers\ScootersController.cs" />
-    <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
+    <Compile Include="Controllers\UpcomingController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
     <Compile Include="Controllers\PriceController.cs" />
@@ -946,6 +945,8 @@
     <Compile Include="Models\ServiceCenters\ServiceCenterCityPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterDetailsPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterLandingPage.cs" />
+    <Compile Include="Models\Upcoming\UpcomingByMakePageModel.cs" />
+    <Compile Include="Models\Upcoming\UpcomingPageModel.cs" />
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
@@ -3011,6 +3012,7 @@
     <Content Include="m\src\new\search.js" />
     <Content Include="m\src\Plugins.js" />
     <Content Include="m\src\service\location.js" />
+    <Content Include="m\src\upcoming-bikes.js" />
     <Content Include="m\src\used-details.js" />
     <Content Include="m\src\used-search.js" />
     <Content Include="m\src\used\bikes-in-city.js" />
@@ -3074,6 +3076,11 @@
     <Content Include="m\sass\scooters\_listing-style.sass" />
     <Content Include="m\sass\modules\_comparison-carousel.sass" />
     <Content Include="m\sass\modules\_city-icons.sass" />
+    <Content Include="m\sass\upcoming-bikes\upcoming-bikes.sass" />
+    <Content Include="m\sass\upcoming-bikes\_upcoming-bikes-style.sass" />
+    <Content Include="m\sass\upcoming-bikes\_media-query.sass" />
+    <Content Include="sass\upcoming-bikes\upcoming-bikes.sass" />
+    <Content Include="sass\upcoming-bikes\_upcoming-bikes-style.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="new\photos\Default.aspx" />
@@ -3206,6 +3213,7 @@
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\swiper-3.1.7.js" />
+    <Content Include="src\upcoming-bikes.js" />
     <Content Include="src\used-landing.js" />
     <Content Include="src\sell-bike.js" />
     <Content Include="src\used-details.js" />
@@ -3718,6 +3726,13 @@
     <Content Include="Views\PriceInCity\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
 
+    <Content Include="Views\Upcoming\Index.cshtml" />
+    <Content Include="Views\Upcoming\Index_Mobile.cshtml" />
+    <Content Include="Views\Upcoming\BikesByMake_Mobile.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikesList.cshtml" />
+    <Content Include="Views\Upcoming\BikesByMake.cshtml" />
+    <Content Include="Views\Upcoming\_OtherUpcomingBrands.cshtml" />
+    <Content Include="Views\Upcoming\_UpcomingBikesList_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3734,6 +3749,8 @@
     <Folder Include="community\pms\" />
     <Folder Include="content\ComparisonTest\" />
     <Folder Include="Controllers\m\new\Scooters\" />
+    <Folder Include="Controllers\m\new\Upcoming\" />
+    <Folder Include="Controllers\new\Upcoming\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
