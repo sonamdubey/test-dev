@@ -3,6 +3,10 @@ using System;
 
 namespace Bikewale.DTO.BikeData.Upcoming
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 07-04-2017
+    /// Description : Upcoming bike DTO base
+    /// </summary>
     public class UpcomingBikeDTOBase
     {
         [JsonProperty("expectedLaunchedDate")]
