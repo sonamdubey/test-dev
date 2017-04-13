@@ -1,5 +1,4 @@
-﻿
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Models;
@@ -95,13 +94,9 @@ namespace Bikewale.BAL.BikeData.UpComingBike
 
 
         /// <summary>
+        /// Created by : Sangram Nandkhile on 10-Apr-2017 
         /// Binds the makes.
         /// </summary>
-        /// <param name="upcomingBikes">The upcoming bikes.</param>
-        /// <param name="topCount">The top count.</param>
-        /// <returns>
-        /// Created by : Sangram Nandkhile on 10-Apr-2017 
-        /// </returns>
         public BrandWidgetVM BindUpcomingMakes(uint topCount)
         {
             BrandWidgetVM brands = null;
@@ -144,17 +139,13 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.BindMakes()");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.BindUpcomingMakes()");
             }
             return brands;
         }
         /// <summary>
         /// Summary : Function to get the upcoming bikes as per filter criteria
         /// </summary>
-        /// <param name="inputParams"></param>
-        /// <param name="sortBy"></param>
-        /// <param name="recordCount"></param>
-        /// <returns></returns>
         IEnumerable<UpcomingBikeEntity> IUpcoming.GetModels(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy)
         {
             return GetModels(inputParams, sortBy);
@@ -178,7 +169,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
+                ErrorClass err = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.GetYearList");
             }
             return years;
         }
@@ -201,7 +192,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
+                ErrorClass err = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.Upcoming.GetYearList {0}", makeId));
             }
             return years;
         }
@@ -224,11 +215,16 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
+                ErrorClass err = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.GetMakeList");
             }
             return makes;
         }
 
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 10-04-2017
+        /// Description :   Returns models according to filters
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<UpcomingBikeEntity> GetModels(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy)
         {
             IEnumerable<UpcomingBikeEntity> objUpcomingList = null; bool isAsc;
@@ -240,10 +236,10 @@ namespace Bikewale.BAL.BikeData.UpComingBike
                 {
                     objUpcomingList = objUpcomingList.Sort(ProcessOrderBy(sortBy, out isAsc), isAsc);
                     objUpcomingList = objUpcomingList.Where(ProcessInputFilter(inputParams));
+
                     if (objUpcomingList != null && objUpcomingList.Count() > 0)
                     {
                         objUpcomingList = objUpcomingList.Page(inputParams.PageNo, inputParams.PageSize);
-
                     }
 
                 }
@@ -251,12 +247,16 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             catch (Exception ex)
             {
-
-                ErrorClass objErr = new ErrorClass(ex, "Upcoming.GetModels");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.GetModels");
             }
             return objUpcomingList;
         }
 
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 10-04-2017
+        /// Description :   Returns Wrapper of bikes , count  according to filters
+        /// </summary>
+        /// <returns></returns>
         UpcomingBikeResult IUpcoming.GetBikes(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy)
         {
             UpcomingBikeResult objBikes = null;
@@ -283,7 +283,7 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.NewLaunchedYearList");
+                ErrorClass err = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.GetBikes");
             }
             return objBikes;
         }

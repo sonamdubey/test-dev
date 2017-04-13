@@ -21,13 +21,13 @@ namespace Bikewale.Models
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly uint _topBrandsCount;
         private readonly ushort _pageNumber;
+        private UpcomingBikesListInputEntity _filters;
 
         #endregion
 
 
         #region Public members
 
-        public UpcomingBikesListInputEntity Filters { get; set; }
         public EnumUpcomingBikesFilter SortBy { get; set; }
         public int PageSize { get; set; }
         public string BaseUrl { get; set; }
@@ -36,39 +36,44 @@ namespace Bikewale.Models
 
         #region Constructor
 
-        public UpcomingPageModel(uint topbrandCount, ushort pageNumber, int pageSize, IUpcoming upcoming, INewBikeLaunchesBL newLaunches)
+        public UpcomingPageModel(uint topbrandCount, ushort? pageNumber, int pageSize, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, string baseUrl)
         {
             _upcoming = upcoming;
-            _pageNumber = pageNumber;
+
+            if (pageNumber.HasValue)
+                _pageNumber = (ushort)pageNumber;
+            else
+                _pageNumber = 1;
+
             _newLaunches = newLaunches;
             _topBrandsCount = topbrandCount;
-            Filters = new UpcomingBikesListInputEntity();
-            Filters.PageSize = pageSize;
+
+            _filters = new UpcomingBikesListInputEntity();
+            _filters.PageSize = pageSize;
+            _filters.PageNo = _pageNumber;
+
             SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
-            BaseUrl = "/upcoming-bikes/";
-            PageSize = 15;
+            BaseUrl = baseUrl;
+            PageSize = pageSize;
         }
         #endregion
 
         #region Functions
 
         /// <summary>
+        /// Created by : Sangram Nandkhile on 07-Apr-2017 
         /// Gets the data.
         /// </summary>
-        /// <returns>
-        /// Created by : Sangram Nandkhile on 07-Apr-2017 
-        /// </returns>
         public UpcomingPageVM GetData()
         {
             UpcomingPageVM objUpcoming = new UpcomingPageVM();
             try
             {
                 BindPageMetaTags(objUpcoming.PageMetaTags);
-                var upcomingBikes = _upcoming.GetModels(Filters, SortBy);
+                var upcomingBikes = _upcoming.GetModels(_filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(_topBrandsCount);
                 objUpcoming.NewLaunches = new NewLaunchedWidgetModel(9, _newLaunches).GetData();
-                Filters.PageNo = _pageNumber;
-                UpcomingBikeResult bikeResult = _upcoming.GetBikes(Filters, SortBy);
+                UpcomingBikeResult bikeResult = _upcoming.GetBikes(_filters, SortBy);
                 objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
                 objUpcoming.TotalBikes = bikeResult.TotalCount;
                 //objUpcoming.NewLaunches.PageCatId = 1;
@@ -87,9 +92,9 @@ namespace Bikewale.Models
         }
 
         /// <summary>
+        /// Created by : Sangram Nandkhile on 07-Apr-2017 
         /// Binds the page meta tags.
-        /// </summary>
-        /// <param name="pageMetaTags">The page meta tags.</param>
+        /// </summary>        
         private void BindPageMetaTags(PageMetaTags pageMetaTags)
         {
             try
@@ -108,6 +113,7 @@ namespace Bikewale.Models
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingPageModel.BindPageMetaTags");
             }
         }
+
         /// Created by  :   Sumit Kate on 30 Mar 2017
         /// Description :   Binds Pager
         /// </summary>
@@ -126,10 +132,12 @@ namespace Bikewale.Models
                     PageUrlType = "page/",
                     TotalResults = (int)(objUpcoming.TotalBikes)
                 };
+
                 int pages = (int)(objUpcoming.TotalBikes / PageSize);
 
                 if ((objUpcoming.TotalBikes % PageSize) > 0)
                     pages += 1;
+
                 string prevUrl = string.Empty, nextUrl = string.Empty;
                 Paging.CreatePrevNextUrl(pages, BaseUrl, (int)objUpcoming.Pager.PageNo, ref nextUrl, ref prevUrl);
                 objMeta.NextPageUrl = nextUrl;
@@ -137,7 +145,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedIndexModel.CreatePager()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.UpcomingPageModel.CreatePager()");
             }
         }
 

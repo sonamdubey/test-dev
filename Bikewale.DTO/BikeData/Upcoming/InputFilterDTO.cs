@@ -3,6 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bikewale.DTO.BikeData.Upcoming
 {
+    /// <summary>
+    /// Created by  :   Sajal Gupta on 13-04-2017
+    /// Description :   InputFilter DTO
+    /// </summary>
     public class InputFilterDTO
     {
         [Required, JsonProperty("pageNo"), RegularExpression(@"^[1-9][0-9]*$")]

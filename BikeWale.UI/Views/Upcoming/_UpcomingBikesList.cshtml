@@ -2,7 +2,7 @@
 @{
     ushort i = 0;
 }
-@if (Model != null)
+@if (Model != null && Model.HasBikes)
 {
     <div class="content-box-shadow">
         <div class="padding-right20 padding-left20">
@@ -41,12 +41,13 @@
             </div>
         </div>
 
-        @if (Model.HasBikes)
-        {
-            <div class="upcoming-bikes-wrapper" data-bind=" visible:TotalBikes() > 0">
-                <!-- ko if : models() && models().length > 0 -->
-                <ul class="bike-listing-horizontal" data-bind="visible : (!noBikes() && TotalBikes() !== 0), css: IsLoading() ? 'loader-active' : '' ">
-                    @foreach (var bike in Model.UpcomingBikeModels)
+
+        <div class="upcoming-bikes-wrapper" data-bind=" visible:TotalBikes() > 0">
+            <!-- ko if : models() && models().length > 0 -->
+            <ul class="bike-listing-horizontal" data-bind="visible : (!noBikes() && TotalBikes() !== 0), css: IsLoading() ? 'loader-active' : '' ">
+                @if (Model.UpcomingBikeModels != null)
+                {
+                    foreach (var bike in Model.UpcomingBikeModels)
                     {
                         <!-- ko if : models()[@i] -->
                         <li class="list-item">
@@ -71,10 +72,11 @@
                         <!-- /ko -->
                         i++;
                     }
-                </ul>
-                <!-- /ko -->
-            </div>
-        }
+                }
+            </ul>
+            <!-- /ko -->
+        </div>
+
 
         <div class="text-center" style="display: @(Model.HasPages ? "none" : "block")" data-bind="visible:noBikes() || TotalBikes()==0">
             <div id="nobike" data-bind="visible : noBikes()">
@@ -84,9 +86,12 @@
         <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0" style="display: @(Model.HasPages ? "block" : "none")">
             <div class="footer-pagination font14 border-solid-top padding-top10">
                 <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalBikes() > 0">
-                    <p>Showing <span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()">@Model.Pager.TotalResults</span> bikes</p>
+                    @if (Model.Pager != null)
+                    {
+                        <p>Showing <span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()">@Model.Pager.TotalResults</span> bikes</p>
+                    }
                 </div>
-                @if (Model.Pager.TotalResults > 15)
+                @if (Model.Pager != null && Model.Pager.TotalResults > 15)
                 {
                     Html.RenderAction("Index", "Pager", new { objPager = @Model.Pager });
                 }
