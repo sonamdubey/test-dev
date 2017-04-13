@@ -29,7 +29,7 @@ namespace Bikewale.Cache.PriceQuote
         public IEnumerable<Bikewale.Entities.PriceQuote.PriceQuoteOfTopCities> FetchPriceQuoteOfTopCitiesCache(uint modelId, uint topCount)
         {
             IEnumerable<Bikewale.Entities.PriceQuote.PriceQuoteOfTopCities> prices = null;
-            string key = String.Format("BW_TopCityPrices_{0}_{1}", modelId, topCount);
+            string key = String.Format("BW_TopCitiesPrice_{0}_{1}", modelId, topCount);
             try
             {
                 prices = _cache.GetFromCache<IEnumerable<Bikewale.Entities.PriceQuote.PriceQuoteOfTopCities>>(key, new TimeSpan(1, 0, 0), () => _obPriceQuote.FetchPriceQuoteOfTopCities(modelId, topCount));

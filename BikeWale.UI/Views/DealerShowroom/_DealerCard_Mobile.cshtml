@@ -10,13 +10,13 @@
             <div class="swiper-slide">
                 <div class="swiper-card">
                     <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.GetDealerUrl(Model.MakeMaskingName, Model.CityMaskingName, dealers.Name, Convert.ToInt32(dealers.DealerId)))" title="@dealers.Name" class="block">
-                        @Html.Raw(String.Format("<div class=\"target-link margin-bottom5 text-truncate font14\">{0}, {1}</div>", dealers.Name,dealers.Area))
-                        <p class="@string.Format("margin-bottom5 text-light-grey {0}",String.IsNullOrEmpty(dealers.Address)? "hide":"")">
+                        @Html.Raw(String.Format("<div class=\"target-link margin-bottom10 text-truncate font15\">{0}</div>", dealers.Name))
+                        <p class="@string.Format("margin-bottom10 text-light-grey {0}",String.IsNullOrEmpty(dealers.Address)? "hide":"")">
                             <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                            <span class="vertical-top dealership-address details-column">@dealers.Address</span>
+                            <span class="vertical-top dealership-address details-column font14">@dealers.Address</span>
                         </p>
                     </a>
-                    <a href="tel:@dealers.MaskingNumber" class="@string.Format("text-default text-bold text-truncate {0}", String.IsNullOrEmpty(dealers.MaskingNumber)? "hide":"block")"><span class="bwmsprite tel-sm-grey-icon"></span>@dealers.MaskingNumber</a>
+                    <a href="tel:@dealers.MaskingNumber" class="@string.Format("text-default text-bold text-truncate font14 {0}", String.IsNullOrEmpty(dealers.MaskingNumber) ? "hide" : "block")"><span class="bwmsprite tel-sm-grey-icon"></span>@dealers.MaskingNumber</a>
                 </div>
             </div>
         }

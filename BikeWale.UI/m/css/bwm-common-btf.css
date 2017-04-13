@@ -59,7 +59,7 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .global-search-popup .cross-box span.cross-md-dark-grey, .bwm-city-area-box .cross-box span.cross-md-dark-grey { position: absolute; right: 13px; top: 8px; z-index: 11; }
 .global-search-popup .cross-box:hover span.cross-md-dark-grey, .bwm-city-area-box .cross-box:hover span.cross-md-dark-grey { background-position: -62px -223px; }
 .bw-city-popup.bwm-fullscreen-popup { overflow-x:hidden; }
-.bw-city-popup.bwm-fullscreen-popup #popupContent,#brandcitypopupContent { background:#f5f5f5; z-index:11; position:fixed; left:100%; top:0; overflow-y:scroll; width:100%; height:100% }
+.bw-city-popup.bwm-fullscreen-popup #popupContent,#brandcitypopupContent,#priceInCityPopUpContent { background:#f5f5f5; z-index:11; position:fixed; left:100%; top:0; overflow-y:scroll; width:100%; height:100% }
 .bw-area-popup-box { display:none; }
 /* on road price popup */
 #popupWrapper.loader-active .popup-inner-container, #popup-loader-container {
@@ -116,6 +116,9 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 #popupCityList, #popupAreaList { padding-top:40px; }
 #popupCityList li, #popupAreaList li { border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor:pointer; }
 #popupCityList li:hover, #popupAreaList li:hover { background: #ededed; }
+#pcPopupCityList { padding-top:40px; }
+#pcPopupCityList li { border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor:pointer; }
+#pcPopupCityList li:hover { background: #ededed; }
 #popupCitiesList, #popupMakeList { padding-top:40px; }
 #popupCitiesList li, #popupMakeList li { border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor:pointer; }
 #popupCitiesList li:hover, #popupMakeList li:hover { background: #ededed; } 
@@ -189,8 +192,9 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 /* swiper-card */
 .btn-card {
     font-size: 14px;
-    padding: 6px;
+    padding: 5px;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .text-truncate {
@@ -228,16 +232,14 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 
 /* dealers */
 .dealer-horizontal-swiper h2 { margin-bottom: 15px }
-.dealer-horizontal-swiper .swiper-slide:first-child { margin-left: 5px; }
-
 .dealer-horizontal-swiper .swiper-slide { 
-    width:308px;
+    width: 253px;
 }
 
 .dealer-horizontal-swiper .swiper-card {
-    width: 308px;
-    min-height: 140px;
-    padding: 15px 10px 10px;
+    width: 253px;
+    min-height: 170px;
+    padding: 15px 15px 10px;
 }
 
 .dealer-horizontal-swiper.no-city-selection-carousel .swiper-card {
@@ -440,101 +442,56 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
     background-position: -16px -476px;
 }
 
-.text-justify { text-align: justify; }
-.text-wrap { white-space: normal; }
-.text-nowrap { white-space: nowrap; }
 .text-dark-grey { color: #2a2a2a; }
 .text-black { color: #2a2a2a; }
 .text-red { color: #ef3f30; }
 .text-link { cursor: pointer; color: #0288d1; }
 .text-orange { color: #f04031; }
-.text-orange-light { color: #F88379; }
 
+.font15 { font-size: 15px; }
 .font25 { font-size: 25px; }
-.font26 { font-size: 26px; }
-.font27 { font-size: 27px; }
-.font28 { font-size: 28px; }
-.font29 { font-size: 29px; }
 .font30 { font-size: 30px; }
 
 .margin-left5 { margin-left: 5px; }
 .margin-left15 { margin-left: 15px; }
-.margin-left25 { margin-left: 25px; }
-.margin-left30 { margin-left: 30px; }
-.margin-left40 { margin-left: 40px; }
-.margin-left50 { margin-left: 50px; }
-.margin-left60 { margin-left: 60px; }
-.margin-left70 { margin-left: 70px; }
-.margin-left90 { margin-left: 90px; }
 
 .margin-top5 { margin-top: 5px; }
 .margin-top15 { margin-top: 15px; }
 .margin-top25 { margin-top: 25px; }
 .margin-top30 { margin-top: 30px; }
 .margin-top40 { margin-top: 40px; }
-.margin-top50 { margin-top: 50px; }
 .margin-top60 { margin-top: 60px; }
-.margin-top70 { margin-top: 70px; }
-.margin-top90 { margin-top: 90px; }
-.margin-minus30 { margin-top: -30px; }
-.margin-minus40 { margin-top: -40px; }
-.margin-minus50 { margin-top: -50px; }
 .margin-minus60 { margin-top: -60px; }
 
 .margin-right5 { margin-right: 5px; }
 .margin-right15 { margin-right: 15px; }
 .margin-right25 { margin-right: 25px; }
-.margin-right30 { margin-right: 30px; }
-.margin-right40 { margin-right: 40px; }
-.margin-right50 { margin-right: 50px; }
-.margin-right60 { margin-right: 60px; }
-.margin-right70 { margin-right: 70px; }
-.margin-right90 { margin-right: 90px; }
 
 .margin-bottom25 { margin-bottom: 25px; }
 .margin-bottom30 { margin-bottom: 30px; }
 .margin-bottom40 { margin-bottom: 40px; }
-.margin-bottom50 { margin-bottom: 50px; }
-.margin-bottom60 { margin-bottom: 60px; }
-.margin-bottom70 { margin-bottom: 70px; }
-.margin-bottom90 { margin-bottom: 90px; }
 .margin-auto { margin: 0 auto; }
 
 .padding-left5 { padding-left: 5px; }
 .padding-left25 { padding-left: 25px; }
 .padding-left30 { padding-left: 30px; }
 .padding-left40 { padding-left: 40px; }
-.padding-left50 { padding-left: 50px; }
-.padding-left60 { padding-left: 60px; }
-.padding-left70 { padding-left: 70px; }
-.padding-left90 { padding-left: 90px; }
 
 .padding-top5 { padding-top: 5px; }
 .padding-top25 { padding-top: 25px; }
 .padding-top30 { padding-top: 30px; }
 .padding-top40 { padding-top: 40px; }
 .padding-top50 { padding-top: 50px; }
-.padding-top60 { padding-top: 60px; }
-.padding-top70 { padding-top: 70px; }
-.padding-top90 { padding-top: 90px; }
 
 .padding-right5 { padding-right: 5px; }
 .padding-right25 { padding-right: 25px; }
 .padding-right30 { padding-right: 30px; }
 .padding-right40 { padding-right: 40px; }
-.padding-right50 { padding-right: 50px; }
-.padding-right60 { padding-right: 60px; }
-.padding-right70 { padding-right: 70px; }
-.padding-right90 { padding-right: 90px; }
 
 .padding-bottom5 { padding-bottom: 5px; }
 .padding-bottom25 { padding-bottom: 25px; }
 .padding-bottom30 { padding-bottom: 30px; }
-.padding-bottom40 { padding-bottom: 40px; }
-.padding-bottom50 { padding-bottom: 50px; }
 .padding-bottom60 { padding-bottom: 60px; }
-.padding-bottom70 { padding-bottom: 70px; }
-.padding-bottom90 { padding-bottom: 90px; }
 
 .pos-left0 { left: 0; }
 .pos-left5 { left: 5px; }
@@ -547,7 +504,6 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .pos-right15 { right: 15px; }
 .pos-right20 { right: 20px; }
 .pos-right45 { right: 45px; }
-.pos-right55 { right: 55px; }
 
 .pos-top0 { top: 0; }
 .pos-top10 { top: 10px; }
@@ -921,7 +877,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 
 /* dealer icons */
 .dealership-loc-icon {
-    width: 10px;
+    width: 12px;
     height: 15px;
     background-position: -40px -435px;
     position: relative;
@@ -935,7 +891,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     top: 2px;
 }
 .dealership-address, .details-column {
-    width: 87%;
+    width: 92%;
 }
 
 /* recent search dropdown */
@@ -1193,9 +1149,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     }
     .article-stats-content.video-view-count, .article-stats-content { width:70%; }
     #makeVideosContent .article-stats-content.video-view-count { width: 68%; }
-    .dealer-horizontal-swiper .swiper-slide, .dealer-horizontal-swiper .swiper-card {
-        width: 265px;
-    }    
+        
     .model-more-info-section .bike-details-block {
         width: 62%;
     }

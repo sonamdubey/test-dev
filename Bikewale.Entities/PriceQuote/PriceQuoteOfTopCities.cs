@@ -8,6 +8,8 @@ namespace Bikewale.Entities.PriceQuote
     public class PriceQuoteOfTopCities
     {
         [DataMember]
+        public uint CityId { get; set; }
+        [DataMember]
         public string CityName { get; set; }
         [DataMember]
         public string CityMaskingName { get; set; }
