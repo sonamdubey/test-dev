@@ -27,7 +27,7 @@ namespace Bikewale.Models
 
         #region Public members
 
-        public UpcomingBikesListInputEntity Filters { get; set; }
+        private UpcomingBikesListInputEntity filters;
         public EnumUpcomingBikesFilter SortBy { get; set; }
         public int PageSize { get; set; }
         public string BaseUrl { get; set; }
@@ -36,17 +36,22 @@ namespace Bikewale.Models
 
         #region Constructor
 
-        public UpcomingPageModel(uint topbrandCount, ushort pageNumber, int pageSize, IUpcoming upcoming, INewBikeLaunchesBL newLaunches)
+        public UpcomingPageModel(uint topbrandCount, ushort? pageNumber, int pageSize, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, string baseUrl)
         {
             _upcoming = upcoming;
-            _pageNumber = pageNumber;
+
+            if (pageNumber.HasValue)
+                _pageNumber = (ushort)pageNumber;
+            else
+                _pageNumber = 1;
+
             _newLaunches = newLaunches;
             _topBrandsCount = topbrandCount;
-            Filters = new UpcomingBikesListInputEntity();
-            Filters.PageSize = pageSize;
+            filters = new UpcomingBikesListInputEntity();
+            filters.PageSize = pageSize;
             SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
-            BaseUrl = "/upcoming-bikes/";
-            PageSize = 15;
+            BaseUrl = baseUrl;
+            PageSize = pageSize;
         }
         #endregion
 
@@ -64,11 +69,11 @@ namespace Bikewale.Models
             try
             {
                 BindPageMetaTags(objUpcoming.PageMetaTags);
-                var upcomingBikes = _upcoming.GetModels(Filters, SortBy);
+                var upcomingBikes = _upcoming.GetModels(filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(_topBrandsCount);
                 objUpcoming.NewLaunches = new NewLaunchedWidgetModel(9, _newLaunches).GetData();
-                Filters.PageNo = _pageNumber;
-                UpcomingBikeResult bikeResult = _upcoming.GetBikes(Filters, SortBy);
+                filters.PageNo = _pageNumber;
+                UpcomingBikeResult bikeResult = _upcoming.GetBikes(filters, SortBy);
                 objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
                 objUpcoming.TotalBikes = bikeResult.TotalCount;
                 //objUpcoming.NewLaunches.PageCatId = 1;

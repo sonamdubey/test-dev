@@ -18,7 +18,7 @@ namespace Bikewale.Models.Upcoming
         private IUpcoming _upcoming = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         public uint topbrandCount { get; set; }
-        private EnumUpcomingBikesFilter filter = EnumUpcomingBikesFilter.Default;
+        private UpcomingBikesListInputEntity filters;
         private readonly ushort _pageNumber;
         private readonly string _makeMaskingName;
 
@@ -26,7 +26,6 @@ namespace Bikewale.Models.Upcoming
 
         #region Public members
 
-        public UpcomingBikesListInputEntity Filters { get; set; }
         public EnumUpcomingBikesFilter SortBy { get; set; }
         public int PageSize { get; set; }
         public string BaseUrl { get; set; }
@@ -39,13 +38,27 @@ namespace Bikewale.Models.Upcoming
 
         #region Constructor
 
-        public UpcomingByMakePageModel(string makeMaskingName, IUpcoming upcoming, ushort pageNumber, INewBikeLaunchesBL newLaunches)
+        public UpcomingByMakePageModel(string makeMaskingName, IUpcoming upcoming, ushort? pageNumber, int pageSize, INewBikeLaunchesBL newLaunches, string baseUrl)
         {
             _upcoming = upcoming;
-            _pageNumber = pageNumber;
+
+            if (pageNumber.HasValue)
+                _pageNumber = (ushort)pageNumber;
+            else
+                _pageNumber = 1;
+
+            filters = new UpcomingBikesListInputEntity();
+            filters.PageSize = pageSize;
+
+            SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
+            BaseUrl = baseUrl;
+            PageSize = pageSize;
+
             _newLaunches = newLaunches;
             _makeMaskingName = makeMaskingName;
             ProcessQueryString();
+
+            filters.MakeId = (int)MakeId;
         }
         #endregion
 
@@ -64,11 +77,11 @@ namespace Bikewale.Models.Upcoming
             {
                 objUpcoming.Make = new MakeHelper().GetMakeNameByMakeId(MakeId);
                 BindPageMetaTags(objUpcoming.PageMetaTags, _makeMaskingName, objUpcoming.Make.MakeName);
-                var upcomingBikes = _upcoming.GetModels(Filters, SortBy);
+                var upcomingBikes = _upcoming.GetModels(filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(topbrandCount);
-                objUpcoming.NewLaunches = new NewLaunchedWidgetModel(MakeId,9, _newLaunches).GetData();
-                Filters.PageNo = _pageNumber;
-                UpcomingBikeResult bikeResult = _upcoming.GetBikes(Filters, SortBy);
+                objUpcoming.NewLaunches = new NewLaunchedWidgetModel(MakeId, 9, _newLaunches).GetData();
+                filters.PageNo = _pageNumber;
+                UpcomingBikeResult bikeResult = _upcoming.GetBikes(filters, SortBy);
                 objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
                 objUpcoming.TotalBikes = bikeResult.TotalCount;
                 objUpcoming.NewLaunches.PQSourceId = (uint)PQSourceEnum.Desktop_UpcomiingBikes_NewLaunchesWidget;
