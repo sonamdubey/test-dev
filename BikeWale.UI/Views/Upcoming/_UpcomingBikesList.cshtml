@@ -2,7 +2,7 @@
 @{
     ushort i = 0;
 }
-@if (Model != null)
+@if (Model != null && Model.HasBikes)
 {
     <div class="content-box-shadow">
         <div class="padding-right20 padding-left20">
@@ -41,40 +41,39 @@
             </div>
         </div>
 
-        @if (Model.HasBikes)
-        {
-            <div class="upcoming-bikes-wrapper" data-bind=" visible:TotalBikes() > 0">
-                <!-- ko if : models() && models().length > 0 -->
-                <ul class="bike-listing-horizontal" data-bind="visible : (!noBikes() && TotalBikes() !== 0), css: IsLoading() ? 'loader-active' : '' ">
-                    @foreach (var bike in Model.UpcomingBikeModels)
-                    {
+
+        <div class="upcoming-bikes-wrapper" data-bind=" visible:TotalBikes() > 0">
+            <!-- ko if : models() && models().length > 0 -->
+            <ul class="bike-listing-horizontal" data-bind="visible : (!noBikes() && TotalBikes() !== 0), css: IsLoading() ? 'loader-active' : '' ">
+                @foreach (var bike in Model.UpcomingBikeModels)
+                {
                         <!-- ko if : models()[@i] -->
-                        <li class="list-item">
-                            <div class="launching-label">
-                                <p class="border-red-left font12 text-bold margin-bottom10 margin-left10" style="display: @(bike.IsLaunchingThisMonth ? "block" : "none")" data-bind="visible: models()[@i].isLaunchingThisMonth, text: 'Launching this month'">Launching this month</p>
+                    <li class="list-item">
+                        <div class="launching-label">
+                            <p class="border-red-left font12 text-bold margin-bottom10 margin-left10" style="display: @(bike.IsLaunchingThisMonth ? "block" : "none")" data-bind="visible: models()[@i].isLaunchingThisMonth, text: 'Launching this month'">Launching this month</p>
+                        </div>
+                        <a href="@string.Format("/{0}-bikes/{1}", bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bike.MakeBase.MakeName @bike.ModelBase.ModelName" class="block" data-bind="attr : {'href' : '/' + models()[@i].makeBase.maskingName + '-bikes/' + models()[@i].modelBase.maskingName + '/',title :models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName  }">
+                            <div class="model-jcarousel-image-preview">
+                                <img data-bind="attr : { 'src' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' )},'alt' : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName,'title' : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" alt="@bike.MakeBase.MakeName @bike.ModelBase.ModelName">
                             </div>
-                            <a href="@string.Format("/{0}-bikes/{1}", bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bike.MakeBase.MakeName @bike.ModelBase.ModelName" class="block" data-bind="attr : {'href' : '/' + models()[@i].makeBase.maskingName + '-bikes/' + models()[@i].modelBase.maskingName + '/',title :models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName  }">
-                                <div class="model-jcarousel-image-preview">
-                                    <img data-bind="attr : { 'src' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' )},'alt' : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName,'title' : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" alt="@bike.MakeBase.MakeName @bike.ModelBase.ModelName">
-                                </div>
-                                <div class="card-desc-block">
-                                    <h3 class="bikeTitle" data-bind="text : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName ">@bike.MakeBase.MakeName @bike.ModelBase.ModelName</h3>
-                                    <p class="key-size-14 text-truncate">Expected launch</p>
-                                    <span class="value-size-16" data-bind="formatDate : models()[@i].expectedLaunchedDate">@Convert.ToDateTime(bike.ExpectedLaunchDate).ToString("MMMM yyyy")</span>
-                                    <p class="key-size-14 text-truncate margin-top10">Expected price</p>
-                                    <span class="bwsprite inr-lg"></span>&nbsp;
-                                    <span class="value-size-18" data-bind="CurrencyText : models()[@i].estimatedPriceMin ">@(bike.EstimatedPriceMin > 0 ? Bikewale.Common.CommonOpn.FormatNumeric(Convert.ToString(bike.EstimatedPriceMin)) : "N/A")</span>&nbsp;
-                                    <span class="value-size-14">onwards</span>
-                                </div>
-                            </a>
-                        </li>
+                            <div class="card-desc-block">
+                                <h3 class="bikeTitle" data-bind="text : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName ">@bike.MakeBase.MakeName @bike.ModelBase.ModelName</h3>
+                                <p class="key-size-14 text-truncate">Expected launch</p>
+                                <span class="value-size-16" data-bind="formatDate : models()[@i].expectedLaunchedDate">@Convert.ToDateTime(bike.ExpectedLaunchDate).ToString("MMMM yyyy")</span>
+                                <p class="key-size-14 text-truncate margin-top10">Expected price</p>
+                                <span class="bwsprite inr-lg"></span>&nbsp;
+                                <span class="value-size-18" data-bind="CurrencyText : models()[@i].estimatedPriceMin ">@(bike.EstimatedPriceMin > 0 ? Bikewale.Common.CommonOpn.FormatNumeric(Convert.ToString(bike.EstimatedPriceMin)) : "N/A")</span>&nbsp;
+                                <span class="value-size-14">onwards</span>
+                            </div>
+                        </a>
+                    </li>
                         <!-- /ko -->
-                        i++;
-                    }
-                </ul>
-                <!-- /ko -->
-            </div>
-        }
+                    i++;
+                }
+            </ul>
+            <!-- /ko -->
+        </div>
+
 
         <div class="text-center" style="display: @(Model.HasPages ? "none" : "block")" data-bind="visible:noBikes() || TotalBikes()==0">
             <div id="nobike" data-bind="visible : noBikes()">
