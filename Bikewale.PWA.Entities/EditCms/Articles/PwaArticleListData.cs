@@ -1,4 +1,6 @@
-﻿namespace Bikewale.Entities.PWA.Articles
+﻿using System.Collections.Generic;
+
+namespace Bikewale.Entities.PWA.Articles
 {
     public class PwaReduxStore
     {
@@ -48,7 +50,7 @@
 
     public class PwaNewBikesListData
     {
-    //    List<BikeInfo> NewBikesList { get; set; }
+        public List<PwaBikeNews> NewBikesList { get; set; }
     }
 
     public class PwaNewsDetailReducer
@@ -56,15 +58,22 @@
         public PwaArticleDetailData ArticleDetailData { get; set; }
         public PwaNewBikesListData NewBikesListData { get; set; }
         public PwaRelatedModelObject RelatedModelObject { get; set; }
+
+        public PwaNewsDetailReducer()
+        {
+            ArticleDetailData = new PwaArticleDetailData();
+            NewBikesListData = new PwaNewBikesListData();
+            RelatedModelObject = new PwaRelatedModelObject();
+        }
     }
 
     public class PwaArticleDetailData
     {
-    //    public PwaArticleDetail ArticleDetail { get; set; }
+        public PwaArticleDetails ArticleDetail { get; set; }
     }
 
     public class PwaRelatedModelObject
     {
-     //   public PwaModelObject ModelObject { get; set; }
-    } 
+        public PwaBikeInfo ModelObject { get; set; }
+    }
 }

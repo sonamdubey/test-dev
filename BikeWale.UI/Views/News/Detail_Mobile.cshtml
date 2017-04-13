@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.NewsDetailPageVM
+@using System.Web.Script.Serialization
 @using Bikewale.Utility
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/details.css' />";
@@ -6,7 +7,7 @@
 }
 <section>
     @if(Model!=null){ 
-    <div class="container box-shadow bg-white section-bottom-margin">
+    @*<div class="container box-shadow bg-white section-bottom-margin">
         <div class="box-shadow article-head padding-15-20">
 
             <h1 class="margin-bottom10">@Model.ArticleDetails.Title</h1>
@@ -77,11 +78,27 @@
                 <div class="clear"></div>
             </div>
         </div>
-    </div>
+    </div>*@
+        @Html.React("ServerRouterWrapper", new
+   {
+       Url = Model.ReduxStore.NewsReducer.NewsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl,
+       ArticleDetailData = Model.ReduxStore.NewsReducer.NewsDetailReducer.ArticleDetailData,
+       RelatedModelObject = Model.ReduxStore.NewsReducer.NewsDetailReducer.RelatedModelObject,
+       NewBikesListData= Model.ReduxStore.NewsReducer.NewsDetailReducer.NewBikesListData
+
+   }, containerId: "root")
+
+        <script type="text/javascript">
+        window.state = @Html.Raw(new JavaScriptSerializer().Serialize(Model.ReduxStore))
+        </script>
+
+
+        <script src="@Url.Content("../../Scripts/vendor.bundle.js")" defer></script>
+        <script src="@Url.Content("../../Scripts/app.bundle.js")" defer></script>
     } 
 </section>
 
-@if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
+@*@if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
 {
     <section>
         <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
@@ -168,4 +185,4 @@ else
             window.open(url, '_blank');
         });
     });
-</script>
+</script>*@

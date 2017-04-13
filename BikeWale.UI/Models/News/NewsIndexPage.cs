@@ -107,8 +107,8 @@ namespace Bikewale.Models
                 objData.ReduxStore = new PwaReduxStore();
                 var tempStoreArticleList = objData.ReduxStore.NewsReducer.NewsArticleListReducer.ArticleListData.ArticleList;
                 tempStoreArticleList.Articles = ConverterUtility.MapArticleSummaryListToPwaArticleSummaryList(objData.Articles.Articles);
-                tempStoreArticleList.EndIndex = (uint)_startIndex;
-                tempStoreArticleList.StartIndex = (uint)(_endIndex > objData.Articles.RecordCount ? Convert.ToInt32(objData.Articles.RecordCount) : _endIndex);
+                tempStoreArticleList.StartIndex = (uint)_startIndex;
+                tempStoreArticleList.EndIndex = (uint)(_endIndex > objData.Articles.RecordCount ? Convert.ToInt32(objData.Articles.RecordCount) : _endIndex);
                 tempStoreArticleList.RecordCount = (uint)objData.Articles.RecordCount;
 
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
@@ -120,6 +120,7 @@ namespace Bikewale.Models
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData);
                     GetWidgetData(objData, widgetTopCount);
+                    PopulateStoreForWidgetData(objData);
                 }
                 else
                 {
@@ -131,6 +132,36 @@ namespace Bikewale.Models
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.News.NewsIndexPage.GetData");
             }
             return objData;
+        }
+
+        private void PopulateStoreForWidgetData(NewsIndexPageVM objData)
+        {
+            List<PwaBikeNews> objPwaBikeNews = new List<PwaBikeNews>();            
+            if (objData.MostPopularBikes != null && objData.MostPopularBikes.Bikes != null)
+            {
+                PwaBikeNews popularBikes = new PwaBikeNews();
+                popularBikes.Heading = "Popular bikes";
+                popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
+                popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
+                popularBikes.CompleteListUrlLabel = "View all";
+                popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objData.MostPopularBikes.Bikes, currentCityArea.City);
+
+                objPwaBikeNews.Add(popularBikes);
+            }
+
+            if (objData.UpcomingBikes != null && objData.UpcomingBikes.UpcomingBikes != null)
+            {
+                PwaBikeNews upcomingBikes = new PwaBikeNews();
+                upcomingBikes.Heading = "Upcoming bikes";
+                upcomingBikes.CompleteListUrl = "/m/upcoming-bikes/";
+                upcomingBikes.CompleteListUrlAlternateLabel = "Upcoming Bikes in India";
+                upcomingBikes.CompleteListUrlLabel = "View all";
+                upcomingBikes.BikesList = ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails(objData.UpcomingBikes.UpcomingBikes
+                    , currentCityArea.City);
+                objPwaBikeNews.Add(upcomingBikes);
+            }
+
+            objData.ReduxStore.NewsReducer.NewsArticleListReducer.NewBikesListData.NewBikesList = objPwaBikeNews;
         }
 
         /// <summary>

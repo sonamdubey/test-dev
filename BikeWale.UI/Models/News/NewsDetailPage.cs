@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -10,6 +11,7 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
 using Bikewale.Notifications;
+using Bikewale.PWA.UI.Utilities;
 using Bikewale.Utility;
 using System;
 using System.Linq;
@@ -112,6 +114,14 @@ namespace Bikewale.Models
                     GetTaggedBikeListByModel(objData);
                     SetPageMetas(objData);
                     GetWidgetData(objData,widgetTopCount);
+
+                    if (objData.Model.ModelId != ModelId)
+                        objData.Model.ModelId = (int)ModelId;
+                    objData.ReduxStore = new PwaReduxStore();
+                    var newsDetailReducer = objData.ReduxStore.NewsReducer.NewsDetailReducer;
+                    newsDetailReducer.ArticleDetailData.ArticleDetail= ConverterUtility.MapArticleDetailsToPwaArticleDetails(objData.ArticleDetails);
+                    newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapNewBikeListToPwaNewBikeList(objData,currentCityArea.City);
+                    newsDetailReducer.RelatedModelObject.ModelObject = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(objData.BikeInfo);
                 }
                 else
                     status = StatusCodes.ContentNotFound;
