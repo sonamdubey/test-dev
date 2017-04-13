@@ -65,7 +65,7 @@ h1,
   margin-bottom: 10px; }
 
 .answer-list li {
-  float: left;
+  float: left !important;
   color: #82888b;
   margin: 4px 8px 4px 0;
   padding: 5px 14px;
@@ -133,7 +133,8 @@ h1,
 
 .detailed-question-list .item-rating-list li {
   margin-right: 4px;
-  margin-left: 4px; }
+  margin-left: 4px;
+  float: right; }
 
 .detailed-question-list .answer-list li {
   margin-right: 6px;
@@ -144,6 +145,9 @@ h1,
   position: relative;
   top: 1px;
   color: #4d5057; }
+
+.detailed-question-list .star-one-active ~ li .star-zero {
+  background-position: 0 -278px; }
 
 #rate-bike-form {
   -webkit-tap-highlight-color: transparent; }
@@ -212,7 +216,8 @@ h1,
 .star-zero {
   background-position: 0 -308px; }
 
-.star-one {
+.star-one .star-zero,
+.star-one-active .star-zero {
   background-position: 0 -278px; }
 
 .opacity-active .star-zero {

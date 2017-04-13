@@ -1,6 +1,37 @@
 ﻿var userNameField, userEmailIdField;
 var detailedReviewField, reviewTitleField;
 
+var review = [
+    {
+        type: 'star',
+        heading: "Visual Appeal/Looks",
+        description: "Remember, what others thought when they first saw your bike!",
+        rating: ["Terrible!", "It's bad", "Okay", "Excellent", "Gorgeous"],
+        currentlySelected: 0
+    },
+    {
+        type: 'star',
+        heading: "Reliability",
+        description: "Remember, what others thought when they first saw this bike!",
+        rating: ["Unpredictable", "Unreliable", "You can rely!", "Dependable", "Trustworthy"],
+        currentlySelected: 0
+    },
+    {
+        type: 'star',
+        heading: "Performance",
+        description: "Remember, what others thought when they first saw this bike!",
+        rating: ["Very poor", "Poor", "Not bad", "Good", "Excellent"],
+        currentlySelected: 0
+    },
+    {
+        type: 'text',
+        heading: "Maintenance cost",
+        description: "Are regular replacement parts reasonably priced? How much does it cost to fix a broken part?",
+        rating: ["Unreasonably High", "Very High", "High", "Reasonable", "Well priced"],
+        currentlySelected: 0
+    }
+];
+
 docReady(function () {
 
     // slideIn animation
@@ -254,28 +285,8 @@ docReady(function () {
         self.detailedReviewFlag = ko.observable(false);
         self.detailedReviewError = ko.observable('');
         self.focusFormActive = ko.observable(false);
-
-        // optional rating section
-        self.visualAppealCount = ko.observable(0);
-        self.visualAppealFeedback = ko.observable('');
-
-        self.reliabilityCount = ko.observable(0);
-        self.reliabilityFeedback = ko.observable('');
-
-        self.performanceCount = ko.observable(0);
-        self.performanceFeedback = ko.observable('');
-
-        self.serviceExperienceCount = ko.observable(0);
-        self.serviceExperienceFeedback = ko.observable('');
-
-        self.comfortCount = ko.observable(0);
-        self.comfortFeedback = ko.observable('');
-
-        self.maintenanceCount = ko.observable(0);
-        self.valueForMoneyCount = ko.observable(0);
-
-        self.extraFeaturesCount = ko.observable(0);
-        self.extraFeaturesFeedback = ko.observable('');
+        
+        self.feedbackQuestions = ko.observableArray(review);
         
         self.setHeading = function () {
             switch (ratingCount) {
@@ -298,188 +309,27 @@ docReady(function () {
 
         self.setHeading();
 
-        self.setRating = function (data, event) {
-            var element = $(event.target),
-                elementType = element.closest('.item-rating-list').attr('data-list-type');
+        self.setRating = function (parentNodeElement, data, event) {
+            var element = $(event.currentTarget),
+                elementCount = Number(element.attr('data-count')),
+                elementParent = element.closest('ul');
 
-            switch (elementType) {
-                case "visualAppeal":
-                    self.visualAppealCount(Number(element.attr('data-count')));
-                    self.setFeedback.visualAppeal();
-                    break;
-                case "reliability":
-                    self.reliabilityCount(Number(element.attr('data-count')));
-                    self.setFeedback.reliability();
-                    break;
-                case "performance":
-                    self.performanceCount(Number(element.attr('data-count')));
-                    self.setFeedback.performance();
-                    break;
-                case "serviceExperience":
-                    self.serviceExperienceCount(Number(element.attr('data-count')));
-                    self.setFeedback.serviceExperience();
-                    break;
-                case "comfort":
-                    self.comfortCount(Number(element.attr('data-count')));
-                    self.setFeedback.comfort();
-                    break;
-                case "extraFeatures":
-                    self.extraFeaturesCount(Number(element.attr('data-count')));
-                    self.setFeedback.extraFeatures();
-                    break;
-                default:
-                    break;
-            }
+            element.closest('.list-item').find('.feedback-text').text(data);
+            parentNodeElement.currentlySelected = elementCount;
+
+            elementParent.find('li').removeClass('star-one-active');
+            element.addClass('star-one-active');
         };
 
-        self.setMaintenanceCost = function (data, event) {
-            var element = $(event.target),
-                elementValue = Number(element.attr('data-value'));
+        self.setButtonSelection = function (parentElement, data, event) {
+            var element = $(event.currentTarget),
+                elementCount = Number(element.attr('data-count')),
+                elementParent = element.closest('ul');
 
-            answer.selection(element);
-            self.maintenanceCount(elementValue);
-        };
+            parentElement.currentlySelected = elementCount;
 
-        self.setValueForMoney = function (data, event) {
-            var element = $(event.target),
-                elementValue = Number(element.attr('data-value'));
-
-            answer.selection(element);
-            self.valueForMoneyCount(elementValue);
-        };
-
-        self.setFeedback = {
-            visualAppeal: function () {
-                switch (self.visualAppealCount()) {
-                    case 1:
-                        self.visualAppealFeedback("Terrible!");
-                        break;
-                    case 2:
-                        self.visualAppealFeedback("It's bad");
-                        break;
-                    case 3:
-                        self.visualAppealFeedback("Okay");
-                        break;
-                    case 4:
-                        self.visualAppealFeedback("Excellent");
-                        break;
-                    case 5:
-                        self.visualAppealFeedback("Gorgeous");
-                        break;
-                    default:
-                        break;
-                }
-            },
-
-            reliability: function () {
-                switch (self.reliabilityCount()) {
-                    case 1:
-                        self.reliabilityFeedback("Unpredictable");
-                        break;
-                    case 2:
-                        self.reliabilityFeedback("Unreliable");
-                        break;
-                    case 3:
-                        self.reliabilityFeedback("You can rely!");
-                        break;
-                    case 4:
-                        self.reliabilityFeedback("Dependable");
-                        break;
-                    case 5:
-                        self.reliabilityFeedback("Trustworthy");
-                        break;
-                    default:
-                        break;
-                }
-            },
-
-            performance: function () {
-                switch (self.performanceCount()) {
-                    case 1:
-                        self.performanceFeedback("Very poor");
-                        break;
-                    case 2:
-                        self.performanceFeedback("Poor");
-                        break;
-                    case 3:
-                        self.performanceFeedback("Not bad");
-                        break;
-                    case 4:
-                        self.performanceFeedback("Good");
-                        break;
-                    case 5:
-                        self.performanceFeedback("Excellent");
-                        break;
-                    default:
-                        break;
-                }
-            },
-
-            serviceExperience: function () {
-                switch (self.serviceExperienceCount()) {
-                    case 1:
-                        self.serviceExperienceFeedback("Very poor");
-                        break;
-                    case 2:
-                        self.serviceExperienceFeedback("Poor");
-                        break;
-                    case 3:
-                        self.serviceExperienceFeedback("It was okay!");
-                        break;
-                    case 4:
-                        self.serviceExperienceFeedback("It was good!");
-                        break;
-                    case 5:
-                        self.serviceExperienceFeedback("Awesome!");
-                        break;
-                    default:
-                        break;
-                }
-            },
-
-            comfort: function () {
-                switch (self.comfortCount()) {
-                    case 1:
-                        self.comfortFeedback("It's tough");
-                        break;
-                    case 2:
-                        self.comfortFeedback("Not comfortable");
-                        break;
-                    case 3:
-                        self.comfortFeedback("Can live with it!");
-                        break;
-                    case 4:
-                        self.comfortFeedback("Comfortable");
-                        break;
-                    case 5:
-                        self.comfortFeedback("Very comfortable");
-                        break;
-                    default:
-                        break;
-                }
-            },
-
-            extraFeatures: function () {
-                switch (self.extraFeaturesCount()) {
-                    case 1:
-                        self.extraFeaturesFeedback("Useless");
-                        break;
-                    case 2:
-                        self.extraFeaturesFeedback("Not useful");
-                        break;
-                    case 3:
-                        self.extraFeaturesFeedback("Rarely useful");
-                        break;
-                    case 4:
-                        self.extraFeaturesFeedback("Fairly useful");
-                        break;
-                    case 5:
-                        self.extraFeaturesFeedback("Very useful");
-                        break;
-                    default:
-                        break;
-                }
-            }
+            element.siblings().removeClass('active');
+            element.addClass('active');
         };
 
         self.submitReview = function () {
