@@ -97,6 +97,7 @@
     <Compile Include="Shared\PopularScootersList.cs" />
     <Compile Include="Shared\Showrooms.cs" />
     <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
+    <Compile Include="Upcoming\UpcomingPageVM.cs" />
     <Compile Include="Videos\MakeVideosPageVM.cs" />
     <Compile Include="Videos\ModelWiseVideoPageVM.cs" />
     <Compile Include="Videos\SimilarVideoModelsVM.cs" />

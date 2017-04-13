@@ -144,6 +144,7 @@
     <Compile Include="BikeData\SpecsCategory.cs" />
     <Compile Include="BikeData\TransposeModelSpecEntity.cs" />
     <Compile Include="BikeData\UpcomingBikeEntity.cs" />
+    <Compile Include="BikeData\UpcomingBikeResult.cs" />
     <Compile Include="BikeData\UpcomingBikesListInputEntity.cs" />
     <Compile Include="BikeData\UsedBikeMakeEntity.cs" />
     <Compile Include="BikeData\VersionColor.cs" />

@@ -194,8 +194,8 @@ namespace Bikewale.Models
             UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
             objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
             {
-                EndIndex = 9,
-                StartIndex = 1,
+                PageSize = 9,
+                PageNo = 1,
                 MakeId = (int)this._makeId
             };
             objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;

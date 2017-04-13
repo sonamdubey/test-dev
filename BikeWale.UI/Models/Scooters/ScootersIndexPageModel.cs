@@ -123,7 +123,7 @@ namespace Bikewale.Models
             try
             {
                 var upcoming = new UpcomingBikesWidget(_upcoming);
-                upcoming.Filters = new UpcomingBikesListInputEntity() { EndIndex = 9, StartIndex = 1, BodyStyleId = 5 };
+                upcoming.Filters = new UpcomingBikesListInputEntity() { PageSize = 9, PageNo = 1, BodyStyleId = 5 };
                 upcoming.SortBy = EnumUpcomingBikesFilter.Default;
                 objVM.Upcoming = upcoming.GetData();
             }

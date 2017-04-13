@@ -1,8 +1,9 @@
 ﻿using Bikewale.DTO.BikeData;
+using Bikewale.DTO.BikeData.Upcoming;
 using Bikewale.DTO.Make;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Pager;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.BikeData;
 using Bikewale.Service.AutoMappers.Make;
@@ -25,11 +26,13 @@ namespace Bikewale.Service.Controllers.BikeData
     {
         private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _makeRepository = null;
+        private readonly IUpcoming _upcomingBL = null;
 
-        public UpcomingBikeController( IBikeMakes<BikeMakeEntity, int> makeRepository, IBikeModelsCacheRepository<int> modelCacheRepository)
+        public UpcomingBikeController(IBikeMakes<BikeMakeEntity, int> makeRepository, IBikeModelsCacheRepository<int> modelCacheRepository, IUpcoming upcomingBL)
         {
             _makeRepository = makeRepository;
             _modelCacheRepository = modelCacheRepository;
+            _upcomingBL = upcomingBL;
         }
 
         #region GetUpcomingBikeList PopulateWhere
@@ -107,6 +110,48 @@ namespace Bikewale.Service.Controllers.BikeData
                 return InternalServerError();
             }
             return NotFound();
+        }
+
+
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 10-04-2017
+        /// Description :   API to return Upcoming bikes
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        [HttpGet, ResponseType(typeof(UpcomingBikeResultDTO)), Route("api/upcoming/")]
+        public IHttpActionResult Get([FromUri]InputFilterDTO filter)
+        {
+            try
+            {
+                if (ModelState.IsValid && filter != null)
+                {
+                    UpcomingBikesListInputEntity filterEntity = UpcomingBikeListMapper.Convert(filter);
+
+                    var bikesResult = _upcomingBL.GetBikes(filterEntity, EnumUpcomingBikesFilter.LaunchDateSooner);
+
+
+
+                    if (bikesResult.TotalCount > 0)
+                    {
+                        UpcomingBikeResultDTO dto = UpcomingBikeListMapper.Convert(bikesResult);
+                        return Ok(dto);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass error = new ErrorClass(ex, String.Format("NewLaunchedBikeController.Get({0})", filter));
+                return InternalServerError();
+            }
         }
     }
 }
