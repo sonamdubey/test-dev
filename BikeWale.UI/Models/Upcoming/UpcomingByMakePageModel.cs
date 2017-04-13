@@ -18,7 +18,7 @@ namespace Bikewale.Models.Upcoming
         private IUpcoming _upcoming = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         public uint topbrandCount { get; set; }
-        private UpcomingBikesListInputEntity filters;
+        private UpcomingBikesListInputEntity _filters;
         private readonly ushort _pageNumber;
         private readonly string _makeMaskingName;
 
@@ -47,8 +47,9 @@ namespace Bikewale.Models.Upcoming
             else
                 _pageNumber = 1;
 
-            filters = new UpcomingBikesListInputEntity();
-            filters.PageSize = pageSize;
+            _filters = new UpcomingBikesListInputEntity();
+            _filters.PageSize = pageSize;
+            _filters.PageNo = _pageNumber;
 
             SortBy = EnumUpcomingBikesFilter.LaunchDateSooner;
             BaseUrl = baseUrl;
@@ -58,18 +59,17 @@ namespace Bikewale.Models.Upcoming
             _makeMaskingName = makeMaskingName;
             ProcessQueryString();
 
-            filters.MakeId = (int)MakeId;
+            _filters.MakeId = (int)MakeId;
         }
+
         #endregion
 
         #region Functions
 
         /// <summary>
-        /// Gets the data.
-        /// </summary>
-        /// <returns>
         /// Created by : Sangram Nandkhile on 07-Apr-2017 
-        /// </returns>
+        /// Description : Gets the data.
+        /// </summary>
         public UpcomingPageVM GetData()
         {
             UpcomingPageVM objUpcoming = new UpcomingPageVM();
@@ -77,11 +77,11 @@ namespace Bikewale.Models.Upcoming
             {
                 objUpcoming.Make = new MakeHelper().GetMakeNameByMakeId(MakeId);
                 BindPageMetaTags(objUpcoming.PageMetaTags, _makeMaskingName, objUpcoming.Make.MakeName);
-                var upcomingBikes = _upcoming.GetModels(filters, SortBy);
+                var upcomingBikes = _upcoming.GetModels(_filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(topbrandCount);
                 objUpcoming.NewLaunches = new NewLaunchedWidgetModel(MakeId, 9, _newLaunches).GetData();
-                filters.PageNo = _pageNumber;
-                UpcomingBikeResult bikeResult = _upcoming.GetBikes(filters, SortBy);
+
+                UpcomingBikeResult bikeResult = _upcoming.GetBikes(_filters, SortBy);
                 objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
                 objUpcoming.TotalBikes = bikeResult.TotalCount;
                 objUpcoming.NewLaunches.PQSourceId = (uint)PQSourceEnum.Desktop_UpcomiingBikes_NewLaunchesWidget;
@@ -91,13 +91,14 @@ namespace Bikewale.Models.Upcoming
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingByMakePageModel.GetData");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Upcoming.UpcomingByMakePageModel.GetData");
             }
             return objUpcoming;
         }
 
         /// <summary>
-        /// Binds the page meta tags.
+        /// Created by : Sangram Nandkhile on 07-Apr-2017 
+        /// Description : Binds the page meta tags.
         /// </summary>
         /// <param name="pageMetaTags">The page meta tags.</param>
         private void BindPageMetaTags(PageMetaTags pageMetaTags, string makeMaskingName, string makeName)
@@ -113,9 +114,10 @@ namespace Bikewale.Models.Upcoming
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.UpcomingByMakePageModel.BindPageMetaTags");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Upcoming.UpcomingByMakePageModel.BindPageMetaTags");
             }
         }
+
         /// Created by  :   Sumit Kate on 30 Mar 2017
         /// Description :   Binds Pager
         /// </summary>
@@ -134,10 +136,12 @@ namespace Bikewale.Models.Upcoming
                     PageUrlType = "page/",
                     TotalResults = (int)(objUpcoming.TotalBikes)
                 };
+
                 int pages = (int)(objUpcoming.TotalBikes / PageSize);
 
                 if ((objUpcoming.TotalBikes % PageSize) > 0)
                     pages += 1;
+
                 string prevUrl = string.Empty, nextUrl = string.Empty;
                 Paging.CreatePrevNextUrl(pages, BaseUrl, (int)objUpcoming.Pager.PageNo, ref nextUrl, ref prevUrl);
                 objMeta.NextPageUrl = nextUrl;
@@ -145,7 +149,7 @@ namespace Bikewale.Models.Upcoming
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewLaunchedIndexModel.CreatePager()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.Upcoming.UpcomingByMakePageModel.CreatePager()");
             }
         }
 
@@ -163,7 +167,7 @@ namespace Bikewale.Models.Upcoming
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("NewLaunchedMakePageModel.ProcessQueryString({0})", _makeMaskingName));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("Bikewale.Models.Upcoming.UpcomingByMakePageModel.ProcessQueryString({0})", _makeMaskingName));
                 Status = StatusCodes.ContentNotFound;
             }
             finally
