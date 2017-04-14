@@ -11,7 +11,6 @@ namespace Bikewale.Entities.UserReviews
         public UserReviewQuestionDisplayType DisplayType { get; set; }
         public IEnumerable<UserReviewrating> Rating { get; set; }
         public ushort Order { get; set; }
-
     }
 
     public enum UserReviewQuestionDisplayType

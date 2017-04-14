@@ -8,6 +8,7 @@ namespace Bikewale.Entities.UserReviews
         public ushort Value { get; set; }
         public string Description { get; set; }
         public string Heading { get; set; }
+        public string UserReviewHeadingQuestion { get; set; }
     }
 
     public enum UserReviewQuestionType
