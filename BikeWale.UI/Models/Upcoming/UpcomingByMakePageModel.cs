@@ -1,6 +1,7 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -75,16 +76,17 @@ namespace Bikewale.Models.Upcoming
             UpcomingPageVM objUpcoming = new UpcomingPageVM();
             try
             {
+                GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
                 objUpcoming.Make = new MakeHelper().GetMakeNameByMakeId(MakeId);
                 BindPageMetaTags(objUpcoming.PageMetaTags, _makeMaskingName, objUpcoming.Make.MakeName);
                 var upcomingBikes = _upcoming.GetModels(_filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(topbrandCount);
-                objUpcoming.NewLaunches = new NewLaunchedWidgetModel(MakeId, 9, _newLaunches).GetData();
-
+                objUpcoming.NewLaunches = new NewLaunchedWidgetModel(MakeId, location.CityId, 9, _newLaunches).GetData();
+                objUpcoming.NewLaunches.PQSourceId = (uint)PQSourceEnum.Desktop_UpcomiingBikes_NewLaunchesWidget;
                 UpcomingBikeResult bikeResult = _upcoming.GetBikes(_filters, SortBy);
                 objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
                 objUpcoming.TotalBikes = bikeResult.TotalCount;
-                objUpcoming.NewLaunches.PQSourceId = (uint)PQSourceEnum.Desktop_UpcomiingBikes_NewLaunchesWidget;
+
                 objUpcoming.HasBikes = (objUpcoming.UpcomingBikeModels.Count() > 0);
                 objUpcoming.YearsList = _upcoming.GetYearList(MakeId);
                 CreatePager(objUpcoming, objUpcoming.PageMetaTags);
