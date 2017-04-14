@@ -1,0 +1,27 @@
+﻿@model Bikewale.Models.OtherMakesVM
+@if (Model != null && Model.Makes != null) { 
+<div class="jcarousel-wrapper inner-content-carousel brand-type-carousel">
+    <div class="jcarousel">
+        <ul>
+            @foreach (var make in Model.Makes)
+            {
+                <li>
+                    <a href="@make.Href" title="@make.Title" class="jcarousel-card">
+                        <div class="brand-logo-image">
+                            <span class="brand-type">
+                                <span class="brandlogosprite brand-@make.MakeId"></span>
+                            </span>
+                        </div>
+                        <div class="card-desc-block">
+                            <p class="card-heading font14 text-bold text-black padding-top10 border-solid-top">@make.MakeName</p>
+                            <h3 class="text-unbold text-light-grey">@make.Text</h3>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+</div>
+}

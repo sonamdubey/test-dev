@@ -12,6 +12,7 @@ namespace Bikewale.Interfaces.BikeData.UpComing
     {
         IEnumerable<UpcomingBikeEntity> GetModels(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy);
         BrandWidgetVM BindUpcomingMakes(uint topCount);
+        IEnumerable<BikeMakeEntityBase> OtherMakes(uint makeId, int topCount);
         IEnumerable<int> GetYearList();
         IEnumerable<int> GetYearList(uint makeId);
         IEnumerable<BikeMakeEntityBase> GetMakeList();

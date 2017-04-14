@@ -14,6 +14,7 @@ namespace Bikewale.Models
         public BrandWidgetVM Brands { get; set; }
         public NewLaunchedWidgetVM NewLaunches { get; set; }
         public IEnumerable<UpcomingBikeEntity> UpcomingBikeModels { get; set; }
+        public OtherMakesVM OtherMakes { get; set; }
         public bool HasBikes { get; set; }
         public uint TotalBikes { get; set; }
         public IEnumerable<int> YearsList { get; set; }

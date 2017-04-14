@@ -27,6 +27,12 @@
         </div>
     </section>        
 
+                <a href="/m/upcoming-bikes/" title="Upcoming bikes in India" class="btn view-all-target-btn">View all</a>
+                @Html.Partial("~/Views/Make/_OtherMakes_Mobile.cshtml", Model.OtherMakes)
+                <h2>New @Model.Make.MakeName bike launches</h2>
+            </div><div class="swiper-heading-right-grid inline-block text-right">
+              <a href="/m/new-@Model.Make.MaskingName-bike-launches/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all</a>
+        @Html.Partial("~/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunches)
     <div id="sort-filters-loader" style="display: none;">
         <div id="popup-loader"></div>
     </div>

@@ -287,5 +287,41 @@ namespace Bikewale.BAL.BikeData.UpComingBike
             }
             return objBikes;
         }
+
+
+        /// <summary>
+        /// Others the makes.
+        /// </summary>
+        /// <param name="makeId">The make identifier.</param>
+        /// <returns>
+        /// Created by : Sangram Nandkhile on 13-Apr-2017 
+        /// </returns>
+        public IEnumerable<BikeMakeEntityBase> OtherMakes(uint makeId, int topCount)
+        {
+            IEnumerable<BikeMakeEntityBase> makes = null;
+            try
+            {
+                var bikes = _upcomingCacheRepo.GetUpcomingModels();
+                if (bikes != null)
+                {
+                    makes = bikes.GroupBy(y => y.MakeBase.MakeId).
+                        Select(group => new
+                        BikeMakeEntityBase
+                        {
+                            MakeId = group.First().MakeBase.MakeId,
+                            MakeName = group.First().MakeBase.MakeName,
+                            Title = string.Format("Upcoming {0} bikes", group.First().MakeBase.MakeName),
+                            Href = String.Format("/{0}-bikes/upcoming/", group.First().MakeBase.MaskingName),
+                            Text = string.Format("{0} {1}", group.Count().ToString(), group.Count() == 1 ? "bike" : "bikes")
+                        }).Where(x => x.MakeId != makeId).Take(topCount);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "NewBikeLaunchesBL.OtherMakes");
+            }
+            return makes;
+        }
     }   // class
 }   // namespace
