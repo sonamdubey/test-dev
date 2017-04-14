@@ -60,46 +60,48 @@
             <div class="clear"></div>
         </div>
     </section>
-@if (Model.OtherMakes != null)
-{
-    <section>
-        <div class="container section-container">
-            <div class="grid-12 margin-bottom20">
-                <div class="content-box-shadow padding-top20 padding-bottom20">
-                    <div class="carousel-heading-content">
-                        <div class="swiper-heading-left-grid inline-block">
-                            <h2>Upcoming bikes of other brands</h2>
-                        </div>
-                        <div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="/upcoming-bikes/" title="Upcomin bikes in India" class="btn view-all-target-btn">View all</a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    @Html.Partial("~/Views/Make/_OtherMakes.cshtml", Model.OtherMakes)
-                </div>
-            </div>
-        </div>
-    </section>
-}
+    if (Model.OtherMakes != null)
     {
         <section>
-        <div class="container section-bottom-margin">
-            <div class="grid-12">
-                <div class="content-box-shadow padding-top20 padding-bottom20">
-                    <div class="carousel-heading-content">
-                        <div class="swiper-heading-left-grid inline-block">
-                            <h2>New @Model.Make.MakeName bike launches</h2>
+            <div class="container section-container">
+                <div class="grid-12 margin-bottom20">
+                    <div class="content-box-shadow padding-top20 padding-bottom20">
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>Upcoming bikes of other brands</h2>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/upcoming-bikes/" title="Upcomin bikes in India" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
                         </div>
-                        <div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="/new-@string.Format("{0}", Model.Make.MaskingName)-bike-launches/" title="New @Model.Make.MakeName Bike Launches in India" class="btn view-all-target-btn">View all</a>
-                        </div>
-                        <div class="clear"></div>
+                        @Html.Partial("~/Views/Make/_OtherMakes.cshtml", Model.OtherMakes)
                     </div>
-                    @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunches)
                 </div>
             </div>
-            <div class="clear"></div>
-        </div>
-    </section>
+        </section>
+    }
+
+    if (Model.NewLaunches != null)
+    {
+        <section>
+            <div class="container section-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-top20 padding-bottom20">
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>New @Model.Make.MakeName bike launches</h2>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/new-@string.Format("{0}", Model.Make.MaskingName)-bike-launches/" title="New @Model.Make.MakeName Bike Launches in India" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunches)
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
     }
 }
