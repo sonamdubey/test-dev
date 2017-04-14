@@ -20,6 +20,7 @@ using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
+using Bikewale.Cache.MobileVerification;
 using Bikewale.Cache.ServiceCenter;
 using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
@@ -178,6 +179,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>();
             container.RegisterType<INewBikeLaunchesBL, NewBikeLaunchesBL>();
             container.RegisterType<IDealerRepository, DealersRepository>();
+            container.RegisterType<IMobileVerificationCache, MobileVerificationCache>();
             return container;
         }
     }

@@ -4,9 +4,11 @@ using Consumer;
 using RabbitMQ.Client;
 using RabbitMqPublishing;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
+using System.Net.Http;
 using System.Runtime.Serialization.Formatters.Binary;
 namespace Bikewale.RabbitMq.LeadProcessingConsumer
 {
@@ -24,7 +26,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         private IConnection _connetionRabbitMq;
         private IModel _model;
         private QueueingBasicConsumer consumer;
-        private NameValueCollection nvc = null;
+        private NameValueCollection nvc = new NameValueCollection();
         private string _queueName, _hostName;
         public LeadConsumer()
         {
@@ -38,6 +40,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 _RabbitMsgTTL = ConfigurationManager.AppSettings["RabbitMsgTTL"];
                 InitConsumer();
                 _leadProcessor = new LeadProcessor();
+
             }
             catch (Exception ex)
             {
@@ -95,47 +98,89 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     try
                     {
                         nvc = ByteArrayToObject(arg.Body);
-                        uint pqId, dealerId, campaignId;
+                        uint pqId, dealerId, pincodeId, leadSourceId, versionId, cityId;
+                        LeadTypes leadType = default(LeadTypes);
                         if (nvc != null
                             && nvc.HasKeys()
-                            && (!String.IsNullOrEmpty(nvc["inquiryJson"])
-                            && UInt32.TryParse(nvc["pqId"], out pqId)
-                            && pqId > 0
-                            && UInt32.TryParse(nvc["dealerId"], out dealerId)
-                            && dealerId > 0
-                            && UInt32.TryParse(nvc["campaignId"], out campaignId)
-                            && campaignId > 0))
+                            && UInt32.TryParse(nvc["pqId"], out pqId) && pqId > 0
+                            && UInt32.TryParse(nvc["dealerId"], out dealerId) && dealerId > 0
+                            && UInt32.TryParse(nvc["versionId"], out versionId) && versionId > 0
+                            && UInt32.TryParse(nvc["cityId"], out cityId) && cityId > 0
+                            )
                         {
-                            Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}, CampaignId: {2}, inquiryJson: {3} Message received for processing", pqId, dealerId, campaignId, nvc["inquiryJson"]));
-                            if (nvc["iteration"] == _retryCount)
+                            Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1} - Message received for processing", pqId, dealerId));
+
+                            Enum.TryParse(nvc["leadType"], out leadType);
+                            UInt32.TryParse(nvc["pincodeId"], out pincodeId);
+                            UInt32.TryParse(nvc["LeadSourceId"], out leadSourceId);
+
+                            PriceQuoteParametersEntity priceQuote = new PriceQuoteParametersEntity()
                             {
-                                _model.BasicReject(arg.DeliveryTag, false);
-                                Logs.WriteInfoLog(String.Format("{0} Message Rejected because iteration count is {1}", Newtonsoft.Json.JsonConvert.SerializeObject(nvc), nvc["iteration"]));
-                                continue;
-                            }
-                            UInt16 iteration = (UInt16)(nvc["iteration"] == null ? 1 : (UInt16.Parse(nvc["iteration"]) + 1));
-                            if (_leadProcessor.PushLeadToAutoBiz(pqId, dealerId, campaignId, nvc["inquiryJson"], iteration))
+                                CustomerName = nvc["customerName"],
+                                CustomerEmail = nvc["customerEmail"],
+                                CustomerMobile = nvc["customerMobile"],
+                                VersionId = versionId,
+                                DealerId = dealerId,
+                                CityId = cityId,
+                                CampaignId = 0
+                            };
+
+
+                            if (priceQuote != null)
                             {
-                                Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}, CampaignId: {2}, inquiryJson: {3} Message processed successfully", pqId, dealerId, campaignId, nvc["inquiryJson"]));
-                                _model.BasicAck(arg.DeliveryTag, false);
+                                if (nvc["iteration"] == _retryCount)
+                                {
+                                    _model.BasicReject(arg.DeliveryTag, false);
+                                    Logs.WriteInfoLog(String.Format("{0} Message Rejected because iteration count is {1}", Newtonsoft.Json.JsonConvert.SerializeObject(nvc), nvc["iteration"]));
+                                    continue;
+                                }
+
+                                UInt16 iteration = (UInt16)(nvc["iteration"] == null ? 1 : (UInt16.Parse(nvc["iteration"]) + 1));
+
+                                bool success = false;
+                                switch (leadType)
+                                {
+                                    case LeadTypes.Dealer:
+                                        priceQuote = _leadProcessor.GetPriceQuoteDetails(pqId);
+                                        success = PushDealerLead(priceQuote, pqId, iteration);
+                                        break;
+                                    case LeadTypes.Manufacturer:
+                                        success = PushManufacturerLead(priceQuote, pqId, pincodeId, leadSourceId, iteration);
+                                        break;
+                                    default:
+                                        priceQuote = _leadProcessor.GetPriceQuoteDetails(pqId);
+                                        success = PushDealerLead(priceQuote, pqId, iteration);
+                                        break;
+                                }
+
+                                if (success)
+                                {
+                                    Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1} Message processed successfully", pqId, dealerId));
+                                    _model.BasicAck(arg.DeliveryTag, false);
+                                }
+                                else
+                                {
+                                    Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}, Message processed into dead letter queue", pqId, dealerId));
+                                    DeadLetterPublish(nvc, _queueName);
+                                    _model.BasicReject(arg.DeliveryTag, false);
+                                }
                             }
                             else
                             {
-                                Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}, CampaignId: {2}, inquiryJson: {3} Message processed into dead letter queue", pqId, dealerId, campaignId, nvc["inquiryJson"]));
-                                DeadLetterPublish(nvc, ConfigurationManager.AppSettings["QueueName"].ToUpper());
                                 _model.BasicReject(arg.DeliveryTag, false);
+                                Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1} - PriceQuote data is null", pqId, dealerId));
                             }
                         }
                         else
                         {
                             _model.BasicReject(arg.DeliveryTag, false);
-                            Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}, CampaignId: {2}, inquiryJson: {3} Message is invalid", nvc["pqId"], nvc["dealerId"], nvc["campaignId"], nvc["inquiryJson"]));
+                            Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1} Message is invalid", nvc["pqId"], nvc["dealerId"]));
                         }
                     }
                     catch (Exception ex)
                     {
                         _model.BasicReject(arg.DeliveryTag, false);
-                        Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}, CampaignId: {2}, inquiryJson: {3}. Error occured while processing message: Message : {4}", nvc["pqId"], nvc["dealerId"], nvc["campaignId"], nvc["inquiryJson"], ex.Message));
+                        Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}. Error occured while processing message: Message : {2}", nvc["pqId"], nvc["dealerId"], ex.Message));
                     }
                 }
             }
@@ -145,6 +190,83 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 SendMail.HandleException(ex, String.Format("Error in ProcessMessages - {0} - Closed", _applicationName));
             }
         }
+
+        private bool PushManufacturerLead(PriceQuoteParametersEntity priceQuote, uint pqId, uint pincodeId, uint leadSourceId, ushort iteration)
+        {
+            bool isSuccess = false;
+            try
+            {
+                if (priceQuote != null)
+                {
+                    Logs.WriteInfoLog(String.Format("Manufacturer Lead started processing."));
+
+
+                    string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, priceQuote.VersionId, priceQuote.CityId, priceQuote.CampaignId);
+
+                    ManufacturerLeadEntity leadEntity = new ManufacturerLeadEntity()
+                    {
+                        PQId = pqId,
+                        Mobile = priceQuote.CustomerMobile,
+                        Email = priceQuote.CustomerEmail,
+                        Name = priceQuote.CustomerName,
+                        DealerId = priceQuote.DealerId,
+                        PinCodeId = pincodeId,
+                        LeadSourceId = leadSourceId
+
+                    };
+
+
+                    if (_leadProcessor.SaveManufacturerLead(leadEntity))
+                    {
+                        isSuccess = _leadProcessor.PushLeadToAutoBiz(pqId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration);
+
+                        if (priceQuote.DealerId == 21290)
+                        {
+                            Logs.WriteInfoLog(String.Format("Honda gaadi.com  Lead started processing."));
+                            isSuccess = _leadProcessor.PushLeadToGaadi(leadEntity);
+                            Logs.WriteInfoLog(String.Format("Honda gaadi.com  Lead submitted."));
+                        }
+                        else if (priceQuote.DealerId == 20539)
+                        {
+                            Logs.WriteInfoLog(String.Format("Bajaj Finance Lead started processing."));
+                            isSuccess = _leadProcessor.PushLeadToBajajFinance(priceQuote, pqId, pincodeId);
+                            Logs.WriteInfoLog(String.Format("Bajaj Finance Lead submitted."));
+                        }
+                    }
+
+                    Logs.WriteInfoLog(String.Format("Manufacturer Lead submitted."));
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteInfoLog(String.Format("PushManufacturerLead(pqId={0}) : {1}", pqId, ex.Message));
+            }
+
+            return false;
+        }
+
+        private bool PushDealerLead(PriceQuoteParametersEntity priceQuote, uint pqId, ushort iteration)
+        {
+            try
+            {
+                if (priceQuote != null)
+                {
+                    string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, priceQuote.VersionId, priceQuote.CityId, priceQuote.CampaignId);
+                    Logs.WriteInfoLog(String.Format("Dealer Lead : CampaignId = {0}", priceQuote.CampaignId));
+
+                    return (_leadProcessor.PushLeadToAutoBiz(pqId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration));
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteInfoLog(String.Format("PushDealerLead(pqId={0}) : {1}", pqId, ex.Message));
+            }
+
+            return false;
+        }
+
 
         private void consumer_ConsumerCancelled(object sender, RabbitMQ.Client.Events.ConsumerEventArgs args)
         {
@@ -211,6 +333,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     {
         private readonly LeadProcessingRepository _repository = null;
         private readonly TCApi_Inquiry _inquiryAPI = null;
+        private HttpClient _httpClient;
         /// <summary>
         /// Created by  :   Sumit Kate on 24 Feb 2017
         /// Description :   Type Initializer
@@ -219,6 +342,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         {
             _repository = new LeadProcessingRepository();
             _inquiryAPI = new TCApi_Inquiry();
+            _httpClient = new HttpClient();
         }
 
         public bool PushLeadToAutoBiz(uint pqId, uint dealerId, uint campaignId, string inquiryJson, UInt16 retryAttempt)
@@ -234,7 +358,12 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 if (UInt32.TryParse(abInquiryId, out abInqId) && abInqId > 0)
                 {
                     Logs.WriteInfoLog("Update Lead Limit.");
-                    _repository.UpdateDealerDailyLeadCount(campaignId, abInqId);
+                    if (campaignId > 0)
+                    {
+                        isSuccess = _repository.IsDealerDailyLeadLimitExceeds(campaignId);
+                        isSuccess = _repository.UpdateDealerDailyLeadCount(campaignId, abInqId);
+                    }
+
                     isSuccess = _repository.PushedToAB(pqId, abInqId, retryAttempt);
                     Logs.WriteInfoLog("Saved AB InquiryId");
                 }
@@ -245,5 +374,119 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
             return isSuccess;
         }
+
+        public bool PushLeadToGaadi(ManufacturerLeadEntity leadEntity)
+        {
+            string leadURL = string.Empty;
+            string response = string.Empty;
+            bool isSuccess = false;
+            try
+            {
+
+                BikeQuotationEntity quotation = _repository.GetPriceQuoteById(leadEntity.PQId);
+
+                GaadiLeadEntity gaadiLead = new GaadiLeadEntity()
+                {
+                    City = quotation.City,
+                    Email = leadEntity.Email,
+                    Make = quotation.MakeName,
+                    Mobile = leadEntity.Mobile,
+                    Model = quotation.ModelName,
+                    Name = leadEntity.Name,
+                    Source = "bikewale",
+                    State = quotation.State
+                };
+
+                if (_httpClient != null)
+                {
+                    string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(gaadiLead);
+                    byte[] toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(jsonString);
+                    leadURL = String.Format("http://hondalms.gaadi.com/lms/externalApi/girnarLeadHMSIApi.php?params={0}", System.Convert.ToBase64String(toEncodeAsBytes));
+
+                    using (HttpResponseMessage _response = _httpClient.GetAsync(leadURL).Result)
+                    {
+                        if (_response.IsSuccessStatusCode)
+                        {
+                            if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                            {
+                                response = _response.Content.ReadAsStringAsync().Result;
+                                _repository.UpdateManufacturerLead(leadEntity.PQId, leadEntity.Email, leadEntity.Mobile, response);
+                                _response.Content.Dispose();
+                                _response.Content = null;
+                                isSuccess = true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteInfoLog(String.Format("PushLeadToGaadi : {0}", ex.Message));
+            }
+            return isSuccess;
+        }
+
+
+        internal bool PushLeadToBajajFinance(PriceQuoteParametersEntity priceQuote, uint pqId, uint pincodeId)
+        {
+            bool isSuccess = false;
+            try
+            {
+                BajajFinanceLeadEntity bikeMappingInfo = _repository.GetBajajFinanceBikeMappingInfo(priceQuote.VersionId, pincodeId);
+                if (bikeMappingInfo != null)
+                {
+                    var nameArr = priceQuote.CustomerName.Split(' ');
+                    bikeMappingInfo.FirstName = nameArr[0];
+                    if (nameArr.Length > 1)
+                    {
+                        bikeMappingInfo.LastName = nameArr[1];
+                    }
+                    bikeMappingInfo.MobileNo = priceQuote.CustomerMobile;
+                    bikeMappingInfo.EmailID = priceQuote.CustomerEmail;
+                }
+
+                BajajFinanceLeadInput bajajLeadInput = new BajajFinanceLeadInput()
+                {
+                    leadData = new List<BajajFinanceLeadEntity>() { bikeMappingInfo }
+                };
+
+                if (_httpClient != null)
+                {
+                    string leadURL = "http://agni.bajajauto.co.in:9072/icrmuat/index.php?r=CampaignAPI/3MLeadsToiCRM";
+                    string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(bajajLeadInput);
+                    HttpContent httpContent = new StringContent(jsonString);
+                    using (HttpResponseMessage _response = _httpClient.PostAsync(leadURL, httpContent).Result)
+                    {
+                        if (_response.IsSuccessStatusCode)
+                        {
+                            if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                            {
+                                string response = _response.Content.ReadAsStringAsync().Result;
+                                _repository.UpdateManufacturerLead(pqId, priceQuote.CustomerEmail, priceQuote.CustomerMobile, response);
+                                _response.Content.Dispose();
+                                _response.Content = null;
+                                isSuccess = true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteInfoLog(String.Format("PushLeadToBajajFinance : {0}", ex.Message));
+            }
+            return isSuccess;
+        }
+
+        internal PriceQuoteParametersEntity GetPriceQuoteDetails(uint pqId)
+        {
+            return _repository.FetchPriceQuoteDetailsById(pqId);
+        }
+
+        internal bool SaveManufacturerLead(ManufacturerLeadEntity leadEntity)
+        {
+            return _repository.SaveManufacturerLead(leadEntity);
+        }
+
     }
 }
