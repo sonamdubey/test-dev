@@ -399,7 +399,6 @@ namespace Bikewale.Models
                 objDealer.TopCount = TopCount;
                 objVM.Dealers = objDealer.GetData();
                 dealerCount = (uint)(objVM.HasDealers ? objVM.Dealers.TotalCount : 0);
-                objVM.DealersWidget_H2= (objVM.HasDealers ? ((dealerCount==1) ? String.Format("{0} Authorised dealer", dealerCount):String.Format("{0} Authorised dealers", dealerCount)):"");
             }
             catch (Exception ex)
             {

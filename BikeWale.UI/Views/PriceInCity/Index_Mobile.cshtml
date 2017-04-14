@@ -5,7 +5,7 @@
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
     Model.AdTags.Ad_300x250 = true;
-    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Model";
+    Model.AdTags.AdPath = "/1017752/Bikewale_CityPrice_Mobile";
     Model.AdTags.AdId = "1444028976556";
     Model.PageMetaTags.AlternateUrl = "";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-modelprice-in-city.css' />";
@@ -165,7 +165,7 @@
                     <div class="swiper-heading-left-grid inline-block">                        
                         @if (Model.IsNew && (Model.HasCampaignDealer || Model.IsAreaAvailable))
                         { 
-                        <h3>@Model.Dealers.TotalCount Authorised dealers</h3>
+                        <h3>@Model.Dealers.TotalCount Authorised dealer@(Model.Dealers.TotalCount > 1 ? "s" : "")</h3>
                         }
                         else
                         {
