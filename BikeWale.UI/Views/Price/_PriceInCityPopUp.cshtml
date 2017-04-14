@@ -33,7 +33,7 @@
                     <select class="chosen-select" data-placeholder="Select city" id="priceinCityPopupList" tabindex="2"
                             data-bind="options: ListCities(),value: SelectedCityId, optionsCaption:'--Select City--', optionsText: 'cityName', optionsValue: 'cityId',chosen: { width: '100%',search_contains: true }"></select>
                     <span class="boundary"></span>
-                    <span class="error-text" data-bind="value: errMsg"></span>
+                    <span class="error-text" data-bind="text: errMsg"></span>
                     <p class="position-abt progress-bar"></p>
                     <p class="position-abt progress-bar-label"></p>
                 </div>
@@ -75,7 +75,7 @@
        
         bwcache.setScope('PriceInCityPopUp');
      
-        $("#changeCity").click(function (e) {
+        $(".changepriceincitypage").click(function (e) {
             var ele = $(this); e.stopPropagation(); e.preventDefault();
             $('#priceInCityPopUp,#priceInCityPopUpContent,.blackOut-window').show();
             $('#priceInCityPopUp').addClass('loader-active');
@@ -107,11 +107,7 @@
             self.validate = ko.observable(false);
             self.IsLoading = ko.observable(false);
             self.pcButtonClicked = ko.observable(false);
-            self.errMsg=ko.observable().extend({
-                SelectedCityId: {
-                    params: true,
-                    message: "Please select a city"
-                } });
+            self.errMsg = ko.observable();
                   self.setOptions = function (options, event) {
                     if (options != null) {
                         self.IsLoading(true);
@@ -191,16 +187,20 @@
                 };
                 self.goToPriceInCity = function () {
                     self.pcButtonClicked(true);
-                    if(self.SelectedCityId()!=undefined && self.SelectedCityId()>0)
-                    self.selectCity();
+                    if (self.SelectedCityId() != undefined && self.SelectedCityId() > 0) {
+                       self.selectCity();
+                    }
+                    else
+                        self.errMsg("Please select city.");
                 };
 
                 self.selectCity = function () {
                     try {
+                        self.errMsg("");
                         self.SelectedCity(self.findById(self.ListCities(), "cityId", self.SelectedCityId()));
                         self.SelectedCityMasking(self.SelectedCity().maskingName);
                         if (self.SelectedCity() != null && self.SelectedCity().cityId > 0) {
-                            $('#priceinCityPopupList').parent().addClass('done');
+                           $('#priceinCityPopupList').parent().addClass('done');
 
                             self.LoadingText("Fetching on-road price for " + self.SelectedCity().cityName);
                             self.IsLoading(true);

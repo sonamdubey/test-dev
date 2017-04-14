@@ -29,8 +29,8 @@
                 <div id="pcitySelection" class="form-control text-left input-sm position-rel margin-bottom10">
                     <div class="selected-city" data-bind="text: (SelectedCity() != null && SelectedCity().cityName != '') ? SelectedCity().cityName : 'Select City'" ></div>
                     <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
-                </div>
-                
+                  </div>
+                <span class="error-text" data-bind="text: errMsg"></span>
 
                 <div id="btnPriceinCityLoader" class="center-align margin-top20 text-center position-rel">
                     <a id="btnPriceInCityPopup" class="btn btn-orange btn-full-width font18" data-bind="event :{ click : function (d,e) { goToPriceInCity(d,e); } }">Check price in city</a>
@@ -119,12 +119,7 @@
             self.validate = ko.observable(false);
             self.IsLoading = ko.observable(false);
             self.pcButtonClicked = ko.observable(false);
-            self.errMsg = ko.observable().extend({
-                SelectedCityId: {
-                    params: true,
-                    message: "Please select a city"
-                }
-            });
+            self.errMsg = ko.observable();
             self.setOptions = function (options, event) {
                 if (options != null) {
                     self.IsLoading(true);
@@ -209,15 +204,18 @@
             self.goToPriceInCity = function (data, event) {
                 self.pcButtonClicked(true);
                 if (self.SelectedCityId() != undefined && self.SelectedCityId() > 0){
-                        self.LoadingText("Fetching on-road price for " + self.SelectedCity().cityName);
+                    self.LoadingText("Fetching on-road price for " + self.SelectedCity().cityName);
                         self.redirectToPriceInCity();
                     }
+                else
+                    self.errMsg("Please select city.");
             };
 
             
             self.selectCity = function (data, event) {
 
                 try {
+                    self.errMsg("");
                     if (!self.oBrowser()) {
                         $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                         self.SelectedCity(data);

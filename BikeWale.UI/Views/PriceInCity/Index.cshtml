@@ -69,7 +69,7 @@
                     <!-- model on-road price start -->
                     <div id="orpContent" class="bw-model-tabs-data">
                         <div class="content-box-shadow content-inner-block-20 section-bottom-margin">
-                            <div class="grid-8 alpha omega orp-grid-8">
+                            <div class="alpha omega @(Model.IsNew? "grid-8 orp-grid-8": "grid-12")">
                                 <div class="orp-left-grid leftfloat margin-top5 padding-right10">
                                     <div class="model-image position-rel margin-bottom10">
                                         @if (Model.IsDiscontinued)
@@ -78,11 +78,10 @@
                                         }
                                         <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
                                     </div>
-                                        @Html.Raw(Model.MinSpecsHtml)
-                                    
-                                </div>                                
+                                    @Html.Raw(Model.MinSpecsHtml)
+                                </div>
                                 <div class="orp-right-grid leftfloat">
-                                     
+
                                     <div id="model-version-dropdown" class="margin-right15 padding-top20 vertical-top">
                                         <div class="select-box select-box-no-input done size-small">
                                             <p class="select-label">Version</p>
@@ -97,66 +96,68 @@
                                             }
                                             else
                                             {
-                                                 <p class="font14 text-bold">@Model.FirstVersion.VersionName</p>
+                                                <p class="font14 text-bold">@Model.FirstVersion.VersionName</p>
                                             }
                                         </div>
                                     </div>
-                                   @if (Model.IsNew){
-                                    <div class="location-selection vertical-top cur-pointer">
-                                        <p class="font12 text-light-grey">City</p>
-                                        <p class="text-bold selected-city text-truncate position-rel">
-                                            <span>@Model.CityEntity.CityName</span>
-                                            <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas)" c="Price_in_City_Page" a="City_Change_Initiated_Top_Card" l="@gaBikeName" data-preselcity="@Model.CityEntity.CityId" data-persistent="true" data-modelid="@Model.BikeModel.ModelId" class="getquotation changeCity bw-ga" rel="nofollow">
-                                                <span class="bwsprite loc-change-blue-icon"></span>
-                                            </a>
-                                        </p>
-                                    </div>
+                                    @if (Model.IsNew)
+                                    {
+                                        <div class="location-selection vertical-top cur-pointer">
+                                            <p class="font12 text-light-grey">City</p>
+                                            <p class="text-bold selected-city text-truncate position-rel">
+                                                <span>@Model.CityEntity.CityName</span>
+                                                <a href="javascript:void(0)" c="Price_in_City_Page" a="City_Change_Initiated_Top_Card" l="@gaBikeName" data-makemasking="@Model.Make.MaskingName" data-modelmasking="@Model.BikeModel.MaskingName" data-modelid="@Model.BikeModel.ModelId" class="changepriceincitypage bw-ga" rel="nofollow">
+                                                    <span class="bwsprite loc-change-blue-icon"></span>
+                                                </a>
+                                            </p>
+                                        </div>
 
-                                    <table width="100%" cellspacing="0" cellpadding="0" class="margin-top15 font14">
-                                        <thead>
-                                            <tr>
-                                                <th colspan="2" align="left" class="padding-bottom10 text-default text-bold">@Model.BikeName price in @Model.CityEntity.CityName</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- ko if: exshowroomPrice().length > 0 -->
-                                            <tr>
-                                                <td align="left" valign="top" width="70%" class="padding-bottom10 text-slate-grey">Ex-showroom</td>
-                                                <td align="right" valign="top" width="30%" class="padding-bottom10 text-bold"><span class="bwsprite inr-sm"></span><span data-bind="text: exshowroomPrice()"></span></td>
-                                            </tr>
-                                            <!-- /ko -->
-                                            <!-- ko if: rtoPrice().length > 0 -->
-                                            <tr>
-                                                <td align="left" valign="top" width="70%" class="padding-bottom10 text-slate-grey">RTO</td>
-                                                <td align="right" valign="top" width="30%" class="padding-bottom10 text-bold"><span class="bwsprite inr-sm"></span><span data-bind="text: rtoPrice()"></span></td>
-                                            </tr>
-                                            <!-- /ko -->
-                                            <!-- ko if: insurancePrice().length > 0 -->
-                                            <tr>
-                                                <td align="left" valign="top" width="70%" class="padding-bottom15 text-slate-grey">Insurance (Comprehensive)</td>
-                                                <td align="right" valign="top" width="30%" class="padding-bottom15 text-bold"><span class="bwsprite inr-sm"></span><span data-bind="text: insurancePrice()"></span></td>
-                                            </tr>
-                                            <!-- /ko -->
-                                            <tr>
-                                                <td align="left" valign="top" width="70%" class="padding-top15 border-solid-top">@Model.BikeName price in @Model.CityEntity.CityName</td>
-                                                <td align="right" valign="top" width="30%" class="padding-top15 border-solid-top font16 text-bold"><span class="bwsprite inr-md"></span><span data-bind="text: onRoadPrice()"></span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                }
+                                        <table width="100%" cellspacing="0" cellpadding="0" class="margin-top15 font14">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" align="left" class="padding-bottom10 text-default text-bold">@Model.BikeName price in @Model.CityEntity.CityName</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- ko if: exshowroomPrice().length > 0 -->
+                                                <tr>
+                                                    <td align="left" valign="top" width="70%" class="padding-bottom10 text-slate-grey">Ex-showroom</td>
+                                                    <td align="right" valign="top" width="30%" class="padding-bottom10 text-bold"><span class="bwsprite inr-sm"></span><span data-bind="text: exshowroomPrice()"></span></td>
+                                                </tr>
+                                                <!-- /ko -->
+                                                <!-- ko if: rtoPrice().length > 0 -->
+                                                <tr>
+                                                    <td align="left" valign="top" width="70%" class="padding-bottom10 text-slate-grey">RTO</td>
+                                                    <td align="right" valign="top" width="30%" class="padding-bottom10 text-bold"><span class="bwsprite inr-sm"></span><span data-bind="text: rtoPrice()"></span></td>
+                                                </tr>
+                                                <!-- /ko -->
+                                                <!-- ko if: insurancePrice().length > 0 -->
+                                                <tr>
+                                                    <td align="left" valign="top" width="70%" class="padding-bottom15 text-slate-grey">Insurance (Comprehensive)</td>
+                                                    <td align="right" valign="top" width="30%" class="padding-bottom15 text-bold"><span class="bwsprite inr-sm"></span><span data-bind="text: insurancePrice()"></span></td>
+                                                </tr>
+                                                <!-- /ko -->
+                                                <tr>
+                                                    <td align="left" valign="top" width="70%" class="padding-top15 border-solid-top">@Model.BikeName price in @Model.CityEntity.CityName</td>
+                                                    <td align="right" valign="top" width="30%" class="padding-top15 border-solid-top font16 text-bold"><span class="bwsprite inr-md"></span><span data-bind="text: onRoadPrice()"></span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    }
                                     @if (Model.IsDiscontinued)
                                     {
                                         <div class="font14 text-default text-bold padding-top15">
-                                            <span>Last known Ex-showroom price</span><span class="rightfloat"><span class="bwsprite inr-md margin-right5"></span><span class="text-bold font16" data-bind="text: exshowroomPrice()">@Model.FirstVersion.ExShowroomPrice</span></span>
+                                            <span>Last known Ex-showroom price</span><span class="margin-left15"><span class="bwsprite inr-md margin-right5"></span><span class="text-bold font16" data-bind="text: exshowroomPrice()">@Model.FirstVersion.ExShowroomPrice</span></span>
                                         </div>
                                         <div class="margin-top15 font14">
                                             <p class="text-slate-grey line-height16">@String.Format("{0} has discontinued the {1} and the bike is out of production.", Model.Make.MakeName, Model.BikeModel.ModelName)</p>
                                         </div>
                                     }
                                 </div>
-                                
+
                                 <div class="clear"></div>
                             </div>
+                            @if (Model.IsNew) { 
                             <div class="grid-4 padding-left5 omega padding-top30">
                                 <div class="padding-left10">
 
@@ -197,6 +198,7 @@
                                     }
                                 </div>
                             </div>
+                            }
                             <div class="clear"></div>
                             @if (Model.IsNew) { 
                             <div class="border-solid-top margin-top20 padding-top20 font14">
