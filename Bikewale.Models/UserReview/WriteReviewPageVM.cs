@@ -3,7 +3,7 @@ using Bikewale.Entities.Customer;
 using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
 
-namespace Bikewale.Models.UserReview
+namespace Bikewale.Models
 {
     public class WriteReviewPageVM
     {
