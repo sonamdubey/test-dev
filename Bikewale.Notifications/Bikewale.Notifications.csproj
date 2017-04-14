@@ -98,6 +98,11 @@
     <Compile Include="MailTemplates\UsedBikes\PhotoRequestToCustomerForThreeDays.cs" />
     <Compile Include="MailTemplates\UsedBikes\PurchaseInquiryEmailToBuyerTemplate.cs" />
     <Compile Include="MailTemplates\UsedBikes\PurchaseInquiryEmailToIndividualSellerTemplate.cs" />
+    <Compile Include="MailTemplates\UserReviews\ReviewApprovalEmail.cs" />
+    <Compile Include="MailTemplates\UserReviews\ReviewRejectionEmail.cs" />
+    <Compile Include="MailTemplates\UserReviews\RatingSubmissionEmail.cs" />
+    <Compile Include="MailTemplates\UserReviews\ReviewReminderEmail.cs" />
+    <Compile Include="MailTemplates\UserReviews\ReviewSubmissionEmail.cs" />
     <Compile Include="MySqlDbUtilities.cs" />
     <Compile Include="NotificationDAL\SavePQNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
