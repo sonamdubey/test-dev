@@ -31,7 +31,7 @@
             <div class="padding-top10" id="priceInCityPopUpContent">
                 <div class="select-box margin-top10">
                     <select class="chosen-select" data-placeholder="Select city" id="priceinCityPopupList" tabindex="2"
-                            data-bind="options: ListCities(),value: SelectedCityId, optionsCaption:'--Select City--', optionsText: 'cityName', optionsValue: 'cityId',chosen: { width: '100%',search_contains: true }"></select>
+                            data-bind="options: ListCities(),value: SelectedCityId, optionsCaption:'--Select City--', optionsText: 'cityName', optionsValue: 'cityId',chosen: { width: '100%',search_contains: true },event : { change : removeErr }"></select>
                     <span class="boundary"></span>
                     <span class="error-text" data-bind="text: errMsg"></span>
                     <p class="position-abt progress-bar"></p>
@@ -116,7 +116,10 @@
                         self.ModelMasking = options.modelmasking || "";
                         self.pqCityApiUrl = "/api/pqcitylist/?modelId=" + self.SelectedModelId();
                     }
-                };
+                  };
+                  self.removeErr = function () {
+                      self.errMsg("");
+                  };
                 self.LoadCities = function () {
                     try {
                         CitiesKey = "pqPriceInCityPopUp_" + self.SelectedModelId();
@@ -196,7 +199,6 @@
 
                 self.selectCity = function () {
                     try {
-                        self.errMsg("");
                         self.SelectedCity(self.findById(self.ListCities(), "cityId", self.SelectedCityId()));
                         self.SelectedCityMasking(self.SelectedCity().maskingName);
                         if (self.SelectedCity() != null && self.SelectedCity().cityId > 0) {
