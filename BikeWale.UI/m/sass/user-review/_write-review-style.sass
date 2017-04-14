@@ -47,7 +47,6 @@ h1,
 			margin-right: 10px
 			margin-left: 10px
 			cursor: pointer
-
 .circle-placeholder
 	width: 61px
 	height: 61px
@@ -58,6 +57,56 @@ h1,
 	position: relative
 	top: -31px
 	@include border-radius(50%)
+
+// answer-radio-list
+.answer-radio-list
+	> input
+		display: none
+
+		+ label
+			width: auto
+			float: left
+			color: $text-light
+			margin: 4px 8px 4px 0
+			padding: 5px 14px
+			cursor: pointer
+			border: 1px solid #e2e2e2
+			@include border-radius(2px)
+
+		&:checked
+			+ label
+				color: $white
+				background: #41B4C4
+				border-color: #41B4C4
+				cursor: default
+				pointer-events: none
+
+.answer-star-list
+	> input
+		display: none
+
+		+ label
+			float: right
+			margin-right: 12px
+
+		&:checked
+			+ label,
+			~ label
+				background-position: 0 -278px
+
+.rating-placeholder
+	.answer-star-list
+		width: 230px
+		height: 25px
+		margin: 15px auto 0
+
+		> input
+			+ label
+				margin-right: 25px
+
+			&:first-child
+				+ label
+					margin-right: 0
 
 // questions and answers
 .question-field
@@ -73,7 +122,7 @@ h1,
 
 .answer-list
 	li
-		float: left
+		float: left !important
 		color: $text-light
 		margin: 4px 8px 4px 0
 		padding: 5px 14px
@@ -130,8 +179,8 @@ h1,
 #getReviewTitle
 	font-weight: 600
 
-// detailed-question-list
-.detailed-question-list
+// review-question-list
+.review-question-list
 	.list-item
 		padding-top: 15px
 		padding-bottom: 15px
@@ -149,6 +198,7 @@ h1,
 		li
 			margin-right: 4px
 			margin-left: 4px
+			float: right
 
 	.answer-list
 		li
@@ -159,9 +209,9 @@ h1,
 		font-size: 13px
 		position: relative
 		top: 1px
-		color: #4d5057
+		color: #4d5057		
 
-#rate-bike-form
+body
 	-webkit-tap-highlight-color: rgba(0,0,0,0)
 
 #review-summary-page ~ footer
@@ -238,12 +288,9 @@ h1,
 .star-zero
 	background-position: 0 -308px
 
-.star-one
-	background-position: 0 -278px
-
-.opacity-active
-	.star-zero
-		opacity: 0.5
+.star-one,
+.star-one-active .star-zero
+		background-position: 0 -278px
 
 .feedback-1,
 .feedback-2,

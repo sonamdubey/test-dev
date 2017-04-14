@@ -36,8 +36,6 @@ h1,
   #bike-rating-box .rating-placeholder {
     position: relative;
     top: -10px; }
-  #bike-rating-box .item-rating-list li {
-    margin-right: 10px;
     margin-left: 10px;
     cursor: pointer; }
 
@@ -55,6 +53,45 @@ h1,
   -ms-border-radius: 50%;
   border-radius: 50%; }
 
+.answer-radio-list > input {
+  display: none; }
+  .answer-radio-list > input + label {
+    width: auto;
+    float: left;
+    color: #82888b;
+    margin: 4px 8px 4px 0;
+    padding: 5px 14px;
+    cursor: pointer;
+    border: 1px solid #e2e2e2;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px; }
+  .answer-radio-list > input:checked + label {
+    color: #fff;
+    background: #41B4C4;
+    border-color: #41B4C4;
+    cursor: default;
+    pointer-events: none; }
+
+.answer-star-list > input {
+  display: none; }
+  .answer-star-list > input + label {
+    float: right;
+    margin-right: 12px; }
+  .answer-star-list > input:checked + label,
+  .answer-star-list > input:checked ~ label {
+    background-position: 0 -278px; }
+
+.rating-placeholder .answer-star-list {
+  width: 230px;
+  height: 25px;
+  margin: 15px auto 0; }
+  .rating-placeholder .answer-star-list > input + label {
+    margin-right: 25px; }
+  .rating-placeholder .answer-star-list > input:first-child + label {
+    margin-right: 0; }
+
 .question-field {
   padding-bottom: 10px;
   margin-bottom: 15px;
@@ -66,7 +103,7 @@ h1,
   margin-bottom: 10px; }
 
 .answer-list li {
-  float: left;
+  float: left !important;
   color: #82888b;
   margin: 4px 8px 4px 0;
   padding: 5px 14px;
@@ -119,34 +156,35 @@ h1,
 #getReviewTitle {
   font-weight: 600; }
 
-.detailed-question-list .list-item {
+.review-question-list .list-item {
   padding-top: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid #eee; }
 
-.detailed-question-list .item-title {
+.review-question-list .item-title {
   font-weight: 600;
   margin-bottom: 8px; }
 
-.detailed-question-list .item-subtitle {
+.review-question-list .item-subtitle {
   color: #787878;
   margin-bottom: 10px; }
 
-.detailed-question-list .item-rating-list li {
+.review-question-list .item-rating-list li {
   margin-right: 4px;
-  margin-left: 4px; }
+  margin-left: 4px;
+  float: right; }
 
-.detailed-question-list .answer-list li {
+.review-question-list .answer-list li {
   margin-right: 6px;
   margin-left: 0; }
 
-.detailed-question-list .feedback-text {
+.review-question-list .feedback-text {
   font-size: 13px;
   position: relative;
   top: 1px;
   color: #4d5057; }
 
-#rate-bike-form {
+body {
   -webkit-tap-highlight-color: transparent; }
 
 #review-summary-page ~ footer {
@@ -213,11 +251,9 @@ h1,
 .star-zero {
   background-position: 0 -308px; }
 
-.star-one {
+.star-one,
+.star-one-active .star-zero {
   background-position: 0 -278px; }
-
-.opacity-active .star-zero {
-  opacity: 0.5; }
 
 .feedback-1,
 .feedback-2,
