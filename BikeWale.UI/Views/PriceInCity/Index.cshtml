@@ -74,32 +74,34 @@
                                     <div class="model-image position-rel margin-bottom10">
                                         @if (Model.IsDiscontinued)
                                         {
-                                            <p class="model-ribbon discontinued-ribbon">Discontinued</p>
+                                            <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                                         }
                                         <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
                                     </div>
                                     @Html.Raw(Model.MinSpecsHtml)
                                 </div>
                                 <div class="orp-right-grid leftfloat">
-
+                                    @if (Model.BikeVersionPrices.Count() > 1)
+                                    {
                                     <div id="model-version-dropdown" class="margin-right15 padding-top20 vertical-top">
                                         <div class="select-box select-box-no-input done size-small">
-                                            <p class="select-label">Version</p>
-                                            @if (Model.BikeVersionPrices.Count() > 1)
-                                            {
-                                                <select id="version-dropdown" class="chosen-select bw-ga" data-title="Version" c="Price_in_City_Page" a="Version_Changed" l="@gaBikeName">
-                                                    @foreach (var version in Model.BikeVersionPrices)
-                                                    {
-                                                        <option value="@version.VersionId">@version.VersionName</option>
-                                                    }
-                                                </select>
-                                            }
-                                            else
-                                            {
-                                                <p class="font14 text-bold">@Model.FirstVersion.VersionName</p>
-                                            }
+                                            <p class="select-label">Version</p>                                            
+                                            <select id="version-dropdown" class="chosen-select bw-ga" data-title="Version" c="Price_in_City_Page" a="Version_Changed" l="@gaBikeName">
+                                                @foreach (var version in Model.BikeVersionPrices)
+                                                {
+                                                    <option value="@version.VersionId">@version.VersionName</option>
+                                                }
+                                            </select>
                                         </div>
                                     </div>
+                                    }
+                                    else
+                                    {
+                                    <div class="single-version-content vertical-top margin-right15">
+                                        <p class="font12 text-light-grey">Version</p>
+                                        <p class="text-bold single-version-value text-truncate">@Model.FirstVersion.VersionName</p>
+                                    </div>
+                                    }
                                     @if (Model.IsNew)
                                     {
                                         <div class="location-selection vertical-top cur-pointer">
