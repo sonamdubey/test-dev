@@ -234,11 +234,11 @@ namespace Bikewale.Models
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
                         versionCount = (uint)objVM.BikeVersionPrices.Count();
                         minSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
-                          var objMin = minSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
-                            if (objMin != null)
-                                objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
+                        var objMin = minSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
+                        if (objMin != null)
+                            objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
 
-                        BindBikeBasicDetails(objVM);                        
+                        BindBikeBasicDetails(objVM);
                         BindDealersWidget(objVM);
                         BindServiceCenters(objVM);
                         BindSimilarBikes(objVM);
@@ -331,7 +331,7 @@ namespace Bikewale.Models
         {
             try
             {
-                
+
                 objVM.BikeInfo = (new BikeInfoWidget(_bikeInfo, _cityCache, modelId, cityId, BikeInfoTabCount, Entities.GenericBikes.BikeInfoTabType.PriceInCity)).GetData();
                 objVM.BikeRank = (new BikeModelRank(_modelCache, modelId)).GetData();
             }
@@ -376,7 +376,7 @@ namespace Bikewale.Models
         {
             try
             {
-              var serviceCenters = _objServiceCenter.GetServiceCentersByCity(cityId, objVM.Make.MakeId);
+                var serviceCenters = _objServiceCenter.GetServiceCentersByCity(cityId, objVM.Make.MakeId);
                 if (serviceCenters != null)
                     objVM.ServiceCentersCount = serviceCenters.Count;
             }
@@ -571,7 +571,6 @@ namespace Bikewale.Models
                     try
                     {
                         objVM.DetailedDealer = _objDealerDetails.GetDealerQuotationV2(cityId, objPQOutput.VersionId, objPQOutput.DealerId, areaId);
-                        objVM.HasCampaignDealer = true;
                         objVM.MPQString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString()));
                     }
                     catch (Exception ex)

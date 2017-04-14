@@ -62,7 +62,7 @@ namespace Bikewale.Models
         public string JSONBikeVersions { get; set; }
 
         public bool HasServiceCenters { get { return (ServiceCentersCount > 0); } }
-        public bool HasCampaignDealer { get; set; }
+        public bool HasCampaignDealer { get { return (DetailedDealer != null && DetailedDealer.PrimaryDealer != null && DetailedDealer.PrimaryDealer.DealerDetails != null); } }
 
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DetailedDealer { get; set; }
         public string MPQString { get; set; }
