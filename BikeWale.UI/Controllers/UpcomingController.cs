@@ -43,7 +43,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile(ushort? pageNumber)
         {
             UpcomingPageModel objData = null;
-            objData = new UpcomingPageModel(10, pageNumber, 10, _upcoming, _newLaunches, "/m/upcoming-bikes/");
+            objData = new UpcomingPageModel(9, pageNumber, 10, _upcoming, _newLaunches, "/m/upcoming-bikes/");
             UpcomingPageVM objVM = objData.GetData();
             return View(objVM);
         }
@@ -91,7 +91,7 @@ namespace Bikewale.Controllers
 
             if (objData.Status == Entities.StatusCodes.ContentFound)
             {
-                objData.topbrandCount = 10;
+                objData.topbrandCount = 9;
                 UpcomingPageVM objVM = objData.GetData();
 
                 if (objVM.TotalBikes > 0)
