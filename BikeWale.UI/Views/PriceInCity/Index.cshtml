@@ -161,23 +161,12 @@
 
                                     @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && Model.IsNew)
                                     {
-                                        <p class="text-black margin-bottom10">Please select your area to get:</p>
-                                    <ul class="selectAreaToGetList margin-bottom20">
-                                        <li class="bullet-point">
-                                            <p>Nearest dealership details</p>
-                                        </li>
-                                        <li class="bullet-point">
-                                            <p>Exclusive offers</p>
-                                        </li>
-                                        <li class="bullet-point">
-                                            <p>Complete buying assistance</p>
-                                        </li>
-                                    </ul>
-                                        @*<ul class="list-type-disc margin-bottom20">
+                                        <p class="text-black margin-bottom10 font14">Please select your area to get:</p>
+                                           <ul class="list-type-disc margin-bottom20 font14">
                                                 <li>Nearest dealership details</li>
                                                 <li>Exclusive offers</li>
                                                 <li>Complete buying assistance</li>
-                                            </ul>*@
+                                            </ul>
                                     <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas)" f="getBikeVersionName" c="Price_in_City_Page" a="Select_Area_Clicked" data-preselcity="@Model.CityEntity.CityId" data-persistent="true" data-modelid="@Model.BikeModel.ModelId" class="btn btn-orange btn-xxlg font14 getquotation changeCity bw-ga" rel="nofollow">Select your area</a>
                                     }
 

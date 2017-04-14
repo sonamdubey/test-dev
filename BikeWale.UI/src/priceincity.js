@@ -266,6 +266,11 @@ docReady(function () {
 
     });
 
+    $("#changeCity").click(function () {
+        var obj = $(this);
+       triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+     });
+
     $("#dealerDetails").click(function (e) {
         try {
             ele = $(this);
