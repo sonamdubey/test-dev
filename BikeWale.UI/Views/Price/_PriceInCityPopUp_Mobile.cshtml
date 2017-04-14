@@ -14,7 +14,7 @@
         <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
         <div id="popupHeading" class="content-inner-block-20">
             <p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
-            <div class="text-light-grey margin-bottom5"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
+            <div class="text-light-grey margin-bottom5">See on-road prices in your city!</div>
             @{ if (isOperaBrowser)
              {
 
@@ -33,7 +33,7 @@
                 <span class="error-text" data-bind="text: errMsg"></span>
 
                 <div id="btnPriceinCityLoader" class="center-align margin-top20 text-center position-rel">
-                    <a id="btnPriceInCityPopup" class="btn btn-orange btn-full-width font18" data-bind="event :{ click : function (d,e) { goToPriceInCity(d,e); } }">Check price in city</a>
+                    <a id="btnPriceInCityPopup" class="btn btn-orange btn-full-width font18" data-bind="event :{ click : function (d,e) { goToPriceInCity(d,e); } }">Show on-road price</a>
                 </div>
 
     <div id="priceInCityPopUpContent" class="bwm-city-area-popup-wrapper">
