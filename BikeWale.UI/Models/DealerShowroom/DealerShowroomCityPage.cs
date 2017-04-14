@@ -108,7 +108,7 @@ namespace Bikewale.Models.DealerShowroom
             MostPopularBikeWidgetVM objPopularBikes = new MostPopularBikeWidgetVM();
             try
             {
-                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, false, PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels, 0, (uint)objMake.MakeId);
+                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, false, true, PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels, 0, (uint)objMake.MakeId);
                 popularBikes.TopCount = 9;
                 objPopularBikes = popularBikes.GetData();
                 objPopularBikes.PageCatId = 5;
