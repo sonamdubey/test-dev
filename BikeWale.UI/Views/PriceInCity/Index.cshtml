@@ -228,15 +228,8 @@
                                         <div class="padding-top20 font14">
                                             <div class="carousel-heading-content">
                                                 <div class="swiper-heading-left-grid inline-block">
-                                                    @if (Model.IsNew && (Model.HasCampaignDealer || Model.IsAreaAvailable))
-                                                    {
-                                                        <h3>@Model.Dealers.TotalCount Authorised dealer@(Model.Dealers.TotalCount>1?"s":"")</h3>
-                                                    }
-                                                    else
-                                                    { 
-                                                    <h2 class="card-h2-heading">@Model.DealersWidget_H2</h2>
-                                                    }
-                                                        </div>
+                                                   <h2 class="card-h2-heading">@Model.DealersWidget_H2</h2>
+                                                   </div>
                                                 <div class="swiper-heading-right-grid inline-block text-right">
                                                     <a href="@Model.DealersWidget_ViewAll_Href" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
                                                 </div>
@@ -290,7 +283,7 @@
                                         <div class="emi-slider-box">
                                             <p class="text-slate-grey leftfloat">Down payment</p>
                                             <p class="rightfloat margin-right15">
-                                                <span class="bwsprite inr-sm"></span>&nbsp;
+                                                <span class="bwsprite inr-sm"></span>
                                                 <span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span>
                                             </p>
                                             <div class="clear"></div>
@@ -306,7 +299,7 @@
                                         <div class="emi-slider-box">
                                             <p class="text-slate-grey leftfloat">Loan Amount</p>
                                             <p class="rightfloat margin-right15">
-                                                <span class="bwsprite inr-sm"></span>&nbsp;
+                                                <span class="bwsprite inr-sm"></span>
                                                 <span id="loanAmount" class="text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span>
                                             </p>
                                             <div class="clear"></div>

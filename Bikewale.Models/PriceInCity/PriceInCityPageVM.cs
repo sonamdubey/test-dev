@@ -67,6 +67,7 @@ namespace Bikewale.Models
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DetailedDealer { get; set; }
         public string MPQString { get; set; }
         public string MinSpecsHtml { get; set; }
+        public string GABikeName { get { return string.Format("{0}_{1}",Make.MakeName,BikeModel.ModelName); } }
     }
 
 }
