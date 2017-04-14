@@ -28,6 +28,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         private QueueingBasicConsumer consumer;
         private NameValueCollection nvc = new NameValueCollection();
         private string _queueName, _hostName;
+        private uint _hondaGaddiId, _bajajFinanceId;
         public LeadConsumer()
         {
             try
@@ -38,6 +39,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 SendMail.APPLICATION = _applicationName = Convert.ToString(ConfigurationManager.AppSettings["ConsumerName"]);
                 _retryCount = ConfigurationManager.AppSettings["RetryCount"];
                 _RabbitMsgTTL = ConfigurationManager.AppSettings["RabbitMsgTTL"];
+                UInt32.TryParse(ConfigurationManager.AppSettings["HondaGaddiId"], out _hondaGaddiId);
+                UInt32.TryParse(ConfigurationManager.AppSettings["BajajFinanceId"], out _bajajFinanceId);
                 InitConsumer();
                 _leadProcessor = new LeadProcessor();
 
@@ -220,13 +223,13 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     {
                         isSuccess = _leadProcessor.PushLeadToAutoBiz(pqId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration);
 
-                        if (priceQuote.DealerId == 21290)
+                        if (priceQuote.DealerId == _hondaGaddiId)
                         {
                             Logs.WriteInfoLog(String.Format("Honda gaadi.com  Lead started processing."));
                             isSuccess = _leadProcessor.PushLeadToGaadi(leadEntity);
                             Logs.WriteInfoLog(String.Format("Honda gaadi.com  Lead submitted."));
                         }
-                        else if (priceQuote.DealerId == 20539)
+                        else if (priceQuote.DealerId == _bajajFinanceId)
                         {
                             Logs.WriteInfoLog(String.Format("Bajaj Finance Lead started processing."));
                             isSuccess = _leadProcessor.PushLeadToBajajFinance(priceQuote, pqId, pincodeId);
@@ -334,6 +337,9 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         private readonly LeadProcessingRepository _repository = null;
         private readonly TCApi_Inquiry _inquiryAPI = null;
         private HttpClient _httpClient;
+        private string _hondaGaddiAPIUrl, _bajajFinanceAPIUrl;
+
+
         /// <summary>
         /// Created by  :   Sumit Kate on 24 Feb 2017
         /// Description :   Type Initializer
@@ -343,6 +349,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             _repository = new LeadProcessingRepository();
             _inquiryAPI = new TCApi_Inquiry();
             _httpClient = new HttpClient();
+            _hondaGaddiAPIUrl = ConfigurationManager.AppSettings["HondaGaddiAPIUrl"];
+            _bajajFinanceAPIUrl = ConfigurationManager.AppSettings["BajajFinanceAPIUrl"];
         }
 
         public bool PushLeadToAutoBiz(uint pqId, uint dealerId, uint campaignId, string inquiryJson, UInt16 retryAttempt)
@@ -401,7 +409,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 {
                     string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(gaadiLead);
                     byte[] toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(jsonString);
-                    leadURL = String.Format("http://hondalms.gaadi.com/lms/externalApi/girnarLeadHMSIApi.php?params={0}", System.Convert.ToBase64String(toEncodeAsBytes));
+                    leadURL = String.Format("{1}{0}", _hondaGaddiAPIUrl, System.Convert.ToBase64String(toEncodeAsBytes));
 
                     using (HttpResponseMessage _response = _httpClient.GetAsync(leadURL).Result)
                     {
@@ -452,10 +460,9 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
 
                 if (_httpClient != null)
                 {
-                    string leadURL = "http://agni.bajajauto.co.in:9072/icrmuat/index.php?r=CampaignAPI/3MLeadsToiCRM";
                     string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(bajajLeadInput);
                     HttpContent httpContent = new StringContent(jsonString);
-                    using (HttpResponseMessage _response = _httpClient.PostAsync(leadURL, httpContent).Result)
+                    using (HttpResponseMessage _response = _httpClient.PostAsync(_bajajFinanceAPIUrl, httpContent).Result)
                     {
                         if (_response.IsSuccessStatusCode)
                         {
