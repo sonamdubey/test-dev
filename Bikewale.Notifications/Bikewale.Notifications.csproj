@@ -110,6 +110,7 @@
     <Compile Include="SendMails.cs" />
     <Compile Include="SMS\SMSCommon.cs" />
     <Compile Include="SMS\SMSTypes.cs" />
+    <Compile Include="UserReviewsEmails.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
