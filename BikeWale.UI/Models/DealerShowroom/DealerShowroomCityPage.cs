@@ -110,6 +110,7 @@ namespace Bikewale.Models.DealerShowroom
             {
                 MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, false, true, PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels, 0, (uint)objMake.MakeId);
                 popularBikes.TopCount = 9;
+                popularBikes.CityId = cityId;
                 objPopularBikes = popularBikes.GetData();
                 objPopularBikes.PageCatId = 5;
                 objPopularBikes.PQSourceId = PQSourceEnum.Desktop_HP_MostPopular;
