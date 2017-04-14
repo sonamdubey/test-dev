@@ -386,10 +386,8 @@
         </div>
     </div>
 </section>
-
-    if (Model.BikeRank != null)
-    {
-        <section>
+ if (Model.BikeRank != null){
+  <section>
             <div class="container content-box-shadow content-inner-block-20 card-bottom-margin">
                 <div class="margin-bottom10">
                     <span class="rank-graph-black"></span>
@@ -397,11 +395,11 @@
                         <h2 class="card-h2-heading">Top 10 @Model.BikeRank.StyleName in India</h2>
                     </div>
                 </div>
-                <p class="font14 margin-bottom15 text-slate-grey">Are you looking for a @Model.BikeRank.BikeType.ToLower() bike? Check out our list of top 10 @Model.BikeRank.BikeType.ToLower() in India.</p>
+                <p class="font14 margin-bottom15 text-slate-grey">Are you looking for a @Model.BikeRank.BikeType.ToLower()? Check out our list of top 10 @Model.BikeRank.StyleName.ToLower() in India.</p>
                 <a href="@String.Format("/m{0}", UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle))" title="Best @Model.BikeRank.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
             </div>
         </section>
-    }
+}  
     <section>
         <div class="container card-bottom-margin padding-right20 padding-left20 font12 text-slate-grey">
             <p class="text-default text-bold">Disclaimer:</p>
@@ -411,9 +409,6 @@
         </div>
         <div class="hide" id="dvPgVar" data-modelid="@Model.BikeModel.ModelId"></div>
     </section>
-    @*<script type="text/javascript">
-        var versionCount = @Model.BikeVersionPrices.Count(),bikeVersionPrice = "@Model.FirstVersion.OnRoadPrice";
-    </script>*@
     <div class="hide" id="dvVersionPrice" data-isdiscontinued="@Model.IsDiscontinued">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices))</div>
     <div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
     <div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div> 

@@ -40,7 +40,6 @@ namespace Bikewale.Models
         private readonly IDealerPriceQuote _objDealerPQ = null;
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IAreaCacheRepository _objAreaCache = null;
-
         private uint cityId, modelId, versionCount, colorCount, dealerCount, areaId;
         private string modelMaskingName, cityMaskingName, pageDescription;
 
@@ -243,7 +242,7 @@ namespace Bikewale.Models
                         BindServiceCenters(objVM);
                         BindSimilarBikes(objVM);
                         BindBikeInfoRank(objVM);
-
+                       
                         if (objVM.IsNew)
                         {
                             BindPriceInNearestCities(objVM);
@@ -430,7 +429,7 @@ namespace Bikewale.Models
             }
         }
 
-        /// <summary>
+         /// <summary>
         /// Created by : Aditi Srivastava on 12 Apr 2017
         /// Summary    : Format min specs
         /// </summary>

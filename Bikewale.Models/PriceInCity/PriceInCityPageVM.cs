@@ -21,7 +21,7 @@ namespace Bikewale.Models
         public SimilarBikesWidgetVM AlternateBikes { get; set; }
         public ServiceCenterDetailsWidgetVM ServiceCenters { get; set; }
         public uint ServiceCenterCount { get; set; }
-
+        
         public PriceInTopCitiesWidgetVM PriceInTopCities { get; set; }
         public uint ServiceCentersCount { get; set; }
 
