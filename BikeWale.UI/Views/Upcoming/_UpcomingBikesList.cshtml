@@ -10,7 +10,10 @@
                 <h3 class="font18 text-black grid-5 alpha" data-bind="visible:TotalBikes() > 0, text:TotalBikes() > 1 ? TotalBikes() + ' bikes' : TotalBikes() + ' bike'">@Model.TotalBikes bike@(Model.TotalBikes > 1 ? "s" : "")</h3>
 
                 <div class="grid-7 omega text-right upcoming-filter">
-                    <p class="font14 text-light-grey inline-block margin-right5">Filter by:</p>
+                    @if ((Model.MakesList != null && Model.MakesList.Count() > 0) || (Model.YearsList != null && Model.YearsList.Count() > 1))
+                    {
+                        <p class="font14 text-light-grey inline-block margin-right5">Filter by:</p>
+                    }
 
                     @if (Model.MakesList != null && Model.MakesList.Count() > 0)
                     {
@@ -24,7 +27,7 @@
                             </select>
                         </div>
                     }
-                    @if (Model.YearsList != null && Model.YearsList.Count() > 0)
+                    @if (Model.YearsList != null && Model.YearsList.Count() > 1)
                     {
                         <div class="select-box select-box-no-input inline-block right-align-box">
                             <select class="chosen-select" data-title="Select year" id="yearFilter" data-filter="yearwise" data-bind="chosen:{width: '100%'},event : { change : function(d,e) { setYearFilter(e);}}">
