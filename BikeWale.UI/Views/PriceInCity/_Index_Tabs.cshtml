@@ -1,16 +1,21 @@
 ﻿@model Bikewale.Models.PriceInCityPageVM
-@if (Model.FirstVersion != null) { 
-<a href="#orpContent" rel="nofollow">On-road price</a>
+@if (Model.FirstVersion != null)
+{
+    <a href="#orpContent" rel="nofollow" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_On-road Price",Model.GABikeName))">On-road price</a>
 }
-@if (Model.HasDealers) { 
-<a href="#dealerContent" rel="nofollow">Dealers</a>
+@if (Model.HasDealers)
+{
+    <a href="#dealerContent" rel="nofollow" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_Dealers",Model.GABikeName))">Dealers</a>
 }
-@if (Model.IsNew) { 
-<a href="#emiContent" rel="nofollow">EMI calculator</a>
+@if (Model.IsNew)
+{
+    <a href="#emiContent" rel="nofollow" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_EMI calculator",Model.GABikeName))">EMI calculator</a>
 }
-@if (Model.BikeVersionPrices != null) { 
-<a href="#priceListContent" rel="nofollow">Price list</a>
+@if (Model.IsNew && Model.BikeVersionPrices != null)
+{
+    <a href="#priceListContent" rel="nofollow" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_Price list",Model.GABikeName))">Price list</a>
 }
-@if (Model.HasAlternateBikes) { 
-<a href="#similarContent" rel="nofollow">Similar bikes</a>
+@if (Model.HasAlternateBikes)
+{
+    <a href="#similarContent" rel="nofollow" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@(string.Format("{0}_Similar bikes",Model.GABikeName))">Similar bikes</a>
 }

@@ -526,6 +526,10 @@
 .container.no-container-width {
 width: 100%;
 }
+
+#priceInCityPopUpContent .select-box .chosen-container .chosen-single{
+       font-weight:normal;
+}
 @media only screen and (max-width: 1024px) {
     .overall-specs-tabs-container {
         width: 940px;

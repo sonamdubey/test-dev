@@ -14,7 +14,7 @@
         <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
         <div id="popupHeading" class="content-inner-block-20">
             <p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
-            <div class="text-light-grey margin-bottom5"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
+            <div class="text-light-grey margin-bottom5">See on-road prices in your city!</div>
             @{ if (isOperaBrowser)
              {
 
@@ -29,11 +29,11 @@
                 <div id="pcitySelection" class="form-control text-left input-sm position-rel margin-bottom10">
                     <div class="selected-city" data-bind="text: (SelectedCity() != null && SelectedCity().cityName != '') ? SelectedCity().cityName : 'Select City'" ></div>
                     <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
-                </div>
-                
+                  </div>
+                <span class="error-text" data-bind="text: errMsg"></span>
 
                 <div id="btnPriceinCityLoader" class="center-align margin-top20 text-center position-rel">
-                    <a id="btnPriceInCityPopup" class="btn btn-orange btn-full-width font18" data-bind="event :{ click : function (d,e) { goToPriceInCity(d,e); } }">Check price in city</a>
+                    <a id="btnPriceInCityPopup" class="btn btn-orange btn-full-width font18" data-bind="event :{ click : function (d,e) { goToPriceInCity(d,e); } }">Show on-road price</a>
                 </div>
 
     <div id="priceInCityPopUpContent" class="bwm-city-area-popup-wrapper">
@@ -119,12 +119,7 @@
             self.validate = ko.observable(false);
             self.IsLoading = ko.observable(false);
             self.pcButtonClicked = ko.observable(false);
-            self.errMsg = ko.observable().extend({
-                SelectedCityId: {
-                    params: true,
-                    message: "Please select a city"
-                }
-            });
+            self.errMsg = ko.observable();
             self.setOptions = function (options, event) {
                 if (options != null) {
                     self.IsLoading(true);
@@ -209,15 +204,18 @@
             self.goToPriceInCity = function (data, event) {
                 self.pcButtonClicked(true);
                 if (self.SelectedCityId() != undefined && self.SelectedCityId() > 0){
-                        self.LoadingText("Fetching on-road price for " + self.SelectedCity().cityName);
+                    self.LoadingText("Fetching on-road price for " + self.SelectedCity().cityName);
                         self.redirectToPriceInCity();
                     }
+                else
+                    self.errMsg("Please select city.");
             };
 
             
             self.selectCity = function (data, event) {
 
                 try {
+                    self.errMsg("");
                     if (!self.oBrowser()) {
                         $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                         self.SelectedCity(data);
