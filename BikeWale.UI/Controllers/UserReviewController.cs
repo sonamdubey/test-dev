@@ -31,11 +31,11 @@ namespace Bikewale.Controllers
             return View(UserReviewVM);
         }
 
-        //[HttpPost]
-        //public ActionResult SubmitRating()
-        //{
-        //    return false;
-        //}
+        [HttpPost, Route("user-reviews/ratings/save/")]
+        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId)
+        {
+            return View();
+        }
 
 
         [Route("m/user-reviews/write-review/")]
