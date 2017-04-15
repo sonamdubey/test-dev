@@ -951,6 +951,7 @@
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
+    <Compile Include="Models\UserReviews\UserReviewRating.cs" />
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
     <Compile Include="Models\Videos\MakeVideosPage.cs" />
     <Compile Include="Models\Videos\ModelWiseVideosPage.cs" />
@@ -3079,12 +3080,12 @@
     <Content Include="m\sass\scooters\_listing-style.sass" />
     <Content Include="m\sass\modules\_comparison-carousel.sass" />
     <Content Include="m\sass\modules\_city-icons.sass" />
-    <Content Include="m\sass\upcoming-bikes\upcoming-bikes.sass" />
-    <Content Include="m\sass\upcoming-bikes\_upcoming-bikes-style.sass" />
-    <Content Include="m\sass\upcoming-bikes\_media-query.sass" />
     <Content Include="m\sass\user-review\write-review.sass" />
     <Content Include="m\sass\user-review\_write-review-style.sass" />
     <Content Include="m\sass\user-review\_write-review-media-query.sass" />
+    <Content Include="m\sass\upcoming-bikes\upcoming-bikes.sass" />
+    <Content Include="m\sass\upcoming-bikes\_upcoming-bikes-style.sass" />
+    <Content Include="m\sass\upcoming-bikes\_media-query.sass" />
     <Content Include="sass\upcoming-bikes\upcoming-bikes.sass" />
     <Content Include="sass\upcoming-bikes\_upcoming-bikes-style.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -3734,7 +3735,6 @@
     <Content Include="Views\Price\_PriceInCityPopUp_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
-
     <Content Include="Views\Upcoming\Index.cshtml" />
     <Content Include="Views\Upcoming\Index_Mobile.cshtml" />
     <Content Include="Views\Upcoming\BikesByMake_Mobile.cshtml" />

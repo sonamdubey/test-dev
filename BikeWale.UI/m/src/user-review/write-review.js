@@ -5,28 +5,7 @@ var detailedReviewField, reviewTitleField;
 
 var bikeRating = {
     ratingCount: 0,
-    overallRating: [
-        {
-            heading: "Terrible!",
-            description: "I regret riding this bike."
-        },
-        {
-            heading: "It's bad!",
-            description: "I know better bikes in the same price range."
-        },
-        {
-            heading: "Ummm..!",
-            description: "It's okay. Could have been better."
-        },
-        {
-            heading: "Superb!",
-            description: "It's good to ride, I love it."
-        },
-        {
-            heading: "Amazing!",
-            description: "I love everything about the bike."
-        }
-    ]
+    overallRating: []
 };
 
 var ratingQuestion = [
@@ -96,7 +75,8 @@ var reviewQuestion = JSON.parse($("#review-question-list").text())
 docReady(function () {
 
     ratingBox = $('#bike-rating-box');
-
+    debugger;
+    bikeRating.overallRating = JSON.parse($('#overallratingQuestion').text());
     // rate bike
     var rateBike = function () {
         var self = this;

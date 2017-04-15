@@ -1,22 +1,37 @@
 ﻿using AutoMapper;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.DTO.UserReviews;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Models;
 using System.Collections;
-using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
     public class UserReviewController : Controller
     {
-        // GET: UserReview
-        [Route("m/user-reviews/rate-bike/")]
-        public ActionResult RateBike_Mobile()
+        private readonly IBikeInfo _bikeInfo = null;
+
+        public UserReviewController(IBikeInfo bikeInfo)
         {
-            ModelBase m = new ModelBase();
-            return View(m);
+            _bikeInfo = bikeInfo;
         }
+
+        // GET: UserReview
+        [Route("m/user-reviews/rate-bike/{modelId}")]
+        public ActionResult RateBike_Mobile(uint modelId)
+        {
+            UserReviewRating objUserReview = new UserReviewRating(modelId, _bikeInfo);
+            UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
+            UserReviewVM = objUserReview.GetData();
+            return View(UserReviewVM);
+        }
+
+        //[HttpPost]
+        //public ActionResult SubmitRating()
+        //{
+        //    return false;
+        //}
 
 
         [Route("m/user-reviews/write-review/")]

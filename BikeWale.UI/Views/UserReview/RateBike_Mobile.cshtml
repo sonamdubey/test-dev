@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Bikewale.Models.UserReviewRatingVM
+@{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/write-review.css' />";
     Model.Page_JS_Path = "/m/src/user-review/write-review.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
@@ -8,10 +9,12 @@
     <div id="rate-bike-form" class="container content-box-shadow card-bottom-margin font14">
         <div class="padding-15-20 content-box-shadow">
             <div class="model-image-grid inline-block">
-                <img src="https://imgd.aeplcdn.com//110x61//bw/models/bajaj-pulsar-rs200.jpg" alt="" />
+                <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath,Model.BikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" alt="@Model.BikeInfo.Make.MakeName @Model.BikeInfo.Model.ModelName" />
             </div>
-            <h1 class="model-details-grid inline-block">Bajaj Pulsar RS200</h1>
+            <h1 class="model-details-grid inline-block">@Model.BikeInfo.Make.MakeName @Model.BikeInfo.Model.ModelName</h1>
         </div>
+        @using (Html.BeginForm("SubmitRating", "UserReview", FormMethod.Post))
+        { 
         <div class="padding-15-20">
             <div class="margin-bottom20">
                 <h2 class="margin-bottom10">How much do you like this bike?</h2>
@@ -69,8 +72,10 @@
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
-
-            <input type="button" class="btn btn-orange" value="Submit rating" data-bind="click: submitRating" />
+            <input type="hidden" value="" id="hdnns" name="hdnans"/>
+            <input type="submit"  class="btn btn-orange" value="Submit rating" data-bind="click: submitRating" />
         </div>
+        }
     </div>
 </section>
+<div class="hide" id="overallratingQuestion">@Model.OverAllRatingText</div>
