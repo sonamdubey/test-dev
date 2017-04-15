@@ -3,6 +3,7 @@ using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using System.Collections.Generic;
+using System.Linq;
 namespace Bikewale.Models
 {
     public class UserReviewRatingPage
@@ -23,10 +24,16 @@ namespace Bikewale.Models
             IEnumerable<UserReviewOverallRating> obj = null;
 
             var objUserReviews = _userReviews.GetUserReviewsData();
-            objUserVM.RatingQuestion = objUserReviews.Questions;
             obj = objUserReviews.OverallRating;
 
             objUserVM.OverAllRatingText = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+
+            foreach (var question in objUserReviews.Questions)
+            {
+                question.Rating = objUserReviews.Ratings.Where(x => x.QuestionId == question.Id);
+            }
+
+            objUserVM.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviews.Questions);
             return objUserVM;
         }
 

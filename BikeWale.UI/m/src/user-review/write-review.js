@@ -2,44 +2,15 @@
 
 var userNameField, userEmailIdField;
 var detailedReviewField, reviewTitleField;
-var value_overallrating;
+var value_overallrating, reviewQuestion;
 var array_rating;
 var bikeRating = {
     ratingCount: 0,
     overallRating: []
 };
 
-var ratingQuestion = [
-    {
-        qid: 101,
-        type: 'text',
-        heading: "What do you use this bike for?",
-        rating: ["Daily Commute", "Occasional Commute", "Leisure Rides", "Tours", "All"],
-        isRequired: true,
-        visibility: true,
-        subQuestionId: 0
-    },
-    {
-        qid: 102,
-        type: 'text',
-        heading: "How long have you owned this bike for?",
-        rating: ["Don't own", "< 3 months", "3-6 months", "6 months-1 yr", "> 1 yr"],
-        isRequired: true,
-        visibility: true,
-        subQuestionId: 103
-    },
-    {
-        qid: 103,
-        type: 'text',
-        heading: "How much have you ridden this bike?",
-        rating: ["< 5000 kms", "5000-10000 kms", "10000-15000 kms", "> 15000 kms"],
-        isRequired: true,
-        visibility: false,
-        subQuestionId: 0
-    }
-];
+var ratingQuestion = [];
 
-var reviewQuestion = JSON.parse($("#review-question-list").text())
 
 
 //var reviewQuestion = [
@@ -76,7 +47,15 @@ var reviewQuestion = JSON.parse($("#review-question-list").text())
 docReady(function () {
 
     ratingBox = $('#bike-rating-box');
-    bikeRating.overallRating = JSON.parse($('#overallratingQuestion').text());
+
+    if ($("#overallratingQuestion") && $("#overallratingQuestion").length)
+        bikeRating.overallRating = JSON.parse($('#overallratingQuestion').text());
+    if ($("#rating-question") && $("#rating-question").length)
+        ratingQuestion = JSON.parse($('#rating-question').text());
+  
+
+    if ($("#review-question-list") && $("#review-question-list").length)
+        reviewQuestion = JSON.parse($("#review-question-list").text());
     // rate bike
     var rateBike = function () {
         var self = this;
