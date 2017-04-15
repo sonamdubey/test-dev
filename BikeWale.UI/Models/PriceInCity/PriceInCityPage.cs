@@ -44,6 +44,7 @@ namespace Bikewale.Models
         private string modelMaskingName, cityMaskingName, pageDescription;
 
         private BikeQuotationEntity firstVersion;
+        private uint primaryDealerId;
         private bool isNew, isAreaSelected, hasAreaAvailable;
         public StatusCodes Status { get; private set; }
         public String RedirectUrl { get; private set; }
@@ -238,7 +239,6 @@ namespace Bikewale.Models
                             objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
 
                         BindBikeBasicDetails(objVM);
-                        BindDealersWidget(objVM);
                         BindServiceCenters(objVM);
                         BindSimilarBikes(objVM);
                         BindBikeInfoRank(objVM);
@@ -250,7 +250,8 @@ namespace Bikewale.Models
                             if (isAreaSelected)
                                 GetDealerPriceQuote(objVM);
                         }
-
+                        BindDealersWidget(objVM);
+                       
                         var objModelColours = _modelCache.GetModelColor(Convert.ToInt16(modelId));
                         colorCount = (uint)(objModelColours != null ? objModelColours.Count() : 0);
 
@@ -397,6 +398,8 @@ namespace Bikewale.Models
                 DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, cityId, firstVersion.MakeId);
                 objDealer.ModelId = modelId;
                 objDealer.TopCount = TopCount;
+                if (primaryDealerId > 0)
+                    objDealer.DealerId = primaryDealerId;
                 objVM.Dealers = objDealer.GetData();
                 dealerCount = (uint)(objVM.HasDealers ? objVM.Dealers.TotalCount : 0);
             }
@@ -569,6 +572,7 @@ namespace Bikewale.Models
                 {
                     try
                     {
+                        primaryDealerId = objPQOutput.DealerId;
                         objVM.DetailedDealer = _objDealerDetails.GetDealerQuotationV2(cityId, objPQOutput.VersionId, objPQOutput.DealerId, areaId);
                         objVM.MPQString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString()));
                     }
