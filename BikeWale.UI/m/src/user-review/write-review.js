@@ -2,7 +2,8 @@
 
 var userNameField, userEmailIdField;
 var detailedReviewField, reviewTitleField;
-
+var value_overallrating;
+var array_rating;
 var bikeRating = {
     ratingCount: 0,
     overallRating: []
@@ -72,7 +73,6 @@ var reviewQuestion = [
 docReady(function () {
 
     ratingBox = $('#bike-rating-box');
-    debugger;
     bikeRating.overallRating = JSON.parse($('#overallratingQuestion').text());
     // rate bike
     var rateBike = function () {
@@ -93,8 +93,19 @@ docReady(function () {
         self.ratingQuestions = ko.observableArray(ratingQuestion);        
 
         self.submitRating = function () {
+
             if (self.validateRateBikeForm()) {
-                // go to step 2
+                 array_rating = new Array;
+                value_overallrating = $("#bike-rating-box input[type='radio']:checked").attr("value");
+                $("#rate-bike-questions input[type='radio']:checked").each(function (i) {
+                    var r = $(this);
+                    array_rating[i] = (r.attr("questionId") + ':' + r.attr("value"));
+
+                });
+                $("#finaloverallrating").val(value_overallrating);
+                $("#rating-quesition-ans").val(array_rating);
+
+                return true;
             }
         };
 
@@ -111,11 +122,13 @@ docReady(function () {
         self.validate = {
             ratingCount: function () {
                 if (self.ratingCount() == 0) {
-                    self.validateRatingCountFlag(true);
                     self.ratingErrorText("Please rate the bike before submitting!");
-
                     self.focusFormActive(true);
                     answer.focusForm(ratingBox);
+                        return false;
+                }
+                else {
+                    self.validateRatingCountFlag(true);
                 }
 
                 return self.validateRatingCountFlag();
@@ -161,8 +174,8 @@ docReady(function () {
         
     };
 
-    userNameField = $('#getUserName');
-    userEmailIdField = $('#getEmailID');
+    userNameField = $('#txtUserName');
+    userEmailIdField = $('#txtEmailID');
 
     var personalDetails = function () {
         var self = this;
