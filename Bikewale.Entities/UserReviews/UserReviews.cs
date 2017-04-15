@@ -9,7 +9,7 @@ namespace Bikewale.Entities.UserReviews
         public string Description { get; set; }
         public uint SelectedRatingId { get; set; }
         public UserReviewQuestionDisplayType DisplayType { get; set; }
-        public IEnumerable<UserReviewrating> Rating { get; set; }
+        public IEnumerable<UserReviewRating> Rating { get; set; }
         public ushort Order { get; set; }
     }
 
@@ -19,11 +19,12 @@ namespace Bikewale.Entities.UserReviews
         Text = 2
     }
 
-    public class UserReviewrating
+    public class UserReviewRating
     {
         public uint Id { get; set; }
         public string Value { get; set; }
         public string Text { get; set; }
+        public uint QuestionId { get; set; }
     }
 
 

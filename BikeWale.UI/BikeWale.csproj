@@ -951,7 +951,7 @@
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
-    <Compile Include="Models\UserReviews\UserReviewRating.cs" />
+    <Compile Include="Models\UserReviews\UserReviewRatingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
     <Compile Include="Models\Videos\MakeVideosPage.cs" />
     <Compile Include="Models\Videos\ModelWiseVideosPage.cs" />

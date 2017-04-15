@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
-using Bikewale.Interfaces.BikeData;
 using Bikewale.DTO.UserReviews;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models;
 using System.Collections;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -11,17 +13,19 @@ namespace Bikewale.Controllers
     public class UserReviewController : Controller
     {
         private readonly IBikeInfo _bikeInfo = null;
+        private readonly IUserReviews _userReviews = null;
 
-        public UserReviewController(IBikeInfo bikeInfo)
+        public UserReviewController(IBikeInfo bikeInfo, IUserReviews userReviews)
         {
             _bikeInfo = bikeInfo;
+            _userReviews = userReviews;
         }
 
         // GET: UserReview
         [Route("m/user-reviews/rate-bike/{modelId}")]
         public ActionResult RateBike_Mobile(uint modelId)
         {
-            UserReviewRating objUserReview = new UserReviewRating(modelId, _bikeInfo);
+            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _bikeInfo, _userReviews);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
             UserReviewVM = objUserReview.GetData();
             return View(UserReviewVM);
@@ -46,30 +50,30 @@ namespace Bikewale.Controllers
             objUser.Description = "Hello";
             objUser.SelectedRatingId = 1;
 
-            IList<UserReviewrating> obj = new List<UserReviewrating>();
+            IList<UserReviewRating> obj = new List<UserReviewRating>();
 
 
-            UserReviewrating objReview1 = new UserReviewrating();
+            UserReviewRating objReview1 = new UserReviewRating();
             objReview1.Id = 1;
             objReview1.Text = "Fail";
             objReview1.Value = "1";
 
-            UserReviewrating objReview2 = new UserReviewrating();
+            UserReviewRating objReview2 = new UserReviewRating();
             objReview2.Id = 2;
             objReview2.Text = "Failure";
             objReview2.Value = "2";
 
-            UserReviewrating objReview3 = new UserReviewrating();
+            UserReviewRating objReview3 = new UserReviewRating();
             objReview3.Id = 3;
             objReview3.Text = "Success";
             objReview3.Value = "3";
 
-            UserReviewrating objReview4 = new UserReviewrating();
+            UserReviewRating objReview4 = new UserReviewRating();
             objReview4.Id = 4;
             objReview4.Text = "Successful";
             objReview4.Value = "4";
 
-            UserReviewrating objReview5 = new UserReviewrating();
+            UserReviewRating objReview5 = new UserReviewRating();
             objReview5.Id = 5;
             objReview5.Text = "Successssssss";
             objReview5.Value = "5";
@@ -113,7 +117,7 @@ namespace Bikewale.Controllers
         private ReviewQuestionsDto Convert(UserReviewQuestion objUserReviewQuestion)
         {
             Mapper.CreateMap<UserReviewQuestionDisplayType, UserReviewQuestionDisplayTypeDto>();
-            Mapper.CreateMap<UserReviewrating, UserReviewratingDto>();
+            Mapper.CreateMap<UserReviewRating, UserReviewratingDto>();
             Mapper.CreateMap<UserReviewQuestion, ReviewQuestionsDto>();
             return Mapper.Map<UserReviewQuestion, ReviewQuestionsDto>(objUserReviewQuestion);
         }

@@ -14,13 +14,16 @@ namespace Bikewale.BAL.UserReviews
     public class UserReviews : IUserReviews
     {
         private readonly IUserReviews userReviewsRepository = null;
+        private readonly IUserReviewsCache _userReviewsCache = null;
 
         public UserReviews()
         {
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IUserReviews, UserReviewsRepository>();
+                container.RegisterType<IUserReviewsCache, Bikewale.Cache.UserReviews.UserReviewsCacheRepository>();
                 userReviewsRepository = container.Resolve<IUserReviews>();
+                _userReviewsCache = container.Resolve<IUserReviewsCache>();
             }
         }
 
@@ -130,6 +133,15 @@ namespace Bikewale.BAL.UserReviews
             isUpdated = userReviewsRepository.UpdateReviewUseful(reviewId, isHelpful);
 
             return isUpdated;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public UserReviewsData GetUserReviewsData()
+        {
+            return _userReviewsCache.GetUserReviewsData();
         }
     }   // Class
 }   // Namespace

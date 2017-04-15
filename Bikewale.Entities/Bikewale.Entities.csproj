@@ -349,7 +349,9 @@
     <Compile Include="UserReviews\ReviewsListEntity.cs" />
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
     <Compile Include="UserReviews\UserReviewOverallRating.cs" />
+    <Compile Include="UserReviews\UserReviewPriceRange.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />
+    <Compile Include="UserReviews\UserReviewsData.cs" />
     <Compile Include="UsersTestimonial\UsersTestimonial.cs" />
     <Compile Include="Videos\BikeVideoEntity.cs" />
     <Compile Include="Videos\BikeVideoModelEntity.cs" />

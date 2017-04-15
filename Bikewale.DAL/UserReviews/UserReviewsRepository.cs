@@ -717,5 +717,108 @@ namespace Bikewale.DAL.UserReviews
             }
             return success;
         }
+
+
+        public UserReviewsData GetUserReviewsData()
+        {
+            UserReviewsData objData = null;
+            IList<UserReviewOverallRating> overallRating = null;
+            IList<UserReviewQuestion> questions = null;
+            IList<UserReviewRating> ratings = null;
+            IList<UserReviewPriceRange> priceRange = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getuserreviewsstaticdata"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objData = new UserReviewsData();
+                            overallRating = new List<UserReviewOverallRating>();
+                            while (dr.Read())
+                            {
+                                overallRating.Add(
+                                    new UserReviewOverallRating()
+                                    {
+                                        Id = SqlReaderConvertor.ToUInt32(dr["id"]),
+                                        Value = SqlReaderConvertor.ToUInt16(dr["rating"]),
+                                        Heading = Convert.ToString(dr["heading"]),
+                                        Description = Convert.ToString(dr["Description"])
+                                    });
+                            }
+                            objData.OverallRating = overallRating;
+
+                            if (dr.NextResult())
+                            {
+                                questions = new List<UserReviewQuestion>(); ;
+                                while (dr.Read())
+                                {
+                                    questions.Add(
+                                    new UserReviewQuestion()
+                                    {
+                                        Id = SqlReaderConvertor.ToUInt32(dr["QuestionId"]),
+                                        Heading = Convert.ToString(dr["Heading"]),
+                                        Description = Convert.ToString(dr["Description"]),
+                                        DisplayType = (UserReviewQuestionDisplayType)Convert.ToInt32(dr["DisplayType"]),
+                                        Type = (UserReviewQuestionType)Convert.ToInt32(dr["QuestionType"]),
+                                        Order = SqlReaderConvertor.ToUInt16(dr["DisplayOrder"])
+                                    });
+                                }
+                            }
+                            objData.Questions = questions;
+
+                            if (dr.NextResult())
+                            {
+                                ratings = new List<UserReviewRating>(); ;
+                                while (dr.Read())
+                                {
+                                    ratings.Add(
+                                    new UserReviewRating()
+                                    {
+                                        Id = SqlReaderConvertor.ToUInt32(dr["RatingId"]),
+                                        QuestionId = SqlReaderConvertor.ToUInt32(dr["QuestionId"]),
+                                        Text = Convert.ToString(dr["RatingText"]),
+                                        Value = Convert.ToString(dr["RatingValue"])
+                                    });
+                                }
+                            }
+                            objData.Ratings = ratings;
+
+
+                            if (dr.NextResult())
+                            {
+                                priceRange = new List<UserReviewPriceRange>(); ;
+                                while (dr.Read())
+                                {
+                                    priceRange.Add(
+                                    new UserReviewPriceRange()
+                                    {
+                                        Id = SqlReaderConvertor.ToUInt32(dr["PricerangeId"]),
+                                        QuestionId = SqlReaderConvertor.ToUInt32(dr["QuestionId"]),
+                                        MinPrice = SqlReaderConvertor.ToUInt32(dr["MinPrice"]),
+                                        MaxPrice = SqlReaderConvertor.ToUInt32(dr["MaxPrice"]),
+                                    });
+                                }
+                            }
+                            objData.PriceRange = priceRange;
+
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+            }
+            return objData;
+
+        }
     }
 }

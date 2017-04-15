@@ -21,5 +21,7 @@ namespace Bikewale.Interfaces.UserReviews
         bool AbuseReview(uint reviewId, string comment, string userId);
         bool UpdateViews(uint reviewId);
         bool UpdateReviewUseful(uint reviewId, bool isHelpful);
+
+        UserReviewsData GetUserReviewsData();
     }   // class
 }   // namespace

@@ -51,9 +51,29 @@ namespace Bikewale.Cache.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetBikeReviewsList");
-                objErr.SendMail();
             }
             return reviews;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public UserReviewsData GetUserReviewsData()
+        {
+            UserReviewsData reviewsRatings = null;
+
+            string key = "BW_UserReviewsRatings";
+            try
+            {
+                reviewsRatings = _cache.GetFromCache<UserReviewsData>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetUserReviewsData());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsData");
+            }
+            return reviewsRatings;
         }
     }
 }
