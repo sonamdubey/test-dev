@@ -37,9 +37,10 @@ namespace Bikewale.Controllers
         [Route("m/user-reviews/write-review/")]
         public ActionResult WriteReview_Mobile()
         {
-            WriteReviewPageVM objPage = new WriteReviewPageModel().GetData();
+            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews);
+            var objData = objPage.GetData();
 
-            return View(objPage);
+            return View(objData);
         }
 
         [Route("m/user-reviews/review-summary/")]

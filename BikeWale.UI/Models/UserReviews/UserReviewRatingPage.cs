@@ -30,7 +30,7 @@ namespace Bikewale.Models
 
             foreach (var question in objUserReviews.Questions)
             {
-                question.Rating = objUserReviews.Ratings.Where(x => x.QuestionId == question.Id);
+                question.Rating = objUserReviews.Ratings.Where(x => x.QuestionId == question.Id && question.Type == UserReviewQuestionType.Rating);
             }
 
             objUserVM.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviews.Questions);

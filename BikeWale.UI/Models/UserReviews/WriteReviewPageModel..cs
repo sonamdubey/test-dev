@@ -2,13 +2,20 @@
 using AutoMapper;
 using Bikewale.DTO.UserReviews;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.UserReviews;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Models.UserReviews
 {
     public class WriteReviewPageModel
     {
+        private readonly IUserReviews _userReviews = null;
+        public WriteReviewPageModel(IUserReviews userReviews)
+        {
+            _userReviews = userReviews;
+        }
+
         public WriteReviewPageVM GetData()
         {
             WriteReviewPageVM objPage = null;
@@ -16,36 +23,36 @@ namespace Bikewale.Models.UserReviews
             {
                 objPage = new WriteReviewPageVM();
 
-                UserReviewQuestion objUser = new UserReviewQuestion();
+                /* UserReviewQuestion objUser = new UserReviewQuestion();
                 objUser.DisplayType = UserReviewQuestionDisplayType.Star;
                 objUser.Id = 506;
                 objUser.Heading = "Are you sure";
                 objUser.Description = "Hello";
 
-                IList<UserReviewrating> obj = new List<UserReviewrating>();
+                IList<UserReviewRating> obj = new List<UserReviewRating>();
 
 
-                UserReviewrating objReview1 = new UserReviewrating();
+                UserReviewRating objReview1 = new UserReviewRating();
                 objReview1.Id = 1;
                 objReview1.Text = "Fail";
                 objReview1.Value = "1";
 
-                UserReviewrating objReview2 = new UserReviewrating();
+                UserReviewRating objReview2 = new UserReviewRating();
                 objReview2.Id = 2;
                 objReview2.Text = "Failure";
                 objReview2.Value = "2";
 
-                UserReviewrating objReview3 = new UserReviewrating();
+                UserReviewRating objReview3 = new UserReviewRating();
                 objReview3.Id = 3;
                 objReview3.Text = "Success";
                 objReview3.Value = "3";
 
-                UserReviewrating objReview4 = new UserReviewrating();
+                UserReviewRating objReview4 = new UserReviewRating();
                 objReview4.Id = 4;
                 objReview4.Text = "Successful";
                 objReview4.Value = "4";
 
-                UserReviewrating objReview5 = new UserReviewrating();
+                UserReviewRating objReview5 = new UserReviewRating();
                 objReview5.Id = 5;
                 objReview5.Text = "Successssssss";
                 objReview5.Value = "5";
@@ -67,30 +74,30 @@ namespace Bikewale.Models.UserReviews
                 objUser1.Heading = "Are you sureeeeee";
                 objUser1.Description = "Hell";
 
-                IList<UserReviewrating> obj1 = new List<UserReviewrating>();
+                IList<UserReviewRating> obj1 = new List<UserReviewRating>();
 
 
-                UserReviewrating objReview11 = new UserReviewrating();
+                UserReviewRating objReview11 = new UserReviewRating();
                 objReview11.Id = 1;
                 objReview11.Text = "Failq";
                 objReview11.Value = "1";
 
-                UserReviewrating objReview21 = new UserReviewrating();
+                UserReviewRating objReview21 = new UserReviewRating();
                 objReview21.Id = 2;
                 objReview21.Text = "Failureq";
                 objReview21.Value = "2";
 
-                UserReviewrating objReview31 = new UserReviewrating();
+                UserReviewRating objReview31 = new UserReviewRating();
                 objReview31.Id = 3;
                 objReview31.Text = "Successq";
                 objReview31.Value = "3";
 
-                UserReviewrating objReview41 = new UserReviewrating();
+                UserReviewRating objReview41 = new UserReviewRating();
                 objReview41.Id = 4;
                 objReview41.Text = "Successfulq";
                 objReview41.Value = "4";
 
-                UserReviewrating objReview51 = new UserReviewrating();
+                UserReviewRating objReview51 = new UserReviewRating();
                 objReview51.Id = 5;
                 objReview51.Text = "Successssssssq";
                 objReview51.Value = "5";
@@ -115,7 +122,16 @@ namespace Bikewale.Models.UserReviews
                 string str = Newtonsoft.Json.JsonConvert.SerializeObject(reviewQuestions);
 
 
-                objPage.JsonQuestionList = str;
+                objPage.JsonQuestionList = str; */
+
+                var objUserReviews = _userReviews.GetUserReviewsData();
+                var objReviewQuestions = objUserReviews.Questions.Where(x => x.Type == UserReviewQuestionType.Rating);
+                foreach (var question in objReviewQuestions)
+                {
+                    question.Rating = objUserReviews.Ratings.Where(x => x.QuestionId == question.Id);
+                }
+
+                objPage.JsonQuestionList = Newtonsoft.Json.JsonConvert.SerializeObject(objReviewQuestions);
 
 
 
@@ -130,7 +146,7 @@ namespace Bikewale.Models.UserReviews
         private ReviewQuestionsDto Convert(UserReviewQuestion objUserReviewQuestion)
         {
             Mapper.CreateMap<UserReviewQuestionDisplayType, UserReviewQuestionDisplayTypeDto>();
-            Mapper.CreateMap<UserReviewrating, UserReviewratingDto>();
+            Mapper.CreateMap<UserReviewRating, UserReviewratingDto>();
             Mapper.CreateMap<UserReviewQuestion, ReviewQuestionsDto>();
             return Mapper.Map<UserReviewQuestion, ReviewQuestionsDto>(objUserReviewQuestion);
         }
