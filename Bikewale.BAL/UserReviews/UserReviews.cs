@@ -1,8 +1,12 @@
 ﻿using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Utility.LinqHelpers;
 using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 
 namespace Bikewale.BAL.UserReviews
@@ -143,5 +147,66 @@ namespace Bikewale.BAL.UserReviews
         {
             return _userReviewsCache.GetUserReviewsData();
         }
+
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 10-04-2017
+        /// Description :   Returns models according to filters
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<UserReviewQuestion> GetQuestions(UserReviewsInputEntity inputParams)
+        {
+            IEnumerable<UserReviewQuestion> objQuestions = null; bool isAsc;
+            try
+            {
+
+                var objUserReviewQuestions = _userReviewsCache.GetUserReviewsData();
+
+                if (objUserReviewQuestions != null && objUserReviewQuestions.Questions != null)
+                {
+
+                    // objQuestions = objQuestions.Sort(ProcessOrderBy(sortBy, out isAsc), isAsc);
+                    objQuestions = objQuestions.Where(ProcessInputFilter(inputParams));
+
+                    if (objQuestions != null && objQuestions.Count() > 0)
+                    {
+                        //objQuestions = objQuestions.Page(inputParams.PageNo, inputParams.PageSize);
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.BikeData.Upcoming.GetModels");
+            }
+            return objQuestions;
+        }
+
+        private Func<UserReviewQuestion, bool> ProcessInputFilter(UserReviewsInputEntity filters)
+        {
+            Expression<Func<UserReviewQuestion, bool>> filterExpression = PredicateBuilder.True<UserReviewQuestion>();
+            if (filters != null)
+            {
+                if (filters.DisplayType > 0)
+                {
+                    filterExpression = filterExpression.And(m => m.DisplayType == filters.DisplayType);
+                }
+                if (filters.Type > 0)
+                {
+                    filterExpression = filterExpression.And(m => m.Type == filters.Type);
+                }
+                //if (filters.BodyStyleId > 0)
+                //{
+                //    filterExpression = filterExpression.And(m => m.BodyStyleId == filters.BodyStyleId);
+                //}
+                //if (filters.Year > 0)
+                //{
+                //    filterExpression = filterExpression.And(m => m.ExpectedLaunchedDate.Year == filters.Year);
+                //}
+            }
+            return filterExpression.Compile();
+        }
+
+
     }   // Class
 }   // Namespace
