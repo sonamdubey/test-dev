@@ -1,0 +1,95 @@
+﻿@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/write-review.css' />";
+    Model.Page_JS_Path = "/m/src/user-review/write-review.js";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
+
+<section>
+    <div id="write-review-form">
+        <div class="container content-box-shadow card-bottom-margin font14">
+            <div class="padding-15-20 content-box-shadow">
+                <div class="model-image-grid inline-block">
+                    <img src="https://imgd.aeplcdn.com//110x61//bw/models/bajaj-pulsar-rs200.jpg" alt="" />
+                </div>
+                <div class="model-details-grid inline-block">
+                    <h1 class="text-truncate margin-bottom5">Bajaj Pulsar RS200</h1>
+                    <div>
+                        <span class="font12 text-slate-grey">You rated:</span><span class="bwmsprite star-one"></span><span class="text-bold">2.8</span><span class="font12 text-xx-light">/5</span>
+                    </div>
+                </div>
+            </div>
+            <div class="padding-top15 padding-right20 padding-bottom5 padding-left20">
+                <h2 class="margin-bottom10">Had an amazing experience?</h2>
+                <p class="text-slate-grey margin-bottom10">Tell us more about it. You may consider writing about:</p>
+                <ol class="numeric-list margin-bottom15">
+                    <li>Buying experience</li>
+                    <li>Riding experience</li>
+                    <li>Details about looks, performance etc.</li>
+                    <li>Servicing and maintenance</li>
+                    <li>Pros and Cons</li>
+                </ol>
+                <div class="textarea-box margin-bottom15">
+                    <textarea data-bind="textInput: detailedReview" id="getDetailedReview" rows="9" cols="42" placeholder="The more detailed your review, the more useful it will be. Write your review."></textarea>
+
+                    <div data-bind="visible: !detailedReviewFlag() && detailedReview().length < 300" class="review-char-count position-abt font12">
+                        <span data-bind="visible: detailedReview().length > 0"><span data-bind="text: detailedReview().length"></span>/</span><span data-bind="text: reviewCharLimit"></span>&nbsp;min
+                    </div>
+
+                    <div data-bind="visible: detailedReviewFlag" class="textarea-error position-abt">
+                        <span class="error-text" data-bind="text: detailedReviewError"></span>
+                    </div>
+                </div>
+
+                <h3 class="font15 margin-bottom10">Give a title to your review</h3>
+                <p class="text-slate-grey margin-bottom20">A catchy title will grab eyeballs, and more people will read your review.</p>
+
+                <div class="input-box form-control-box" data-bind="css: reviewTitle().length > 0 ? 'not-empty' : ''">
+                    <input type="text" id="getReviewTitle" data-bind="textInput: reviewTitle" />
+                    <label for="getReviewTitle">Your title</label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container content-box-shadow content-inner-block-20 card-bottom-margin font14">
+            <h2 class="padding-bottom5">Can you share a little more about this bike?<span class="text-light-grey text-unbold font14">&nbsp;(Optional)</span></h2>
+            <ul id="bike-review-questions" class="review-question-list margin-bottom20" data-bind="foreach: reviewQuestions">
+                <!-- ko if: type === "star" -->
+                <li class="list-item question-type-star">
+                    <p class="item-title" data-bind="text: heading"></p>
+                    <p class="item-subtitle" data-bind="text: description"></p>
+
+                    <div class="answer-star-list inline-block" data-bind="foreach: rating.slice(0).reverse()">
+                        <input type="radio" data-bind="attr: {id: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), value: (5 - $index())}" />
+                        <label class="bwmsprite star-zero" data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + $index(), 'data-value': (5 - $index())}"></label>
+                    </div>
+                    <p class="feedback-text inline-block"></p>
+                </li>
+                <!-- /ko -->
+                <!-- ko if: type === "text" -->
+                <li class="list-item question-type-text">
+                    <p class="item-title" data-bind="text: heading"></p>
+                    <p class="item-subtitle" data-bind="text: description"></p>
+
+                    <div class="answer-radio-list" data-bind="foreach: rating">
+                        <input type="radio" data-bind="attr: {id: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), value: $index() + 1}" />
+                        <label data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), 'data-value': $index() + 1}, text: $data"></label>
+                    </div>
+                    <div class="clear"></div>
+                </li>
+                <!-- /ko -->
+            </ul>
+            <div class="clear"></div>
+
+            <h3 class="font15 margin-bottom10">Tips for prospective buyers</h3>
+            <p class="text-light-grey margin-bottom10">Share key tips which you think were useful while owning/riding this bike.</p>
+            <div class="textarea-box margin-bottom15">
+                <textarea rows="3" cols="42" placeholder="Write your tips here.."></textarea>
+            </div>
+
+            <input type="button" class="btn btn-orange" value="Submit review" data-bind="click: submitReview" />
+        </div>
+    </div>
+</section>
