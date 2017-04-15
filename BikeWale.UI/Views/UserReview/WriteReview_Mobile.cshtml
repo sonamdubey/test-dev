@@ -5,8 +5,7 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 
-@using (Html.BeginForm("UserReview", "WriteReview_Mobile", FormMethod.Post))
-{
+<form action="/user-reviews/save/" method="post">
     <section>
         <div id="write-review-form">
             <div class="container content-box-shadow card-bottom-margin font14">
@@ -32,7 +31,7 @@
                         <li>Pros and Cons</li>
                     </ol>
                     <div class="textarea-box margin-bottom15">
-                        <textarea data-bind="textInput: detailedReview" id="getDetailedReview" rows="9" cols="42" placeholder="The more detailed your review, the more useful it will be. Write your review."></textarea>
+                        <textarea name="reviewDescription" data-bind="textInput: detailedReview" id="getDetailedReview" rows="9" cols="42" placeholder="The more detailed your review, the more useful it will be. Write your review."></textarea>
 
                         <div data-bind="visible: !detailedReviewFlag() && detailedReview().length < 300" class="review-char-count position-abt font12">
                             <span data-bind="visible: detailedReview().length > 0"><span data-bind="text: detailedReview().length"></span>/</span><span data-bind="text: reviewCharLimit"></span>&nbsp;min
@@ -47,7 +46,7 @@
                     <p class="text-slate-grey margin-bottom20">A catchy title will grab eyeballs, and more people will read your review.</p>
 
                     <div class="input-box form-control-box" data-bind="css: reviewTitle().length > 0 ? 'not-empty' : ''">
-                        <input type="text" id="getReviewTitle" data-bind="textInput: reviewTitle" />
+                        <input name="reviewTitle" type="text" id="getReviewTitle" data-bind="textInput: reviewTitle" />
                         <label for="getReviewTitle">Your title</label>
                         <span class="boundary"></span>
                         <span class="error-text"></span>
@@ -65,7 +64,7 @@
                         <p class="item-subtitle" data-bind="text: description"></p>
 
                         <div class="answer-star-list inline-block" data-bind="foreach: rating.slice(0).reverse()">
-                            <input type="radio" data-bind="attr: {id: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), value: (5 - $index())}" />
+                            <input type="radio" data-bind="attr: {questiontId : $parent.id, id: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), value: (5 - $index())}" />
                             <label class="bwmsprite star-zero" data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + $index(), 'data-value': (5 - $index())}"></label>
                         </div>
                         <p class="feedback-text inline-block"></p>
@@ -77,8 +76,8 @@
                         <p class="item-subtitle" data-bind="text: description"></p>
 
                         <div class="answer-radio-list" data-bind="foreach: rating">
-                            <input type="radio" data-bind="attr: {id: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), value: $index() + 1}" />
-                            <label data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), 'data-value': $index() + 1}, text: $data"></label>
+                            <input type="radio" data-bind="attr: {questiontId : $parent.id, id: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), value: $index() + 1}" />
+                            <label data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), 'data-value': $index() + 1}, text: ratingText"></label>
                         </div>
                         <div class="clear"></div>
                     </li>
@@ -86,10 +85,12 @@
                 </ul>
                 <div class="clear"></div>
 
+                <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
+
                 <h3 class="font15 margin-bottom10">Tips for prospective buyers</h3>
                 <p class="text-light-grey margin-bottom10">Share key tips which you think were useful while owning/riding this bike.</p>
                 <div class="textarea-box margin-bottom15">
-                    <textarea rows="3" cols="42" placeholder="Write your tips here.."></textarea>
+                    <textarea name="reviewTips" rows="3" cols="42" placeholder="Write your tips here.."></textarea>
                 </div>
 
                 <input type="submit" class="btn btn-orange" value="Submit review" data-bind="click: submitReview" />
@@ -98,4 +99,4 @@
 
         <span id="review-question-list" class="hide">@Model.JsonQuestionList</span>
     </section>
-}
+</form>
