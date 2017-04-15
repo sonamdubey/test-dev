@@ -1,0 +1,85 @@
+﻿@model Bikewale.Models.UserReviewRatingVM
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/write-review.css' />";
+    Model.Page_JS_Path = "/m/src/user-review/write-review.js";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
+
+<section>
+    <div id="rate-bike-form" class="container content-box-shadow card-bottom-margin font14">
+        <div class="padding-15-20 content-box-shadow">
+            <div class="model-image-grid inline-block">
+                <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath,Model.BikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" alt="@Model.BikeInfo.Make.MakeName @Model.BikeInfo.Model.ModelName" />
+            </div>
+            <h1 class="model-details-grid inline-block">@Model.BikeInfo.Make.MakeName @Model.BikeInfo.Model.ModelName</h1>
+        </div>
+        <form action="/user-reviews/ratings/save/" method="post">
+            <div class="padding-15-20">
+                <div class="margin-bottom20">
+                    <h2 class="margin-bottom10">How much do you like this bike?</h2>
+                    <p class="text-slate-grey">Consider looks & styling, performance, servicing experience, mileage etc. before you rate.</p>
+
+                    <div id="bike-rating-box">
+                        <div class="circle-placeholder">
+                            <span class="bwmsprite" data-bind="css: ratingCount() > 0 ? 'feedback-' + ratingCount() : 'star-one'"></span>
+                        </div>
+                        <div class="rating-placeholder">
+                            <h3 class="font20 font-bold" data-bind="text: feedbackTitle">Rate your bike</h3>
+                            <p class="margin-top5" data-bind="text: feedbackSubtitle"></p>
+
+                            <p class="error-text" data-bind="visible: validateRatingCountFlag() && ratingCount() == 0, text: ratingErrorText"></p>
+
+                            <div class="answer-star-list" data-bind="foreach: overallRating.slice(0).reverse()">
+                                <input type="radio" name="rate-box" data-bind="attr: {id: 'rate-' + ($root.overallRating().length - $index()), value: ($root.overallRating().length - $index())}" />
+                                <label class="bwmsprite star-zero" data-bind="attr: {for: 'rate-' + ($root.overallRating().length - $index()), 'data-value': ($root.overallRating().length - $index())}"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="rate-bike-questions" data-bind="foreach: ratingQuestions">
+                    <!-- ko if: type === "text" -->
+                    <div class="question-field question-type-text" data-bind="visible: visibility, attr:{id: 'question-' + qid, 'data-sub-question': subQuestionId, 'data-required': isRequired}">
+                        <h3 class="question-item" data-bind="text: heading"></h3>
+                        <p class="error-text" data-bind="" style="display: none">This is a compulsory field.</p>
+
+                        <div class="answer-radio-list" data-bind="foreach: rating">
+                            <input type="radio" data-bind="attr: {questionId:$parentContext.$index()+1,id: 'q-' + $parentContext.$index() + '-' + $index(), name: 'rating-q-' + $parentContext.$index(), value: $index() + 1}" />
+                            <label data-bind="attr: {for: 'q-' + $parentContext.$index() + '-' + $index(), 'data-value': $index() + 1}, text: $data"></label>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+
+                <div class="margin-bottom20">
+                    <h2 class="margin-bottom10">Personal details</h2>
+                    <p class="text-slate-grey">We wish to credit this rating to you. We will never spam your inbox.</p>
+                </div>
+
+                <div class="input-box form-control-box margin-bottom15" data-bind="css: personalDetails().userName().length > 0 ? 'not-empty' : ''">
+                    <input type="text" id="txtUserName" name="userName" data-bind="textInput: personalDetails().userName" />
+                    <label for="getUserName">Name<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+
+                <div class="input-box form-control-box margin-bottom15" data-bind="css: personalDetails().emailId().length > 0 ? 'not-empty' : ''">
+                    <input type="text" id="txtEmailID" name="emailId" data-bind="textInput: personalDetails().emailId" />
+                    <label for="getEmailID">Email ID<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+                <div class="hide" id="overallratingQuestion">@Model.OverAllRatingText</div>
+                <div class="hide" id="rating-question">@Model.RatingQuestion</div>
+                <input type="hidden" name="overAllrating" id="finaloverallrating" />
+                <input type="hidden" name="ratingQuestionAns" id="rating-quesition-ans" />
+                <input type="submit" class="btn btn-orange" value="Submit rating" data-bind="click: submitRating" />
+            </div>
+        </form>
+            
+           
+    </div>
+</section>
+
