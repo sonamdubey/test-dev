@@ -1,4 +1,4 @@
-﻿var ratingBox;
+﻿var ratingBox, selectedAnswer;
 
 var userNameField, userEmailIdField;
 var detailedReviewField, reviewTitleField;
@@ -319,15 +319,26 @@ docReady(function () {
         self.reviewQuestions = ko.observableArray(reviewQuestion);
 
         self.submitReview = function () {
+
+            var array = new Array;
+
+            $(".list-item input[type='radio']:checked").each(function (i) {
+                var r = $(this);
+                array[i] = (r.attr("questiontId") + ':' + r.val());
+            });
+
+            $('#reviewQuestion').val(array.join(","));
+
             if (self.detailedReview().length > 0 || self.reviewTitle().length > 0) {
-                self.validateReviewForm();
+                if (self.validateReviewForm()) {
+                    return true;
+                }               
             }
             else {
                 self.detailedReviewFlag(false);
                 validate.hideError(reviewTitleField);
-                // go to step 3
-            }
-            return true;
+                return true;
+            }            
         };
 
         self.validateReviewForm = function () {
@@ -352,7 +363,7 @@ docReady(function () {
                     self.detailedReviewFlag(false);
                 }
 
-                return self.detailedReviewFlag();
+                return !self.detailedReviewFlag();
             },
 
             reviewTitle: function () {
