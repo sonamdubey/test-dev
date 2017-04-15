@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Bikewale.Models
 {
-    public class WriteReviewPageVM
+    public class WriteReviewPageVM : ModelBase
     {
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }
@@ -17,5 +17,6 @@ namespace Bikewale.Models
         public string Tips { get; set; }
         public CustomerEntityBase Customer { get; set; }
         public bool HasReview { get; set; }
+        public string JsonQuestionList { get; set; }
     }
 }

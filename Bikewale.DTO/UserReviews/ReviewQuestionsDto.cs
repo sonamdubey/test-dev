@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Bikewale.DTO.UserReviews
@@ -17,18 +18,20 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("currentlySelected")]
         public uint SelectedRatingId { get; set; }
 
-        [JsonProperty("type")]
         public UserReviewQuestionDisplayTypeDto DisplayType { get; set; }
 
         [JsonProperty("rating")]
         public IEnumerable<UserReviewratingDto> Rating { get; set; }
 
+        [JsonProperty("type")]
+        public string DisplayTypeString { get { return Convert.ToString(DisplayType); } }
+
     }
 
     public enum UserReviewQuestionDisplayTypeDto
     {
-        Star = 1,
-        Text = 2
+        star = 1,
+        text = 2
     }
 
     public class UserReviewratingDto

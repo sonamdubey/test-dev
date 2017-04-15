@@ -59,36 +59,39 @@ var ratingQuestion = [
     }
 ];
 
-var reviewQuestion = [
-    {
-        type: 'star',
-        heading: "Visual Appeal/Looks",
-        description: "Remember, what others thought when they first saw your bike!",
-        rating: ["Terrible!", "It's bad", "Okay", "Excellent", "Gorgeous"],
-        currentlySelected: 0
-    },
-    {
-        type: 'star',
-        heading: "Reliability",
-        description: "Remember, what others thought when they first saw this bike!",
-        rating: ["Unpredictable", "Unreliable", "You can rely!", "Dependable", "Trustworthy"],
-        currentlySelected: 0
-    },
-    {
-        type: 'star',
-        heading: "Performance",
-        description: "Remember, what others thought when they first saw this bike!",
-        rating: ["Very poor", "Poor", "Not bad", "Good", "Excellent"],
-        currentlySelected: 0
-    },
-    {
-        type: 'text',
-        heading: "Maintenance cost",
-        description: "Are regular replacement parts reasonably priced? How much does it cost to fix a broken part?",
-        rating: ["Unreasonably High", "Very High", "High", "Reasonable", "Well priced"],
-        currentlySelected: 0
-    }
-];
+var reviewQuestion = JSON.parse($("#review-question-list").text())
+
+
+//var reviewQuestion = [
+//    {
+//        type: 'star',
+//        heading: "Visual Appeal/Looks",
+//        description: "Remember, what others thought when they first saw your bike!",
+//        rating: ["Terrible!", "It's bad", "Okay", "Excellent", "Gorgeous"],
+//        currentlySelected: 0
+//    },
+//    {
+//        type: 'star',
+//        heading: "Reliability",
+//        description: "Remember, what others thought when they first saw this bike!",
+//        rating: ["Unpredictable", "Unreliable", "You can rely!", "Dependable", "Trustworthy"],
+//        currentlySelected: 0
+//    },
+//    {
+//        type: 'star',
+//        heading: "Performance",
+//        description: "Remember, what others thought when they first saw this bike!",
+//        rating: ["Very poor", "Poor", "Not bad", "Good", "Excellent"],
+//        currentlySelected: 0
+//    },
+//    {
+//        type: 'text',
+//        heading: "Maintenance cost",
+//        description: "Are regular replacement parts reasonably priced? How much does it cost to fix a broken part?",
+//        rating: ["Unreasonably High", "Very High", "High", "Reasonable", "Well priced"],
+//        currentlySelected: 0
+//    }
+//];
 
 docReady(function () {
 
@@ -324,6 +327,7 @@ docReady(function () {
                 validate.hideError(reviewTitleField);
                 // go to step 3
             }
+            return true;
         };
 
         self.validateReviewForm = function () {
@@ -382,7 +386,7 @@ docReady(function () {
         var button = $(this),
             questionField = button.closest('.question-type-star');
         
-        var feedbackText = vmWriteReview.reviewQuestions()[questionField.index()].rating[button.val() - 1];
+        var feedbackText = vmWriteReview.reviewQuestions()[questionField.index()].rating[button.val() - 1].ratingText;
         questionField.find('.feedback-text').text(feedbackText);
     });
 

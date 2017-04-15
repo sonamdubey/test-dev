@@ -40,27 +40,52 @@ namespace Bikewale.Controllers
             objReview1.Value = "1";
 
             UserReviewrating objReview2 = new UserReviewrating();
-            objReview2.Id = 1;
+            objReview2.Id = 2;
             objReview2.Text = "Failure";
-            objReview2.Value = "1";
+            objReview2.Value = "2";
 
             UserReviewrating objReview3 = new UserReviewrating();
-            objReview3.Id = 1;
+            objReview3.Id = 3;
             objReview3.Text = "Success";
-            objReview3.Value = "1";
+            objReview3.Value = "3";
+
+            UserReviewrating objReview4 = new UserReviewrating();
+            objReview4.Id = 4;
+            objReview4.Text = "Successful";
+            objReview4.Value = "4";
+
+            UserReviewrating objReview5 = new UserReviewrating();
+            objReview5.Id = 5;
+            objReview5.Text = "Successssssss";
+            objReview5.Value = "5";
 
 
             obj.Add(objReview1);
             obj.Add(objReview2);
             obj.Add(objReview3);
+            obj.Add(objReview4);
+            obj.Add(objReview5);
 
             objUser.Rating = obj;
 
-            string str = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(objUser);
+
 
             ReviewQuestionsDto DTO = Convert(objUser);
 
-            return View(m);
+
+
+            IList<ReviewQuestionsDto> reviewQuestions = new List<ReviewQuestionsDto>();
+
+            reviewQuestions.Add(DTO);
+
+            string str = Newtonsoft.Json.JsonConvert.SerializeObject(reviewQuestions);
+
+            WriteReviewPageVM objPage = new WriteReviewPageVM();
+
+            objPage.JsonQuestionList = str;
+
+
+            return View(objPage);
         }
 
         [Route("m/user-reviews/review-summary/")]
