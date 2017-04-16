@@ -34,35 +34,37 @@ namespace Bikewale.Controllers
             return View(UserReviewVM);
         }
 
-        [HttpPost, Route("user-reviews/ratings/save/")]
+        [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
         public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId)
         {
-            bool isValid = false;
+
+            bool isValid = true;
             string errorMessage = "";
             //server side validation for data received
-            if (!string.IsNullOrEmpty(overAllrating))
+            if (string.IsNullOrEmpty(overAllrating))
             {
                 errorMessage = "Please provide your rating for bike.";
-                isValid = true;
+                isValid = false;
             }
-            if (!isValid && !string.IsNullOrEmpty(ratingQuestionAns))
+            if (isValid && string.IsNullOrEmpty(ratingQuestionAns))
             {
                 errorMessage = "Please rate all the questions.";
-                isValid = true;
+                isValid = false;
             }
-            if (!isValid && !string.IsNullOrEmpty(userName))
+            if (isValid && string.IsNullOrEmpty(userName))
             {
                 errorMessage = "Please provide your username.";
-                isValid = true;
+                isValid = false;
             }
-            if (!isValid && !string.IsNullOrEmpty(emailId))
+            if (isValid && string.IsNullOrEmpty(emailId))
             {
                 errorMessage = "Please provide your Email Id.";
-                isValid = true;
+                isValid = false;
             }
 
             if (isValid)
             {
+                _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId);
                 return RedirectToAction("WriteReview_Mobile");
             }
             else

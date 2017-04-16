@@ -822,9 +822,72 @@ namespace Bikewale.DAL.UserReviews
         }
 
 
-        public IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams)
+        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint reviewId)
         {
-            throw new NotImplementedException();
+            reviewId = 0;
+
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallrating", DbType.String, overAllrating));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ratingQuestionAns", DbType.String, ratingQuestionAns));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userName", DbType.String, userName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailId", DbType.String, emailId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            reviewId = SqlReaderConvertor.ToUInt32(dr["reviewId"]);
+                        }
+                        dr.Close();
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+            }
+
+            return reviewId;
         }
+
+        public bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
+        {
+            bool IsSaved = false;
+
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.UInt32, reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tipsnadvices", DbType.String, tipsnAdvices));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comment", DbType.String, comment));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_commenttitle", DbType.String, commentTitle));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ratingquestionans", DbType.String, reviewsQuestionAns));
+
+                    IsSaved = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+            }
+
+            return IsSaved;
+        }
+
     }
 }

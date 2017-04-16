@@ -12,38 +12,6 @@ var bikeRating = {
 var ratingQuestion = [];
 
 
-
-//var reviewQuestion = [
-//    {
-//        type: 'star',
-//        heading: "Visual Appeal/Looks",
-//        description: "Remember, what others thought when they first saw your bike!",
-//        rating: ["Terrible!", "It's bad", "Okay", "Excellent", "Gorgeous"],
-//        currentlySelected: 0
-//    },
-//    {
-//        type: 'star',
-//        heading: "Reliability",
-//        description: "Remember, what others thought when they first saw this bike!",
-//        rating: ["Unpredictable", "Unreliable", "You can rely!", "Dependable", "Trustworthy"],
-//        currentlySelected: 0
-//    },
-//    {
-//        type: 'star',
-//        heading: "Performance",
-//        description: "Remember, what others thought when they first saw this bike!",
-//        rating: ["Very poor", "Poor", "Not bad", "Good", "Excellent"],
-//        currentlySelected: 0
-//    },
-//    {
-//        type: 'text',
-//        heading: "Maintenance cost",
-//        description: "Are regular replacement parts reasonably priced? How much does it cost to fix a broken part?",
-//        rating: ["Unreasonably High", "Very High", "High", "Reasonable", "Well priced"],
-//        currentlySelected: 0
-//    }
-//];
-
 docReady(function () {
 
     ratingBox = $('#bike-rating-box');

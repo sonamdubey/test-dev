@@ -1,11 +1,9 @@
-﻿using Bikewale.Cache.Core;
-using Bikewale.DAL.UserReviews;
+﻿using Bikewale.Entities.Customer;
 using Bikewale.Entities.UserReviews;
-using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility.LinqHelpers;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,16 +20,19 @@ namespace Bikewale.BAL.UserReviews
     public class UserReviews : IUserReviews
     {
         private readonly IUserReviewsCache _userReviewsCache = null;
+        private readonly IUserReviewsRepository _userReviewsRepo = null;
+        private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
+        private readonly ICustomerRepository<CustomerEntity, UInt32> _objCustomerRepo = null;
 
-        public UserReviews()
+        // container.RegisterType<IUserReviewsCache, Bikewale.Cache.UserReviews.UserReviewsCacheRepository>();
+
+        public UserReviews(IUserReviewsCache userReviewsCache, IUserReviewsRepository userReviewsRepo, ICustomer<CustomerEntity, UInt32> objCustomer,
+            ICustomerRepository<CustomerEntity, UInt32> objCustomerRepo)
         {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<ICacheManager, MemcacheManager>();
-                container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
-                container.RegisterType<IUserReviewsCache, Bikewale.Cache.UserReviews.UserReviewsCacheRepository>();
-                _userReviewsCache = container.Resolve<IUserReviewsCache>();
-            }
+            _userReviewsCache = userReviewsCache;
+            _userReviewsRepo = userReviewsRepo;
+            _objCustomer = objCustomer;
+            _objCustomerRepo = objCustomerRepo;
         }
 
         /// <summary>
@@ -137,7 +138,47 @@ namespace Bikewale.BAL.UserReviews
             return filterExpression.Compile();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="overAllrating"></param>
+        /// <param name="ratingQuestionAns"></param>
+        /// <param name="userName"></param>
+        /// <param name="emailId"></param>
+        /// <returns></returns>
+        public bool SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId)
+        {
+            bool isSaved = false;
+            CustomerEntity objCust = null;
+            //check for user registration
+            //Check if Customer exists
+            objCust = _objCustomer.GetByEmail(emailId);
 
+            if (objCust != null && objCust.CustomerId > 0)
+            {
+                //If exists update the mobile number and name
+                _objCustomerRepo.UpdateCustomerMobileNumber("", emailId, userName);
+                //set customer id for further use
+            }
+            else
+            {
+                //if not registered register and get customerid
+                //Register the new customer and send login details
+                objCust = new CustomerEntity() { CustomerName = userName, CustomerEmail = emailId, CustomerMobile = "" };
+                if (objCust.CustomerId < 1)
+                {
+                    objCust.CustomerId = _objCustomer.Add(objCust);
+                }
+                //mail to betriggered here
+            }
+            uint reviewId = 0;
+            _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId,reviewId);
 
+            isSaved = reviewId > 0;
+            //return valid status
+
+            return isSaved;
+
+        }
     }   // Class
 }   // Namespace
