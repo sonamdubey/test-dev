@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Entities.UserReviews
 {
+    [Serializable]
     public class UserReviewsData
     {
         public IEnumerable<UserReviewQuestion> Questions { get; set; }

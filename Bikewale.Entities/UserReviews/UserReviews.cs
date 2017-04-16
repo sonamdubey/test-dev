@@ -1,40 +1,46 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 namespace Bikewale.Entities.UserReviews
 {
+    [Serializable, DataContract]
     public class UserReviewQuestion
     {
         [JsonProperty("qId")]
         public uint Id { get; set; }
 
-        [JsonProperty("qtype")]
+        [JsonProperty("qtype"), DataMember, JsonIgnore]
         public UserReviewQuestionType Type { get; set; }
 
-        [JsonProperty("heading")]
+        [JsonProperty("heading"), DataMember]
         public string Heading { get; set; }
 
-        [JsonProperty("description")]
+        [JsonProperty("description"), DataMember]
         public string Description { get; set; }
 
-        [JsonProperty("selectedRatingId")]
+        [JsonProperty("selectedRatingId"), DataMember]
         public uint SelectedRatingId { get; set; }
 
-        [JsonProperty("displayType")]
+        [JsonProperty("displayType"), DataMember]
         public UserReviewQuestionDisplayType DisplayType { get; set; }
 
-        [JsonProperty("rating")]
+        [JsonProperty("rating"), JsonIgnore, DataMember]
         public IEnumerable<UserReviewRating> Rating { get; set; }
 
-        [JsonProperty("order")]
+        [JsonProperty("order"), DataMember, JsonIgnore]
         public ushort Order { get; set; }
 
-        [JsonProperty("isRequired")]
+        [JsonProperty("isRequired"), DataMember]
         public bool IsRequired { get { return true; } }
 
-        [JsonProperty("visibility")]
+        [JsonProperty("visibility"), DataMember]
         public bool Visibility { get { return true; } }
 
-        [JsonProperty("subQuestionId")]
+        [JsonProperty("priceRangeIds"), JsonIgnore, DataMember]
+        public IEnumerable<uint> PriceRangeIds { get; set; }
+
+        [JsonProperty("subQuestionId"), DataMember]
         public uint SubQuestionId { get { return 0; } }
     }
 
@@ -44,15 +50,16 @@ namespace Bikewale.Entities.UserReviews
         Text = 2
     }
 
+    [Serializable, DataContract]
     public class UserReviewRating
     {
-        [JsonProperty("ratingId")]
+        [JsonProperty("ratingId"), DataMember]
         public uint Id { get; set; }
-        [JsonProperty("ratingValue")]
+        [JsonProperty("ratingValue"), DataMember]
         public string Value { get; set; }
-        [JsonProperty("ratingText")]
+        [JsonProperty("ratingText"), DataMember]
         public string Text { get; set; }
-        [JsonProperty("qId")]
+        [JsonProperty("qId"), JsonIgnore, DataMember]
         public uint QuestionId { get; set; }
     }
 

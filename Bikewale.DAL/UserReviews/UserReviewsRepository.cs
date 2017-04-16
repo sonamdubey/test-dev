@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Web;
 
 namespace Bikewale.DAL.UserReviews
@@ -797,7 +798,8 @@ namespace Bikewale.DAL.UserReviews
                                     priceRange.Add(
                                     new UserReviewPriceRange()
                                     {
-                                        Id = SqlReaderConvertor.ToUInt32(dr["PricerangeId"]),
+                                        Id = SqlReaderConvertor.ToUInt32(dr["Id"]),
+                                        RangeId = SqlReaderConvertor.ToUInt32(dr["PricerangeId"]),
                                         QuestionId = SqlReaderConvertor.ToUInt32(dr["QuestionId"]),
                                         MinPrice = SqlReaderConvertor.ToUInt32(dr["MinPrice"]),
                                         MaxPrice = SqlReaderConvertor.ToUInt32(dr["MaxPrice"]),
@@ -809,6 +811,39 @@ namespace Bikewale.DAL.UserReviews
                             dr.Close();
                         }
                     }
+                }
+
+                if (objData != null && objData.Ratings != null && objData.Questions != null)
+                {
+                    //set ratings for question
+                    var objQuestionratings = objData.Ratings.GroupBy(x => x.QuestionId);
+
+                    //set pricerangeIds for question
+                    var priceRangeIds = objData.PriceRange.GroupBy(x => x.QuestionId);
+
+                    foreach (var question in objData.Questions)
+                    {
+                        foreach (var rating in objQuestionratings)
+                        {
+                            if (rating.Key == question.Id)
+                            {
+                                question.Rating = rating;
+                                break;
+                            }
+                        }
+
+                        foreach (var priceId in priceRangeIds)
+                        {
+                            if (priceId.Key == question.Id)
+                            {
+                                question.PriceRangeIds = priceId.Select(x => x.RangeId);
+                                break;
+                            }
+                        }
+                    }
+
+
+
                 }
             }
             catch (Exception ex)
@@ -822,9 +857,9 @@ namespace Bikewale.DAL.UserReviews
         }
 
 
-        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint reviewId)
+        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId)
         {
-            reviewId = 0;
+            uint reviewId = 0;
 
             try
             {

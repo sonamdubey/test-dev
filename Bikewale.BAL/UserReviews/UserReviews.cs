@@ -84,23 +84,7 @@ namespace Bikewale.BAL.UserReviews
 
                     objQuestions = objUserReviewQuestions.Questions.Where(ProcessInputFilter(inputParams));
 
-                    if (objQuestions != null)
-                    {
-                        var objQuestionratings = objUserReviewQuestions.Ratings.GroupBy(x => x.QuestionId);
 
-                        foreach (var question in objQuestions)
-                        {
-                            foreach (var rating in objQuestionratings)
-                            {
-                                if (rating.Key == question.Id)
-                                {
-                                    question.Rating = rating;
-                                    break;
-                                }
-                            }
-                        }
-
-                    }
                 }
 
             }
@@ -133,6 +117,10 @@ namespace Bikewale.BAL.UserReviews
                 if (filters.IsRequired)
                 {
                     filterExpression = filterExpression.And(m => m.IsRequired == filters.IsRequired);
+                }
+                if (filters.PriceRangeId > 0)
+                {
+                    filterExpression = filterExpression.And(m => m.PriceRangeIds != null && m.PriceRangeIds.Contains(filters.PriceRangeId));
                 }
             }
             return filterExpression.Compile();
@@ -172,7 +160,7 @@ namespace Bikewale.BAL.UserReviews
                 //mail to betriggered here
             }
             uint reviewId = 0;
-            _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId,reviewId);
+            reviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId);
 
             isSaved = reviewId > 0;
             //return valid status

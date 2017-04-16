@@ -154,7 +154,8 @@ namespace Bikewale.Models.UserReviews
                 {
                     UserReviewsInputEntity filter = new UserReviewsInputEntity()
                     {
-                        Type = UserReviewQuestionType.Review
+                        Type = UserReviewQuestionType.Review,
+                        PriceRangeId = 3
                     };
                     var objQuestions = _userReviews.GetUserReviewQuestions(filter, objUserReviewData);
                     if (objQuestions != null)

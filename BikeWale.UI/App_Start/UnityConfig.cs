@@ -2,6 +2,7 @@ using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.BikeData.NewLaunched;
 using Bikewale.BAL.BikeData.UpComingBike;
+using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
@@ -23,6 +24,7 @@ using Bikewale.Cache.UserReviews;
 using Bikewale.Cache.Videos;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Compare;
+using Bikewale.DAL.Customer;
 using Bikewale.DAL.Dealer;
 using Bikewale.DAL.HomePage;
 using Bikewale.DAL.Location;
@@ -32,6 +34,7 @@ using Bikewale.DAL.UsedBikes;
 using Bikewale.DAL.UserReviews;
 using Bikewale.DAL.Videos;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Customer;
 using Bikewale.Entities.service;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
@@ -40,6 +43,7 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
+using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.HomePage;
@@ -97,7 +101,6 @@ namespace Bikewale
             container.RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>();
             container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>();
             container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
-            container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
             container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
             container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>();
             container.RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>();
@@ -119,6 +122,8 @@ namespace Bikewale
             container.RegisterType<IUsedBikesCache, UsedBikesCache>();
             container.RegisterType<IUsedBikes, UsedBikes>();
             container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
+            container.RegisterType<ICustomer<CustomerEntity, uint>, Customer<CustomerEntity, uint>>();
+            container.RegisterType<ICustomerRepository<CustomerEntity, uint>, CustomerRepository<CustomerEntity, uint>>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
