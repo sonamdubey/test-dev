@@ -2,8 +2,6 @@
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
-using System.Collections.Generic;
-using System.Linq;
 namespace Bikewale.Models
 {
     public class UserReviewRatingPage
@@ -20,21 +18,41 @@ namespace Bikewale.Models
         public UserReviewRatingVM GetData()
         {
             UserReviewRatingVM objUserVM = new UserReviewRatingVM();
-            objUserVM.BikeInfo = _bikeInfo.GetBikeInfo(_modelId, 0);
-            IEnumerable<UserReviewOverallRating> obj = null;
 
-            var objUserReviews = _userReviews.GetUserReviewsData();
-            obj = objUserReviews.OverallRating;
+            GetBikeData(objUserVM);
+            GetUserRatings(objUserVM);
 
-            objUserVM.OverAllRatingText = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
-
-            foreach (var question in objUserReviews.Questions)
-            {
-                question.Rating = objUserReviews.Ratings.Where(x => x.QuestionId == question.Id && question.Type == UserReviewQuestionType.Rating);
-            }
-
-            objUserVM.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviews.Questions);
             return objUserVM;
+        }
+
+        private void GetBikeData(UserReviewRatingVM objUserVM)
+        {
+            objUserVM.BikeInfo = _bikeInfo.GetBikeInfo(_modelId, 0);
+        }
+
+        private void GetUserRatings(UserReviewRatingVM objUserVM)
+        {
+            UserReviewsData objUserReviewData = _userReviews.GetUserReviewsData();
+            if (objUserReviewData != null)
+            {
+                if (objUserReviewData.OverallRating != null)
+                {
+                    objUserVM.OverAllRatingText = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewData.OverallRating);
+                }
+
+                if (objUserReviewData.Questions != null)
+                {
+                    UserReviewsInputEntity filter = new UserReviewsInputEntity()
+                    {
+                        Type = UserReviewQuestionType.Rating
+                    };
+                    var objQuestions = _userReviews.GetUserReviewQuestions(filter, objUserReviewData);
+                    if (objQuestions != null)
+                    {
+                        objUserVM.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objQuestions);
+                    }
+                }
+            }
         }
 
     }

@@ -89,6 +89,8 @@ docReady(function () {
 
                 return true;
             }
+
+            return false;
         };
 
         self.validateRateBikeForm = function () {

@@ -1,10 +1,7 @@
 ﻿
-using AutoMapper;
-using Bikewale.DTO.UserReviews;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using System;
-using System.Linq;
 
 namespace Bikewale.Models.UserReviews
 {
@@ -124,16 +121,16 @@ namespace Bikewale.Models.UserReviews
 
                 objPage.JsonQuestionList = str; */
 
-                var objUserReviews = _userReviews.GetUserReviewsData();
-                var objReviewQuestions = objUserReviews.Questions.Where(x => x.Type == UserReviewQuestionType.Rating);
-                foreach (var question in objReviewQuestions)
-                {
-                    question.Rating = objUserReviews.Ratings.Where(x => x.QuestionId == question.Id);
-                }
+                //var objUserReviews = _userReviews.GetUserReviewsData();
+                //var objReviewQuestions = objUserReviews.Questions.Where(x => x.Type == UserReviewQuestionType.Rating);
+                //foreach (var question in objReviewQuestions)
+                //{
+                //    question.Rating = objUserReviews.Ratings.Where(x => x.QuestionId == question.Id);
+                //}
 
-                objPage.JsonQuestionList = Newtonsoft.Json.JsonConvert.SerializeObject(objReviewQuestions);
+                //objPage.JsonQuestionList = Newtonsoft.Json.JsonConvert.SerializeObject(objReviewQuestions);
 
-
+                GetUserRatings(objPage);
 
             }
             catch (Exception ex)
@@ -143,12 +140,30 @@ namespace Bikewale.Models.UserReviews
             return objPage;
         }
 
-        private ReviewQuestionsDto Convert(UserReviewQuestion objUserReviewQuestion)
+        private void GetUserRatings(WriteReviewPageVM objUserVM)
         {
-            Mapper.CreateMap<UserReviewQuestionDisplayType, UserReviewQuestionDisplayTypeDto>();
-            Mapper.CreateMap<UserReviewRating, UserReviewratingDto>();
-            Mapper.CreateMap<UserReviewQuestion, ReviewQuestionsDto>();
-            return Mapper.Map<UserReviewQuestion, ReviewQuestionsDto>(objUserReviewQuestion);
+            UserReviewsData objUserReviewData = _userReviews.GetUserReviewsData();
+            if (objUserReviewData != null)
+            {
+                if (objUserReviewData.OverallRating != null)
+                {
+                    //objUserVM.Rating = objUserReviewData.OverallRating;
+                }
+
+                if (objUserReviewData.Questions != null)
+                {
+                    UserReviewsInputEntity filter = new UserReviewsInputEntity()
+                    {
+                        Type = UserReviewQuestionType.Review
+                    };
+                    var objQuestions = _userReviews.GetUserReviewQuestions(filter, objUserReviewData);
+                    if (objQuestions != null)
+                    {
+                        objUserVM.JsonQuestionList = Newtonsoft.Json.JsonConvert.SerializeObject(objQuestions);
+                    }
+                }
+            }
         }
+
     }
 }

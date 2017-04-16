@@ -19,7 +19,7 @@ namespace Bikewale.Entities.UserReviews
         [JsonProperty("selectedRatingId")]
         public uint SelectedRatingId { get; set; }
 
-        [JsonProperty("displaytype")]
+        [JsonProperty("displayType")]
         public UserReviewQuestionDisplayType DisplayType { get; set; }
 
         [JsonProperty("rating")]

@@ -7,6 +7,7 @@ using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.BAL.ServiceCenter;
 using Bikewale.BAL.UsedBikes;
+using Bikewale.BAL.UserReviews;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
@@ -113,7 +114,8 @@ namespace Bikewale
             container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
             container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
             container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>();
-            container.RegisterType<IUserReviews, UserReviewsRepository>();
+            container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
+            container.RegisterType<IUserReviews, UserReviews>();
             container.RegisterType<IUsedBikesCache, UsedBikesCache>();
             container.RegisterType<IUsedBikes, UsedBikes>();
             container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();

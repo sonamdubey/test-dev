@@ -39,7 +39,7 @@
                 </div>
 
                 <div id="rate-bike-questions" data-bind="foreach: ratingQuestions">
-                    <!-- ko if: displaytype == 1 -->
+                    <!-- ko if: displayType == 2 -->
                     <div class="question-field question-type-text" data-bind="visible: visibility, attr:{id: 'question-' + qId, 'data-sub-question': subQuestionId, 'data-required': isRequired}">
                         <h3 class="question-item" data-bind="text: heading"></h3>
                         <p class="error-text" data-bind="" style="display: none">This is a compulsory field.</p>

@@ -59,7 +59,7 @@ namespace Bikewale.Mobile.Controls
             {
                 container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
                     .RegisterType<ICacheManager, MemcacheManager>()
-                    .RegisterType<IUserReviews, UserReviewsRepository>();
+                    .RegisterType<IUserReviewsRepository, UserReviewsRepository>();
 
                 objUserReviews = container.Resolve<IUserReviewsCache>();
 

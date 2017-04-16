@@ -143,6 +143,7 @@
     <Compile Include="Used\IUsedBikeSeller.cs" />
     <Compile Include="Used\IUsedBikeSellerRepository.cs" />
     <Compile Include="UserReviews\IUserReviews.cs" />
+    <Compile Include="UserReviews\IUserReviewsRepository.cs" />
     <Compile Include="UserReviews\IUserReviewsCache.cs" />
     <Compile Include="UsersTestimonial\IUsersTestimonial.cs" />
     <Compile Include="Videos\IVideoRepository.cs" />

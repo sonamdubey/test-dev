@@ -16,7 +16,7 @@ namespace Bikewale.DAL.UserReviews
     /// Created By : Ashish G. Kamble
     /// Summary : Class have functions to interact with database to get the user reviews data.
     /// </summary>
-    public class UserReviewsRepository : IUserReviews
+    public class UserReviewsRepository : IUserReviewsRepository
     {
 
         /// <summary>
@@ -819,6 +819,12 @@ namespace Bikewale.DAL.UserReviews
             }
             return objData;
 
+        }
+
+
+        public IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams)
+        {
+            throw new NotImplementedException();
         }
     }
 }

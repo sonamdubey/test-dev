@@ -58,7 +58,7 @@
             <div class="container content-box-shadow content-inner-block-20 card-bottom-margin font14">
                 <h2 class="padding-bottom5">Can you share a little more about this bike?<span class="text-light-grey text-unbold font14">&nbsp;(Optional)</span></h2>
                 <ul id="bike-review-questions" class="review-question-list margin-bottom20" data-bind="foreach: reviewQuestions">
-                    <!-- ko if: displaytype == 1 -->
+                    <!-- ko if: displayType == 1 -->
                     <li class="list-item question-type-star">
                         <p class="item-title" data-bind="text: heading"></p>
                         <p class="item-subtitle" data-bind="text: description"></p>
@@ -70,7 +70,7 @@
                         <p class="feedback-text inline-block"></p>
                     </li>
                     <!-- /ko -->
-                    <!-- ko if: displaytype == 2 -->
+                    <!-- ko if: displayType == 2 -->
                     <li class="list-item question-type-text">
                         <p class="item-title" data-bind="text: heading"></p>
                         <p class="item-subtitle" data-bind="text: description"></p>

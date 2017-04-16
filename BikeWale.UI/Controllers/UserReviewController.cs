@@ -2,6 +2,7 @@
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
+using System;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -23,14 +24,52 @@ namespace Bikewale.Controllers
         {
             UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _bikeInfo, _userReviews);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
+            if (TempData["ErrorMessage"] != null)
+            {
+                UserReviewVM.ErrorMessage = Convert.ToString(TempData["ErrorMessage"]);
+            }
+
             UserReviewVM = objUserReview.GetData();
+
             return View(UserReviewVM);
         }
 
         [HttpPost, Route("user-reviews/ratings/save/")]
         public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId)
         {
-            return View();
+            bool isValid = false;
+            string errorMessage = "";
+            //server side validation for data received
+            if (!string.IsNullOrEmpty(overAllrating))
+            {
+                errorMessage = "Please provide your rating for bike.";
+                isValid = true;
+            }
+            if (!isValid && !string.IsNullOrEmpty(ratingQuestionAns))
+            {
+                errorMessage = "Please rate all the questions.";
+                isValid = true;
+            }
+            if (!isValid && !string.IsNullOrEmpty(userName))
+            {
+                errorMessage = "Please provide your username.";
+                isValid = true;
+            }
+            if (!isValid && !string.IsNullOrEmpty(emailId))
+            {
+                errorMessage = "Please provide your Email Id.";
+                isValid = true;
+            }
+
+            if (isValid)
+            {
+                return RedirectToAction("WriteReview_Mobile");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = errorMessage;
+                return RedirectToAction("RateBike_Mobile");
+            }
         }
 
 

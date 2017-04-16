@@ -14,14 +14,14 @@ namespace Bikewale.Cache.UserReviews
     public class UserReviewsCacheRepository : IUserReviewsCache
     {
         private readonly ICacheManager _cache;
-        private readonly IUserReviews _objUserReviews;
+        private readonly IUserReviewsRepository _objUserReviews;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="objUserReviews"></param>
-        public UserReviewsCacheRepository(ICacheManager cache, IUserReviews objUserReviews)
+        public UserReviewsCacheRepository(ICacheManager cache, IUserReviewsRepository objUserReviews)
         {
             _cache = cache;
             _objUserReviews = objUserReviews;
