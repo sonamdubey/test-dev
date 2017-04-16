@@ -857,7 +857,7 @@ namespace Bikewale.DAL.UserReviews
         }
 
 
-        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId)
+        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId)
         {
             uint reviewId = 0;
 
@@ -868,6 +868,8 @@ namespace Bikewale.DAL.UserReviews
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_overallrating", DbType.String, overAllrating));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ratingQuestionAns", DbType.String, ratingQuestionAns));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userName", DbType.String, userName));
@@ -901,7 +903,7 @@ namespace Bikewale.DAL.UserReviews
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.UInt32, reviewId));
@@ -924,5 +926,61 @@ namespace Bikewale.DAL.UserReviews
             return IsSaved;
         }
 
+
+
+        public UserReviewSummary GetUserReviewSummary(uint reviewId)
+        {
+            UserReviewSummary objUserReviewSummary = null;
+
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummary"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.UInt32, reviewId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            objUserReviewSummary = new UserReviewSummary()
+                            {
+                                ModelId = SqlReaderConvertor.ToUInt32(dr["modelId"]),
+                                CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
+                                CustomerName = Convert.ToString(dr["CustomerName"]),
+                                Description = Convert.ToString(dr["Comments"]),
+                                Tips = Convert.ToString(dr["ReviewTitle"]),
+                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"])
+                            };
+                        }
+
+                        if (objUserReviewSummary != null && dr.NextResult())
+                        {
+                            var objQuestions = new List<UserReviewQuestion>();
+                            while (dr.Read())
+                            {
+                                objQuestions.Add(new UserReviewQuestion()
+                                {
+                                    SelectedRatingId = SqlReaderConvertor.ToUInt32(dr["answerValue"]),
+                                    Id = SqlReaderConvertor.ToUInt32(dr["QuestionId"])
+                                });
+                            }
+                        }
+
+                        dr.Close();
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+            }
+
+            return objUserReviewSummary;
+        }
     }
 }

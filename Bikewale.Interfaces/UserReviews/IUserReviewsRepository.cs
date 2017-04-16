@@ -23,7 +23,8 @@ namespace Bikewale.Interfaces.UserReviews
         bool UpdateReviewUseful(uint reviewId, bool isHelpful);
 
         UserReviewsData GetUserReviewsData();
-        uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId);
+        uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId);
         bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns);
+        UserReviewSummary GetUserReviewSummary(uint reviewId);
     }   // class
 }   // namespace

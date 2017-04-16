@@ -35,7 +35,7 @@ namespace Bikewale.Controllers
         }
 
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId)
+        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId)
         {
 
             bool isValid = true;
@@ -64,7 +64,7 @@ namespace Bikewale.Controllers
 
             if (isValid)
             {
-                _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId);
+                _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId,makeId,modelId);
                 return RedirectToAction("WriteReview_Mobile");
             }
             else
@@ -93,9 +93,27 @@ namespace Bikewale.Controllers
 
 
         [HttpPost, Route("user-reviews/save/")]
-        public void SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips)
+        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, uint reviewId)
         {
+            bool isValid = true;
+            string errorMessage = "";
+            //server side validation for data received
+            if (!string.IsNullOrEmpty(reviewDescription))
+            {
+                errorMessage = "Please provide your rating for bike.";
+                isValid = false;
+            }
 
+            if (isValid)
+            {
+                _userReviews.SaveUserReviews(reviewId, reviewTips, reviewDescription, reviewTitle, reviewQuestion);
+                return RedirectToAction("ReviewSummary_Mobile");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = errorMessage;
+                return RedirectToAction("WriteReview_Mobile");
+            }
         }
 
     }
