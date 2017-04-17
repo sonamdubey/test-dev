@@ -249,6 +249,13 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
 
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 29th Nov 2016
+        /// Description : To get bajaj finance bike mapping info
+        /// </summary>
+        /// <param name="versionid"></param>
+        /// <param name="pincodeId"></param>
+        /// <returns></returns>
         public BajajFinanceLeadEntity GetBajajFinanceBikeMappingInfo(uint versionid, uint pincodeId)
         {
             BajajFinanceLeadEntity objQuotation = null;

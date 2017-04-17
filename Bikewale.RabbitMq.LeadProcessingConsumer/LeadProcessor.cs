@@ -128,6 +128,11 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                                 CampaignId = 0
                             };
 
+                            if (!leadType.Equals(LeadTypes.Manufacturer))
+                            {
+                                priceQuote = _leadProcessor.GetPriceQuoteDetails(pqId);
+                            }
+
 
                             if (priceQuote != null)
                             {
@@ -144,14 +149,12 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                                 switch (leadType)
                                 {
                                     case LeadTypes.Dealer:
-                                        priceQuote = _leadProcessor.GetPriceQuoteDetails(pqId);
                                         success = PushDealerLead(priceQuote, pqId, iteration);
                                         break;
                                     case LeadTypes.Manufacturer:
                                         success = PushManufacturerLead(priceQuote, pqId, pincodeId, leadSourceId, iteration);
                                         break;
                                     default:
-                                        priceQuote = _leadProcessor.GetPriceQuoteDetails(pqId);
                                         success = PushDealerLead(priceQuote, pqId, iteration);
                                         break;
                                 }
@@ -443,12 +446,16 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 BajajFinanceLeadEntity bikeMappingInfo = _repository.GetBajajFinanceBikeMappingInfo(priceQuote.VersionId, pincodeId);
                 if (bikeMappingInfo != null)
                 {
-                    var nameArr = priceQuote.CustomerName.Split(' ');
-                    bikeMappingInfo.FirstName = nameArr[0];
-                    if (nameArr.Length > 1)
+                    if (!string.IsNullOrEmpty(priceQuote.CustomerName))
                     {
-                        bikeMappingInfo.LastName = nameArr[1];
+                        int spaceIndex = priceQuote.CustomerName.IndexOf(" ");
+                        if (spaceIndex > 0)
+                        {
+                            bikeMappingInfo.FirstName = priceQuote.CustomerName.Substring(0, spaceIndex);
+                            bikeMappingInfo.LastName = priceQuote.CustomerName.Substring(spaceIndex + 1);
+                        }
                     }
+
                     bikeMappingInfo.MobileNo = priceQuote.CustomerMobile;
                     bikeMappingInfo.EmailID = priceQuote.CustomerEmail;
                 }
@@ -476,6 +483,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             }
                         }
                     }
+
+                    Logs.WriteInfoLog(String.Format("Bajaj Finance Reuest Response : {0}", jsonString));
                 }
             }
             catch (Exception ex)
