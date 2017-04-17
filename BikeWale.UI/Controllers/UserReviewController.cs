@@ -82,7 +82,7 @@ namespace Bikewale.Controllers
 
             if (isValid)
             {
-                _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId);
+                _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, 2);
                 return RedirectToAction("WriteReview_Mobile");
             }
             else
