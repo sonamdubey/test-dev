@@ -115,6 +115,7 @@
             <!-- model about end -->
 
             <!-- model dealers start -->
+            @if (Model.HasDealers) { 
             <div id="dealerContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
                 @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && Model.IsNew)
                 { 
@@ -169,7 +170,7 @@
                         }
                         else
                         {
-                            <h2>@Model.DealersWidget_H2</h2>
+                            <h2>@String.Format("{0} Dealers in {1}", Model.Make.MakeName, Model.CityEntity.CityName)</h2>
                         }
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
@@ -179,6 +180,7 @@
                     @Html.Partial("~/views/dealershowroom/_DealerCard_Mobile.cshtml", Model.Dealers)
                 }
             </div>
+            }
             <!-- model dealers end -->
 
             @if (Model.HasServiceCenters) { 
