@@ -7,7 +7,7 @@
     <div class="content-box-shadow">
         <div class="padding-right20 padding-left20">
             <div class="padding-top15 padding-bottom15 border-solid-bottom">
-                <h3 class="font18 text-black grid-5 alpha" data-bind="visible:TotalBikes() > 0, text:TotalBikes() > 1 ? TotalBikes() + ' bikes' : TotalBikes() + ' bike'">@Model.TotalBikes bike@(Model.TotalBikes > 1 ? "s" : "")</h3>
+                <h2 class="font18 text-black grid-5 alpha" data-bind="visible:TotalBikes() > 0, text:TotalBikes() > 1 ? TotalBikes() + '@(Model.Make != null ? String.Format(" upcoming {0}", Model.Make.MakeName) : "")' + ' bikes' : TotalBikes() + ' bike'">@Model.TotalBikes @((Model.Make!=null ? " upcoming " + Model.Make.MakeName :"")) bike@(Model.TotalBikes > 1 ? "s" : "")</h2>
 
                 <div class="grid-7 omega text-right upcoming-filter">
                     @if ((Model.MakesList != null && Model.MakesList.Count() > 0) || (Model.YearsList != null && Model.YearsList.Count() > 1))
