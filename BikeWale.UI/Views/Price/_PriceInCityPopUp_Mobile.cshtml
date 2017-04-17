@@ -205,7 +205,6 @@
                 self.pcButtonClicked(true);
                 if (self.SelectedCityId() != undefined && self.SelectedCityId() > 0){
                     self.LoadingText("Fetching on-road price for " + self.SelectedCity().cityName);
-                    lbtext = "Fetching on-road price for " + self.SelectedCity().cityName;
                     self.redirectToPriceInCity();
                     }
                 else
