@@ -719,7 +719,11 @@ namespace Bikewale.DAL.UserReviews
             return success;
         }
 
-
+        /// <summary>
+        /// Created By : Sushil Kumar on 16th April 2017
+        /// Description : get all user reiews data for user reviews section
+        /// </summary>
+        /// <returns></returns>
         public UserReviewsData GetUserReviewsData()
         {
             UserReviewsData objData = null;
@@ -852,11 +856,23 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
+
             return objData;
 
         }
 
-
+        /// <summary>
+        /// Created By : Sushil Kumar on 17th April 2017
+        /// Description : Save user review ratings
+        /// </summary>
+        /// <param name="overAllrating"></param>
+        /// <param name="ratingQuestionAns"></param>
+        /// <param name="userName"></param>
+        /// <param name="emailId"></param>
+        /// <param name="customerId"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId)
         {
             uint reviewId = 0;
@@ -896,6 +912,16 @@ namespace Bikewale.DAL.UserReviews
             return reviewId;
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 16th April 2017
+        /// Description : Save user reviews by user with comments and title
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="tipsnAdvices"></param>
+        /// <param name="comment"></param>
+        /// <param name="commentTitle"></param>
+        /// <param name="reviewsQuestionAns"></param>
+        /// <returns></returns>
         public bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
         {
             bool IsSaved = false;
@@ -927,14 +953,18 @@ namespace Bikewale.DAL.UserReviews
         }
 
 
-
+        /// <summary>
+        /// Created By : Sushil Kumar on 17th April 2017
+        /// Description : Get user reviews summary for all pages
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns></returns>
         public UserReviewSummary GetUserReviewSummary(uint reviewId)
         {
             UserReviewSummary objUserReviewSummary = null;
 
             try
             {
-
                 using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummary"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -951,13 +981,7 @@ namespace Bikewale.DAL.UserReviews
                                 CustomerName = Convert.ToString(dr["CustomerName"]),
                                 Description = Convert.ToString(dr["Comments"]),
                                 Tips = Convert.ToString(dr["ReviewTitle"]),
-                                OverallRating = new UserReviewOverallRating()
-                                {
-                                    Id = SqlReaderConvertor.ToUInt32(dr["overallratingId"]),
-                                    Heading = Convert.ToString(dr["Heading"]),
-                                    Description = Convert.ToString(dr["Description"]),
-                                    Value = SqlReaderConvertor.ToUInt16(dr["Rating"])
-                                }
+                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"])
                             };
                         }
 

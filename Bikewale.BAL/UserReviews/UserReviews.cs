@@ -127,7 +127,8 @@ namespace Bikewale.BAL.UserReviews
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 16th April 2017
+        /// Description : Create function to be executed for user reviews linq filters
         /// </summary>
         /// <param name="overAllrating"></param>
         /// <param name="ratingQuestionAns"></param>
@@ -159,15 +160,24 @@ namespace Bikewale.BAL.UserReviews
                 //mail to betriggered here
             }
 
-            return _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId,makeId,modelId);
+            return _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId);
 
         }
 
-
+        /// <summary>
+        /// Created By : Sushil Kumar on 16th April 2017
+        /// Description : save user review written by user 
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="tipsnAdvices"></param>
+        /// <param name="comment"></param>
+        /// <param name="commentTitle"></param>
+        /// <param name="reviewsQuestionAns"></param>
+        /// <returns></returns>
         public bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
         {
             bool isSuccess = false;
-            if(reviewId > 0)
+            if (reviewId > 0)
             {
                 //checked for Customer login and cookie details
                 //if unauthorized request return false
@@ -176,6 +186,45 @@ namespace Bikewale.BAL.UserReviews
 
             return isSuccess;
         }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 16th April 2017
+        /// Description : Get user reviews summary for all pages
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns></returns>
+        public UserReviewSummary GetUserReviewSummary(uint reviewId)
+        {
+            UserReviewSummary objSummary = null;
+            UserReviewsData objUserReviewData = null;
+
+            try
+            {
+                objSummary = _userReviewsRepo.GetUserReviewSummary(reviewId);
+                objUserReviewData = _userReviewsCache.GetUserReviewsData();
+
+                if (objSummary != null && objSummary.Questions != null)
+                {
+                    var objQuestions = new List<UserReviewQuestion>();
+                    foreach (var question in objSummary.Questions)
+                    {
+                        var objQuestion = objSummary.Questions.FirstOrDefault(q => q.Id == question.Id);
+                        objQuestion.SelectedRatingId = question.SelectedRatingId;
+                        objQuestions.Add(objQuestion);
+                    }
+
+                    objSummary.Questions = objQuestions;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.UserReviews.UserReviews.GetUserReviewSummary({0})", reviewId));
+            }
+
+            return objSummary;
+        }
+
+
 
     }   // Class
 }   // Namespace
