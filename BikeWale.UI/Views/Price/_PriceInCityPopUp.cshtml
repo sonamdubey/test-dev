@@ -1,4 +1,4 @@
-﻿<div id="priceInCityPopUp" class="hide">
+﻿<div id="priceInCityPopUp" class="hide popup-loader-animate">
     <div class="bw-popup bw-popup-sm" data-bind="css: IsLoading() ? 'location-loader-active' : ''">
         <!-- ko if : IsLoading() -->
         <div class="content-inner-block-20">
@@ -78,18 +78,16 @@
         $(".changepriceincitypage").click(function (e) {
             var ele = $(this); e.stopPropagation(); e.preventDefault();
             $('#priceInCityPopUp,#priceInCityPopUpContent,.blackOut-window').show();
-            $('#priceInCityPopUp').addClass('loader-active');
+            vmPriceInCity.IsLoading(true);
+            
             var options = {
                 "modelId": ele.attr('data-modelid'),
                 "makemasking": ele.attr('data-makemasking'),
                 "modelmasking": ele.attr('data-modelmasking'),
-              };
-
-             vmPriceInCity.IsLoading(true);
+              };            
              vmPriceInCity.setOptions(options);
              vmPriceInCity.LoadCities();
-
-          });
+             });
 
         
         var pcPopup = function () {
@@ -103,7 +101,7 @@
             self.ListCities = ko.observableArray([]);
             self.IsReload = ko.observable(false);
             self.cityFilter = ko.observable("");
-            self.LoadingText = ko.observable("Loading...");
+            self.LoadingText = ko.observable("Loading cities...");
             self.validate = ko.observable(false);
             self.IsLoading = ko.observable(false);
             self.pcButtonClicked = ko.observable(false);
@@ -123,7 +121,7 @@
                 self.LoadCities = function () {
                     try {
                         CitiesKey = "pqPriceInCityPopUp_" + self.SelectedModelId();
-                        self.IsLoading(false);
+                        self.IsLoading(true);
                         pcPopupContent.updateChosen('#priceinCityPopupList');
                         $.ajax({
                             type: "GET",
@@ -151,8 +149,10 @@
                                     bwcache.set(CitiesKey, cities, 60);
                                     progressBar.stopLoading();
                                     self.ListCities(cities);
+                                    self.IsLoading(false);
+                                    pcPopupContent.active();
                                     pcPopupContent.updateChosen($('#priceinCityPopupList'));
-
+                                   
                                 }
                                 else {
                                     self.ListCities([]);
@@ -224,7 +224,7 @@
        
             
             pcPopupContent = {
-
+                
                 active: function () {
                     timeOutVariable = setTimeout(function () {
                         $('#priceInCityPopUp').addClass('activate-popup-content');
