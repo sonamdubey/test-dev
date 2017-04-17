@@ -7,7 +7,7 @@
 {
     if ((Model.MakesList != null && Model.MakesList.Count() > 0) || (Model.YearsList != null && Model.YearsList.Count() > 1))
     {
-        <div class="box-shadow padding-top10 padding-bottom10">
+        <div class="@( Model.MakesList != null ? "box-shadow padding-top10 padding-bottom10" : "")">
             @if (Model.MakesList != null && Model.MakesList.Count() > 0)
             {
                 <div class="grid-6 padding-left15 padding-right15 border-solid-right">
@@ -17,10 +17,20 @@
             }
             @if (Model.YearsList != null && Model.YearsList.Count() > 1)
             {
-                <div class="grid-6 padding-left15 padding-right15">
-                    <p class="font12 text-light-grey">Launch year</p>
-                    <p id="year-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedYear() ? selectedYear() : '' ">All years</p>
-                </div>
+                if (Model.MakesList == null)
+                {
+                    <div class="padding-top10 padding-right20 padding-bottom10 padding-left20 border-light-bottom">
+                        <div class="inline-block margin-right10"><span class="bwmsprite filter-icon"></span><span class="font14 text-light-grey">Filter by:</span></div><p id="year-filter-selection" class="filter-selection-value text-truncate inline-block selection-auto-width" data-bind="text : selectedYear() ? selectedYear() : '' ">All years</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="grid-6 padding-left15 padding-right15">
+                        <p class="font12 text-light-grey">Launch year</p>
+                        <p id="year-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedYear() ? selectedYear() : '' ">All years</p>
+                    </div>
+                }
+
             }
             <div class="clear"></div>
         </div>
