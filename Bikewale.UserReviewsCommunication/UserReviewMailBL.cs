@@ -12,7 +12,7 @@ namespace Bikewale.UserReviewsCommunication
     /// </summary>
     public class UserReviewMailBL
     {
-        #region Variables for dependency injection
+        #region Private Variables
         private readonly UserReviewMailDAL userReviewMailRepo = new UserReviewMailDAL();
         private readonly UrlShortner url = new UrlShortner();
         #endregion
@@ -58,10 +58,14 @@ namespace Bikewale.UserReviewsCommunication
                 customerEmailList = userReviewMailRepo.GetUserList();
                 foreach (var user in customerEmailList)
                 {
-                    string token = userReviewMailRepo.GetEncryptedUrlToken(string.Format("custid={0}&reviewid={1}",user.CustomerId,user.ReviewId));
-                    UrlShortnerResponse shortUrl = url.GetShortUrl(string.Format("{0}/userreviews/edit/?{1}", BWConfiguration.Instance.BwHostUrl,token));
-                    if(shortUrl!=null)
-                    user.ReviewLink = shortUrl.ShortUrl;
+                    string token = userReviewMailRepo.GetEncryptedUrlToken(string.Format("customerid={0}&reviewid={1}",user.CustomerId,user.ReviewId));
+                    // review link to be changed later. Not in use currently
+                    string reviewUrl=string.Format("{0}/userreviews/edit/?{1}", BWConfiguration.Instance.BwHostUrl,token);
+                    UrlShortnerResponse shortUrl = url.GetShortUrl(reviewUrl);
+                    if (shortUrl != null)
+                        user.ReviewLink = shortUrl.ShortUrl;
+                    else
+                        user.ReviewLink = reviewUrl;
                 }
             }
             catch

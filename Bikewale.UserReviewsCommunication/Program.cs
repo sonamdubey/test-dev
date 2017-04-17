@@ -13,7 +13,7 @@ namespace Bikewale.UserReviewsCommunication
             {
                 Logs.WriteInfoLog("Started SendEmailRemindersForUserReview");
                 (new UserReviewMailBL()).SendReminderToUser();
-                Logs.WriteInfoLog("Ended SendEmailRemindersForUserReview");
+                Logs.WriteInfoLog("Successfully ended SendEmailRemindersForUserReview");
             }
             catch (Exception ex)
             {
