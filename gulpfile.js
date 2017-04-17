@@ -505,6 +505,26 @@ var mvcPageViews = [
         folderName: 'Views/Videos/',
         fileName: 'Models_Mobile.cshtml',
         stylesheet: 'm/css/videos/videosByModel.css'
+    },
+    {
+        folderName: 'Views/Upcoming/',
+        fileName: 'Index.cshtml',
+        stylesheet: 'css/upcoming-bikes/upcoming-bikes.css'
+    },
+    {
+        folderName: 'Views/Upcoming/',
+        fileName: 'Index_Mobile.cshtml',
+        stylesheet: 'm/css/upcoming-bikes/upcoming-bikes.css'
+    },
+    {
+        folderName: 'Views/Upcoming/',
+        fileName: 'BikesByMake.cshtml',
+        stylesheet: 'css/upcoming-bikes/upcoming-bikes.css'
+    },
+    {
+        folderName: 'Views/Upcoming/',
+        fileName: 'BikesByMake_Mobile.cshtml',
+        stylesheet: 'm/css/upcoming-bikes/upcoming-bikes.css'
     }
 
 ];
