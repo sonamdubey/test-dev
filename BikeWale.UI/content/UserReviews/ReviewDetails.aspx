@@ -219,14 +219,19 @@ else
                                 </div>
                             </div>
                             <div class="padding-bottom20 font14">
+                                <% if (!String.IsNullOrEmpty(objReview.ReviewEntity.Pros)){ %>
                                 <div class="padding-top20 padding-bottom20">
                                     <h2 class="font18 margin-bottom10">Good about this bike</h2>
                                     <p><%= objReview.ReviewEntity.Pros %></p>
                                 </div>
+                                <% } %>
+                                <% if (!String.IsNullOrEmpty(objReview.ReviewEntity.Cons)){ %>
                                 <div class="padding-top20 border-solid-top padding-bottom20">
                                     <h2 class="font18 margin-bottom10">Not so good about this bike</h2>
                                     <p><%= objReview.ReviewEntity.Cons %></p>
                                 </div>
+                                <% } %>
+                                <% if (!String.IsNullOrEmpty(objReview.ReviewEntity.Comments)){ %>
                                 <div class="padding-top20 border-solid-top">
                                     <h2 class="font18 margin-bottom10">Full Review</h2>
                                     <div class="format-content"><%= objReview.ReviewEntity.Comments %></div>
@@ -250,6 +255,7 @@ else
                                         </div>
                                     </div>
                                 </div>
+                                <% } %>
                             </div>
                             <BikeWale:DiscussIt ID="ucDiscuss" runat="server" />
                         <div class="clear"></div>
