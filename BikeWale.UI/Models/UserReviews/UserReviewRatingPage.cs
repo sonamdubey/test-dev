@@ -44,11 +44,20 @@ namespace Bikewale.Models
 
             GetUserRatings(objUserVM);
 
-
+            BindMetas(objUserVM);
             return objUserVM;
         }
 
+        private void BindMetas(UserReviewRatingVM objUserVM)
+        {
+
+            objUserVM.PageMetaTags.Title = "Rate Your Bike| Write a Review - BikeWale";
+            objUserVM.PageMetaTags.Description = string.Format("Rate your {0} {1} on BikeWale. Write a detailed review about {0} {1} and help others in making a right buying decision.", objUserVM.objModelEntity.MakeBase.MakeName, objUserVM.objModelEntity.ModelName);
+
+        }
+
         /// <summary>
+
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : GetBikeInforamtion for ratings page
         /// </summary>
@@ -57,7 +66,6 @@ namespace Bikewale.Models
         {
             objUserVM.objModelEntity = _objModel.GetById((int)_modelId);
         }
-
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Function to get user ratings and overall ratings for ratings page
@@ -67,9 +75,10 @@ namespace Bikewale.Models
         {
             try
             {
+                UserReviewsData objUserReviewData = _userReviews.GetUserReviewsData();
+
                 if (_reviewId == 0)
                 {
-                    UserReviewsData objUserReviewData = _userReviews.GetUserReviewsData();
                     if (objUserReviewData != null)
                     {
                         if (objUserReviewData.OverallRating != null)
@@ -96,7 +105,11 @@ namespace Bikewale.Models
                 }
                 else
                 {
+                    UserReviewSummary objUserReviewDataReview = _userReviews.GetUserReviewSummary(_reviewId);
 
+                    objUserVM.OverAllRatingText = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewData.OverallRating);
+                    if (objUserReviewDataReview != null)
+                        objUserVM.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewDataReview.Questions);
 
                 }
             }

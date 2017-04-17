@@ -45,7 +45,7 @@
                         <p class="error-text" data-bind="" style="display: none">This is a compulsory field.</p>
 
                         <div class="answer-radio-list" data-bind="foreach: rating">
-                            <input type="radio" data-bind="attr: {questionId:$parentContext.$index()+1,id: 'q-' + $parentContext.$index() + '-' + $index(), name: 'rating-q-' + $parentContext.$index(), value: $index() + 1}" />
+                            <input type="radio" data-bind="attr: {questionId:$parentContext.$index()+1,id: 'q-' + $parentContext.$index() + '-' + $index(), name: 'rating-q-' + $parentContext.$index(),value:$index() + 1,'data-checked' : ($index() + 1 == $parentContext.$data.selectedRatingId) ? 'true' : 'false'} " />
                             <label data-bind="attr: {for: 'q-' + $parentContext.$index() + '-' + $index(), 'data-value': $index() + 1}, text: ratingText"></label>
                         </div>
                         <div class="clear"></div>
@@ -71,8 +71,8 @@
                     <span class="boundary"></span>
                     <span class="error-text"></span>
                 </div>
-                <div class="hide" id="overallratingQuestion">@Model.OverAllRatingText</div>
-                <div class="hide" id="rating-question">@Model.RatingQuestion</div>
+                <input type="hidden" id="overallratingQuestion" value="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Model.OverAllRatingText)" />
+                <input type="hidden" id="rating-question" value="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Model.RatingQuestion)" />
                 <input type="hidden" name="overAllrating" id="finaloverallrating" />
                 <input type="hidden" name="modelId" value="@Model.objModelEntity.ModelId" />
                 <input type="hidden" name="makeId" value="@Model.objModelEntity.MakeBase.MakeId" />

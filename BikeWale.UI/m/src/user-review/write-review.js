@@ -11,19 +11,21 @@ var bikeRating = {
 
 var ratingQuestion = [];
 
-
 docReady(function () {
 
     ratingBox = $('#bike-rating-box');
 
     if ($("#overallratingQuestion") && $("#overallratingQuestion").length)
-        bikeRating.overallRating = JSON.parse($('#overallratingQuestion').text());
+        bikeRating.overallRating = JSON.parse(Base64.decode($('#overallratingQuestion').val()));
     if ($("#rating-question") && $("#rating-question").length)
-        ratingQuestion = JSON.parse($('#rating-question').text());
-  
+        ratingQuestion = JSON.parse(Base64.decode($('#rating-question').val()));
+
 
     if ($("#review-question-list") && $("#review-question-list").length)
-        reviewQuestion = JSON.parse($("#review-question-list").text());
+        reviewQuestion = JSON.parse(Base64.decode($("#review-question-list").val()));
+
+
+   
     // rate bike
     var rateBike = function () {
         var self = this;
@@ -40,12 +42,19 @@ docReady(function () {
 
         self.bikeRating = ko.observable(bikeRating);
         self.overallRating = ko.observableArray(self.bikeRating().overallRating);
-        self.ratingQuestions = ko.observableArray(ratingQuestion);        
+        self.ratingQuestions = ko.observableArray(ratingQuestion);
+
+        self.init = function () {
+            $('#rate-bike-questions .question-type-text input[type=radio][data-checked="true"]').each(function () {
+                $(this).prop("checked", true);
+            });
+        };
+
 
         self.submitRating = function () {
 
             if (self.validateRateBikeForm()) {
-                 array_rating = new Array;
+                array_rating = new Array;
                 value_overallrating = $("#bike-rating-box input[type='radio']:checked").attr("value");
                 $("#rate-bike-questions input[type='radio']:checked").each(function (i) {
                     var r = $(this);
@@ -77,7 +86,7 @@ docReady(function () {
                     self.ratingErrorText("Please rate the bike before submitting!");
                     self.focusFormActive(true);
                     answer.focusForm(ratingBox);
-                        return false;
+                    return false;
                 }
                 else {
                     self.validateRatingCountFlag(true);
@@ -123,7 +132,7 @@ docReady(function () {
                 return isValid;
             }
         };
-        
+
     };
 
     userNameField = $('#txtUserName');
@@ -193,12 +202,13 @@ docReady(function () {
 
     if (rateBikeForm) {
         ko.applyBindings(vmRateBike, rateBikeForm);
+        vmRateBike.init();
     }
-    
+
     ratingBox.find('.answer-star-list input[type=radio]').change(function () {
         var button = $(this),
             buttonValue = Number(button.val());
-            
+
         var headingText = vmRateBike.overallRating()[buttonValue - 1].heading,
             descText = vmRateBike.overallRating()[buttonValue - 1].description; // since value starts from 1 and array from 0
 
@@ -257,7 +267,7 @@ docReady(function () {
         self.detailedReviewFlag = ko.observable(false);
         self.detailedReviewError = ko.observable('');
         self.focusFormActive = ko.observable(false);
-        
+
         self.reviewQuestions = ko.observableArray(reviewQuestion);
 
         self.submitReview = function () {
@@ -274,13 +284,13 @@ docReady(function () {
             if (self.detailedReview().length > 0 || self.reviewTitle().length > 0) {
                 if (self.validateReviewForm()) {
                     return true;
-                }               
+                }
             }
             else {
                 self.detailedReviewFlag(false);
                 validate.hideError(reviewTitleField);
                 return true;
-            }            
+            }
         };
 
         self.validateReviewForm = function () {
@@ -334,11 +344,11 @@ docReady(function () {
     if (writeReviewForm) {
         ko.applyBindings(vmWriteReview, writeReviewForm);
     }
-    
+
     $('#bike-review-questions').find('.question-type-star input[type=radio]').change(function () {
         var button = $(this),
             questionField = button.closest('.question-type-star');
-        
+
         var feedbackText = vmWriteReview.reviewQuestions()[questionField.index()].rating[button.val() - 1].ratingText;
         questionField.find('.feedback-text').text(feedbackText);
     });
