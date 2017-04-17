@@ -305,7 +305,9 @@
             <!-- model emi calculator end -->
                 
             <!-- model version prices start -->
+           if (Model.IsNew && (Model.BikeVersionPrices != null || Model.HasNearestPriceCities)) {
             <div id="versionContent" class="bw-model-tabs-data card-bottom-margin">
+                @if (Model.BikeVersionPrices != null) { 
                 <div class="content-box-shadow card-bottom-margin content-inner-block-20">
                 <table width="100%" cellspacing="0" cellpadding="0">
                     <thead>
@@ -334,6 +336,7 @@
                     </tbody>
                 </table>
                 </div>
+                }
                 <!-- model prices in nearby cities start -->
                 @if (Model.HasNearestPriceCities) {
                 var priceQuotesCities = Model.NearestPriceCities.PriceQuoteList;
@@ -362,6 +365,7 @@
                 </div>
                 }
             </div>
+           }
             <!-- model version prices end -->
 
             

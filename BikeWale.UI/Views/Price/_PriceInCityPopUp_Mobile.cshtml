@@ -55,9 +55,9 @@
          }
         </div>
     </div>
-    <div id="popup-loader-container">
-        <div id="popup-loader"></div>
-        <div id="popup-loader-text">
+    <div id="pcpopup-loader-container">
+        <div id="pcpopup-loader"></div>
+        <div id="pcpopup-loader-text">
             <p data-bind="text : LoadingText()" class="font14"></p>
         </div>
     </div>
@@ -115,7 +115,7 @@
             self.oBrowser = ko.observable(@Html.Raw(isOperaBrowser.ToString().ToLower()));
             self.IsReload = ko.observable(false);
             self.cityFilter = ko.observable("");
-            self.LoadingText = ko.observable("Loading...");
+            self.LoadingText = ko.observable("Loading cities...");
             self.validate = ko.observable(false);
             self.IsLoading = ko.observable(false);
             self.pcButtonClicked = ko.observable(false);
@@ -179,7 +179,7 @@
                             }
                         },
                         complete: function () {
-                            
+                            self.LoadingText("");
                         }
                     });
 
@@ -194,7 +194,7 @@
             self.redirectToPriceInCity = function () {
                 try {
                     if (self.SelectedCity() != null && self.SelectedModelId() > 0) {
-                        window.location = "/m/" + self.MakeMasking + "-bikes/" + self.ModelMasking + "/price-in-" + self.SelectedCityMasking() + "/";
+                      window.location = "/m/" + self.MakeMasking + "-bikes/" + self.ModelMasking + "/price-in-" + self.SelectedCityMasking() + "/";
                     }
                 }
                 catch (e) {
@@ -205,7 +205,8 @@
                 self.pcButtonClicked(true);
                 if (self.SelectedCityId() != undefined && self.SelectedCityId() > 0){
                     self.LoadingText("Fetching on-road price for " + self.SelectedCity().cityName);
-                        self.redirectToPriceInCity();
+                    lbtext = "Fetching on-road price for " + self.SelectedCity().cityName;
+                    self.redirectToPriceInCity();
                     }
                 else
                     self.errMsg("Please select city.");
