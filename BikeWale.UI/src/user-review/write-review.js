@@ -1,28 +1,97 @@
-﻿var userNameField, userEmailIdField;
+﻿var ratingBox;
+var userNameField, userEmailIdField;
 var detailedReviewField, reviewTitleField;
 
-var review = [
+var bikeRating = {
+    ratingCount: 0,
+    overallRating: [
+        {
+            heading: "Terrible!",
+            description: "I regret riding this bike."
+        },
+        {
+            heading: "It's bad!",
+            description: "I know better bikes in the same price range."
+        },
+        {
+            heading: "Ummm..!",
+            description: "It's okay. Could have been better."
+        },
+        {
+            heading: "Superb!",
+            description: "It's good to ride, I love it."
+        },
+        {
+            heading: "Amazing!",
+            description: "I love everything about the bike."
+        }
+    ]
+};
+
+var ratingQuestion = [
     {
-        heading: "Visual appeal",
-        description: "Remember, what others thought when they first saw this bike!",
+        qid: 101,
+        type: 'text',
+        heading: "What do you use this bike for?",
+        rating: ["Daily Commute", "Occasional Commute", "Leisure Rides", "Tours", "All"],
+        isRequired: true,
+        visibility: true,
+        subQuestionId: 0
+    },
+    {
+        qid: 102,
+        type: 'text',
+        heading: "How long have you owned this bike for?",
+        rating: ["Don't own", "< 3 months", "3-6 months", "6 months-1 yr", "> 1 yr"],
+        isRequired: true,
+        visibility: true,
+        subQuestionId: 103
+    },
+    {
+        qid: 103,
+        type: 'text',
+        heading: "How much have you ridden this bike?",
+        rating: ["< 5000 kms", "5000-10000 kms", "10000-15000 kms", "> 15000 kms"],
+        isRequired: true,
+        visibility: false,
+        subQuestionId: 0
+    }
+];
+
+var reviewQuestion = [
+    {
+        type: 'star',
+        heading: "Visual Appeal/Looks",
+        description: "Remember, what others thought when they first saw your bike!",
         rating: ["Terrible!", "It's bad", "Okay", "Excellent", "Gorgeous"],
+        currentlySelected: 0
+    },
+    {
+        type: 'star',
+        heading: "Reliability",
+        description: "Remember, what others thought when they first saw this bike!",
+        rating: ["Unpredictable", "Unreliable", "You can rely!", "Dependable", "Trustworthy"],
+        currentlySelected: 0
+    },
+    {
+        type: 'star',
+        heading: "Performance",
+        description: "Remember, what others thought when they first saw this bike!",
+        rating: ["Very poor", "Poor", "Not bad", "Good", "Excellent"],
+        currentlySelected: 0
+    },
+    {
+        type: 'text',
+        heading: "Maintenance cost",
+        description: "Are regular replacement parts reasonably priced? How much does it cost to fix a broken part?",
+        rating: ["Unreasonably High", "Very High", "High", "Reasonable", "Well priced"],
         currentlySelected: 0
     }
 ];
 
 docReady(function () {
-
-    // slideIn animation
-    ko.bindingHandlers.slideIn = {
-        init: function (element, valueAccessor) {
-            var value = ko.utils.unwrapObservable(valueAccessor());
-            $(element).toggle(value);
-        },
-        update: function (element, valueAccessor) {
-            var value = ko.utils.unwrapObservable(valueAccessor());
-            value ? $(element).slideDown(200, 'linear') : $(element).slideUp(200, 'linear');
-        }
-    };
+    
+    ratingBox = $('#bike-rating-box');
 
     ko.bindingHandlers.hoverRating = {
         update: function (element, valueAccessor) {
@@ -59,108 +128,19 @@ docReady(function () {
         self.ratingCount = ko.observable(0);
         self.feedbackTitle = ko.observable('Rate your bike');
         self.feedbackSubtitle = ko.observable('');
-        self.validateRatingCountFlag = ko.observable(false);
 
-        self.bikeUseType = ko.observable(0);
-        self.bikeTimeSpan = ko.observable(0);
-        self.bikeDistance = ko.observable(0);
+        self.validateRatingCountFlag = ko.observable(false);
+        self.ratingErrorText = ko.observable('');
 
         self.personalDetails = ko.observable(new personalDetails);
 
-        self.validationFlag = ko.observable(false);
-        self.validateDistanceFlag = ko.observable(false);
+        self.bikeRating = ko.observable(bikeRating);
+        self.overallRating = ko.observableArray(self.bikeRating().overallRating);
+        self.ratingQuestions = ko.observableArray(ratingQuestion);
 
-        self.clickEventRatingCount = ko.observable(0);
-
-        self.setRating = function (data, event) {
-            var count = Number($(event.currentTarget).attr('data-count'));
-
-            self.ratingCount(count);
-            self.setFeedbackTitle(count);
-            self.setFeedbackSubtitle(count);
-
-            self.clickEventRatingCount(count);
-        };
-
-        self.setFeedbackTitle = function (count) {
-            switch (count) {
-                case 1:
-                    self.feedbackTitle("Terrible!");
-                    break;
-                case 2:
-                    self.feedbackTitle("It's bad!");
-                    break;
-                case 3:
-                    self.feedbackTitle("Ummm..!");
-                    break;
-                case 4:
-                    self.feedbackTitle("Superb!");
-                    break;
-                case 5:
-                    self.feedbackTitle("Amazing!");
-                    break;
-                default:
-                    self.feedbackTitle("Rate your bike");
-                    break;
-            };
-        };
-
-        self.setFeedbackSubtitle = function (count) {
-            switch (count) {
-                case 1:
-                    self.feedbackSubtitle("I regret riding this bike.");
-                    break;
-                case 2:
-                    self.feedbackSubtitle("I know better bikes in the same price range.");
-                    break;
-                case 3:
-                    self.feedbackSubtitle("It's okay. Could have been better.");
-                    break;
-                case 4:
-                    self.feedbackSubtitle("It's good to ride, I love it.");
-                    break;
-                case 5:
-                    self.feedbackSubtitle("I love everything about the bike.");
-                    break;
-                default:
-                    self.feedbackSubtitle("");
-                    break;
-            };
-        };
-
-
-        self.setBikeUseType = function (data, event) {
-            var element = $(event.target),
-                elementValue = Number(element.attr('data-value'));
-
-            answer.selection(element);
-            self.bikeUseType(elementValue);
-        };
-
-        self.setBikeTimeSpan = function (data, event) {
-            var element = $(event.target),
-                elementValue = Number(element.attr('data-value'));
-
-            answer.selection(element);
-            self.bikeTimeSpan(elementValue);
-            // reset bike distance answer
-            self.bikeDistance(0);
-            $('#question-bike-distance').find('li.active').removeClass('active');
-            self.validateDistanceFlag(false);
-        };
-
-        self.setBikeDistance = function (data, event) {
-            var element = $(event.target),
-                elementValue = Number(element.attr('data-value'));
-
-            answer.selection(element);
-            self.validateDistanceFlag(false);
-            self.bikeDistance(elementValue);
-        };
+        //self.clickEventRatingCount = ko.observable(0);
 
         self.submitRating = function () {
-            self.validationFlag(true);
-
             if (self.validateRateBikeForm()) {
                 // go to step 2
             }
@@ -170,7 +150,7 @@ docReady(function () {
             var isValid = false;
 
             isValid = self.validate.ratingCount();
-            isValid = self.validate.ratingForm();
+            isValid &= self.validate.ratingForm();
             isValid &= self.personalDetails().validateDetails();
 
             return isValid;
@@ -180,21 +160,37 @@ docReady(function () {
             ratingCount: function () {
                 if (self.ratingCount() == 0) {
                     self.validateRatingCountFlag(true);
+                    self.ratingErrorText("Please rate the bike before submitting!");
                 }
 
                 return self.validateRatingCountFlag();
             },
 
             ratingForm: function () {
-                var isValid = false;
+                var isValid = false,
+                    questionFields = $('#rate-bike-questions .question-field'),
+                    questionLength = questionFields.length,
+                    errorCount = 0;
 
-                if (self.bikeUseType() > 0 && self.bikeTimeSpan() > 0) {
-                    if (!self.bikeDistance()) {
-                        self.validateDistanceFlag(true);
+                for (var i = 0; i < questionLength; i++) {
+                    var item = $(questionFields[i]),
+                        itemRequirement = item.attr('data-required');
+
+                    if (itemRequirement) {
+                        var checkedRadioButton = item.find('.answer-radio-list input[type=radio]:checked');
+
+                        if (!checkedRadioButton.length) {
+                            item.find('.error-text').show();
+                            errorCount++;
+                        }
+                        else {
+                            item.find('.error-text').hide();
+                        }
                     }
-                    else {
-                        isValid = true;
-                    }
+                }
+
+                if (!errorCount) {
+                    isValid = true;
                 }
 
                 return isValid;
@@ -271,6 +267,38 @@ docReady(function () {
     if (rateBikeForm) {
         ko.applyBindings(vmRateBike, rateBikeForm);
     }
+    
+    ratingBox.find('.answer-star-list input[type=radio]').change(function () {
+        var button = $(this),
+            buttonValue = Number(button.val());
+
+        var headingText = vmRateBike.overallRating()[buttonValue - 1].heading,
+            descText = vmRateBike.overallRating()[buttonValue - 1].description; // since value starts from 1 and array from 0
+
+        vmRateBike.feedbackTitle(headingText);
+        vmRateBike.feedbackSubtitle(descText);
+        vmRateBike.ratingCount(buttonValue);
+    });
+
+    $('#rate-bike-questions').find('.question-type-text input[type=radio]').change(function () {
+        var questionField = $(this).closest('.question-type-text'),
+            subQuestionId = Number(questionField.attr('data-sub-question'));
+
+        questionField.find('.error-text').slideUp();
+
+        if (subQuestionId > 0) {
+            var buttonValue = Number($(this).val()),
+                subQuestionField = $('#question-' + subQuestionId);
+
+            if (buttonValue == 1) {
+                subQuestionField.slideUp();
+            }
+            else {
+                subQuestionField.find('.error-text').slideUp();
+                subQuestionField.slideDown();
+            }
+        }
+    });
 
     userNameField.on("focus", function () {
         validate.onFocus($(this));
@@ -288,6 +316,7 @@ docReady(function () {
         validate.onBlur($(this));
     });
 
+    /*
     function setHoverRating(element, mouseStatus) {
         if (mouseStatus) {
             var count = Number($(element).attr('data-count'));
@@ -311,6 +340,7 @@ docReady(function () {
             }
         }
     };
+    */
 
     detailedReviewField = $('#getDetailedReview');
     reviewTitleField = $('#getReviewTitle');
@@ -320,7 +350,6 @@ docReady(function () {
         var self = this,
             ratingCount = 5;
 
-        self.headingText = ko.observable('hello');
         self.reviewCharLimit = ko.observable(300);
         self.reviewTitle = ko.observable('');
         self.detailedReview = ko.observable('');
@@ -330,109 +359,9 @@ docReady(function () {
         self.detailedReviewError = ko.observable('');
         self.focusFormActive = ko.observable(false);
 
-        // optional rating section
-        self.visualAppealCount = ko.observable(0);
-        self.visualAppealFeedback = ko.observable('');
+        self.reviewQuestions = ko.observableArray(reviewQuestion);
 
-        self.hoverFeedbackRating = ko.observable(0);
-
-        self.feedbackQuestions = ko.observableArray(review);
-
-        self.setHeading = function () {
-            switch (ratingCount) {
-                case 1:
-                case 2:
-                    self.headingText('Had a poor experience?');
-                    break;
-                case 3:
-                    self.headingText('Had a reasonable experience?');
-                    break;
-                case 4:
-                case 5:
-                    self.headingText('Had an amazing experience?');
-                    break;
-                default:
-                    self.headingText('Had a reasonable experience?');
-                    break;
-            }
-        };
-
-        self.setHeading();
-
-        self.setRating = function (parentElement, data, event) {
-            var element = $(event.currentTarget),
-                elementCount = Number(element.attr('data-count')),
-                elementIndex = element.index(),
-                elementParent = element.closest('ul');
-            
-            element.closest('.list-item').find('.feedback-text').text(data);
-            parentElement.currentlySelected = elementCount;
-
-            elementParent.find('li').removeClass('star-one-active');
-            for (var i = 5; i >= elementIndex; i--) {
-                elementParent.find('li:eq('+ i +')').addClass('star-one-active');
-            }
-        };
-
-        self.setFeedbackText = function (elementId) {
-            var count = 0;
-
-            if(element) {
-                count = Number(element.attr('data-count'));
-            }
-
-            switch (elementType) {
-                case "visualAppeal":
-                    self.visualAppealCount(count);
-                    self.setFeedback.visualAppeal();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        self.setMaintenanceCost = function (data, event) {
-            var element = $(event.target),
-                elementValue = Number(element.attr('data-value'));
-
-            answer.selection(element);
-            self.maintenanceCount(elementValue);
-        };
-
-        self.setValueForMoney = function (data, event) {
-            var element = $(event.target),
-                elementValue = Number(element.attr('data-value'));
-
-            answer.selection(element);
-            self.valueForMoneyCount(elementValue);
-        };
-
-        self.setFeedback = {
-            visualAppeal: function () {
-                switch (self.visualAppealCount()) {
-                    case 0:
-                        self.visualAppealFeedback("");
-                        break;
-                    case 1:
-                        self.visualAppealFeedback("Terrible!");
-                        break;
-                    case 2:
-                        self.visualAppealFeedback("It's bad");
-                        break;
-                    case 3:
-                        self.visualAppealFeedback("Okay");
-                        break;
-                    case 4:
-                        self.visualAppealFeedback("Excellent");
-                        break;
-                    case 5:
-                        self.visualAppealFeedback("Gorgeous");
-                        break;
-                    default:
-                        break;
-                }
-            }
-        };
+        //self.hoverFeedbackRating = ko.observable(0);
 
         self.submitReview = function () {
             if (self.detailedReview().length > 0 || self.reviewTitle().length > 0) {
@@ -497,6 +426,14 @@ docReady(function () {
         ko.applyBindings(vmWriteReview, writeReviewForm);
     }
 
+    $('#bike-review-questions').find('.question-type-star input[type=radio]').change(function () {
+        var button = $(this),
+            questionField = button.closest('.question-type-star');
+
+        var feedbackText = vmWriteReview.reviewQuestions()[questionField.index()].rating[button.val() - 1];
+        questionField.find('.feedback-text').text(feedbackText);
+    });
+
     detailedReviewField.on('focus', function () {
         vmWriteReview.detailedReviewFlag(false);
     });
@@ -526,6 +463,10 @@ var answer = {
     selection: function (element) {
         $(element).siblings().removeClass('active');
         $(element).addClass('active');
+    },
+
+    focusForm: function (element) {
+        $('html, body').animate({ scrollTop: $(element).offset().top }, 500);
     }
 };
 
