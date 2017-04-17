@@ -203,12 +203,14 @@ namespace Bikewale.BAL.UserReviews
                     var objQuestions = new List<UserReviewQuestion>();
                     foreach (var question in objSummary.Questions)
                     {
-                        var objQuestion = objSummary.Questions.FirstOrDefault(q => q.Id == question.Id);
+                        var objQuestion = objUserReviewData.Questions.FirstOrDefault(q => q.Id == question.Id);
                         objQuestion.SelectedRatingId = question.SelectedRatingId;
                         objQuestions.Add(objQuestion);
                     }
 
                     objSummary.Questions = objQuestions;
+
+                    objSummary.OverallRating = objUserReviewData.OverallRating.FirstOrDefault(x => x.Id == objSummary.OverallRatingId);
                 }
             }
             catch (Exception ex)

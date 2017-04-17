@@ -16,13 +16,16 @@ docReady(function () {
     ratingBox = $('#bike-rating-box');
 
     if ($("#overallratingQuestion") && $("#overallratingQuestion").length)
-        bikeRating.overallRating = JSON.parse($('#overallratingQuestion').text());
+        bikeRating.overallRating = JSON.parse(Base64.decode($('#overallratingQuestion').val()));
     if ($("#rating-question") && $("#rating-question").length)
-        ratingQuestion = JSON.parse($('#rating-question').text());
+        ratingQuestion = JSON.parse(Base64.decode($('#rating-question').val()));
 
 
     if ($("#review-question-list") && $("#review-question-list").length)
-        reviewQuestion = JSON.parse($("#review-question-list").text());
+        reviewQuestion = JSON.parse(Base64.decode($("#review-question-list").val()));
+
+
+   
     // rate bike
     var rateBike = function () {
         var self = this;
@@ -40,6 +43,13 @@ docReady(function () {
         self.bikeRating = ko.observable(bikeRating);
         self.overallRating = ko.observableArray(self.bikeRating().overallRating);
         self.ratingQuestions = ko.observableArray(ratingQuestion);
+
+        self.init = function () {
+            $('#rate-bike-questions .question-type-text input[type=radio][data-checked="true"]').each(function () {
+                $(this).prop("checked", true);
+            });
+        };
+
 
         self.submitRating = function () {
 
@@ -192,6 +202,7 @@ docReady(function () {
 
     if (rateBikeForm) {
         ko.applyBindings(vmRateBike, rateBikeForm);
+        vmRateBike.init();
     }
 
     ratingBox.find('.answer-star-list input[type=radio]').change(function () {
