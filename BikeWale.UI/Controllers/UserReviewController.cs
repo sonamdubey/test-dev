@@ -1,4 +1,5 @@
-﻿using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
@@ -9,31 +10,32 @@ namespace Bikewale.Controllers
 {
     public class UserReviewController : Controller
     {
-        private readonly IBikeInfo _bikeInfo = null;
+
         private readonly IUserReviews _userReviews = null;
+        private IBikeModels<BikeModelEntity, int> _objModel = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="bikeInfo"></param>
         /// <param name="userReviews"></param>
-        public UserReviewController(IBikeInfo bikeInfo, IUserReviews userReviews)
+        public UserReviewController(IUserReviews userReviews, IBikeModels<BikeModelEntity, int> objModel)
         {
-            _bikeInfo = bikeInfo;
+
             _userReviews = userReviews;
+            _objModel = objModel;
         }
 
         // GET: UserReview
         [Route("m/user-reviews/rate-bike/{modelId}")]
-        public ActionResult RateBike_Mobile(uint modelId)
+        public ActionResult RateBike_Mobile(uint modelId, uint? reviewId)
         {
-            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _bikeInfo, _userReviews);
+            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, reviewId);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
             if (TempData["ErrorMessage"] != null)
             {
                 UserReviewVM.ErrorMessage = Convert.ToString(TempData["ErrorMessage"]);
             }
-
             UserReviewVM = objUserReview.GetData();
 
             return View(UserReviewVM);
