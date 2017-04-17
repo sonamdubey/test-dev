@@ -92,7 +92,7 @@
                 <div class="textarea-box margin-bottom15">
                     <textarea name="reviewTips" rows="3" cols="42" placeholder="Write your tips here.."></textarea>
                 </div>
-
+                @Html.AntiForgeryToken()
                 <input type="submit" class="btn btn-orange" value="Submit review" data-bind="click: submitReview" />
             </div>
         </div>

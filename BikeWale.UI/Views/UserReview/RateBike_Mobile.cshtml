@@ -76,6 +76,13 @@
                 <input type="hidden" name="overAllrating" id="finaloverallrating" />
                 <input type="hidden" name="ratingQuestionAns" id="rating-quesition-ans" />
                 <input type="submit" class="btn btn-orange" value="Submit rating" data-bind="click: submitRating" />
+
+                @if (Model.BikeInfo != null && Model.BikeInfo.Model != null && Model.BikeInfo.Make != null)
+                {
+                    <input type="hidden" value="@Model.BikeInfo.Model.ModelId" name="modelId" />
+                    <input type="hidden" value="@Model.BikeInfo.Make.MakeId" name="makeId"/>
+                }               
+
             </div>
         </form>
             

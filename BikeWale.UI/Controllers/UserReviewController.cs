@@ -1,4 +1,5 @@
-﻿using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
@@ -36,6 +37,12 @@ namespace Bikewale.Controllers
 
             UserReviewVM = objUserReview.GetData();
 
+            //if (UserReviewVM.BikeInfo != null)
+            //{
+            //    TempData["Make"] = UserReviewVM.BikeInfo.Make;
+            //    TempData["Model"] = UserReviewVM.BikeInfo.Model;
+            //}
+
             return View(UserReviewVM);
         }
 
@@ -50,12 +57,14 @@ namespace Bikewale.Controllers
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
+        [HttpPost, Route("user-reviews/ratings/save/")]
         public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId)
         {
 
             bool isValid = true;
             string errorMessage = "";
+            UserReviewRatingObject objRating = null;
+
             //server side validation for data received
             if (string.IsNullOrEmpty(overAllrating))
             {
@@ -80,8 +89,13 @@ namespace Bikewale.Controllers
 
             if (isValid)
             {
-                _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId);
-                return RedirectToAction("WriteReview_Mobile");
+                objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId);
+
+                string strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId);
+
+                string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
+
+                return RedirectToAction("WriteReview_Mobile", new { strEncoded = strEncoded });
             }
             else
             {
@@ -92,9 +106,9 @@ namespace Bikewale.Controllers
 
 
         [Route("m/user-reviews/write-review/")]
-        public ActionResult WriteReview_Mobile()
+        public ActionResult WriteReview_Mobile(string strEncoded)
         {
-            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews);
+            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, strEncoded);
             var objData = objPage.GetData();
 
             return View(objData);

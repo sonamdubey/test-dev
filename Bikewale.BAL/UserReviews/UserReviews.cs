@@ -134,8 +134,10 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="userName"></param>
         /// <param name="emailId"></param>
         /// <returns></returns>
-        public uint SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId)
+        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId)
         {
+            UserReviewRatingObject objRating = new UserReviewRatingObject();
+
             CustomerEntity objCust = null;
             //check for user registration
             //Check if Customer exists
@@ -159,7 +161,10 @@ namespace Bikewale.BAL.UserReviews
                 //mail to betriggered here
             }
 
-            return _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId,makeId,modelId);
+            objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId);
+            objRating.CustomerId = objCust.CustomerId;
+
+            return objRating;
 
         }
 
@@ -167,7 +172,7 @@ namespace Bikewale.BAL.UserReviews
         public bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
         {
             bool isSuccess = false;
-            if(reviewId > 0)
+            if (reviewId > 0)
             {
                 //checked for Customer login and cookie details
                 //if unauthorized request return false

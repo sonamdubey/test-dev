@@ -25,7 +25,7 @@ namespace Bikewale.Entities.UserReviews
         [JsonProperty("displayType"), DataMember]
         public UserReviewQuestionDisplayType DisplayType { get; set; }
 
-        [JsonProperty("rating"), JsonIgnore, DataMember]
+        [JsonProperty("rating"), DataMember]
         public IEnumerable<UserReviewRating> Rating { get; set; }
 
         [JsonProperty("order"), DataMember, JsonIgnore]
