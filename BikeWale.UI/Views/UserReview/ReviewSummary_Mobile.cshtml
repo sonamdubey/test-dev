@@ -1,9 +1,10 @@
-﻿@{
+﻿@model Bikewale.Models.UserReviewSummaryVM
+@{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/write-review.css' />";
     Model.Page_JS_Path = "/m/src/user-review/write-review.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
-
+@if (Model != null && Model.Summary!=null) { 
 <section>
     <div id="thankyou-card" class="container bg-white box-shadow padding-15-20 card-bottom-margin">
         <div class="model-image-grid inline-block">
@@ -14,10 +15,14 @@
             </div>
         </div>
         <div class="model-details-grid inline-block">
-            <p class="font18 text-black text-bold margin-bottom5">Thank you, Sam!</p>
+            <p class="font18 text-black text-bold margin-bottom5">Thank you, @Model.Summary.CustomerName!</p>
+            @if (Model.Summary.Description != null) { 
             <p class="font13 text-light-grey">Your review has been recorded. We will inform you once it is published.</p>
-            @*<p class="font13 text-light-grey">Your rating has been recorded. We look forward to your detailed review about this bike.</p>*@
-        </div>
+            }
+            else { 
+                <p class="font13 text-light-grey">Your rating has been recorded. We look forward to your detailed review about this bike.</p>
+            }
+                </div>
     </div>
 </section>
 
@@ -25,7 +30,7 @@
     <div id="review-summary-card" class="container bg-white box-shadow card-bottom-margin font14">
         <div class="padding-15-20 box-shadow">
             <p class="padding-bottom15 border-solid-bottom text-light-grey">Check, how others will see your review!</p>
-            <h1 class="font16 padding-top15">Your review for Bajaj Pulsar RS200</h1>
+            <h1 class="font16 padding-top15">Your review for @Model.Make.MakeName @Model.Model.ModelName</h1>
         </div>
         <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
             <div id="bike-rating-box" class="margin-bottom20">
@@ -47,15 +52,19 @@
             </div>
 
             <div id="floating-btn" class="floating-btn">
+                @if (Model.Summary.Description == null) { 
                 <div class="grid-6 alpha omega">
                     <a class="btn btn-white btn-full-width" href="javascript:void(0);">Write a review</a>
                 </div>
-                <div class="grid-6 alpha omega">
+                 <div class="grid-6 alpha omega">
                     <input type="button" class="btn btn-orange btn-full-width" value="Done" />
                 </div>
-                @*<div class="grid-12 alpha omega">
+                }
+                else { 
+                <div class="grid-12 alpha omega">
                     <a class="btn btn-orange btn-full-width" href="javascript:void(0);">Done</a>
-                </div>*@
+                </div>
+                }
                 <div class="clear"></div>
             </div>
 
@@ -111,19 +120,22 @@
             </ul>
             <div class="margin-bottom20 border-solid-bottom"></div>
 
+            @if (Model.Summary.Tips != null) { 
             <h3 class="font15 text-black margin-bottom15">Tips for prospective buyers</h3>
             <div class="text-light-grey">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>@Model.Summary.Tips</p>
             </div>
-
-            @*<!-- no review start -->
-            <div class="margin-top20 margin-bottom20 border-solid-bottom"></div>
+            }
+            
+           @if(Model.Summary.Description==null){
+             <div class="margin-top20 margin-bottom20 border-solid-bottom"></div>
             <h3 class="font15 text-black margin-bottom15">You haven't shared your opinion yet!</h3>
             <p class="text-light-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad</p>
-            <!-- no review end -->*@
+           }
 
         </div>
     </div>
 </section>
 
 <div id="review-summary-page"></div>
+}
