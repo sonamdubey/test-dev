@@ -953,6 +953,7 @@
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewRatingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
+    <Compile Include="Models\UserReviews\UserReviewSummaryPage.cs" />
     <Compile Include="Models\UserReviews\WriteReviewPageModel..cs" />
     <Compile Include="Models\Videos\MakeVideosPage.cs" />
     <Compile Include="Models\Videos\ModelWiseVideosPage.cs" />
