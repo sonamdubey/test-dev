@@ -1,135 +1,181 @@
-﻿using Bikewale.DAL.UserReviews;
+﻿using Bikewale.Entities.Customer;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.UserReviews;
-using Microsoft.Practices.Unity;
+using Bikewale.Notifications;
+using Bikewale.Utility.LinqHelpers;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 
 namespace Bikewale.BAL.UserReviews
 {
     /// <summary>
-    /// Created By : Ashish G. Kamble on 12 June 2014
+    /// Created By : Sushil Kumar on 16th April 2017
     /// Summary : Class have business logic for the user reviews
     /// </summary>
     public class UserReviews : IUserReviews
     {
-        private readonly IUserReviews userReviewsRepository = null;
+        private readonly IUserReviewsCache _userReviewsCache = null;
+        private readonly IUserReviewsRepository _userReviewsRepo = null;
+        private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
+        private readonly ICustomerRepository<CustomerEntity, UInt32> _objCustomerRepo = null;
 
-        public UserReviews()
+        // container.RegisterType<IUserReviewsCache, Bikewale.Cache.UserReviews.UserReviewsCacheRepository>();
+
+        public UserReviews(IUserReviewsCache userReviewsCache, IUserReviewsRepository userReviewsRepo, ICustomer<CustomerEntity, UInt32> objCustomer,
+            ICustomerRepository<CustomerEntity, UInt32> objCustomerRepo)
         {
-            using (IUnityContainer container = new UnityContainer())
+            _userReviewsCache = userReviewsCache;
+            _userReviewsRepo = userReviewsRepo;
+            _objCustomer = objCustomer;
+            _objCustomerRepo = objCustomerRepo;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 16th April 2017
+        /// Description : To get all user reviews questions,ratings,overall ratings and price range data
+        /// </summary>
+        /// <returns></returns>
+        public UserReviewsData GetUserReviewsData()
+        {
+            return _userReviewsCache.GetUserReviewsData();
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 16th April 2017
+        /// Description : To get all user reviews questions filtered with inputs
+        /// </summary>
+        /// <param name="inputParams"></param>
+        /// <returns></returns>
+        public IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams)
+        {
+            IEnumerable<UserReviewQuestion> objQuestions = null;
+            try
             {
-                container.RegisterType<IUserReviews, UserReviewsRepository>();
-                userReviewsRepository = container.Resolve<IUserReviews>();
+                UserReviewsData objUserReviewData = _userReviewsCache.GetUserReviewsData();
+                objQuestions = GetUserReviewQuestions(inputParams, objUserReviewData);
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.UserReviews.UserReviews.GetUserReviewQuestions(inputParams) ");
+            }
+
+            return objQuestions;
         }
 
-        public List<ReviewTaggedBikeEntity> GetMostReviewedBikesList(ushort totalRecords)
+        /// <summary>
+        /// Created By : Sushil Kumar on 16th April 2017
+        /// Description : To get all user reviews questions filtered with inputs
+        /// </summary>
+        /// <param name="inputParams"></param>
+        /// <param name="objUserReviewQuestions"></param>
+        /// <returns></returns>
+        public IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams, UserReviewsData objUserReviewQuestions)
         {
-            List<ReviewTaggedBikeEntity> objTaggedBikes = null;
+            IEnumerable<UserReviewQuestion> objQuestions = null;
+            try
+            {
+                if (objUserReviewQuestions != null && objUserReviewQuestions.Questions != null)
+                {
 
-            objTaggedBikes = userReviewsRepository.GetMostReviewedBikesList(totalRecords);
+                    objQuestions = objUserReviewQuestions.Questions.Where(ProcessInputFilter(inputParams));
 
-            return objTaggedBikes;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.UserReviews.UserReviews.GetUserReviewQuestions(inputParams,objUserReviewQuestions)");
+            }
+            return objQuestions;
         }
 
-        public List<ReviewTaggedBikeEntity> GetReviewedBikesList()
+        /// <summary>
+        /// Created By : Sushil Kumar on 16th April 2017
+        /// Description : Create function to be executed for user reviews linq filters
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        private Func<UserReviewQuestion, bool> ProcessInputFilter(UserReviewsInputEntity filters)
         {
-            List<ReviewTaggedBikeEntity> objTaggedBikes = null;
-
-            objTaggedBikes = userReviewsRepository.GetReviewedBikesList();
-
-            return objTaggedBikes;
+            Expression<Func<UserReviewQuestion, bool>> filterExpression = PredicateBuilder.True<UserReviewQuestion>();
+            if (filters != null)
+            {
+                if (filters.Type > 0)
+                {
+                    filterExpression = filterExpression.And(m => m.Type == filters.Type);
+                }
+                if (filters.DisplayType > 0)
+                {
+                    filterExpression = filterExpression.And(m => m.DisplayType == filters.DisplayType);
+                }
+                if (filters.IsRequired)
+                {
+                    filterExpression = filterExpression.And(m => m.IsRequired == filters.IsRequired);
+                }
+                if (filters.PriceRangeId > 0)
+                {
+                    filterExpression = filterExpression.And(m => m.PriceRangeIds != null && m.PriceRangeIds.Contains(filters.PriceRangeId));
+                }
+            }
+            return filterExpression.Compile();
         }
 
-        public List<ReviewsListEntity> GetMostReadReviews(ushort totalRecords)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="overAllrating"></param>
+        /// <param name="ratingQuestionAns"></param>
+        /// <param name="userName"></param>
+        /// <param name="emailId"></param>
+        /// <returns></returns>
+        public uint SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId)
         {
-            List<ReviewsListEntity> objReviews = null;
+            CustomerEntity objCust = null;
+            //check for user registration
+            //Check if Customer exists
+            objCust = _objCustomer.GetByEmail(emailId);
 
-            objReviews = userReviewsRepository.GetMostReadReviews(totalRecords);
+            if (objCust != null && objCust.CustomerId > 0)
+            {
+                //If exists update the mobile number and name
+                _objCustomerRepo.UpdateCustomerMobileNumber("", emailId, userName);
+                //set customer id for further use
+            }
+            else
+            {
+                //if not registered register and get customerid
+                //Register the new customer and send login details
+                objCust = new CustomerEntity() { CustomerName = userName, CustomerEmail = emailId, CustomerMobile = "" };
+                if (objCust.CustomerId < 1)
+                {
+                    objCust.CustomerId = _objCustomer.Add(objCust);
+                }
+                //mail to betriggered here
+            }
 
-            return objReviews;
+            return _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId,makeId,modelId);
+
         }
 
-        public List<ReviewsListEntity> GetMostHelpfulReviews(ushort totalRecords)
+
+        public bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
         {
-            List<ReviewsListEntity> objReviews = null;
+            bool isSuccess = false;
+            if(reviewId > 0)
+            {
+                //checked for Customer login and cookie details
+                //if unauthorized request return false
+                isSuccess = _userReviewsRepo.SaveUserReviews(reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
+            }
 
-            objReviews = userReviewsRepository.GetMostHelpfulReviews(totalRecords);
-
-            return objReviews;
+            return isSuccess;
         }
 
-        public List<ReviewsListEntity> GetMostRecentReviews(ushort totalRecords)
-        {
-            List<ReviewsListEntity> objReviews = null;
-
-            objReviews = userReviewsRepository.GetMostRecentReviews(totalRecords);
-
-            return objReviews;
-        }
-
-        public List<ReviewsListEntity> GetMostRatedReviews(ushort totalRecords)
-        {
-            List<ReviewsListEntity> objReviews = null;
-
-            objReviews = userReviewsRepository.GetMostRatedReviews(totalRecords);
-
-            return objReviews;
-        }
-
-        public ReviewRatingEntity GetBikeRatings(uint modelId)
-        {
-            ReviewRatingEntity objRating = null;
-
-            objRating = userReviewsRepository.GetBikeRatings(modelId);
-
-            return objRating;
-        }
-
-        public ReviewListBase GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter)
-        {
-            ReviewListBase objReviewList = null;
-
-            objReviewList = userReviewsRepository.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter);
-
-            return objReviewList;
-        }
-
-        public ReviewDetailsEntity GetReviewDetails(uint reviewId)
-        {
-            ReviewDetailsEntity objReview = null;
-
-            objReview = userReviewsRepository.GetReviewDetails(reviewId);
-
-            return objReview;
-        }
-
-        public bool UpdateViews(uint reviewId)
-        {
-            bool isViesUpdated = false;
-
-            isViesUpdated = userReviewsRepository.UpdateViews(reviewId);
-
-            return isViesUpdated;
-        }
-
-        public bool AbuseReview(uint reviewId, string comment, string userId)
-        {
-            bool isReviewAbused = false;
-
-            isReviewAbused = userReviewsRepository.AbuseReview(reviewId, comment, userId);
-
-            return isReviewAbused;
-        }
-
-        public bool UpdateReviewUseful(uint reviewId, bool isHelpful)
-        {
-            bool isUpdated = false;
-
-            isUpdated = userReviewsRepository.UpdateReviewUseful(reviewId, isHelpful);
-
-            return isUpdated;
-        }
     }   // Class
 }   // Namespace

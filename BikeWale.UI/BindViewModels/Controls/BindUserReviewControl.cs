@@ -56,7 +56,7 @@ namespace Bikewale.BindViewModels.Controls
                 {
                     container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
                     .RegisterType<ICacheManager, MemcacheManager>()
-                    .RegisterType<IUserReviews, UserReviewsRepository>();
+                    .RegisterType<IUserReviewsRepository, UserReviewsRepository>();
                     IUserReviewsCache objVersion = container.Resolve<IUserReviewsCache>();
                     uint recCount = Convert.ToUInt16(RecordCount);
                     ReviewListBase reviews = objVersion.GetBikeReviewsList((uint)stratIndex, (uint)endIndex, (uint)ModelId, 0, Filter);

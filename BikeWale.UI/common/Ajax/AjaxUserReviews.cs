@@ -416,9 +416,9 @@ namespace Bikewale.Ajax
                     {
                         using (IUnityContainer container = new UnityContainer())
                         {
-                            container.RegisterType<IUserReviews, UserReviewsRepository>()
-                            .RegisterType<IUserReviews, UserReviewsRepository>();
-                            IUserReviews objReviews = container.Resolve<IUserReviews>();
+                            container.RegisterType<IUserReviewsRepository, UserReviewsRepository>()
+                            .RegisterType<IUserReviewsRepository, UserReviewsRepository>();
+                            IUserReviewsRepository objReviews = container.Resolve<IUserReviewsRepository>();
 
                             returnVal = objReviews.UpdateReviewUseful(_reviewId, isHelpFull);
                         }
@@ -472,9 +472,9 @@ namespace Bikewale.Ajax
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IUserReviews, UserReviewsRepository>()
-                        .RegisterType<IUserReviews, UserReviewsRepository>();
-                        IUserReviews objReviews = container.Resolve<IUserReviews>();
+                        container.RegisterType<IUserReviewsRepository, UserReviewsRepository>()
+                        .RegisterType<IUserReviewsRepository, UserReviewsRepository>();
+                        IUserReviewsRepository objReviews = container.Resolve<IUserReviewsRepository>();
 
                         returnVal = objReviews.AbuseReview(_reviewId, comments, CurrentUser.Id.ToString());
                     }

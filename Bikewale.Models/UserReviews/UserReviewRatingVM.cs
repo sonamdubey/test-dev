@@ -7,5 +7,6 @@ namespace Bikewale.Models
         public GenericBikeInfo BikeInfo { get; set; }
         public string OverAllRatingText { get; set; }
         public string RatingQuestion { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

@@ -1,79 +1,29 @@
-﻿var ratingBox;
+﻿var ratingBox, selectedAnswer;
 
 var userNameField, userEmailIdField;
 var detailedReviewField, reviewTitleField;
-var value_overallrating;
+var value_overallrating, reviewQuestion;
 var array_rating;
 var bikeRating = {
     ratingCount: 0,
     overallRating: []
 };
 
-var ratingQuestion = [
-    {
-        qid: 101,
-        type: 'text',
-        heading: "What do you use this bike for?",
-        rating: ["Daily Commute", "Occasional Commute", "Leisure Rides", "Tours", "All"],
-        isRequired: true,
-        visibility: true,
-        subQuestionId: 0
-    },
-    {
-        qid: 102,
-        type: 'text',
-        heading: "How long have you owned this bike for?",
-        rating: ["Don't own", "< 3 months", "3-6 months", "6 months-1 yr", "> 1 yr"],
-        isRequired: true,
-        visibility: true,
-        subQuestionId: 103
-    },
-    {
-        qid: 103,
-        type: 'text',
-        heading: "How much have you ridden this bike?",
-        rating: ["< 5000 kms", "5000-10000 kms", "10000-15000 kms", "> 15000 kms"],
-        isRequired: true,
-        visibility: false,
-        subQuestionId: 0
-    }
-];
+var ratingQuestion = [];
 
-var reviewQuestion = [
-    {
-        type: 'star',
-        heading: "Visual Appeal/Looks",
-        description: "Remember, what others thought when they first saw your bike!",
-        rating: ["Terrible!", "It's bad", "Okay", "Excellent", "Gorgeous"],
-        currentlySelected: 0
-    },
-    {
-        type: 'star',
-        heading: "Reliability",
-        description: "Remember, what others thought when they first saw this bike!",
-        rating: ["Unpredictable", "Unreliable", "You can rely!", "Dependable", "Trustworthy"],
-        currentlySelected: 0
-    },
-    {
-        type: 'star',
-        heading: "Performance",
-        description: "Remember, what others thought when they first saw this bike!",
-        rating: ["Very poor", "Poor", "Not bad", "Good", "Excellent"],
-        currentlySelected: 0
-    },
-    {
-        type: 'text',
-        heading: "Maintenance cost",
-        description: "Are regular replacement parts reasonably priced? How much does it cost to fix a broken part?",
-        rating: ["Unreasonably High", "Very High", "High", "Reasonable", "Well priced"],
-        currentlySelected: 0
-    }
-];
 
 docReady(function () {
 
     ratingBox = $('#bike-rating-box');
-    bikeRating.overallRating = JSON.parse($('#overallratingQuestion').text());
+
+    if ($("#overallratingQuestion") && $("#overallratingQuestion").length)
+        bikeRating.overallRating = JSON.parse($('#overallratingQuestion').text());
+    if ($("#rating-question") && $("#rating-question").length)
+        ratingQuestion = JSON.parse($('#rating-question').text());
+  
+
+    if ($("#review-question-list") && $("#review-question-list").length)
+        reviewQuestion = JSON.parse($("#review-question-list").text());
     // rate bike
     var rateBike = function () {
         var self = this;
@@ -107,6 +57,8 @@ docReady(function () {
 
                 return true;
             }
+
+            return false;
         };
 
         self.validateRateBikeForm = function () {
@@ -309,14 +261,26 @@ docReady(function () {
         self.reviewQuestions = ko.observableArray(reviewQuestion);
 
         self.submitReview = function () {
+
+            var array = new Array;
+
+            $(".list-item input[type='radio']:checked").each(function (i) {
+                var r = $(this);
+                array[i] = (r.attr("questiontId") + ':' + r.val());
+            });
+
+            $('#reviewQuestion').val(array.join(","));
+
             if (self.detailedReview().length > 0 || self.reviewTitle().length > 0) {
-                self.validateReviewForm();
+                if (self.validateReviewForm()) {
+                    return true;
+                }               
             }
             else {
                 self.detailedReviewFlag(false);
                 validate.hideError(reviewTitleField);
-                // go to step 3
-            }
+                return true;
+            }            
         };
 
         self.validateReviewForm = function () {
@@ -341,7 +305,7 @@ docReady(function () {
                     self.detailedReviewFlag(false);
                 }
 
-                return self.detailedReviewFlag();
+                return !self.detailedReviewFlag();
             },
 
             reviewTitle: function () {
@@ -375,7 +339,7 @@ docReady(function () {
         var button = $(this),
             questionField = button.closest('.question-type-star');
         
-        var feedbackText = vmWriteReview.reviewQuestions()[questionField.index()].rating[button.val() - 1];
+        var feedbackText = vmWriteReview.reviewQuestions()[questionField.index()].rating[button.val() - 1].ratingText;
         questionField.find('.feedback-text').text(feedbackText);
     });
 

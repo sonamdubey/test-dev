@@ -131,7 +131,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeSeries<BikeSeriesEntity, int>>();
             container.RegisterType<IState, StateRepository>();
             container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
-            container.RegisterType<IUserReviews, UserReviewsRepository>();
+            container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
             container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>();
             container.RegisterType<ISearchResult, SearchResult>();
             container.RegisterType<IProcessFilter, ProcessFilter>();

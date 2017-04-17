@@ -39,14 +39,14 @@
                 </div>
 
                 <div id="rate-bike-questions" data-bind="foreach: ratingQuestions">
-                    <!-- ko if: type === "text" -->
-                    <div class="question-field question-type-text" data-bind="visible: visibility, attr:{id: 'question-' + qid, 'data-sub-question': subQuestionId, 'data-required': isRequired}">
+                    <!-- ko if: displayType == 2 -->
+                    <div class="question-field question-type-text" data-bind="visible: visibility, attr:{id: 'question-' + qId, 'data-sub-question': subQuestionId, 'data-required': isRequired}">
                         <h3 class="question-item" data-bind="text: heading"></h3>
                         <p class="error-text" data-bind="" style="display: none">This is a compulsory field.</p>
 
                         <div class="answer-radio-list" data-bind="foreach: rating">
                             <input type="radio" data-bind="attr: {questionId:$parentContext.$index()+1,id: 'q-' + $parentContext.$index() + '-' + $index(), name: 'rating-q-' + $parentContext.$index(), value: $index() + 1}" />
-                            <label data-bind="attr: {for: 'q-' + $parentContext.$index() + '-' + $index(), 'data-value': $index() + 1}, text: $data"></label>
+                            <label data-bind="attr: {for: 'q-' + $parentContext.$index() + '-' + $index(), 'data-value': $index() + 1}, text: ratingText"></label>
                         </div>
                         <div class="clear"></div>
                     </div>
