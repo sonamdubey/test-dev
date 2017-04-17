@@ -951,7 +951,13 @@ namespace Bikewale.DAL.UserReviews
                                 CustomerName = Convert.ToString(dr["CustomerName"]),
                                 Description = Convert.ToString(dr["Comments"]),
                                 Tips = Convert.ToString(dr["ReviewTitle"]),
-                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"])
+                                OverallRating = new UserReviewOverallRating()
+                                {
+                                    Id = SqlReaderConvertor.ToUInt32(dr["overallratingId"]),
+                                    Heading = Convert.ToString(dr["Heading"]),
+                                    Description = Convert.ToString(dr["Description"]),
+                                    Value = SqlReaderConvertor.ToUInt16(dr["Rating"])
+                                }
                             };
                         }
 
@@ -966,6 +972,7 @@ namespace Bikewale.DAL.UserReviews
                                     Id = SqlReaderConvertor.ToUInt32(dr["QuestionId"])
                                 });
                             }
+                            objUserReviewSummary.Questions = objQuestions;
                         }
 
                         dr.Close();
