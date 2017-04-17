@@ -59,7 +59,7 @@
 
 /* version dropdown */
 .single-version-content {
-    width: 110px;
+    width: 126px;
 }
 
 .single-version-value,
@@ -146,7 +146,7 @@
 /* model-image */
 .model-image {
     width: 230px;
-    height: 128px;
+    min-height: 128px;
 }
 
 .model-image img {
@@ -154,44 +154,14 @@
 }
 
 /* ribbon tag */
-.model-ribbon {
-    position: absolute;
-    top: 14px;
-    left: 0;
+.model-ribbon-tag {
+    color: #fff;
+    position: relative;
+    top: -5px;
+    left: -20px;
     font-size: 12px;
-    padding: 2px 10px;
+    padding: 2px 20px 2px 10px;
     display: inline-block;
-    z-index: 2;
-}
-
-.model-ribbon:after {
-    content: '';
-    position: absolute;
-    border-top: 10px solid transparent;
-    border-right: 10px solid #fff;
-    border-bottom: 10px solid transparent;
-    right: 0;
-}
-
-.model-ribbon:before,
-.model-ribbon:after {
-    content: '';
-    width: 0;
-    height: 0;
-    position: absolute;
-    border-style: solid;
-    border-color: transparent;
-    right: -10px;
-}
-
-.model-ribbon:before {
-    top: 0;
-    border-width: 11px 10px 0 0;
-}
-
-.model-ribbon:after {
-    bottom: 0;
-    border-width: 0 10px 11px 0;
 }
 
 .discontinued-ribbon {
@@ -316,6 +286,10 @@
     margin-right: -4px;
 }
 
+.grid-11-inline {
+    width: 91.66666667%;
+}
+
 .grid-10-inline {
     width: 83.33333333%;
 }
@@ -324,6 +298,7 @@
     width: 16.66666667%;
 }
 
+.grid-11-inline,
 .grid-10-inline,
 .grid-2-inline {
     display: inline-block;
@@ -530,6 +505,29 @@ width: 100%;
 #priceInCityPopUpContent .select-box .chosen-container .chosen-single{
        font-weight:normal;
 }
+
+/* icons */
+.dealer-grey {
+    width: 24px;
+    height: 22px;
+    background-position: -105px -747px;
+    vertical-align: middle;
+}
+
+.service-center-grey {
+    width: 28px;
+    height: 25px;
+    background-position: -197px -705px;
+    vertical-align: middle;
+}
+
+.graph-rank-grey {
+    width: 28px;
+    height: 25px;
+    background-position: -139px -745px;
+    vertical-align: middle;
+}
+
 @media only screen and (max-width: 1024px) {
     .overall-specs-tabs-container {
         width: 940px;

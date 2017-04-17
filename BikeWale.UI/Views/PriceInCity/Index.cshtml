@@ -106,11 +106,9 @@
                                     {
                                         <div class="location-selection vertical-top cur-pointer">
                                             <p class="font12 text-light-grey">City</p>
-                                            <p class="text-bold selected-city text-truncate position-rel">
+                                            <p c="Price_in_City_Page" a="City_Change_Initiated_Top_Card" l="@gaBikeName" data-makemasking="@Model.Make.MaskingName" data-modelmasking="@Model.BikeModel.MaskingName" data-modelid="@Model.BikeModel.ModelId" class="text-bold selected-city text-truncate position-rel changepriceincitypage bw-ga">
                                                 <span>@Model.CityEntity.CityName</span>
-                                                <a href="javascript:void(0)" c="Price_in_City_Page" a="City_Change_Initiated_Top_Card" l="@gaBikeName" data-makemasking="@Model.Make.MaskingName" data-modelmasking="@Model.BikeModel.MaskingName" data-modelid="@Model.BikeModel.ModelId" class="changepriceincitypage bw-ga" rel="nofollow">
-                                                    <span class="bwsprite loc-change-blue-icon"></span>
-                                                </a>
+                                                <span class="bwsprite loc-change-blue-icon"></span>
                                             </p>
                                         </div>
 
@@ -165,20 +163,28 @@
 
                                     @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && Model.IsNew)
                                     {
-                                        <p class="text-black margin-bottom10 font14">Please select your area to get:</p>
-                                           <ul class="list-type-disc margin-bottom20 font14">
-                                                <li>Nearest dealership details</li>
-                                                <li>Exclusive offers</li>
-                                                <li>Complete buying assistance</li>
-                                            </ul>
-                                    <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas)" f="getBikeVersionName" c="Price_in_City_Page" a="Select_Area_Clicked" data-preselcity="@Model.CityEntity.CityId" data-persistent="true" data-modelid="@Model.BikeModel.ModelId" class="btn btn-orange btn-xxlg font14 getquotation changeCity bw-ga" rel="nofollow">Select your location</a>
+                                    <div class="margin-bottom15">
+                                        <span class="bwsprite dealer-grey"></span>
+                                        <div class="grid-10-inline padding-left10">
+                                            <h3 class="font15 font-bold">Find dealer near you</h3>
+                                        </div>
+                                    </div>
+                                    <div class="text-slate-grey font14">
+                                        <p class="margin-bottom10 font14">Please select your area to get:</p>
+                                        <ul class="list-type-disc margin-bottom20 font14">
+                                            <li>Nearest dealership details</li>
+                                            <li>Exclusive offers</li>
+                                            <li>Complete buying assistance</li>
+                                        </ul>
+                                        <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas)" f="getBikeVersionName" c="Price_in_City_Page" a="Select_Area_Clicked" data-preselcity="@Model.CityEntity.CityId" data-persistent="true" data-modelid="@Model.BikeModel.ModelId" class="btn btn-orange btn-xxlg font14 getquotation changeCity bw-ga" rel="nofollow">Select your area</a>
+                                    </div>
                                     }
 
                                     else if (Model.HasCampaignDealer && Model.IsNew) 
                                     {
                                         <div class="margin-bottom15">
-                                            <span class="dealer-icon"></span>
-                                            <div class="inline-block dealer-icon-label">
+                                            <span class="bwsprite dealer-grey"></span>
+                                            <div class="grid-10-inline padding-left10">
                                                 <h3 class="font-bold">@String.Format("{0}, {1}", Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization, Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName)</h3>
                                                 <p class="font12 text-xx-light">@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName</p>
                                             </div>
@@ -225,18 +231,18 @@
                                 <div class="content-box-shadow">
                                     @if (Model.HasDealers)
                                     {
-                                        <div class="padding-top20 font14">
-                                            <div class="carousel-heading-content">
-                                                <div class="swiper-heading-left-grid inline-block">
-                                                   <h2 class="card-h2-heading">@Model.DealersWidget_H2</h2>
-                                                   </div>
-                                                <div class="swiper-heading-right-grid inline-block text-right">
-                                                    <a href="@Model.DealersWidget_ViewAll_Href" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
+                                    <div class="padding-top20 font14">
+                                        <div class="carousel-heading-content">
+                                            <div class="swiper-heading-left-grid inline-block">
+                                                <h2 class="card-h2-heading">@Model.DealersWidget_H2</h2>
                                                 </div>
+                                            <div class="swiper-heading-right-grid inline-block text-right">
+                                                <a href="@Model.DealersWidget_ViewAll_Href" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
                                             </div>
-                                            @Html.Partial("~/views/dealershowroom/_DealerCard.cshtml", Model.Dealers)
-                                            <div class="clear"></div>
                                         </div>
+                                        @Html.Partial("~/views/dealershowroom/_DealerCard.cshtml", Model.Dealers)
+                                        <div class="clear"></div>
+                                    </div>
                                     }
                                 </div>
                             </div>
@@ -250,10 +256,8 @@
                                 <div class="grid-12 grid-no-padding">
                                     <div class="content-box-shadow content-inner-block-20">
                                         <div class="grid-10-inline margin-right-4">
-                                            <div class="left-grid-icon">
-
-                                            </div>
-                                            <div class="right-grid-label">
+                                            <span class="bwsprite service-center-grey"></span>
+                                            <div class="grid-11-inline padding-left20">
                                                 <h2 class="card-h2-heading margin-bottom5">@string.Format("{0} {1}", Model.ServiceCentersCount, Model.ServiceCenterWidget_H2)</h2>
                                                 <p class="font14 text-slate-grey">Get in touch with your nearest @Model.Make.MakeName service center in @Model.CityEntity.CityName for service enquiries, service and repair costs and more!</p>
                                             </div>
@@ -485,10 +489,8 @@
                     <div class="grid-12">
                         <div class="content-box-shadow content-inner-block-20">
                             <div class="grid-10-inline margin-right-4">
-                                <div class="left-grid-icon">
-
-                                </div>
-                                <div class="right-grid-label">
+                                <span class="bwsprite graph-rank-grey"></span>
+                                <div class="grid-11-inline padding-left20">
                                     <h2 class="card-h2-heading margin-bottom5">Top 10 @Model.BikeRank.StyleName in India</h2>
                                     <p class="font14 text-slate-grey">Are you looking for a @Model.BikeRank.BikeType.ToLower()? Check out our list of top 10 @Model.BikeRank.StyleName.ToLower() in India.</p>
                                 </div>
