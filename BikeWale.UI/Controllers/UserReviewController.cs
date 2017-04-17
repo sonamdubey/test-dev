@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models;
@@ -58,6 +59,8 @@ namespace Bikewale.Controllers
 
             bool isValid = true;
             string errorMessage = "";
+            UserReviewRatingObject objRating = null;
+
             //server side validation for data received
             if (string.IsNullOrEmpty(overAllrating))
             {
@@ -81,9 +84,14 @@ namespace Bikewale.Controllers
             }
 
             if (isValid)
-            {
-                _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, 2);
-                return RedirectToAction("WriteReview_Mobile");
+            {               
+                objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, 2);
+
+                string strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId);
+
+                string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
+
+                return RedirectToAction("WriteReview_Mobile", new { strEncoded = strEncoded });
             }
             else
             {
@@ -94,9 +102,9 @@ namespace Bikewale.Controllers
 
 
         [Route("m/user-reviews/write-review/")]
-        public ActionResult WriteReview_Mobile()
+        public ActionResult WriteReview_Mobile(string strEncoded)
         {
-            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews);
+            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, strEncoded);
             var objData = objPage.GetData();
 
             return View(objData);
@@ -126,9 +134,14 @@ namespace Bikewale.Controllers
             bool isValid = true;
             string errorMessage = "";
             //server side validation for data received
-            if (!string.IsNullOrEmpty(reviewDescription))
+            if (string.IsNullOrEmpty(reviewDescription) && !string.IsNullOrEmpty(reviewTitle))
             {
-                errorMessage = "Please provide your rating for bike.";
+                errorMessage = "Please provide your Description for bike.";
+                isValid = false;
+            }
+            if (!string.IsNullOrEmpty(reviewDescription) && string.IsNullOrEmpty(reviewTitle))
+            {
+                errorMessage = "Please provide your Title for bike.";
                 isValid = false;
             }
 

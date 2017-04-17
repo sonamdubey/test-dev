@@ -752,7 +752,8 @@ namespace Bikewale.DAL.UserReviews
                                         Id = SqlReaderConvertor.ToUInt32(dr["id"]),
                                         Value = SqlReaderConvertor.ToUInt16(dr["rating"]),
                                         Heading = Convert.ToString(dr["heading"]),
-                                        Description = Convert.ToString(dr["Description"])
+                                        Description = Convert.ToString(dr["Description"]),
+                                        ResponseHeading = Convert.ToString(dr["ResponseHeading"])
                                     });
                             }
                             objData.OverallRating = overallRating;
@@ -884,13 +885,15 @@ namespace Bikewale.DAL.UserReviews
                 using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerId", DbType.Int32, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_overallrating", DbType.String, overAllrating));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, ratingQuestionAns));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_username", DbType.String, userName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, emailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Int32, 1));  //hard-coded for now
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, ":1")); //hard-coded for now
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceId", DbType.Int16, sourceId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientIP", DbType.String, Bikewale.CoreDAL.CommonOpn.GetClientIP()));

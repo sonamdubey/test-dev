@@ -136,25 +136,30 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="ratingQuestionAns"></param>
         /// <param name="userName"></param>
         /// <param name="emailId"></param>
-        /// <returns></returns>
-        public uint SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint sourceId)
+        /// <returns></returns>        
+        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint sourceId)
         {
             uint reviewId = 0;
+            UserReviewRatingObject objRating = null;
             try
             {
+                objRating = new UserReviewRatingObject();
+
+
                 CustomerEntityBase objCust = null;
                 //check for user registration
                 objCust = new CustomerEntityBase() { CustomerName = userName, CustomerEmail = emailId };
                 objCust = ProcessUserCookie(objCust);
 
-                reviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId);
+                objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId);
+                objRating.CustomerId = objCust.CustomerId;
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.UserReviews.SaveUserRatings({0},{1})", modelId, emailId));
             }
 
-            return reviewId;
+            return objRating;
 
         }
 
