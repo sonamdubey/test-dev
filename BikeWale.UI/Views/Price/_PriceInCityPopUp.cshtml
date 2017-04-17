@@ -71,7 +71,7 @@
             }
         });      
        
-        CitiesKey = "pqPriceInCityPopUp_";
+        CitiesKey = "PriceInCityPopUp_";
        
         bwcache.setScope('PriceInCityPopUp');
      
@@ -104,7 +104,6 @@
             self.LoadingText = ko.observable("Loading cities...");
             self.validate = ko.observable(false);
             self.IsLoading = ko.observable(false);
-            self.pcButtonClicked = ko.observable(false);
             self.errMsg = ko.observable();
                   self.setOptions = function (options, event) {
                     if (options != null) {
@@ -120,7 +119,7 @@
                   };
                 self.LoadCities = function () {
                     try {
-                        CitiesKey = "pqPriceInCityPopUp_" + self.SelectedModelId();
+                        CitiesKey = "PriceInCityPopUp_" + self.SelectedModelId();
                         self.IsLoading(true);
                         pcPopupContent.updateChosen('#priceinCityPopupList');
                         $.ajax({
@@ -189,7 +188,6 @@
                     }
                 };
                 self.goToPriceInCity = function () {
-                    self.pcButtonClicked(true);
                     if (self.SelectedCityId() != undefined && self.SelectedCityId() > 0) {
                        self.selectCity();
                     }
