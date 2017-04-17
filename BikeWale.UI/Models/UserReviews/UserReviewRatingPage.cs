@@ -46,7 +46,7 @@ namespace Bikewale.Models
         private void GetBikeData(UserReviewRatingVM objUserVM)
         {
             objUserVM.BikeInfo = _bikeInfo.GetBikeInfo(_modelId, 0);
-
+        }
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Function to get user ratings and overall ratings for ratings page
