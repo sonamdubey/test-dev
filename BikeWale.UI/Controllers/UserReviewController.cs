@@ -12,6 +12,11 @@ namespace Bikewale.Controllers
         private readonly IBikeInfo _bikeInfo = null;
         private readonly IUserReviews _userReviews = null;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bikeInfo"></param>
+        /// <param name="userReviews"></param>
         public UserReviewController(IBikeInfo bikeInfo, IUserReviews userReviews)
         {
             _bikeInfo = bikeInfo;
@@ -34,6 +39,17 @@ namespace Bikewale.Controllers
             return View(UserReviewVM);
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 17th April 2017
+        /// Description : Action method to save user ratings
+        /// </summary>
+        /// <param name="overAllrating"></param>
+        /// <param name="ratingQuestionAns"></param>
+        /// <param name="userName"></param>
+        /// <param name="emailId"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
         public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId)
         {
@@ -64,7 +80,7 @@ namespace Bikewale.Controllers
 
             if (isValid)
             {
-                _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId,makeId,modelId);
+                _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId);
                 return RedirectToAction("WriteReview_Mobile");
             }
             else
@@ -92,7 +108,17 @@ namespace Bikewale.Controllers
         }
 
 
-        [HttpPost, Route("user-reviews/save/")]
+        /// <summary>
+        /// Created By : Sushil Kumar on 17th April 2017
+        /// Description : Action method to save user reviews
+        /// </summary>
+        /// <param name="reviewDescription"></param>
+        /// <param name="reviewTitle"></param>
+        /// <param name="reviewQuestion"></param>
+        /// <param name="reviewTips"></param>
+        /// <param name="reviewId"></param>
+        /// <returns></returns>
+        [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
         public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, uint reviewId)
         {
             bool isValid = true;
