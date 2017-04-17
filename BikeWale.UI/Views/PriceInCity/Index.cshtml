@@ -176,7 +176,7 @@
                                             <li>Exclusive offers</li>
                                             <li>Complete buying assistance</li>
                                         </ul>
-                                        <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas)" f="getBikeVersionName" c="Price_in_City_Page" a="Select_Area_Clicked" data-preselcity="@Model.CityEntity.CityId" data-persistent="true" data-modelid="@Model.BikeModel.ModelId" class="btn btn-orange btn-xxlg font14 getquotation changeCity bw-ga" rel="nofollow">Select your area</a>
+                                        <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas)" f="getBikeVersionName" c="Price_in_City_Page" a="Select_Area_Clicked" data-preselcity="@Model.CityEntity.CityId" data-persistent="true" data-modelid="@Model.BikeModel.ModelId" class="btn btn-orange btn-xxlg font14 getquotation changeCity bw-ga" rel="nofollow">Select your location</a>
                                     </div>
                                     }
 
@@ -374,10 +374,11 @@
                     }
                     <!-- model emi calculator end -->
                     <!-- model version prices start -->
-                    @if (Model.IsNew) { 
+                    @if (Model.IsNew && (Model.BikeVersionPrices != null || Model.HasNearestPriceCities)) {
                     <div id="priceListContent" class="bw-model-tabs-data section-bottom-margin">
                         <div class="grid-12 grid-no-padding">
                             <div class="content-box-shadow content-inner-block-20">
+                                @if (Model.BikeVersionPrices != null) { 
                                 <h2 class="card-h2-heading margin-bottom20">@Model.BikeName price list</h2>
                                 <div id="version-prices-grid" class="grid-6 alpha padding-right20">
                                     <table width="100%" cellspacing="0" cellpadding="0">
@@ -406,24 +407,25 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                }
+                                @if (Model.HasNearestPriceCities){
                                 <div id="nearby-prices-grid" class="grid-6 omega padding-left20">
                                     <h3 class="margin-bottom20">On-road prices in cities near @Model.CityEntity.CityName</h3>
-                                    @if (Model.HasNearestPriceCities)
-                                    {
+                                   
                                         <table id="prices-top-cities" width="100%" border="0" cellspacing="0" cellpadding="0">
                                             <tbody>
                                                 @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.NearestPriceCities)
                                             </tbody>
                                         </table>
-                                    }
-
                                 </div>
+                                }
                                 <div class="clear"></div>
                             </div>
                         </div>
                         <div class="clear"></div>
                     </div>
                     }
+                    
                     <!-- model version prices end -->
                     <!-- model similar start -->
                     @if (Model.HasAlternateBikes){

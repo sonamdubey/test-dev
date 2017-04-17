@@ -3,31 +3,22 @@
     var gaBikeName = String.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName,Model.CityEntity.CityName);
 }
 <ul class="overall-specs-tabs-wrapper">    
+    @if (Model.FirstVersion != null)
+    {
     <li data-tabs="#orpContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_On-road price", gaBikeName)">On-road price</li>
+    }
     @if (Model.HasDealers || Model.HasServiceCenters)
     {
         <li data-tabs="#dealerContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Dealers", gaBikeName)">Dealers</li>
     }
-    @*@if (Model.HasServiceCenters)
-    {
-        <li data-tabs="#serviceCenterContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Service centers", gaBikeName)">Service centers</li>
-    }*@
     @if (Model.IsNew)
     {
         <li data-tabs="#emiContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_EMI calculator", gaBikeName)">EMI calculator</li>
     }
-    @if (Model.IsNew && Model.BikeVersionPrices != null)
+    @if (Model.IsNew && (Model.BikeVersionPrices != null || Model.HasNearestPriceCities))
     {
-        <li data-tabs="#versionContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Versions", gaBikeName)">Price list</li>
+        <li data-tabs="#versionContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Price list", gaBikeName)">Price list</li>
     }
-    @*@if (Model.FirstVersion != null && Model.IsNew)
-    {
-        <li data-tabs="#versionContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Versions", gaBikeName)">Versions</li>
-    }
-    @if (Model.HasNearestPriceCities)
-    {
-        <li data-tabs="#nearbyCityContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Nearby cities", gaBikeName)">Nearby cities</li>
-    }*@
     @if (Model.HasAlternateBikes)
     {
         <li data-tabs="#similarContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Similar bikes", gaBikeName)">Similar bikes</li>
