@@ -70,6 +70,14 @@ docReady(function () {
     modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper'),
     modelSpecsFooter = $('#modelSpecsFooter');
 
+    $('#modelAlternateBikeContent')
+
+    var alternateBikeContent = $('#modelAlternateBikeContent');
+
+    if (alternateBikeContent.length != 0) {
+        alternateBikeContent.removeClass('bw-model-tabs-data');
+    }
+
     $(window).scroll(function () {
         var windowScrollTop = $window.scrollTop(),
             modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,

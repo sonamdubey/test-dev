@@ -3,6 +3,7 @@
 var dropdown;
 var overallSpecsTabsContainer, modelSpecsTabsContentWrapper, modelSpecsFooter, topNavBarHeight;
 var bikeVersionPrice, versionCount, bikeVersions;
+
 function formatPrice(price) {
     if (price != null) {
         price = price.toString();
@@ -181,11 +182,11 @@ docReady(function () {
             $('html, body').animate({ scrollTop: $(target).offset().top - overallSpecsTabsContainer.height() }, 1000);
             centerItVariableWidth($(this), '.overall-specs-tabs-container');
             return false;
-        });
+        });        
 
         // more cities
         $('.view-cities-link').on('click', function () {
-            $('#more-cities-list').slideDown();
+            $('#more-cities-list').show();
             $(this).closest('div').hide();
         });
 
