@@ -123,10 +123,10 @@
             { 
             <div id="dealerContent" class="bw-model-tabs-data card-bottom-margin">
                 <div class="content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
-                @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && Model.IsNew)
+                @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew)
                 { 
                 <div class="padding-right20 padding-bottom20 padding-left20">
-                    <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Dealers in @Model.CityEntity.CityName</h2>
+                    <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Showrooms in @Model.CityEntity.CityName</h2>
                     <div class="font14 text-slate-grey">
                         <p class="margin-bottom10">Please provide your location to get information on:</p>
                         <ul class="list-type-disc margin-bottom15">
@@ -135,7 +135,7 @@
                             <li>Complete buying assistance</li>
                         </ul>
                         <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea)" data-preselcity="@Model.CityEntity.CityId" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="Select_Area_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.BikeVersionPrices.FirstOrDefault().VersionName)" class="btn btn-orange btn-auto-32 getquotation changeCity" rel="nofollow">Select your location</a>
-                    </div>
+                        </div>
                 </div>
                 }
                 else
@@ -164,19 +164,19 @@
                 }
                 @if (Model.HasDealers)
                 {
-                    if (Model.IsNew && (Model.HasCampaignDealer || Model.IsAreaAvailable))
+                    if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew)
                     { 
                     <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
                     }
                 <div class="carousel-heading-content">
                     <div class="swiper-heading-left-grid inline-block">                        
-                        @if (Model.IsNew && (Model.HasCampaignDealer || Model.IsAreaAvailable))
+                        @if (Model.IsNew && (Model.HasCampaignDealer))
                         { 
                         <h3>@Model.Dealers.TotalCount Authorised dealer@(Model.Dealers.TotalCount > 1 ? "s" : "")</h3>
                         }
                         else
                         {
-                            <h2>@String.Format("{0} Dealers in {1}", Model.Make.MakeName, Model.CityEntity.CityName)</h2>
+                            <h2>@Model.DealersWidget_H2</h2>
                         }
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
