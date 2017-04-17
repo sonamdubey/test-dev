@@ -142,6 +142,10 @@ docReady(function () {
             $('.overall-specs-tabs-wrapper li').css({ 'display': 'inline-block', 'width': 'auto' });
         }
 
+        var tabElementThird = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(3)'),
+            tabElementSixth = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(6)'),
+            tabElementNinth = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(9)');
+
         $(window).scroll(function () {
             var windowScrollTop = $window.scrollTop(),
                 modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
@@ -175,6 +179,34 @@ docReady(function () {
                 }
             });
 
+            if (tabElementThird.length != 0) {
+                focusFloatingTab(tabElementThird, 250, 0);
+            }
+
+            if (tabElementSixth.length != 0) {
+                focusFloatingTab(tabElementSixth, 500, 250);
+            }
+
+            if (tabElementNinth.length != 0) {
+                focusFloatingTab(tabElementNinth, 750, 500);
+            }
+
+            function focusFloatingTab(element, startPosition, endPosition) {
+                if (windowScrollTop > element.offset().top - 45) {
+                    if (!$('#overallSpecsTab').hasClass('scrolled-left-' + startPosition)) {
+                        $('.overall-specs-tabs-container').addClass('scrolled-left-' + startPosition);
+                        scrollHorizontal(startPosition);
+                    }
+                }
+
+                else if (windowScrollTop < element.offset().top) {
+                    if ($('#overallSpecsTab').hasClass('scrolled-left-' + startPosition)) {
+                        $('.overall-specs-tabs-container').removeClass('scrolled-left-' + startPosition);
+                        scrollHorizontal(endPosition);
+                    }
+                }
+            };
+
         });
 
         $('.overall-specs-tabs-wrapper li').click(function () {
@@ -182,7 +214,11 @@ docReady(function () {
             $('html, body').animate({ scrollTop: $(target).offset().top - overallSpecsTabsContainer.height() }, 1000);
             centerItVariableWidth($(this), '.overall-specs-tabs-container');
             return false;
-        });        
+        });
+
+        function scrollHorizontal(pos) {
+            $('#overallSpecsTab').animate({ scrollLeft: pos - 15 + 'px' }, 500);
+        }
 
         // more cities
         $('.view-cities-link').on('click', function () {
