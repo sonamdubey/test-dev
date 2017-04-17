@@ -1,8 +1,10 @@
-﻿using Bikewale.Entities.Customer;
+﻿using Bikewale.CoreDAL;
+using Bikewale.Entities.Customer;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Bikewale.Utility.LinqHelpers;
 using System;
 using System.Collections;
@@ -135,32 +137,24 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="userName"></param>
         /// <param name="emailId"></param>
         /// <returns></returns>
-        public uint SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId)
+        public uint SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint sourceId)
         {
-            CustomerEntity objCust = null;
-            //check for user registration
-            //Check if Customer exists
-            objCust = _objCustomer.GetByEmail(emailId);
+            uint reviewId = 0;
+            try
+            {
+                CustomerEntityBase objCust = null;
+                //check for user registration
+                objCust = new CustomerEntityBase() { CustomerName = userName, CustomerEmail = emailId };
+                objCust = ProcessUserCookie(objCust);
 
-            if (objCust != null && objCust.CustomerId > 0)
-            {
-                //If exists update the mobile number and name
-                _objCustomerRepo.UpdateCustomerMobileNumber("", emailId, userName);
-                //set customer id for further use
+                reviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId);
             }
-            else
+            catch (Exception ex)
             {
-                //if not registered register and get customerid
-                //Register the new customer and send login details
-                objCust = new CustomerEntity() { CustomerName = userName, CustomerEmail = emailId, CustomerMobile = "" };
-                if (objCust.CustomerId < 1)
-                {
-                    objCust.CustomerId = _objCustomer.Add(objCust);
-                }
-                //mail to betriggered here
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UserReviews.UserReviews.SaveUserRatings({0},{1})", modelId, emailId));
             }
 
-            return _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId);
+            return reviewId;
 
         }
 
@@ -186,6 +180,7 @@ namespace Bikewale.BAL.UserReviews
 
             return isSuccess;
         }
+
 
         /// <summary>
         /// Created By : Sushil Kumar on 16th April 2017
@@ -218,13 +213,80 @@ namespace Bikewale.BAL.UserReviews
             }
             catch (Exception ex)
             {
+
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.UserReviews.UserReviews.GetUserReviewSummary({0})", reviewId));
             }
 
             return objSummary;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 17 Apr 2017
+        /// Description :   Process User Cookie
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        private CustomerEntityBase ProcessUserCookie(CustomerEntityBase customer)
+        {
+            try
+            {
+                //if tempcurrentuser cookie exists return the buyers basic details
+                BWCookies.GetBuyerDetailsFromCookie(ref customer);
 
+                //Is new Customer 
+                if (customer.CustomerId == 0 && !String.IsNullOrEmpty(customer.CustomerEmail))
+                {
+                    //perform customer registration with submitted details
+                    RegisterCustomer(customer);
+                    //customer registration successful
+                    if (customer.CustomerId > 0)
+                    {
+                        //create tempcurrentuser cookie
+                        string customerData = String.Format("{0}&{1}&{2}&{3}", customer.CustomerName, customer.CustomerEmail, customer.CustomerMobile, BikewaleSecurity.EncryptUserId(Convert.ToInt64(customer.CustomerId)));
+                        BWCookies.SetBuyerDetailsCookie(customerData);
+                    }
 
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("ProcessUserCookie({0})", Newtonsoft.Json.JsonConvert.SerializeObject(customer)));
+                objErr.SendMail();
+            }
+            return customer;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 17 Apr 2017
+        /// Description :   Register Customer
+        /// </summary>
+        /// <param name="customer"></param>
+        private void RegisterCustomer(CustomerEntityBase customer)
+        {
+            CustomerEntity objCust = null;
+            try
+            {
+                //Check if Customer exists
+                objCust = _objCustomer.GetByEmail(customer.CustomerEmail);
+                if (objCust != null && objCust.CustomerId > 0)
+                {
+                    //If exists update the mobile number and name
+                    _objCustomerRepo.UpdateCustomerMobileNumber(customer.CustomerMobile, customer.CustomerEmail, customer.CustomerName);
+                    //set customer id for further use
+                    customer.CustomerId = objCust.CustomerId;
+                }
+                else
+                {
+                    //Register the new customer
+                    objCust = new CustomerEntity() { CustomerName = customer.CustomerName, CustomerEmail = customer.CustomerEmail, CustomerMobile = customer.CustomerMobile, ClientIP = CommonOpn.GetClientIP() };
+                    customer.CustomerId = _objCustomer.Add(objCust);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("RegisterBuyer({0})", Newtonsoft.Json.JsonConvert.SerializeObject(customer)));
+                objErr.SendMail();
+            }
+        }
     }   // Class
 }   // Namespace

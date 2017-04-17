@@ -861,6 +861,7 @@ namespace Bikewale.DAL.UserReviews
 
         }
 
+
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Save user review ratings
@@ -873,7 +874,7 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId)
+        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint sourceId)
         {
             uint reviewId = 0;
 
@@ -887,10 +888,11 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_overallrating", DbType.String, overAllrating));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ratingQuestionAns", DbType.String, ratingQuestionAns));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userName", DbType.String, userName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailId", DbType.String, emailId));
-
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, ratingQuestionAns));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_username", DbType.String, userName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, emailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceId", DbType.Int16, sourceId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientIP", DbType.String, Bikewale.CoreDAL.CommonOpn.GetClientIP()));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null && dr.Read())
