@@ -748,7 +748,8 @@ namespace Bikewale.DAL.UserReviews
                                         Id = SqlReaderConvertor.ToUInt32(dr["id"]),
                                         Value = SqlReaderConvertor.ToUInt16(dr["rating"]),
                                         Heading = Convert.ToString(dr["heading"]),
-                                        Description = Convert.ToString(dr["Description"])
+                                        Description = Convert.ToString(dr["Description"]),
+                                        ResponseHeading = Convert.ToString(dr["ResponseHeading"])
                                     });
                             }
                             objData.OverallRating = overallRating;
@@ -872,8 +873,10 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_overallrating", DbType.String, overAllrating));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, ratingQuestionAns));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userName", DbType.String, userName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_username", DbType.String, userName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, emailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Int32, 1));  //hard-coded for now
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, ":1")); //hard-coded for now
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {

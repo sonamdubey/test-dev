@@ -9,9 +9,9 @@
     <div id="rate-bike-form" class="container content-box-shadow card-bottom-margin font14">
         <div class="padding-15-20 content-box-shadow">
             <div class="model-image-grid inline-block">
-                <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath,Model.BikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" alt="@Model.BikeInfo.Make.MakeName @Model.BikeInfo.Model.ModelName" />
+                <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.objModelEntity.OriginalImagePath, Model.objModelEntity.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._70)" alt="@Model.objModelEntity.MakeBase.MakeName @Model.objModelEntity.ModelName" />
             </div>
-            <h1 class="model-details-grid inline-block">@Model.BikeInfo.Make.MakeName @Model.BikeInfo.Model.ModelName</h1>
+            <h1 class="model-details-grid inline-block">@Model.objModelEntity.MakeBase.MakeName @Model.objModelEntity.ModelName</h1>
         </div>
         <form action="/user-reviews/ratings/save/" method="post">
             <div class="padding-15-20">
@@ -74,19 +74,13 @@
                 <div class="hide" id="overallratingQuestion">@Model.OverAllRatingText</div>
                 <div class="hide" id="rating-question">@Model.RatingQuestion</div>
                 <input type="hidden" name="overAllrating" id="finaloverallrating" />
-                <input type="hidden" name="ratingQuestionAns" id="rating-quesition-ans" />
-                <input type="submit" class="btn btn-orange" value="Submit rating" data-bind="click: submitRating" />
-
-                @if (Model.BikeInfo != null && Model.BikeInfo.Model != null && Model.BikeInfo.Make != null)
-                {
-                    <input type="hidden" value="@Model.BikeInfo.Model.ModelId" name="modelId" />
-                    <input type="hidden" value="@Model.BikeInfo.Make.MakeId" name="makeId"/>
-                }               
-
+                <input type="hidden" name="modelId" value="@Model.objModelEntity.ModelId" />
+                <input type="hidden" name="makeId" value="@Model.objModelEntity.MakeBase.MakeId" />
+                <input type="hidden" name="ratingQuestionAns" id="rating-quesition-ans"/>
+                <input type="submit" class="btn btn-orange" value="Submit rating" data-bind="click: submitRating" />                          
             </div>
-        </form>
-            
-           
+            @Html.AntiForgeryToken()
+        </form>  
     </div>
 </section>
 

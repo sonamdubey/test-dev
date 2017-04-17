@@ -70,11 +70,15 @@ namespace Bikewale.Models.UserReviews
                     objPage.Model.ModelId = objModelEntity.ModelId;
                     objPage.Model.ModelName = objModelEntity.ModelName;
                     objPage.Model.MaskingName = objModelEntity.MaskingName;
+                    objPage.HostUrl = objModelEntity.HostUrl;
+                    objPage.OriginalImagePath = objModelEntity.OriginalImagePath;
                 }
-                
+
+                objPage.ReviewId = _reviewId;
+                objPage.CustomerId = _customerId;
 
                 GetUserRatings(objPage);
-
+                BindPageMetas(objPage);
 
             }
             catch (Exception ex)
@@ -82,6 +86,22 @@ namespace Bikewale.Models.UserReviews
 
             }
             return objPage;
+        }
+
+        private void BindPageMetas(WriteReviewPageVM objPageVM)
+        {
+            try
+            {
+                if (objPageVM != null && objPageVM.PageMetaTags != null && objPageVM.Make != null && objPageVM.Model != null)
+                {
+                    objPageVM.PageMetaTags.Title = string.Format("Write a Review | {0} {1}  - BikeWale", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
+                    objPageVM.PageMetaTags.Description = string.Format("Write a detailed review about {0} {1}. Tell us what do you think about {0} {1}. Share your experience of {0} {1} with others.", objPageVM.Make.MakeName, objPageVM.Model.ModelName);
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.BindPageMetas()");
+            }
         }
 
         /// <summary>
@@ -98,7 +118,7 @@ namespace Bikewale.Models.UserReviews
                 {
                     if (objUserReviewData.OverallRating != null)
                     {
-                        //objUserVM.Rating = objUserReviewData.OverallRating;
+                        objUserVM.Rating = objUserReviewData.OverallRating.Where(x => x.Id == _overAllRating).First();
                     }
 
                     if (objUserReviewData.Questions != null)

@@ -34,14 +34,17 @@ namespace Bikewale.Entities.UserReviews
         [JsonProperty("isRequired"), DataMember]
         public bool IsRequired { get { return true; } }
 
+
+        private bool _isVisbile = true;
+
         [JsonProperty("visibility"), DataMember]
-        public bool Visibility { get { return true; } }
+        public bool Visibility { get { return _isVisbile; } set { _isVisbile = value; } }
 
         [JsonProperty("priceRangeIds"), JsonIgnore, DataMember]
         public IEnumerable<uint> PriceRangeIds { get; set; }
 
         [JsonProperty("subQuestionId"), DataMember]
-        public uint SubQuestionId { get { return 0; } }
+        public uint SubQuestionId { get; set; }
     }
 
     public enum UserReviewQuestionDisplayType

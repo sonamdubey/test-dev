@@ -18,5 +18,8 @@ namespace Bikewale.Models
         public CustomerEntityBase Customer { get; set; }
         public bool HasReview { get; set; }
         public string JsonQuestionList { get; set; }
+        public string HostUrl { get; set; }
+        public string OriginalImagePath { get; set; }
+        public ulong CustomerId { get; set; }
     }
 }

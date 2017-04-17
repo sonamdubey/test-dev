@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.UserReviews;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models;
@@ -10,38 +11,33 @@ namespace Bikewale.Controllers
 {
     public class UserReviewController : Controller
     {
-        private readonly IBikeInfo _bikeInfo = null;
+
         private readonly IUserReviews _userReviews = null;
+        private IBikeModels<BikeModelEntity, int> _objModel = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="bikeInfo"></param>
         /// <param name="userReviews"></param>
-        public UserReviewController(IBikeInfo bikeInfo, IUserReviews userReviews)
+        public UserReviewController(IUserReviews userReviews, IBikeModels<BikeModelEntity, int> objModel)
         {
-            _bikeInfo = bikeInfo;
+
             _userReviews = userReviews;
+            _objModel = objModel;
         }
 
         // GET: UserReview
         [Route("m/user-reviews/rate-bike/{modelId}")]
-        public ActionResult RateBike_Mobile(uint modelId)
+        public ActionResult RateBike_Mobile(uint modelId, uint? reviewId)
         {
-            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _bikeInfo, _userReviews);
+            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, reviewId);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
             if (TempData["ErrorMessage"] != null)
             {
                 UserReviewVM.ErrorMessage = Convert.ToString(TempData["ErrorMessage"]);
             }
-
             UserReviewVM = objUserReview.GetData();
-
-            //if (UserReviewVM.BikeInfo != null)
-            //{
-            //    TempData["Make"] = UserReviewVM.BikeInfo.Make;
-            //    TempData["Model"] = UserReviewVM.BikeInfo.Model;
-            //}
 
             return View(UserReviewVM);
         }
@@ -57,7 +53,7 @@ namespace Bikewale.Controllers
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        [HttpPost, Route("user-reviews/ratings/save/")]
+        [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
         public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId)
         {
 
@@ -138,9 +134,14 @@ namespace Bikewale.Controllers
             bool isValid = true;
             string errorMessage = "";
             //server side validation for data received
-            if (!string.IsNullOrEmpty(reviewDescription))
+            if (string.IsNullOrEmpty(reviewDescription) && !string.IsNullOrEmpty(reviewTitle))
             {
-                errorMessage = "Please provide your rating for bike.";
+                errorMessage = "Please provide your Description for bike.";
+                isValid = false;
+            }
+            if (!string.IsNullOrEmpty(reviewDescription) && string.IsNullOrEmpty(reviewTitle))
+            {
+                errorMessage = "Please provide your Title for bike.";
                 isValid = false;
             }
 
