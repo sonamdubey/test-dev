@@ -446,13 +446,19 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 BajajFinanceLeadEntity bikeMappingInfo = _repository.GetBajajFinanceBikeMappingInfo(priceQuote.VersionId, pincodeId);
                 if (bikeMappingInfo != null)
                 {
+
                     if (!string.IsNullOrEmpty(priceQuote.CustomerName))
                     {
+                        priceQuote.CustomerName = priceQuote.CustomerName.Trim();
                         int spaceIndex = priceQuote.CustomerName.IndexOf(" ");
                         if (spaceIndex > 0)
                         {
                             bikeMappingInfo.FirstName = priceQuote.CustomerName.Substring(0, spaceIndex);
                             bikeMappingInfo.LastName = priceQuote.CustomerName.Substring(spaceIndex + 1);
+                        }
+                        else
+                        {
+                            bikeMappingInfo.FirstName = priceQuote.CustomerName;
                         }
                     }
 
@@ -468,6 +474,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 if (_httpClient != null)
                 {
                     string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(bajajLeadInput);
+                    string response = string.Empty;
                     HttpContent httpContent = new StringContent(jsonString);
                     using (HttpResponseMessage _response = _httpClient.PostAsync(_bajajFinanceAPIUrl, httpContent).Result)
                     {
@@ -475,7 +482,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         {
                             if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
                             {
-                                string response = _response.Content.ReadAsStringAsync().Result;
+                                response = _response.Content.ReadAsStringAsync().Result;
                                 _repository.UpdateManufacturerLead(pqId, priceQuote.CustomerEmail, priceQuote.CustomerMobile, response);
                                 _response.Content.Dispose();
                                 _response.Content = null;
@@ -484,7 +491,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         }
                     }
 
-                    Logs.WriteInfoLog(String.Format("Bajaj Finance Reuest Response : {0}", jsonString));
+                    Logs.WriteInfoLog(String.Format("Bajaj Finance -  Request : {0} \n Response : {1}", jsonString, response));
                 }
             }
             catch (Exception ex)
