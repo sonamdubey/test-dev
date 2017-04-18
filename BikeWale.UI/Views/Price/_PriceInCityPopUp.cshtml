@@ -117,65 +117,65 @@
                   self.removeErr = function () {
                       self.errMsg("");
                   };
-                self.LoadCities = function () {
-                    try {
-                        CitiesKey = "PriceInCityPopUp_" + self.SelectedModelId();
-                        self.IsLoading(true);
-                        pcPopupContent.updateChosen('#priceinCityPopupList');
-                        $.ajax({
-                            type: "GET",
-                            url: self.pqCityApiUrl,
-                            dataType: 'json',
-                            beforeSend: function (xhr) {
+                  self.LoadCities = function () {
+                      try {
+                          CitiesKey = "PriceInCityPopUp_" + self.SelectedModelId();
+                          self.IsLoading(true);
+                          pcPopupContent.updateChosen('#priceinCityPopupList');
+                          $.ajax({
+                              type: "GET",
+                              url: self.pqCityApiUrl,
+                              dataType: 'json',
+                              beforeSend: function (xhr) {
 
-                                progressBar.startLoading();
-                                if (data = bwcache.get(CitiesKey)) {
-                                    var cities = ko.toJS(data.cities);
-                                    if (cities) {
-                                        progressBar.stopLoading();
-                                        self.ListCities(cities);
-                                        isAborted = true;
-                                        xhr.abort();
-                                    }
-                                    else {
-                                        self.ListCities([]);
-                                    }
-                                }
-                            },
-                            success: function (response) {
-                                var cities = ko.toJS(response.cities);
-                                if (cities) {
-                                    bwcache.set(CitiesKey, cities, 60);
-                                    progressBar.stopLoading();
-                                    self.ListCities(cities);
-                                    self.IsLoading(false);
-                                    pcPopupContent.active();
-                                    pcPopupContent.updateChosen($('#priceinCityPopupList'));
-                                   
-                                }
-                                else {
-                                    self.ListCities([]);
-                                    pcPopupContent.updateChosen($('#priceinCityPopupList'));
-                                }
-                            },
-                            complete: function () {
-                                if (self.SelectedCityId() > 0) {
-                                    $('#priceinCityPopupList').parent().addClass('done');
+                                  progressBar.startLoading();
+                                  if (data = bwcache.get(CitiesKey)) {
+                                      var cities = ko.toJS(data.cities);
+                                      if (cities) {
+                                          progressBar.stopLoading();
+                                          self.ListCities(cities);
+                                          isAborted = true;
+                                          xhr.abort();
+                                      }
+                                      else {
+                                          self.ListCities([]);
+                                      }
+                                  }
+                              },
+                              success: function (response) {
+                                  var cities = ko.toJS(response.cities);
+                                  if (cities) {
+                                      bwcache.set(CitiesKey, cities, 60);
+                                      progressBar.stopLoading();
+                                      self.ListCities(cities);
+                                      self.IsLoading(false);
+                                      pcPopupContent.active();
+                                      pcPopupContent.updateChosen($('#priceinCityPopupList'));
 
-                                }
-                                pcPopupContent.updateChosen($('#priceinCityPopupList'));
-                            }
-                        });
+                                  }
+                                  else {
+                                      self.ListCities([]);
+                                      pcPopupContent.updateChosen($('#priceinCityPopupList'));
+                                  }
+                              },
+                              complete: function () {
+                                  if (self.SelectedCityId() > 0) {
+                                      $('#priceinCityPopupList').parent().addClass('done');
 
-                        if (isAborted) {
-                            pcPopupContent.updateChosen($('#priceinCityPopupList'));
-                        }
-                    }
-                    catch (e) {
-                        console.warn(e);
-                    }
+                                  }
+                                  pcPopupContent.updateChosen($('#priceinCityPopupList'));
+                              }
+                          });
 
-                }
+                          if (isAborted) {
+                              pcPopupContent.updateChosen($('#priceinCityPopupList'));
+                          }
+                      }
+                      catch (e) {
+                          console.warn(e);
+                      }
+
+                  };
 
                 self.redirectToPriceInCity = function () {
                     try {
