@@ -81,7 +81,7 @@
                 @if (!string.IsNullOrEmpty(Model.Summary.Description))
                 {
                     <div id="summary-review-box" class="padding-bottom10">
-                        <h2 class="margin-bottom10">It's the best bike under 1.5 Lakh</h2>
+                        <h2 class="margin-bottom10">@Model.Summary.Title</h2>
                         <div class="text-light-grey">
                             <p>@Model.Summary.Description</p>
                         </div>
