@@ -12,6 +12,8 @@ var bikeRating = {
 var ratingQuestion = [];
 
 var page = "writeReview";
+
+
 docReady(function () {
 
     ratingBox = $('#bike-rating-box');
@@ -23,7 +25,7 @@ docReady(function () {
 
 
     if ($("#review-question-list") && $("#review-question-list").length)
-        reviewQuestion = JSON.parse(Base64.decode($("#review-question-list").val()));
+        reviewQuestion = JSON.parse($('#review-question-list').text());
 
 
    
@@ -364,25 +366,12 @@ docReady(function () {
     reviewTitleField.on("blur", function () {
         validate.onBlur($(this));
     });
+    
+    
 
-    /*
-    window.onbeforeunload = function (e) {
-        console.log(e.target);
-        if (!e.target.activeElemet) {
-            if (window.location.hash != "writeReviewPage") {
-                window.location = "http://www.bikewale.com";
-            }
-            else {
-                console.log("35413510");
-            }
-        }
-        return true;        
-    }
-    */
-
-    window.onhashchange = function () {
-        console.log('asd');
-    };
+    //window.onhashchange = function () {
+    //    console.log('asd');
+    //};
 });
 
 var answer = {
