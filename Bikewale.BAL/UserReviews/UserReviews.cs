@@ -215,7 +215,8 @@ namespace Bikewale.BAL.UserReviews
                         objQuestion.SelectedRatingId = question.SelectedRatingId;
                         objQuestions.Add(objQuestion);
                     }
-
+                    objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
+                    objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
                     objSummary.Questions = objQuestions;
 
                     objSummary.OverallRating = objUserReviewData.OverallRating.FirstOrDefault(x => x.Id == objSummary.OverallRatingId);

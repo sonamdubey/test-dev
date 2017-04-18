@@ -439,7 +439,7 @@ var answer = {
 /* form validation */
 var validate = {
     setError: function (element, message) {
-        var elementLength = element.val().length,
+        var elementLength = element.val.length,
             errorTag = element.siblings('span.error-text');
 
         errorTag.show().text(message);
@@ -455,7 +455,7 @@ var validate = {
         var inputBox = element.closest('.input-box');
 
         inputBox.removeClass('invalid');
-        if (element.val().length > 0) {
+        if (element.val.length > 0) {
             inputBox.addClass('not-empty');
         }
         element.siblings('span.error-text').text('').hide();
