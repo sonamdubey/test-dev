@@ -28,7 +28,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         public string source { get { return "Web Sales"; } }
         public string PurchaseType { get { return "Finance"; } }
         public string assignto { get { return "Call Center"; } }
-        public string subchannel { get { return "Bikewale"; } }
+        public string subchannel { get { return "SC00058"; } }
         public string caseSourceFrom { get { return "Web"; } }
         public string Ext_UserID { get { return "Bikewale"; } }
         public string Ext_sysID { get { return "881"; } }
