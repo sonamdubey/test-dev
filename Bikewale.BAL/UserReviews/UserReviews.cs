@@ -9,9 +9,10 @@ using Bikewale.Utility.LinqHelpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-
+using System.Web;
 
 namespace Bikewale.BAL.UserReviews
 {
@@ -293,6 +294,28 @@ namespace Bikewale.BAL.UserReviews
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("RegisterBuyer({0})", Newtonsoft.Json.JsonConvert.SerializeObject(customer)));
                 objErr.SendMail();
+            }
+        }
+
+
+
+
+        public void SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
+        {
+            if (!string.IsNullOrEmpty(encodedId))
+            {
+                uint _reviewId;
+                ulong _customerId;
+
+                string decodedString = Utils.Utils.DecryptTripleDES(encodedId);
+                NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
+
+                uint.TryParse(queryCollection["reviewid"], out _reviewId);
+                ulong.TryParse(queryCollection["customerid"], out _customerId);
+
+
+
+                // return SaveUserReviews(_reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
             }
         }
     }   // Class
