@@ -28,7 +28,7 @@ namespace Bikewale.Controllers
         }
 
         // GET: UserReview
-        [Route("m/user-reviews/rate-bike/{modelId}")]
+        [Route("m/user-reviews/rate-bike/{modelId}/")]
         public ActionResult RateBike_Mobile(uint modelId, uint? reviewId)
         {
             UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, reviewId);
@@ -84,7 +84,7 @@ namespace Bikewale.Controllers
             }
 
             if (isValid)
-            {               
+            {
                 objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, 2);
 
                 string strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId);
@@ -113,7 +113,7 @@ namespace Bikewale.Controllers
         [Route("m/user-reviews/review-summary/{reviewid}/")]
         public ActionResult ReviewSummary_Mobile(uint reviewid)
         {
-            UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews,reviewid);
+            UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid);
             UserReviewSummaryVM objVM = objData.GetData();
             return View(objVM);
         }
