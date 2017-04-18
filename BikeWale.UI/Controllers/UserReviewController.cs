@@ -115,7 +115,7 @@ namespace Bikewale.Controllers
         {
             UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews,reviewid);
             UserReviewSummaryVM objVM = objData.GetData();
-            return View(objData);
+            return View(objVM);
         }
 
 

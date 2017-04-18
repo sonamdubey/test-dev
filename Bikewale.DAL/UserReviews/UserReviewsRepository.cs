@@ -997,7 +997,9 @@ namespace Bikewale.DAL.UserReviews
                                     ModelId = SqlReaderConvertor.ToInt32(dr["modelId"]),
                                     MaskingName = Convert.ToString(dr["modelmasking"]),
                                     ModelName = Convert.ToString(dr["modelName"])
-                                }
+                                },
+                                OriginalImgPath = Convert.ToString(dr["OriginalImgPath"]),
+                                 HostUrl = Convert.ToString(dr["hostUrl"])
                             };
                         }
 
