@@ -22,12 +22,12 @@ docReady(function () {
         ratingQuestion = JSON.parse(Base64.decode($('#rating-question').val()));
 
 
-    if ($("#review-question-list") && $("#review-question-list").length>1)
+    if ($("#review-question-list") && $("#review-question-list").length > 1)
         reviewQuestion = JSON.parse(Base64.decode($("#review-question-list").val()));
 
     if ($('#reviewedoverallrating') && $('#reviewedoverallrating').length)
         reviewOverallRatingId = Number($('#reviewedoverallrating').val());
-   
+
     // rate bike
     var rateBike = function () {
         var self = this;
@@ -45,39 +45,56 @@ docReady(function () {
         self.bikeRating = ko.observable(bikeRating);
         self.overallRating = ko.observableArray(self.bikeRating().overallRating);
         self.ratingQuestions = ko.observableArray(ratingQuestion);
+        self.userName = ko.observable($('#txtUserName').val());
+        self.emailId = ko.observable($('#txtEmailID').val());
+
+        userNameField = $('#txtUserName');
+        userEmailIdField = $('#txtEmailID');
+
 
         self.init = function () {
             $('#rate-bike-questions .question-type-text input[type=radio][data-checked="true"]').each(function () {
                 $(this).prop("checked", true);
             });
             if (getCookie("_PQUser") != null) {
-                var array_cookie = getCookie("_PQUser").split("&");
-                if (array_cookie[0] != null) {
-                    $('#txtUserName').parent('div').addClass('not-empty');
 
-                    $('#txtUserName').val(array_cookie[0]);
+
+                var array_cookie = getCookie("_PQUser").split("&");
+
+                if (array_cookie[0] != null && userNameField.val() == "") {
+                    userNameField.parent('div').addClass('not-empty');
+                    userNameField.val(array_cookie[0]);
+                    vmRateBike.userName(array_cookie[0]);
 
                 }
-                if (array_cookie[1] != null) {
-                    $('#txtEmailID').parent('div').addClass("not-empty")
-                    $('#txtEmailID').val(array_cookie[1]);
+                else {
+                    userNameField.val = userNameField.val();
+                }
+                if (array_cookie[1] != null && userEmailIdField.val() == "") {
+                    userEmailIdField.parent('div').addClass("not-empty");
+                    userEmailIdField.val(array_cookie[1]);
+                    vmRateBike.emailId(array_cookie[1]);
+                }
+                else {
+
+                    userEmailIdField.val = userEmailIdField.val();
                 }
             }
-                if (reviewOverallRatingId > 0) {
-                       var headingText = vmRateBike.overallRating()[reviewOverallRatingId - 1].heading,
-                    descText = vmRateBike.overallRating()[reviewOverallRatingId - 1].description; // since value starts from 1 and array from 0
+            if (reviewOverallRatingId > 0) {
+                var headingText = vmRateBike.overallRating()[reviewOverallRatingId - 1].heading,
+                descText = vmRateBike.overallRating()[reviewOverallRatingId - 1].description; // since value starts from 1 and array from 0
 
-                    vmRateBike.feedbackTitle(headingText);
-                    vmRateBike.feedbackSubtitle(descText);
+                vmRateBike.feedbackTitle(headingText);
+                vmRateBike.feedbackSubtitle(descText);
 
-                    vmRateBike.ratingCount(reviewOverallRatingId);
-                    ratingBox.find('.answer-star-list input[type=radio][value="' + reviewOverallRatingId + '"]').trigger("click");
-                }
+                vmRateBike.ratingCount(reviewOverallRatingId);
+                ratingBox.find('.answer-star-list input[type=radio][value="' + reviewOverallRatingId + '"]').trigger("click");
+            }
 
 
-            
+
         };
-      
+
         self.submitRating = function () {
 
             if (self.validateRateBikeForm()) {
@@ -110,16 +127,14 @@ docReady(function () {
         self.validate = {
             ratingCount: function () {
                 if (self.ratingCount() == 0) {
+                    self.validateRatingCountFlag(true);
                     self.ratingErrorText("Please rate the bike before submitting!");
                     self.focusFormActive(true);
                     answer.focusForm(ratingBox);
                     return false;
                 }
-                else {
-                    self.validateRatingCountFlag(true);
-                }
 
-                return self.validateRatingCountFlag();
+                return !self.validateRatingCountFlag();
             },
 
             ratingForm: function () {
@@ -162,15 +177,13 @@ docReady(function () {
 
     };
 
-    userNameField = $('#txtUserName');
-    userEmailIdField = $('#txtEmailID');
+
 
     var personalDetails = function () {
         var self = this;
 
-        self.userName = ko.observable('');
-        self.emailId = ko.observable('');
-     
+
+
         self.validateDetails = function () {
             var isValid = true;
 
