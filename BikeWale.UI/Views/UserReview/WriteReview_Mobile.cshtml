@@ -85,8 +85,9 @@
                 </ul>
                 <div class="clear"></div>
 
-                <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
+                <input type="hidden" id="reviewQuestion" name="reviewQuestion" />                
                 <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />
+                <input type="hidden" name="encodedId" value="@Utils.Utils.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
 
                 <h3 class="font15 margin-bottom10">Tips for prospective buyers</h3>
                 <p class="text-light-grey margin-bottom10">Share key tips which you think were useful while owning/riding this bike.</p>

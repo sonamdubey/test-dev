@@ -45,7 +45,8 @@ namespace Bikewale.Models
         }
         private void ProcessQuery(string Querystring)
         {
-            NameValueCollection queryCollection = HttpUtility.ParseQueryString(Querystring);
+            string _decodedString = Utils.Utils.DecryptTripleDES(Querystring);
+            NameValueCollection queryCollection = HttpUtility.ParseQueryString(_decodedString);
             uint.TryParse(queryCollection["reviewid"], out _reviewId);
             ulong.TryParse(queryCollection["customerid"], out _customerId);
 
@@ -161,6 +162,7 @@ namespace Bikewale.Models
                     if (objUserReviewDataReview != null)
                     {
                         objUserVM.ReviewsOverAllrating = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewDataReview.OverallRatingId);
+
                         objUserVM.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewDataReview.Questions);
                         objUserVM.CustomerEmail = objUserReviewDataReview.CustomerEmail;
                         objUserVM.CustomerName = objUserReviewDataReview.CustomerName;

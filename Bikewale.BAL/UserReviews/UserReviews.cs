@@ -9,9 +9,10 @@ using Bikewale.Utility.LinqHelpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-
+using System.Web;
 
 namespace Bikewale.BAL.UserReviews
 {
@@ -46,6 +47,9 @@ namespace Bikewale.BAL.UserReviews
         {
             return _userReviewsCache.GetUserReviewsData();
         }
+
+
+
 
         /// <summary>
         /// Created By : Sushil Kumar on 16th April 2017
@@ -137,9 +141,9 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="userName"></param>
         /// <param name="emailId"></param>
         /// <returns></returns>        
-        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint sourceId)
+        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint sourceId, uint reviewId)
         {
-            uint reviewId = 0;
+
             UserReviewRatingObject objRating = null;
             try
             {
@@ -151,7 +155,7 @@ namespace Bikewale.BAL.UserReviews
                 objCust = new CustomerEntityBase() { CustomerName = userName, CustomerEmail = emailId };
                 objCust = ProcessUserCookie(objCust);
 
-                objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId);
+                objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId, reviewId);
                 objRating.CustomerId = objCust.CustomerId;
             }
             catch (Exception ex)
@@ -212,7 +216,8 @@ namespace Bikewale.BAL.UserReviews
                         objQuestion.SelectedRatingId = question.SelectedRatingId;
                         objQuestions.Add(objQuestion);
                     }
-
+                    objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
+                    objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
                     objSummary.Questions = objQuestions;
 
                     objSummary.OverallRating = objUserReviewData.OverallRating.FirstOrDefault(x => x.Id == objSummary.OverallRatingId);
@@ -292,7 +297,39 @@ namespace Bikewale.BAL.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("RegisterBuyer({0})", Newtonsoft.Json.JsonConvert.SerializeObject(customer)));
-                objErr.SendMail();
+            }
+        }
+
+        public bool SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(encodedId))
+                {
+                    uint _reviewId;
+                    ulong _customerId;
+
+                    string decodedString = Utils.Utils.DecryptTripleDES(encodedId);
+                    NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
+
+                    uint.TryParse(queryCollection["reviewid"], out _reviewId);
+                    ulong.TryParse(queryCollection["customerid"], out _customerId);
+
+
+                    if (_reviewId > 0 && _customerId > 0 && _userReviewsRepo.IsUserVerified(_reviewId, _customerId))
+                    {
+                        return SaveUserReviews(_reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
+                    }
+                    else
+                        return false;
+                }
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "SaveUserReviews");
+                return false;
             }
         }
     }   // Class

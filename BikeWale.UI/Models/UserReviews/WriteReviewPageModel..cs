@@ -144,7 +144,6 @@ namespace Bikewale.Models.UserReviews
             catch (Exception)
             {
 
-                throw;
             }
         }
 

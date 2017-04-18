@@ -62,7 +62,7 @@ namespace Bikewale.Controllers
         /// <param name="modelId"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId)
+        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId)
         {
 
             bool isValid = true;
@@ -93,7 +93,7 @@ namespace Bikewale.Controllers
 
             if (isValid)
             {
-                objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, 2);
+                objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, 2, reviewId);
 
                 string strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId);
 
@@ -140,7 +140,7 @@ namespace Bikewale.Controllers
         /// <param name="reviewId"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, uint reviewId, string queryEncoded)
+        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips,string encodedId, string queryEncoded, uint reviewId)
         {
             bool isValid = true;
             string errorMessage = "";
@@ -158,8 +158,8 @@ namespace Bikewale.Controllers
 
             if (isValid)
             {
-                _userReviews.SaveUserReviews(reviewId, reviewTips, reviewDescription, reviewTitle, reviewQuestion);
-                return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}",reviewId,queryEncoded));
+                _userReviews.SaveUserReviews(encodedId, reviewTips, reviewDescription, reviewTitle, reviewQuestion);
+                return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, queryEncoded));
             }
             else
             {
