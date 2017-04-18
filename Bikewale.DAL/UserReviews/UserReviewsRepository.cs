@@ -882,7 +882,7 @@ namespace Bikewale.DAL.UserReviews
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings_18042017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
@@ -999,7 +999,7 @@ namespace Bikewale.DAL.UserReviews
                                     ModelName = Convert.ToString(dr["modelName"])
                                 },
                                 OriginalImgPath = Convert.ToString(dr["OriginalImgPath"]),
-                                 HostUrl = Convert.ToString(dr["hostUrl"])
+                                HostUrl = Convert.ToString(dr["hostUrl"])
                             };
                         }
 
@@ -1030,6 +1030,46 @@ namespace Bikewale.DAL.UserReviews
             }
 
             return objUserReviewSummary;
+        }
+
+
+        public bool IsUserVerified(uint reviewId, ulong customerId)
+        {
+
+            bool isVerified = false;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("checkcustomerreview"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.UInt32, reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.UInt32, customerId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            isVerified = SqlReaderConvertor.ToBoolean(dr["status"]);
+                        }
+
+
+
+                        dr.Close();
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+            }
+
+            return isVerified;
+
+
         }
     }
 }
