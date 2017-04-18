@@ -752,7 +752,8 @@ namespace Bikewale.DAL.UserReviews
                                         Id = SqlReaderConvertor.ToUInt32(dr["id"]),
                                         Value = SqlReaderConvertor.ToUInt16(dr["rating"]),
                                         Heading = Convert.ToString(dr["heading"]),
-                                        Description = Convert.ToString(dr["Description"])
+                                        Description = Convert.ToString(dr["Description"]),
+                                        ResponseHeading = Convert.ToString(dr["ResponseHeading"])
                                     });
                             }
                             objData.OverallRating = overallRating;
@@ -893,6 +894,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, emailId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceId", DbType.Int16, sourceId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientIP", DbType.String, Bikewale.CoreDAL.CommonOpn.GetClientIP()));
+
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null && dr.Read())
@@ -978,12 +980,24 @@ namespace Bikewale.DAL.UserReviews
                         {
                             objUserReviewSummary = new UserReviewSummary()
                             {
-                                ModelId = SqlReaderConvertor.ToUInt32(dr["modelId"]),
+
                                 CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
                                 CustomerName = Convert.ToString(dr["CustomerName"]),
                                 Description = Convert.ToString(dr["Comments"]),
                                 Tips = Convert.ToString(dr["ReviewTitle"]),
-                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"])
+                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
+                                Make = new BikeMakeEntityBase()
+                                {
+                                    MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                    MaskingName = Convert.ToString(dr["makemasking"]),
+                                    MakeName = Convert.ToString(dr["makeName"])
+                                },
+                                Model = new BikeModelEntityBase()
+                                {
+                                    ModelId = SqlReaderConvertor.ToInt32(dr["modelId"]),
+                                    MaskingName = Convert.ToString(dr["modelmasking"]),
+                                    ModelName = Convert.ToString(dr["modelName"])
+                                }
                             };
                         }
 

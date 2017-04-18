@@ -1,4 +1,6 @@
-﻿using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
@@ -9,31 +11,32 @@ namespace Bikewale.Controllers
 {
     public class UserReviewController : Controller
     {
-        private readonly IBikeInfo _bikeInfo = null;
+
         private readonly IUserReviews _userReviews = null;
+        private IBikeModels<BikeModelEntity, int> _objModel = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="bikeInfo"></param>
         /// <param name="userReviews"></param>
-        public UserReviewController(IBikeInfo bikeInfo, IUserReviews userReviews)
+        public UserReviewController(IUserReviews userReviews, IBikeModels<BikeModelEntity, int> objModel)
         {
-            _bikeInfo = bikeInfo;
+
             _userReviews = userReviews;
+            _objModel = objModel;
         }
 
         // GET: UserReview
         [Route("m/user-reviews/rate-bike/{modelId}")]
-        public ActionResult RateBike_Mobile(uint modelId)
+        public ActionResult RateBike_Mobile(uint modelId, uint? reviewId)
         {
-            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _bikeInfo, _userReviews);
+            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, reviewId);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
             if (TempData["ErrorMessage"] != null)
             {
                 UserReviewVM.ErrorMessage = Convert.ToString(TempData["ErrorMessage"]);
             }
-
             UserReviewVM = objUserReview.GetData();
 
             return View(UserReviewVM);
@@ -56,6 +59,8 @@ namespace Bikewale.Controllers
 
             bool isValid = true;
             string errorMessage = "";
+            UserReviewRatingObject objRating = null;
+
             //server side validation for data received
             if (string.IsNullOrEmpty(overAllrating))
             {
@@ -79,9 +84,14 @@ namespace Bikewale.Controllers
             }
 
             if (isValid)
-            {
-                _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, 2);
-                return RedirectToAction("WriteReview_Mobile");
+            {               
+                objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, 2);
+
+                string strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId);
+
+                string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
+
+                return RedirectToAction("WriteReview_Mobile", new { strEncoded = strEncoded });
             }
             else
             {
@@ -92,19 +102,20 @@ namespace Bikewale.Controllers
 
 
         [Route("m/user-reviews/write-review/")]
-        public ActionResult WriteReview_Mobile()
+        public ActionResult WriteReview_Mobile(string strEncoded)
         {
-            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews);
+            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, strEncoded);
             var objData = objPage.GetData();
 
             return View(objData);
         }
 
-        [Route("m/user-reviews/review-summary/")]
-        public ActionResult ReviewSummary_Mobile()
+        [Route("m/user-reviews/review-summary/{reviewid}/")]
+        public ActionResult ReviewSummary_Mobile(uint reviewid)
         {
-            ModelBase m = new ModelBase();
-            return View(m);
+            UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews,reviewid);
+            UserReviewSummaryVM objVM = objData.GetData();
+            return View(objData);
         }
 
 
@@ -124,9 +135,14 @@ namespace Bikewale.Controllers
             bool isValid = true;
             string errorMessage = "";
             //server side validation for data received
-            if (!string.IsNullOrEmpty(reviewDescription))
+            if (string.IsNullOrEmpty(reviewDescription) && !string.IsNullOrEmpty(reviewTitle))
             {
-                errorMessage = "Please provide your rating for bike.";
+                errorMessage = "Please provide your Description for bike.";
+                isValid = false;
+            }
+            if (!string.IsNullOrEmpty(reviewDescription) && string.IsNullOrEmpty(reviewTitle))
+            {
+                errorMessage = "Please provide your Title for bike.";
                 isValid = false;
             }
 

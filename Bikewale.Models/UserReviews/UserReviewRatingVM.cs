@@ -1,12 +1,13 @@
 ﻿
-using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.BikeData;
 namespace Bikewale.Models
 {
     public class UserReviewRatingVM : ModelBase
     {
-        public GenericBikeInfo BikeInfo { get; set; }
+        public BikeModelEntity objModelEntity { get; set; }
         public string OverAllRatingText { get; set; }
         public string RatingQuestion { get; set; }
         public string ErrorMessage { get; set; }
+        public string ReviewsOverAllrating { get; set; }
     }
 }

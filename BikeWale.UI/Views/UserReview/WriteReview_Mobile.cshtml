@@ -11,17 +11,17 @@
             <div class="container content-box-shadow card-bottom-margin font14">
                 <div class="padding-15-20 content-box-shadow">
                     <div class="model-image-grid inline-block">
-                        <img src="https://imgd.aeplcdn.com//110x61//bw/models/bajaj-pulsar-rs200.jpg" alt="" />
+                        <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.OriginalImagePath, Model.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._75)" alt="" />
                     </div>
                     <div class="model-details-grid inline-block">
-                        <h1 class="text-truncate margin-bottom5">Bajaj Pulsar RS200</h1>
+                        <h1 class="text-truncate margin-bottom5">@Model.Make.MakeName @Model.Model.ModelName</h1>
                         <div>
-                            <span class="font12 text-slate-grey">You rated:</span><span class="bwmsprite star-one"></span><span class="text-bold">2.8</span><span class="font12 text-xx-light">/5</span>
+                            <span class="font12 text-slate-grey">You rated:</span><span class="bwmsprite star-one"></span><span class="text-bold">@Model.Rating.Value</span><span class="font12 text-xx-light">/5</span>
                         </div>
                     </div>
                 </div>
                 <div class="padding-top15 padding-right20 padding-bottom5 padding-left20">
-                    <h2 class="margin-bottom10">Had an amazing experience?</h2>
+                    <h2 class="margin-bottom10">@Model.Rating.ResponseHeading</h2>
                     <p class="text-slate-grey margin-bottom10">Tell us more about it. You may consider writing about:</p>
                     <ol class="numeric-list margin-bottom15">
                         <li>Buying experience</li>
@@ -86,17 +86,27 @@
                 <div class="clear"></div>
 
                 <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
+                <input type="hidden" name="reviewId" value="@Model.ReviewId" />
 
                 <h3 class="font15 margin-bottom10">Tips for prospective buyers</h3>
                 <p class="text-light-grey margin-bottom10">Share key tips which you think were useful while owning/riding this bike.</p>
                 <div class="textarea-box margin-bottom15">
                     <textarea name="reviewTips" rows="3" cols="42" placeholder="Write your tips here.."></textarea>
                 </div>
-
-                <input type="submit" class="btn btn-orange" value="Submit review" data-bind="click: submitReview" />
+                @Html.AntiForgeryToken()
+                <input id="submitReviewBtn" type="submit" class="btn btn-orange" value="Submit review" data-bind="click: submitReview" />
             </div>
         </div>
 
         <span id="review-question-list" class="hide">@Model.JsonQuestionList</span>
     </section>
 </form>
+
+<script type="text/javascript">   
+    //var page = "writeReview";
+
+    window.onbeforeunload = function () {
+        return true;
+    }
+
+</script>

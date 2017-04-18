@@ -2,7 +2,7 @@
 
 var userNameField, userEmailIdField;
 var detailedReviewField, reviewTitleField;
-var value_overallrating, reviewQuestion;
+var value_overallrating, reviewQuestion, reviewOverallRatingId;
 var array_rating;
 var bikeRating = {
     ratingCount: 0,
@@ -11,18 +11,23 @@ var bikeRating = {
 
 var ratingQuestion = [];
 
+var page = "writeReview";
 docReady(function () {
 
     ratingBox = $('#bike-rating-box');
 
     if ($("#overallratingQuestion") && $("#overallratingQuestion").length)
-        bikeRating.overallRating = JSON.parse($('#overallratingQuestion').text());
+        bikeRating.overallRating = JSON.parse(Base64.decode($('#overallratingQuestion').val()));
     if ($("#rating-question") && $("#rating-question").length)
-        ratingQuestion = JSON.parse($('#rating-question').text());
+        ratingQuestion = JSON.parse(Base64.decode($('#rating-question').val()));
 
 
-    if ($("#review-question-list") && $("#review-question-list").length)
-        reviewQuestion = JSON.parse($("#review-question-list").text());
+    if ($("#review-question-list") && $("#review-question-list").length>1)
+        reviewQuestion = JSON.parse(Base64.decode($("#review-question-list").val()));
+
+    if ($('#reviewedoverallrating') && $('#reviewedoverallrating').length)
+        reviewOverallRatingId = Number($('#reviewedoverallrating').val());
+   
     // rate bike
     var rateBike = function () {
         var self = this;
@@ -41,6 +46,38 @@ docReady(function () {
         self.overallRating = ko.observableArray(self.bikeRating().overallRating);
         self.ratingQuestions = ko.observableArray(ratingQuestion);
 
+        self.init = function () {
+            $('#rate-bike-questions .question-type-text input[type=radio][data-checked="true"]').each(function () {
+                $(this).prop("checked", true);
+            });
+            if (getCookie("_PQUser") != null) {
+                var array_cookie = getCookie("_PQUser").split("&");
+                if (array_cookie[0] != null) {
+                    $('#txtUserName').parent('div').addClass('not-empty');
+
+                    $('#txtUserName').val(array_cookie[0]);
+
+                }
+                if (array_cookie[1] != null) {
+                    $('#txtEmailID').parent('div').addClass("not-empty")
+                    $('#txtEmailID').val(array_cookie[1]);
+                }
+            }
+                if (reviewOverallRatingId > 0) {
+                       var headingText = vmRateBike.overallRating()[reviewOverallRatingId - 1].heading,
+                    descText = vmRateBike.overallRating()[reviewOverallRatingId - 1].description; // since value starts from 1 and array from 0
+
+                    vmRateBike.feedbackTitle(headingText);
+                    vmRateBike.feedbackSubtitle(descText);
+
+                    vmRateBike.ratingCount(reviewOverallRatingId);
+                    ratingBox.find('.answer-star-list input[type=radio][value="' + reviewOverallRatingId + '"]').trigger("click");
+                }
+
+
+            
+        };
+      
         self.submitRating = function () {
 
             if (self.validateRateBikeForm()) {
@@ -133,7 +170,7 @@ docReady(function () {
 
         self.userName = ko.observable('');
         self.emailId = ko.observable('');
-
+     
         self.validateDetails = function () {
             var isValid = true;
 
@@ -192,6 +229,7 @@ docReady(function () {
 
     if (rateBikeForm) {
         ko.applyBindings(vmRateBike, rateBikeForm);
+        vmRateBike.init();
     }
 
     ratingBox.find('.answer-star-list input[type=radio]').change(function () {
@@ -324,7 +362,6 @@ docReady(function () {
                 return isValid;
             }
         };
-
     };
 
     var vmWriteReview = new writeReview(),
@@ -354,6 +391,24 @@ docReady(function () {
         validate.onBlur($(this));
     });
 
+    /*
+    window.onbeforeunload = function (e) {
+        console.log(e.target);
+        if (!e.target.activeElemet) {
+            if (window.location.hash != "writeReviewPage") {
+                window.location = "http://www.bikewale.com";
+            }
+            else {
+                console.log("35413510");
+            }
+        }
+        return true;        
+    }
+    */
+
+    window.onhashchange = function () {
+        console.log('asd');
+    };
 });
 
 var answer = {
@@ -410,3 +465,9 @@ var validate = {
         }
     }
 };
+
+if (page == "writeReview") {
+    setTimeout(function () {
+        //appendHash("writeReviewPage");
+    }, 1000)
+}
