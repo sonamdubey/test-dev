@@ -1,6 +1,7 @@
 ﻿var chosenSelectBox, vmPagination, upcoming, vmUpcoming;
 
 docReady(function () {
+
     chosenSelectBox = $('.chosen-select');
     chosenSelectBox.chosen();
 
@@ -179,6 +180,33 @@ docReady(function () {
 
         };
 
+        self.setPageFilters = function (e) {
+            var currentQs = window.location.hash.substr(1);
+            if (currentQs != "") {
+                var _filters = currentQs.split("&"), objFilter = {};
+                for (var i = 0; i < _filters.length; i++) {
+                    var f = _filters[i].split("=");
+                    self.Filters()[f[0]] = f[1];
+                }
+                self.CurPageNo((self.Filters()["pageNo"] ? parseInt(self.Filters()["pageNo"]) : 0));
+
+                if (self.Filters()["make"] != "") {
+                    var selOption = $("#makeFilter option[data-makeid='" + self.Filters()["make"] + "']");
+                    self.selectedMake(selOption.text());
+                    selOption.prop('selected', true);
+                    selOption.parent().chosen().trigger("chosen:updated");
+                }
+                if (self.Filters()["yearLaunch"] != "") {
+                    var selOption = $("#yearFilter option[data-bikeyear='" + self.Filters()["yearLaunch"] + "']");
+                    self.selectedYear(selOption.text());
+                    selOption.prop('selected', true);
+                    selOption.parent().chosen().trigger("chosen:updated");
+                }
+                self.init(e);
+            }
+
+        };
+
         self.ChangePageNumber = function (e) {
             try {
                 var ele = $(e.target), pnum = parseInt(ele.attr("data-pagenum"), 10);
@@ -248,7 +276,7 @@ docReady(function () {
             }
         }
     };
-
+    vmUpcoming.setPageFilters(e);
 });
 
 vmPagination = function (curPgNum, pgSize, totalRecords) {
@@ -287,11 +315,11 @@ vmPagination = function (curPgNum, pgSize, totalRecords) {
         if (self.pageNumber() < self.totalPages())
             return self.pageNumber() + 1;
         return self.pageNumber();
-    }
+    };
     self.previous = function () {
         if (self.pageNumber() > 1) {
             return self.pageNumber() - 1;
         }
         return self.pageNumber();
-    }
+    };
 };
