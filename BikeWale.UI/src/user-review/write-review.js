@@ -52,7 +52,7 @@ var ratingQuestion = [
         type: 'text',
         heading: "How much have you ridden this bike?",
         rating: ["< 5000 kms", "5000-10000 kms", "10000-15000 kms", "> 15000 kms"],
-        isRequired: true,
+        isRequired: false,
         visibility: false,
         subQuestionId: 0
     }
@@ -167,7 +167,7 @@ docReady(function () {
 
                 for (var i = 0; i < questionLength; i++) {
                     var item = $(questionFields[i]),
-                        itemRequirement = item.attr('data-required');
+                        itemRequirement = Boolean(item.attr('data-required'));
 
                     if (itemRequirement) {
                         var checkedRadioButton = item.find('.answer-radio-list input[type=radio]:checked');
@@ -286,10 +286,12 @@ docReady(function () {
 
             if (buttonValue == 1) {
                 subQuestionField.slideUp();
+                subQuestionField.removeAttr('data-required');
             }
             else {
                 subQuestionField.find('.error-text').slideUp();
                 subQuestionField.slideDown();
+                subQuestionField.attr('data-required', true);
             }
         }
     });
