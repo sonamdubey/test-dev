@@ -121,8 +121,8 @@ namespace Bikewale.Models.Features
                 {
                     UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
                     objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
-                    objUpcomingBikes.Filters.StartIndex = 1;
-                    objUpcomingBikes.Filters.EndIndex = topCount;
+                    objUpcomingBikes.Filters.PageNo = 1;
+                    objUpcomingBikes.Filters.PageSize = topCount;
                     if (objData.objMake.MakeId > 0)
                     {
                         objUpcomingBikes.Filters.MakeId = objData.objMake.MakeId;

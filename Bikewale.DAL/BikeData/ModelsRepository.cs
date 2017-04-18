@@ -29,7 +29,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getupcomingbikeslist_new_09032017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getupcomingbikeslist_new_11042017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -53,6 +53,7 @@ namespace Bikewale.DAL.BikeData
                                 objModel.LargePicImagePath = Convert.ToString(dr["LargePicImagePath"]);
                                 objModel.MakeBase.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
                                 objModel.ModelBase.ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]);
+                                objModel.ExpectedLaunchedDate = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]);
 
                                 objModel.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
                                 objModel.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);

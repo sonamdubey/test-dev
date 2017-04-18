@@ -57,6 +57,7 @@ namespace Bikewale.Models
                 {
                     var objCityList = _cityCacheRepo.GetAllCities(EnumBikeType.All);
                     objVM.CityDetails = objCityList.FirstOrDefault(c => c.CityId == _cityId);
+                   
                 }
                 objVM.BikeInfo.Tabs = BindInfoWidgetDatas(objVM.BikeInfo, objVM.CityDetails, _tabCount, _pageId);
                 objVM.BikeName = string.Format("{0} {1}", objVM.BikeInfo.Make.MakeName, objVM.BikeInfo.Model.ModelName);

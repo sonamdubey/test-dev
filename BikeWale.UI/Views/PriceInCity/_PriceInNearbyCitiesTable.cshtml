@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Bikewale.Entities.PriceQuote.PriceQuoteOfTopCities>
+@using Bikewale.Utility
+@if (Model != null)
+{
+    <table id="prices-top-cities" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+            @foreach (var priceQuote in Model)
+            {
+                <tr>
+                    <td class="city-name">
+                        <a title="@string.Format("{0} {1} Price in {2}", priceQuote.Make, priceQuote.Model, priceQuote.CityName)" href="@UrlFormatter.PriceInCityUrl(priceQuote.MakeMaskingName, priceQuote.ModelMaskingName, priceQuote.CityMaskingName)" class="text-truncate">@priceQuote.CityName</a>
+                    </td>
+                    <td align="right" class="city-price text-black">
+                        <span class="bwsprite inr-sm-dark"></span>@Format.FormatPrice(Convert.ToString(priceQuote.OnRoadPrice))
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+    @*<tr>
+            <td class="city-name">
+                <a title="Bajaj Pulsar RS200 Price in Mumbai" href="" class="text-truncate">Mumbai</a>
+            </td>
+            <td align="right" class="city-price text-black">
+                <span class="bwsprite inr-sm-dark"></span>93,750
+            </td>
+        </tr>
+        <tr>
+            <td class="city-name">
+                <a title="Bajaj Pulsar RS200 Price in Pune" href="" class="text-truncate">Pune</a>
+            </td>
+            <td align="right" class="city-price text-black">
+                <span class="bwsprite inr-sm-dark"></span>93,750
+            </td>
+        </tr>
+        <tr>
+            <td class="city-name">
+                <a title="Bajaj Pulsar RS200 Price in New Delhi" href="" class="text-truncate">New Delhi</a>
+            </td>
+            <td align="right" class="city-price text-black">
+                <span class="bwsprite inr-sm-dark"></span>1,33,172
+            </td>
+        </tr>
+        <tr>
+            <td class="city-name">
+                <a title="Bajaj Pulsar RS200 Price in Chennai" href="" class="text-truncate">Chennai</a>
+            </td>
+            <td align="right" class="city-price text-black">
+                <span class="bwsprite inr-sm-dark"></span>1,37,563
+            </td>
+        </tr>
+        <tr>
+            <td class="city-name">
+                <a title="Bajaj Pulsar RS200 Price in Kolkata" href="" class="text-truncate">Kolkata</a>
+            </td>
+            <td align="right" class="city-price text-black">
+                <span class="bwsprite inr-sm-dark"></span>1,41,371
+            </td>
+        </tr>
+        <tr>
+            <td class="city-name">
+                <a title="Bajaj Pulsar RS200 Price in Hyderabad" href="" class="text-truncate">Hyderabad</a>
+            </td>
+            <td align="right" class="city-price text-black">
+                <span class="bwsprite inr-sm-dark"></span>1,27,432
+            </td>
+        </tr>
+        <tr>
+            <td class="city-name">
+                <a title="Bajaj Pulsar RS200 Price in Chandigarh" href="" class="text-truncate">Chandigarh</a>
+            </td>
+            <td align="right" class="city-price text-black">
+                <span class="bwsprite inr-sm-dark"></span>1,29,292
+            </td>
+        </tr>*@

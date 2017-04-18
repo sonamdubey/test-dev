@@ -150,8 +150,8 @@ namespace Bikewale.Models.ServiceCenters
 
                 objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
                 {
-                    EndIndex = UpcomingBikesWidgetData,
-                    StartIndex = 1
+                    PageSize = UpcomingBikesWidgetData,
+                    PageNo = 1
                 };
                 objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
                 objUpcomingBikes = objUpcoming.GetData();

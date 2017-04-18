@@ -67,6 +67,7 @@
     <Compile Include="BikeModels\SimilarBikesWidgetVM.cs" />
     <Compile Include="HomePage\HomePageVM.cs" />
     <Compile Include="Location\ChangeLocationPopupVM.cs" />
+    <Compile Include="Make\OtherMakesVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
     <Compile Include="NewPage\NewPageVM.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Shared\PopularScootersList.cs" />
     <Compile Include="Shared\Showrooms.cs" />
     <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
+    <Compile Include="Upcoming\UpcomingPageVM.cs" />
     <Compile Include="Videos\MakeVideosPageVM.cs" />
     <Compile Include="Videos\ModelWiseVideoPageVM.cs" />
     <Compile Include="Videos\SimilarVideoModelsVM.cs" />
