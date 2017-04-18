@@ -938,10 +938,10 @@ namespace Bikewale.DAL.UserReviews
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.UInt32, reviewId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tipsnadvices", DbType.String, tipsnAdvices));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comment", DbType.String, comment));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_commenttitle", DbType.String, commentTitle));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ratingquestionans", DbType.String, reviewsQuestionAns));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewTips", DbType.String, tipsnAdvices));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewDescription", DbType.String, comment));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewTitle", DbType.String, commentTitle));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, reviewsQuestionAns));
 
                     IsSaved = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }

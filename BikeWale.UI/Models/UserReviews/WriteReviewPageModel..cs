@@ -15,7 +15,7 @@ namespace Bikewale.Models.UserReviews
         private readonly IUserReviews _userReviews = null;
         private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId;
         private string _decodedString;
-        private string _encodedString;
+        private string _encodedString, _userName, _emailId;
         private ulong _customerId;
 
         public BikeMakeEntityBase Make { get; set; }
@@ -46,6 +46,8 @@ namespace Bikewale.Models.UserReviews
             uint.TryParse(queryCollection["overallrating"], out _overAllRating);
             ulong.TryParse(queryCollection["customerid"], out _customerId);
             uint.TryParse(queryCollection["priceRangeId"], out _priceRangeId);
+            _userName = queryCollection["userName"];
+            _emailId = queryCollection["emailId"];
         }
 
         /// <summary>
@@ -64,6 +66,9 @@ namespace Bikewale.Models.UserReviews
 
                 if (_modelId > 0)
                     objModelEntity = new ModelHelper().GetModelDataById(_modelId);
+
+                objPage.UserName = _userName;
+                objPage.EmailId = _emailId;
 
                 if (objModelEntity != null)
                 {

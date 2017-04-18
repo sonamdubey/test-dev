@@ -95,7 +95,7 @@ namespace Bikewale.Controllers
             {
                 objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, 2, reviewId);
 
-                string strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId);
+                string strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId);
 
                 string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
 
@@ -140,7 +140,7 @@ namespace Bikewale.Controllers
         /// <param name="reviewId"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId)
+        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName)
         {
             bool isValid = true;
             string errorMessage = "";
@@ -158,7 +158,7 @@ namespace Bikewale.Controllers
 
             if (isValid)
             {
-                _userReviews.SaveUserReviews(encodedId, reviewTips, reviewDescription, reviewTitle, reviewQuestion);
+                _userReviews.SaveUserReviews(encodedId, reviewTips, reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName);
                 return RedirectToAction("ReviewSummary_Mobile");
             }
             else

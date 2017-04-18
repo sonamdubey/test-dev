@@ -48,9 +48,6 @@ namespace Bikewale.BAL.UserReviews
             return _userReviewsCache.GetUserReviewsData();
         }
 
-
-
-
         /// <summary>
         /// Created By : Sushil Kumar on 16th April 2017
         /// Description : To get all user reviews questions filtered with inputs
@@ -216,8 +213,7 @@ namespace Bikewale.BAL.UserReviews
                         objQuestion.SelectedRatingId = question.SelectedRatingId;
                         objQuestions.Add(objQuestion);
                     }
-                    objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
-                    objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
+
                     objSummary.Questions = objQuestions;
 
                     objSummary.OverallRating = objUserReviewData.OverallRating.FirstOrDefault(x => x.Id == objSummary.OverallRatingId);
@@ -300,7 +296,7 @@ namespace Bikewale.BAL.UserReviews
             }
         }
 
-        public bool SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
+        public bool SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName)
         {
             try
             {
@@ -318,6 +314,7 @@ namespace Bikewale.BAL.UserReviews
 
                     if (_reviewId > 0 && _customerId > 0 && _userReviewsRepo.IsUserVerified(_reviewId, _customerId))
                     {
+                        UserReviewsEmails.SendReviewSubmissionEmail(userName, emailId, makeName, modelName);
                         return SaveUserReviews(_reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
                     }
                     else
