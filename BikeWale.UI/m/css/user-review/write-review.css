@@ -200,6 +200,9 @@ body {
   height: 62px;
   margin: 1px auto; }
 
+#review-summary-card{
+    margin-bottom:45px;}
+
 #review-summary-card #bike-rating-box {
   margin-top: 35px; }
 

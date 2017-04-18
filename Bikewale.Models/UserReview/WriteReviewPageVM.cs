@@ -22,6 +22,7 @@ namespace Bikewale.Models
         public string OriginalImagePath { get; set; }
         public ulong CustomerId { get; set; }
         public string PreviousPageUrl { get; set; }
+        public string EncodedWriteUrl { get; set; }
         public string EmailId { get; set; }
         public string UserName { get; set; }
     }

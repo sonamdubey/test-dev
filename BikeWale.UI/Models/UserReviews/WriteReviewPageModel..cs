@@ -80,6 +80,7 @@ namespace Bikewale.Models.UserReviews
                     objPage.HostUrl = objModelEntity.HostUrl;
                     objPage.OriginalImagePath = objModelEntity.OriginalImagePath;
                     objPage.PreviousPageUrl = string.Format("/m/user-reviews/rate-bike/{0}/?reviewId={1}", objPage.Model.ModelId, _encodedString);
+                    objPage.EncodedWriteUrl = _encodedString;
                 }
 
                 objPage.ReviewId = _reviewId;

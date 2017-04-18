@@ -140,7 +140,7 @@ namespace Bikewale.Controllers
         /// <param name="reviewId"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName)
+         public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName,string queryEncoded, uint reviewId)
         {
             bool isValid = true;
             string errorMessage = "";
@@ -159,7 +159,7 @@ namespace Bikewale.Controllers
             if (isValid)
             {
                 _userReviews.SaveUserReviews(encodedId, reviewTips, reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName);
-                return RedirectToAction("ReviewSummary_Mobile");
+                return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, queryEncoded));
             }
             else
             {

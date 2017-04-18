@@ -439,7 +439,13 @@ var answer = {
     },
 
     focusForm: function (element) {
-        $('html, body').animate({ scrollTop: $(element).offset().top }, 500);
+        try{
+            $('html, body').animate({ scrollTop: $(element).offset().top }, 500);
+        }
+        catch(e)
+        {
+            console.warn(e.message);
+        }
     }
 };
 
