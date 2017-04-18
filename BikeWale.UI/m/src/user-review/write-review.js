@@ -10,7 +10,6 @@ var bikeRating = {
 };
 
 var ratingQuestion = [];
-var key = "writeReviews";
 docReady(function () {
     bwcache.setScope('ReviewPage');
     if (page == "writeReview") {
