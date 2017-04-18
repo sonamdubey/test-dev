@@ -19,7 +19,7 @@
                         <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span>&nbsp;<span>Reviews</span>
                     </a>
                 }
-                <a href="@string.Format("/m/user-reviews/rate-bike/{0}/?&pagesourceid={1}", Model.ModelId, Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.ModelPage_Mobile))" class="border-light-left leftfloat margin-right10 padding-left10 font12 ">
+                <a href="@string.Format("/m/user-reviews/rate-bike/{0}/?pagesourceid={1}", Model.ModelId, Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.ModelPage_Mobile))" class="border-light-left leftfloat margin-right10 padding-left10 font12 ">
                     <span itemprop="writeReview"><span>Rate this bike</span></span>
                 </a>
             </span>
