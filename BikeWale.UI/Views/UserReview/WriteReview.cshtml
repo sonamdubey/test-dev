@@ -82,8 +82,8 @@
                                 <p class="item-title" data-bind="text: heading"></p>
                                 <p class="item-subtitle" data-bind="text: description"></p>
                                 <div class="answer-star-list inline-block hover-effect" data-bind="foreach: rating.slice(0).reverse()">
-                                    <input type="radio" data-bind="attr: {id: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), value: (5 - $index())}" />
-                                    <label class="bwsprite star-zero" data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + $index(), 'data-value': (5 - $index())}"></label>
+                                    <input type="radio" data-bind="attr: {id: 'review-' + $parentContext.$index() + '-' + (5 - $index()), name: 'review-q-' + $parentContext.$index(), value: (5 - $index())}" />
+                                    <label class="bwsprite star-zero" data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + (5 - $index()), 'data-value': (5 - $index())}"></label>
                                 </div>
                                 <p class="feedback-text inline-block"></p>
                             </li>

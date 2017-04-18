@@ -42,14 +42,14 @@
                                 <span class="bwsprite" data-bind="css: ratingCount() > 0 ? 'feedback-' + ratingCount() : 'star-one'"></span>
                             </div>
                             <div class="rating-placeholder">
-                                <h3 class="font20 font-bold" data-bind="text: feedbackTitle">Rate your bike</h3>
-                                <p class="margin-top5" data-bind="text: feedbackSubtitle"></p>
+                                <h3 class="font20 font-bold margin-bottom5" data-bind="text: feedbackTitle">Rate your bike</h3>
+                                <p data-bind="text: feedbackSubtitle"></p>
 
-                                <p class="error-text" data-bind="visible: validateRatingCountFlag() && ratingCount() == 0, text: ratingErrorText"></p>
+                                <p class="error-text" data-bind="slideIn: validateRatingCountFlag(), text: ratingErrorText"></p>
 
                                 <div class="answer-star-list hover-effect" data-bind="foreach: overallRating.slice(0).reverse()">
                                     <input type="radio" name="rate-box" data-bind="attr: {id: 'rate-' + ($root.overallRating().length - $index()), value: ($root.overallRating().length - $index())}" />
-                                    <label class="bwsprite star-zero" data-bind="attr: {for: 'rate-' + ($root.overallRating().length - $index()), 'data-value': ($root.overallRating().length - $index())}"></label>
+                                    <label class="bwsprite star-zero" data-bind="hoverRating: $root.clickEventRatingCount, attr: {for: 'rate-' + ($root.overallRating().length - $index()), 'data-value': ($root.overallRating().length - $index())}"></label>
                                 </div>
                                 <div class="clear"></div>                                
 
