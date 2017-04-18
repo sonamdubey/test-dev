@@ -108,8 +108,15 @@ namespace Bikewale.Models
                     UserReviewSummary objUserReviewDataReview = _userReviews.GetUserReviewSummary(_reviewId);
 
                     objUserVM.OverAllRatingText = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewData.OverallRating);
+
+
                     if (objUserReviewDataReview != null)
+                    {
+                        objUserVM.ReviewsOverAllrating = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewDataReview.OverallRatingId);
                         objUserVM.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewDataReview.Questions);
+                    }
+
+
 
                 }
             }

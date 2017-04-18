@@ -74,6 +74,8 @@
                 <input type="hidden" id="overallratingQuestion" value="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Model.OverAllRatingText)" />
                 <input type="hidden" id="rating-question" value="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Model.RatingQuestion)" />
                 <input type="hidden" name="overAllrating" id="finaloverallrating" />
+                <input type="hidden" name="reviewed-rating" id="reviewedoverallrating" value="@Model.ReviewsOverAllrating" />
+
                 <input type="hidden" name="modelId" value="@Model.objModelEntity.ModelId" />
                 <input type="hidden" name="makeId" value="@Model.objModelEntity.MakeBase.MakeId" />
                 <input type="hidden" name="ratingQuestionAns" id="rating-quesition-ans"/>
