@@ -83,39 +83,4 @@
             <div class="clear"></div>
         </div>
     }
-    @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
-    {
-        <div id="model-overview-content" class="margin-bottom20">
-            <h3>@Model.ModelPageEntity.ModelDetails.ModelName preview</h3>
-            <div class="@(Model.IsUpcomingBike ? " grid-8 " : " grid-12 omega ") alpha margin-top15">
-                <p class="font14 text-light-grey line-height17 inline">
-                    <span class="model-preview-main-content">
-                        @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
-                        {
-                            @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
-                        }
-                        else
-                        {
-                            @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                        }
-                    </span>
-                    @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
-                    {
-                        <span class="model-preview-more-content hide">
-                            @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                        </span>
-                        <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
-                    }
-                </p>
-            </div>
-            @if (Model.IsUpcomingBike)
-            {
-                <div class="grid-4 text-center alpha omega margin-bottom10">
-                    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
-                </div>
-            }
-
-        </div>
-         <div class="clear"></div>
-    }
 </div>

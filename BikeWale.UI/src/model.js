@@ -595,16 +595,16 @@ docReady(function () {
         $(this).hide().prev('.more-dealers-link').show();
     });
 
-    $('a.read-more-model-preview').click(function () {
+    $('#read-more-preview').click(function () {
         if (!$(this).hasClass('open')) {
-            $('.model-preview-main-content').hide();
-            $('.model-preview-more-content').show();
+            $('#main-preview-content').hide();
+            $('#more-preview-content').show();
             $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
             $(this).addClass("open");
         }
         else if ($(this).hasClass('open')) {
-            $('.model-preview-main-content').show();
-            $('.model-preview-more-content').hide();
+            $('#main-preview-content').show();
+            $('#more-preview-content').hide();
             $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
             $(this).removeClass('open');
             $('html, body').animate({ scrollTop: $('#model-overview-content').offset().top - $("#modelDetailsFloatingCardContent").height() - 10 }, 500);

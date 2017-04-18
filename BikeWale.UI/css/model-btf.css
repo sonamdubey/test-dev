@@ -120,9 +120,7 @@ li.offertxt:hover span {display:inline}
 .model-single-user-review { width:780px; }
 .model-orp-btn .btn { padding:8px 29px; }
 .model-powered-by-text { width:175px !important; }
-.content-details-wrapper h2 { margin-bottom:15px; }
-.content-details-wrapper h3 { margin-bottom:12px; }
-#modelSpecsFeaturesContent h3, #modelReviewsContent h3.model-section-subtitle { margin-bottom:20px; }
+
 .content-inner-block-1020 { padding:10px 20px; }
 .inr-sm-grey { width:8px; height:12px; background-position:-92px -468px; }
 .inr-md-lg { width:12px; height:17px; background-position:-64px -515px; position: relative; top: 1px; }
@@ -148,36 +146,165 @@ li.offertxt:hover span {display:inline}
 .version-prices-tr td { border-top:1px solid #eee; }
 .version-prices-tr:first-child td { border-top:none; }
 .text-xt-dark-grey { color:#a2a2a2; }
-/* specs features */
-.model-accordion-tab { padding:17px 20px; position: relative; border-bottom: 1px solid #e2e2e2; cursor: pointer; }
-.accordion-angle-icon { width:16px; height:14px; background-position: -205px -515px; }
-#model-specs-list > li:first-child .model-accordion-tab { border-top: 1px solid #e2e2e2; }
-.model-accordion-tab .accordion-angle-icon { position: absolute; right: 20px; top: 24px; transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
-.model-accordion-tab.active .accordion-angle-icon { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
-.specs-features-list { display: none; border-bottom: 1px solid #e2e2e2; padding-bottom: 20px; }
-.model-accordion-tab.active + .specs-features-list { display: block }
-.specs-features-list .grid-6 p { margin-top:25px; width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
-.specs-features-list .grid-6 p:first-child { margin-top:20px; }
-.specs-features-list.model-features-list { display: block; border-bottom: none; }
-.specs-features-list.model-features-list .grid-6 p:first-child { margin-top:0; }
-#model-more-features-list { display:none; }
-.engine-sm-icon, .brakes-sm-icon, .dimension-sm-icon, .fuel-sm-icon { width:30px; height:28px; vertical-align:middle; }
-.engine-sm-icon { background-position: 0 -43px;}
-.brakes-sm-icon { background-position: -40px -43px;}
-.dimension-sm-icon { background-position: -80px -43px;}
-.fuel-sm-icon { background-position: -120px -43px;}
-.view-features-link { position: relative; display:block; }
-.view-features-link:before { content: ''; width: 100%; height: 20px; position:absolute; top:-40px; left: 0; z-index: 1; background: -webkit-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: -moz-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: -o-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%);}
-.view-features-link.active:before { content: none; }
 
-#modelColorsContent h2 { margin-bottom: 20px; }
-#modelColorsList { overflow:hidden; }
-#modelColorsList li { width:240px; padding-left:20px; margin-bottom:25px; display:inline-block; vertical-align:top; }
-#modelColorsList .color-box { width:30px; height:30px; margin-right:15px; background: #f1f1f1; border: 1px solid #f1f1f1; }
-#modelColorsList li p { width:75%; color: #82888b; padding-right:5px; }
-.color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#f1f1f1; }  
-.color-box.color-count-two span { width:100%; height:50%; display:block !important; background:#f1f1f1; } 
-.color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }
+/* h2 */
+#modelSpecsTabsContentWrapper h2 {
+    font-size: 18px;
+}
+
+/* model color card */
+#modelColorsList {
+    overflow: hidden;
+}
+#modelColorsList li {
+    width: 240px;
+    padding-left: 20px;
+    margin-bottom: 25px;
+    display: inline-block;
+    vertical-align: top;
+}
+#modelColorsList a {
+    display: block;
+}
+#modelColorsList a:hover {
+    text-decoration: none;
+}
+#modelColorsList a:hover p {
+    color: #4d5057;
+}
+#modelColorsList .color-box {
+    width: 32px;
+    height: 32px;
+    margin-right: 15px;
+    background: #f1f1f1;
+    border: 1px solid #f1f1f1;
+}
+#modelColorsList li p {
+    width: 75%;
+    color: #82888b;
+    padding-right: 5px;
+}
+.color-box span {
+    width: 100%;
+    display: block !important;
+    background: #f1f1f1;
+}
+.color-box.color-count-one span {
+    height: 100%;
+}
+.color-box.color-count-two span {
+    height: 50%;
+    
+}
+.color-box.color-count-three span {
+    height: 33.33%;
+}
+
+/* specs features */
+.model-accordion-tab {
+    padding: 17px 20px;
+    position: relative;
+    border-bottom: 1px solid #e2e2e2;
+    cursor: pointer;
+}
+.accordion-angle-icon {
+    width: 16px;
+    height: 14px;
+    background-position: -205px -515px;
+}
+#model-specs-list > li:first-child .model-accordion-tab {
+    border-top: 1px solid #e2e2e2;
+}
+.model-accordion-tab .accordion-angle-icon {
+    position: absolute;
+    right: 20px;
+    top: 24px;
+    transition: transform .3s;
+    -moz-transition: transform .3s;
+    -webkit-transition: transform .3s;
+    -o-transition: transform .3s;
+    -ms-transition: transform .3s;
+}
+.model-accordion-tab.active .accordion-angle-icon {
+    -moz-transform: rotateZ(180deg);
+    -webkit-transform: rotateZ(180deg);
+    -o-transform: rotateZ(180deg);
+    -ms-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+}
+.specs-features-list {
+    display: none;
+    border-bottom: 1px solid #e2e2e2;
+    padding-bottom: 20px;
+}
+.model-accordion-tab.active + .specs-features-list {
+    display: block
+}
+.specs-features-list .grid-6 p {
+    margin-top: 25px;
+    width: 100%;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.specs-features-list .grid-6 p:first-child {
+    margin-top: 20px;
+}
+.specs-features-list.model-features-list {
+    display: block;
+    border-bottom: none;
+}
+.specs-features-list.model-features-list .grid-6 p:first-child {
+    margin-top: 0;
+}
+#model-more-features-list {
+    display: none;
+}
+
+/* specs features icons */
+.engine-sm-icon,
+.brakes-sm-icon,
+.dimension-sm-icon,
+.fuel-sm-icon {
+    width: 30px;
+    height: 28px;
+    vertical-align: middle;
+}
+.engine-sm-icon {
+    background-position: 0 -43px;
+}
+.brakes-sm-icon {
+    background-position: -40px -43px;
+}
+.dimension-sm-icon {
+    background-position: -80px -43px;
+}
+.fuel-sm-icon {
+    background-position: -120px -43px;
+}
+
+.view-features-link {
+    position: relative;
+    display: block;
+}
+
+.view-features-link:before {
+    content: '';
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    top: -40px;
+    left: 0;
+    z-index: 1;
+    background: -moz-linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+    background: -o-linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+}
+.view-features-link.active:before {
+    content: none;
+}
+
 #model-expert-review-container { margin-bottom: 25px; }
 .model-preview-image-container { max-width:292px; height:164px; display:table; text-align:center; border:1px solid #e2e2e2; }
 .model-preview-image-container a { width:292px; height:164px; display:block; background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
@@ -310,9 +437,6 @@ li.offertxt:hover span {display:inline}
 .card .text-truncate {
     width: 100%;
 }
-.details-column {
-    width: 92%
-}
 
 .margin-bottom0 {
     margin-bottom: 0 !important;
@@ -334,15 +458,11 @@ li.offertxt:hover span {display:inline}
     .model-user-review-title-container { width: 265px; }
     #campaign-offer-list li { width: 170px; }
     .campaign-offer-label { width:70%; }
-    #modelColorsList li { width: 230px; }
+    
 }
 
-#modelColorsList a {
-    display: block;
-}
-#modelColorsList a:hover {
-    text-decoration: none;
-}
-#modelColorsList a:hover p {
-    color: #4d5057;
+@media only screen and (max-width: 1024px) {
+    #modelColorsList li {
+        width: 230px;
+    }
 }
