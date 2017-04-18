@@ -74,7 +74,7 @@ namespace Bikewale.Models.UserReviews
                     objPage.Model.MaskingName = objModelEntity.MaskingName;
                     objPage.HostUrl = objModelEntity.HostUrl;
                     objPage.OriginalImagePath = objModelEntity.OriginalImagePath;
-                    objPage.PreviousPageUrl = string.Format("m/user-reviews/rate-bike/{0}/{1}", objPage.Model.ModelId, _encodedString);
+                    objPage.PreviousPageUrl = string.Format("/m/user-reviews/rate-bike/{0}/?reviewId={1}", objPage.Model.ModelId, _encodedString);
                 }
 
                 objPage.ReviewId = _reviewId;

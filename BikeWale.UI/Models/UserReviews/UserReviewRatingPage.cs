@@ -1,9 +1,12 @@
 ﻿
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Web;
 namespace Bikewale.Models
 {
     public class UserReviewRatingPage
@@ -11,10 +14,15 @@ namespace Bikewale.Models
 
         private readonly IUserReviews _userReviews = null;
         private IBikeModels<BikeModelEntity, int> _objModel = null;
+        private readonly IUserReviewsRepository _userReviewsRepo = null;
 
         private uint _modelId;
         private uint _reviewId;
+        private string _Querystring;
+        private ulong _customerId;
+        private bool _isVerified;
 
+        public StatusCodes status;
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Added interfaces for bikeinfo and user reviews 
@@ -22,18 +30,30 @@ namespace Bikewale.Models
         /// <param name="modelId"></param>
         /// <param name="bikeInfo"></param>
         /// <param name="userReviews"></param>
-        public UserReviewRatingPage(uint modelId, IUserReviews userReviews, IBikeModels<BikeModelEntity, int> objModel, uint? reviewId)
+        public UserReviewRatingPage(uint modelId, IUserReviews userReviews, IBikeModels<BikeModelEntity, int> objModel, string Querystring, IUserReviewsRepository userReviewsRepo)
         {
             _modelId = modelId;
-
             _userReviews = userReviews;
             _objModel = objModel;
-            _reviewId = reviewId ?? 0;
-            ProcessQuery();
+            _Querystring = Querystring;
+            _userReviewsRepo = userReviewsRepo;
+            if (!string.IsNullOrEmpty(_Querystring))
+                ProcessQuery(_Querystring);
+            else
+                status = Entities.StatusCodes.ContentFound;
 
         }
-        private void ProcessQuery()
+        private void ProcessQuery(string Querystring)
         {
+            NameValueCollection queryCollection = HttpUtility.ParseQueryString(Querystring);
+            uint.TryParse(queryCollection["reviewid"], out _reviewId);
+            ulong.TryParse(queryCollection["customerid"], out _customerId);
+
+            _isVerified = _userReviewsRepo.IsUserVerified(_reviewId, _customerId);
+            if (_isVerified)
+                status = Entities.StatusCodes.ContentFound;
+            else
+                status = Entities.StatusCodes.ContentNotFound;
 
 
         }
