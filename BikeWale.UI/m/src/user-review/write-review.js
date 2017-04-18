@@ -1,4 +1,4 @@
-﻿var ratingBox, selectedAnswer;
+﻿var ratingBox, selectedAnswer, page;
 
 var userNameField, userEmailIdField;
 var detailedReviewField, reviewTitleField;
@@ -11,8 +11,17 @@ var bikeRating = {
 
 var ratingQuestion = [];
 
-var page = "writeReview";
 docReady(function () {
+
+    if (page == "writeReview") {
+        setTimeout(function () { appendHash("writeReview"); }, 3000);
+        $(window).on('hashchange', function (e) {
+            oldUrl = e.originalEvent.oldURL;
+            if (oldUrl && (oldUrl.indexOf('#') > 0)) {
+                window.location.href = "https://bikewale.com";
+            }
+        });
+    }
 
     ratingBox = $('#bike-rating-box');
 
@@ -21,9 +30,8 @@ docReady(function () {
     if ($("#rating-question") && $("#rating-question").length)
         ratingQuestion = JSON.parse(Base64.decode($('#rating-question').val()));
 
-
-    if ($("#review-question-list") && $("#review-question-list").length > 1)
-        reviewQuestion = JSON.parse(Base64.decode($("#review-question-list").val()));
+    if ($("#review-question-list") && $("#review-question-list").length)
+        reviewQuestion = JSON.parse($('#review-question-list').text());
 
     if ($('#reviewedoverallrating') && $('#reviewedoverallrating').length)
         reviewOverallRatingId = Number($('#reviewedoverallrating').val());
@@ -405,25 +413,12 @@ docReady(function () {
     reviewTitleField.on("blur", function () {
         validate.onBlur($(this));
     });
+    
+    
 
-    /*
-    window.onbeforeunload = function (e) {
-        console.log(e.target);
-        if (!e.target.activeElemet) {
-            if (window.location.hash != "writeReviewPage") {
-                window.location = "http://www.bikewale.com";
-            }
-            else {
-                console.log("35413510");
-            }
-        }
-        return true;        
-    }
-    */
-
-    window.onhashchange = function () {
-        console.log('asd');
-    };
+    //window.onhashchange = function () {
+    //    console.log('asd');
+    //};
 });
 
 var answer = {

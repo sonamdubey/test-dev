@@ -13,7 +13,7 @@ namespace Bikewale.Models.UserReviews
     public class WriteReviewPageModel
     {
         private readonly IUserReviews _userReviews = null;
-        private uint _reviewId, _modelId, _makeId, _overAllRating;
+        private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId;
         private string _decodedString;
         private ulong _customerId;
 
@@ -43,7 +43,7 @@ namespace Bikewale.Models.UserReviews
             uint.TryParse(queryCollection["makeid"], out _makeId);
             uint.TryParse(queryCollection["overallrating"], out _overAllRating);
             ulong.TryParse(queryCollection["customerid"], out _customerId);
-
+            uint.TryParse(queryCollection["priceRangeId"], out _priceRangeId);
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace Bikewale.Models.UserReviews
                         UserReviewsInputEntity filter = new UserReviewsInputEntity()
                         {
                             Type = UserReviewQuestionType.Review,
-                            PriceRangeId = 3
+                            PriceRangeId = (ushort)_priceRangeId
                         };
                         var objQuestions = _userReviews.GetUserReviewQuestions(filter, objUserReviewData);
                         if (objQuestions != null)

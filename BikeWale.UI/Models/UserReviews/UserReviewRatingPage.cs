@@ -124,6 +124,8 @@ namespace Bikewale.Models
                                 objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
                                 objUserVM.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objQuestions);
                             }
+
+                            objUserVM.PriceRangeId = objUserReviewData.PriceRange.First(x => x.MinPrice >= objUserVM.objModelEntity.MinPrice && x.MaxPrice >= objUserVM.objModelEntity.MaxPrice).RangeId;
                         }
                     }
 
