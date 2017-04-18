@@ -293,29 +293,39 @@ namespace Bikewale.BAL.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("RegisterBuyer({0})", Newtonsoft.Json.JsonConvert.SerializeObject(customer)));
-                objErr.SendMail();
             }
         }
 
-
-
-
-        public void SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
+        public bool SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
         {
-            if (!string.IsNullOrEmpty(encodedId))
+            try
             {
-                uint _reviewId;
-                ulong _customerId;
+                if (!string.IsNullOrEmpty(encodedId))
+                {
+                    uint _reviewId;
+                    ulong _customerId;
 
-                string decodedString = Utils.Utils.DecryptTripleDES(encodedId);
-                NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
+                    string decodedString = Utils.Utils.DecryptTripleDES(encodedId);
+                    NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
 
-                uint.TryParse(queryCollection["reviewid"], out _reviewId);
-                ulong.TryParse(queryCollection["customerid"], out _customerId);
+                    uint.TryParse(queryCollection["reviewid"], out _reviewId);
+                    ulong.TryParse(queryCollection["customerid"], out _customerId);
 
 
-
-                // return SaveUserReviews(_reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
+                    if (_reviewId > 0 && _customerId > 0 && _userReviewsRepo.IsUserVerified(_reviewId, _customerId))
+                    {
+                        return SaveUserReviews(_reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
+                    }
+                    else
+                        return false;
+                }
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "SaveUserReviews");
+                return false;
             }
         }
     }   // Class
