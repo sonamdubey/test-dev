@@ -19,6 +19,9 @@
                         <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span>&nbsp;<span>Reviews</span>
                     </a>
                 }
+                <a href="@string.Format("/m/user-reviews/rate-bike/{0}/", Model.ModelId)" class="border-light-left leftfloat margin-right10 padding-left10 font12 ">
+                    <span itemprop="writeReview"><span>Rate this bike</span>
+                </a>
             </span>
         </div>
     </div>

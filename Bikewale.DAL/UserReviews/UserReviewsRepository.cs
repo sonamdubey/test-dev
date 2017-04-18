@@ -980,12 +980,24 @@ namespace Bikewale.DAL.UserReviews
                         {
                             objUserReviewSummary = new UserReviewSummary()
                             {
-                                ModelId = SqlReaderConvertor.ToUInt32(dr["modelId"]),
+
                                 CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
                                 CustomerName = Convert.ToString(dr["CustomerName"]),
                                 Description = Convert.ToString(dr["Comments"]),
                                 Tips = Convert.ToString(dr["ReviewTitle"]),
-                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"])
+                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
+                                Make = new BikeMakeEntityBase()
+                                {
+                                    MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                    MaskingName = Convert.ToString(dr["makemasking"]),
+                                    MakeName = Convert.ToString(dr["makeName"])
+                                },
+                                Model = new BikeModelEntityBase()
+                                {
+                                    ModelId = SqlReaderConvertor.ToInt32(dr["modelId"]),
+                                    MaskingName = Convert.ToString(dr["modelmasking"]),
+                                    ModelName = Convert.ToString(dr["modelName"])
+                                }
                             };
                         }
 

@@ -139,5 +139,19 @@ namespace Bikewale.Common
             }
             return cityList;
         }
+
+        public BikeMakeModelEntity GetMakeModelData(uint modelId)
+        {
+            BikeMakeModelEntity objBike = null;
+            try
+            {
+
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetMakeModelData() - modelId:{0}", modelId));
+            }
+            return objBike;
+        }
     }
 }
