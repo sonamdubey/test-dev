@@ -26,5 +26,6 @@ namespace Bikewale.Interfaces.UserReviews
         uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint sourceId);
         bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns);
         UserReviewSummary GetUserReviewSummary(uint reviewId);
+        bool IsUserVerified(uint reviewId, ulong customerId);
     }   // class
 }   // namespace
