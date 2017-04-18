@@ -892,9 +892,6 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, ratingQuestionAns));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_username", DbType.String, userName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, emailId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Int32, 1));  //hard-coded for now
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, ":1")); //hard-coded for now
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceId", DbType.Int16, sourceId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientIP", DbType.String, Bikewale.CoreDAL.CommonOpn.GetClientIP()));
 

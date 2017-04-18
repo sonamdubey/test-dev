@@ -77,6 +77,7 @@
                 <input type="hidden" name="modelId" value="@Model.objModelEntity.ModelId" />
                 <input type="hidden" name="makeId" value="@Model.objModelEntity.MakeBase.MakeId" />
                 <input type="hidden" name="ratingQuestionAns" id="rating-quesition-ans"/>
+                <input type="hidden" name="priceRangeId" value="@Model.PriceRangeId" />
                 <input type="submit" class="btn btn-orange" value="Submit rating" data-bind="click: submitRating" />                          
             </div>
             @Html.AntiForgeryToken()
