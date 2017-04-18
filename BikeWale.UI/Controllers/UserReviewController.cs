@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.Common;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
@@ -14,31 +15,38 @@ namespace Bikewale.Controllers
 
         private readonly IUserReviews _userReviews = null;
         private IBikeModels<BikeModelEntity, int> _objModel = null;
+        private readonly IUserReviewsRepository _userReviewsRepo = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="bikeInfo"></param>
         /// <param name="userReviews"></param>
-        public UserReviewController(IUserReviews userReviews, IBikeModels<BikeModelEntity, int> objModel)
+        public UserReviewController(IUserReviews userReviews, IBikeModels<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo)
         {
 
             _userReviews = userReviews;
+            _userReviewsRepo = userReviewsRepo;
             _objModel = objModel;
         }
 
         // GET: UserReview
         [Route("m/user-reviews/rate-bike/{modelId}/")]
-        public ActionResult RateBike_Mobile(uint modelId, uint? reviewId)
+        public ActionResult RateBike_Mobile(uint modelId, string reviewId)
         {
-            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, reviewId);
+            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, reviewId, _userReviewsRepo);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
             if (TempData["ErrorMessage"] != null)
             {
                 UserReviewVM.ErrorMessage = Convert.ToString(TempData["ErrorMessage"]);
             }
-            UserReviewVM = objUserReview.GetData();
-
+            if (objUserReview != null)
+            {
+                if (objUserReview.status == Entities.StatusCodes.ContentFound)
+                    UserReviewVM = objUserReview.GetData();
+                else
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
             return View(UserReviewVM);
         }
 
