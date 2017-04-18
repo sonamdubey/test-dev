@@ -198,10 +198,10 @@ docReady(function () {
         self.validateUserName = function () {
             var isValid = false;
 
-            if (self.userName() != null && self.userName().trim() != "") {
-                var nameLength = self.userName().length;
+            if (vmRateBike.userName() != null && vmRateBike.userName().trim() != "") {
+                var nameLength = vmRateBike.userName().length;
 
-                if (self.userName().indexOf('&') != -1) {
+                if (vmRateBike.userName().indexOf('&') != -1) {
                     validate.setError(userNameField, 'Invalid name');
                 }
                 else if (nameLength == 0) {
@@ -223,10 +223,10 @@ docReady(function () {
             var isValid = false,
                 reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
 
-            if (self.emailId() == "") {
+            if (vmRateBike.emailId() == "") {
                 validate.setError(userEmailIdField, 'Please enter email id');
             }
-            else if (!reEmail.test(self.emailId())) {
+            else if (!reEmail.test(vmRateBike.emailId())) {
                 validate.setError(userEmailIdField, 'Please enter your valid email ID');
             }
 
