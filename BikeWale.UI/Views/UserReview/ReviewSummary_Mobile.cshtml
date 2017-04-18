@@ -1,129 +1,155 @@
-﻿@{
+﻿@model Bikewale.Models.UserReviewSummaryVM
+@{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/write-review.css' />";
-    Model.Page_JS_Path = "/m/src/user-review/write-review.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
-
-<section>
-    <div id="thankyou-card" class="container bg-white box-shadow padding-15-20 card-bottom-margin">
-        <div class="model-image-grid inline-block">
-            <div class="icon-outer-container rounded-corner50percent">
-                <div class="icon-inner-container rounded-corner50percent text-center">
-                    <span class="bwmsprite thankyou-icon margin-top15"></span>
+@if (Model != null && Model.Summary != null)
+{
+    <section>
+        <div id="thankyou-card" class="container bg-white box-shadow padding-15-20 card-bottom-margin">
+            <div class="model-image-grid inline-block">
+                <div class="icon-outer-container rounded-corner50percent">
+                    <div class="icon-inner-container rounded-corner50percent text-center">
+                        <span class="bwmsprite thankyou-icon margin-top15"></span>
+                    </div>
                 </div>
+            </div>
+            <div class="model-details-grid inline-block">
+                <p class="font18 text-black text-bold margin-bottom5">Thank you, @Model.Summary.CustomerName!</p>
+                @if (!string.IsNullOrEmpty(Model.Summary.Description))
+                {
+                    <p class="font13 text-light-grey">Your review has been recorded. We will inform you once it is published.</p>
+                }
+                else
+                {
+                    <p class="font13 text-light-grey">Your rating has been recorded. We look forward to your detailed review about this bike.</p>
+                }
             </div>
         </div>
-        <div class="model-details-grid inline-block">
-            <p class="font18 text-black text-bold margin-bottom5">Thank you, Sam!</p>
-            <p class="font13 text-light-grey">Your review has been recorded. We will inform you once it is published.</p>
-            @*<p class="font13 text-light-grey">Your rating has been recorded. We look forward to your detailed review about this bike.</p>*@
+    </section>
+
+    <section>
+        <div id="review-summary-card" class="container bg-white box-shadow card-bottom-margin font14">
+            <div class="padding-15-20 content-box-shadow">
+                <div class="model-image-grid inline-block">
+                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.Summary.OriginalImgPath, Model.Summary.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._70)" alt="@Model.Summary.Make.MakeName @Model.Summary.Model.ModelName" />
+                </div>
+                <h1 class="model-details-grid inline-block">@Model.Summary.Make.MakeName @Model.Summary.Model.ModelName</h1>
+            </div>
+            <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
+                <div id="bike-rating-box" class="margin-bottom20">
+                    <div class="circle-placeholder">
+                        <span class="bwmsprite feedback-4"></span>
+                    </div>
+                    <div class="rating-placeholder">
+                        <p class="font20 font-bold">@Model.Summary.OverallRating.Heading</p>
+                        <p class="margin-top5">@Model.Summary.OverallRating.Description</p>
+
+                        <ul class="margin-top15 item-rating-list opacity-active">
+                            @for (int i = 0; i < 5; i++)
+                            {
+                                if (i < Model.Summary.OverallRating.Value)
+                                {
+                                    <li class="bwmsprite star-one"></li>
+                                }
+                                else
+                                {
+                                    <li class="bwmsprite star-zero"></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="floating-btn" class="floating-btn">
+                    @if (!string.IsNullOrEmpty(Model.Summary.Description))
+                    {
+                        <div class="grid-12 alpha omega">
+                            <a class="btn btn-orange btn-full-width" href="javascript:void(0);">Done</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="grid-6 alpha omega">
+                            <a class="btn btn-white btn-full-width" href="javascript:void(0);">Write a review</a>
+                        </div>
+                        <div class="grid-6 alpha omega">
+                            <input type="button" class="btn btn-orange btn-full-width" value="Done" />
+                        </div>
+                    }
+                    <div class="clear"></div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Summary.Description))
+                {
+                    <div id="summary-review-box" class="padding-bottom10">
+                        <h2 class="margin-bottom10">@Model.Summary.Title</h2>
+                        <div class="text-light-grey">
+                            <p>@Model.Summary.Description</p>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.Summary.Questions != null && !string.IsNullOrEmpty(Model.Summary.Description))
+                {
+                    <div class="margin-bottom20 border-solid-bottom"></div>
+                    <h3 class="font15 text-black margin-bottom20">You also rated</h3>
+                    <ul class="user-rated-list padding-bottom5 opacity-active">
+                        @foreach (var question in Model.Summary.Questions)
+                        {
+                            var objRating = question.Rating.First(x => x.Value == question.SelectedRatingId.ToString()); int ratingValue = Convert.ToInt32(objRating.Value);
+                            if (question.DisplayType.Equals(Bikewale.Entities.UserReviews.UserReviewQuestionDisplayType.Star))
+                            {
+                                <li class="list-item">
+                                    <p class="category-label leftfloat">@question.Heading</p>
+                                    <ul class="category-rating rightfloat">
+                                        @for (int i = 0; i < 5; i++)
+                                        {
+                                            if (i < ratingValue)
+                                            {
+                                                <li class="bwmsprite star-one"></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="bwmsprite star-zero"></li>
+                                            }
+                                        }
+                                    </ul>
+                                    <div class="clear"></div>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="list-item">
+                                    <p class="category-label leftfloat">@question.Heading</p>
+                                    <p class="category-rating rightfloat padding-left5">@objRating.Text</p>
+                                    <div class="clear"></div>
+                                </li>
+                            }
+
+                        }
+
+                    </ul>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Summary.Tips))
+                {
+                    <div class="margin-bottom20 border-solid-bottom"></div>
+                    <h3 class="font15 text-black margin-bottom15">Tips for prospective buyers</h3>
+                    <div class="text-light-grey">
+                        <p>@Model.Summary.Tips</p>
+                    </div>
+                }
+
+                @if (string.IsNullOrEmpty(Model.Summary.Description))
+                {
+                    <div class="margin-top20 margin-bottom20 border-solid-bottom"></div>
+                    <h3 class="font15 text-black margin-bottom15">You haven't shared your opinion yet!</h3>
+                    <p class="padding-bottom20 text-light-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad</p>
+                }
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section>
-    <div id="review-summary-card" class="container bg-white box-shadow card-bottom-margin font14">
-        <div class="padding-15-20 box-shadow">
-            <p class="padding-bottom15 border-solid-bottom text-light-grey">Check, how others will see your review!</p>
-            <h1 class="font16 padding-top15">Your review for Bajaj Pulsar RS200</h1>
-        </div>
-        <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
-            <div id="bike-rating-box" class="margin-bottom20">
-                <div class="circle-placeholder">
-                    <span class="bwmsprite feedback-4"></span>
-                </div>
-                <div class="rating-placeholder">
-                    <p class="font20 font-bold">Superb!</p>
-                    <p class="margin-top5">It's good to ride, I love it!</p>
-
-                    <ul class="margin-top15 item-rating-list opacity-active">
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-zero"></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div id="floating-btn" class="floating-btn">
-                <div class="grid-6 alpha omega">
-                    <a class="btn btn-white btn-full-width" href="javascript:void(0);">Write a review</a>
-                </div>
-                <div class="grid-6 alpha omega">
-                    <input type="button" class="btn btn-orange btn-full-width" value="Done" />
-                </div>
-                @*<div class="grid-12 alpha omega">
-                    <a class="btn btn-orange btn-full-width" href="javascript:void(0);">Done</a>
-                </div>*@
-                <div class="clear"></div>
-            </div>
-
-            <div id="summary-review-box" class="padding-bottom10">
-                <h2 class="margin-bottom10">It's the best bike under 1.5 Lakh</h2>
-                <div class="text-light-grey">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <p>Ed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa uae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam.</p>
-                </div>
-            </div>
-            <div class="margin-bottom20 border-solid-bottom"></div>
-
-            <h3 class="font15 text-black margin-bottom20">You also rated</h3>
-            <ul class="user-rated-list padding-bottom5 opacity-active">
-                <li class="list-item">
-                    <p class="category-label leftfloat">Visual appeal</p>
-                    <ul class="category-rating rightfloat">
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-zero"></li>
-                    </ul>
-                    <div class="clear"></div>
-                </li>
-                <li class="list-item">
-                    <p class="category-label leftfloat">Comfort</p>
-                    <ul class="category-rating rightfloat">
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-zero"></li>
-                    </ul>
-                    <div class="clear"></div>
-                </li>
-                <li class="list-item">
-                    <p class="category-label leftfloat">Service experience</p>
-                    <ul class="category-rating rightfloat">
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-one"></li>
-                        <li class="bwmsprite star-zero"></li>
-                    </ul>
-                    <div class="clear"></div>
-                </li>
-                <li class="list-item">
-                    <p class="category-label leftfloat">Value for money</p>
-                    <p class="category-rating rightfloat padding-left5">Feels great!</p>
-                    <div class="clear"></div>
-                </li>
-            </ul>
-            <div class="margin-bottom20 border-solid-bottom"></div>
-
-            <h3 class="font15 text-black margin-bottom15">Tips for prospective buyers</h3>
-            <div class="text-light-grey">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            </div>
-
-            @*<!-- no review start -->
-            <div class="margin-top20 margin-bottom20 border-solid-bottom"></div>
-            <h3 class="font15 text-black margin-bottom15">You haven't shared your opinion yet!</h3>
-            <p class="text-light-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad</p>
-            <!-- no review end -->*@
-
-        </div>
-    </div>
-</section>
-
-<div id="review-summary-page"></div>
+    <div id="review-summary-page"></div>
+}
