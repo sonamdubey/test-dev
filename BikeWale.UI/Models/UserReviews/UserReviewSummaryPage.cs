@@ -26,18 +26,12 @@ namespace Bikewale.Models.UserReviews
             try
             {
                 objData.Summary = _userReviews.GetUserReviewSummary(_reviewId);
-                GetMakeModelData(objData);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "UserReviewSummaryPage.GetData");
             }
             return objData;
-        }
-
-        private void GetMakeModelData(UserReviewSummaryVM objData)
-        {
-           
         }
         #endregion
 
