@@ -177,29 +177,12 @@ h1,
 
 #review-summary-card #bike-rating-box {
   margin-top: 30px; }
-  #review-summary-card #bike-rating-box .item-rating-list li {
-    float: right;
-    width: 50px; }
-    #review-summary-card #bike-rating-box .item-rating-list li:first-child {
-      width: 25px; }
 
-.review-count-1 li:nth-child(5) {
-  background-position: 0 -757px; }
-
-.review-count-2 li:nth-child(4),
-.review-count-2 li:nth-child(4) ~ li {
-  background-position: 0 -757px; }
-
-.review-count-3 li:nth-child(3),
-.review-count-3 li:nth-child(3) ~ li {
-  background-position: 0 -757px; }
-
-.review-count-4 li:nth-child(2),
-.review-count-4 li:nth-child(2) ~ li {
-  background-position: 0 -757px; }
-
-.review-count-5 li {
-  background-position: 0 -757px; }
+.item-rating-list.no-float li {
+  float: left;
+  width: 50px; }
+  .item-rating-list.no-float li:last-child {
+    width: 25px; }
 
 .full-review-box p {
   margin-bottom: 10px; }
@@ -220,11 +203,12 @@ h1,
   line-height: 25px; }
 
 .rating-size-sm li {
-  float: right; }
+  float: left; }
 
-.rating-size-sm .star-zero {
+.rating-size-sm .star-zero,
+.rating-size-sm .star-one {
   transform: scale(0.7);
-  margin-left: 1px; }
+  margin-right: 1px; }
 
 .star-zero,
 .star-one {
