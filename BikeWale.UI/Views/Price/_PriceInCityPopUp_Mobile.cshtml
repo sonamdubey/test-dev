@@ -1,0 +1,237 @@
+﻿@{
+    var isOperaBrowser = false;
+    var browserDetection = Request.Browser;
+    if (browserDetection != null)
+    {
+        string browserType = browserDetection.Type, browser = browserDetection.Browser, browserVersion = browserDetection.Version;
+        isOperaBrowser = !string.IsNullOrEmpty(browserType) && browserType.ToLower().Contains("mini");
+
+    }
+}
+<div class="bw-city-popup bwm-fullscreen-popup bw-popup-sm text-center hide" id="priceInCityWrapper">
+    <div class="city-area-banner"></div>
+    <div class="popup-inner-container">
+        <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
+        <div id="popupHeading" class="content-inner-block-20">
+            <p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
+            <div class="text-light-grey margin-bottom5">See on-road prices in your city!</div>
+            @{ if (isOperaBrowser)
+             {
+
+                <div class="form-control-box margin-bottom10 ">
+                    <select id="opCityList" class="form-control" tabindex="2" data-bind="options: ListCities, value: SelectedCityId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--'"></select>
+                    <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
+                </div>
+             }
+             else
+             {
+
+                <div id="pcitySelection" class="form-control text-left input-sm position-rel margin-bottom10">
+                    <div class="selected-city" data-bind="text: (SelectedCity() != null && SelectedCity().cityName != '') ? SelectedCity().cityName : 'Select City'"></div>
+                    <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
+                </div>
+                <span class="error-text" data-bind="text: errMsg"></span>
+
+                <div id="btnPriceinCityLoader" class="center-align margin-top20 text-center position-rel">
+                    <a id="btnPriceInCityPopup" class="btn btn-orange btn-full-width font18" data-bind="event :{ click : function (d,e) { goToPriceInCity(d,e); } }">Show on-road price</a>
+                </div>
+
+                <div id="priceInCityPopUpContent" class="bwm-city-area-popup-wrapper">
+                    <div class="bw-city-popup-box bwm-city-area-box city-list-container form-control-box text-left">
+                        <div class="user-input-box">
+                            <span class="back-arrow-box">
+                                <span class="bwmsprite back-long-arrow-left"></span>
+                            </span>
+                            <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupPriceInCityInput" autocomplete="off" data-bind="textInput: cityFilter,attr: { value: (SelectedCity() != undefined) ? SelectedCity().cityName : '' }">
+                        </div>
+                        <ul id="pcPopupCityList" data-bind="template: { name: 'bindPcCityList-template', foreach: visibleCities }"></ul>
+                        <script type="text/html" id="bindPcCityList-template">
+                            <li data-bind="text: cityName, attr: { 'cityId': cityId }, click: function (d, e) { $parent.selectCity(d, e); }"></li>
+                        </script>
+                        <div class="margin-top30 font24 text-center margin-top60 "></div>
+                    </div>
+                </div>
+             }
+            }
+        </div>
+    </div>
+    <div id="pcpopup-loader-container">
+        <div id="pcpopup-loader"></div>
+        <div id="pcpopup-loader-text">
+            <p data-bind="text : LoadingText()" class="font14"></p>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var vmPriceInCity, timeOutVariable, pcPopupContent, progressBar;
+    var CitiesKey, isAborted = false;
+    docReady(function () {
+
+        $('#priceInCityWrapper .close-btn').click(function (e) {
+            $('.changepriceincitypage').removeClass('ui-btn-active');
+            $("#priceInCityWrapper").hide();
+            $('#priceInCityWrapper').removeClass('loader-active').hide();
+
+        });
+        bwcache.removeAll(true);
+        CitiesKey = "PriceInCityPopUp_";
+        bwcache.setScope('PriceInCityPopUp');
+
+        $("#changeCity").click(function (e) {
+            var ele = $(this); e.stopPropagation();
+            var options = {
+                "modelId": ele.attr('data-modelid'),
+                "makemasking": ele.attr('data-makemasking'),
+                "modelmasking": ele.attr('data-modelmasking'),
+            };
+            $('#priceInCityWrapper').addClass('loader-active');
+            $('#priceInCityWrapper').show();
+            $("#priceInCityWrapper").show();
+            appendHash("priceInCity");
+            vmPriceInCity.setOptions(options);
+            vmPriceInCity.LoadCities();
+        });
+
+        $("#pcitySelection").on("click", function () {
+            $("#priceInCityWrapper .bw-city-popup-box").show();
+            $('#priceInCityPopUpContent').addClass("open").stop().animate({ 'left': '0px' }, 500);
+            $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
+        });
+        $(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
+            $('#priceInCityPopUpContent').removeClass("open").stop().animate({ 'left': '100%' }, 500);
+            $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
+        });
+
+        var pcPopup = function () {
+            var self = this;
+            self.MakeMasking = "";
+            self.ModelMasking = "";
+            self.SelectedModelId = ko.observable();
+            self.SelectedCity = ko.observable();
+            self.SelectedCityMasking = ko.observable();
+            self.SelectedCityId = ko.observable();
+            self.ListCities = ko.observableArray([]);
+            self.oBrowser = ko.observable(@Html.Raw(isOperaBrowser.ToString().ToLower()));
+            self.cityFilter = ko.observable("");
+            self.LoadingText = ko.observable("Loading cities...");
+            self.validate = ko.observable(false);
+            self.IsLoading = ko.observable(false);
+            self.errMsg = ko.observable();
+            self.setOptions = function (options, event) {
+                if (options != null) {
+                    self.IsLoading(true);
+                    self.SelectedModelId(options.modelId || 0);
+                    self.MakeMasking = options.makemasking || "";
+                    self.ModelMasking = options.modelmasking || "";
+                    self.pqCityApiUrl = "/api/pqcitylist/?modelId=" + self.SelectedModelId();
+                }
+            };
+            self.FilterData = function (data, filter) {
+                filterObj = data;
+                if (filter && filter.length > 0) {
+                    var pat = new RegExp(filter, "i");
+                    filterObj = data.filter(function (place) {
+                        if (pat.test(place.cityName)) return place;
+                    });
+                }
+                return filterObj;
+            };
+
+            self.visibleCities = ko.computed(function () {
+                return self.FilterData(self.ListCities(), self.cityFilter());
+            });
+
+            self.LoadCities = function () {
+                try {
+                    CitiesKey = "PriceInCityPopUp_" + self.SelectedModelId();
+                    self.IsLoading(false);
+                    $.ajax({
+                        type: "GET",
+                        url: self.pqCityApiUrl,
+                        dataType: 'json',
+                        beforeSend: function (xhr) {
+
+                            if (data = bwcache.get(CitiesKey)) {
+                                var cities = ko.toJS(data.cities);
+                                if (cities) {
+                                    self.ListCities(cities);
+                                    isAborted = true;
+                                    xhr.abort();
+                                }
+                                else {
+                                    self.ListCities([]);
+                                }
+                            }
+                        },
+                        success: function (response) {
+                            var cities = ko.toJS(response.cities);
+                            if (cities) {
+                                bwcache.set(CitiesKey, cities, 60);
+                                self.ListCities(cities);
+
+                            }
+                            else {
+                                self.ListCities([]);
+                            }
+                        },
+                        complete: function () {
+                            self.LoadingText("");
+                            $('#priceInCityWrapper').removeClass('loader-active');
+                        }
+                    });
+                }
+                catch (e) {
+                    console.warn(e);
+                }
+            };
+
+            self.redirectToPriceInCity = function () {
+                try {
+                    if (self.SelectedCity() != null && self.SelectedModelId() > 0) {
+                        window.location = "/m/" + self.MakeMasking + "-bikes/" + self.ModelMasking + "/price-in-" + self.SelectedCityMasking() + "/";
+                    }
+                }
+                catch (e) {
+                    console.warn(e);
+                }
+            };
+            self.goToPriceInCity = function (data, event) {
+                if (self.SelectedCityId() != undefined && self.SelectedCityId() > 0) {
+                    $('#priceInCityWrapper').addClass('loader-active');
+                    self.LoadingText("Fetching on-road price for " + self.SelectedCity().cityName);
+                    self.redirectToPriceInCity();
+                }
+                else
+                    self.errMsg("Please select city.");
+            };
+
+            self.selectCity = function (data, event) {
+                try {
+                    self.errMsg("");
+                    if (!self.oBrowser()) {
+                        $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
+                        self.SelectedCity(data);
+                        self.SelectedCityId(data.cityId);
+                    }
+                    else {
+                        self.SelectedCity(self.findById(self.ListCities(), "cityId", self.SelectedCityId()));
+                        if (!event.originalEvent) return;
+                    }
+                    self.SelectedCityMasking(self.SelectedCity().maskingName);
+                }
+                catch (e) {
+                    console.warn(e);
+                }
+            };
+            self.findById = function (items, attr, item) {
+                return ko.utils.arrayFirst(items, function (child) {
+                    return (child[attr] == item);
+                });
+            };
+        };
+        vmPriceInCity = new pcPopup;
+        ko.applyBindings(vmPriceInCity, $("#priceInCityWrapper")[0]);
+    });
+
+</script>
+

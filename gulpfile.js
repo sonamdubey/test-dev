@@ -51,8 +51,8 @@ gulp.task('minify-bwm-js', function () {
         .pipe(gulp.dest(minifiedAssetsFolder + 'm/' + paths.JS));
 });
 
-var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/'],
-    mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/'];
+var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/', 'upcoming-bikes/'],
+    mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/', 'upcoming-bikes/'];
 
 // convert desktop sass to css
 gulp.task('bw-sass-to-css', function () {
@@ -174,6 +174,11 @@ var mvcPageArray = [
         folderName: 'Views/Shared/',
         fileName: '_Layout_Mobile.cshtml',
         stylesheet: 'm/css/bwm-common-atf.css'
+    },
+    {
+        folderName: 'Views/PriceInCity/',
+        fileName: 'Index_Mobile.cshtml',
+        stylesheet: 'm/css/new/bwm-modelprice-in-city.css'
     }
 ];
 */
@@ -500,6 +505,26 @@ var mvcPageViews = [
         folderName: 'Views/Videos/',
         fileName: 'Models_Mobile.cshtml',
         stylesheet: 'm/css/videos/videosByModel.css'
+    },
+    {
+        folderName: 'Views/Upcoming/',
+        fileName: 'Index.cshtml',
+        stylesheet: 'css/upcoming-bikes/upcoming-bikes.css'
+    },
+    {
+        folderName: 'Views/Upcoming/',
+        fileName: 'Index_Mobile.cshtml',
+        stylesheet: 'm/css/upcoming-bikes/upcoming-bikes.css'
+    },
+    {
+        folderName: 'Views/Upcoming/',
+        fileName: 'BikesByMake.cshtml',
+        stylesheet: 'css/upcoming-bikes/upcoming-bikes.css'
+    },
+    {
+        folderName: 'Views/Upcoming/',
+        fileName: 'BikesByMake_Mobile.cshtml',
+        stylesheet: 'm/css/upcoming-bikes/upcoming-bikes.css'
     }
 
 ];

@@ -895,8 +895,8 @@ namespace Bikewale.Cache.BikeData
 
             UpcomingBikesListInputEntity inputParams = new UpcomingBikesListInputEntity()
             {
-                StartIndex = startIndex,
-                EndIndex = endIndex,
+                PageNo = startIndex,
+                PageSize = endIndex,
                 MakeId = makeId.HasValue ? makeId.Value : 0,
                 ModelId = modelId.HasValue ? modelId.Value : 0
             };

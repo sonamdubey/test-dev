@@ -43,7 +43,7 @@
                         @if (Model.ShowPriceInCityCTA)
                         {
                             <div class="swiper-btn-block">
-                                <a href="@String.Format("/m{0}", UrlFormatter.PriceInCityUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName,bike.CityMaskingName))" class="btn btn-card btn-full-width btn-white text-truncate getquotation font12" rel="nofollow" title="On-road price in @bike.CityName">On-road price in @bike.CityName</a>
+                                <a href="@String.Format("/m{0}", UrlFormatter.PriceInCityUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName,bike.CityMaskingName))" class="btn btn-card btn-full-width btn-white text-truncate getquotation font12" rel="nofollow" title="@String.Format("{0} {1} On-road price in {2}",make,modelName,bike.CityName)">On-road price in @bike.CityName</a>
                             </div>
                         }
                         @if (Model.Make != null && Model.Model != null)

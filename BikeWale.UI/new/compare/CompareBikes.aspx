@@ -903,8 +903,8 @@
 <div id="back-to-top" class="back-to-top"><a><span></span></a></div>
 
 <script type="text/javascript">
-    versions = '<%= hashModels%>';
-    var currentversions = '<%= hashVersions%>';
+    var versions = '<%= hashModels %>';
+    var currentversions = '<%= hashVersions %>';
     $(document).ready(function () {
         var speed = 300;
         //input parameter : id of element, scroll up speed

@@ -1,0 +1,26 @@
+﻿@model Bikewale.Models.PriceInCityPageVM
+@{
+    var gaBikeName = String.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName,Model.CityEntity.CityName);
+}
+<ul class="overall-specs-tabs-wrapper">    
+    @if (Model.FirstVersion != null)
+    {
+    <li data-tabs="#orpContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_On-road price", gaBikeName)">On-road price</li>
+    }
+    @if (Model.HasDealers || Model.HasServiceCenters)
+    {
+        <li data-tabs="#dealerContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Dealers", gaBikeName)">Dealers</li>
+    }
+    @if (Model.IsNew)
+    {
+        <li data-tabs="#emiContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_EMI calculator", gaBikeName)">EMI calculator</li>
+    }
+    @if (Model.IsNew && (Model.BikeVersionPrices != null || Model.HasNearestPriceCities))
+    {
+        <li data-tabs="#versionContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Price list", gaBikeName)">Price list</li>
+    }
+    @if (Model.HasAlternateBikes)
+    {
+        <li data-tabs="#similarContent" class="bw-ga" c="Price_in_City_Page" a="Floating_Navigation_Clicked" l="@String.Format("{0}_Similar bikes", gaBikeName)">Similar bikes</li>
+    }
+</ul>

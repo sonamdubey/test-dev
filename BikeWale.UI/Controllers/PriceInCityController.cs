@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
@@ -26,7 +27,10 @@ namespace Bikewale.Controllers
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
-
+        private readonly IDealerPriceQuoteDetail _objDealerDetails = null;
+        private readonly IDealerPriceQuote _objDealerPQ = null;
+        private readonly ICityCacheRepository _objCityCache = null;
+        private readonly IAreaCacheRepository _objAreaCache = null;
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
         /// Description :   Constructor to intialize the member variables
@@ -41,7 +45,7 @@ namespace Bikewale.Controllers
         /// <param name="bikeInfo"></param>
         /// <param name="cityCache"></param>
         /// <param name="modelCache"></param>
-        public PriceInCityController(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenterCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IBikeModelsCacheRepository<int> modelCache)
+        public PriceInCityController(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenterCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -53,6 +57,10 @@ namespace Bikewale.Controllers
             _bikeInfo = bikeInfo;
             _cityCache = cityCache;
             _modelCache = modelCache;
+            _objDealerDetails = objDealerDetails;
+            _objDealerPQ = objDealerPQ;
+            _objCityCache = objCityCache;
+            _objAreaCache = objAreaCache;
         }
 
         /// <summary>
@@ -67,12 +75,14 @@ namespace Bikewale.Controllers
         public ActionResult Index(string modelName, string cityName)
         {
             PriceInCityPageVM objVM = new PriceInCityPageVM();
-            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _cityCache, _modelCache, PQSourceEnum.Desktop_PriceInCity_Alternative, modelName, cityName);
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _cityCache, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, PQSourceEnum.Desktop_PriceInCity_Alternative, modelName, cityName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
                 model.BikeInfoTabCount = 4;
                 model.NearestCityCount = 8;
                 model.TopCount = 3;
+                model.PQSource = PQSourceEnum.Desktop_PriceInCity_Dealer_Detail_Click;
+                model.Platform = DTO.PriceQuote.PQSources.Desktop;
                 objVM = model.GetData();
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {
@@ -109,12 +119,14 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile(string modelName, string cityName)
         {
             PriceInCityPageVM objVM = new PriceInCityPageVM();
-            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _cityCache, _modelCache, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName);
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _cityCache, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
                 model.BikeInfoTabCount = 3;
-                model.NearestCityCount = 4;
+                model.NearestCityCount = 8;
                 model.TopCount = 9;
+                model.PQSource = PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click;
+                model.Platform = DTO.PriceQuote.PQSources.Mobile;
                 objVM = model.GetData();
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {
