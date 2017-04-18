@@ -186,8 +186,8 @@ namespace Bikewale.Models
                     CityId = currentCityArea.CityId;
                 UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
                 objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
-                objUpcomingBikes.Filters.StartIndex = 1;
-                objUpcomingBikes.Filters.EndIndex = topCount;
+                objUpcomingBikes.Filters.PageNo = 1;
+                objUpcomingBikes.Filters.PageSize = topCount;
                 objUpcomingBikes.SortBy = EnumUpcomingBikesFilter.Default;
 
                 objIndex.UpcomingBikes = objUpcomingBikes.GetData();

@@ -6,6 +6,7 @@ namespace Bikewale.Entities.BikeData
     /// <summary>
     /// Modified By :- Subodh Jain 09 March 2017
     /// Summary :- added BodyStyleId
+    /// Modified by Sajal Gupta added ExpectedLaunchedDate
     /// </summary>
     [Serializable, DataContract]
     public class UpcomingBikeEntity
@@ -14,6 +15,8 @@ namespace Bikewale.Entities.BikeData
         public uint ExpectedLaunchId { get; set; }
         [DataMember]
         public string ExpectedLaunchDate { get; set; }
+        [DataMember]
+        public DateTime ExpectedLaunchedDate { get; set; }
         [DataMember]
         public ulong EstimatedPriceMin { get; set; }
         [DataMember]
@@ -41,5 +44,8 @@ namespace Bikewale.Entities.BikeData
         public string BikeName { get; set; }
         [DataMember]
         public uint BodyStyleId { get; set; }
+
+        [DataMember]
+        public bool IsLaunchingThisMonth { get { return (ExpectedLaunchedDate.Month == DateTime.Now.Month && ExpectedLaunchedDate.Year == DateTime.Now.Year); } }
     }
 }

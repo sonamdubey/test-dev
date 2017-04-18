@@ -5,7 +5,7 @@
 </script>
 
 <!--bw popup code starts here-->
-<div id="priceQuoteWidget" class="hide">     
+<div id="priceQuoteWidget" class="hide popup-loader-animate">     
     <div class="bw-popup bw-popup-sm" data-bind="css: IsLoading() ? 'location-loader-active' : ''">
         <!-- ko if : IsLoading() -->
         <div class="content-inner-block-20">

@@ -15,11 +15,29 @@ namespace Bikewale.Models
         private ushort _recordCount;
         public uint BodyStyleId { get; set; }
         public uint MakeId { get; set; }
-        public NewLaunchedWidgetModel(ushort recordCount, INewBikeLaunchesBL newLaunches)
+        private readonly uint _cityId;
+
+        public NewLaunchedWidgetModel(ushort recordCount,INewBikeLaunchesBL newLaunches)
         {
             _newLaunches = newLaunches;
             _recordCount = recordCount;
         }
+
+        public NewLaunchedWidgetModel(ushort recordCount, uint cityId, INewBikeLaunchesBL newLaunches)
+        {
+            _newLaunches = newLaunches;
+            _recordCount = recordCount;
+            _cityId = cityId;
+        }
+
+        public NewLaunchedWidgetModel(uint makeId, uint cityId, ushort recordCount, INewBikeLaunchesBL newLaunches)
+        {
+            _newLaunches = newLaunches;
+            _recordCount = recordCount;
+            MakeId = makeId;
+            _cityId = cityId;
+        }
+
         /// <summary>
         /// Gets the data.
         /// </summary>
@@ -34,7 +52,8 @@ namespace Bikewale.Models
                 PageNo = 1,
                 BodyStyle = BodyStyleId,
                 PageSize = _recordCount,
-                Make = MakeId
+                Make = MakeId,
+                CityId = _cityId
             };
             var bikeBase = _newLaunches.GetBikes(objFilters);
             objData.Bikes = bikeBase.Bikes;

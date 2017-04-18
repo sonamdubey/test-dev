@@ -16,20 +16,14 @@
                                 @if (Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
                                 {
                                     <div id="expectedPriceContainer" class="padding-top15">
-                                        <div itemscope itemtype="http://schema.org/Offer">
+                                        <div itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
+                                            <meta itemprop="priceCurrency" content="INR">
+                                            <meta itemprop="lowPrice" content="@Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin">
+                                            <meta itemprop="highPrice" content="@Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax">
                                             <p class="font14 default-showroom-text text-light-grey">Expected Price</p>
                                             <div class="modelExpectedPrice margin-bottom15">
-                                                <span class="bwsprite inr-md-lg margin-right5"></span>
-                                                <span id="bike-price" class="font22 text-bold">
-                                                    <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
-                                                        <span itemprop="price minPrice">
-                                                            @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin))
-                                                        </span>
-                                                        <span> - </span>
-                                                        <span itemprop="priceCurrency" content="INR"><span class="bwsprite inr-md-lg"></span></span>
-                                                        <span itemprop="maxPrice">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax))</span>
-                                                    </span>
-                                                </span>
+                                                <span class="bwsprite inr-md-lg"></span>
+                                                <span id="bike-price" class="font22 text-bold">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin)) - <span class="bwsprite inr-md-lg margin-right5"></span>@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax))</span>
                                             </div>
                                         </div>
                                     </div>

@@ -414,8 +414,8 @@ a.action-btn:hover{text-decoration:none;}
 .bikeTitle {
     margin-bottom: 10px;
     color: #2a2a2a;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 600;
     text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -853,17 +853,19 @@ input[type="number"] {
     text-align: center;
 }
 
+
+
 #priceQuoteWidget {
     display: none;
 }
 
-#priceQuoteWidget .bw-popup {
+.popup-loader-animate .bw-popup {
     left: 5%;
     right: 5%;
     margin: 0 auto;
 }
 
-#priceQuoteWidget .bw-popup-sm {
+.popup-loader-animate .bw-popup-sm {
     height: 400px;
     min-height: 400px;
     top: 0% !important;
@@ -874,7 +876,7 @@ input[type="number"] {
     transition: all 0.5s ease;
 }
 
-#priceQuoteWidget .location-loader-active.bw-popup-sm {
+.popup-loader-animate .location-loader-active.bw-popup-sm {
     width: 220px;
     height: 120px;
     min-height: 120px;
@@ -885,11 +887,11 @@ input[type="number"] {
     text-align: center;
 }
 
-#priceQuoteWidget .popup-inner-container {
+.popup-loader-animate .popup-inner-container {
     opacity: 0;
 }
 
-#priceQuoteWidget.activate-popup-content .popup-inner-container {
+.popup-loader-animate.activate-popup-content .popup-inner-container {
     opacity: 1;
     transition: opacity 0.2s;
     transition-delay: 0.2s;
@@ -939,6 +941,7 @@ input[type="number"] {
 .loader-front {
     z-index: 2;
 }
+
 
 /* marker icons */
 .red-marker, .black-marker {
@@ -1021,7 +1024,8 @@ input[type="number"] {
 }
 
 /* card */
-.card .details-column.text-truncate {
+.card .details-column.text-truncate,
+.details-column {
     width: 92%
 }
 
