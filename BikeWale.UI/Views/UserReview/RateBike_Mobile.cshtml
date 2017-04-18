@@ -58,15 +58,15 @@
                     <p class="text-slate-grey">We wish to credit this rating to you. We will never spam your inbox.</p>
                 </div>
 
-                <div class="input-box form-control-box margin-bottom15" data-bind="css: personalDetails().userName().length > 0 ? 'not-empty' : ''">
-                    <input type="text" id="txtUserName" name="userName" data-bind="textInput: personalDetails().userName" />
+                <div class="input-box form-control-box margin-bottom15" data-bind="css: userName().length > 0 ? 'not-empty' : ''">
+                    <input type="text" id="txtUserName" name="userName" data-bind="textInput: personalDetails().userName" value="@(string.IsNullOrEmpty(Model.CustomerName) ? "" : Model.CustomerName)" />
                     <label for="getUserName">Name<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text"></span>
                 </div>
 
-                <div class="input-box form-control-box margin-bottom15" data-bind="css: personalDetails().emailId().length > 0 ? 'not-empty' : ''">
-                    <input type="text" id="txtEmailID" name="emailId" data-bind="textInput: personalDetails().emailId" />
+                <div class="input-box form-control-box margin-bottom15" data-bind="css: emailId().length > 0 ? 'not-empty' : ''">
+                    <input type="text" id="txtEmailID" name="emailId" data-bind="textInput: personalDetails().emailId" value="@(string.IsNullOrEmpty(Model.CustomerEmail) ? "" : Model.CustomerEmail)" />
                     <label for="getEmailID">Email ID<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text"></span>
