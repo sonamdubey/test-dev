@@ -9,5 +9,8 @@ namespace Bikewale.Models
         public string RatingQuestion { get; set; }
         public string ErrorMessage { get; set; }
         public uint PriceRangeId { get; set; }
+        public string ReviewsOverAllrating { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerEmail { get; set; }
     }
 }
