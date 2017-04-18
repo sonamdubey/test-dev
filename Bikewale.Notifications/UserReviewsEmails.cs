@@ -11,9 +11,9 @@ namespace Bikewale.Notifications
         /// <summary>
         /// Send email on submission of rating
         /// </summary>
-        public static void SendRatingSubmissionEmail(string userName, string userEmail, string reviewLink, string makeName, string modelName)
+        public static void SendRatingSubmissionEmail(string userName, string userEmail, string makeName, string modelName)
         {
-            ComposeEmailBase objEmail = new RatingSubmissionEmail(userName, reviewLink, makeName, modelName);
+            ComposeEmailBase objEmail = new RatingSubmissionEmail(userName, makeName, modelName);
             objEmail.Send(userEmail, string.Format("Thank you for rating {0} {1}", makeName, modelName));
         }
 
