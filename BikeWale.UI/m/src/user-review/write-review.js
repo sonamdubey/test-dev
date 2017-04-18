@@ -141,6 +141,9 @@ docReady(function () {
                     answer.focusForm(ratingBox);
                     return false;
                 }
+                else {
+                    self.validateRatingCountFlag(false);
+                }
 
                 return !self.validateRatingCountFlag();
             },
