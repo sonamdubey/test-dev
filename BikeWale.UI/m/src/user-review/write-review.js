@@ -57,8 +57,6 @@ docReady(function () {
                 $(this).prop("checked", true);
             });
             if (getCookie("_PQUser") != null) {
-
-
                 var array_cookie = getCookie("_PQUser").split("&");
 
                 if (array_cookie[0] != null && userNameField.val() == "") {
@@ -102,6 +100,8 @@ docReady(function () {
                 value_overallrating = $("#bike-rating-box input[type='radio']:checked").attr("value");
                 $("#rate-bike-questions input[type='radio']:checked").each(function (i) {
                     var r = $(this);
+                    var value = r.closest('.question-field').attr('data-required');
+                    if(value)
                     array_rating[i] = (r.attr("questionId") + ':' + r.attr("value"));
 
                 });
