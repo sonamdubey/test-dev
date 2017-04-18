@@ -18,11 +18,12 @@ docReady(function () {
         $(window).on('hashchange', function (e) {
             oldUrl = e.originalEvent.oldURL;
             if (oldUrl && (oldUrl.indexOf('#') > 0)) {
-                window.location.href = "https://bikewale.com";
+                if ($("#previousPageUrl") && $("#previousPageUrl").length)
+                    window.location.href = $('#previousPageUrl').text();
             }
         });
     }
-
+   
     ratingBox = $('#bike-rating-box');
 
     if ($("#overallratingQuestion") && $("#overallratingQuestion").length)
