@@ -212,11 +212,20 @@ namespace Bikewale.BAL.UserReviews
                     foreach (var question in objSummary.Questions)
                     {
                         var objQuestion = objUserReviewData.Questions.FirstOrDefault(q => q.Id == question.Id);
-                        objQuestion.SelectedRatingId = question.SelectedRatingId;
-                        objQuestions.Add(objQuestion);
+
+                        if (objQuestion != null)
+                        {
+                            objQuestion.SelectedRatingId = question.SelectedRatingId;
+                            if (objQuestion.SelectedRatingId == 0)
+                            {
+                                objQuestion.Visibility = false;
+                                objQuestion.IsRequired = false;
+                            }
+                            objQuestions.Add(objQuestion);
+                        }
                     }
                     objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
-                    objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
+
                     objSummary.Questions = objQuestions;
 
                     objSummary.OverallRating = objUserReviewData.OverallRating.FirstOrDefault(x => x.Id == objSummary.OverallRatingId);
