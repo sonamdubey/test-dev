@@ -34,6 +34,8 @@ namespace Bikewale.Entities.UserReviews
         [JsonProperty("order"), DataMember, JsonIgnore]
         public ushort Order { get; set; }
 
+        private bool _isRequired = true;
+
         [JsonProperty("isRequired"), DataMember]
         public bool IsRequired { get { return _isRequired; } set { _isRequired = value; } }
 

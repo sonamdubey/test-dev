@@ -23,8 +23,6 @@ docReady(function () {
         });
     }
 
-   
-
     ratingBox = $('#bike-rating-box');
 
     if ($("#overallratingQuestion") && $("#overallratingQuestion").length)
@@ -32,8 +30,6 @@ docReady(function () {
     if ($("#rating-question") && $("#rating-question").length)
         ratingQuestion = JSON.parse(Base64.decode($('#rating-question').val()));
 
-
-    if ($("#review-question-list") && $("#review-question-list").length > 1)
         reviewQuestion = JSON.parse($('#review-question-list').text());
 
     if ($('#reviewedoverallrating') && $('#reviewedoverallrating').length)
@@ -156,7 +152,7 @@ docReady(function () {
 
                 for (var i = 0; i < questionLength; i++) {
                     var item = $(questionFields[i]),
-                        itemRequirement = item.attr('data-required');
+                        itemRequirement = Boolean(item.attr('data-required'));
 
                     if (itemRequirement) {
                         var checkedRadioButton = item.find('.answer-radio-list input[type=radio]:checked');
@@ -280,9 +276,11 @@ docReady(function () {
 
             if (buttonValue == 1) {
                 subQuestionField.hide();
+                subQuestionField.removeAttr('data-required');
             }
             else {
                 subQuestionField.find('.error-text').hide();
+                subQuestionField.attr('data-required', true);
                 subQuestionField.show();
             }
         }

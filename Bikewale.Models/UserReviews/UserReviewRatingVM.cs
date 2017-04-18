@@ -1,4 +1,3 @@
-﻿
 using Bikewale.Entities.BikeData;
 namespace Bikewale.Models
 {
