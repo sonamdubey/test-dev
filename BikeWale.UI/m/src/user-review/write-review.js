@@ -109,11 +109,18 @@ docReady(function () {
                 value_overallrating = $("#bike-rating-box input[type='radio']:checked").attr("value");
                 $("#rate-bike-questions input[type='radio']:checked").each(function (i) {
                     var r = $(this);
+                    var value =r.closest
                     var value = r.closest('.question-field').attr('data-required');
-                    if(value)
-                    array_rating[i] = (r.attr("questionId") + ':' + r.attr("value"));
-
+                    if (value) {
+                        array_rating[i] = (r.attr("questionId") + ':' + r.attr("value"));
+                    }
+                    if (r.attr("questionId") == "2" && r.attr("value") == "1")
+                    {
+                        i++;
+                        array_rating[i]="3:0"
+                    }
                 });
+                
                 $("#finaloverallrating").val(value_overallrating);
                 $("#rating-quesition-ans").val(array_rating);
 
