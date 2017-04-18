@@ -45,7 +45,8 @@ namespace Bikewale.Models
         }
         private void ProcessQuery(string Querystring)
         {
-            NameValueCollection queryCollection = HttpUtility.ParseQueryString(Querystring);
+            string _decodedString = Utils.Utils.DecryptTripleDES(Querystring);
+            NameValueCollection queryCollection = HttpUtility.ParseQueryString(_decodedString);
             uint.TryParse(queryCollection["reviewid"], out _reviewId);
             ulong.TryParse(queryCollection["customerid"], out _customerId);
 
