@@ -71,6 +71,32 @@
     left: 10px;
 }
 
+#model-photos-swiper .swiper-button-prev,
+#model-photos-swiper .swiper-button-next {
+    width: 40px;
+    height: 60px;
+}
+
+.next-arrow-btn,
+.prev-arrow-btn {
+    position: absolute;
+    top: 13%;
+    width: 26px;
+    height: 43px;
+}
+
+.next-arrow-btn {
+    background-position: -177px -207px;
+    right: 7px;
+    left: auto;
+}
+
+.prev-arrow-btn {
+    background-position: -153px -207px;
+    left: 7px;
+    right: auto;
+}
+
 /* model media list */
 .model-media-list li {
     display: inline-block;
