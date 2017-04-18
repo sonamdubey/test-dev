@@ -248,12 +248,6 @@
     padding: 5px;
     font-size: 14px;
 }
-
-#orpContent [id^="div-gpt-ad-"] {
-    position: relative;
-    top: -30px
-}
-
 /* about */
 .aboutContent h2 {
     font-size: 18px;
