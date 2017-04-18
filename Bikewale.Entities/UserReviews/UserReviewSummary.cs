@@ -8,6 +8,8 @@ namespace Bikewale.Entities.UserReviews
         public UserReviewOverallRating OverallRating { get; set; }
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }
+        public string OriginalImgPath { get; set; }
+        public string HostUrl { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }
         public string Tips { get; set; }
