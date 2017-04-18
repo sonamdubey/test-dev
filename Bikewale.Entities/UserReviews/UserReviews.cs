@@ -7,6 +7,9 @@ namespace Bikewale.Entities.UserReviews
     [Serializable, DataContract]
     public class UserReviewQuestion
     {
+        private bool _isRequired = true;
+        private bool _isVisbile = true;
+
         [JsonProperty("qId")]
         public uint Id { get; set; }
 
@@ -32,10 +35,7 @@ namespace Bikewale.Entities.UserReviews
         public ushort Order { get; set; }
 
         [JsonProperty("isRequired"), DataMember]
-        public bool IsRequired { get { return true; } }
-
-
-        private bool _isVisbile = true;
+        public bool IsRequired { get { return _isRequired; } set { _isRequired = value; } }
 
         [JsonProperty("visibility"), DataMember]
         public bool Visibility { get { return _isVisbile; } set { _isVisbile = value; } }
