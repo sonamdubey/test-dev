@@ -121,71 +121,74 @@
             <!-- model dealers start -->
             @if (Model.HasDealers || Model.HasServiceCenters)
             { 
-            <div id="dealerContent" class="bw-model-tabs-data card-bottom-margin">
+            <div id="dealerContent" class="bw-model-tabs-data card-bottom-margin">                
+                @if (Model.HasDealers) { 
                 <div class="content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
-                @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew)
-                { 
-                <div class="padding-right20 padding-bottom20 padding-left20">
-                    <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Showrooms in @Model.CityEntity.CityName</h2>
-                    <div class="font14 text-slate-grey">
-                        <p class="margin-bottom10">Please provide your location to get information on:</p>
-                        <ul class="list-type-disc margin-bottom15">
-                            <li>Nearest dealer details in @Model.CityEntity.CityName</li>
-                            <li>Exclusive offers</li>
-                            <li>Complete buying assistance</li>
-                        </ul>
-                        <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea)" data-preselcity="@Model.CityEntity.CityId" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="Select_Area_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.BikeVersionPrices.FirstOrDefault().VersionName)" class="btn btn-orange btn-auto-32 getquotation changeCity" rel="nofollow">Select your location</a>
-                        </div>
-                </div>
-                }
-                else
-                {
-                    if (Model.HasCampaignDealer && Model.IsNew) { 
-                    <div class="padding-right20 padding-bottom20 padding-left20">
-                        <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Dealer near you</h2>
-                        <div class="margin-bottom10">
-                            <span class="bwmsprite dealer-grey"></span>
-                            <div class="grid-11-inline padding-left10">
-                                <h3>@String.Format("{0}, {1}", Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization, Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName)</h3>
-                                <p class="font12 text-xx-light">@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName</p>
+                    @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew)
+                    {
+                        <div class="padding-right20 padding-bottom20 padding-left20">
+                            <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Showrooms in @Model.CityEntity.CityName</h2>
+                            <div class="font14 text-slate-grey">
+                                <p class="margin-bottom10">Please provide your location to get information on:</p>
+                                <ul class="list-type-disc margin-bottom15">
+                                    <li>Nearest dealer details in @Model.CityEntity.CityName</li>
+                                    <li>Exclusive offers</li>
+                                    <li>Complete buying assistance</li>
+                                </ul>
+                                <a href="javascript:void(0)" data-pqsourceid="@((int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea)" data-preselcity="@Model.CityEntity.CityId" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="Select_Area_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.BikeVersionPrices.FirstOrDefault().VersionName)" class="btn btn-orange btn-auto-32 getquotation changeCity" rel="nofollow">Select your location</a>
                             </div>
                         </div>
-                        <div class="font14 text-slate-grey">
-                            <p class="margin-bottom10">Get in touch with @Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization for:</p>
-                            <ul class="list-type-disc margin-bottom15">
-                                <li>Best offers</li>
-                                <li>EMI options</li>
-                                <li>Complete buying assistance</li>
-                            </ul>
-                            <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click)" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="View_dealer_details_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.FirstVersion.VersionName)" class="btn btn-orange btn-180-32" rel="nofollow">View dealer details</a>
-                        </div>
-                    </div>
                     }
-                }
-                @if (Model.HasDealers)
-                {
-                    if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew)
-                    { 
-                    <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+                    else
+                    {
+                        if (Model.HasCampaignDealer && Model.IsNew)
+                        {
+                            <div class="padding-right20 padding-bottom20 padding-left20">
+                                <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Dealer near you</h2>
+                                <div class="margin-bottom10">
+                                    <span class="bwmsprite dealer-grey"></span>
+                                    <div class="grid-11-inline padding-left10">
+                                        <h3>@String.Format("{0}, {1}", Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization, Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName)</h3>
+                                        <p class="font12 text-xx-light">@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName</p>
+                                    </div>
+                                </div>
+                                <div class="font14 text-slate-grey">
+                                    <p class="margin-bottom10">Get in touch with @Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization for:</p>
+                                    <ul class="list-type-disc margin-bottom15">
+                                        <li>Best offers</li>
+                                        <li>EMI options</li>
+                                        <li>Complete buying assistance</li>
+                                    </ul>
+                                    <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click)" data-modelid="@Model.BikeModel.ModelId" c="Price_in_City_Page" a="View_dealer_details_Clicked" l="@String.Format(" {0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.FirstVersion.VersionName)" class="btn btn-orange btn-180-32" rel="nofollow">View dealer details</a>
+                                </div>
+                            </div>
+                        }
                     }
-                <div class="carousel-heading-content">
-                    <div class="swiper-heading-left-grid inline-block">                        
-                        @if (Model.IsNew && (Model.HasCampaignDealer))
-                        { 
-                        <h3>@Model.Dealers.TotalCount Authorised dealer@(Model.Dealers.TotalCount > 1 ? "s" : "")</h3>
+                    @if (Model.HasDealers)
+                    {
+                        if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew)
+                        {
+                            <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+                        }
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                @if (Model.IsNew && (Model.HasCampaignDealer))
+                        {
+                                    <h3>@Model.Dealers.TotalCount Authorised dealer@(Model.Dealers.TotalCount > 1 ? "s" : "")</h3>
                         }
                         else
                         {
-                            <h2>@Model.DealersWidget_H2</h2>
+                                    <h2>@Model.DealersWidget_H2</h2>
                         }
-                    </div>
-                    <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@String.Format("/m{0}", Model.DealersWidget_ViewAll_Href)" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
-                    </div>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="@String.Format("/m{0}", Model.DealersWidget_ViewAll_Href)" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
+                            </div>
+                        </div>
+                        @Html.Partial("~/views/dealershowroom/_DealerCard_Mobile.cshtml", Model.Dealers)
+                    }
                 </div>
-                    @Html.Partial("~/views/dealershowroom/_DealerCard_Mobile.cshtml", Model.Dealers)
                 }
-                </div>
                 @if (Model.HasServiceCenters) {
                 <!-- model service centers start -->
                 <div class="content-box-shadow card-bottom-margin content-inner-block-20">
@@ -431,8 +434,9 @@
     </div>
     <div class="hide" id="dvPgVar" data-modelid="@Model.BikeModel.ModelId"></div>
 </section>
-    
-<div class="hide" id="dvVersionPrice" data-isdiscontinued="@Model.IsDiscontinued">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices))</div>
-<div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
-<div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div> 
+
+    <div class="hide" id="dvVersionPrice" data-isdiscontinued="@Model.IsDiscontinued">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices))</div>
+    { Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.CityEntity.CityId, cityName = Model.CityEntity.CityName }); }
+    <div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
+    <div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div>
 }
