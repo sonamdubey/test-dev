@@ -102,24 +102,5 @@
     </section>
 </form>
 <script type="text/javascript">
-    //window.onbeforeunload = function (event) {
-    //    debugger;
-    //    alert(window.performance.navigation.type);
-    //    //console.log(e.target);
-    //    //if (!e.target.activeElemet) {
-    //    //    if (window.location.hash != "writeReviewPage") {
-    //    //        window.location = "http://www.bikewale.com";
-    //    //    }
-    //    //    else {
-    //    //        console.log("35413510");
-    //    //    }
-    //    //}
-    //    //return true;        
-    //};
-    window.addEventListener("beforeunload", function (event) {
-        //alert(window.performance.navigation.type);
-        var answer = confirm("Do you Want to leave ??");
-        event.returnValue = answer;
-        return answer;
-    });
+    var page = "writeReview";
 </script>
