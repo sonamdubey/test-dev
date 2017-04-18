@@ -10,9 +10,9 @@ var bikeRating = {
 };
 
 var ratingQuestion = [];
-
+var key = "writeReviews";
 docReady(function () {
-
+    bwcache.setScope('ReviewPage');
     if (page == "writeReview") {
         setTimeout(function () { appendHash("writeReview"); }, 3000);
         $(window).on('hashchange', function (e) {
@@ -30,6 +30,7 @@ docReady(function () {
     if ($("#rating-question") && $("#rating-question").length)
         ratingQuestion = JSON.parse(Base64.decode($('#rating-question').val()));
 
+    if ($('#review-question-list').text())
         reviewQuestion = JSON.parse($('#review-question-list').text());
 
     if ($('#reviewedoverallrating') && $('#reviewedoverallrating').length)
@@ -312,7 +313,7 @@ docReady(function () {
         self.reviewCharLimit = ko.observable(300);
         self.reviewTitle = ko.observable('');
         self.detailedReview = ko.observable('');
-
+        self.reviewTips = ko.observable('');
         self.detailedReviewFlag = ko.observable(false);
         self.detailedReviewError = ko.observable('');
         self.focusFormActive = ko.observable(false);
@@ -384,9 +385,40 @@ docReady(function () {
                 return isValid;
             }
         };
+
+        self.SaveToBwCache = function () {
+            var savearray = new Array;
+                $(".list-item input[type='radio']:checked").each(function (i) {
+                var r = $(this);
+                savearray[i] = (r.attr("questiontId") + ':' + r.val());
+            });
+            var pageObj = {
+                reviewTitle: reviewTitleField.val(),
+                detailedReview: self.detailedReview(),
+                reviewTips: self.reviewTips(),
+                ratingArray: savearray
+            };
+            bwcache.set('reviewformdata', pageObj, 30);
+        };
+
+        self.GetFromBwCache = function () {
+            var obj = bwcache.get('reviewformdata');
+            if (obj != null) {
+                self.detailedReview(obj.detailedReview);
+                reviewTitleField.val(obj.reviewTitle);
+                reviewTitleField.parent('div').addClass('not-empty');
+                self.reviewTips(obj.reviewTips);
+                var i;
+                for (i = 0; i < obj.ratingArray.length; ++i) {
+                    var quest = obj.ratingArray[i].split(':')[0];
+                    var ans = obj.ratingArray[i].split(':')[1];
+                    $(".answer-star-list :input[questiontid='" +quest + "']").val(ans);
+                }
+            }
+        }
     };
 
-    var vmWriteReview = new writeReview(),
+    vmWriteReview = new writeReview(),
         writeReviewForm = document.getElementById('write-review-form');
 
     if (writeReviewForm) {
@@ -413,11 +445,12 @@ docReady(function () {
         validate.onBlur($(this));
     });
     
-    
-
-    //window.onhashchange = function () {
-    //    console.log('asd');
-    //};
+    if (performance.navigation.type == 1) {
+        vmWriteReview.GetFromBwCache();
+    }
+    else {
+        bwcache.removeAll(true);
+    }
 });
 
 var answer = {

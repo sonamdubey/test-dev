@@ -46,7 +46,7 @@
                     <p class="text-slate-grey margin-bottom20">A catchy title will grab eyeballs, and more people will read your review.</p>
 
                     <div class="input-box form-control-box" data-bind="css: reviewTitle().length > 0 ? 'not-empty' : ''">
-                        <input name="reviewTitle" type="text" id="getReviewTitle" data-bind="textInput: reviewTitle" />
+                        <input name="reviewTitle" type="text" id="getReviewTitle" />
                         <label for="getReviewTitle">Your title</label>
                         <span class="boundary"></span>
                         <span class="error-text"></span>
@@ -91,7 +91,7 @@
                 <h3 class="font15 margin-bottom10">Tips for prospective buyers</h3>
                 <p class="text-light-grey margin-bottom10">Share key tips which you think were useful while owning/riding this bike.</p>
                 <div class="textarea-box margin-bottom15">
-                    <textarea name="reviewTips" rows="3" cols="42" placeholder="Write your tips here.."></textarea>
+                    <textarea name="reviewTips" data-bind="textInput: reviewTips" rows="3" cols="42" placeholder="Write your tips here.."></textarea>
                 </div>
                 @Html.AntiForgeryToken()
                 <input id="submitReviewBtn" type="submit" class="btn btn-orange" value="Submit review" data-bind="click: submitReview" />
@@ -103,4 +103,8 @@
 </form>
 <script type="text/javascript">
     var page = "writeReview";
+    var vmWriteReview;
+    window.addEventListener("beforeunload", function (event) {
+        vmWriteReview.SaveToBwCache();
+    });
 </script>
