@@ -1,4 +1,4 @@
-﻿var ratingBox, selectedAnswer;
+﻿var ratingBox, selectedAnswer, page;
 
 var userNameField, userEmailIdField;
 var detailedReviewField, reviewTitleField;
@@ -11,10 +11,19 @@ var bikeRating = {
 
 var ratingQuestion = [];
 
-var page = "writeReview";
-
-
 docReady(function () {
+
+    if (page == "writeReview") {
+        setTimeout(function () { appendHash("writeReview"); }, 3000);
+        $(window).on('hashchange', function (e) {
+            oldUrl = e.originalEvent.oldURL;
+            if (oldUrl && (oldUrl.indexOf('#') > 0)) {
+                window.location.href = "https://bikewale.com";
+            }
+        });
+    }
+
+   
 
     ratingBox = $('#bike-rating-box');
 
