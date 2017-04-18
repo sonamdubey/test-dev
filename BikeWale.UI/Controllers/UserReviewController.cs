@@ -91,7 +91,9 @@ namespace Bikewale.Controllers
 
                 string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
 
-                return RedirectToAction("WriteReview_Mobile", new { strEncoded = strEncoded });
+                return Redirect("/m/write-a-review/?q=" + strEncoded);
+
+                //return RedirectToAction("WriteReview_Mobile", new { strEncoded = strEncoded });
             }
             else
             {
@@ -102,9 +104,9 @@ namespace Bikewale.Controllers
 
 
         [Route("m/user-reviews/write-review/")]
-        public ActionResult WriteReview_Mobile(string strEncoded)
+        public ActionResult WriteReview_Mobile(string q)
         {
-            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, strEncoded);
+            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, q);
             var objData = objPage.GetData();
 
             return View(objData);

@@ -15,6 +15,7 @@ namespace Bikewale.Models.UserReviews
         private readonly IUserReviews _userReviews = null;
         private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId;
         private string _decodedString;
+        private string _encodedString;
         private ulong _customerId;
 
         public BikeMakeEntityBase Make { get; set; }
@@ -31,6 +32,7 @@ namespace Bikewale.Models.UserReviews
         {
             _userReviews = userReviews;
             _decodedString = Utils.Utils.DecryptTripleDES(encodedString);
+            _encodedString = encodedString;
             ParseQueryString(_decodedString);
         }
 
@@ -72,6 +74,7 @@ namespace Bikewale.Models.UserReviews
                     objPage.Model.MaskingName = objModelEntity.MaskingName;
                     objPage.HostUrl = objModelEntity.HostUrl;
                     objPage.OriginalImagePath = objModelEntity.OriginalImagePath;
+                    objPage.PreviousPageUrl = string.Format("m/user-reviews/rate-bike/{0}/{1}", objPage.Model.ModelId, _encodedString);
                 }
 
                 objPage.ReviewId = _reviewId;
