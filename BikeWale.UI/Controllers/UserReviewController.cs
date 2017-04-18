@@ -112,11 +112,12 @@ namespace Bikewale.Controllers
             return View(objData);
         }
 
-        [Route("m/user-reviews/review-summary/")]
-        public ActionResult ReviewSummary_Mobile()
+        [Route("m/user-reviews/review-summary/{reviewid}/")]
+        public ActionResult ReviewSummary_Mobile(uint reviewid)
         {
-            ModelBase m = new ModelBase();
-            return View(m);
+            UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews,reviewid);
+            UserReviewSummaryVM objVM = objData.GetData();
+            return View(objVM);
         }
 
 

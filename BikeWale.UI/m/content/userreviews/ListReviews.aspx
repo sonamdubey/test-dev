@@ -118,6 +118,9 @@
                         </div>
                     </div>
                     <%} %>
+                    <div class="margin-top15 margin-bottom5 text-center">
+                        <a id="btnRateBike" href="<%=string.Format("/m/user-reviews/rate-bike/{0}/",modelId)%>" class="btn btn-teal font16">Write a review</a>
+                    </div>
                 </div>
             </div>
         </section>
