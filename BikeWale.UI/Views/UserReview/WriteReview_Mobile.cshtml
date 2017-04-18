@@ -88,6 +88,10 @@
                 <input type="hidden" id="reviewQuestion" name="reviewQuestion" />                
                 <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />
                 <input type="hidden" name="encodedId" value="@Utils.Utils.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
+                <input type="hidden" name="userName" value="@Model.UserName" />
+                <input type="hidden" name="emailId" value="@Model.EmailId" />
+                <input type="hidden" name="makeName" value="@Model.Make.MakeName" />
+                <input type="hidden" name="modelName" value="@Model.Model.ModelName" />
 
                 <h3 class="font15 margin-bottom10">Tips for prospective buyers</h3>
                 <p class="text-light-grey margin-bottom10">Share key tips which you think were useful while owning/riding this bike.</p>

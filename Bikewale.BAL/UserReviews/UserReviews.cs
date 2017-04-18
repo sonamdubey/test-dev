@@ -48,9 +48,6 @@ namespace Bikewale.BAL.UserReviews
             return _userReviewsCache.GetUserReviewsData();
         }
 
-
-
-
         /// <summary>
         /// Created By : Sushil Kumar on 16th April 2017
         /// Description : To get all user reviews questions filtered with inputs
@@ -202,34 +199,43 @@ namespace Bikewale.BAL.UserReviews
             UserReviewSummary objSummary = null;
             UserReviewsData objUserReviewData = null;
 
-            try
+           try
             {
                 objSummary = _userReviewsRepo.GetUserReviewSummary(reviewId);
                 objUserReviewData = _userReviewsCache.GetUserReviewsData();
 
-                if (objSummary != null && objSummary.Questions != null)
+               if (objSummary != null && objSummary.Questions != null)
                 {
                     var objQuestions = new List<UserReviewQuestion>();
                     foreach (var question in objSummary.Questions)
                     {
                         var objQuestion = objUserReviewData.Questions.FirstOrDefault(q => q.Id == question.Id);
-                        objQuestion.SelectedRatingId = question.SelectedRatingId;
-                        objQuestions.Add(objQuestion);
+
+                       if (objQuestion != null)
+                        {
+                            objQuestion.SelectedRatingId = question.SelectedRatingId;
+                            if (objQuestion.SelectedRatingId == 0)
+                            {
+                                objQuestion.Visibility = false;
+                                objQuestion.IsRequired = false;
+                            }
+                            objQuestions.Add(objQuestion);
+                        }
                     }
                     objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
-                    objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
-                    objSummary.Questions = objQuestions;
 
-                    objSummary.OverallRating = objUserReviewData.OverallRating.FirstOrDefault(x => x.Id == objSummary.OverallRatingId);
+                   objSummary.Questions = objQuestions;
+
+                   objSummary.OverallRating = objUserReviewData.OverallRating.FirstOrDefault(x => x.Id == objSummary.OverallRatingId);
                 }
             }
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.UserReviews.UserReviews.GetUserReviewSummary({0})", reviewId));
+               ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.UserReviews.UserReviews.GetUserReviewSummary({0})", reviewId));
             }
 
-            return objSummary;
+           return objSummary;
         }
 
         /// <summary>
@@ -300,7 +306,7 @@ namespace Bikewale.BAL.UserReviews
             }
         }
 
-        public bool SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
+        public bool SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName)
         {
             try
             {
@@ -318,6 +324,7 @@ namespace Bikewale.BAL.UserReviews
 
                     if (_reviewId > 0 && _customerId > 0 && _userReviewsRepo.IsUserVerified(_reviewId, _customerId))
                     {
+                        UserReviewsEmails.SendReviewSubmissionEmail(userName, emailId, makeName, modelName);
                         return SaveUserReviews(_reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
                     }
                     else
