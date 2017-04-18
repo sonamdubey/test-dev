@@ -875,9 +875,9 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint sourceId)
+        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint sourceId, uint reviewId)
         {
-            uint reviewId = 0;
+            uint reviewIdNew = 0;
 
             try
             {
@@ -894,12 +894,13 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, emailId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceId", DbType.Int16, sourceId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientIP", DbType.String, Bikewale.CoreDAL.CommonOpn.GetClientIP()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.Int16, reviewId > 0 ? reviewId : Convert.DBNull));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null && dr.Read())
                         {
-                            reviewId = SqlReaderConvertor.ToUInt32(dr["reviewId"]);
+                            reviewIdNew = SqlReaderConvertor.ToUInt32(dr["reviewId"]);
                         }
                         dr.Close();
                     }
@@ -913,7 +914,7 @@ namespace Bikewale.DAL.UserReviews
 
             }
 
-            return reviewId;
+            return reviewIdNew;
         }
 
         /// <summary>

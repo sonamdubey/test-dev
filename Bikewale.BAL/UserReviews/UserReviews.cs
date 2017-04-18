@@ -48,6 +48,9 @@ namespace Bikewale.BAL.UserReviews
             return _userReviewsCache.GetUserReviewsData();
         }
 
+
+
+
         /// <summary>
         /// Created By : Sushil Kumar on 16th April 2017
         /// Description : To get all user reviews questions filtered with inputs
@@ -138,9 +141,9 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="userName"></param>
         /// <param name="emailId"></param>
         /// <returns></returns>        
-        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint sourceId)
+        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint sourceId, uint reviewId)
         {
-            uint reviewId = 0;
+
             UserReviewRatingObject objRating = null;
             try
             {
@@ -152,7 +155,7 @@ namespace Bikewale.BAL.UserReviews
                 objCust = new CustomerEntityBase() { CustomerName = userName, CustomerEmail = emailId };
                 objCust = ProcessUserCookie(objCust);
 
-                objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId);
+                objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId, reviewId);
                 objRating.CustomerId = objCust.CustomerId;
             }
             catch (Exception ex)
@@ -213,7 +216,8 @@ namespace Bikewale.BAL.UserReviews
                         objQuestion.SelectedRatingId = question.SelectedRatingId;
                         objQuestions.Add(objQuestion);
                     }
-
+                    objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
+                    objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
                     objSummary.Questions = objQuestions;
 
                     objSummary.OverallRating = objUserReviewData.OverallRating.FirstOrDefault(x => x.Id == objSummary.OverallRatingId);

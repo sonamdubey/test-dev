@@ -62,7 +62,7 @@ namespace Bikewale.Controllers
         /// <param name="modelId"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId)
+        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId)
         {
 
             bool isValid = true;
@@ -93,7 +93,7 @@ namespace Bikewale.Controllers
 
             if (isValid)
             {
-                objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, 2);
+                objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, 2, reviewId);
 
                 string strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId);
 
