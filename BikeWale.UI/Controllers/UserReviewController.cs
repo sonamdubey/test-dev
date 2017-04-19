@@ -16,7 +16,7 @@ namespace Bikewale.Controllers
         private readonly IUserReviews _userReviews = null;
         private IBikeMaskingCacheRepository<BikeModelEntity, int> _objModel = null;
         private readonly IUserReviewsRepository _userReviewsRepo = null;
-        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objCache = null;
+        
 
         /// <summary>
         /// 
@@ -31,7 +31,7 @@ namespace Bikewale.Controllers
             _userReviews = userReviews;
             _userReviewsRepo = userReviewsRepo;
             _objModel = objModel;
-            _objCache = objCache;
+            
         }
 
         // GET: UserReview
@@ -93,7 +93,7 @@ namespace Bikewale.Controllers
         [Route("m/user-reviews/write-review/")]
         public ActionResult WriteReview_Mobile(string q)
         {
-            WriteReviewPageModel objPage = new WriteReviewPageModel(_objCache, _userReviews, q);
+            WriteReviewPageModel objPage = new WriteReviewPageModel(_objModel, _userReviews, q);
             var objData = objPage.GetData();
 
             return View(objData);
@@ -129,7 +129,7 @@ namespace Bikewale.Controllers
                 return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
             else
             {
-                WriteReviewPageModel objPage = new WriteReviewPageModel(_objCache, _userReviews, encodedString);
+                WriteReviewPageModel objPage = new WriteReviewPageModel(_objModel, _userReviews, encodedString);
                 var objData = objPage.GetData();
                 objData.SubmitResponse = objResponse;
                 return View("WriteReview_Mobile", objData);
