@@ -94,8 +94,10 @@ namespace BikewaleOpr.DALs.UserReviews
         /// <param name="reviewId"></param>
         /// <param name="status"></param>
         /// <param name="disapprovalReasonId"></param>
-        public void UpdateUserReviewsStatus(uint reviewId, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId, string review, string reviewTitle, string reviewTips)
+        public uint UpdateUserReviewsStatus(uint reviewId, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId, string review, string reviewTitle, string reviewTips)
         {
+            uint oldTableReviewId = 0;
+
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -108,11 +110,14 @@ namespace BikewaleOpr.DALs.UserReviews
                     param.Add("par_disapproveId", disapprovalReasonId > 0 ? disapprovalReasonId : (ushort?)null);
                     param.Add("par_review", String.IsNullOrEmpty(review) ? null : review);
                     param.Add("par_title", String.IsNullOrEmpty(reviewTitle) ? null : reviewTitle);
-                    param.Add("par_tips", String.IsNullOrEmpty(reviewTips) ? null : reviewTips);
+                    param.Add("par_tips", String.IsNullOrEmpty(reviewTips) ? null : reviewTips);                    
+                    param.Add("par_oldTableReviewId", value: 0, dbType: DbType.UInt32, direction: ParameterDirection.Output);
 
                     connection.Open();
 
                     connection.Query("changeuserreviewstatus", param: param, commandType: CommandType.StoredProcedure);
+
+                    oldTableReviewId = param.Get<uint>("par_oldTableReviewId");
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -122,6 +127,9 @@ namespace BikewaleOpr.DALs.UserReviews
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.UpdateUserReviewsStatus");
             }
+
+            return oldTableReviewId;
+
         }   // End of UpdateUserReviewsStatus
 
     }   // class
