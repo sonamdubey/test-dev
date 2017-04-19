@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
@@ -26,7 +27,7 @@ namespace Bikewale.Models.UserReviews
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }
         public ushort Rating { get; set; }
-
+        public StatusCodes Status;
 
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
@@ -38,7 +39,14 @@ namespace Bikewale.Models.UserReviews
             _objCache = objCache;
             _userReviews = userReviews;
             _encodedString = encodedString;
-            ParseQueryString(encodedString);
+
+            if (!string.IsNullOrEmpty(encodedString))
+            {
+                ParseQueryString(encodedString);
+                Status = Entities.StatusCodes.ContentFound;
+            }
+            else
+                Status = Entities.StatusCodes.ContentNotFound;
         }
 
 
