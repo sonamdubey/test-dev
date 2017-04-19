@@ -5,7 +5,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
-using System;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -98,11 +97,19 @@ namespace Bikewale.Controllers
         public ActionResult WriteReview_Mobile(string q)
         {
             WriteReviewPageModel objPage = new WriteReviewPageModel(_objModel, _userReviews, q);
-            var objData = objPage.GetData();
 
-            if (objData != null && objData.ReviewId > 0 && objData.CustomerId > 0)
+            if (objPage != null && !string.IsNullOrEmpty(q))
             {
-                return View(objData);
+                var objData = objPage.GetData();
+
+                if (objData != null && objData.ReviewId > 0 && objData.CustomerId > 0 && objPage.Status == Entities.StatusCodes.ContentFound)
+                {
+                    return View(objData);
+                }
+                else
+                {
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
             }
             else
             {
@@ -110,12 +117,30 @@ namespace Bikewale.Controllers
             }
         }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava on 19 Apr 2017
+        /// Summary    : To fetch review summary page
+        /// </summary>
         [Route("m/user-reviews/review-summary/{reviewid}/")]
         public ActionResult ReviewSummary_Mobile(uint reviewid, string q)
         {
-            UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
-            UserReviewSummaryVM objVM = objData.GetData();
-            return View(objVM);
+            if (reviewid > 0)
+            {
+                UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
+                if (objData != null && objData.status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/m/pageNotFound.aspx");
+                }
+                UserReviewSummaryVM objVM = objData.GetData();
+                if (objData.status == Entities.StatusCodes.ContentFound)
+                    return View(objVM);
+                else
+                    return Redirect("/m/pageNotFound.aspx");
+            }
+            else
+            {
+                return Redirect("/m/pageNotFound.aspx");
+            }
         }
 
 

@@ -13,8 +13,12 @@
                 @if (Model.ModelPageEntity.ModelDetails.ReviewRate > 0)
                 {
                     <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="border-light-left leftfloat margin-right10 padding-left10 font12 ">
-                        <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span>&nbsp;<span>Reviews</span>
+                        <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span>&nbsp;<span>Review@((Model.ModelPageEntity.ModelDetails.ReviewCount)>1 ? "s":"")</span>
                     </a>
+                }
+                else
+                {
+                    <span class="font12 text-light-grey border-light-left leftfloat margin-right10 padding-left10">No reviews yet</span>
                 }
                 <a href="@string.Format("/m/user-reviews/rate-bike/{0}/?pagesourceid={1}", Model.ModelId, Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage))" class="border-light-left leftfloat margin-right10 padding-left10 font12 ">
                     <span itemprop="writeReview"><span>Rate this bike</span></span>

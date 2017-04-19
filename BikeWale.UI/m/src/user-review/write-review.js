@@ -364,7 +364,8 @@ docReady(function () {
 
         self.validate = {
             detailedReview: function () {
-                if (self.detailedReview().length < 300) {
+                if (self.detailedReview().trim().length < 300) {
+                    self.detailedReview(self.detailedReview().trim());
                     self.detailedReviewFlag(true);
                     self.detailedReviewError('Your review should contain at least 300 characters.');
                     self.focusFormActive(true);

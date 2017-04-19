@@ -34,8 +34,10 @@
                 <div class="model-image-grid inline-block">
                     <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.Summary.OriginalImgPath, Model.Summary.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._70)" alt="@Model.Summary.Make.MakeName @Model.Summary.Model.ModelName" />
                 </div>
-                <h1 class="model-details-grid inline-block">@Model.Summary.Make.MakeName @Model.Summary.Model.ModelName</h1>
-            </div>
+                @if (Model.Summary.Make != null && Model.Summary.Model != null) { 
+                <h1 class="model-details-grid inline-block">@string.Format("{0} {1}",Model.Summary.Make.MakeName, Model.Summary.Model.ModelName)</h1>
+                }
+                    </div>
             <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
                 <div id="bike-rating-box" class="margin-bottom20">
                     <div class="circle-placeholder">
@@ -85,12 +87,12 @@
                     <div id="summary-review-box" class="padding-bottom10">
                         <h2 class="margin-bottom10">@Model.Summary.Title</h2>
                         <div class="text-light-grey">
-                            <p>@Model.Summary.Description</p>
+                            <p>@Html.Raw(Model.Summary.Description)</p>
                         </div>
                     </div>
                 }
 
-                @if (Model.Summary.Questions != null && !string.IsNullOrEmpty(Model.Summary.Description))
+                @if (Model.Summary.Questions != null && Model.Summary.Questions.Count()>0)
                 {
                     <div class="margin-bottom20 border-solid-bottom"></div>
                     <h3 class="font15 text-black margin-bottom20">You also rated</h3>
@@ -137,7 +139,7 @@
                     <div class="margin-bottom20 border-solid-bottom"></div>
                     <h3 class="font15 text-black margin-bottom15">Tips for prospective buyers</h3>
                     <div class="text-light-grey padding-bottom10">
-                        <p>@Model.Summary.Tips</p>
+                        <p>@Html.Raw(Model.Summary.Tips)</p>
                     </div>
                 }
 
@@ -150,6 +152,21 @@
             </div>
         </div>
     </section>
-
+    <span id="pageSource" class="hide">@Model.PrevPageUrl</span>
     <div id="review-summary-page"></div>
 }
+<script type="text/javascript">
+    docReady(function () {
+        var handleBrowserBack = function (prevPage, curPage) {
+            setTimeout(function () { appendHash(curPage); }, 1000);
+            $(window).on('hashchange', function (e) {
+                oldUrl = e.originalEvent.oldURL;
+                if (oldUrl && (oldUrl.indexOf('#') > 0)) {
+                    if (prevPage && prevPage.length)
+                        window.location.href = prevPage.text();
+                }
+            });
+        };
+        handleBrowserBack(($("#pageSource")), "reviewSummary");
+    });
+</script>
