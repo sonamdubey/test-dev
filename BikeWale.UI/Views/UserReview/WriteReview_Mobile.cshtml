@@ -64,8 +64,8 @@
                         <p class="item-subtitle" data-bind="text: description"></p>
 
                         <div class="answer-star-list inline-block" data-bind="foreach: rating.slice(0).reverse()">
-                            <input type="radio" data-bind="attr: {questiontId : $parent.qId, id: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), value: (5 - $index())}" />
-                            <label class="bwmsprite star-zero" data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + $index(), 'data-value': (5 - $index())}"></label>
+                            <input type="radio" data-bind="attr: {questiontId : $parent.qId, id: 'review-' + $parentContext.$index() + '-' + (5 - $index()), name: 'review-q-' + $parentContext.$index(), value: (5 - $index())}" data-type="star" />
+                            <label class="bwmsprite star-zero" data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + (5 - $index()), 'data-value': (5 - $index())}"></label>
                         </div>
                         <p class="feedback-text inline-block"></p>
                     </li>
@@ -76,8 +76,8 @@
                         <p class="item-subtitle" data-bind="text: description"></p>
 
                         <div class="answer-radio-list" data-bind="foreach: rating">
-                            <input type="radio" data-bind="attr: {questiontId : $parent.qId, id: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), value: $index() + 1}" />
-                            <label data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), 'data-value': $index() + 1}, text: ratingText"></label>
+                            <input type="radio" data-bind="attr: {questiontId : $parent.qId, id: 'review-' + $parentContext.$index() + '-' + ($index() + 1), name: 'review-q-' + $parentContext.$index(), value: $index() + 1}" data-type="text" />
+                            <label data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + ($index() + 1), name: 'review-q-' + $parentContext.$index(), 'data-value': $index() + 1}, text: ratingText"></label>
                         </div>
                         <div class="clear"></div>
                     </li>

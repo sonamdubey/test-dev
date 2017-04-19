@@ -111,7 +111,6 @@ docReady(function () {
                 $("#rate-bike-questions input[type='radio']:checked").each(function (i) {
                     var r = $(this);
                     array_rating[i] = (r.attr("questionId") + ':' + r.attr("value"));
-
                 });
                 $("#finaloverallrating").val(value_overallrating);
                 $("#rating-quesition-ans").val(array_rating);
@@ -388,8 +387,9 @@ docReady(function () {
 
         self.SaveToBwCache = function () {
             var savearray = new Array;
+            var textarray = new Array;
                 $(".list-item input[type='radio']:checked").each(function (i) {
-                var r = $(this);
+                    var r = $(this);
                 savearray[i] = (r.attr("questiontId") + ':' + r.val());
             });
             var pageObj = {
@@ -412,7 +412,10 @@ docReady(function () {
                 for (i = 0; i < obj.ratingArray.length; ++i) {
                     var quest = obj.ratingArray[i].split(':')[0];
                     var ans = obj.ratingArray[i].split(':')[1];
-                    $(".answer-star-list :input[questiontid='" +quest + "']").val(ans);
+                    var starbtn = $('#bike-review-questions').find(" input[questiontid=" + quest + "][id=review-" + i + "-" + ans + "]");
+                    if (starbtn != null) {
+                        starbtn.trigger("click");
+                    }
                 }
             }
         }
