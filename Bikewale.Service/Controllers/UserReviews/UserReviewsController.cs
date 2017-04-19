@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.DTO;
+﻿using Bikewale.DTO.UserReviews;
+using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
@@ -24,14 +25,16 @@ namespace Bikewale.Service.Controllers.UserReviews
     {
 
         private readonly IUserReviewsRepository _userReviewsRepo = null;
+        private readonly IUserReviews _userReviews = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="userReviewsRepo"></param>
-        public UserReviewsController(IUserReviewsRepository userReviewsRepo)
+        public UserReviewsController(IUserReviewsRepository userReviewsRepo, IUserReviews userReviews)
         {
             _userReviewsRepo = userReviewsRepo;
+            _userReviews = userReviews;
         }
 
         #region User Reviews Details
@@ -200,19 +203,19 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// </summary>
         /// <param name="reviewId"></param>
         /// <returns>Review Details</returns>
-        [ResponseType(typeof(ReviewDetails)),Route("api/user-reviews/summary/{reviewId}/")]
+        [ResponseType(typeof(ReviewDetails)), Route("api/user-reviews/summary/{reviewId}/")]
         public IHttpActionResult GetUserReviewSummary(uint reviewId)
         {
-            ReviewDetailsEntity objUserReview = null;
-            ReviewDetails objDTOUserReview = null;
+            UserReviewSummary objUserReview = null;
+            UserReviewSummaryDto objDTOUserReview = null;
             try
             {
-                objUserReview = _userReviewsRepo.GetReviewDetails(reviewId);
+                objUserReview = _userReviews.GetUserReviewSummary(reviewId);
 
                 if (objUserReview != null)
                 {
                     // Auto map the properties
-                    objDTOUserReview = new ReviewDetails();
+                    objDTOUserReview = new UserReviewSummaryDto();
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
 
                     return Ok(objUserReview);
@@ -221,7 +224,6 @@ namespace Bikewale.Service.Controllers.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
-                objErr.SendMail();
                 return InternalServerError();
             }
             return NotFound();
