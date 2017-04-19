@@ -175,7 +175,17 @@ namespace Bikewale.Models
                                 objUserVM.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objQuestions);
                             }
 
-                            objUserVM.PriceRangeId = objUserReviewData.PriceRange.First(x => x.MinPrice >= objUserVM.objModelEntity.MinPrice && x.MaxPrice >= objUserVM.objModelEntity.MaxPrice).RangeId;
+                            var objLastPrice = objUserReviewData.PriceRange.Last();
+
+                            if (objUserVM.objModelEntity != null && objUserVM.objModelEntity.MaxPrice >= objLastPrice.MaxPrice)
+                            {
+                                objUserVM.PriceRangeId = objLastPrice.RangeId;
+                            }
+                            else
+                            {
+                                objUserVM.PriceRangeId = objUserReviewData.PriceRange.First(x => x.MinPrice <= objUserVM.objModelEntity.MinPrice && x.MaxPrice >= objUserVM.objModelEntity.MaxPrice).RangeId;
+                            }
+                            
                         }
                     }
 
