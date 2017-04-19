@@ -1,5 +1,4 @@
 ﻿
-using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
@@ -20,7 +19,6 @@ namespace Bikewale.Models.UserReviews
         private readonly IUserReviews _userReviews = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objCache = null;
         private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId;
-        private string _decodedString;
         private string _encodedString, _userName, _emailId;
         private ulong _customerId;
 
@@ -39,24 +37,32 @@ namespace Bikewale.Models.UserReviews
         {
             _objCache = objCache;
             _userReviews = userReviews;
-            _decodedString = Utils.Utils.DecryptTripleDES(encodedString);
             _encodedString = encodedString;
-            ParseQueryString(_decodedString);
+            ParseQueryString(encodedString);
         }
 
 
-        public void ParseQueryString(string decodedQueryString)
+        public void ParseQueryString(string encodedQueryString)
         {
-            NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedQueryString);
+            try
+            {
+                string decodedQueryString = Utils.Utils.DecryptTripleDES(encodedQueryString);
 
-            uint.TryParse(queryCollection["reviewid"], out _reviewId);
-            uint.TryParse(queryCollection["modelid"], out _modelId);
-            uint.TryParse(queryCollection["makeid"], out _makeId);
-            uint.TryParse(queryCollection["overallrating"], out _overAllRating);
-            ulong.TryParse(queryCollection["customerid"], out _customerId);
-            uint.TryParse(queryCollection["priceRangeId"], out _priceRangeId);
-            _userName = queryCollection["userName"];
-            _emailId = queryCollection["emailId"];
+                NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedQueryString);
+
+                uint.TryParse(queryCollection["reviewid"], out _reviewId);
+                uint.TryParse(queryCollection["modelid"], out _modelId);
+                uint.TryParse(queryCollection["makeid"], out _makeId);
+                uint.TryParse(queryCollection["overallrating"], out _overAllRating);
+                ulong.TryParse(queryCollection["customerid"], out _customerId);
+                uint.TryParse(queryCollection["priceRangeId"], out _priceRangeId);
+                _userName = queryCollection["userName"];
+                _emailId = queryCollection["emailId"];
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.ParseQueryString()");
+            }
         }
 
         /// <summary>

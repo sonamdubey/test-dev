@@ -18,6 +18,7 @@ namespace Bikewale.Controllers
         private readonly IUserReviewsRepository _userReviewsRepo = null;
         
 
+
         /// <summary>
         /// 
         /// </summary>
@@ -25,13 +26,13 @@ namespace Bikewale.Controllers
         /// <param name="userReviews"></param>
 
         public UserReviewController(IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo)
-
         {
 
             _userReviews = userReviews;
             _userReviewsRepo = userReviewsRepo;
             _objModel = objModel;
             
+
         }
 
         // GET: UserReview
@@ -96,13 +97,20 @@ namespace Bikewale.Controllers
             WriteReviewPageModel objPage = new WriteReviewPageModel(_objModel, _userReviews, q);
             var objData = objPage.GetData();
 
-            return View(objData);
+            if (objData != null && objData.ReviewId > 0 && objData.CustomerId > 0)
+            {
+                return View(objData);
+            }
+            else
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
         }
 
         [Route("m/user-reviews/review-summary/{reviewid}/")]
-        public ActionResult ReviewSummary_Mobile(uint reviewid,string q)
+        public ActionResult ReviewSummary_Mobile(uint reviewid, string q)
         {
-            UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid,q);
+            UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
             UserReviewSummaryVM objVM = objData.GetData();
             return View(objVM);
         }
