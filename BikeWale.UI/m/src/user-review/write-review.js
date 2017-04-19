@@ -1,7 +1,7 @@
 ﻿var ratingBox, selectedAnswer, page;
 
 var userNameField, userEmailIdField;
-var detailedReviewField, reviewTitleField;
+var descReviewField, reviewTitleField;
 var value_overallrating, reviewQuestion, reviewOverallRatingId;
 var vmWriteReview;
 var array_rating;
@@ -11,9 +11,8 @@ var bikeRating = {
 };
 
 var ratingQuestion = [];
-
 docReady(function () {
-
+    bwcache.setScope('ReviewPage');
     if (page == "writeReview") {
         setTimeout(function () { appendHash("writeReview"); }, 3000);
         $(window).on('hashchange', function (e) {
@@ -32,7 +31,7 @@ docReady(function () {
     if ($("#rating-question") && $("#rating-question").length)
         ratingQuestion = JSON.parse(Base64.decode($('#rating-question').val()));
 
-    if ($("#review-question-list") && $("#review-question-list").length)
+    if ($('#review-question-list').text())
         reviewQuestion = JSON.parse($('#review-question-list').text());
 
     if ($('#reviewedoverallrating') && $('#reviewedoverallrating').length)
@@ -313,7 +312,7 @@ docReady(function () {
         validate.onBlur($(this));
     });
 
-    detailedReviewField = $('#getDetailedReview');
+    descReviewField = $('#reviewDesc');
     reviewTitleField = $('#getReviewTitle');
 
     // write review
@@ -323,7 +322,7 @@ docReady(function () {
         self.reviewCharLimit = ko.observable(300);
         self.reviewTitle = ko.observable('');
         self.detailedReview = ko.observable('');
-
+        self.reviewTips = ko.observable('');
         self.detailedReviewFlag = ko.observable(false);
         self.detailedReviewError = ko.observable('');
         self.focusFormActive = ko.observable(false);
@@ -369,7 +368,7 @@ docReady(function () {
                     self.detailedReviewFlag(true);
                     self.detailedReviewError('Your review should contain at least 300 characters.');
                     self.focusFormActive(true);
-                    answer.focusForm(detailedReviewField);
+                    answer.focusForm(descReviewField);
                 }
                 else {
                     self.detailedReviewFlag(false);
@@ -384,7 +383,7 @@ docReady(function () {
                 if (self.reviewTitle().length == 0) {
                     validate.setError(reviewTitleField, 'Please provide a title for your review!');
                     if (!self.focusFormActive()) {
-                        answer.focusForm(detailedReviewField);
+                        answer.focusForm(descReviewField);
                     }
                 }
                 else {
@@ -395,6 +394,40 @@ docReady(function () {
                 return isValid;
             }
         };
+
+        self.SaveToBwCache = function () {
+            var savearray = new Array;
+                $(".list-item input[type='radio']:checked").each(function (i) {
+                    var r = $(this);
+                savearray[i] = (r.attr("questiontId") + ':' + r.val());
+            });
+            var pageObj = {
+                reviewTitle: reviewTitleField.val(),
+                detailedReview: self.detailedReview(),
+                reviewTips: self.reviewTips(),
+                ratingArray: savearray
+            };
+            bwcache.set('reviewformdata', pageObj, 10);
+        };
+
+        self.GetFromBwCache = function () {
+            var obj = bwcache.get('reviewformdata');
+            if (obj != null) {
+                self.detailedReview(obj.detailedReview);
+                reviewTitleField.val(obj.reviewTitle);
+                reviewTitleField.parent('div').addClass('not-empty');
+                self.reviewTips(obj.reviewTips);
+                var i;
+                for (i = 0; i < obj.ratingArray.length; ++i) {
+                    var quest = obj.ratingArray[i].split(':')[0];
+                    var ans = obj.ratingArray[i].split(':')[1];
+                    var starbtn = $('#bike-review-questions').find(" input[questiontid=" + quest + "][id=review-" + i + "-" + ans + "]");
+                    if (starbtn != null) {
+                        starbtn.trigger("click");
+                    }
+                }
+            }
+        }
     };
 
     vmWriteReview = new writeReview(),
@@ -412,7 +445,7 @@ docReady(function () {
         questionField.find('.feedback-text').text(feedbackText);
     });
 
-    detailedReviewField.on('focus', function () {
+    descReviewField.on('focus', function () {
         vmWriteReview.detailedReviewFlag(false);
     });
 
@@ -429,6 +462,12 @@ docReady(function () {
 
     if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length)
         vmWriteReview.validate.reviewTitle();
+    if (performance.navigation.type == 1) {
+        vmWriteReview.GetFromBwCache();
+    }
+    else {
+        bwcache.removeAll(true);
+    }
 });
 
 var answer = {
