@@ -60,13 +60,23 @@ docReady(function () {
     ko.applyBindings(vmVersionTable, $("#orpContent")[0]);
 
     $('#version-dropdown').chosen().change(function () {
-        vmVersionTable.getVersionObject($(this).val());
+        var obj = $(this);
+        vmVersionTable.getVersionObject(obj.val());
+        triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
     });
 
     $window = $(window),
     overallSpecsTabsContainer = $('.overall-specs-tabs-container'),
     modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper'),
     modelSpecsFooter = $('#modelSpecsFooter');
+
+    $('#modelAlternateBikeContent')
+
+    var alternateBikeContent = $('#modelAlternateBikeContent');
+
+    if (alternateBikeContent.length != 0) {
+        alternateBikeContent.removeClass('bw-model-tabs-data');
+    }
 
     $(window).scroll(function () {
         var windowScrollTop = $window.scrollTop(),
@@ -111,9 +121,7 @@ docReady(function () {
     // add divider between version prices table and prices in nearby cities
     addDivider($('#version-prices-grid'), $('#nearby-prices-grid'));
 
-
-
-      // emi calculator
+    // emi calculator
     ko.bindingHandlers.slider = {
         init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
             var options = allBindingsAccessor().sliderOptions || {};
@@ -265,11 +273,6 @@ docReady(function () {
         triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', bikeName + "_" + $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').text() + selArea);
 
     });
-
-    $("#changeCity").click(function () {
-        var obj = $(this);
-       triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
-     });
 
     $("#dealerDetails").click(function (e) {
         try {

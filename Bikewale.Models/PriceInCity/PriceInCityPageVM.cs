@@ -41,7 +41,7 @@ namespace Bikewale.Models
         public PriceInTopCitiesWidgetVM NearestPriceCities { get; set; }
         public String BikeName { get { return (String.Format("{0} {1}", Make.MakeName, BikeModel.ModelName)); } }
 
-        public String DealersWidget_H2 { get; set; }
+        public String DealersWidget_H2 { get { return ( HasDealers? String.Format("{0} Showrooms in {1}", Make.MakeName, CityEntity.CityName) : ""); } }
         public String DealersWidget_ViewAll_Title { get { return String.Format("{0} Showrooms in {1}", Make.MakeName, CityEntity.CityName); } }
         public String DealersWidget_ViewAll_Href { get { return String.Format("/{0}-dealer-showrooms-in-{1}/", Make.MaskingName, CityEntity.CityMaskingName); } }
 
@@ -67,6 +67,7 @@ namespace Bikewale.Models
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DetailedDealer { get; set; }
         public string MPQString { get; set; }
         public string MinSpecsHtml { get; set; }
+        public string GABikeName { get { return string.Format("{0}_{1}",Make.MakeName,BikeModel.ModelName); } }
     }
 
 }
