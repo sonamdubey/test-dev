@@ -223,7 +223,7 @@ namespace Bikewale.BAL.UserReviews
                             objQuestions.Add(objQuestion);
                         }
                     }
-                    
+
                     objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
 
                     objSummary.Questions = objQuestions;
@@ -324,7 +324,7 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="reviewDescription"></param>
         /// <param name="reviewTitle"></param>
         /// <returns></returns>
-        public WriteReviewPageSubmitResponse SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName, string reviewDescription, string reviewTitle)
+        public WriteReviewPageSubmitResponse SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName)
         {
             WriteReviewPageSubmitResponse objResponse = null;
             try
@@ -349,18 +349,18 @@ namespace Bikewale.BAL.UserReviews
 
                         objResponse = new WriteReviewPageSubmitResponse();
 
-                        if (!string.IsNullOrEmpty(reviewDescription) && reviewDescription.Length < 300 && string.IsNullOrEmpty(reviewTitle))
+                        if (!string.IsNullOrEmpty(comment) && comment.Length < 300 && string.IsNullOrEmpty(commentTitle))
                         {
                             objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
                             objResponse.TitleErrorText = "Please provide a title for your review.";
                             isValid = false;
                         }
-                        else if (string.IsNullOrEmpty(reviewDescription) && !string.IsNullOrEmpty(reviewTitle))
+                        else if (string.IsNullOrEmpty(comment) && !string.IsNullOrEmpty(commentTitle))
                         {
                             objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
                             isValid = false;
                         }
-                        else if (!string.IsNullOrEmpty(reviewDescription) && reviewDescription.Length > 300 && string.IsNullOrEmpty(reviewTitle))
+                        else if (!string.IsNullOrEmpty(comment) && comment.Length > 300 && string.IsNullOrEmpty(commentTitle))
                         {
                             objResponse.TitleErrorText = "Please provide a title for your review.";
                             isValid = false;

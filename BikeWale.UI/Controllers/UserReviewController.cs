@@ -5,6 +5,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
+using System.Net;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -154,12 +155,14 @@ namespace Bikewale.Controllers
         /// <param name="reviewTips"></param>
         /// <param name="reviewId"></param>
         /// <returns></returns>
+        /// 
+        [ValidateInput(false)]
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
         public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, uint reviewId, string encodedString)
         {
             WriteReviewPageSubmitResponse objResponse = null;
 
-            objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips, reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName, reviewDescription, reviewTitle);
+            objResponse = _userReviews.SaveUserReviews(encodedId, WebUtility.HtmlEncode(reviewTips), WebUtility.HtmlEncode(reviewDescription), WebUtility.HtmlEncode(reviewTitle), reviewQuestion, emailId, userName, makeName, modelName);
 
             if (objResponse.IsSuccess)
                 return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
