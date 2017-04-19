@@ -147,7 +147,7 @@ namespace Bikewale.Common
             {
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetMakeModelData() - modelId:{0}", modelId));
             }

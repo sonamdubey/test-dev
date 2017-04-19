@@ -491,9 +491,3 @@ var validate = {
         }
     }
 };
-
-if (page == "writeReview") {
-    setTimeout(function () {
-        appendHash("writeReviewPage");
-    }, 1000)
-}
