@@ -751,7 +751,7 @@ input[type="number"] {
     .select-box .chosen-container .chosen-single {
       color: #4d5057;
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 600;
       background: transparent; }
     .select-box .chosen-container .chosen-default {
       display: none; }

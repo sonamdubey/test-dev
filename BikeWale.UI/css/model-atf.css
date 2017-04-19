@@ -38,167 +38,6 @@
     border-right: 1px solid #eee;
 }
 
-/* key-specs-list */
-#key-specs-list {
-    margin-bottom: 15px;
-    overflow: hidden;
-}
-#key-specs-list li, #key-specs-list li span {
-    display: inline-block;
-    vertical-align: middle;
-}
-#key-specs-list li{
-    padding-right: 12px;
-    padding-left: 12px;
-    position: relative;
-}
-#key-specs-list li:before{
-    content: "";
-    width: 1px;
-    height: 15px;
-    position: absolute;
-    top: 3px;
-    left: 0;
-    border-left: 1px solid #ecedee;
-}
-#key-specs-list li:first-child {
-    padding-left: 0;
-}
-#key-specs-list li:first-child:before{
-    border-left: 0;
-}
-
-/* model-version-dropdown */
-#model-version-dropdown .select-box {
-    height: 45px;
-}
-
-#model-version-dropdown .chosen-container {
-    width: auto !important;
-    min-width: 150px !important;
-}
-
-#model-version-dropdown .chosen-container .chosen-drop {
-    width: auto !important;
-    min-width: 250px !important;
-}
-
-/* select box */
-.select-box {
-    height: 60px;
-    position: relative;
-}
-.select-box .select-label {
-    position: absolute;
-    top: 0;
-    color: #82888b;
-    font-size: 16px;
-}
-.select-box .chosen-container {
-    height: 30px;
-    position: relative;
-    top: 0;
-    padding: 0;
-    border: 0;
-    cursor: pointer;
-    border-bottom: 1px solid #82888b;
-    background: transparent url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    border-radius: 0;
-}
-.select-box .chosen-container .chosen-single {
-    height: 100%;
-    color: #4d5057;
-    font-size: 16px;
-    font-weight: 700;
-    background: transparent;
-}
-.select-box .chosen-container .chosen-default {
-    display: none;
-}
-.select-box .chosen-container .chosen-search {
-    padding: 0;
-    border-bottom: 1px solid #41b4c4;
-}
-.select-box .chosen-container .chosen-search input[type=text] {
-    border: 0;
-    padding: 12px 10px;
-    font-size: 16px;
-}
-.select-box .chosen-container .chosen-results {
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-}
-.select-box .chosen-container .chosen-results::-webkit-scrollbar {
-    width: 5px;
-}
-.select-box .chosen-container .chosen-results::-webkit-scrollbar-track {
-    background: #fff;
-}
-.select-box .chosen-container .chosen-results::-webkit-scrollbar-thumb {
-    background: #ddd;
-}
-.select-box .chosen-container .chosen-results::-webkit-scrollbar-thumb:hover {
-    background: #bbb;
-}
-.select-box .chosen-container .chosen-results li {
-    padding: 8px 10px;
-    transition: background .1s linear;
-}
-.select-box .chosen-container .chosen-results .highlighted {
-    background-color: #f5f5f5;
-}
-.select-box .chosen-container .chosen-results .result-selected {
-    font-weight: 700;
-}
-.select-box .chosen-container .chosen-drop {
-    width: 300px;
-    z-index: 1;
-    top: -15px;
-    border: 1px solid #e2e2e2;
-    -webkit-box-shadow: 0 2px 10px 1px #ccc;
-    -moz-box-shadow: 0 2px 10px 1px #ccc;
-    -ms-box-shadow: 0 2px 10px 1px #ccc;
-    -o-box-shadow: 0 2px 10px 1px #ccc;
-    box-shadow: 0 2px 10px 1px #ccc;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    border-radius: 2px;
-}
-.select-box.select-box-no-input .chosen-search {
-    border-bottom: 1px solid #e2e2e2;
-}
-.select-box.select-box-no-input .chosen-results li {
-    padding-right: 20px;
-    padding-left: 20px;
-}
-.select-box.select-box-no-input .no-input-label {
-    font-size: 16px;
-    color: #4d5057;
-    padding: 11px 20px;
-    cursor: text;
-}
-.done .select-label {
-    font-size: 12px;
-    top: -20px;
-}
-
-/* small select-box */
-.select-box.size-small .chosen-container .chosen-single {
-    font-size: 14px;
-}
-
-.select-box.size-small .chosen-container {
-    height: 27px;
-}
-
-.select-box.size-small .chosen-container .chosen-drop {
-    top: -17px;
-}
 
 .get-offers-main-btn {
     width: 230px;
@@ -274,10 +113,9 @@
     padding: 6px 0;
 }
 
-#modelDetailsContainer .model-details-wrapper { width:532px; min-height: 287px; margin-left:10px; }
+
 #expectedPriceContainer { border-bottom:1px solid #ecedee; }
 
-.city-area-name { margin-left:4px; }
 .model-details-floating-card .city-area-name { width:140px; }
 .model-details-floating-card .exshowroom-area-name.city-area-name { width:120px; }
 .exshowroom-area.exshowroom-area-name { width:120px; }
@@ -326,8 +164,6 @@
 
 /* model sprite classes */
 .model-sprite { background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
-.loc-change-blue-icon { width:12px; height:16px; background-position:-205px -9px; cursor:pointer; position:relative; top:2px; }
-.loc-change-blue-icon:hover { background-position:-205px -35px; }
 .partner-dealer {
     width: 32px;
     height: 34px;
@@ -411,26 +247,6 @@
 .overall-specs-tabs-wrapper a:hover { text-decoration:none; color:#4d5057; }
 #modelSpecsTabsContentWrapper .overall-specs-tabs-wrapper a:first-child, .overall-specs-tabs-wrapper a.active { border-bottom:3px solid #ef3f30; font-weight:bold; color:#4d5057; }
 .content-inner-block-2010 { padding:20px 10px; }
-
-/* key specs */
-.capacity-sm, .mileage-sm, .power-sm, .weight-sm {
-    width: 16px;
-    height: 14px;
-    margin-right: 5px;
-}
-.capacity-sm {
-    background-position: -136px -153px;
-}
-.mileage-sm {
-    background-position: -154px -153px;
-}
-.power-sm {
-    background-position: -136px -169px;
-    margin-right: 2px;
-}
-.weight-sm {
-    background-position: -154px -169px;
-}
 
 /* tooltip */
 .bw-tooltip {
@@ -575,6 +391,158 @@
     font-weight: 700;
 }
 
+.text-bold {
+    font-weight: 600;
+}
+
 .text-slate-grey {
     color: #787878;
+}
+
+/* top card */
+#model-right-grid {
+    width: 523px;
+    min-height: 300px;
+}
+
+/* key-specs-list */
+#key-specs-list li,
+#key-specs-list span {
+    display: inline-block;
+    vertical-align: middle;
+}
+#key-specs-list li{
+    padding-right: 10px;
+    padding-left: 10px;
+    position: relative;
+}
+#key-specs-list li:before{
+    content: "";
+    width: 1px;
+    height: 12px;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    border-left: 1px solid #ecedee;
+}
+#key-specs-list li:first-child {
+    padding-left: 0;
+}
+#key-specs-list li:first-child:before{
+    border-left: 0;
+}
+
+/* model-version-dropdown */
+#model-version-dropdown .select-box {
+    height: 25px;
+}
+
+#model-version-dropdown .chosen-container {
+    width: 126px !important;
+    height: 25px;
+}
+
+#model-version-dropdown .chosen-drop {
+    position: absolute;
+    width: 260px !important;
+    top: -18px;
+}
+
+#model-version-dropdown .chosen-single {
+    font-size: 13px;
+    color: #4d5057;
+}
+
+#model-version-dropdown .no-input-label {
+    font-size: 14px;
+}
+
+/* select box for atf */
+.select-box .select-label {
+    position: absolute;
+    top: 0;
+    color: #82888b;
+    font-size: 16px;
+}
+.select-box .chosen-container {
+    height: 30px;
+    position: relative;
+    top: 0;
+    cursor: pointer;
+    border-bottom: 1px solid #82888b;
+    background: transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+}
+.chosen-container-single .chosen-single span {
+    display: block;
+    overflow: hidden;
+    margin-right: 26px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.done .select-label {
+    font-size: 12px;
+    top: -20px;
+}
+
+/* single version and location */
+.single-version-content {
+    width: 126px;
+}
+
+.dropdown-effect-light {
+    padding: 3px 18px 6px 0;
+    position: relative;
+}
+
+.dropdown-effect-light {
+    background: transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-effect-light:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 15px;
+    height: 100%;
+    background: #fff;
+    opacity: 0.7;
+}
+
+/* city */
+.location-selection {
+    width: 165px;
+}
+
+.selected-city {
+    padding: 3px 18px 6px 0;
+    position: relative;
+    border-bottom: 1px solid #82888b;
+}
+
+.loc-change-blue { 
+    width: 12px;
+    height: 16px;
+    background-position: -205px -9px;
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+}
+
+.loc-change-blue:hover {
+    background-position: -205px -35px;
+}
+
+.location-selection .loc-change-blue {
+    position: absolute;
+    top: 4px;
+    right: 0;
+}
+
+/* emi */
+.inr-12-default {
+    width: 10px;
+    height: 12px;
+    background-position: -128px -468px;
 }

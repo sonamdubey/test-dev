@@ -140,16 +140,176 @@ li.offertxt:hover span {display:inline}
 .specs-maxpower-icon { width:22px; background-position:-105px 0; }
 .specs-weight-icon { width:31px; background-position:-137px 0; }
 .model-preview-more-content { display:none; }
-/* prices by version */
-#prices-by-version-content.grid-8 { width: 64%; }
-#prices-top-cities.grid-4 { width: 36%; }
-.version-prices-tr td { border-top:1px solid #eee; }
-.version-prices-tr:first-child td { border-top:none; }
+
 .text-xt-dark-grey { color:#a2a2a2; }
 
+
+#model-expert-review-container { margin-bottom: 25px; }
+.model-preview-image-container { max-width:292px; height:164px; display:table; text-align:center; border:1px solid #e2e2e2; }
+.model-preview-image-container a { width:292px; height:164px; display:block; background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
+.model-preview-image-container a img { width:100%; height:164px; }
+.model-user-review-rating-container { max-width:148px; height:84px; margin-right: 20px; border:1px solid #e2e2e2; background:#f9f9f9; padding-top:17px; text-align:center;}
+.model-user-review-rating-container p:first-child { width: 148px; }
+.model-user-review-container .model-user-review-title-container { width: auto; float: none; }
+.upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px;}
+.upcoming-text-label:after{content: "";background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
+.discontinued-text-label { background:#A8AFB3;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px; }
+.discontinued-text-label:after { content: "";background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/discontinued-ribbon.png?v=10May2016v1) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px; }
+.chosen-results::-webkit-scrollbar {width: 10px;border-radius: 5px;}
+.chosen-results::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-moz-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-o-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);box-shadow: inset 0 0 2px rgba(0,0,0,0.2);}
+.chosen-results::-webkit-scrollbar-thumb {background-color: rgba(204, 204, 204,0.7);}
+.line-height { line-height: 1.5; }
+
+/* similar bikes */
+.compare-with-target {
+    display: block;
+    padding: 10px 35px 10px 20px;
+    position: relative;
+    font-size: 14px;
+    color: #4d5057;    
+}
+
+.compare-with-target:before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 85%;
+    height: 1px;
+    border-top: 1px solid #e2e2e2;
+}
+
+.compare-with-target:hover {
+    text-decoration: none;
+}
+
+.compare-sm {
+    width: 17px;
+    height: 12px;
+    background-position: -210px -580px;
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+}
+
+.compare-with-target .next-grey-icon {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
+
+/* dealer carousel */
+.dealer-jcarousel-image-preview { width:292px; height:114px; display:block; margin-bottom:15px; text-align:center; padding-top:10px; }
+.city-sprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?26Dec2016) no-repeat; display: inline-block; }
+.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon, .india-icon { height: 92px; }
+.mumbai-icon { width: 130px; background-position: 0 0; }
+.pune-icon { width: 186px; background-position: -140px 0; }
+.bangalore-icon { width: 136px; background-position: -336px 0; }
+.delhi-icon { width: 70px; background-position: -482px 0; }
+.chennai-icon { width: 53px; background-position: -562px 0; }
+.hyderabad-icon { width: 65px; background-position: -625px 0; }
+.kolkata-icon { width: 182px; background-position: -700px 0; }
+.lucknow-icon { width: 174px; background-position: -892px 0; }
+.ahmedabad-icon { width: 0px; background-position: 0 0; }
+.chandigarh-icon { width: 0px; background-position: 0 0; }
+.india-icon { width: 81px; background-position: -1076px 0; }
+
+/* model-news-content */
+#modelReviewsContent .model-news-content {
+    margin: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* dealer card */
+.card {
+  width: 292px;
+  min-height: 140px;
+  border: 1px solid #f6f6f6;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  -ms-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  float: left;
+  margin-left: 30px;
+  margin-bottom: 20px;
+}
+.card:first-child {
+    margin-left: 20px;
+}
+.card .card-target {
+    min-height: 147px;
+    display: block;
+    padding: 15px 20px;
+}
+.card .card-target:hover {
+    text-decoration: none;
+}
+.card .text-truncate {
+    width: 100%;
+}
+
+.margin-bottom0 {
+    margin-bottom: 0 !important;
+}
+
+@media only screen and (max-width:1024px) {
+    /* assistance-submit-btn */
+    .btn-188-40 {
+        width: 160px;
+    }
+
+    .form-control-username { width: 250px; }
+    
+    #modelDetailsFloatingCardContent { width:960px; left:2%; right:2%; }
+    #modelDetailsFloatingCardContent .model-details-floating-card{ width:940px; }
+    .model-card-title-content { width:230px; }
+    .floating-card-area-details { padding-left:0; }
+    .model-user-review-title-container { width: 265px; }
+    #campaign-offer-list li { width: 170px; }
+    .campaign-offer-label { width:70%; }
+    
+}
+
 /* h2 */
-#modelSpecsTabsContentWrapper h2 {
+.h2-heading {
     font-size: 18px;
+}
+
+/* price list */
+/* version prices */
+.divider-bottom {
+    border-bottom: 1px solid #eee;
+}
+
+/* prices in nearby cities */
+#prices-top-cities tr {
+    display: inline-block;
+    width: 49%
+}
+
+#prices-top-cities td {
+    font-size: 14px;
+    width: 49%;
+    display: inline-block;
+    padding-bottom: 20px;
+}
+
+#prices-top-cities .city-price {
+    width: 45%;
+}
+
+#prices-top-cities td a {
+    display: block;
+}
+
+#prices-top-cities tr:nth-child(odd) .city-name {
+    width: 110px
+}
+
+#prices-top-cities tr:nth-child(even) .city-name {
+    padding-left: 20px
 }
 
 /* model color card */
@@ -303,162 +463,6 @@ li.offertxt:hover span {display:inline}
 }
 .view-features-link.active:before {
     content: none;
-}
-
-#model-expert-review-container { margin-bottom: 25px; }
-.model-preview-image-container { max-width:292px; height:164px; display:table; text-align:center; border:1px solid #e2e2e2; }
-.model-preview-image-container a { width:292px; height:164px; display:block; background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
-.model-preview-image-container a img { width:100%; height:164px; }
-.model-user-review-rating-container { max-width:148px; height:84px; margin-right: 20px; border:1px solid #e2e2e2; background:#f9f9f9; padding-top:17px; text-align:center;}
-.model-user-review-rating-container p:first-child { width: 148px; }
-.model-user-review-container .model-user-review-title-container { width: auto; float: none; }
-.upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px;}
-.upcoming-text-label:after{content: "";background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
-.discontinued-text-label { background:#A8AFB3;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px; }
-.discontinued-text-label:after { content: "";background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/discontinued-ribbon.png?v=10May2016v1) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px; }
-.chosen-results::-webkit-scrollbar {width: 10px;border-radius: 5px;}
-.chosen-results::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-moz-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-o-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);box-shadow: inset 0 0 2px rgba(0,0,0,0.2);}
-.chosen-results::-webkit-scrollbar-thumb {background-color: rgba(204, 204, 204,0.7);}
-.line-height { line-height: 1.5; }
-
-/* similar bikes */
-.compare-with-target {
-    display: block;
-    padding: 10px 35px 10px 20px;
-    position: relative;
-    font-size: 14px;
-    color: #4d5057;    
-}
-
-.compare-with-target:before {
-    content: '';
-    position: absolute;
-    left: 20px;
-    top: 0;
-    width: 85%;
-    height: 1px;
-    border-top: 1px solid #e2e2e2;
-}
-
-.compare-with-target:hover {
-    text-decoration: none;
-}
-
-.compare-sm {
-    width: 17px;
-    height: 12px;
-    background-position: -210px -580px;
-    position: relative;
-    top: 1px;
-    margin-right: 5px;
-}
-
-.compare-with-target .next-grey-icon {
-    position: absolute;
-    right: 20px;
-    top: 15px;
-}
-
-#prices-top-cities tr {
-    display: inline-block;
-    width: 49%
-}
-
-#prices-top-cities td {
-    font-size: 14px;
-    width: 49%;
-    display: inline-block
-}
-
-#prices-top-cities .city-price {
-    width: 45%;
-}
-
-#prices-top-cities td a {
-    display: block;
-}
-
-#prices-top-cities tr:nth-child(odd) .city-name {
-    width: 110px
-}
-
-#prices-top-cities tr:nth-child(even) .city-name {
-    padding-left: 20px
-}
-
-/* dealer carousel */
-.dealer-jcarousel-image-preview { width:292px; height:114px; display:block; margin-bottom:15px; text-align:center; padding-top:10px; }
-.city-sprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?26Dec2016) no-repeat; display: inline-block; }
-.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon, .india-icon { height: 92px; }
-.mumbai-icon { width: 130px; background-position: 0 0; }
-.pune-icon { width: 186px; background-position: -140px 0; }
-.bangalore-icon { width: 136px; background-position: -336px 0; }
-.delhi-icon { width: 70px; background-position: -482px 0; }
-.chennai-icon { width: 53px; background-position: -562px 0; }
-.hyderabad-icon { width: 65px; background-position: -625px 0; }
-.kolkata-icon { width: 182px; background-position: -700px 0; }
-.lucknow-icon { width: 174px; background-position: -892px 0; }
-.ahmedabad-icon { width: 0px; background-position: 0 0; }
-.chandigarh-icon { width: 0px; background-position: 0 0; }
-.india-icon { width: 81px; background-position: -1076px 0; }
-
-/* model-news-content */
-#modelReviewsContent .model-news-content {
-    margin: 0;
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-/* dealer card */
-.card {
-  width: 292px;
-  min-height: 140px;
-  border: 1px solid #f6f6f6;
-  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  -ms-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  -o-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  float: left;
-  margin-left: 30px;
-  margin-bottom: 20px;
-}
-.card:first-child {
-    margin-left: 20px;
-}
-.card .card-target {
-    min-height: 147px;
-    display: block;
-    padding: 15px 20px;
-}
-.card .card-target:hover {
-    text-decoration: none;
-}
-.card .text-truncate {
-    width: 100%;
-}
-
-.margin-bottom0 {
-    margin-bottom: 0 !important;
-}
-
-@media only screen and (max-width:1024px) {
-    /* assistance-submit-btn */
-    .btn-188-40 {
-        width: 160px;
-    }
-
-    #modelDetailsContainer .model-details-wrapper { width:500px; }
-    .form-control-username { width: 250px; }
-    
-    #modelDetailsFloatingCardContent { width:960px; left:2%; right:2%; }
-    #modelDetailsFloatingCardContent .model-details-floating-card{ width:940px; }
-    .model-card-title-content { width:230px; }
-    .floating-card-area-details { padding-left:0; }
-    .model-user-review-title-container { width: 265px; }
-    #campaign-offer-list li { width: 170px; }
-    .campaign-offer-label { width:70%; }
-    
 }
 
 @media only screen and (max-width: 1024px) {

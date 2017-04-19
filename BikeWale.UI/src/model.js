@@ -447,7 +447,7 @@ docReady(function () {
         $("#onRoadPricePopup").hide();
         $(".blackOut-window").hide();
     });
-
+    
     onroadPriceConfirmBtn.on("click", function () {
         $("#modelPriceContainer .default-showroom-text").hide().siblings("#getOnRoadPriceBtn").hide();
         $("#modelPriceContainer .onroad-price-text").show().next("div.modelPriceContainer").find("span.viewBreakupText").show().next("span.showroom-text").show();
