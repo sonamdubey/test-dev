@@ -15,9 +15,9 @@
                     <th>Review Id</th>
                     <th>Bike Name</th>
                     <th>Written By</th>
+                    <th>Customer Email</th>
                     <th>Entry Date</th>
-                    <th>View Details</th>
-                    <th>Action</th>
+                    <th>View Details</th>                    
                 </tr>
                 @foreach (var m in Model.Reviews)
                 {
@@ -25,9 +25,9 @@
                         <td>@m.Id</td>
                         <td>@m.MakeName @m.ModelName</td>
                         <td>@m.WrittenBy</td>
+                        <td>@m.CustomerEmail</td>
                         <td>@m.EntryDate</td>
-                        <td><button id="btnViewDetails" data-target="reviewdetails" data-bind="click : function(){ selectedReviewId(@m.Id); }" class="btn waves-effect waves-light cyan" type="button" name="ViewDetails" data-review-id="@m.Id">View Details</button>
-                        </td>                        
+                        <td><button id="btnViewDetails" data-target="reviewdetails" data-bind="click : function(){ selectedReviewId(@m.Id); }" class="btn waves-effect waves-light cyan" type="button" name="ViewDetails" data-review-id="@m.Id">View Details</button></td>                        
                     </tr>
                 }
             </table>
