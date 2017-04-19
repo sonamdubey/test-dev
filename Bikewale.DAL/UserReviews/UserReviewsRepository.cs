@@ -875,14 +875,14 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint sourceId)
+        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint sourceId, uint reviewId)
         {
-            uint reviewId = 0;
+            uint reviewIdNew = 0;
 
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings_18042017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
@@ -894,12 +894,13 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, emailId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceId", DbType.Int16, sourceId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientIP", DbType.String, Bikewale.CoreDAL.CommonOpn.GetClientIP()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.Int16, reviewId > 0 ? reviewId : Convert.DBNull));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null && dr.Read())
                         {
-                            reviewId = SqlReaderConvertor.ToUInt32(dr["reviewId"]);
+                            reviewIdNew = SqlReaderConvertor.ToUInt32(dr["reviewId"]);
                         }
                         dr.Close();
                     }
@@ -913,7 +914,7 @@ namespace Bikewale.DAL.UserReviews
 
             }
 
-            return reviewId;
+            return reviewIdNew;
         }
 
         /// <summary>
@@ -937,10 +938,10 @@ namespace Bikewale.DAL.UserReviews
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.UInt32, reviewId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tipsnadvices", DbType.String, tipsnAdvices));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comment", DbType.String, comment));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_commenttitle", DbType.String, commentTitle));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ratingquestionans", DbType.String, reviewsQuestionAns));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewTips", DbType.String, tipsnAdvices));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewDescription", DbType.String, comment));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewTitle", DbType.String, commentTitle));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, reviewsQuestionAns));
 
                     IsSaved = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
@@ -999,7 +1000,7 @@ namespace Bikewale.DAL.UserReviews
                                     ModelName = Convert.ToString(dr["modelName"])
                                 },
                                 OriginalImgPath = Convert.ToString(dr["OriginalImgPath"]),
-                                 HostUrl = Convert.ToString(dr["hostUrl"])
+                                HostUrl = Convert.ToString(dr["hostUrl"])
                             };
                         }
 
@@ -1030,6 +1031,46 @@ namespace Bikewale.DAL.UserReviews
             }
 
             return objUserReviewSummary;
+        }
+
+
+        public bool IsUserVerified(uint reviewId, ulong customerId)
+        {
+
+            bool isVerified = false;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("checkcustomerreview"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.UInt32, reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.UInt32, customerId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            isVerified = SqlReaderConvertor.ToBoolean(dr["status"]);
+                        }
+
+
+
+                        dr.Close();
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+            }
+
+            return isVerified;
+
+
         }
     }
 }

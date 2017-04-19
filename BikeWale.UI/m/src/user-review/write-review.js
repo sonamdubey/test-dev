@@ -3,6 +3,7 @@
 var userNameField, userEmailIdField;
 var detailedReviewField, reviewTitleField;
 var value_overallrating, reviewQuestion, reviewOverallRatingId;
+var vmWriteReview;
 var array_rating;
 var bikeRating = {
     ratingCount: 0,
@@ -65,8 +66,6 @@ docReady(function () {
                 $(this).prop("checked", true);
             });
             if (getCookie("_PQUser") != null) {
-
-
                 var array_cookie = getCookie("_PQUser").split("&");
 
                 if (array_cookie[0] != null && userNameField.val() == "") {
@@ -110,8 +109,18 @@ docReady(function () {
                 value_overallrating = $("#bike-rating-box input[type='radio']:checked").attr("value");
                 $("#rate-bike-questions input[type='radio']:checked").each(function (i) {
                     var r = $(this);
-                    array_rating[i] = (r.attr("questionId") + ':' + r.attr("value"));
+                    var value =r.closest
+                    var value = r.closest('.question-field').attr('data-required');
+                    if (value) {
+                        array_rating[i] = (r.attr("questionId") + ':' + r.attr("value"));
+                    }
+                    if (r.attr("questionId") == "2" && r.attr("value") == "1")
+                    {
+                        i++;
+                        array_rating[i]="3:0"
+                    }
                 });
+                
                 $("#finaloverallrating").val(value_overallrating);
                 $("#rating-quesition-ans").val(array_rating);
 
@@ -139,6 +148,9 @@ docReady(function () {
                     self.focusFormActive(true);
                     answer.focusForm(ratingBox);
                     return false;
+                }
+                else {
+                    self.validateRatingCountFlag(false);
                 }
 
                 return !self.validateRatingCountFlag();
@@ -183,8 +195,6 @@ docReady(function () {
         };
 
     };
-
-
 
     var personalDetails = function () {
         var self = this;
@@ -446,14 +456,13 @@ docReady(function () {
 
     reviewTitleField.on("blur", function () {
         validate.onBlur($(this));
-    });
-    
-    if (performance.navigation.type == 1) {
-        vmWriteReview.GetFromBwCache();
-    }
-    else {
-        bwcache.removeAll(true);
-    }
+    });   
+
+    if ($("#reviewDesc") && $("#reviewDesc").data("validate") && $("#reviewDesc").data("validate").length)
+        vmWriteReview.validate.detailedReview();
+
+    if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length)
+        vmWriteReview.validate.reviewTitle();
 });
 
 var answer = {
@@ -463,14 +472,20 @@ var answer = {
     },
 
     focusForm: function (element) {
-        $('html, body').animate({ scrollTop: $(element).offset().top }, 500);
+        try{
+            $('html, body').animate({ scrollTop: $(element).offset().top }, 500);
+        }
+        catch(e)
+        {
+            console.warn(e.message);
+        }
     }
 };
 
 /* form validation */
 var validate = {
     setError: function (element, message) {
-        var elementLength = element.val().length,
+        var elementLength = element.val.length,
             errorTag = element.siblings('span.error-text');
 
         errorTag.show().text(message);
@@ -486,7 +501,7 @@ var validate = {
         var inputBox = element.closest('.input-box');
 
         inputBox.removeClass('invalid');
-        if (element.val().length > 0) {
+        if (element.val.length > 0) {
             inputBox.addClass('not-empty');
         }
         element.siblings('span.error-text').text('').hide();
@@ -513,6 +528,6 @@ var validate = {
 
 if (page == "writeReview") {
     setTimeout(function () {
-        //appendHash("writeReviewPage");
+        appendHash("writeReviewPage");
     }, 1000)
 }

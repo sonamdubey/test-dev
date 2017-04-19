@@ -3,15 +3,17 @@ using Bikewale.Entities.Customer;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Bikewale.Utility.LinqHelpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-
+using System.Web;
 
 namespace Bikewale.BAL.UserReviews
 {
@@ -137,9 +139,9 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="userName"></param>
         /// <param name="emailId"></param>
         /// <returns></returns>        
-        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint sourceId)
+        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint sourceId, uint reviewId)
         {
-            uint reviewId = 0;
+
             UserReviewRatingObject objRating = null;
             try
             {
@@ -151,7 +153,7 @@ namespace Bikewale.BAL.UserReviews
                 objCust = new CustomerEntityBase() { CustomerName = userName, CustomerEmail = emailId };
                 objCust = ProcessUserCookie(objCust);
 
-                objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId);
+                objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId, reviewId);
                 objRating.CustomerId = objCust.CustomerId;
             }
             catch (Exception ex)
@@ -209,9 +211,19 @@ namespace Bikewale.BAL.UserReviews
                     foreach (var question in objSummary.Questions)
                     {
                         var objQuestion = objUserReviewData.Questions.FirstOrDefault(q => q.Id == question.Id);
-                        objQuestion.SelectedRatingId = question.SelectedRatingId;
-                        objQuestions.Add(objQuestion);
+
+                        if (objQuestion != null)
+                        {
+                            objQuestion.SelectedRatingId = question.SelectedRatingId;
+                            if (objQuestion.SelectedRatingId == 0)
+                            {
+                                objQuestion.Visibility = false;
+                                objQuestion.IsRequired = false;
+                            }
+                            objQuestions.Add(objQuestion);
+                        }
                     }
+                    objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
 
                     objSummary.Questions = objQuestions;
 
@@ -292,8 +304,79 @@ namespace Bikewale.BAL.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("RegisterBuyer({0})", Newtonsoft.Json.JsonConvert.SerializeObject(customer)));
-                objErr.SendMail();
             }
+        }
+
+        /// <summary>
+        /// Created By Sajal Gupta on 19-04-2017
+        /// Description : Function to save user reviews with server side validations
+        /// </summary>
+        /// <param name="encodedId"></param>
+        /// <param name="tipsnAdvices"></param>
+        /// <param name="comment"></param>
+        /// <param name="commentTitle"></param>
+        /// <param name="reviewsQuestionAns"></param>
+        /// <param name="emailId"></param>
+        /// <param name="userName"></param>
+        /// <param name="makeName"></param>
+        /// <param name="modelName"></param>
+        /// <param name="reviewDescription"></param>
+        /// <param name="reviewTitle"></param>
+        /// <returns></returns>
+        public WriteReviewPageSubmitResponse SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName, string reviewDescription, string reviewTitle)
+        {
+            WriteReviewPageSubmitResponse objResponse = null;
+            try
+            {
+                bool isValid = true;
+
+                objResponse = new WriteReviewPageSubmitResponse();
+
+                if (!string.IsNullOrEmpty(reviewDescription) && reviewDescription.Length < 300 && string.IsNullOrEmpty(reviewTitle))
+                {
+                    objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
+                    objResponse.TitleErrorText = "Please provide a title for your review.";
+                    isValid = false;
+                }
+                else if (string.IsNullOrEmpty(reviewDescription) && !string.IsNullOrEmpty(reviewTitle))
+                {
+                    objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
+                    isValid = false;
+                }
+                else if (!string.IsNullOrEmpty(reviewDescription) && reviewDescription.Length > 300 && string.IsNullOrEmpty(reviewTitle))
+                {
+                    objResponse.TitleErrorText = "Please provide a title for your review.";
+                    isValid = false;
+                }
+
+                if (!string.IsNullOrEmpty(encodedId) && isValid)
+                {
+                    uint _reviewId;
+                    ulong _customerId;
+
+                    string decodedString = Utils.Utils.DecryptTripleDES(encodedId);
+                    NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
+
+                    uint.TryParse(queryCollection["reviewid"], out _reviewId);
+                    ulong.TryParse(queryCollection["customerid"], out _customerId);
+
+
+                    if (_reviewId > 0 && _customerId > 0 && _userReviewsRepo.IsUserVerified(_reviewId, _customerId))
+                    {
+                        UserReviewsEmails.SendReviewSubmissionEmail(userName, emailId, makeName, modelName);
+                        objResponse.IsSuccess = SaveUserReviews(_reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
+                    }
+                    else
+                        objResponse.IsSuccess = false;
+                }
+                else
+                    objResponse.IsSuccess = false;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "SaveUserReviews");
+            }
+            return objResponse;
         }
     }   // Class
 }   // Namespace

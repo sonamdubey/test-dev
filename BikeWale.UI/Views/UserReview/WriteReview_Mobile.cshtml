@@ -31,7 +31,7 @@
                         <li>Pros and Cons</li>
                     </ol>
                     <div class="textarea-box margin-bottom15">
-                        <textarea name="reviewDescription" data-bind="textInput: detailedReview" id="getDetailedReview" rows="9" cols="42" placeholder="The more detailed your review, the more useful it will be. Write your review."></textarea>
+                        <textarea id="reviewDesc" name="reviewDescription" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.ReviewErrorText)) ? Model.SubmitResponse.ReviewErrorText : "")" data-bind="textInput: detailedReview" id="getDetailedReview" rows="9" cols="42" placeholder="The more detailed your review, the more useful it will be. Write your review."></textarea>
 
                         <div data-bind="visible: !detailedReviewFlag() && detailedReview().length < 300" class="review-char-count position-abt font12">
                             <span data-bind="visible: detailedReview().length > 0"><span data-bind="text: detailedReview().length"></span>/</span><span data-bind="text: reviewCharLimit"></span>&nbsp;min
@@ -46,7 +46,7 @@
                     <p class="text-slate-grey margin-bottom20">A catchy title will grab eyeballs, and more people will read your review.</p>
 
                     <div class="input-box form-control-box" data-bind="css: reviewTitle().length > 0 ? 'not-empty' : ''">
-                        <input name="reviewTitle" type="text" id="getReviewTitle" />
+                        <input name="reviewTitle" type="text" id="getReviewTitle" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.TitleErrorText)) ? Model.SubmitResponse.TitleErrorText : "")" data-bind="textInput: reviewTitle" />
                         <label for="getReviewTitle">Your title</label>
                         <span class="boundary"></span>
                         <span class="error-text"></span>
@@ -85,8 +85,14 @@
                 </ul>
                 <div class="clear"></div>
 
-                <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
-                <input type="hidden" name="reviewId" value="@Model.ReviewId" />
+                <input type="hidden" id="reviewQuestion" name="reviewQuestion" />                
+                <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />
+                <input type="hidden" name="encodedId" value="@Utils.Utils.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
+                <input type="hidden" name="userName" value="@Model.UserName" />
+                <input type="hidden" name="emailId" value="@Model.EmailId" />
+                <input type="hidden" name="makeName" value="@Model.Make.MakeName" />
+                <input type="hidden" name="modelName" value="@Model.Model.ModelName" />
+                <input type="hidden" name="encodedString" value="@Model.EncodedWriteUrl" />
 
                 <h3 class="font15 margin-bottom10">Tips for prospective buyers</h3>
                 <p class="text-light-grey margin-bottom10">Share key tips which you think were useful while owning/riding this bike.</p>
@@ -94,13 +100,14 @@
                     <textarea name="reviewTips" data-bind="textInput: reviewTips" rows="3" cols="42" placeholder="Write your tips here.."></textarea>
                 </div>
                 @Html.AntiForgeryToken()
+                <input type="hidden" name="queryEncoded" value="@Model.EncodedWriteUrl" />
                 <input id="submitReviewBtn" type="submit" class="btn btn-orange" value="Submit review" data-bind="click: submitReview" />
             </div>
         </div>
 
         <span id="review-question-list" class="hide">@Model.JsonQuestionList</span>
         <span id="previousPageUrl" class="hide">@Model.PreviousPageUrl</span>
-</section>
+    </section>
 </form>
 <script type="text/javascript">
     var page = "writeReview";

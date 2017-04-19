@@ -5,23 +5,36 @@
 
 @if (Model != null && Model.HasBikes)
 {
-    <div class="box-shadow padding-top10 padding-bottom10">
-        @if (Model.MakesList != null && Model.MakesList.Count() > 0)
-        {
-            <div class="grid-6 padding-left15 padding-right15 border-solid-right">
-                <p class="font12 text-light-grey">Brand</p>
-                <p id="brand-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedMake() ? selectedMake() : '' ">All brands</p>
-            </div>
-        }
-        @if (Model.YearsList != null && Model.YearsList.Count() > 0)
-        {
-            <div class="grid-6 padding-left15 padding-right15">
-                <p class="font12 text-light-grey">Launch year</p>
-                <p id="year-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedYear() ? selectedYear() : '' ">All years</p>
-            </div>
-        }
-        <div class="clear"></div>
-    </div>
+    if ((Model.MakesList != null && Model.MakesList.Count() > 0) || (Model.YearsList != null && Model.YearsList.Count() > 1))
+    {
+        <div class="@( Model.MakesList != null ? "box-shadow padding-top10 padding-bottom10" : "")">
+            @if (Model.MakesList != null && Model.MakesList.Count() > 0)
+            {
+                <div class="grid-6 padding-left15 padding-right15 border-solid-right">
+                    <p class="font12 text-light-grey">Brand</p>
+                    <p id="brand-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedMake() ? selectedMake() : '' ">All brands</p>
+                </div>
+            }
+            @if (Model.YearsList != null && Model.YearsList.Count() > 1)
+            {
+                if (Model.MakesList == null)
+                {
+                    <div class="padding-top10 padding-right20 padding-bottom10 padding-left20 border-light-bottom">
+                        <div class="inline-block margin-right10"><span class="bwmsprite filter-icon"></span><span class="font14 text-light-grey">Filter by:</span></div><p id="year-filter-selection" class="filter-selection-value text-truncate inline-block selection-auto-width" data-bind="text : selectedYear() ? selectedYear() : '' ">All years</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="grid-6 padding-left15 padding-right15">
+                        <p class="font12 text-light-grey">Launch year</p>
+                        <p id="year-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedYear() ? selectedYear() : '' ">All years</p>
+                    </div>
+                }
+
+            }
+            <div class="clear"></div>
+        </div>
+    }
 
     <!-- ko if : models() && models().length > 0 -->
     <ul class="bike-listing-vertical">
@@ -32,7 +45,7 @@
             <!-- ko if : models()[@i] -->
                 <li class="list-item">
                     <p class="border-red-left font12 text-bold margin-bottom10" style="display: @(bike.IsLaunchingThisMonth ? "block" : "none")" data-bind="visible: models()[@i].isLaunchingThisMonth, text: 'Launching this month'">Launching this month</p>
-                    <a href="@string.Format("/{0}-bikes/{1}", bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bike.MakeBase.MakeName @bike.ModelBase.ModelName" class="block" data-bind="attr : {'href' : '/m/' + models()[@i].makeBase.maskingName + '-bikes/' + models()[@i].modelBase.maskingName + '/',title :models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName  }">
+                    <a href="@string.Format("/m/{0}-bikes/{1}/", bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bike.MakeBase.MakeName @bike.ModelBase.ModelName" class="block" data-bind="attr : {'href' : '/m/' + models()[@i].makeBase.maskingName + '-bikes/' + models()[@i].modelBase.maskingName + '/',title :models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName  }">
                         <div class="item-image-content">
                             <img data-bind="attr : { 'data-original' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ), 'src':'' ,'lazyload' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ),'alt' : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName,'title' : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName  }" class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" alt="@bike.MakeBase.MakeName @bike.ModelBase.ModelName" src="" />
                         </div>

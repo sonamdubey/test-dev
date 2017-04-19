@@ -7,10 +7,13 @@
     <div class="content-box-shadow">
         <div class="padding-right20 padding-left20">
             <div class="padding-top15 padding-bottom15 border-solid-bottom">
-                <h3 class="font18 text-black grid-5 alpha" data-bind="visible:TotalBikes() > 0, text:TotalBikes() > 1 ? TotalBikes() + ' bikes' : TotalBikes() + ' bike'">@Model.TotalBikes bike@(Model.TotalBikes > 1 ? "s" : "")</h3>
+                <h2 class="font18 text-black grid-5 alpha" data-bind="visible:TotalBikes() > 0, text:TotalBikes() > 1 ? TotalBikes() + '@(Model.Make != null ? String.Format(" upcoming {0}", Model.Make.MakeName) : "")' + ' bikes' : TotalBikes() + ' bike'">@Model.TotalBikes @((Model.Make!=null ? " upcoming " + Model.Make.MakeName :"")) bike@(Model.TotalBikes > 1 ? "s" : "")</h2>
 
                 <div class="grid-7 omega text-right upcoming-filter">
-                    <p class="font14 text-light-grey inline-block margin-right5">Filter by:</p>
+                    @if ((Model.MakesList != null && Model.MakesList.Count() > 0) || (Model.YearsList != null && Model.YearsList.Count() > 1))
+                    {
+                        <p class="font14 text-light-grey inline-block margin-right5">Filter by:</p>
+                    }
 
                     @if (Model.MakesList != null && Model.MakesList.Count() > 0)
                     {
@@ -24,7 +27,7 @@
                             </select>
                         </div>
                     }
-                    @if (Model.YearsList != null && Model.YearsList.Count() > 0)
+                    @if (Model.YearsList != null && Model.YearsList.Count() > 1)
                     {
                         <div class="select-box select-box-no-input inline-block right-align-box">
                             <select class="chosen-select" data-title="Select year" id="yearFilter" data-filter="yearwise" data-bind="chosen:{width: '100%'},event : { change : function(d,e) { setYearFilter(e);}}">
@@ -54,7 +57,7 @@
                             <div class="launching-label">
                                 <p class="border-red-left font12 text-bold margin-bottom10 margin-left10" style="display: @(bike.IsLaunchingThisMonth ? "block" : "none")" data-bind="visible: models()[@i].isLaunchingThisMonth, text: 'Launching this month'">Launching this month</p>
                             </div>
-                            <a href="@string.Format("/{0}-bikes/{1}", bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bike.MakeBase.MakeName @bike.ModelBase.ModelName" class="block" data-bind="attr : {'href' : '/' + models()[@i].makeBase.maskingName + '-bikes/' + models()[@i].modelBase.maskingName + '/',title :models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName  }">
+                            <a href="@string.Format("/{0}-bikes/{1}/", bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bike.MakeBase.MakeName @bike.ModelBase.ModelName" class="block" data-bind="attr : {'href' : '/' + models()[@i].makeBase.maskingName + '-bikes/' + models()[@i].modelBase.maskingName + '/',title :models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName  }">
                                 <div class="model-jcarousel-image-preview">
                                     <img data-bind="attr : { 'src' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' )},'alt' : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName,'title' : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" alt="@bike.MakeBase.MakeName @bike.ModelBase.ModelName">
                                 </div>

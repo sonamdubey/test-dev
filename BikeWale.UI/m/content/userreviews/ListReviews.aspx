@@ -119,7 +119,7 @@
                     </div>
                     <%} %>
                     <div class="margin-top15 margin-bottom5 text-center">
-                        <a id="btnRateBike" href="<%=string.Format("/m/user-reviews/rate-bike/{0}/",modelId)%>" class="btn btn-teal font16">Write a review</a>
+                        <a id="btnRateBike" href="<%=string.Format("/m/user-reviews/rate-bike/{0}/?pagesourceid={1}",modelId,Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UserReview_Listing_Mobile))%>" class="btn btn-teal font16">Write a review</a>
                     </div>
                 </div>
             </div>

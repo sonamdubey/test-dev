@@ -10,14 +10,19 @@ using System.Web;
 
 namespace Bikewale.Models.UserReviews
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 10-04-2017
+    /// Descrioption : This Model will run write review page.
+    /// </summary>
     public class WriteReviewPageModel
     {
         private readonly IUserReviews _userReviews = null;
         private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId;
         private string _decodedString;
-        private string _encodedString;
+        private string _encodedString, _userName, _emailId;
         private ulong _customerId;
 
+        public WriteReviewPageSubmitResponse SubmitResponse { get; set; }
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }
         public ushort Rating { get; set; }
@@ -36,6 +41,7 @@ namespace Bikewale.Models.UserReviews
             ParseQueryString(_decodedString);
         }
 
+
         public void ParseQueryString(string decodedQueryString)
         {
             NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedQueryString);
@@ -46,6 +52,8 @@ namespace Bikewale.Models.UserReviews
             uint.TryParse(queryCollection["overallrating"], out _overAllRating);
             ulong.TryParse(queryCollection["customerid"], out _customerId);
             uint.TryParse(queryCollection["priceRangeId"], out _priceRangeId);
+            _userName = queryCollection["userName"];
+            _emailId = queryCollection["emailId"];
         }
 
         /// <summary>
@@ -65,6 +73,9 @@ namespace Bikewale.Models.UserReviews
                 if (_modelId > 0)
                     objModelEntity = new ModelHelper().GetModelDataById(_modelId);
 
+                objPage.UserName = _userName;
+                objPage.EmailId = _emailId;
+
                 if (objModelEntity != null)
                 {
                     objPage.Make = objModelEntity.MakeBase;
@@ -74,7 +85,8 @@ namespace Bikewale.Models.UserReviews
                     objPage.Model.MaskingName = objModelEntity.MaskingName;
                     objPage.HostUrl = objModelEntity.HostUrl;
                     objPage.OriginalImagePath = objModelEntity.OriginalImagePath;
-                    objPage.PreviousPageUrl = string.Format("m/user-reviews/rate-bike/{0}/{1}", objPage.Model.ModelId, _encodedString);
+                    objPage.PreviousPageUrl = string.Format("/m/user-reviews/rate-bike/{0}/?reviewId={1}", objPage.Model.ModelId, _encodedString);
+                    objPage.EncodedWriteUrl = _encodedString;
                 }
 
                 objPage.ReviewId = _reviewId;
@@ -86,7 +98,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.GetData()");
             }
             return objPage;
         }
@@ -103,7 +115,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.BindPageMetas()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.BindPageMetas()");
             }
         }
 
@@ -140,10 +152,9 @@ namespace Bikewale.Models.UserReviews
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.GetUserRatings()");
             }
         }
 

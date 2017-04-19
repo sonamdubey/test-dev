@@ -1,4 +1,4 @@
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 namespace Bikewale.Models
 {
     public class UserReviewRatingVM : ModelBase
@@ -11,5 +11,6 @@ namespace Bikewale.Models
         public string ReviewsOverAllrating { get; set; }
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
+        public uint ReviewId { get; set; }
     }
 }

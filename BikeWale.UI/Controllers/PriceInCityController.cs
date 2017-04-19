@@ -123,7 +123,7 @@ namespace Bikewale.Controllers
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
                 model.BikeInfoTabCount = 3;
-                model.NearestCityCount = 4;
+                model.NearestCityCount = 8;
                 model.TopCount = 9;
                 model.PQSource = PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click;
                 model.Platform = DTO.PriceQuote.PQSources.Mobile;
