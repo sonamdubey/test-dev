@@ -1,8 +1,7 @@
-﻿using Bikewale.Interfaces.UserReviews;
+﻿using Bikewale.Entities;
+using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using System;
-using System.Collections.Specialized;
-using System.Web;
 
 namespace Bikewale.Models.UserReviews
 {
@@ -16,6 +15,10 @@ namespace Bikewale.Models.UserReviews
         private readonly IUserReviews _userReviews = null;
         private uint _reviewId;
         private string _strEncoded;
+        #endregion
+
+        #region Public variables
+        public StatusCodes status;
         #endregion
 
         #region Constructor
@@ -38,10 +41,15 @@ namespace Bikewale.Models.UserReviews
             try
             {
                 objData.Summary = _userReviews.GetUserReviewSummary(_reviewId);
-                objData.WriteReviewLink = string.Format("/write-a-review/?q={0}", _strEncoded);
                 if (objData.Summary != null)
                 {
+                    status = StatusCodes.ContentFound;
                     objData.PrevPageUrl = Bikewale.Utility.UserReviews.FormatPreviousPageUrl(objData.Summary.PageSource, objData.Summary.Make.MaskingName, objData.Summary.Model.MaskingName);
+                    objData.WriteReviewLink = string.Format("/write-a-review/?q={0}", _strEncoded);
+                }
+                else
+                {
+                    status = StatusCodes.ContentNotFound;
                 }
                
             }

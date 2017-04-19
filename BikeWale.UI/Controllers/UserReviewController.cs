@@ -130,7 +130,10 @@ namespace Bikewale.Controllers
         {
             UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid,q);
             UserReviewSummaryVM objVM = objData.GetData();
-            return View(objVM);
+            if (objData != null && objData.status == Entities.StatusCodes.ContentFound)
+                return View(objVM);
+            else
+                return Redirect("/m/pageNotFound.aspx");
         }
 
 
