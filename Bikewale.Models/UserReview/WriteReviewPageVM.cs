@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 
 namespace Bikewale.Models
@@ -25,5 +26,6 @@ namespace Bikewale.Models
         public string EncodedWriteUrl { get; set; }
         public string EmailId { get; set; }
         public string UserName { get; set; }
+        public WriteReviewPageSubmitResponse SubmitResponse { get; set; }
     }
 }

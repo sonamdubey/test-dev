@@ -140,31 +140,20 @@ namespace Bikewale.Controllers
         /// <param name="reviewId"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-         public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName,string queryEncoded, uint reviewId)
+        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, string queryEncoded, uint reviewId, string encodedString)
         {
-            bool isValid = true;
-            string errorMessage = "";
-            //server side validation for data received
-            if (string.IsNullOrEmpty(reviewDescription) && !string.IsNullOrEmpty(reviewTitle))
-            {
-                errorMessage = "Please provide your Description for bike.";
-                isValid = false;
-            }
-            if (!string.IsNullOrEmpty(reviewDescription) && string.IsNullOrEmpty(reviewTitle))
-            {
-                errorMessage = "Please provide your Title for bike.";
-                isValid = false;
-            }
+            WriteReviewPageSubmitResponse objResponse = null;
 
-            if (isValid)
-            {
-                _userReviews.SaveUserReviews(encodedId, reviewTips, reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName);
+            objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips, reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName, reviewDescription, reviewTitle);
+
+            if (objResponse.IsSuccess)
                 return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, queryEncoded));
-            }
             else
             {
-                TempData["ErrorMessage"] = errorMessage;
-                return RedirectToAction("WriteReview_Mobile");
+                WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, encodedString);
+                var objData = objPage.GetData();
+                objData.SubmitResponse = objResponse;
+                return View("WriteReview_Mobile", objData);
             }
         }
 
