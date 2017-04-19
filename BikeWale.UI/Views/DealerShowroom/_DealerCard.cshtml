@@ -10,7 +10,7 @@
                     <p class="text-black text-bold text-truncate margin-bottom10 font15">@dealerDetails.Name</p>
                     <p class="@string.Format("{0}", string.IsNullOrEmpty(dealerDetails.Address) ? "hide" : "margin-bottom10")">
                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                        <span class="text-slate-grey vertical-top details-column">@Bikewale.Utility.FormatDescription.TruncateDescription((dealerDetails.Address), 95)</span>
+                        <span class="text-light-grey vertical-top details-column">@Bikewale.Utility.FormatDescription.TruncateDescription((dealerDetails.Address), 95)</span>
                     </p>
                     <p class="@string.Format("{0}", string.IsNullOrEmpty(dealerDetails.MaskingNumber) ? "hide" : "")">
                         <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>

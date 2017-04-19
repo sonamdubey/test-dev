@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -69,10 +70,11 @@ namespace Bikewale.Models
             UpcomingPageVM objUpcoming = new UpcomingPageVM();
             try
             {
+                GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
                 BindPageMetaTags(objUpcoming.PageMetaTags);
                 var upcomingBikes = _upcoming.GetModels(_filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(_topBrandsCount);
-                objUpcoming.NewLaunches = new NewLaunchedWidgetModel(9, _newLaunches).GetData();
+                objUpcoming.NewLaunches = new NewLaunchedWidgetModel(9, location.CityId, _newLaunches).GetData();
                 UpcomingBikeResult bikeResult = _upcoming.GetBikes(_filters, SortBy);
                 objUpcoming.UpcomingBikeModels = bikeResult.Bikes;
                 objUpcoming.TotalBikes = bikeResult.TotalCount;
