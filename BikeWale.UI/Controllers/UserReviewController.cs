@@ -124,7 +124,14 @@ namespace Bikewale.Controllers
             WriteReviewPageModel objPage = new WriteReviewPageModel(_objCache, _userReviews, q);
             var objData = objPage.GetData();
 
-            return View(objData);
+            if (objData != null && objData.ReviewId > 0 && objData.CustomerId > 0)
+            {
+                return View(objData);
+            }
+            else
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
         }
 
         [Route("m/user-reviews/review-summary/{reviewid}/")]
