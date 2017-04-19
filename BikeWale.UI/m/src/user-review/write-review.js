@@ -397,7 +397,6 @@ docReady(function () {
 
         self.SaveToBwCache = function () {
             var savearray = new Array;
-            var textarray = new Array;
                 $(".list-item input[type='radio']:checked").each(function (i) {
                     var r = $(this);
                 savearray[i] = (r.attr("questiontId") + ':' + r.val());
@@ -408,7 +407,7 @@ docReady(function () {
                 reviewTips: self.reviewTips(),
                 ratingArray: savearray
             };
-            bwcache.set('reviewformdata', pageObj, 30);
+            bwcache.set('reviewformdata', pageObj, 10);
         };
 
         self.GetFromBwCache = function () {
@@ -463,6 +462,12 @@ docReady(function () {
 
     if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length)
         vmWriteReview.validate.reviewTitle();
+    if (performance.navigation.type == 1) {
+        vmWriteReview.GetFromBwCache();
+    }
+    else {
+        bwcache.removeAll(true);
+    }
 });
 
 var answer = {
@@ -526,8 +531,3 @@ var validate = {
     }
 };
 
-if (page == "writeReview") {
-    setTimeout(function () {
-        appendHash("writeReviewPage");
-    }, 1000)
-}
