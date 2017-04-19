@@ -35,11 +35,12 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
         /// <param name="disapprovalReasonId">If user review is discarded need reason id to discard review</param>
         /// <param name="moderatorId">Person opr user id who is updating the data</param>
         /// <returns></returns>
-        public IHttpActionResult UpdateUserReviewsStatus(uint reviewId, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId)
+        [HttpPost, Route("userreviews/id/{reviewId}/updatestatus/")]
+        public IHttpActionResult UpdateUserReviewsStatus(uint reviewId, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId, string review, string reviewTitle, string reviewTips)
         {
             try
             {
-                _userReviewsRepo.UpdateUserReviewsStatus(reviewId, reviewStatus, moderatorId, disapprovalReasonId);
+                _userReviewsRepo.UpdateUserReviewsStatus(reviewId, reviewStatus, moderatorId, disapprovalReasonId, review, reviewTitle, reviewTips);
             }
             catch (Exception ex)
             {
@@ -51,23 +52,6 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             return Ok();
 
         }   // End of UpdateUserReviewsStatus
-
-
-        public IHttpActionResult GetUserReviewSummary(uint reviewId)
-        {
-            try
-            {
-                _userReviewsRepo.GetReviewDetails(reviewId);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateUserReviewsStatus");
-
-                return InternalServerError();
-            }
-
-            return Ok();
-        }
 
     }   // class
 }   // namespace

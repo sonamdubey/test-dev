@@ -75,7 +75,7 @@ namespace BikewaleOpr.DALs.Bikedata
                 {
                     connection.Open();
 
-                    objMakes = connection.Query<BikeMakeEntity>("GetMakesList", CommandType.StoredProcedure).ToList();
+                    objMakes = connection.Query<BikeMakeEntity>("GetMakesList", CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -281,15 +281,13 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    objMakes = new List<BikeMakeEntityBase>();
-
                     connection.Open();
 
                     var param = new DynamicParameters();
 
                     param.Add("par_requesttype", requestType);
 
-                    objMakes = connection.Query<BikeMakeEntityBase>("getbikemakes_1712017", param: param, commandType: CommandType.StoredProcedure).ToList();
+                    objMakes = connection.Query<BikeMakeEntityBase>("getbikemakes_1712017", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
