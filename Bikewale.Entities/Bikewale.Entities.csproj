@@ -349,6 +349,7 @@
     <Compile Include="UserReviews\ReviewsListEntity.cs" />
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
     <Compile Include="UserReviews\UserReviewOverallRating.cs" />
+    <Compile Include="UserReviews\UserReviewPageSourceEnum.cs" />
     <Compile Include="UserReviews\UserReviewPriceRange.cs" />
     <Compile Include="UserReviews\UserReviewRatingObject.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />

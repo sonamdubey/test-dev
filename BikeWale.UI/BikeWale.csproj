@@ -3342,7 +3342,6 @@
     <Content Include="bin\Bikewale.Utility.dll" />
     <Content Include="bin\Carwale.BL.dll" />
     <Content Include="bin\Carwale.Cache.dll" />
-    <Content Include="bin\Carwale.CMS.dll" />
     <Content Include="bin\Carwale.CoreDAL.dll" />
     <Content Include="bin\Carwale.DAL.dll" />
     <Content Include="bin\Carwale.Entity.dll" />

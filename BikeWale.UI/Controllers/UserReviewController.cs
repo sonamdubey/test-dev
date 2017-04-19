@@ -140,19 +140,20 @@ namespace Bikewale.Controllers
         /// <param name="reviewId"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName)
+        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, string queryEncoded, uint reviewId, string encodedString)
         {
             WriteReviewPageSubmitResponse objResponse = null;
 
             objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips, reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName, reviewDescription, reviewTitle);
 
             if (objResponse.IsSuccess)
-                return RedirectToAction("ReviewSummary_Mobile");
+                return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, queryEncoded));
             else
             {
-                WriteReviewPageVM objWriteReviewPage = new WriteReviewPageVM();
-                objWriteReviewPage.SubmitResponse = objResponse;
-                return View("WriteReview_Mobile", objWriteReviewPage);
+                WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, encodedString);
+                var objData = objPage.GetData();
+                objData.SubmitResponse = objResponse;
+                return View("WriteReview_Mobile", objData);
             }
         }
 

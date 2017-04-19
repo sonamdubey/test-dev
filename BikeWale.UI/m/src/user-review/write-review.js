@@ -3,6 +3,7 @@
 var userNameField, userEmailIdField;
 var detailedReviewField, reviewTitleField;
 var value_overallrating, reviewQuestion, reviewOverallRatingId;
+var vmWriteReview;
 var array_rating;
 var bikeRating = {
     ratingCount: 0,
@@ -398,7 +399,7 @@ docReady(function () {
         };
     };
 
-    var vmWriteReview = new writeReview(),
+    vmWriteReview = new writeReview(),
         writeReviewForm = document.getElementById('write-review-form');
 
     if (writeReviewForm) {
@@ -430,6 +431,12 @@ docReady(function () {
     //window.onhashchange = function () {
     //    console.log('asd');
     //};
+
+    if ($("#reviewDesc") && $("#reviewDesc").data("validate").length)
+        vmWriteReview.validate.detailedReview();
+
+    if ($("#getReviewTitle") && $("#getReviewTitle").data("validate").length)
+        vmWriteReview.validate.reviewTitle();
 });
 
 var answer = {
@@ -439,7 +446,13 @@ var answer = {
     },
 
     focusForm: function (element) {
-        $('html, body').animate({ scrollTop: $(element).offset().top }, 500);
+        try{
+            $('html, body').animate({ scrollTop: $(element).offset().top }, 500);
+        }
+        catch(e)
+        {
+            console.warn(e.message);
+        }
     }
 };
 
