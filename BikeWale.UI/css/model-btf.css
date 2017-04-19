@@ -84,33 +84,6 @@ li.offertxt:hover span {display:inline}
 .call-icon { width: 16px; height: 19px; background-position: -115px -201px; }
 .insurance-breakup-text{position: relative; color: rgb(153, 153, 153); font-size: 14px; margin-top: 1px; text-decoration: solid;float:left; clear:left;}
 
-/* model key highlights */
-#model-key-highlights tr td {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border-top: 1px solid #eee; 
-}
-
-#model-key-highlights tbody tr:first-child td {
-    border-top: 0;
-}
-
-#model-key-highlights .model-color-list li {
-    margin-right: 3px;
-}
-
-#model-key-highlights .model-color-list li:after {
-    content: ", ";
-}
-
-#model-key-highlights .model-color-list li:last-child:after {
-    content: none;
-}
-
-.inline {
-    display: inline;
-}
-
 /**/
 .inline-block-top { display:inline-block; vertical-align:top; }
 .model-card-image-content { width:117px; height:66px; background:#ccc; }
@@ -148,9 +121,7 @@ li.offertxt:hover span {display:inline}
 .model-preview-image-container { max-width:292px; height:164px; display:table; text-align:center; border:1px solid #e2e2e2; }
 .model-preview-image-container a { width:292px; height:164px; display:block; background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .model-preview-image-container a img { width:100%; height:164px; }
-.model-user-review-rating-container { max-width:148px; height:84px; margin-right: 20px; border:1px solid #e2e2e2; background:#f9f9f9; padding-top:17px; text-align:center;}
-.model-user-review-rating-container p:first-child { width: 148px; }
-.model-user-review-container .model-user-review-title-container { width: auto; float: none; }
+
 .upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px;}
 .upcoming-text-label:after{content: "";background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
 .discontinued-text-label { background:#A8AFB3;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px; }
@@ -198,60 +169,11 @@ li.offertxt:hover span {display:inline}
     top: 15px;
 }
 
-/* dealer carousel */
-.dealer-jcarousel-image-preview { width:292px; height:114px; display:block; margin-bottom:15px; text-align:center; padding-top:10px; }
-.city-sprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?26Dec2016) no-repeat; display: inline-block; }
-.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon, .india-icon { height: 92px; }
-.mumbai-icon { width: 130px; background-position: 0 0; }
-.pune-icon { width: 186px; background-position: -140px 0; }
-.bangalore-icon { width: 136px; background-position: -336px 0; }
-.delhi-icon { width: 70px; background-position: -482px 0; }
-.chennai-icon { width: 53px; background-position: -562px 0; }
-.hyderabad-icon { width: 65px; background-position: -625px 0; }
-.kolkata-icon { width: 182px; background-position: -700px 0; }
-.lucknow-icon { width: 174px; background-position: -892px 0; }
-.ahmedabad-icon { width: 0px; background-position: 0 0; }
-.chandigarh-icon { width: 0px; background-position: 0 0; }
-.india-icon { width: 81px; background-position: -1076px 0; }
-
 /* model-news-content */
 #modelReviewsContent .model-news-content {
     margin: 0;
     border-bottom: none;
     padding-bottom: 0;
-}
-
-/* dealer card */
-.card {
-  width: 292px;
-  min-height: 140px;
-  border: 1px solid #f6f6f6;
-  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  -ms-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  -o-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  float: left;
-  margin-left: 30px;
-  margin-bottom: 20px;
-}
-.card:first-child {
-    margin-left: 20px;
-}
-.card .card-target {
-    min-height: 147px;
-    display: block;
-    padding: 15px 20px;
-}
-.card .card-target:hover {
-    text-decoration: none;
-}
-.card .text-truncate {
-    width: 100%;
-}
-
-.margin-bottom0 {
-    margin-bottom: 0 !important;
 }
 
 @media only screen and (max-width:1024px) {
@@ -275,6 +197,37 @@ li.offertxt:hover span {display:inline}
 /* h2 */
 .h2-heading {
     font-size: 18px;
+}
+
+.inline {
+    display: inline;
+}
+
+/* model key highlights */
+#model-key-highlights tr td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-top: 1px solid #eee; 
+}
+
+#model-key-highlights tbody tr td:first-child {
+    color: #82888b;
+}
+
+#model-key-highlights tbody tr:first-child td {
+    border-top: 0;
+}
+
+#model-key-highlights .model-color-list li {
+    margin-right: 3px;
+}
+
+#model-key-highlights .model-color-list li:after {
+    content: ", ";
+}
+
+#model-key-highlights .model-color-list li:last-child:after {
+    content: none;
 }
 
 /* price list */
@@ -319,7 +272,7 @@ li.offertxt:hover span {display:inline}
 #modelColorsList li {
     width: 240px;
     padding-left: 20px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     display: inline-block;
     vertical-align: top;
 }
@@ -332,7 +285,7 @@ li.offertxt:hover span {display:inline}
 #modelColorsList a:hover p {
     color: #4d5057;
 }
-#modelColorsList .color-box {
+.color-box-list .color-box {
     width: 32px;
     height: 32px;
     margin-right: 15px;
@@ -463,6 +416,174 @@ li.offertxt:hover span {display:inline}
 }
 .view-features-link.active:before {
     content: none;
+}
+
+/* user review */
+.model-user-review-rating-container { 
+    width: 106px;
+    height: 60px;
+    margin-right: 20px;
+    border: 1px solid #e2e2e2;
+    background: #f9f9f9;
+    padding-top: 8px;
+    text-align: center;
+}
+.model-user-review-container .model-user-review-title-container {
+    width: auto;
+    float: none;
+}
+.model-user-review-rating-container .star-one-icon,
+.model-user-review-rating-container .star-zero-icon {
+    -moz-transform: scale(0.8);
+    transform: scale(0.8);
+    margin-right: -1px;
+    margin-left: -1px;
+}
+
+.model-user-review-container .article-stats-left-grid,
+.model-user-review-container .article-stats-right-grid {
+    margin-bottom: 10px;
+}
+
+/* card */
+.card {
+  width: 292px;
+  min-height: 140px;
+  border: 1px solid #f6f6f6;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  -ms-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  float: left;
+  margin-left: 30px;
+  margin-bottom: 20px;
+}
+.card:first-child {
+    margin-left: 20px;
+}
+.card .card-target {
+    min-height: 147px;
+    display: block;
+    padding: 15px 20px;
+}
+.card .card-target:hover {
+    text-decoration: none;
+}
+.card .text-truncate {
+    width: 100%;
+}
+
+/* dealer card */
+.carousel-heading-10 .carousel-heading-content {
+    margin-bottom: 10px
+}
+
+.carousel-heading-10 .carousel-heading-content.padding-top20 {
+    padding-top: 10px;
+}
+
+/* dealer carousel */
+.dealer-jcarousel-image-preview {
+    width: 292px;
+    height: 114px;
+    display: block;
+    margin-bottom: 15px;
+    text-align: center;
+    padding-top: 10px;
+}
+.city-sprite {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?26Dec2016) no-repeat;
+    display: inline-block;
+}
+.mumbai-icon,
+.pune-icon,
+.bangalore-icon,
+.delhi-icon,
+.chennai-icon,
+.hyderabad-icon,
+.kolkata-icon,
+.ahmedabad-icon,
+.chandigarh-icon,
+.lucknow-icon,
+.india-icon {
+    height: 92px;
+}
+.mumbai-icon {
+    width: 130px;
+    background-position: 0 0;
+}
+.pune-icon {
+    width: 186px;
+    background-position: -140px 0;
+}
+.bangalore-icon {
+    width: 136px;
+    background-position: -336px 0;
+}
+.delhi-icon {
+    width: 70px;
+    background-position: -482px 0;
+}
+.chennai-icon {
+    width: 53px;
+    background-position: -562px 0;
+}
+.hyderabad-icon {
+    width: 65px;
+    background-position: -625px 0;
+}
+.kolkata-icon {
+    width: 182px;
+    background-position: -700px 0;
+}
+.lucknow-icon {
+    width: 174px;
+    background-position: -892px 0;
+}
+.ahmedabad-icon {
+    width: 0px;
+    background-position: 0 0;
+}
+.chandigarh-icon {
+    width: 0px;
+    background-position: 0 0;
+}
+.india-icon {
+    width: 81px;
+    background-position: -1076px 0;
+}
+
+/* best bikes */
+.image-details-grid-list .card,
+.image-details-grid-list .card-target {
+    min-height: 120px;
+}
+
+.image-details-grid-list .item-rank-label {
+    font-size: 14px;
+    z-index: 1;
+    color: #82888b;
+    font-weight: 600;
+    position: absolute;
+    left: -5px;
+    top: -5px;
+}
+
+.image-details-grid-list .item-image-block {
+    width: 102px;
+    height: 57px;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) center no-repeat;
+    position: relative;
+}
+
+.image-details-grid-list .item-image-block img {
+    height: 57px;
+}
+
+.image-details-grid-list .item-details-block {
+    width: 57%;
+    padding-left: 5px;
 }
 
 @media only screen and (max-width: 1024px) {

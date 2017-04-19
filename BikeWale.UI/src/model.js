@@ -121,7 +121,20 @@ function LoadTerms(offerId) {
     $(".termsPopUpContainer").css('height', '500');
 }
 
+// add divider
+function addDivider(grid1, grid2) {
+    if (grid1.height() > grid2.height()) {
+        grid1.addClass('border-solid-right');
+    }
+    else {
+        grid2.addClass('border-solid-left');
+    }
+}
+
 docReady(function () {
+
+    // add divider between version prices table and prices in nearby cities
+    addDivider($('#version-prices-grid'), $('#nearby-prices-grid'));
 
     getCityArea = GetGlobalCityArea();
 

@@ -2,35 +2,12 @@
 
 <div id="modelSummaryContent" class="bw-model-tabs-data content-box-shadow content-inner-block-20 card-bottom-margin">
     @if (!Model.IsUpcomingBike)
-    {
-        <h2 class="h2-heading margin-bottom0">@Model.BikeName summary</h2>
-        <div class="@(Model.BikeRanking != null && Model.BikeRanking.Rank > 0 ? " grid-8 " : " grid-12 omega ") alpha margin-top15">
-            <!-- add class - grid-12 and omega, if no slug instead of grid-8 -->
-            <p class="font14 text-light-grey line-height17 margin-bottom15">@Model.ModelSummary</p>
-        </div>
-        if (Model.BikeRanking != null && Model.BikeRanking.Rank > 0)
-        {
-        <div class="grid-4 omega margin-bottom10">
-            <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName in India" class="model-rank-slug">
-                <div class="inline-block icon-red-bg">
-                    <span class="bwsprite rank-graph"></span>
-                </div>
-                <div class="rank-slug-label inline-block text-bold text-default">
-                    <p class="font14">@Html.Raw(Model.BikeRanking.Rank > 1 ? Model.BikeRanking.RankText : "") Most Popular @Model.BikeRanking.BikeType</p>
-                    <p class="font11">Check out the complete list.</p>
-                </div>
-                <span class="trend-arrow"></span>
-                <span class="bwsprite right-arrow"></span>
-            </a>
-        </div>
-        }
-        <div class="clear"></div>
-        
+    {        
         <div class="grid-8 alpha margin-bottom10">
             <table id="model-key-highlights" cellspacing="0" cellpadding="0" width="100%" border="0" class="font14 text-left">
                 <thead>
                     <tr>
-                        <th colspan="2">@Model.ModelPageEntity.ModelDetails.ModelName key highlights</th>
+                        <th colspan="2"><h2 class="h2-heading padding-bottom5">@Model.BikeName Summary</h2></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,5 +58,26 @@
         </div>
         <div class="clear"></div>
         
+        <div class="@(Model.BikeRanking != null && Model.BikeRanking.Rank > 0 ? "grid-8 " : "grid-12 omega ") alpha">
+            <!-- add class - grid-12 and omega, if no slug instead of grid-8 -->
+            <p class="font14 text-slate-grey line-height17">@Model.ModelSummary</p>
+        </div>
+        if (Model.BikeRanking != null && Model.BikeRanking.Rank > 0)
+        {
+        <div class="grid-4 omega">
+            <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName in India" class="model-rank-slug">
+                <div class="inline-block icon-red-bg">
+                    <span class="bwsprite rank-graph"></span>
+                </div>
+                <div class="rank-slug-label inline-block text-bold text-default">
+                    <p class="font14">@Html.Raw(Model.BikeRanking.Rank > 1 ? Model.BikeRanking.RankText : "") Most Popular @Model.BikeRanking.BikeType</p>
+                    <p class="font11">Check out the complete list.</p>
+                </div>
+                <span class="trend-arrow"></span>
+                <span class="bwsprite right-arrow"></span>
+            </a>
+        </div>
+        }
+        <div class="clear"></div>
     }
 </div>

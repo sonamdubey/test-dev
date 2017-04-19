@@ -67,7 +67,7 @@ input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size:
 }
 .form-control:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); }
-select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
+select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background-color: #fff; padding-right: 5px\0; }
 
 .input-xs { padding: 5px 10px; }
 .input-sm { padding: 8px 10px; }
@@ -467,9 +467,9 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .fa-angle-down { width:11px; height:6px; background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; }
 
 /* News-Reviews-Videos New Bikes */
-.newBikes-latest-updates-container .grid-4 { padding-left:10px; !important }
-.newBikes-latest-updates-container .grid-8 { padding-right:10px; !important }
-.article-target-link { font-size: 16px; font-weight: bold; color:#2a2a2a; display:block; }
+.newBikes-latest-updates-container .grid-4 { padding-left:10px !important; }
+.newBikes-latest-updates-container .grid-8 { padding-right:10px !important; }
+.article-target-link { font-size: 15px; font-weight: 600; color:#2a2a2a; display:block; }
 .article-target-link:hover { text-decoration:underline; }
 .article-stats-left-grid, .article-stats-right-grid { display:inline-block; vertical-align:top; min-width: 110px; padding-right: 10px; }
 .article-stats-content { font-size:12px; color: #82888b; display:inline-block; vertical-align:middle; }
@@ -830,7 +830,6 @@ a.action-btn:hover{text-decoration:none;}
 
 
 /*************style for PQ Popup****************************/
-@charset "utf-8";
 .gb-close { background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/cw-sprite-v1.3.png?171214-v2) -190px -1042px no-repeat; display:inline-block; width:16px; height:16px; }
 .gb-close:hover { background-position:-190px -1072px; }
 #gb-head { border-bottom:none !important; margin:10px 10px 0px 10px !important; }

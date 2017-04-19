@@ -1,12 +1,11 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 <section>
     <div class="container">
-        <div id="modelSpecsTabsContentWrapper" class="grid-12 margin-bottom20 content-details-wrapper">
+        <div id="modelSpecsTabsContentWrapper" class="grid-12 content-details-wrapper">
             <div class="">
-                <div class="overall-specs-tabs-wrapper">
+                <div class="overall-specs-tabs-wrapper" style="display: none">
                     @Html.Partial("~/Views/Model/_Index_Tabs.cshtml", Model)
                 </div>
-                <div class="border-divider"></div>
 
                 @if (Model.IsModelDescriptionAvailable)
                 {
@@ -116,37 +115,40 @@
                 @if (Model.IsReviewsAvailable || Model.IsNewsAvailable || Model.IsUserReviewsAvailable)
                 {
                 <div id="modelReviewsContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
-                    <h2 class="h2-heading">@Model.BikeName Reviews</h2>
+                    <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Reviews</h2>
                     @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
                     {
                         <!-- expert review starts-->
-                        <h3 class="model-section-subtitle padding-right10 padding-left10">Expert Reviews</h3>
+                        <h3 class="font-bold padding-left10 margin-bottom20">Expert Reviews</h3>
                         @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+
                         <div class="padding-left10 more-article-target view-all-btn-container">
                             <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
                         </div>
                         <!-- expert review ends-->
+                        
                         if (Model.IsUserReviewsAvailable || Model.IsNewsAvailable)
                         {
-                            <div class="margin-top20 padding-top10 border-solid-top"></div>
+                            <div class="margin-top20 margin-right10 margin-bottom20 margin-left10 border-solid-top"></div>
                         }
                     }
 
                     @if (Model.IsUserReviewsAvailable)
                     {
-                        <h3 class="model-section-subtitle padding-right10 padding-left10">User reviews</h3>
+                        <h3 class="font-bold padding-left10 margin-bottom20">User reviews</h3>
                         @Html.Partial("~/Views/UserReviews/_UserReviewsList.cshtml", Model.UserReviews);
                         <div class="padding-left10 view-all-btn-container">
                             <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
-                        </div>                           
-                            <div class="margin-top20 border-solid-top"></div>                            
+                        </div>
+                        if (Model.IsNewsAvailable) {
+                            <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+                        }
                     }
 
                     @if (Model.IsNewsAvailable)
                     {
                         <!-- News widget starts -->
                         @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
-                        <div class="margin-top15 border-solid-top"></div>
                         <!-- News widget ends -->
                     }
                 </div>
@@ -164,10 +166,10 @@
 
                 @if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable || Model.IsDealersServiceCenterAvailable))
                 {
-                    <div id="dealerAndServiceContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin">
+                    <div id="dealerAndServiceContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin padding-top20 carousel-heading-10">
                         @if (Model.CityId > 0)
                         {
-                            <h2 class="h2-heading padding-top20 padding-left20 margin-bottom10">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName @((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) ? "Showrooms & Service Centers" : Model.IsOtherDealersAvailable ? "Showrooms" : "Service Centers")</h2>
+                            <h2 class="h2-heading padding-left20 margin-bottom10">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName @((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) ? "Showrooms & Service Centers" : Model.IsOtherDealersAvailable ? "Showrooms" : "Service Centers")</h2>
 
                             if (Model.IsOtherDealersAvailable)
                             {
@@ -212,11 +214,10 @@
                         {
                             if (Model.IsDealersServiceCenterAvailable)
                             {
-                                <div class="margin-top20">
-                                    <h2 class="padding-left20 padding-right20">@String.Format("{0} {1} {2} {3}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0) ? "Showrooms" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "&" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "Service Centers" : ""))</h2>
+                                <div class="padding-bottom20">
+                                    <h2 class="h2-heading padding-left20 margin-bottom20">@String.Format("{0} {1} {2} {3}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0) ? "Showrooms" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "&" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "Service Centers" : ""))</h2>
                                     @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
                                 </div>
-                                <div class="margin-top20 margin-right10 margin-left10 border-solid-bottom"></div>
                             }
                         }
                     </div>
@@ -224,9 +225,8 @@
                 <!-- Used bikes widget -->
                 @if (Model.IsUsedBikesAvailable)
                 {
-                    <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-                    <div id="makeUsedBikeContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
-                        <h2 class="h2-heading padding-left10 padding-right10">Used @Model.BikeName bikes in @(Model.City != null ? Model.City.CityName : "India")</h2>
+                    <div id="makeUsedBikeContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
+                        <h2 class="h2-heading padding-left10 padding-right10 margin-bottom20">Used @Model.BikeName bikes in @(Model.City != null ? Model.City.CityName : "India")</h2>
                         @Html.Partial("~/Views/Used/_UsedBikesByModelCity.cshtml", Model.UsedModels)
                         <div class="clear"></div>
                         <div class="padding-left10 view-all-btn-container">
@@ -236,6 +236,66 @@
 
                 }
                 <div id="overallSpecsDetailsFooter"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="grid-12">
+            <div class="content-box-shadow card-bottom-margin">
+                <div class="carousel-heading-content padding-top20">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2 class="h2-heading">Here's a list of best Sports Bikes</h2>
+                    </div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="" title="" class="btn view-all-target-btn">View all</a>
+                    </div>
+                </div>
+                <ul class="image-details-grid-list">
+                    <li class="card">
+                        <a href="" title="Honda CB Hornet 160R" class="card-target">
+                            <div class="item-image-block vertical-top">
+                                <span class="item-rank-label">#1</span>
+                                <img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/honda-cb-hornet-160r.jpg" src="" alt="" />
+                            </div>
+                            <div class="item-details-block vertical-top">
+                                <p class="font14 text-bold text-black margin-bottom5">Honda CB Hornet 160R</p>
+                                <p class="font11 text-light-grey">Ex-showroom, Mumbai</p>
+                                <span class="bwsprite inr-md"></span><span class="font16 text-default text-bold">1,25,000</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="card">
+                        <a href="" title="Honda CB Hornet 160R" class="card-target">
+                            <div class="item-image-block vertical-top">
+                                <span class="item-rank-label">#2</span>
+                                <img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/honda-cb-hornet-160r.jpg" src="" alt="" />
+                            </div>
+                            <div class="item-details-block vertical-top">
+                                <p class="font14 text-bold text-black margin-bottom5">Honda CB Hornet</p>
+                                <p class="font11 text-light-grey">Ex-showroom, Mumbai</p>
+                                <span class="bwsprite inr-md"></span><span class="font16 text-default text-bold">1,25,000</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="card">
+                        <a href="" title="Honda CB Hornet 160R" class="card-target">
+                            <div class="item-image-block vertical-top">
+                                <span class="item-rank-label">#3</span>
+                                <img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/honda-cb-hornet-160r.jpg" src="" alt="" />
+                            </div>
+                            <div class="item-details-block vertical-top">
+                                <p class="font14 text-bold text-black margin-bottom5">Honda CB Hornet 160R</p>
+                                <p class="font11 text-light-grey">Ex-showroom, Mumbai</p>
+                                <span class="bwsprite inr-md"></span><span class="font16 text-default text-bold">1,25,000</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clear"></div>
             </div>
         </div>
         <div class="clear"></div>
