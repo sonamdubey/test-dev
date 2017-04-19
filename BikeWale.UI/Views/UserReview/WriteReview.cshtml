@@ -93,8 +93,8 @@
                                 <p class="item-title" data-bind="text: heading"></p>
                                 <p class="item-subtitle" data-bind="text: description"></p>
                                 <div class="answer-radio-list" data-bind="foreach: rating">
-                                    <input type="radio" data-bind="attr: {id: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), value: $index() + 1}" />
-                                    <label data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + $index(), name: 'review-q-' + $parentContext.$index(), 'data-value': $index() + 1}, text: $data"></label>
+                                    <input type="radio" data-bind="attr: {id: 'review-' + $parentContext.$index() + '-' + ($index() + 1), name: 'review-q-' + $parentContext.$index(), value: $index() + 1}" />
+                                    <label data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + ($index() + 1), name: 'review-q-' + $parentContext.$index(), 'data-value': $index() + 1}, text: $data"></label>
                                 </div>
                                 <div class="clear"></div>
                             </li>
