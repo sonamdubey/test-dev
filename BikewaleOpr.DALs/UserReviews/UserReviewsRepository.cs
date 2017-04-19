@@ -55,12 +55,6 @@ namespace BikewaleOpr.DALs.UserReviews
             return objReviews;
         }   // End of GetReviewsList
 
-        
-        public void GetReviewDetails(uint id)
-        {
-            throw new NotImplementedException();
-        }
-
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 18 Apr 2017
@@ -100,7 +94,7 @@ namespace BikewaleOpr.DALs.UserReviews
         /// <param name="reviewId"></param>
         /// <param name="status"></param>
         /// <param name="disapprovalReasonId"></param>
-        public void UpdateUserReviewsStatus(uint reviewId, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId)
+        public void UpdateUserReviewsStatus(uint reviewId, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId, string review, string reviewTitle, string reviewTips)
         {
             try
             {
@@ -112,6 +106,9 @@ namespace BikewaleOpr.DALs.UserReviews
                     param.Add("par_moderatorId", moderatorId);
                     param.Add("par_status", (ushort)reviewStatus);
                     param.Add("par_disapproveId", disapprovalReasonId > 0 ? disapprovalReasonId : (ushort?)null);
+                    param.Add("par_review", String.IsNullOrEmpty(review) ? null : review);
+                    param.Add("par_title", String.IsNullOrEmpty(reviewTitle) ? null : reviewTitle);
+                    param.Add("par_tips", String.IsNullOrEmpty(reviewTips) ? null : reviewTips);
 
                     connection.Open();
 

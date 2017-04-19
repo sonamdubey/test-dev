@@ -13,9 +13,8 @@ namespace BikewaleOpr.Interface.UserReviews
     /// </summary>
     public interface IUserReviewsRepository
     {        
-        IEnumerable<ReviewBase> GetReviewsList(ReviewsInputFilters filter);
-        void GetReviewDetails(uint id);
+        IEnumerable<ReviewBase> GetReviewsList(ReviewsInputFilters filter);        
         IEnumerable<DiscardReasons> GetUserReviewsDiscardReasons();
-        void UpdateUserReviewsStatus(uint reviewId, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId);
+        void UpdateUserReviewsStatus(uint reviewId, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId, string review, string reviewTitle, string reviewTips);
     }
 }
