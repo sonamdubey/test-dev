@@ -12,5 +12,6 @@ namespace Bikewale.Models
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
         public uint ReviewId { get; set; }
+        public uint pagesourceId { get; set; }
     }
 }
