@@ -2,6 +2,7 @@
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using System;
 using System.Collections.Specialized;
@@ -17,6 +18,7 @@ namespace Bikewale.Models.UserReviews
     public class WriteReviewPageModel
     {
         private readonly IUserReviews _userReviews = null;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objCache = null;
         private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId;
         private string _decodedString;
         private string _encodedString, _userName, _emailId;
@@ -33,8 +35,9 @@ namespace Bikewale.Models.UserReviews
         /// Description : Added interfaces for bikeinfo and user reviews 
         /// </summary>
         /// <param name="userReviews"></param>
-        public WriteReviewPageModel(IUserReviews userReviews, string encodedString)
+        public WriteReviewPageModel(IBikeMaskingCacheRepository<BikeModelEntity, int> objCache, IUserReviews userReviews, string encodedString)
         {
+            _objCache = objCache;
             _userReviews = userReviews;
             _decodedString = Utils.Utils.DecryptTripleDES(encodedString);
             _encodedString = encodedString;
@@ -71,7 +74,7 @@ namespace Bikewale.Models.UserReviews
                 BikeModelEntity objModelEntity = null;
 
                 if (_modelId > 0)
-                    objModelEntity = new ModelHelper().GetModelDataById(_modelId);
+                    objModelEntity = _objCache.GetById((int)_modelId);
 
                 objPage.UserName = _userName;
                 objPage.EmailId = _emailId;

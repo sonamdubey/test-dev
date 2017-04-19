@@ -943,7 +943,9 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewTitle", DbType.String, commentTitle));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, reviewsQuestionAns));
 
-                    IsSaved = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+
+                    IsSaved = true;
                 }
             }
 
