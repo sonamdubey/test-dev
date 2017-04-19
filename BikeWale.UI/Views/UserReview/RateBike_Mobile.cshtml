@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="input-box form-control-box margin-bottom15" data-bind="css: emailId().length > 0 ? 'not-empty' : ''">
-                    <input type="text" id="txtEmailID" name="emailId" data-bind="textInput: emailId" value="@(string.IsNullOrEmpty(Model.CustomerEmail) ? "" : Model.CustomerEmail)" />
+                    <input type="email" id="txtEmailID" name="emailId" data-bind="textInput: emailId" value="@(string.IsNullOrEmpty(Model.CustomerEmail) ? "" : Model.CustomerEmail)" />
                     <label for="getEmailID">Email ID<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text"></span>
@@ -79,6 +79,7 @@
                 <input type="hidden" name="makeId" value="@Model.objModelEntity.MakeBase.MakeId" />
                 <input type="hidden" name="ratingQuestionAns" id="rating-quesition-ans"/>
                 <input type="hidden" name="priceRangeId" value="@Model.PriceRangeId" />
+                <input type="hidden" name="pagesourceId" value="@Model.pagesourceId" />
                 <input type="hidden" name="reviewId" value="@Model.ReviewId" />
                 <input type="submit" class="btn btn-orange" value="Submit rating" data-bind="click: submitRating" />                          
             </div>
