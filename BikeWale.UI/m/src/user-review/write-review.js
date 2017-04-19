@@ -1,7 +1,7 @@
 ﻿var ratingBox, selectedAnswer, page;
 
 var userNameField, userEmailIdField;
-var detailedReviewField, reviewTitleField;
+var descReviewField, reviewTitleField;
 var value_overallrating, reviewQuestion, reviewOverallRatingId;
 var vmWriteReview;
 var array_rating;
@@ -313,7 +313,7 @@ docReady(function () {
         validate.onBlur($(this));
     });
 
-    detailedReviewField = $('#getDetailedReview');
+    descReviewField = $('#reviewDesc');
     reviewTitleField = $('#getReviewTitle');
 
     // write review
@@ -369,7 +369,7 @@ docReady(function () {
                     self.detailedReviewFlag(true);
                     self.detailedReviewError('Your review should contain at least 300 characters.');
                     self.focusFormActive(true);
-                    answer.focusForm(detailedReviewField);
+                    answer.focusForm(descReviewField);
                 }
                 else {
                     self.detailedReviewFlag(false);
@@ -384,7 +384,7 @@ docReady(function () {
                 if (self.reviewTitle().length == 0) {
                     validate.setError(reviewTitleField, 'Please provide a title for your review!');
                     if (!self.focusFormActive()) {
-                        answer.focusForm(detailedReviewField);
+                        answer.focusForm(descReviewField);
                     }
                 }
                 else {
@@ -412,7 +412,7 @@ docReady(function () {
         questionField.find('.feedback-text').text(feedbackText);
     });
 
-    detailedReviewField.on('focus', function () {
+    descReviewField.on('focus', function () {
         vmWriteReview.detailedReviewFlag(false);
     });
 

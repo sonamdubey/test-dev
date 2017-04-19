@@ -951,9 +951,7 @@ namespace Bikewale.DAL.UserReviews
 
             catch (Exception ex)
             {
-
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-
             }
 
             return IsSaved;
