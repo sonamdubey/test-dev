@@ -112,6 +112,8 @@ namespace Bikewale.Models.UserReviews
                 GetUserRatings(objPage);
                 BindPageMetas(objPage);
 
+                objPage.JsonReviewSummary = Newtonsoft.Json.JsonConvert.SerializeObject(_userReviews.GetUserReviewSummary(_reviewId));
+
             }
             catch (Exception ex)
             {
