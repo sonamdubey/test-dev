@@ -47,16 +47,24 @@ namespace Bikewale.Models
         }
         private void ProcessQuery(string Querystring)
         {
-            string _decodedString = Utils.Utils.DecryptTripleDES(Querystring);
-            NameValueCollection queryCollection = HttpUtility.ParseQueryString(_decodedString);
-            uint.TryParse(queryCollection["reviewid"], out _reviewId);
-            ulong.TryParse(queryCollection["customerid"], out _customerId);
-            uint.TryParse(queryCollection["pagesourceid"], out _pagesourceId);
-            _isVerified = _userReviewsRepo.IsUserVerified(_reviewId, _customerId);
-            if (_isVerified)
-                status = Entities.StatusCodes.ContentFound;
-            else
-                status = Entities.StatusCodes.ContentNotFound;
+            try
+            {
+                string _decodedString = Utils.Utils.DecryptTripleDES(Querystring);
+                NameValueCollection queryCollection = HttpUtility.ParseQueryString(_decodedString);
+                uint.TryParse(queryCollection["reviewid"], out _reviewId);
+                ulong.TryParse(queryCollection["customerid"], out _customerId);
+                uint.TryParse(queryCollection["pagesourceid"], out _pagesourceId);
+                _isVerified = _userReviewsRepo.IsUserVerified(_reviewId, _customerId);
+                if (_isVerified)
+                    status = Entities.StatusCodes.ContentFound;
+                else
+                    status = Entities.StatusCodes.ContentNotFound;
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewRatingPage.ProcessQuery() - ModelId :{0}", _modelId));
+            }
 
 
         }
@@ -177,9 +185,10 @@ namespace Bikewale.Models
                 {
                     UserReviewSummary objUserReviewDataReview = _userReviews.GetUserReviewSummary(_reviewId);
 
-                    objUserVM.OverAllRatingText = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewData.OverallRating);
-
-
+                    if (objUserReviewData.OverallRating != null)
+                    {
+                        objUserVM.OverAllRatingText = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewData.OverallRating);
+                    }
                     if (objUserReviewDataReview != null)
                     {
                         objUserVM.ReviewsOverAllrating = Newtonsoft.Json.JsonConvert.SerializeObject(objUserReviewDataReview.OverallRatingId);
