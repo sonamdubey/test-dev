@@ -39,6 +39,7 @@ namespace Bikewale.Models.UserReviews
             {
                 objData.Summary = _userReviews.GetUserReviewSummary(_reviewId);
                 objData.WriteReviewLink = string.Format("/write-a-review/?q={0}", strEncoded);
+               
             }
             catch (Exception ex)
             {

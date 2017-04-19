@@ -119,6 +119,7 @@
     <Compile Include="UrlShortner.cs" />
     <Compile Include="UsedBikeProfileId.cs" />
     <Compile Include="UsedCookie\UsedCookie.cs" />
+    <Compile Include="UserReviews.cs" />
     <Compile Include="VideoTitleDescription.cs" />
   </ItemGroup>
   <ItemGroup>
