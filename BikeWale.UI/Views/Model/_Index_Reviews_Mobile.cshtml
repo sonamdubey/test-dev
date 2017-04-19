@@ -1,8 +1,5 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
-
-@if (Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewRate) > 0)
-{
-    <div class="rating-review-content">
+   <div class="rating-review-content">
         <div class="inline-block margin-right10">
             <span class="star-span star-one-icon"></span>
             <span class="font14 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating</span><span class="font12 text-light-grey">/5</span>
@@ -19,12 +16,12 @@
                         <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span>&nbsp;<span>Reviews</span>
                     </a>
                 }
-                <a href="@string.Format("/m/user-reviews/rate-bike/{0}/?pagesourceid={1}", Model.ModelId, Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.ModelPage_Mobile))" class="border-light-left leftfloat margin-right10 padding-left10 font12 ">
+                <a href="@string.Format("/m/user-reviews/rate-bike/{0}/?pagesourceid={1}", Model.ModelId, Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage))" class="border-light-left leftfloat margin-right10 padding-left10 font12 ">
                     <span itemprop="writeReview"><span>Rate this bike</span></span>
                 </a>
             </span>
         </div>
     </div>
-}
+
 
 
