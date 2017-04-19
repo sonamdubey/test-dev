@@ -193,5 +193,39 @@ namespace Bikewale.Service.Controllers.UserReviews
             return (IHttpActionResult)Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
         }   // Upadate Isabuse
         #endregion
+
+        #region User Reviews Summary
+        /// <summary>
+        /// To get review Details 
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns>Review Details</returns>
+        [ResponseType(typeof(ReviewDetails)),Route("api/user-reviews/summary/{reviewId}/")]
+        public IHttpActionResult GetUserReviewSummary(uint reviewId)
+        {
+            ReviewDetailsEntity objUserReview = null;
+            ReviewDetails objDTOUserReview = null;
+            try
+            {
+                objUserReview = _userReviewsRepo.GetReviewDetails(reviewId);
+
+                if (objUserReview != null)
+                {
+                    // Auto map the properties
+                    objDTOUserReview = new ReviewDetails();
+                    objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
+
+                    return Ok(objUserReview);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+            return NotFound();
+        }   // Get review details
+        #endregion
     }
 }
