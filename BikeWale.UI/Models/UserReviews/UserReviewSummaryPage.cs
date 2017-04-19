@@ -1,7 +1,9 @@
 ﻿using Bikewale.Entities;
+using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using System;
+using System.Linq;
 
 namespace Bikewale.Models.UserReviews
 {
@@ -56,6 +58,7 @@ namespace Bikewale.Models.UserReviews
                     status = StatusCodes.ContentFound;
                     objData.PrevPageUrl = Bikewale.Utility.UserReviews.FormatPreviousPageUrl(objData.Summary.PageSource, objData.Summary.Make.MaskingName, objData.Summary.Model.MaskingName);
                     objData.WriteReviewLink = string.Format("/write-a-review/?q={0}", _strEncoded);
+                    objData.Summary.Questions = objData.Summary.Questions.Where(x => x.Type == UserReviewQuestionType.Review);
                     BindPageMetas(objData);
                 }
                 else

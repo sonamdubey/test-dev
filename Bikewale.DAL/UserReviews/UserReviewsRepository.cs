@@ -983,7 +983,8 @@ namespace Bikewale.DAL.UserReviews
                                  CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
                                  CustomerName = Convert.ToString(dr["CustomerName"]),
                                  Description = Convert.ToString(dr["Comments"]),
-                                 Tips = Convert.ToString(dr["ReviewTitle"]),
+                                 Title=Convert.ToString(dr["ReviewTitle"]),
+                                 Tips = Convert.ToString(dr["ReviewTips"]),
                                  OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
                                  PageSource = (UserReviewPageSourceEnum)Convert.ToInt32(dr["PageSourceId"]),
                                  Make = new BikeMakeEntityBase()
