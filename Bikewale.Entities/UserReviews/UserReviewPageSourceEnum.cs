@@ -2,7 +2,7 @@
 {
     public enum UserReviewPageSourceEnum
     {
-        UserReview_Listing_Mobile=1,
-        ModelPage_Mobile=2
+        Mobile_UserReview_Listing=1,
+        Mobile_ModelPage=2
     }
 }

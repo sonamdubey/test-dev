@@ -15,15 +15,15 @@ namespace Bikewale.Models.UserReviews
         #region Variables for dependency injection
         private readonly IUserReviews _userReviews = null;
         private uint _reviewId;
-        private string strEncoded;
+        private string _strEncoded;
         #endregion
 
         #region Constructor
-        public UserReviewSummaryPage(IUserReviews userReviews, uint reviewId)
+        public UserReviewSummaryPage(IUserReviews userReviews, uint reviewId,string q)
         {
             _userReviews = userReviews;
             _reviewId = reviewId;
-            ProcessQueryString();
+            _strEncoded = q;
         }
         #endregion
 
@@ -38,7 +38,11 @@ namespace Bikewale.Models.UserReviews
             try
             {
                 objData.Summary = _userReviews.GetUserReviewSummary(_reviewId);
-                objData.WriteReviewLink = string.Format("/write-a-review/?q={0}", strEncoded);
+                objData.WriteReviewLink = string.Format("/write-a-review/?q={0}", _strEncoded);
+                if (objData.Summary != null)
+                {
+                    objData.PrevPageUrl = Bikewale.Utility.UserReviews.FormatPreviousPageUrl(objData.Summary.PageSource, objData.Summary.Make.MaskingName, objData.Summary.Model.MaskingName);
+                }
                
             }
             catch (Exception ex)
@@ -46,15 +50,6 @@ namespace Bikewale.Models.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, "UserReviewSummaryPage.GetData");
             }
             return objData;
-        }
-        /// <summary>
-        /// Created by : Aditi Srivastava on 18 Apr 2017
-        /// Summary    : process query string
-        /// </summary>
-        private void ProcessQueryString()
-        {
-            if (HttpContext.Current.Request.QueryString != null && !String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["q"]))
-            strEncoded = HttpContext.Current.Request.QueryString["q"];
         }
         #endregion
 

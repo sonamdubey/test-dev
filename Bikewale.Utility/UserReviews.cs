@@ -21,10 +21,10 @@ namespace Bikewale.Utility
             string url = string.Empty;
             switch(pageSource)
             {
-                case UserReviewPageSourceEnum.ModelPage_Mobile:
+                case UserReviewPageSourceEnum.Mobile_ModelPage:
                     url=string.Format("/m/{0}-bikes/{1}/",makeMasking,modelMasking);
                     break;
-                case UserReviewPageSourceEnum.UserReview_Listing_Mobile:
+                case UserReviewPageSourceEnum.Mobile_UserReview_Listing:
                     url =string.Format("/m/{0}-bikes/{1}/user-reviews/",makeMasking,modelMasking);
                     break;
                 default:
