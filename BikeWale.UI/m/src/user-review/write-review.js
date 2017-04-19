@@ -428,25 +428,27 @@ docReady(function () {
                     }
                 }
             }
-        }
+        };
 
         self.FillReviewData = function () {
-            var obj = JSON.parse($('#review-page-data').text());
-            if (obj != null) {                
-                self.reviewTips(obj.Tips);
-                var i;                
+            if ($('#review-page-data') != null && $('#review-page-data') != undefined && ($('#review-page-data').text() != null && $('#review-page-data').text()!="")) {
+                var obj = JSON.parse($('#review-page-data').text());
+                if (obj != null) {
+                    self.reviewTips(obj.Tips);
+                    var i;
 
-                for (i = 0; i < obj.Questions.length; ++i) {
+                    for (i = 0; i < obj.Questions.length; ++i) {
 
-                    var quest = obj.Questions[i].qId;
-                    var ans = obj.Questions[i].selectedRatingId;
-                    var starbtn = $('#bike-review-questions').find("input[id=review-" + quest + "-" + ans + "]");
-                    if (starbtn.length != 0) {
-                        starbtn.trigger("click");
+                        var quest = obj.Questions[i].qId;
+                        var ans = obj.Questions[i].selectedRatingId;
+                        var starbtn = $('#bike-review-questions').find("input[id=review-" + quest + "-" + ans + "]");
+                        if (starbtn.length != 0) {
+                            starbtn.trigger("click");
+                        }
                     }
                 }
             }
-        }
+        };
     };
 
     vmWriteReview = new writeReview(),
