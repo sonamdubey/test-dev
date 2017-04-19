@@ -943,7 +943,9 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewTitle", DbType.String, commentTitle));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, reviewsQuestionAns));
 
-                    IsSaved = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+
+                    IsSaved = true;
                 }
             }
 
@@ -967,7 +969,6 @@ namespace Bikewale.DAL.UserReviews
         public UserReviewSummary GetUserReviewSummary(uint reviewId)
         {
             UserReviewSummary objUserReviewSummary = null;
-
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummary"))
@@ -979,14 +980,14 @@ namespace Bikewale.DAL.UserReviews
                     {
                         if (dr != null && dr.Read())
                         {
-                            objUserReviewSummary = new UserReviewSummary()
+                           objUserReviewSummary = new UserReviewSummary()
                             {
-
                                 CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
                                 CustomerName = Convert.ToString(dr["CustomerName"]),
                                 Description = Convert.ToString(dr["Comments"]),
                                 Tips = Convert.ToString(dr["ReviewTitle"]),
                                 OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
+                                PageSource= (UserReviewPageSourceEnum) Convert.ToInt32(dr["PageSourceId"]),
                                 Make = new BikeMakeEntityBase()
                                 {
                                     MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),

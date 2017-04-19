@@ -100,7 +100,7 @@
     <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
     <Compile Include="Upcoming\UpcomingPageVM.cs" />
     <Compile Include="UserReviews\UserReviewSummaryVM.cs" />
-    <Compile Include="UserReviews\WriteReviewPageError.cs" />
+    <Compile Include="UserReviews\WriteReviewPageSubmitResponse.cs" />
     <Compile Include="UserReview\WriteReviewPageVM.cs" />
     <Compile Include="UserReviews\UserReviewRatingVM.cs" />
     <Compile Include="Videos\MakeVideosPageVM.cs" />

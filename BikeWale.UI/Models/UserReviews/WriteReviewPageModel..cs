@@ -2,6 +2,7 @@
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using System;
 using System.Collections.Specialized;
@@ -10,9 +11,14 @@ using System.Web;
 
 namespace Bikewale.Models.UserReviews
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 10-04-2017
+    /// Descrioption : This Model will run write review page.
+    /// </summary>
     public class WriteReviewPageModel
     {
         private readonly IUserReviews _userReviews = null;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objCache = null;
         private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId;
         private string _decodedString;
         private string _encodedString, _userName, _emailId;
@@ -29,13 +35,15 @@ namespace Bikewale.Models.UserReviews
         /// Description : Added interfaces for bikeinfo and user reviews 
         /// </summary>
         /// <param name="userReviews"></param>
-        public WriteReviewPageModel(IUserReviews userReviews, string encodedString)
+        public WriteReviewPageModel(IBikeMaskingCacheRepository<BikeModelEntity, int> objCache, IUserReviews userReviews, string encodedString)
         {
+            _objCache = objCache;
             _userReviews = userReviews;
             _decodedString = Utils.Utils.DecryptTripleDES(encodedString);
             _encodedString = encodedString;
             ParseQueryString(_decodedString);
         }
+
 
         public void ParseQueryString(string decodedQueryString)
         {
@@ -66,7 +74,7 @@ namespace Bikewale.Models.UserReviews
                 BikeModelEntity objModelEntity = null;
 
                 if (_modelId > 0)
-                    objModelEntity = new ModelHelper().GetModelDataById(_modelId);
+                    objModelEntity = _objCache.GetById((int)_modelId);
 
                 objPage.UserName = _userName;
                 objPage.EmailId = _emailId;
@@ -93,7 +101,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.GetData()");
             }
             return objPage;
         }
@@ -110,7 +118,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.BindPageMetas()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.BindPageMetas()");
             }
         }
 
@@ -147,9 +155,9 @@ namespace Bikewale.Models.UserReviews
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.GetUserRatings()");
             }
         }
 

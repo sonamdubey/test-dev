@@ -307,33 +307,30 @@ namespace Bikewale.BAL.UserReviews
             }
         }
 
+        /// <summary>
+        /// Created By Sajal Gupta on 19-04-2017
+        /// Description : Function to save user reviews with server side validations
+        /// </summary>
+        /// <param name="encodedId"></param>
+        /// <param name="tipsnAdvices"></param>
+        /// <param name="comment"></param>
+        /// <param name="commentTitle"></param>
+        /// <param name="reviewsQuestionAns"></param>
+        /// <param name="emailId"></param>
+        /// <param name="userName"></param>
+        /// <param name="makeName"></param>
+        /// <param name="modelName"></param>
+        /// <param name="reviewDescription"></param>
+        /// <param name="reviewTitle"></param>
+        /// <returns></returns>
         public WriteReviewPageSubmitResponse SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName, string reviewDescription, string reviewTitle)
         {
             WriteReviewPageSubmitResponse objResponse = null;
             try
             {
-                bool isValid = true;
 
-                objResponse = new WriteReviewPageSubmitResponse();
 
-                if (!string.IsNullOrEmpty(reviewDescription) && reviewDescription.Length < 300 && string.IsNullOrEmpty(reviewTitle))
-                {
-                    objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
-                    objResponse.TitleErrorText = "Please provide a title for your review.";
-                    isValid = false;
-                }
-                else if (string.IsNullOrEmpty(reviewDescription) && !string.IsNullOrEmpty(reviewTitle))
-                {
-                    objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
-                    isValid = false;
-                }
-                else if (!string.IsNullOrEmpty(reviewDescription) && reviewDescription.Length > 300 && string.IsNullOrEmpty(reviewTitle))
-                {
-                    objResponse.TitleErrorText = "Please provide a title for your review.";
-                    isValid = false;
-                }
-
-                if (!string.IsNullOrEmpty(encodedId) && isValid)
+                if (!string.IsNullOrEmpty(encodedId))
                 {
                     uint _reviewId;
                     ulong _customerId;
@@ -347,8 +344,32 @@ namespace Bikewale.BAL.UserReviews
 
                     if (_reviewId > 0 && _customerId > 0 && _userReviewsRepo.IsUserVerified(_reviewId, _customerId))
                     {
-                        UserReviewsEmails.SendReviewSubmissionEmail(userName, emailId, makeName, modelName);
-                        objResponse.IsSuccess = SaveUserReviews(_reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
+                        bool isValid = true;
+
+                        objResponse = new WriteReviewPageSubmitResponse();
+
+                        if (!string.IsNullOrEmpty(reviewDescription) && reviewDescription.Length < 300 && string.IsNullOrEmpty(reviewTitle))
+                        {
+                            objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
+                            objResponse.TitleErrorText = "Please provide a title for your review.";
+                            isValid = false;
+                        }
+                        else if (string.IsNullOrEmpty(reviewDescription) && !string.IsNullOrEmpty(reviewTitle))
+                        {
+                            objResponse.ReviewErrorText = "Your review should contain as least 300 characters";
+                            isValid = false;
+                        }
+                        else if (!string.IsNullOrEmpty(reviewDescription) && reviewDescription.Length > 300 && string.IsNullOrEmpty(reviewTitle))
+                        {
+                            objResponse.TitleErrorText = "Please provide a title for your review.";
+                            isValid = false;
+                        }
+
+                        if (isValid)
+                        {
+                            objResponse.IsSuccess = SaveUserReviews(_reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
+                            UserReviewsEmails.SendReviewSubmissionEmail(userName, emailId, makeName, modelName);
+                        }
                     }
                     else
                         objResponse.IsSuccess = false;
