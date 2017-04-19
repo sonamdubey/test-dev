@@ -18,6 +18,7 @@ namespace Bikewale.Controllers
         private readonly IUserReviewsRepository _userReviewsRepo = null;
 
 
+
         /// <summary>
         /// 
         /// </summary>
@@ -30,6 +31,7 @@ namespace Bikewale.Controllers
             _userReviews = userReviews;
             _userReviewsRepo = userReviewsRepo;
             _objModel = objModel;
+
 
         }
 
@@ -45,11 +47,14 @@ namespace Bikewale.Controllers
                     UserReviewVM = objUserReview.GetData();
                 else
                     return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                if (UserReviewVM != null && UserReviewVM.objModelEntity != null)
+                    return View(UserReviewVM);
+                else
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
-            if (UserReviewVM != null && UserReviewVM.objModelEntity != null)
-                return View(UserReviewVM);
             else
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+
 
         }
 

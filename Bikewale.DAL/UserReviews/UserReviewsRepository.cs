@@ -910,8 +910,8 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsRepository.SaveUserReviewRatings() reviewId-{0} makeId-{1} modelId-{2}", reviewId, makeId, modelId));
             }
 
             return reviewIdNew;
@@ -978,29 +978,29 @@ namespace Bikewale.DAL.UserReviews
                     {
                         if (dr != null && dr.Read())
                         {
-                           objUserReviewSummary = new UserReviewSummary()
-                            {
-                                CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
-                                CustomerName = Convert.ToString(dr["CustomerName"]),
-                                Description = Convert.ToString(dr["Comments"]),
-                                Tips = Convert.ToString(dr["ReviewTitle"]),
-                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
-                                PageSource= (UserReviewPageSourceEnum) Convert.ToInt32(dr["PageSourceId"]),
-                                Make = new BikeMakeEntityBase()
-                                {
-                                    MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
-                                    MaskingName = Convert.ToString(dr["makemasking"]),
-                                    MakeName = Convert.ToString(dr["makeName"])
-                                },
-                                Model = new BikeModelEntityBase()
-                                {
-                                    ModelId = SqlReaderConvertor.ToInt32(dr["modelId"]),
-                                    MaskingName = Convert.ToString(dr["modelmasking"]),
-                                    ModelName = Convert.ToString(dr["modelName"])
-                                },
-                                OriginalImgPath = Convert.ToString(dr["OriginalImgPath"]),
-                                HostUrl = Convert.ToString(dr["hostUrl"])
-                            };
+                            objUserReviewSummary = new UserReviewSummary()
+                             {
+                                 CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
+                                 CustomerName = Convert.ToString(dr["CustomerName"]),
+                                 Description = Convert.ToString(dr["Comments"]),
+                                 Tips = Convert.ToString(dr["ReviewTitle"]),
+                                 OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
+                                 PageSource = (UserReviewPageSourceEnum)Convert.ToInt32(dr["PageSourceId"]),
+                                 Make = new BikeMakeEntityBase()
+                                 {
+                                     MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                     MaskingName = Convert.ToString(dr["makemasking"]),
+                                     MakeName = Convert.ToString(dr["makeName"])
+                                 },
+                                 Model = new BikeModelEntityBase()
+                                 {
+                                     ModelId = SqlReaderConvertor.ToInt32(dr["modelId"]),
+                                     MaskingName = Convert.ToString(dr["modelmasking"]),
+                                     ModelName = Convert.ToString(dr["modelName"])
+                                 },
+                                 OriginalImgPath = Convert.ToString(dr["OriginalImgPath"]),
+                                 HostUrl = Convert.ToString(dr["hostUrl"])
+                             };
                         }
 
                         if (objUserReviewSummary != null && dr.NextResult())
