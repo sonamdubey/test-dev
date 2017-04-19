@@ -110,12 +110,26 @@ namespace Bikewale.Controllers
             }
         }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava on 19 Apr 2017
+        /// Summary    : To fetch review summary page
+        /// </summary>
         [Route("m/user-reviews/review-summary/{reviewid}/")]
         public ActionResult ReviewSummary_Mobile(uint reviewid, string q)
         {
-            UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
-            UserReviewSummaryVM objVM = objData.GetData();
-            return View(objVM);
+            if (reviewid > 0)
+            {
+                UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
+                UserReviewSummaryVM objVM = objData.GetData();
+                if (objData != null && objData.status == Entities.StatusCodes.ContentFound)
+                    return View(objVM);
+                else
+                    return Redirect("/m/pageNotFound.aspx");
+            }
+            else
+            {
+                return Redirect("/m/pageNotFound.aspx");
+            }
         }
 
 
