@@ -197,8 +197,6 @@ docReady(function () {
 
     };
 
-
-
     var personalDetails = function () {
         var self = this;
 
@@ -424,18 +422,12 @@ docReady(function () {
 
     reviewTitleField.on("blur", function () {
         validate.onBlur($(this));
-    });
-    
-    
+    });   
 
-    //window.onhashchange = function () {
-    //    console.log('asd');
-    //};
-
-    if ($("#reviewDesc") && $("#reviewDesc").data("validate").length)
+    if ($("#reviewDesc") && $("#reviewDesc").data("validate") && $("#reviewDesc").data("validate").length)
         vmWriteReview.validate.detailedReview();
 
-    if ($("#getReviewTitle") && $("#getReviewTitle").data("validate").length)
+    if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length)
         vmWriteReview.validate.reviewTitle();
 });
 
@@ -502,6 +494,6 @@ var validate = {
 
 if (page == "writeReview") {
     setTimeout(function () {
-        //appendHash("writeReviewPage");
+        appendHash("writeReviewPage");
     }, 1000)
 }
