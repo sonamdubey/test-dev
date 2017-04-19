@@ -307,6 +307,22 @@ namespace Bikewale.BAL.UserReviews
             }
         }
 
+        /// <summary>
+        /// Created By Sajal Gupta on 19-04-2017
+        /// Description : Function to save user reviews with server side validations
+        /// </summary>
+        /// <param name="encodedId"></param>
+        /// <param name="tipsnAdvices"></param>
+        /// <param name="comment"></param>
+        /// <param name="commentTitle"></param>
+        /// <param name="reviewsQuestionAns"></param>
+        /// <param name="emailId"></param>
+        /// <param name="userName"></param>
+        /// <param name="makeName"></param>
+        /// <param name="modelName"></param>
+        /// <param name="reviewDescription"></param>
+        /// <param name="reviewTitle"></param>
+        /// <returns></returns>
         public WriteReviewPageSubmitResponse SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName, string reviewDescription, string reviewTitle)
         {
             WriteReviewPageSubmitResponse objResponse = null;
