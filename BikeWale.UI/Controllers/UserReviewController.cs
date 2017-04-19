@@ -5,7 +5,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
-using System;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -98,11 +97,19 @@ namespace Bikewale.Controllers
         public ActionResult WriteReview_Mobile(string q)
         {
             WriteReviewPageModel objPage = new WriteReviewPageModel(_objModel, _userReviews, q);
-            var objData = objPage.GetData();
 
-            if (objData != null && objData.ReviewId > 0 && objData.CustomerId > 0)
+            if (objPage != null && !string.IsNullOrEmpty(q))
             {
-                return View(objData);
+                var objData = objPage.GetData();
+
+                if (objData != null && objData.ReviewId > 0 && objData.CustomerId > 0 && objPage.Status == Entities.StatusCodes.ContentFound)
+                {
+                    return View(objData);
+                }
+                else
+                {
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
             }
             else
             {
