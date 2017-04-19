@@ -10,6 +10,10 @@ using System.Web;
 
 namespace Bikewale.Models.UserReviews
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 10-04-2017
+    /// Descrioption : This Model will run write review page.
+    /// </summary>
     public class WriteReviewPageModel
     {
         private readonly IUserReviews _userReviews = null;
@@ -36,6 +40,7 @@ namespace Bikewale.Models.UserReviews
             _encodedString = encodedString;
             ParseQueryString(_decodedString);
         }
+
 
         public void ParseQueryString(string decodedQueryString)
         {
@@ -93,7 +98,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.GetData()");
             }
             return objPage;
         }
@@ -110,7 +115,7 @@ namespace Bikewale.Models.UserReviews
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterIndiaPage.BindPageMetas()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.BindPageMetas()");
             }
         }
 
@@ -147,9 +152,9 @@ namespace Bikewale.Models.UserReviews
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "WriteReviewPageModel.GetUserRatings()");
             }
         }
 
