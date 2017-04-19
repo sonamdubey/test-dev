@@ -35,7 +35,7 @@
                     <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.Summary.OriginalImgPath, Model.Summary.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._70)" alt="@Model.Summary.Make.MakeName @Model.Summary.Model.ModelName" />
                 </div>
                 @if (Model.Summary.Make != null && Model.Summary.Model != null) { 
-                <h1 class="model-details-grid inline-block">@Model.Summary.Make.MakeName @Model.Summary.Model.ModelName</h1>
+                <h1 class="model-details-grid inline-block">@string.Format("{0} {1}",Model.Summary.Make.MakeName, Model.Summary.Model.ModelName)</h1>
                 }
                     </div>
             <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
@@ -92,7 +92,7 @@
                     </div>
                 }
 
-                @if (Model.Summary.Questions != null)
+                @if (Model.Summary.Questions != null && Model.Summary.Questions.Count()>0)
                 {
                     <div class="margin-bottom20 border-solid-bottom"></div>
                     <h3 class="font15 text-black margin-bottom20">You also rated</h3>

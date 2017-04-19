@@ -27,10 +27,20 @@ namespace Bikewale.Models.UserReviews
             _userReviews = userReviews;
             _reviewId = reviewId;
             _strEncoded = q;
+            CheckQueryString();
         }
         #endregion
 
         #region Functions
+        /// <summary>
+        /// Created by : Aditi Srivastava on 19 Apr 2017
+        /// Summary    : Check if query string is empty
+        /// </summary>
+        private void CheckQueryString()
+        {
+            if (string.IsNullOrEmpty(_strEncoded))
+                status = StatusCodes.ContentNotFound;
+        }
         /// <summary>
         /// Created by : Aditi Srivastava on 18 Apr 2017
         /// Summary    : Get data for user review summary
