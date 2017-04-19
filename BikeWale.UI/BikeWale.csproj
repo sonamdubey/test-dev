@@ -465,6 +465,7 @@
     <Compile Include="Controllers\NewLaunchesController.cs" />
     <Compile Include="Controllers\ScootersController.cs" />
     <Compile Include="Controllers\UpcomingController.cs" />
+    <Compile Include="Controllers\UserReviewController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
     <Compile Include="Controllers\PriceController.cs" />
@@ -950,7 +951,10 @@
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
+    <Compile Include="Models\UserReviews\UserReviewRatingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
+    <Compile Include="Models\UserReviews\UserReviewSummaryPage.cs" />
+    <Compile Include="Models\UserReviews\WriteReviewPageModel..cs" />
     <Compile Include="Models\Videos\MakeVideosPage.cs" />
     <Compile Include="Models\Videos\ModelWiseVideosPage.cs" />
     <Compile Include="Models\Videos\RecentVideos.cs" />
@@ -2889,6 +2893,7 @@
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\user-review\listing.css" />
+    <Content Include="m\css\user-review\write-review.css" />
     <Content Include="m\css\videos\bwm-videos-landing.css" />
     <Content Include="m\css\videos\video-detail.css" />
     <Content Include="m\css\videos\videos-by-make.css" />
@@ -3017,6 +3022,7 @@
     <Content Include="m\src\used-search.js" />
     <Content Include="m\src\used\bikes-in-city.js" />
     <Content Include="m\src\used\landing.js" />
+    <Content Include="m\src\user-review\write-review.js" />
     <Content Include="m\src\video\details.js" />
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
@@ -3076,6 +3082,9 @@
     <Content Include="m\sass\scooters\_listing-style.sass" />
     <Content Include="m\sass\modules\_comparison-carousel.sass" />
     <Content Include="m\sass\modules\_city-icons.sass" />
+    <Content Include="m\sass\user-review\write-review.sass" />
+    <Content Include="m\sass\user-review\_write-review-style.sass" />
+    <Content Include="m\sass\user-review\_write-review-media-query.sass" />
     <Content Include="m\sass\upcoming-bikes\upcoming-bikes.sass" />
     <Content Include="m\sass\upcoming-bikes\_upcoming-bikes-style.sass" />
     <Content Include="m\sass\upcoming-bikes\_media-query.sass" />
@@ -3333,7 +3342,6 @@
     <Content Include="bin\Bikewale.Utility.dll" />
     <Content Include="bin\Carwale.BL.dll" />
     <Content Include="bin\Carwale.Cache.dll" />
-    <Content Include="bin\Carwale.CMS.dll" />
     <Content Include="bin\Carwale.CoreDAL.dll" />
     <Content Include="bin\Carwale.DAL.dll" />
     <Content Include="bin\Carwale.Entity.dll" />
@@ -3721,11 +3729,13 @@
     <Content Include="Views\PriceInCity\_Index_Tabs.cshtml" />
     <Content Include="Views\PriceInCity\_ModelPriceInTopCitiesWidget.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInNearbyCitiesTable.cshtml" />
+    <Content Include="Views\UserReview\WriteReview_Mobile.cshtml" />
+    <Content Include="Views\UserReview\RateBike_Mobile.cshtml" />
+    <Content Include="Views\UserReview\ReviewSummary_Mobile.cshtml" />
     <Content Include="Views\Price\_PriceInCityPopUp.cshtml" />
     <Content Include="Views\Price\_PriceInCityPopUp_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
-
     <Content Include="Views\Upcoming\Index.cshtml" />
     <Content Include="Views\Upcoming\Index_Mobile.cshtml" />
     <Content Include="Views\Upcoming\BikesByMake_Mobile.cshtml" />

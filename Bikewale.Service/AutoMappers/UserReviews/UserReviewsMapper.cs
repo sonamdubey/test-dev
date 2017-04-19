@@ -5,10 +5,7 @@ using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Service.AutoMappers.UserReviews
 {

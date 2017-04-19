@@ -147,7 +147,6 @@
     </script>
 </head>
 <body class="@(@Model.IsTransparentHeader ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")">
-    <form>
         @if (Model.IsAppBannerNeeded)
         { 
         <div id="appBanner" class="hide">
@@ -410,6 +409,6 @@
         }
        
         <div class="back-to-top" id="back-to-top"></div>
-    </form>
+
 </body>
 </html>

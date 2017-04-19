@@ -1,0 +1,291 @@
+.model-image-grid {
+  width: 82px;
+  height: 46px; }
+  .model-image-grid img {
+    width: auto;
+    height: 46px; }
+
+.model-details-grid {
+  width: 72%;
+  padding-left: 10px; }
+  .model-details-grid .star-one {
+    transform: scale(0.6);
+    position: relative;
+    top: -2px; }
+
+h1,
+.font-bold {
+  font-weight: 700; }
+
+.text-bold {
+  font-weight: 600 !important; }
+
+.text-slate-grey {
+  color: #787878; }
+
+.font15 {
+  font-size: 15px; }
+
+#bike-rating-box {
+  width: 100%;
+  min-height: 146px;
+  margin-top: 50px;
+  padding-bottom: 15px;
+  background: #F5F5F5;
+  text-align: center; }
+  #bike-rating-box .rating-placeholder {
+    position: relative;
+    top: -10px; }
+
+.circle-placeholder {
+  width: 61px;
+  height: 61px;
+  margin: 0 auto;
+  padding-top: 15px;
+  border: 1px solid #e2e2e2;
+  background: #fff;
+  position: relative;
+  top: -31px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%; }
+
+.answer-radio-list > input {
+  display: none; }
+  .answer-radio-list > input + label {
+    width: auto;
+    float: left;
+    color: #82888b;
+    margin: 4px 8px 4px 0;
+    padding: 5px 14px;
+    cursor: pointer;
+    border: 1px solid #e2e2e2;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px; }
+  .answer-radio-list > input:checked + label {
+    color: #fff;
+    background: #41B4C4;
+    border-color: #41B4C4;
+    cursor: default;
+    pointer-events: none; }
+
+.answer-star-list > input {
+  display: none; }
+  .answer-star-list > input + label {
+    float: right;
+    margin-right: 12px; }
+  .answer-star-list > input:checked + label,
+  .answer-star-list > input:checked ~ label {
+    background-position: 0 -278px; }
+
+.rating-placeholder .answer-star-list {
+  width: 230px;
+  height: 25px;
+  margin: 15px auto 0; }
+  .rating-placeholder .answer-star-list > input + label {
+    margin-right: 25px; }
+  .rating-placeholder .answer-star-list > input:first-child + label {
+    margin-right: 0; }
+
+.question-field {
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee; }
+  .question-field .error-text {
+    top: -6px; }
+
+.question-item {
+  margin-bottom: 10px; }
+
+.answer-list li {
+  float: left !important;
+  color: #82888b;
+  margin: 4px 8px 4px 0;
+  padding: 5px 14px;
+  cursor: pointer;
+  border: 1px solid #e2e2e2;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px; }
+  .answer-list li.active {
+    color: #fff;
+    background: #41B4C4;
+    border-color: #41B4C4;
+    cursor: default;
+    pointer-events: none; }
+
+.numeric-list {
+  list-style: decimal;
+  margin-left: 15px; }
+  .numeric-list li {
+    margin-bottom: 5px; }
+
+.textarea-box {
+  position: relative; }
+  .textarea-box textarea {
+    width: 100%;
+    border: 1px solid #a2a2a2;
+    font-family: "Open Sans", sans-serif, Arial;
+    font-size: 14px;
+    padding: 20px;
+    resize: none; }
+    .textarea-box textarea:focus {
+      border-color: #82888b;
+      box-shadow: none; }
+
+.textarea-error {
+  left: 7px;
+  bottom: 7px;
+  padding: 5px; }
+  .textarea-error .error-text {
+    top: 0; }
+
+.review-char-count {
+  background: rgba(255, 255, 255, 0.9);
+  bottom: 7px;
+  right: 7px;
+  color: #787878;
+  padding: 5px; }
+
+#getReviewTitle {
+  font-weight: 600; }
+
+.review-question-list .list-item {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee; }
+
+.review-question-list .item-title {
+  font-weight: 600;
+  margin-bottom: 8px; }
+
+.review-question-list .item-subtitle {
+  color: #787878;
+  margin-bottom: 10px; }
+
+.review-question-list .item-rating-list li {
+  margin-right: 4px;
+  margin-left: 4px;
+  float: right; }
+
+.review-question-list .answer-list li {
+  margin-right: 6px;
+  margin-left: 0; }
+
+.review-question-list .feedback-text {
+  font-size: 13px;
+  position: relative;
+  top: 1px;
+  color: #4d5057; }
+
+body {
+  -webkit-tap-highlight-color: transparent; }
+
+#review-summary-page ~ footer {
+  display: none; }
+
+#thankyou-card .model-image-grid {
+  height: 66px; }
+
+#thankyou-card .icon-outer-container {
+  width: 66px;
+  height: 66px; }
+
+#thankyou-card .icon-inner-container {
+  width: 62px;
+  height: 62px;
+  margin: 1px auto; }
+
+#review-summary-card{
+    margin-bottom:45px;}
+
+#review-summary-card #bike-rating-box {
+  margin-top: 35px; }
+
+#summary-review-box p {
+  margin-bottom: 10px; }
+
+.user-rated-list .list-item {
+  margin-bottom: 10px; }
+
+.user-rated-list .star-one,
+.user-rated-list .star-zero {
+  transform: scale(0.7);
+  margin-right: -1px; }
+
+.category-label {
+  width: 55%;
+  line-height: 25px; }
+
+.category-rating {
+  width: 140px;
+  font-weight: 600;
+  line-height: 25px; }
+
+.floating-btn {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 8;
+  box-shadow: 0 0 2px 2px #e2e2e2; }
+  .floating-btn .btn {
+    padding: 10px 5px;
+    border-radius: 0; }
+  .floating-btn .btn-white {
+    border-color: #fff;
+    color: #4d5057; }
+
+#back-to-top {
+  bottom: 60px; }
+
+.star-zero,
+.star-one {
+  width: 26px;
+  height: 25px;
+  vertical-align: middle; }
+
+.star-zero {
+  background-position: 0 -308px; }
+
+.star-one,
+.star-one-active .star-zero {
+  background-position: 0 -278px; }
+
+.feedback-1,
+.feedback-2,
+.feedback-3,
+.feedback-4,
+.feedback-5 {
+  width: 26px;
+  height: 25px; }
+
+.feedback-3,
+.feedback-4,
+.feedback-5 {
+  background-position: -183px -569px; }
+
+.feedback-3 {
+  opacity: 0.4; }
+
+.feedback-4 {
+  opacity: 0.6; }
+
+.feedback-1,
+.feedback-2 {
+  background-position: -171px -610px;
+  position: relative;
+  top: 3px; }
+
+.feedback-2 {
+  opacity: 0.6; }
+
+@media only screen and (max-width: 320px) {
+  .model-details-grid {
+    width: 68%; }
+  .category-label {
+    width: 45%; } }

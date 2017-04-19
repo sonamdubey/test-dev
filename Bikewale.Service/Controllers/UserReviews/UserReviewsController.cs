@@ -23,13 +23,13 @@ namespace Bikewale.Service.Controllers.UserReviews
     public class UserReviewsController : CompressionApiController//ApiController
     {
 
-        private readonly IUserReviews _userReviewsRepo = null;
+        private readonly IUserReviewsRepository _userReviewsRepo = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="userReviewsRepo"></param>
-        public UserReviewsController(IUserReviews userReviewsRepo)
+        public UserReviewsController(IUserReviewsRepository userReviewsRepo)
         {
             _userReviewsRepo = userReviewsRepo;
         }
@@ -110,7 +110,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <param name="reviewId">Should be Positive</param>
         /// <returns>Boolean</returns>
         [ResponseType(typeof(Boolean))]
-        public IHttpActionResult Put(uint reviewId)
+        public IHttpActionResult Post(uint reviewId)
         {
             bool objURRating = false;
             try
@@ -141,7 +141,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <param name="isHelpful">Optional (use as '&isHelpful')</param>
         /// <returns>Boolean</returns>
         [ResponseType(typeof(Boolean))]
-        public IHttpActionResult Put(uint reviewId, bool isHelpful)
+        public IHttpActionResult Post(uint reviewId, bool isHelpful)
         {
             bool objURHelpful = false;
             try
@@ -172,7 +172,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <param name="userId"></param>
         /// <returns>Boolean</returns>
         [ResponseType(typeof(Boolean))]
-        public IHttpActionResult Put(uint reviewId, string comment, string userId)
+        public IHttpActionResult Post(uint reviewId, string comment, string userId)
         {
             bool objURAbuse = false;
             try
