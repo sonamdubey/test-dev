@@ -422,8 +422,26 @@ docReady(function () {
                 for (i = 0; i < obj.ratingArray.length; ++i) {
                     var quest = obj.ratingArray[i].split(':')[0];
                     var ans = obj.ratingArray[i].split(':')[1];
-                    var starbtn = $('#bike-review-questions').find(" input[questiontid=" + quest + "][id=review-" + i + "-" + ans + "]");
+                    var starbtn = $('#bike-review-questions').find(" input[questiontid=" + quest + "][id=review-" + quest + "-" + ans + "]");
                     if (starbtn != null) {
+                        starbtn.trigger("click");
+                    }
+                }
+            }
+        }
+
+        self.FillReviewData = function () {
+            var obj = JSON.parse($('#review-page-data').text());
+            if (obj != null) {                
+                self.reviewTips(obj.Tips);
+                var i;                
+
+                for (i = 0; i < obj.Questions.length; ++i) {
+
+                    var quest = obj.Questions[i].qId;
+                    var ans = obj.Questions[i].selectedRatingId;
+                    var starbtn = $('#bike-review-questions').find("input[id=review-" + quest + "-" + ans + "]");
+                    if (starbtn.length != 0) {
                         starbtn.trigger("click");
                     }
                 }
@@ -469,6 +487,8 @@ docReady(function () {
     else {
         bwcache.removeAll(true);
     }
+
+    vmWriteReview.FillReviewData();
 });
 
 var answer = {
