@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.UserReviews;
+using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.UserReviews
@@ -11,8 +12,6 @@ namespace Bikewale.Interfaces.UserReviews
         IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams, UserReviewsData objUserReviewQuestions);
         UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint sourceId, uint reviewId);
         bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns);
-        bool SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userNamem, string makeName, string modelName);
-
-
+        WriteReviewPageSubmitResponse SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName, string reviewDescription, string reviewTitle);
     }
 }
