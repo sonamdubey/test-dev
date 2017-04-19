@@ -46,6 +46,7 @@ namespace Bikewale.Models.UserReviews
                     status = StatusCodes.ContentFound;
                     objData.PrevPageUrl = Bikewale.Utility.UserReviews.FormatPreviousPageUrl(objData.Summary.PageSource, objData.Summary.Make.MaskingName, objData.Summary.Model.MaskingName);
                     objData.WriteReviewLink = string.Format("/write-a-review/?q={0}", _strEncoded);
+                    BindPageMetas(objData);
                 }
                 else
                 {
@@ -58,6 +59,16 @@ namespace Bikewale.Models.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, "UserReviewSummaryPage.GetData");
             }
             return objData;
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 19 Apr 2017
+        /// Summary    : Bind page metas
+        /// </summary>
+        private void BindPageMetas(UserReviewSummaryVM objData)
+        {
+            objData.PageMetaTags.Title = string.Format("Review Summary | {0} {1} - BikeWale",objData.Summary.Make.MakeName,objData.Summary.Model.ModelName);
+            objData.PageMetaTags.Description = string.Format("See summary of {0}'s {1} {2} review.",objData.Summary.CustomerName,objData.Summary.Make.MakeName,objData.Summary.Model.ModelName);
         }
         #endregion
 
