@@ -126,9 +126,9 @@ namespace Bikewale.Controllers
         }
 
         [Route("m/user-reviews/review-summary/{reviewid}/")]
-        public ActionResult ReviewSummary_Mobile(uint reviewid)
+        public ActionResult ReviewSummary_Mobile(uint reviewid,string q)
         {
-            UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid);
+            UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid,q);
             UserReviewSummaryVM objVM = objData.GetData();
             return View(objVM);
         }
@@ -145,14 +145,14 @@ namespace Bikewale.Controllers
         /// <param name="reviewId"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, string queryEncoded, uint reviewId, string encodedString)
+        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, uint reviewId, string encodedString)
         {
             WriteReviewPageSubmitResponse objResponse = null;
 
             objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips, reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName, reviewDescription, reviewTitle);
 
             if (objResponse.IsSuccess)
-                return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, queryEncoded));
+                return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
             else
             {
                 WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, encodedString);
