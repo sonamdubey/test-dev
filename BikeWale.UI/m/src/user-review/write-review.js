@@ -14,7 +14,7 @@ var ratingQuestion = [];
 docReady(function () {
     bwcache.setScope('ReviewPage');
     if (page == "writeReview") {
-        setTimeout(function () { appendHash("writeReview"); }, 3000);
+        setTimeout(function () { appendHash("writeReview"); }, 1000);
         $(window).on('hashchange', function (e) {
             oldUrl = e.originalEvent.oldURL;
             if (oldUrl && (oldUrl.indexOf('#') > 0)) {
