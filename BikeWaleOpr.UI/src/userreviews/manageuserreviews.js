@@ -21,6 +21,56 @@ var UserReviewSummary = function()
 
     };
 
+    self.approveReview = function () {
+        if (self.selectedReviewId() && self.selectedReviewId() > 0) {
+            $.ajax({
+                type: "GET",
+                url: "/api/UpdateUserReviewsStatus/?reviewStatus=2&moderatorId=1&disapprovalReasonId=1&reviewId=" + self.selectedReviewId(),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        alert("User Review Approved");
+                    }
+                    else {
+                        alert("User Review failed Approved");
+                    }
+
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        alert("User failed Review Approved");
+                    }
+                }
+            });
+        }
+    };
+
+    self.rejectReview = function () {
+        if (self.selectedReviewId() && self.selectedReviewId() > 0) {
+            $.ajax({
+                type: "GET",
+                url: "/api/UpdateUserReviewsStatus/?reviewStatus=3&moderatorId=1&disapprovalReasonId=" + disapprovalReasonId + "&reviewId=" + self.selectedReviewId(),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        alert("User Review Approved");
+                    }
+                    else {
+                        alert("User Review failed Approved");
+                    }
+
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        alert("User failed Review Approved");
+                    }
+                }
+            });
+        }
+    };
+
 }
 
 var UserReviews = function () {
@@ -98,58 +148,7 @@ var UserReviews = function () {
 
     };
 
-    self.approveReview = function () {
-        if(self.selectedReviewId() && self.selectedReviewId() > 0)
-        {
-            $.ajax({
-                type: "GET",
-                url: "/api/UpdateUserReviewsStatus/?reviewStatus=2&moderatorId=1&disapprovalReasonId=1&reviewId=" + self.selectedReviewId(),
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (response) {
-                    if(response)
-                    {
-                        alert("User Review Approved");
-                    }
-                    else
-                    {
-                        alert("User Review failed Approved");
-                    }
 
-                },
-                complete: function (xhr) {
-                    if (xhr.status != 200) {
-                        alert("User failed Review Approved");
-                    }
-                }
-            });
-        }
-    };
-
-    self.rejectReview = function () {
-        if (self.selectedReviewId() && self.selectedReviewId() > 0) {
-            $.ajax({
-                type: "GET",
-                url: "/api/UpdateUserReviewsStatus/?reviewStatus=3&moderatorId=1&disapprovalReasonId=" + disapprovalReasonId + "&reviewId=" + self.selectedReviewId(),
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (response) {
-                    if (response) {
-                        alert("User Review Approved");
-                    }
-                    else {
-                        alert("User Review failed Approved");
-                    }
-
-                },
-                complete: function (xhr) {
-                    if (xhr.status != 200) {
-                        alert("User failed Review Approved");
-                    }
-                }
-            });
-        }
-    };
 
 };
 

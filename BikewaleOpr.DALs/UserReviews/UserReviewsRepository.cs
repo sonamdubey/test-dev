@@ -32,8 +32,6 @@ namespace BikewaleOpr.DALs.UserReviews
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    objReviews = new List<ReviewBase>();
-
                     connection.Open();
 
                     var param = new DynamicParameters();
@@ -43,7 +41,7 @@ namespace BikewaleOpr.DALs.UserReviews
                     param.Add("par_modelid", filter.ModelId > 0 ? filter.ModelId : (uint?)null);
                     param.Add("par_reviewdate", filter.ReviewDate != default(DateTime) ? filter.ReviewDate : (DateTime?)null);
 
-                    objReviews = connection.Query<ReviewBase>("GetUserReviewsList", param: param, commandType: CommandType.StoredProcedure).ToList();
+                    objReviews = connection.Query<ReviewBase>("GetUserReviewsList", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -78,11 +76,9 @@ namespace BikewaleOpr.DALs.UserReviews
             {
                 using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
-                    objReasons = new List<DiscardReasons>();
-
                     connection.Open();
 
-                    objReasons = connection.Query<DiscardReasons>("GetUserReviewsDiscardReasons", commandType: CommandType.StoredProcedure).ToList();
+                    objReasons = connection.Query<DiscardReasons>("GetUserReviewsDiscardReasons", commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();

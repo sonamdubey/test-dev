@@ -307,8 +307,6 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    objModels = new List<BikeModelEntityBase>();
-
                     connection.Open();
 
                     var param = new DynamicParameters();
@@ -316,7 +314,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_makeid", makeId);
                     param.Add("par_requesttype", requestType);
 
-                    objModels = connection.Query<BikeModelEntityBase>("getbikemodels_new_1704442017", param: param, commandType: CommandType.StoredProcedure).ToList();
+                    objModels = connection.Query<BikeModelEntityBase>("getbikemodels_new_1704442017", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();

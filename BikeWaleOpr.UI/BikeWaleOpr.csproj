@@ -1372,6 +1372,7 @@
     <Content Include="css\common-new.css" />
     <Content Include="css\Common.css" />
     <Content Include="css\materialize.css" />
+    <Content Include="css\userreviews.css" />
     <Content Include="Default.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\word.css" />
