@@ -50,7 +50,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
             container.RegisterType<IImage, ImageBL>();
             container.RegisterType<IImageRepository, ImageRepository>();
-            container.RegisterType<ISecurity, SecurityBL>();
+            container.RegisterType<ISecurity, SecurityBL>();            
+
             return container;
         }
     }

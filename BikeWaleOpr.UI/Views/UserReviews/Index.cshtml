@@ -1,0 +1,204 @@
+﻿@model BikewaleOpr.Models.UserReviews.ManageUserReviewsPageVM
+           @using BikewaleOpr.Entity.UserReviews;
+@{
+    ViewBag.Title = "Manage User Reviews";
+    ViewBag.PageTitle = "Manage User Reviews";
+}
+<link href="~/css/userreviews.css" rel="stylesheet" />
+
+<div class="row" style="margin-top:5px;" id="UserReviews" data-makeid="@Model.selectedFilters.MakeId" data-reviewstatus="@((ushort)Model.selectedFilters.ReviewStatus)" data-date="@Model.selectedFilters.ReviewDate" data-modelid="@Model.selectedFilters.ModelId">
+    <div class="col m10">
+        @if (Model != null && Model.Reviews != null && Model.Reviews.Count() > 0)
+        {
+            <table id="tblReviews" class="bordered highlight z-depth-3 centered responsive-table">
+                <tr>
+                    <th>Review Id</th>
+                    <th>Bike Name</th>
+                    <th>Written By</th>
+                    <th>Entry Date</th>
+                    <th>View Details</th>
+                    <th>Action</th>
+                </tr>
+                @foreach (var m in Model.Reviews)
+                {
+                    <tr>
+                        <td>@m.Id</td>
+                        <td>@m.MakeName @m.ModelName</td>
+                        <td>@m.WrittenBy</td>
+                        <td>@m.EntryDate</td>
+                        <td><button id="btnViewDetails" data-target="reviewdetails" data-bind="click : function(){ selectedReviewId(@m.Id); }" class="btn waves-effect waves-light cyan" type="button" name="ViewDetails" data-review-id="@m.Id">View Details</button>
+                        </td>
+                        @*<td>
+                            @if (m.ReviewStatus != (ushort)BikewaleOpr.Entity.UserReviews.ReviewsStatus.Approved)
+                            {<button id="btnApprove" class="btn waves-effect waves-light" type="button" name="approve" data-review-id="@m.Id">Approve</button>}
+                            @if (m.ReviewStatus != (ushort)BikewaleOpr.Entity.UserReviews.ReviewsStatus.Discarded)
+                            {<button id="btnReject" class="btn waves-effect waves-light red lighten-2" type="button" name="reject" data-review-id="@m.Id">Reject</button>}
+                        </td>*@
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="card-panel orange lighten-2">
+                        <i class="material-icons">info_outline</i><span class="vertical-align-bottom margin-left5">No user reviews available...</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @using (Html.BeginForm("Index", "UserReviews", FormMethod.Post))
+    {
+        <div id="addMakeContainer" class="col s2 m2">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header"><strong>Filter Reviews</strong></div>
+                    <div class="collapsible-body">
+                        <div class="container">
+                            <div class="input-field row s12">
+                                <select name="MakeId" data-bind="event :  { change : function(d,e){ changeMake(d,e); } }">
+                                    <option value="0" selected>Select Make</option>
+                                    @foreach (var m in Model.Makes)
+                                    {
+                                        <option value="@m.MakeId">@m.MakeName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="input-field row s12">
+                                <select name="ModelId" data-bind="options : bikeModels,value : selectedModel,optionsValue : 'modelId',optionsText : 'modelName',optionsCaption: 'Select Model'"></select>
+                            </div>
+                            <div class="input-field row s12">
+                                <input type="radio" id="chkPending" name="rdoReviewStatus" value="@((ushort)ReviewsStatus.Pending)" class="with-gap" data-bind="event : { change : function(d,e) { changeStatus(d,e); } }" @(Model.selectedFilters.ReviewStatus.Equals(ReviewsStatus.Pending) ? "checked" : "") />
+                                <label for="chkPending">Pending</label>
+                            </div>
+                            <div class="input-field row s12">
+                                <input type="radio" id="chkApproved" name="rdoReviewStatus" value="@((ushort)ReviewsStatus.Approved)" data-bind="event : { change : function(d,e) { changeStatus(d,e); } }" class="with-gap" @(Model.selectedFilters.ReviewStatus.Equals(ReviewsStatus.Approved) ? "checked" : "") />
+                                <label for="chkApproved">Approved</label>
+                            </div>
+                            <div class="input-field row s12">
+                                <input type="radio" id="chkDiscarded" name="rdoReviewStatus" value="@((ushort)ReviewsStatus.Discarded)" data-bind="event : { change : function(d,e) { changeStatus(d,e); } }" class="with-gap" @(Model.selectedFilters.ReviewStatus.Equals(ReviewsStatus.Discarded) ? "checked" : "") />
+                                <label for="chkDiscarded">Discarded</label>
+                            </div>
+                            <div class="input-field row s12">
+                                <i class="material-icons prefix margin-top15">date_range</i>
+                                <input type="date" id="reviewDate" name="ReviewDate" class="datepicker margin-left5" value="@Model.selectedFilters.ReviewDate"/>
+                                <label for="reviewDate">Review Date</label>
+                            </div>
+                            <div class="input-field row s12">
+                                <button id="btnAddMake" class="btn waves-effect waves-light" type="submit" name="action">
+                                    Show Reviews
+                                </button>
+                                <input type="hidden" name="ReviewStatus" value="1" />
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    }
+
+
+    <div id="reviewdetails" class="modal modal-fixed-footer" data-bind="with : reviewSummary">
+        <div class="modal-content">
+            <h4 data-bind=""></h4>
+            <div id="review-summary-card" class="container section-bottom-margin font14">
+                <div class="grid-12">
+                    <div class="content-box-shadow content-inner-block-20">
+                        <div class="grid-8 alpha padding-right20 border-solid-right">
+                            <div id="bike-rating-box">
+                                <div class="circle-placeholder">
+                                    <span class="bwsprite feedback-4"></span>
+                                </div>
+                                <div class="rating-placeholder">
+                                    <h3 class="font20 font-bold" data-bind="">Amazing!</h3>
+                                    <p class="margin-top5" data-bind=""> It's okay. Could have been better!</p>
+
+                                    <ul class="item-rating-list answer-star-list no-float">
+                                        <li class="bwsprite star-one"></li>
+                                        <li class="bwsprite star-one"></li>
+                                        <li class="bwsprite star-one"></li>
+                                        <li class="bwsprite star-one"></li>
+                                        <li class="bwsprite star-zero"></li>
+                                    </ul>
+                                    <div class="clear"></div>
+
+                                </div>
+                            </div>
+
+                            <h2 class="font18 margin-bottom10" data-bind="">It's the best bike under 1.5 Lakh</h2>
+                            <div class="full-review-box text-light-grey" data-bind="">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                <p>Ed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa uae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam.</p>
+                            </div>
+
+                        </div>
+                        <div class="grid-4 padding-left20 omega">
+                            <h3 class="font15 text-black margin-bottom20">You also rated</h3>
+                            <ul class="user-rated-list padding-bottom5 opacity-active">
+                                <li class="list-item">
+                                    <p class="category-label leftfloat">Visual appeal</p>
+                                    <ul class="category-rating item-rating-list rating-size-sm rightfloat">
+                                        <li class="bwsprite star-one"></li>
+                                        <li class="bwsprite star-one"></li>
+                                        <li class="bwsprite star-zero"></li>
+                                        <li class="bwsprite star-zero"></li>
+                                        <li class="bwsprite star-zero"></li>
+                                    </ul>
+                                    <div class="clear"></div>
+                                </li>
+                                <li class="list-item">
+                                    <p class="category-label leftfloat">Comfort</p>
+                                    <ul class="category-rating item-rating-list rating-size-sm rightfloat">
+                                        <li class="bwsprite star-one"></li>
+                                        <li class="bwsprite star-one"></li>
+                                        <li class="bwsprite star-one"></li>
+                                        <li class="bwsprite star-zero"></li>
+                                        <li class="bwsprite star-zero"></li>
+                                    </ul>
+                                    <div class="clear"></div>
+                                </li>
+                                <li class="list-item">
+                                    <p class="category-label leftfloat">Service experience</p>
+                                    <ul class="category-rating item-rating-list rating-size-sm rightfloat">
+                                        <li class="bwsprite star-one"></li>
+                                        <li class="bwsprite star-one"></li>
+                                        <li class="bwsprite star-one"></li>
+                                        <li class="bwsprite star-one"></li>
+                                        <li class="bwsprite star-zero"></li>
+                                    </ul>
+                                    <div class="clear"></div>
+                                </li>
+                                <li class="list-item">
+                                    <p class="category-label leftfloat">Value for money</p>
+                                    <p class="category-rating rightfloat padding-left5 text-truncate">Feels great!</p>
+                                    <div class="clear"></div>
+                                </li>
+                            </ul>
+                            <div class="margin-bottom20 border-solid-bottom"></div>
+
+                            <h3 class="font15 text-black margin-bottom10">Tips for prospective buyers</h3>
+                            <div class="text-light-grey">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action btn waves-effect waves-light red lighten-2" data-bind="click : rejectReview ">Reject</a>
+            <a href="#!" class="modal-action btn waves-effect waves-light" data-bind="click : approveReview " style="margin-right : 10px">Approve</a>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script src="/src/userreviews/manageuserreviews.js"></script>

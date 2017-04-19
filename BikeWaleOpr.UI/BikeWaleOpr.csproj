@@ -413,6 +413,7 @@
     <Compile Include="Controllers\MakesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
+    <Compile Include="Controllers\UserReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="controls\DateControl.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -447,6 +448,7 @@
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Models\UserReviews\ManageUserReviewsPageModel.cs" />
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
       <DependentUpon>DealerDetailedPriceQuote.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1915,6 +1917,7 @@
     <Content Include="src\knockout.js" />
     <Content Include="src\modelImagesByColor.js" />
     <Content Include="src\PopUpDiv.js" />
+    <Content Include="src\userreviews\manageuserreviews.js" />
     <Content Include="users\Login.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -1954,6 +1957,7 @@
     <Content Include="css\fonts\roboto\Roboto-Thin.woff" />
     <Content Include="css\fonts\roboto\Roboto-Thin.woff2" />
     <Content Include="Views\Models\UsedModelImageUpload.cshtml" />
+    <Content Include="Views\UserReviews\Index.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
