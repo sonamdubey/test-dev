@@ -509,7 +509,7 @@ namespace Bikewale.Models.BikeModels
                                 else
                                 {
                                     objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
-                                    objData.BikePrice = (uint)objData.SelectedVersion.Price;
+                                    objData.BikePrice = Convert.ToUInt32(objData.SelectedVersion != null ? objData.SelectedVersion.Price : modelPg.ModelVersions.FirstOrDefault().Price);
                                 }
                             }
                             if (objData.CityId != 0 && !objData.IsDiscontinuedBike)
