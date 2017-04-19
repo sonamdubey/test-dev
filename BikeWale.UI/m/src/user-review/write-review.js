@@ -431,7 +431,7 @@ docReady(function () {
         };
 
         self.FillReviewData = function () {
-            if ($('#review-page-data') != null && $('#review-page-data') != undefined && ($('#review-page-data').text() != null && $('#review-page-data').text()!="")) {
+            if ($('#review-page-data').text() != null && $('#review-page-data').text()!="") {
                 var obj = JSON.parse($('#review-page-data').text());
                 if (obj != null) {
                     self.reviewTips(obj.Tips);
