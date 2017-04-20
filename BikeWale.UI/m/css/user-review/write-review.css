@@ -290,8 +290,10 @@ body {
   opacity: 0.6; }
 
 #back-to-top {
-    display: none !important;
-}
+  display: none !important; }
+
+#review-summary-card.browser-type-uc {
+  margin-bottom: 80px; }
 
 @media only screen and (max-width: 320px) {
   .model-details-grid {
