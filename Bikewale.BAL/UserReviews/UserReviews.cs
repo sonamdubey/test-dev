@@ -369,7 +369,9 @@ namespace Bikewale.BAL.UserReviews
                         if (isValid)
                         {
                             objResponse.IsSuccess = SaveUserReviews(_reviewId, tipsnAdvices, comment, commentTitle, reviewsQuestionAns);
-                            UserReviewsEmails.SendReviewSubmissionEmail(userName, emailId, makeName, modelName);
+
+                            if (!string.IsNullOrEmpty(comment))
+                                UserReviewsEmails.SendReviewSubmissionEmail(userName, emailId, makeName, modelName);
                         }
                     }
                     else

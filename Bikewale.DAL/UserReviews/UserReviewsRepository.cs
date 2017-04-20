@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
-using System.Net;
 using System.Web;
 
 namespace Bikewale.DAL.UserReviews
@@ -983,9 +982,9 @@ namespace Bikewale.DAL.UserReviews
                              {
                                  CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
                                  CustomerName = Convert.ToString(dr["CustomerName"]),
-                                 Description = WebUtility.HtmlDecode(Convert.ToString(dr["Comments"])),
-                                 Title = WebUtility.HtmlDecode(Convert.ToString(dr["ReviewTitle"])),
-                                 Tips = WebUtility.HtmlDecode(Convert.ToString(dr["ReviewTips"])),
+                                 Description = Convert.ToString(dr["Comments"]),
+                                 Title = Convert.ToString(dr["ReviewTitle"]),
+                                 Tips = Convert.ToString(dr["ReviewTips"]),
                                  OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
                                  PageSource = (UserReviewPageSourceEnum)Convert.ToInt32(dr["PageSourceId"]),
                                  Make = new BikeMakeEntityBase()
