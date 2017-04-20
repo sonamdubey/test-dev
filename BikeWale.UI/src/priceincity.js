@@ -7,7 +7,7 @@ var $window, overallSpecsTabsContainer, modelSpecsTabsContentWrapper, modelSpecs
 docReady(function () {
 
     $('.overall-specs-tabs-wrapper a').first().addClass('active');
-
+   
     // version dropdown
     $('.chosen-select').chosen();
 
@@ -264,6 +264,7 @@ docReady(function () {
     var $dvPgVar = $("#dvPgVar");
     bikeName = $dvPgVar.data("bikename");
     var modelId = $dvPgVar.data("modelid");
+    var cityName = $dvPgVar.data("cityarea");
 
     $("#btnDealerPricePopup").click(function () {
         var selArea = '';
@@ -300,6 +301,7 @@ docReady(function () {
     });
 
     $('.model-versions-tabs-wrapper a').first().trigger("click");
+    triggerGA('Price_in_City_Page', 'CoverFox_Link_Shown', bikeName + '_' + cityName);
 
 });
 

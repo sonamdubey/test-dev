@@ -14,6 +14,8 @@
     padding: 7px 5px 10px 15px;
 }
 
+
+
 #bwheader-logo, .navbarBtn, .global-location, .sort-btn {
     display:none;
 }
@@ -582,6 +584,10 @@
 }
 .pos-right35 {
     right: -15px;
+}
+
+.pos-left35 {
+    right: 88px;
 }
 
 /* new campaign */
