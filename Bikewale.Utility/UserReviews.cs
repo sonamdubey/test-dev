@@ -28,7 +28,7 @@ namespace Bikewale.Utility
                     url =string.Format("/m/{0}-bikes/{1}/user-reviews/",makeMasking,modelMasking);
                     break;
                 default:
-                    url = "";
+                    url = string.Format("/m/{0}-bikes/{1}/", makeMasking, modelMasking);
                     break;
             }
             return url;
