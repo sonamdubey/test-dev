@@ -153,7 +153,7 @@ namespace Bikewale.BAL.UserReviews
                 objCust = new CustomerEntityBase() { CustomerName = userName, CustomerEmail = emailId };
                 objCust = ProcessUserCookie(objCust);
 
-                if (objCust.CustomerName != userName || objCust.CustomerEmail != emailId)
+                if (objCust.CustomerEmail != emailId)
                 {
                     objCust.CustomerName = userName;
                     objCust.CustomerEmail = emailId;
