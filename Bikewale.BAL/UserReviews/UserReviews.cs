@@ -153,6 +153,23 @@ namespace Bikewale.BAL.UserReviews
                 objCust = new CustomerEntityBase() { CustomerName = userName, CustomerEmail = emailId };
                 objCust = ProcessUserCookie(objCust);
 
+                if (objCust.CustomerName != userName || objCust.CustomerEmail != emailId)
+                {
+                    objCust.CustomerName = userName;
+                    objCust.CustomerEmail = emailId;
+
+                    RegisterCustomer(objCust);
+                    //customer registration successful
+                    if (objCust.CustomerId > 0)
+                    {
+                        //create tempcurrentuser cookie
+                        string customerData = String.Format("{0}&{1}&{2}&{3}", objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, BikewaleSecurity.EncryptUserId(Convert.ToInt64(objCust.CustomerId)));
+                        BWCookies.SetBuyerDetailsCookie(customerData);
+                    }
+                    // when email or username is edited it should be consider as new entry so review id turned to zero
+                    reviewId = 0;
+
+                }
                 objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId, reviewId);
                 objRating.CustomerId = objCust.CustomerId;
             }

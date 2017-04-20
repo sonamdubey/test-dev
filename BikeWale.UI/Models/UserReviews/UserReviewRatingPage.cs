@@ -108,9 +108,9 @@ namespace Bikewale.Models
             {
                 if (objUserVM != null && objUserVM.PageMetaTags != null)
                 {
-                    objUserVM.PageMetaTags.Title = "Rate Your Bike | Write a Review - BikeWale";
+                    objUserVM.PageMetaTags.Title = string.Format("Rate Your Bike | {0} {1} - BikeWale", objUserVM.objModelEntity.MakeBase.MakeName, objUserVM.objModelEntity.ModelName);
 
-                    objUserVM.PageMetaTags.Description = string.Format("Rate your {0} {1} on BikeWale. Write a detailed review about {0} {1} and help others in making a right buying decision.", objUserVM.objModelEntity.MakeBase.MakeName, objUserVM.objModelEntity.ModelName);
+                    objUserVM.PageMetaTags.Description = string.Format("Rate {0} {1} on BikeWale. Tell us what do you think about {0} {1}. Share your experience of {0} {1} with others.", objUserVM.objModelEntity.MakeBase.MakeName, objUserVM.objModelEntity.ModelName);
 
                 }
             }
@@ -185,7 +185,7 @@ namespace Bikewale.Models
                             {
                                 objUserVM.PriceRangeId = objUserReviewData.PriceRange.First(x => x.MinPrice <= objUserVM.objModelEntity.MinPrice && x.MaxPrice >= objUserVM.objModelEntity.MaxPrice).RangeId;
                             }
-                            
+
                         }
                     }
 
