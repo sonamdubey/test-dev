@@ -223,6 +223,7 @@ namespace Bikewale.BAL.UserReviews
                             objQuestions.Add(objQuestion);
                         }
                     }
+
                     objQuestions.FirstOrDefault(x => x.Id == 2).SubQuestionId = 3;
 
                     objSummary.Questions = objQuestions;

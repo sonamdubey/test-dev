@@ -134,6 +134,7 @@
     <Compile Include="AutoMappers\BikeData\BikeModelsMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
+    <Compile Include="AutoMappers\UserReviews\UserReviewsMapper.cs" />
     <Compile Include="Controllers\BikeColorImages\ColorImagesBikesController.cs" />
     <Compile Include="Controllers\Content\MakesController.cs" />
     <Compile Include="Controllers\Content\ModelsController.cs" />

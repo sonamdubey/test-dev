@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
 using System.Runtime.Serialization;
-
 namespace BikewaleOpr.Entities
 {
     /// <summary>
@@ -13,22 +12,17 @@ namespace BikewaleOpr.Entities
     [Serializable, DataContract]
     public class BikeMakeEntityBase
     {
-        [JsonProperty(PropertyName = "makeId"), DataMember]
+        [DataMember]
         public int MakeId { get; set; }
-
-        [JsonProperty(PropertyName = "makeName"), DataMember]
+        [DataMember]
         public string MakeName { get; set; }
-
-        [JsonProperty(PropertyName = "maskingName"), DataMember]
+        [DataMember]
         public string MaskingName { get; set; }
-
-        [JsonProperty(PropertyName = "hostUrl"), DataMember]
+        [DataMember]
         public string HostUrl { get; set; }
-
-        [JsonProperty(PropertyName = "logoUrl"), DataMember]
+        [DataMember]
         public string LogoUrl { get; set; }
-
-        [JsonProperty("popularityIndex"), DataMember]
+        [DataMember]
         public ushort PopularityIndex { get; set; }
     }
 }

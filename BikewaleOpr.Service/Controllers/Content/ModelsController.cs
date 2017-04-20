@@ -48,7 +48,7 @@ namespace BikewaleOpr.Service.Controllers.Content
 
                     if (objModels != null && objModels.Count() > 0)
                     {
-                        IEnumerable<BikeModelBaseDTO> objModelsDTO = BikeModelsMapper.Convert(objModels);
+                        IEnumerable<ModelBase> objModelsDTO = BikeModelsMapper.Convert(objModels);
 
                         return Ok(objModelsDTO);
                     }

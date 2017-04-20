@@ -7,9 +7,10 @@ var $dateInput = $dateInput.pickadate('picker')
 
 var userReview = $("#UserReviews");
 
-var UserReviewSummary = function()
+var UserReviewSummary = function(reviewId)
 {
     var self = this;
+    self.selectedReviewId = ko.observable(reviewId);
     self.title = ko.observable();
     self.description = ko.observable();
     self.ratings = ko.observableArray([]);
@@ -18,7 +19,30 @@ var UserReviewSummary = function()
     self.questions = ko.observableArray();
 
     self.getUserReviewDetails = function () {
+        if (self.selectedReviewId() && self.selectedReviewId() > 0) {
+            $.ajax({
+                type: "GET",
+                url: "localhost:9011/api/user-reviews/summary/" + self.selectedReviewId() + "/",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        //user review details fetched
+                        console.log(response);
+                        //self.title();
+                    }
+                    else {
+                        alert("User Review failed Approved");
+                    }
 
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        alert("User failed Review Approved");
+                    }
+                }
+            });
+        }
     };
 
     self.approveReview = function () {
@@ -82,7 +106,7 @@ var UserReviews = function () {
     self.selectedReviewStatus = ko.observable();
     self.selectedDate = ko.observable();
     self.selectedReviewId = ko.observable();
-    self.reviewSummary = ko.observable(new UserReviewSummary);
+    self.reviewSummary = ko.observable();
 
     self.changeMake = function (d, e) {
         var makeId = $(e.target).val();
@@ -146,6 +170,34 @@ var UserReviews = function () {
             $dateInput.set('select', new Date(userReview.data("date")));
         }
 
+    };
+
+    self.getUserReviewDetails = function (reviewId) {
+        self.selectedReviewId(reviewId);
+        if (self.selectedReviewId() && self.selectedReviewId() > 0) {
+            $.ajax({
+                type: "GET",
+                url: "localhost:9011/api/user-reviews/summary/" + self.selectedReviewId() + "/",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        //user review details fetched
+                        console.log(response);
+                        //self.title();
+                    }
+                    else {
+                        alert("User Review failed Approved");
+                    }
+
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        alert("User failed Review Approved");
+                    }
+                }
+            });
+        }
     };
 
 

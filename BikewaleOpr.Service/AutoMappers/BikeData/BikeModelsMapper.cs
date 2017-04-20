@@ -17,10 +17,10 @@ namespace BikewaleOpr.Service.AutoMappers.BikeData
         /// </summary>
         /// <param name="objModels"></param>
         /// <returns></returns>
-        internal static IEnumerable<BikeModelBaseDTO> Convert(IEnumerable<BikeModelEntityBase> objModels)
+        internal static IEnumerable<ModelBase> Convert(IEnumerable<BikeModelEntityBase> objModels)
         {
-            Mapper.CreateMap<BikeModelEntityBase, BikeModelBaseDTO>();            
-            return Mapper.Map<IEnumerable<BikeModelEntityBase>, IEnumerable<BikeModelBaseDTO>>(objModels);
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            return Mapper.Map<IEnumerable<BikeModelEntityBase>, IEnumerable<ModelBase>>(objModels);
         }
     }
 }
