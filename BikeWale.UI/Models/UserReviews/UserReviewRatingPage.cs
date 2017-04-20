@@ -173,18 +173,7 @@ namespace Bikewale.Models
                                 objQuestions.FirstOrDefault(x => x.Id == 3).Visibility = false;
                                 objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
                                 objUserVM.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objQuestions);
-                            }
-
-                            var objLastPrice = objUserReviewData.PriceRange.Last();
-
-                            if (objUserVM.objModelEntity != null && objUserVM.objModelEntity.MaxPrice >= objLastPrice.MaxPrice)
-                            {
-                                objUserVM.PriceRangeId = objLastPrice.RangeId;
-                            }
-                            else
-                            {
-                                objUserVM.PriceRangeId = objUserReviewData.PriceRange.First(x => x.MinPrice <= objUserVM.objModelEntity.MinPrice && x.MaxPrice >= objUserVM.objModelEntity.MaxPrice).RangeId;
-                            }
+                            }                                                    
                             
                         }
                     }
@@ -211,6 +200,17 @@ namespace Bikewale.Models
 
 
                 }
+
+                var objLastPrice = objUserReviewData.PriceRange.Last();    
+                if (objUserVM.objModelEntity != null && objUserVM.objModelEntity.MinPrice >= objLastPrice.MaxPrice)
+                {
+                    objUserVM.PriceRangeId = objLastPrice.RangeId;
+                }
+                else
+                {
+                    objUserVM.PriceRangeId = objUserReviewData.PriceRange.First(x => x.MinPrice <= objUserVM.objModelEntity.MinPrice && x.MaxPrice >= objUserVM.objModelEntity.MinPrice).RangeId;
+                }
+
                 objUserVM.ReviewId = _reviewId;
                 objUserVM.pagesourceId = _pagesourceId;
 
