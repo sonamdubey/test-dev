@@ -18,6 +18,11 @@
 #modelOverallSpecsTopContent {
     height: 44px;
 }
+
+.pos-right35 {
+    right: -15px;
+}
+
 .overall-specs-tabs-container {
     width: 100%;
     display: block;
