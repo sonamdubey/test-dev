@@ -381,7 +381,7 @@ docReady(function () {
             reviewTitle: function () {
                 var isValid = false;
 
-                if (self.reviewTitle().length == 0) {
+                if (self.reviewTitle().trim().length == 0) {
                     validate.setError(reviewTitleField, 'Please provide a title for your review!');
                     if (!self.focusFormActive()) {
                         answer.focusForm(descReviewField);

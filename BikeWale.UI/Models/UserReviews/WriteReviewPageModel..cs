@@ -165,7 +165,7 @@ namespace Bikewale.Models.UserReviews
                         var objQuestions = _userReviews.GetUserReviewQuestions(filter, objUserReviewData);
                         if (objQuestions != null)
                         {
-                            objQuestions.LastOrDefault().DisplayType = UserReviewQuestionDisplayType.Text;
+                            //objQuestions.LastOrDefault().DisplayType = UserReviewQuestionDisplayType.Text;
                             objUserVM.JsonQuestionList = Newtonsoft.Json.JsonConvert.SerializeObject(objQuestions);
                         }
                     }

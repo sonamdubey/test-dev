@@ -5,7 +5,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
-using System.Net;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -162,7 +161,7 @@ namespace Bikewale.Controllers
         {
             WriteReviewPageSubmitResponse objResponse = null;
 
-            objResponse = _userReviews.SaveUserReviews(encodedId, WebUtility.HtmlEncode(reviewTips), WebUtility.HtmlEncode(reviewDescription), WebUtility.HtmlEncode(reviewTitle), reviewQuestion, emailId, userName, makeName, modelName);
+            objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips.Trim(), reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName);
 
             if (objResponse.IsSuccess)
                 return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
