@@ -136,6 +136,11 @@ docReady(function () {
     // add divider between version prices table and prices in nearby cities
     addDivider($('#version-prices-grid'), $('#nearby-prices-grid'));
 
+    // bw group flex tabs
+    $('.toggle-btn-label').on('click', 'li', function() {
+        $(this).removeClass('inactive').siblings().addClass('inactive');
+    });
+
     getCityArea = GetGlobalCityArea();
 
     $(".leadcapturebtn").click(function (e) {
