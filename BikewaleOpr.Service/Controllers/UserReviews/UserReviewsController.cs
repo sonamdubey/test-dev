@@ -1,5 +1,6 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.DTO.UserReviews;
+using Bikewale.Notifications.MailTemplates.UserReviews;
 using BikewaleOpr.Entities.UserReviews;
 using BikewaleOpr.Entity.UserReviews;
 using BikewaleOpr.Interface.UserReviews;
@@ -35,11 +36,25 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
         /// <param name="moderatorId">Person opr user id who is updating the data</param>
         /// <returns></returns>
         [HttpPost, Route("api/userreviews/id/{reviewId}/updatestatus/")]
-        public IHttpActionResult UpdateUserReviewsStatus(uint reviewId, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId, string review, string reviewTitle, string reviewTips)
+        public IHttpActionResult UpdateUserReviewsStatus(UpdateReviewsInputEntity inputs)
         {
             try
             {
-                _userReviewsRepo.UpdateUserReviewsStatus(reviewId, reviewStatus, moderatorId, disapprovalReasonId, review, reviewTitle, reviewTips);
+                uint oldTableReviewId = _userReviewsRepo.UpdateUserReviewsStatus(inputs.ReviewId, inputs.ReviewStatus, inputs.ModeratorId, inputs.DisapprovalReasonId, inputs.Review, inputs.ReviewTitle, inputs.ReviewTips);
+
+                // Send mail to the user on approval or rejection
+                if (inputs.ReviewStatus.Equals(ReviewsStatus.Approved))
+                {
+                    string reviewUrl = string.Format("/{0}-bikes/{1}/user-reviews/{3}.html", inputs.MakeMaskingName, inputs.ModelMaskingName, oldTableReviewId);
+
+                    ComposeEmailBase objBase = new ReviewApprovalEmail(inputs.CustomerName, reviewUrl, inputs.BikeName);
+                    objBase.Send(inputs.CustomerEmail, "Congratulations! Your review has been published");
+                }
+                else if (inputs.ReviewStatus.Equals(ReviewsStatus.Discarded))
+                {
+                    ComposeEmailBase objBase = new ReviewRejectionEmail(inputs.CustomerName, inputs.BikeName);
+                    objBase.Send(inputs.CustomerEmail, "Oops! We request you to verify your review again");
+                }                                               
             }
             catch (Exception ex)
             {
