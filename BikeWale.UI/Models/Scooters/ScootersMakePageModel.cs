@@ -250,7 +250,8 @@ namespace Bikewale.Models
             objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
             {
                 PageSize = 9,
-                PageNo = 1
+                PageNo = 1,
+                BodyStyleId = 5
             };
             objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
             objData.UpcomingScooters = objUpcoming.GetData();
