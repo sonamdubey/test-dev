@@ -332,6 +332,7 @@
                 var photoCount = "<%= vmModelPhotos!=null ?  vmModelPhotos.totalPhotosCount : 0 %>";
                 var modelId = "<%= modelId%>";
                 var isModelPage = <%= isModelPage.ToString().ToLower() %>;
+                var isTabs = <%= isTabs.ToString().ToLower() %>;
                 var ModelId="<%=vmModelPhotos.objModel.ModelId%>";
                 var videoCount = "<%=VideoCount%>";
                 var colorImageId = "<%= colorImageId%>";
