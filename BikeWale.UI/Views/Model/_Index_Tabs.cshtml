@@ -2,7 +2,7 @@
 
 @if (Model.IsModelDescriptionAvailable)
 {
-    <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
+    <a class="active" href="#modelSummaryContent" rel="nofollow">Overview</a>
 }
 @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
 {
@@ -12,11 +12,23 @@
 {
     <a href="#modelColorsContent" rel="nofollow">Colours</a>
 }
+@if (Model.IsSimilarBikesAvailable)
+{
+    <a href="#modelSimilarContent" rel="nofollow">Similar Bikes</a>
+}
 @if (Model.IsVersionSpecsAvailable)
 {
-    <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
+    <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs</a>
 }
-@if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable)
+@if (Model.IsModelDescriptionAvailable)
+{
+    <a href="#modelAboutContent" rel="nofollow">About</a>
+}
+@if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable && Model.IsNewsAvailable)
+{
+    <a href="#modelReviewsContent" rel="nofollow">Reviews & News</a>
+}
+@if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable && !Model.IsNewsAvailable)
 {
     <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
 }
@@ -28,10 +40,7 @@
 {
     <a href="#modelVideosContent" rel="nofollow">Videos</a>
 }
-@if (Model.IsSimilarBikesAvailable)
-{
-    <a href="#modelSimilarContent" rel="nofollow">Similar Bikes</a>
-}
+
 @if (Model.IsNewBike &&((Model.IsServiceCentersAvailable||Model.IsOtherDealersAvailable)))
 {
     <a href="#dealerAndServiceContent" rel="nofollow">

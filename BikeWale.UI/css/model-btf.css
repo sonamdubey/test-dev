@@ -1,137 +1,4 @@
-﻿@charset "utf-8";
-/* model-rank-slug */
-.model-rank-slug {
-    width: 292px;
-    min-height: 82px;
-    padding: 20px 40px 20px 20px;
-    border: 1px solid #e2e2e2;
-    display: block;
-    position: relative;
-}
-.model-rank-slug:hover {
-    text-decoration: none;
-    border-color: #41b4c4;
-}
-.rank-slug-label {
-    width: 83%;
-    padding-left: 15px;
-}
-.item-rank {
-    min-width: 30px;
-    display: block;
-    padding: 5px 2px;
-    background: #ef3f30;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 700;
-    text-align: center;
-}
-.trend-arrow {
-    width: 116px;
-    height: 72px;
-    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/trend-arrow.png) no-repeat;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-}
-
-.right-arrow {
-    width: 12px;
-    height: 20px;
-    background-position: -76px -102px;
-    position: absolute;
-    right: 20px;
-    top: 38%;
-}
-
-
-/* full-width slug */
-.icon-red-bg {
-    width: 30px;
-    height: 30px;
-    background: #ef3f30;
-    text-align: center;
-    padding-top: 5px;
-}
-.rank-graph {
-    width: 20px;
-    height: 20px;
-    background-position: -210px -555px;
-}
-.checkout-list-slug-label {
-    width: 93%;
-    padding-left: 15px;
-}
-
-/* popup */
-#onRoadPricePopup { width: 450px; min-height: 320px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left: 5%; z-index: 10; }
-#onRoadPricePopup .form-control-box { width:300px; margin:0 auto; }
-
-.breakupPopUpContainer { width: 480px; min-height: 300px; background: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; padding:30px 40px; }
-.breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
-
-/* offers popup */
-.termsPopUpContainer { width: 700px; height: 150px; overflow-y:auto; background-color: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; }
-.termsPopUpCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
-.viewterms{color: #ababab;text-decoration: none;font-size: 10px;cursor: pointer;}
-.viewterms:hover{text-decoration:underline;}
-.blackOut-window-model { background:#222; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=95); -moz-opacity:0.95; -khtml-opacity: 0.95; }
-
-/* TnC hide*/
-li.offertxt span { display:none }  
-li.offertxt:hover span {display:inline} 
-.model-price-book-now-wrapper { width:255px; }
-.call-icon { width: 16px; height: 19px; background-position: -115px -201px; }
-.insurance-breakup-text{position: relative; color: rgb(153, 153, 153); font-size: 14px; margin-top: 1px; text-decoration: solid;float:left; clear:left;}
-
-/**/
-.inline-block-top { display:inline-block; vertical-align:top; }
-.model-card-image-content { width:117px; height:66px; background:#ccc; }
-.model-card-image-content img { width:100%; height:66px; }
-.model-card-title-content { width:245px; }
-.floating-card-area-details { padding-left:30px; }
-.model-single-user-review { width:780px; }
-.model-orp-btn .btn { padding:8px 29px; }
-.model-powered-by-text { width:175px !important; }
-
-.content-inner-block-1020 { padding:10px 20px; }
-.inr-sm-grey { width:8px; height:12px; background-position:-92px -468px; }
-.inr-md-lg { width:12px; height:17px; background-position:-64px -515px; position: relative; top: 1px; }
-.inr-lg-dark { width:10px; height:14px; background-position:-85px -515px; }
-.chevron-down, .chevron-up { width:10px; height:6px; }
-.chevron-up { background-position:-156px -101px; }
-.chevron-down { background-position:-156px -107px; }
-.border-divider { border-top:1px solid #e2e2e2; }
-.line-height17 { line-height:1.7; }
-.margin-top17 { margin-top:17px; }
-.margin-bottom12 { margin-bottom:12px; }
-.pos-top13 { top:13px; }
-.border-light-right { border-right:1px solid #f1f1f1; }
-.specs-capacity-icon, .specs-mileage-icon, .specs-maxpower-icon, .specs-weight-icon { height:33px; }
-.specs-capacity-icon { width:45px; background-position:0 0; }
-.specs-mileage-icon { width:40px; background-position:-55px 0; }
-.specs-maxpower-icon { width:22px; background-position:-105px 0; }
-.specs-weight-icon { width:31px; background-position:-137px 0; }
-.model-preview-more-content { display:none; }
-
-.text-xt-dark-grey { color:#a2a2a2; }
-
-
-#model-expert-review-container { margin-bottom: 25px; }
-.model-preview-image-container { max-width:292px; height:164px; display:table; text-align:center; border:1px solid #e2e2e2; }
-.model-preview-image-container a { width:292px; height:164px; display:block; background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
-.model-preview-image-container a img { width:100%; height:164px; }
-
-.upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px;}
-.upcoming-text-label:after{content: "";background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
-.discontinued-text-label { background:#A8AFB3;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px; }
-.discontinued-text-label:after { content: "";background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/discontinued-ribbon.png?v=10May2016v1) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px; }
-.chosen-results::-webkit-scrollbar {width: 10px;border-radius: 5px;}
-.chosen-results::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-moz-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-o-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);box-shadow: inset 0 0 2px rgba(0,0,0,0.2);}
-.chosen-results::-webkit-scrollbar-thumb {background-color: rgba(204, 204, 204,0.7);}
-.line-height { line-height: 1.5; }
-
-/* similar bikes */
+﻿/* similar bikes */
 .compare-with-target {
     display: block;
     padding: 10px 35px 10px 20px;
@@ -174,24 +41,6 @@ li.offertxt:hover span {display:inline}
     margin: 0;
     border-bottom: none;
     padding-bottom: 0;
-}
-
-@media only screen and (max-width:1024px) {
-    /* assistance-submit-btn */
-    .btn-188-40 {
-        width: 160px;
-    }
-
-    .form-control-username { width: 250px; }
-    
-    #modelDetailsFloatingCardContent { width:960px; left:2%; right:2%; }
-    #modelDetailsFloatingCardContent .model-details-floating-card{ width:940px; }
-    .model-card-title-content { width:230px; }
-    .floating-card-area-details { padding-left:0; }
-    .model-user-review-title-container { width: 265px; }
-    #campaign-offer-list li { width: 170px; }
-    .campaign-offer-label { width:70%; }
-    
 }
 
 /* h2 */
@@ -445,6 +294,133 @@ li.offertxt:hover span {display:inline}
     margin-bottom: 10px;
 }
 
+/* model-rank-slug */
+.model-rank-slug {
+    width: 292px;
+    min-height: 82px;
+    padding: 20px 40px 20px 20px;
+    border: 1px solid #e2e2e2;
+    display: block;
+    position: relative;
+}
+.model-rank-slug:hover {
+    text-decoration: none;
+    border-color: #41b4c4;
+}
+.rank-slug-label {
+    width: 83%;
+    padding-left: 15px;
+}
+.item-rank {
+    min-width: 30px;
+    display: block;
+    padding: 5px 2px;
+    background: #ef3f30;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+.trend-arrow {
+    width: 116px;
+    height: 72px;
+    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/trend-arrow.png) no-repeat;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.right-arrow {
+    width: 12px;
+    height: 20px;
+    background-position: -76px -102px;
+    position: absolute;
+    right: 20px;
+    top: 38%;
+}
+
+
+/* full-width slug */
+.icon-red-bg {
+    width: 30px;
+    height: 30px;
+    background: #ef3f30;
+    text-align: center;
+    padding-top: 5px;
+}
+.rank-graph {
+    width: 20px;
+    height: 20px;
+    background-position: -210px -555px;
+}
+.checkout-list-slug-label {
+    width: 93%;
+    padding-left: 15px;
+}
+
+/* popup */
+#onRoadPricePopup { width: 450px; min-height: 320px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left: 5%; z-index: 10; }
+#onRoadPricePopup .form-control-box { width:300px; margin:0 auto; }
+
+.breakupPopUpContainer { width: 480px; min-height: 300px; background: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; padding:30px 40px; }
+.breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
+
+/* offers popup */
+.termsPopUpContainer { width: 700px; height: 150px; overflow-y:auto; background-color: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; }
+.termsPopUpCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
+.viewterms{color: #ababab;text-decoration: none;font-size: 10px;cursor: pointer;}
+.viewterms:hover{text-decoration:underline;}
+.blackOut-window-model { background:#222; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=95); -moz-opacity:0.95; -khtml-opacity: 0.95; }
+
+/* TnC hide*/
+li.offertxt span { display:none }  
+li.offertxt:hover span {display:inline} 
+.model-price-book-now-wrapper { width:255px; }
+.call-icon { width: 16px; height: 19px; background-position: -115px -201px; }
+.insurance-breakup-text{position: relative; color: rgb(153, 153, 153); font-size: 14px; margin-top: 1px; text-decoration: solid;float:left; clear:left;}
+
+/**/
+.inline-block-top { display:inline-block; vertical-align:top; }
+.model-card-image-content { width:117px; height:66px; background:#ccc; }
+.model-card-image-content img { width:100%; height:66px; }
+.model-card-title-content { width:245px; }
+.floating-card-area-details { padding-left:30px; }
+.model-single-user-review { width:780px; }
+.model-orp-btn .btn { padding:8px 29px; }
+.model-powered-by-text { width:175px !important; }
+
+.content-inner-block-1020 { padding:10px 20px; }
+.inr-sm-grey { width:8px; height:12px; background-position:-92px -468px; }
+.inr-md-lg { width:12px; height:17px; background-position:-64px -515px; position: relative; top: 1px; }
+.inr-lg-dark { width:10px; height:14px; background-position:-85px -515px; }
+.chevron-down, .chevron-up { width:10px; height:6px; }
+.chevron-up { background-position:-156px -101px; }
+.chevron-down { background-position:-156px -107px; }
+.border-divider { border-top:1px solid #e2e2e2; }
+.line-height17 { line-height:1.7; }
+.margin-top17 { margin-top:17px; }
+.margin-bottom12 { margin-bottom:12px; }
+.pos-top13 { top:13px; }
+.border-light-right { border-right:1px solid #f1f1f1; }
+.specs-capacity-icon, .specs-mileage-icon, .specs-maxpower-icon, .specs-weight-icon { height:33px; }
+.specs-capacity-icon { width:45px; background-position:0 0; }
+.specs-mileage-icon { width:40px; background-position:-55px 0; }
+.specs-maxpower-icon { width:22px; background-position:-105px 0; }
+.specs-weight-icon { width:31px; background-position:-137px 0; }
+.model-preview-more-content { display:none; }
+
+.text-xt-dark-grey { color:#a2a2a2; }
+
+#model-expert-review-container { margin-bottom: 25px; }
+.model-preview-image-container { max-width:292px; height:164px; display:table; text-align:center; border:1px solid #e2e2e2; }
+.model-preview-image-container a { width:292px; height:164px; display:block; background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
+.model-preview-image-container a img { width:100%; height:164px; }
+
+.chosen-results::-webkit-scrollbar {width: 10px;border-radius: 5px;}
+.chosen-results::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-moz-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-o-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);box-shadow: inset 0 0 2px rgba(0,0,0,0.2);}
+.chosen-results::-webkit-scrollbar-thumb {background-color: rgba(204, 204, 204,0.7);}
+.line-height { line-height: 1.5; }
+
 /* card */
 .card {
   width: 292px;
@@ -587,6 +563,19 @@ li.offertxt:hover span {display:inline}
 }
 
 @media only screen and (max-width: 1024px) {
+    /* assistance-submit-btn */
+    .btn-188-40 {
+        width: 160px;
+    }
+
+    .form-control-username { width: 250px; }
+    
+    .model-card-title-content { width:230px; }
+    .floating-card-area-details { padding-left:0; }
+    .model-user-review-title-container { width: 265px; }
+    #campaign-offer-list li { width: 170px; }
+    .campaign-offer-label { width:70%; }
+    
     #modelColorsList li {
         width: 230px;
     }

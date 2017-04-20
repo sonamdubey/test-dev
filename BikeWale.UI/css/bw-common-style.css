@@ -315,7 +315,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .footer-social-icons .fa-gp:hover { background: #db4c3f; }
 
 /* sprite classes */
-.bwsprite { background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?v17Apr2017) no-repeat; display: inline-block; }
+.bwsprite { background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?v20Apr2017) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
 .bw-logo { background-position: -34px 0; width: 93px; height: 27px; }

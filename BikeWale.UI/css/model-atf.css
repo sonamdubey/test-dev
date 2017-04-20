@@ -1,325 +1,4 @@
-﻿.padding-14-20 {
-    padding: 14px 20px
-}
-.text-x-light {
-    color: #a2a2a2;
-}
-.margin-right25 {
-    margin-right: 25px;
-}
-.margin-bottom30 {
-    margin-bottom: 30px;
-}
-
-.get-offers-main-btn {
-    width: 230px;
-}
-
-.partner-dealer-details-btn {
-    width: 200px;    
-}
-
-.get-offers-main-btn, .partner-dealer-details-btn {
-    padding-right: 0;
-    padding-left: 0;
-}
-
-/* dealer */
-.pos-top2 { top:2px; }
-.border-light-top { border-top: 1px solid #f1f1f1; }
-
-/*dealership*/
-.dealership-benefit-list li { width:49%; margin-bottom:20px; }
-.dealership-benefit-list .benefit-list-title { width:80%; }
-
-#booking-benefits-list {
-    margin-left: 17px;
-}
-#booking-benefits-list li {
-    list-style: disc;
-    width: 33%;
-    float: left;
-}
-
-/* assistance-input-box */
-.assistance-input-box {
-    width: 220px;
-    margin-right: 20px;
-    display: inline-block;
-    vertical-align: top;
-}
-.assistance-submit-btn {
-    position: relative;
-    top: -5px;
-}
-
-/* more partner-dealer-panel */
-#moreDealersList {
-    display: none;
-}
-#moreDealersList li {
-    min-height: 211px;
-}
-
-#moreDealersList .top-block-target {
-    padding: 17px 20px 0 20px;
-    display: block;
-}
-
-#moreDealersList .top-block-target:hover {
-    text-decoration: none;
-}
-
-#moreDealersList .bottom-block-button {
-    padding-bottom: 20px;
-    padding-left: 20px;
-}
-
-.details-column {
-    width: 92%
-}
-
-.partner-dealer-offers-btn {
-    font-size: 14px;
-    width: 194px;
-    padding: 6px 0;
-}
-
-
-#expectedPriceContainer { border-bottom:1px solid #ecedee; }
-
-.model-details-floating-card .city-area-name { width:140px; }
-.model-details-floating-card .exshowroom-area-name.city-area-name { width:120px; }
-.exshowroom-area.exshowroom-area-name { width:120px; }
-.viewBreakupText { cursor: pointer; color: #0288d1; margin-left:5px; }
-
-.bike-upcoming-tag, .bike-discontinued-tag { z-index:2; }
-
-/* model sprite classes */
-.model-sprite { background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
-.partner-dealer {
-    width: 32px;
-    height: 34px;
-    background-position: 0 -72px;
-}
-.plus-icon {
-    width: 14px;
-    height: 14px;
-    background-position: -150px -43px;
-    position: absolute;
-    right: 20px;
-    top: 20px;
-}
-.open .plus-icon {
-    background-position: -150px -57px;
-}
-
-.dealership-loc-icon,.phone-black-icon {
-    width: 10px;
-    position: relative;
-    margin-right: 5px
-}
-
-.dealership-loc-icon {
-    height: 12px;
-    background-position: -52px -469px;
-    top: 4px
-}
-
-.phone-black-icon {
-    height: 10px;
-    background-position: -73px -444px;
-    top: 5px
-}
-
-.offers-sm-box {
-    width: 16px;
-    height: 16px;
-    background-position: -217px -242px;
-    position: relative;
-    top: 1px;
-}
-
-.phone-md {
-    width: 12px;
-    height: 12px;
-    background-position: -217px -263px;
-}
-
-.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width: 38px; height: 38px; vertical-align: middle; margin-right: 10px; }
-.benifitIcon_1 { background-position: -129px -154px; }
-.benifitIcon_2 { background-position: 0 -196px; }
-.benifitIcon_3 { background-position: -43px -196px; }
-.benifitIcon_4 { background-position: -86px -196px; }
-.benifitIcon_5 { background-position: -129px -196px; }
-.offerIcon_1 { background-position: 0 -111px; }
-.offerIcon_2 { background-position: -43px -111px; }
-.offerIcon_3 { background-position: -86px -111px; }
-.offerIcon_4 { background-position: -129px -111px; }
-.offerIcon_5 { background-position: 0 -154px; }
-.offerIcon_6 { background-position: -43px -154px; }
-.offerIcon_7 { background-position: -86px -154px; }
-
-.margin-top35 { margin-top:35px; }
-.text-darker-black { color:#1a1a1a; }
-.text-blue { color:#0288d1; }
-.border-light-bottom { border-bottom:1px solid #f1f1f1; }
-
-#leadCapturePopup, #otpPopup { display:none;}
-
-#modelSpecsTabsContentWrapper { min-height:300px; }
-#modelDetailsFloatingCardContent { display:block; position:fixed; top:-500px; left:5%; right:5%; margin:0 auto; width:996px; z-index:5;
--webkit-transition:all 0.2s ease 0s; -moz-transition:all 0.2s ease 0s; -o-transition:all 0.2s ease 0s; -ms-transition:all 0.2s ease 0s; transition:all 0.2s ease 0s;}
-#modelDetailsFloatingCardContent .model-details-floating-card { width:976px; }
-/*#modelDetailsFloatingCardContent.fixed-card { top:0; }*/
-#modelDetailsFloatingCardContent .overall-specs-tabs-wrapper { display:none; }
-#modelDetailsFloatingCardContent.activate-tabs .overall-specs-tabs-wrapper { display:block; }
-
-.overall-specs-tabs-wrapper { display:table; background:#fff; }
-.overall-specs-tabs-wrapper a { padding:10px 11px; display:table-cell; font-size:14px; color:#82888b; }
-.overall-specs-tabs-wrapper a:hover { text-decoration:none; color:#4d5057; }
-#modelSpecsTabsContentWrapper .overall-specs-tabs-wrapper a:first-child, .overall-specs-tabs-wrapper a.active { border-bottom:3px solid #ef3f30; font-weight:bold; color:#4d5057; }
-.content-inner-block-2010 { padding:20px 10px; }
-
-/* tooltip */
-.bw-tooltip {
-    padding: 10px 20px 10px 15px;
-    position: absolute;
-    border: 1px solid #e2e2e2;
-    background: #f5f5f5;
-    z-index: 1;
-}
-
-.multi-brand-tooltip {
-    width: 395px;
-    top: -10px;
-    right: -405px; /* width + 10px */
-}
-
-.tooltip-left .bw-tooltip-text:before,
-.tooltip-left .bw-tooltip-text:after {
-    content: '';
-    width: 9px;
-    height: 18px;
-    display: block;
-    position: absolute;
-    top: 25%;
-}
-
-.tooltip-left .bw-tooltip-text:before {
-    left: -25px;
-    border-top: 10px solid transparent;
-    border-right: 10px solid #e2e2e2;
-    border-bottom: 10px solid transparent;
-}
-
-.tooltip-left .bw-tooltip-text:after {
-    left: -24px;
-    border-top: 10px solid transparent;
-    border-right: 10px solid #f5f5f5;
-    border-bottom: 10px solid transparent;
-}
-
-#dealerAssistance .input-box {
-    height: 55px;
-}
-
-#dealerAssistance .error-text {
-    top: 0;
-}
-
-/* btn sizes */
-.btn-188-40 {
-    width: 188px;
-    padding-right: 10px;
-    padding-left: 10px;
-}
-
-/* campaign */
-.offer-benefit-sprite {
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat;
-    display: inline-block;
-}
-#campaign-offer-list li,
-#campaign-offer-list li span {
-    display: inline-block;
-    vertical-align: middle;
-}
-#campaign-container .campaign-left-col {
-    width: 78%;
-    padding-right: 10px;
-}
-#campaign-container .campaign-right-col {
-    width: 21%;
-}
-.campaign-offer-label {
-    width: 75%;
-    font-size: 14px;
-    font-weight: 700;
-}
-.btn-large {
-    padding: 8px 56px;
-}
-#campaign-offer-list li {
-    width: 175px;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    padding-right: 5px;
-}
-.campaign-offer-1,
-.campaign-offer-2,
-.campaign-offer-3,
-.campaign-offer-4 {
-    width: 34px;
-    height: 28px;
-    margin-right: 5px;
-}
-.campaign-offer-1 {
-    background-position: 0 -356px;
-}
-.campaign-offer-2 {
-    background-position: 0 -390px;
-}
-.campaign-offer-3 {
-    background-position: 0 -425px;
-}
-.campaign-offer-4 {
-    background-position: 0 -463px;
-}
-#campaign-container .phone-black-icon {
-    top: 0;
-}
-
-/* new campaign */
-.campaign-content .tel-sm-icon {
-    top: 0;
-}
-.campaign-content .campaign-title-content {
-    padding-left: 20px;
-    width: 70%;
-}
-.campaign-content .campaign-logo {
-    width: 80px;
-    height: 40px;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg?v06Apr2017) no-repeat;
-}
-.campaign-content .campaign-left-col {
-    width: 78%;
-}
-.campaign-content .campaign-right-col {
-    width: 21%;
-}
-.campaign-disc-list {
-    padding-left: 20px;
-}
-.campaign-disc-list li {
-    list-style: disc;
-    float: left;
-    margin-right: 40px;
-    margin-bottom: 10px;
-}
-
-/* common */
+﻿/* common */
 .font-bold {
     font-weight: 700;
 }
@@ -380,10 +59,66 @@
     right: 0;
 }
 
+/* floating tabs */
+.overall-tabs {
+    height: 45px;
+}
+
+.overall-specs-tabs-container {
+    width: 976px;
+    height: 43px;
+    background: #fff;
+    overflow-y: hidden;
+    overflow-x: auto;
+    position: absolute;
+    top: 0px;
+    -webkit-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+    -moz-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+    -o-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+    -ms-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+    box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1;
+}
+
+.overall-specs-tabs-container.fixed-tab-nav {
+    position: fixed;
+    top: 0;
+    margin: 0 auto;
+    z-index: 5;
+}
+
+.overall-specs-tabs-wrapper {
+    display: table;
+    background: #fff;
+}
+
+.overall-specs-tabs-wrapper a {
+    padding: 10px 14px;
+    display: table-cell;
+    text-align: center;
+    font-size: 14px;
+    color: #82888b;
+    white-space: nowrap;
+}
+
+.overall-specs-tabs-wrapper a:first-child {
+    padding-left: 20px;
+}
+
+.overall-specs-tabs-wrapper a:hover {
+    text-decoration: none;
+    color: #4d5057;
+}
+
+.overall-specs-tabs-wrapper a.active {
+    border-bottom: 3px solid #ef3f30;
+    font-weight: 600;
+    color: #4d5057;
+}
+
 /* top card */
 #model-right-grid {
     width: 523px;
-    min-height: 300px;
+    min-height: 200px;
 }
 
 /* key-specs-list */
@@ -527,6 +262,25 @@
     height: 12px;
     background-position: -128px -468px;
     transform: scale(0.9);
+}
+
+/* ribbon tag */
+#modelSummaryContent .model-ribbon-tag {
+    position: absolute;
+    top: 0;
+    left: -20px;
+    font-size: 12px;
+    padding: 2px 20px 2px 10px;
+    display: inline-block;
+}
+
+.discontinued-ribbon {
+    color: #4d5957 !important;
+    background: #A8AFB3;
+}
+
+.upcoming-ribbon {
+    background: #4c4c4c;
 }
 
 /* bw-group-flex */
@@ -732,7 +486,7 @@
 /* model color carousel */
 .carousel-type-color.jcarousel-wrapper {
     width: 376px;
-    margin: 0 auto 15px;
+    margin: 0 auto 5px;
 }
 
 .carousel-type-color .jcarousel {
@@ -752,6 +506,14 @@
 }
 
 /* model color list */
+.margin-top12 {
+    margin-top: 12px;
+}
+
+#model-color-list {
+    max-width: 82%;
+}
+
 #model-color-list li {
     display: inline-block;
     cursor: pointer;
@@ -761,8 +523,372 @@
     width: 24px;
     height: 24px;
     margin-right: 10px;
+    margin-top: 10px;
+    position: relative;
 }
 
 #model-color-list li.active .color-box {
     border-color: #41B4C4;
+}
+
+#model-color-list li.active .color-box:before {
+    content: "";
+    background: rgba(0, 0, 0, 0.2) url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/white-tick-sm.png) 40% no-repeat;
+    width: 24px;
+    height: 24px;
+    display: block;
+    position: absolute;
+}
+
+/* tooltip */
+.bw-tooltip {
+    padding: 10px 20px 10px 15px;
+    position: absolute;
+    border: 1px solid #e2e2e2;
+    background: #f5f5f5;
+    z-index: 1;
+}
+
+.multi-brand-tooltip {
+    width: 395px;
+    top: -15px;
+    right: -405px; /* width + 10px */
+}
+
+.tooltip-left .bw-tooltip-text:before,
+.tooltip-left .bw-tooltip-text:after {
+    content: '';
+    width: 9px;
+    height: 18px;
+    display: block;
+    position: absolute;
+    top: 25%;
+}
+
+.tooltip-left .bw-tooltip-text:before {
+    left: -25px;
+    border-top: 10px solid transparent;
+    border-right: 10px solid #e2e2e2;
+    border-bottom: 10px solid transparent;
+}
+
+.tooltip-left .bw-tooltip-text:after {
+    left: -24px;
+    border-top: 10px solid transparent;
+    border-right: 10px solid #f5f5f5;
+    border-bottom: 10px solid transparent;
+}
+
+/* emi tooltip */
+.emi-info {
+    width: 11px;
+    height: 10px;
+    background-position: -217px -282px;
+    position: relative;
+    top: 1px;
+    cursor: pointer;
+}
+
+.emi-info:hover .bw-tooltip {
+    display: block;
+}
+
+.emi-tooltip {
+    display: none;
+    width: 235px;
+    top: -10px;
+    right: -245px; /* width + tooltip width */
+    border-radius: 2px;
+    box-shadow: 0 1px 2px #eee;
+    cursor: default;
+}
+
+.tooltip-white {
+    background: #fff;
+    padding: 10px;
+}
+
+.tooltip-white .bw-tooltip-text:before {
+    left: -10px;
+}
+
+.tooltip-white .bw-tooltip-text:after {
+    left: -9px;
+    border-right-color: #fff;
+}
+
+.emi-tooltip .bw-tooltip-text:before,
+.emi-tooltip .bw-tooltip-text:after {
+    top: 13%;
+}
+
+.padding-14-20 {
+    padding: 14px 20px
+}
+.text-x-light {
+    color: #a2a2a2;
+}
+.margin-right25 {
+    margin-right: 25px;
+}
+.margin-bottom30 {
+    margin-bottom: 30px;
+}
+
+.get-offers-main-btn {
+    width: 230px;
+}
+
+.partner-dealer-details-btn {
+    width: 200px;    
+}
+
+.get-offers-main-btn, .partner-dealer-details-btn {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+/* dealer */
+.pos-top2 { top:2px; }
+.border-light-top { border-top: 1px solid #f1f1f1; }
+
+/*dealership*/
+.dealership-benefit-list li { width:49%; margin-bottom:20px; }
+.dealership-benefit-list .benefit-list-title { width:80%; }
+
+#booking-benefits-list {
+    margin-left: 17px;
+}
+#booking-benefits-list li {
+    list-style: disc;
+    width: 33%;
+    float: left;
+}
+
+/* assistance-input-box */
+.assistance-input-box {
+    width: 220px;
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+.assistance-submit-btn {
+    position: relative;
+    top: -5px;
+}
+
+/* more partner-dealer-panel */
+#moreDealersList {
+    display: none;
+}
+#moreDealersList li {
+    min-height: 211px;
+}
+
+#moreDealersList .top-block-target {
+    padding: 17px 20px 0 20px;
+    display: block;
+}
+
+#moreDealersList .top-block-target:hover {
+    text-decoration: none;
+}
+
+#moreDealersList .bottom-block-button {
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
+.details-column {
+    width: 92%
+}
+
+.partner-dealer-offers-btn {
+    font-size: 14px;
+    width: 194px;
+    padding: 6px 0;
+}
+
+#expectedPriceContainer { border-bottom:1px solid #ecedee; }
+
+.model-details-floating-card .city-area-name { width:140px; }
+.model-details-floating-card .exshowroom-area-name.city-area-name { width:120px; }
+.exshowroom-area.exshowroom-area-name { width:120px; }
+.viewBreakupText { cursor: pointer; color: #0288d1; margin-left:5px; }
+
+.bike-upcoming-tag, .bike-discontinued-tag { z-index:2; }
+
+#modelSpecsTabsContentWrapper { min-height:300px; }
+
+.content-inner-block-2010 { padding:20px 10px; }
+
+#dealerAssistance .input-box {
+    height: 55px;
+}
+
+#dealerAssistance .error-text {
+    top: 0;
+}
+
+/* btn sizes */
+.btn-188-40 {
+    width: 188px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+/* model sprite classes */
+.model-sprite { background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
+.partner-dealer {
+    width: 32px;
+    height: 34px;
+    background-position: 0 -72px;
+}
+.plus-icon {
+    width: 14px;
+    height: 14px;
+    background-position: -150px -43px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+.open .plus-icon {
+    background-position: -150px -57px;
+}
+
+.dealership-loc-icon,.phone-black-icon {
+    width: 10px;
+    position: relative;
+    margin-right: 5px
+}
+
+.dealership-loc-icon {
+    height: 12px;
+    background-position: -52px -469px;
+    top: 4px
+}
+
+.phone-black-icon {
+    height: 10px;
+    background-position: -73px -444px;
+    top: 5px
+}
+
+.offers-sm-box {
+    width: 16px;
+    height: 16px;
+    background-position: -217px -242px;
+    position: relative;
+    top: 1px;
+}
+
+.phone-md {
+    width: 12px;
+    height: 12px;
+    background-position: -217px -263px;
+}
+
+.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width: 38px; height: 38px; vertical-align: middle; margin-right: 10px; }
+.benifitIcon_1 { background-position: -129px -154px; }
+.benifitIcon_2 { background-position: 0 -196px; }
+.benifitIcon_3 { background-position: -43px -196px; }
+.benifitIcon_4 { background-position: -86px -196px; }
+.benifitIcon_5 { background-position: -129px -196px; }
+.offerIcon_1 { background-position: 0 -111px; }
+.offerIcon_2 { background-position: -43px -111px; }
+.offerIcon_3 { background-position: -86px -111px; }
+.offerIcon_4 { background-position: -129px -111px; }
+.offerIcon_5 { background-position: 0 -154px; }
+.offerIcon_6 { background-position: -43px -154px; }
+.offerIcon_7 { background-position: -86px -154px; }
+
+.margin-top35 { margin-top:35px; }
+.text-darker-black { color:#1a1a1a; }
+.text-blue { color:#0288d1; }
+.border-light-bottom { border-bottom:1px solid #f1f1f1; }
+
+#leadCapturePopup, #otpPopup { display:none;}
+
+/* campaign */
+.offer-benefit-sprite {
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat;
+    display: inline-block;
+}
+#campaign-offer-list li,
+#campaign-offer-list li span {
+    display: inline-block;
+    vertical-align: middle;
+}
+#campaign-container .campaign-left-col {
+    width: 78%;
+    padding-right: 10px;
+}
+#campaign-container .campaign-right-col {
+    width: 21%;
+}
+.campaign-offer-label {
+    width: 75%;
+    font-size: 14px;
+    font-weight: 700;
+}
+.btn-large {
+    padding: 8px 56px;
+}
+#campaign-offer-list li {
+    width: 175px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding-right: 5px;
+}
+.campaign-offer-1,
+.campaign-offer-2,
+.campaign-offer-3,
+.campaign-offer-4 {
+    width: 34px;
+    height: 28px;
+    margin-right: 5px;
+}
+.campaign-offer-1 {
+    background-position: 0 -356px;
+}
+.campaign-offer-2 {
+    background-position: 0 -390px;
+}
+.campaign-offer-3 {
+    background-position: 0 -425px;
+}
+.campaign-offer-4 {
+    background-position: 0 -463px;
+}
+#campaign-container .phone-black-icon {
+    top: 0;
+}
+
+/* new campaign */
+.campaign-content .tel-sm-icon {
+    top: 0;
+}
+.campaign-content .campaign-title-content {
+    padding-left: 20px;
+    width: 70%;
+}
+.campaign-content .campaign-logo {
+    width: 80px;
+    height: 40px;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg?v06Apr2017) no-repeat;
+}
+.campaign-content .campaign-left-col {
+    width: 78%;
+}
+.campaign-content .campaign-right-col {
+    width: 21%;
+}
+.campaign-disc-list {
+    padding-left: 20px;
+}
+.campaign-disc-list li {
+    list-style: disc;
+    float: left;
+    margin-right: 40px;
+    margin-bottom: 10px;
 }
