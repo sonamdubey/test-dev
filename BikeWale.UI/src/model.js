@@ -3,7 +3,10 @@ var getOnRoadPriceBtn, onroadPriceConfirmBtn;
 var sortByDiv, sortListDiv, sortCriteria, sortByDiv, sortListDiv, sortListLI;
 var getOffersClick = false, selectDropdownBox;
 var modelPrice, $window, modelDetailsFloatingCard, modelSpecsTabsContentWrapper;
-var modelSpecsTabsContentWrapper, overallSpecsDetailsFooter, topNavBar, comparisonCarousel;
+var modelSpecsTabsContentWrapper, overallSpecsDetailsFooter, topNavBar;
+
+// colour carousel
+var colourCarousel, carouselColorList;
 
 function getBikeVersionLocation() {
     var versionName = getBikeVersion();
@@ -139,6 +142,23 @@ docReady(function () {
     // bw group flex tabs
     $('.toggle-btn-label').on('click', 'li', function() {
         $(this).removeClass('inactive').siblings().addClass('inactive');
+    });
+
+    colourCarousel = $('#colourCarousel');
+    carouselColorList = $('#model-color-list');
+
+    // highlight 1st color box
+    carouselColorList.find('li').first().addClass('active');
+
+    colourCarousel.find('.jcarousel').on('jcarousel:targetin', 'li', function(event, carousel) {
+        var colorElements = carouselColorList.find('li');
+        
+        colorElements.removeClass('active');
+        colorElements.eq([$(this).index()]).addClass('active');
+    });
+
+    carouselColorList.on('click', 'li', function(){
+        colourCarousel.find('.jcarousel').jcarousel('scroll', $(this).index());
     });
 
     getCityArea = GetGlobalCityArea();
@@ -318,8 +338,6 @@ docReady(function () {
 
 docReady(function () {
 
-    $('#testimonialWrapper .jcarousel').jcarousel({ wrap: 'circular' }).jcarouselAutoscroll({ interval: 7000, target: '+=1', autostart: true });
-
     applyLazyLoad();
 
     // version dropdown
@@ -406,17 +424,6 @@ docReady(function () {
         $('.overall-specs-tabs-wrapper a[href^=' + tabsHashParameter + ']').trigger('click');
     }
 
-    comparisonCarousel = $("#comparisonCarousel");
-    comparisonCarousel.find(".jcarousel").jcarousel();
-
-    comparisonCarousel.find(".jcarousel-control-prev").jcarouselControl({
-        target: '-=2'
-    });
-
-    comparisonCarousel.find(".jcarousel-control-next").jcarouselControl({
-        target: '+=2'
-    });
-
     // remove tabs highlight class for combined sections
     var newsContent = $('#modelNewsContent'),
         alternativeContent = $('#modelAlternateBikeContent'),
@@ -432,7 +439,7 @@ docReady(function () {
         makeDealersContent.removeClass('bw-model-tabs-data');
     }
 
-    $("#bikeBannerImageCarousel .stage li").click(function () {
+    $("#imageCarousel .stage li").click(function () {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Photo_Clicked", "lab": myBikeName });
     });
 
