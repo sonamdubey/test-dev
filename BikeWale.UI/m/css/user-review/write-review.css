@@ -9,6 +9,9 @@
   width: 72%;
   padding-left: 10px; }
   .model-details-grid .star-one {
+    -webkit-transform: scale(0.6);
+    -moz-transform: scale(0.6);
+    -o-transform: scale(0.6);
     transform: scale(0.6);
     position: relative;
     top: -2px; }
@@ -200,11 +203,10 @@ body {
   height: 62px;
   margin: 1px auto; }
 
-#review-summary-card{
-    margin-bottom:45px;}
-
-#review-summary-card #bike-rating-box {
-  margin-top: 35px; }
+#review-summary-card {
+  margin-bottom: 45px; }
+  #review-summary-card #bike-rating-box {
+    margin-top: 35px; }
 
 #summary-review-box p {
   margin-bottom: 10px; }
@@ -214,6 +216,9 @@ body {
 
 .user-rated-list .star-one,
 .user-rated-list .star-zero {
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -o-transform: scale(0.7);
   transform: scale(0.7);
   margin-right: -1px; }
 
