@@ -17,7 +17,6 @@ var UserReviewSummary = function(reviewId)
     self.selectedRatingValue = ko.observable();
     self.selectedRating = ko.observable();
     self.questions = ko.observableArray();
-
     self.getUserReviewDetails = function () {
         if (self.selectedReviewId() && self.selectedReviewId() > 0) {
             $.ajax({
@@ -29,57 +28,6 @@ var UserReviewSummary = function(reviewId)
                     if (response) {
                         //user review details fetched
                         console.log(response);
-                        //self.title();
-                    }
-                    else {
-                        alert("User Review failed Approved");
-                    }
-
-                },
-                complete: function (xhr) {
-                    if (xhr.status != 200) {
-                        alert("User failed Review Approved");
-                    }
-                }
-            });
-        }
-    };
-
-    self.approveReview = function () {
-        if (self.selectedReviewId() && self.selectedReviewId() > 0) {
-            $.ajax({
-                type: "GET",
-                url: "/api/UpdateUserReviewsStatus/?reviewStatus=2&moderatorId=1&disapprovalReasonId=1&reviewId=" + self.selectedReviewId(),
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (response) {
-                    if (response) {
-                        alert("User Review Approved");
-                    }
-                    else {
-                        alert("User Review failed Approved");
-                    }
-
-                },
-                complete: function (xhr) {
-                    if (xhr.status != 200) {
-                        alert("User failed Review Approved");
-                    }
-                }
-            });
-        }
-    };
-
-    self.rejectReview = function () {
-        if (self.selectedReviewId() && self.selectedReviewId() > 0) {
-            $.ajax({
-                type: "GET",
-                url: "/api/UpdateUserReviewsStatus/?reviewStatus=3&moderatorId=1&disapprovalReasonId=" + disapprovalReasonId + "&reviewId=" + self.selectedReviewId(),
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (response) {
-                    if (response) {
-                        alert("User Review Approved");
                     }
                     else {
                         alert("User Review failed Approved");
@@ -99,7 +47,7 @@ var UserReviewSummary = function(reviewId)
 
 var UserReviews = function () {
     var self = this;
-
+    self.IsModelInitialize = false;
     self.selectedMakeId = ko.observable();
     self.selectedModel = ko.observable();
     self.bikeModels = ko.observableArray();
@@ -177,14 +125,73 @@ var UserReviews = function () {
         if (self.selectedReviewId() && self.selectedReviewId() > 0) {
             $.ajax({
                 type: "GET",
-                url: "localhost:9011/api/user-reviews/summary/" + self.selectedReviewId() + "/",
+                url: "/api/userreviews/id/" + self.selectedReviewId() + "/summary/",
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (response) {
                     if (response) {
                         //user review details fetched
                         console.log(response);
-                        //self.title();
+                        self.reviewSummary(response);
+                        if (!self.IsModelInitialize)
+                        {
+                            $('.modal').modal(); self.IsModelInitialize = true;
+                        }
+                        else {
+                            $(document).find('#reviewdetails').show().css({ 'z-index' : '1003' });
+                        }
+                       
+                        $(document).find('#reviewdetails').modal('open');
+                    }
+                    else {
+                        alert("User Review failed Approved");
+                    }
+
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        alert("User failed Review Approved");
+                    }
+                }
+            });
+        }
+    };
+
+    self.approveReview = function () {
+        if (self.selectedReviewId() && self.selectedReviewId() > 0) {
+            $.ajax({
+                type: "GET",
+                url: "/api/UpdateUserReviewsStatus/?reviewStatus=2&moderatorId=1&disapprovalReasonId=1&reviewId=" + self.selectedReviewId(),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        alert("User Review Approved");
+                    }
+                    else {
+                        alert("User Review failed Approved");
+                    }
+
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        alert("User failed Review Approved");
+                    }
+                }
+            });
+        }
+    };
+
+    self.rejectReview = function () {
+        if (self.selectedReviewId() && self.selectedReviewId() > 0) {
+            $.ajax({
+                type: "GET",
+                url: "/api/UpdateUserReviewsStatus/?reviewStatus=3&moderatorId=1&disapprovalReasonId=" + disapprovalReasonId + "&reviewId=" + self.selectedReviewId(),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        alert("User Review Approved");
                     }
                     else {
                         alert("User Review failed Approved");
@@ -210,6 +217,3 @@ if (userReview)
     ko.applyBindings(vmUserReview, userReview[0]);
     vmUserReview.setPageFilters();
 }
-
-//initialize model popup
-$('.modal').modal();

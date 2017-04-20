@@ -157,8 +157,16 @@ namespace BikewaleOpr.DALs.UserReviews
                                 CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
                                 CustomerName = Convert.ToString(dr["CustomerName"]),
                                 Description = Convert.ToString(dr["Comments"]),
-                                Tips = Convert.ToString(dr["ReviewTitle"]),
+                                Title = Convert.ToString(dr["ReviewTitle"]),
+                                Tips = Convert.ToString(dr["ReviewTips"]),
                                 OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
+                                OverallRating = new UserReviewOverallRating()
+                                {
+                                    Id = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
+                                    Value = SqlReaderConvertor.ToUInt16(dr["Rating"]),
+                                    Heading = Convert.ToString(dr["Heading"]),
+                                    Description = Convert.ToString(dr["Description"]),
+                                },
                                 Make = new BikeMakeEntityBase()
                                 {
                                     MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
@@ -184,7 +192,12 @@ namespace BikewaleOpr.DALs.UserReviews
                                 objQuestions.Add(new UserReviewQuestion()
                                 {
                                     SelectedRatingId = SqlReaderConvertor.ToUInt32(dr["answerValue"]),
-                                    Id = SqlReaderConvertor.ToUInt32(dr["QuestionId"])
+                                    Id = SqlReaderConvertor.ToUInt32(dr["QuestionId"]),
+                                    Heading = Convert.ToString(dr["Heading"]),
+                                    Description = Convert.ToString(dr["Description"]),
+                                    DisplayType = (UserReviewQuestionDisplayType)Convert.ToInt32(dr["DisplayType"]),
+                                    Type = (UserReviewQuestionType)Convert.ToInt32(dr["QuestionType"]),
+                                    Order = SqlReaderConvertor.ToUInt16(dr["DisplayOrder"])
                                 });
                             }
                             objUserReviewSummary.Questions = objQuestions;
