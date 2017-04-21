@@ -47,6 +47,7 @@
                                         <li><a href="/content/editdealers.aspx">Edit delears</a></li>
                                         <li class="collapsible-body-title teal lighten-4">User Reviews</li>
                                         <li><a href="/content/manageuserreviews.aspx">Manage Reviews</a></li>
+                                        <li><a href="/userreviews/">Manage Reviews<span class="badge white-text blue accent-4" data-badge-caption="New"></span></a></li>
                                         <li class="collapsible-body-title teal lighten-4">Mobile Applications</li>
                                         <li><a href="/MobileApp/AppVersioning.aspx">App Versions</a></li>
                                     </ul>
