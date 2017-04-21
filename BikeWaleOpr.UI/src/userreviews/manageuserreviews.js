@@ -4,12 +4,8 @@
 });
 // Use the picker object directly.
 var $dateInput = $dateInput.pickadate('picker')
-
 var userReview = $("#UserReviews");
-
 var userId = userReview.data("userid");
-
-// data-userid="@Model.currentUserId" 
 
 var UserReviews = function () {
     var self = this;
@@ -103,10 +99,12 @@ var UserReviews = function () {
                 {
                     if (response)
                     {
+                        debugger;
                         self.reviewSummary(response);
                         self.reviewTitle(response.title);
                         self.reviewDescription(response.description);
                         self.reviewTips(response.tips);
+                        Materialize.toast("Successfully fetched details for user review", 5000);
                     }
                   
                 },
@@ -129,8 +127,7 @@ var UserReviews = function () {
             objData = {
                 "reviewid" : self.selectedReviewId(),
                 "ReviewStatus" : "2",
-                "ModeratorId" : "2",
-                "DisapprovalReasonId" : "2",
+                "ModeratorId": userId,
                 "Review": self.reviewDescription(),
                 "ReviewTitle": self.reviewTitle(),
                 "ReviewTips": self.reviewTips(),
@@ -153,15 +150,16 @@ var UserReviews = function () {
                         $("#btnViewDetails_" + vmUserReview.selectedReviewId()).closest("tr").fadeOut();
                         $('#reviewdetails').modal('close');
                         self.selectedReviewId(0);
+                        Materialize.toast("User Review approved successfully", 5000);
                     }
                     else {
-                        alert("Something went wrong");
+                        Materialize.toast("User review not approved", 5000);
                     }
 
                 },
                 complete: function (xhr) {
                     if (xhr.status != 200) {
-                        alert("User review not approved");
+                        Materialize.toast("User review not approved",5000);
                     }
                    
                 }
@@ -203,15 +201,16 @@ var UserReviews = function () {
                         self.disapprovalId(0);
                         self.selectedReviewId(0);
                         $("input[name='disapprovalReason']:checked").prop("checked", false);
+                        Materialize.toast("User Review rejected successfully", 5000);
                     }
                     else {
-                        alert("Something went wrong");
+                        Materialize.toast("User review not rejected", 5000);
                     }
 
                 },
                 complete: function (xhr) {
                     if (xhr.status != 200) {
-                        alert("User review not rejected");
+                        Materialize.toast("User review not rejected",5000);
                     }
                    
                 }

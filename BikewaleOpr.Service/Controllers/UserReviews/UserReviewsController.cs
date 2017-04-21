@@ -45,7 +45,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                     uint oldTableReviewId = _userReviewsRepo.UpdateUserReviewsStatus(inputs.ReviewId, inputs.ReviewStatus, inputs.ModeratorId, inputs.DisapprovalReasonId, inputs.Review, inputs.ReviewTitle, inputs.ReviewTips);
 
                     // Send mail to the user on approval or rejection
-                    if (inputs.ReviewStatus.Equals(ReviewsStatus.Approved))
+                    if (inputs.ReviewStatus.Equals(ReviewsStatus.Approved) && oldTableReviewId > 0)
                     {
                         string reviewUrl = string.Format("/{0}-bikes/{1}/user-reviews/{2}.html", inputs.MakeMaskingName, inputs.ModelMaskingName, oldTableReviewId);
 

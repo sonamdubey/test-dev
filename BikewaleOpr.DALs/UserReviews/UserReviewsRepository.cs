@@ -119,7 +119,7 @@ namespace BikewaleOpr.DALs.UserReviews
 
                     connection.Open();
 
-                    connection.Query("changeuserreviewstatus", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Query("updateuserreviewstatus", param: param, commandType: CommandType.StoredProcedure);
 
                     oldTableReviewId = param.Get<uint>("par_oldTableReviewId");
 
