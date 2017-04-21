@@ -11,7 +11,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 *, :after, :before, .global-search input[type="text"], #globalCity-input input[type="text"] { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 h1 { font-size: 22px; font-weight: 600; color: #2a2a2a; }
 h2 { font-size: 16px; font-weight: 600; color: #2a2a2a; }
-h3 { font-size: 14px; color: #4d5057; }
+h3 { font-size: 14px; font-weight: 600; color: #4d5057; }
 h4 { font-size: 16px; }
 h5 { font-size: 14px; }
 h6 { font-size: 12px; }
@@ -56,7 +56,7 @@ input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size:
 }
 .form-control:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); }
-select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
+select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background-color: #fff; padding-right: 5px\0; }
 
 .input-xs { padding: 5px 10px; }
 .input-sm { padding: 8px 10px; }
@@ -160,11 +160,11 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 /* breadcrumb classes */
 .breadcrumb li { display: inline-block; margin-right: 5px; }
 /* nav classes */
-.header-fixed { background: rgba(51, 51, 51, 0.8); background: #333333\9; position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 3; }
-.header-landing { background: none !important; position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 3; }
-.header-fixed-with-bg { background: rgba(51, 51, 51, 0.8); background: #333333\9; }
-.header-not-fixed { background: rgba(51, 51, 51, 0.8); background: #333333\9; padding: 10px 20px; z-index: 3; }
+.header-fixed, .header-landing { position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 3; }
+.header-not-fixed { padding: 10px 20px; z-index: 3; }
 .header-fixed-inner { padding-top: 55px; }
+.header-fixed, .header-fixed-with-bg, .header-not-fixed { background: #595959; }
+.header-landing { background: none !important; }
 
 .welcome-box {
     margin-top: 120px;
@@ -190,7 +190,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .bw-tabs-flex li.active h3 { color: #4d5057; }
 
 /* sprite classes */
-.bwsprite { background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?v17Apr2017) no-repeat; display: inline-block; }
+.bwsprite { background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?v20Apr2017) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
 .bw-logo { background-position: -34px 0; width: 93px; height: 27px; }
@@ -236,7 +236,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 
 .text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
 
-.model-jcarousel-image-preview { width:100%; height:165px; display:table; text-align:center; position:relative;}
+.model-jcarousel-image-preview { width:100%; height:168px; display:table; text-align:center; position:relative;}
 
 /* common properties */
 .leftfloat{float:left;}
@@ -305,7 +305,8 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .bg-dark-grey { background: #333333; }
 
 /* new common classes */
-.section-bottom-margin {
+.section-bottom-margin,
+.card-bottom-margin {
     margin-bottom: 20px;
 }
 

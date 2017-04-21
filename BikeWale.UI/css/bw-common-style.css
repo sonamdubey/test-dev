@@ -11,7 +11,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 *, :after, :before, .global-search input[type="text"], #globalCity-input input[type="text"] { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 h1 { font-size: 22px; font-weight: 600; color: #2a2a2a; }
 h2 { font-size: 16px; font-weight: 600; color: #2a2a2a; }
-h3 { font-size: 14px; color: #4d5057; }
+h3 { font-size: 14px; font-weight: 600; color: #4d5057; }
 h4 { font-size: 16px; }
 h5 { font-size: 14px; }
 h6 { font-size: 12px; }
@@ -67,7 +67,7 @@ input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size:
 }
 .form-control:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); }
-select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
+select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background-color: #fff; padding-right: 5px\0; }
 
 .input-xs { padding: 5px 10px; }
 .input-sm { padding: 8px 10px; }
@@ -253,11 +253,12 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 /* breadcrumb classes */
 .breadcrumb li { display: inline-block; margin-right: 5px; }
 /* nav classes */
-.header-fixed { background: rgba(51, 51, 51, 0.8); background: #333333\9; position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 3; }
-.header-landing { background: none !important; position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 3; }
-.header-fixed-with-bg { background: rgba(51, 51, 51, 0.8); background: #333333\9; }
-.header-not-fixed { background: rgba(51, 51, 51, 0.8); background: #333333\9; padding: 10px 20px; z-index: 3; }
+.header-fixed, .header-landing { position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 3; }
+.header-not-fixed { padding: 10px 20px; z-index: 3; }
 .header-fixed-inner { padding-top: 55px; }
+.header-fixed, .header-fixed-with-bg, .header-not-fixed { background: #595959; }
+.header-landing { background: none !important; }
+
 #nav, .loginPopUpWrapper { background: #fff; width:325px; position: fixed; top: 0; right: 0; bottom: 0; left: -325px; overflow-y: hidden; z-index: 10; }
 #nav:hover, .loginPopUpWrapper:hover { overflow-y: auto; }
 .navUL { padding-top: 20px; }
@@ -314,7 +315,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .footer-social-icons .fa-gp:hover { background: #db4c3f; }
 
 /* sprite classes */
-.bwsprite { background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?v17Apr2017) no-repeat; display: inline-block; }
+.bwsprite { background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?v20Apr2017) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
 .bw-logo { background-position: -34px 0; width: 93px; height: 27px; }
@@ -466,9 +467,9 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .fa-angle-down { width:11px; height:6px; background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; }
 
 /* News-Reviews-Videos New Bikes */
-.newBikes-latest-updates-container .grid-4 { padding-left:10px; !important }
-.newBikes-latest-updates-container .grid-8 { padding-right:10px; !important }
-.article-target-link { font-size: 16px; font-weight: bold; color:#2a2a2a; display:block; }
+.newBikes-latest-updates-container .grid-4 { padding-left:10px !important; }
+.newBikes-latest-updates-container .grid-8 { padding-right:10px !important; }
+.article-target-link { font-size: 15px; font-weight: 600; color:#2a2a2a; display:block; }
 .article-target-link:hover { text-decoration:underline; }
 .article-stats-left-grid, .article-stats-right-grid { display:inline-block; vertical-align:top; min-width: 110px; padding-right: 10px; }
 .article-stats-content { font-size:12px; color: #82888b; display:inline-block; vertical-align:middle; }
@@ -723,7 +724,8 @@ a.action-btn:hover{text-decoration:none;}
 .border-no { border: none; }
 
 /* new common classes */
-.section-bottom-margin {
+.section-bottom-margin,
+.card-bottom-margin {
     margin-bottom: 20px;
 }
 
@@ -808,7 +810,7 @@ a.action-btn:hover{text-decoration:none;}
 /* carousel end */
 
 /* alternate bikes */
-.model-jcarousel-image-preview { width:100%; height:165px; display:table; text-align:center; position:relative;}
+.model-jcarousel-image-preview { width:100%; height:168px; display:table; text-align:center; position:relative;}
 .card-image-block { width:100%; height:165px; display:table-cell; vertical-align:middle; background: #fff url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;}
 .model-jcarousel-image-preview img { width:auto; max-width:290px; height:163px; }
 
@@ -828,7 +830,6 @@ a.action-btn:hover{text-decoration:none;}
 
 
 /*************style for PQ Popup****************************/
-@charset "utf-8";
 .gb-close { background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/cw-sprite-v1.3.png?171214-v2) -190px -1042px no-repeat; display:inline-block; width:16px; height:16px; }
 .gb-close:hover { background-position:-190px -1072px; }
 #gb-head { border-bottom:none !important; margin:10px 10px 0px 10px !important; }
@@ -1111,7 +1112,7 @@ input[type="number"] {
     .select-box .chosen-container .chosen-single {
       color: #4d5057;
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 600;
       background: transparent; }
     .select-box .chosen-container .chosen-default {
       display: none; }

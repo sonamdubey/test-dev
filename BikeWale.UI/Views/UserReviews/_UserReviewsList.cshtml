@@ -4,10 +4,10 @@
 {
     <div class="bw-tabs-data" id="ctrlUserReviews">
         <!-- Reviews data code starts here-->
-        <div class="model-user-review-container">
+        <ul class="model-user-review-container">
             @foreach (var review in Model.ReviewList)
             {
-                <div class="grid-12 margin-bottom20">
+                <li class="grid-12 margin-bottom20">
                     <div class="model-user-review-rating-container leftfloat">
                         <p>@review.OverAllRating.OverAllRating</p>
                         <p class="inline-block margin-bottom5 margin-top5">
@@ -31,9 +31,9 @@
                         </p>
                     </div>
                     <div class="clear"></div>
-                </div>
+                </li>
             }
-        </div>
+        </ul>
         <div class="clear"></div>
     </div>
 }

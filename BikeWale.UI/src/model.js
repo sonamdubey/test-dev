@@ -1,9 +1,13 @@
 var assistFormSubmit, assistGetName, assistGetEmail, assistGetMobile;
 var getOnRoadPriceBtn, onroadPriceConfirmBtn;
-var sortByDiv, sortListDiv, sortCriteria, sortByDiv, sortListDiv, sortListLI;
 var getOffersClick = false, selectDropdownBox;
-var modelPrice, $window, modelDetailsFloatingCard, modelSpecsTabsContentWrapper;
-var modelSpecsTabsContentWrapper, overallSpecsDetailsFooter, topNavBar, comparisonCarousel;
+var $window, modelDetailsFloatingCard, modelSpecsTabsContentWrapper;
+
+// colour carousel
+var colourCarousel, carouselColorList;
+
+var overallTabsWrapper, overallTabs, overallSpecsDetailsFooter, topNavBar;
+var floatingTabsHeight = 45;
 
 function getBikeVersionLocation() {
     var versionName = getBikeVersion();
@@ -121,7 +125,42 @@ function LoadTerms(offerId) {
     $(".termsPopUpContainer").css('height', '500');
 }
 
+// add divider
+function addDivider(grid1, grid2) {
+    if (grid1.height() > grid2.height()) {
+        grid1.addClass('border-solid-right');
+    }
+    else {
+        grid2.addClass('border-solid-left');
+    }
+}
+
 docReady(function () {
+
+    // add divider between version prices table and prices in nearby cities
+    addDivider($('#version-prices-grid'), $('#nearby-prices-grid'));
+
+    // bw group flex tabs
+    $('.toggle-btn-label').on('click', 'li', function() {
+        $(this).removeClass('inactive').siblings().addClass('inactive');
+    });
+
+    colourCarousel = $('#colourCarousel');
+    carouselColorList = $('#model-color-list');
+
+    // highlight 1st color box
+    carouselColorList.find('li').first().addClass('active');
+
+    colourCarousel.find('.jcarousel').on('jcarousel:targetin', 'li', function(event, carousel) {
+        var colorElements = carouselColorList.find('li');
+        
+        colorElements.removeClass('active');
+        colorElements.eq([$(this).index()]).addClass('active');
+    });
+
+    carouselColorList.on('click', 'li', function(){
+        colourCarousel.find('.jcarousel').jcarousel('scroll', $(this).index());
+    });
 
     getCityArea = GetGlobalCityArea();
 
@@ -201,23 +240,7 @@ docReady(function () {
     assistGetMobile = $('#assistGetMobile');
 
     getOnRoadPriceBtn = $("#getOnRoadPriceBtn"),
-        onroadPriceConfirmBtn = $("#onroadPriceConfirmBtn");
-
-    sortByDiv = $(".sort-div"),
-        sortListDiv = $(".sort-selection-div"),
-        sortCriteria = $('#sort'),
-        sortByDiv = $(".sort-div"),
-        sortListDiv = $(".sort-selection-div"),
-        sortListLI = $(".sort-selection-div ul li");
-
-    modelPrice = $('#scrollFloatingButton'),
-   $window = $(window),
-   modelDetailsFloatingCard = $('#modelDetailsFloatingCardContent'),
-   modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper');
-
-    modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper'),
-        overallSpecsDetailsFooter = $('#overallSpecsDetailsFooter'),
-        topNavBar = $('.model-details-floating-card');
+    onroadPriceConfirmBtn = $("#onroadPriceConfirmBtn");
 
     (function ($) {
 
@@ -300,8 +323,6 @@ docReady(function () {
 
 docReady(function () {
 
-    $('#testimonialWrapper .jcarousel').jcarousel({ wrap: 'circular' }).jcarouselAutoscroll({ interval: 7000, target: '+=1', autostart: true });
-
     applyLazyLoad();
 
     // version dropdown
@@ -319,7 +340,9 @@ docReady(function () {
 
     $(".carousel-navigation ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
     $(".carousel-stage ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
+
     document.location.href.split('?')[0];
+
     if ($('#getMoreDetailsBtn').length > 0) {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_More_Details_Shown", "lab": bikeVersionLocation });
     }
@@ -333,36 +356,40 @@ docReady(function () {
         dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": bikeVersionLocation });
     }
 
+    $window = $(window);
+    overallTabsWrapper = $('#overallTabsWrapper');
+    overallTabs = $('#overallSpecsTab');
+    overallSpecsDetailsFooter = $('#overallSpecsDetailsFooter');
+    topNavBar = overallTabs;
+
+    // highlight 1st tab
+    overallTabs.find('a').first().addClass('active');
+
     $(window).scroll(function () {
         try {
             var windowScrollTop = $window.scrollTop(),
-                    modelPriceOffsetTop = modelPrice.offset().top,
-                    modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top;
+                tabsWrapperOffsetTop = overallTabsWrapper.offset().top,
+                specsFooterOffset = overallSpecsDetailsFooter.offset().top;
 
-            if (windowScrollTop > modelPriceOffsetTop + 40) {
-                modelDetailsFloatingCard.addClass('fixed-card');
-                if (windowScrollTop > modelSpecsTabsOffsetTop - topNavBar.height()) {
-                    modelDetailsFloatingCard.addClass('activate-tabs');
-                }
-            }
-            else if (windowScrollTop < modelPriceOffsetTop + 40) {
-                modelDetailsFloatingCard.removeClass('fixed-card');
+            if (windowScrollTop > tabsWrapperOffsetTop) {
+                overallTabs.addClass('fixed-tab-nav');
             }
 
-            if (modelDetailsFloatingCard.hasClass('activate-tabs')) {
-                if (windowScrollTop < modelSpecsTabsOffsetTop + 43 - topNavBar.height())
-                    modelDetailsFloatingCard.removeClass('activate-tabs');
-                if (windowScrollTop > overallSpecsDetailsFooter.offset().top - topNavBar.height())
-                    modelDetailsFloatingCard.removeClass('fixed-card');
+            else if (windowScrollTop < tabsWrapperOffsetTop) {
+                overallTabs.removeClass('fixed-tab-nav');
             }
 
+            if (windowScrollTop > specsFooterOffset - floatingTabsHeight) { 
+                overallTabs.removeClass('fixed-tab-nav');
+            }
 
-            $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').each(function () {
+            $('#modelDetailsContainer .bw-model-tabs-data').each(function () {
                 var top = $(this).offset().top - topNavBar.height(),
-                bottom = top + $(this).outerHeight();
+                    bottom = top + $(this).outerHeight();
+                    
                 if (windowScrollTop >= top && windowScrollTop <= bottom) {
                     topNavBar.find('a').removeClass('active');
-                    $('#modelSpecsTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
+                    $('#modelDetailsContainer .bw-model-tabs-data').removeClass('active');
 
                     $(this).addClass('active');
                     topNavBar.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
@@ -388,17 +415,6 @@ docReady(function () {
         $('.overall-specs-tabs-wrapper a[href^=' + tabsHashParameter + ']').trigger('click');
     }
 
-    comparisonCarousel = $("#comparisonCarousel");
-    comparisonCarousel.find(".jcarousel").jcarousel();
-
-    comparisonCarousel.find(".jcarousel-control-prev").jcarouselControl({
-        target: '-=2'
-    });
-
-    comparisonCarousel.find(".jcarousel-control-next").jcarouselControl({
-        target: '+=2'
-    });
-
     // remove tabs highlight class for combined sections
     var newsContent = $('#modelNewsContent'),
         alternativeContent = $('#modelAlternateBikeContent'),
@@ -414,7 +430,7 @@ docReady(function () {
         makeDealersContent.removeClass('bw-model-tabs-data');
     }
 
-    $("#bikeBannerImageCarousel .stage li").click(function () {
+    $("#imageCarousel .stage li").click(function () {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Photo_Clicked", "lab": myBikeName });
     });
 
@@ -447,7 +463,7 @@ docReady(function () {
         $("#onRoadPricePopup").hide();
         $(".blackOut-window").hide();
     });
-
+    
     onroadPriceConfirmBtn.on("click", function () {
         $("#modelPriceContainer .default-showroom-text").hide().siblings("#getOnRoadPriceBtn").hide();
         $("#modelPriceContainer .onroad-price-text").show().next("div.modelPriceContainer").find("span.viewBreakupText").show().next("span.showroom-text").show();
@@ -459,25 +475,6 @@ docReady(function () {
         $(this).hide();
         $("ul.moreOffersList").slideToggle()
     });
-
-
-
-    sortByDiv.click(function () {
-        if (!sortByDiv.hasClass("open"))
-            $.sortChangeDown(sortByDiv);
-        else
-            $.sortChangeUp(sortByDiv);
-    });
-
-    $.sortChangeDown = function (sortByDiv) {
-        sortByDiv.addClass("open");
-        sortListDiv.show();
-    };
-
-    $.sortChangeUp = function (sortByDiv) {
-        sortByDiv.removeClass("open");
-        sortListDiv.slideUp();
-    };
 
     $('#ddlVersion').on("change", function () {
         $('#hdnVariant').val($(this).val());
@@ -537,12 +534,6 @@ docReady(function () {
         window.location.href = "/pricequote/bookingsummary_new.aspx";
     });
 
-    $(document).mouseup(function (e) {
-        if (!$(".variantDropDown, .sort-div, .sort-div #upDownArrow, .sort-by-title").is(e.target)) {
-            $.sortChangeUp($(".sort-div"));
-        }
-    });
-
     $(".more-features-btn").click(function () {
         $(".more-features").slideToggle();
         var a = $(this).find("a");
@@ -595,19 +586,19 @@ docReady(function () {
         $(this).hide().prev('.more-dealers-link').show();
     });
 
-    $('a.read-more-model-preview').click(function () {
+    $('#read-more-preview').click(function () {
         if (!$(this).hasClass('open')) {
-            $('.model-preview-main-content').hide();
-            $('.model-preview-more-content').show();
+            $('#main-preview-content').hide();
+            $('#more-preview-content').show();
             $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
             $(this).addClass("open");
         }
         else if ($(this).hasClass('open')) {
-            $('.model-preview-main-content').show();
-            $('.model-preview-more-content').hide();
+            $('#main-preview-content').show();
+            $('#more-preview-content').hide();
             $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
             $(this).removeClass('open');
-            $('html, body').animate({ scrollTop: $('#model-overview-content').offset().top - $("#modelDetailsFloatingCardContent").height() - 10 }, 500);
+            $('html, body').animate({ scrollTop: $('#model-overview-content').offset().top - floatingTabsHeight }, 500);
         }
 
     });
@@ -619,7 +610,7 @@ docReady(function () {
         if (!tab.hasClass('active')) {
             allTabs.removeClass('active');
             tab.addClass('active');
-            $('html, body').animate({ scrollTop: tab.offset().top - $("#modelDetailsFloatingCardContent").height() }, 500);
+            $('html, body').animate({ scrollTop: tab.offset().top - floatingTabsHeight }, 500);
         }
         else {
             tab.removeClass('active');
@@ -629,18 +620,17 @@ docReady(function () {
     $('.view-features-link').on('click', function () {
         var target = $(this),
             featuresHeading = $('#model-features-content'),
-            moreFeatures = $('#model-more-features-list'),
-            floatingCard = $("#modelDetailsFloatingCardContent").height() + 10;
+            moreFeatures = $('#model-more-features-list');
 
         if (!target.hasClass('active')) {
             target.addClass('active');
-            $('html, body').animate({ scrollTop: featuresHeading.offset().top - floatingCard }, 500);
+            $('html, body').animate({ scrollTop: featuresHeading.offset().top - floatingTabsHeight }, 500);
             moreFeatures.slideDown();
             target.text('Collapse');
         }
         else {
             target.removeClass('active');
-            $('html, body').animate({ scrollTop: featuresHeading.offset().top - floatingCard }, 500);
+            $('html, body').animate({ scrollTop: featuresHeading.offset().top - floatingTabsHeight }, 500);
             moreFeatures.slideUp();
             target.text('View all features');
         }
