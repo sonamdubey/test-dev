@@ -59,6 +59,92 @@
     <meta name="theme-color" content="#2a2a2a" />
     <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
     <link rel='stylesheet' type='text/css' href="@Url.Content("../../Scripts/app.css")" />
+    <style type="text/css">
+        #appBanner {
+            background: #e2e2e2;
+            padding: 5px 5px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .banner-close-btn {
+            width: 30px;
+            height: 30px;
+            background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/banner-close-btn.png) no-repeat;
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+        }
+
+        .app-banner-img-container {
+            float: left;
+            width: 130px;
+            height: 95px;
+            position: relative;
+            margin-right: 12px;
+        }
+
+            .app-banner-img-container img {
+                position: absolute;
+                bottom: 0;
+            }
+
+        .app-banner-text-container {
+            float: left;
+        }
+
+        .margin-top5 {
+            margin-top: 5px;
+        }
+
+        .text-grey {
+            color: #787878 !important;
+        }
+
+        .text-bold {
+            font-weight: 700;
+        }
+
+        .font20 {
+            font-size: 20px;
+        }
+
+        .font12 {
+            font-size: 12px;
+        }
+
+        .text-bold {
+            font-weight: 700;
+        }
+
+        .margin-bottom5 {
+            margin-bottom: 5px;
+        }
+
+        .btn-orange {
+            background: #ef3030;
+            color: #fff;
+        }
+
+            .btn-orange:hover {
+                background: #f44336;
+            }
+
+            .btn-orange:focus {
+                background: #d42c2c;
+            }
+
+            .btn,
+            .btn-orange:hover,
+            .btn:hover {
+                text-decoration: none;
+            }
+    </style>
     <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion"></script>
     <script defer type="text/javascript">
         !function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);
@@ -173,7 +259,10 @@
             <div class="clear"></div>
         </div>*@
 
-    <div id="appBanner" class="hide">
+
+    @if (Model.IsAppBannerNeeded)
+    {
+        <div id="appBanner">
         <div class="banner-close-btn" id="btnCrossApp"></div>
         <div class="app-banner-img-container">
             <img src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
@@ -187,20 +276,21 @@
         </div>
         <div class="clear"></div>
     </div>
+    }
 
 
-    @if (Model.IsHomePage)
+    @* @if (Model.IsHomePage)
     {
             <!-- Call Home Page Banner partial view -->
-    }
-    @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
+        }*@
+        @*@if (Model.AdTags != null && Model.AdTags.Ad_320x50)
     {
         <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
             <script type='text/javascript'>
                 googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-0'); });
             </script>
         </div>
-    }
+            }*@
     <div class="blackOut-window"></div>
     @Html.React("ServerRouterWrapper", new
         {
@@ -321,74 +411,6 @@
 
     <div class="back-to-top" id="back-to-top"></div>
     </form>
-</body>
+    </body>
 </html>
-
-
-@*
-
-    @model Bikewale.Models.NewsIndexPageVM
-        @using Bikewale.Utility
-        @using System.Text.RegularExpressions
-        @{
-            Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/listing.css' />";
-            Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewBikes";
-            Model.AdTags.AdId = "1398766302464";
-            Model.AdTags.Ad_320x50 = true;
-            Model.AdTags.Ad_Mid_320x50=true;
-            Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-        }
-
-        @Html.React("ServerRouterWrapper", new
-            {
-                Url = "/m/news/",
-                ArticleListData = Model.ReduxStore.NewsReducer.NewsArticleListReducer.ArticleListData,
-                NewBikesListData = Convert.DBNull
-
-            }, containerId: "root")
-    <link rel='stylesheet' type='text/css' href="@Url.Content("../../Scripts/app.css")" />
-       @* @Html.React("Components.ServerAppWrapper", new
-        {
-            ChildComponentName = "ArticleListComponent",
-            ArticleListData = Model.ReduxStore.NewsReducer.NewsArticleListReducer.ArticleListData,
-            NewBikesListData = Convert.DBNull
-        }, containerId: "root")
-        <link rel='stylesheet' type='text/css' href="@Url.Content("../../Scripts/app.css")" />
-        <script src="@Url.Content("~/Scripts/vendor.bundle.js")" defer></script>
-        <script src="@Url.Content("~/Scripts/app.bundle.js")" defer></script>*@
-
-
-
-
-
-
-
-
-
-
-
-@*
-
-
-    @model Bikewale.Models.NewsIndexPageVM
-    @using Bikewale.Utility
-    @using System.Text.RegularExpressions
-    @{
-        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/listing.css' />";
-        Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewBikes";
-        Model.AdTags.AdId = "1398766302464";
-        Model.AdTags.Ad_320x50 = true;
-        Model.AdTags.Ad_Mid_320x50 = true;
-        Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    }
-
-    @Html.React("Components.ServerAppWrapper", new
-    {
-        ChildComponentName = "ArticleListComponent",
-        ArticleListData = Model.ReduxStore.NewsReducer.NewsArticleListReducer.ArticleListData,
-        NewBikesListData = Convert.DBNull
-    }, containerId: "root")
-
-    <script src="@Url.Content("~/Scripts/server.bundle.js")"></script>*@
-
 

@@ -43,14 +43,12 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// Modified By : Sangram Nandkhile on 04 Mar 2016
         /// Summary : Utility function to fetch shareurl is used
         /// </summary>
-        /// <param name="categoryId">Id of the category whose data is required.</param>
-        /// <param name="makeId">Mandatory parameter.</param>
-        /// <param name="modelId">Optional parameter.</param>        
+        /// <param name="categoryIds">Id of the categories whose data is required.comma separated list</param> 
         /// <param name="posts">No of records per page. Should be greater than 0.</param>
         /// <param name="pageNumber">page number for which data is required.</param>
         /// <returns>Category Content List</returns>
-        [ResponseType(typeof(IEnumerable<PwaContentBase>)), Route("api/pwa/cat/{categoryId}/posts/{posts}/pn/{pageNumber}/")]
-        public IHttpActionResult Get(EnumCMSContentType categoryId, int posts, int pageNumber)
+        [ResponseType(typeof(IEnumerable<PwaContentBase>)), Route("api/pwa/cat/{categoryIds}/posts/{posts}/pn/{pageNumber}/")]
+        public IHttpActionResult Get(string categoryIds, int posts, int pageNumber)
         {
             Bikewale.Entities.CMS.Articles.CMSContent objFeaturedArticles = null;
             try
@@ -58,7 +56,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                 int startIndex = 0, endIndex = 0;
                 _pager.GetStartEndIndex(Convert.ToInt32(posts), Convert.ToInt32(pageNumber), out startIndex, out endIndex);
 
-                objFeaturedArticles = _objCMSContent.GetArticlesByCategoryList(Convert.ToString((int)categoryId), startIndex, endIndex, 0, 0);
+                objFeaturedArticles = _objCMSContent.GetArticlesByCategoryList(categoryIds, startIndex, endIndex, 0, 0);
 
                 if (objFeaturedArticles != null && objFeaturedArticles.Articles.Count > 0)
                 {

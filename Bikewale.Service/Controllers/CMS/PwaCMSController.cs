@@ -76,7 +76,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         public IHttpActionResult GetArticleDetailsPage(string basicId)
         {
             uint _basicId = default(uint);
-            PwaArticleDetails objPwaArticles = null;
+            PwaArticleDetails objPwaArticle = null;
             try
             {
                 if (!String.IsNullOrEmpty(basicId) && uint.TryParse(basicId, out _basicId))
@@ -86,9 +86,9 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                     if (objNews != null)
                     {
-                        objPwaArticles = ConverterUtility.MapArticleDetailsToPwaArticleDetails(objNews);                     
+                        objPwaArticle = ConverterUtility.MapArticleDetailsToPwaArticleDetails(objNews);                     
                     }
-                    return Ok(objPwaArticles);
+                    return Ok(objPwaArticle);
                 }
 
                 else
@@ -365,7 +365,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                             if (objBikeInfo != null)
                             {
                                 //modelid is not getting set
-                                if (objBikeInfo.Model.ModelId != modelId)
+                                if (objBikeInfo.Model != null && modelId != 0 && objBikeInfo.Model.ModelId != modelId)
                                     objBikeInfo.Model.ModelId = (int)modelId;
 
                                 CityEntityBase cityDetails=null;

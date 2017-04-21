@@ -17,18 +17,20 @@ namespace Bikewale.PWA.Service.Utilities
 
         internal static PwaArticleSummary MapArticleSummaryToPwaArticleSummary(ArticleSummary inpSum)
         {
-            PwaArticleSummary outSummary = new PwaArticleSummary();
-            if (inpSum != null)
+            PwaArticleSummary outSummary = null;
+            if (inpSum != null && inpSum.BasicId>0)
             {
+                outSummary = new PwaArticleSummary();
                 outSummary.ArticleUrl = string.Format("/m/news/{0}-{1}.html", inpSum.BasicId, inpSum.ArticleUrl);
                 outSummary.ArticleApi = string.Format("api/pwa/id/{0}/page/", inpSum.BasicId);
                 outSummary.AuthorName = inpSum.AuthorName;
-                outSummary.Description = inpSum.Description;
+                outSummary.Description = string.Empty;//inpSum.Description; empty for now
                 outSummary.BasicId = inpSum.BasicId;
                 outSummary.Title = inpSum.Title;
                 outSummary.CategoryId = inpSum.CategoryId;
                 outSummary.CategoryName = GetContentCategory(inpSum.CategoryId);
                 outSummary.DisplayDate = inpSum.DisplayDate.ToString("MMM dd, yyyy");
+                outSummary.DisplayDateTime = inpSum.DisplayDate.ToString("MMM dd, yyyy hh:mm tt");
                 outSummary.HostUrl = inpSum.HostUrl;
                 outSummary.SmallPicUrl = inpSum.SmallPicUrl;
                 outSummary.LargePicUrl = inpSum.LargePicUrl;
@@ -39,7 +41,7 @@ namespace Bikewale.PWA.Service.Utilities
         internal static PwaArticleDetails MapArticleDetailsToPwaArticleDetails(ArticleDetails inpDet)
         {
             var outDetails = new PwaArticleDetails();
-            if (inpDet != null)
+            if (inpDet != null && inpDet.BasicId > 0)
             {
                 outDetails.ArticleUrl = string.Format("/m/news/{0}-{1}.html", inpDet.BasicId, inpDet.ArticleUrl);
                 outDetails.BasicId = inpDet.BasicId;
@@ -47,13 +49,17 @@ namespace Bikewale.PWA.Service.Utilities
                 outDetails.AuthorName = inpDet.AuthorName;
                 outDetails.AuthorMaskingName = inpDet.AuthorMaskingName;
                 outDetails.DisplayDate = inpDet.DisplayDate.ToString("MMM dd, yyyy");
-                outDetails.DisplayDateTime = inpDet.DisplayDate.ToString("MMMM dd, yyyy hh:mm tt");
+                outDetails.DisplayDateTime = inpDet.DisplayDate.ToString("MMM dd, yyyy hh:mm tt");
                 outDetails.HostUrl = inpDet.HostUrl;
                 outDetails.Content = inpDet.Content;
                 outDetails.PrevArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.PrevArticle);
                 outDetails.NextArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.NextArticle);
                 outDetails.CategoryId = inpDet.CategoryId;
+                outDetails.CategoryName = GetContentCategory(inpDet.CategoryId);
                 outDetails.ShareUrl = ReturnShareUrl(outDetails);
+                outDetails.LargePicUrl = inpDet.LargePicUrl;
+                outDetails.SmallPicUrl = inpDet.SmallPicUrl;
+                outDetails.ArticleApi = string.Format("api/pwa/id/{0}/page/", inpDet.BasicId);
             }
             return outDetails;
         }
@@ -139,7 +145,7 @@ namespace Bikewale.PWA.Service.Utilities
                 {
                     Name = String.Format("{0} {1}", makeName, item.objModel.ModelName),
                     DetailPageUrl = "/m" + UrlFormatter.BikePageUrl(makeMaskingName, item.objModel.MaskingName),
-                    ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostURL, ImageSize._174x98),
+                    ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostURL, ImageSize._174x98, QualityFactor._70),
                     Price = item.VersionPrice > 0 ? Format.FormatPrice(item.VersionPrice.ToString()) : string.Empty,
                     PriceDescription = item.VersionPrice > 0 ? "Ex-showroom," + curCityName : string.Empty,
                     PriceSuffix = item.VersionPrice > 0 ? "onwards" : "Price not available"
@@ -160,7 +166,7 @@ namespace Bikewale.PWA.Service.Utilities
                 {
                     Name = String.Format("{0} {1}", item.MakeBase.MakeName, item.ModelBase.ModelName),
                     DetailPageUrl = "/m" + UrlFormatter.BikePageUrl(item.MakeBase.MaskingName, item.ModelBase.MaskingName),
-                    ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostUrl, ImageSize._174x98),
+                    ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostUrl, ImageSize._174x98, QualityFactor._70),
                     Price = item.EstimatedPriceMin > 0 ? Format.FormatPrice(item.EstimatedPriceMin.ToString()) : string.Empty,
                     PriceDescription = item.EstimatedPriceMin > 0 ? "Ex-showroom," + curCityName : string.Empty,
                     PriceSuffix = item.EstimatedPriceMin > 0 ? "onwards" : "Price not available"

@@ -27,7 +27,7 @@ namespace Bikewale.PWA.UI.Utilities
         public static PwaArticleSummary MapArticleSummaryToPwaArticleSummary(ArticleSummary inpSum)
         {
             PwaArticleSummary outSummary = new PwaArticleSummary();
-            if (inpSum != null)
+            if (inpSum != null && inpSum.BasicId>0)
             {
                 string catName = GetContentCategory(inpSum.CategoryId);
                 outSummary.ArticleUrl = string.Format("/m/{0}/{1}-{2}.html",catName.Replace(" ","-").ToLower(),inpSum.BasicId, inpSum.ArticleUrl);
@@ -39,6 +39,7 @@ namespace Bikewale.PWA.UI.Utilities
                 outSummary.CategoryId = inpSum.CategoryId;
                 outSummary.CategoryName = catName;
                 outSummary.DisplayDate = inpSum.DisplayDate.ToString("MMM dd, yyyy");
+                outSummary.DisplayDateTime = inpSum.DisplayDate.ToString("MMM dd, yyyy hh:mm tt");
                 outSummary.HostUrl = inpSum.HostUrl;
                 outSummary.SmallPicUrl = inpSum.SmallPicUrl;
                 outSummary.LargePicUrl = inpSum.LargePicUrl;
@@ -99,7 +100,7 @@ namespace Bikewale.PWA.UI.Utilities
                 {
                     Name = String.Format("{0} {1}", makeName, item.objModel.ModelName),
                     DetailPageUrl = "/m" + UrlFormatter.BikePageUrl(makeMaskingName, item.objModel.MaskingName),
-                    ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostURL, ImageSize._174x98),
+                    ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostURL, ImageSize._174x98, QualityFactor._70),
                     Price = item.VersionPrice > 0 ? Format.FormatPrice(item.VersionPrice.ToString()) : string.Empty,
                     PriceDescription = item.VersionPrice > 0 ? "Ex-showroom," + curCityName : string.Empty,
                     PriceSuffix = item.VersionPrice > 0 ? "onwards" : "Price not available"
@@ -120,7 +121,7 @@ namespace Bikewale.PWA.UI.Utilities
                 {
                     Name = String.Format("{0} {1}", item.MakeBase.MakeName, item.ModelBase.ModelName),
                     DetailPageUrl = "/m" + UrlFormatter.BikePageUrl(item.MakeBase.MaskingName, item.ModelBase.MaskingName),
-                    ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostUrl, ImageSize._174x98),
+                    ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostUrl, ImageSize._174x98, QualityFactor._70),
                     Price = item.EstimatedPriceMin > 0 ? Format.FormatPrice(item.EstimatedPriceMin.ToString()) : string.Empty,
                     PriceDescription = item.EstimatedPriceMin > 0 ? "Ex-showroom," + curCityName : string.Empty,
                     PriceSuffix = item.EstimatedPriceMin > 0 ? "onwards" : "Price not available"
@@ -134,7 +135,7 @@ namespace Bikewale.PWA.UI.Utilities
         internal static PwaArticleDetails MapArticleDetailsToPwaArticleDetails(ArticleDetails inpDet)
         {
             var outDetails = new PwaArticleDetails();
-            if (inpDet != null)
+            if (inpDet != null && inpDet.BasicId>0)
             {
                 outDetails.ArticleUrl = string.Format("/m/news/{0}-{1}.html", inpDet.BasicId, inpDet.ArticleUrl);
                 outDetails.BasicId = inpDet.BasicId;
@@ -142,13 +143,16 @@ namespace Bikewale.PWA.UI.Utilities
                 outDetails.AuthorName = inpDet.AuthorName;
                 outDetails.AuthorMaskingName = inpDet.AuthorMaskingName;
                 outDetails.DisplayDate = inpDet.DisplayDate.ToString("MMM dd, yyyy");
-                outDetails.DisplayDateTime = inpDet.DisplayDate.ToString("MMMM dd, yyyy hh:mm tt");
+                outDetails.DisplayDateTime = inpDet.DisplayDate.ToString("MMM dd, yyyy hh:mm tt");
                 outDetails.HostUrl = inpDet.HostUrl;
                 outDetails.Content = inpDet.Content;
                 outDetails.PrevArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.PrevArticle);
                 outDetails.NextArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.NextArticle);
                 outDetails.CategoryId = inpDet.CategoryId;
                 outDetails.ShareUrl = ReturnShareUrl(outDetails);
+                outDetails.LargePicUrl = inpDet.LargePicUrl;
+                outDetails.SmallPicUrl = inpDet.SmallPicUrl;
+                outDetails.ArticleApi = string.Format("api/pwa/id/{0}/page/", inpDet.BasicId);
             }
             return outDetails;
         }
@@ -196,7 +200,7 @@ namespace Bikewale.PWA.UI.Utilities
                 popularBikes.Heading = orgBikes.WidgetHeading;
                 outData.Add(popularBikes);
 
-                if(objData.Model.ModelId>0)
+                if(objData.Model!=null && objData.Model.ModelId>0)
                 {//bodystyle
                     PwaBikeNews bodyStyleBikes = new PwaBikeNews();
                     var orgBodyStyleBikes = objData.PopularBodyStyle;
@@ -211,7 +215,7 @@ namespace Bikewale.PWA.UI.Utilities
                 {///upcoming
                     PwaBikeNews upcomingBikes = new PwaBikeNews();
                     var orgUpcomingBikes = objData.UpcomingBikes;
-                    upcomingBikes.BikesList = ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails(orgUpcomingBikes.UpcomingBikes, city);
+                    upcomingBikes.BikesList = MapUpcomingBikeEntityToPwaBikeDetails(orgUpcomingBikes.UpcomingBikes, city);
                     upcomingBikes.CompleteListUrl = orgUpcomingBikes.WidgetHref;
                     upcomingBikes.CompleteListUrlAlternateLabel = orgUpcomingBikes.WidgetLinkTitle;
                     upcomingBikes.CompleteListUrlLabel = "View all";

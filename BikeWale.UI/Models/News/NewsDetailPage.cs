@@ -109,15 +109,16 @@ namespace Bikewale.Models
 
                 if (objData.ArticleDetails != null)
                 {
+                    objData.ReduxStore = new PwaReduxStore();
                     status = StatusCodes.ContentFound;
                     GetTaggedBikeListByMake(objData);
                     GetTaggedBikeListByModel(objData);
                     SetPageMetas(objData);
                     GetWidgetData(objData,widgetTopCount);
 
-                    if (objData.Model.ModelId != ModelId)
+                    if (objData.Model != null&& ModelId!=0 && objData.Model.ModelId != ModelId)
                         objData.Model.ModelId = (int)ModelId;
-                    objData.ReduxStore = new PwaReduxStore();
+                    
                     var newsDetailReducer = objData.ReduxStore.NewsReducer.NewsDetailReducer;
                     newsDetailReducer.ArticleDetailData.ArticleDetail= ConverterUtility.MapArticleDetailsToPwaArticleDetails(objData.ArticleDetails);
                     newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapNewBikeListToPwaNewBikeList(objData,currentCityArea.City);
