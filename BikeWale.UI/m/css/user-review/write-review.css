@@ -39,6 +39,8 @@ h1,
   #bike-rating-box .rating-placeholder {
     position: relative;
     top: -10px; }
+    margin-left: 10px;
+    cursor: pointer; }
 
 .circle-placeholder {
   width: 61px;

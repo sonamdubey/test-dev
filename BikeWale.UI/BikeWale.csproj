@@ -3087,6 +3087,8 @@
     <Content Include="m\sass\user-review\_write-review-media-query.sass" />
     <Content Include="m\sass\upcoming-bikes\upcoming-bikes.sass" />
     <Content Include="m\sass\upcoming-bikes\_upcoming-bikes-style.sass" />
+    <Content Include="sass\user-review\write-review.sass" />
+    <Content Include="sass\user-review\_write-review-style.sass" />
     <Content Include="m\sass\upcoming-bikes\_media-query.sass" />
     <Content Include="sass\upcoming-bikes\upcoming-bikes.sass" />
     <Content Include="sass\upcoming-bikes\_upcoming-bikes-style.sass" />
@@ -3228,6 +3230,7 @@
     <Content Include="src\used-details.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
+    <Content Include="src\user-review\write-review.js" />
     <Content Include="src\Videos\detail.js" />
     <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="src\zebra-datepicker.js" />
@@ -3735,6 +3738,9 @@
     <Content Include="Views\Price\_PriceInCityPopUp.cshtml" />
     <Content Include="Views\Price\_PriceInCityPopUp_Mobile.cshtml" />
     <Content Include="Views\PriceInCity\_Index_Tabs_Mobile.cshtml" />
+    <Content Include="Views\UserReview\RateBike.cshtml" />
+    <Content Include="Views\UserReview\WriteReview.cshtml" />
+    <Content Include="Views\UserReview\ReviewSummary.cshtml" />
     <Content Include="Views\PriceInCity\_PriceInTopCitiesIcon_Mobile.cshtml" />
     <Content Include="Views\Upcoming\Index.cshtml" />
     <Content Include="Views\Upcoming\Index_Mobile.cshtml" />

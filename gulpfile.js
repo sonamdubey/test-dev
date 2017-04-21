@@ -50,9 +50,8 @@ gulp.task('minify-bwm-js', function () {
         }))
         .pipe(gulp.dest(minifiedAssetsFolder + 'm/' + paths.JS));
 });
-
-var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/', 'upcoming-bikes/'],
-    mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/', 'upcoming-bikes/','user-review/'];
+var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/', 'user-review/', 'upcoming-bikes/'];
+   var mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/', 'upcoming-bikes/','user-review/'];
 
 // convert desktop sass to css
 gulp.task('bw-sass-to-css', function () {
