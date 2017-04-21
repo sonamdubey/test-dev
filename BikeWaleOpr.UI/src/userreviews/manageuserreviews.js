@@ -7,16 +7,17 @@ var $dateInput = $dateInput.pickadate('picker')
 var userReview = $("#UserReviews");
 var userId = userReview.data("userid");
 
+var dummyJSON = '{"overallRating":{"id":0,"value":0,"description":"","heading":"Superb!!","responseHeading":null},"make":{"makeId":0,"makeName":"","maskingName":"","hostUrl":null,"logoUrl":null},"model":{"modelId":0,"modelName":"","maskingName":""},"originalImgPath":"","hostUrl":"","description":"","title":"","tips":"","overallRatingId":0,"questions":[{"qId":0,"qtype":0,"heading":"","description":"","selectedRatingId":0,"displayType":0,"rating":[{"ratingId":0,"ratingValue":"0","ratingText":""}],"isRequired":"true","visibility":"true","subQuestionId":0}],"customerName":"","customerEmail":""}';
+
 var UserReviews = function () {
     var self = this;
-    self.IsModelInitialize = false;
     self.selectedMakeId = ko.observable();
     self.selectedModel = ko.observable();
     self.bikeModels = ko.observableArray();
     self.selectedReviewStatus = ko.observable();
     self.selectedDate = ko.observable();
     self.selectedReviewId = ko.observable();
-    self.reviewSummary = ko.observable();
+    self.reviewSummary = ko.observable(JSON.parse(dummyJSON));
     self.reviewTitle = ko.observable();
     self.reviewDescription = ko.observable();
     self.reviewTips = ko.observable();
@@ -82,6 +83,8 @@ var UserReviews = function () {
             }
 
             $dateInput.set('select', new Date(userReview.data("date")));
+
+                $(document).find('.modal').modal();
             
         }
 
@@ -89,6 +92,7 @@ var UserReviews = function () {
 
     self.getUserReviewDetails = function (reviewId) {
         self.selectedReviewId(reviewId);
+       
         if (self.selectedReviewId() && self.selectedReviewId() > 0) {
             $.ajax({
                 type: "GET",
@@ -106,16 +110,11 @@ var UserReviews = function () {
                         self.reviewTips(response.tips);
                         Materialize.toast("Successfully fetched details for user review", 5000);
                     }
-                  
                 },
                 complete: function (xhr) {
                     if (xhr.status != 200) {
                         alert("Failed to load user data");
-                    }
-                    if (!self.IsModelInitialize) {
-                        $(document).find('.modal').modal();
-                        self.IsModelInitialize = !self.IsModelInitialize;
-                    }
+                    }                    
                 }
             });
         }
