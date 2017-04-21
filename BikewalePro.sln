@@ -89,6 +89,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.PinCodesAutosugges
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikewaleImageIPC", "Bikewale.ImageIPC\BikewaleImageIPC.csproj", "{569F023E-A14E-4173-9459-938901176849}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.UserReviewsRatingEmail", "Bikewale.UserReviewsRatingEmail\Bikewale.UserReviewsRatingEmail.csproj", "{83B5D0A4-4AA5-4956-B1FF-9F06B9EB9357}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.UserReviewsReminder", "Bikewale.UserReviewsReminder\Bikewale.UserReviewsReminder.csproj", "{C91DB082-5666-4D10-AA1F-154B7934A63C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -231,6 +235,14 @@ Global
 		{569F023E-A14E-4173-9459-938901176849}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{569F023E-A14E-4173-9459-938901176849}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{569F023E-A14E-4173-9459-938901176849}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83B5D0A4-4AA5-4956-B1FF-9F06B9EB9357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83B5D0A4-4AA5-4956-B1FF-9F06B9EB9357}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83B5D0A4-4AA5-4956-B1FF-9F06B9EB9357}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83B5D0A4-4AA5-4956-B1FF-9F06B9EB9357}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C91DB082-5666-4D10-AA1F-154B7934A63C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C91DB082-5666-4D10-AA1F-154B7934A63C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C91DB082-5666-4D10-AA1F-154B7934A63C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C91DB082-5666-4D10-AA1F-154B7934A63C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -270,5 +282,7 @@ Global
 		{BD0B3D5A-52B0-4353-9C4F-1BB24DDC9E8A} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
 		{93634C09-BB22-489D-BFE2-C6A2C02A6D01} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
 		{569F023E-A14E-4173-9459-938901176849} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
+		{83B5D0A4-4AA5-4956-B1FF-9F06B9EB9357} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
+		{C91DB082-5666-4D10-AA1F-154B7934A63C} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
 	EndGlobalSection
 EndGlobal

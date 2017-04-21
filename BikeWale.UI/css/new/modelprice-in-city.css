@@ -21,6 +21,10 @@
     padding-left: 0;
 }
 
+.neg-right15 {
+    right: -15px
+}
+
 /* on-road price */
 .orp-left-grid {
     width: 240px;

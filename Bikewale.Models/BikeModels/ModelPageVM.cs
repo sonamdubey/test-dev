@@ -55,6 +55,7 @@ namespace Bikewale.Models.BikeModels
         public string DealerArea { get { return (IsDealerDetailsExists && DealerDetails.objArea != null ? DealerDetails.objArea.AreaName : LocationCookie.Area); } }
         public string BestBikeHeading { get; set; }
         public string ColourImageUrl { get; set; }
+        public string ColourImageTabsUrl { get; set; }
 
         public string ClientIP { get; set; }
         public string PageUrl { get; set; }

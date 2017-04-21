@@ -8,7 +8,7 @@
     @if (Model != null && Model.PageMetaTags != null)
     {
         Model.PageMetaTags.EnableOG = true;
-        
+
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
         {
             <title>@Model.PageMetaTags.Title</title>
@@ -44,7 +44,7 @@
         }
         if (!String.IsNullOrEmpty(Model.PageMetaTags.AmpUrl))
         {
-        <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> }
+            <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> }
     }
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
@@ -147,9 +147,8 @@
     </script>
 </head>
 <body class="@(@Model.IsTransparentHeader ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")">
-    <form>
-        @if (Model.IsAppBannerNeeded)
-        { 
+    @if (Model.IsAppBannerNeeded)
+    {
         <div id="appBanner" class="hide">
             <div class="banner-close-btn" id="btnCrossApp"></div>
             <div class="app-banner-img-container">
@@ -164,252 +163,267 @@
             </div>
             <div class="clear"></div>
         </div>
-        }
-        @if (Model.IsHeaderRequired)
-        {
-            <header>
-                <div id="bw-header">
-                    <div class="header-fixed">
-                        <!-- Fixed Header code starts here -->
-                        <a href="/m/" id="bwheader-logo" title="BikeWale" class="bwmsprite bw-logo bw-lg-fixed-position"></a>
+    }
+    @if (Model.IsHeaderRequired)
+    {
+        <header>
+            <div id="bw-header">
+                <div class="header-fixed">
+                    <!-- Fixed Header code starts here -->
+                    <a href="/m/" id="bwheader-logo" title="BikeWale" class="bwmsprite bw-logo bw-lg-fixed-position"></a>
 
-                        <div class="leftfloat">
-                            <span id="navbarBtn" class="navbarBtn bwmsprite nav-icon margin-right10"></span>
-                            <span id="book-back" class="bwmsprite white-back-arrow margin-right10 leftfloat hide"></span>
-                            <div class="headerTitle text-white leftfloat">
-                                <p class="font12" id="headerText">Detailed Price Quote</p>
-                                <p class="header-dealername" id="header-dealername"></p>
-                            </div>
+                    <div class="leftfloat">
+                        <span id="navbarBtn" class="navbarBtn bwmsprite nav-icon margin-right10"></span>
+                        <span id="book-back" class="bwmsprite white-back-arrow margin-right10 leftfloat hide"></span>
+                        <div class="headerTitle text-white leftfloat">
+                            <p class="font12" id="headerText">Detailed Price Quote</p>
+                            <p class="header-dealername" id="header-dealername"></p>
                         </div>
-                        <div class="rightfloat">
-                            <div class="global-search" id="global-search">
-                                <span class="bwmsprite search-bold-icon"></span>
-                            </div>
-                            <div class="global-location">
-                                <span class="bwmsprite map-loc-icon"></span>
-                            </div>
-                            <a href="javascript:void(0)" class="sort-btn rightfloat hide" id="sort-btn" rel="nofollow">
-                                <span class="bwmsprite sort-icon"></span>
-                            </a>
+                    </div>
+                    <div class="rightfloat">
+                        <div class="global-search" id="global-search">
+                            <span class="bwmsprite search-bold-icon"></span>
                         </div>
-                        <div class="changecity-blackout-window"></div>
-                        <div class="clear"></div>
-                    </div> <!-- ends here -->
+                        <div class="global-location">
+                            <span class="bwmsprite map-loc-icon"></span>
+                        </div>
+                        <a href="javascript:void(0)" class="sort-btn rightfloat hide" id="sort-btn" rel="nofollow">
+                            <span class="bwmsprite sort-icon"></span>
+                        </a>
+                    </div>
+                    <div class="changecity-blackout-window"></div>
                     <div class="clear"></div>
-                </div>
-            </header>
-        }
-        @if (Model.IsHomePage)
-        {
+                </div> <!-- ends here -->
+                <div class="clear"></div>
+            </div>
+        </header>
+    }
+    @if (Model.IsHomePage)
+    {
             <!-- Call Home Page Banner partial view -->
-        }
-        @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
-        {
-            <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
-                <script type='text/javascript'>
-                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-0'); });
-                </script>
-            </div>
-        }
-        @RenderBody()
-        @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
-        {
-            <section>
-                <div class="container">
-                    <div>
-                        <div id='div-gpt-ad-@Model.AdTags.AdId-1' style='width:320px; height:50px;text-align:center;margin:10px auto;'>
-                            <script type='text/javascript'>
-                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-1'); });
-                            </script>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        }
-        <div class="blackOut-window"></div>
-        <nav id="nav">
-            <!-- nav code starts here -->
-            <ul class="navUL padding-top10">
-                <li>
-                    <a href="/m/">
-                        <span class="bwmsprite home-icon"></span>
-                        <span class="navbarTitle">Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" rel="nofollow">
-                        <span class="bwmsprite newBikes-icon"></span>
-                        <span class="navbarTitle">New Bikes & Scooters</span>
-                        <span class="nav-drop bwmsprite fa-angle-down"></span>
-                    </a>
-                    <ul class="nestedUL">
-                        <li><a href="/m/new-bikes-in-india/">Find New Bikes</a></li>
-                        <li><a href="/m/new-scooters/">Find New Scooters</a></li>
-                        <li><a href="/m/comparebikes/">Compare Bikes</a></li>
-                        <li><a href="/m/pricequote/">Check On-Road Price</a></li>
-                        <li><a href="/m/dealer-showroom-locator/">Locate Dealer</a></li>
-                        <li><a href="/m/bike-service-center/">Locate Service Center</a></li>
-                        <li><a href="/m/upcoming-bikes/">Upcoming Bikes</a></li>
-                        <li><a href="/m/new-bike-launches/">New Launches</a></li>
-                        <li><a href="/m/bikebooking/">Book Your Bike</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" rel="nofollow">
-                        <span class="bwmsprite usedBikes-icon"></span>
-                        <span class="navbarTitle">Used Bikes</span>
-                        <span class="nav-drop bwmsprite fa-angle-down"></span>
-                    </a>
-                    <ul class="nestedUL">
-                        <li><a href="/m/used/">Find Used Bikes</a></li>
-                        <li><a href="/m/used/bikes-in-india/">All Used Bikes</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="/m/used/sell/">
-                        <span class="bwmsprite sellBikes-icon"></span>
-                        <span class="navbarTitle">Sell Your Bike</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" rel="nofollow">
-                        <span class="bwmsprite reviews-icon"></span>
-                        <span class="navbarTitle">Reviews, News & Videos</span>
-                        <span class="nav-drop bwmsprite fa-angle-down"></span>
-                    </a>
-                    <ul class="nestedUL">
-                        <li><a href="/m/news/">News</a></li>
-                        <li><a href="/m/expert-reviews/">Expert Reviews</a></li>
-                        <li><a href="/m/user-reviews/">User Reviews</a></li>
-                        <li><a href="/m/features/">Features</a></li>
-                        <li><a href="/m/bike-care/">Bike Care</a></li>
-                        <li><a href="/m/bike-videos/">Videos</a></li>
-
-                    </ul>
-                </li>
-                <li>
-                    <a href="/m/trackday2016/">
-                        <span class="bwmsprite track-day"></span>
-                        <span class="navbarTitle">Track Day 2016</span>
-                    </a>
-                </li>
-                @** Render login control here *@
-                @Html.Partial("~/Views/m/Shared/_LoginControl.cshtml")
-            </ul>
-
-            <div id="nav-app-content">
-                <p class="font12 text-bold inline-block">India’s #1 Bike Research Destination</p><a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank" class="btn btn-orange nav-app-install-btn font12 text-bold inline-block" rel="nofollow">Install</a>
-            </div>
-        </nav>
-        <!-- nav code ends here -->
-        <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
-            <div class="globalcity-popup-data text-center">
-                <div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
-                <p class="font20 margin-bottom5 text-capitalize">Please tell us your city</p>
-                <p class="text-light-grey margin-bottom5">This allows us to provide relevant content for you.</p>
-                <div class="form-control-box">
-                    <div class="margin-bottom20 position-rel">
-                        <span class="position-abt pos-right15 pos-top15 bwmsprite cross-sm-dark-grey cur-pointer"></span>
-                        <input type="text" class="form-control padding-right30" name="globalCityPopUp" placeholder="Type to select city" id="globalCityPopUp" autocomplete="off">
-                        <span id="loaderMakeModel" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none;"></span>
-                        <span class="bwmsprite error-icon hide"></span>
-                        <div class="bw-blackbg-tooltip hide">No city found. Try a different search.</div>
-                    </div>
-                </div>
-                <div>
-                    <button id="btnGlobalCityPopup" class="btn btn-orange btn-full-width font18">Confirm city</button>
-                </div>
-            </div>
-            <div class="clear"></div>
+    }
+    @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
+    {
+        <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
+            <script type='text/javascript'>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-0'); });
+            </script>
         </div>
-
-        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st2.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/bwcache.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
-        <!-- global-search-popup code starts here -->
-        <div id="global-search-popup" class="global-search-popup" style="display:none">
-            <div class="form-control-box">
-                <span class="back-arrow-box" id="gs-close">
-                    <span class="bwmsprite back-long-arrow-left"></span>
-                </span>
-                <span class="cross-box hide" id="gs-text-clear">
-                    <span class="bwmsprite cross-md-dark-grey"></span>
-                </span>
-                <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="form-control padding-right30" autocomplete="off">
-                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none;right:35px;top:13px"></span>
-                <ul id="errGlobalSearch" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide">
-                    <li class="ui-menu-item" tabindex="-1">
-                        <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
-                    </li>
-                </ul>
-                <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left;height:auto !important;background:#fff;" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
-            </div>
-        </div> <!-- global-search-popup code ends here -->
-        @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")
-
-        <footer class="bg-footer padding-top30 padding-bottom15">
-            <!-- Footer section code starts here -->
+    }
+    @RenderBody()
+    @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
+    {
+        <section>
             <div class="container">
-                <div class="text-center padding-bottom15">
-                    <div class="grid-4">
-                        <a href="/m/" class="bwmsprite bw-footer-icon" title="Bikewale"></a>
+                <div>
+                    <div id='div-gpt-ad-@Model.AdTags.AdId-1' style='width:320px; height:50px;text-align:center;margin:10px auto;'>
+                        <script type='text/javascript'>
+                            googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-1'); });
+                        </script>
                     </div>
-                    <div class="grid-4">
-                        <a href="https://www.carwale.com/m/" target="_blank" class="bwmsprite cw-footer-icon" title="CarWale"></a>
-                        <p class="cw-logo-label">ask the experts</p>
-                    </div>
-                    <div class="grid-4 omega">
-                        <a href="https://m.cartrade.com/" target="_blank" class="bwmsprite ct-footer-icon" title="CarTrade"></a>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-                <div class="border-solid-top text-center">
-                    <div class="margin-top15">
-                        <ul>
-                            <li><a href="/m/contactus.aspx" rel="nofollow">Contact Us</a></li>
-                            <li><a href="/m/advertisewithus.aspx" rel="nofollow">Advertise with Us</a></li>
-
-                        </ul>
-                        <p class="font13 text-white margin-bottom10">Download Mobile App</p>
-
-                        <div>
-                            <a class="bwmsprite google-play-logo" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" class="bwsprite gplay-icon margin-right5" rel="nofollow">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="margin-top15 margin-bottom15">
-                        <a href="/?site=desktop" target="_blank" class="text-white">View Desktop Version</a>
-                    </div>
-
                 </div>
             </div>
-            <div class="border-solid-top text-white font11 margin-top5 padding-top10 grid-12">
-                <div class="grid-4 alpha text-left">&copy; BikeWale India</div>
-                <div class="grid-8 omega text-right">
-                    <a href="https://www.bikewale.com/visitoragreement.aspx" class="text-white" rel="nofollow">Visitor Agreement </a>&
-                    <a href="https://www.bikewale.com/privacypolicy.aspx" class="text-white" rel="nofollow">Privacy Policy</a>
+        </section>
+    }
+    <div class="blackOut-window"></div>
+    <nav id="nav">
+        <!-- nav code starts here -->
+        <ul class="navUL padding-top10">
+            <li>
+                <a href="/m/">
+                    <span class="bwmsprite home-icon"></span>
+                    <span class="navbarTitle">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" rel="nofollow">
+                    <span class="bwmsprite newBikes-icon"></span>
+                    <span class="navbarTitle">New Bikes & Scooters</span>
+                    <span class="nav-drop bwmsprite fa-angle-down"></span>
+                </a>
+                <ul class="nestedUL">
+                    <li><a href="/m/new-bikes-in-india/">Find New Bikes</a></li>
+                    <li><a href="/m/new-scooters/">Find New Scooters</a></li>
+                    <li><a href="/m/comparebikes/">Compare Bikes</a></li>
+                    <li><a href="/m/pricequote/">Check On-Road Price</a></li>
+                    <li><a href="/m/dealer-showroom-locator/">Locate Dealer</a></li>
+                    <li><a href="/m/bike-service-center/">Locate Service Center</a></li>
+                    <li><a href="/m/upcoming-bikes/">Upcoming Bikes</a></li>
+                    <li><a href="/m/new-bike-launches/">New Launches</a></li>
+                    <li><a href="/m/bikebooking/">Book Your Bike</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0)" rel="nofollow">
+                    <span class="bwmsprite usedBikes-icon"></span>
+                    <span class="navbarTitle">Used Bikes</span>
+                    <span class="nav-drop bwmsprite fa-angle-down"></span>
+                </a>
+                <ul class="nestedUL">
+                    <li><a href="/m/used/">Find Used Bikes</a></li>
+                    <li><a href="/m/used/bikes-in-india/">All Used Bikes</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="/m/used/sell/">
+                    <span class="bwmsprite sellBikes-icon"></span>
+                    <span class="navbarTitle">Sell Your Bike</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" rel="nofollow">
+                    <span class="bwmsprite reviews-icon"></span>
+                    <span class="navbarTitle">Reviews, News & Videos</span>
+                    <span class="nav-drop bwmsprite fa-angle-down"></span>
+                </a>
+                <ul class="nestedUL">
+                    <li><a href="/m/news/">News</a></li>
+                    <li><a href="/m/expert-reviews/">Expert Reviews</a></li>
+                    <li><a href="/m/user-reviews/">User Reviews</a></li>
+                    <li><a href="/m/features/">Features</a></li>
+                    <li><a href="/m/bike-care/">Bike Care</a></li>
+                    <li><a href="/m/bike-videos/">Videos</a></li>
+
+                </ul>
+            </li>
+            <li>
+                <a href="/m/trackday2016/">
+                    <span class="bwmsprite track-day"></span>
+                    <span class="navbarTitle">Track Day 2016</span>
+                </a>
+            </li>
+            @** Render login control here *@
+            @Html.Partial("~/Views/m/Shared/_LoginControl.cshtml")
+        </ul>
+
+        <div id="nav-app-content">
+            <p class="font12 text-bold inline-block">India’s #1 Bike Research Destination</p><a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank" class="btn btn-orange nav-app-install-btn font12 text-bold inline-block" rel="nofollow">Install</a>
+        </div>
+    </nav>
+    <!-- nav code ends here -->
+    <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
+        <div class="globalcity-popup-data text-center">
+            <div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+            <p class="font20 margin-bottom5 text-capitalize">Please tell us your city</p>
+            <p class="text-light-grey margin-bottom5">This allows us to provide relevant content for you.</p>
+            <div class="form-control-box">
+                <div class="margin-bottom20 position-rel">
+                    <span class="position-abt pos-right15 pos-top15 bwmsprite cross-sm-dark-grey cur-pointer"></span>
+                    <input type="text" class="form-control padding-right30" name="globalCityPopUp" placeholder="Type to select city" id="globalCityPopUp" autocomplete="off">
+                    <span id="loaderMakeModel" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none;"></span>
+                    <span class="bwmsprite error-icon hide"></span>
+                    <div class="bw-blackbg-tooltip hide">No city found. Try a different search.</div>
                 </div>
             </div>
-            <div class="clear"></div>
-        </footer> <!-- Ends here -->
-       
-        <noscript id="asynced-css">
-            <link href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st2.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/css/bwm-common-btf.css?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion" rel="stylesheet" type="text/css" />
-            @if (!String.IsNullOrEmpty(Model.Page_BTF_CSS_Path))
-            {
-                <link href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_BTF_CSS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion" rel="stylesheet" type="text/css" />
-            }
-            <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
-        </noscript>
-        <script type="text/javascript">
-            var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
-        </script>
-        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
-        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
-        @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
+            <div>
+                <button id="btnGlobalCityPopup" class="btn btn-orange btn-full-width font18">Confirm city</button>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st2.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/bwcache.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
+    <!-- global-search-popup code starts here -->
+    <div id="global-search-popup" class="global-search-popup" style="display:none">
+        <div class="form-control-box">
+            <span class="back-arrow-box" id="gs-close">
+                <span class="bwmsprite back-long-arrow-left"></span>
+            </span>
+            <span class="cross-box hide" id="gs-text-clear">
+                <span class="bwmsprite cross-md-dark-grey"></span>
+            </span>
+            <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="form-control padding-right30" autocomplete="off">
+            <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none;right:35px;top:13px"></span>
+            <ul id="errGlobalSearch" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide">
+                <li class="ui-menu-item" tabindex="-1">
+                    <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
+                </li>
+            </ul>
+            <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left;height:auto !important;background:#fff;" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
+        </div>
+    </div> <!-- global-search-popup code ends here -->
+    @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")
+
+    <footer class="bg-footer padding-top30 padding-bottom15">
+        <!-- Footer section code starts here -->
+        <div class="container">
+            <div class="text-center padding-bottom15">
+                <div class="grid-4">
+                    <a href="/m/" class="bwmsprite bw-footer-icon" title="Bikewale"></a>
+                </div>
+                <div class="grid-4">
+                    <a href="https://www.carwale.com/m/" target="_blank" class="bwmsprite cw-footer-icon" title="CarWale"></a>
+                    <p class="cw-logo-label">ask the experts</p>
+                </div>
+                <div class="grid-4 omega">
+                    <a href="https://m.cartrade.com/" target="_blank" class="bwmsprite ct-footer-icon" title="CarTrade"></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="border-solid-top text-center">
+                <div class="margin-top15">
+                    <ul>
+                        <li><a href="/m/contactus.aspx" rel="nofollow">Contact Us</a></li>
+                        <li><a href="/m/advertisewithus.aspx" rel="nofollow">Advertise with Us</a></li>
+
+                    </ul>
+                    <p class="font13 text-white margin-bottom10">Download Mobile App</p>
+
+                    <div>
+                        <a class="bwmsprite google-play-logo" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" class="bwsprite gplay-icon margin-right5" rel="nofollow">
+                        </a>
+                    </div>
+                </div>
+                <div class="margin-top15 margin-bottom15">
+                    <a href="/?site=desktop" target="_blank" class="text-white">View Desktop Version</a>
+                </div>
+
+            </div>
+        </div>
+        <div class="border-solid-top text-white font11 margin-top5 padding-top10 grid-12">
+            <div class="grid-4 alpha text-left">&copy; BikeWale India</div>
+            <div class="grid-8 omega text-right">
+                <a href="https://www.bikewale.com/visitoragreement.aspx" class="text-white" rel="nofollow">Visitor Agreement </a>&
+                <a href="https://www.bikewale.com/privacypolicy.aspx" class="text-white" rel="nofollow">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </footer> <!-- Ends here -->
+
+    <noscript id="asynced-css">
+        <link href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st2.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/css/bwm-common-btf.css?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion" rel="stylesheet" type="text/css" />
+        @if (!String.IsNullOrEmpty(Model.Page_BTF_CSS_Path))
         {
-            <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
+            <link href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_BTF_CSS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion" rel="stylesheet" type="text/css" />
         }
-       
-        <div class="back-to-top" id="back-to-top"></div>
-    </form>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
+    </noscript>
+    <script type="text/javascript">
+        var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
+    </script>
+    <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
+    <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
+    @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
+    {
+        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
+    }
+
+    <div class="back-to-top" id="back-to-top"></div>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js">
+    </script>
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        window.google_trackConversion({
+            google_conversion_id: 998187973,
+            google_custom_params: window.google_tag_params,
+            google_remarketing_only: true
+        });
+        //]]>
+    </script>
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/998187973/?guid=ON&amp;script=0" />
+        </div>
+    </noscript>
 </body>
 </html>

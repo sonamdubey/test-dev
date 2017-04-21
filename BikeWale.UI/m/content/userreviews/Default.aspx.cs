@@ -1,5 +1,5 @@
-﻿using Bikewale.BAL.UserReviews;
-using Bikewale.Common;
+﻿using Bikewale.Common;
+using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
@@ -20,7 +20,7 @@ namespace Bikewale.Mobile.Content
         protected LinkButton btnSubmit;
         protected Repeater rptMostReviewed, rptMostRead, rptMostHelpful, rptMostRecent, rptMostRated;
         private List<ReviewTaggedBikeEntity> objMostReviewed = null;
-        private IUserReviews objUserReviews = null;
+        private IUserReviewsRepository objUserReviews = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -73,9 +73,9 @@ namespace Bikewale.Mobile.Content
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IUserReviews, UserReviews>();
+                container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
 
-                objUserReviews = container.Resolve<IUserReviews>();
+                objUserReviews = container.Resolve<IUserReviewsRepository>();
             }
         }
 
@@ -91,12 +91,6 @@ namespace Bikewale.Mobile.Content
             try
             {
                 MakeModelVersion mmv = new MakeModelVersion();
-
-                //ddlMake.DataSource = mmv.GetMakes("USERREVIEW");
-                //ddlMake.DataValueField = "Value";
-                //ddlMake.DataTextField = "Text";
-                //ddlMake.DataBind();
-                //ddlMake.Items.Insert(0, (new ListItem("--Select Make--", "0")));
                 mmv.GetMakes(EnumBikeType.UserReviews, ref ddlMake);
             }
             catch (Exception ex)

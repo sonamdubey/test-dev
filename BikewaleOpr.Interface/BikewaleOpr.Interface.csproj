@@ -54,6 +54,8 @@
     <Compile Include="IHomePage.cs" />
     <Compile Include="Images\IImage.cs" />
     <Compile Include="Images\IImageRepository.cs" />
+    <Compile Include="UserReviews\IUserReviewsCache.cs" />
+    <Compile Include="UserReviews\IUserReviewsRepository.cs" />
     <Compile Include="ManufacturerCampaign\IManufacturerCampaign.cs">
       <SubType>Code</SubType>
     </Compile>

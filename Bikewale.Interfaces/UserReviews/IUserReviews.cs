@@ -1,25 +1,17 @@
 ﻿using Bikewale.Entities.UserReviews;
+using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.UserReviews
 {
     public interface IUserReviews
     {
-        List<ReviewTaggedBikeEntity> GetMostReviewedBikesList(ushort totalRecords);
-        List<ReviewTaggedBikeEntity> GetReviewedBikesList();
-
-        List<ReviewsListEntity> GetMostReadReviews(ushort totalRecords);
-        List<ReviewsListEntity> GetMostHelpfulReviews(ushort totalRecords);
-        List<ReviewsListEntity> GetMostRecentReviews(ushort totalRecords);
-        List<ReviewsListEntity> GetMostRatedReviews(ushort totalRecords);
-
-        ReviewRatingEntity GetBikeRatings(uint modelId);
-        ReviewListBase GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter);
-
-        ReviewDetailsEntity GetReviewDetails(uint reviewId);
-
-        bool AbuseReview(uint reviewId, string comment, string userId);
-        bool UpdateViews(uint reviewId);
-        bool UpdateReviewUseful(uint reviewId, bool isHelpful);
-    }   // class
-}   // namespace
+        UserReviewsData GetUserReviewsData();
+        UserReviewSummary GetUserReviewSummary(uint reviewId);
+        IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams);
+        IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams, UserReviewsData objUserReviewQuestions);
+        UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint sourceId, uint reviewId);
+        bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns);
+        WriteReviewPageSubmitResponse SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName);
+    }
+}

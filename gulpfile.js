@@ -52,7 +52,7 @@ gulp.task('minify-bwm-js', function () {
 });
 
 var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/', 'upcoming-bikes/'],
-    mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/', 'upcoming-bikes/'];
+    mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/', 'upcoming-bikes/','user-review/'];
 
 // convert desktop sass to css
 gulp.task('bw-sass-to-css', function () {
@@ -525,6 +525,21 @@ var mvcPageViews = [
         folderName: 'Views/Upcoming/',
         fileName: 'BikesByMake_Mobile.cshtml',
         stylesheet: 'm/css/upcoming-bikes/upcoming-bikes.css'
+    },
+	{
+        folderName: 'Views/UserReview/',
+        fileName: 'RateBike_Mobile.cshtml',
+        stylesheet: 'm/css/user-review/write-review.css'
+    },
+	{
+        folderName: 'Views/UserReview/',
+        fileName: 'WriteReview_Mobile.cshtml',
+        stylesheet: 'm/css/user-review/write-review.css'
+    },
+	{
+        folderName: 'Views/UserReview/',
+        fileName: 'ReviewSummary_Mobile.cshtml',
+        stylesheet: 'm/css/user-review/write-review.css'
     }
 
 ];

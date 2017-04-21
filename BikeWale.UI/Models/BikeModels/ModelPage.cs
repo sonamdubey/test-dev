@@ -509,7 +509,7 @@ namespace Bikewale.Models.BikeModels
                                 else
                                 {
                                     objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
-                                    objData.BikePrice = (uint)objData.SelectedVersion.Price;
+                                    objData.BikePrice = Convert.ToUInt32(objData.SelectedVersion != null ? objData.SelectedVersion.Price : modelPg.ModelVersions.FirstOrDefault().Price);
                                 }
                             }
                             if (objData.CityId != 0 && !objData.IsDiscontinuedBike)
@@ -640,6 +640,7 @@ namespace Bikewale.Models.BikeModels
                             if (colorImages != null && colorImages.Count() > 0)
                             {
                                 objData.ColourImageUrl = string.Format("/{0}-bikes/{1}/images/?modelpage=true&colorImageId={2}#modelGallery", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName, colorImages.FirstOrDefault().ColorImageId);
+                                objData.ColourImageTabsUrl = string.Format("/{0}-bikes/{1}/images/?tabs=true&modelpage=true&colorImageId={2}#modelGallery", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName, colorImages.FirstOrDefault().ColorImageId);
                                 objData.ModelColorPhotosCount = colorImages.Count();
                             }
 

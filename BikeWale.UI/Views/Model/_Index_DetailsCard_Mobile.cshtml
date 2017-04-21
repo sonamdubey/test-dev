@@ -41,24 +41,31 @@
     <div id="aboutContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper">
         <h2>About @Model.ModelPageEntity.ModelDetails.ModelName</h2>
         <p class="font14 text-light-grey line-height17 inline">
-            <span class="model-preview-main-content">
-                @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
-                {
-                    @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
-                }
-                else
-                {
-                    @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                }
-            </span>
-            @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
-            {
-                <span class="model-preview-more-content hide">
-                    @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                </span>
-                <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
-            }
 
+            @if (!Model.IsUpcomingBike)
+            {
+                <span class="model-preview-main-content">
+                    @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
+                    {
+                        @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                    }
+                    else
+                    {
+                        @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                    }
+                </span>
+                if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
+                {
+                    <span class="model-preview-more-content hide">
+                        @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                    </span>
+                    <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
+                }
+            }
+            else
+            {
+                @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+            }
         </p>
     </div>
 }

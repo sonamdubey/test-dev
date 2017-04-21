@@ -30,7 +30,7 @@ namespace Bikewale.Mobile.Content
     /// </summary>
     public class ListReviews : System.Web.UI.Page
     {
-        private IUserReviews objUserReviews = null;
+        private IUserReviewsRepository objUserReviews = null;
         protected List<ReviewEntity> objReviewList;
         protected BikeModelEntity objModelEntity = null;
         protected Repeater rptUserReviews;
@@ -222,7 +222,7 @@ namespace Bikewale.Mobile.Content
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
-                             .RegisterType<IUserReviews, UserReviewsRepository>()
+                             .RegisterType<IUserReviewsRepository, UserReviewsRepository>()
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                 var cache = container.Resolve<IUserReviewsCache>();
@@ -276,9 +276,8 @@ namespace Bikewale.Mobile.Content
                 container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
                 objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
 
-                container.RegisterType<IUserReviews, UserReviews>();
-
-                objUserReviews = container.Resolve<IUserReviews>();
+                container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
+                objUserReviews = container.Resolve<IUserReviewsRepository>();
 
                 container.RegisterType<IPager, Pager>();
                 objPager = container.Resolve<IPager>();

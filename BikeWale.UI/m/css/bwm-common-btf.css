@@ -1210,6 +1210,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     left: 0;
     font-size: 16px;
     color: #82888b;
+    pointer-events: none;
     -webkit-transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -o-transition: 0.2s ease all;
