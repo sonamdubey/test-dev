@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using BikewaleOpr.Entities.BikeData;
-using BikewaleOpr.Entity.UserReviews;
+﻿using BikewaleOpr.Entity.UserReviews;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.UserReviews;
+using BikeWaleOpr.Common;
+using System;
 
 namespace BikewaleOpr.Models.UserReviews
 {
@@ -37,15 +34,23 @@ namespace BikewaleOpr.Models.UserReviews
         {
             ManageUserReviewsPageVM objPageModel = new ManageUserReviewsPageVM();
 
-            if ((ushort)filters.ReviewStatus == 0)
-                filters.ReviewStatus = ReviewsStatus.Pending;
+            try
+            {
+                if ((ushort)filters.ReviewStatus == 0)
+                    filters.ReviewStatus = ReviewsStatus.Pending;
 
-            objPageModel.selectedFilters = filters;
-            
-            objPageModel.Makes = _makesRepo.GetMakes(8);            
+                objPageModel.selectedFilters = filters;
 
-            objPageModel.Reviews = _reviewsRepo.GetReviewsList(filters);
+                objPageModel.Makes = _makesRepo.GetMakes(8);
 
+                objPageModel.Reviews = _reviewsRepo.GetReviewsList(filters);
+
+                objPageModel.currentUserId = Convert.ToInt32(CurrentUser.Id);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "BikewaleOpr.Models.UserReviews.ManageUserReviewsPageModel");
+            }
             return objPageModel;
         }
 

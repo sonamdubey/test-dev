@@ -114,7 +114,7 @@ namespace BikewaleOpr.DALs.UserReviews
                     param.Add("par_disapproveId", disapprovalReasonId > 0 ? disapprovalReasonId : (ushort?)null);
                     param.Add("par_review", String.IsNullOrEmpty(review) ? null : review);
                     param.Add("par_title", String.IsNullOrEmpty(reviewTitle) ? null : reviewTitle);
-                    param.Add("par_tips", String.IsNullOrEmpty(reviewTips) ? null : reviewTips);                    
+                    param.Add("par_tips", String.IsNullOrEmpty(reviewTips) ? null : reviewTips);
                     param.Add("par_oldTableReviewId", value: 0, dbType: DbType.UInt32, direction: ParameterDirection.Output);
 
                     connection.Open();
@@ -225,7 +225,6 @@ namespace BikewaleOpr.DALs.UserReviews
                                         Value = Convert.ToString(dr["RatingValue"])
                                     });
                             }
-                            //objUserReviewSummary. = objQuestions;
                         }
 
                         dr.Close();

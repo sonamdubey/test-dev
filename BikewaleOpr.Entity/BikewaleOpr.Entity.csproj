@@ -128,6 +128,7 @@
     <Compile Include="UserReviews\ReviewsList.cs" />
     <Compile Include="UserReviews\ReviewsStatus.cs" />
     <Compile Include="UserReviews\ReviewsInputFilters.cs" />
+    <Compile Include="UserReviews\UpdateReviewsInputEntity.cs" />
     <Compile Include="UserReviews\UserReviewOverallRating.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />
     <Compile Include="UserReviews\UserReviewSummary.cs" />

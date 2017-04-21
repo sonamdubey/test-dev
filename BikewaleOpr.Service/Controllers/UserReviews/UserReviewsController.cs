@@ -1,6 +1,6 @@
 ﻿using Bikewale.Notifications;
-using BikewaleOpr.DTO.UserReviews;
 using Bikewale.Notifications.MailTemplates.UserReviews;
+using BikewaleOpr.DTO.UserReviews;
 using BikewaleOpr.Entities.UserReviews;
 using BikewaleOpr.Entity.UserReviews;
 using BikewaleOpr.Interface.UserReviews;
@@ -40,21 +40,28 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
         {
             try
             {
-                uint oldTableReviewId = _userReviewsRepo.UpdateUserReviewsStatus(inputs.ReviewId, inputs.ReviewStatus, inputs.ModeratorId, inputs.DisapprovalReasonId, inputs.Review, inputs.ReviewTitle, inputs.ReviewTips);
-
-                // Send mail to the user on approval or rejection
-                if (inputs.ReviewStatus.Equals(ReviewsStatus.Approved))
+                if (inputs != null && inputs.ReviewId > 0)
                 {
-                    string reviewUrl = string.Format("/{0}-bikes/{1}/user-reviews/{3}.html", inputs.MakeMaskingName, inputs.ModelMaskingName, oldTableReviewId);
+                    uint oldTableReviewId = _userReviewsRepo.UpdateUserReviewsStatus(inputs.ReviewId, inputs.ReviewStatus, inputs.ModeratorId, inputs.DisapprovalReasonId, inputs.Review, inputs.ReviewTitle, inputs.ReviewTips);
 
-                    ComposeEmailBase objBase = new ReviewApprovalEmail(inputs.CustomerName, reviewUrl, inputs.BikeName);
-                    objBase.Send(inputs.CustomerEmail, "Congratulations! Your review has been published");
+                    // Send mail to the user on approval or rejection
+                    if (inputs.ReviewStatus.Equals(ReviewsStatus.Approved))
+                    {
+                        string reviewUrl = string.Format("/{0}-bikes/{1}/user-reviews/{2}.html", inputs.MakeMaskingName, inputs.ModelMaskingName, oldTableReviewId);
+
+                        ComposeEmailBase objBase = new ReviewApprovalEmail(inputs.CustomerName, reviewUrl, inputs.BikeName);
+                        objBase.Send(inputs.CustomerEmail, "Congratulations! Your review has been published");
+                    }
+                    else if (inputs.ReviewStatus.Equals(ReviewsStatus.Discarded))
+                    {
+                        ComposeEmailBase objBase = new ReviewRejectionEmail(inputs.CustomerName, inputs.BikeName);
+                        objBase.Send(inputs.CustomerEmail, "Oops! We request you to verify your review again");
+                    }
                 }
-                else if (inputs.ReviewStatus.Equals(ReviewsStatus.Discarded))
+                else
                 {
-                    ComposeEmailBase objBase = new ReviewRejectionEmail(inputs.CustomerName, inputs.BikeName);
-                    objBase.Send(inputs.CustomerEmail, "Oops! We request you to verify your review again");
-                }                                               
+                    return BadRequest();
+                }
             }
             catch (Exception ex)
             {
@@ -63,7 +70,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                 return InternalServerError();
             }
 
-            return Ok();
+            return Ok(true);
 
         }   // End of UpdateUserReviewsStatus
 

@@ -7,43 +7,9 @@ var $dateInput = $dateInput.pickadate('picker')
 
 var userReview = $("#UserReviews");
 
-var UserReviewSummary = function(reviewId)
-{
-    var self = this;
-    self.selectedReviewId = ko.observable(reviewId);
-    self.title = ko.observable();
-    self.description = ko.observable();
-    self.ratings = ko.observableArray([]);
-    self.selectedRatingValue = ko.observable();
-    self.selectedRating = ko.observable();
-    self.questions = ko.observableArray();
-    self.getUserReviewDetails = function () {
-        if (self.selectedReviewId() && self.selectedReviewId() > 0) {
-            $.ajax({
-                type: "GET",
-                url: "localhost:9011/api/user-reviews/summary/" + self.selectedReviewId() + "/",
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (response) {
-                    if (response) {
-                        //user review details fetched
-                        console.log(response);
-                    }
-                    else {
-                        alert("User Review failed Approved");
-                    }
+var userId = userReview.data("userid");
 
-                },
-                complete: function (xhr) {
-                    if (xhr.status != 200) {
-                        alert("User failed Review Approved");
-                    }
-                }
-            });
-        }
-    };
-
-}
+// data-userid="@Model.currentUserId" 
 
 var UserReviews = function () {
     var self = this;
@@ -55,6 +21,10 @@ var UserReviews = function () {
     self.selectedDate = ko.observable();
     self.selectedReviewId = ko.observable();
     self.reviewSummary = ko.observable();
+    self.reviewTitle = ko.observable();
+    self.reviewDescription = ko.observable();
+    self.reviewTips = ko.observable();
+    self.disapprovalId = ko.observable();
 
     self.changeMake = function (d, e) {
         var makeId = $(e.target).val();
@@ -116,6 +86,7 @@ var UserReviews = function () {
             }
 
             $dateInput.set('select', new Date(userReview.data("date")));
+            
         }
 
     };
@@ -128,29 +99,24 @@ var UserReviews = function () {
                 url: "/api/userreviews/id/" + self.selectedReviewId() + "/summary/",
                 contentType: "application/json",
                 dataType: 'json',
-                success: function (response) {
-                    if (response) {
-                        //user review details fetched
-                        console.log(response);
+                success : function(response)
+                {
+                    if (response)
+                    {
                         self.reviewSummary(response);
-                        if (!self.IsModelInitialize)
-                        {
-                            $('.modal').modal(); self.IsModelInitialize = true;
-                        }
-                        else {
-                            $(document).find('#reviewdetails').show().css({ 'z-index' : '1003' });
-                        }
-                       
-                        $(document).find('#reviewdetails').modal('open');
+                        self.reviewTitle(response.title);
+                        self.reviewDescription(response.description);
+                        self.reviewTips(response.tips);
                     }
-                    else {
-                        alert("User Review failed Approved");
-                    }
-
+                  
                 },
                 complete: function (xhr) {
                     if (xhr.status != 200) {
-                        alert("User failed Review Approved");
+                        alert("Failed to load user data");
+                    }
+                    if (!self.IsModelInitialize) {
+                        $(document).find('.modal').modal();
+                        self.IsModelInitialize = !self.IsModelInitialize;
                     }
                 }
             });
@@ -158,50 +124,96 @@ var UserReviews = function () {
     };
 
     self.approveReview = function () {
-        if (self.selectedReviewId() && self.selectedReviewId() > 0) {
+        if (self.selectedReviewId() && self.selectedReviewId() > 0 && self.reviewSummary()) {
+            var summary = self.reviewSummary();
+            objData = {
+                "reviewid" : self.selectedReviewId(),
+                "ReviewStatus" : "2",
+                "ModeratorId" : "2",
+                "DisapprovalReasonId" : "2",
+                "Review": self.reviewDescription(),
+                "ReviewTitle": self.reviewTitle(),
+                "ReviewTips": self.reviewTips(),
+                "CustomerName" : summary.customerName,
+                "CustomerEmail" : summary.customerEmail,
+                "BikeName" : summary.make.makeName + " " + summary.model.modelName,
+                "MakeMaskingName" : summary.model.maskingName,
+                "ModelMaskingName" : summary.make.maskingName
+
+            };
+
             $.ajax({
-                type: "GET",
-                url: "/api/UpdateUserReviewsStatus/?reviewStatus=2&moderatorId=1&disapprovalReasonId=1&reviewId=" + self.selectedReviewId(),
+                type: "POST",
+                url : "/api/userreviews/id/" + self.selectedReviewId()+"/updatestatus/",
                 contentType: "application/json",
                 dataType: 'json',
+                data : ko.toJSON(objData),
                 success: function (response) {
-                    if (response) {
-                        alert("User Review Approved");
+                    if (response) { 
+                        $("#btnViewDetails_" + vmUserReview.selectedReviewId()).closest("tr").fadeOut();
+                        $('#reviewdetails').modal('close');
+                        self.selectedReviewId(0);
                     }
                     else {
-                        alert("User Review failed Approved");
+                        alert("Something went wrong");
                     }
 
                 },
                 complete: function (xhr) {
                     if (xhr.status != 200) {
-                        alert("User failed Review Approved");
+                        alert("User review not approved");
                     }
+                   
                 }
             });
         }
     };
 
     self.rejectReview = function () {
-        if (self.selectedReviewId() && self.selectedReviewId() > 0) {
+        self.disapprovalId($("input[name='disapprovalReason']:checked").val());
+        if (self.selectedReviewId() && self.selectedReviewId() > 0 && self.reviewSummary() && self.disapprovalId()) {
+            var summary = self.reviewSummary();
+            objData = {
+                "reviewid": self.selectedReviewId(),
+                "ReviewStatus": "3",
+                "ModeratorId": userId,
+                "DisapprovalReasonId": self.disapprovalId(),
+                "Review": self.reviewDescription(),
+                "ReviewTitle": self.reviewTitle(),
+                "ReviewTips": self.reviewTips(),
+                "CustomerName": summary.customerName,
+                "CustomerEmail": summary.customerEmail,
+                "BikeName": summary.make.makeName + " " + summary.model.modelName,
+                "MakeMaskingName": summary.model.maskingName,
+                "ModelMaskingName": summary.make.maskingName
+
+            };
+
             $.ajax({
-                type: "GET",
-                url: "/api/UpdateUserReviewsStatus/?reviewStatus=3&moderatorId=1&disapprovalReasonId=" + disapprovalReasonId + "&reviewId=" + self.selectedReviewId(),
+                type: "POST",
+                url: "/api/userreviews/id/" + self.selectedReviewId() + "/updatestatus/",
                 contentType: "application/json",
                 dataType: 'json',
+                data: ko.toJSON(objData),
                 success: function (response) {
                     if (response) {
-                        alert("User Review Approved");
+                        $("#btnViewDetails_" + vmUserReview.selectedReviewId()).closest("tr").fadeOut();
+                        $('#reviewdetails').modal('close');
+                        $('#rejectionReason').modal('close');
+                        self.disapprovalId(0);
+                        self.selectedReviewId(0);
+                        $("input[name='disapprovalReason']:checked").prop("checked", false);
                     }
                     else {
-                        alert("User Review failed Approved");
+                        alert("Something went wrong");
                     }
 
                 },
                 complete: function (xhr) {
                     if (xhr.status != 200) {
-                        alert("User failed Review Approved");
+                        alert("User review not rejected");
                     }
+                   
                 }
             });
         }
@@ -217,3 +229,8 @@ if (userReview)
     ko.applyBindings(vmUserReview, userReview[0]);
     vmUserReview.setPageFilters();
 }
+
+
+
+
+

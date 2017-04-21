@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BikewaleOpr.Entities.BikeData;
+﻿using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity.UserReviews;
+using System.Collections.Generic;
 
 namespace BikewaleOpr.Models.UserReviews
 {
@@ -17,5 +13,6 @@ namespace BikewaleOpr.Models.UserReviews
         public IEnumerable<BikeMakeEntityBase> Makes { get; set; }
         public IEnumerable<ReviewBase> Reviews { get; set; }
         public ReviewsInputFilters selectedFilters { get; set; }
+        public int currentUserId { get; set; }
     }   // class
 }   // namespace
