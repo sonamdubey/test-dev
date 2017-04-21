@@ -26,6 +26,7 @@ namespace Bikewale.Mobile.New.Photos
         protected uint modelId;
         protected bool IsDiscontinued { get; set; }
         protected bool isModelPage;
+        protected bool isTabs;
         protected uint VideoCount, colorImageId = 0;
         protected PQSourceEnum pqSource;
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
@@ -58,6 +59,10 @@ namespace Bikewale.Mobile.New.Photos
                 if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
                 {
                     imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
+                }
+                if (!String.IsNullOrEmpty(Request.QueryString["tabs"]))
+                {
+                    isTabs = true;
                 }
 
                 BindPhotosPage();

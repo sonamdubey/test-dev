@@ -21,9 +21,9 @@ namespace Bikewale.Service.Controllers.UserReviews
     public class UserReviewsListController : CompressionApiController//ApiController
     {
 
-        private readonly IUserReviews _userReviewsRepo = null;
+        private readonly IUserReviewsRepository _userReviewsRepo = null;
         private readonly IUserReviewsCache _userReviewsCacheRepo = null;
-        public UserReviewsListController(IUserReviews userReviewsRepo, IUserReviewsCache userReviewsCacheRepo)
+        public UserReviewsListController(IUserReviewsRepository userReviewsRepo, IUserReviewsCache userReviewsCacheRepo)
         {
             _userReviewsRepo = userReviewsRepo;
             _userReviewsCacheRepo = userReviewsCacheRepo;

@@ -131,16 +131,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMappers\BikeData\BikeDataMapper.cs" />
+    <Compile Include="AutoMappers\BikeData\BikeModelsMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
+    <Compile Include="AutoMappers\UserReviews\UserReviewsMapper.cs" />
     <Compile Include="Controllers\BikeColorImages\ColorImagesBikesController.cs" />
     <Compile Include="Controllers\Content\MakesController.cs" />
+    <Compile Include="Controllers\Content\ModelsController.cs" />
     <Compile Include="Controllers\DealerCampaignController.cs" />
     <Compile Include="Controllers\DealerPriceQuoteController.cs" />
     <Compile Include="Controllers\DealersController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ManufacturerCampaign\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\Used\UsedBikesController.cs" />
+    <Compile Include="Controllers\UserReviews\UserReviewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -150,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="AutoMapper.dll" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

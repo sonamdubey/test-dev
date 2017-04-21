@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
+using Bikewale.DTO.UserReviews;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Service.AutoMappers.UserReviews
 {
@@ -71,6 +69,17 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             Mapper.CreateMap<ReviewEntityBase, ReviewBase>();
             Mapper.CreateMap<ReviewsListEntity, ReviewsList>();
             return Mapper.Map<List<ReviewsListEntity>, List<ReviewsList>>(objUserReview);
+        }
+
+        internal static DTO.UserReviews.UserReviewSummaryDto Convert(UserReviewSummary objUserReview)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
+            Mapper.CreateMap<UserReviewSummary, UserReviewSummaryDto>();
+            Mapper.CreateMap<UserReviewQuestion, UserReviewQuestionDto>();
+            Mapper.CreateMap<UserReviewOverallRating, UserReviewOverallRatingDto>();
+            return Mapper.Map<UserReviewSummary, UserReviewSummaryDto>(objUserReview);
         }
     }
 }

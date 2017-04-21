@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Web;
 
 namespace Bikewale.DAL.UserReviews
@@ -16,7 +17,7 @@ namespace Bikewale.DAL.UserReviews
     /// Created By : Ashish G. Kamble
     /// Summary : Class have functions to interact with database to get the user reviews data.
     /// </summary>
-    public class UserReviewsRepository : IUserReviews
+    public class UserReviewsRepository : IUserReviewsRepository
     {
 
         /// <summary>
@@ -716,6 +717,355 @@ namespace Bikewale.DAL.UserReviews
 
             }
             return success;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 16th April 2017
+        /// Description : get all user reiews data for user reviews section
+        /// </summary>
+        /// <returns></returns>
+        public UserReviewsData GetUserReviewsData()
+        {
+            UserReviewsData objData = null;
+            IList<UserReviewOverallRating> overallRating = null;
+            IList<UserReviewQuestion> questions = null;
+            IList<UserReviewRating> ratings = null;
+            IList<UserReviewPriceRange> priceRange = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getuserreviewsstaticdata"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objData = new UserReviewsData();
+                            overallRating = new List<UserReviewOverallRating>();
+                            while (dr.Read())
+                            {
+                                overallRating.Add(
+                                    new UserReviewOverallRating()
+                                    {
+                                        Id = SqlReaderConvertor.ToUInt32(dr["id"]),
+                                        Value = SqlReaderConvertor.ToUInt16(dr["rating"]),
+                                        Heading = Convert.ToString(dr["heading"]),
+                                        Description = Convert.ToString(dr["Description"]),
+                                        ResponseHeading = Convert.ToString(dr["ResponseHeading"])
+                                    });
+                            }
+                            objData.OverallRating = overallRating;
+
+                            if (dr.NextResult())
+                            {
+                                questions = new List<UserReviewQuestion>(); ;
+                                while (dr.Read())
+                                {
+                                    questions.Add(
+                                    new UserReviewQuestion()
+                                    {
+                                        Id = SqlReaderConvertor.ToUInt32(dr["QuestionId"]),
+                                        Heading = Convert.ToString(dr["Heading"]),
+                                        Description = Convert.ToString(dr["Description"]),
+                                        DisplayType = (UserReviewQuestionDisplayType)Convert.ToInt32(dr["DisplayType"]),
+                                        Type = (UserReviewQuestionType)Convert.ToInt32(dr["QuestionType"]),
+                                        Order = SqlReaderConvertor.ToUInt16(dr["DisplayOrder"])
+                                    });
+                                }
+                            }
+                            objData.Questions = questions;
+
+                            if (dr.NextResult())
+                            {
+                                ratings = new List<UserReviewRating>(); ;
+                                while (dr.Read())
+                                {
+                                    ratings.Add(
+                                    new UserReviewRating()
+                                    {
+                                        Id = SqlReaderConvertor.ToUInt32(dr["RatingId"]),
+                                        QuestionId = SqlReaderConvertor.ToUInt32(dr["QuestionId"]),
+                                        Text = Convert.ToString(dr["RatingText"]),
+                                        Value = Convert.ToString(dr["RatingValue"])
+                                    });
+                                }
+                            }
+                            objData.Ratings = ratings;
+
+
+                            if (dr.NextResult())
+                            {
+                                priceRange = new List<UserReviewPriceRange>(); ;
+                                while (dr.Read())
+                                {
+                                    priceRange.Add(
+                                    new UserReviewPriceRange()
+                                    {
+                                        Id = SqlReaderConvertor.ToUInt32(dr["Id"]),
+                                        RangeId = SqlReaderConvertor.ToUInt32(dr["PricerangeId"]),
+                                        QuestionId = SqlReaderConvertor.ToUInt32(dr["QuestionId"]),
+                                        MinPrice = SqlReaderConvertor.ToUInt32(dr["MinPrice"]),
+                                        MaxPrice = SqlReaderConvertor.ToUInt32(dr["MaxPrice"]),
+                                    });
+                                }
+                            }
+                            objData.PriceRange = priceRange;
+
+                            dr.Close();
+                        }
+                    }
+                }
+
+                if (objData != null && objData.Ratings != null && objData.Questions != null)
+                {
+                    //set ratings for question
+                    var objQuestionratings = objData.Ratings.GroupBy(x => x.QuestionId);
+
+                    //set pricerangeIds for question
+                    var priceRangeIds = objData.PriceRange.GroupBy(x => x.QuestionId);
+
+                    foreach (var question in objData.Questions)
+                    {
+                        foreach (var rating in objQuestionratings)
+                        {
+                            if (rating.Key == question.Id)
+                            {
+                                question.Rating = rating.ToList();
+                                break;
+                            }
+                        }
+
+                        foreach (var priceId in priceRangeIds)
+                        {
+                            if (priceId.Key == question.Id)
+                            {
+                                question.PriceRangeIds = priceId.Select(x => x.RangeId).ToList();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            }
+
+            return objData;
+
+        }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 17th April 2017
+        /// Description : Save user review ratings
+        /// </summary>
+        /// <param name="overAllrating"></param>
+        /// <param name="ratingQuestionAns"></param>
+        /// <param name="userName"></param>
+        /// <param name="emailId"></param>
+        /// <param name="customerId"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint sourceId, uint reviewId)
+        {
+            uint reviewIdNew = 0;
+
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings_18042017"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallrating", DbType.String, overAllrating));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, ratingQuestionAns));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_username", DbType.String, userName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, emailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceId", DbType.Int16, sourceId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientIP", DbType.String, Bikewale.CoreDAL.CommonOpn.GetClientIP()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.Int16, reviewId > 0 ? reviewId : Convert.DBNull));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            reviewIdNew = SqlReaderConvertor.ToUInt32(dr["reviewId"]);
+                        }
+                        dr.Close();
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewsRepository.SaveUserReviewRatings() reviewId-{0} makeId-{1} modelId-{2}", reviewId, makeId, modelId));
+            }
+
+            return reviewIdNew;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 16th April 2017
+        /// Description : Save user reviews by user with comments and title
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="tipsnAdvices"></param>
+        /// <param name="comment"></param>
+        /// <param name="commentTitle"></param>
+        /// <param name="reviewsQuestionAns"></param>
+        /// <returns></returns>
+        public bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns)
+        {
+            bool IsSaved = false;
+
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserreviews"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.UInt32, reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewTips", DbType.String, tipsnAdvices));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewDescription", DbType.String, comment));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewTitle", DbType.String, commentTitle));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, reviewsQuestionAns));
+
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+
+                    IsSaved = true;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            }
+
+            return IsSaved;
+        }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 17th April 2017
+        /// Description : Get user reviews summary for all pages
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns></returns>
+        public UserReviewSummary GetUserReviewSummary(uint reviewId)
+        {
+            UserReviewSummary objUserReviewSummary = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummary"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.UInt32, reviewId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            objUserReviewSummary = new UserReviewSummary()
+                             {
+                                 CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
+                                 CustomerName = Convert.ToString(dr["CustomerName"]),
+                                 Description = Convert.ToString(dr["Comments"]),
+                                 Title = Convert.ToString(dr["ReviewTitle"]),
+                                 Tips = Convert.ToString(dr["ReviewTips"]),
+                                 OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
+                                 PageSource = (UserReviewPageSourceEnum)Convert.ToInt32(dr["PageSourceId"]),
+                                 Make = new BikeMakeEntityBase()
+                                 {
+                                     MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                     MaskingName = Convert.ToString(dr["makemasking"]),
+                                     MakeName = Convert.ToString(dr["makeName"])
+                                 },
+                                 Model = new BikeModelEntityBase()
+                                 {
+                                     ModelId = SqlReaderConvertor.ToInt32(dr["modelId"]),
+                                     MaskingName = Convert.ToString(dr["modelmasking"]),
+                                     ModelName = Convert.ToString(dr["modelName"])
+                                 },
+                                 OriginalImgPath = Convert.ToString(dr["OriginalImgPath"]),
+                                 HostUrl = Convert.ToString(dr["hostUrl"])
+                             };
+                        }
+
+                        if (objUserReviewSummary != null && dr.NextResult())
+                        {
+                            var objQuestions = new List<UserReviewQuestion>();
+                            while (dr.Read())
+                            {
+                                objQuestions.Add(new UserReviewQuestion()
+                                {
+                                    SelectedRatingId = SqlReaderConvertor.ToUInt32(dr["answerValue"]),
+                                    Id = SqlReaderConvertor.ToUInt32(dr["QuestionId"])
+                                });
+                            }
+                            objUserReviewSummary.Questions = objQuestions;
+                        }
+
+                        dr.Close();
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+            }
+
+            return objUserReviewSummary;
+        }
+
+
+        public bool IsUserVerified(uint reviewId, ulong customerId)
+        {
+
+            bool isVerified = false;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("checkcustomerreview"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.UInt32, reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.UInt32, customerId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            isVerified = SqlReaderConvertor.ToBoolean(dr["status"]);
+                        }
+
+
+
+                        dr.Close();
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+            }
+
+            return isVerified;
+
+
         }
     }
 }

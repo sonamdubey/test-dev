@@ -257,6 +257,11 @@
     <Compile Include="Used\SellBikeImageUploadResultDTO.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
+    <Compile Include="UserReviews\ReviewQuestionsDto.cs" />
+    <Compile Include="UserReviews\UserReviewOverallRatingDto.cs" />
+    <Compile Include="UserReviews\UserReviewQuestionDto.cs" />
+    <Compile Include="UserReviews\UserReviewsInputEntity.cs" />
+    <Compile Include="UserReviews\UserReviewSummaryDto.cs" />
     <Compile Include="Version\ModelVersionList.cs" />
     <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteInput.cs" />
     <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteOutput.cs" />
