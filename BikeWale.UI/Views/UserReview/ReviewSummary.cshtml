@@ -89,6 +89,8 @@
                         </div>
                     </div>
 
+                  
+
                     @if (!string.IsNullOrEmpty(Model.Summary.Description))
                     {
                         <h2 class="font18 margin-bottom10">@Model.Summary.Title</h2>
@@ -100,18 +102,13 @@
 
 
                     }
-                    @if (!string.IsNullOrEmpty(Model.Summary.Tips))
-                    {
-                        <h3 class="font15 text-black margin-bottom10">Tips for prospective buyers</h3>
-                        <div class="text-light-grey">
-                            <p>@Model.Summary.Tips</p>
-                        </div>
-                    }
+
                     @if (string.IsNullOrEmpty(Model.Summary.Description))
                     {
-                        <p class="font15 text-bold text-black margin-bottom10">Tips for prospective buyers</p>
+                        <p class="font15 text-bold text-black margin-bottom10">Tell us more about your experience!</p>
                         <p class="text-slate-grey margin-bottom15">Share your experience of owning/riding @Model.Summary.Make.MakeName @Model.Summary.Model.ModelName. Your review will be very useful to people planning to buy the same bike.</p>
                         <a href="@Model.WriteReviewLink" class="btn btn-white btn-220-40">Write a review</a>
+                        <a href="" class="btn btn-orange btn-220-40 margin-left15">Done</a>
                     }
                 </div>
                 @if (Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0)
@@ -152,9 +149,14 @@
                                 }
                             }
                         </ul>
-                        <div class="margin-bottom20 border-solid-bottom"></div>
-
-
+                        @if (!string.IsNullOrEmpty(Model.Summary.Tips))
+                        {
+                            <div class="margin-bottom20 border-solid-bottom"></div>
+                            <h3 class="font15 text-black margin-bottom10">Tips for prospective buyers</h3>
+                            <div class="text-light-grey">
+                                <p>@Model.Summary.Tips</p>
+                            </div>
+                        }
                     </div>
 
                 }
