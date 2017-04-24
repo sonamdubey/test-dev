@@ -1059,6 +1059,7 @@ $(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
     $("#listingPopupContent").removeClass("open").stop().animate({ 'left': '100%' }, 500);
     $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
 });
+
 var locationFilter = function (filterContent) {
     var inputText = $(filterContent).val();
     inputText = inputText.toLowerCase();
