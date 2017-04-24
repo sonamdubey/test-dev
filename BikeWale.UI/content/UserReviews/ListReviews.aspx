@@ -77,7 +77,7 @@
                         <div class="grid-9 alpha inline-block float-none">
                             <h1><%= BikeName %> User Reviews</h1>
                         </div><div class="grid-3 text-right alpha omega inline-block float-none">
-                            <a href="/content/userreviews/writereviews.aspx?bikem=<%= modelId %>" class="btn btn-teal btn-size-150">Write a review</a>
+                            <a href="<%=string.Format("/m/rate-your-bike/{0}/?pagesourceid={1}",modelId,Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_UserReview_Listing))%>" class="btn btn-teal btn-size-150">Write a review</a>
                         </div>
                         <div class="clear"></div>
                     </div>

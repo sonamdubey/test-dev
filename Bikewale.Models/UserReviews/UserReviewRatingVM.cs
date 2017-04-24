@@ -13,5 +13,6 @@ namespace Bikewale.Models
         public string CustomerEmail { get; set; }
         public uint ReviewId { get; set; }
         public uint pagesourceId { get; set; }
+        public bool IsFake { get; set; }
     }
 }
