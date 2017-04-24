@@ -1,13 +1,13 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
-<div id="modelColorsContent" class="bw-model-tabs-data padding-top20 font14">
-    <h2 class="padding-left20 padding-right20">@Model.BikeName Colours</h2>
-    <ul id="modelColorsList">
+<div id="modelColorsContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin">
+    <h2 class="h2-heading content-inner-block-20">@Model.BikeName Colours</h2>
+    <ul id="modelColorsList" class="color-box-list">
         @foreach (var modelColor in Model.ModelPageEntity.ModelColors)
         {
             <li>
                 <a class="@(modelColor.ColorImageId > 0 ?"" : " cur-default")" href="@(modelColor.ColorImageId > 0 ? string.Format("/{0}-bikes/{1}/images/?modelpage=true&colorImageId={2}#modelGallery", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName, modelColor.ColorImageId) : "javascript:void(0)")">
 
-                    <div title="@modelColor.ColorName" class="color-box inline-block @(modelColor.HexCodes.Count() == 1 ? " color-count-one" : (modelColor.HexCodes.Count() == 3 ? "color-count-three" : "color-count-two"))">
+                    <div title="@modelColor.ColorName" class="color-box inline-block @(modelColor.HexCodes.Count() == 1 ? "color-count-one" : (modelColor.HexCodes.Count() == 3 ? "color-count-three" : "color-count-two"))">
                         @if (Model.ModelPageEntity.ModelColors != null)
                         {
                             foreach (var HexCode in modelColor.HexCodes)
@@ -16,10 +16,9 @@
                             }
                         }
                     </div>
-                    <p class="font16 inline-block text-truncate">@Convert.ToString(modelColor.ColorName)</p>
+                    <p class="font14 inline-block text-truncate">@Convert.ToString(modelColor.ColorName)</p>
                 </a>
             </li>
         }
     </ul>
-    <div class="margin-right10 margin-left10 border-solid-top"></div>
 </div>

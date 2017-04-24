@@ -23,7 +23,10 @@ namespace Bikewale.Models
         private ulong _customerId;
         private bool _isVerified;
         private uint _pagesourceId;
+        private bool _isFake;
         public StatusCodes status;
+
+        public bool IsDesktop { get; set; }
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Added interfaces for bikeinfo and user reviews 
@@ -50,10 +53,14 @@ namespace Bikewale.Models
             try
             {
                 string _decodedString = Utils.Utils.DecryptTripleDES(Querystring);
+
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(_decodedString);
                 uint.TryParse(queryCollection["reviewid"], out _reviewId);
                 ulong.TryParse(queryCollection["customerid"], out _customerId);
                 uint.TryParse(queryCollection["pagesourceid"], out _pagesourceId);
+                bool.TryParse(queryCollection["isFake"], out _isFake);
+
+
                 _isVerified = _userReviewsRepo.IsUserVerified(_reviewId, _customerId);
                 if (_isVerified)
                     status = Entities.StatusCodes.ContentFound;
@@ -109,9 +116,8 @@ namespace Bikewale.Models
                 if (objUserVM != null && objUserVM.PageMetaTags != null)
                 {
                     objUserVM.PageMetaTags.Title = string.Format("Rate Your Bike | {0} {1} - BikeWale", objUserVM.objModelEntity.MakeBase.MakeName, objUserVM.objModelEntity.ModelName);
-
                     objUserVM.PageMetaTags.Description = string.Format("Rate {0} {1} on BikeWale. Tell us what do you think about {0} {1}. Share your experience of {0} {1} with others.", objUserVM.objModelEntity.MakeBase.MakeName, objUserVM.objModelEntity.ModelName);
-
+                    objUserVM.PageMetaTags.CanonicalUrl = string.Format("/{0}/rate-your-bike/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, _modelId);
                 }
             }
             catch (System.Exception ex)
@@ -144,7 +150,7 @@ namespace Bikewale.Models
         /// Description : Function to get user ratings and overall ratings for ratings page
         /// </summary>
         /// <param name="objUserVM"></param>
-         private void GetUserRatings(UserReviewRatingVM objUserVM)
+        private void GetUserRatings(UserReviewRatingVM objUserVM)
         {
             try
             {
@@ -173,8 +179,8 @@ namespace Bikewale.Models
                                 objQuestions.FirstOrDefault(x => x.Id == 3).Visibility = false;
                                 objQuestions.FirstOrDefault(x => x.Id == 3).IsRequired = false;
                                 objUserVM.RatingQuestion = Newtonsoft.Json.JsonConvert.SerializeObject(objQuestions);
-                            }                                                    
-                            
+                            }
+
                         }
                     }
 
@@ -201,7 +207,7 @@ namespace Bikewale.Models
 
                 }
 
-                var objLastPrice = objUserReviewData.PriceRange.Last();    
+                var objLastPrice = objUserReviewData.PriceRange.Last();
                 if (objUserVM.objModelEntity != null && objUserVM.objModelEntity.MinPrice >= objLastPrice.MaxPrice)
                 {
                     objUserVM.PriceRangeId = objLastPrice.RangeId;
@@ -210,7 +216,7 @@ namespace Bikewale.Models
                 {
                     objUserVM.PriceRangeId = objUserReviewData.PriceRange.First(x => x.MinPrice <= objUserVM.objModelEntity.MinPrice && x.MaxPrice >= objUserVM.objModelEntity.MinPrice).RangeId;
                 }
-
+                objUserVM.IsFake = _isFake;
                 objUserVM.ReviewId = _reviewId;
                 objUserVM.pagesourceId = _pagesourceId;
 

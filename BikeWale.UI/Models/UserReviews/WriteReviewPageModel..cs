@@ -2,7 +2,6 @@
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
-using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using System;
 using System.Collections.Specialized;
@@ -18,7 +17,6 @@ namespace Bikewale.Models.UserReviews
     public class WriteReviewPageModel
     {
         private readonly IUserReviews _userReviews = null;
-        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objCache = null;
         private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId;
         private string _encodedString, _userName, _emailId;
         private ulong _customerId;
@@ -27,6 +25,8 @@ namespace Bikewale.Models.UserReviews
         public BikeMakeEntityBase Make { get; set; }
         public BikeModelEntityBase Model { get; set; }
         public ushort Rating { get; set; }
+        public bool IsDesktop { get; set; }
+
         public StatusCodes Status;
 
         /// <summary>
@@ -34,9 +34,8 @@ namespace Bikewale.Models.UserReviews
         /// Description : Added interfaces for bikeinfo and user reviews 
         /// </summary>
         /// <param name="userReviews"></param>
-        public WriteReviewPageModel(IBikeMaskingCacheRepository<BikeModelEntity, int> objCache, IUserReviews userReviews, string encodedString)
+        public WriteReviewPageModel(IUserReviews userReviews, string encodedString)
         {
-            _objCache = objCache;
             _userReviews = userReviews;
             _encodedString = encodedString;
 
@@ -48,7 +47,6 @@ namespace Bikewale.Models.UserReviews
             else
                 Status = Entities.StatusCodes.ContentNotFound;
         }
-
 
         public void ParseQueryString(string encodedQueryString)
         {
@@ -85,35 +83,32 @@ namespace Bikewale.Models.UserReviews
             {
                 objPage = new WriteReviewPageVM();
 
-                BikeModelEntity objModelEntity = null;
-
-                if (_modelId > 0)
-                    objModelEntity = _objCache.GetById((int)_modelId);
-
                 objPage.UserName = _userName;
                 objPage.EmailId = _emailId;
 
-                if (objModelEntity != null)
+                UserReviewSummary objReviewSummary = _userReviews.GetUserReviewSummary(_reviewId);
+
+                if (objReviewSummary != null)
                 {
-                    objPage.Make = objModelEntity.MakeBase;
-                    objPage.Model = new BikeModelEntityBase();
-                    objPage.Model.ModelId = objModelEntity.ModelId;
-                    objPage.Model.ModelName = objModelEntity.ModelName;
-                    objPage.Model.MaskingName = objModelEntity.MaskingName;
-                    objPage.HostUrl = objModelEntity.HostUrl;
-                    objPage.OriginalImagePath = objModelEntity.OriginalImagePath;
-                    objPage.PreviousPageUrl = string.Format("/m/user-reviews/rate-bike/{0}/?reviewId={1}", objPage.Model.ModelId, _encodedString);
-                    objPage.EncodedWriteUrl = _encodedString;
+                    objPage.Make = objReviewSummary.Make;
+                    objPage.Model = objReviewSummary.Model;
+                    objPage.HostUrl = objReviewSummary.HostUrl;
+                    objPage.OriginalImagePath = objReviewSummary.OriginalImgPath;
+
+                    if (IsDesktop)
+                        objPage.PreviousPageUrl = string.Format("/user-reviews/rate-bike/{0}/?reviewId={1}", objPage.Model.ModelId, _encodedString);
+                    else
+                        objPage.PreviousPageUrl = string.Format("/m/user-reviews/rate-bike/{0}/?reviewId={1}", objPage.Model.ModelId, _encodedString);
+
+                    objPage.JsonReviewSummary = Newtonsoft.Json.JsonConvert.SerializeObject(objReviewSummary);
                 }
 
                 objPage.ReviewId = _reviewId;
                 objPage.CustomerId = _customerId;
+                objPage.EncodedWriteUrl = _encodedString;
 
                 GetUserRatings(objPage);
                 BindPageMetas(objPage);
-
-                objPage.JsonReviewSummary = Newtonsoft.Json.JsonConvert.SerializeObject(_userReviews.GetUserReviewSummary(_reviewId));
-
             }
             catch (Exception ex)
             {

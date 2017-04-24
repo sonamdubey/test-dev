@@ -1,29 +1,27 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
-<div class="rating-review-content">
-    @if (Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewRate) > 0)
-    {
-        <div class="rating-box inline-block">
-            <span class="star-one-icon margin-right5"></span>
-            <span class="font16 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating</span><span class="padding-left2 font12 text-light-grey">/5</span>
-        </div>
-        <div class="review-box font14 inline-block">
-            <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-                <meta itemprop="ratingValue" content="@Model.ModelPageEntity.ModelDetails.ReviewRate">
-                <meta itemprop="worstRating" content="1">
-                <meta itemprop="bestRating" content="5">
-                <meta itemprop="itemreviewed" content="@Model.BikeName" />
-                <a href="@Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="review-count-target">
-                    <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span> Reviews
-                </a>
-            </span>
-            <a href="@Bikewale.Utility.UrlFormatter.FormatWriteReviewLink(Model.ModelId)">Write a review</a>
-        </div>
-    }
-    else
-    {
-        <div class="review-box font14 inline-block">
-            <span class="no-rating text-light-grey">No reviews yet</span>
-            <a href="@Bikewale.Utility.UrlFormatter.FormatWriteReviewLink(Model.ModelId)">Write a review</a>
-        </div>
-    }
-</div>
+@if (Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewRate) > 0)
+{
+    <div class="rating-box inline-block">
+        <span class="bwsprite star-one"></span>
+        <span class="font14 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating</span><span class="padding-left2 font12 text-light-grey">/5</span>
+    </div>
+    <div class="review-box font14 inline-block">
+        <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+            <meta itemprop="ratingValue" content="@Model.ModelPageEntity.ModelDetails.ReviewRate">
+            <meta itemprop="worstRating" content="1">
+            <meta itemprop="bestRating" content="5">
+            <meta itemprop="itemreviewed" content="@Model.BikeName" />
+            <a href="@Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="review-count-target">
+                <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span> Reviews
+            </a>
+        </span>
+        <a href="@string.Format("/rate-your-bike/{0}/?pagesourceid={1}", Model.ModelId, Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ModelPage))">Write a review</a>
+    </div>
+}
+else
+{
+    <div class="review-box font14 inline-block">
+        <span class="no-rating text-light-grey">No reviews yet</span>
+        <a href="@string.Format("/rate-your-bike/{0}/?pagesourceid={1}", Model.ModelId, Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ModelPage))">Write a review</a>
+    </div>
+}

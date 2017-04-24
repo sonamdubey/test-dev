@@ -37,6 +37,7 @@ namespace Bikewale.BAL.UserReviews
             _userReviewsRepo = userReviewsRepo;
             _objCustomer = objCustomer;
             _objCustomerRepo = objCustomerRepo;
+
         }
 
         /// <summary>
@@ -147,7 +148,6 @@ namespace Bikewale.BAL.UserReviews
             {
                 objRating = new UserReviewRatingObject();
 
-
                 CustomerEntityBase objCust = null;
                 //check for user registration
                 objCust = new CustomerEntityBase() { CustomerName = userName, CustomerEmail = emailId };
@@ -170,8 +170,15 @@ namespace Bikewale.BAL.UserReviews
                     reviewId = 0;
 
                 }
-                objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId, reviewId);
-                objRating.CustomerId = objCust.CustomerId;
+                objRating.IsFake = _objCustomerRepo.IsFakeCustomer(objCust.CustomerId);
+
+                if (!objRating.IsFake)
+                {
+                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId, reviewId);
+                    objRating.CustomerId = objCust.CustomerId;
+                }
+
+
             }
             catch (Exception ex)
             {
