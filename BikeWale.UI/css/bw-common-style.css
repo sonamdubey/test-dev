@@ -566,6 +566,7 @@ a.action-btn:hover{text-decoration:none;}
 .content-inner-block-15 { padding: 15px; }
 .content-inner-block-20 { padding: 20px; }
 .content-box-shadow { background: #fff; -moz-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -webkit-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -o-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -ms-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; }
+.padding-15-20 { padding: 15px 20px; }
 .inline-block { display:inline-block; vertical-align: middle; }
 .vertical-top { display:inline-block; vertical-align: top; }
 .block { display: block; }

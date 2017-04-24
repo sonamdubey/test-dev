@@ -35,6 +35,28 @@ namespace Bikewale.Controllers
         }
 
         // GET: UserReview
+        [Route("user-reviews/rate-bike/{modelId}/")]
+        public ActionResult RateBike(uint modelId, uint? pagesourceid, string reviewId)
+        {
+            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, pagesourceid, _userReviews, _objModel, reviewId, _userReviewsRepo);
+            UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
+            if (objUserReview != null)
+            {
+                if (objUserReview.status == Entities.StatusCodes.ContentFound)
+                    UserReviewVM = objUserReview.GetData();
+                else
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                if (UserReviewVM != null && UserReviewVM.objModelEntity != null)
+                    return View(UserReviewVM);
+                else
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+            else
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+        }
+
+
+        // GET: UserReview
         [Route("m/user-reviews/rate-bike/{modelId}/")]
         public ActionResult RateBike_Mobile(uint modelId, uint? pagesourceid, string reviewId)
         {
@@ -54,6 +76,30 @@ namespace Bikewale.Controllers
             else
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
 
+        }
+
+
+        [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
+        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, uint pagesourceId)
+        {
+
+
+            UserReviewRatingObject objRating = null;
+            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, pagesourceId, reviewId);
+            string strQueryString = string.Empty;
+            if (objRating != null)
+                strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&pagesourceid={8}&isFake={9}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, pagesourceId, objRating.IsFake);
+
+            string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
+            if (objRating != null && !objRating.IsFake)
+            {
+                return Redirect("/user-reviews/write-review?q=" + strEncoded);
+            }
+            else
+            {
+                return Redirect(string.Format("/rate-your-bike/{0}/?reviewId={1}", modelId, strEncoded));
+            }
+
 
         }
 
@@ -68,8 +114,8 @@ namespace Bikewale.Controllers
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, uint pagesourceId)
+        [HttpPost, Route("m/user-reviews/ratings/save/"), ValidateAntiForgeryToken]
+        public ActionResult SubmitRating_Mobile(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, uint pagesourceId)
         {
 
 
@@ -86,6 +132,33 @@ namespace Bikewale.Controllers
 
 
         }
+
+        [Route("user-reviews/write-review/")]
+        public ActionResult WriteReview(string q)
+        {
+            WriteReviewPageModel objPage = new WriteReviewPageModel(_objModel, _userReviews, q);
+
+            if (objPage != null && !string.IsNullOrEmpty(q))
+            {
+                var objData = objPage.GetData();
+
+                if (objData != null && objData.ReviewId > 0 && objData.CustomerId > 0 && objPage.Status == Entities.StatusCodes.ContentFound)
+                {
+                    return View(objData);
+                }
+                else
+                {
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
+            }
+            else
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+        }
+
+
+
 
         /// <summary>
         /// Created by Sajal Gupta on 10-04-2017
@@ -117,31 +190,7 @@ namespace Bikewale.Controllers
             }
         }
 
-        /// <summary>
-        /// Created by : Aditi Srivastava on 19 Apr 2017
-        /// Summary    : To fetch review summary page
-        /// </summary>
-        [Route("m/user-reviews/review-summary/{reviewid}/")]
-        public ActionResult ReviewSummary_Mobile(uint reviewid, string q)
-        {
-            if (reviewid > 0)
-            {
-                UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
-                if (objData != null && objData.status == Entities.StatusCodes.ContentNotFound)
-                {
-                    return Redirect("/m/pageNotFound.aspx");
-                }
-                UserReviewSummaryVM objVM = objData.GetData();
-                if (objData.status == Entities.StatusCodes.ContentFound)
-                    return View(objVM);
-                else
-                    return Redirect("/m/pageNotFound.aspx");
-            }
-            else
-            {
-                return Redirect("/m/pageNotFound.aspx");
-            }
-        }
+
 
 
         /// <summary>
@@ -174,5 +223,53 @@ namespace Bikewale.Controllers
             }
         }
 
+
+        [Route("user-reviews/review-summary/{reviewid}/")]
+        public ActionResult ReviewSummary(uint reviewid, string q)
+        {
+            if (reviewid > 0)
+            {
+                UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
+                if (objData != null && objData.status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/m/pageNotFound.aspx");
+                }
+                UserReviewSummaryVM objVM = objData.GetData();
+                if (objData.status == Entities.StatusCodes.ContentFound)
+                    return View(objVM);
+                else
+                    return Redirect("/m/pageNotFound.aspx");
+            }
+            else
+            {
+                return Redirect("/m/pageNotFound.aspx");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 19 Apr 2017
+        /// Summary    : To fetch review summary page
+        /// </summary>
+        [Route("m/user-reviews/review-summary/{reviewid}/")]
+        public ActionResult ReviewSummary_Mobile(uint reviewid, string q)
+        {
+            if (reviewid > 0)
+            {
+                UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
+                if (objData != null && objData.status == Entities.StatusCodes.ContentNotFound)
+                {
+                    return Redirect("/m/pageNotFound.aspx");
+                }
+                UserReviewSummaryVM objVM = objData.GetData();
+                if (objData.status == Entities.StatusCodes.ContentFound)
+                    return View(objVM);
+                else
+                    return Redirect("/m/pageNotFound.aspx");
+            }
+            else
+            {
+                return Redirect("/m/pageNotFound.aspx");
+            }
+        }
     }
 }

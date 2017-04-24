@@ -15,7 +15,6 @@ namespace Bikewale.Interfaces.Used
         new int Add(T ad);
         T GetById(U inquiryId, UInt64 customerId);
         bool UpdateOtherInformation(SellBikeAdOtherInformation otherInfo, U inquiryId, UInt64 customerId);
-        bool IsFakeCustomer(ulong customerId);
         string SaveBikePhotos(bool isMain, bool isDealer, U inquiryId, string originalImageName, string description);
         string UploadImageToCommonDatabase(string photoId, string imageName, ImageCategories imgC, string directoryPath);
         IEnumerable<BikePhoto> GetBikePhotos(U inquiryId, bool isApproved);

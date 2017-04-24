@@ -5,5 +5,6 @@ namespace Bikewale.Entities.UserReviews
     {
         public ulong CustomerId { get; set; }
         public uint ReviewId { get; set; }
+        public bool IsFake { get; set; }
     }
 }

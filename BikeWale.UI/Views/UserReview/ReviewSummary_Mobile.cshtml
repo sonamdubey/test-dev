@@ -99,6 +99,7 @@
                 <ul class="user-rated-list padding-bottom5 opacity-active">
                     @foreach (var question in Model.Summary.Questions)
                         {
+                        
                             var objRating = question.Rating.First(x => x.Value == question.SelectedRatingId.ToString()); int ratingValue = Convert.ToInt32(objRating.Value);
                             if (question.DisplayType.Equals(Bikewale.Entities.UserReviews.UserReviewQuestionDisplayType.Star))
                             {
