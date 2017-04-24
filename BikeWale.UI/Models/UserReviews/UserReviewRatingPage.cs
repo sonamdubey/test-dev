@@ -25,6 +25,8 @@ namespace Bikewale.Models
         private uint _pagesourceId;
         private bool _isFake;
         public StatusCodes status;
+
+        public bool IsDesktop { get; set; }
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Added interfaces for bikeinfo and user reviews 

@@ -110,8 +110,8 @@
                     @if (string.IsNullOrEmpty(Model.Summary.Description))
                     {
                         <p class="font15 text-bold text-black margin-bottom10">Tips for prospective buyers</p>
-                        <p class="text-slate-grey margin-bottom15">Share your experience of owning/riding Bajaj Dominar. Your review will be very useful to people planning to buy the same bike.</p>
-                        <a href="javascript:void(0);" class="btn btn-white btn-220-40">Write a review</a>
+                        <p class="text-slate-grey margin-bottom15">Share your experience of owning/riding @Model.Summary.Make.MakeName @Model.Summary.Model.ModelName. Your review will be very useful to people planning to buy the same bike.</p>
+                        <a href="@Model.WriteReviewLink" class="btn btn-white btn-220-40">Write a review</a>
                     }
                 </div>
                 @if (Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0)
@@ -156,7 +156,7 @@
 
 
                     </div>
-                    
+
                 }
                 <div class="clear"></div>
             </div>

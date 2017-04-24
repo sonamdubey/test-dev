@@ -40,7 +40,10 @@ namespace Bikewale.Controllers
             if (objUserReview != null)
             {
                 if (objUserReview.status == Entities.StatusCodes.ContentFound)
+                {
+                    objUserReview.IsDesktop = true;
                     UserReviewVM = objUserReview.GetData();
+                }
                 else
                     return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
                 if (UserReviewVM != null && UserReviewVM.objModelEntity != null)
@@ -74,8 +77,9 @@ namespace Bikewale.Controllers
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
 
         }
+
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, uint pagesourceId)
+        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, uint pagesourceId, bool? isDesktop)
         {
 
 
@@ -88,7 +92,10 @@ namespace Bikewale.Controllers
             string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
             if (objRating != null && !objRating.IsFake)
             {
-                return Redirect("/user-reviews/write-review?q=" + strEncoded);
+                if (isDesktop.HasValue && isDesktop.Value)
+                    return Redirect("/write-a-review/?q=" + strEncoded);
+                else
+                    return Redirect("/m/write-a-review/?q=" + strEncoded);
             }
             else
             {
@@ -96,31 +103,6 @@ namespace Bikewale.Controllers
             }
 
 
-        }
-
-        /// <summary>
-        /// Created By : Sushil Kumar on 17th April 2017
-        /// Description : Action method to save user ratings
-        /// </summary>
-        /// <param name="overAllrating"></param>
-        /// <param name="ratingQuestionAns"></param>
-        /// <param name="userName"></param>
-        /// <param name="emailId"></param>
-        /// <param name="makeId"></param>
-        /// <param name="modelId"></param>
-        /// <returns></returns>
-        [HttpPost, Route("m/user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating_Mobile(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, uint pagesourceId)
-        {
-            UserReviewRatingObject objRating = null;
-
-            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, pagesourceId, reviewId);
-
-            string strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&pagesourceid={8}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, pagesourceId);
-
-            string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
-
-            return Redirect("/m/write-a-review/?q=" + strEncoded);
         }
 
         [Route("user-reviews/write-review/")]
