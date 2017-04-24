@@ -210,6 +210,7 @@ namespace Bikewale.Controllers
             if (reviewid > 0)
             {
                 UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
+                objData.IsDesktop = true;
                 if (objData != null && objData.status == Entities.StatusCodes.ContentNotFound)
                 {
                     return Redirect("/pageNotFound.aspx");

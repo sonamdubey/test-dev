@@ -452,17 +452,20 @@ docReady(function () {
                 reviewTips: self.reviewTips(),
                 ratingArray: savearray
             };
-            bwcache.set('reviewformdata', pageObj, 10);
+            bwcache.set(window.location.search.substring(3, window.location.search.length), pageObj, 10);
         };
 
         self.GetFromBwCache = function () {
-            var obj = bwcache.get('reviewformdata');
+            var obj = bwcache.get(window.location.search.substring(3, window.location.search.length));
             if (obj != null) {
                 self.detailedReview(obj.detailedReview);
                 reviewTitleField.val(obj.reviewTitle);
                 reviewTitleField.parent('div').addClass('not-empty');
                 $('#getReviewTip').val(obj.reviewTips);
-                $('#getReviewTip').parent('div').addClass('not-empty');
+
+                if (obj.reviewTips && obj.reviewTips != "")
+                    $('#getReviewTip').parent('div').addClass('not-empty');
+
                 var i;
                 for (i = 0; i < obj.ratingArray.length; ++i) {
                     var quest = obj.ratingArray[i].split(':')[0];
