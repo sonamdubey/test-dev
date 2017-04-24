@@ -316,6 +316,7 @@ namespace Bikewale.BAL.UserReviews
                     objCust = new CustomerEntity() { CustomerName = customer.CustomerName, CustomerEmail = customer.CustomerEmail, CustomerMobile = customer.CustomerMobile, ClientIP = CommonOpn.GetClientIP() };
                     customer.CustomerId = _objCustomer.Add(objCust);
                 }
+                
             }
             catch (Exception ex)
             {

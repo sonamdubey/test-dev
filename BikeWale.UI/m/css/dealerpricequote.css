@@ -14,8 +14,6 @@
     padding: 7px 5px 10px 15px;
 }
 
-
-
 #bwheader-logo, .navbarBtn, .global-location, .sort-btn {
     display:none;
 }
@@ -59,19 +57,21 @@
     color: #4d5057;
 }
 
-.dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item, .single-version-label {
+.dropdown-menu .dropdown-label,
+.dropdown-menu .dropdown-selected-item {
     max-width: 260px;
-    padding: 5px 30px 5px 10px;
+    padding: 5px 30px 5px 0;
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item {
+.dropdown-menu .dropdown-label,
+.dropdown-menu .dropdown-selected-item {
     width: 100%;
     background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
-    border-bottom: 1px solid #e2e2e2;
+    border-bottom: 1px solid #82888b;
 }
 
 .dropdown-menu .dropdown-label {
@@ -94,7 +94,7 @@
     -o-border-radius: 2px;
     -ms-border-radius: 2px;
     border-radius: 2px;
-    border: 1px solid #e2e2e2\9;
+    border: 1px solid #e2e2e2;
     -webkit-box-shadow: -3px 3px 15px 1px #ddd;
     -moz-box-shadow: -3px 3px 15px 1px #ddd;
     -ms-box-shadow: -3px 3px 15px 1px #ddd;
@@ -119,6 +119,33 @@
 
 .dropdown-menu .dropdown-with-select li:hover {
     background: #eee;
+}
+
+/* single version */
+.single-version-content {
+    min-width: 125px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown-effect-light {
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
+    padding-right: 25px;
+}
+
+.dropdown-effect-light:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 25px;
+    height: 100%;
+    background: #fff;
+    opacity: 0.7;
 }
 
 .loc-change-blue-icon { 
@@ -358,8 +385,8 @@
     -moz-border-radius:2px;
     -ms-border-radius:2px;
     border-radius: 2px;
-    border: 1px solid #ccc\9;
-    margin-right:10px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
 }
 
 .secondary-dealer-card a:hover {

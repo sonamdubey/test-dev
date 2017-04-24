@@ -17,7 +17,7 @@
         <p class="font12 text-light-grey padding-left15 padding-right5">Version:</p>
         @if (Model.VersionsList.Count() > 1)
         {
-            <div class="dropdown-select-wrapper margin-left5">
+            <div class="dropdown-select-wrapper margin-left15">
                 <select id="ddlVersion" class="dropdown-select" data-title="Version">
                     @foreach (var version in Model.VersionsList)
                     {
@@ -28,7 +28,9 @@
         }
         else
         {
-            <p class="single-version-label font14 margin-left5">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
+            <div class="single-version-content font14 margin-left15">
+                <p class="dropdown-effect-light">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
+            </div>
         }
         <div class="text-center">
             <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.SelectedVersion.OriginalImagePath, Model.SelectedVersion.HostUrl, Bikewale.Utility.ImageSize._210x118)" title="@Model.BikeName Images" alt="@Model.BikeName Images" border="0" />
