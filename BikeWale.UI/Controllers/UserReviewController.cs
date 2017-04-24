@@ -16,8 +16,6 @@ namespace Bikewale.Controllers
         private IBikeMaskingCacheRepository<BikeModelEntity, int> _objModel = null;
         private readonly IUserReviewsRepository _userReviewsRepo = null;
 
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -34,7 +32,6 @@ namespace Bikewale.Controllers
 
         }
 
-        // GET: UserReview
         [Route("user-reviews/rate-bike/{modelId}/")]
         public ActionResult RateBike(uint modelId, uint? pagesourceid, string reviewId)
         {
@@ -77,8 +74,6 @@ namespace Bikewale.Controllers
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
 
         }
-
-
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
         public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, uint pagesourceId)
         {
@@ -117,10 +112,7 @@ namespace Bikewale.Controllers
         [HttpPost, Route("m/user-reviews/ratings/save/"), ValidateAntiForgeryToken]
         public ActionResult SubmitRating_Mobile(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, uint pagesourceId)
         {
-
-
             UserReviewRatingObject objRating = null;
-
 
             objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, pagesourceId, reviewId);
 
@@ -129,17 +121,16 @@ namespace Bikewale.Controllers
             string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
 
             return Redirect("/m/write-a-review/?q=" + strEncoded);
-
-
         }
 
         [Route("user-reviews/write-review/")]
         public ActionResult WriteReview(string q)
         {
-            WriteReviewPageModel objPage = new WriteReviewPageModel(_objModel, _userReviews, q);
+            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, q);
 
             if (objPage != null && !string.IsNullOrEmpty(q))
             {
+                objPage.IsDesktop = true;
                 var objData = objPage.GetData();
 
                 if (objData != null && objData.ReviewId > 0 && objData.CustomerId > 0 && objPage.Status == Entities.StatusCodes.ContentFound)
@@ -156,7 +147,6 @@ namespace Bikewale.Controllers
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
         }
-
 
 
 
@@ -169,7 +159,7 @@ namespace Bikewale.Controllers
         [Route("m/user-reviews/write-review/")]
         public ActionResult WriteReview_Mobile(string q)
         {
-            WriteReviewPageModel objPage = new WriteReviewPageModel(_objModel, _userReviews, q);
+            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, q);
 
             if (objPage != null && !string.IsNullOrEmpty(q))
             {
@@ -189,10 +179,6 @@ namespace Bikewale.Controllers
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
         }
-
-
-
-
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Action method to save user reviews
@@ -206,17 +192,22 @@ namespace Bikewale.Controllers
         /// 
         [ValidateInput(false)]
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, uint reviewId, string encodedString)
+        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, uint reviewId, string encodedString, bool? isDesktop)
         {
             WriteReviewPageSubmitResponse objResponse = null;
 
             objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips.Trim(), reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName);
 
             if (objResponse.IsSuccess)
-                return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
+            {
+                if (isDesktop.HasValue && isDesktop.Value)
+                    return Redirect(string.Format("/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
+                else
+                    return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", reviewId, encodedString));
+            }
             else
             {
-                WriteReviewPageModel objPage = new WriteReviewPageModel(_objModel, _userReviews, encodedString);
+                WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, encodedString);
                 var objData = objPage.GetData();
                 objData.SubmitResponse = objResponse;
                 return View("WriteReview_Mobile", objData);

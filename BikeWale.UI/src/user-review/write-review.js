@@ -1,6 +1,7 @@
-﻿var ratingBox;
-var userNameField, userEmailIdField;
-var detailedReviewField, reviewTitleField;
+﻿var ratingBox, page;
+var userNameField, userEmailIdField, vmWriteReview;
+var detailedReviewField, reviewTitleField, reviewQuestion;
+var writeReview;
 
 var bikeRating = {
     ratingCount: 0,
@@ -9,39 +10,22 @@ var bikeRating = {
 
 var ratingQuestion = [];
 
-var reviewQuestion = [
-    {
-        type: 'star',
-        heading: "Visual Appeal/Looks",
-        description: "Remember, what others thought when they first saw your bike!",
-        rating: ["Terrible!", "It's bad", "Okay", "Excellent", "Gorgeous"],
-        currentlySelected: 0
-    },
-    {
-        type: 'star',
-        heading: "Reliability",
-        description: "Remember, what others thought when they first saw this bike!",
-        rating: ["Unpredictable", "Unreliable", "You can rely!", "Dependable", "Trustworthy"],
-        currentlySelected: 0
-    },
-    {
-        type: 'star',
-        heading: "Performance",
-        description: "Remember, what others thought when they first saw this bike!",
-        rating: ["Very poor", "Poor", "Not bad", "Good", "Excellent"],
-        currentlySelected: 0
-    },
-    {
-        type: 'text',
-        heading: "Maintenance cost",
-        description: "Are regular replacement parts reasonably priced? How much does it cost to fix a broken part?",
-        rating: ["Unreasonably High", "Very High", "High", "Reasonable", "Well priced"],
-        currentlySelected: 0
-    }
-];
-
 docReady(function () {
-    
+    bwcache.setScope('ReviewPage');
+    if (page == "writeReview") {
+        setTimeout(function () { window.location.hash = "writeReview"; }, 1000);
+        $(window).on('hashchange', function (e) {
+            oldUrl = e.originalEvent.oldURL;
+            if (oldUrl && (oldUrl.indexOf('#') > 0)) {
+                if ($("#previousPageUrl") && $("#previousPageUrl").length)
+                    window.location.href = $('#previousPageUrl').text();
+            }
+        });
+    }
+
+    if ($('#review-question-list') && $('#review-question-list').text())
+        reviewQuestion = JSON.parse($('#review-question-list').text());
+
     ratingBox = $('#bike-rating-box');
 
     if ($("#overallratingQuestion") && $("#overallratingQuestion").length)
@@ -272,7 +256,7 @@ docReady(function () {
             else if (!reEmail.test(vmRateBike.emailId())) {
                 validate.setError(userEmailIdField, 'Please enter your valid email ID');
             }
-            else if (!Boolean($('#isFake').val()))
+            else if ($('#isFake').val()!=""&&!Boolean($('#isFake').val()))
             {
                 validate.setError(userEmailIdField, 'Please enter an authorised email ID to continue.');
             }
@@ -369,12 +353,12 @@ docReady(function () {
             }
         }
     }
-
-    detailedReviewField = $('#getDetailedReview');
+    
+    descReviewField = $('#reviewDesc');
     reviewTitleField = $('#getReviewTitle');
         
     // write review
-    var writeReview = function () {
+    writeReview = function () {
         var self = this,
             ratingCount = 5;
 
@@ -392,13 +376,24 @@ docReady(function () {
         //self.hoverFeedbackRating = ko.observable(0);
 
         self.submitReview = function () {
+            var array = new Array;
+
+            $(".list-item input[type='radio']:checked").each(function (i) {
+                var r = $(this);
+                array[i] = (r.attr("questiontId") + ':' + r.val());
+            });
+
+            $('#reviewQuestion').val(array.join(","));
+
             if (self.detailedReview().length > 0 || self.reviewTitle().length > 0) {
-                self.validateReviewForm();
+                if (self.validateReviewForm()) {
+                    return true;
+                }
             }
             else {
                 self.detailedReviewFlag(false);
                 validate.hideError(reviewTitleField);
-                // go to step 3
+                return true;
             }
         };
 
@@ -414,26 +409,27 @@ docReady(function () {
 
         self.validate = {
             detailedReview: function () {
-                if (self.detailedReview().length < 300) {
+                if (self.detailedReview().trim().length < 300) {
+                    self.detailedReview(self.detailedReview().trim());
                     self.detailedReviewFlag(true);
                     self.detailedReviewError('Your review should contain at least 300 characters.');
                     self.focusFormActive(true);
-                    answer.focusForm(detailedReviewField);
+                    answer.focusForm(descReviewField);
                 }
                 else {
                     self.detailedReviewFlag(false);
                 }
 
-                return self.detailedReviewFlag();
+                return !self.detailedReviewFlag();
             },
 
             reviewTitle: function () {
                 var isValid = false;
 
-                if (self.reviewTitle().length == 0) {
+                if (self.reviewTitle().trim().length == 0) {
                     validate.setError(reviewTitleField, 'Please provide a title for your review!');
                     if (!self.focusFormActive()) {
-                        answer.focusForm(detailedReviewField);
+                        answer.focusForm(descReviewField);
                     }
                 }
                 else {
@@ -445,24 +441,79 @@ docReady(function () {
             }
         };
 
+        self.SaveToBwCache = function () {
+            var savearray = new Array;
+            $(".list-item input[type='radio']:checked").each(function (i) {
+                var r = $(this);
+                savearray[i] = (r.attr("questiontId") + ':' + r.val());
+            });
+            var pageObj = {
+                reviewTitle: reviewTitleField.val(),
+                detailedReview: self.detailedReview(),
+                reviewTips: self.reviewTips(),
+                ratingArray: savearray
+            };
+            bwcache.set('reviewformdata', pageObj, 10);
+        };
+
+        self.GetFromBwCache = function () {
+            var obj = bwcache.get('reviewformdata');
+            if (obj != null) {
+                self.detailedReview(obj.detailedReview);
+                reviewTitleField.val(obj.reviewTitle);
+                reviewTitleField.parent('div').addClass('not-empty');
+                $('#getReviewTip').val(obj.reviewTips);
+                $('#getReviewTip').parent('div').addClass('not-empty');
+                var i;
+                for (i = 0; i < obj.ratingArray.length; ++i) {
+                    var quest = obj.ratingArray[i].split(':')[0];
+                    var ans = obj.ratingArray[i].split(':')[1];
+                    var starbtn = $('#bike-review-questions').find(" input[ratingId=review-" + quest + "-" + ans + "]");
+                    if (starbtn != null) {
+                        starbtn.trigger("click");
+                    }
+                }
+            }
+        };
+
+        self.FillReviewData = function () {
+            if ($('#review-page-data').text() != null && $('#review-page-data').text() != "") {
+                var obj = JSON.parse($('#review-page-data').text());
+                if (obj != null) {
+                    self.reviewTips(obj.Tips);
+                    var i;
+
+                    for (i = 0; i < obj.Questions.length; ++i) {
+
+                        var quest = obj.Questions[i].qId;
+                        var ans = obj.Questions[i].selectedRatingId;
+                        var starbtn = $('#bike-review-questions').find("input[ratingId=review-" + quest + "-" + ans + "]");
+                        if (starbtn.length != 0) {
+                            starbtn.trigger("click");
+                        }
+                    }
+                }
+            }
+        };
+
     };
 
-    var vmWriteReview = new writeReview(),
+    vmWriteReview = new writeReview(),
         writeReviewForm = document.getElementById('write-review-form');
 
     if (writeReviewForm) {
         ko.applyBindings(vmWriteReview, writeReviewForm);
     }
 
-    $('#bike-review-questions').find('.question-type-star input[type=radio]').change(function () {
+    $('#bike-review-questions').find('.question-type-star input[type=radio]').change(function () {       
         var button = $(this),
             questionField = button.closest('.question-type-star');
 
-        var feedbackText = vmWriteReview.reviewQuestions()[questionField.index()].rating[button.val() - 1];
+        var feedbackText = vmWriteReview.reviewQuestions()[questionField.index()].rating[button.val() - 1].ratingText;
         questionField.find('.feedback-text').text(feedbackText);
     });
 
-    detailedReviewField.on('focus', function () {
+    descReviewField.on('focus', function () {
         vmWriteReview.detailedReviewFlag(false);
     });
 
@@ -474,7 +525,7 @@ docReady(function () {
         validate.onBlur($(this));
     });
 
-    $('#bike-review-questions').find('.question-type-star label').on('mouseover', function () {
+    $('#bike-review-questions').find('.question-type-star label').on('mouseover', function () {      
         question.setFeedback($(this));
     }).on('mouseout', function () {
         question.resetFeedback($(this));
@@ -507,12 +558,27 @@ docReady(function () {
                     elementIdArray = elementId.split('-'), // review-0-0 i.e. review-questionIndex-ratingIndex
                     feedbackText;
 
-                feedbackText = vmWriteReview.reviewQuestions()[elementIdArray[1]].rating[elementIdArray[2] - 1];
+                feedbackText = vmWriteReview.reviewQuestions()[elementIdArray[1]].rating[elementIdArray[2] - 1].ratingText;
 
                 return feedbackText;
             }
         }
     }
+
+    if ($("#reviewDesc") && $("#reviewDesc").data("validate") && $("#reviewDesc").data("validate").length)
+        vmWriteReview.validate.detailedReview();
+
+    if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length)
+        vmWriteReview.validate.reviewTitle();
+
+    if (performance.navigation.type == 1) {
+        vmWriteReview.GetFromBwCache();
+    }
+    else {
+        bwcache.removeAll(true);
+    }
+
+    vmWriteReview.FillReviewData();
 
 });
 
