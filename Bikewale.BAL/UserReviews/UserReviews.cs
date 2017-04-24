@@ -151,30 +151,18 @@ namespace Bikewale.BAL.UserReviews
                 CustomerEntityBase objCust = null;
                 //check for user registration
                 objCust = new CustomerEntityBase() { CustomerName = userName, CustomerEmail = emailId };
-                objCust = ProcessUserCookie(objCust);
+                objCust = ProcessUserCookie(objCust, ref reviewId);
 
-                if (objCust.CustomerEmail != emailId)
-                {
-                    objCust.CustomerName = userName;
-                    objCust.CustomerEmail = emailId;
-
-                    RegisterCustomer(objCust);
-                    //customer registration successful
-                    if (objCust.CustomerId > 0)
-                    {
-                        //create tempcurrentuser cookie
-                        string customerData = String.Format("{0}&{1}&{2}&{3}", objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, BikewaleSecurity.EncryptUserId(Convert.ToInt64(objCust.CustomerId)));
-                        BWCookies.SetBuyerDetailsCookie(customerData);
-                    }
-                    // when email or username is edited it should be consider as new entry so review id turned to zero
-                    reviewId = 0;
-
-                }
                 objRating.IsFake = _objCustomerRepo.IsFakeCustomer(objCust.CustomerId);
 
                 if (!objRating.IsFake)
                 {
                     objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId, reviewId);
+                    objRating.CustomerId = objCust.CustomerId;
+                }
+                else
+                {
+                    objRating.ReviewId = reviewId;
                     objRating.CustomerId = objCust.CustomerId;
                 }
 
@@ -270,17 +258,21 @@ namespace Bikewale.BAL.UserReviews
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        private CustomerEntityBase ProcessUserCookie(CustomerEntityBase customer)
+        private CustomerEntityBase ProcessUserCookie(CustomerEntityBase customer, ref uint reviewId)
         {
             try
             {
+                string customerEmail = customer.CustomerEmail, customerName = customer.CustomerName;
+
                 //if tempcurrentuser cookie exists return the buyers basic details
                 BWCookies.GetBuyerDetailsFromCookie(ref customer);
 
-                //Is new Customer 
-                if (customer.CustomerId == 0 && !String.IsNullOrEmpty(customer.CustomerEmail))
+                //Is new Customer or email id is changed 
+                if ((customer.CustomerId == 0 && !String.IsNullOrEmpty(customer.CustomerEmail)) || customer.CustomerEmail != customerEmail)
                 {
                     //perform customer registration with submitted details
+                    customer.CustomerName = customerName;
+                    customer.CustomerEmail = customerEmail;
                     RegisterCustomer(customer);
                     //customer registration successful
                     if (customer.CustomerId > 0)
@@ -289,13 +281,12 @@ namespace Bikewale.BAL.UserReviews
                         string customerData = String.Format("{0}&{1}&{2}&{3}", customer.CustomerName, customer.CustomerEmail, customer.CustomerMobile, BikewaleSecurity.EncryptUserId(Convert.ToInt64(customer.CustomerId)));
                         BWCookies.SetBuyerDetailsCookie(customerData);
                     }
-
+                    reviewId = 0;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("ProcessUserCookie({0})", Newtonsoft.Json.JsonConvert.SerializeObject(customer)));
-                objErr.SendMail();
             }
             return customer;
         }

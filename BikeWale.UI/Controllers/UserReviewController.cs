@@ -49,13 +49,14 @@ namespace Bikewale.Controllers
                 {
                     objUserReview.IsDesktop = true;
                     UserReviewVM = objUserReview.GetData();
+                    if (UserReviewVM != null && UserReviewVM.objModelEntity != null)
+                        return View(UserReviewVM);
+                    else
+                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
                 }
                 else
                     return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                if (UserReviewVM != null && UserReviewVM.objModelEntity != null)
-                    return View(UserReviewVM);
-                else
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+
             }
             else
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
@@ -101,8 +102,13 @@ namespace Bikewale.Controllers
 
 
             UserReviewRatingObject objRating = null;
+
             objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, pagesourceId, reviewId);
+
+
             string strQueryString = string.Empty;
+
+
             if (objRating != null)
                 strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&pagesourceid={8}&isFake={9}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, pagesourceId, objRating.IsFake);
 
