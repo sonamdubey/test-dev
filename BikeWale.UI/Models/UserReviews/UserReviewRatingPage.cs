@@ -21,7 +21,7 @@ namespace Bikewale.Models
         private uint _reviewId;
         private string _Querystring;
         private ulong _customerId;
-        private bool _isVerified;
+
         private uint _pagesourceId;
         private bool _isFake;
         public StatusCodes status;
@@ -63,8 +63,8 @@ namespace Bikewale.Models
 
                 if (_reviewId > 0 && !_isFake)
                 {
-                    _isVerified = _userReviewsRepo.IsUserVerified(_reviewId, _customerId);
-                    if (_isVerified)
+
+                    if (_userReviewsRepo.IsUserVerified(_reviewId, _customerId))
                         status = Entities.StatusCodes.ContentFound;
                     else
                         status = Entities.StatusCodes.ContentNotFound;
