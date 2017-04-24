@@ -83,7 +83,7 @@ docReady(function () {
 
         userNameField = $('#txtUserName');
         userEmailIdField = $('#txtEmailID');
-        if ($('#isFake').val() != "" && Boolean($('#isFake').val())) {
+        if (document.getElementById("rate-bike-form").getAttribute("data-value")) {
             validate.setError(userEmailIdField, 'Please enter an authorised email ID to continue.');
         }
 
@@ -259,10 +259,7 @@ docReady(function () {
             else if (!reEmail.test(vmRateBike.emailId())) {
                 validate.setError(userEmailIdField, 'Please enter your valid email ID');
             }
-            else if ($('#isFake').val()!=""&&!Boolean($('#isFake').val()))
-            {
-                validate.setError(userEmailIdField, 'Please enter an authorised email ID to continue.');
-            }
+        
             else {
                 validate.hideError(userEmailIdField);
                 isValid = true;
