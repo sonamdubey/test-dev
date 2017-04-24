@@ -430,7 +430,8 @@ docReady(function () {
                 self.detailedReview(obj.detailedReview);
                 reviewTitleField.val(obj.reviewTitle);
                 reviewTitleField.parent('div').addClass('not-empty');
-                self.reviewTips(obj.reviewTips);
+                $('#getReviewTip').val(obj.reviewTips);
+                $('#getReviewTip').parent('div').addClass('not-empty');
                 var i;
                 for (i = 0; i < obj.ratingArray.length; ++i) {
                     var quest = obj.ratingArray[i].split(':')[0];
