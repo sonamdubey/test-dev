@@ -1,7 +1,9 @@
 ﻿using Bikewale.Notifications;
+using BikewaleOpr.DTO.Make;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.Service.AutoMappers.Dealer;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -29,15 +31,22 @@ namespace BikewaleOpr.Service.Controllers
         [HttpGet, Route("api/dealermakes/city/{cityId}/")]
         public IHttpActionResult MakesByDealerCity(uint cityId)
         {
+            IEnumerable<MakeBase> objDTOMakes = null;
             try
             {
                 if (cityId > 0)
                 {
                     IEnumerable<BikeMakeEntityBase> makes = null;
                     makes = _objDealerCampaignRepository.MakesByDealerCity(cityId);
+
+
                     if (makes != null)
                     {
-                        return Ok(makes);
+                        // Auto map the properties
+                        objDTOMakes = new List<MakeBase>();
+                        objDTOMakes = DealerCampaignMapper.Convert(makes);
+
+                        return Ok(objDTOMakes);
                     }
                     else
                     {

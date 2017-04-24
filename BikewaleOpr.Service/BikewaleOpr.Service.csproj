@@ -132,6 +132,7 @@
   <ItemGroup>
     <Compile Include="AutoMappers\BikeData\BikeDataMapper.cs" />
     <Compile Include="AutoMappers\BikeData\BikeModelsMapper.cs" />
+    <Compile Include="AutoMappers\Dealer\DealerCampaignMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="AutoMappers\UserReviews\UserReviewsMapper.cs" />
