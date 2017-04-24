@@ -211,7 +211,7 @@ docReady(function () {
     var personalDetails = function () {
         var self = this;
 
-       
+
 
         self.validateDetails = function () {
             var isValid = true;
@@ -256,8 +256,7 @@ docReady(function () {
             else if (!reEmail.test(vmRateBike.emailId())) {
                 validate.setError(userEmailIdField, 'Please enter your valid email ID');
             }
-            else if ($('#isFake').val()!=""&&!Boolean($('#isFake').val()))
-            {
+            else if ($('#isFake').val() != "" && !Boolean($('#isFake').val())) {
                 validate.setError(userEmailIdField, 'Please enter an authorised email ID to continue.');
             }
             else {
@@ -276,7 +275,7 @@ docReady(function () {
         ko.applyBindings(vmRateBike, rateBikeForm);
         vmRateBike.init();
     }
-    
+
     ratingBox.find('.answer-star-list input[type=radio]').change(function () {
         var button = $(this),
             buttonValue = Number(button.val());
@@ -353,10 +352,10 @@ docReady(function () {
             }
         }
     }
-    
+
     descReviewField = $('#reviewDesc');
     reviewTitleField = $('#getReviewTitle');
-        
+
     // write review
     writeReview = function () {
         var self = this,
@@ -505,7 +504,7 @@ docReady(function () {
         ko.applyBindings(vmWriteReview, writeReviewForm);
     }
 
-    $('#bike-review-questions').find('.question-type-star input[type=radio]').change(function () {       
+    $('#bike-review-questions').find('.question-type-star input[type=radio]').change(function () {
         var button = $(this),
             questionField = button.closest('.question-type-star');
 
@@ -525,7 +524,7 @@ docReady(function () {
         validate.onBlur($(this));
     });
 
-    $('#bike-review-questions').find('.question-type-star label').on('mouseover', function () {      
+    $('#bike-review-questions').find('.question-type-star label').on('mouseover', function () {
         question.setFeedback($(this));
     }).on('mouseout', function () {
         question.resetFeedback($(this));
@@ -571,12 +570,7 @@ docReady(function () {
     if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length)
         vmWriteReview.validate.reviewTitle();
 
-    if (performance.navigation.type == 1) {
-        vmWriteReview.GetFromBwCache();
-    }
-    else {
-        bwcache.removeAll(true);
-    }
+    vmWriteReview.GetFromBwCache();
 
     vmWriteReview.FillReviewData();
 

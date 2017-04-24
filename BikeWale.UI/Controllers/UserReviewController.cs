@@ -105,6 +105,13 @@ namespace Bikewale.Controllers
 
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 10-04-2017
+        /// Description : This action will fetch write review page.
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        [Filters.DeviceDetection()]
         [Route("user-reviews/write-review/")]
         public ActionResult WriteReview(string q)
         {
