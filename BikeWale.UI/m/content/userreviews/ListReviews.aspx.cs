@@ -1,6 +1,5 @@
 ﻿using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
-using Bikewale.BAL.UserReviews;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.UserReviews;
@@ -44,6 +43,7 @@ namespace Bikewale.Mobile.Content
         protected UserReviewSimilarBike ctrlUserReviewSimilarBike;
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty;
         protected PageMetaTags pageMetas;
+        protected bool isReviewAvailable;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
