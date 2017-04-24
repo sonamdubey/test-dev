@@ -177,6 +177,11 @@ namespace Bikewale.BAL.UserReviews
                     objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId, reviewId);
                     objRating.CustomerId = objCust.CustomerId;
                 }
+                else
+                {
+                    objRating.ReviewId = reviewId;
+                    objRating.CustomerId = objCust.CustomerId;
+                }
 
 
             }

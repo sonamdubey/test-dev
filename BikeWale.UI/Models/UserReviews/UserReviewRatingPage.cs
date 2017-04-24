@@ -61,11 +61,17 @@ namespace Bikewale.Models
                 bool.TryParse(queryCollection["isFake"], out _isFake);
 
 
-                _isVerified = _userReviewsRepo.IsUserVerified(_reviewId, _customerId);
-                if (_isVerified)
-                    status = Entities.StatusCodes.ContentFound;
+                if (_reviewId > 0 && !_isFake)
+                {
+                    _isVerified = _userReviewsRepo.IsUserVerified(_reviewId, _customerId);
+                    if (_isVerified)
+                        status = Entities.StatusCodes.ContentFound;
+                    else
+                        status = Entities.StatusCodes.ContentNotFound;
+                }
                 else
-                    status = Entities.StatusCodes.ContentNotFound;
+                    status = Entities.StatusCodes.ContentFound;
+
             }
             catch (System.Exception ex)
             {

@@ -83,6 +83,9 @@ docReady(function () {
 
         userNameField = $('#txtUserName');
         userEmailIdField = $('#txtEmailID');
+        if ($('#isFake').val() != "" && Boolean($('#isFake').val())) {
+            validate.setError(userEmailIdField, 'Please enter an authorised email ID to continue.');
+        }
 
         self.init = function () {
             $('#rate-bike-questions .question-type-text input[type=radio][data-checked="true"]').each(function () {
