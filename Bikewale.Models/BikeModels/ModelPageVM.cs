@@ -34,7 +34,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsOnRoadPriceAvailable { get; set; }
         public GlobalCityAreaEntity LocationCookie { get; set; }
         public bool IsAreaSelected { get; set; }
-        public bool IsLocationSelected { get { return (this.LocationCookie != null && this.LocationCookie.CityId > 0); } }
+        public bool IsLocationSelected { get { return (this.City != null && this.City.CityId > 0); } }
         public string Location { get { return (this.IsAreaSelected ? string.Format("{0}, {1}", LocationCookie.Area, LocationCookie.City) : (this.IsLocationSelected ? LocationCookie.City : "Mumbai")); } }
         public string LeadBtnLongText { get { return "Get offers from dealer"; } }
         public string LeadBtnShortText { get { return "Get offers"; } }
