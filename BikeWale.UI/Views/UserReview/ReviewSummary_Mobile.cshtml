@@ -153,7 +153,7 @@
             </div>
         </div>
     </section>
-    <span id="pageSource" class="hide">@Model.PrevPageUrl</span>
+    <input id="pageSource" type="hidden" value="@Model.PrevPageUrl" />
     <div id="review-summary-page"></div>
 }
 <script type="text/javascript">
@@ -164,7 +164,7 @@
                 oldUrl = e.originalEvent.oldURL;
                 if (oldUrl && (oldUrl.indexOf('#') > 0)) {
                     if (prevPage && prevPage.length)
-                        window.location.href = prevPage.text();
+                        window.location.href = prevPage.val();
                 }
             });
         };
