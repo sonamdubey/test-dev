@@ -1044,17 +1044,21 @@ popupContent = $("#listingPopupContent");
 
 $("#listingCitySelection").on("click", function () {
     $("#listingPopupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();
-    popupContent.addClass("open").animate({ 'left': '0px' }, 500);
+    $("#listingPopupContent").addClass("open").animate({ 'left': '0px' }, 500);
     $(".user-input-box").animate({ 'left': '0px' }, 500);
 
 });
 
 $("#listingAreaSelection").on("click", function () {
     $("#listingPopupContent .bw-city-popup-box").hide().siblings("div.bw-area-popup-box").show();
-    popupContent.addClass("open").animate({ 'left': '0px' }, 500);
+    $("#listingPopupContent").addClass("open").animate({ 'left': '0px' }, 500);
     $(".user-input-box").animate({ 'left': '0px' }, 500);
 });
 
+$(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
+    $("#listingPopupContent").removeClass("open").stop().animate({ 'left': '100%' }, 500);
+    $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
+});
 var locationFilter = function (filterContent) {
     var inputText = $(filterContent).val();
     inputText = inputText.toLowerCase();
