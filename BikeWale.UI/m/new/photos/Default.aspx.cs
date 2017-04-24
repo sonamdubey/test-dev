@@ -46,33 +46,23 @@ namespace Bikewale.Mobile.New.Photos
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
             {
-                if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
-                {
-                    isModelPage = true;
-                }
-                if (!String.IsNullOrEmpty(Request.QueryString["colorImageId"]))
-                {
-                    colorImageId = Convert.ToUInt32(Request.QueryString["colorImageId"]);
-                }
-                if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
-                {
-                    imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
-                }
-                if (!String.IsNullOrEmpty(Request.QueryString["tabs"]))
-                {
-                    isTabs = true;
-                }
-
-                BindPhotosPage();
+                isModelPage = true;
             }
-            catch (Exception ex)
+            if (!String.IsNullOrEmpty(Request.QueryString["colorImageId"]))
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.Photos.Default : Page_Load");
+                colorImageId = Convert.ToUInt32(Request.QueryString["colorImageId"]);
             }
-
-
+            if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
+            {
+                imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
+            }
+            if (!String.IsNullOrEmpty(Request.QueryString["tabs"]))
+            {
+                isTabs = true;
+            }
+            BindPhotosPage();
         }
 
         /// <summary>

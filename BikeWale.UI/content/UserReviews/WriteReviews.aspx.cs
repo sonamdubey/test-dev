@@ -169,8 +169,8 @@ namespace Bikewale.Content
 
 
                     HttpContext.Current.Response.Redirect(String.Format("/users/login.aspx?returnUrl={0}", HttpContext.Current.Request.RawUrl));
-                   
-                   
+
+
                 }
                 LoadDefaultComments();
                 BikeName = GetBike();
@@ -342,7 +342,7 @@ namespace Bikewale.Content
             //this function checks whether this user has already added a review for this version
             bool found = false;
             string sql = string.Empty;
-            string id = string.IsNullOrEmpty(versionId) && drpVersions.SelectedItem!=null ? drpVersions.SelectedItem.Value : versionId;
+            string id = string.IsNullOrEmpty(versionId) && drpVersions.SelectedItem != null ? drpVersions.SelectedItem.Value : versionId;
 
             string email = txtEmail.Text.Trim().Replace("'", "''");
 

@@ -1314,18 +1314,6 @@
       <DependentUpon>BikeListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\new\newbikelaunch\BikesByMake.aspx.cs">
-      <DependentUpon>BikesByMake.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\new\newbikelaunch\BikesByYear.aspx.cs">
-      <DependentUpon>BikesByYear.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\new\newbikelaunch\Default_v2.aspx.cs">
-      <DependentUpon>Default_v2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\new\photos\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1374,10 +1362,6 @@
       <DependentUpon>newsdetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\new\BikeModels.aspx.cs">
-      <DependentUpon>BikeModels.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\new\compare\CompareBike.aspx.cs">
       <DependentUpon>CompareBike.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1400,10 +1384,6 @@
     </Compile>
     <Compile Include="m\new\newbikedealers\NewBikeDealerList_old.aspx.cs">
       <DependentUpon>NewBikeDealerList_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\new\newbikelaunch\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\bikebooking\BookingListing.aspx.cs">
@@ -1434,10 +1414,6 @@
       <DependentUpon>BookingSummary_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\pricequote\DealerPriceQuote.aspx.cs">
-      <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\pricequote\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1452,10 +1428,6 @@
     </Compile>
     <Compile Include="m\pricequote\PaymentFailure.aspx.cs">
       <DependentUpon>PaymentFailure.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\pricequote\Quotation.aspx.cs">
-      <DependentUpon>Quotation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\pricequote\RSAOfferClaim.aspx.cs">
@@ -1546,18 +1518,6 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\newbikelaunch\BikesByMake.aspx.cs">
-      <DependentUpon>BikesByMake.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\newbikelaunch\BikesByYear.aspx.cs">
-      <DependentUpon>BikesByYear.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\newbikelaunch\Default_v2.aspx.cs">
-      <DependentUpon>Default_v2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="servicecenter\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1574,28 +1534,12 @@
       <DependentUpon>ServiceCenterList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\dealersincountry.aspx.cs">
-      <DependentUpon>dealersincountry.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="new\BikeDealerDetails.aspx.cs">
       <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\browsenewbikedealerdetails.aspx.cs">
-      <DependentUpon>browsenewbikedealerdetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="new\listnewbikedealersbycity.aspx.cs">
       <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\dealersinstate.aspx.cs">
-      <DependentUpon>dealersinstate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\ModelPricesInCity.aspx.cs">
-      <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\modelSpecsFeatures.aspx.cs">
@@ -1604,10 +1548,6 @@
     </Compile>
     <Compile Include="new\search_new.aspx.cs">
       <DependentUpon>search_new.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\versions.aspx.cs">
-      <DependentUpon>versions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\common\CompareBikes.cs" />
@@ -1626,16 +1566,8 @@
       <DependentUpon>EMILoan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\dealersinindia_280916.aspx.cs">
-      <DependentUpon>dealersinindia_280916.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="new\locatenewbikedealers.aspx.cs">
       <DependentUpon>locatenewbikedealers.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\newbikelaunch\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\Search.aspx.cs">
@@ -1674,14 +1606,6 @@
       <DependentUpon>BookingSummary_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pricequote\DealerPriceQuote_old.aspx.cs">
-      <DependentUpon>DealerPriceQuote_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pricequote\DealerPriceQuote.aspx.cs">
-      <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="pricequote\default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1700,10 +1624,6 @@
     </Compile>
     <Compile Include="pricequote\PaymentFailure.aspx.cs">
       <DependentUpon>PaymentFailure.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pricequote\quotation.aspx.cs">
-      <DependentUpon>quotation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pricequote\RSAOfferClaim.aspx.cs">
@@ -2904,9 +2824,6 @@
     <Content Include="m\css\dealer\details.css" />
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
-    <Content Include="m\new\newbikelaunch\BikesByMake.aspx" />
-    <Content Include="m\new\newbikelaunch\BikesByYear.aspx" />
-    <Content Include="m\new\newbikelaunch\Default_v2.aspx" />
     <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\faq.aspx" />
@@ -2947,14 +2864,12 @@
     <Content Include="m\Insurance\Default.aspx" />
     <Content Include="m\news\Default.aspx" />
     <Content Include="m\news\newsdetails.aspx" />
-    <Content Include="m\new\BikeModels.aspx" />
     <Content Include="m\new\compare\CompareBike.aspx" />
     <Content Include="m\new\compare\CompareBikeDetails.aspx" />
     <Content Include="m\new\newbikedealers\Default.aspx" />
     <Content Include="m\service\ServiceCenterList.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList_old.aspx" />
-    <Content Include="m\new\newbikelaunch\Default.aspx" />
     <Content Include="m\bikebooking\BookingListing.aspx" />
     <Content Include="m\new\search_new.aspx" />
     <Content Include="m\offerterms.aspx" />
@@ -2963,12 +2878,10 @@
     <Content Include="m\pagenotfound.aspx" />
     <Content Include="m\pricequote\BikeDealerDetails.aspx" />
     <Content Include="m\pricequote\BookingSummary_New.aspx" />
-    <Content Include="m\pricequote\DealerPriceQuote.aspx" />
     <Content Include="m\pricequote\Default.aspx" />
     <Content Include="m\pricequote\DetailedDealerQuotation.aspx" />
     <Content Include="m\pricequote\PaymentConfirmation.aspx" />
     <Content Include="m\pricequote\PaymentFailure.aspx" />
-    <Content Include="m\pricequote\Quotation.aspx" />
     <Content Include="m\pricequote\rsa.aspx" />
     <Content Include="m\pricequote\RSAOfferClaim.aspx" />
     <Content Include="m\src\BikeBooking\BikeBooking.js" />
@@ -3044,8 +2957,6 @@
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="News\RepeaterPagerNews.ascx" />
     <Content Include="App_Data\wurfl.xml.gz" />
-    <Content Include="new\newbikelaunch\BikesByMake.aspx" />
-    <Content Include="new\newbikelaunch\BikesByYear.aspx" />
     <Content Include="m\sass\new-launch\new-launch.sass" />
     <Content Include="m\sass\new-launch\_new-launch-style.sass" />
     <Content Include="m\sass\modules\_brand-logo.sass" />
@@ -3093,7 +3004,6 @@
     <Content Include="sass\upcoming-bikes\upcoming-bikes.sass" />
     <Content Include="sass\upcoming-bikes\_upcoming-bikes-style.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="new\photos\Default.aspx" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="servicecenter\Default.aspx" />
@@ -3102,20 +3012,14 @@
     <Content Include="servicecenter\ServiceCenterDetails.aspx" />
     <Content Include="servicecenter\ServiceCenterList.aspx" />
     <Content Include="new\BikeDealerDetails.aspx" />
-    <Content Include="new\dealersincountry.aspx" />
-    <Content Include="new\browsenewbikedealerdetails.aspx" />
-    <Content Include="new\dealersinstate.aspx" />
     <Content Include="new\listnewbikedealersbycity.aspx" />
-    <Content Include="new\ModelPricesInCity.aspx" />
     <Content Include="new\modelSpecsFeatures.aspx" />
     <Content Include="new\search_new.aspx" />
-    <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
     <Content Include="customerror.aspx" />
     <Content Include="pricequote\BikeDealerDetails.aspx" />
     <Content Include="pricequote\BookingSummary_New.aspx" />
-    <Content Include="pricequote\DealerPriceQuote_old.aspx" />
     <Content Include="pricequote\PaymentConfirmation.aspx" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
@@ -3158,9 +3062,7 @@
     <Content Include="new\compare\CompareBikes.aspx" />
     <Content Include="new\compare\default.aspx" />
     <Content Include="new\EMILoan.aspx" />
-    <Content Include="new\dealersinindia_280916.aspx" />
     <Content Include="new\locatenewbikedealers.aspx" />
-    <Content Include="new\newbikelaunch\Default.aspx" />
     <Content Include="new\search_old.aspx" />
     <Content Include="new\Specs.aspx" />
     <Content Include="new\upcomingbikes\upcomingbikesfeed.aspx" />
@@ -3169,12 +3071,10 @@
     <Content Include="Partners.aspx" />
     <Content Include="PQCertificate.aspx" />
     <Content Include="pricequote\CancellationPolicy.aspx" />
-    <Content Include="pricequote\DealerPriceQuote.aspx" />
     <Content Include="pricequote\default.aspx" />
     <Content Include="pricequote\DetailedDealerQuotation.aspx" />
     <Content Include="pricequote\faq.aspx" />
     <Content Include="pricequote\PaymentFailure.aspx" />
-    <Content Include="pricequote\quotation.aspx" />
     <Content Include="pricequote\RSAOfferClaim.aspx" />
     <Content Include="privacyPolicy.aspx" />
     <Content Include="SiteMap.aspx" />

@@ -16,6 +16,7 @@ namespace BikewaleOpr.Interface.BikeData
     public interface IBikeModelsRepository
     {
         IEnumerable<BikeModelEntityBase> GetModels(uint makeId, string requestType);
+        IEnumerable<BikeModelEntityBase> GetModels(uint makeId, ushort requestType);
         void SaveModelUnitSold(string list, DateTime date);
         SoldUnitData GetLastSoldUnitData();
         uint FetchPhotoId(UsedBikeModelImageEntity objModelImageEntity);

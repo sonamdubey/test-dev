@@ -832,7 +832,7 @@ namespace Bikewale.DAL.UserReviews
                         {
                             if (rating.Key == question.Id)
                             {
-                                question.Rating = rating;
+                                question.Rating = rating.ToList();
                                 break;
                             }
                         }
@@ -841,21 +841,16 @@ namespace Bikewale.DAL.UserReviews
                         {
                             if (priceId.Key == question.Id)
                             {
-                                question.PriceRangeIds = priceId.Select(x => x.RangeId);
+                                question.PriceRangeIds = priceId.Select(x => x.RangeId).ToList();
                                 break;
                             }
                         }
                     }
-
-
-
                 }
             }
             catch (Exception ex)
             {
-
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-
             }
 
             return objData;

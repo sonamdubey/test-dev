@@ -32,6 +32,12 @@ namespace Bikewale.Controllers
 
         }
 
+        /// <summary>
+        /// Created by Subodh Jain on 10-04-2017
+        /// Description : This action will fetch rate bike page.
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
         [Route("user-reviews/rate-bike/{modelId}/")]
         public ActionResult RateBike(uint modelId, uint? pagesourceid, string reviewId)
         {
@@ -57,7 +63,12 @@ namespace Bikewale.Controllers
         }
 
 
-        // GET: UserReview
+        /// <summary>
+        /// Created by Subodh Jain on 10-04-2017
+        /// Description : This action will fetch rate bike page.
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
         [Route("m/user-reviews/rate-bike/{modelId}/")]
         public ActionResult RateBike_Mobile(uint modelId, uint? pagesourceid, string reviewId)
         {
@@ -79,6 +90,12 @@ namespace Bikewale.Controllers
 
         }
 
+        /// <summary>
+        /// Created by Subodh Jain on 10-04-2017
+        /// Description : This action will submit rating
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
         public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, uint pagesourceId, bool? isDesktop)
         {
@@ -111,6 +128,13 @@ namespace Bikewale.Controllers
 
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 10-04-2017
+        /// Description : This action will fetch write review page.
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        [Filters.DeviceDetection()]
         [Route("user-reviews/write-review/")]
         public ActionResult WriteReview(string q)
         {
@@ -202,13 +226,19 @@ namespace Bikewale.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Created by Subodh Jain on 10-04-2017
+        /// Description : To fetch review summary page.
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
         [Route("user-reviews/review-summary/{reviewid}/")]
         public ActionResult ReviewSummary(uint reviewid, string q)
         {
             if (reviewid > 0)
             {
                 UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
+                objData.IsDesktop = true;
                 if (objData != null && objData.status == Entities.StatusCodes.ContentNotFound)
                 {
                     return Redirect("/pageNotFound.aspx");

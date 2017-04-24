@@ -21,6 +21,7 @@ namespace Bikewale.Models.UserReviews
 
         #region Public variables
         public StatusCodes status;
+        public bool IsDesktop;
         #endregion
 
         #region Constructor
@@ -56,7 +57,7 @@ namespace Bikewale.Models.UserReviews
                 if (objData.Summary != null)
                 {
                     status = StatusCodes.ContentFound;
-                    objData.PrevPageUrl = Bikewale.Utility.UserReviews.FormatPreviousPageUrl(objData.Summary.PageSource, objData.Summary.Make.MaskingName, objData.Summary.Model.MaskingName);
+                    objData.PrevPageUrl = Bikewale.Utility.UserReviews.FormatPreviousPageUrl(objData.Summary.PageSource, objData.Summary.Make.MaskingName, objData.Summary.Model.MaskingName, IsDesktop);
                     objData.WriteReviewLink = string.Format("/write-a-review/?q={0}", _strEncoded);
                     objData.Summary.Questions = objData.Summary.Questions.Where(x => x.Type == UserReviewQuestionType.Review);
                     BindPageMetas(objData);

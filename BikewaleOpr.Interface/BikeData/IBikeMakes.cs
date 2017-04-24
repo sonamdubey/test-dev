@@ -12,7 +12,8 @@ namespace BikewaleOpr.Interface.BikeData
     /// </summary>
     public interface IBikeMakes
     {
-        IEnumerable<BikeMakeEntityBase> GetMakes(string RequestType);
+        IEnumerable<BikeMakeEntityBase> GetMakes(string requestType);
+        IEnumerable<BikeMakeEntityBase> GetMakes(ushort RequestType);
         IEnumerable<BikeMakeEntity> GetMakesList();
         void AddMake(BikeMakeEntity make, ref short isMakeExist, ref int makeId);
         void UpdateMake(BikeMakeEntity make);
