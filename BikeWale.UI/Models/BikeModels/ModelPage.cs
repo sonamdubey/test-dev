@@ -449,7 +449,7 @@ namespace Bikewale.Models.BikeModels
                                     var selected = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == version.VersionId).FirstOrDefault();
                                     if (selected != null)
                                     {
-                                        version.Price = selected.OnRoadPrice;
+                                        version.Price = !objData.ShowOnRoadButton ? selected.OnRoadPrice : selected.Price;
                                     }
                                 }
                                 ///Choose the min price version of city level pricing
@@ -489,12 +489,12 @@ namespace Bikewale.Models.BikeModels
                                 {
                                     objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
                                     objData.VersionId = (uint)objData.SelectedVersion.VersionId;
-                                    objData.BikePrice = objData.CityId == 0 ? (uint)objData.SelectedVersion.Price : 0;
+                                    objData.BikePrice = objData.ShowOnRoadButton ? (uint)objData.SelectedVersion.Price : (objData.CityId == 0 ? (uint)objData.SelectedVersion.Price : 0);
                                 }
                                 else
                                 {
                                     objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
-                                    objData.BikePrice = objData.CityId == 0 ? (uint)objData.SelectedVersion.Price : 0;
+                                    objData.BikePrice = objData.ShowOnRoadButton ? (uint)objData.SelectedVersion.Price : (objData.CityId == 0 ? (uint)objData.SelectedVersion.Price : 0);
                                 }
                             }
                             else if (objData.IsDiscontinuedBike && objData.VersionId == 0)
@@ -761,7 +761,7 @@ namespace Bikewale.Models.BikeModels
             {
                 var objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == objData.VersionId).FirstOrDefault();
                 if (objSelectedVariant != null)
-                    objData.BikePrice = objData.IsLocationSelected ? Convert.ToUInt32(objSelectedVariant.OnRoadPrice) : Convert.ToUInt32(objSelectedVariant.Price);
+                    objData.BikePrice = objData.IsLocationSelected && !objData.ShowOnRoadButton ? Convert.ToUInt32(objSelectedVariant.OnRoadPrice) : Convert.ToUInt32(objSelectedVariant.Price);
 
                 objData.IsBPQAvailable = true;
             }

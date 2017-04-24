@@ -26,7 +26,7 @@
                         <div class="clear"></div>
 
                         <div class="padding-10-20" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                            <p class="font12 text-light-grey">@(Model.IsLocationSelected ? "On-road" : "Ex-showroom ") price in @Model.Location</p>
+                            <p class="font12 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road" : "Ex-showroom ") price in @Model.Location</p>
                             <div>
                                 <span itemprop="priceCurrency" content="INR">
                                     @if (Model.BikePrice > 0)
