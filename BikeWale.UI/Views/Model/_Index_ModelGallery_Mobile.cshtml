@@ -70,7 +70,7 @@
     @if (Model.ModelColorPhotosCount > 0)
     {
         <li>
-            <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Colors" : "Color")" href="@string.Format("/m{0}",Model.ColourImageUrl)">
+            <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Colors" : "Color")" href="@string.Format("/m{0}", Model.ColourImageTabsUrl)">
                 <span class="bwmsprite colors-sm"></span>
                 <span class="inline-block">
                     <span class="font12">@Model.ModelColorPhotosCount</span>&nbsp;<span class="font11">@string.Format("{0}", Model.ModelColorPhotosCount > 1 ? "colours" : "colour")</span>

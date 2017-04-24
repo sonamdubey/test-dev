@@ -28,8 +28,8 @@ namespace Bikewale.Service.Controllers.UserReviews
     public class UserReviewsListTypeController : ApiController
     {
         
-        private readonly IUserReviews _userReviewsRepo = null;
-        public UserReviewsListTypeController(IUserReviews userReviewsRepo)
+        private readonly IUserReviewsRepository _userReviewsRepo = null;
+        public UserReviewsListTypeController(IUserReviewsRepository userReviewsRepo)
         {
             _userReviewsRepo = userReviewsRepo;
         }

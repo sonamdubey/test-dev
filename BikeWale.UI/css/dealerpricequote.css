@@ -1,12 +1,4 @@
-﻿h1 {
-    font-size: 22px;
-    font-weight: 600;
-}
-h2 {
-    font-size: 18px !important;
-    font-weight: 600;
-}
-h3 {
+﻿h3 {
     font-size: 15px !important;
     font-weight: 600;
 }
@@ -16,12 +8,8 @@ h3 {
 .margin-bottom2 {
     margin-bottom: 2px;
 }
-.select-box .chosen-container .chosen-single,
-.select-box .chosen-container .chosen-results .result-selected {
-    font-weight: 600 !important;
-}
 .text-bold {
-    font-weight: 600 !important;
+    font-weight: 600;
 }
 .padding-14-20 {
     padding: 14px 20px;
@@ -58,158 +46,102 @@ h3 {
 }
 
 /* model-version-dropdown */
-.single-version-content {
-    width: 210px;
-}
-.top-minus5 {
-    top: -5px;
-}
-.pos-top2 {
-    top: 2px;
-}
-
-.margin-right40 {
-    margin-right: 40px;
-}
-
-.single-version-value {
-    padding-top: 3px;
-    padding-bottom: 3px;
-}
-
-#model-version-dropdown {
-    position: relative;
-    top: 15px;
-}
 #model-version-dropdown .select-box {
-    height: 45px;
+    height: 28px;
 }
 
 #model-version-dropdown .chosen-container {
-    width: auto !important;
-    min-width: 210px !important;
+    width: 126px !important;
+    height: 28px;
 }
 
-#model-version-dropdown .chosen-container .chosen-drop {
-    width: auto !important;
-    min-width: 220px !important;
-}
-
-/* select box */
-.select-box {
-    height: 60px;
-    position: relative;
-}
-.select-box .select-label {
+#model-version-dropdown .chosen-drop {
     position: absolute;
-    top: 0;
-    color: #82888b;
-    font-size: 16px;
+    width: 260px !important;
+    top: -18px;
 }
+
+#model-version-dropdown .chosen-single {
+    font-size: 13px;
+    color: #4d5057;
+    padding-top: 3px;
+}
+
+#model-version-dropdown .no-input-label {
+    font-size: 14px;
+}
+
+/* select box for atf */
 .select-box .chosen-container {
     height: 30px;
     position: relative;
     top: 0;
-    padding: 0;
-    border: 0;
     cursor: pointer;
     border-bottom: 1px solid #82888b;
-    background: transparent url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    border-radius: 0;
+    background: transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
 }
-.select-box .chosen-container .chosen-single {
+.chosen-container-single .chosen-single span {
+    display: block;
+    overflow: hidden;
+    margin-right: 26px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* single version and location */
+.single-version-content {
+    width: 126px;
+}
+
+.dropdown-effect-light {
+    padding: 3px 18px 6px 0;
+    position: relative;
+}
+
+.dropdown-effect-light {
+    background: transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-effect-light:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 15px;
     height: 100%;
-    color: #4d5057;
-    font-size: 16px;
-    font-weight: 700;
-    background: transparent;
-}
-.select-box .chosen-container .chosen-default {
-    display: none;
-}
-.select-box .chosen-container .chosen-search {
-    padding: 0;
-    border-bottom: 1px solid #41b4c4;
-}
-.select-box .chosen-container .chosen-search input[type=text] {
-    border: 0;
-    padding: 12px 10px;
-    font-size: 16px;
-}
-.select-box .chosen-container .chosen-results {
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-}
-.select-box .chosen-container .chosen-results::-webkit-scrollbar {
-    width: 5px;
-}
-.select-box .chosen-container .chosen-results::-webkit-scrollbar-track {
     background: #fff;
-}
-.select-box .chosen-container .chosen-results::-webkit-scrollbar-thumb {
-    background: #ddd;
-}
-.select-box .chosen-container .chosen-results::-webkit-scrollbar-thumb:hover {
-    background: #bbb;
-}
-.select-box .chosen-container .chosen-results li {
-    padding: 8px 10px;
-    transition: background .1s linear;
-}
-.select-box .chosen-container .chosen-results .highlighted {
-    background-color: #f5f5f5;
-}
-.select-box .chosen-container .chosen-results .result-selected {
-    font-weight: 700;
-}
-.select-box .chosen-container .chosen-drop {
-    width: 300px;
-    z-index: 1;
-    top: -15px;
-    border: 1px solid #e2e2e2;
-    -webkit-box-shadow: 0 2px 10px 1px #ccc;
-    -moz-box-shadow: 0 2px 10px 1px #ccc;
-    -ms-box-shadow: 0 2px 10px 1px #ccc;
-    -o-box-shadow: 0 2px 10px 1px #ccc;
-    box-shadow: 0 2px 10px 1px #ccc;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    border-radius: 2px;
-}
-.select-box.select-box-no-input .chosen-search {
-    border-bottom: 1px solid #e2e2e2;
-}
-.select-box.select-box-no-input .chosen-results li {
-    padding-right: 20px;
-    padding-left: 20px;
-}
-.select-box.select-box-no-input .no-input-label {
-    font-size: 16px;
-    color: #4d5057;
-    padding: 11px 20px;
-    cursor: text;
-}
-.done .select-label {
-    font-size: 12px;
-    top: -20px;
+    opacity: 0.7;
 }
 
-/* small select-box */
-.select-box.size-small .chosen-container .chosen-single {
-    font-size: 14px;
+/* city */
+.location-selection {
+    width: 165px;
 }
 
-.select-box.size-small .chosen-container {
-    height: 27px;
+.selected-city {
+    padding: 3px 18px 6px 0;
+    position: relative;
+    border-bottom: 1px solid #82888b;
 }
 
-.select-box.size-small .chosen-container .chosen-drop {
-    top: -17px;
+.loc-change-blue-icon { 
+    width: 12px;
+    height: 16px;
+    background-position: -205px -9px;
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+}
+
+.loc-change-blue-icon:hover {
+    background-position: -205px -35px;
+}
+
+.location-selection .loc-change-blue-icon {
+    position: absolute;
+    top: 4px;
+    right: 0;
 }
 
 /* pq-table */
@@ -237,7 +169,7 @@ h3 {
     -o-box-shadow: 0 2px 5px #e2e2e2,0 -2px 5px #f1f1f1;
     -ms-box-shadow: 0 2px 5px #e2e2e2,0 -2px 5px #f1f1f1;
     box-shadow: 0 2px 5px #e2e2e2,0 -2px 5px #f1f1f1;
-    border: 1px solid #e2e2e2\9;
+    border: 1px solid #f5f5f5;
 }
 
 #pq-dealer-name {
@@ -390,19 +322,6 @@ h3 {
 /* icons */
 .pq-sprite { background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
 
-.loc-change-blue-icon {
-    width: 12px;
-    height: 16px;
-    background-position: -205px -9px;
-    cursor: pointer;
-    position: relative;
-    top: 2px;
-}
-
-.loc-change-blue-icon:hover {
-    background-position: -205px -35px;
-}
-
 .inr-md-lg {
     width: 12px;
     height: 17px;
@@ -476,24 +395,11 @@ h3 {
     }
 }
 
-#pqBikeDetails.grid-8 { width: 664px; }
-#PQDealerSidebarContainer.grid-4 { width:310px; }
-#PQImageVariantContainer { padding-top:40px; padding-left:20px; }
-.pqBikeImage { width:294px; overflow:hidden; }
-#PQImageVariantContainer img{width:100%}
-.pqVariants .variants-dropdown{ width:210px; height: 40px; padding: 9px; margin-left: 12px; border: 1px solid #ccc; color: #555; position: relative; cursor: pointer; background: #fff;}
-.variant-selection-tab { width:90%; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; }
-#upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px;}
 .inr-sm, .inr-sm-grey { width:8px; height:12px; }
 .inr-sm { background-position:-110px -468px; }
 .inr-sm-grey { background-position:-92px -468px; }
 .inr-lg-grey { width:10px; height:14px; background-position:-91px -490px; }
-.variants-dropdown .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
-.variants-dropdown.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
-.variants-dropdown-list { display:none; width:210px; overflow:hidden; background: #fff; border: 1px solid #ccc; position: absolute; top:40px; left:82px; z-index: 2;}
-.variants-dropdown-list li.selected { font-weight:bold; }
-.variants-dropdown-list li input{ width:100%; text-align:left;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;background: #fff;color:rgb(77, 80, 87); padding:10px}
-.variants-dropdown-list li:hover input{cursor:pointer; background:#82888b; color:#fff; }
+
 .offer-benefit-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
 .pricequote-offers-list,.pricequote-benefits-list { overflow:hidden; }
 .pricequote-offers-list li,.pricequote-benefits-list li { width:205px; padding-right:10px; margin-top:10px; margin-bottom:10px; display:inline-block; vertical-align:middle;}
@@ -513,27 +419,7 @@ h3 {
 
 .disclaimer-sm-icon { width:12px; height:11px; background-position:-59px -323px; margin-right:3px; }
 .tel-sm-icon { width:8px; height:13px; background-position:-88px -324px; margin-right:3px; }
-/*sidebar*/
-#PQDealerSidebarContainer { background:#fff; position:relative; right:0; overflow:hidden; }
-.pqdealer-and-listing-container { max-height:540px; overflow-y:scroll; overflow-x:hidden; }
-.pqdealer-sidebar-panel, .pq-no-premium-dealer { border:1px solid #e2e2e2; padding:15px 20px 20px;}
-.pqdealer-sidebar-panel::before {border-right: 11px solid #e2e2e2;border-top: 11px solid transparent;border-bottom: 11px solid transparent;content: "";position: absolute; top:44px; left: -12px;z-index: 1;}
-.pqdealer-sidebar-panel::after { border-right: 11px solid #ffffff; border-top: 11px solid transparent; border-bottom: 11px solid transparent; content: ""; position: absolute; top:44px;left: -11px; z-index: 1; }
-.pq-sidebar-dealer-listing li { padding-top:15px; padding-bottom:15px; border-top:1px solid #f1f1f1; }
-.show-more-dealers { display:block; }
-.show-less-dealers { display:none; }
-.pqdealer-and-listing-container::-webkit-scrollbar {width: 5px;}
-.pqdealer-and-listing-container::-webkit-scrollbar-track {background: #fff;}
-.pqdealer-and-listing-container::-webkit-scrollbar-thumb {background: #ddd;}
-.pqdealer-and-listing-container::-webkit-scrollbar-thumb:hover {background: #bbb;}
-a.text-darker-black:hover { text-decoration:none; }
 
-.jcarousel-wrapper.alternatives-carousel{width:974px}
-.alternatives-carousel .jcarousel li{height:auto;margin-right:18px}
-.alternatives-carousel .jcarousel li.front{border:none}
-.alternative-section .jcarousel-control-left{left:-24px}
-.alternative-section .jcarousel-control-right{right:-24px}
-.alternative-section .jcarousel-control-left,.alternative-section .jcarousel-control-right{top:50%}
 .newBikes-latest-updates-container .grid-4{padding-left:10px}
 .available-colors{display:inline-block;width:150px;text-align:center;margin-bottom:20px;padding:0 5px;vertical-align:top}
 .available-colors .color-box{width:60px;height:60px;margin:0 auto 15px;border-radius:3px;background:#f00;border:1px solid #ccc}
@@ -553,21 +439,16 @@ a.text-darker-black:hover { text-decoration:none; }
 #otpPopup .errorIcon,#otpPopup .errorText{display:none}
 .input-border-bottom{border-bottom:1px solid #ccc}
 .assistance-response-close.cross-lg-lgt-grey:hover { background-position: -36px -252px; }
-.phone-grey-icon, .phone-black-icon { width:11px; height:15px; position:relative; margin-right:3px; }
-.phone-grey-icon { top:0; background-position:-53px -444px; }
-.phone-black-icon { top:5px; background-position:-73px -444px; }
+.phone-grey-icon { width:11px; height:15px; position:relative; margin-right:3px; top:0; background-position:-53px -444px; }
 .dealership-loc-icon { width:9px; height:12px; background-position:-52px -469px; position:relative;top:4px; }
 .dealership-address { width:92%; }
 
-#modelAlternateBikeContent{ background: #fff; -moz-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -webkit-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -o-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -ms-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; border: 1px solid #e2e2e2\9;}
+#modelAlternateBikeContent{ background: #fff; -moz-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -webkit-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -o-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -ms-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; border: 1px solid #f5f5f5;}
 
 @media only screen and (max-width:1024px) {
-    #pqBikeDetails.grid-8 { width:640px; }
-    #PQDealerSidebarContainer.grid-4 { width:298px; }
     #buyingAssistBtn.btn { width:85px; }
     .pricequote-offers-list li, .pricequote-benefits-list li{ width:195px; }
     .emi-slider-box-right-section { width:115px; padding: 8px 0; }
-    .pqVariants .variants-dropdown { width:170px; }
      #modelPriceInNearbyCities li { width:190px; }
     #modelPriceInNearbyCities li a{ width:105px; }
     #city-dealer-list li { width: 280px; }
@@ -585,25 +466,23 @@ a.text-darker-black:hover { text-decoration:none; }
 #modelPriceInNearbyCities li a { width:115px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:5px; display:inline-block; vertical-align:top; }
 #modelPriceInNearbyCities .nearby-city-price { width:80px; color:#2a2a2a; text-align:right; display:inline-block; vertical-align:top; }
 .blue-right-arrow-icon { width:6px; height:10px; background-position:-74px -469px; position:relative; top:1px; left:7px; }
-.dealership-loc-icon { width:9px; height:12px; background-position:-52px -469px; position:relative;top:4px; }
 .dealership-card-details { width:92%; }
 .inr-sm, .inr-sm-grey, .inr-sm-dark { width:8px; height:12px; }
 .inr-sm {background-position:-110px -468px; }
 .inr-sm-grey{background-position: -92px -468px;}
 .inr-sm-dark{background-position: -128px -468px;}
-#makeDealersContent h2 { margin-bottom:20px; }
+
 #makeDealersContent .swiper-slide:first-child { margin-left:10px; }
 .swiper-slide.bike-carousel-swiper.dealer-by-city { width:184px; min-height:210px;padding:17px 10px; }
 .swiper-slide.bike-carousel-swiper.dealer-no-city { width:184px; min-height:210px; }
 .dealership-address, .dealership-email {width: 87%;}
 .tel-sm-grey-icon { width: 15px; height: 15px;background-position: 0 -435px; position: relative;top: 2px;}
 .dealer-no-city a { width:184px; min-height:210px; display:block; padding:20px; }
-.text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
 
 /* dealer card */
 .card {
   width: 292px;
-  min-height: 140px;
+  min-height: 153px;
   border: 1px solid #f6f6f6;
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
@@ -627,9 +506,6 @@ a.text-darker-black:hover { text-decoration:none; }
 }
 .card .text-truncate {
     width: 100%;
-}
-.details-column {
-    width: 92%
 }
 
 #makeUsedBikeContent h2 {
@@ -735,7 +611,7 @@ a.text-darker-black:hover { text-decoration:none; }
 }
 
 .neg-right15 {
-    right: -15px
+    right: 196px
 }
 
 /* btn sizes */

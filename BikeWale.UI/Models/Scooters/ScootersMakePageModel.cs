@@ -117,9 +117,9 @@ namespace Bikewale.Models
             try
             {
                 string versionList = string.Join(",", objViewModel.Scooters.Select(m => m.objVersion.VersionId));
-                var compareBikes = _compareScooters.GetSimilarCompareBikes(versionList, 4, (int)CityId);
+                var compareBikes = _compareScooters.GetSimilarCompareBikes(versionList, 1, (int)CityId);
                 objViewModel.SimilarCompareScooters = new ScooterComparesVM();
-                objViewModel.SimilarCompareScooters.Bikes = compareBikes.Take(4).ToList();
+                objViewModel.SimilarCompareScooters.Bikes = compareBikes;
                 objViewModel.SimilarCompareScooters.MakeName = _makeName;
             }
             catch (Exception ex)
@@ -250,7 +250,8 @@ namespace Bikewale.Models
             objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
             {
                 PageSize = 9,
-                PageNo = 1
+                PageNo = 1,
+                BodyStyleId = 5
             };
             objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
             objData.UpcomingScooters = objUpcoming.GetData();

@@ -407,4 +407,9 @@ docReady(function () {
     } catch (e) {
         console.warn(e.message);
     }
+    var $dvPgVar = $("#dvPgVar");
+    bikeName = $dvPgVar.data("bikename");
+  
+    var cityName = $dvPgVar.data("cityarea");
+    triggerGA('Price_in_City_Page', 'CoverFox_Link_Shown', bikeName + '_' + cityName);
 });
