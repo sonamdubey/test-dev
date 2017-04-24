@@ -212,17 +212,17 @@ namespace Bikewale.Controllers
                 UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
                 if (objData != null && objData.status == Entities.StatusCodes.ContentNotFound)
                 {
-                    return Redirect("/m/pageNotFound.aspx");
+                    return Redirect("/pageNotFound.aspx");
                 }
                 UserReviewSummaryVM objVM = objData.GetData();
                 if (objData.status == Entities.StatusCodes.ContentFound)
                     return View(objVM);
                 else
-                    return Redirect("/m/pageNotFound.aspx");
+                    return Redirect("/pageNotFound.aspx");
             }
             else
             {
-                return Redirect("/m/pageNotFound.aspx");
+                return Redirect("/pageNotFound.aspx");
             }
         }
 
@@ -238,17 +238,17 @@ namespace Bikewale.Controllers
                 UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
                 if (objData != null && objData.status == Entities.StatusCodes.ContentNotFound)
                 {
-                    return Redirect("/m/pageNotFound.aspx");
+                    return Redirect("/pageNotFound.aspx");
                 }
                 UserReviewSummaryVM objVM = objData.GetData();
                 if (objData.status == Entities.StatusCodes.ContentFound)
                     return View(objVM);
                 else
-                    return Redirect("/m/pageNotFound.aspx");
+                    return Redirect("/pageNotFound.aspx");
             }
             else
             {
-                return Redirect("/m/pageNotFound.aspx");
+                return Redirect("/pageNotFound.aspx");
             }
         }
     }

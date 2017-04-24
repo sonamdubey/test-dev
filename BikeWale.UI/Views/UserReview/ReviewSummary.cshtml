@@ -4,29 +4,8 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/user-review/write-review.css' />";
     Model.Page_JS_Path = "/src/user-review/write-review.js";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.PageMetaTags.AlternateUrl=string.Format("{0}/user-reviews/review-summary/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, Model.Summary.Model.ModelId);
 }
-
-<section>
-    <div class="container padding-top10">
-        <div class="grid-12">
-            <div class="breadcrumb margin-bottom15">
-                <!-- breadcrumb code starts here -->
-                <ul>
-                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                        <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
-                    </li>
-                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                        <span class="bwsprite fa-angle-right margin-right10"></span>
-                        <a itemprop="url" href="" title=""><span itemprop="title">User reviews</span></a>
-                    </li>
-                    <li><span class="bwsprite fa-angle-right margin-right10"></span>Write a review</li>
-                </ul>
-                <div class="clear"></div>
-            </div>
-        </div>
-        <div class="clear"></div>
-    </div>
-</section>
 
 <section>
     <div class="container section-bottom-margin">
@@ -89,7 +68,7 @@
                         </div>
                     </div>
 
-                  
+
 
                     @if (!string.IsNullOrEmpty(Model.Summary.Description))
                     {
@@ -98,7 +77,7 @@
 
                             <p>@Html.Raw(Model.Summary.Description)</p>
                         </div>
-                        <input type="button" class="btn btn-orange btn-220-40 margin-top10" value="Done" />
+                        <a href="@Model.PrevPageUrl" class="btn btn-orange btn-220-40 margin-top10" >Done</a>
 
 
                     }
@@ -108,51 +87,59 @@
                         <p class="font15 text-bold text-black margin-bottom10">Tell us more about your experience!</p>
                         <p class="text-slate-grey margin-bottom15">Share your experience of owning/riding @Model.Summary.Make.MakeName @Model.Summary.Model.ModelName. Your review will be very useful to people planning to buy the same bike.</p>
                         <a href="@Model.WriteReviewLink" class="btn btn-white btn-220-40">Write a review</a>
-                        <a href="" class="btn btn-orange btn-220-40 margin-left15">Done</a>
+                        <a href="@Model.PrevPageUrl" class="btn btn-orange btn-220-40 margin-left15">Done</a>
                     }
                 </div>
-                @if (Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0)
+                @if ((Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0) || !string.IsNullOrEmpty(Model.Summary.Tips))
                 {
                     <div class="grid-4 padding-left20 omega">
-                        <h3 class="font15 text-black margin-bottom20">You also rated</h3>
-                        <ul class="user-rated-list padding-bottom5 opacity-active">
-                            @foreach (var question in Model.Summary.Questions)
+                        @if (Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0)
+                        {
+                            <h3 class="font15 text-black margin-bottom20">You also rated</h3>
+                            <ul class="user-rated-list padding-bottom5 opacity-active">
+                                @foreach (var question in Model.Summary.Questions)
+                                {
+                                    var objRating = question.Rating.First(x => x.Value == question.SelectedRatingId.ToString()); int ratingValue = Convert.ToInt32(objRating.Value);
+                                    if (question.DisplayType.Equals(Bikewale.Entities.UserReviews.UserReviewQuestionDisplayType.Star))
+                                    {
+                                        <li class="list-item">
+                                            <p class="category-label leftfloat">@question.Heading</p>
+                                            <ul class="category-rating item-rating-list rating-size-sm rightfloat">
+                                                @for (int i = 0; i < 5; i++)
+                                                {
+                                                    if (i < ratingValue)
+                                                    {
+                                                        <li class="bwsprite star-one"></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="bwsprite star-zero"></li>
+                                                    }
+                                                }
+                                            </ul>
+                                            <div class="clear"></div>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="list-item">
+                                            <p class="category-label leftfloat">@question.Heading</p>
+                                            <p class="category-rating rightfloat padding-left5 text-truncate">@objRating.Text</p>
+                                            <div class="clear"></div>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                            if (!string.IsNullOrEmpty(Model.Summary.Tips))
                             {
-                                var objRating = question.Rating.First(x => x.Value == question.SelectedRatingId.ToString()); int ratingValue = Convert.ToInt32(objRating.Value);
-                                if (question.DisplayType.Equals(Bikewale.Entities.UserReviews.UserReviewQuestionDisplayType.Star))
-                                {
-                                    <li class="list-item">
-                                        <p class="category-label leftfloat">@question.Heading</p>
-                                        <ul class="category-rating item-rating-list rating-size-sm rightfloat">
-                                            @for (int i = 0; i < 5; i++)
-                                            {
-                                                if (i < ratingValue)
-                                                {
-                                                    <li class="bwsprite star-one"></li>
-                                                }
-                                                else
-                                                {
-                                                    <li class="bwsprite star-zero"></li>
-                                                }
-                                            }
-                                        </ul>
-                                        <div class="clear"></div>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="list-item">
-                                        <p class="category-label leftfloat">@question.Heading</p>
-                                        <p class="category-rating rightfloat padding-left5 text-truncate">@objRating.Text</p>
-                                        <div class="clear"></div>
-                                    </li>
-                                }
+                                <div class="margin-bottom20 border-solid-bottom"></div>
                             }
-                        </ul>
+                        }
+
                         @if (!string.IsNullOrEmpty(Model.Summary.Tips))
                         {
-                            <div class="margin-bottom20 border-solid-bottom"></div>
-                            <h3 class="font15 text-black margin-bottom10">Tips for prospective buyers</h3>
+
+                            <h3 class="font15 text-black margin-bottom10">Tips for other riders</h3>
                             <div class="text-light-grey">
                                 <p>@Model.Summary.Tips</p>
                             </div>
@@ -165,25 +152,21 @@
         </div>
         <div class="clear"></div>
     </div>
-    <span id="pageSource" class="hide">@Model.PrevPageUrl</span>
+    <input id="pageSource" type="hidden" value="@Model.PrevPageUrl" />
     <div id="review-summary-page"></div>
 </section>
 <script type="text/javascript">
     docReady(function () {
         var handleBrowserBack = function (prevPage, curPage) {
-            setTimeout(function () { appendHash(curPage); }, 1000);
+            setTimeout(function () { window.location.hash = curPage; }, 1000);
             $(window).on('hashchange', function (e) {
                 oldUrl = e.originalEvent.oldURL;
                 if (oldUrl && (oldUrl.indexOf('#') > 0)) {
                     if (prevPage && prevPage.length)
-                        window.location.href = prevPage.text();
+                        window.location.href = prevPage.val();
                 }
             });
         };
         handleBrowserBack(($("#pageSource")), "reviewSummary");
-
-        if (navigator.userAgent.indexOf('UCBrowser/') >= 0) {
-            $('#review-summary-card').addClass('browser-type-uc');
-        }
     });
 </script>

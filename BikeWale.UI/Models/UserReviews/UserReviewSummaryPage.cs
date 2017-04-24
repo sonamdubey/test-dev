@@ -24,7 +24,7 @@ namespace Bikewale.Models.UserReviews
         #endregion
 
         #region Constructor
-        public UserReviewSummaryPage(IUserReviews userReviews, uint reviewId,string q)
+        public UserReviewSummaryPage(IUserReviews userReviews, uint reviewId, string q)
         {
             _userReviews = userReviews;
             _reviewId = reviewId;
@@ -65,7 +65,7 @@ namespace Bikewale.Models.UserReviews
                 {
                     status = StatusCodes.ContentNotFound;
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -80,8 +80,9 @@ namespace Bikewale.Models.UserReviews
         /// </summary>
         private void BindPageMetas(UserReviewSummaryVM objData)
         {
-            objData.PageMetaTags.Title = string.Format("Review Summary | {0} {1} - BikeWale",objData.Summary.Make.MakeName,objData.Summary.Model.ModelName);
-            objData.PageMetaTags.Description = string.Format("See summary of {0}'s {1} {2} review.",objData.Summary.CustomerName,objData.Summary.Make.MakeName,objData.Summary.Model.ModelName);
+            objData.PageMetaTags.Title = string.Format("Review Summary | {0} {1} - BikeWale", objData.Summary.Make.MakeName, objData.Summary.Model.ModelName);
+            objData.PageMetaTags.Description = string.Format("See summary of {0}'s {1} {2} review.", objData.Summary.CustomerName, objData.Summary.Make.MakeName, objData.Summary.Model.ModelName);
+            objData.PageMetaTags.CanonicalUrl = string.Format("{0}/user-reviews/review-summary/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, objData.Summary.Model.ModelId);
         }
         #endregion
 

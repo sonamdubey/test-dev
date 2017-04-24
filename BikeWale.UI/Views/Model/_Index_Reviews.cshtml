@@ -15,13 +15,13 @@
                 <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span> Reviews
             </a>
         </span>
-        <a href="@Bikewale.Utility.UrlFormatter.FormatWriteReviewLink(Model.ModelId)">Write a review</a>
+        <a href="@string.Format("/rate-your-bike/{0}/?pagesourceid={1}", Model.ModelId, Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ModelPage))">Write a review</a>
     </div>
 }
 else
 {
     <div class="review-box font14 inline-block">
         <span class="no-rating text-light-grey">No reviews yet</span>
-        <a href="@Bikewale.Utility.UrlFormatter.FormatWriteReviewLink(Model.ModelId)">Write a review</a>
+        <a href="@string.Format("/rate-your-bike/{0}/?pagesourceid={1}", Model.ModelId, Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ModelPage))">Write a review</a>
     </div>
 }
