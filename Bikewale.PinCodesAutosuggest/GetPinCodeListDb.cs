@@ -28,7 +28,7 @@ namespace Bikewale.PinCodesAutosuggest
             PayLoad pinCode = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("select * from pincodes"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("select * from pincodes where forbajajfinance=1"))
                 {
 
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
