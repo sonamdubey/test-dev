@@ -13,7 +13,7 @@
 }
 
 .text-bold {
-    font-weight: 600 !important;
+    font-weight: 600;
 }
 
 .grid-no-padding {
@@ -61,23 +61,65 @@
     padding-right: 20px;
 }
 
-/* version dropdown */
+/* model-version-dropdown */
+#model-version-dropdown .select-box {
+    height: 28px;
+}
+
+#model-version-dropdown .chosen-container {
+    width: 126px !important;
+    height: 28px;
+}
+
+#model-version-dropdown .chosen-drop {
+    position: absolute;
+    width: 260px !important;
+    top: -18px;
+}
+
+#model-version-dropdown .chosen-single {
+    font-size: 13px;
+    color: #4d5057;
+    padding-top: 3px;
+}
+
+#model-version-dropdown .no-input-label {
+    font-size: 14px;
+}
+
+/* select box for atf */
+.select-box .chosen-container {
+    height: 30px;
+    position: relative;
+    top: 0;
+    cursor: pointer;
+    border-bottom: 1px solid #82888b;
+    background: transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+}
+.chosen-container-single .chosen-single span {
+    display: block;
+    overflow: hidden;
+    margin-right: 26px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* single version and location */
 .single-version-content {
     width: 126px;
 }
 
-.single-version-value,
-.selected-city {
+.dropdown-effect-light {
     padding: 3px 18px 6px 0;
     position: relative;
 }
 
-.single-version-value {
-    background: transparent url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+.dropdown-effect-light {
+    background: transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
     border-bottom: 1px solid #ddd;
 }
 
-.single-version-value:after {
+.dropdown-effect-light:after {
     content: "";
     position: absolute;
     right: 0;
@@ -85,43 +127,7 @@
     width: 15px;
     height: 100%;
     background: #fff;
-    opacity: 0.5;
-}
-
-.top-minus5 {
-    top: -5px;
-}
-
-.pos-top2 {
-    top: 2px;
-}
-
-/* custom version dropdown */
-#model-version-dropdown .select-box {
-    height: 25px;
-}
-
-#model-version-dropdown .chosen-container {
-    width: 126px !important;
-    height: 25px;
-}
-
-#model-version-dropdown .chosen-drop {
-    width: 260px !important;
-    top: -18px;
-}
-
-#model-version-dropdown .chosen-single {
-    font-size: 13px;
-    font-weight: 600;
-}
-
-#model-version-dropdown .no-input-label {
-    font-size: 14px;
-}
-
-#model-version-dropdown .result-selected {
-    font-weight: 600;
+    opacity: 0.7;
 }
 
 /* city */
@@ -130,21 +136,36 @@
 }
 
 .selected-city {
+    padding: 3px 18px 6px 0;
+    position: relative;
     border-bottom: 1px solid #82888b;
 }
 
-.loc-change-blue-icon {
+.loc-change-blue-icon { 
     width: 12px;
     height: 16px;
     background-position: -205px -9px;
     cursor: pointer;
+    position: relative;
+    top: 2px;
+}
+
+.loc-change-blue-icon:hover {
+    background-position: -205px -35px;
+}
+
+.location-selection .loc-change-blue-icon {
     position: absolute;
     top: 4px;
     right: 0;
 }
 
-.loc-change-blue-icon:hover {
-    background-position: -205px -35px;
+.top-minus5 {
+    top: -5px;
+}
+
+.pos-top2 {
+    top: 2px;
 }
 
 /* model-image */

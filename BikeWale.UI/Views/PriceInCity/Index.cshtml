@@ -83,9 +83,9 @@
                                 <div class="orp-right-grid leftfloat">
                                     @if (Model.BikeVersionPrices.Count() > 1)
                                     {
-                                        <div id="model-version-dropdown" class="margin-right15 padding-top20 vertical-top">
-                                            <div class="select-box select-box-no-input done size-small">
-                                                <p class="select-label">Version</p>
+                                        <div id="model-version-dropdown" class="margin-right20 vertical-top">
+                                            <p class="font12 text-light-grey">Version</p>
+                                            <div class="select-box select-box-no-input">
                                                 <select id="version-dropdown" class="chosen-select bw-ga" data-title="Version" c="Price_in_City_Page" a="Version_Changed" l="@gaBikeName">
                                                     @foreach (var version in Model.BikeVersionPrices)
                                                     {
@@ -97,9 +97,9 @@
                                     }
                                     else
                                     {
-                                        <div class="single-version-content vertical-top margin-right15">
+                                        <div class="single-version-content margin-right20 vertical-top">
                                             <p class="font12 text-light-grey">Version</p>
-                                            <p class="text-bold single-version-value text-truncate">@Model.FirstVersion.VersionName</p>
+                                            <p class="text-bold dropdown-effect-light text-truncate">@Model.FirstVersion.VersionName</p>
                                         </div>
                                     }
                                     @if (Model.IsNew)

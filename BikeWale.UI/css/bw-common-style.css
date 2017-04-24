@@ -1111,7 +1111,7 @@ input[type="number"] {
     .select-box .chosen-container .chosen-single {
       color: #4d5057;
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 600;
       background: transparent; }
     .select-box .chosen-container .chosen-default {
       display: none; }
@@ -1144,7 +1144,7 @@ input[type="number"] {
       .select-box .chosen-container .chosen-results .highlighted {
         background-color: #f5f5f5; }
       .select-box .chosen-container .chosen-results .result-selected {
-        font-weight: 700; }
+        font-weight: 600; }
     .select-box .chosen-container .chosen-drop {
       width: 350px;
       z-index: 1;
