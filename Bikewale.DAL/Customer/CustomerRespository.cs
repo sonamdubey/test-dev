@@ -476,7 +476,6 @@ namespace Bikewale.DAL.Customer
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.IsFakeCustomer({0})", customerId));
-                objErr.SendMail();
             }
 
             return isFake;
