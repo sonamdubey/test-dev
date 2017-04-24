@@ -22,6 +22,15 @@ namespace Bikewale.Utility
                 case UserReviewPageSourceEnum.Mobile_UserReview_Listing:
                     url = string.Format("/m/{0}-bikes/{1}/user-reviews/", makeMasking, modelMasking);
                     break;
+                case UserReviewPageSourceEnum.Desktop_ModelPage:
+                    url = string.Format("/{0}-bikes/{1}/", makeMasking, modelMasking);
+                    break;
+                case UserReviewPageSourceEnum.Desktop_UserReview_Listing:
+                    url = string.Format("/{0}-bikes/{1}/user-reviews/", makeMasking, modelMasking);
+                    break;
+                case UserReviewPageSourceEnum.Desktop_UserReview_Landing:
+                    url = string.Format("/user-reviews/");
+                    break;
                 default:
                     if (isDesktop)
                         url = string.Format("/{0}-bikes/{1}/", makeMasking, modelMasking);
