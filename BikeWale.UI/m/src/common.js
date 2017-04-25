@@ -1605,7 +1605,9 @@ docReady(function () {
     };
 
 
-
+    $(window).on('hashchange', function (e) {
+        hashChange(e);
+    });
 
     navContainer = $("#nav");
 
