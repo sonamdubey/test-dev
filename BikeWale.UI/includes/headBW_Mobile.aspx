@@ -2,20 +2,6 @@
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <%@ Register Src="~/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
 
-    <div id="appBanner" class="hide">
-        <div class="banner-close-btn" id="btnCrossApp"></div>
-        <div class="app-banner-img-container">
-            <img src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
-        </div>
-        <div class="app-banner-text-container margin-top5">
-            <p class="text-grey text-bold font20">India’s #1</p>
-            <p class="font12 text-bold text-grey margin-bottom5">Bike Research Destination</p>
-            <a id="btnInstallApp" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source=BikeWaleWebsite&utm_medium=HeaderSlug&utm_campaign=MobileHeaderSlug" target="_blank" class="app-banner-btn-container">
-                <span class="btn btn-orange font12 text-bold">Install our app</span>
-            </a>
-        </div>
-        <div class="clear"></div>
-    </div>
     <header>
         <div id="bw-header">
     	    <div class="header-fixed"> <!-- Fixed Header code starts here -->
