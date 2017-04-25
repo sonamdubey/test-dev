@@ -83,7 +83,7 @@
                                 <!-- /ko -->
                                 <!--  ko if: insurancePrice().length > 0 -->
                                 <tr>
-                                    <td align="left" valign="top" class="padding-bottom15 text-slate-grey">Insurance (Comprehensive)<br><p class='position-rel'><a target="_blank" href="https://www.coverfox.com/two-wheeler-insurance/?network=affiliate&affiliate_name=automotive_exchange_bikewale&product=bike&category=automotive_exchange_bikewale&utm_source=affiliate_automotive_exchange_bikewale&utm_medium=cpc&utm_campaign=bikewale_pub01" class="font12 bw-ga text-bold" c="Price_in_City_Page" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a></p></td>
+                                    <td align="left" valign="top" class="padding-bottom15 text-slate-grey">Insurance (Comprehensive)<br><p class='position-rel'><a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Price_in_City_Page" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a></p></td>
                                     <td align="right" valign="top" class="padding-bottom10 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon"></span><span data-bind="text: insurancePrice()"></span></td>
                                 </tr>
                                 <!-- /ko -->
