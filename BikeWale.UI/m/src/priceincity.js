@@ -411,5 +411,5 @@ docReady(function () {
     bikeName = $dvPgVar.data("bikename");
   
     var cityName = $dvPgVar.data("cityarea");
-    triggerGA('Price_in_City_Page', 'CoverFox_Link_Shown', bikeName + '_' + cityName);
+    triggerNonInteractiveGA('Price_in_City_Page', 'CoverFox_Link_Shown', bikeName + '_' + cityName);
 });
