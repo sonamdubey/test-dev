@@ -4,7 +4,7 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/user-review/write-review.css' />";
     Model.Page_JS_Path = "/src/user-review/write-review.js";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.PageMetaTags.AlternateUrl = string.Format("/m/rate-your-bike/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs,Model.objModelEntity.ModelId);
+    Model.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/rate-your-bike/{0}/", Model.objModelEntity.ModelId);
 }
 
     <section>

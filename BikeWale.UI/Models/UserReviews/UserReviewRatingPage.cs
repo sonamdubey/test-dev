@@ -123,7 +123,7 @@ namespace Bikewale.Models
                 {
                     objUserVM.PageMetaTags.Title = string.Format("Rate Your Bike | {0} {1} - BikeWale", objUserVM.objModelEntity.MakeBase.MakeName, objUserVM.objModelEntity.ModelName);
                     objUserVM.PageMetaTags.Description = string.Format("Rate {0} {1} on BikeWale. Tell us what do you think about {0} {1}. Share your experience of {0} {1} with others.", objUserVM.objModelEntity.MakeBase.MakeName, objUserVM.objModelEntity.ModelName);
-                    objUserVM.PageMetaTags.CanonicalUrl = string.Format("/{0}/rate-your-bike/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, _modelId);
+                    objUserVM.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/rate-your-bike/{0}/", _modelId);
                 }
             }
             catch (System.Exception ex)
