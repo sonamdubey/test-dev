@@ -116,7 +116,7 @@
                             <%} %>
                         </div>
                         <div class="clear"></div>
-<%if(RatingOverall>0) {%>
+                        <%if(isReviewAvailable && RatingOverall>0) {%>
                         <div class="border-solid ratings margin-top15 display-table">
                             <div class="rating-box overall text-center content-inner-block-15">
                                 <p class="text-bold font14 margin-bottom10">Overall Rating</p>
@@ -175,7 +175,8 @@
                                 <div class="clear"></div>
                             </div>
                         
-                        </div><%} %>
+                        </div>
+                        <%} %>
                         <div class="clear"></div>
                     </div>
                 </div>

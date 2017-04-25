@@ -178,7 +178,7 @@
                                             <td class="font14">
                                                 Insurance (Comprehensive)@if (!Model.IsPrimaryDealerAvailable)
                                             {
-                                             <br><p class="position-rel"><span class="position-abt neg-right15 pos-top0 font8">Ad</span><a target="_blank" href="https://www.coverfox.com/two-wheeler-insurance/?network=affiliate&affiliate_name=automotive_exchange_bikewale&product=bike&category=automotive_exchange_bikewale&utm_source=affiliate_automotive_exchange_bikewale&utm_medium=cpc&utm_campaign=bikewale_pub01" class="font12 bw-ga text-bold" c="Dealer_PQ" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName); rel=" nofollow">Buy Policy Now</a></p>
+                                             <br><p class="position-rel"><span class="position-abt neg-right15 pos-top0 font8">Ad</span><a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Dealer_PQ" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName); rel=" nofollow">Buy Policy Now</a></p>
                                                 }
                                             </td>
                                             <td align="right">
