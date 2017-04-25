@@ -201,12 +201,12 @@
 
             @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealers != null && Model.DetailedDealer.SecondaryDealerCount > 0)
          {
-             <text>triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
+             <text>triggerNonInteractiveGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
          }
 
             @if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
         {
-            <text>triggerGA('Dealer_PQ', 'CoverFox_Link_Shown', bikeVerLocation);</text>
+            <text>triggerNonInteractiveGA('Dealer_PQ', 'CoverFox_Link_Shown', bikeVerLocation);</text>
         }
 
             if (dealerName != "") {
