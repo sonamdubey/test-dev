@@ -37,7 +37,7 @@
                                 </ol>
 
                                 <div class="textarea-box margin-bottom15">
-                                    <textarea data-bind="textInput: detailedReview" name="reviewDescription" id="reviewDesc" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.ReviewErrorText)) ? Model.SubmitResponse.ReviewErrorText : "")" rows="4" cols="80" maxlength="7999" placeholder="The more detailed your review, the more useful it will be. Write your review."></textarea>
+                                    <textarea data-bind="textInput: detailedReview" name="reviewDescription" id="reviewDesc" data-validate="@((Model.SubmitResponse != null && !string.IsNullOrEmpty(Model.SubmitResponse.ReviewErrorText)) ? Model.SubmitResponse.ReviewErrorText : "")" rows="4" cols="80" maxlength="7900" placeholder="The more detailed your review, the more useful it will be. Write your review."></textarea>
 
                                     <div data-bind="visible: !detailedReviewFlag() && detailedReview().length < 300" class="review-char-count position-abt font12">
                                         <span data-bind="visible: detailedReview().length > 0"><span data-bind="text: detailedReview().length"></span>/</span><span data-bind="text: reviewCharLimit"></span>&nbsp;min
