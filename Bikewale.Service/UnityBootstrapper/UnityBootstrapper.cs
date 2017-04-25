@@ -22,6 +22,7 @@ using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
+using Bikewale.Cache.MobileVerification;
 using Bikewale.Cache.ServiceCenter;
 using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
@@ -185,6 +186,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IModelsCache, ModelsCache>();
             container.RegisterType<IModelsRepository, ModelsRepository>();
             container.RegisterType<IUpcoming, Upcoming>();
+            container.RegisterType<IMobileVerificationCache, MobileVerificationCache>();
             return container;
         }
     }

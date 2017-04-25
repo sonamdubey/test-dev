@@ -249,7 +249,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 Logs.WriteInfoLog(String.Format("PushManufacturerLead(pqId={0}) : {1}", pqId, ex.Message));
             }
 
-            return false;
+            return isSuccess;
         }
 
         private bool PushDealerLead(PriceQuoteParametersEntity priceQuote, uint pqId, ushort iteration)
@@ -444,7 +444,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             try
             {
                 BajajFinanceLeadEntity bikeMappingInfo = _repository.GetBajajFinanceBikeMappingInfo(priceQuote.VersionId, pincodeId);
-                if (bikeMappingInfo != null)
+                if (bikeMappingInfo != null && !string.IsNullOrEmpty(bikeMappingInfo.Model) && !string.IsNullOrEmpty(bikeMappingInfo.City))
                 {
 
                     if (!string.IsNullOrEmpty(priceQuote.CustomerName))
@@ -464,34 +464,34 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
 
                     bikeMappingInfo.MobileNo = priceQuote.CustomerMobile;
                     bikeMappingInfo.EmailID = priceQuote.CustomerEmail;
-                }
 
-                BajajFinanceLeadInput bajajLeadInput = new BajajFinanceLeadInput()
-                {
-                    leadData = new List<BajajFinanceLeadEntity>() { bikeMappingInfo }
-                };
-
-                if (_httpClient != null)
-                {
-                    string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(bajajLeadInput);
-                    string response = string.Empty;
-                    HttpContent httpContent = new StringContent(jsonString);
-                    using (HttpResponseMessage _response = _httpClient.PostAsync(_bajajFinanceAPIUrl, httpContent).Result)
+                    BajajFinanceLeadInput bajajLeadInput = new BajajFinanceLeadInput()
                     {
-                        if (_response.IsSuccessStatusCode)
+                        leadData = new List<BajajFinanceLeadEntity>() { bikeMappingInfo }
+                    };
+
+                    if (_httpClient != null)
+                    {
+                        string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(bajajLeadInput);
+                        string response = string.Empty;
+                        HttpContent httpContent = new StringContent(jsonString);
+                        using (HttpResponseMessage _response = _httpClient.PostAsync(_bajajFinanceAPIUrl, httpContent).Result)
                         {
-                            if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                            if (_response.IsSuccessStatusCode)
                             {
-                                response = _response.Content.ReadAsStringAsync().Result;
-                                _repository.UpdateManufacturerLead(pqId, priceQuote.CustomerEmail, priceQuote.CustomerMobile, response);
-                                _response.Content.Dispose();
-                                _response.Content = null;
-                                isSuccess = true;
+                                if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                                {
+                                    response = _response.Content.ReadAsStringAsync().Result;
+                                    _repository.UpdateManufacturerLead(pqId, priceQuote.CustomerEmail, priceQuote.CustomerMobile, response);
+                                    _response.Content.Dispose();
+                                    _response.Content = null;
+                                    isSuccess = true;
+                                }
                             }
                         }
-                    }
 
-                    Logs.WriteInfoLog(String.Format("Bajaj Finance -  Request : {0} \n Response : {1}", jsonString, response));
+                        Logs.WriteInfoLog(String.Format("Bajaj Finance -  Request : {0} \n Response : {1}", jsonString, response));
+                    }
                 }
             }
             catch (Exception ex)
