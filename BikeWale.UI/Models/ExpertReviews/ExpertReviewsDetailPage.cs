@@ -217,6 +217,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Get data for the page widgets
+        ///  Modified By Sajal Gupta on 25-04-20187
+        /// Descrition : Call most popular bike widget by body type
         /// </summary>
         private void GetWidgetData(ExpertReviewsDetailPageVM objData, int topCount)
         {

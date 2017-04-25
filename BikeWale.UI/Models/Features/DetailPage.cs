@@ -78,7 +78,8 @@ namespace Bikewale.Models.Features
             return objDetailsVM;
         }
         /// <summary>
-        /// 
+        /// Modified By Sajal Gupta on 25-04-20187
+        /// Descrition : Call most popular bike widget by body type
         /// </summary>
         private void GetWidgetData(DetailFeatureVM objData, int topCount)
         {
