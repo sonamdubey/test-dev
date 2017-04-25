@@ -9,8 +9,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
-
-using Bikewale.PWA.Service.Utilities;
+using Bikewale.PWA.Utils;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using System;

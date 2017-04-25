@@ -1,18 +1,11 @@
-﻿using Bikewale.DTO.CMS.Articles;
-using Bikewale.Entities.CMS;
-using Bikewale.Entities.CMS.Articles;
-using Bikewale.Entities.PWA.Articles;
+﻿using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
-using Bikewale.PWA.Service.Utilities;
-using Bikewale.Service.AutoMappers.CMS;
+using Bikewale.PWA.Utils;
 using Bikewale.Service.Utilities;
-using EditCMSWindowsService.Messages;
-using Grpc.CMS;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -60,14 +53,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                 if (objFeaturedArticles != null && objFeaturedArticles.Articles.Count > 0)
                 {
-                    PwaContentBase objPWAArticles = new PwaContentBase();
-                    var pwaArticleSummaryList = new List<PwaArticleSummary>();
-                    objPWAArticles.Articles = pwaArticleSummaryList;
-
-                    foreach(var inpSummary in objFeaturedArticles.Articles)
-                    {
-                        pwaArticleSummaryList.Add(ConverterUtility.MapArticleSummaryToPwaArticleSummary(inpSummary));
-                    }
+                    PwaContentBase objPWAArticles = new PwaContentBase();                    
+                    objPWAArticles.Articles = ConverterUtility.MapArticleSummaryListToPwaArticleSummaryList(objFeaturedArticles.Articles);
                     objPWAArticles.RecordCount = objFeaturedArticles.RecordCount;
                     objPWAArticles.StartIndex = (uint)startIndex;
                     objPWAArticles.EndIndex = (uint)endIndex;

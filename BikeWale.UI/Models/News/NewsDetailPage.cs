@@ -11,7 +11,7 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
 using Bikewale.Notifications;
-using Bikewale.PWA.UI.Utilities;
+using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using System;
 using System.Linq;

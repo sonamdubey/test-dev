@@ -50,6 +50,9 @@
     <Reference Include="Bikewale.PWA.Entities">
       <HintPath>..\Bikewale.PWA.Entities\bin\Release\Bikewale.PWA.Entities.dll</HintPath>
     </Reference>
+    <Reference Include="Bikewale.PWA.Utils">
+      <HintPath>..\Bikewale.PWA.Utils\bin\Release\Bikewale.PWA.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="Carwale.DAL">
       <HintPath>..\Libs\Carwale.DAL.dll</HintPath>
     </Reference>
@@ -287,7 +290,6 @@
     <Compile Include="Controllers\City\DealerCityController.cs" />
     <Compile Include="Controllers\CMS\PwaCMSController.cs" />
     <Compile Include="Controllers\CMS\CMSListController.cs" />
-    <Compile Include="Controllers\CMS\ConverterUtility.cs" />
     <Compile Include="Controllers\CMS\PwaCMSListController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareListController.cs" />

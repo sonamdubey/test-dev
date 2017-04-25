@@ -73,6 +73,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bikewale.PWA.Entities\bin\Release\Bikewale.PWA.Entities.dll</HintPath>
     </Reference>
+    <Reference Include="Bikewale.PWA.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bikewale.PWA.Utils\bin\Release\Bikewale.PWA.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="Carwale.BL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.BL.dll</HintPath>
@@ -1608,7 +1612,6 @@
       <DependentUpon>Default_v2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pwa\ConverterUtility.cs" />
     <Compile Include="servicecenter\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

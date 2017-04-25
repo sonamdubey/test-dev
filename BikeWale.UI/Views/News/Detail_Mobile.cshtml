@@ -2,6 +2,7 @@
 @using System.Web.Script.Serialization
 @using Bikewale.Utility
 
+
 <!doctype html>
 <html>
 <head>
@@ -51,100 +52,19 @@
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <meta name="theme-color" content="#2a2a2a" />
     <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
-    <link rel='stylesheet' type='text/css' href="@Url.Content("../../Scripts/app.css")" />
-    <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion"></script>
+
+
+
+    <style type="text/css">
+        @Html.Raw(File.ReadAllText(Server.MapPath("~/Scripts/app.css")))
+        #appBanner{background:#e2e2e2;padding:5px 5px 0;position:relative;overflow:hidden}.hide{display:none}.banner-close-btn{width:30px;height:30px;background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/banner-close-btn.png) no-repeat;position:absolute;top:0;right:0;cursor:pointer}.app-banner-img-container{float:left;width:130px;height:95px;position:relative;margin-right:12px}.app-banner-img-container img{position:absolute;bottom:0}.app-banner-text-container{float:left}.margin-top5{margin-top:5px}.text-grey{color:#787878!important}.text-bold{font-weight:700}.font20{font-size:20px}.font12{font-size:12px}.text-bold{font-weight:700}.margin-bottom5{margin-bottom:5px}.btn-orange{background:#ef3030;color:#fff}.btn-orange:hover{background:#f44336}.btn-orange:focus{background:#d42c2c}.btn,.btn-orange:hover,.btn:hover{text-decoration:none}
+    </style>
+
     <script defer type="text/javascript">
         !function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);
     </script>
-    <style type="text/css">
-        #appBanner {
-            background: #e2e2e2;
-            padding: 5px 5px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hide {
-            display: none;
-        }
-
-        .banner-close-btn {
-            width: 30px;
-            height: 30px;
-            background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/banner-close-btn.png) no-repeat;
-            position: absolute;
-            top: 0;
-            right: 0;
-            cursor: pointer;
-        }
-
-        .app-banner-img-container {
-            float: left;
-            width: 130px;
-            height: 95px;
-            position: relative;
-            margin-right: 12px;
-        }
-
-            .app-banner-img-container img {
-                position: absolute;
-                bottom: 0;
-            }
-
-        .app-banner-text-container {
-            float: left;
-        }
-
-        .margin-top5 {
-            margin-top: 5px;
-        }
-
-        .text-grey {
-            color: #787878 !important;
-        }
-
-        .text-bold {
-            font-weight: 700;
-        }
-
-        .font20 {
-            font-size: 20px;
-        }
-
-        .font12 {
-            font-size: 12px;
-        }
-
-        .text-bold {
-            font-weight: 700;
-        }
-
-        .margin-bottom5 {
-            margin-bottom: 5px;
-        }
-
-        .btn-orange {
-            background: #ef3030;
-            color: #fff;
-        }
-
-            .btn-orange:hover {
-                background: #f44336;
-            }
-
-            .btn-orange:focus {
-                background: #d42c2c;
-            }
-
-            .btn,
-            .btn-orange:hover,
-            .btn:hover {
-                text-decoration: none;
-            }
-    </style>
     @{Bikewale.Utility.BWCookies.SetBWUtmz();}
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    @Html.Raw(Model.Page_ATF_CSS)
     <script type="text/javascript">
         var ga_pg_id = '0';
 
@@ -177,67 +97,39 @@
             node.parentNode.insertBefore(gads, node);
         })();
 
-        @functions{
-        string GetAdSlot(int slotId, string adPath, string adId)
-        {
-            switch (slotId)
-            {
-                case 1:
-                    return String.Format("googletag.defineSlot('{0}_Top_320x50', [320, 50], 'div-gpt-ad-{1}-0').addService(googletag.pubads());", adPath, adId);
-                case 2:
-                    return String.Format("googletag.defineSlot('{0}_Bottom_320x50', [320, 50], 'div-gpt-ad-{1}-1').addService(googletag.pubads());", adPath, adId);
-                case 3:
-                    return String.Format("googletag.defineSlot('{0}_300x250', [300, 250], 'div-gpt-ad-{1}-2').addService(googletag.pubads());", adPath, adId);
-                case 4:
-                    return String.Format("googletag.defineSlot('{0}_FirstSlot_320x150', [[320, 150], [320, 50], [320, 100], [320, 425]], 'div-gpt-ad-{1}-3').addService(googletag.pubads());", adPath, adId);
-                case 5:
-                    return String.Format("googletag.defineSlot('{0}_SecondSlot_320x150', [[320, 150], [320, 50], [320, 100], [320, 425]], 'div-gpt-ad-{1}-4').addService(googletag.pubads());", adPath, adId);
-                case 6:
-                    return String.Format("googletag.defineSlot('{0}_Middle_320x50', [320, 50], 'div-gpt-ad-{1}-5').addService(googletag.pubads());", adPath, adId);
-                default:
-                    return "";
-            }
-        }
-
-        string GetGTTargeting(int targetId, string target)
-        {
-            switch (targetId)
-            {
-                case 1:
-                    return String.Format("googletag.pubads().setTargeting(\"Model\", \"{0}\");", target);
-                case 2:
-                    return String.Format("googletag.pubads().setTargeting(\"Make\", \"{0}\");", target);
-                case 3:
-                    return String.Format("googletag.pubads().setTargeting(\"CompareBike-M\", \"{0}\");", target);
-                case 4:
-                    return String.Format("googletag.pubads().setTargeting(\"City\", \"{0}\");", target);
-                default:
-                    return "";
-            }
-        }
-    }
 
         googletag.cmd.push(function () {
 
-            @if (Model.AdTags.Ad_320x50){@Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_Bot_320x50){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_300x250){@Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad320x150_Top){ @Html.Raw(GetAdSlot(4, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad320x150_Bottom){@Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(Model.AdTags.Ad_Mid_320x50){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))}
-            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
-            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
-            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
-            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
+            googletag.defineSlot('/1017752/Bikewale_Mobile_NewBikes_Top_320x50', [320,50], 'div-gpt-ad-1398766302464-0').addService(googletag.pubads());
             googletag.pubads().enableSingleRequest();
             googletag.pubads().collapseEmptyDivs();
             googletag.enableServices();
         });
+
+
     </script>
+    @*<link rel="preload" href="@Url.Content("../../Scripts/vendor.bundle.js")" as="script">
+        <link rel="preload" href="@Url.Content("../../Scripts/app.bundle.js")" as="script">*@
+    @*<link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/pwa/build/vendor.bundle.js" as="script">
+        <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/pwa/build/app.bundle.js" as="script">
+        <link rel="preload" href="/m/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion" as="script">
+        <link rel="preload" href="/m/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion" as="script">
+        <link rel="preload" href="/src/bwcache.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion" as="script">
+        <link rel="preload" href="/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion" as="script">*@
+
+    <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/pwa/build/vendorv2.bundle.js" as="script">
+    <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/pwa/build/appv2.bundle.js" as="script">
+    <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/min/src/frameworks.js?19apr2017v1" as="script">
+    <link rel="preload" href="https://st2.aeplcdn.com/staging/bikewale/min/src/bwcache.js?19apr2017v1" as="script">
+    <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/min/m/src/Plugins.js?19apr2017v1" as="script">
+    <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/min/m/src/common.js?19apr2017v1" as="script">
 </head>
 <body>
 
-    @*<div id="appBanner" class="hide">
+
+    @if (Model.IsAppBannerNeeded)
+    {
+        <div id="appBanner">
             <div class="banner-close-btn" id="btnCrossApp"></div>
             <div class="app-banner-img-container">
                 <img src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
@@ -250,73 +142,23 @@
                 </a>
             </div>
             <div class="clear"></div>
-        </div>*@
-
- @if (Model.IsAppBannerNeeded)
- {
-    <div id="appBanner">
-        <div class="banner-close-btn" id="btnCrossApp"></div>
-        <div class="app-banner-img-container">
-            <img src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
-        </div>
-        <div class="app-banner-text-container margin-top5">
-            <p class="text-grey text-bold font20">India’s #1</p>
-            <p class="font12 text-bold text-grey margin-bottom5">Bike Research Destination</p>
-            <a id="btnInstallApp" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source=BikeWaleWebsite&utm_medium=HeaderSlug&utm_campaign=MobileHeaderSlug" target="_blank" class="app-banner-btn-container">
-                <span class="btn btn-orange font12 text-bold">Install our app</span>
-            </a>
-        </div>
-        <div class="clear"></div>
-    </div>
- }
-
-
-    @if (Model.IsHomePage)
-    {
-            <!-- Call Home Page Banner partial view -->
-    }
-    @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
-    {
-        <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
-            <script type='text/javascript'>
-                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-0'); });
-            </script>
         </div>
     }
+
+
     <div class="blackOut-window"></div>
     @Html.React("ServerRouterWrapper", new
- {
-     Url = Model.ReduxStore.NewsReducer.NewsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl,
-     ArticleDetailData = Model.ReduxStore.NewsReducer.NewsDetailReducer.ArticleDetailData,
-     RelatedModelObject = Model.ReduxStore.NewsReducer.NewsDetailReducer.RelatedModelObject,
-     NewBikesListData = Model.ReduxStore.NewsReducer.NewsDetailReducer.NewBikesListData
+{
+    Url = Model.ReduxStore.NewsReducer.NewsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl,
+    ArticleDetailData = Model.ReduxStore.NewsReducer.NewsDetailReducer.ArticleDetailData,
+    RelatedModelObject = Model.ReduxStore.NewsReducer.NewsDetailReducer.RelatedModelObject,
+    NewBikesListData = Model.ReduxStore.NewsReducer.NewsDetailReducer.NewBikesListData
 
- }, containerId: "root")
+}, containerId: "root")
 
     <script type="text/javascript">
         window.state = @Html.Raw(new JavaScriptSerializer().Serialize(Model.ReduxStore))
     </script>
-
-
-    <script src="@Url.Content("../../Scripts/vendor.bundle.js")" defer></script>
-    <script src="@Url.Content("../../Scripts/app.bundle.js")" defer></script>
-
-
-    @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
-    {
-        <section>
-            <div class="container">
-                <div>
-                    <div id='div-gpt-ad-@Model.AdTags.AdId-1' style='width:320px; height:50px;text-align:center;margin:10px auto;'>
-                        <script type='text/javascript'>
-                            googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-1'); });
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </section>
-    }
-
     <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
         <div class="globalcity-popup-data text-center">
             <div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
@@ -338,7 +180,6 @@
         <div class="clear"></div>
     </div>
 
-    <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st2.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/bwcache.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
     <!-- global-search-popup code starts here -->
     <div id="global-search-popup" class="global-search-popup" style="display:none">
         <div class="form-control-box">
@@ -360,24 +201,55 @@
             <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left;height:auto !important;background:#fff;" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
         </div>
     </div> <!-- global-search-popup code ends here -->
-    @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")
+    @*@Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")*@
+    @*//"https://st.aeplcdn.com/staging/bikewale/pwa/build/vendor.bundle.js",
+        //                    "https://st.aeplcdn.com/staging/bikewale/pwa/build/app.bundle.js",*@
 
-
-
-
-
-    <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
-    <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
-    @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
-    {
-        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
-    }
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     <script type="text/javascript">
+        if(googletag) {
+            googletag.cmd.push(function(){
+                console.log('displaying ad')
+                googletag.display('div-gpt-ad-1398766302464-0')
+
+            })
+
+        }
+        else {
+            console.log('googletag not loaded yet')
+        }
+        //"../../Scripts/vendor.bundle.js","../../Scripts/app.bundle.js",
+        @*"https://st.aeplcdn.com/staging/bikewale/pwa/build/vendor.bundle.js",
+                            "https://st.aeplcdn.com/staging/bikewale/pwa/build/app.bundle.js",*@
+        var script_array = ["https://st.aeplcdn.com/staging/bikewale/pwa/build/vendorv2.bundle.js",
+                            "https://st.aeplcdn.com/staging/bikewale/pwa/build/appv2.bundle.js",
+                            "https://st.aeplcdn.com/staging/bikewale/min/src/frameworks.js?19apr2017v1",
+                            "https://st2.aeplcdn.com/staging/bikewale/min/src/bwcache.js?19apr2017v1",
+                            "https://st.aeplcdn.com/staging/bikewale/min/m/src/Plugins.js?19apr2017v1",
+                            "https://st.aeplcdn.com/staging/bikewale/min/m/src/common.js?19apr2017v1"
+        ];
+        @*var script_array = ["@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion",
+                            @(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion",
+                            "./sw.js","../../Scripts/vendor.bundle.js","../../Scripts/app.bundle.js"];*@
+        !function(e, t, r) {
+            function n() {
+                for (; d[0] && "loaded" == d[0][f];) c = d.shift(), c[o] = !i.parentNode.insertBefore(c, i)
+            }
+            for (var s, a, c, d = [], i = document.scripts[0], o = "onreadystatechange", f = "readyState"; s =  script_array.shift();)
+                a = document.createElement(t), "async" in i ? (a.async = !1,document.head.appendChild(a)) : i[f] ? (d.push(a), a[o] = n) : document.write("<" + script + ' src="' + s + '" defer></' + script + ">"), a.src = s
+        }(document, "script", script_array);
+
+
+    </script>
+
+
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
+
+    <script defer type="text/javascript">
         window.addEventListener('DOMContentLoaded', function() {
             if(navigator.serviceWorker) {
                 console.log('navigator serviceworker exists')
-                navigator.serviceWorker.register("@Url.Content("../../Scripts/sw.js")").then(function(registration) {
+                navigator.serviceWorker.register("@Url.Content("../swv2.js")").then(function(registration) {
                     console.log('service worker registered');
                     registration.onupdatefound = function() {
                         var installingWorker = registration.installing;
@@ -396,6 +268,801 @@
     </script>
 
     <div class="back-to-top" id="back-to-top"></div>
-    </form>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+@*
+
+
+
+    @model Bikewale.Models.NewsDetailPageVM
+    @using System.Web.Script.Serialization
+    @using Bikewale.Utility
+
+
+    <!doctype html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        @if (Model != null && Model.PageMetaTags != null)
+        {
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
+            {
+                <title>@Model.PageMetaTags.Title</title>
+            }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
+            {
+                <meta name="description" content="@Model.PageMetaTags.Description" />
+            }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
+            {
+                <meta name="keywords" content="@Model.PageMetaTags.Keywords" />
+            }
+            if (Model.PageMetaTags.EnableOG)
+            {
+                <meta property="og:title" content="@Model.PageMetaTags.Title" />
+                <meta property="og:type" content="website" />
+                <meta property="og:description" content="@Model.PageMetaTags.Description" />
+                <meta property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+                if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
+                {
+                    <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
+                }
+            }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
+            {
+                <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.PreviousPageUrl))
+            {
+                <link rel="prev" href="@Model.PageMetaTags.PreviousPageUrl" /> }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
+            {
+                <link rel="next" href="@Model.PageMetaTags.NextPageUrl" />
+            }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.AmpUrl))
+            {
+                <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> }
+        }
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
+        <meta name="theme-color" content="#2a2a2a" />
+        <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
+
+
+
+        <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/pwa/build/vendor.bundle.js" as="script">
+        <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/pwa/build/app.bundle.js" as="script">
+        <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/min/src/frameworks.js?19apr2017v1" as="script">
+        <link rel="preload" href="https://st2.aeplcdn.com/staging/bikewale/min/src/bwcache.js?19apr2017v1" as="script">
+        <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/min/m/src/Plugins.js?19apr2017v1" as="script">
+        <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/min/m/src/common.js?19apr2017v1" as="script">
+        <style type="text/css">
+            @Html.Raw(File.ReadAllText(Server.MapPath("~/Scripts/app.css")))
+            #appBanner{background:#e2e2e2;padding:5px 5px 0;position:relative;overflow:hidden}.hide{display:none}.banner-close-btn{width:30px;height:30px;background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/banner-close-btn.png) no-repeat;position:absolute;top:0;right:0;cursor:pointer}.app-banner-img-container{float:left;width:130px;height:95px;position:relative;margin-right:12px}.app-banner-img-container img{position:absolute;bottom:0}.app-banner-text-container{float:left}.margin-top5{margin-top:5px}.text-grey{color:#787878!important}.text-bold{font-weight:700}.font20{font-size:20px}.font12{font-size:12px}.text-bold{font-weight:700}.margin-bottom5{margin-bottom:5px}.btn-orange{background:#ef3030;color:#fff}.btn-orange:hover{background:#f44336}.btn-orange:focus{background:#d42c2c}.btn,.btn-orange:hover,.btn:hover{text-decoration:none}
+        </style>
+
+        <script defer type="text/javascript">
+            !function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);
+        </script>
+        @{Bikewale.Utility.BWCookies.SetBWUtmz();}
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <script type="text/javascript">
+            var ga_pg_id = '0';
+
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-5CSHD6');
+
+            setTimeout(function () {
+                var a = document.createElement("script");
+                var b = document.getElementsByTagName("script")[0];
+                a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+                a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+            }, 1);
+
+            var googletag = googletag || {};
+            googletag.cmd = googletag.cmd || [];
+            (function () {
+                var gads = document.createElement('script');
+                gads.async = true;
+                gads.type = 'text/javascript';
+                var useSSL = 'https:' == document.location.protocol;
+                gads.src = (useSSL ? 'https:' : 'http:') +
+                    '//www.googletagservices.com/tag/js/gpt.js';
+                var node = document.getElementsByTagName('script')[0];
+                node.parentNode.insertBefore(gads, node);
+            })();
+
+        </script>
+    </head>
+    <body>
+
+
+        @if (Model.IsAppBannerNeeded)
+        {
+            <div id="appBanner">
+                <div class="banner-close-btn" id="btnCrossApp"></div>
+                <div class="app-banner-img-container">
+                    <img src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
+                </div>
+                <div class="app-banner-text-container margin-top5">
+                    <p class="text-grey text-bold font20">India’s #1</p>
+                    <p class="font12 text-bold text-grey margin-bottom5">Bike Research Destination</p>
+                    <a id="btnInstallApp" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source=BikeWaleWebsite&utm_medium=HeaderSlug&utm_campaign=MobileHeaderSlug" target="_blank" class="app-banner-btn-container">
+                        <span class="btn btn-orange font12 text-bold">Install our app</span>
+                    </a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        }
+
+
+        <div class="blackOut-window"></div>
+       @Html.React("ServerRouterWrapper", new
+     {
+         Url = Model.ReduxStore.NewsReducer.NewsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl,
+         ArticleDetailData = Model.ReduxStore.NewsReducer.NewsDetailReducer.ArticleDetailData,
+         RelatedModelObject = Model.ReduxStore.NewsReducer.NewsDetailReducer.RelatedModelObject,
+         NewBikesListData = Model.ReduxStore.NewsReducer.NewsDetailReducer.NewBikesListData
+
+     }, containerId: "root")
+
+    <script type="text/javascript">
+        window.state = @Html.Raw(new JavaScriptSerializer().Serialize(Model.ReduxStore))
+    </script>
+
+        <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
+            <div class="globalcity-popup-data text-center">
+                <div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+                <p class="font20 margin-bottom5 text-capitalize">Please tell us your city</p>
+                <p class="text-light-grey margin-bottom5">This allows us to provide relevant content for you.</p>
+                <div class="form-control-box">
+                    <div class="margin-bottom20 position-rel">
+                        <span class="position-abt pos-right15 pos-top15 bwmsprite cross-sm-dark-grey cur-pointer"></span>
+                        <input type="text" class="form-control padding-right30" name="globalCityPopUp" placeholder="Type to select city" id="globalCityPopUp" autocomplete="off">
+                        <span id="loaderMakeModel" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none;"></span>
+                        <span class="bwmsprite error-icon hide"></span>
+                        <div class="bw-blackbg-tooltip hide">No city found. Try a different search.</div>
+                    </div>
+                </div>
+                <div>
+                    <button id="btnGlobalCityPopup" class="btn btn-orange btn-full-width font18">Confirm city</button>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <!-- global-search-popup code starts here -->
+        <div id="global-search-popup" class="global-search-popup" style="display:none">
+            <div class="form-control-box">
+                <span class="back-arrow-box" id="gs-close">
+                    <span class="bwmsprite back-long-arrow-left"></span>
+                </span>
+                <span class="cross-box hide" id="gs-text-clear">
+                    <span class="bwmsprite cross-md-dark-grey"></span>
+                </span>
+                <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="form-control padding-right30" autocomplete="off">
+                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none;right:35px;top:13px"></span>
+                <ul id="errGlobalSearch" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide">
+                    <li class="ui-menu-item" tabindex="-1">
+                        <span class="text-bold">Oops! No suggestions found</span>
+                        <br />
+                        <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
+                    </li>
+                </ul>
+                <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left;height:auto !important;background:#fff;" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
+            </div>
+        </div> <!-- global-search-popup code ends here -->
+
+
+        <script type="text/javascript">
+
+            var script_array = ["https://st.aeplcdn.com/staging/bikewale/pwa/build/vendor.bundle.js",
+                                "https://st.aeplcdn.com/staging/bikewale/pwa/build/app.bundle.js",
+                                "https://st.aeplcdn.com/staging/bikewale/min/src/frameworks.js?19apr2017v1",
+                                "https://st2.aeplcdn.com/staging/bikewale/min/src/bwcache.js?19apr2017v1",
+                                "https://st.aeplcdn.com/staging/bikewale/min/m/src/Plugins.js?19apr2017v1",
+                                "https://st.aeplcdn.com/staging/bikewale/min/m/src/common.js?19apr2017v1"
+            ];
+
+            !function(e, t, r) {
+                function n() {
+                    for (; d[0] && "loaded" == d[0][f];) c = d.shift(), c[o] = !i.parentNode.insertBefore(c, i)
+                }
+                for (var s, a, c, d = [], i = document.scripts[0], o = "onreadystatechange", f = "readyState"; s =  script_array.shift();)
+                    a = document.createElement(t), "async" in i ? (a.async = !1,document.head.appendChild(a)) : i[f] ? (d.push(a), a[o] = n) : document.write("<" + script + ' src="' + s + '" defer></' + script + ">"), a.src = s
+            }(document, "script", script_array);
+        </script>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
+
+        <!--<script defer type="text/javascript">
+            window.addEventListener('DOMContentLoaded', function() {
+                if(navigator.serviceWorker) {
+                    console.log('navigator serviceworker exists')
+                    navigator.serviceWorker.register("@Url.Content("./sw.js")").then(function(registration) {
+                        console.log('service worker registered');
+                        registration.onupdatefound = function() {
+                            var installingWorker = registration.installing;
+                            installingWorker.onstatechange = function() {
+                                console.log('state-> '+installingWorker.state);
+                            }
+
+                        }
+                    }).catch(function(err) {
+                        console.log(err)
+                        console.log('Unable to register service worker')
+                    })
+                }
+
+            })
+        </script> -->
+
+        <div class="back-to-top" id="back-to-top"></div>
+
+    </body>
+    </html>
+
+
+
+
+
+
+
+    @*
+
+    @model Bikewale.Models.NewsDetailPageVM
+    @using System.Web.Script.Serialization
+    @using Bikewale.Utility
+
+    <!doctype html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        @if (Model != null && Model.PageMetaTags != null)
+        {
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
+            {
+                <title>@Model.PageMetaTags.Title</title>
+            }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
+            {
+                <meta name="description" content="@Model.PageMetaTags.Description" />
+            }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
+            {
+                <meta name="keywords" content="@Model.PageMetaTags.Keywords" />
+            }
+            if (Model.PageMetaTags.EnableOG)
+            {
+                <meta property="og:title" content="@Model.PageMetaTags.Title" />
+                <meta property="og:type" content="website" />
+                <meta property="og:description" content="@Model.PageMetaTags.Description" />
+                <meta property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+                if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
+                {
+                    <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
+                }
+            }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
+            {
+                <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.PreviousPageUrl))
+            {
+                <link rel="prev" href="@Model.PageMetaTags.PreviousPageUrl" /> }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
+            {
+                <link rel="next" href="@Model.PageMetaTags.NextPageUrl" />
+            }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.AmpUrl))
+            {
+                <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> }
+        }
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
+        <meta name="theme-color" content="#2a2a2a" />
+        <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
+
+
+        <link rel="preload" href="@Url.Content("../../Scripts/vendor.bundle.js")" as="script">
+        <link rel="preload" href="@Url.Content("../../Scripts/app.bundle.js")" as="script">
+        <link rel="preload" href="/m/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion" as="script">
+        <link rel="preload" href="/m/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion" as="script">
+        <link rel="preload" href="/src/bwcache.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion" as="script">
+        <link rel="preload" href="/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion" as="script">
+        <style type="text/css">
+            @Html.Raw(File.ReadAllText(Server.MapPath("~/Scripts/app.css")))
+            #appBanner{background:#e2e2e2;padding:5px 5px 0;position:relative;overflow:hidden}.hide{display:none}.banner-close-btn{width:30px;height:30px;background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/banner-close-btn.png) no-repeat;position:absolute;top:0;right:0;cursor:pointer}.app-banner-img-container{float:left;width:130px;height:95px;position:relative;margin-right:12px}.app-banner-img-container img{position:absolute;bottom:0}.app-banner-text-container{float:left}.margin-top5{margin-top:5px}.text-grey{color:#787878!important}.text-bold{font-weight:700}.font20{font-size:20px}.font12{font-size:12px}.text-bold{font-weight:700}.margin-bottom5{margin-bottom:5px}.btn-orange{background:#ef3030;color:#fff}.btn-orange:hover{background:#f44336}.btn-orange:focus{background:#d42c2c}.btn,.btn-orange:hover,.btn:hover{text-decoration:none}
+        </style>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
+        <script defer type="text/javascript">
+            !function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);
+        </script>
+        @{Bikewale.Utility.BWCookies.SetBWUtmz();}
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <script type="text/javascript">
+            var ga_pg_id = '0';
+
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-5CSHD6');
+
+            setTimeout(function () {
+                var a = document.createElement("script");
+                var b = document.getElementsByTagName("script")[0];
+                a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+                a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+            }, 1);
+
+            var googletag = googletag || {};
+            googletag.cmd = googletag.cmd || [];
+            (function () {
+                var gads = document.createElement('script');
+                gads.async = true;
+                gads.type = 'text/javascript';
+                var useSSL = 'https:' == document.location.protocol;
+                gads.src = (useSSL ? 'https:' : 'http:') +
+                    '//www.googletagservices.com/tag/js/gpt.js';
+                var node = document.getElementsByTagName('script')[0];
+                node.parentNode.insertBefore(gads, node);
+            })();
+
+        </script>
+    </head>
+    <body>
+
+
+        @if (Model.IsAppBannerNeeded)
+        {
+            <div id="appBanner">
+                <div class="banner-close-btn" id="btnCrossApp"></div>
+                <div class="app-banner-img-container">
+                    <img src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
+                </div>
+                <div class="app-banner-text-container margin-top5">
+                    <p class="text-grey text-bold font20">India’s #1</p>
+                    <p class="font12 text-bold text-grey margin-bottom5">Bike Research Destination</p>
+                    <a id="btnInstallApp" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source=BikeWaleWebsite&utm_medium=HeaderSlug&utm_campaign=MobileHeaderSlug" target="_blank" class="app-banner-btn-container">
+                        <span class="btn btn-orange font12 text-bold">Install our app</span>
+                    </a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        }
+
+
+        @Html.React("ServerRouterWrapper", new
+     {
+         Url = Model.ReduxStore.NewsReducer.NewsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl,
+         ArticleDetailData = Model.ReduxStore.NewsReducer.NewsDetailReducer.ArticleDetailData,
+         RelatedModelObject = Model.ReduxStore.NewsReducer.NewsDetailReducer.RelatedModelObject,
+         NewBikesListData = Model.ReduxStore.NewsReducer.NewsDetailReducer.NewBikesListData
+
+     }, containerId: "root")
+        <script type="text/javascript">
+        window.state = @Html.Raw(new JavaScriptSerializer().Serialize(Model.ReduxStore))
+        </script>
+
+        <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
+            <div class="globalcity-popup-data text-center">
+                <div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+                <p class="font20 margin-bottom5 text-capitalize">Please tell us your city</p>
+                <p class="text-light-grey margin-bottom5">This allows us to provide relevant content for you.</p>
+                <div class="form-control-box">
+                    <div class="margin-bottom20 position-rel">
+                        <span class="position-abt pos-right15 pos-top15 bwmsprite cross-sm-dark-grey cur-pointer"></span>
+                        <input type="text" class="form-control padding-right30" name="globalCityPopUp" placeholder="Type to select city" id="globalCityPopUp" autocomplete="off">
+                        <span id="loaderMakeModel" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none;"></span>
+                        <span class="bwmsprite error-icon hide"></span>
+                        <div class="bw-blackbg-tooltip hide">No city found. Try a different search.</div>
+                    </div>
+                </div>
+                <div>
+                    <button id="btnGlobalCityPopup" class="btn btn-orange btn-full-width font18">Confirm city</button>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <!-- global-search-popup code starts here -->
+        <div id="global-search-popup" class="global-search-popup" style="display:none">
+            <div class="form-control-box">
+                <span class="back-arrow-box" id="gs-close">
+                    <span class="bwmsprite back-long-arrow-left"></span>
+                </span>
+                <span class="cross-box hide" id="gs-text-clear">
+                    <span class="bwmsprite cross-md-dark-grey"></span>
+                </span>
+                <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="form-control padding-right30" autocomplete="off">
+                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none;right:35px;top:13px"></span>
+                <ul id="errGlobalSearch" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide">
+                    <li class="ui-menu-item" tabindex="-1">
+                        <span class="text-bold">Oops! No suggestions found</span>
+                        <br />
+                        <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
+                    </li>
+                </ul>
+                <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left;height:auto !important;background:#fff;" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
+            </div>
+        </div> <!-- global-search-popup code ends here -->
+
+
+        <script type="text/javascript">
+            var script_array = ["../../Scripts/vendor.bundle.js","../../Scripts/app.bundle.js",
+                                "/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion",
+                                "/m/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion",
+                                "/m/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion",
+                                "/src/bwcache.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"
+            ];
+
+            !function(e, t, r) {
+                function n() {
+                    for (; d[0] && "loaded" == d[0][f];) c = d.shift(), c[o] = !i.parentNode.insertBefore(c, i)
+                }
+                for (var s, a, c, d = [], i = document.scripts[0], o = "onreadystatechange", f = "readyState"; s =  script_array.shift();)
+                    a = document.createElement(t), "async" in i ? (a.async = !1,document.head.appendChild(a)) : i[f] ? (d.push(a), a[o] = n) : document.write("<" + script + ' src="' + s + '" defer></' + script + ">"), a.src = s
+            }(document, "script", script_array);
+        </script>
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
+        <script defer type="text/javascript">
+            window.addEventListener('DOMContentLoaded', function() {
+                if(navigator.serviceWorker) {
+                    console.log('navigator serviceworker exists')
+                    navigator.serviceWorker.register("@Url.Content("./sw.js")").then(function(registration) {
+                        console.log('service worker registered');
+                        registration.onupdatefound = function() {
+                            var installingWorker = registration.installing;
+                            installingWorker.onstatechange = function() {
+                                console.log('state-> '+installingWorker.state);
+                            }
+
+                        }
+                    }).catch(function(err) {
+                        console.log(err)
+                        console.log('Unable to register service worker')
+                    })
+                }
+
+            })
+        </script>
+
+        <div class="back-to-top" id="back-to-top"></div>
+
+    </body>
+    </html>
+
+
+
+
+
+
+
+
+
+    @*
+    @model Bikewale.Models.NewsDetailPageVM
+    @using System.Web.Script.Serialization
+    @using Bikewale.Utility
+
+    <!doctype html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        @if (Model != null && Model.PageMetaTags != null)
+        {
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
+            {
+                <title>@Model.PageMetaTags.Title</title>
+            }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.Description))
+            {
+                <meta name="description" content="@Model.PageMetaTags.Description" />
+            }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.Keywords))
+            {
+                <meta name="keywords" content="@Model.PageMetaTags.Keywords" />
+            }
+            if (Model.PageMetaTags.EnableOG)
+            {
+                <meta property="og:title" content="@Model.PageMetaTags.Title" />
+                <meta property="og:type" content="website" />
+                <meta property="og:description" content="@Model.PageMetaTags.Description" />
+                <meta property="og:image" content="@(string.IsNullOrEmpty(Model.PageMetaTags.OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : Model.PageMetaTags.OGImage)" />
+                if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
+                {
+                    <meta property="og:url" content="@Model.PageMetaTags.CanonicalUrl" />
+                }
+            }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.CanonicalUrl))
+            {
+                <link rel="canonical" href="@Model.PageMetaTags.CanonicalUrl" />}
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.PreviousPageUrl))
+            {
+                <link rel="prev" href="@Model.PageMetaTags.PreviousPageUrl" /> }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
+            {
+                <link rel="next" href="@Model.PageMetaTags.NextPageUrl" />
+            }
+            if (!String.IsNullOrEmpty(Model.PageMetaTags.AmpUrl))
+            {
+                <link rel="amphtml" href="@Model.PageMetaTags.AmpUrl" /> }
+        }
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
+        <meta name="theme-color" content="#2a2a2a" />
+        <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
+        <link rel='stylesheet' type='text/css' href="@Url.Content("../../Scripts/app.css")" />
+
+        <script src="@Url.Content("../../Scripts/vendor.bundle.js")" defer></script>
+        <script src="@Url.Content("../../Scripts/app.bundle.js")" defer></script>
+        <link rel="preload" href="@Url.Content("./sw.js")" as="script">
+
+
+
+        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion"></script>
+        <script defer type="text/javascript">
+            !function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);
+        </script>
+        @{Bikewale.Utility.BWCookies.SetBWUtmz();}
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        @Html.Raw(Model.Page_ATF_CSS)
+        <script type="text/javascript">
+            var ga_pg_id = '0';
+
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-5CSHD6');
+
+            setTimeout(function () {
+                var a = document.createElement("script");
+                var b = document.getElementsByTagName("script")[0];
+                a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+                a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+            }, 1);
+
+            var googletag = googletag || {};
+            googletag.cmd = googletag.cmd || [];
+            (function () {
+                var gads = document.createElement('script');
+                gads.async = true;
+                gads.type = 'text/javascript';
+                var useSSL = 'https:' == document.location.protocol;
+                gads.src = (useSSL ? 'https:' : 'http:') +
+                    '//www.googletagservices.com/tag/js/gpt.js';
+                var node = document.getElementsByTagName('script')[0];
+                node.parentNode.insertBefore(gads, node);
+            })();
+
+            @functions{
+            string GetAdSlot(int slotId, string adPath, string adId)
+            {
+                switch (slotId)
+                {
+                    case 1:
+                        return String.Format("googletag.defineSlot('{0}_Top_320x50', [320, 50], 'div-gpt-ad-{1}-0').addService(googletag.pubads());", adPath, adId);
+                    case 2:
+                        return String.Format("googletag.defineSlot('{0}_Bottom_320x50', [320, 50], 'div-gpt-ad-{1}-1').addService(googletag.pubads());", adPath, adId);
+                    case 3:
+                        return String.Format("googletag.defineSlot('{0}_300x250', [300, 250], 'div-gpt-ad-{1}-2').addService(googletag.pubads());", adPath, adId);
+                    case 4:
+                        return String.Format("googletag.defineSlot('{0}_FirstSlot_320x150', [[320, 150], [320, 50], [320, 100], [320, 425]], 'div-gpt-ad-{1}-3').addService(googletag.pubads());", adPath, adId);
+                    case 5:
+                        return String.Format("googletag.defineSlot('{0}_SecondSlot_320x150', [[320, 150], [320, 50], [320, 100], [320, 425]], 'div-gpt-ad-{1}-4').addService(googletag.pubads());", adPath, adId);
+                    case 6:
+                        return String.Format("googletag.defineSlot('{0}_Middle_320x50', [320, 50], 'div-gpt-ad-{1}-5').addService(googletag.pubads());", adPath, adId);
+                    default:
+                        return "";
+                }
+            }
+
+            string GetGTTargeting(int targetId, string target)
+            {
+                switch (targetId)
+                {
+                    case 1:
+                        return String.Format("googletag.pubads().setTargeting(\"Model\", \"{0}\");", target);
+                    case 2:
+                        return String.Format("googletag.pubads().setTargeting(\"Make\", \"{0}\");", target);
+                    case 3:
+                        return String.Format("googletag.pubads().setTargeting(\"CompareBike-M\", \"{0}\");", target);
+                    case 4:
+                        return String.Format("googletag.pubads().setTargeting(\"City\", \"{0}\");", target);
+                    default:
+                        return "";
+                }
+            }
+        }
+
+            googletag.cmd.push(function () {
+
+                @if (Model.AdTags.Ad_320x50){@Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                @if(Model.AdTags.Ad_Bot_320x50){ @Html.Raw(GetAdSlot(2, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                @if(Model.AdTags.Ad_300x250){@Html.Raw(GetAdSlot(3, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                @if(Model.AdTags.Ad320x150_Top){ @Html.Raw(GetAdSlot(4, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                @if(Model.AdTags.Ad320x150_Bottom){@Html.Raw(GetAdSlot(5, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                @if(Model.AdTags.Ad_Mid_320x50){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
+                @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
+                @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
+                @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
+                googletag.pubads().enableSingleRequest();
+                googletag.pubads().collapseEmptyDivs();
+                googletag.enableServices();
+            });
+        </script>
+    </head>
+    <body>
+
+
+
+        <div id="appBanner" class="hide">
+            <div class="banner-close-btn" id="btnCrossApp"></div>
+            <div class="app-banner-img-container">
+                <img src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
+            </div>
+            <div class="app-banner-text-container margin-top5">
+                <p class="text-grey text-bold font20">India’s #1</p>
+                <p class="font12 text-bold text-grey margin-bottom5">Bike Research Destination</p>
+                <a id="btnInstallApp" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source=BikeWaleWebsite&utm_medium=HeaderSlug&utm_campaign=MobileHeaderSlug" target="_blank" class="app-banner-btn-container">
+                    <span class="btn btn-orange font12 text-bold">Install our app</span>
+                </a>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+
+        @if (Model.IsHomePage)
+        {
+                <!-- Call Home Page Banner partial view -->
+        }
+        @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
+        {
+            <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
+                <script type='text/javascript'>
+                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-0'); });
+                </script>
+            </div>
+        }
+        <div class="blackOut-window"></div>
+        @Html.React("ServerRouterWrapper", new
+     {
+         Url = Model.ReduxStore.NewsReducer.NewsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl,
+         ArticleDetailData = Model.ReduxStore.NewsReducer.NewsDetailReducer.ArticleDetailData,
+         RelatedModelObject = Model.ReduxStore.NewsReducer.NewsDetailReducer.RelatedModelObject,
+         NewBikesListData = Model.ReduxStore.NewsReducer.NewsDetailReducer.NewBikesListData
+
+     }, containerId: "root")
+
+        <script type="text/javascript">
+            window.state = @Html.Raw(new JavaScriptSerializer().Serialize(Model.ReduxStore))
+        </script>
+
+
+        @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
+        {
+            <section>
+                <div class="container">
+                    <div>
+                        <div id='div-gpt-ad-@Model.AdTags.AdId-1' style='width:320px; height:50px;text-align:center;margin:10px auto;'>
+                            <script type='text/javascript'>
+                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@Model.AdTags.AdId-1'); });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+
+        <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
+            <div class="globalcity-popup-data text-center">
+                <div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+                <p class="font20 margin-bottom5 text-capitalize">Please tell us your city</p>
+                <p class="text-light-grey margin-bottom5">This allows us to provide relevant content for you.</p>
+                <div class="form-control-box">
+                    <div class="margin-bottom20 position-rel">
+                        <span class="position-abt pos-right15 pos-top15 bwmsprite cross-sm-dark-grey cur-pointer"></span>
+                        <input type="text" class="form-control padding-right30" name="globalCityPopUp" placeholder="Type to select city" id="globalCityPopUp" autocomplete="off">
+                        <span id="loaderMakeModel" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none;"></span>
+                        <span class="bwmsprite error-icon hide"></span>
+                        <div class="bw-blackbg-tooltip hide">No city found. Try a different search.</div>
+                    </div>
+                </div>
+                <div>
+                    <button id="btnGlobalCityPopup" class="btn btn-orange btn-full-width font18">Confirm city</button>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st2.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/bwcache.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
+        <!-- global-search-popup code starts here -->
+        <div id="global-search-popup" class="global-search-popup" style="display:none">
+            <div class="form-control-box">
+                <span class="back-arrow-box" id="gs-close">
+                    <span class="bwmsprite back-long-arrow-left"></span>
+                </span>
+                <span class="cross-box hide" id="gs-text-clear">
+                    <span class="bwmsprite cross-md-dark-grey"></span>
+                </span>
+                <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="form-control padding-right30" autocomplete="off">
+                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none;right:35px;top:13px"></span>
+                <ul id="errGlobalSearch" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide">
+                    <li class="ui-menu-item" tabindex="-1">
+                        <span class="text-bold">Oops! No suggestions found</span>
+                        <br />
+                        <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
+                    </li>
+                </ul>
+                <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left;height:auto !important;background:#fff;" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
+            </div>
+        </div> <!-- global-search-popup code ends here -->
+        @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")
+
+
+
+
+
+        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
+        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
+        @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
+        {
+            <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
+        }
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
+        <script type="text/javascript">
+            window.addEventListener('DOMContentLoaded', function() {
+                if(navigator.serviceWorker) {
+                    console.log('navigator serviceworker exists')
+                    navigator.serviceWorker.register("@Url.Content("./sw.js")").then(function(registration) {
+                        console.log('service worker registered');
+                        registration.onupdatefound = function() {
+                            var installingWorker = registration.installing;
+                            installingWorker.onstatechange = function() {
+                                console.log('state-> '+installingWorker.state);
+                            }
+
+                        }
+                    }).catch(function(err) {
+                        console.log(err)
+                        console.log('Unable to register service worker')
+                    })
+                }
+
+            })
+        </script>
+
+        <div class="back-to-top" id="back-to-top"></div>
+        </form>
+    </body>
+    </html>
+*@
