@@ -119,7 +119,7 @@
                                    <%if(objReview.ModelSpecs.KerbWeight>0){ %>  <li><%=objReview.ModelSpecs.KerbWeight %> kgs</li>                       <%}%>
                                 </ul>
                                 <%} %>
-                                <%if (!objReview.New) {%>
+                                <%if (objReview.New) {%>
                           
                                 <p class="margin-top10 text-light-grey font14">Ex-showroom price, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                                 <div class="margin-top5">  
