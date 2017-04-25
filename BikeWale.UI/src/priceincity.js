@@ -301,7 +301,8 @@ docReady(function () {
     });
 
     $('.model-versions-tabs-wrapper a').first().trigger("click");
-    triggerGA('Price_in_City_Page', 'CoverFox_Link_Shown', bikeName + '_' + cityName);
+
+    triggerNonInteractiveGA('Price_in_City_Page', 'CoverFox_Link_Shown', bikeName + '_' + cityName);
 
 });
 
