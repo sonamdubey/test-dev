@@ -7,6 +7,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by  :   Sumit Kate on 24 Mar 2017
     /// Description :   Most Popular Bike Widget VM
+    /// Modified by Sajal Gupta on 25-04-2017
+    /// Decription : Added CtaText
     /// </summary>
     public class MostPopularBikeWidgetVM
     {
@@ -18,5 +20,6 @@ namespace Bikewale.Models
         public string WidgetHeading { get; set; }
         public string WidgetHref { get; set; }
         public string WidgetLinkTitle { get; set; }
+        public string CtaText { get; set; }
     }
 }
