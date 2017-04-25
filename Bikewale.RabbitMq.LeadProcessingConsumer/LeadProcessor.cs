@@ -493,6 +493,10 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         Logs.WriteInfoLog(String.Format("Bajaj Finance -  Request : {0} \n Response : {1}", jsonString, response));
                     }
                 }
+                else
+                {
+                    Logs.WriteInfoLog(String.Format("Failed to push Bajaj Finance Lead - {0} Input", Newtonsoft.Json.JsonConvert.SerializeObject(bikeMappingInfo)));
+                }
             }
             catch (Exception ex)
             {
