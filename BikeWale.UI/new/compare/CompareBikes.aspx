@@ -48,7 +48,7 @@
         <!--    Left Container starts here -->
         <span id="spnError" class="error" runat="server"></span>
         <h1 class="red margin-bottom15">Bike Comparison -
-            <asp:literal id="ltrTitle" runat="server"></asp:literal>
+            <%= pgTitle %>
         </h1>
         <div class="padding-top20 featured-bike-tabs">
             <ul class="featured-bike-tabs-inner padding-top20">
@@ -891,7 +891,10 @@
                     <% } %>
                 </tr>
             </table>
-            
+            <div>
+                <p class="text-bold padding-top10"><%= pgTitle %></p>
+                <p class="padding-top10"><%= compareBikeText %></p>
+            </div>
             <div class="margin-bottom30 similarbikes <%= (ctrlSimilarBikes.fetchedCount > 0) ? string.Empty : "hide" %>">
                 <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />
             <div class="clear"></div>

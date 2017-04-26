@@ -245,7 +245,12 @@
                     <div class="clear"></div>
                     <div id="comparison-footer"></div>
                 </div>
-
+                <section>
+                    <div class="container bg-white box-shadow margin-bottom15 content-inner-block-20">
+                        <p class="text-bold font16 line-height17 inline"><%= comparisionText %></p>
+                        <p class="font14 text-light-grey line-height17 inline padding-top10"><%= compareSummaryText %></p>
+                    </div>
+                </section>
                 <% if (isUsedBikePresent)
                    { %>
                 <div id="used-bikes-container" class="container box-shadow bg-white card-bottom-margin">
