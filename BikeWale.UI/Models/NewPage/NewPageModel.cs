@@ -38,6 +38,7 @@ namespace Bikewale.Models
         #region Page level variables
         public ushort TopCount { get; private set; }
         public ushort LaunchedRecordCount { get; private set; }
+        public bool IsMobile { get; set; }
         public string redirectUrl;
         public StatusCodes status;
 
@@ -103,7 +104,10 @@ namespace Bikewale.Models
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
             objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
 
-            objVM.CompareBikes = new ComparisonMinWidget(_cachedCompare, 4, true, EnumBikeType.New).GetData();
+            if (IsMobile)
+                BindCompareBikes(objVM, cityId);
+            else
+                objVM.CompareBikes = new ComparisonMinWidget(_cachedCompare, 4, true, EnumBikeType.New).GetData();
 
             objVM.BestBikes = new BestBikeWidgetModel(null).GetData();
 
@@ -116,6 +120,20 @@ namespace Bikewale.Models
             SetFlags(objVM);
 
             return objVM;
+        }
+
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 25 Apr 2017
+        /// Summary    : Bind popular comparisons
+        /// </summary>
+        private void BindCompareBikes(NewPageVM objVM, uint cityId)
+        {
+            ComparePopularBikes objCompare = new ComparePopularBikes(_cachedCompare);
+            objCompare.TopCount = 9;
+            objCompare.CityId = cityId;
+            objVM.ComparePopularBikes = objCompare.GetData();
+            objVM.IsComparePopularBikesAvailable = (objVM.ComparePopularBikes != null && objVM.ComparePopularBikes.Count() > 0);
         }
 
         /// <summary>

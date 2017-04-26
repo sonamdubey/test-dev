@@ -7,6 +7,8 @@ namespace Bikewale.Entities.BikeData
     /// Desc       : Entity to hold make, model and masking Name of the links shown under compare bike links
     /// Modified By : Sushil Kumar on 2nd Dec 2016
     /// Description : Added modelid1 and modelid2 for sponsored comparions
+    /// Modified by : Aditi Srivastava on 25 Apr 2017
+    /// Summary     : Added additional parameters (ID, IsScooterOnly) for generic use
     /// </summary>
     [Serializable]
     public class SimilarCompareBikeEntity
@@ -34,5 +36,9 @@ namespace Bikewale.Entities.BikeData
         public string HostUrl2 { get; set; }
         public string City1 { get; set; }
         public string City2 { get; set; }
+        public string Bike1 { get; set; }
+        public string Bike2 { get; set; }
+        public int ID { get; set; }
+        public bool IsScooterOnly { get; set; }
     }
 }

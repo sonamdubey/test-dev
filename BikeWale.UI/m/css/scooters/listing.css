@@ -110,6 +110,7 @@
 .model-comparison-list h3 + .grid-6 {
   position: relative;
   border-right: 1px solid #f5f5f5; }
+
   .model-comparison-list h3 + .grid-6:after {
     content: '';
     position: absolute;
@@ -124,6 +125,12 @@
   font-size: 14px;
   padding: 6px 42px; }
 
+.inr-md-lg {
+  width: 12px;
+  height: 17px;
+  background-position: -64px -515px;
+  position: relative;
+  top: 1px; }
 .brand-type-carousel .swiper-slide,
 .brand-type-carousel .swiper-card {
   width: 200px;
@@ -354,3 +361,5 @@
 .india-icon {
   width: 61px;
   background-position: -834px 0; }
+
+

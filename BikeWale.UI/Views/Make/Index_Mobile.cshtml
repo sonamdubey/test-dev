@@ -65,8 +65,9 @@
                                             <span class="bwmsprite inr-sm-icon" style="@string.Format("{0}", bike.VersionPrice > 0  ? "display:inline-block;" : "display:none;")"></span>
                                             <span class="text-bold font18">@Html.Raw(string.Format("{0}", bike.VersionPrice > 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(bike.VersionPrice.ToString())) : "Price unavailable"))</span>
                                         </div>
-                                        @if (bike.VersionPrice > 0) { 
-                                        <a href="javascript:void(0)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage)" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                        @if (bike.VersionPrice > 0)
+                                        {
+                                            <a href="javascript:void(0)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage)" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
                                         }
                                     </div>
                                 </div>
@@ -97,6 +98,23 @@
         </div>
     }
 </section>
+
+@if (Model.IsCompareBikesAvailable){
+    <section>
+        <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>Popular Comparison of @Model.MakeName Bikes</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="/m/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @Html.Partial("~/Views/m/Shared/_similarComparisions.cshtml", Model.CompareSimilarBikes)
+        </div>
+    </section>
+}
 
 @if (Model.IsMakeTabsDataAvailable)
 {
@@ -227,7 +245,7 @@
                     else if (Model.IsDealerServiceDataInIndiaAvailable)
                     {
                         <div class="padding-bottom20 padding-top15 font14">
-                            <h2 class="padding-right20 padding-left20">@string.Format("{0} {1}",Model.MakeName, Model.DealerServiceTitle.Replace("Dealers","Showrooms")) </h2>
+                            <h2 class="padding-right20 padding-left20">@string.Format("{0} {1}", Model.MakeName, Model.DealerServiceTitle.Replace("Dealers", "Showrooms")) </h2>
                             @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia_Mobile.cshtml", Model.DealersServiceCenter)
                         </div>
                         <div class="border-solid-bottom"></div>

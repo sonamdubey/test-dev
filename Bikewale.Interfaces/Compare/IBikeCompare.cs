@@ -16,6 +16,8 @@ namespace Bikewale.Interfaces.Compare
     /// Description : Added methods for BikeCompareEntity DoCompare(string versions, uint cityId) 
     /// Modified By:- Subidh Jain 14 march 2017
     /// Summary :- Added ScooterCompareList
+    ///  Modified by : Aditi Srivastava on 24 Apr 2017
+    /// Summary     : Added popular compare list with new entity return type
     /// </summary>
     public interface IBikeCompare
     {
@@ -26,5 +28,6 @@ namespace Bikewale.Interfaces.Compare
         ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikeSponsored(string versionList, ushort topCount, int cityid, uint sponsoredVersionId);
         Int64 GetFeaturedBike(string versions);
         IEnumerable<TopBikeCompareBase> ScooterCompareList(uint topCount);
+        IEnumerable<SimilarCompareBikeEntity> GetPopularCompareList(uint cityId);
     }
 }

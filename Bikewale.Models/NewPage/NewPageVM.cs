@@ -1,4 +1,6 @@
 ﻿
+using Bikewale.Entities.BikeData;
+using System.Collections.Generic;
 namespace Bikewale.Models
 {
     /// <summary>
@@ -18,10 +20,11 @@ namespace Bikewale.Models
         public RecentNewsVM News { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }
         public RecentVideosVM Videos { get; set; }
+        public IEnumerable<SimilarCompareBikeEntity> ComparePopularBikes { get; set; }
 
         public bool IsPopularBikesDataAvailable { get; set; }
         public bool IsNewLaunchedDataAvailable { get; set; }
-
+        public bool IsComparePopularBikesAvailable { get; set; }
         public bool IsUpcomingBikeAvailable { get; set; }
 
         public uint TabCount = 0;
