@@ -22,7 +22,8 @@ namespace Bikewale.Mobile.New
         protected BikeCompareEntity vmCompare = null;
         protected bool isSponsoredBike, isUsedBikePresent;
         protected Int64 sponsoredVersionId = 0;
-        protected string comparisionText = string.Empty, targetedModels = string.Empty, featuredBike = string.Empty;
+        protected string comparisionText = string.Empty, targetedModels = string.Empty, featuredBike = string.Empty,
+            compareSummaryText = string.Empty, baseUrl = string.Empty, bikeQueryString = string.Empty;
         protected IEnumerable<BikeMakeEntityBase> objMakes = null;
         public SimilarCompareBikes ctrlSimilarBikes;
 
@@ -49,12 +50,16 @@ namespace Bikewale.Mobile.New
         /// </summary>
         private void BindCompareBikes()
         {
-            CompareBikesDetails objCompare = null;
+            CompareBikesDetails objCompare = new CompareBikesDetails();
+
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
             try
             {
-                objCompare = new CompareBikesDetails();
                 objCompare.maxComparisions = 2;
-
+                objCompare.originalUrl = originalUrl;
                 if (objCompare.ProcessQueryString() && !objCompare.isPermanentRedirect && !objCompare.isPageNotFound && !objCompare.isCompareLandingRedirection)
                 {
                     objCompare.GetComparedBikeDetails();
@@ -68,6 +73,7 @@ namespace Bikewale.Mobile.New
                     targetedModels = objCompare.TargetedModels;
                     featuredBike = objCompare.FeaturedBikeLink;
                     BindPageWidgets(objCompare.versionsList);
+                    compareSummaryText = objCompare.summaryText;
                 }
             }
             catch (Exception ex)
@@ -108,7 +114,6 @@ namespace Bikewale.Mobile.New
                 ctrlSimilarBikes.TopCount = 4;
                 ctrlSimilarBikes.versionsList = versions;
             }
-
         }
 
     }   //End of Class
