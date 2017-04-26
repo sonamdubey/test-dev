@@ -557,7 +557,7 @@ namespace Bikewale.DAL.Compare
                                 obj.MakeMasking1 = Convert.ToString(reader["MakeMaskingName"]);
                                 obj.ModelId1 = SqlReaderConvertor.ToUInt16(reader["ModelId"]);
                                 obj.Model1 = Convert.ToString(reader["Model"]);
-                                obj.ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName"]);
+                                obj.ModelMasking1 = Convert.ToString(reader["ModelMaskingName"]);
                                 obj.Bike1 = string.Format("{0} {1}", obj.Make1, obj.Model1);
 
                                 obj.Price1 = SqlReaderConvertor.ToInt32(reader["Price"]);
@@ -663,8 +663,6 @@ namespace Bikewale.DAL.Compare
                                     VersionId2 = Convert.ToString(reader["VersionId2"]),
                                     ModelId1 = SqlReaderConvertor.ToUInt32(reader["ModelId1"]),
                                     ModelId2 = SqlReaderConvertor.ToUInt32(reader["ModelId2"]),
-                                    ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName1"]),
-                                    ModelMaskingName2 = Convert.ToString(reader["ModelMaskingName2"]),
                                     OriginalImagePath1 = Convert.ToString(reader["OriginalImagePath1"]),
                                     OriginalImagePath2 = Convert.ToString(reader["OriginalImagePath2"]),
                                     Price1 = SqlReaderConvertor.ToInt32(reader["Price1"]),
@@ -731,8 +729,6 @@ namespace Bikewale.DAL.Compare
                                     ModelMasking2 = Convert.ToString(reader["ModelMaskingName2"]),
                                     VersionId1 = Convert.ToString(reader["VersionId1"]),
                                     VersionId2 = Convert.ToString(reader["VersionId2"]),
-                                    ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName1"]),
-                                    ModelMaskingName2 = Convert.ToString(reader["ModelMaskingName2"]),
                                     OriginalImagePath1 = Convert.ToString(reader["OriginalImagePath1"]),
                                     OriginalImagePath2 = Convert.ToString(reader["OriginalImagePath2"]),
                                     Price1 = SqlReaderConvertor.ToInt32(reader["Price1"]),
