@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace Bikewale.Entities.DTO
 {
@@ -17,6 +13,7 @@ namespace Bikewale.Entities.DTO
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
         public ReviewRatingBase OverAllRating { get; set; }
+        [JsonIgnore]
         public ReviewTaggedBike TaggedBike { get; set; }
     }
 }

@@ -18,9 +18,9 @@ using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
-
 namespace Bikewale.Mobile.Content
 {
     /// <summary>
@@ -227,7 +227,7 @@ namespace Bikewale.Mobile.Content
 
                 var cache = container.Resolve<IUserReviewsCache>();
                 reviews = cache.GetBikeReviewsList(Convert.ToUInt32(startIndex), Convert.ToUInt32(endIndex), Convert.ToUInt32(modelId), 0, FilterBy.MostRecent);
-                objReviewList = reviews.ReviewList;
+                objReviewList = reviews.ReviewList.ToList();
                 totalReviews = reviews.TotalReviews;
             }
             int totalPages = objPager.GetTotalPages(Convert.ToInt32(totalReviews), pageSize);

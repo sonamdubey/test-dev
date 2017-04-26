@@ -8,7 +8,7 @@ namespace Bikewale.Entities.UserReviews
     public class ReviewListBase
     {
         [DataMember]
-        public List<ReviewEntity> ReviewList { get; set; }
+        public IEnumerable<ReviewEntity> ReviewList { get; set; }
         [DataMember]
         public uint TotalReviews { get; set; }
 

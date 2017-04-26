@@ -1068,5 +1068,78 @@ namespace Bikewale.DAL.UserReviews
 
 
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 26 Apr 2017
+        /// Description :   Returns user reviews from old table
+        /// </summary>
+        /// <returns></returns>
+        public ReviewListBase GetUserReviews()
+        {
+            ReviewListBase reviews = null;
+            List<ReviewEntity> objRatingList = null;
+            try
+            {
+                reviews = new ReviewListBase();
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikereviews"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objRatingList = new List<ReviewEntity>();
+                            while (dr.Read())
+                            {
+                                ReviewEntity objRating = new ReviewEntity();
+
+                                objRating.ReviewId = SqlReaderConvertor.ToInt32(dr["ReviewId"]);
+                                objRating.WrittenBy = Convert.ToString(dr["CustomerName"]);
+                                objRating.OverAllRating.OverAllRating = SqlReaderConvertor.ToFloat(dr["OverallR"]);
+                                objRating.Pros = Convert.ToString(dr["Pros"]);
+                                objRating.Cons = Convert.ToString(dr["Cons"]);
+                                objRating.Comments = Convert.ToString(dr["SubComments"]);
+                                objRating.ReviewTitle = Convert.ToString(dr["Title"]);
+                                objRating.ReviewDate = SqlReaderConvertor.ToDateTime(dr["EntryDateTime"]);
+                                objRating.Liked = SqlReaderConvertor.ToUInt16(dr["Liked"]);
+                                objRating.Disliked = SqlReaderConvertor.ToUInt16(dr["Disliked"]);
+                                objRating.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objRating.ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]);
+
+                                objRating.TaggedBike = new ReviewTaggedBikeEntity();
+                                objRating.TaggedBike.MakeEntity = new BikeMakeEntityBase();
+
+                                objRating.TaggedBike.MakeEntity.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
+                                objRating.TaggedBike.MakeEntity.MakeName = Convert.ToString(dr["makename"]);
+                                objRating.TaggedBike.MakeEntity.MaskingName = objRating.MakeMaskingName;
+
+                                objRating.TaggedBike.ModelEntity = new BikeModelEntityBase();
+
+                                objRating.TaggedBike.ModelEntity.ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]);
+                                objRating.TaggedBike.ModelEntity.ModelName = Convert.ToString(dr["modelname"]);
+                                objRating.TaggedBike.ModelEntity.MaskingName = objRating.ModelMaskingName;
+
+                                objRating.TaggedBike.VersionEntity = new BikeVersionEntityBase();
+
+                                objRating.TaggedBike.VersionEntity.VersionId = SqlReaderConvertor.ToInt32(dr["versionid"]);
+                                objRatingList.Add(objRating);
+                            }
+
+                            dr.Close();
+                            reviews.ReviewList = objRatingList;
+                            reviews.TotalReviews = (uint)objRatingList.Count;
+                        }
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+            }
+
+            return reviews;
+        }
     }
 }

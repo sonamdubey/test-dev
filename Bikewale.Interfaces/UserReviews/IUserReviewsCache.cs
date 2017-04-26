@@ -6,6 +6,6 @@ namespace Bikewale.Interfaces.UserReviews
     {
         ReviewListBase GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter);
         UserReviewsData GetUserReviewsData();
-
+        ReviewListBase GetUserReviews();
     }
 }

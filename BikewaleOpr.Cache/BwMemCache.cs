@@ -88,5 +88,21 @@ namespace BikewaleOpr.Cache
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearVersionPrice({0},{1})", city, model));
             }
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 26 Mar 2017
+        /// Description :   Clear User Reviews Cache
+        /// </summary>
+        public static void ClearUserReviewsCache()
+        {
+            try
+            {
+                MemCachedUtil.Remove("BW_UserReviews");
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ClearUserReviewsCache");
+            }
+        }
     }
 }

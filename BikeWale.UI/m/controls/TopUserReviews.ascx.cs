@@ -8,8 +8,8 @@ using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI.WebControls;
-
 namespace Bikewale.Mobile.Controls
 {
     public class TopUserReviews : System.Web.UI.UserControl
@@ -63,7 +63,7 @@ namespace Bikewale.Mobile.Controls
 
                 objUserReviews = container.Resolve<IUserReviewsCache>();
 
-                objReviewList = objUserReviews.GetBikeReviewsList(1, TopCount, ModelId, 0, Filter).ReviewList;
+                objReviewList = objUserReviews.GetBikeReviewsList(1, TopCount, ModelId, 0, Filter).ReviewList.ToList();
 
                 if (totalReviews > 0)
                 {

@@ -4,6 +4,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.Utilities;
@@ -27,6 +28,7 @@ namespace Bikewale.Service.Controllers.Model
         private readonly IBikeModelsCacheRepository<int> _cache;
         private readonly IDealerPriceQuoteDetail _dealers;
         private readonly IBikeModels<BikeModelEntity, int> _modelBL = null;
+        private readonly IUserReviews _userReviews = null;
 
         /// <summary>
         /// 
@@ -35,12 +37,13 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="cache"></param>
         /// <param name="dealers"></param>
         /// <param name="modelBL"></param>
-        public ModelPageController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<BikeModelEntity, int> modelBL)
+        public ModelPageController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<BikeModelEntity, int> modelBL, IUserReviews userReviews)
         {
             _modelRepository = modelRepository;
             _cache = cache;
             _dealers = dealers;
             _modelBL = modelBL;
+            _userReviews = userReviews;
         }
 
         #region Model Page Complete
@@ -75,6 +78,7 @@ namespace Bikewale.Service.Controllers.Model
                     if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                     {
                         objModelPage.ModelVersionSpecs = null;
+                        objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                     }
                     else
                     {
@@ -180,6 +184,7 @@ namespace Bikewale.Service.Controllers.Model
                     if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                     {
                         objModelPage.ModelVersionSpecs = null;
+                        objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                     }
                     else
                     {
@@ -278,6 +283,7 @@ namespace Bikewale.Service.Controllers.Model
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
                         if (platformId == "3")
                         {
+                            objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                             #region On road pricing for versions
                             PQOnRoadPrice pqOnRoad; PQByCityArea getPQ;
                             PQByCityAreaEntity pqEntity = null;
@@ -334,6 +340,7 @@ namespace Bikewale.Service.Controllers.Model
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
                         if (platformId == "3")
                         {
+                            objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                             #region On road pricing for versions
                             PQOnRoadPrice pqOnRoad;
                             PQByCityArea getPQ;
