@@ -143,7 +143,10 @@
                         <div class="text-light-grey collapsible-content">
                             <p class="collapsible-main-content">@Model.Summary.TipsDescriptionSmall</p>
                             <p class="collapsible-more-content">@Model.Summary.Tips</p>
-                            <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                            @if (Model.Summary.Tips.Length > 150) { 
+                             <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                            }
+                           
                         </div>
                     }
                     @if (string.IsNullOrEmpty(Model.Summary.Tips) && !(Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0) && string.IsNullOrEmpty(Model.Summary.Description))
