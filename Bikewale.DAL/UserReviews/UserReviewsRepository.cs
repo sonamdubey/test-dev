@@ -1077,7 +1077,7 @@ namespace Bikewale.DAL.UserReviews
         public ReviewListBase GetUserReviews()
         {
             ReviewListBase reviews = null;
-            List<ReviewEntity> objRatingList = null;
+            ICollection<ReviewEntity> objRatingList = null;
             try
             {
                 reviews = new ReviewListBase();
@@ -1135,7 +1135,7 @@ namespace Bikewale.DAL.UserReviews
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "GetUserReviews");
 
             }
 

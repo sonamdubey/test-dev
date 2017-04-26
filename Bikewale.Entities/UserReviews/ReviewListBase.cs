@@ -4,6 +4,10 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.UserReviews
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 26 Apr 2017
+    /// Description :   Replace List with IEnumerable
+    /// </summary>
     [Serializable, DataContract]
     public class ReviewListBase
     {

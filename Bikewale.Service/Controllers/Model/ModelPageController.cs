@@ -37,6 +37,7 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="cache"></param>
         /// <param name="dealers"></param>
         /// <param name="modelBL"></param>
+        /// <param name="userReviews"></param>
         public ModelPageController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<BikeModelEntity, int> modelBL, IUserReviews userReviews)
         {
             _modelRepository = modelRepository;
@@ -52,6 +53,8 @@ namespace Bikewale.Service.Controllers.Model
         /// For the Specs and Features Default version selected is the one with maximum pricequotes
         /// Modified by Sajal Gupta on 28-02-2017
         /// Descrioption : Call BAL function instead of cache function to fetch model details.
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   For App, review count is fetched from old user reviews
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
@@ -157,6 +160,8 @@ namespace Bikewale.Service.Controllers.Model
         /// For the Specs and Features Default version selected is the one with maximum pricequotes
         /// Modified by Sajal Gupta on 28-02-2017
         /// Descrioption : Call BAL function instead of cache function to fetch model details.
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   For App, review count is fetched from old user reviews
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
@@ -261,6 +266,8 @@ namespace Bikewale.Service.Controllers.Model
         /// Description :   Get the Device Id from deviceId parameter
         /// Modified by Sajal Gupta on 28-02-2017
         /// Descrioption : Call BAL function instead of cache function to fetch model details.
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   For App, review count is fetched from old user reviews
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.Model.v3.ModelPage)), Route("api/v3/model/details/")]
@@ -318,6 +325,8 @@ namespace Bikewale.Service.Controllers.Model
         /// Description :   This the new version v4 of existing API update include PrimatyDealer, IsPrimary, SecondaryDealerCount and AltPrimarySectionText.  
         /// Modified by Sajal Gupta on 28-02-2017
         /// Descrioption : Call BAL function instead of cache function to fetch model details.
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   For App, review count is fetched from old user reviews
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.Model.v4.ModelPage)), Route("api/v4/model/details/")]

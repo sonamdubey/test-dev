@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.UserReviews
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 26 Apr 2017
+    /// Description :   Added GetUserReviews
+    /// </summary>
     public interface IUserReviews
     {
         UserReviewsData GetUserReviewsData();

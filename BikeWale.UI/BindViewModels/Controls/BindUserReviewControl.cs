@@ -42,6 +42,8 @@ namespace Bikewale.BindViewModels.Controls
         /// Summary :- Review list other than reviewid current review
         /// Modified By:- subodh Jain 30 Jan 2017
         /// Summary :- Added Fetch Count check for repeater binding
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   Replaced Count with Count() linq function
         /// </summary>
         /// <param name="rptUserReviews"></param>
         public void BindUserReview(Repeater rptUserReviews)

@@ -109,6 +109,8 @@ namespace Bikewale.Service.Controllers.UserReviews
         #region Get Bike Reviews List wth Paging
         /// <summary>
         /// To get review bike list with pagination
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   Call new User Reviews BAL
         /// </summary>
         /// <param name="startIndex"></param>
         /// <param name="endIndex"></param>
@@ -124,7 +126,6 @@ namespace Bikewale.Service.Controllers.UserReviews
             IEnumerable<Review> objDTOUserReview = null;
             try
             {
-                //objUserReview = _userReviewsCacheRepo.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter).ReviewList;
                 objUserReview = _userReviews.GetUserReviews(startIndex, endIndex, modelId, versionId, filter).ReviewList;
                 if (objUserReview != null)
                 {

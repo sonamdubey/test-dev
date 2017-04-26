@@ -13,6 +13,8 @@ namespace BikeWaleOpr
         /// <summary>
         ///     Modified By : Ashish G. Kamble on 2 Apr 2013
         ///     Summary : Function approve the user review of the customer.
+        ///     Modified by :   Sumit Kate on 26 Apr 2017
+        ///     Description :   Remove User Reviews Cache
         /// </summary>
         /// <param name="Id"></param>
         [AjaxPro.AjaxMethod()]
@@ -37,6 +39,8 @@ namespace BikeWaleOpr
         /// <summary>
         ///     Modified By : Ashish G. Kamble on 2 Apr 2013
         ///     Summary : Function discard the user review of the customer.
+        ///     Modified by :   Sumit Kate on 26 Apr 2017
+        ///     Description :   Remove User Reviews Cache
         /// </summary>
         /// <param name="Id"></param>
         [AjaxPro.AjaxMethod()]

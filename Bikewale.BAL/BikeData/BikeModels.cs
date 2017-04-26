@@ -39,7 +39,7 @@ namespace Bikewale.BAL.BikeData
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 24 Apr 2014
-    /// Summary : 
+    /// Summary :     
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -58,7 +58,10 @@ namespace Bikewale.BAL.BikeData
         static readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
         static uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
 
-
+        /// <summary>
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   Register the User Reviews BAL and resolve it
+        /// </summary>
         public BikeModels()
         {
             using (IUnityContainer container = new UnityContainer())
@@ -462,6 +465,12 @@ namespace Bikewale.BAL.BikeData
                 return null;
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   Use BAL to get the old User reviews for App
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         public BikeModelContent GetRecentModelArticles(U modelId)
         {
             BikeModelContent objModelArticles = new BikeModelContent();

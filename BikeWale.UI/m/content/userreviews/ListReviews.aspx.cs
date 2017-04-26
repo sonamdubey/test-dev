@@ -216,6 +216,10 @@ namespace Bikewale.Mobile.Content
             objRating = objUserReviews.GetBikeRatings(Convert.ToUInt32(modelId));
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   Call ToList function
+        /// </summary>
         private void GetReviewList()
         {
             ReviewListBase reviews = null;
@@ -227,8 +231,11 @@ namespace Bikewale.Mobile.Content
 
                 var cache = container.Resolve<IUserReviewsCache>();
                 reviews = cache.GetBikeReviewsList(Convert.ToUInt32(startIndex), Convert.ToUInt32(endIndex), Convert.ToUInt32(modelId), 0, FilterBy.MostRecent);
-                objReviewList = reviews.ReviewList.ToList();
-                totalReviews = reviews.TotalReviews;
+                if (reviews != null && reviews.TotalReviews > 0)
+                {
+                    objReviewList = reviews.ReviewList.ToList();
+                    totalReviews = reviews.TotalReviews;
+                }
             }
             int totalPages = objPager.GetTotalPages(Convert.ToInt32(totalReviews), pageSize);
 

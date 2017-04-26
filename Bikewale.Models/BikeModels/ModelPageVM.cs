@@ -10,6 +10,10 @@ using System.Linq;
 using System.Text;
 namespace Bikewale.Models.BikeModels
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 26 Apr 2017
+    /// Description :   Replace Count with Count()
+    /// </summary>
     public class ModelPageVM : ModelBase
     {
 

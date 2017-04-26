@@ -8,7 +8,6 @@ using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI.WebControls;
 namespace Bikewale.Mobile.Controls
 {
@@ -51,6 +50,10 @@ namespace Bikewale.Mobile.Controls
             }
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   Call ToList function
+        /// </summary>
         private void GetTopUserReviews()
         {
             IUserReviewsCache objUserReviews = null;
@@ -63,14 +66,14 @@ namespace Bikewale.Mobile.Controls
 
                 objUserReviews = container.Resolve<IUserReviewsCache>();
 
-                objReviewList = objUserReviews.GetBikeReviewsList(1, TopCount, ModelId, 0, Filter).ReviewList.ToList();
+                var userReviews = objUserReviews.GetBikeReviewsList(1, TopCount, ModelId, 0, Filter);
 
-                if (totalReviews > 0)
+                if (totalReviews > 0 && userReviews.TotalReviews > 0)
                 {
                     modelMaskingName = ModelMaskingName;
                     makeMaskingName = MakeMaskingName;
 
-                    rptUserReviews.DataSource = objReviewList;
+                    rptUserReviews.DataSource = userReviews.ReviewList;
                     rptUserReviews.DataBind();
                 }
             }
