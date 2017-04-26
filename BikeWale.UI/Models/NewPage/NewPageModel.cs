@@ -104,7 +104,10 @@ namespace Bikewale.Models
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
             objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
 
-            objVM.CompareBikes = new ComparisonMinWidget(_cachedCompare, 4, true, EnumBikeType.New).GetData();
+            if (IsMobile)
+                BindCompareBikes(objVM, cityId);
+            else
+                objVM.CompareBikes = new ComparisonMinWidget(_cachedCompare, 4, true, EnumBikeType.New).GetData();
 
             objVM.BestBikes = new BestBikeWidgetModel(null).GetData();
 
@@ -113,9 +116,6 @@ namespace Bikewale.Models
             objVM.Videos = new RecentVideos(1, 3, _videos).GetData();
 
             objVM.ExpertReviews = new RecentExpertReviews(3, _expertReviews).GetData();
-            
-            if(IsMobile)
-            BindCompareBikes(objVM,cityId);
 
             SetFlags(objVM);
 
@@ -127,7 +127,7 @@ namespace Bikewale.Models
         /// Created by : Aditi Srivastava on 25 Apr 2017
         /// Summary    : Bind popular comparisons
         /// </summary>
-        private void BindCompareBikes(NewPageVM objVM,uint cityId)
+        private void BindCompareBikes(NewPageVM objVM, uint cityId)
         {
             ComparePopularBikes objCompare = new ComparePopularBikes(_cachedCompare);
             objCompare.TopCount = 9;

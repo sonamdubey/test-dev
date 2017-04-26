@@ -18,8 +18,8 @@ namespace Bikewale.Models
         #endregion
 
         #region Public properties
-        public uint TopCount;
-        public uint CityId;
+        public uint TopCount { get; set; }
+        public uint CityId { get; set; }
         #endregion
 
         #region Contructor
@@ -39,6 +39,8 @@ namespace Bikewale.Models
             IEnumerable<SimilarCompareBikeEntity> compareBikesList = null;
             try
             {
+                if (TopCount == 0)
+                    TopCount = 9;
                 compareBikesList = _objCompare.GetPopularCompareList(CityId);
                 if (compareBikesList != null && compareBikesList.Count() > 0)
                 {
