@@ -428,7 +428,7 @@ namespace Bikewale.DAL.UserReviews
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelrating"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelrating_24042017"))
                 {
                     //cmd.CommandText = "getmodelrating";
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -448,6 +448,7 @@ namespace Bikewale.DAL.UserReviews
                             objRate.StyleRating = Convert.ToSingle(dr["Looks"]);
                             objRate.ValueRating = Convert.ToSingle(dr["ValueForMoney"]);
                             objRate.OverAllRating = Convert.ToSingle(dr["ReviewRate"]);
+                            objRate.IsReviewAvailable = Convert.ToBoolean(dr["isReviewAvailable"]);
 
                             dr.Close();
                         }
@@ -832,7 +833,7 @@ namespace Bikewale.DAL.UserReviews
                         {
                             if (rating.Key == question.Id)
                             {
-                                question.Rating = rating;
+                                question.Rating = rating.ToList();
                                 break;
                             }
                         }
@@ -841,21 +842,16 @@ namespace Bikewale.DAL.UserReviews
                         {
                             if (priceId.Key == question.Id)
                             {
-                                question.PriceRangeIds = priceId.Select(x => x.RangeId);
+                                question.PriceRangeIds = priceId.Select(x => x.RangeId).ToList();
                                 break;
                             }
                         }
                     }
-
-
-
                 }
             }
             catch (Exception ex)
             {
-
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-
             }
 
             return objData;

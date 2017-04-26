@@ -77,7 +77,7 @@
                         <div class="grid-9 alpha inline-block float-none">
                             <h1><%= BikeName %> User Reviews</h1>
                         </div><div class="grid-3 text-right alpha omega inline-block float-none">
-                            <a href="/content/userreviews/writereviews.aspx?bikem=<%= modelId %>" class="btn btn-teal btn-size-150">Write a review</a>
+                            <a href="<%=string.Format("/rate-your-bike/{0}/?pagesourceid={1}",modelId,Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_UserReview_Listing))%>" class="btn btn-teal btn-size-150">Write a review</a>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -116,7 +116,7 @@
                             <%} %>
                         </div>
                         <div class="clear"></div>
-<%if(RatingOverall>0) {%>
+                        <%if(isReviewAvailable && RatingOverall>0) {%>
                         <div class="border-solid ratings margin-top15 display-table">
                             <div class="rating-box overall text-center content-inner-block-15">
                                 <p class="text-bold font14 margin-bottom10">Overall Rating</p>
@@ -175,7 +175,8 @@
                                 <div class="clear"></div>
                             </div>
                         
-                        </div><%} %>
+                        </div>
+                        <%} %>
                         <div class="clear"></div>
                     </div>
                 </div>

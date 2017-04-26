@@ -172,7 +172,7 @@
 
 </head>
 <body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")">
-    <form>
+  
         <div id="header" class='@(Model.IsHeaderFix ? "header-fixed" : "header-not-fixed") @(Model.IsTransparentHeader ? "header-landing header-transparent" : "")'>
             <!-- Fixed Header code starts here -->
             <div class="leftfloat">
@@ -433,7 +433,7 @@
         {
             <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
         }      
-    </form>
+   
     <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js">
     </script>
     <script type="text/javascript">

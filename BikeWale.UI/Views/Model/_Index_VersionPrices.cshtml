@@ -1,20 +1,30 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 
-<div id="modelPricesContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-right10 padding-bottom15 padding-left10 border-solid-bottom">
-    <h2>@Model.BikeName Price List</h2>
-    <div id="prices-by-version-content" class="grid-6 alpha padding-right20">
-        <h3 class="margin-bottom20">@Model.BikeName Price (versions)</h3>
+<div id="modelPricesContent" class="bw-model-tabs-data content-box-shadow content-inner-block-20 card-bottom-margin">
+    <h2 class="h2-heading margin-bottom20">@Model.BikeName Price List</h2>
+    <div id="version-prices-grid" class="grid-6 alpha padding-right20">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
-                    <th align="left" width="65%" class="font12 text-unbold text-xt-light-grey padding-bottom5 border-solid-bottom">@Model.ModelPageEntity.ModelDetails.ModelName Version</th>
-                    <th align="left" width="35%" class="font12 text-unbold text-xt-light-grey padding-bottom5 border-solid-bottom">Price</th>
+                    <th colspan="2" align="left" class="padding-bottom10">
+                        <h3>@Model.BikeName Price (versions)</h3>
+                    </th>
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td align="left" width="72%" class="font12 text-light-grey padding-bottom10 divider-bottom">Versions</td>
+                    <td align="left" width="28%" class="font12 text-light-grey padding-bottom10 divider-bottom">Price</td>
+                </tr>
                 @foreach (var version in Model.ModelPageEntity.ModelVersions)
-                {
-                    <tr class="version-prices-tr">
+                {                                        
+                    <tr>
+                        <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.ModelName, version.VersionName)</td>
+                        <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold">
+                            <span class="bwsprite inr-sm-dark"></span>@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())
+                        </td>
+                    </tr>
+                    @*<tr class="version-prices-tr">
                         <td width="70%" class="padding-bottom15 padding-top10 padding-right10 font14" valign="top">
                             <p class="margin-bottom5">@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.ModelName, version.VersionName)</p>
                             <p class="font12 text-xt-light-grey">@Bikewale.Utility.FormatMinSpecs.GetMinVersionSpecs(version.AlloyWheels, version.ElectricStart, version.AntilockBrakingSystem, version.BrakeType)</p>
@@ -25,21 +35,25 @@
                                 <span>@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
                             </p>
                             <p class="font12 text-xt-dark-grey">
-                                <span>@(Model.IsLocationSelected ? "On-road price" : "Ex-showroom"),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</span>
+                                <span>@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : "Ex-showroom"),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</span>
                             </p>
                         </td>
-
-                    </tr>
+                    </tr>*@
                 }
+                <tr>
+                    <td colspan="2" class="padding-top10 font12 text-light-grey">Above mentioned prices are @(Model.IsLocationSelected ? "On-road price" : "Ex-showroom"),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</td>
+                </tr>
             </tbody>
         </table>
     </div>
     @if (Model.IsPriceInTopCitiesAvailable)
-    {
-        <div id="prices-top-cities" class="grid-6 omega">
-            <h3>Price by cities&nbsp;<span class="text-light-grey text-unbold">(@(Model.IsLocationSelected ? "On-road price" : "Ex-showroom price"))</span></h3>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.PriceInTopCities)
+    {       
+        <div id="nearby-prices-grid" class="grid-6 omega padding-left20">
+            <h3 class="margin-bottom20">Price by cities&nbsp;<span class="text-light-grey text-unbold">(@(Model.IsLocationSelected ? "On-road price" : "Ex-showroom price"))</span></h3>            
+            <table id="prices-top-cities" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                    @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.PriceInTopCities)
+                </tbody>
             </table>
         </div>
     }

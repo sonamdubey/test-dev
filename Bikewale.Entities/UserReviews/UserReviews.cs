@@ -47,6 +47,7 @@ namespace Bikewale.Entities.UserReviews
         public uint SubQuestionId { get; set; }
     }
 
+    [Serializable]
     public enum UserReviewQuestionDisplayType
     {
         Star = 1,

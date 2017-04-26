@@ -246,9 +246,9 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 }
 
 /* News-Reviews-Videos New Bikes */
-.newBikes-latest-updates-container .grid-4 { padding-left:10px; !important }
-.newBikes-latest-updates-container .grid-8 { padding-right:10px; !important }
-.article-target-link { font-size: 16px; font-weight: bold; color:#2a2a2a; display:block; }
+.newBikes-latest-updates-container .grid-4 { padding-left:10px !important; }
+.newBikes-latest-updates-container .grid-8 { padding-right:10px !important; }
+.article-target-link { font-size: 15px; font-weight: 600; color:#2a2a2a; display:block; }
 .article-target-link:hover { text-decoration:underline; }
 .article-stats-left-grid, .article-stats-right-grid { display:inline-block; vertical-align:top; min-width: 110px; padding-right: 10px; }
 .article-stats-content { font-size:12px; color: #82888b; display:inline-block; vertical-align:middle; }
@@ -468,7 +468,6 @@ a.action-btn:hover{text-decoration:none;}
 
 
 /*************style for PQ Popup****************************/
-@charset "utf-8";
 .gb-close { background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/cw-sprite-v1.3.png?171214-v2) -190px -1042px no-repeat; display:inline-block; width:16px; height:16px; }
 .gb-close:hover { background-position:-190px -1072px; }
 #gb-head { border-bottom:none !important; margin:10px 10px 0px 10px !important; }
@@ -584,11 +583,12 @@ li.offertxt:hover span {display:inline}
     user-select: none;
     font-size: 16px;
     color: #82888b;
-    cursor: text;
+    cursor: default;
     -webkit-transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -o-transition: 0.2s ease all;
     transition: 0.2s ease all;
+    pointer-events: none;
 }
 .input-box input[type="text"]:focus,
 .input-box input[type="number"]:focus {
@@ -751,7 +751,7 @@ input[type="number"] {
     .select-box .chosen-container .chosen-single {
       color: #4d5057;
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 600;
       background: transparent; }
     .select-box .chosen-container .chosen-default {
       display: none; }
@@ -784,7 +784,7 @@ input[type="number"] {
       .select-box .chosen-container .chosen-results .highlighted {
         background-color: #f5f5f5; }
       .select-box .chosen-container .chosen-results .result-selected {
-        font-weight: 700; }
+        font-weight: 600; }
     .select-box .chosen-container .chosen-drop {
       width: 350px;
       z-index: 1;

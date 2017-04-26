@@ -69,9 +69,9 @@
                     <div id="pq-table-column" class="grid-7 alpha omega">
                         @if (Model.VersionsList.Count() > 1)
                         {
-                            <div id="model-version-dropdown" class="margin-right40 vertical-top">
-                                <div class="select-box select-box-no-input done size-small">
-                                    <p class="select-label">Version</p>
+                            <div id="model-version-dropdown" class="margin-right20 vertical-top">
+                                <p class="font12 text-light-grey">Version</p>
+                                <div class="select-box select-box-no-input">
                                     <select id="ddlVersion" class="chosen-select" data-title="Version">
                                         @foreach (var version in Model.VersionsList)
                                         {
@@ -83,16 +83,16 @@
                         }
                         else
                         {
-                            <div class="single-version-content position-rel top-minus5 vertical-top margin-right40">
+                            <div class="single-version-content margin-right20 vertical-top">
                                 <p class="font12 text-light-grey">Version</p>
-                                <p class="font14 text-bold single-version-value">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
+                                <p class="text-bold dropdown-effect-light text-truncate">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
                             </div>
                         }
                         <input type="hidden" value="@Model.VersionId" />
 
-                        <div class="position-rel top-minus5 vertical-top getquotation" data-persistent="true" data-modelid="@Model.ModelId">
+                        <div class="location-selection vertical-top getquotation" data-persistent="true" data-modelid="@Model.ModelId">
                             <p class="font12 text-light-grey">Location</p>
-                            <p class="font14 text-bold block position-rel pos-top2">
+                            <p class="text-bold selected-city text-truncate position-rel cur-pointer">
                                 @Html.Raw(Model.Location) <span class="margin-left5">
                                     <span class="bwsprite loc-change-blue-icon"></span>
                                 </span>
@@ -178,7 +178,7 @@
                                             <td class="font14">
                                                 Insurance (Comprehensive)@if (!Model.IsPrimaryDealerAvailable)
                                             {
-                                             <br><p class="position-rel"><span class="position-abt neg-right15 pos-top0 font8">Ad</span><a target="_blank" href="https://www.coverfox.com/two-wheeler-insurance/?network=affiliate&affiliate_name=automotive_exchange_bikewale&product=bike&category=automotive_exchange_bikewale&utm_source=affiliate_automotive_exchange_bikewale&utm_medium=cpc&utm_campaign=bikewale_pub01" class="font12 bw-ga text-bold" c="Dealer_PQ" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName); rel=" nofollow">Buy Policy Now</a></p>
+                                             <br><p class="position-rel"><span class="position-abt neg-right15 pos-top0 font8">Ad</span><a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Dealer_PQ" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName); rel=" nofollow">Buy Policy Now</a></p>
                                                 }
                                             </td>
                                             <td align="right">
@@ -328,12 +328,12 @@
 
             @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealers != null && Model.DetailedDealer.SecondaryDealerCount > 0)
          {
-             <text>triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
+             <text>triggerNonInteractiveGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
          }
 
             @if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
         {
-            <text>triggerGA('Dealer_PQ', 'CoverFox_Link_Shown', bikeVerLocation);</text>
+            <text>triggerNonInteractiveGA('Dealer_PQ', 'CoverFox_Link_Shown', bikeVerLocation);</text>
         }
         }
         catch (e) {

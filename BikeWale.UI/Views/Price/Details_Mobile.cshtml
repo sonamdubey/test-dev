@@ -17,7 +17,7 @@
         <p class="font12 text-light-grey padding-left15 padding-right5">Version:</p>
         @if (Model.VersionsList.Count() > 1)
         {
-            <div class="dropdown-select-wrapper margin-left5">
+            <div class="dropdown-select-wrapper margin-left15">
                 <select id="ddlVersion" class="dropdown-select" data-title="Version">
                     @foreach (var version in Model.VersionsList)
                     {
@@ -28,7 +28,9 @@
         }
         else
         {
-            <p class="single-version-label font14 margin-left5">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
+            <div class="single-version-content font14 margin-left15">
+                <p class="dropdown-effect-light">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
+            </div>
         }
         <div class="text-center">
             <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.SelectedVersion.OriginalImagePath, Model.SelectedVersion.HostUrl, Bikewale.Utility.ImageSize._210x118)" title="@Model.BikeName Images" alt="@Model.BikeName Images" border="0" />
@@ -69,7 +71,7 @@
                     <td colspan="2" align="right" class="text-light-grey padding-bottom15">
                         @if (Model.IsPrimaryDealerAvailable)
                         {
-                            <a id='getMoreDetails' class="get-offer-link bw-ga leadcapturebtn" data-item-registerpq="false" data-leadsourceid="23" data-item-id="@Model.DealerId" data-item-name="@@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a>
+                            <a id='getMoreDetails' class="get-offer-link bw-ga leadcapturebtn" data-item-registerpq="false" data-leadsourceid="23" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a>
                         }
                     </td>
                 </tr>
@@ -89,7 +91,7 @@
                     <td class="padding-bottom15 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatPrice(Model.Quotation.RTO.ToString())</td>
                 </tr>
                 <tr>
-                    <td class="text-light-grey padding-bottom15" align="left">Insurance @if (!Model.IsPrimaryDealerAvailable){<br><p class='position-rel'><a target="_blank" href="https://www.coverfox.com/two-wheeler-insurance/?network=affiliate&affiliate_name=automotive_exchange_bikewale&product=bike&category=automotive_exchange_bikewale&utm_source=affiliate_automotive_exchange_bikewale&utm_medium=cpc&utm_campaign=bikewale_pub01" class="font12 bw-ga text-bold" c="Dealer_PQ" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Buy Policy Now</a><span class='position-abt pos-left35 pos-top0'>Ad</span></p>}</td>
+                    <td class="text-light-grey padding-bottom15" align="left">Insurance @if (!Model.IsPrimaryDealerAvailable){<br><p class='position-rel'><a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Dealer_PQ" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Buy Policy Now</a><span class='position-abt pos-left35 pos-top0'>Ad</span></p>}</td>
                     <td class="padding-bottom10 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatPrice(Model.Quotation.Insurance.ToString())</td>
                 </tr>
 
@@ -199,12 +201,12 @@
 
             @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealers != null && Model.DetailedDealer.SecondaryDealerCount > 0)
          {
-             <text>triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
+             <text>triggerNonInteractiveGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
          }
 
             @if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
         {
-            <text>triggerGA('Dealer_PQ', 'CoverFox_Link_Shown', bikeVerLocation);</text>
+            <text>triggerNonInteractiveGA('Dealer_PQ', 'CoverFox_Link_Shown', bikeVerLocation);</text>
         }
 
             if (dealerName != "") {

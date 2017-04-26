@@ -1,20 +1,10 @@
-﻿@model Bikewale.Models.ScooterComparesVM
+﻿@model IEnumerable<Bikewale.Entities.BikeData.SimilarCompareBikeEntity>
 @if (Model != null)
 {
-    <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
-        <div class="carousel-heading-content">
-            <div class="swiper-heading-left-grid inline-block">
-                <h2>Popular Comparison of @Model.MakeName Scooters</h2>
-            </div>
-            <div class="swiper-heading-right-grid inline-block text-right">
-                <a href="/m/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
-            </div>
-            <div class="clear"></div>
-        </div>
-        <div id="ctrlCompareBikes">
+    <div id="ctrlCompareBikes">
             <div id="comparisonSwiper" class="swiper-container comparison-swiper card-container">
-                <div class="swiper-wrapper">
-                    @foreach (var bikedetails in Model.Bikes)
+                <div class="swiper-wrapper model-comparison-list">
+                    @foreach (var bikedetails in Model)
                     {
                         string bike1 = string.Format("{0} {1}", bikedetails.Make1, bikedetails.Model1);
                         string bike2 = string.Format("{0} {1}", bikedetails.Make2, bikedetails.Model2);
@@ -55,5 +45,4 @@
                 </div>
             </div>
         </div>
-    </div>
 }

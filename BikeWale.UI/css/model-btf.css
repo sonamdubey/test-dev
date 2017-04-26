@@ -1,4 +1,299 @@
-﻿@charset "utf-8";
+﻿/* similar bikes */
+.compare-with-target {
+    display: block;
+    padding: 10px 35px 10px 20px;
+    position: relative;
+    font-size: 14px;
+    color: #4d5057;    
+}
+
+.compare-with-target:before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 85%;
+    height: 1px;
+    border-top: 1px solid #e2e2e2;
+}
+
+.compare-with-target:hover {
+    text-decoration: none;
+}
+
+.compare-sm {
+    width: 17px;
+    height: 12px;
+    background-position: -210px -580px;
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+}
+
+.compare-with-target .next-grey-icon {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
+
+/* model-news-content */
+#modelReviewsContent .model-news-content {
+    margin: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* h2 */
+.h2-heading {
+    font-size: 18px;
+}
+
+.inline {
+    display: inline;
+}
+
+/* model key highlights */
+#model-key-highlights tr td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-top: 1px solid #eee; 
+}
+
+#model-key-highlights tbody tr td:first-child {
+    color: #82888b;
+}
+
+#model-key-highlights tbody tr:first-child td {
+    border-top: 0;
+}
+
+#model-key-highlights .model-color-list li {
+    margin-right: 3px;
+}
+
+#model-key-highlights .model-color-list li:after {
+    content: ", ";
+}
+
+#model-key-highlights .model-color-list li:last-child:after {
+    content: none;
+}
+
+/* price list */
+/* version prices */
+.divider-bottom {
+    border-bottom: 1px solid #eee;
+}
+
+/* prices in nearby cities */
+#prices-top-cities tr {
+    display: inline-block;
+    width: 49%
+}
+
+#prices-top-cities td {
+    font-size: 14px;
+    width: 49%;
+    display: inline-block;
+    padding-bottom: 20px;
+}
+
+#prices-top-cities .city-price {
+    width: 45%;
+}
+
+#prices-top-cities td a {
+    display: block;
+}
+
+#prices-top-cities tr:nth-child(odd) .city-name {
+    width: 110px
+}
+
+#prices-top-cities tr:nth-child(even) .city-name {
+    padding-left: 20px
+}
+
+/* model color card */
+#modelColorsList {
+    overflow: hidden;
+}
+#modelColorsList li {
+    width: 240px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+#modelColorsList a {
+    display: block;
+}
+#modelColorsList a:hover {
+    text-decoration: none;
+}
+#modelColorsList a:hover p {
+    color: #4d5057;
+}
+.color-box-list .color-box {
+    width: 32px;
+    height: 32px;
+    margin-right: 15px;
+    background: #f1f1f1;
+    border: 1px solid #f1f1f1;
+}
+#modelColorsList li p {
+    width: 75%;
+    color: #82888b;
+    padding-right: 5px;
+}
+.color-box span {
+    width: 100%;
+    display: block !important;
+    background: #f1f1f1;
+}
+.color-box.color-count-one span {
+    height: 100%;
+}
+.color-box.color-count-two span {
+    height: 50%;
+    
+}
+.color-box.color-count-three span {
+    height: 33.33%;
+}
+
+/* specs features */
+.model-accordion-tab {
+    padding: 17px 20px;
+    position: relative;
+    border-bottom: 1px solid #e2e2e2;
+    cursor: pointer;
+}
+.accordion-angle-icon {
+    width: 16px;
+    height: 14px;
+    background-position: -205px -515px;
+}
+#model-specs-list > li:first-child .model-accordion-tab {
+    border-top: 1px solid #e2e2e2;
+}
+.model-accordion-tab .accordion-angle-icon {
+    position: absolute;
+    right: 20px;
+    top: 24px;
+    transition: transform .3s;
+    -moz-transition: transform .3s;
+    -webkit-transition: transform .3s;
+    -o-transition: transform .3s;
+    -ms-transition: transform .3s;
+}
+.model-accordion-tab.active .accordion-angle-icon {
+    -moz-transform: rotateZ(180deg);
+    -webkit-transform: rotateZ(180deg);
+    -o-transform: rotateZ(180deg);
+    -ms-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+}
+.specs-features-list {
+    display: none;
+    border-bottom: 1px solid #e2e2e2;
+    padding-bottom: 20px;
+}
+.model-accordion-tab.active + .specs-features-list {
+    display: block
+}
+.specs-features-list .grid-6 p {
+    margin-top: 25px;
+    width: 100%;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.specs-features-list .grid-6 p:first-child {
+    margin-top: 20px;
+}
+.specs-features-list.model-features-list {
+    display: block;
+    border-bottom: none;
+}
+.specs-features-list.model-features-list .grid-6 p:first-child {
+    margin-top: 0;
+}
+#model-more-features-list {
+    display: none;
+}
+
+/* specs features icons */
+.engine-sm-icon,
+.brakes-sm-icon,
+.dimension-sm-icon,
+.fuel-sm-icon {
+    width: 30px;
+    height: 28px;
+    vertical-align: middle;
+}
+.engine-sm-icon {
+    background-position: 0 -43px;
+}
+.brakes-sm-icon {
+    background-position: -40px -43px;
+}
+.dimension-sm-icon {
+    background-position: -80px -43px;
+}
+.fuel-sm-icon {
+    background-position: -120px -43px;
+}
+
+.view-features-link {
+    position: relative;
+    display: block;
+}
+
+.view-features-link:before {
+    content: '';
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    top: -40px;
+    left: 0;
+    z-index: 1;
+    background: -moz-linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+    background: -o-linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+}
+.view-features-link.active:before {
+    content: none;
+}
+
+/* user review */
+.model-user-review-rating-container { 
+    width: 106px;
+    height: 60px;
+    margin-right: 20px;
+    border: 1px solid #e2e2e2;
+    background: #f9f9f9;
+    padding-top: 8px;
+    text-align: center;
+}
+.model-user-review-container .model-user-review-title-container {
+    width: auto;
+    float: none;
+}
+.model-user-review-rating-container .star-one-icon,
+.model-user-review-rating-container .star-zero-icon {
+    -moz-transform: scale(0.8);
+    transform: scale(0.8);
+    margin-right: -1px;
+    margin-left: -1px;
+}
+
+.model-user-review-container .article-stats-left-grid,
+.model-user-review-container .article-stats-right-grid {
+    margin-bottom: 10px;
+}
+
 /* model-rank-slug */
 .model-rank-slug {
     width: 292px;
@@ -84,33 +379,6 @@ li.offertxt:hover span {display:inline}
 .call-icon { width: 16px; height: 19px; background-position: -115px -201px; }
 .insurance-breakup-text{position: relative; color: rgb(153, 153, 153); font-size: 14px; margin-top: 1px; text-decoration: solid;float:left; clear:left;}
 
-/* model key highlights */
-#model-key-highlights tr td {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border-top: 1px solid #eee; 
-}
-
-#model-key-highlights tbody tr:first-child td {
-    border-top: 0;
-}
-
-#model-key-highlights .model-color-list li {
-    margin-right: 3px;
-}
-
-#model-key-highlights .model-color-list li:after {
-    content: ", ";
-}
-
-#model-key-highlights .model-color-list li:last-child:after {
-    content: none;
-}
-
-.inline {
-    display: inline;
-}
-
 /**/
 .inline-block-top { display:inline-block; vertical-align:top; }
 .model-card-image-content { width:117px; height:66px; background:#ccc; }
@@ -120,9 +388,7 @@ li.offertxt:hover span {display:inline}
 .model-single-user-review { width:780px; }
 .model-orp-btn .btn { padding:8px 29px; }
 .model-powered-by-text { width:175px !important; }
-.content-details-wrapper h2 { margin-bottom:15px; }
-.content-details-wrapper h3 { margin-bottom:12px; }
-#modelSpecsFeaturesContent h3, #modelReviewsContent h3.model-section-subtitle { margin-bottom:20px; }
+
 .content-inner-block-1020 { padding:10px 20px; }
 .inr-sm-grey { width:8px; height:12px; background-position:-92px -468px; }
 .inr-md-lg { width:12px; height:17px; background-position:-64px -515px; position: relative; top: 1px; }
@@ -142,147 +408,20 @@ li.offertxt:hover span {display:inline}
 .specs-maxpower-icon { width:22px; background-position:-105px 0; }
 .specs-weight-icon { width:31px; background-position:-137px 0; }
 .model-preview-more-content { display:none; }
-/* prices by version */
-#prices-by-version-content.grid-8 { width: 64%; }
-#prices-top-cities.grid-4 { width: 36%; }
-.version-prices-tr td { border-top:1px solid #eee; }
-.version-prices-tr:first-child td { border-top:none; }
-.text-xt-dark-grey { color:#a2a2a2; }
-/* specs features */
-.model-accordion-tab { padding:17px 20px; position: relative; border-bottom: 1px solid #e2e2e2; cursor: pointer; }
-.accordion-angle-icon { width:16px; height:14px; background-position: -205px -515px; }
-#model-specs-list > li:first-child .model-accordion-tab { border-top: 1px solid #e2e2e2; }
-.model-accordion-tab .accordion-angle-icon { position: absolute; right: 20px; top: 24px; transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
-.model-accordion-tab.active .accordion-angle-icon { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
-.specs-features-list { display: none; border-bottom: 1px solid #e2e2e2; padding-bottom: 20px; }
-.model-accordion-tab.active + .specs-features-list { display: block }
-.specs-features-list .grid-6 p { margin-top:25px; width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
-.specs-features-list .grid-6 p:first-child { margin-top:20px; }
-.specs-features-list.model-features-list { display: block; border-bottom: none; }
-.specs-features-list.model-features-list .grid-6 p:first-child { margin-top:0; }
-#model-more-features-list { display:none; }
-.engine-sm-icon, .brakes-sm-icon, .dimension-sm-icon, .fuel-sm-icon { width:30px; height:28px; vertical-align:middle; }
-.engine-sm-icon { background-position: 0 -43px;}
-.brakes-sm-icon { background-position: -40px -43px;}
-.dimension-sm-icon { background-position: -80px -43px;}
-.fuel-sm-icon { background-position: -120px -43px;}
-.view-features-link { position: relative; display:block; }
-.view-features-link:before { content: ''; width: 100%; height: 20px; position:absolute; top:-40px; left: 0; z-index: 1; background: -webkit-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: -moz-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: -o-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%);}
-.view-features-link.active:before { content: none; }
 
-#modelColorsContent h2 { margin-bottom: 20px; }
-#modelColorsList { overflow:hidden; }
-#modelColorsList li { width:240px; padding-left:20px; margin-bottom:25px; display:inline-block; vertical-align:top; }
-#modelColorsList .color-box { width:30px; height:30px; margin-right:15px; background: #f1f1f1; border: 1px solid #f1f1f1; }
-#modelColorsList li p { width:75%; color: #82888b; padding-right:5px; }
-.color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#f1f1f1; }  
-.color-box.color-count-two span { width:100%; height:50%; display:block !important; background:#f1f1f1; } 
-.color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }
+.text-xt-dark-grey { color:#a2a2a2; }
+
 #model-expert-review-container { margin-bottom: 25px; }
 .model-preview-image-container { max-width:292px; height:164px; display:table; text-align:center; border:1px solid #e2e2e2; }
 .model-preview-image-container a { width:292px; height:164px; display:block; background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .model-preview-image-container a img { width:100%; height:164px; }
-.model-user-review-rating-container { max-width:148px; height:84px; margin-right: 20px; border:1px solid #e2e2e2; background:#f9f9f9; padding-top:17px; text-align:center;}
-.model-user-review-rating-container p:first-child { width: 148px; }
-.model-user-review-container .model-user-review-title-container { width: auto; float: none; }
-.upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px;}
-.upcoming-text-label:after{content: "";background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
-.discontinued-text-label { background:#A8AFB3;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px; }
-.discontinued-text-label:after { content: "";background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/discontinued-ribbon.png?v=10May2016v1) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px; }
+
 .chosen-results::-webkit-scrollbar {width: 10px;border-radius: 5px;}
 .chosen-results::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-moz-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-o-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);box-shadow: inset 0 0 2px rgba(0,0,0,0.2);}
 .chosen-results::-webkit-scrollbar-thumb {background-color: rgba(204, 204, 204,0.7);}
 .line-height { line-height: 1.5; }
 
-/* similar bikes */
-.compare-with-target {
-    display: block;
-    padding: 10px 35px 10px 20px;
-    position: relative;
-    font-size: 14px;
-    color: #4d5057;    
-}
-
-.compare-with-target:before {
-    content: '';
-    position: absolute;
-    left: 20px;
-    top: 0;
-    width: 85%;
-    height: 1px;
-    border-top: 1px solid #e2e2e2;
-}
-
-.compare-with-target:hover {
-    text-decoration: none;
-}
-
-.compare-sm {
-    width: 17px;
-    height: 12px;
-    background-position: -210px -580px;
-    position: relative;
-    top: 1px;
-    margin-right: 5px;
-}
-
-.compare-with-target .next-grey-icon {
-    position: absolute;
-    right: 20px;
-    top: 15px;
-}
-
-#prices-top-cities tr {
-    display: inline-block;
-    width: 49%
-}
-
-#prices-top-cities td {
-    font-size: 14px;
-    width: 49%;
-    display: inline-block
-}
-
-#prices-top-cities .city-price {
-    width: 45%;
-}
-
-#prices-top-cities td a {
-    display: block;
-}
-
-#prices-top-cities tr:nth-child(odd) .city-name {
-    width: 110px
-}
-
-#prices-top-cities tr:nth-child(even) .city-name {
-    padding-left: 20px
-}
-
-/* dealer carousel */
-.dealer-jcarousel-image-preview { width:292px; height:114px; display:block; margin-bottom:15px; text-align:center; padding-top:10px; }
-.city-sprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?26Dec2016) no-repeat; display: inline-block; }
-.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon, .india-icon { height: 92px; }
-.mumbai-icon { width: 130px; background-position: 0 0; }
-.pune-icon { width: 186px; background-position: -140px 0; }
-.bangalore-icon { width: 136px; background-position: -336px 0; }
-.delhi-icon { width: 70px; background-position: -482px 0; }
-.chennai-icon { width: 53px; background-position: -562px 0; }
-.hyderabad-icon { width: 65px; background-position: -625px 0; }
-.kolkata-icon { width: 182px; background-position: -700px 0; }
-.lucknow-icon { width: 174px; background-position: -892px 0; }
-.ahmedabad-icon { width: 0px; background-position: 0 0; }
-.chandigarh-icon { width: 0px; background-position: 0 0; }
-.india-icon { width: 81px; background-position: -1076px 0; }
-
-/* model-news-content */
-#modelReviewsContent .model-news-content {
-    margin: 0;
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-/* dealer card */
+/* card */
 .card {
   width: 292px;
   min-height: 140px;
@@ -310,39 +449,134 @@ li.offertxt:hover span {display:inline}
 .card .text-truncate {
     width: 100%;
 }
-.details-column {
-    width: 92%
+
+/* dealer card */
+.carousel-heading-10 .carousel-heading-content {
+    margin-bottom: 10px
 }
 
-.margin-bottom0 {
-    margin-bottom: 0 !important;
+.carousel-heading-10 .carousel-heading-content.padding-top20 {
+    padding-top: 10px;
 }
 
-@media only screen and (max-width:1024px) {
+/* dealer carousel */
+.dealer-jcarousel-image-preview {
+    width: 292px;
+    height: 114px;
+    display: block;
+    margin-bottom: 15px;
+    text-align: center;
+    padding-top: 10px;
+}
+.city-sprite {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?26Dec2016) no-repeat;
+    display: inline-block;
+}
+.mumbai-icon,
+.pune-icon,
+.bangalore-icon,
+.delhi-icon,
+.chennai-icon,
+.hyderabad-icon,
+.kolkata-icon,
+.ahmedabad-icon,
+.chandigarh-icon,
+.lucknow-icon,
+.india-icon {
+    height: 92px;
+}
+.mumbai-icon {
+    width: 130px;
+    background-position: 0 0;
+}
+.pune-icon {
+    width: 186px;
+    background-position: -140px 0;
+}
+.bangalore-icon {
+    width: 136px;
+    background-position: -336px 0;
+}
+.delhi-icon {
+    width: 70px;
+    background-position: -482px 0;
+}
+.chennai-icon {
+    width: 53px;
+    background-position: -562px 0;
+}
+.hyderabad-icon {
+    width: 65px;
+    background-position: -625px 0;
+}
+.kolkata-icon {
+    width: 182px;
+    background-position: -700px 0;
+}
+.lucknow-icon {
+    width: 174px;
+    background-position: -892px 0;
+}
+.ahmedabad-icon {
+    width: 0px;
+    background-position: 0 0;
+}
+.chandigarh-icon {
+    width: 0px;
+    background-position: 0 0;
+}
+.india-icon {
+    width: 81px;
+    background-position: -1076px 0;
+}
+
+/* best bikes */
+.image-details-grid-list .card,
+.image-details-grid-list .card-target {
+    min-height: 120px;
+}
+
+.image-details-grid-list .item-rank-label {
+    font-size: 14px;
+    z-index: 1;
+    color: #82888b;
+    font-weight: 600;
+    position: absolute;
+    left: -5px;
+    top: -5px;
+}
+
+.image-details-grid-list .item-image-block {
+    width: 102px;
+    height: 57px;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) center no-repeat;
+    position: relative;
+}
+
+.image-details-grid-list .item-image-block img {
+    height: 57px;
+}
+
+.image-details-grid-list .item-details-block {
+    width: 57%;
+    padding-left: 5px;
+}
+
+@media only screen and (max-width: 1024px) {
     /* assistance-submit-btn */
     .btn-188-40 {
         width: 160px;
     }
 
-    #modelDetailsContainer .model-details-wrapper { width:500px; }
     .form-control-username { width: 250px; }
     
-    #modelDetailsFloatingCardContent { width:960px; left:2%; right:2%; }
-    #modelDetailsFloatingCardContent .model-details-floating-card{ width:940px; }
     .model-card-title-content { width:230px; }
     .floating-card-area-details { padding-left:0; }
     .model-user-review-title-container { width: 265px; }
     #campaign-offer-list li { width: 170px; }
     .campaign-offer-label { width:70%; }
-    #modelColorsList li { width: 230px; }
-}
-
-#modelColorsList a {
-    display: block;
-}
-#modelColorsList a:hover {
-    text-decoration: none;
-}
-#modelColorsList a:hover p {
-    color: #4d5057;
+    
+    #modelColorsList li {
+        width: 230px;
+    }
 }

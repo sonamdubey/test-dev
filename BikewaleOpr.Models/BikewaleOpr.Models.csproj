@@ -40,7 +40,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserReviews\ManageUserReviewsPageVM.cs" />
     <Compile Include="Users\LoginViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BikewaleOpr.DTO\BikewaleOpr.DTO.csproj">
+      <Project>{d2e7fef3-ca0c-4739-b995-c226af7cc41d}</Project>
+      <Name>BikewaleOpr.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
+      <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
+      <Name>BikewaleOpr.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

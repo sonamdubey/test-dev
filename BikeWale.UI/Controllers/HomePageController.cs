@@ -64,6 +64,7 @@ namespace Bikewale.Controllers
         {
             HomePageVM objData = null;
             HomePageModel obj = new HomePageModel(6, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _cachedCompare, _cachedBikeDetails, _videos, _articles, _expertReviews);
+            obj.IsMobile = true;
             objData = obj.GetData();
             return View(objData);
         }

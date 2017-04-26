@@ -9,6 +9,8 @@ namespace Bikewale.Models
     /// <author>
     /// Create by: Sangram Nandkhile on 01-Apr-2017
     /// Summary:  View Model for 
+    /// Modified by : Aditi Srivastava on 25 Apr 2017
+    /// Summary  : Replaced ViewModel with entity for similar comparisons
     /// </author>
     public class ScootersMakePageVM : ModelBase
     {
@@ -16,7 +18,7 @@ namespace Bikewale.Models
         public BikeDescriptionEntity Description { get; set; }
         public IEnumerable<MostPopularBikesBase> Scooters { get; set; }
         public UpcomingBikesWidgetVM UpcomingScooters { get; set; }
-        public ScooterComparesVM SimilarCompareScooters { get; set; }
+        public IEnumerable<SimilarCompareBikeEntity> SimilarCompareScooters { get; set; }
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
         public ServiceCenterDetailsWidgetVM ServiceCenters { get; set; }
         public DealerCardVM Dealers { get; set; }

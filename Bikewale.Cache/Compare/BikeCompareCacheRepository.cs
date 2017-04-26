@@ -50,6 +50,25 @@ namespace Bikewale.Cache.Compare
         }
 
         /// <summary>
+        /// Created by : Aditi Srivastava on 25 Apr 2017
+        /// Summary    : Get list of comparisons of popular bikes
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<SimilarCompareBikeEntity> GetPopularCompareList(uint cityId)
+        {
+            IEnumerable<SimilarCompareBikeEntity> compareBikeList = null;
+            string key = string.Format("BW_CompareSimilarBikes_CityId_{0}", cityId);
+            try
+            {
+                compareBikeList = _cache.GetFromCache<IEnumerable<SimilarCompareBikeEntity>>(key, new TimeSpan(12, 0, 0, 0), () => _compareRepository.GetPopularCompareList(cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.GetPopularCompareList");
+            }
+            return compareBikeList;
+        }
+        /// <summary>
         /// Modified By : Sushil Kumar on 2nd Dec 2016
         /// Description : changed timespan for cache to 1 hour
         /// </summary>

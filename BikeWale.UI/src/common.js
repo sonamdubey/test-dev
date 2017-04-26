@@ -699,6 +699,9 @@ docReady(function () {
     if (typeof (testimonialSlider) != 'undefined') {
         _target = 1;
     }
+    if (typeof (slideCountOne) != 'undefined') {
+        _target = 1;
+    }
     var jcarousel = $('.jcarousel').jcarousel({
         vertical: false
     });

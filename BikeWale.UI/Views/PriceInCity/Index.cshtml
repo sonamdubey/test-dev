@@ -83,9 +83,9 @@
                                 <div class="orp-right-grid leftfloat">
                                     @if (Model.BikeVersionPrices.Count() > 1)
                                     {
-                                        <div id="model-version-dropdown" class="margin-right15 padding-top20 vertical-top">
-                                            <div class="select-box select-box-no-input done size-small">
-                                                <p class="select-label">Version</p>
+                                        <div id="model-version-dropdown" class="margin-right20 vertical-top">
+                                            <p class="font12 text-light-grey">Version</p>
+                                            <div class="select-box select-box-no-input">
                                                 <select id="version-dropdown" class="chosen-select bw-ga" data-title="Version" c="Price_in_City_Page" a="Version_Changed" l="@gaBikeName">
                                                     @foreach (var version in Model.BikeVersionPrices)
                                                     {
@@ -97,9 +97,9 @@
                                     }
                                     else
                                     {
-                                        <div class="single-version-content vertical-top margin-right15">
+                                        <div class="single-version-content margin-right20 vertical-top">
                                             <p class="font12 text-light-grey">Version</p>
-                                            <p class="text-bold single-version-value text-truncate">@Model.FirstVersion.VersionName</p>
+                                            <p class="text-bold dropdown-effect-light text-truncate">@Model.FirstVersion.VersionName</p>
                                         </div>
                                     }
                                     @if (Model.IsNew)
@@ -133,7 +133,7 @@
                                                 <!-- /ko -->
                                                 <!-- ko if: insurancePrice().length > 0 -->
                                                 <tr>
-                                                    <td align="left" valign="top" width="70%" class="padding-bottom15 text-slate-grey">Insurance (Comprehensive)<br><a target="_blank" href="https://www.coverfox.com/two-wheeler-insurance/?network=affiliate&affiliate_name=automotive_exchange_bikewale&product=bike&category=automotive_exchange_bikewale&utm_source=affiliate_automotive_exchange_bikewale&utm_medium=cpc&utm_campaign=bikewale_pub01" class="font12 bw-ga text-bold position-rel" c="Price_in_City_Page" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey text-unbold font10">&nbsp;Ad</span></a></td>
+                                                    <td align="left" valign="top" width="70%" class="padding-bottom15 text-slate-grey">Insurance (Comprehensive)<br><a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold position-rel" c="Price_in_City_Page" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey text-unbold font10">&nbsp;Ad</span></a></td>
                                                     <td align="right" valign="top" width="30%" class="padding-bottom10 text-bold"><span class="bwsprite inr-sm"></span><span data-bind="text: insurancePrice()"></span></td>
                                                  </tr>
                                                 <!-- /ko -->

@@ -8,6 +8,7 @@ using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.DALs.Images;
 using BikewaleOpr.DALs.ManufactureCampaign;
+using BikewaleOpr.DALs.UserReviews;
 using BikewaleOpr.Interface.BikeColorImages;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ContractCampaign;
@@ -15,6 +16,7 @@ using BikewaleOpr.Interface.Images;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikewaleOpr.Interface.Security;
 using BikewaleOpr.Interface.Used;
+using BikewaleOpr.Interface.UserReviews;
 using BikewaleOpr.Used;
 using Microsoft.Practices.Unity;
 
@@ -51,6 +53,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IImage, ImageBL>();
             container.RegisterType<IImageRepository, ImageRepository>();
             container.RegisterType<ISecurity, SecurityBL>();
+            container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
+
             return container;
         }
     }

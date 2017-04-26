@@ -20,6 +20,7 @@ namespace Bikewale.Entities.UserReviews
 
     }
 
+    [Serializable]
     public enum UserReviewQuestionType
     {
         Rating = 1,

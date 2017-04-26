@@ -40,12 +40,5 @@ namespace Bikewale.Models
             this.PageMetaTags = new PageMetaTags();
             this.AdTags = new AdTags();
         }
-
-        private bool _IsAppBannerNeeded = true;
-        public bool IsAppBannerNeeded
-        {
-            get { return _IsAppBannerNeeded; }
-            set { _IsAppBannerNeeded = value; }
-        }
     }
 }
