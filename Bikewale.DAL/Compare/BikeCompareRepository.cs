@@ -531,6 +531,96 @@ namespace Bikewale.DAL.Compare
         }
 
         /// <summary>
+        /// Created by : Aditi Srivastava on 24 Apr 2017
+        /// Summary    : Get comparison of popular bikes
+        /// </summary>
+        public IEnumerable<SimilarCompareBikeEntity> GetPopularCompareList(uint cityId)
+        {
+            List<SimilarCompareBikeEntity> topBikeList = null;
+            IList<SimilarCompareBikeEntity> topBikes = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikecomparison_25042017"))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (reader != null)
+                        {
+                            topBikeList = new List<SimilarCompareBikeEntity>();
+                            while (reader.Read())
+                            {
+                                SimilarCompareBikeEntity obj = new SimilarCompareBikeEntity();
+                                obj.ID = SqlReaderConvertor.ToInt32(reader["ID"]);
+                                obj.Make1 = Convert.ToString(reader["Make"]);
+                                obj.MakeMasking1 = Convert.ToString(reader["MakeMaskingName"]);
+                                obj.ModelId1 = SqlReaderConvertor.ToUInt16(reader["ModelId"]);
+                                obj.Model1 = Convert.ToString(reader["Model"]);
+                                obj.ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName"]);
+                                obj.Bike1 = string.Format("{0} {1}", obj.Make1, obj.Model1);
+
+                                obj.Price1 = SqlReaderConvertor.ToInt32(reader["Price"]);
+                                obj.City1 = Convert.ToString(reader["City"]);
+
+                                obj.VersionId1 = Convert.ToString(reader["VersionId"]);
+                                obj.OriginalImagePath1 = Convert.ToString(reader["VersionImgUrl"]);
+                                obj.HostUrl1 = Convert.ToString(reader["HostUrl"]);
+                                obj.IsScooterOnly=SqlReaderConvertor.ToBoolean(reader["IsScooter"]);
+                                topBikeList.Add(obj);
+                            }
+                            reader.Close();
+                        }
+                    }
+                    if (topBikeList != null)
+                    {
+                        var bikeList = topBikeList.GroupBy(x => x.ID);
+                        topBikes = new List<SimilarCompareBikeEntity>();
+                        foreach (var bike in bikeList)
+                        {
+                            var bike1 = bike.First();
+                            var bike2 = bike.Last();
+                            topBikes.Add(new SimilarCompareBikeEntity()
+                            {
+                                ID = bike.Key,
+                                Bike1 = bike1.Bike1,
+                                Bike2 = bike2.Bike1,
+                                Make1 = bike1.Make1,
+                                Make2 = bike2.Make1,
+                                Model1 = bike1.Model1,
+                                Model2 = bike2.Model1,
+                                MakeMasking1 = bike1.MakeMasking1,
+                                MakeMasking2 = bike2.MakeMasking1,
+                                ModelId1 = bike1.ModelId1,
+                                ModelId2 = bike2.ModelId1,
+                                ModelMasking1 = bike1.ModelMasking1,
+                                ModelMasking2 = bike2.ModelMasking1,
+                                Price1 = bike1.Price1,
+                                Price2 = bike2.Price1,
+                                City1 = bike1.City1,
+                                City2 = bike2.City1,
+                                VersionId1 = bike1.VersionId1,
+                                VersionId2 = bike2.VersionId1,
+                                OriginalImagePath1 = bike1.OriginalImagePath1,
+                                OriginalImagePath2 = bike2.OriginalImagePath1,
+                                HostUrl1 = bike1.HostUrl1,
+                                HostUrl2 = bike2.HostUrl1,
+                                IsScooterOnly = (bike1.IsScooterOnly && bike2.IsScooterOnly)
+                            });
+                        }
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.Compare.GetPopularCompareList");
+            }
+
+            return topBikes;
+        }
+
+        /// <summary>
         /// Created by: Sangram Nandkhile on 11 May 2016
         /// Modified by :Subodh Jain on 21 oct 2016
         /// Desc : Added cityid as parameter

@@ -8,6 +8,7 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.Models.CompareBikes;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
 using System;
@@ -112,15 +113,17 @@ namespace Bikewale.Models
             return objViewModel;
         }
 
+        /// <summary>
+        /// Modified by : Aditi Srivastava on 25 Apr 2017
+        /// Summary  :  Moved the comparison logic to common model
+        /// </summary>
         private void BindCompareScootes(ScootersMakePageVM objViewModel)
         {
             try
             {
                 string versionList = string.Join(",", objViewModel.Scooters.Select(m => m.objVersion.VersionId));
-                var compareBikes = _compareScooters.GetSimilarCompareBikes(versionList, 1, (int)CityId);
-                objViewModel.SimilarCompareScooters = new ScooterComparesVM();
-                objViewModel.SimilarCompareScooters.Bikes = compareBikes;
-                objViewModel.SimilarCompareScooters.MakeName = _makeName;
+                PopularModelCompareWidget objCompare = new PopularModelCompareWidget(_compareScooters, 1, CityId, versionList);
+                objViewModel.SimilarCompareScooters = objCompare.GetData();
             }
             catch (Exception ex)
             {
@@ -141,7 +144,7 @@ namespace Bikewale.Models
             {
 
                 objData.IsScooterDataAvailable = objData.Scooters != null && objData.Scooters.Count() > 0;
-                objData.IsCompareDataAvailable = objData.SimilarCompareScooters != null && objData.SimilarCompareScooters.Bikes != null && objData.SimilarCompareScooters.Bikes.Count > 0;
+                objData.IsCompareDataAvailable = objData.SimilarCompareScooters != null && objData.SimilarCompareScooters.Count() > 0;
                 objData.IsUpComingBikesAvailable = objData.UpcomingScooters != null && objData.UpcomingScooters != null && objData.UpcomingScooters.UpcomingBikes != null && objData.UpcomingScooters.UpcomingBikes.Count() > 0;
                 objData.IsDealerAvailable = objData.Dealers != null && objData.Dealers.Dealers != null && objData.Dealers.Dealers.Count() > 0;
                 objData.IsServiceDataAvailable = objData.ServiceCenters != null && objData.ServiceCenters.ServiceCentersList != null && objData.ServiceCenters.ServiceCentersList.Count() > 0;

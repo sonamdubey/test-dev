@@ -38,6 +38,7 @@ namespace Bikewale.Models
         #region Page level variables
         public ushort TopCount { get; private set; }
         public ushort LaunchedRecordCount { get; private set; }
+        public bool IsMobile { get; set; }
         public string redirectUrl;
         public StatusCodes status;
 
@@ -112,10 +113,27 @@ namespace Bikewale.Models
             objVM.Videos = new RecentVideos(1, 3, _videos).GetData();
 
             objVM.ExpertReviews = new RecentExpertReviews(3, _expertReviews).GetData();
+            
+            if(IsMobile)
+            BindCompareBikes(objVM,cityId);
 
             SetFlags(objVM);
 
             return objVM;
+        }
+
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 25 Apr 2017
+        /// Summary    : Bind popular comparisons
+        /// </summary>
+        private void BindCompareBikes(NewPageVM objVM,uint cityId)
+        {
+            ComparePopularBikes objCompare = new ComparePopularBikes(_cachedCompare);
+            objCompare.TopCount = 9;
+            objCompare.CityId = cityId;
+            objVM.ComparePopularBikes = objCompare.GetData();
+            objVM.IsComparePopularBikesAvailable = (objVM.ComparePopularBikes != null && objVM.ComparePopularBikes.Count() > 0);
         }
 
         /// <summary>

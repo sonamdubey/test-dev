@@ -104,12 +104,27 @@
         @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
     </section>
 }
-<section>
+@*<section>
     <div class="container">
         <h2 class="font18 text-center margin-top20 margin-bottom10">Compare bikes</h2>
         @Html.Partial("~/Views/CompareBikes/_ComparisonMin_Mobile.cshtml", Model.CompareBikes)
      </div>
-</section>
+</section>*@
+    
+@if (Model.IsComparePopularBikesAvailable)
+{
+    <section>
+        <h2 class="font18 margin-bottom20 margin-top20 text-center">Compare Bikes</h2>
+        <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
+            @Html.Partial("~/Views/m/Shared/_similarComparisions.cshtml", Model.ComparePopularBikes)
+            <div class="view-all-btn-container margin-bottom5 margin-top15 text-center">
+                <a href="/m/comparebikes/" title="New Bike Comparisons in India" class="btn view-all-target-btn">View all comparisons<span class="bwmsprite teal-right"></span></a>
+            </div>
+        </div>
+    </section>
+}
+
+
 <section>
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>

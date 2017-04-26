@@ -906,6 +906,7 @@
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\BikeModels\ModelPage.cs" />
+    <Compile Include="Models\CompareBikes\ComparePopularBikes.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />

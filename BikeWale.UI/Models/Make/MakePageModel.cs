@@ -1,15 +1,16 @@
-﻿
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models.CompareBikes;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
 using System;
@@ -35,12 +36,13 @@ namespace Bikewale.Models
         private readonly IUsedBikeDetailsCacheRepository _cachedBikeDetails = null;
         private readonly IDealerCacheRepository _cacheDealers = null;
         private readonly IUpcoming _upcoming = null;
+        private readonly IBikeCompareCacheRepository _compareBikes = null;
         private readonly IServiceCenter _objSC;
         public StatusCodes status;
         public MakeMaskingResponse objResponse;
         public string redirectUrl;
 
-        public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IServiceCenter objSC)
+        public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming,IBikeCompareCacheRepository compareBikes, IServiceCenter objSC)
         {
             this._makeMaskingName = makeMaskingName;
             this._dealerServiceCenters = dealerServiceCenters;
@@ -53,6 +55,7 @@ namespace Bikewale.Models
             this._cachedBikeDetails = cachedBikeDetails;
             this._cacheDealers = cacheDealers;
             this._upcoming = upcoming;
+            this._compareBikes = compareBikes;
             this._objSC = objSC;
             ProcessQuery(this._makeMaskingName);
         }
@@ -107,6 +110,7 @@ namespace Bikewale.Models
                 }
                 BindPageMetaTags(objData.PageMetaTags, objData.Bikes, _makeName);
                 BindUpcomingBikes(objData);
+                BindCompareBikes(objData, cityId);
                 BindDealerServiceData(objData, cityId, makeBase, cityBase);
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription((int)_makeId);
                 BindCMSContent(objData);
@@ -200,6 +204,25 @@ namespace Bikewale.Models
             };
             objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
             objData.UpcomingBikes = objUpcoming.GetData();
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 24 Apr 2017
+        /// Summary  :  Function to bind popular comparison carousel
+        /// </summary>
+        private void BindCompareBikes(MakePageVM objViewModel, uint cityId)
+        {
+            try
+            {
+                string versionList = string.Join(",", objViewModel.Bikes.OrderBy(m=>m.BikePopularityIndex).Select(m => m.objVersion.VersionId).Take(9));
+                PopularModelCompareWidget objCompare = new PopularModelCompareWidget(_compareBikes, 1, cityId, versionList);
+                objViewModel.CompareSimilarBikes = objCompare.GetData();
+                objViewModel.IsCompareBikesAvailable = (objViewModel.CompareSimilarBikes != null && objViewModel.CompareSimilarBikes.Count() > 0);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "MakePageModel.BindCompareBikes");
+            }
         }
 
         private void BindCMSContent(MakePageVM objData)
