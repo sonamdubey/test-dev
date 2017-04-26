@@ -53,10 +53,8 @@ namespace Bikewale.Models
                     break;
 
             }
-            int rank = objVM.Rank.Rank;
-            objVM.RankText = Bikewale.Utility.Format.FormatRank(rank);
-
-            return objVM;
+            objVM.RankText = Bikewale.Utility.Format.FormatRank(objVM.Rank.Rank);
+           return objVM;
         }
     }
 }
