@@ -360,6 +360,8 @@ namespace Bikewale.Models.BikeModels
 
                 };
             }
+            else
+                objData.BikeRanking = new BikeRankingPropertiesEntity();
 
         }
 
