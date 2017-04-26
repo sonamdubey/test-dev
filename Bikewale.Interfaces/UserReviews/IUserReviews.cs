@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.UserReviews
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 26 Apr 2017
+    /// Description :   Added GetUserReviews
+    /// </summary>
     public interface IUserReviews
     {
         UserReviewsData GetUserReviewsData();
@@ -13,5 +17,6 @@ namespace Bikewale.Interfaces.UserReviews
         UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint sourceId, uint reviewId);
         bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns);
         WriteReviewPageSubmitResponse SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName);
+        ReviewListBase GetUserReviews(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter);
     }
 }

@@ -448,6 +448,7 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<ReviewRatingEntityBase, ReviewRatingBase>();
             Mapper.CreateMap<ReviewTaggedBikeEntity, ReviewTaggedBike>();
+            Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
             Mapper.CreateMap<ReviewEntity, Review>();
             Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
             Mapper.CreateMap<BikeVideoEntity, VideoBase>();

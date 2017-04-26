@@ -403,5 +403,89 @@ namespace Bikewale.BAL.UserReviews
             }
             return objResponse;
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 26 Apr 2017
+        /// Description :   Returns the filtered User reviews based on filter values provided
+        /// </summary>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="modelId"></param>
+        /// <param name="versionId"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public ReviewListBase GetUserReviews(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter)
+        {
+            ReviewListBase filteredReviews = null;
+            bool isAsc;
+            try
+            {
+
+                filteredReviews = _userReviewsCache.GetUserReviews();
+                if (filteredReviews != null && filteredReviews.TotalReviews > 0)
+                {
+                    filteredReviews.ReviewList = filteredReviews.ReviewList.Sort(ProcessOrderBy(filter, out isAsc), isAsc);
+                    filteredReviews.ReviewList = filteredReviews.ReviewList.Where(ProcessInputFilter(modelId, versionId));
+                    filteredReviews.TotalReviews = (uint)(filteredReviews.ReviewList != null ? filteredReviews.ReviewList.Count() : 0);
+                    if (filteredReviews.TotalReviews > 0 && startIndex > 0 && endIndex > 0 && startIndex < endIndex)
+                    {
+                        startIndex = startIndex == 1 ? 0 : startIndex;
+                        filteredReviews.ReviewList = filteredReviews.ReviewList.Skip((int)startIndex).Take((int)(endIndex - startIndex));
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetUserReviews({0},{1},{2},{3},{4})", startIndex, endIndex, modelId, versionId, filter));
+            }
+            return filteredReviews;
+        }
+
+        /// <summary>
+        /// Created By  :   Sumit Kate on 26 Apr 2017
+        /// Description :   Create function to be executed for user reviews linq filters
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        private Func<ReviewEntity, bool> ProcessInputFilter(uint modelId, uint versionId)
+        {
+            Expression<Func<ReviewEntity, bool>> filterExpression = PredicateBuilder.True<ReviewEntity>();
+
+            if (modelId > 0)
+            {
+                filterExpression = filterExpression.And(m => m.TaggedBike.ModelEntity.ModelId == modelId);
+            }
+            if (versionId > 0)
+            {
+                filterExpression = filterExpression.And(m => m.TaggedBike.VersionEntity.VersionId == versionId);
+            }
+            return filterExpression.Compile();
+        }
+
+        /// <summary>
+        /// Created By  :   Sumit Kate on 26 Apr 2017
+        /// Summary     :   Process orderby filter
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="isAsc"></param>
+        /// <returns></returns>
+        private Func<ReviewEntity, float> ProcessOrderBy(FilterBy filter, out bool isAsc)
+        {
+            isAsc = false;
+            switch (filter)
+            {
+                case FilterBy.MostRecent:
+                    return m => (m.ReviewDate.Ticks);
+                case FilterBy.MostHelpful:
+                    return m => (m.Liked);
+                case FilterBy.MostRead:
+                    return m => (m.Viewed);
+                case FilterBy.MostRated:
+                    return m => (m.OverAllRating.OverAllRating);
+                default:
+                    return m => (m.Liked);
+            }
+        }
     }   // Class
 }   // Namespace

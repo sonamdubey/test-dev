@@ -10,6 +10,10 @@ using System.Linq;
 using System.Text;
 namespace Bikewale.Models.BikeModels
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 26 Apr 2017
+    /// Description :   Replace Count with Count()
+    /// </summary>
     public class ModelPageVM : ModelBase
     {
 
@@ -91,7 +95,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsModelColorsAvailable { get { return (this.ModelPageEntity != null && this.ModelPageEntity.ModelColors != null && this.ModelPageEntity.ModelColors.Count() > 0); } }
         public bool IsUsedBikesAvailable { get { return (UsedModels != null && UsedModels.RecentUsedBikesList != null && UsedModels.RecentUsedBikesList.Count() > 0); } }
         public bool IsShowPriceTab { get; set; }
-        public bool IsUserReviewsAvailable { get { return UserReviews != null && UserReviews.ReviewList != null && UserReviews.ReviewList.Count > 0; } }
+        public bool IsUserReviewsAvailable { get { return UserReviews != null && UserReviews.ReviewList != null && UserReviews.ReviewList.Count() > 0; } }
 
         #endregion
 

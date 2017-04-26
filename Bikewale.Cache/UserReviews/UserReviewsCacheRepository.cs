@@ -75,5 +75,25 @@ namespace Bikewale.Cache.UserReviews
             }
             return reviewsRatings;
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 26 Apr 2017
+        /// Description :   Returns the User Reviews by calling DAL
+        /// </summary>
+        /// <returns></returns>
+        public ReviewListBase GetUserReviews()
+        {
+            ReviewListBase reviews = null;
+            string key = "BW_UserReviews";
+            try
+            {
+                reviews = _cache.GetFromCache<ReviewListBase>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetUserReviews());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsData");
+            }
+            return reviews;
+        }
     }
 }

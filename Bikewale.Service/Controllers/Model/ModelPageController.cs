@@ -4,6 +4,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.Utilities;
@@ -27,6 +28,7 @@ namespace Bikewale.Service.Controllers.Model
         private readonly IBikeModelsCacheRepository<int> _cache;
         private readonly IDealerPriceQuoteDetail _dealers;
         private readonly IBikeModels<BikeModelEntity, int> _modelBL = null;
+        private readonly IUserReviews _userReviews = null;
 
         /// <summary>
         /// 
@@ -35,12 +37,14 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="cache"></param>
         /// <param name="dealers"></param>
         /// <param name="modelBL"></param>
-        public ModelPageController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<BikeModelEntity, int> modelBL)
+        /// <param name="userReviews"></param>
+        public ModelPageController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<BikeModelEntity, int> modelBL, IUserReviews userReviews)
         {
             _modelRepository = modelRepository;
             _cache = cache;
             _dealers = dealers;
             _modelBL = modelBL;
+            _userReviews = userReviews;
         }
 
         #region Model Page Complete
@@ -49,6 +53,8 @@ namespace Bikewale.Service.Controllers.Model
         /// For the Specs and Features Default version selected is the one with maximum pricequotes
         /// Modified by Sajal Gupta on 28-02-2017
         /// Descrioption : Call BAL function instead of cache function to fetch model details.
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   For App, review count is fetched from old user reviews
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
@@ -75,6 +81,7 @@ namespace Bikewale.Service.Controllers.Model
                     if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                     {
                         objModelPage.ModelVersionSpecs = null;
+                        objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                     }
                     else
                     {
@@ -153,6 +160,8 @@ namespace Bikewale.Service.Controllers.Model
         /// For the Specs and Features Default version selected is the one with maximum pricequotes
         /// Modified by Sajal Gupta on 28-02-2017
         /// Descrioption : Call BAL function instead of cache function to fetch model details.
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   For App, review count is fetched from old user reviews
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
@@ -180,6 +189,7 @@ namespace Bikewale.Service.Controllers.Model
                     if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                     {
                         objModelPage.ModelVersionSpecs = null;
+                        objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                     }
                     else
                     {
@@ -256,6 +266,8 @@ namespace Bikewale.Service.Controllers.Model
         /// Description :   Get the Device Id from deviceId parameter
         /// Modified by Sajal Gupta on 28-02-2017
         /// Descrioption : Call BAL function instead of cache function to fetch model details.
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   For App, review count is fetched from old user reviews
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.Model.v3.ModelPage)), Route("api/v3/model/details/")]
@@ -278,6 +290,7 @@ namespace Bikewale.Service.Controllers.Model
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
                         if (platformId == "3")
                         {
+                            objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                             #region On road pricing for versions
                             PQOnRoadPrice pqOnRoad; PQByCityArea getPQ;
                             PQByCityAreaEntity pqEntity = null;
@@ -312,6 +325,8 @@ namespace Bikewale.Service.Controllers.Model
         /// Description :   This the new version v4 of existing API update include PrimatyDealer, IsPrimary, SecondaryDealerCount and AltPrimarySectionText.  
         /// Modified by Sajal Gupta on 28-02-2017
         /// Descrioption : Call BAL function instead of cache function to fetch model details.
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   For App, review count is fetched from old user reviews
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.Model.v4.ModelPage)), Route("api/v4/model/details/")]
@@ -334,6 +349,7 @@ namespace Bikewale.Service.Controllers.Model
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
                         if (platformId == "3")
                         {
+                            objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                             #region On road pricing for versions
                             PQOnRoadPrice pqOnRoad;
                             PQByCityArea getPQ;
