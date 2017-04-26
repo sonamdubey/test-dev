@@ -3651,6 +3651,8 @@
     <Content Include="Views\Upcoming\_UpcomingBikesList_Mobile.cshtml" />
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320X100ATF.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320X100BTF.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

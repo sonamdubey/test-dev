@@ -1,0 +1,9 @@
+﻿
+@{
+    var AdId = Model.GetType().GetProperty("AdId").GetValue(Model, null);
+}
+<div id='div-gpt-ad-@string.Format("{0}-0", AdId)' class="margin-bottom15" style='width:320px; height:100px;margin:0 auto;'>
+    <script>
+        googletag.cmd.push(function () { googletag.display('div-gpt-ad-@string.Format("{0}-0", AdId)'); });
+    </script>
+</div>
