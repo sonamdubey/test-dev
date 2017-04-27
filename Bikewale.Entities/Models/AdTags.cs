@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bikewale.Models
 {
     /// <summary>
@@ -11,7 +6,7 @@ namespace Bikewale.Models
     /// Summary : Class have properties related to ad tags
     /// </summary>
     public class AdTags
-    {        
+    {
         #region Ad sizes for desktop
         public string AdId { get; set; }
         public string AdPath { get; set; }
@@ -28,9 +23,16 @@ namespace Bikewale.Models
         public bool Ad_976x400First { get; set; }
         public bool Ad_976x400Second { get; set; }
 
-        public bool Ad_976x204 { get; set; } 
+        public bool Ad_Model_ATF_970x90 { get; set; }
+        public bool Ad_Model_ATF_300x250 { get; set; }
+        public bool Ad_Model_BTF_970x90 { get; set; }
+        public bool Ad_Model_BTF_300x250 { get; set; }
+
+
+
+        public bool Ad_976x204 { get; set; }
         #endregion
-        
+
         #region Ad sizes for mobile site
         public bool Ad_300x250 { get; set; }
         public bool Ad_300x250BTF { get; set; }
@@ -39,7 +41,7 @@ namespace Bikewale.Models
         public bool Ad_320x50 { get; set; }
         public bool Ad_Bot_320x50 { get; set; }
         public bool Ad320x150_Top { get; set; }
-        public bool Ad320x150_Bottom { get; set; } 
+        public bool Ad320x150_Bottom { get; set; }
         #endregion
 
     }
