@@ -268,6 +268,8 @@ namespace Bikewale.Models.BikeModels
                                 BikeName = objData.BikeName
 
                             };
+
+                            objData.EMIDetails = setDefaultEMIDetails(objData.BikePrice);
                         }
 
                     }
@@ -278,6 +280,41 @@ namespace Bikewale.Models.BikeModels
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindControls");
             }
+        }
+
+        /// <summary>
+        /// Created BY : Sushil Kumar on 14th March 2015
+        /// Summary : To set EMI details for the dealer if no EMI Details available for the dealer
+        /// </summary>
+        private EMI setDefaultEMIDetails(uint bikePrice)
+        {
+            EMI _objEMI = null;
+            try
+            {
+                _objEMI = new EMI();
+                _objEMI.MaxDownPayment = 40 * bikePrice / 100;
+                _objEMI.MinDownPayment = 10 * bikePrice / 100;
+                _objEMI.MaxTenure = 48;
+                _objEMI.MinTenure = 12;
+                _objEMI.MaxRateOfInterest = 15;
+                _objEMI.MinRateOfInterest = 10;
+                _objEMI.ProcessingFee = 0; //2000 
+
+                _objEMI.Tenure = Convert.ToUInt16((_objEMI.MaxTenure - _objEMI.MinTenure) / 2 + _objEMI.MinTenure);
+                _objEMI.RateOfInterest = (_objEMI.MaxRateOfInterest - _objEMI.MinRateOfInterest) / 2 + _objEMI.MinRateOfInterest;
+                _objEMI.MinLoanToValue = Convert.ToUInt32(Math.Round(bikePrice * 0.7));
+                _objEMI.MaxLoanToValue = bikePrice;
+                _objEMI.EMIAmount = Convert.ToUInt32((_objEMI.MinLoanToValue * _objEMI.Tenure * _objEMI.RateOfInterest) / (12 * 100));
+                _objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue + _objEMI.EMIAmount + _objEMI.ProcessingFee) / _objEMI.Tenure));
+
+
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "setDefaultEMIDetails");
+            }
+            return _objEMI;
         }
 
         private void BindBestBikeWidget(EnumBikeBodyStyles BodyStyleType, uint? cityId = null)

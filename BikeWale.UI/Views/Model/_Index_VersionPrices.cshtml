@@ -24,21 +24,6 @@
                             <span class="bwsprite inr-sm-dark"></span>@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())
                         </td>
                     </tr>
-                    @*<tr class="version-prices-tr">
-                        <td width="70%" class="padding-bottom15 padding-top10 padding-right10 font14" valign="top">
-                            <p class="margin-bottom5">@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.ModelName, version.VersionName)</p>
-                            <p class="font12 text-xt-light-grey">@Bikewale.Utility.FormatMinSpecs.GetMinVersionSpecs(version.AlloyWheels, version.ElectricStart, version.AntilockBrakingSystem, version.BrakeType)</p>
-                        </td>
-                        <td width="30%" class="padding-bottom10 padding-top10 font14 divider-bottom" valign="top">
-                            <p class="font16 text-bold text-default">
-                                <span class="bwsprite inr-md"></span>
-                                <span>@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
-                            </p>
-                            <p class="font12 text-xt-dark-grey">
-                                <span>@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : "Ex-showroom"),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</span>
-                            </p>
-                        </td>
-                    </tr>*@
                 }
                 <tr>
                     <td colspan="2" class="padding-top10 font12 text-light-grey">Above mentioned prices are @(Model.IsLocationSelected ? "On-road price" : "Ex-showroom"),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</td>

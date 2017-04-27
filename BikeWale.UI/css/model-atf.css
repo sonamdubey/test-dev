@@ -484,23 +484,20 @@
 }
 
 /* model color carousel */
-.carousel-type-color.jcarousel-wrapper {
+.carousel-type-color {
     width: 376px;
     margin: 0 auto 5px;
-}
-
-.carousel-type-color .jcarousel {
     height: 212px;
     padding: 0;
 }
 
-.carousel-type-color li {
+.carousel-type-color a {
     width: 376px;
     height: 212px;
     margin-right: 0;
 }
 
-.carousel-type-color .jcarousel .carousel-img-container {
+.carousel-type-color .carousel-img-container {
     display: block;
     background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center;
 }

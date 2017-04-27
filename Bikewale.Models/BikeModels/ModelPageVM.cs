@@ -20,6 +20,7 @@ namespace Bikewale.Models.BikeModels
         public ManufacturerCampaign ManufacturerCampaign { get; set; }
         public LeadCaptureEntity LeadCapture { get; set; }
         public IEnumerable<BestBikeEntityBase> objBestBikesList { get; set; }
+        public EMI EMIDetails { get; set; }
         public uint VersionId { get; set; }
         public uint DealerId { get; set; }
         public uint PQId { get; set; }
