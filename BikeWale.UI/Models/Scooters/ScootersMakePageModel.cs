@@ -3,6 +3,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Compare;
@@ -66,6 +67,7 @@ namespace Bikewale.Models
         public uint CityId { get { return GlobalCityArea.GetGlobalCityArea().CityId; } }
         public ushort BrandTopCount { get; set; }
         public PQSourceEnum PqSource { get; set; }
+        public bool IsMobile { get; set; }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
@@ -116,6 +118,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Modified by : Aditi Srivastava on 25 Apr 2017
         /// Summary  :  Moved the comparison logic to common model
+        /// Modified by : Aditi Srivastava on 27 Apr 2017
+        /// Summary  : Added source for comparisons
         /// </summary>
         private void BindCompareScootes(ScootersMakePageVM objViewModel)
         {
@@ -123,7 +127,16 @@ namespace Bikewale.Models
             {
                 string versionList = string.Join(",", objViewModel.Scooters.Select(m => m.objVersion.VersionId));
                 PopularModelCompareWidget objCompare = new PopularModelCompareWidget(_compareScooters, 1, CityId, versionList);
+                objViewModel.SimilarCompareScooters = new PopularComparisonsVM();
                 objViewModel.SimilarCompareScooters = objCompare.GetData();
+                if (IsMobile)
+                {
+                    objViewModel.SimilarCompareScooters.CompareSource = CompareSources.Mobile_Scooter_Listing_Compare;
+                }
+                else
+                {
+                    objViewModel.SimilarCompareScooters.CompareSource = CompareSources.Desktop_Scooter_Listing_Compare;
+                }
             }
             catch (Exception ex)
             {
@@ -144,7 +157,7 @@ namespace Bikewale.Models
             {
 
                 objData.IsScooterDataAvailable = objData.Scooters != null && objData.Scooters.Count() > 0;
-                objData.IsCompareDataAvailable = objData.SimilarCompareScooters != null && objData.SimilarCompareScooters.Count() > 0;
+                objData.IsCompareDataAvailable = objData.SimilarCompareScooters != null && objData.SimilarCompareScooters.CompareBikes != null && objData.SimilarCompareScooters.CompareBikes.Count() > 0;
                 objData.IsUpComingBikesAvailable = objData.UpcomingScooters != null && objData.UpcomingScooters != null && objData.UpcomingScooters.UpcomingBikes != null && objData.UpcomingScooters.UpcomingBikes.Count() > 0;
                 objData.IsDealerAvailable = objData.Dealers != null && objData.Dealers.Dealers != null && objData.Dealers.Dealers.Count() > 0;
                 objData.IsServiceDataAvailable = objData.ServiceCenters != null && objData.ServiceCenters.ServiceCentersList != null && objData.ServiceCenters.ServiceCentersList.Count() > 0;

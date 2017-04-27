@@ -86,6 +86,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile(string makeMaskingName)
         {
             MakePageModel obj = new MakePageModel(makeMaskingName, 9, _dealerServiceCenters, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService);
+            obj.IsMobile = true;
             MakePageVM objData = new MakePageVM();
             if (obj != null)
             {

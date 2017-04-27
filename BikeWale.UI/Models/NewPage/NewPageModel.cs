@@ -3,6 +3,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.CMS;
@@ -129,11 +130,13 @@ namespace Bikewale.Models
         /// </summary>
         private void BindCompareBikes(NewPageVM objVM, uint cityId)
         {
+            objVM.ComparePopularBikes = new PopularComparisonsVM();
             ComparePopularBikes objCompare = new ComparePopularBikes(_cachedCompare);
             objCompare.TopCount = 9;
             objCompare.CityId = cityId;
             objVM.ComparePopularBikes = objCompare.GetData();
-            objVM.IsComparePopularBikesAvailable = (objVM.ComparePopularBikes != null && objVM.ComparePopularBikes.Count() > 0);
+            objVM.IsComparePopularBikesAvailable = (objVM.ComparePopularBikes != null && objVM.ComparePopularBikes.CompareBikes != null && objVM.ComparePopularBikes.CompareBikes.Count() > 0);
+            objVM.ComparePopularBikes.CompareSource = CompareSources.Mobile_NewBikes_MostPopular_Compare_Widget;
         }
 
         /// <summary>
