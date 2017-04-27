@@ -37,7 +37,7 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
 
-        <% if(isModelPage) { %>
+        <% if(returnUrl.Length > 0) { %>
         <div class="gallery-loader-placeholder gallery-bg-overlay text-center">
             <span class="spin-loader fixed-loader"></span>
         </div>
@@ -99,7 +99,7 @@
                                 <% } %>
                             </li>
                         </ul>
-                        <% if(!isModelPage) { %>
+                        <% if(returnUrl.Length <= 0) { %>
                         <% int i = 0; if (vmModelPhotos.totalPhotosCount > 0)
                            { %>
                         <ul class="photos-grid-list model-grid-images">
@@ -514,12 +514,12 @@
                 var ModelId = <%=vmModelPhotos.objModel.ModelId%>;
                 var videoCount = <%=VideoCount%>;
                 var modelName = "<%= vmModelPhotos.bikeName %>";  
-                var imageIndex = "<%=imageIndex%>";
-                var isModelPage = <%= isModelPage.ToString().ToLower() %>;
+                var imageIndex = "<%=imageIndex%>";                
                 var colorImageId = "<%= colorImageId%>";
                 var encodedVideoList = "<%= JSONVideoList%>";
                 var encodedImageList = "<%= JSONImageList %>";
                 var encodedFirstImage = "<%= JSONFirstImage%>" ;  
+                var returnUrl = "<%= returnUrl%>";
             }catch (e) {
                 console.warn(e);
             }
@@ -528,7 +528,7 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript">            
             docReady(function () {
-                if(isModelPage)
+                if(returnUrl.length > 0)
                 {                              
                     if (!detectIEBrowser()) {
                         popupGallery.bindGallery(imageIndex);                        

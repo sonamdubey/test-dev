@@ -74,6 +74,8 @@ namespace Bikewale.Models.BikeModels
         public PQSources Source { get; set; }
         public PQSourceEnum PQSource { get; set; }
         public LeadSourceEnum LeadSource { get; set; }
+        public bool IsMobile { get; set; }
+
         public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes)
         {
             _objModel = objModel;
@@ -138,7 +140,6 @@ namespace Bikewale.Models.BikeModels
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetData({0})", ""));
-
             }
 
             return objData;
@@ -181,7 +182,6 @@ namespace Bikewale.Models.BikeModels
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeModels.ModelPage --> BindDescription()");
-
             }
         }
 
@@ -639,8 +639,15 @@ namespace Bikewale.Models.BikeModels
                             var colorImages = modelPg.ModelColors.Where(x => x.ColorImageId > 0);
                             if (colorImages != null && colorImages.Count() > 0)
                             {
-                                objData.ColourImageUrl = string.Format("/{0}-bikes/{1}/images/?modelpage=true&colorImageId={2}#modelGallery", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName, colorImages.FirstOrDefault().ColorImageId);
-                                objData.ColourImageTabsUrl = string.Format("/{0}-bikes/{1}/images/?tabs=true&modelpage=true&colorImageId={2}#modelGallery", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName, colorImages.FirstOrDefault().ColorImageId);
+                                string returnUrl;
+
+                                if (IsMobile)
+                                    returnUrl = string.Format("/m/{0}-bikes/{1}/", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName);
+                                else
+                                    returnUrl = string.Format("/{0}-bikes/{1}/", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName);
+
+                                objData.ColourImageUrl = string.Format("/{0}-bikes/{1}/images/?colorImageId={2}&retUrl={3}#modelGallery", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName, colorImages.FirstOrDefault().ColorImageId, EncodingDecodingHelper.EncodeTo64(returnUrl));
+
                                 objData.ModelColorPhotosCount = colorImages.Count();
                             }
 

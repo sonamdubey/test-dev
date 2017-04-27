@@ -17,10 +17,9 @@ namespace Bikewale.New.Photos
         protected SimilarBikeWithPhotos ctrlSimilarBikesWithPhotos;
         protected bool IsUpcoming { get; set; }
         protected bool IsDiscontinued { get; set; }
-        protected bool isModelPage;
         protected uint VideoCount;
         protected PQSourceEnum pqSource;
-        protected string bikeUrl = string.Empty, bikeName = string.Empty;
+        protected string bikeUrl = string.Empty, bikeName = string.Empty, returnUrl = string.Empty;
         protected NewVideosControl ctrlVideos;
         protected uint gridSize = 25, imageIndex = 0, colorImageId = 0;
         private uint _modelId;
@@ -46,11 +45,6 @@ namespace Bikewale.New.Photos
             dd.DetectDevice();
             try
             {
-                if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
-                {
-                    isModelPage = true;
-                }
-
                 if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
                 {
                     imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
@@ -59,6 +53,11 @@ namespace Bikewale.New.Photos
                 if (!String.IsNullOrEmpty(Request.QueryString["colorImageId"]))
                 {
                     colorImageId = Convert.ToUInt32(Request.QueryString["colorImageId"]);
+                }
+
+                if (!String.IsNullOrEmpty(Request.QueryString["retUrl"]))
+                {
+                    returnUrl = EncodingDecodingHelper.DecodeFrom64(Request.QueryString["retUrl"]);
                 }
 
                 BindPhotosPage();
@@ -87,7 +86,6 @@ namespace Bikewale.New.Photos
                     vmModelPhotos.isDesktop = true;
                     vmModelPhotos.GridSize = 24;
                     vmModelPhotos.NoOfGrid = 8;
-                    vmModelPhotos.isModelpage = isModelPage;
                     vmModelPhotos.GetPhotoGalleryData();
                     IsDiscontinued = vmModelPhotos.IsDiscontinued;
                     BindBikeInfo genericBikeInfo = new BindBikeInfo();

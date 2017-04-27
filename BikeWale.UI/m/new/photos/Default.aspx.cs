@@ -25,11 +25,9 @@ namespace Bikewale.Mobile.New.Photos
         protected bool IsUpcoming { get; set; }
         protected uint modelId;
         protected bool IsDiscontinued { get; set; }
-        protected bool isModelPage;
-        protected bool isTabs;
         protected uint VideoCount, colorImageId = 0;
         protected PQSourceEnum pqSource;
-        protected string bikeUrl = string.Empty, bikeName = string.Empty;
+        protected string bikeUrl = string.Empty, bikeName = string.Empty, returnUrl = string.Empty;
         protected string JSONImageList = string.Empty, JSONVideoList = string.Empty;
         protected uint imageIndex = 0;
         protected override void OnInit(EventArgs e)
@@ -46,10 +44,6 @@ namespace Bikewale.Mobile.New.Photos
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
-            {
-                isModelPage = true;
-            }
             if (!String.IsNullOrEmpty(Request.QueryString["colorImageId"]))
             {
                 colorImageId = Convert.ToUInt32(Request.QueryString["colorImageId"]);
@@ -58,9 +52,9 @@ namespace Bikewale.Mobile.New.Photos
             {
                 imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
             }
-            if (!String.IsNullOrEmpty(Request.QueryString["tabs"]))
+            if (!String.IsNullOrEmpty(Request.QueryString["retUrl"]))
             {
-                isTabs = true;
+                returnUrl = EncodingDecodingHelper.DecodeFrom64(Request.QueryString["retUrl"]);
             }
             BindPhotosPage();
         }
@@ -85,7 +79,6 @@ namespace Bikewale.Mobile.New.Photos
                 {
                     vmModelPhotos.GridSize = 30;
                     vmModelPhotos.NoOfGrid = 6;
-                    vmModelPhotos.isModelpage = isModelPage;
 
                     vmModelPhotos.GetPhotoGalleryData();
 
