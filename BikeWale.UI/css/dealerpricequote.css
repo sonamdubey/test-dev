@@ -15,6 +15,55 @@
     padding: 14px 20px;
 }
 
+/* emi calculator */
+/* emi */
+.emi-slider-box {
+    margin-top: 30px;
+}
+
+.emi-slider-box:first-child {
+    margin-top: 0;
+}
+/* slider */
+.finance-emi-container .ui-widget-content {
+    background: #bababa;
+    height: 2px;
+    margin-top: 15px;
+    width: 97%;
+    cursor: pointer;
+}
+
+.finance-emi-container .ui-slider .ui-slider-range {
+    border: none;
+    display: block;
+    position: absolute;
+    z-index: 1;
+}
+
+.finance-emi-container .ui-widget-header {
+    background: #ef3030;
+    height: 2px;
+}
+
+.finance-emi-container .ui-slider {
+    position: relative;
+    text-align: left;
+}
+
+.finance-emi-container .ui-slider .ui-slider-handle {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat;
+    cursor: pointer;
+    height: 28px;
+    width: 28px;
+    display: block;
+    margin-left: -9px;
+    position: absolute;
+    outline: none;
+    top: -13px;
+    z-index: 2;
+    background-position: 3px 3px;
+}
+
 /* model-image */
 #pq-image-column.grid-5 {
     width: 375px;

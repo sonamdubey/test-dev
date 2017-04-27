@@ -34,24 +34,25 @@ namespace Bikewale.Models
         /// Created by : Aditi Srivastava on 25 Apr 2017
         /// Summary    : To get list of popular comparisons
         /// </summary>
-        public IEnumerable<SimilarCompareBikeEntity> GetData()
+        public PopularComparisonsVM GetData()
         {
-            IEnumerable<SimilarCompareBikeEntity> compareBikesList = null;
+            PopularComparisonsVM objComparison = new PopularComparisonsVM();
             try
             {
                 if (TopCount == 0)
                     TopCount = 9;
-                compareBikesList = _objCompare.GetPopularCompareList(CityId);
-                if (compareBikesList != null && compareBikesList.Count() > 0)
+                objComparison.CompareBikes = _objCompare.GetPopularCompareList(CityId);
+                if (objComparison.CompareBikes != null && objComparison.CompareBikes.Count() > 0)
                 {
-                    compareBikesList = compareBikesList.Take((int)TopCount);
+                    objComparison.IsDataAvailable = true;
+                    objComparison.CompareBikes = objComparison.CompareBikes.Take((int)TopCount);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareBikes.CompareSimilarBikes.GetData");
             }
-            return compareBikesList;
+            return objComparison;
         }
         #endregion
     }

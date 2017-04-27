@@ -351,7 +351,7 @@
                 try {
                     interest = (loanAmount * tenure * rateOfInterest) / (12 * 100);
                     totalRepay = loanAmount + interest + proFees;
-                    finalEmi = Math.ceil((totalRepay / tenure));
+                    finalEmi = Math.round((totalRepay / tenure));
                 }
                 catch (e) {
                 }
@@ -383,7 +383,7 @@
                 var price;
                 try {
                     price = (onRoadPrice * percentage) / 100;
-                    price = Math.ceil(price / 100.0) * 100;
+                    price = Math.round(price);
                 }
                 catch (e) {
                 }
@@ -427,7 +427,9 @@
                         return ((LoanAmount(self.exshowroomprice(), 100)) - self.loan());
                     },
                     write: function (value) {
-                        self.loan(((LoanAmount(self.exshowroomprice(), 100))) - value);
+                        if (self.loan() == undefined || isNaN(self.loan()) || self.loan() == null)
+                            return self.loan(LoanAmount(self.exshowroomprice(), 70));
+                        return ((LoanAmount(self.exshowroomprice(), 100)) - value);
                     },
                     owner: this
                 });

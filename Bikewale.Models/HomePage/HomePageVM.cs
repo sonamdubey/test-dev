@@ -26,7 +26,7 @@ namespace Bikewale.Models
         public RecentNewsVM News { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }
         public RecentVideosVM Videos { get; set; }
-        public IEnumerable<SimilarCompareBikeEntity> ComparePopularBikes { get; set; }
+        public PopularComparisonsVM ComparePopularBikes { get; set; }
 
         public bool IsPopularBikesDataAvailable { get; set; }
         public bool IsNewLaunchedDataAvailable { get; set; }

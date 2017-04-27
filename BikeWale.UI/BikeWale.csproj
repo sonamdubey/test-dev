@@ -3443,7 +3443,7 @@
     <Content Include="Views\Shared\_videos.cshtml" />
     <Content Include="Views\Shared\_showrooms.cshtml" />
     <Content Include="Views\Shared\_popularComparisions.cshtml" />
-    <Content Include="Views\Shared\_similarComparisions.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons.cshtml" />
     <Content Include="Views\Shared\_similarBikes.cshtml" />
     <Content Include="Views\m\Shared\_makes.cshtml" />
     <Content Include="Views\m\Shared\_makewithcount.cshtml" />
@@ -3455,7 +3455,7 @@
     <Content Include="Views\m\Shared\_videos.cshtml" />
     <Content Include="Views\m\Shared\_showrooms.cshtml" />
     <Content Include="Views\m\Shared\_popularComparisions.cshtml" />
-    <Content Include="Views\m\Shared\_similarComparisions.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile.cshtml" />
     <Content Include="Views\m\Shared\_similarBikes.cshtml" />
     <Content Include="Views\m\scooters\models.cshtml" />
     <Content Include="Views\Scooters\BikesByMake.cshtml" />

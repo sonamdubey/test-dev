@@ -61,13 +61,17 @@
         </div>
     }
 
-    <div class="location-selection vertical-top">
-        <p class="font12 text-light-grey">Location</p>
-        <p class="text-bold selected-city text-truncate position-rel cur-pointer">
-            <span>Select city</span>
-            <span class="bwsprite loc-change-blue"></span>
-        </p>
-    </div>
+    if (Model.IsNewBike)
+    {
+        <div class="location-selection vertical-top">
+            <p class="font12 text-light-grey">Location</p>
+            <p class="text-bold selected-city changecity text-truncate position-rel cur-pointer getquotation" data-persistent="true" data-reload="true" data-modelid="@Model.ModelId">
+                <span>@(Model.IsLocationSelected ? Model.Location : "Select city")</span>
+                <span class="bwsprite loc-change-blue"></span>
+            </p>
+        </div>
+    }
+
 
     <div class="margin-bottom15"></div>
 }

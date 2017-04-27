@@ -16,6 +16,7 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bikewale.Entities.Compare;
 
 namespace Bikewale.Models
 {
@@ -41,8 +42,9 @@ namespace Bikewale.Models
         public StatusCodes status;
         public MakeMaskingResponse objResponse;
         public string redirectUrl;
+        public CompareSources CompareSource { get; set; }
 
-        public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming,IBikeCompareCacheRepository compareBikes, IServiceCenter objSC)
+        public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompareCacheRepository compareBikes, IServiceCenter objSC)
         {
             this._makeMaskingName = makeMaskingName;
             this._dealerServiceCenters = dealerServiceCenters;
@@ -110,7 +112,7 @@ namespace Bikewale.Models
                 }
                 BindPageMetaTags(objData.PageMetaTags, objData.Bikes, _makeName);
                 BindUpcomingBikes(objData);
-                BindCompareBikes(objData, cityId);
+                BindCompareBikes(objData, CompareSource, cityId);
                 BindDealerServiceData(objData, cityId, makeBase, cityBase);
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription((int)_makeId);
                 BindCMSContent(objData);
@@ -209,15 +211,18 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 24 Apr 2017
         /// Summary  :  Function to bind popular comparison carousel
+        /// Modified by : Aditi Srivastava on 27 Apr 2017
+        /// Summary  : Added source for comparisons
         /// </summary>
-        private void BindCompareBikes(MakePageVM objViewModel, uint cityId)
+        private void BindCompareBikes(MakePageVM objViewModel, CompareSources compareSource, uint cityId)
         {
             try
             {
-                string versionList = string.Join(",", objViewModel.Bikes.OrderBy(m=>m.BikePopularityIndex).Select(m => m.objVersion.VersionId).Take(9));
+                string versionList = string.Join(",", objViewModel.Bikes.OrderBy(m => m.BikePopularityIndex).Select(m => m.objVersion.VersionId).Take(9));
                 PopularModelCompareWidget objCompare = new PopularModelCompareWidget(_compareBikes, 1, cityId, versionList);
                 objViewModel.CompareSimilarBikes = objCompare.GetData();
-                objViewModel.IsCompareBikesAvailable = (objViewModel.CompareSimilarBikes != null && objViewModel.CompareSimilarBikes.Count() > 0);
+                objViewModel.IsCompareBikesAvailable = (objViewModel.CompareSimilarBikes != null && objViewModel.CompareSimilarBikes.CompareBikes != null && objViewModel.CompareSimilarBikes.CompareBikes.Count() > 0);
+                objViewModel.CompareSimilarBikes.CompareSource = compareSource;
             }
             catch (Exception ex)
             {

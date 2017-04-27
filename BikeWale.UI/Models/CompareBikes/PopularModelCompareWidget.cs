@@ -24,20 +24,24 @@ namespace Bikewale.Models.CompareBikes
             _objCompare = objCompare;
         }
 
-        public ICollection<SimilarCompareBikeEntity> GetData()
+        /// <summary>
+        /// Modified by : Aditi Srivastava on 27 Apr 2017
+        /// Summary     : Changed return type to PopularComparisonVM
+        /// </summary>
+        public PopularComparisonsVM GetData()
         {
-            ICollection<SimilarCompareBikeEntity> objSimilarBikes = null;
-
+            PopularComparisonsVM objComparison = new PopularComparisonsVM();            
             try
             {
-                objSimilarBikes = _objCompare.GetSimilarCompareBikes(_versionList, (ushort)_topCount, (int)_cityId);
+                objComparison.IsDataAvailable = true;
+                objComparison.CompareBikes = _objCompare.GetSimilarCompareBikes(_versionList, (ushort)_topCount, (int)_cityId);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareBikes.PopularModelCompareWidget.GetData()");
             }
 
-            return objSimilarBikes;
+            return objComparison;
         }
     }
 }
