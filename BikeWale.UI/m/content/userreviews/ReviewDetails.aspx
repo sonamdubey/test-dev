@@ -15,7 +15,7 @@
         //menu = "9";
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/user-review/listing.css" />
+    <link rel="stylesheet" type="text/css" href="/m/css/user-review/listing-old.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>

@@ -1,0 +1,487 @@
+.text-bold
+    font-weight: 600
+
+h1,
+.font-bold
+    font-weight: 700
+
+.card-bottom-margin
+    margin-bottom: 20px
+
+.text-slate-grey
+    color: #787878
+
+.text-black
+    color: #2a2a2a
+
+.font15
+    font-size: 15px
+
+.margin-right15
+    margin-right: 15px
+
+.h2-heading
+    font-size: 18px
+
+// top card
+.left-grid-image
+    width: 102px
+    height: 57px
+
+    img
+        height: 57px
+
+.right-grid-details
+    padding-left: 5px
+    width: 62%
+
+// inline grid
+$grid-base-size: 8.33333333
+
+@mixin grid-inline($size)
+    .grid-#{$size}-inline
+        width: ($grid-base-size * $size) * 1%
+        display: inline-block
+        vertical-align: middle
+        margin-right: -4px
+
+@include grid-inline(5)
+@include grid-inline(7)
+
+// overall-rating-box
+.overall-rating-box
+    width: 100%
+    min-height: 146px
+    padding: 10px
+    display: table
+    background: rgba(245, 245, 245, 0.5)
+
+    .star-one
+        position: relative
+        top: -6px
+        left: -4px
+        @include transform(scale(0.8))
+
+.table-cell
+    display: table-cell
+    vertical-align: middle
+
+.font26
+    font-size: 26px
+
+.border-light-top
+    border-top: 1px solid #eee
+
+// rating colors
+$rating-colors: (1: #EF3F30, 2: #FD971C, 3: #EFD700, 4: #13B65D, 5: #198D55)
+
+$graph-bg: #eee
+
+@mixin rating-color($count)
+    @if map-has-key($rating-colors, $count)
+        .text-rate-#{$count}
+            color: map-get($rating-colors, $count)
+    @else
+        @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined."
+
+@mixin rating-background($count)
+    @if map-has-key($rating-colors, $count)
+        .bg-rate-#{$count}
+            background-color: map-get($rating-colors, $count)
+    @else
+        @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined."
+
+@include rating-color(5)
+@include rating-color(4)
+@include rating-color(3)
+@include rating-color(2)
+@include rating-color(1)
+
+@include rating-background(5)
+@include rating-background(4)
+@include rating-background(3)
+@include rating-background(2)
+@include rating-background(1)
+
+// horizontal-rating-graph
+.margin-neg5
+    margin-left: -5px
+    
+.horizontal-rating-graph
+    span
+        display: inline-block
+        vertical-align: middle
+
+    .star-zero
+        position: relative
+        top: -1px
+        @include transform(scale(0.5))
+
+    .star-label
+        font-size: 14px
+        margin-left: -8px
+
+    .graph-bar-bg
+        width: 62%
+        height: 5px
+        margin-right: 3px
+        margin-left: 3px
+        position: relative
+        background: $graph-bg
+        border-radius: 3px
+
+        .rating-bar
+            height: 5px
+            position: absolute
+            top: 0
+            left: 0
+            border-radius: 3px
+
+    .graph-bar-label,
+    .graph-bar-count
+        font-size: 12px
+        color: #82888b
+
+    .graph-bar-label
+        width: 110px
+
+    &.user-review-graph
+        .graph-bar-bg
+            width: 49%
+
+        li
+            margin-bottom: 7px
+
+// rate bike
+.answer-star-list
+	> input
+		display: none
+
+		+ label
+            float: right
+            margin-right: 4px
+            @include transform(scale(0.85))
+
+		&:checked
+			+ label,
+			~ label
+				background-position: 0 -278px
+
+// overallSpecsTopContent
+#overallSpecsTopContent
+    height: 44px
+
+// user-review-list
+.user-review-list
+    padding-right: 20px
+    padding-left: 20px
+
+    li
+        border-top: 1px solid #e2e2e2
+
+        &:first-child
+            border-top: 0
+
+    .item-target
+        display: block
+        padding-top: 15px
+        padding-bottom: 15px
+
+        &:hover
+            text-decoration: none
+
+    .grid-10-inline
+        &.text-truncate
+            width: 83.33333%
+
+    .review-title
+        padding-right: 7px
+        padding-left: 7px
+        
+        &:before,
+        &:after
+            content: '"'
+            position: absolute
+
+        &:before
+            left: 0
+
+        &:after
+            right: 0
+
+    .star-white
+        margin-right: 0
+
+.item-stats-grid,
+.item-views-grid
+    font-size: 14px
+    color: #82888b
+    display: inline-block
+    vertical-align: middle
+
+    span
+        display: inline-block
+        vertical-align: middle
+
+.item-stats-grid
+    min-width: 60px
+
+.item-views-grid
+    min-width: 90px
+    text-align: left
+
+.like-sm,
+.dislike-sm,
+.views-sm
+    width: 16px
+    height: 14px
+    vertical-align: middle
+
+.like-sm
+    background-position: -109px -252px
+
+.dislike-sm
+    background-position: -109px -265px
+
+.views-sm
+    background-position: -59px -304px
+
+
+@include grid-inline(10)
+@include grid-inline(11)
+
+// list label
+.info-sm
+    width: 14px
+    height: 14px
+    background-position: -160px -461px
+    vertical-align: middle
+
+// no reviews
+.circle-placeholder
+    width: 80px
+    height: 80px
+    border: 1px solid #e2e2e2
+    background: #f5f5f5
+    margin: 0 auto 20px
+    @include border-radius(50%)
+
+.btn-auto-32
+    font-size: 14px
+    padding: 5px 13px
+
+// user review details
+.model-card-details
+    .left-grid-image
+        width: 82px
+        height: 46px
+
+        img
+            height: 46px
+        
+    .right-grid-details
+        width: 66%
+
+.no-margin
+    .star-white
+        margin-right: 0
+
+.bg-light
+    background: #fafafa
+
+.top3
+    top: 3px
+
+// about-reviewer-list
+.about-reviewer-list
+    li
+        text-align: center
+        display: inline-block
+        vertical-align: top
+        margin-right: -4px
+        padding: 20px 15px
+
+    .item-question
+        font-size: 10px
+        color: #a2a2a2
+        margin-bottom: 4px
+
+    .item-answer
+        font-size: 14px
+        color: #787878
+
+@mixin grid-item-count($count)
+    .item-count-#{$count}
+        li
+            width: ( 100 / $count ) * 1%
+
+@include grid-item-count(3)
+@include grid-item-count(2)
+@include grid-item-count(1)
+
+// about list icons
+.calender-icon
+    width: 16px
+    height: 16px
+    background-position: -40px -460px
+
+// button
+.btn-inv-teal-group
+    font-size: 12px
+    color: #82888b
+    padding: 0
+    background: transparent
+    border: 1px solid #d5d5d5
+
+    span
+        display: inline-block
+        vertical-align: middle
+
+    .btn-label-grid,
+    .btn-count
+        padding: 6px 10px
+        background: transparent
+
+    .btn-label-grid
+        margin-right: -4px
+        border-right: 1px solid #d5d5d5
+
+    .btn-label
+        position: relative
+        top: -1px
+
+    &.active
+        border-color: #41B4C4
+        pointer-events: none
+
+        .btn-label-grid
+            color: #fff
+            background: #41B4C4
+            border-right-color: #41B4C4
+
+        .btn-count
+            color: #41B4C4
+
+// rating badges
+.rating-badge
+    min-width: 40px
+    height: 20px
+    font-size: 14px
+    font-weight: 600
+    color: #fff
+    display: inline-block
+    vertical-align: middle
+    margin-right: 6px
+    text-align: center
+    @include border-radius(2px)
+
+.star-white
+    width: 12px
+    height: 12px
+    background-position: -172px -447px
+    position: relative
+    top: 1px
+    margin-right: 4px
+
+// icons
+.star-zero,
+.star-one
+	width: 26px
+	height: 25px
+	vertical-align: middle
+
+.star-zero
+	background-position: 0 -308px
+
+.star-one
+    background-position: 0 -278px
+
+// article type carousel
+.article-type-carousel
+    .swiper-slide,
+    .swiper-card
+        min-height: 200px
+
+    .swiper-image-preview
+        height: 113px
+        padding: 0
+
+        img
+            height: 113px
+
+    .swiper-details-block
+        padding-top: 7px
+        padding-bottom: 15px
+
+// user reviews of similar bikes carousel
+.user-reviews-type-carousel
+    .swiper-slide,
+    .swiper-card
+        width: 200px
+        min-height: 110px
+
+    .swiper-details-block
+        padding-top: 7px
+        padding-bottom: 15px
+
+// report abuse
+.btn-icon
+    min-width: 34px
+    height: 32px
+    background: transparent
+    border: 1px solid #d5d5d5
+    text-align: center
+    padding: 5px 0
+
+#report-abuse-popup
+    display: none
+    width: 80%
+    height: 300px
+    position: fixed
+    top: 12%
+    left: 0
+    right: 0
+    background: #fff
+    z-index: 11
+    margin: 0 auto
+    padding: 20px
+    
+    textarea
+        width: 100%
+        height: 100px
+        margin-bottom: 10px
+        border: 1px solid #e2e2e2
+        resize: none
+        
+        &:focus
+            box-shadow: none
+
+#popup-background
+    display: none
+    background: #000
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 10
+    opacity: .6
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"
+    filter: alpha(opacity = 60)
+    -moz-opacity: 0.6
+    -khtml-opacity: 0.6
+
+@media only screen and (max-width: 320px)
+    // user review list
+    .horizontal-rating-graph
+        .graph-bar-bg
+            width: 55%
+
+    .answer-star-list
+        > input
+            + label
+                margin-right: -4px
+
+    // user review details
+    .btn-inv-teal-group
+        margin-bottom: 15px

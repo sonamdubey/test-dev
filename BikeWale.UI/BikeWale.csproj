@@ -2812,6 +2812,7 @@
     <Content Include="m\css\used\details.css" />
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
+    <Content Include="m\css\user-review\listing-old.css" />
     <Content Include="m\css\user-review\listing.css" />
     <Content Include="m\css\user-review\write-review.css" />
     <Content Include="m\css\videos\bwm-videos-landing.css" />
@@ -2936,6 +2937,7 @@
     <Content Include="m\src\used\bikes-in-city.js" />
     <Content Include="m\src\used\landing.js" />
     <Content Include="m\src\user-review\write-review.js" />
+    <Content Include="m\src\user-review\listing.js" />
     <Content Include="m\src\video\details.js" />
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
@@ -2998,11 +3000,14 @@
     <Content Include="m\sass\user-review\_write-review-media-query.sass" />
     <Content Include="m\sass\upcoming-bikes\upcoming-bikes.sass" />
     <Content Include="m\sass\upcoming-bikes\_upcoming-bikes-style.sass" />
+    <Content Include="m\sass\user-review\listing.sass" />
+    <Content Include="m\sass\user-review\_listing-style.sass" />
     <Content Include="sass\user-review\write-review.sass" />
     <Content Include="sass\user-review\_write-review-style.sass" />
     <Content Include="m\sass\upcoming-bikes\_media-query.sass" />
     <Content Include="sass\upcoming-bikes\upcoming-bikes.sass" />
     <Content Include="sass\upcoming-bikes\_upcoming-bikes-style.sass" />
+    <Content Include="m\sass\modules\_overall-floating-tabs.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -3651,6 +3656,8 @@
     <Content Include="Views\Upcoming\_UpcomingBikesList_Mobile.cshtml" />
     <Content Include="Views\Make\_OtherMakes.cshtml" />
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
+    <Content Include="Views\UserReview\ListReviews_Mobile.cshtml" />
+    <Content Include="Views\UserReview\ReviewDetails_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,40 @@
+﻿.overall-specs-tabs-container
+	width: 100%
+	display: block
+	background: #fff
+	overflow-x: auto
+	z-index: 2
+	-webkit-overflow-scrolling: touch
+	position: absolute
+	top: 0
+	@include box-shadow(0, 4px, 5px, -2px, #d5d5d5)
+
+	&.fixed-tab-nav
+		position: fixed
+		top: 0
+		left: 0
+
+.overall-specs-tabs-wrapper
+	width: 100%
+	display: table
+	
+	li
+		display: table-cell
+		width: 1%
+		padding: 10px 15px
+		text-align: center
+		white-space: nowrap
+		font-size: 14px
+		color: #82888b
+		cursor: pointer
+
+		&.active
+			border-bottom: 3px solid #ef3f30
+			color: #4d5057
+			font-weight: 600
+			pointer-events: none
+
+.overall-specs-tabs-container::-webkit-scrollbar
+	width: 0
+	height: 0
+	display: none
