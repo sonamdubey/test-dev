@@ -68,6 +68,7 @@ docReady(function () {
 
         self.validateRatingCountFlag = ko.observable(false);
         self.ratingErrorText = ko.observable('');
+        self.focusFormActive = ko.observable(false);
 
         self.personalDetails = ko.observable(new personalDetails);
 
@@ -161,6 +162,7 @@ docReady(function () {
             isValid &= self.validate.ratingForm();
             isValid &= self.personalDetails().validateDetails();
 
+            self.focusFormActive(false);
             return isValid;
         };
 
@@ -169,6 +171,8 @@ docReady(function () {
                 if (self.ratingCount() == 0) {
                     self.validateRatingCountFlag(true);
                     self.ratingErrorText("Please rate the bike before submitting!");
+                    self.focusFormActive(true);
+                    answer.focusForm($('#rate-bike-form'));
                 }
                 else {
                     self.validateRatingCountFlag(false);
@@ -193,6 +197,9 @@ docReady(function () {
                         if (!checkedRadioButton.length) {
                             item.find('.error-text').show();
                             errorCount++;
+                            if (!self.focusFormActive()) {
+                                answer.focusForm($('#rate-bike-questions'));
+                            }
                         }
                         else {
                             item.find('.error-text').hide();
