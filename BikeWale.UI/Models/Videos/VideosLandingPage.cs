@@ -45,14 +45,14 @@ namespace Bikewale.Models.Videos
         public VideosLandingPageVM GetData()
         {
             VideosLandingPageVM objVM = null;
+            System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
             try
             {
+
                 objVM = new VideosLandingPageVM();
 
                 BindLandingVideos(objVM);
-
                 VideosBySubcategory objSubCat = new VideosBySubcategory(_videos);
-
                 objVM.ExpertReviewsWidgetData = objSubCat.GetData("", "55", _pageNo, ExpertReviewsTopCount);
                 objVM.FirstRideWidgetData = objSubCat.GetData("", "57", _pageNo, FirstRideWidgetTopCount);
                 objVM.LaunchAlertWidgetData = objSubCat.GetData("", "59", _pageNo, LaunchAlertWidgetTopCount);
@@ -68,6 +68,13 @@ namespace Bikewale.Models.Videos
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "VideosLandingPage.GetData");
+            }
+            finally
+            {
+                watch.Stop();
+                long elapsedMs = watch.ElapsedMilliseconds;
+                log4net.ThreadContext.Properties["TimeTaken_Page"] = elapsedMs;
+                ErrorClass objPageLog = new ErrorClass(new Exception("Videos Page Performance"), "VideosLandingPage.GetData-Page");
             }
             return objVM;
         }
