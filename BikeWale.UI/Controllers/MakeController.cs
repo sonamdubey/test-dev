@@ -1,5 +1,6 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
+using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -54,6 +55,7 @@ namespace Bikewale.Controllers
         public ActionResult Index(string makeMaskingName)
         {
             MakePageModel obj = new MakePageModel(makeMaskingName, 9, _dealerServiceCenters, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming,_compareBikes, _objService);
+            obj.CompareSource = CompareSources.Desktop_Make_Similar_Compare_Widget;
             MakePageVM objData = new MakePageVM();
             if (obj != null)
             {
@@ -86,7 +88,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile(string makeMaskingName)
         {
             MakePageModel obj = new MakePageModel(makeMaskingName, 9, _dealerServiceCenters, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService);
-            obj.IsMobile = true;
+            obj.CompareSource = CompareSources.Mobile_Make_Similar_Compare_Widget;
             MakePageVM objData = new MakePageVM();
             if (obj != null)
             {

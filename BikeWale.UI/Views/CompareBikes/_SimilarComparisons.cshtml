@@ -1,5 +1,5 @@
 ﻿@model Bikewale.Models.PopularComparisonsVM
-@if (Model != null && Model.CompareBikes!=null && Model.CompareBikes.Count()>0)
+@if (Model != null && Model.IsDataAvailable)
 {
    <div id="comparisonCarousel" class="jcarousel-wrapper inner-content-carousel margin-bottom15 comparison-type-carousel">
                     <div class="jcarousel">

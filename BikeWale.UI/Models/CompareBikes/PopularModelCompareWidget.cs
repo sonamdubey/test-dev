@@ -30,17 +30,18 @@ namespace Bikewale.Models.CompareBikes
         /// </summary>
         public PopularComparisonsVM GetData()
         {
-            PopularComparisonsVM objComparisons = new PopularComparisonsVM();            
+            PopularComparisonsVM objComparison = new PopularComparisonsVM();            
             try
             {
-                objComparisons.CompareBikes = _objCompare.GetSimilarCompareBikes(_versionList, (ushort)_topCount, (int)_cityId);
+                objComparison.IsDataAvailable = true;
+                objComparison.CompareBikes = _objCompare.GetSimilarCompareBikes(_versionList, (ushort)_topCount, (int)_cityId);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareBikes.PopularModelCompareWidget.GetData()");
             }
 
-            return objComparisons;
+            return objComparison;
         }
     }
 }

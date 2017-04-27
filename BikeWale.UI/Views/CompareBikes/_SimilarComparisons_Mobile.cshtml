@@ -1,5 +1,5 @@
 ﻿@model Bikewale.Models.PopularComparisonsVM
-@if (Model != null && Model.CompareBikes!=null && Model.CompareBikes.Count()>0)
+@if (Model != null && Model.IsDataAvailable)
 {
     <div id="ctrlCompareBikes">
             <div id="comparisonSwiper" class="swiper-container comparison-swiper card-container">

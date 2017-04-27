@@ -67,7 +67,7 @@ namespace Bikewale.Models
         public uint CityId { get { return GlobalCityArea.GetGlobalCityArea().CityId; } }
         public ushort BrandTopCount { get; set; }
         public PQSourceEnum PqSource { get; set; }
-        public bool IsMobile { get; set; }
+        public CompareSources CompareSource { get; set; }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
@@ -105,7 +105,7 @@ namespace Bikewale.Models
                 BindUpcomingBikes(objViewModel);
                 BindDealersServiceCenters(objViewModel, cityEntity);
                 BindOtherScooterBrands(objViewModel, _makeId, 9);
-                BindCompareScootes(objViewModel);
+                BindCompareScootes(objViewModel,CompareSource);
                 SetFlags(objViewModel, CityId);
             }
             catch (Exception ex)
@@ -121,22 +121,14 @@ namespace Bikewale.Models
         /// Modified by : Aditi Srivastava on 27 Apr 2017
         /// Summary  : Added source for comparisons
         /// </summary>
-        private void BindCompareScootes(ScootersMakePageVM objViewModel)
+        private void BindCompareScootes(ScootersMakePageVM objViewModel, CompareSources CompareSource)
         {
             try
             {
                 string versionList = string.Join(",", objViewModel.Scooters.Select(m => m.objVersion.VersionId));
                 PopularModelCompareWidget objCompare = new PopularModelCompareWidget(_compareScooters, 1, CityId, versionList);
-                objViewModel.SimilarCompareScooters = new PopularComparisonsVM();
                 objViewModel.SimilarCompareScooters = objCompare.GetData();
-                if (IsMobile)
-                {
-                    objViewModel.SimilarCompareScooters.CompareSource = CompareSources.Mobile_Scooter_Listing_Compare;
-                }
-                else
-                {
-                    objViewModel.SimilarCompareScooters.CompareSource = CompareSources.Desktop_Scooter_Listing_Compare;
-                }
+                objViewModel.SimilarCompareScooters.CompareSource = CompareSource;
             }
             catch (Exception ex)
             {

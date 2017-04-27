@@ -42,7 +42,7 @@ namespace Bikewale.Models
         public StatusCodes status;
         public MakeMaskingResponse objResponse;
         public string redirectUrl;
-        public bool IsMobile { get; set; }
+        public CompareSources CompareSource { get; set; }
 
         public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompareCacheRepository compareBikes, IServiceCenter objSC)
         {
@@ -112,7 +112,7 @@ namespace Bikewale.Models
                 }
                 BindPageMetaTags(objData.PageMetaTags, objData.Bikes, _makeName);
                 BindUpcomingBikes(objData);
-                BindCompareBikes(objData, cityId);
+                BindCompareBikes(objData, CompareSource, cityId);
                 BindDealerServiceData(objData, cityId, makeBase, cityBase);
                 objData.BikeDescription = _bikeMakesCache.GetMakeDescription((int)_makeId);
                 BindCMSContent(objData);
@@ -214,7 +214,7 @@ namespace Bikewale.Models
         /// Modified by : Aditi Srivastava on 27 Apr 2017
         /// Summary  : Added source for comparisons
         /// </summary>
-        private void BindCompareBikes(MakePageVM objViewModel, uint cityId)
+        private void BindCompareBikes(MakePageVM objViewModel, CompareSources compareSource, uint cityId)
         {
             try
             {
@@ -222,14 +222,7 @@ namespace Bikewale.Models
                 PopularModelCompareWidget objCompare = new PopularModelCompareWidget(_compareBikes, 1, cityId, versionList);
                 objViewModel.CompareSimilarBikes = objCompare.GetData();
                 objViewModel.IsCompareBikesAvailable = (objViewModel.CompareSimilarBikes != null && objViewModel.CompareSimilarBikes.CompareBikes != null && objViewModel.CompareSimilarBikes.CompareBikes.Count() > 0);
-                if (IsMobile)
-                {
-                    objViewModel.CompareSimilarBikes.CompareSource = CompareSources.Mobile_Make_Similar_Compare_Widget;
-                }
-                else
-                {
-                    objViewModel.CompareSimilarBikes.CompareSource = CompareSources.Desktop_Make_Similar_Compare_Widget;
-                }
+                objViewModel.CompareSimilarBikes.CompareSource = compareSource;
             }
             catch (Exception ex)
             {

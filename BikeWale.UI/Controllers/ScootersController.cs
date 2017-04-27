@@ -3,6 +3,7 @@ using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Compare;
 using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
@@ -105,6 +106,7 @@ namespace Bikewale.Controllers
         public ActionResult BikesByMake(string makeMaskingName)
         {
             ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter);
+            obj.CompareSource = CompareSources.Desktop_Scooter_Listing_Compare;
             ScootersMakePageVM objData = new ScootersMakePageVM();
             if (obj != null)
             {
@@ -142,7 +144,7 @@ namespace Bikewale.Controllers
         public ActionResult BikesByMake_Mobile(string makeMaskingName)
         {
             ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter);
-            obj.IsMobile = true;
+            obj.CompareSource = CompareSources.Mobile_Scooter_Listing_Compare;
             ScootersMakePageVM objData = new ScootersMakePageVM();
             if (obj != null)
             {

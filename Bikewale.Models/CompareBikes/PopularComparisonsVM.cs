@@ -12,5 +12,6 @@ namespace Bikewale.Models
     {
         public IEnumerable<SimilarCompareBikeEntity> CompareBikes { get; set; }
         public CompareSources CompareSource { get; set; }
+        public bool IsDataAvailable { get; set; }
     }
 }

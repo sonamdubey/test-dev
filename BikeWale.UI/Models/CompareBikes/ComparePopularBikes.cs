@@ -44,6 +44,7 @@ namespace Bikewale.Models
                 objComparison.CompareBikes = _objCompare.GetPopularCompareList(CityId);
                 if (objComparison.CompareBikes != null && objComparison.CompareBikes.Count() > 0)
                 {
+                    objComparison.IsDataAvailable = true;
                     objComparison.CompareBikes = objComparison.CompareBikes.Take((int)TopCount);
                 }
             }
