@@ -37,7 +37,7 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
 
-        <% if(returnUrl.Length > 0) { %>
+        <% if(!string.IsNullOrEmpty(returnUrl) && returnUrl.Length > 0) { %>
         <div class="gallery-loader-placeholder gallery-bg-overlay text-center">
             <span class="spin-loader fixed-loader"></span>
         </div>
@@ -99,7 +99,8 @@
                                 <% } %>
                             </li>
                         </ul>
-                        <% if(returnUrl.Length <= 0) { %>
+                        <% if (string.IsNullOrEmpty(returnUrl))
+                           { %>
                         <% int i = 0; if (vmModelPhotos.totalPhotosCount > 0)
                            { %>
                         <ul class="photos-grid-list model-grid-images">

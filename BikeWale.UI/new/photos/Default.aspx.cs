@@ -6,6 +6,7 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Utility;
 using System;
+using System.Collections.Specialized;
 using System.Web;
 
 namespace Bikewale.New.Photos
@@ -25,6 +26,7 @@ namespace Bikewale.New.Photos
         private uint _modelId;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected string JSONImageList = string.Empty, JSONVideoList = string.Empty, JSONFirstImage = string.Empty;
+        private string queryString = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -45,21 +47,12 @@ namespace Bikewale.New.Photos
             dd.DetectDevice();
             try
             {
-                if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
+                if (!String.IsNullOrEmpty(Request.QueryString["q"]))
                 {
-                    imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
+                    queryString = EncodingDecodingHelper.DecodeFrom64(Request.QueryString["q"]);
                 }
 
-                if (!String.IsNullOrEmpty(Request.QueryString["colorImageId"]))
-                {
-                    colorImageId = Convert.ToUInt32(Request.QueryString["colorImageId"]);
-                }
-
-                if (!String.IsNullOrEmpty(Request.QueryString["retUrl"]))
-                {
-                    returnUrl = EncodingDecodingHelper.DecodeFrom64(Request.QueryString["retUrl"]);
-                }
-
+                ProcessQueryStringVariables();
                 BindPhotosPage();
                 BindPageWidgets();
 
@@ -67,6 +60,21 @@ namespace Bikewale.New.Photos
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.New.Photos : Page_Load");
+            }
+        }
+
+        private void ProcessQueryStringVariables()
+        {
+            try
+            {
+                NameValueCollection queryCollection = HttpUtility.ParseQueryString(queryString);
+                uint.TryParse(queryCollection["imageindex"], out imageIndex);
+                uint.TryParse(queryCollection["colorImageId"], out colorImageId);
+                returnUrl = queryCollection["retUrl"];
+            }
+            catch
+            {
+
             }
         }
 

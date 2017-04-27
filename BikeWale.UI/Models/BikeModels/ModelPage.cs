@@ -426,10 +426,10 @@ namespace Bikewale.Models.BikeModels
 
                     objData.PageMetaTags.Title = String.Format("{0} Price, Reviews, Spec, Images, Mileage, Colours | Bikewale", objData.BikeName);
 
-                    objData.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/", objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, objData.ModelPageEntity.ModelDetails.MaskingName);
+                    objData.PageMetaTags.CanonicalUrl = String.Format("{0}/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrl, objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, objData.ModelPageEntity.ModelDetails.MaskingName);
 
                     objData.AdTags.TargetedModel = objData.ModelPageEntity.ModelDetails.ModelName;
-                    objData.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/" + objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName + "-bikes/" + objData.ModelPageEntity.ModelDetails.MaskingName + "/";
+                    objData.PageMetaTags.AlternateUrl = BWConfiguration.Instance.BwHostUrl + "m/" + objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName + "-bikes/" + objData.ModelPageEntity.ModelDetails.MaskingName + "/";
                     objData.AdTags.TargetedCity = objData.LocationCookie.City;
                     objData.PageMetaTags.Keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", objData.BikeName);
                     objData.PageMetaTags.OGImage = Bikewale.Utility.Image.GetPathToShowImages(objData.ModelPageEntity.ModelDetails.OriginalImagePath, objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
@@ -683,7 +683,7 @@ namespace Bikewale.Models.BikeModels
                                 else
                                     returnUrl = string.Format("/{0}-bikes/{1}/", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName);
 
-                                objData.ColourImageUrl = string.Format("/{0}-bikes/{1}/images/?colorImageId={2}&retUrl={3}#modelGallery", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName, colorImages.FirstOrDefault().ColorImageId, EncodingDecodingHelper.EncodeTo64(returnUrl));
+                                objData.ColourImageUrl = string.Format("/{0}-bikes/{1}/images/?q={2}", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName, EncodingDecodingHelper.EncodeTo64(string.Format("colorImageId={0}&retUrl={1}", colorImages.FirstOrDefault().ColorImageId, returnUrl)));
 
                                 objData.ModelColorPhotosCount = colorImages.Count();
                             }

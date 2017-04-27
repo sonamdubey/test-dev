@@ -25,7 +25,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <% if (returnUrl.Length > 0)
+        <% if (!string.IsNullOrEmpty(returnUrl) &&  returnUrl.Length > 0)
            { %>
         <div class="gallery-loader-placeholder gallery-bg-overlay text-center"><span class="spin-loader fixed-loader"></span></div>
         <%}

@@ -5,6 +5,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using System;
+using System.Collections.Specialized;
 using System.Web;
 
 namespace Bikewale.Mobile.New.Photos
@@ -30,6 +31,7 @@ namespace Bikewale.Mobile.New.Photos
         protected string bikeUrl = string.Empty, bikeName = string.Empty, returnUrl = string.Empty;
         protected string JSONImageList = string.Empty, JSONVideoList = string.Empty;
         protected uint imageIndex = 0;
+        private string queryString = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -44,19 +46,28 @@ namespace Bikewale.Mobile.New.Photos
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(Request.QueryString["colorImageId"]))
+            if (!String.IsNullOrEmpty(Request.QueryString["q"]))
             {
-                colorImageId = Convert.ToUInt32(Request.QueryString["colorImageId"]);
+                queryString = EncodingDecodingHelper.DecodeFrom64(Request.QueryString["q"]);
             }
-            if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
-            {
-                imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
-            }
-            if (!String.IsNullOrEmpty(Request.QueryString["retUrl"]))
-            {
-                returnUrl = EncodingDecodingHelper.DecodeFrom64(Request.QueryString["retUrl"]);
-            }
+
+            ProcessQueryStringVariables();
             BindPhotosPage();
+        }
+
+        private void ProcessQueryStringVariables()
+        {
+            try
+            {
+                NameValueCollection queryCollection = HttpUtility.ParseQueryString(queryString);
+                uint.TryParse(queryCollection["imageindex"], out imageIndex);
+                uint.TryParse(queryCollection["colorImageId"], out colorImageId);
+                returnUrl = queryCollection["retUrl"];
+            }
+            catch
+            {
+
+            }
         }
 
         /// <summary>

@@ -75,9 +75,8 @@
                                         @if (Model.IsDiscontinued)
                                         {
                                             <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
-                                        }
-                                        @{string returnUrl = string.Format("/{0}-bikes/{1}/price-in-{2}/", Model.Make.MaskingName, Model.BikeModel.MaskingName, Model.CityEntity.CityMaskingName); }
-                                        <a href="@String.Format(@"{0}?retUrl={1}#photosGallery", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(returnUrl))">
+                                        }                                       
+                                        <a href="/@Model.Make.MaskingName-bikes/@Model.BikeModel.MaskingName/images/?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))">
                                             <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
                                         </a>
                                     </div>

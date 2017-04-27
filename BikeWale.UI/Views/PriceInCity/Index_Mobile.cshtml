@@ -38,7 +38,7 @@
                                 <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                             }
                             @{string returnUrl = string.Format("/m/{0}-bikes/{1}/price-in-{2}/", Model.Make.MaskingName, Model.BikeModel.MaskingName, Model.CityEntity.CityMaskingName); }
-                            <a href="@String.Format(@"/m{0}?retUrl={1}#modelGallery", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(returnUrl))"><img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" /></a>
+                            <a href="@String.Format(@"/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("retUrl={0}", returnUrl)))"><img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" /></a>
                         </div>
                         <div class="model-version-block inline-block padding-left15">
                             <p class="font12 text-light-grey">Version:</p>
