@@ -429,7 +429,7 @@ namespace Bikewale.Models.BikeModels
                     objData.PageMetaTags.CanonicalUrl = String.Format("{0}/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrl, objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, objData.ModelPageEntity.ModelDetails.MaskingName);
 
                     objData.AdTags.TargetedModel = objData.ModelPageEntity.ModelDetails.ModelName;
-                    objData.PageMetaTags.AlternateUrl = BWConfiguration.Instance.BwHostUrl + "m/" + objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName + "-bikes/" + objData.ModelPageEntity.ModelDetails.MaskingName + "/";
+                    objData.PageMetaTags.AlternateUrl = BWConfiguration.Instance.BwHostUrl + "/m/" + objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName + "-bikes/" + objData.ModelPageEntity.ModelDetails.MaskingName + "/";
                     objData.AdTags.TargetedCity = objData.LocationCookie.City;
                     objData.PageMetaTags.Keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", objData.BikeName);
                     objData.PageMetaTags.OGImage = Bikewale.Utility.Image.GetPathToShowImages(objData.ModelPageEntity.ModelDetails.OriginalImagePath, objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
