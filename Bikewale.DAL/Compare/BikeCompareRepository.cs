@@ -566,7 +566,7 @@ namespace Bikewale.DAL.Compare
                                 obj.VersionId1 = Convert.ToString(reader["VersionId"]);
                                 obj.OriginalImagePath1 = Convert.ToString(reader["VersionImgUrl"]);
                                 obj.HostUrl1 = Convert.ToString(reader["HostUrl"]);
-                                obj.IsScooterOnly=SqlReaderConvertor.ToBoolean(reader["IsScooter"]);
+                                obj.IsScooterOnly = SqlReaderConvertor.ToBoolean(reader["IsScooter"]);
                                 topBikeList.Add(obj);
                             }
                             reader.Close();
@@ -636,12 +636,11 @@ namespace Bikewale.DAL.Compare
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarcomparebikeslist_17032017";
+                    cmd.CommandText = "getsimilarcomparebikeslist_27042017";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityid));
-                    // LogLiveSps.LogSpInGrayLog(command);
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
