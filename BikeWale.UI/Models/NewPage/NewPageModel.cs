@@ -3,6 +3,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.CMS;
@@ -41,6 +42,7 @@ namespace Bikewale.Models
         public bool IsMobile { get; set; }
         public string redirectUrl;
         public StatusCodes status;
+        public CompareSources CompareSource { get; set; }
 
         #endregion
 
@@ -105,7 +107,7 @@ namespace Bikewale.Models
             objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
 
             if (IsMobile)
-                BindCompareBikes(objVM, cityId);
+                BindCompareBikes(objVM, CompareSource, cityId);
             else
                 objVM.CompareBikes = new ComparisonMinWidget(_cachedCompare, 4, true, EnumBikeType.New).GetData();
 
@@ -127,13 +129,14 @@ namespace Bikewale.Models
         /// Created by : Aditi Srivastava on 25 Apr 2017
         /// Summary    : Bind popular comparisons
         /// </summary>
-        private void BindCompareBikes(NewPageVM objVM, uint cityId)
+        private void BindCompareBikes(NewPageVM objVM, CompareSources CompareSource, uint cityId)
         {
             ComparePopularBikes objCompare = new ComparePopularBikes(_cachedCompare);
             objCompare.TopCount = 9;
             objCompare.CityId = cityId;
             objVM.ComparePopularBikes = objCompare.GetData();
-            objVM.IsComparePopularBikesAvailable = (objVM.ComparePopularBikes != null && objVM.ComparePopularBikes.Count() > 0);
+            objVM.IsComparePopularBikesAvailable = (objVM.ComparePopularBikes != null && objVM.ComparePopularBikes.CompareBikes != null && objVM.ComparePopularBikes.CompareBikes.Count() > 0);
+            objVM.ComparePopularBikes.CompareSource = CompareSource;
         }
 
         /// <summary>

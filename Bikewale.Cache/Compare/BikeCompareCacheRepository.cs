@@ -107,7 +107,7 @@ namespace Bikewale.Cache.Compare
             {
                 if (!String.IsNullOrEmpty(versionList))
                 {
-                    key = string.Format("BW_SimilarCompareBikes_{0}_City_{1}_Cnt_{2}", versionList.Replace(',', '_'), cityid, topCount);
+                    key = string.Format("BW_SimilarCompareBikes_{0}_City_{1}_Count_{2}", versionList.Replace(',', '_'), cityid, topCount);
                     compareEntity = _cache.GetFromCache<ICollection<SimilarCompareBikeEntity>>(key, new TimeSpan(1, 0, 0), () => _compareRepository.GetSimilarCompareBikes(versionList, topCount, cityid));
                 }
             }
@@ -174,7 +174,7 @@ namespace Bikewale.Cache.Compare
         public IEnumerable<TopBikeCompareBase> ScooterCompareList(uint topCount)
         {
             IEnumerable<TopBikeCompareBase> topScootersComapareBase = null;
-            string key = string.Format("BW_CompareScooters_topCount_{0}", topCount);
+            string key = string.Format("BW_CompareScooters_Count_{0}", topCount);
             try
             {
                 topScootersComapareBase = _cache.GetFromCache<IEnumerable<TopBikeCompareBase>>(key, new TimeSpan(1, 0, 0), () => _compareRepository.ScooterCompareList(topCount));
