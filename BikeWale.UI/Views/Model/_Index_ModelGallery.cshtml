@@ -1,15 +1,16 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@{ string bikeName = string.Format("{0}_{1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName);}
 
 <div class="bw-tabs-panel">
     @if (!Model.IsUpcomingBike && Model.IsModelColorsAvailable)
     {
         <div class="bw-tabs bw-group-flex toggle-btn-label text-center margin-bottom5">
             <ul>
-                <li data-tabs="colourCarousel" class="active">
+                <li data-tabs="colourCarousel" class="active bw-ga" l="@bikeName" a="Colours_Tab_Clicked" c="Model_Page">
                     <span class="label-count">@Model.ModelColorPhotosCount Colours</span>
                     <span class="label-overview">See Colours</span>
                 </li>
-                <li data-tabs="imageCarousel" class="inactive">
+                <li data-tabs="imageCarousel" class="inactive bw-ga" l="@bikeName" a="Image_Tab_Clicked" c="Model_Page">
                     <span class="label-overview">See Images</span>
                     <span class="label-count">@Model.ModelPageEntity.AllPhotos.Count() Images</span>
                 </li>
@@ -28,7 +29,7 @@
                 <ul id="model-color-list" class="color-box-list vertical-top">
                     @foreach (var modelColor in Model.ModelPageEntity.ModelColors)
                     {
-                        <li>
+                        <li class="bw-ga" l="@bikeName&#95;@modelColor.ColorName" a="Bottom_Colour_List_Clicked" c="Model_Page">
                             <div data-colorid="@modelColor.ColorImageId" title="@modelColor.ColorName" class="color-box inline-block @(modelColor.HexCodes.Count() == 1 ? " color-count-one" : (modelColor.HexCodes.Count() == 3 ? "color-count-three" : "color-count-two"))">
 
                                 @foreach (var HexCode in modelColor.HexCodes)
@@ -73,16 +74,16 @@
             </div>
             @if (Model.ModelPageEntity.AllPhotos.Count() > 1)
             {
-                <a href="#!" class="prev-control prev-stage bwsprite" rel="nofollow"></a>
-                <a href="#!" class="next-control next-stage bwsprite" rel="nofollow"></a>
+                <a href="#!" class="prev-control prev-stage bwsprite bw-ga" rel="nofollow" l="@bikeName&#95;Previous" a="Top_Image_Carousel_Clicked" c="Model_Page"></a>
+                <a href="#!" class="next-control next-stage bwsprite bw-ga" rel="nofollow" l="@bikeName&#95;Next" a="Top_Image_Carousel_Clicked" c="Model_Page"></a>
             }
         </div>
 
         @if (Model.ModelPageEntity.AllPhotos.Count() > 1)
         {
             <div class="navigation">
-                <a href="#!" class="prev-control prev-navigation bwsprite" rel="nofollow"></a>
-                <a href="#!" class="next-control next-navigation bwsprite" rel="nofollow"></a>
+                <a href="#!" class="prev-control prev-navigation bwsprite bw-ga" rel="nofollow" l="@bikeName&#95;Previous" a="Bottom_Image_Carousel_Clicked" c="Model_Page"></a>
+                <a href="#!" class="next-control next-navigation bwsprite bw-ga" rel="nofollow" l="@bikeName&#95;Next" a="Bottom_Image_Carousel_Clicked" c="Model_Page"></a>
                 <div class="carousel carousel-navigation">
                     <ul>
                         @{ imageIndex = 0;}
@@ -104,8 +105,9 @@
                                 </a>
                             </li>
 
-                                    imageIndex++;
+                            imageIndex++;
                         }
+
                         @if (Model.ModelPageEntity != null && Model.ModelPageEntity.AllPhotos != null && Model.ModelPageEntity.AllPhotos.Count() > 4)
                         {
                             <li class="all-photos-target">
