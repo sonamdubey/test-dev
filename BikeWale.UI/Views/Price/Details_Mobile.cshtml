@@ -139,7 +139,101 @@
 {
     @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.ManufacturerCampaign)
 }
+@if (!(Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null))
+{
+    <div id="emiContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
+        <h2 class="card-h2-heading margin-bottom10">@Model.SelectedVersion.ModelBase.ModelName EMI Calculator</h2>
 
+        <div class="finance-emi-container font14">
+            <div class="emi-slider-box">
+                <div class="emi-slider-box-left-section">
+                    <p class="grid-8 alpha text-slate-grey">Down payment</p>
+                    <div class="emi-slider-box-right-section grid-4 omega">
+                        <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="downPaymentAmount" data-bind="text: formatPrice(Math.round(downPayment()))" class="text-bold"></span>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div id="downPaymentSlider"
+                         data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2) + minDnPay()) }"
+                         class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Dealer_PQ" a="Interacted_with_EMI_Calculator" l="@Model.BikeName">
+                        <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="emi-slider-box">
+                <div class="emi-slider-box-left-section">
+                    <p class="grid-8 alpha text-slate-grey">Loan amount</p>
+                    <div class="emi-slider-box-right-section grid-4 omega">
+                        <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="loanAmount" data-bind="text: formatPrice(Math.round(loan()))" class="text-bold"></span>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div id="loanAmountSlider"
+                         data-bind="slider: loan, sliderOptions: { min: bikePrice() - maxDnPay(), max: bikePrice() - minDnPay(), range: 'min', step: 1 }"
+                         class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Dealer_PQ" a="Interacted_with_EMI_Calculator" l="@Model.BikeName">
+                        <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="emi-slider-box">
+                <div class="emi-slider-box-left-section">
+                    <p class="grid-8 alpha text-slate-grey">Tenure</p>
+                    <div class="emi-slider-box-right-section grid-4 omega text-bold">
+                        <span id="tenurePeriod" data-bind="text: tenure"></span>&nbsp;Months
+                    </div>
+                    <div class="clear"></div>
+
+                    <div id="tenureSlider"
+                         data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
+                         class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Dealer_PQ" a="Interacted_with_EMI_Calculator" l="@Model.BikeName">
+                        <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="emi-slider-box">
+                <div class="emi-slider-box-left-section">
+                    <p class="grid-8 alpha text-slate-grey">Interest</p>
+                    <div class="emi-slider-box-right-section grid-4 omega text-bold">
+                        <span id="rateOfInterestPercentage" data-bind="text: rateofinterest">5</span>&nbsp;%
+                    </div>
+                    <div class="clear"></div>
+
+                    <div id="rateOfInterestSlider"
+                         data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
+                         class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Dealer_PQ" a="Interacted_with_EMI_Calculator" l="@Model.BikeName">
+                        <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="border-solid-top padding-top20 padding-bottom20">
+                <p class="grid-9 alpha text-slate-grey omega">Total amount (Principal + Interest)</p>
+                <div class="emi-slider-box-right-section grid-3 omega alpha">
+                    <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span class="text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <p class="grid-5 text-default alpha position-rel pos-top2">Indicative EMI</p>
+            <div class="text-right grid-7 omega font16 text-bold">
+                <span class="bwmsprite inr-sm-icon margin-right5"></span><span data-bind="text: formatPrice(monthlyEMI())"></span>/month
+            </div>
+            <div class="clear"></div>
+
+        </div>
+    </div>
+}
 @if (Model.ShowOtherDealers && Model.AreOtherDealersAvailable)
 {
     <section class="container bg-white margin-bottom10">
