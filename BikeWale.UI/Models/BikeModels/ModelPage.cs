@@ -735,7 +735,7 @@ namespace Bikewale.Models.BikeModels
                 }
                 if (objData.ManufacturerCampaign != null)
                 {
-                    objData.ManufacturerCampaign.ShowAd = objData.DetailedDealer == null && objData.IsLocationSelected;
+                    objData.ManufacturerCampaign.ShowAd = objData.DetailedDealer == null && objData.IsLocationSelected && objData.ManufacturerCampaign.IsAdAvailable;
 
                 }
             }
