@@ -147,19 +147,26 @@ docReady(function () {
 
     colourCarousel = $('#colourCarousel');
     carouselColorList = $('#model-color-list');
-
+    var colorElements = carouselColorList.find('li');
     // highlight 1st color box
-    carouselColorList.find('li').first().addClass('active');
+    //carouselColorList.find('li').first().addClass('active');
 
-    colourCarousel.find('.jcarousel').on('jcarousel:targetin', 'li', function(event, carousel) {
-        var colorElements = carouselColorList.find('li');
-        
+    var canonical = $('#canonical').val();
+    var imagePageUrl = $('#imageUrl').val();
+
+    carouselColorList.on('click', 'li', function () {
+        var colorId = $(this).find("div").data("colorid");
+        if (colorId && !isNaN(colorId) && colorId != "0")
+        {
+            var image = $("#imageCarousel img[data-colorid="+colorId+"]");
+            if (image)
+            {
+                $('#colourCarousel a img').attr("src", image.attr("data-original"));
+                $('#colourCarousel a').attr("href", imagePageUrl + '?q=' + Base64.encode('colorImageId=' + colorId + '&retUrl=' + canonical))
+            }
+        }
         colorElements.removeClass('active');
         colorElements.eq([$(this).index()]).addClass('active');
-    });
-
-    carouselColorList.on('click', 'li', function(){
-        colourCarousel.find('.jcarousel').jcarousel('scroll', $(this).index());
     });
 
     getCityArea = GetGlobalCityArea();

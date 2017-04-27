@@ -8,7 +8,7 @@
     }
 
     @if (Model.AreModelPhotosAvailable)
-    {
+    {        
         <div class="swiper-wrapper">
 
             @{int imageIndex = 0; var bikeImages = Model.ModelPageEntity.AllPhotos.Take(10);}
@@ -17,7 +17,7 @@
                 string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
 
                 <div class="swiper-slide">
-                    <a href="@String.Format(@"/m{0}?modelpage=true&imageindex={1}#modelGallery",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName),imageIndex)">
+                    <a href="@String.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.AlternateUrl)))">
                         @if (imageIndex < 2)
                         {
                             <img src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._360x202,"85")" alt="@imageProperty" title="@imageProperty" border="0" />
@@ -70,7 +70,7 @@
     @if (Model.ModelColorPhotosCount > 0)
     {
         <li>
-            <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Colors" : "Color")" href="@string.Format("/m{0}", Model.ColourImageTabsUrl)">
+            <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Colors" : "Color")" href="/m/@Model.ColourImageUrl">
                 <span class="bwmsprite colors-sm"></span>
                 <span class="inline-block">
                     <span class="font12">@Model.ModelColorPhotosCount</span>&nbsp;<span class="font11">@string.Format("{0}", Model.ModelColorPhotosCount > 1 ? "colours" : "colour")</span>

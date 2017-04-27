@@ -351,7 +351,7 @@ docReady(function () {
             try {
                 interest = (loanAmount * tenure * rateOfInterest) / (12 * 100);
                 totalRepay = loanAmount + interest + proFees;
-                finalEmi = Math.ceil((totalRepay / tenure));
+                finalEmi = Math.round((totalRepay / tenure));
             }
             catch (e) {
             }
@@ -362,7 +362,7 @@ docReady(function () {
             var price;
             try {
                 price = (onRoadPrice * percentage) / 100;
-                price = Math.ceil(price / 100.0) * 100;
+                price = Math.round(price);
             }
             catch (e) {
             }

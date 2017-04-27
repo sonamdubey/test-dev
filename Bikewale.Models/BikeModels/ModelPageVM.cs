@@ -24,6 +24,7 @@ namespace Bikewale.Models.BikeModels
         public ManufacturerCampaign ManufacturerCampaign { get; set; }
         public LeadCaptureEntity LeadCapture { get; set; }
         public IEnumerable<BestBikeEntityBase> objBestBikesList { get; set; }
+        public EMI EMIDetails { get; set; }
         public uint VersionId { get; set; }
         public uint DealerId { get; set; }
         public uint PQId { get; set; }
@@ -59,7 +60,6 @@ namespace Bikewale.Models.BikeModels
         public string DealerArea { get { return (IsDealerDetailsExists && DealerDetails.objArea != null ? DealerDetails.objArea.AreaName : LocationCookie.Area); } }
         public string BestBikeHeading { get; set; }
         public string ColourImageUrl { get; set; }
-        public string ColourImageTabsUrl { get; set; }
 
         public string ClientIP { get; set; }
         public string PageUrl { get; set; }
