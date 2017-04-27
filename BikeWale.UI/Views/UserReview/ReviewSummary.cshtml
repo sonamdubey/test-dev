@@ -41,7 +41,7 @@
                 <h1 class="font18 margin-bottom10">Your review for @string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName)</h1>
                 <p class="padding-bottom10 border-solid-bottom text-light-grey margin-bottom20">Check, how others will see your review!</p>
 
-                <div class="grid-@string.Format("{0}", string.IsNullOrEmpty(Model.Summary.Tips) && !(Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0) && !string.IsNullOrEmpty(Model.Summary.Description)?"12":"8") alpha padding-right20 border-solid-right">
+                <div class="grid-@string.Format("{0}", string.IsNullOrEmpty(Model.Summary.Tips) && !(Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0) && !string.IsNullOrEmpty(Model.Summary.Description)?"12 omega":"8 padding-right20 border-solid-right") alpha">
                     <div id="bike-rating-box">
                         <div class="circle-placeholder">
                             <span class="bwsprite @string.Format("feedback-{0}",Model.Summary.OverallRating.Value)"></span>
