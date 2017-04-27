@@ -55,6 +55,10 @@ namespace Bikewale.Mobile.New.Photos
             BindPhotosPage();
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 27-04-2017
+        /// Description : Function to get query string variables
+        /// </summary>
         private void ProcessQueryStringVariables()
         {
             try
@@ -64,9 +68,9 @@ namespace Bikewale.Mobile.New.Photos
                 uint.TryParse(queryCollection["colorImageId"], out colorImageId);
                 returnUrl = queryCollection["retUrl"];
             }
-            catch
+            catch (Exception ex)
             {
-
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.Photos : ProcessQueryStringVariables");
             }
         }
 

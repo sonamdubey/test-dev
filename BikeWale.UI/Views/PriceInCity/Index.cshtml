@@ -76,7 +76,7 @@
                                         {
                                             <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                                         }                                       
-                                        <a href="/@Model.Make.MaskingName-bikes/@Model.BikeModel.MaskingName/images/?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))">
+                                        <a href="@Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName)?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))">
                                             <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
                                         </a>
                                     </div>

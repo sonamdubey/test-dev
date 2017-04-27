@@ -32,16 +32,7 @@ var popupGallery = {
         }
     },
 
-    close: function () {
-        //if ((isTabs) && (isModelPage) && (colorImageId > 0)) {
-        //    window.location.href = window.location.pathname.split("images/")[0];
-        //}
-        //else if ((isModelPage) && (colorImageId > 0)) {
-        //    window.location.href = window.location.pathname.split("images/")[0] + '#coloursContent';
-        //}
-        //else if (isModelPage) {
-        //    window.location.href = window.location.pathname.split("images/")[0];
-        //}
+    close: function () {        
         if(returnUrl && returnUrl.length > 0)
         {
             window.location.href = returnUrl;
