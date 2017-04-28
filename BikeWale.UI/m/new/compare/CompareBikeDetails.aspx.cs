@@ -111,7 +111,7 @@ namespace Bikewale.Mobile.New
         {
             if (ctrlSimilarBikes != null)
             {
-                ctrlSimilarBikes.TopCount = 4;
+                ctrlSimilarBikes.TopCount = 8;
                 ctrlSimilarBikes.CityId = cityId;
                 ctrlSimilarBikes.versionsList = versions;
             }
