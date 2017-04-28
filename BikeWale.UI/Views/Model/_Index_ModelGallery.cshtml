@@ -21,7 +21,7 @@
         <div class="bw-tabs-data" id="colourCarousel">            
             <div class="carousel-type-color">
                 <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/@Model.ModelPageEntity.ModelDetails.MaskingName/images/?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))" class="carousel-img-container">
-                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath, Model.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" title="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" border="0">
+                    <img class="bw-ga" l="@bikeName" a="Main_Image_Clicked" c="Model_Page"  src="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath, Model.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" title="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" border="0">
                 </a>
             </div>
             @{var colorImages = Model.ModelPageEntity.ModelColors.Where(x => x.ColorImageId > 0);}
@@ -67,7 +67,7 @@
 
                                 @if (imageIndex < 1)
                                 {
-                                    <img data-colorid="@image.ColorId" data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._393x221,Bikewale.Utility.QualityFactor._85)" alt="@imageProperty" title="@imageProperty" border="0" />
+                                    <img class="bw-ga" l="@bikeName" a="Main_Image_Clicked" c="Model_Page" data-colorid="@image.ColorId" data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._393x221,Bikewale.Utility.QualityFactor._85)" alt="@imageProperty" title="@imageProperty" border="0" />
                                 }
                                 else
                                 {
