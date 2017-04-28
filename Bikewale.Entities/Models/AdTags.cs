@@ -23,6 +23,10 @@ namespace Bikewale.Models
         public bool Ad_976x400First { get; set; }
         public bool Ad_976x400Second { get; set; }
 
+        public bool Ad_Model_ATF_970x90 { get; set; }
+        public bool Ad_Model_ATF_300x250 { get; set; }
+        public bool Ad_Model_BTF_970x90 { get; set; }
+        public bool Ad_Model_BTF_300x250 { get; set; }
         public bool Ad_976x204 { get; set; }
         #endregion
 

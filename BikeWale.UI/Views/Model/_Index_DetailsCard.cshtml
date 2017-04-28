@@ -25,45 +25,6 @@
             @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
         </div>
     }
-    @*@if (Model.BikeRanking != null)
-        {
-            if (Model.BikeRanking.Rank > 0)
-            {
-                <div class="margin-left20 margin-right20 padding-bottom20">
-                    <div class="content-inner-block-15 border-solid font14">
-                        <div class="grid-9 alpha omega">
-                            <div class="inline-block">
-                                <span class="item-rank">#@Model.BikeRanking.Rank</span>
-                            </div><p class="inline-block checkout-list-slug-label">@Model.BikeName is the @Html.Raw((Model.BikeRanking.Rank > 1 ? Model.BikeRanking.RankText : "")) most popular @Model.BikeRanking.BikeType.ToLower(). Check out other @Model.BikeRanking.StyleName.ToLower() which made it to Top 10 list.</p>
-                        </div>
-                        <div class="grid-3 text-right position-rel pos-top5">
-                            <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName in India">
-                                Check out the list now<span class="bwsprite blue-right-arrow-icon"></span>
-                            </a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="margin-left20 margin-right20 padding-bottom20">
-                    <div class="content-inner-block-15 border-solid font14">
-                        <div class="grid-9 alpha">
-                            <div class="inline-block icon-red-bg">
-                                <span class="bwsprite rank-graph"></span>
-                            </div>
-                            <p class="inline-block checkout-list-slug-label">Not sure what to buy? List of Top 10 @Model.BikeRanking.StyleName.ToLower() can come in handy.</p>
-                        </div>
-                        <div class="grid-3 text-right position-rel pos-top5">
-                            <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
-            }
-        }*@
-
 
     @if (Model.ModelPageEntity.ModelVersionSpecs != null)
     {
@@ -96,7 +57,7 @@
                 </div>
             </div>
             <div class="grid-4 text-center alpha omega">
-                @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+                @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
             </div>
             <div class="clear"></div>
         </div>
@@ -154,6 +115,8 @@
             <!-- Video ends -->
         </div>
     }
+    
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_970x90.cshtml", new { AdId = Model.AdTags.AdId });}
 
     @if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable || Model.IsDealersServiceCenterAvailable))
     {
@@ -230,62 +193,28 @@
 </div>
 <div class="clear"></div>
 
-<section>
+@if (Model.objBestBikesList != null && Model.objBestBikesList.Count() > 0)
+{
+    <section>
     <div class="container">
         <div class="grid-12">
             <div class="content-box-shadow card-bottom-margin">
                 <div class="carousel-heading-content padding-top20">
                     <div class="swiper-heading-left-grid inline-block">
-                        <h2 class="h2-heading">Here's a list of best Sports Bikes</h2>
+                        <h2 class="h2-heading">Here's a list of best @Model.BestBikeHeading</h2>
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="" title="" class="btn view-all-target-btn">View all</a>
+                        <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View all</a>
                     </div>
                 </div>
-                <ul class="image-details-grid-list">
-                    <li class="card">
-                        <a href="" title="Honda CB Hornet 160R" class="card-target">
-                            <div class="item-image-block vertical-top">
-                                <span class="item-rank-label">#1</span>
-                                <img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/honda-cb-hornet-160r.jpg" src="" alt="" />
-                            </div>
-                            <div class="item-details-block vertical-top">
-                                <p class="font14 text-bold text-black margin-bottom5">Honda CB Hornet 160R</p>
-                                <p class="font11 text-light-grey">Ex-showroom, Mumbai</p>
-                                <span class="bwsprite inr-md"></span><span class="font16 text-default text-bold">1,25,000</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="card">
-                        <a href="" title="Honda CB Hornet 160R" class="card-target">
-                            <div class="item-image-block vertical-top">
-                                <span class="item-rank-label">#2</span>
-                                <img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/honda-cb-hornet-160r.jpg" src="" alt="" />
-                            </div>
-                            <div class="item-details-block vertical-top">
-                                <p class="font14 text-bold text-black margin-bottom5">Honda CB Hornet</p>
-                                <p class="font11 text-light-grey">Ex-showroom, Mumbai</p>
-                                <span class="bwsprite inr-md"></span><span class="font16 text-default text-bold">1,25,000</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="card">
-                        <a href="" title="Honda CB Hornet 160R" class="card-target">
-                            <div class="item-image-block vertical-top">
-                                <span class="item-rank-label">#3</span>
-                                <img class="lazy" data-original="https://imgd.aeplcdn.com//110x61//bw/models/honda-cb-hornet-160r.jpg" src="" alt="" />
-                            </div>
-                            <div class="item-details-block vertical-top">
-                                <p class="font14 text-bold text-black margin-bottom5">Honda CB Hornet 160R</p>
-                                <p class="font11 text-light-grey">Ex-showroom, Mumbai</p>
-                                <span class="bwsprite inr-md"></span><span class="font16 text-default text-bold">1,25,000</span>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
+               @Html.Partial("~/Views/Model/_BestBikes.cshtml", Model.objBestBikesList)
                 <div class="clear"></div>
             </div>
         </div>
         <div class="clear"></div>
     </div>
 </section>
+    
+}
+
+
