@@ -118,11 +118,14 @@ namespace Bikewale.Models
 
                     if (objData.Model != null&& ModelId!=0 && objData.Model.ModelId != ModelId)
                         objData.Model.ModelId = (int)ModelId;
-                    
-                    var newsDetailReducer = objData.ReduxStore.NewsReducer.NewsDetailReducer;
-                    newsDetailReducer.ArticleDetailData.ArticleDetail= ConverterUtility.MapArticleDetailsToPwaArticleDetails(objData.ArticleDetails);
-                    newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapNewBikeListToPwaNewBikeList(objData,currentCityArea.City);
-                    newsDetailReducer.RelatedModelObject.ModelObject = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(objData.BikeInfo);
+
+                    if (IsMobile)
+                    {
+                        var newsDetailReducer = objData.ReduxStore.NewsReducer.NewsDetailReducer;
+                        newsDetailReducer.ArticleDetailData.ArticleDetail = ConverterUtility.MapArticleDetailsToPwaArticleDetails(objData.ArticleDetails);
+                        newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapNewBikeListToPwaNewBikeList(objData, currentCityArea.City);
+                        newsDetailReducer.RelatedModelObject.ModelObject = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(objData.BikeInfo);
+                    }
                 }
                 else
                     status = StatusCodes.ContentNotFound;

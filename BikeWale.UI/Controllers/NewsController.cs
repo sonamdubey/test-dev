@@ -1,16 +1,64 @@
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models;
+using Bikewale.PWA.Utils;
+using log4net;
+using Newtonsoft.Json;
+using React.Web.Mvc;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
     public class NewsController : Controller
     {
+        static HtmlHelper _htmlHelper=null;
+        object _lockObject=new object();
+        static string _hashOfRenderedStore = string.Empty;
+        static IHtmlString _renderedStoreString = null;
+        static string _storeJsonString = string.Empty;
+        static ILog _logger = LogManager.GetLogger("Pwa-Logger-Renderengine");
+        private HtmlHelper NewsHtmlHelper
+        {
+            get
+            {
+                if (_htmlHelper == null)
+                {
+                    lock (_lockObject)
+                    {
+                        if (_htmlHelper == null)
+                        {
+                            var vdd = new ViewDataDictionary();
+                            var tdd = new TempDataDictionary();
+                            var controllerContext = this.ControllerContext;
+                            var view = new RazorView(controllerContext, "/", "/", false, null);
+                            _htmlHelper = new HtmlHelper(new ViewContext(controllerContext, view, vdd, tdd, new StringWriter()),
+                                 new ViewDataContainer(vdd));
+                        }
+                    }
+                }
+                return _htmlHelper;
+            }
+        }
+
+        private class ViewDataContainer : IViewDataContainer
+        {
+            public ViewDataContainer(ViewDataDictionary viewData)
+            {
+                ViewData = viewData;
+            }
+
+            public ViewDataDictionary ViewData { get; set; }
+        }
+
         #region Variables fro dependency injection
         private readonly ICMSCacheContent _articles = null;
         private readonly IPager _pager = null;
@@ -31,6 +79,7 @@ namespace Bikewale.Controllers
             _upcoming = upcoming;
             _bikeInfo = bikeInfo;
             _cityCache=cityCache;
+            
         }
         #endregion
 
@@ -76,17 +125,85 @@ namespace Bikewale.Controllers
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
-                return RedirectPermanent(string.Format("/m{0}",obj.redirectUrl));
+                return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
             }
             else
             {
                 NewsIndexPageVM objData = obj.GetData(9);
+
+                if (objData != null)
+                {
+                    //setting the store for Redux
+                    objData.ReduxStore = new PwaReduxStore();
+                    var tempStoreArticleList = objData.ReduxStore.NewsReducer.NewsArticleListReducer.ArticleListData.ArticleList;
+                    tempStoreArticleList.Articles = ConverterUtility.MapArticleSummaryListToPwaArticleSummaryList(objData.Articles.Articles);
+                    tempStoreArticleList.StartIndex = (uint)objData.StartIndex;
+                    tempStoreArticleList.EndIndex = (uint)objData.EndIndex;
+                    tempStoreArticleList.RecordCount = (uint)objData.Articles.RecordCount;
+                    PopulateStoreForWidgetData(objData, obj.CityName);
+
+
+                    var tempStoreJson = JsonConvert.SerializeObject(objData.ReduxStore);
+                    var tempHashOfStoreJson = ConverterUtility.GetSha256Hash(tempStoreJson);
+                    if (!tempHashOfStoreJson.Equals(_hashOfRenderedStore))
+                    {//rerender                        
+                        var sw = Stopwatch.StartNew();
+                        var articleReducer = objData.ReduxStore.NewsReducer.NewsArticleListReducer;
+                        _renderedStoreString = NewsHtmlHelper.React("ServerRouterWrapper", new
+                        {
+                            Url = "/m/news/",
+                            ArticleListData = articleReducer.ArticleListData,
+                            NewBikesListData = articleReducer.NewBikesListData
+
+                        }, containerId: "root");
+                        _hashOfRenderedStore = tempHashOfStoreJson;
+                        _storeJsonString = tempStoreJson;
+                        sw.Stop();
+                        ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+                        _logger.Error(sw.ElapsedMilliseconds);
+                    }                    
+                }
+                objData.ServerRouterWrapper = _renderedStoreString;
+                objData.WindowState = _storeJsonString;
+
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/m/pagenotfound.aspx");
                 else
                 return View(objData);
             }
         }
+
+        private void PopulateStoreForWidgetData(NewsIndexPageVM objData,string cityName)
+        {
+            List<PwaBikeNews> objPwaBikeNews = new List<PwaBikeNews>();
+            if (objData.MostPopularBikes != null && objData.MostPopularBikes.Bikes != null)
+            {
+                PwaBikeNews popularBikes = new PwaBikeNews();
+                popularBikes.Heading = "Popular bikes";
+                popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
+                popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
+                popularBikes.CompleteListUrlLabel = "View all";
+                popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objData.MostPopularBikes.Bikes,
+                    cityName);
+
+                objPwaBikeNews.Add(popularBikes);
+            }
+
+            if (objData.UpcomingBikes != null && objData.UpcomingBikes.UpcomingBikes != null)
+            {
+                PwaBikeNews upcomingBikes = new PwaBikeNews();
+                upcomingBikes.Heading = "Upcoming bikes";
+                upcomingBikes.CompleteListUrl = "/m/upcoming-bikes/";
+                upcomingBikes.CompleteListUrlAlternateLabel = "Upcoming Bikes in India";
+                upcomingBikes.CompleteListUrlLabel = "View all";
+                upcomingBikes.BikesList = ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails(objData.UpcomingBikes.UpcomingBikes
+                    , cityName);
+                objPwaBikeNews.Add(upcomingBikes);
+            }
+
+            objData.ReduxStore.NewsReducer.NewsArticleListReducer.NewBikesListData.NewBikesList = objPwaBikeNews;
+        }
+
         /// <summary>
         /// Created by : Aditi srivastava on 29 Mar 2017
         /// Summmary   : Action method to render news detail page-desktop

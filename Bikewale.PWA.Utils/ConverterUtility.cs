@@ -8,6 +8,8 @@ using Bikewale.Models;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Bikewale.PWA.Utils
 {
@@ -124,7 +126,7 @@ namespace Bikewale.PWA.Utils
         {
             List<PwaBikeDetails> outList = new List<PwaBikeDetails>();
 
-            string curCityName = cityName ?? _defaultCityName;
+            string curCityName = string.IsNullOrEmpty(cityName) ? _defaultCityName : cityName;
             string makeName;
             string makeMaskingName;
             foreach (var item in inpList)
@@ -368,6 +370,27 @@ namespace Bikewale.PWA.Utils
                 pwaArticleSummaryList.Add(ConverterUtility.MapArticleSummaryToPwaArticleSummary(inpSummary));
             }
             return pwaArticleSummaryList;
+        }
+
+        public static string GetSha256Hash(string input)
+        {
+            SHA256 shaHash = new SHA256Managed();
+            // Convert the input string to a byte array and compute the hash.
+            byte[] data = shaHash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            // Create a new Stringbuilder to collect the bytes
+            // and create a string.
+            StringBuilder sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data 
+            // and format each one as a hexadecimal string.
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            // Return the hexadecimal string.
+            return sBuilder.ToString();
         }
     }
 }

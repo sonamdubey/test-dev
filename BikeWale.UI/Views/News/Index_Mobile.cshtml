@@ -1,7 +1,9 @@
 ﻿@model Bikewale.Models.NewsIndexPageVM
 @using System.Web.Script.Serialization
 @using Bikewale.Utility
-
+@using System.Diagnostics
+@using log4net
+@using Newtonsoft.Json
 
 <!doctype html>
 <html>
@@ -53,12 +55,10 @@
     <meta name="theme-color" content="#2a2a2a" />
     <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
 
-
-
-    <style type="text/css">
-        @Html.Raw(File.ReadAllText(Server.MapPath("~/Scripts/app.css")))
+    <style type="text/css">              
         #appBanner{background:#e2e2e2;padding:5px 5px 0;position:relative;overflow:hidden}.hide{display:none}.banner-close-btn{width:30px;height:30px;background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/banner-close-btn.png) no-repeat;position:absolute;top:0;right:0;cursor:pointer}.app-banner-img-container{float:left;width:130px;height:95px;position:relative;margin-right:12px}.app-banner-img-container img{position:absolute;bottom:0}.app-banner-text-container{float:left}.margin-top5{margin-top:5px}.text-grey{color:#787878!important}.text-bold{font-weight:700}.font20{font-size:20px}.font12{font-size:12px}.text-bold{font-weight:700}.margin-bottom5{margin-bottom:5px}.btn-orange{background:#ef3030;color:#fff}.btn-orange:hover{background:#f44336}.btn-orange:focus{background:#d42c2c}.btn,.btn-orange:hover,.btn:hover{text-decoration:none}
     </style>
+    <link href=@Url.Content("../../Scripts/app.css") rel='stylesheet' type='text/css' />
 
     <script defer type="text/javascript">
         !function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);
@@ -148,16 +148,23 @@
 
 
     <div class="blackOut-window"></div>
-    @Html.React("ServerRouterWrapper", new
-   {
-       Url = "/m/news/",
-       ArticleListData = Model.ReduxStore.NewsReducer.NewsArticleListReducer.ArticleListData,
-       NewBikesListData = Model.ReduxStore.NewsReducer.NewsArticleListReducer.NewBikesListData
-
-   }, containerId: "root")
+    @{
+        ILog _logger = LogManager.GetLogger("Pwa-Logger");
+        var sw = Stopwatch.StartNew();        
+    }
+   
+    @Html.Raw(Model.ServerRouterWrapper);
     <script type="text/javascript">
-            window.state = @Html.Raw(new JavaScriptSerializer().Serialize(Model.ReduxStore))
+            window.state = @Html.Raw(Model.WindowState)
     </script>
+
+    @{
+
+        sw.Stop();
+        ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+        _logger.Error(sw.ElapsedMilliseconds);
+    }
+    
     <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
         <div class="globalcity-popup-data text-center">
             <div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>

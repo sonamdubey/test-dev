@@ -10,7 +10,14 @@ namespace Bikewale
 		{
             ReactSiteConfiguration.Configuration
               .SetLoadBabel(false)
-              .AddScriptWithoutTransform("~/Scripts/server.bundle.js");
+              .SetUseDebugReact(false)
+              .AddScriptWithoutTransform("~/Scripts/server.bundle.js")
+              .SetStartEngines(25)
+              .SetMaxEngines(150)
+              .SetReuseJavaScriptEngines(true)
+              //.SetAllowMsieEngine(false);
+              ;
+            
         }
 	}
 }
