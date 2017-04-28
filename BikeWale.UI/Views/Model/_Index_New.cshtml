@@ -29,7 +29,7 @@
                             @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs.cshtml", Model)
 
                             <div id="modelPriceContainer">
-                                <p class="font14 text-light-grey">@(Model.IsLocationSelected ? "On-road" : "Ex-showroom ") price in @Model.Location<a data-persistent="true" data-reload="true" data-modelid="@Model.ModelId" class="margin-left5 getquotation changeCity"></a></p>
+                                <p class="font14 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road" : "Ex-showroom ") price in @Model.Location<a data-persistent="true" data-reload="true" data-modelid="@Model.ModelId" class="margin-left5 getquotation changeCity"></a></p>
 
                                 @if (Model.BikePrice > 0)
                                 {
