@@ -4,13 +4,13 @@
 }
 
 <div class="bw-tabs-panel">
-    @if (!Model.IsUpcomingBike && colorImagesAvailable!=null)
+    @if (!Model.IsUpcomingBike && colorImagesAvailable != null && colorImagesAvailable.Count() > 0)
     {
         <div class="bw-tabs bw-group-flex toggle-btn-label text-center margin-bottom5">
             <ul>
                 <li data-tabs="colourCarousel" class="active bw-ga" l="@bikeName" a="Colours_Tab_Clicked" c="Model_Page">
-                    <span class="label-count">@colorImagesAvailable.Count() Colours</span>
-                    <span class="label-overview">See Colours</span>
+                    <span class="label-count">@colorImagesAvailable.Count() Colour@(colorImagesAvailable.Count()!=1 ?"s":"")</span>
+                    <span class="label-overview">See Colour@(colorImagesAvailable.Count() != 1 ? "s" : "")</span>
                 </li>
                 <li data-tabs="imageCarousel" class="inactive bw-ga" l="@bikeName" a="Image_Tab_Clicked" c="Model_Page">
                     <span class="label-overview">See Images</span>
@@ -52,7 +52,7 @@
     <input hidden id="canonical" value="@Model.PageMetaTags.CanonicalUrl"/>
     <input hidden id="imageUrl" value="@Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" />
 
-    <div class="bw-tabs-data connected-carousels carousel-controls @(colorImagesAvailable!=null ? " hide " : "")" id="imageCarousel">
+    <div class="bw-tabs-data connected-carousels carousel-controls @(colorImagesAvailable != null && colorImagesAvailable.Count() > 0 ? " hide " : "")" id="imageCarousel">
 
         <div class="stage">
             <div class="carousel carousel-stage">
