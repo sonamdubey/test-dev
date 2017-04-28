@@ -29,17 +29,18 @@ namespace Bikewale.New
     {
         protected Repeater rptCommon, rptUsedBikes, rptSpecs, rptFeatures, rptColors;
         protected HtmlAnchor delComp;
-        protected Literal ltrTitle;
         protected AddBikeToCompare addBike;
         DataSet ds = null;
         protected GlobalCityAreaEntity cityArea;
-        protected string versions = string.Empty, hashVersions = string.Empty, hashModels = string.Empty, featuredBikeId = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, targetedModels = string.Empty,
-            estimatePrice = string.Empty, estimateLaunchDate = string.Empty, knowMoreHref = string.Empty, featuredBikeName = string.Empty;
+        protected string baseUrl, versions = string.Empty, hashVersions = string.Empty, hashModels = string.Empty, featuredBikeId = string.Empty, pgTitle = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, targetedModels = string.Empty,
+           bikeQueryString = string.Empty, compareBikeText = string.Empty, estimatePrice = string.Empty, estimateLaunchDate = string.Empty, knowMoreHref = string.Empty, featuredBikeName = string.Empty;
         protected int count = 0, totalComp = 5;
         public int featuredBikeIndex = 0;
         protected bool isFeatured = false, isSponsored = false, isUsedBikePresent;
         protected Int16 trSize = 45, sponsoredModelId = 0;
         public SimilarCompareBikes ctrlSimilarBikes;
+
+        private bool isPermRedirectionNeeded = false;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -58,23 +59,46 @@ namespace Bikewale.New
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
-
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
+            ParseQueryString(originalUrl);
             cityArea = GlobalCityArea.GetGlobalCityArea();
             if (!IsPostBack)
             {
                 getVersionIdList();
                 BindRepeater();
+                if (isPermRedirectionNeeded && canonicalUrl.Length > 0)
+                {
+                    string urlnew = (string.Format("/comparebikes/{0}/?{1}", canonicalUrl, bikeQueryString));
+                    CommonOpn.RedirectPermanent(urlnew);
+                }
                 if (count < 2)
                 {
                     Response.Redirect("/comparebikes/", false);//return;	
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-                ltrTitle.Text = title;
-                pageTitle = title;
+                pageTitle = pgTitle;
                 BindSimilarCompareBikes(versions);
+            }
+        }
+
+        /// <summary>
+        /// Parses the query string.
+        /// Created by: Sangram Nandkhile on 26 Apr 2017
+        /// </summary>
+        /// <param name="originalUrl">The original URL.</param>
+        private void ParseQueryString(string originalUrl)
+        {
+            string[] strArray = originalUrl.Split('/');
+            if (strArray.Length > 1)
+            {
+                baseUrl = strArray[2];
+            }
+            string[] queryArr = originalUrl.Split('?');
+            if (queryArr.Length > 1)
+            {
+                bikeQueryString = queryArr[1];
             }
         }
 
@@ -87,7 +111,6 @@ namespace Bikewale.New
         {
             try
             {
-
                 CompareBikes cb = new CompareBikes();
                 ds = cb.GetComparisonBikeListByVersion(versions, cityArea.CityId);
                 count = ds.Tables[0].Rows.Count;
@@ -103,7 +126,7 @@ namespace Bikewale.New
                     estimateLaunchDate = ds.Tables[4].Rows[0]["ExpectedLaunch"].ToString(); //TODO: Change Date fomate.
                 }
 
-                if (ds.Tables[0].Rows.Count > 0)
+                if (count > 0)
                 {
                     rptCommon.DataSource = ds.Tables[0];
                     rptCommon.DataBind();
@@ -123,27 +146,28 @@ namespace Bikewale.New
 
 
                 List<CompareMakeModelEntity> modelList = new List<CompareMakeModelEntity>();
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                for (int i = 0; i < count; i++)
                 {
-                    title += ds.Tables[0].Rows[i]["Bike"].ToString() + " vs ";
-                    keyword += ds.Tables[0].Rows[i]["Bike"].ToString() + " and ";
+                    string bikName = string.Format("{0} {1}", ds.Tables[0].Rows[i]["make"], ds.Tables[0].Rows[i]["model"]);
+                    pgTitle += string.Format("{0} vs ", bikName);
+                    keyword += bikName + " and ";
                     modelList.Add(new CompareMakeModelEntity { MakeMaskingName = ds.Tables[0].Rows[i]["MakeMaskingName"].ToString(), ModelMaskingName = ds.Tables[0].Rows[i]["ModelMaskingName"].ToString(), ModelId = Convert.ToUInt32(ds.Tables[0].Rows[i]["ModelId"]), VersionId = Convert.ToString(ds.Tables[0].Rows[i]["BikeVersionId"]) });
-                    Trace.Warn("Bike Name : ", title);
                     targetedModels += "\"" + ds.Tables[0].Rows[i]["Model"] + "\",";
+
                 }
-
-
-                if (title.Length > 2)
+                if (pgTitle.Length > 2)
                 {
-                    title = title.Substring(0, title.Length - 3);
+                    pgTitle = pgTitle.Substring(0, pgTitle.Length - 3);
                     keyword = keyword.Substring(0, keyword.Length - 5);
                     targetedModels = targetedModels.Substring(0, targetedModels.Length - 1);
                 }
 
+                CreateCompareSummary(ds);
                 canonicalUrl = CreateCompareUrl(modelList);
+                CheckForRedirection(canonicalUrl);
                 if (isFeatured)
                 {
-                    title = title.Substring(0, title.LastIndexOf(" vs "));
+                    pgTitle = pgTitle.Substring(0, pgTitle.LastIndexOf(" vs "));
                     keyword = keyword.Substring(0, keyword.LastIndexOf(" and "));
 
                     // Added by Sangram Nandkhile on 30 Nov
@@ -168,16 +192,58 @@ namespace Bikewale.New
                     }
                 }
             }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "new.default.LoadMakes");
-                objErr.SendMail();
-            }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, "new.default.LoadMakes");
-                objErr.SendMail();
             }
+        }
+
+        /// <summary>
+        /// Creates the compare summary.
+        /// </summary>
+        /// <param name="ds">The ds.</param>
+        private void CreateCompareSummary(DataSet ds)
+        {
+            try
+            {
+                string bikeNames = string.Empty, bikePrice = string.Empty, variants = string.Empty, estimatePrice = string.Empty, estimateLaunchDate = string.Empty;
+                if (ds != null && ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    int count = (ds.Tables[0].Rows.Count - 1);
+                    for (int i = 0; i <= count; i++)
+                    {
+                        string bikName = string.Format("{0} {1}", ds.Tables[0].Rows[i]["make"], ds.Tables[0].Rows[i]["model"]);
+                        Int16 versionCount = Convert.ToInt16(ds.Tables[0].Rows[i]["versioncount"].ToString());
+                        int versionId = Convert.ToInt32(ds.Tables[0].Rows[i]["bikeversionid"].ToString());
+                        string price = CommonOpn.FormatPrice(Convert.ToString(ds.Tables[0].Rows[i]["price"]));
+                        var colorData = from r in (ds.Tables[3]).AsEnumerable() where r.Field<int>("BikeVersionId") == versionId group r by r.Field<int>("ColorId") into g select g;
+                        int colorCount = colorData != null ? colorData.Count() : 0;
+                        bikeNames += bikName + (i < count - 1 ? ", " : " and ");
+                        bikePrice += string.Format(" {0} is Rs. {1} {2}", bikName, price, (i < count - 1 ? ", " : " and "));
+                        variants += string.Format(" {0} is available in {1} {4} and {2} {5}{3}", bikName, colorCount, versionCount, (i < count - 1 ? ", " : " and "), colorCount > 1 ? "colours" : "colour", versionCount > 1 ? "variants" : "variant");
+                    }
+                    bikeNames = bikeNames.Remove(bikeNames.Length - 5);
+                    bikePrice = bikePrice.Remove(bikePrice.Length - 6);
+                    variants = variants.Remove(variants.Length - 5);
+                }
+                compareBikeText = string.Format("BikeWale brings you comparison of {0}. The ex-showroom price of{1}.{2}. Apart from prices, you can also find comparison of these bikes based on displacement, mileage, performance, and many more parameters. Comparison between these bikes have been carried out to help users make correct buying decison between {0}.", bikeNames, bikePrice, variants);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.new.CreateCompareSummary()");
+            }
+        }
+
+
+        /// <summary>
+        /// Checks for redirection.
+        /// If current url is not equal to the Canonical url then redirect to canoncial url
+        /// </summary>
+        /// <param name="canonicalUrl">The canonical URL.</param>
+        private void CheckForRedirection(string canonicalUrl)
+        {
+            isPermRedirectionNeeded = baseUrl == canonicalUrl ? false : true;
         }
 
 
@@ -193,10 +259,7 @@ namespace Bikewale.New
                         versions += Request["bike" + i] + ",";
                         featuredBikeIndex++;
                     }
-                    else
-                    {
-                        Trace.Warn("QS EMPTY");
-                    }
+
                 }
             }
             else
@@ -366,14 +429,11 @@ namespace Bikewale.New
             catch (SqlException err)
             {
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
-
             return reviewString;
         }
 
@@ -404,7 +464,7 @@ namespace Bikewale.New
 
         private void BindSimilarCompareBikes(string verList)
         {
-            ctrlSimilarBikes.TopCount = 4;
+            ctrlSimilarBikes.TopCount = 8;
             ctrlSimilarBikes.versionsList = verList;
 
         }
@@ -431,6 +491,5 @@ namespace Bikewale.New
             }
             return url;
         }
-
     }
 }

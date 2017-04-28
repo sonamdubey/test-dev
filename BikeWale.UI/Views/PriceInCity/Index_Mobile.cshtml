@@ -37,7 +37,8 @@
                             {
                                 <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                             }
-                            <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
+                            @{string returnUrl = string.Format("/m/{0}-bikes/{1}/price-in-{2}/", Model.Make.MaskingName, Model.BikeModel.MaskingName, Model.CityEntity.CityMaskingName); }
+                            <a href="@String.Format(@"/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("retUrl={0}", returnUrl)))"><img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" /></a>
                         </div>
                         <div class="model-version-block inline-block padding-left15">
                             <p class="font12 text-light-grey">Version:</p>
@@ -413,7 +414,7 @@
     </div>
 </section> 
    
- if (Model.BikeRank != null){
+ if (Model.BikeRank != null && Model.BikeRank.BikeType != null){
 <section>
     <div class="container content-box-shadow content-inner-block-20 card-bottom-margin">
         <div class="margin-bottom10">
@@ -421,10 +422,10 @@
             <div class="grid-11-inline padding-left10">
                 <h2 class="card-h2-heading">Top 10 @Model.BikeRank.StyleName in India</h2>
             </div>
-        </div>
+        </div>         
         <p class="font14 margin-bottom15 text-slate-grey">Are you looking for a @Model.BikeRank.BikeType.ToLower()? Check out our list of top 10 @Model.BikeRank.StyleName.ToLower() in India.</p>
-        <a href="@String.Format("/m{0}", UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle))" title="Best @Model.BikeRank.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
-    </div>
+        <a href="@String.Format("/m{0}", UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle))" title="Best @Model.BikeRank.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>       
+            </div>
 </section>
 }  
 <section>

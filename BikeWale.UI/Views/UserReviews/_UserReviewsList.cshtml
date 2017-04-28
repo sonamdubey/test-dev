@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Entities.UserReviews.ReviewListBase
 @using Bikewale.Utility;
-@if (Model != null && Model.ReviewList != null && Model.ReviewList.Count > 0)
+@if (Model != null && Model.ReviewList != null && Model.ReviewList.Count() > 0)
 {
     <div class="bw-tabs-data" id="ctrlUserReviews">
         <!-- Reviews data code starts here-->

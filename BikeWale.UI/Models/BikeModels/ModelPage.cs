@@ -74,6 +74,8 @@ namespace Bikewale.Models.BikeModels
         public PQSources Source { get; set; }
         public PQSourceEnum PQSource { get; set; }
         public LeadSourceEnum LeadSource { get; set; }
+        public bool IsMobile { get; set; }
+
         public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes)
         {
             _objModel = objModel;
@@ -138,7 +140,6 @@ namespace Bikewale.Models.BikeModels
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetData({0})", ""));
-
             }
 
             return objData;
@@ -181,7 +182,6 @@ namespace Bikewale.Models.BikeModels
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeModels.ModelPage --> BindDescription()");
-
             }
         }
 
@@ -397,6 +397,8 @@ namespace Bikewale.Models.BikeModels
 
                 };
             }
+            else
+                objData.BikeRanking = new BikeRankingPropertiesEntity();
 
         }
 
@@ -426,10 +428,10 @@ namespace Bikewale.Models.BikeModels
 
                     objData.PageMetaTags.Title = String.Format("{0} Price, Reviews, Spec, Images, Mileage, Colours | Bikewale", objData.BikeName);
 
-                    objData.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/", objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, objData.ModelPageEntity.ModelDetails.MaskingName);
+                    objData.PageMetaTags.CanonicalUrl = String.Format("{0}/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrl, objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, objData.ModelPageEntity.ModelDetails.MaskingName);
 
                     objData.AdTags.TargetedModel = objData.ModelPageEntity.ModelDetails.ModelName;
-                    objData.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/" + objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName + "-bikes/" + objData.ModelPageEntity.ModelDetails.MaskingName + "/";
+                    objData.PageMetaTags.AlternateUrl = BWConfiguration.Instance.BwHostUrl + "/m/" + objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName + "-bikes/" + objData.ModelPageEntity.ModelDetails.MaskingName + "/";
                     objData.AdTags.TargetedCity = objData.LocationCookie.City;
                     objData.PageMetaTags.Keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", objData.BikeName);
                     objData.PageMetaTags.OGImage = Bikewale.Utility.Image.GetPathToShowImages(objData.ModelPageEntity.ModelDetails.OriginalImagePath, objData.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
@@ -676,8 +678,15 @@ namespace Bikewale.Models.BikeModels
                             var colorImages = modelPg.ModelColors.Where(x => x.ColorImageId > 0);
                             if (colorImages != null && colorImages.Count() > 0)
                             {
-                                objData.ColourImageUrl = string.Format("/{0}-bikes/{1}/images/?modelpage=true&colorImageId={2}#modelGallery", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName, colorImages.FirstOrDefault().ColorImageId);
-                                objData.ColourImageTabsUrl = string.Format("/{0}-bikes/{1}/images/?tabs=true&modelpage=true&colorImageId={2}#modelGallery", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName, colorImages.FirstOrDefault().ColorImageId);
+                                string returnUrl;
+
+                                if (IsMobile)
+                                    returnUrl = string.Format("/m/{0}-bikes/{1}/", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName);
+                                else
+                                    returnUrl = string.Format("/{0}-bikes/{1}/", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName);
+
+                                objData.ColourImageUrl = string.Format("/{0}-bikes/{1}/images/?q={2}", modelPg.ModelDetails.MakeBase.MaskingName, modelPg.ModelDetails.MaskingName, EncodingDecodingHelper.EncodeTo64(string.Format("colorImageId={0}&retUrl={1}", colorImages.FirstOrDefault().ColorImageId, returnUrl)));
+
                                 objData.ModelColorPhotosCount = colorImages.Count();
                             }
 
@@ -770,7 +779,7 @@ namespace Bikewale.Models.BikeModels
                 }
                 if (objData.ManufacturerCampaign != null)
                 {
-                    objData.ManufacturerCampaign.ShowAd = objData.DetailedDealer == null && objData.IsLocationSelected;
+                    objData.ManufacturerCampaign.ShowAd = objData.DetailedDealer == null && objData.IsLocationSelected && objData.ManufacturerCampaign.IsAdAvailable;
 
                 }
             }

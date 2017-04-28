@@ -22,7 +22,7 @@ namespace Bikewale.Mobile.Controls
         public uint fetchedCount { get; set; }
         public Int64 SponsoredVersionId { get; set; }
         public String FeaturedBikeLink { get; set; }
-
+        public int CityId { get; set; }
         public IEnumerable<SimilarCompareBikeEntity> objSimilarBikes = null;
 
         public ushort TopCount
@@ -54,6 +54,7 @@ namespace Bikewale.Mobile.Controls
             try
             {
                 BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
+                objAlt.cityid = CityId;
                 objSimilarBikes = objAlt.BindPopularCompareBikes(versionsList, TopCount);
                 fetchedCount = objAlt.FetchedRecordsCount;
             }

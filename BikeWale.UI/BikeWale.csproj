@@ -906,6 +906,7 @@
     <Compile Include="Models\BikeModels\BikeModelRank.cs" />
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\BikeModels\ModelPage.cs" />
+    <Compile Include="Models\CompareBikes\ComparePopularBikes.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
@@ -2284,6 +2285,7 @@
     <Content Include="css\used\landing.css" />
     <Content Include="css\used\details.css" />
     <Content Include="css\user-review\listing.css" />
+    <Content Include="css\user-review\write-review.css" />
     <Content Include="css\video\detail.css" />
     <Content Include="css\video\landing.css" />
     <Content Include="css\video\videos-by-make.css" />
@@ -3441,7 +3443,7 @@
     <Content Include="Views\Shared\_videos.cshtml" />
     <Content Include="Views\Shared\_showrooms.cshtml" />
     <Content Include="Views\Shared\_popularComparisions.cshtml" />
-    <Content Include="Views\Shared\_similarComparisions.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons.cshtml" />
     <Content Include="Views\Shared\_similarBikes.cshtml" />
     <Content Include="Views\m\Shared\_makes.cshtml" />
     <Content Include="Views\m\Shared\_makewithcount.cshtml" />
@@ -3453,7 +3455,7 @@
     <Content Include="Views\m\Shared\_videos.cshtml" />
     <Content Include="Views\m\Shared\_showrooms.cshtml" />
     <Content Include="Views\m\Shared\_popularComparisions.cshtml" />
-    <Content Include="Views\m\Shared\_similarComparisions.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile.cshtml" />
     <Content Include="Views\m\Shared\_similarBikes.cshtml" />
     <Content Include="Views\m\scooters\models.cshtml" />
     <Content Include="Views\Scooters\BikesByMake.cshtml" />
@@ -3656,6 +3658,8 @@
     <Content Include="Views\Shared\Ads\Desktop\Model_BTF_300x250.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_BTF_970x90.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_ATF_970x90.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320X100ATF.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320X100BTF.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

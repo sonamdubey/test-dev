@@ -20,42 +20,41 @@ namespace Bikewale.Models
         public BikeModelRankVM GetData()
         {
             BikeModelRankVM objVM = null;
-
+            BikeRankingEntity rankObj;
             objVM = new BikeModelRankVM();
             objVM.Rank = _modelCache.GetBikeRankingByCategory(_modelId);
 
-            if (objVM.Rank != null)
+            if (objVM.Rank == null)
+                objVM.Rank=new BikeRankingEntity();
+                rankObj = objVM.Rank;
+            switch (rankObj.BodyStyle)
             {
-                switch (objVM.Rank.BodyStyle)
-                {
 
-                    case EnumBikeBodyStyles.Mileage:
-                        objVM.StyleName = "Mileage Bikes";
-                        objVM.BikeType = "Mileage Bike";
-                        break;
-                    case EnumBikeBodyStyles.Sports:
-                        objVM.StyleName = "Sports Bikes";
-                        objVM.BikeType = "Sports Bike";
-                        break;
-                    case EnumBikeBodyStyles.Cruiser:
-                        objVM.StyleName = "Cruisers";
-                        objVM.BikeType = "Cruiser";
-                        break;
-                    case EnumBikeBodyStyles.Scooter:
-                        objVM.StyleName = "Scooters";
-                        objVM.BikeType = "Scooter";
-                        break;
-                    case EnumBikeBodyStyles.AllBikes:
-                    default:
-                        objVM.StyleName = "Bikes";
-                        objVM.BikeType = "Bike";
-                        break;
+                case EnumBikeBodyStyles.Mileage:
+                    objVM.StyleName = "Mileage Bikes";
+                    objVM.BikeType = "Mileage Bike";
+                    break;
+                case EnumBikeBodyStyles.Sports:
+                    objVM.StyleName = "Sports Bikes";
+                    objVM.BikeType = "Sports Bike";
+                    break;
+                case EnumBikeBodyStyles.Cruiser:
+                    objVM.StyleName = "Cruisers";
+                    objVM.BikeType = "Cruiser";
+                    break;
+                case EnumBikeBodyStyles.Scooter:
+                    objVM.StyleName = "Scooters";
+                    objVM.BikeType = "Scooter";
+                    break;
+                case EnumBikeBodyStyles.AllBikes:
+                default:
+                    objVM.StyleName = "Bikes";
+                    objVM.BikeType = "Bike";
+                    break;
 
-                }
-                int rank = objVM.Rank.Rank;
-                objVM.RankText = Bikewale.Utility.Format.FormatRank(rank);
             }
-            return objVM;
+            objVM.RankText = Bikewale.Utility.Format.FormatRank(objVM.Rank.Rank);
+           return objVM;
         }
     }
 }

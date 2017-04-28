@@ -151,6 +151,8 @@ docReady(function () {
     // highlight 1st color box
     //carouselColorList.find('li').first().addClass('active');
 
+    var canonical = $('#canonical').val();
+    var imagePageUrl = $('#imageUrl').val();
 
     carouselColorList.on('click', 'li', function () {
         var colorId = $(this).find("div").data("colorid");
@@ -160,6 +162,7 @@ docReady(function () {
             if (image)
             {
                 $('#colourCarousel a img').attr("src", image.attr("data-original"));
+                $('#colourCarousel a').attr("href", imagePageUrl + '?q=' + Base64.encode('colorImageId=' + colorId + '&retUrl=' + canonical))
             }
         }
         colorElements.removeClass('active');

@@ -285,7 +285,10 @@ namespace Bikewale.Models
                     if (bikeType == EnumBikeType.Scooters)
                     {
                         PopularBikesWidget.WidgetHeading = string.Format("Popular {0} scooters", objData.Make.MakeName);
-                        PopularBikesWidget.WidgetHref = string.Format("/{0}-scooters/", objData.Make.MaskingName);
+                        if (objData.Make.IsScooterOnly)
+                            PopularBikesWidget.WidgetHref = string.Format("/{0}-bikes/", objData.Make.MaskingName);
+                        else
+                            PopularBikesWidget.WidgetHref = string.Format("/{0}-scooters/", objData.Make.MaskingName);
                         PopularBikesWidget.WidgetLinkTitle = string.Format("{0} Scooters", objData.Make.MakeName);
                         PopularBikesWidget.CtaText = "View all scooters";
                     }
