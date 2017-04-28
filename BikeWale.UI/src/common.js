@@ -170,7 +170,14 @@ function triggerGA(cat, act, lab) {
     catch (e) {// log error   
     }
 };
+function triggerNonInteractiveGA(cat, act, lab) {
+    try {
 
+        dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': cat, 'act': act, 'lab': lab });
+    }
+    catch (e) {// log error   
+    }
+}
 function attachListener(event, element, functionName) {
     if (element.addEventListener) {
         element.addEventListener(event, functionName, false);
