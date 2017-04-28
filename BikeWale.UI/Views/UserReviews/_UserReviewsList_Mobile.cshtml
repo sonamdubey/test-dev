@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Entities.UserReviews.ReviewListBase
 @using Bikewale.Utility;
-@if (Model != null && Model.ReviewList != null && Model.ReviewList.Count > 0)
+@if (Model != null && Model.ReviewList != null && Model.ReviewList.Count() > 0)
 {
     <div class="model-user-review-container padding20">
 @foreach (var review in Model.ReviewList)

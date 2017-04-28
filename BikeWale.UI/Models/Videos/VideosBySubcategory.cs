@@ -29,6 +29,7 @@ namespace Bikewale.Models.Videos
         public VideosBySubcategoryVM GetData(string sectionBackgroundClass, string categoryIdList, ushort pageNo, ushort pageSize, VideosSortOrder? sortOrder = null)
         {
             VideosBySubcategoryVM objVideos = new VideosBySubcategoryVM();
+            System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
             try
             {
                 objVideos.VideoList = _videos.GetVideosBySubCategory(categoryIdList, pageNo, pageSize, sortOrder);
@@ -39,6 +40,12 @@ namespace Bikewale.Models.Videos
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.Videos.VideosBySubCategory.GetData: CategoryId {0}, PageNo {1}, PageSize {2}, SortOrder {3}", categoryIdList, pageNo, pageSize, sortOrder));
+            }
+            finally
+            {
+                watch.Stop();
+                long elapsedMs = watch.ElapsedMilliseconds;
+                log4net.ThreadContext.Properties[String.Format("TimeTaken_{0}", categoryIdList)] = elapsedMs;
             }
             return objVideos;
         }

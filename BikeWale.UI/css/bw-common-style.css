@@ -946,11 +946,12 @@ li.offertxt:hover span {display:inline}
     user-select: none;
     font-size: 16px;
     color: #82888b;
-    cursor: text;
+    cursor: default;
     -webkit-transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -o-transition: 0.2s ease all;
     transition: 0.2s ease all;
+    pointer-events: none;
 }
 .input-box input[type="text"]:focus,
 .input-box input[type="number"]:focus {

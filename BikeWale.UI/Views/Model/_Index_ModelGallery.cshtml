@@ -17,11 +17,10 @@
                     <span class="label-count">@Model.ModelPageEntity.AllPhotos.Count() Images</span>
                 </li>
             </ul>
-        </div>
-
-        <div class="bw-tabs-data" id="colourCarousel">
+        </div>        
+        <div class="bw-tabs-data" id="colourCarousel">            
             <div class="carousel-type-color">
-                <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/@Model.ModelPageEntity.ModelDetails.MaskingName/images/?modelpage=true&amp;imageindex=0#modelGallery" class="carousel-img-container">
+                <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/@Model.ModelPageEntity.ModelDetails.MaskingName/images/?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))" class="carousel-img-container">
                     <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath, Model.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" title="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" border="0">
                 </a>
             </div>
@@ -50,8 +49,11 @@
         </div>
     }
 
+    <input hidden id="canonical" value="@Model.PageMetaTags.CanonicalUrl"/>
+    <input hidden id="imageUrl" value="@Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" />
 
     <div class="bw-tabs-data connected-carousels carousel-controls @(colorImagesAvailable!=null ? " hide " : "")" id="imageCarousel">
+
         <div class="stage">
             <div class="carousel carousel-stage">
                 <ul>
@@ -61,7 +63,7 @@
                         string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
 
                         <li>
-                            <a href="@String.Format(@"{0}?modelpage=true&imageindex={1}#modelGallery",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName),imageIndex)" class="carousel-img-container">
+                            <a href="@String.Format(@"{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.CanonicalUrl)))" class="carousel-img-container">
 
                                 @if (imageIndex < 1)
                                 {

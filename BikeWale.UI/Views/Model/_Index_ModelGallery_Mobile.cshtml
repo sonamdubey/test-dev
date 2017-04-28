@@ -8,7 +8,7 @@
     }
 
     @if (Model.AreModelPhotosAvailable)
-    {
+    {        
         <div class="swiper-wrapper">
 
             @{int imageIndex = 0; var bikeImages = Model.ModelPageEntity.AllPhotos.Take(10);}
@@ -17,7 +17,7 @@
                 string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
 
                 <div class="swiper-slide">
-                    <a href="@String.Format(@"/m{0}?modelpage=true&imageindex={1}#modelGallery",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName),imageIndex)">
+                    <a href="@String.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.AlternateUrl)))" class="bw-ga" c="Model_Page" a="Main_Image_Clicked" l="@Model.BikeName">
                         @if (imageIndex < 2)
                         {
                             <img src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._360x202,"85")" alt="@imageProperty" title="@imageProperty" border="0" />
@@ -34,10 +34,10 @@
             }
         </div>
         <div class="swiper-button-next gallery-type-next">
-            <span class="bwmsprite next-arrow-btn"></span>
+            <span id="next-btn" class="bwmsprite next-arrow-btn"></span>
         </div>
         <div class="swiper-button-prev gallery-type-prev">
-            <span class="bwmsprite prev-arrow-btn"></span>
+            <span id="prev-btn" class="bwmsprite prev-arrow-btn"></span>
         </div>
     }
 
@@ -48,8 +48,9 @@
     @if (Model.AreModelPhotosAvailable)
     {
         <li>
-            <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Images" : "Image")" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))">
-                <span class="bwmsprite photos-sm"></span>
+            <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Images" : "Image")" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga" c="Model_Page" a="Image_Tab_Clicked" l="@Model.BikeName">
+                <span class=" bwmsprite photos-sm">
+                </span>
                 <span class="inline-block">
                     <span class="font12">@Model.ModelPageEntity.ModelDetails.PhotosCount</span>&nbsp;<span class="font11">@string.Format("{0}", Model.ModelPageEntity.ModelDetails.PhotosCount > 1 ? "images" : "image")</span>
                 </span>
@@ -59,7 +60,7 @@
     @if (Model.IsVideosAvailable)
     {
         <li>
-            <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Videos" : "Video")" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))">
+            <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Videos" : "Video")" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga" c="Model_Page" a="Video_Tab_Clicked" l="@Model.BikeName">
                 <span class="bwmsprite videos-sm"></span>
                 <span class="inline-block">
                     <span class="font12">@Model.ModelPageEntity.ModelDetails.VideosCount</span>&nbsp;<span class="font11">@string.Format("{0}", Model.ModelPageEntity.ModelDetails.VideosCount > 1 ? "videos" : "video")</span>
@@ -70,7 +71,7 @@
     @if (Model.ModelColorPhotosCount > 0)
     {
         <li>
-            <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Colors" : "Color")" href="@string.Format("/m{0}", Model.ColourImageTabsUrl)">
+            <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Colors" : "Color")" href="/m/@Model.ColourImageUrl" class="bw-ga" c="Model_Page" a="Colours_Tab_Clicked" l="@Model.BikeName">
                 <span class="bwmsprite colors-sm"></span>
                 <span class="inline-block">
                     <span class="font12">@Model.ModelColorPhotosCount</span>&nbsp;<span class="font11">@string.Format("{0}", Model.ModelColorPhotosCount > 1 ? "colours" : "colour")</span>

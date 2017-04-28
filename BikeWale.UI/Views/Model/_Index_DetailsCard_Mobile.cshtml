@@ -111,7 +111,9 @@
         }
     </div>
 }
-
+<div class="margin-bottom20 text-center">
+    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</div>
 @if (Model.IsVideosAvailable)
 {
     <div id="videosContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">

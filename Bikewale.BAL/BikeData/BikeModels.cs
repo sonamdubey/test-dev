@@ -1,20 +1,24 @@
-﻿using Bikewale.BAL.EditCMS;
+﻿using Bikewale.BAL.Customer;
+using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Customer;
 using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.Customer;
 using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
@@ -35,7 +39,7 @@ namespace Bikewale.BAL.BikeData
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 24 Apr 2014
-    /// Summary : 
+    /// Summary :     
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -48,13 +52,16 @@ namespace Bikewale.BAL.BikeData
         private readonly ICMSCacheContent _cacheArticles = null;
         private readonly IBikeModelsCacheRepository<U> _modelCacheRepository = null;
         private readonly IVideos _videos = null;
-
+        private readonly IUserReviews _userReviews = null;
         static bool _useGrpc = Convert.ToBoolean(BWConfiguration.Instance.UseGrpc);
         static bool _logGrpcErrors = Convert.ToBoolean(BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
         static uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
 
-
+        /// <summary>
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   Register the User Reviews BAL and resolve it
+        /// </summary>
         public BikeModels()
         {
             using (IUnityContainer container = new UnityContainer())
@@ -69,6 +76,9 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
                 container.RegisterType<IBikeModelsCacheRepository<U>, BikeModelsCacheRepository<T, U>>();
                 container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
+                container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
+                container.RegisterType<ICustomerRepository<CustomerEntity, UInt32>, CustomerRepository<CustomerEntity, UInt32>>();
+                container.RegisterType<IUserReviews, Bikewale.BAL.UserReviews.UserReviews>();
 
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
                 _objPager = container.Resolve<IPager>();
@@ -77,6 +87,7 @@ namespace Bikewale.BAL.BikeData
                 _modelCacheRepository = container.Resolve<IBikeModelsCacheRepository<U>>();
                 _videos = container.Resolve<IVideos>();
                 _userReviewCache = container.Resolve<IUserReviewsCache>();
+                _userReviews = container.Resolve<IUserReviews>();
             }
         }
 
@@ -454,6 +465,12 @@ namespace Bikewale.BAL.BikeData
                 return null;
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   Use BAL to get the old User reviews for App
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         public BikeModelContent GetRecentModelArticles(U modelId)
         {
             BikeModelContent objModelArticles = new BikeModelContent();
@@ -467,7 +484,7 @@ namespace Bikewale.BAL.BikeData
             {
 
 
-                var reviewTask = Task.Factory.StartNew(() => objReview = _userReviewCache.GetBikeReviewsList(1, 2, Convert.ToUInt32(modelId), 0, FilterBy.MostRecent).ReviewList);
+                var reviewTask = Task.Factory.StartNew(() => objReview = _userReviews.GetUserReviews(1, 2, Convert.ToUInt32(modelId), 0, FilterBy.MostRecent).ReviewList);
                 var newsTask = Task.Factory.StartNew(() => objRecentNews = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), 2, 0, Convert.ToUInt32(modelId)));
                 var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.RoadTest), 2, 0, Convert.ToUInt32(modelId)));
                 var videosTask = Task.Factory.StartNew(() => objVideos = GetVideosByModelIdViaGrpc(Convert.ToInt32(modelId)));
