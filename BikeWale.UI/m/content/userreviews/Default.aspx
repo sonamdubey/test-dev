@@ -37,6 +37,9 @@
     <div id="rate-bike-landing">
     <h2 class="margin-top20 margin-bottom10">Rate your bike</h2>
     <div class="box1 new-line5">
+        <div class="circle-placeholder text-center">
+            <span class="bwmsprite write-icon margin-top25"></span>
+        </div>
         <div class="text-light-grey font16 padding-top15">
             Rate your bike and help others with your experience. Share your ratings and review now!
         </div>
