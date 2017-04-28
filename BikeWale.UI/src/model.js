@@ -148,8 +148,6 @@ docReady(function () {
     colourCarousel = $('#colourCarousel');
     carouselColorList = $('#model-color-list');
     var colorElements = carouselColorList.find('li');
-    // highlight 1st color box
-    //carouselColorList.find('li').first().addClass('active');
 
     var canonical = $('#canonical').val();
     var imagePageUrl = $('#imageUrl').val();
@@ -418,8 +416,9 @@ docReady(function () {
 
     var tabsHashParameter = window.location.hash;
     if (tabsHashParameter) {
-        $('html, body').scrollTop($(tabsHashParameter).offset().top - 130); // default topNavBar height 130px
-        $('.overall-specs-tabs-wrapper a[href^=' + tabsHashParameter + ']').trigger('click');
+      
+        $('html, body').scrollTop($(tabsHashParameter).offset().top - 650);
+        //$('.overall-specs-tabs-wrapper a[href^=' + tabsHashParameter + ']').trigger('click');
     }
 
     // remove tabs highlight class for combined sections
