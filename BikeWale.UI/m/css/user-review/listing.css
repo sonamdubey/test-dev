@@ -67,19 +67,19 @@ h1,
 .border-light-top {
   border-top: 1px solid #eee; }
 
-.text-rate-5 {
+.rate-count-5 {
   color: #198D55; }
 
-.text-rate-4 {
+.rate-count-4 {
   color: #13B65D; }
 
-.text-rate-3 {
+.rate-count-3 {
   color: #EFD700; }
 
-.text-rate-2 {
+.rate-count-2 {
   color: #FD971C; }
 
-.text-rate-1 {
+.rate-count-1 {
   color: #EF3F30; }
 
 .bg-rate-5 {
@@ -96,6 +96,30 @@ h1,
 
 .bg-rate-1 {
   background-color: #EF3F30; }
+
+.star-icon {
+  width: 26px;
+  height: 25px;
+  vertical-align: middle;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -o-transform: scale(0.8);
+  transform: scale(0.8); }
+
+.rate-count-1 .star-icon {
+  background-position: 0 -668px; }
+
+.rate-count-2 .star-icon {
+  background-position: -38px -668px; }
+
+.rate-count-3 .star-icon {
+  background-position: 0 -278px; }
+
+.rate-count-4 .star-icon {
+  background-position: -74px -668px; }
+
+.rate-count-5 .star-icon {
+  background-position: -110px -668px; }
 
 .margin-neg5 {
   margin-left: -5px; }
@@ -265,6 +289,17 @@ h1,
 .model-card-details .right-grid-details {
   width: 66%; }
 
+.model-overall-rating span {
+  display: inline-block;
+  vertical-align: middle; }
+
+.model-overall-rating .star-icon {
+  margin-right: -4px;
+  -webkit-transform: scale(0.55);
+  -moz-transform: scale(0.55);
+  -o-transform: scale(0.55);
+  transform: scale(0.55); }
+
 .no-margin .star-white {
   margin-right: 0; }
 
@@ -299,10 +334,37 @@ h1,
 .item-count-1 li {
   width: 100%; }
 
-.calender-icon {
+.calender-dark,
+.kms-dark,
+.report-dark {
   width: 16px;
+  height: 16px; }
+
+.calender-dark {
+  background-position: -94px -643px; }
+
+.kms-dark {
+  background-position: -112px -643px; }
+
+.report-dark {
+  background-position: -131px -643px; }
+
+.ride-dark {
+  width: 24px;
   height: 16px;
-  background-position: -40px -460px; }
+  background-position: -148px -643px; }
+
+.review-lg {
+  width: 24px;
+  height: 25px;
+  background-position: -175px -638px; }
+
+.write-icon {
+  width: 30px;
+  height: 32px;
+  background-position: -180px -668px;
+  position: relative;
+  left: 2px; }
 
 .btn-inv-teal-group {
   font-size: 12px;

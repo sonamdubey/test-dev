@@ -74,10 +74,11 @@ $rating-colors: (1: #EF3F30, 2: #FD971C, 3: #EFD700, 4: #13B65D, 5: #198D55)
 
 $graph-bg: #eee
 
-@mixin rating-color($count)
+@mixin rating-count($count)
     @if map-has-key($rating-colors, $count)
-        .text-rate-#{$count}
+        .rate-count-#{$count}
             color: map-get($rating-colors, $count)
+
     @else
         @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined."
 
@@ -88,17 +89,44 @@ $graph-bg: #eee
     @else
         @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined."
 
-@include rating-color(5)
-@include rating-color(4)
-@include rating-color(3)
-@include rating-color(2)
-@include rating-color(1)
+@include rating-count(5)
+@include rating-count(4)
+@include rating-count(3)
+@include rating-count(2)
+@include rating-count(1)
 
 @include rating-background(5)
 @include rating-background(4)
 @include rating-background(3)
 @include rating-background(2)
 @include rating-background(1)
+
+// rating icons
+.star-icon
+    width: 26px
+    height: 25px
+    vertical-align: middle
+    @include transform(scale(0.8))
+
+.rate-count-1
+    .star-icon
+        background-position: 0 -668px
+
+.rate-count-2
+    .star-icon
+        background-position: -38px -668px
+
+.rate-count-3
+    .star-icon
+        background-position: 0 -278px
+
+.rate-count-4
+    .star-icon
+        background-position: -74px -668px
+
+.rate-count-5
+    .star-icon
+        background-position: -110px -668px
 
 // horizontal-rating-graph
 .margin-neg5
@@ -279,6 +307,15 @@ $graph-bg: #eee
     .right-grid-details
         width: 66%
 
+.model-overall-rating
+    span
+        display: inline-block
+        vertical-align: middle
+
+    .star-icon
+        margin-right: -4px
+        @include transform(scale(0.55))
+
 .no-margin
     .star-white
         margin-right: 0
@@ -317,10 +354,37 @@ $graph-bg: #eee
 @include grid-item-count(1)
 
 // about list icons
-.calender-icon
+.calender-dark,
+.kms-dark,
+.report-dark
     width: 16px
     height: 16px
-    background-position: -40px -460px
+
+.calender-dark
+    background-position: -94px -643px
+
+.kms-dark
+    background-position: -112px -643px
+
+.report-dark
+    background-position: -131px -643px
+
+.ride-dark
+    width: 24px
+    height: 16px
+    background-position: -148px -643px
+
+.review-lg
+    width: 24px
+    height: 25px
+    background-position: -175px -638px
+
+.write-icon
+    width: 30px
+    height: 32px
+    background-position: -180px -668px
+    position: relative
+    left: 2px
 
 // button
 .btn-inv-teal-group
