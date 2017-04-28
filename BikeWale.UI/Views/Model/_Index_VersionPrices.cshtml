@@ -26,7 +26,7 @@
                     </tr>
                 }
                 <tr>
-                    <td colspan="2" class="padding-top10 font12 text-light-grey">Above mentioned prices are @(Model.IsLocationSelected ? "On-road price" : "Ex-showroom"),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</td>
+                    <td colspan="2" class="padding-top10 font12 text-light-grey">Above mentioned prices are @(Model.IsDiscontinuedBike ? "Last known ":"")@(Model.IsLocationSelected ? "On-road price" : "Ex-showroom"),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</td>
                 </tr>
             </tbody>
         </table>
@@ -34,7 +34,7 @@
     @if (Model.IsPriceInTopCitiesAvailable)
     {       
         <div id="nearby-prices-grid" class="grid-6 omega padding-left20">
-            <h3 class="margin-bottom20">Price by cities&nbsp;<span class="text-light-grey text-unbold">(@(Model.IsLocationSelected ? "On-road price" : "Ex-showroom price"))</span></h3>            
+            <h3 class="margin-bottom20">Price by cities&nbsp;<span class="text-light-grey text-unbold">(@(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected ? "On-road price" : "Ex-showroom price"))</span></h3>            
             <table id="prices-top-cities" width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tbody>
                     @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.PriceInTopCities)
