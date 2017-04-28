@@ -44,7 +44,13 @@ namespace Bikewale.UserReviewsRatingEmail
                                     ModelName = Convert.ToString(dr["ModelName"]),
                                     CustomerId = SqlReaderConvertor.ToUInt32(dr["CustomerId"]),
                                     CustomerName = Convert.ToString(dr["CustomerName"]),
-                                    CustomerEmail = Convert.ToString(dr["CustomerEmail"])
+                                    CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
+                                    MakeId=SqlReaderConvertor.ToUInt32(dr["MakeId"]),
+                                    ModelId=SqlReaderConvertor.ToUInt32(dr["ModelId"]),
+                                    OverAllRating=Convert.ToString(dr["OverAllRating"]),
+                                    PriceRangeId=SqlReaderConvertor.ToUInt32(dr["PriceRangeId"]),
+                                    PageSourceId=SqlReaderConvertor.ToUInt32(dr["SourceId"]),
+                                    IsFake=SqlReaderConvertor.ToBoolean(dr["IsFake"])
                                 });
                             }
                             dr.Close();

@@ -58,9 +58,13 @@ namespace Bikewale.UserReviewsCommunication
                 customerEmailList = userReviewMailRepo.GetUserList();
                 foreach (var user in customerEmailList)
                 {
-                    string token = userReviewMailRepo.GetEncryptedUrlToken(string.Format("customerid={0}&reviewid={1}",user.CustomerId,user.ReviewId));
-                    // review link to be changed later. Not in use currently
-                    string reviewUrl=string.Format("{0}/userreviews/edit/?{1}", BWConfiguration.Instance.BwHostUrl,token);
+                    string qEncoded = GetEncryptedUrlToken(string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&pagesourceid={8}&isFake={9}"
+                                 , user.ReviewId, user.MakeId,
+                                 user.ModelId, user.OverAllRating,
+                                 user.CustomerId, user.PriceRangeId,
+                                 user.CustomerName, user.CustomerEmail,
+                                 user.PageSourceId, user.IsFake));
+                    string reviewUrl = string.Format("{0}/write-a-review/?q={1}", BWConfiguration.Instance.BwHostUrl, qEncoded);
                     UrlShortnerResponse shortUrl = url.GetShortUrl(reviewUrl);
                     if (shortUrl != null)
                         user.ReviewLink = shortUrl.ShortUrl;
@@ -73,7 +77,20 @@ namespace Bikewale.UserReviewsCommunication
                 Logs.WriteInfoLog("Error in UserReviewBL.GetCustomerMailData");
             }
             return customerEmailList;
-        }       
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 15 Apr 2017
+        /// Summary    : Get encrypted url
+        /// </summary>
+        public string GetEncryptedUrlToken(string value)
+        {
+
+            string token = string.Empty;
+
+            token = Utils.Utils.EncryptTripleDES(value);
+
+            return token;
+        }
         #endregion
     }
 }
