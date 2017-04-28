@@ -272,6 +272,7 @@
     font-size: 12px;
     padding: 2px 20px 2px 10px;
     display: inline-block;
+    z-index: 1;
 }
 
 .discontinued-ribbon {
@@ -888,4 +889,39 @@
     float: left;
     margin-right: 40px;
     margin-bottom: 10px;
+}
+
+/* price list */
+/* version prices */
+.divider-bottom {
+    border-bottom: 1px solid #eee;
+}
+
+/* prices in nearby cities */
+#prices-top-cities tr {
+    display: inline-block;
+    width: 49%
+}
+
+#prices-top-cities td {
+    font-size: 14px;
+    width: 49%;
+    display: inline-block;
+    padding-bottom: 20px;
+}
+
+#prices-top-cities .city-price {
+    width: 45%;
+}
+
+#prices-top-cities td a {
+    display: block;
+}
+
+#prices-top-cities tr:nth-child(odd) .city-name {
+    width: 110px
+}
+
+#prices-top-cities tr:nth-child(even) .city-name {
+    padding-left: 20px
 }

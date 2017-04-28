@@ -16,5 +16,11 @@ namespace Bikewale.UserReviewsCommunication
         public string CustomerEmail { get; set; }
         public DateTime EntryDate { get; set; }
         public string ReviewLink { get; set; }
+        public uint MakeId { get; set; }
+        public uint ModelId { get; set; }
+        public string OverAllRating { get; set; }
+        public uint PriceRangeId { get; set; }
+        public uint PageSourceId { get; set; }
+        public bool IsFake { get; set; }
     }
 }

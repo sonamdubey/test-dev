@@ -7,6 +7,7 @@
         Desktop_UserReview_Listing = 3,
         Desktop_ModelPage = 4,
         Desktop_UserReview_Landing = 5,
-        Desktop_UserReview_Details = 6
+        Desktop_UserReview_Details = 6,
+        Mobile_UserReview_Landing = 7
     }
 }

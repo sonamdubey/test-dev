@@ -44,23 +44,26 @@
                                             <br>
                                         }
                                     </div>
+                                    
+                                    if (Model.EMIDetails != null)
+                                    {
+                                        <div class="font12 margin-top5 position-rel">
+                                            <span class="text-light-grey">EMI starting at</span>
+                                            <span class="text-default"><span class="bwsprite inr-12-default"></span>@Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
+
+                                            <span class="bwsprite emi-info">
+                                                <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">EMI is calculated based on @Model.EMIDetails.RateOfInterest% for a tenure of @Model.EMIDetails.Tenure months</span></span>
+                                            </span>
+                                        </div>
+                                    }
+                                     <div class="clear"></div>
+                                    
                                 }
                                 else
                                 {
                                     <span class="font16">Price not available</span>
-                                }
-
-                                @if (Model.EMIDetails != null)
-                                {
-                                    <div class="font12 margin-top5 position-rel">
-                                        <span class="text-light-grey">EMI stating at</span>
-                                        <span class="text-default"><span class="bwsprite inr-12-default"></span>@Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
-
-                                        <span class="bwsprite emi-info">
-                                            <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">EMI is calculated based on @Model.EMIDetails.RateOfInterest% for a tenure of @Model.EMIDetails.Tenure months</span></span>
-                                        </span>
-                                    </div>
-                                }
+                                     <div class="clear"></div>
+                                }                                
 
 
                                 @if (!Model.IsLocationSelected || Model.ShowOnRoadButton)

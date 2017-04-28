@@ -37,24 +37,31 @@
             <div class="grid-8 alpha">
                 <h2 class="h2-heading margin-bottom15">About @Model.ModelPageEntity.ModelDetails.ModelName</h2>
                 <div class="text-slate-grey line-height17">
-                    <p id="main-preview-content" class="inline">
-                        @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
-                        {
-                            @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
-                        }
-                        else
-                        {
-                            @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                        }
-                    </p>
-                    @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
+                    @if (!Model.IsUpcomingBike)
                     {
-                        <p id="more-preview-content" class="hide">
-                            @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                        <p id="main-preview-content" class="inline">
+                            @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
+                            {
+                                @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                            }
+                            else
+                            {
+                                @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                            }
                         </p>
-                        <a href="javascript:void(0)" id="read-more-preview" rel="nofollow">Read more</a>
+                        if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
+                        {
+                            <p id="more-preview-content" class="hide">
+                                @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                            </p>
+                            <a href="javascript:void(0)" id="read-more-preview" rel="nofollow">Read more</a>
+                        }
                     }
-                </div>
+                    else
+                    {
+                        @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                    }
+                </div>                
             </div>
             <div class="grid-4 text-center alpha omega">
                 @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
@@ -66,7 +73,25 @@
     @if (Model.IsReviewsAvailable || Model.IsNewsAvailable || Model.IsUserReviewsAvailable)
     {
         <div id="modelReviewsContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
-            <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Reviews</h2>
+
+            @if ((Model.IsReviewsAvailable || Model.IsUserReviewsAvailable) && Model.IsNewsAvailable)
+            {
+                <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Reviews & News</h2>
+            }
+            else
+            {
+                if (!Model.IsNewsAvailable)
+                {
+                    <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Reviews</h2>
+                }
+                else
+                {
+                    <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName News</h2>
+                }
+            }
+
+
+
             @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
             {
             <!-- expert review starts-->
@@ -115,10 +140,10 @@
             <!-- Video ends -->
         </div>
     }
-    
+
     @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_970x90.cshtml", new { AdId = Model.AdTags.AdId });}
 
-    @if (Model.IsNewBike && (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable || Model.IsDealersServiceCenterAvailable))
+    @if (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable || Model.IsDealersServiceCenterAvailable)
     {
         <div id="dealerAndServiceContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin padding-top20 carousel-heading-10">
             @if (Model.CityId > 0)
@@ -150,7 +175,7 @@
                 {
                     <div class="carousel-heading-content padding-top20">
                         <div class="swiper-heading-left-grid inline-block">
-                            <h3 class="font-bold">@(string.Format("Service centers in {0}", (Model.IsLocationSelected ? Model.LocationCookie.City : "India")))</h3>
+                            <h3 class="font-bold">@(string.Format("Service centers in {0}", (!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : "India")))</h3>
                         </div>
                         <div class="swiper-heading-right-grid inline-block text-right">
                             <a href="@string.Format("/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ServiceCenters.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, (!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : "India"))" class="btn view-all-target-btn">View all</a>
@@ -196,25 +221,25 @@
 @if (Model.objBestBikesList != null && Model.objBestBikesList.Count() > 0)
 {
     <section>
-    <div class="container">
-        <div class="grid-12">
-            <div class="content-box-shadow card-bottom-margin">
-                <div class="carousel-heading-content padding-top20">
-                    <div class="swiper-heading-left-grid inline-block">
-                        <h2 class="h2-heading">Here's a list of best @Model.BestBikeHeading</h2>
+        <div class="container">
+            <div class="grid-12">
+                <div class="content-box-shadow card-bottom-margin">
+                    <div class="carousel-heading-content padding-top20">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2 class="h2-heading">Here's a list of best @Model.BestBikeHeading</h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName Bikes in India" class="btn view-all-target-btn">View all</a>
+                        </div>
                     </div>
-                    <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View all</a>
-                    </div>
+                    @Html.Partial("~/Views/Model/_BestBikes.cshtml", Model.objBestBikesList)
+                    <div class="clear"></div>
                 </div>
-               @Html.Partial("~/Views/Model/_BestBikes.cshtml", Model.objBestBikesList)
-                <div class="clear"></div>
             </div>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
-    </div>
-</section>
-    
+    </section>
+
 }
 
 
