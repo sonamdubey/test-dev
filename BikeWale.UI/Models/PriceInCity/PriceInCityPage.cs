@@ -233,6 +233,10 @@ namespace Bikewale.Models
                     {
                         firstVersion = objVM.BikeVersionPrices.FirstOrDefault();
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
+                        if (objVM.IsNew)
+                        {
+                            objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(x=>(x.IsVersionNew==true));
+                        }
                         versionCount = (uint)objVM.BikeVersionPrices.Count();
                         minSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
                         var objMin = minSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
