@@ -25,7 +25,7 @@
             {
                 <div class="font14 text-bold">
                     <a href="javascript:void(0)" data-reload="true" data-persistent=" true" data-modelid='@Model.ModelId' class="getquotation changeCity" rel="nofollow">
-                        <span class="selected-location-label inline-block text-default text-truncate">@Model.Location</span>
+                        <span class="selected-location-label inline-block text-default text-truncate">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : "Select city"))</span>
                         <span class="bwmsprite loc-change-blue-icon"></span>
                     </a>
                 </div>
