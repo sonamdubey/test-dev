@@ -28,7 +28,7 @@
                         </tr>
                     }
                     <tr>
-                        <td colspan="2" class="padding-top5 font12 text-x-light">Above mentioned prices are @(Model.IsLocationSelected && Model.IsNewBike ? "On-road price" : "Ex-showroom"),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</td>
+                        <td colspan="2" class="padding-top5 font12 text-x-light">Above mentioned prices are @(Model.IsLocationSelected && !Model.ShowOnRoadButton && Model.IsNewBike ? "On-road price" : "Ex-showroom"),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</td>
 
                     </tr>
                 </tbody>
@@ -39,7 +39,7 @@
             var priceQuotesCities = Model.PriceInTopCities.PriceQuoteList;
             Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Take(4);
             <div id="prices-top-cities">
-                <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">Price by cities<span class="text-light-grey text-unbold"> (@(Model.IsLocationSelected && Model.IsNewBike ? "On-road price" : "Ex-showroom price"))</span></h3>
+                <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">Price by cities<span class="text-light-grey text-unbold"> (@(Model.IsLocationSelected && !Model.ShowOnRoadButton && Model.IsNewBike ? "On-road price" : "Ex-showroom price"))</span></h3>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14">
                     <tbody>@Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)</tbody>
                 </table>

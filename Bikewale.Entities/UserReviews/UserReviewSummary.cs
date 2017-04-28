@@ -12,6 +12,7 @@ namespace Bikewale.Entities.UserReviews
         public string HostUrl { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }
+        public string TipsDescriptionSmall { get; set; }
         public string Tips { get; set; }
         public ushort OverallRatingId { get; set; }
         public IEnumerable<UserReviewQuestion> Questions { get; set; }

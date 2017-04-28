@@ -1,5 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Common;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.ServiceCenters;
 using System;
 using System.Collections.Generic;
@@ -61,7 +62,9 @@ namespace Bikewale.Controls
                     IEnumerable<ServiceCenterDetails> totalList = centerData.ServiceCenters.Where(x => x.ServiceCenterId != ServiceCenterId);
                     if (totalList != null)
                     {
-                        cityMaskingName = new CityHelper().GetCityById(CityId).CityMaskingName;
+                        CityEntityBase cityObj = new CityHelper().GetCityById(CityId);
+                        if(cityObj!=null)
+                        cityMaskingName = cityObj.CityMaskingName;
                         ServiceCenteList = totalList.Take(TopCount);
                     }
 

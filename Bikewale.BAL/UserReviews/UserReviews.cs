@@ -37,6 +37,7 @@ namespace Bikewale.BAL.UserReviews
             _userReviewsRepo = userReviewsRepo;
             _objCustomer = objCustomer;
             _objCustomerRepo = objCustomerRepo;
+
         }
 
         /// <summary>
@@ -147,31 +148,25 @@ namespace Bikewale.BAL.UserReviews
             {
                 objRating = new UserReviewRatingObject();
 
-
                 CustomerEntityBase objCust = null;
                 //check for user registration
                 objCust = new CustomerEntityBase() { CustomerName = userName, CustomerEmail = emailId };
-                objCust = ProcessUserCookie(objCust);
+                objCust = ProcessUserCookie(objCust, ref reviewId);
 
-                if (objCust.CustomerEmail != emailId)
+                objRating.IsFake = _objCustomerRepo.IsFakeCustomer(objCust.CustomerId);
+
+                if (!objRating.IsFake)
                 {
-                    objCust.CustomerName = userName;
-                    objCust.CustomerEmail = emailId;
-
-                    RegisterCustomer(objCust);
-                    //customer registration successful
-                    if (objCust.CustomerId > 0)
-                    {
-                        //create tempcurrentuser cookie
-                        string customerData = String.Format("{0}&{1}&{2}&{3}", objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, BikewaleSecurity.EncryptUserId(Convert.ToInt64(objCust.CustomerId)));
-                        BWCookies.SetBuyerDetailsCookie(customerData);
-                    }
-                    // when email or username is edited it should be consider as new entry so review id turned to zero
-                    reviewId = 0;
-
+                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId, reviewId);
+                    objRating.CustomerId = objCust.CustomerId;
                 }
-                objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId, reviewId);
-                objRating.CustomerId = objCust.CustomerId;
+                else
+                {
+                    objRating.ReviewId = reviewId;
+                    objRating.CustomerId = objCust.CustomerId;
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -246,6 +241,7 @@ namespace Bikewale.BAL.UserReviews
                     objSummary.Questions = objQuestions;
 
                     objSummary.OverallRating = objUserReviewData.OverallRating.FirstOrDefault(x => x.Id == objSummary.OverallRatingId);
+                    objSummary.TipsDescriptionSmall = objSummary.Tips.Truncate(150);
                 }
             }
             catch (Exception ex)
@@ -263,17 +259,21 @@ namespace Bikewale.BAL.UserReviews
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        private CustomerEntityBase ProcessUserCookie(CustomerEntityBase customer)
+        private CustomerEntityBase ProcessUserCookie(CustomerEntityBase customer, ref uint reviewId)
         {
             try
             {
+                string customerEmail = customer.CustomerEmail, customerName = customer.CustomerName;
+
                 //if tempcurrentuser cookie exists return the buyers basic details
                 BWCookies.GetBuyerDetailsFromCookie(ref customer);
 
-                //Is new Customer 
-                if (customer.CustomerId == 0 && !String.IsNullOrEmpty(customer.CustomerEmail))
+                //Is new Customer or email id is changed 
+                if ((customer.CustomerId == 0 && !String.IsNullOrEmpty(customer.CustomerEmail)) || customer.CustomerEmail != customerEmail)
                 {
                     //perform customer registration with submitted details
+                    customer.CustomerName = customerName;
+                    customer.CustomerEmail = customerEmail;
                     RegisterCustomer(customer);
                     //customer registration successful
                     if (customer.CustomerId > 0)
@@ -282,13 +282,12 @@ namespace Bikewale.BAL.UserReviews
                         string customerData = String.Format("{0}&{1}&{2}&{3}", customer.CustomerName, customer.CustomerEmail, customer.CustomerMobile, BikewaleSecurity.EncryptUserId(Convert.ToInt64(customer.CustomerId)));
                         BWCookies.SetBuyerDetailsCookie(customerData);
                     }
-
+                    reviewId = 0;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("ProcessUserCookie({0})", Newtonsoft.Json.JsonConvert.SerializeObject(customer)));
-                objErr.SendMail();
             }
             return customer;
         }
@@ -318,7 +317,7 @@ namespace Bikewale.BAL.UserReviews
                     objCust = new CustomerEntity() { CustomerName = customer.CustomerName, CustomerEmail = customer.CustomerEmail, CustomerMobile = customer.CustomerMobile, ClientIP = CommonOpn.GetClientIP() };
                     customer.CustomerId = _objCustomer.Add(objCust);
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -403,6 +402,90 @@ namespace Bikewale.BAL.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, "SaveUserReviews");
             }
             return objResponse;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 26 Apr 2017
+        /// Description :   Returns the filtered User reviews based on filter values provided
+        /// </summary>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="modelId"></param>
+        /// <param name="versionId"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public ReviewListBase GetUserReviews(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter)
+        {
+            ReviewListBase filteredReviews = null;
+            bool isAsc;
+            try
+            {
+
+                filteredReviews = _userReviewsCache.GetUserReviews();
+                if (filteredReviews != null && filteredReviews.TotalReviews > 0)
+                {
+                    filteredReviews.ReviewList = filteredReviews.ReviewList.Sort(ProcessOrderBy(filter, out isAsc), isAsc);
+                    filteredReviews.ReviewList = filteredReviews.ReviewList.Where(ProcessInputFilter(modelId, versionId));
+                    filteredReviews.TotalReviews = (uint)(filteredReviews.ReviewList != null ? filteredReviews.ReviewList.Count() : 0);
+                    if (filteredReviews.TotalReviews > 0 && startIndex > 0 && endIndex > 0 && startIndex < endIndex)
+                    {
+                        startIndex = startIndex == 1 ? 0 : startIndex;
+                        filteredReviews.ReviewList = filteredReviews.ReviewList.Skip((int)startIndex).Take((int)(endIndex - startIndex));
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetUserReviews({0},{1},{2},{3},{4})", startIndex, endIndex, modelId, versionId, filter));
+            }
+            return filteredReviews;
+        }
+
+        /// <summary>
+        /// Created By  :   Sumit Kate on 26 Apr 2017
+        /// Description :   Create function to be executed for user reviews linq filters
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        private Func<ReviewEntity, bool> ProcessInputFilter(uint modelId, uint versionId)
+        {
+            Expression<Func<ReviewEntity, bool>> filterExpression = PredicateBuilder.True<ReviewEntity>();
+
+            if (modelId > 0)
+            {
+                filterExpression = filterExpression.And(m => m.TaggedBike.ModelEntity.ModelId == modelId);
+            }
+            if (versionId > 0)
+            {
+                filterExpression = filterExpression.And(m => m.TaggedBike.VersionEntity.VersionId == versionId);
+            }
+            return filterExpression.Compile();
+        }
+
+        /// <summary>
+        /// Created By  :   Sumit Kate on 26 Apr 2017
+        /// Summary     :   Process orderby filter
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="isAsc"></param>
+        /// <returns></returns>
+        private Func<ReviewEntity, float> ProcessOrderBy(FilterBy filter, out bool isAsc)
+        {
+            isAsc = false;
+            switch (filter)
+            {
+                case FilterBy.MostRecent:
+                    return m => (m.ReviewDate.Ticks);
+                case FilterBy.MostHelpful:
+                    return m => (m.Liked);
+                case FilterBy.MostRead:
+                    return m => (m.Viewed);
+                case FilterBy.MostRated:
+                    return m => (m.OverAllRating.OverAllRating);
+                default:
+                    return m => (m.Liked);
+            }
         }
     }   // Class
 }   // Namespace

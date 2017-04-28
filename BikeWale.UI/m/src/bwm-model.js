@@ -384,16 +384,44 @@ docReady(function () {
 });
 
 docReady(function () {
+    
+    var userEventSource = true;
 
     var gallerySwiper = new Swiper('#model-photos-swiper', {
-        spaceBetween: 0,        
+        spaceBetween: 0,
+        direction: 'horizontal',
         nextButton: '.gallery-type-next',
-        prevButton: '.gallery-type-prev'
-    });
+        prevButton: '.gallery-type-prev',
+        onSlideChangeEnd: function (swiper) {
+            if (userEventSource) {
+                if (swiper.activeIndex < swiper.previousIndex) {
+                    triggerGA('Model_Page', 'Swiped_Left', myBikeName);
+                } else if (swiper.activeIndex > swiper.previousIndex) {
+                    triggerGA('Model_Page', 'Swiped_Right', myBikeName);
+                }
+            }
+            else {
+                if (swiper.activeIndex < swiper.previousIndex) {
+                    triggerGA('Model_Page', 'Image_Carousel_Clicked', myBikeName + '_Previous');
 
+                } else if (swiper.activeIndex > swiper.previousIndex) {
+                    triggerGA('Model_Page', 'Image_Carousel_Clicked', myBikeName + '_Next');
+                }
+            }
+        },
+        onTouchEnd: function (swiper, event) {
+            var targetId = event.target.id;
+            if (targetId == "next-btn" || targetId == "prev-btn") {
+                userEventSource = false;
+            }
+            else {
+                userEventSource = true;
+            }
+        },
+    });
+    
     if (photosCount > 10) {
         var overlayCount = '<span class="black-overlay text-white"><span class="font16 text-bold">+' + photosCount + '</span><br><span class="font14">images</span></span>';
-
         $("#model-photos-swiper .swiper-slide").last().find("a").append(overlayCount);
     }
 
@@ -438,7 +466,6 @@ docReady(function () {
             $('html, body').animate({ scrollTop: $('.model-preview-main-content').offset().top - 44 }, 500)
         }
     });
-
 
     $('#more-dealers-target').on('click', function () {
         popupDiv.open(dealersPopupDiv);

@@ -264,7 +264,7 @@ namespace Bikewale.BAL.UsedBikes
 
         public bool IsFakeCustomer(ulong custId)
         {
-            return _sellBikeRepository.IsFakeCustomer(custId);
+            return _objCustomerRepo.IsFakeCustomer(custId);
         }
         /// <summary>
         /// Created By: Aditi Srivastava on 27 Oct 2016

@@ -1,30 +1,32 @@
 ﻿@model Bikewale.Models.RecentExpertReviewsVM
 @using Bikewale.Utility
 @if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Count() > 0) { 
- foreach(var review in Model.ArticlesList){
-<div class="margin-bottom20">
-    <div class="grid-4">
-        <div class="model-preview-image-container">
-            <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))">
-     <img class="lazy" data-original="@Image.GetPathToShowImages(review.OriginalImgUrl, review.HostUrl, ImageSize._310x174, QualityFactor._75)" title="@review.Title" alt="@review.Title" src="" />
-            </a>
+ foreach(var review in Model.ArticlesList) {
+    <article class="margin-bottom20">
+        <div class="grid-4">
+            <div class="model-preview-image-container">
+                <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))">
+        <img class="lazy" data-original="@Image.GetPathToShowImages(review.OriginalImgUrl, review.HostUrl, ImageSize._310x174, QualityFactor._75)" title="@review.Title" alt="@review.Title" src="" />
+                </a>
+            </div>
         </div>
-    </div>
-    <div class="grid-8">
-        <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))" class="article-target-link"  title="@review.Title">@review.Title</a>
-        <div class="article-stats-left-grid">
-            <span class="bwsprite calender-grey-sm-icon"></span>
-            <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate),"MMM dd, yyyy")</span>
+        <div class="grid-8">
+            <header>
+                <a href="@UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest))" class="article-target-link"  title="@review.Title">@review.Title</a>
+            </header>
+            <div class="article-stats-left-grid">
+                <span class="bwsprite calender-grey-sm-icon"></span>
+                <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate),"MMM dd, yyyy")</span>
+            </div>
+            <div class="article-stats-right-grid">
+                <span class="bwsprite author-grey-sm-icon"></span>
+                <span class="article-stats-content">@review.AuthorName</span>
+            </div>
+            <p class="line-height17 margin-top10">
+                @FormatDescription.TruncateDescription(review.Description,280)
+            </p>
         </div>
-        <div class="article-stats-right-grid">
-            <span class="bwsprite author-grey-sm-icon"></span>
-            <span class="article-stats-content">@review.AuthorName</span>
-        </div>
-        <p class="line-height17 margin-top10">
-            @FormatDescription.TruncateDescription(review.Description,280)
-        </p>
-    </div>
-    <div class="clear"></div>
-</div>
- }
+        <div class="clear"></div>
+    </article>
+    }
 }

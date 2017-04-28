@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
 using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
@@ -64,6 +65,8 @@ namespace Bikewale.Controllers
         {
             HomePageVM objData = null;
             HomePageModel obj = new HomePageModel(6, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _cachedCompare, _cachedBikeDetails, _videos, _articles, _expertReviews);
+            obj.IsMobile = true;
+            obj.CompareSource = CompareSources.Mobile_Home_MostPopular_Compare_Widget;
             objData = obj.GetData();
             return View(objData);
         }

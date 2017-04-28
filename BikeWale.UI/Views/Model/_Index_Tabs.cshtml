@@ -1,51 +1,62 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 
+@{ string bikeName = string.Format("{0}_{1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName);}
+
 @if (Model.IsModelDescriptionAvailable)
 {
-    <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
+    <a c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Overview" class="active bwga" href="#modelSummaryContent" rel="nofollow">Overview</a>
 }
 @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
 {
-    <a href="#modelPricesContent" rel="nofollow">Price</a>
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Price" href="#modelPricesContent" rel="nofollow">Price</a>
 }
 @if (Model.IsModelColorsAvailable)
 {
-    <a href="#modelColorsContent" rel="nofollow">Colours</a>
-}
-@if (Model.IsVersionSpecsAvailable)
-{
-    <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
-}
-@if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable)
-{
-    <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
-}
-@if (!(Model.IsReviewsAvailable || Model.IsUserReviewsAvailable) && Model.IsNewsAvailable)
-{
-    <a href="#modelReviewsContent" rel="nofollow">News</a>
-}
-@if (Model.IsVideosAvailable)
-{
-    <a href="#modelVideosContent" rel="nofollow">Videos</a>
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Colours" href="#modelColorsContent" rel="nofollow">Colours</a>
 }
 @if (Model.IsSimilarBikesAvailable)
 {
-    <a href="#modelSimilarContent" rel="nofollow">Similar Bikes</a>
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Similar Bikes" href="#modelSimilarContent" rel="nofollow">Similar Bikes</a>
 }
-@if (Model.IsNewBike &&((Model.IsServiceCentersAvailable||Model.IsOtherDealersAvailable)))
+@if (Model.IsVersionSpecsAvailable)
 {
-    <a href="#dealerAndServiceContent" rel="nofollow">
-        @String.Format("{0} {1} {2}", ((Model.IsOtherDealersAvailable ) ? "Dealers" : ""), (((Model.IsServiceCentersAvailable && Model.IsOtherDealersAvailable)) ? "&" : ""), ((Model.IsServiceCentersAvailable) ? "Service Centers" : ""))
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Specs" href="#modelSpecsFeaturesContent" rel="nofollow">Specs</a>
+}
+@if (Model.IsModelDescriptionAvailable)
+{
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;About" href="#modelAboutContent" rel="nofollow">About</a>
+}
+@if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable && Model.IsNewsAvailable)
+{
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Reviews & News" href="#modelReviewsContent" rel="nofollow">Reviews & News</a>
+}
+@if ((Model.IsReviewsAvailable || Model.IsUserReviewsAvailable) && !Model.IsNewsAvailable)
+{
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Reviews" href="#modelReviewsContent" rel="nofollow">Reviews</a>
+}
+@if (!(Model.IsReviewsAvailable || Model.IsUserReviewsAvailable) && Model.IsNewsAvailable)
+{
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;News" href="#modelReviewsContent" rel="nofollow">News</a>
+}
+@if (Model.IsVideosAvailable)
+{
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Videos" href="#modelVideosContent" rel="nofollow">Videos</a>
+}
+
+@if (Model.IsNewBike && ((Model.IsServiceCentersAvailable || Model.IsOtherDealersAvailable)))
+{
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Dealers&ServiceCenters" href="#dealerAndServiceContent" rel="nofollow">
+        @String.Format("{0} {1} {2}", ((Model.IsOtherDealersAvailable) ? "Dealers" : ""), (((Model.IsServiceCentersAvailable && Model.IsOtherDealersAvailable)) ? "&" : ""), ((Model.IsServiceCentersAvailable) ? "Service Centers" : ""))
     </a>
 }
-@if (Model.DealersServiceCenter != null && Model.DealersServiceCenter.DealerServiceCenters!=null)
+@if (Model.DealersServiceCenter != null && Model.DealersServiceCenter.DealerServiceCenters != null)
 {
 
-    <a href="#dealerAndServiceContent" rel="nofollow">
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Dealers&ServiceCenters" href="#dealerAndServiceContent" rel="nofollow">
         @String.Format("{0} {1} {2}", ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0) ? "Dealers" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "&" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "Service Centers" : ""))
     </a>
 }
 @if (Model.IsUsedBikesAvailable)
 {
-    <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Used" href="#makeUsedBikeContent" rel="nofollow">Used</a>
 }

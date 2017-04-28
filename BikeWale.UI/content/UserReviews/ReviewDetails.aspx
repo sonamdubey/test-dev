@@ -98,7 +98,7 @@
                                     </div>
                                 </div>
                                 <div class="grid-3 text-right alpha omega inline-block">
-                                    <a href="/content/userreviews/writereviews.aspx?bikem=<%= objReview.BikeEntity.ModelEntity.ModelId %>" class="btn btn-teal btn-size-150">Write a review</a>
+                                    <a href="<%=string.Format("/rate-your-bike/{0}/?pagesourceid={1}",objReview.BikeEntity.ModelEntity.ModelId,Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_UserReview_Details)) %>" class="btn btn-teal btn-size-150">Write a review</a>
                                 </div>
                             <div class="clear"></div>
                         </div>
@@ -119,7 +119,7 @@
                                    <%if(objReview.ModelSpecs.KerbWeight>0){ %>  <li><%=objReview.ModelSpecs.KerbWeight %> kgs</li>                       <%}%>
                                 </ul>
                                 <%} %>
-                                <%if (!objReview.New) {%>
+                                <%if (objReview.New) {%>
                           
                                 <p class="margin-top10 text-light-grey font14">Ex-showroom price, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                                 <div class="margin-top5">  

@@ -10,6 +10,8 @@ namespace Bikewale.Models
     /// <author>
     /// Create by: Sangram Nandkhile on 27-Mar-2017
     /// Summary:  View Model for Make page controller
+    /// Modified by : Aditi Srivastava on 27 Apr 2017
+    /// Summary  : Added new viewModel for similar comparisons carousel
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -21,6 +23,7 @@ namespace Bikewale.Models
 
         public IEnumerable<MostPopularBikesBase> Bikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
+        public PopularComparisonsVM CompareSimilarBikes { get; set; }
         public BikeDescriptionEntity BikeDescription { get; set; }
         public UsedBikeModelsWidgetVM UsedModels { get; set; }
 
@@ -30,6 +33,7 @@ namespace Bikewale.Models
         public IEnumerable<BikeVersionEntity> DiscontinuedBikes { get; set; }
 
         public bool IsUpComingBikesAvailable { get; set; }
+        public bool IsCompareBikesAvailable { get; set; }
         public bool IsNewsAvailable { get; set; }
         public bool IsExpertReviewsAvailable { get; set; }
         public bool IsVideosAvailable { get; set; }
@@ -45,6 +49,6 @@ namespace Bikewale.Models
         public DealersServiceCentersIndiaWidgetVM DealersServiceCenter { get; set; }
         public ServiceCenterDetailsWidgetVM ServiceCenters { get; set; }
         public DealerCardVM Dealers { get; set; }
-
+       
     }
 }

@@ -26,7 +26,7 @@
                         <div class="clear"></div>
 
                         <div class="padding-10-20" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                            <p class="font12 text-light-grey">@(Model.IsLocationSelected ? "On-road" : "Ex-showroom ") price in @Model.Location</p>
+                            <p class="font12 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road" : "Ex-showroom ") price in @Model.Location</p>
                             <div>
                                 <span itemprop="priceCurrency" content="INR">
                                     @if (Model.BikePrice > 0)
@@ -68,7 +68,13 @@
                 {
                     @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
                 }
-
+                @if (!(Model.ManufacturerCampaign != null && Model.ManufacturerCampaign.ShowAd && Model.IsLocationSelected && !Model.ShowOnRoadButton) && !(Model.IsDealerDetailsExists))
+                {
+                  <div class="margin-bottom20 text-center">
+                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
+                </div>
+                }
+              
                 @if (Model.ModelPageEntity.ModelVersionSpecs != null)
                 {
                     @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)

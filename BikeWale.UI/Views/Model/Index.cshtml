@@ -5,13 +5,29 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/model-atf.css' />";
     Model.Page_BTF_CSS_Path = "/css/model-btf.css";
     Model.Page_JS_Path = "/src/model.js";
-    Model.AdTags.AdPath = "/1017752/Bikewale_NewBike_";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Model";
     Model.AdTags.AdId = "1442913773076";
-    Model.AdTags.Ad_970x90 = true;
-    Model.AdTags.Ad_300x250 = true;
-    Model.AdTags.Ad_970x90Bottom = true;
+    Model.AdTags.Ad_Model_BTF_970x90 = true;
+    Model.AdTags.Ad_Model_ATF_970x90 = true;
+    Model.AdTags.Ad_Model_ATF_300x250 = true;
+    Model.AdTags.Ad_Model_BTF_300x250 = true;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@if (Model.AdTags.Ad_Model_ATF_970x90)
+{
+    <div class="bg-white ">
+        <div class="container">
+            <div class="grid-12">
+                <div>
+                    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_970x90.cshtml", new { AdId = Model.AdTags.AdId });}
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+
 <div itemscope itemtype="http://schema.org/Product">
     @if (Model.IsModelDetails)
     {
@@ -88,6 +104,8 @@
         var clientIP = "@Model.ClientIP";
         var pageUrl = window.location.href;
         var leadSourceId, getCityArea, bikeModelId = '@Model.ModelId';
+
+        var slideCountOne = 1;
     </script>
 
 

@@ -111,7 +111,7 @@
                         @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
 
                         <div class="view-all-btn-container padding-top10 padding-bottom10">
-                            <a href="@Model.MostPopularBikes.WidgetHref" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                            <a href="@Model.MostPopularBikes.WidgetHref" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.MostPopularBikes.CtaText<span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
                 }

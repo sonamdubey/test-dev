@@ -21,10 +21,11 @@ namespace Bikewale.Models.UserReviews
 
         #region Public variables
         public StatusCodes status;
+        public bool IsDesktop;
         #endregion
 
         #region Constructor
-        public UserReviewSummaryPage(IUserReviews userReviews, uint reviewId,string q)
+        public UserReviewSummaryPage(IUserReviews userReviews, uint reviewId, string q)
         {
             _userReviews = userReviews;
             _reviewId = reviewId;
@@ -56,7 +57,7 @@ namespace Bikewale.Models.UserReviews
                 if (objData.Summary != null)
                 {
                     status = StatusCodes.ContentFound;
-                    objData.PrevPageUrl = Bikewale.Utility.UserReviews.FormatPreviousPageUrl(objData.Summary.PageSource, objData.Summary.Make.MaskingName, objData.Summary.Model.MaskingName);
+                    objData.PrevPageUrl = Bikewale.Utility.UserReviews.FormatPreviousPageUrl(objData.Summary.PageSource, objData.Summary.Make.MaskingName, objData.Summary.Model.MaskingName, IsDesktop);
                     objData.WriteReviewLink = string.Format("/write-a-review/?q={0}", _strEncoded);
                     objData.Summary.Questions = objData.Summary.Questions.Where(x => x.Type == UserReviewQuestionType.Review);
                     BindPageMetas(objData);
@@ -65,7 +66,7 @@ namespace Bikewale.Models.UserReviews
                 {
                     status = StatusCodes.ContentNotFound;
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -80,8 +81,9 @@ namespace Bikewale.Models.UserReviews
         /// </summary>
         private void BindPageMetas(UserReviewSummaryVM objData)
         {
-            objData.PageMetaTags.Title = string.Format("Review Summary | {0} {1} - BikeWale",objData.Summary.Make.MakeName,objData.Summary.Model.ModelName);
-            objData.PageMetaTags.Description = string.Format("See summary of {0}'s {1} {2} review.",objData.Summary.CustomerName,objData.Summary.Make.MakeName,objData.Summary.Model.ModelName);
+            objData.PageMetaTags.Title = string.Format("Review Summary | {0} {1} - BikeWale", objData.Summary.Make.MakeName, objData.Summary.Model.ModelName);
+            objData.PageMetaTags.Description = string.Format("See summary of {0}'s {1} {2} review.", objData.Summary.CustomerName, objData.Summary.Make.MakeName, objData.Summary.Model.ModelName);
+            objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/rate-your-bike/{0}/", objData.Summary.Model.ModelId);
         }
         #endregion
 

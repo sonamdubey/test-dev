@@ -965,5 +965,14 @@ namespace Bikewale.BAL.Compare
         {
             return _objCompare.ScooterCompareList(topCount);
         }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 25 Apr 2017
+        /// Summary    : Populate compare bikes list
+        /// </summary>
+        public IEnumerable<SimilarCompareBikeEntity> GetPopularCompareList(uint cityId)
+        {
+            return _objCompare.GetPopularCompareList(cityId);
+        }
     }
 }

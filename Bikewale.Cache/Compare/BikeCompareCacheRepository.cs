@@ -50,6 +50,25 @@ namespace Bikewale.Cache.Compare
         }
 
         /// <summary>
+        /// Created by : Aditi Srivastava on 25 Apr 2017
+        /// Summary    : Get list of comparisons of popular bikes
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<SimilarCompareBikeEntity> GetPopularCompareList(uint cityId)
+        {
+            IEnumerable<SimilarCompareBikeEntity> compareBikeList = null;
+            string key = string.Format("BW_CompareSimilarBikes_CityId_{0}", cityId);
+            try
+            {
+                compareBikeList = _cache.GetFromCache<IEnumerable<SimilarCompareBikeEntity>>(key, new TimeSpan(12, 0, 0, 0), () => _compareRepository.GetPopularCompareList(cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.GetPopularCompareList");
+            }
+            return compareBikeList;
+        }
+        /// <summary>
         /// Modified By : Sushil Kumar on 2nd Dec 2016
         /// Description : changed timespan for cache to 1 hour
         /// </summary>
@@ -88,7 +107,7 @@ namespace Bikewale.Cache.Compare
             {
                 if (!String.IsNullOrEmpty(versionList))
                 {
-                    key = string.Format("BW_SimilarCompareBikes_{0}_City_{1}_Cnt_{2}", versionList.Replace(',', '_'), cityid, topCount);
+                    key = string.Format("BW_SimilarCompareBikes_{0}_City_{1}_Count_{2}", versionList.Replace(',', '_'), cityid, topCount);
                     compareEntity = _cache.GetFromCache<ICollection<SimilarCompareBikeEntity>>(key, new TimeSpan(1, 0, 0), () => _compareRepository.GetSimilarCompareBikes(versionList, topCount, cityid));
                 }
             }
@@ -155,7 +174,7 @@ namespace Bikewale.Cache.Compare
         public IEnumerable<TopBikeCompareBase> ScooterCompareList(uint topCount)
         {
             IEnumerable<TopBikeCompareBase> topScootersComapareBase = null;
-            string key = string.Format("BW_CompareScooters_topCount_{0}", topCount);
+            string key = string.Format("BW_CompareScooters_Count_{0}", topCount);
             try
             {
                 topScootersComapareBase = _cache.GetFromCache<IEnumerable<TopBikeCompareBase>>(key, new TimeSpan(1, 0, 0), () => _compareRepository.ScooterCompareList(topCount));

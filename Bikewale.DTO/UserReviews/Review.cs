@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace Bikewale.Entities.DTO
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 26 Apr 2017
+    /// Description :   Add JsonIgnore property for TaggedBike
+    /// </summary>
     public class Review : ReviewBase
     {
         public string Comments { get; set; }
@@ -17,6 +17,7 @@ namespace Bikewale.Entities.DTO
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
         public ReviewRatingBase OverAllRating { get; set; }
+        [JsonIgnore]
         public ReviewTaggedBike TaggedBike { get; set; }
     }
 }

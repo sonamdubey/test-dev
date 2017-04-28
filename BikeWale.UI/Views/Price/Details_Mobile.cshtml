@@ -17,7 +17,7 @@
         <p class="font12 text-light-grey padding-left15 padding-right5">Version:</p>
         @if (Model.VersionsList.Count() > 1)
         {
-            <div class="dropdown-select-wrapper margin-left5">
+            <div class="dropdown-select-wrapper margin-left15">
                 <select id="ddlVersion" class="dropdown-select" data-title="Version">
                     @foreach (var version in Model.VersionsList)
                     {
@@ -28,7 +28,9 @@
         }
         else
         {
-            <p class="single-version-label font14 margin-left5">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
+            <div class="single-version-content font14 margin-left15">
+                <p class="dropdown-effect-light">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
+            </div>
         }
         <div class="text-center">
             <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.SelectedVersion.OriginalImagePath, Model.SelectedVersion.HostUrl, Bikewale.Utility.ImageSize._210x118)" title="@Model.BikeName Images" alt="@Model.BikeName Images" border="0" />
@@ -69,7 +71,7 @@
                     <td colspan="2" align="right" class="text-light-grey padding-bottom15">
                         @if (Model.IsPrimaryDealerAvailable)
                         {
-                            <a id='getMoreDetails' class="get-offer-link bw-ga leadcapturebtn" data-item-registerpq="false" data-leadsourceid="23" data-item-id="@Model.DealerId" data-item-name="@@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a>
+                            <a id='getMoreDetails' class="get-offer-link bw-ga leadcapturebtn" data-item-registerpq="false" data-leadsourceid="23" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a>
                         }
                     </td>
                 </tr>
@@ -89,7 +91,7 @@
                     <td class="padding-bottom15 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatPrice(Model.Quotation.RTO.ToString())</td>
                 </tr>
                 <tr>
-                    <td class="text-light-grey padding-bottom15" align="left">Insurance @if (!Model.IsPrimaryDealerAvailable){<br><p class='position-rel'><a target="_blank" href="https://www.coverfox.com/two-wheeler-insurance/?network=affiliate&affiliate_name=automotive_exchange_bikewale&product=bike&category=automotive_exchange_bikewale&utm_source=affiliate_automotive_exchange_bikewale&utm_medium=cpc&utm_campaign=bikewale_pub01" class="font12 bw-ga text-bold" c="Dealer_PQ" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Buy Policy Now</a><span class='position-abt pos-left35 pos-top0'>Ad</span></p>}</td>
+                    <td class="text-light-grey padding-bottom15" align="left">Insurance @if (!Model.IsPrimaryDealerAvailable){<br><p class='position-rel'><a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Dealer_PQ" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Buy Policy Now</a><span class='position-abt pos-left35 pos-top0'>Ad</span></p>}</td>
                     <td class="padding-bottom10 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatPrice(Model.Quotation.Insurance.ToString())</td>
                 </tr>
 
@@ -130,14 +132,113 @@
 
 @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0)
 {
-    @Html.Partial("~/Views/Price/_SecondaryDealers_Mobile.cshtml", Model.DetailedDealer.SecondaryDealers)
+    <section>
+        @Html.Partial("~/Views/Price/_SecondaryDealers_Mobile.cshtml", Model.DetailedDealer.SecondaryDealers)
+        <div class="clear"></div>
+    </section>
 }
 
 @if (Model.ManufacturerCampaign != null)
 {
     @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.ManufacturerCampaign)
 }
+@if (!(Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null))
+{
+    <section>
+        <div id="emiContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
+            <h2 class="card-h2-heading margin-bottom10">@Model.SelectedVersion.ModelBase.ModelName EMI Calculator</h2>
 
+            <div class="finance-emi-container font14">
+                <div class="emi-slider-box">
+                    <div class="emi-slider-box-left-section">
+                        <p class="grid-8 alpha text-slate-grey">Down payment</p>
+                        <div class="emi-slider-box-right-section grid-4 omega">
+                            <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="downPaymentAmount" data-bind="text: formatPrice(Math.round(downPayment()))" class="text-bold"></span>
+                        </div>
+                        <div class="clear"></div>
+
+                        <div id="downPaymentSlider"
+                             data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2) + minDnPay()) }"
+                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Dealer_PQ" a="Interacted_with_EMI_Calculator" l="@Model.BikeName">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="emi-slider-box">
+                    <div class="emi-slider-box-left-section">
+                        <p class="grid-8 alpha text-slate-grey">Loan amount</p>
+                        <div class="emi-slider-box-right-section grid-4 omega">
+                            <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="loanAmount" data-bind="text: formatPrice(Math.round(loan()))" class="text-bold"></span>
+                        </div>
+                        <div class="clear"></div>
+
+                        <div id="loanAmountSlider"
+                             data-bind="slider: loan, sliderOptions: { min: bikePrice() - maxDnPay(), max: bikePrice() - minDnPay(), range: 'min', step: 1 }"
+                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Dealer_PQ" a="Interacted_with_EMI_Calculator" l="@Model.BikeName">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="emi-slider-box">
+                    <div class="emi-slider-box-left-section">
+                        <p class="grid-8 alpha text-slate-grey">Tenure</p>
+                        <div class="emi-slider-box-right-section grid-4 omega text-bold">
+                            <span id="tenurePeriod" data-bind="text: tenure"></span>&nbsp;Months
+                        </div>
+                        <div class="clear"></div>
+
+                        <div id="tenureSlider"
+                             data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
+                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Dealer_PQ" a="Interacted_with_EMI_Calculator" l="@Model.BikeName">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="emi-slider-box">
+                    <div class="emi-slider-box-left-section">
+                        <p class="grid-8 alpha text-slate-grey">Interest</p>
+                        <div class="emi-slider-box-right-section grid-4 omega text-bold">
+                            <span id="rateOfInterestPercentage" data-bind="text: rateofinterest">5</span>&nbsp;%
+                        </div>
+                        <div class="clear"></div>
+
+                        <div id="rateOfInterestSlider"
+                             data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
+                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all bw-ga" c="Dealer_PQ" a="Interacted_with_EMI_Calculator" l="@Model.BikeName">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="border-solid-top padding-top20 padding-bottom20">
+                    <p class="grid-9 alpha text-slate-grey omega">Total amount (Principal + Interest)</p>
+                    <div class="emi-slider-box-right-section grid-3 omega alpha">
+                        <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span class="text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <p class="grid-5 text-default alpha position-rel pos-top2">Indicative EMI</p>
+                <div class="text-right grid-7 omega font16 text-bold">
+                    <span class="bwmsprite inr-sm-icon margin-right5"></span><span data-bind="text: formatPrice(monthlyEMI())"></span>/month
+                </div>
+                <div class="clear"></div>
+
+            </div>
+        </div>
+    </section>
+}
 @if (Model.ShowOtherDealers && Model.AreOtherDealersAvailable)
 {
     <section class="container bg-white margin-bottom10">
@@ -199,12 +300,12 @@
 
             @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealers != null && Model.DetailedDealer.SecondaryDealerCount > 0)
          {
-             <text>triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
+             <text>triggerNonInteractiveGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
          }
 
             @if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
         {
-            <text>triggerGA('Dealer_PQ', 'CoverFox_Link_Shown', bikeVerLocation);</text>
+            <text>triggerNonInteractiveGA('Dealer_PQ', 'CoverFox_Link_Shown', bikeVerLocation);</text>
         }
 
             if (dealerName != "") {
