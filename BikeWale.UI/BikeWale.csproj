@@ -2814,6 +2814,7 @@
     <Content Include="m\css\used\details.css" />
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
+    <Content Include="m\css\user-review\landing.css" />
     <Content Include="m\css\user-review\listing.css" />
     <Content Include="m\css\user-review\write-review.css" />
     <Content Include="m\css\videos\bwm-videos-landing.css" />
@@ -2937,6 +2938,7 @@
     <Content Include="m\src\used-search.js" />
     <Content Include="m\src\used\bikes-in-city.js" />
     <Content Include="m\src\used\landing.js" />
+    <Content Include="m\src\user-review\landing.js" />
     <Content Include="m\src\user-review\write-review.js" />
     <Content Include="m\src\video\details.js" />
     <Content Include="m\src\video\videoByCategory.js" />

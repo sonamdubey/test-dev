@@ -34,6 +34,9 @@ namespace Bikewale.Utility
                 case UserReviewPageSourceEnum.Desktop_UserReview_Details:
                     url = string.Format("/{0}-bikes/{1}/user-reviews/", makeMasking, modelMasking);
                     break;
+                case UserReviewPageSourceEnum.Mobile_UserReview_Landing:
+                    url = "/m/user-reviews/";
+                    break;
                 default:
                     if (isDesktop)
                         url = string.Format("/{0}-bikes/{1}/", makeMasking, modelMasking);
