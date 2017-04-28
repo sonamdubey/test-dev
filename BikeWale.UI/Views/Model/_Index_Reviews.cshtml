@@ -15,7 +15,7 @@
                 <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span> Reviews
             </a>
         </span>
-        <a href="@string.Format("/rate-your-bike/{0}/?pagesourceid={1}", Model.ModelId, Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ModelPage))">Write a review</a>
+        <a href="@string.Format("/rate-your-bike/{0}/?pagesourceid={1}", Model.ModelId, Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ModelPage))">Rate this bike</a>
     </div>
 }
 else
