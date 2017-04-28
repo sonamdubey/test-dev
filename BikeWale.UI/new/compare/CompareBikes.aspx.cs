@@ -32,7 +32,7 @@ namespace Bikewale.New
         protected AddBikeToCompare addBike;
         DataSet ds = null;
         protected GlobalCityAreaEntity cityArea;
-        protected string baseUrl, versions = string.Empty, hashVersions = string.Empty, hashModels = string.Empty, featuredBikeId = string.Empty, pgTitle = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, targetedModels = string.Empty,
+        protected string baseUrl, versions = string.Empty, hashVersions = string.Empty, hashModels = string.Empty, featuredBikeId = string.Empty, templateSummaryTitle = string.Empty, pgTitle = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, targetedModels = string.Empty,
            bikeQueryString = string.Empty, compareBikeText = string.Empty, estimatePrice = string.Empty, estimateLaunchDate = string.Empty, knowMoreHref = string.Empty, featuredBikeName = string.Empty;
         protected int count = 0, totalComp = 5;
         public int featuredBikeIndex = 0;
@@ -150,6 +150,7 @@ namespace Bikewale.New
                 {
                     string bikName = string.Format("{0} {1}", ds.Tables[0].Rows[i]["make"], ds.Tables[0].Rows[i]["model"]);
                     pgTitle += string.Format("{0} vs ", bikName);
+                    templateSummaryTitle += string.Format("{0} vs ", ds.Tables[0].Rows[i]["model"].ToString());
                     keyword += bikName + " and ";
                     modelList.Add(new CompareMakeModelEntity { MakeMaskingName = ds.Tables[0].Rows[i]["MakeMaskingName"].ToString(), ModelMaskingName = ds.Tables[0].Rows[i]["ModelMaskingName"].ToString(), ModelId = Convert.ToUInt32(ds.Tables[0].Rows[i]["ModelId"]), VersionId = Convert.ToString(ds.Tables[0].Rows[i]["BikeVersionId"]) });
                     targetedModels += "\"" + ds.Tables[0].Rows[i]["Model"] + "\",";
@@ -158,6 +159,7 @@ namespace Bikewale.New
                 if (pgTitle.Length > 2)
                 {
                     pgTitle = pgTitle.Substring(0, pgTitle.Length - 3);
+                    templateSummaryTitle = templateSummaryTitle.Substring(0, templateSummaryTitle.Length - 3);
                     keyword = keyword.Substring(0, keyword.Length - 5);
                     targetedModels = targetedModels.Substring(0, targetedModels.Length - 1);
                 }

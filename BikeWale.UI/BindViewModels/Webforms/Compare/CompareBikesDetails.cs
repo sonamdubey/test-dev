@@ -36,7 +36,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         public GlobalCityAreaEntity cityArea = null;
         public bool isPageNotFound, isPermanentRedirect, isUsedBikePresent, isCompareLandingRedirection;
         public string redirectionUrl = string.Empty, baseurl = string.Empty, originalUrl = string.Empty, bikeQueryString = string.Empty, compareUrl = string.Empty, versionsList = string.Empty, bike1Name = string.Empty,
-            bike2Name = string.Empty, cityName= string.Empty, ComparisionText = string.Empty, TargetedModels = string.Empty, FeaturedBikeLink = string.Empty, summaryText = string.Empty;
+            bike2Name = string.Empty, cityName = string.Empty, TemplateSummaryTitle = string.Empty, ComparisionText = string.Empty, TargetedModels = string.Empty, FeaturedBikeLink = string.Empty, summaryText = string.Empty;
         public uint versionId1, versionId2;
         public BikeCompareEntity comparedBikes = null;
         public PageMetaTags PageMetas = null;
@@ -153,6 +153,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                     }
 
                     ComparisionText = string.Join(" vs ", bikeList);
+                    TemplateSummaryTitle = string.Join(" vs ", bikeModels);
                     TargetedModels = string.Join(",", bikeModels);
 
                     PageMetas.Title = string.Format("Compare {0} - BikeWale", ComparisionText);

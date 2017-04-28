@@ -892,7 +892,7 @@
                 </tr>
             </table>
             <div>
-                <p class="text-bold padding-top10"><%= pgTitle %></p>
+                <p class="text-bold padding-top10"><%= templateSummaryTitle %></p>
                 <p class="padding-top10"><%= compareBikeText %></p>
             </div>
             <div class="margin-bottom30 similarbikes <%= (ctrlSimilarBikes.fetchedCount > 0) ? string.Empty : "hide" %>">

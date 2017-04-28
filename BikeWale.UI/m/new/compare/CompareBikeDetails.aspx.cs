@@ -22,7 +22,7 @@ namespace Bikewale.Mobile.New
         protected BikeCompareEntity vmCompare = null;
         protected bool isSponsoredBike, isUsedBikePresent;
         protected Int64 sponsoredVersionId = 0;
-        protected string comparisionText = string.Empty, targetedModels = string.Empty, featuredBike = string.Empty,
+        protected string templateSummaryTitle = string.Empty, comparisionText = string.Empty, targetedModels = string.Empty, featuredBike = string.Empty,
             compareSummaryText = string.Empty, baseUrl = string.Empty, bikeQueryString = string.Empty, cityName = string.Empty;
         protected IEnumerable<BikeMakeEntityBase> objMakes = null;
         public SimilarCompareBikes ctrlSimilarBikes;
@@ -73,6 +73,7 @@ namespace Bikewale.Mobile.New
                     featuredBike = objCompare.FeaturedBikeLink;
                     BindPageWidgets(objCompare.versionsList, objCompare.CityId);
                     compareSummaryText = objCompare.summaryText;
+                    templateSummaryTitle = objCompare.TemplateSummaryTitle;
                 }
             }
             catch (Exception ex)

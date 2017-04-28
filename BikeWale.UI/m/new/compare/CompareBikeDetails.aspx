@@ -247,8 +247,14 @@
                 </div>
                 <section>
                     <div class="container bg-white box-shadow margin-bottom15 content-inner-block-20">
-                        <p class="text-bold font16 line-height17 inline"><%= comparisionText %></p>
-                        <p class="font14 text-light-grey line-height17 inline padding-top10"><%= compareSummaryText %></p>
+                        <p class="text-bold font16 line-height17 inline"><%= templateSummaryTitle %></p>
+                        <span class="model-preview-main-content">
+                            <p class="font14 text-light-grey line-height17 inline padding-top10"><%= Bikewale.Utility.StringExtention.StringHelper.Truncate(compareSummaryText,200) %>  ... </p>
+						 </span>
+                        <span class="model-preview-more-content hide">
+                            <p class="font14 text-light-grey line-height17 inline padding-top10"><%= compareSummaryText %></p>
+                        </span>
+                        <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
                     </div>
                 </section>
                 <% if (isUsedBikePresent)
