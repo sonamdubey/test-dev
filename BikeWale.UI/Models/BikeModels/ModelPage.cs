@@ -8,6 +8,7 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
@@ -251,9 +252,12 @@ namespace Bikewale.Models.BikeModels
 
                         GetBikeRankingCategory();
 
-                        BindUserReviews();
+                        objData.UserReviews = BindUserReviews();
 
-                        BindBestBikeWidget(objData.BikeRanking.BodyStyle, _cityId);
+                        if (objData.BikeRanking != null)
+                        {
+                            BindBestBikeWidget(objData.BikeRanking.BodyStyle, _cityId);
+                        }
 
                         if (objData.IsNewBike)
                         {
@@ -356,8 +360,9 @@ namespace Bikewale.Models.BikeModels
         /// Created by  :   Sumit Kate on 03 Apr 2017
         /// Description :   Binds UserReviews for model
         /// </summary>
-        private void BindUserReviews()
+        private ReviewListBase BindUserReviews()
         {
+            ReviewListBase objReviews = new ReviewListBase();
             try
             {
                 UserReviewsListWidget userReviews = new UserReviewsListWidget(_userReviewCache);
@@ -365,12 +370,14 @@ namespace Bikewale.Models.BikeModels
                 userReviews.ModelId = _modelId;
                 userReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
-                objData.UserReviews = userReviews.GetData();
+                objReviews = userReviews.GetData();
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindUserReviews");
             }
+
+            return objReviews;
         }
 
 
