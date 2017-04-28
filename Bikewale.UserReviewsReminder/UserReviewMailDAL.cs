@@ -47,7 +47,13 @@ namespace Bikewale.UserReviewsCommunication
                                     CustomerId = SqlReaderConvertor.ToUInt32(dr["CustomerId"]),
                                     CustomerName = Convert.ToString(dr["CustomerName"]),
                                     CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
-                                    EntryDate = SqlReaderConvertor.ToDateTime(dr["EntryDate"])
+                                    EntryDate = SqlReaderConvertor.ToDateTime(dr["EntryDate"]),
+                                    MakeId=SqlReaderConvertor.ToUInt32(dr["MakeId"]),
+                                    ModelId=SqlReaderConvertor.ToUInt32(dr["ModelId"]),
+                                    OverAllRating=Convert.ToString(dr["OverAllRating"]),
+                                    PriceRangeId=SqlReaderConvertor.ToUInt32(dr["PriceRangeId"]),
+                                    PageSourceId=SqlReaderConvertor.ToUInt32(dr["SourceId"]),
+                                    IsFake=SqlReaderConvertor.ToBoolean(dr["IsFake"])
                                 });
                             }
                             dr.Close();
@@ -63,19 +69,7 @@ namespace Bikewale.UserReviewsCommunication
             return userList;
         }
 
-        /// <summary>
-        /// Created by : Aditi Srivastava on 15 Apr 2017
-        /// Summary    : Get encrypted url
-        /// </summary>
-        public string GetEncryptedUrlToken(string value)
-        {
-
-            string token = string.Empty;
-
-            token = Utils.Utils.EncryptTripleDES(value);
-
-            return token;
-        }
+       
     }
 
 }
