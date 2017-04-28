@@ -91,6 +91,8 @@ var reviewCategory = {
 
 var $window, overallSpecsTabsContainer, overallSpecsTab, specsFooter, topNavBarHeight;
 
+var listItemHeight = 230; // min item height + pagination height
+
 docReady(function() {
 
     var modelUserReviews = function () {
@@ -171,12 +173,12 @@ docReady(function() {
                 overallSpecsTab.addClass('fixed-tab-nav');
             }
 
-            else if (windowScrollTop < specsTabsOffsetTop) {
+            else if (windowScrollTop + listItemHeight < specsTabsOffsetTop) { 
                 overallSpecsTab.removeClass('fixed-tab-nav');
             }
 
             if (overallSpecsTab.hasClass('fixed-tab-nav')) {
-                if (windowScrollTop > specsFooterOffsetTop - topNavBarHeight) {
+                if (windowScrollTop + listItemHeight > specsFooterOffsetTop - topNavBarHeight) {
                     overallSpecsTab.removeClass('fixed-tab-nav');
                 }
             }

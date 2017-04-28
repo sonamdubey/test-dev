@@ -20,6 +20,12 @@ h1,
 .h2-heading
     font-size: 18px
 
+.inline
+    display: inline
+
+.text-link
+    color: #0288d1
+
 // top card
 .left-grid-image
     width: 102px
@@ -110,11 +116,11 @@ $graph-bg: #eee
 
 .rate-count-1
     .star-icon
-        background-position: 0 -668px
+        background-position: 0 -667px
 
 .rate-count-2
     .star-icon
-        background-position: -38px -668px
+        background-position: -38px -667px
 
 .rate-count-3
     .star-icon
@@ -122,11 +128,11 @@ $graph-bg: #eee
 
 .rate-count-4
     .star-icon
-        background-position: -74px -668px
+        background-position: -74px -667px
 
 .rate-count-5
     .star-icon
-        background-position: -110px -668px
+        background-position: -110px -667px
 
 // horizontal-rating-graph
 .margin-neg5
@@ -137,7 +143,7 @@ $graph-bg: #eee
         display: inline-block
         vertical-align: middle
 
-    .star-zero
+    .star-0
         position: relative
         top: -1px
         @include transform(scale(0.5))
@@ -236,6 +242,9 @@ $graph-bg: #eee
 
     .star-white
         margin-right: 0
+
+.read-more-text
+    color: #0288d1
 
 .item-stats-grid,
 .item-views-grid
@@ -355,8 +364,7 @@ $graph-bg: #eee
 
 // about list icons
 .calender-dark,
-.kms-dark,
-.report-dark
+.kms-dark
     width: 16px
     height: 16px
 
@@ -366,13 +374,10 @@ $graph-bg: #eee
 .kms-dark
     background-position: -112px -643px
 
-.report-dark
-    background-position: -131px -643px
-
 .ride-dark
     width: 24px
     height: 16px
-    background-position: -148px -643px
+    background-position: -131px -643px
 
 .review-lg
     width: 24px
@@ -400,7 +405,7 @@ $graph-bg: #eee
 
     .btn-label-grid,
     .btn-count
-        padding: 6px 10px
+        padding: 5px 6px
         background: transparent
 
     .btn-label-grid
@@ -422,6 +427,12 @@ $graph-bg: #eee
 
         .btn-count
             color: #41B4C4
+
+        .like-sm
+            background-position: -94px -624px
+
+        .dislike-sm
+            background-position: -111px -624px
 
 // rating badges
 .rating-badge
@@ -445,17 +456,13 @@ $graph-bg: #eee
     margin-right: 4px
 
 // icons
-.star-zero,
-.star-one
+.star-0
 	width: 26px
 	height: 25px
 	vertical-align: middle
 
-.star-zero
-	background-position: 0 -308px
-
-.star-one
-    background-position: 0 -278px
+.star-0
+	background-position: -144px -667px
 
 // article type carousel
 .article-type-carousel
@@ -486,14 +493,6 @@ $graph-bg: #eee
         padding-bottom: 15px
 
 // report abuse
-.btn-icon
-    min-width: 34px
-    height: 32px
-    background: transparent
-    border: 1px solid #d5d5d5
-    text-align: center
-    padding: 5px 0
-
 #report-abuse-popup
     display: none
     width: 80%

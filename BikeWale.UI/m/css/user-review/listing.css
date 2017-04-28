@@ -20,6 +20,12 @@ h1,
 .h2-heading {
   font-size: 18px; }
 
+.inline {
+  display: inline; }
+
+.text-link {
+  color: #0288d1; }
+
 .left-grid-image {
   width: 102px;
   height: 57px; }
@@ -107,19 +113,19 @@ h1,
   transform: scale(0.8); }
 
 .rate-count-1 .star-icon {
-  background-position: 0 -668px; }
+  background-position: 0 -667px; }
 
 .rate-count-2 .star-icon {
-  background-position: -38px -668px; }
+  background-position: -38px -667px; }
 
 .rate-count-3 .star-icon {
   background-position: 0 -278px; }
 
 .rate-count-4 .star-icon {
-  background-position: -74px -668px; }
+  background-position: -74px -667px; }
 
 .rate-count-5 .star-icon {
-  background-position: -110px -668px; }
+  background-position: -110px -667px; }
 
 .margin-neg5 {
   margin-left: -5px; }
@@ -128,7 +134,7 @@ h1,
   display: inline-block;
   vertical-align: middle; }
 
-.horizontal-rating-graph .star-zero {
+.horizontal-rating-graph .star-0 {
   position: relative;
   top: -1px;
   -webkit-transform: scale(0.5);
@@ -212,6 +218,9 @@ h1,
       right: 0; }
   .user-review-list .star-white {
     margin-right: 0; }
+
+.read-more-text {
+  color: #0288d1; }
 
 .item-stats-grid,
 .item-views-grid {
@@ -335,8 +344,7 @@ h1,
   width: 100%; }
 
 .calender-dark,
-.kms-dark,
-.report-dark {
+.kms-dark {
   width: 16px;
   height: 16px; }
 
@@ -346,13 +354,10 @@ h1,
 .kms-dark {
   background-position: -112px -643px; }
 
-.report-dark {
-  background-position: -131px -643px; }
-
 .ride-dark {
   width: 24px;
   height: 16px;
-  background-position: -148px -643px; }
+  background-position: -131px -643px; }
 
 .review-lg {
   width: 24px;
@@ -377,7 +382,7 @@ h1,
     vertical-align: middle; }
   .btn-inv-teal-group .btn-label-grid,
   .btn-inv-teal-group .btn-count {
-    padding: 6px 10px;
+    padding: 5px 6px;
     background: transparent; }
   .btn-inv-teal-group .btn-label-grid {
     margin-right: -4px;
@@ -394,6 +399,10 @@ h1,
       border-right-color: #41B4C4; }
     .btn-inv-teal-group.active .btn-count {
       color: #41B4C4; }
+    .btn-inv-teal-group.active .like-sm {
+      background-position: -94px -624px; }
+    .btn-inv-teal-group.active .dislike-sm {
+      background-position: -111px -624px; }
 
 .rating-badge {
   min-width: 40px;
@@ -418,17 +427,13 @@ h1,
   top: 1px;
   margin-right: 4px; }
 
-.star-zero,
-.star-one {
+.star-0 {
   width: 26px;
   height: 25px;
   vertical-align: middle; }
 
-.star-zero {
-  background-position: 0 -308px; }
-
-.star-one {
-  background-position: 0 -278px; }
+.star-0 {
+  background-position: -144px -667px; }
 
 .article-type-carousel .swiper-slide,
 .article-type-carousel .swiper-card {
@@ -452,14 +457,6 @@ h1,
 .user-reviews-type-carousel .swiper-details-block {
   padding-top: 7px;
   padding-bottom: 15px; }
-
-.btn-icon {
-  min-width: 34px;
-  height: 32px;
-  background: transparent;
-  border: 1px solid #d5d5d5;
-  text-align: center;
-  padding: 5px 0; }
 
 #report-abuse-popup {
   display: none;
