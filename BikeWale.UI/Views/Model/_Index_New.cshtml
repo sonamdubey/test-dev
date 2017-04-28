@@ -29,7 +29,7 @@
                             @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs.cshtml", Model)
 
                             <div id="modelPriceContainer">
-                                <p class="font14 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road" : "Ex-showroom ") price in @Model.Location<a data-persistent="true" data-reload="true" data-modelid="@Model.ModelId" class="margin-left5 getquotation changeCity"></a></p>
+                                <p class="font14 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road" : "Ex-showroom ")) price in @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</p>
 
                                 @if (Model.BikePrice > 0)
                                 {
@@ -66,7 +66,7 @@
                                 }                                
 
 
-                                @if (!Model.IsLocationSelected || Model.ShowOnRoadButton)
+                                @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && Model.BikePrice > 0)
                                 {
                                     <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-persistent="true" data-reload="true" data-modelid="@Model.ModelId" class="btn btn-orange margin-top10 getquotation">Check on-road price</a>
                                     <div class="clear"></div>
