@@ -7,7 +7,7 @@
 
 <link href="~/css/userreviews.css" rel="stylesheet" />
 
-<div class="row" style="margin-top:5px;" data-userid="@Model.currentUserId" id="UserReviews" data-makeid="@Model.selectedFilters.MakeId" data-reviewstatus="@((ushort)Model.selectedFilters.ReviewStatus)" data-date="@Model.selectedFilters.ReviewDate" data-modelid="@Model.selectedFilters.ModelId">
+<div class="row" style="margin-top:5px;" data-userid="@Model.currentUserId" id="UserReviews" data-makeid="@Model.selectedFilters.MakeId" data-reviewstatus="@((ushort)Model.selectedFilters.ReviewStatus)" data-date="@(Model.selectedFilters.ReviewDate != default(DateTime) ? Model.selectedFilters.ReviewDate.ToString() : "")" data-modelid="@Model.selectedFilters.ModelId">
     <div class="col m10">
         @if (Model != null && Model.Reviews != null && Model.Reviews.Count() > 0)
         {
@@ -79,8 +79,9 @@
                             </div>
                             <div class="input-field row s12">
                                 <i class="material-icons prefix margin-top15">date_range</i>
-                                <input type="date" id="reviewDate" name="ReviewDate" class="datepicker margin-left5" value="@Model.selectedFilters.ReviewDate" />
-                                <label for="reviewDate">Review Date</label>
+                                <input type="date" id="reviewDateEle"  class="datepicker margin-left5" value="" />
+                                <input type="hidden" id="reviewDate" name="ReviewDate" value=""/>
+                                <label for="reviewDateEle">Review Date</label>
                             </div>
                             <div class="input-field row s12">
                                 <button id="btnAddMake" class="btn waves-effect waves-light" type="submit" name="action">
@@ -215,7 +216,7 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action btn waves-effect waves-light red lighten-2  modal-close" data-bind="click : $root.rejectReview">Reject</a>
+            <a href="#!" class="modal-action btn waves-effect waves-light red lighten-2 " data-bind="click : $root.rejectReview">Reject</a>
         </div>
 
     </div>
