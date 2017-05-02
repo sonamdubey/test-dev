@@ -2,10 +2,8 @@
 
 @{ string bikeName = string.Format("{0}_{1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName);}
 
-@if (Model.IsModelDescriptionAvailable)
-{
-    <a c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Overview" class="active bwga" href="#modelSummaryContent" rel="nofollow">Overview</a>
-}
+<a c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Overview" class="active bwga" href="#modelSummaryContent" rel="nofollow">Overview</a>
+
 @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
 {
     <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Price" href="#modelPricesContent" rel="nofollow">Price</a>
