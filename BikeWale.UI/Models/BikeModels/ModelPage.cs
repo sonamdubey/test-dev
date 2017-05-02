@@ -306,12 +306,10 @@ namespace Bikewale.Models.BikeModels
 
                 _objEMI.Tenure = Convert.ToUInt16((_objEMI.MaxTenure - _objEMI.MinTenure) / 2 + _objEMI.MinTenure);
                 _objEMI.RateOfInterest = (_objEMI.MaxRateOfInterest - _objEMI.MinRateOfInterest) / 2 + _objEMI.MinRateOfInterest;
-                _objEMI.MinLoanToValue = Convert.ToUInt32(Math.Round(bikePrice * 0.7));
+                _objEMI.MinLoanToValue = Convert.ToUInt32(Math.Round(bikePrice * 0.7, MidpointRounding.AwayFromZero));
                 _objEMI.MaxLoanToValue = bikePrice;
                 _objEMI.EMIAmount = Convert.ToUInt32((_objEMI.MinLoanToValue * _objEMI.Tenure * _objEMI.RateOfInterest) / (12 * 100));
-                _objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue + _objEMI.EMIAmount + _objEMI.ProcessingFee) / _objEMI.Tenure));
-
-
+                _objEMI.EMIAmount = Convert.ToUInt32(Math.Round((_objEMI.MinLoanToValue + _objEMI.EMIAmount + _objEMI.ProcessingFee) / _objEMI.Tenure, MidpointRounding.AwayFromZero));
 
             }
             catch (Exception ex)

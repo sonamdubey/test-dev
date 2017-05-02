@@ -454,7 +454,7 @@ $.LoanAmount = function (onRoadPrice, percentage) {
     var price;
     try {
         price = (onRoadPrice * percentage) / 100;
-        price = Math.round(price / 100.0) * 100;
+        price = Math.round(price);
     }
     catch (e) {
         //console.log(e.message);
