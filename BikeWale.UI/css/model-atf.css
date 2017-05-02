@@ -347,7 +347,7 @@
 .bw-group-flex li {
     font-size: 12px;
     color: #82888b;
-    padding: 5px 15px;
+    padding: 4px 15px 5px;
     text-align: center;
     display: inline-block;
     background: #f5f5f5;
@@ -546,7 +546,7 @@
 /* model color carousel */
 .carousel-type-color {
     width: 376px;
-    margin: 0 auto 5px;
+    margin: 0 auto;
     height: 212px;
     padding: 0;
 }
