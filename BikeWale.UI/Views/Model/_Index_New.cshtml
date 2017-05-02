@@ -23,7 +23,7 @@
                         </div>
                     </div>
 
-                    <div class="padding-top20 padding-right20 padding-bottom10 padding-left20">
+                    <div class="padding-top15 padding-right20 padding-bottom10 padding-left20">
                         <div id="model-right-grid" class="grid-7 alpha omega rightfloat">
 
                             @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs.cshtml", Model)
@@ -33,7 +33,7 @@
 
                                 @if (Model.BikePrice > 0)
                                 {
-                                    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                    <div class="model-price-content padding-top5" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                         <span itemprop="priceCurrency" content="INR">
                                             <span class="bwsprite inr-md-lg margin-right5"></span>
                                         </span>
@@ -111,6 +111,15 @@
                 </div>
                 <div class="clear"></div>
             }
+
+            @if (Model.IsModelDescriptionAvailable)
+            {
+                <div class="grid-12">
+                    @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
+                </div>
+                <div class="clear"></div>
+            }
+
         </div>
 
         @Html.Partial("~/Views/Model/_Index_DetailsCard.cshtml", Model)
