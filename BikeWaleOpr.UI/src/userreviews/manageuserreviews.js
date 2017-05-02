@@ -73,30 +73,45 @@ var UserReviews = function () {
     };
 
     self.setPageFilters = function () {
-
+        filtersApplied = false;
         if(userReview)
         {
             self.selectedMakeId(userReview.data("makeid"));
             if(self.selectedMakeId())
             {
                 $('select[name="MakeId"]').val(self.selectedMakeId()).trigger("change").material_select();
+                filtersApplied = true;
             }
             var reviewStatus = userReview.data("reviewstatus");
             if (reviewStatus && reviewStatus > 0)
             {
                 $("input[type='radio'][name='rdoReviewStatus'][value=" + reviewStatus + "]").trigger("click");
                 $("input[type='hidden'][name='ReviewStatus']").val(reviewStatus);
+                filtersApplied = true;
             }
 
             if (userReview.data("date"))
             {
                 $dateInput.set('select', new Date(userReview.data("date")));
+                filtersApplied = true;
             }
             else {
                 $dateInput.clear();
             }
            
             $(document).find('.modal').modal();
+
+            if(filtersApplied)
+            {
+                var ele = $("#addMakeContainer ul li").first();
+                if (ele)
+                {
+                    ele.addClass("active");
+                    ele.find(".collapsible-header").addClass("active");
+                    ele.find(".collapsible-body").show();
+                }
+               
+            }
             
         }
 
@@ -115,7 +130,6 @@ var UserReviews = function () {
                 {
                     if (response)
                     {
-                        debugger;
                         self.reviewSummary(response);
                         self.reviewTitle(response.title);
                         self.reviewDescription(response.description);
