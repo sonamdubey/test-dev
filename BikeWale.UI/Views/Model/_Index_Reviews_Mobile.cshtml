@@ -16,18 +16,19 @@
                 <meta itemprop="worstRating" content="1">
                 <meta itemprop="bestRating" content="5">
                 <meta itemprop="itemreviewed" content="@Model.BikeName" />
-            </span>
 
-            <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="leftfloat margin-right10 padding-left10 font12 ">
-                <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span>&nbsp;<span>Review@((Model.ModelPageEntity.ModelDetails.ReviewCount) > 1 ? "s" : "")</span>
-            </a>
+
+                <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="leftfloat margin-right10 padding-left10 font12 ">
+                    <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span>&nbsp;<span>Review@((Model.ModelPageEntity.ModelDetails.ReviewCount) > 1 ? "s" : "")</span>
+                </a>
+            </span>
         }
         else
         {
             <span class="font12 text-light-grey leftfloat margin-right10 padding-left5">No reviews yet</span>
         }
         <a href="@string.Format("/m/rate-your-bike/{0}/?pagesourceid={1}", Model.ModelId, Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage))" class="border-light-left leftfloat margin-right10 padding-left10 font12 ">
-            <span itemprop="writeReview"><span>Rate this bike</span></span>
+           <span>Rate this bike</span>
         </a>
 
     </div>
