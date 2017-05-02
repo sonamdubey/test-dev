@@ -67,15 +67,6 @@
                 </div>
             </div>
             <div class="clear"></div>
-
-            @if (Model.IsModelDescriptionAvailable)
-            {
-                <div class="grid-12">
-                    @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
-                </div>
-                <div class="clear"></div>
-            }
-
         </div>
 
         @Html.Partial("~/Views/Model/_Index_DetailsCard.cshtml", Model)
