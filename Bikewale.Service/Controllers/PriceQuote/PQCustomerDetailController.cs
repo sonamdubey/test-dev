@@ -37,6 +37,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
         private readonly IDealerPriceQuote _objDealerPriceQuote = null;
         private readonly IMobileVerificationRepository _mobileVerRespo = null;
+        private readonly IMobileVerificationCache _mobileVerCacheRepo = null;
         private readonly IMobileVerification _mobileVerification = null;
         private readonly IDealer _objDealer = null;
         private readonly IPriceQuote _objPriceQuote = null;
@@ -48,7 +49,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             IMobileVerificationRepository mobileVerRespo,
             IMobileVerification mobileVerificetion,
             IDealer objDealer,
-            IPriceQuote objPriceQuote, ILeadNofitication objLeadNofitication)
+            IPriceQuote objPriceQuote, ILeadNofitication objLeadNofitication, IMobileVerificationCache mobileVerCacheRepo)
         {
             _objAuthCustomer = objAuthCustomer;
             _objCustomer = objCustomer;
@@ -58,6 +59,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             _objDealer = objDealer;
             _objPriceQuote = objPriceQuote;
             _objLeadNofitication = objLeadNofitication;
+            _mobileVerCacheRepo = mobileVerCacheRepo;
         }
         /// <summary>
         /// Saves the Customer details if it is a new customer.
@@ -96,7 +98,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
             CustomerEntity objCust = null;
             PQCustomerDetail pqCustomer = null;
-            MobileVerificationEntity mobileVer = null;
             BookingPageDetailsEntity objBookingPageDetailsEntity = null;
             PriceQuoteParametersEntity pqParam = null;
             BookingPageDetailsDTO objBookingPageDetailsDTO = null;
@@ -141,31 +142,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                     isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
 
+                    var numberList = _mobileVerCacheRepo.GetBlockedNumbers();
 
-                    //noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
-                    noOfAttempts = -1;// By-pass the mobile verification by setting noOfAttempts = -1
-
-                    //here -1 implies mobile number is verified and resend OTP attempts is 2
-                    if (noOfAttempts > -1)
-                    {
-                        if (noOfAttempts < 3)
-                        {
-                            mobileVer = _mobileVerification.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
-
-                            SMSTypes st = new SMSTypes();
-                            st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.PageUrl);
-                        }
-
-                        isVerified = false;
-
-                        output = new PQCustomerDetailOutput();
-                        output.IsSuccess = isVerified;
-                        output.NoOfAttempts = noOfAttempts;
-                        output.Dealer = null;
-
-                        return Ok(output);
-                    }
-                    else
+                    if (numberList != null && !numberList.Contains(input.CustomerMobile))
                     {
                         //Don't mark mobile verified for pq
                         //isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
@@ -298,9 +277,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                 _objLeadNofitication.PushtoAB(input.DealerId.ToString(), input.PQId, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, input.VersionId, input.CityId);
                             }
                         }
-                    }
-                    if (isVerified)
-                    {
+
                         output = new PQCustomerDetailOutput();
                         output.IsSuccess = isVerified;
                         output.Dealer = dealer;
@@ -348,11 +325,10 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
             CustomerEntity objCust = null;
             PQCustomerDetail pqCustomer = null;
-            MobileVerificationEntity mobileVer = null;
             uint exShowroomCost = 0;
             UInt32 TotalPrice = 0;
             uint bookingAmount = 0;
-            sbyte noOfAttempts = 0;
+            sbyte noOfAttempts = -1;
             UInt64 pqId = default(UInt64);
             try
             {
@@ -382,7 +358,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         UInt32 CustomerId = _objCustomer.Add(objCust);
                     }
 
-
                     DPQ_SaveEntity entity = new DPQ_SaveEntity()
                     {
                         DealerId = input.DealerId,
@@ -398,30 +373,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     };
 
                     isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
+                    var numberList = _mobileVerCacheRepo.GetBlockedNumbers();
 
-                    //noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
-                    noOfAttempts = -1;// By-pass the mobile verification by setting noOfAttempts = -1
-                    //here -1 implies mobile number is verified and resend OTP attempts is 2
-                    if (noOfAttempts > -1)
-                    {
-                        if (noOfAttempts < 3)
-                        {
-                            mobileVer = _mobileVerification.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
-
-                            SMSTypes st = new SMSTypes();
-                            st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.PageUrl);
-                        }
-
-                        isVerified = false;
-
-                        output = new Bikewale.DTO.PriceQuote.v2.PQCustomerDetailOutput();
-                        output.IsSuccess = isVerified;
-                        output.NoOfAttempts = noOfAttempts;
-                        output.Dealer = null;
-                        output.PQId = pqId;
-                        return Ok(output);
-                    }
-                    else
+                    if (numberList != null && !numberList.Contains(input.CustomerMobile))
                     {
                         //Don't mark mobile verified for pq
                         //isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
@@ -515,9 +469,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                 _objLeadNofitication.PushtoAB(input.DealerId.ToString(), Convert.ToUInt32(pqId), objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, input.VersionId, input.CityId);
                             }
                         }
-                    }
-                    if (isVerified)
-                    {
+
                         output = new Bikewale.DTO.PriceQuote.v2.PQCustomerDetailOutput();
                         output.IsSuccess = isVerified;
                         output.NoOfAttempts = noOfAttempts;
