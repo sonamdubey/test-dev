@@ -39,6 +39,7 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [Route("user-reviews/rate-bike/{modelId}/")]
+        [Filters.DeviceDetection()]
         public ActionResult RateBike(uint modelId, uint? pagesourceid, string reviewId)
         {
             UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, pagesourceid, _userReviews, _objModel, reviewId, _userReviewsRepo);
