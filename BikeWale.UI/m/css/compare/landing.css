@@ -1,17 +1,39 @@
 ﻿/* common */
-.padding-15-20 {
-    padding: 15px 20px;
-}
-
-.card-bottom-margin {
-    margin-bottom: 10px;
-}
-
 .margin-bottom3 {
     margin-bottom: 3px;
 }
 
+.font-bold {
+    font-weight: 700;
+}
+
+.text-bold {
+    font-weight: 600 !important;
+}
+
+.compare-landing-banner {
+    background: #8d8c8a url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/dealer-locator-banner.jpg) no-repeat center bottom;
+    background-size: cover;
+    height: 130px;
+    padding-top: 1px;
+}
+
+.banner-box-shadow {
+    background: #fff;
+    margin-top: -25px;
+    -moz-box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    -o-box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    -ms-box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    border-radius: 2px;
+}
+
 /* comparison main card */
+#compare-bike-landing {
+    min-height: 143px;
+}
+
 .bike-details-block {
     width: 50%;
     padding: 10px;
@@ -19,8 +41,11 @@
     position: relative;
 }
 
+.bike-details-block.match-height .compare-box-placeholder {
+    min-height: 204px
+}
+
 .comparison-main-card .bike-details-block:nth-of-type(1) {
-    position: relative;
     padding-right: 15px;
 }
 
@@ -32,7 +57,6 @@
     content: '';
     width: 1px;
     height: 94%;
-    border-right: 1px solid #ccc;
     position: absolute;
     top: 2.5%;
     right: 0;
@@ -55,6 +79,11 @@
     width: 82%;
 }
 
+.selected-bike-box {
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
 .bike-details-block .btn-white {
     width: 134px;
     font-size: 12px;
@@ -66,7 +95,7 @@
 .bike-details-block .cross-sm-dark-grey {
     width: 20px;
     height: 20px;
-    top: 2px;
+    top: 5px;
     background-position: -80px -236px;
     cursor: pointer;
 }
@@ -76,7 +105,7 @@
 }
 
 .bike-details-block .bike-image-block {
-    width: 110px;
+    width: 121px;
 }
 
 .bike-details-block .bike-title-target {
@@ -97,7 +126,7 @@
 /* compare-box-placeholder */
 .compare-box-placeholder {
     width: 100%;
-    height: 210px;
+    height: 143px;
     background: #f5f5f5;
     display: table;
     text-align: center;
@@ -191,6 +220,43 @@
 
 .extra-padding .cover-popup-body {
     padding-bottom: 40px;
+}
+
+/* bike comparison card */
+.collapsible-content .main-content {
+    display: inline;
+}
+.collapsible-content .more-content {
+    display: none;
+}
+.collapsible-content.active .more-content {
+    display: inline;
+}
+
+/* comparison tests */
+.review-image-wrapper {
+    width:120px;
+    height:68px;
+    border:1px solid #e2e2e2;
+    display:inline-block;
+    vertical-align:top;
+    margin-right:10px;
+}
+
+.review-image-wrapper a {
+    width: 100%;
+    display: block;
+}
+
+.review-image-wrapper img {
+    width: 100%;
+    height: 68px;
+}
+
+.review-heading-wrapper {
+    width: 55%;
+    display: inline-block;
+    vertical-align: top;
 }
 
 /* compare bikes list */
