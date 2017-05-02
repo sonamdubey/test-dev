@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
@@ -96,11 +97,11 @@ namespace Bikewale.Models.BikeModels
         public bool IsUsedBikesAvailable { get { return (UsedModels != null && UsedModels.RecentUsedBikesList != null && UsedModels.RecentUsedBikesList.Count() > 0); } }
         public bool IsShowPriceTab { get; set; }
         public bool IsUserReviewsAvailable { get { return UserReviews != null && UserReviews.ReviewList != null && UserReviews.ReviewList.Count() > 0; } }
+        public IEnumerable<ColorImageBaseEntity> ColorImages { get { return AreModelPhotosAvailable ? ModelPageEntity.AllPhotos.Where(x => x.ColorId > 0) : null; } }
 
         #endregion
 
         private StringBuilder colorStr = new StringBuilder();
-        //public ModelPageVM viewModel = null;
         public BikeRankingPropertiesEntity BikeRanking { get; set; }
         public string ModelSummary { get; set; }
         public uint CampaignId { get; set; }
