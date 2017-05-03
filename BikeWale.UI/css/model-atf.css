@@ -423,6 +423,7 @@
 .carousel-navigation .carousel-nav-img-container {
     display: block;
     background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center;
+    text-align: center;
 }
 
 .carousel-img-container img {
