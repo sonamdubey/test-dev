@@ -182,23 +182,420 @@
         <section>
             <div class="container card-bottom-margin">
                 <h2 class="font18 font-bold text-center margin-top20 margin-bottom10">Popular comparison</h2>
-                <div class="bw-tabs-panel content-box-shadow">
-                    <div class="bw-tabs bw-tabs-flex">
+                <div class="bw-tabs-panel content-box-shadow padding-bottom10">
+                    <div class="bw-tabs bw-tabs-flex margin-bottom10">
                         <ul>
-                            <li class="active" data-tabs="typeBike">Bikes</li>
-                            <li data-tabs="typeScooter">Scooters</li>
-                            <li data-tabs="typeCruiser">Cruisers</li>
-                            <li data-tabs="typeSport">Sports</li>
+                            <li class="active" data-tabs="compareTypeBike">Bikes</li>
+                            <li data-tabs="compareTypeScooter">Scooters</li>
+                            <li data-tabs="compareTypeCruiser">Cruisers</li>
+                            <li data-tabs="compareTypeSport">Sports</li>
                         </ul>
                     </div>
-                    <div id="typeBike" class="bw-tabs-data">
+                    <div id="compareTypeBike" class="bw-tabs-data">
                         <div class="swiper-container comparison-swiper card-container">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
                                     <div class="swiper-card">
-                                        
+                                        <a href="" class="card-target">
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="margin-top20 text-center">
+                                                <span class="btn btn-white btn-140-32">Compare now</span>
+                                                </div>
+                                        </a>
                                     </div>
-                                </div>                               
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" class="card-target">
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="margin-top20 text-center">
+                                                <span class="btn btn-white btn-140-32">Compare now</span>
+                                                </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" class="card-target">
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="margin-top20 text-center">
+                                                <span class="btn btn-white btn-140-32">Compare now</span>
+                                                </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="compareTypeScooter" class="bw-tabs-data hide">
+                        <div class="swiper-container comparison-swiper card-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" class="card-target">
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="margin-top20 text-center">
+                                                <span class="btn btn-white btn-140-32">Compare now</span>
+                                                </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" class="card-target">
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="margin-top20 text-center">
+                                                <span class="btn btn-white btn-140-32">Compare now</span>
+                                                </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" class="card-target">
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="margin-top20 text-center">
+                                                <span class="btn btn-white btn-140-32">Compare now</span>
+                                                </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="compareTypeCruiser" class="bw-tabs-data hide">
+                        <div class="swiper-container comparison-swiper card-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" class="card-target">
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="margin-top20 text-center">
+                                                <span class="btn btn-white btn-140-32">Compare now</span>
+                                                </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" class="card-target">
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="margin-top20 text-center">
+                                                <span class="btn btn-white btn-140-32">Compare now</span>
+                                                </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" class="card-target">
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="margin-top20 text-center">
+                                                <span class="btn btn-white btn-140-32">Compare now</span>
+                                                </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="compareTypeSport" class="bw-tabs-data hide">
+                        <div class="swiper-container comparison-swiper card-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" class="card-target">
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="margin-top20 text-center">
+                                                <span class="btn btn-white btn-140-32">Compare now</span>
+                                                </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" class="card-target">
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="margin-top20 text-center">
+                                                <span class="btn btn-white btn-140-32">Compare now</span>
+                                                </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" class="card-target">
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid-6 padding-left5">
+                                                <div class="model-img-content">
+                                                    <img class="swiper-lazy" alt="Royal Enfield Himalayan" title="Royal Enfield Himalayan" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/royalenfield-himalayan.jpg?20160202113232" src="" />
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="padding-left10 padding-right5">
+                                                    <h3 class="font12 text-black margin-bottom5 text-truncate">Royal Enfield Himalayan</h3>
+                                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,63,338</span>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <div class="margin-top20 text-center">
+                                                <span class="btn btn-white btn-140-32">Compare now</span>
+                                                </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
