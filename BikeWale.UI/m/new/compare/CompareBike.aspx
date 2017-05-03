@@ -32,7 +32,7 @@
 
         <section>
             <div class="container compare-landing-banner text-center">
-                <h1 class="font24 text-uppercase text-white padding-top20 padding-bottom5">Compare bikes</h1>
+                <h1 class="font24 text-uppercase text-white padding-top20 margin-bottom5">Compare bikes</h1>
                 <h2 class="font14 text-unbold text-white">Making a decision is fairly easy</h2>
             </div>
         </section>
@@ -175,6 +175,33 @@
                     <p class="main-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque semper sem id elit volutpat, eget lobortis neque auctor. Nunc auctor quam in ipsum euismod porta. Integer lobortis cursus ultricies</p>
                     <p class="more-content">Vivamus sit amet ultricies justo. Integer in leo dapibus, tincidunt libero eu, euismod leo. Suspendisse pellentesque risus dolor</p>
                     <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container card-bottom-margin">
+                <h2 class="font18 font-bold text-center margin-top20 margin-bottom10">Popular comparison</h2>
+                <div class="bw-tabs-panel content-box-shadow">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul>
+                            <li class="active" data-tabs="typeBike">Bikes</li>
+                            <li data-tabs="typeScooter">Scooters</li>
+                            <li data-tabs="typeCruiser">Cruisers</li>
+                            <li data-tabs="typeSport">Sports</li>
+                        </ul>
+                    </div>
+                    <div id="typeBike" class="bw-tabs-data">
+                        <div class="swiper-container comparison-swiper card-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        
+                                    </div>
+                                </div>                               
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

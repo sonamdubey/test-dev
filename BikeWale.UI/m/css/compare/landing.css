@@ -31,7 +31,7 @@
 
 /* comparison main card */
 #compare-bike-landing {
-    min-height: 143px;
+    min-height: 135px;
 }
 
 .bike-details-block {
@@ -82,6 +82,10 @@
 .selected-bike-box {
     padding-left: 10px;
     padding-bottom: 5px;
+}
+
+.comparison-main-card .bike-details-block.match-height:nth-of-type(2) .selected-bike-box {
+    padding-right: 10px;
 }
 
 .bike-details-block .btn-white {
