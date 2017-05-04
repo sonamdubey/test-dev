@@ -261,7 +261,7 @@
                                               count++; %>
                                         <li>
                                             <a href="/m<%=  Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName) %>" title="<%=bikeName %> Specification">
-                                                <span class="bwmsprite specs-sm"></span>
+                                                <span class="bwmsprite videos-sm"></span>
                                                 <span class="icon-label">Videos</span>
                                             </a>
                                         </li>
