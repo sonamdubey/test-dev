@@ -322,29 +322,15 @@
                                 <a href="<%=bikeUrl %>" class="item-image-content inline-block" title="<%=bikeName %>">
                                     <img src="<%=Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61)%>" alt="<%= bikeName %>" title="<%= bikeName %>">
                                 </a>
+                                <%int count = 0; %>
                                 <div class="bike-details-block inline-block">
                                     <h3><a href="<%=bikeUrl %>" class="text-default"><%= bikeName %></a></h3>
                                     <ul class="item-more-details-list inline-block">
-                                        <%if (bikeInfo.ExpertReviewsCount > 0)
-                                          {%>
-                                        <li>
-                                            <a href="<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Expert reviews">
-                                                <span class="bwsprite reviews-sm"></span>
-                                                <span class="icon-label">Expert reviews</span>
-                                            </a>
-                                        </li>
-                                        <%} %>
-                                        <%if (bikeInfo.NewsCount > 0)
-                                          { %>
-                                        <li>
-                                            <a href="<%= Bikewale.Utility.UrlFormatter.FormatNewsUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> News">
-                                                <span class="bwsprite news-sm"></span>
-                                                <span class="icon-label">News</span>
-                                            </a>
-                                        </li>
-                                        <%} %>
-                                        <%if (bikeInfo.IsSpecsAvailable)
-                                          {%>
+                                           <%if (bikeInfo.IsSpecsAvailable && count<3)
+                                          {
+                                              count++; 
+                                                 
+                                                 %>
                                         <li>
                                             <a href="<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Specification">
                                                 <span class="bwsprite specs-sm"></span>
@@ -352,6 +338,58 @@
                                             </a>
                                         </li>
                                         <%} %>
+                                              <%if (bikeInfo.UserReview > 0 && count < 3)
+                                                {
+                                                    count++; 
+                                                    %>
+                                        <li>
+                                            <a href="<%= Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Specification">
+                                                <span class="bwsprite specs-sm"></span>
+                                                <span class="icon-label">User Reviews</span>
+                                            </a>
+                                        </li>
+                                        <%} %>
+                                                <%if (bikeInfo.VideosCount > 0 && count < 3)
+                                          {
+                                              count++; %>
+                                        <li>
+                                            <a href="<%= Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Specification">
+                                                <span class="bwsprite specs-sm"></span>
+                                                <span class="icon-label">Videos</span>
+                                            </a>
+                                        </li>
+                                        <%} %>
+                                          <%if (bikeInfo.DealersCount > 0 && count < 3)
+                                          {
+                                              count++; %>
+                                        <li>
+                                            <a href="<%=Bikewale.Utility.UrlFormatter.DealerLocatorUrl(bikeInfo.Make.MaskingName, CityDetails != null ? CityDetails.CityMaskingName : "india") %>" title="<%= bikeName %> Specification">
+                                                <span class="bwsprite specs-sm"></span>
+                                                <span class="icon-label">Videos</span>
+                                            </a>
+                                        </li>
+                                        <%} %>
+                                        <%if (bikeInfo.ExpertReviewsCount > 0 && count < 3)
+                                          {
+                                              count++; %>
+                                        <li>
+                                            <a href="<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Expert reviews">
+                                                <span class="bwsprite reviews-sm"></span>
+                                                <span class="icon-label">Expert reviews</span>
+                                            </a>
+                                        </li>
+                                        <%} %>
+                                        <%if (bikeInfo.NewsCount > 0 && count < 3)
+                                          {
+                                              count++;  %>
+                                        <li>
+                                            <a href="<%= Bikewale.Utility.UrlFormatter.FormatNewsUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> News">
+                                                <span class="bwsprite news-sm"></span>
+                                                <span class="icon-label">News</span>
+                                            </a>
+                                        </li>
+                                        <%} %>
+                                     
                                     </ul>
                                 </div>
                             </div>

@@ -62,12 +62,12 @@ namespace Bikewale.Entities.GenericBikes
     /// Added PriceInCity.
     public enum BikeInfoTabType
     {
-        ExpertReview = 1,
-        Image = 2,
-        Specs = 3,
-        News = 4,
-        Videos = 5,
-        UserReview = 6,
+        Image = 1,
+        Specs = 2,
+        UserReview = 3,
+        Videos = 4,
+        ExpertReview = 5,
+        News = 6,
         Dealers = 7,
         PriceInCity = 8
 
