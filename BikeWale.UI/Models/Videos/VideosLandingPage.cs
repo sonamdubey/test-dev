@@ -57,7 +57,7 @@ namespace Bikewale.Models.Videos
                 BindLandingVideos(objVM);
                 VideosBySubcategory objSubCat = new VideosBySubcategory(_videos);
 
-                if (!Bikewale.Utility.BWConfiguration.Instance.UseAPIGateWay)
+                if (!Bikewale.Utility.BWConfiguration.Instance.UseAPIGateway)
                 {
                     objVM.ExpertReviewsWidgetData = objSubCat.GetData("", "55", _pageNo, ExpertReviewsTopCount);
                     objVM.FirstRideWidgetData = objSubCat.GetData("", "57", _pageNo, FirstRideWidgetTopCount);
