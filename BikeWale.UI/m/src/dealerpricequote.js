@@ -434,6 +434,7 @@ docReady(function () {
         self.monthlyEMI = ko.pureComputed({
             read: function () {
                 var calculatedEMI = $.calculateEMI(self.loan(), self.tenure(), self.rateofinterest(), self.processingFees());
+                if ($("#spnEMIAmount") && $("#spnEMIAmount").length > 0 && calculatedEMI != "0") $("#spnEMIAmount").text(formatPrice(calculatedEMI)); else { $("#spnEMIAmount").parent().addClass("hide"); }
                 return calculatedEMI;
             },
             owner: this
@@ -462,7 +463,7 @@ docReady(function () {
         var price;
         try {
             price = (onRoadPrice * percentage) / 100;
-            price = Math.round(price / 100.0) * 100;
+            price = Math.round(price);
         }
         catch (e) {
         }

@@ -2,11 +2,6 @@
 
 <div class="grid-12">
 
-    @if (Model.IsModelDescriptionAvailable)
-    {
-        @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
-    }
-
     @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
     {
         @Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)

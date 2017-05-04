@@ -23,7 +23,7 @@
                         </div>
                     </div>
 
-                    <div class="padding-top20 padding-right20 padding-bottom10 padding-left20">
+                    <div class="padding-top15 padding-right20 padding-bottom10 padding-left20">
                         <div id="model-right-grid" class="grid-7 alpha omega rightfloat">
 
                             @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs.cshtml", Model)
@@ -33,7 +33,7 @@
 
                                 @if (Model.BikePrice > 0)
                                 {
-                                    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                    <div class="model-price-content padding-top5" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                         <span itemprop="priceCurrency" content="INR">
                                             <span class="bwsprite inr-md-lg margin-right5"></span>
                                         </span>
@@ -48,8 +48,7 @@
                                     if (Model.EMIDetails != null)
                                     {
                                         <div class="font12 margin-top5 position-rel">
-                                            <span class="text-light-grey">EMI starting at</span>
-                                            <span class="text-default"><span class="bwsprite inr-12-default"></span>@Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
+                                            <span class="text-light-grey">EMI starting at</span>&nbsp;<span class="text-default"><span class="bwsprite inr-12-default"></span>@Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
 
                                             <span class="bwsprite emi-info">
                                                 <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">EMI is calculated based on @Model.EMIDetails.RateOfInterest% for a tenure of @Model.EMIDetails.Tenure months</span></span>
@@ -111,6 +110,15 @@
                 </div>
                 <div class="clear"></div>
             }
+
+            @if (Model.IsModelDescriptionAvailable)
+            {
+                <div class="grid-12">
+                    @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
+                </div>
+                <div class="clear"></div>
+            }
+
         </div>
 
         @Html.Partial("~/Views/Model/_Index_DetailsCard.cshtml", Model)

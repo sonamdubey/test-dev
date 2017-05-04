@@ -160,7 +160,7 @@ docReady(function () {
             if (image)
             {
                 $('#colourCarousel a img').attr("src", image.attr("data-original"));
-                $('#colourCarousel a').attr("href", imagePageUrl + '?q=' + Base64.encode('colorImageId=' + colorId + '&retUrl=' + canonical))
+                $('#colourCarousel a').attr("href", imagePageUrl + '?q=' + Base64.encode('colorImageId=' + colorId + '&retUrl=' + canonical));
             }
         }
         colorElements.removeClass('active');

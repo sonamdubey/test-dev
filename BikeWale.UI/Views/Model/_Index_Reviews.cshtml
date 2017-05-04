@@ -20,8 +20,11 @@
 }
 else
 {
+    <div class="rating-box inline-block">
+        <span class="bwsprite star-zero"></span>
+    </div>
     <div class="review-box font14 inline-block">
-        <span class="no-rating text-light-grey">No reviews yet</span>
+        <span class="no-rating text-light-grey">Not rated yet</span>
         <a href="@string.Format("/rate-your-bike/{0}/?pagesourceid={1}", Model.ModelId, Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ModelPage))">Rate this bike</a>
     </div>
 }
