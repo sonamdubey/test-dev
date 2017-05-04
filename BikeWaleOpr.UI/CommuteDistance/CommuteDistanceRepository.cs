@@ -82,7 +82,7 @@ namespace BikewaleOpr.CommuteDistance
                     command.CommandText = "getareasbydealer";
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
-                    command.Parameters.Add(DbFactory.GetDbParam("par_leadservingdistance", DbType.Byte, Convert.ToByte(leadServingDistance)));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_leadservingdistance", DbType.Int16, leadServingDistance));
 
 
                     using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.ReadOnly))
