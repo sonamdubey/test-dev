@@ -3,6 +3,7 @@ using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
@@ -232,6 +233,10 @@ namespace Bikewale.Models
                     {
                         firstVersion = objVM.BikeVersionPrices.FirstOrDefault();
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
+                        if (objVM.IsNew)
+                        {
+                            objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(x=>x.IsVersionNew);
+                        }
                         versionCount = (uint)objVM.BikeVersionPrices.Count();
                         minSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
                         var objMin = minSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);

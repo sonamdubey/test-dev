@@ -45,7 +45,6 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         public PageMetaTags pageMetas = null;
         public uint GridSize;  //show more photos available after grid size more than gridSize
         public bool IsUpcoming = false, IsDiscontinued = false;
-        public bool isModelpage;
         public bool isDesktop;
         private IBikeModels<BikeModelEntity, int> _objModelEntity = null;
         public ModelPhotoGalleryEntity photoGalleryEntity = null;

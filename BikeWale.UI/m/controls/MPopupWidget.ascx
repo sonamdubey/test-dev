@@ -39,8 +39,7 @@
                     <div class="user-input-box">
                         <span class="back-arrow-box">
                             <span class="bwmsprite back-long-arrow-left"></span>
-                            <%--<span class="bwmsprite cross-md-dark-grey"></span>--%>
-                        </span>
+                         </span>
                         <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" autocomplete="off" data-bind="textInput: cityFilter,attr: { value: (SelectedCity() != undefined) ? SelectedCity().name : '' }">
                     </div>
                     <ul id="popupCityList" data-bind="template: { name: 'bindCityList-template', foreach: visibleCities }"></ul>

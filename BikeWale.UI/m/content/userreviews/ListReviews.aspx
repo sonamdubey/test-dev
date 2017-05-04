@@ -45,7 +45,9 @@
                             <span class="font16 text-bold"><%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(objModelEntity.MinPrice)) %></span>
                         </div>
                     </div>
-                    <%if (objRating.OverAllRating > 0 || objRating.ModelRatingLooks > 0 || objRating.FuelEconomyRating > 0 || objRating.PerformanceRating > 0 || objRating.ValueRating > 0 || objRating.ComfortRating > 0)
+                    <% if(objRating != null && objRating.IsReviewAvailable)
+                       { 
+                        if (objRating.OverAllRating > 0 || objRating.ModelRatingLooks > 0 || objRating.FuelEconomyRating > 0 || objRating.PerformanceRating > 0 || objRating.ValueRating > 0 || objRating.ComfortRating > 0)
                       { %>
                     <div class="border-solid rating-box-container display-table">
                         <div class="rating-box overall text-center">
@@ -117,7 +119,8 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <%} %>
+                    <%} 
+                      }%>
                     <div class="margin-top15 margin-bottom5 text-center">
                         <a id="btnRateBike" href="<%=string.Format("/m/rate-your-bike/{0}/?pagesourceid={1}",modelId,Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Listing))%>" class="btn btn-teal font16">Write a review</a>
                     </div>

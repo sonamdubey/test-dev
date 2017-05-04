@@ -5,6 +5,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using System;
+using System.Collections.Specialized;
 using System.Web;
 
 namespace Bikewale.Mobile.New.Photos
@@ -25,13 +26,12 @@ namespace Bikewale.Mobile.New.Photos
         protected bool IsUpcoming { get; set; }
         protected uint modelId;
         protected bool IsDiscontinued { get; set; }
-        protected bool isModelPage;
-        protected bool isTabs;
         protected uint VideoCount, colorImageId = 0;
         protected PQSourceEnum pqSource;
-        protected string bikeUrl = string.Empty, bikeName = string.Empty;
+        protected string bikeUrl = string.Empty, bikeName = string.Empty, returnUrl = string.Empty;
         protected string JSONImageList = string.Empty, JSONVideoList = string.Empty;
         protected uint imageIndex = 0;
+        private string queryString = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -46,33 +46,32 @@ namespace Bikewale.Mobile.New.Photos
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!String.IsNullOrEmpty(Request.QueryString["q"]))
+            {
+                queryString = EncodingDecodingHelper.DecodeFrom64(Request.QueryString["q"]);
+            }
+
+            ProcessQueryStringVariables();
+            BindPhotosPage();
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 27-04-2017
+        /// Description : Function to get query string variables
+        /// </summary>
+        private void ProcessQueryStringVariables()
+        {
             try
             {
-                if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
-                {
-                    isModelPage = true;
-                }
-                if (!String.IsNullOrEmpty(Request.QueryString["colorImageId"]))
-                {
-                    colorImageId = Convert.ToUInt32(Request.QueryString["colorImageId"]);
-                }
-                if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
-                {
-                    imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
-                }
-                if (!String.IsNullOrEmpty(Request.QueryString["tabs"]))
-                {
-                    isTabs = true;
-                }
-
-                BindPhotosPage();
+                NameValueCollection queryCollection = HttpUtility.ParseQueryString(queryString);
+                uint.TryParse(queryCollection["imageindex"], out imageIndex);
+                uint.TryParse(queryCollection["colorImageId"], out colorImageId);
+                returnUrl = queryCollection["retUrl"];
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.Photos.Default : Page_Load");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.Photos : ProcessQueryStringVariables");
             }
-
-
         }
 
         /// <summary>
@@ -95,7 +94,6 @@ namespace Bikewale.Mobile.New.Photos
                 {
                     vmModelPhotos.GridSize = 30;
                     vmModelPhotos.NoOfGrid = 6;
-                    vmModelPhotos.isModelpage = isModelPage;
 
                     vmModelPhotos.GetPhotoGalleryData();
 

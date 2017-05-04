@@ -408,11 +408,11 @@ docReady(function () {
                 reviewTips: self.reviewTips(),
                 ratingArray: savearray
             };
-            bwcache.set('reviewformdata', pageObj, 10);
+            bwcache.set(window.location.search.substring(3, window.location.search.length), pageObj, 10);
         };
 
         self.GetFromBwCache = function () {
-            var obj = bwcache.get('reviewformdata');
+            var obj = bwcache.get(window.location.search.substring(3, window.location.search.length));
             if (obj != null) {
                 self.detailedReview(obj.detailedReview);
                 reviewTitleField.val(obj.reviewTitle);
@@ -483,12 +483,8 @@ docReady(function () {
 
     if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length)
         vmWriteReview.validate.reviewTitle();
-    if (performance.navigation.type == 1) {
-        vmWriteReview.GetFromBwCache();
-    }
-    else {
-        bwcache.removeAll(true);
-    }
+   
+    vmWriteReview.GetFromBwCache();
 
     vmWriteReview.FillReviewData();
 });

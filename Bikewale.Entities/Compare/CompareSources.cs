@@ -22,6 +22,10 @@ namespace Bikewale.Entities.Compare
         Desktop_Scooter_Listing_Compare = 11,
         Mobile_Scooter_Listing_Compare = 12,
         Desktop_Scooter_Landing_Compare = 13,
-        Mobile_Scooter_Landing_Compare = 14
+        Mobile_Scooter_Landing_Compare = 14,
+        Desktop_Make_Similar_Compare_Widget=15,
+        Mobile_Make_Similar_Compare_Widget=16,
+        Mobile_Home_MostPopular_Compare_Widget=17,
+        Mobile_NewBikes_MostPopular_Compare_Widget=18
     }
 }

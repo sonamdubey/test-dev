@@ -43,7 +43,7 @@ namespace BikewaleOpr.DALs.UserReviews
                     param.Add("par_statusid", (ushort)filter.ReviewStatus);
                     param.Add("par_makeid", filter.MakeId > 0 ? filter.MakeId : (uint?)null);
                     param.Add("par_modelid", filter.ModelId > 0 ? filter.ModelId : (uint?)null);
-                    param.Add("par_reviewdate", filter.ReviewDate != default(DateTime) ? filter.ReviewDate : (DateTime?)null);
+                    param.Add("par_reviewdate", filter.ReviewDate != null && filter.ReviewDate != default(DateTime) ? filter.ReviewDate : (DateTime?)null);
 
                     objReviews = connection.Query<ReviewBase>("GetUserReviewsList", param: param, commandType: CommandType.StoredProcedure);
 

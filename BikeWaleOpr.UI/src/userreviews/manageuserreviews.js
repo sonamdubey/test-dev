@@ -1,6 +1,14 @@
-﻿var $dateInput = $('.datepicker').pickadate({
+﻿
+var dateValue = null;
+
+var $dateInput = $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15 // Creates a dropdown of 15 years to control year
+    min : -90,
+    max: true,
+    closeOnSelect: true,
+    onClose: function () { if (dateValue != $("#reviewDateEle").val()) $("#reviewDate").val($("#reviewDateEle").val()); },
+    onOpen: function () { dateValue = $("#reviewDateEle").val() },
+    onSet: function (ele) {if (ele.select) {this.close();}}
 });
 // Use the picker object directly.
 var $dateInput = $dateInput.pickadate('picker')
@@ -57,34 +65,53 @@ var UserReviews = function () {
 
     };
 
-    self.changeStatus = function(d, e)
-    {
+    self.changeStatus = function (d, e) {
         var reviewStatus = $(e.target).val();
-        if(reviewStatus && reviewStatus > 0)
-        {
+        if (reviewStatus && reviewStatus > 0) {
             $("input[type='hidden'][name='ReviewStatus']").val(reviewStatus);
         }
-    }
+    };
 
     self.setPageFilters = function () {
-
+        filtersApplied = false;
         if(userReview)
         {
             self.selectedMakeId(userReview.data("makeid"));
             if(self.selectedMakeId())
             {
                 $('select[name="MakeId"]').val(self.selectedMakeId()).trigger("change").material_select();
+                filtersApplied = true;
             }
             var reviewStatus = userReview.data("reviewstatus");
             if (reviewStatus && reviewStatus > 0)
             {
                 $("input[type='radio'][name='rdoReviewStatus'][value=" + reviewStatus + "]").trigger("click");
                 $("input[type='hidden'][name='ReviewStatus']").val(reviewStatus);
+                filtersApplied = true;
             }
 
-            $dateInput.set('select', new Date(userReview.data("date")));
+            if (userReview.data("date"))
+            {
+                $dateInput.set('select', new Date(userReview.data("date")));
+                filtersApplied = true;
+            }
+            else {
+                $dateInput.clear();
+            }
+           
+            $(document).find('.modal').modal();
 
-                $(document).find('.modal').modal();
+            if(filtersApplied)
+            {
+                var ele = $("#addMakeContainer ul li").first();
+                if (ele)
+                {
+                    ele.addClass("active");
+                    ele.find(".collapsible-header").addClass("active");
+                    ele.find(".collapsible-body").show();
+                }
+               
+            }
             
         }
 
@@ -103,17 +130,15 @@ var UserReviews = function () {
                 {
                     if (response)
                     {
-                        debugger;
                         self.reviewSummary(response);
                         self.reviewTitle(response.title);
                         self.reviewDescription(response.description);
-                        self.reviewTips(response.tips);
-                        Materialize.toast("Successfully fetched details for user review", 5000);
+                        self.reviewTips(response.tips);                       
                     }
                 },
                 complete: function (xhr) {
                     if (xhr.status != 200) {
-                        alert("Failed to load user data");
+                        Materialize.toast("Failed to load user data", 2000);
                     }                    
                 }
             });
@@ -149,16 +174,16 @@ var UserReviews = function () {
                         $("#btnViewDetails_" + vmUserReview.selectedReviewId()).closest("tr").fadeOut();
                         $('#reviewdetails').modal('close');
                         self.selectedReviewId(0);
-                        Materialize.toast("User Review approved successfully", 5000);
+                        Materialize.toast("User Review approved successfully", 2000);
                     }
                     else {
-                        Materialize.toast("User review not approved", 5000);
+                        Materialize.toast("User review not approved", 2000);
                     }
 
                 },
                 complete: function (xhr) {
                     if (xhr.status != 200) {
-                        Materialize.toast("User review not approved",5000);
+                        Materialize.toast("User review not approved",2000);
                     }
                    
                 }
@@ -200,24 +225,26 @@ var UserReviews = function () {
                         self.disapprovalId(0);
                         self.selectedReviewId(0);
                         $("input[name='disapprovalReason']:checked").prop("checked", false);
-                        Materialize.toast("User Review rejected successfully", 5000);
+                        Materialize.toast("User Review rejected successfully", 2000);
                     }
                     else {
-                        Materialize.toast("User review not rejected", 5000);
+                        Materialize.toast("User review not rejected", 2000);
                     }
 
                 },
                 complete: function (xhr) {
                     if (xhr.status != 200) {
-                        Materialize.toast("User review not rejected",5000);
+                        Materialize.toast("User review not rejected",2000);
                     }
                    
                 }
             });
         }
+        else
+        {
+            Materialize.toast("Please select disapproval reason", 2000);
+        }
     };
-
-
 
 };
 

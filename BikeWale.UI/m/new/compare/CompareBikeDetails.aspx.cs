@@ -22,7 +22,8 @@ namespace Bikewale.Mobile.New
         protected BikeCompareEntity vmCompare = null;
         protected bool isSponsoredBike, isUsedBikePresent;
         protected Int64 sponsoredVersionId = 0;
-        protected string comparisionText = string.Empty, targetedModels = string.Empty, featuredBike = string.Empty;
+        protected string templateSummaryTitle = string.Empty, comparisionText = string.Empty, targetedModels = string.Empty, featuredBike = string.Empty,
+            compareSummaryText = string.Empty, baseUrl = string.Empty, bikeQueryString = string.Empty, cityName = string.Empty;
         protected IEnumerable<BikeMakeEntityBase> objMakes = null;
         public SimilarCompareBikes ctrlSimilarBikes;
 
@@ -49,12 +50,15 @@ namespace Bikewale.Mobile.New
         /// </summary>
         private void BindCompareBikes()
         {
-            CompareBikesDetails objCompare = null;
+            CompareBikesDetails objCompare = new CompareBikesDetails();
+
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
             try
             {
-                objCompare = new CompareBikesDetails();
                 objCompare.maxComparisions = 2;
-
+                objCompare.originalUrl = originalUrl;
                 if (objCompare.ProcessQueryString() && !objCompare.isPermanentRedirect && !objCompare.isPageNotFound && !objCompare.isCompareLandingRedirection)
                 {
                     objCompare.GetComparedBikeDetails();
@@ -67,7 +71,9 @@ namespace Bikewale.Mobile.New
                     isUsedBikePresent = objCompare.isUsedBikePresent;
                     targetedModels = objCompare.TargetedModels;
                     featuredBike = objCompare.FeaturedBikeLink;
-                    BindPageWidgets(objCompare.versionsList);
+                    BindPageWidgets(objCompare.versionsList, objCompare.CityId);
+                    compareSummaryText = objCompare.summaryText;
+                    templateSummaryTitle = objCompare.TemplateSummaryTitle;
                 }
             }
             catch (Exception ex)
@@ -101,15 +107,14 @@ namespace Bikewale.Mobile.New
         /// Description : Bind page related widgets
         /// </summary>
         /// <param name="versions"></param>
-        private void BindPageWidgets(string versions)
+        private void BindPageWidgets(string versions, int cityId)
         {
             if (ctrlSimilarBikes != null)
             {
-                ctrlSimilarBikes.TopCount = 4;
+                ctrlSimilarBikes.TopCount = 8;
+                ctrlSimilarBikes.CityId = cityId;
                 ctrlSimilarBikes.versionsList = versions;
             }
-
         }
-
     }   //End of Class
 }   //End of namespace

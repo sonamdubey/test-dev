@@ -3,6 +3,7 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/write-review.css' />";
     Model.Page_JS_Path = "/m/src/user-review/write-review.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/rate-your-bike/{0}/", Model.Model.ModelId);
 }
 
 @if (Model != null && Model.Make != null && Model.Model != null && Model.Rating != null)

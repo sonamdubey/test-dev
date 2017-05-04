@@ -442,7 +442,7 @@ $.calculateEMI = function (loanAmount, tenure, rateOfInterest) {
     try {
         interest = (loanAmount * tenure * rateOfInterest) / (12 * 100);
         totalRepay = loanAmount + interest;
-        finalEmi = Math.ceil((totalRepay / tenure));
+        finalEmi = Math.round((totalRepay / tenure));
     }
     catch (e) {
        // console.log(e.message);
@@ -454,7 +454,7 @@ $.LoanAmount = function (onRoadPrice, percentage) {
     var price;
     try {
         price = (onRoadPrice * percentage) / 100;
-        price = Math.ceil(price / 100.0) * 100;
+        price = Math.round(price);
     }
     catch (e) {
         //console.log(e.message);

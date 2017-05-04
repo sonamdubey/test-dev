@@ -42,6 +42,8 @@ namespace Bikewale.BindViewModels.Controls
         /// Summary :- Review list other than reviewid current review
         /// Modified By:- subodh Jain 30 Jan 2017
         /// Summary :- Added Fetch Count check for repeater binding
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   Replaced Count with Count() linq function
         /// </summary>
         /// <param name="rptUserReviews"></param>
         public void BindUserReview(Repeater rptUserReviews)
@@ -61,10 +63,10 @@ namespace Bikewale.BindViewModels.Controls
                     uint recCount = Convert.ToUInt16(RecordCount);
                     ReviewListBase reviews = objVersion.GetBikeReviewsList((uint)stratIndex, (uint)endIndex, (uint)ModelId, 0, Filter);
 
-                    if (reviews != null && reviews.ReviewList != null && reviews.ReviewList.Count > 0)
+                    if (reviews != null && reviews.ReviewList != null && reviews.ReviewList.Count() > 0)
                     {
-                        reviews.ReviewList = reviews.ReviewList.Where(x => x.ReviewId != ReviewId).ToList();
-                        FetchedRecordsCount = reviews.ReviewList.Count;
+                        reviews.ReviewList = reviews.ReviewList.Where(x => x.ReviewId != ReviewId);
+                        FetchedRecordsCount = reviews.ReviewList.Count();
                         if (FetchedRecordsCount > 0)
                         {
                             MakeMaskingName = reviews.ReviewList.FirstOrDefault().MakeMaskingName;

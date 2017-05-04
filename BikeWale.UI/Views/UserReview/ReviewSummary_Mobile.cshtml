@@ -67,7 +67,7 @@
                     @if (!string.IsNullOrEmpty(Model.Summary.Description))
                     {
                     <div class="grid-12 alpha omega">
-                        <a class="btn btn-orange btn-full-width" href="@Model.PrevPageUrl">Done</a>
+                        <a class="btn btn-orange btn-full-width" href="@string.Format("/m{0}",Model.PrevPageUrl)">Done</a>
                     </div>
                     }
                     else
@@ -76,7 +76,7 @@
                         <a class="btn btn-white btn-full-width" href="@string.Format("/m{0}",Model.WriteReviewLink)">Write a review</a>
                     </div>
                     <div class="grid-6 alpha omega">
-                        <a class="btn btn-orange btn-full-width" href="@Model.PrevPageUrl">Done</a>
+                        <a class="btn btn-orange btn-full-width" href="@string.Format("/m{0}",Model.PrevPageUrl)">Done</a>
                     </div>
                     }
                     <div class="clear"></div>
@@ -99,6 +99,7 @@
                 <ul class="user-rated-list padding-bottom5 opacity-active">
                     @foreach (var question in Model.Summary.Questions)
                         {
+                        
                             var objRating = question.Rating.First(x => x.Value == question.SelectedRatingId.ToString()); int ratingValue = Convert.ToInt32(objRating.Value);
                             if (question.DisplayType.Equals(Bikewale.Entities.UserReviews.UserReviewQuestionDisplayType.Star))
                             {
@@ -152,7 +153,7 @@
             </div>
         </div>
     </section>
-    <span id="pageSource" class="hide">@Model.PrevPageUrl</span>
+    <input id="pageSource" type="hidden" value="@Model.PrevPageUrl" />
     <div id="review-summary-page"></div>
 }
 <script type="text/javascript">
@@ -163,7 +164,7 @@
                 oldUrl = e.originalEvent.oldURL;
                 if (oldUrl && (oldUrl.indexOf('#') > 0)) {
                     if (prevPage && prevPage.length)
-                        window.location.href = prevPage.text();
+                        window.location.href = prevPage.val();
                 }
             });
         };

@@ -1,15 +1,17 @@
 ﻿<script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/Plugins.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/common.js?<%= staticFileVersion %>"></script>
-<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js">
+<script defer type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js">
 </script>
 <script type="text/javascript">
-    /* <![CDATA[ */
-    window.google_trackConversion({
-        google_conversion_id: 998187973,
-        google_custom_params: window.google_tag_params,
-        google_remarketing_only: true
+    docReady(function () {
+        try {
+            /* <![CDATA[ */
+            window.google_trackConversion({ google_conversion_id: 998187973, google_custom_params: window.google_tag_params, google_remarketing_only: !0 });
+            //]]>
+        } catch (e) {
+            console.warn(e.message);
+        }
     });
-    //]]>
 </script>
 <noscript>
     <div style="display: inline;">
