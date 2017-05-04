@@ -365,7 +365,7 @@
                                         <li>
                                             <a href="<%=Bikewale.Utility.UrlFormatter.DealerLocatorUrl(bikeInfo.Make.MaskingName, CityDetails != null ? CityDetails.CityMaskingName : "india") %>" title="<%= bikeName %> Specification">
                                                 <span class="bwsprite specs-sm"></span>
-                                                <span class="icon-label">Videos</span>
+                                                <span class="icon-label">DealersCount</span>
                                             </a>
                                         </li>
                                         <%} %>
