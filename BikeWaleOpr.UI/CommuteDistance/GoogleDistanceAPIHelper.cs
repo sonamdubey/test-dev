@@ -108,15 +108,19 @@ namespace BikewaleOpr.CommuteDistance
                             new List<GeoLocationDestinationEntity>();
                         for (int index = 0; index < resultCount; index++)
                         {
-                            lstLinqGeoLocationDestination.Add(
-                               new GeoLocationDestinationEntity()
-                               {
-                                   StrDistance = Convert.ToString(resp["rows"][0]["elements"][index]["distance"]["value"]),
-                                   Source = source,
-                                   Id = destinations.ElementAt(index).Id,
-                                   Latitude = destinations.ElementAt(index).Latitude,
-                                   Longitude = destinations.ElementAt(index).Longitude
-                               });
+                            if (Convert.ToString(resp["rows"][0]["elements"][index]["status"]) == "OK")
+                            {
+                                lstLinqGeoLocationDestination.Add(
+                                                               new GeoLocationDestinationEntity()
+                                                               {
+                                                                   StrDistance = Convert.ToString(resp["rows"][0]["elements"][index]["distance"]["value"]),
+                                                                   Source = source,
+                                                                   Id = destinations.ElementAt(index).Id,
+                                                                   Latitude = destinations.ElementAt(index).Latitude,
+                                                                   Longitude = destinations.ElementAt(index).Longitude
+                                                               });
+                            }
+
                         }
                     }
                     else
