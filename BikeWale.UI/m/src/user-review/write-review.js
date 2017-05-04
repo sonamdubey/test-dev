@@ -368,6 +368,7 @@ docReady(function () {
             else {
                 self.detailedReviewFlag(false);
                 validate.hideError(reviewTitleField);
+                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + self.detailedReviewFlag() + '_' + pageSourceID + '_' + self.detailedReview().trim().length);
                 return true;
             }
         };
