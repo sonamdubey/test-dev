@@ -261,7 +261,7 @@
                                               count++; %>
                                         <li>
                                             <a href="/m<%=  Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName) %>" title="<%=bikeName %> Specification">
-                                                <span class="bwmsprite specs-sm"></span>
+                                                <span class="bwmsprite videos-sm"></span>
                                                 <span class="icon-label">Videos</span>
                                             </a>
                                         </li>
@@ -271,8 +271,8 @@
                                               count++; %>
                                         <li>
                                             <a href="/m<%=Bikewale.Utility.UrlFormatter.DealerLocatorUrl(bikeInfo.Make.MaskingName, CityDetails != null ? CityDetails.CityMaskingName : "india") %>" title="<%= bikeName %> Specification">
-                                                <span class="bwsprite dealers-sm"></span>
-                                                <span class="icon-label">DealersCount</span>
+                                                <span class="bwmsprite dealers-sm"></span>
+                                                <span class="icon-label">Dealers</span>
                                             </a>
                                         </li>
                                         <%} %>
@@ -281,7 +281,7 @@
                                               count++; %>
                                         <li>
                                             <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Expert reviews">
-                                                <span class="bwsprite reviews-sm"></span>
+                                                <span class="bwmsprite reviews-sm"></span>
                                                 <span class="icon-label">Expert reviews</span>
                                             </a>
                                         </li>
@@ -291,7 +291,7 @@
                                               count++;  %>
                                         <li>
                                             <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatNewsUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> News">
-                                                <span class="bwsprite news-sm"></span>
+                                                <span class="bwmsprite news-sm"></span>
                                                 <span class="icon-label">News</span>
                                             </a>
                                         </li>
