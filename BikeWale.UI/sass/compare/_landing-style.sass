@@ -1,0 +1,135 @@
+﻿.text-slate-grey
+	color: #787878
+
+.text-bold
+	font-weight: 600
+
+.compare-banner
+	background: #89a3b7 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/new-launches-banner.jpg) no-repeat center
+	background-size: cover
+	height: 268px
+	padding-top: 1px
+
+#banner-text-box
+	.welcome-box
+		margin-top: 85px
+
+.negative-50
+	margin-top: -50px
+
+// comparison tests
+.model-preview-image-container
+	max-width: 292px
+	height: 164px
+	display: table
+	text-align: center
+	border: 1px solid #e2e2e2
+
+	a
+		width: 292px
+		height: 164px
+		display: block
+		background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center no-repeat
+
+		img
+			height: 164px
+
+.article-list
+	.article-target-link
+		margin-bottom: 8px
+		line-height: 1.5
+
+	.line-height17
+		line-height: 1.7
+
+// compare box list
+$box-width: 209px
+$box-height: 215px
+
+.compare-box-list
+	.item-box
+		width: $box-width
+		min-height: $box-height
+		margin-left: 33px
+		display: inline-block
+		vertical-align: top
+		margin-right: -4px
+
+		&:first-child
+			margin-left: 0
+
+	.box-placeholder
+		width: 100%
+		min-height: $box-height
+		background: #f5f5f5
+		display: table
+		text-align: center
+		cursor: pointer
+
+		.box-label
+			font-size: 14px
+			color: #787878
+			display: table-cell
+			vertical-align: middle
+
+	.cur-disabled
+		.box-placeholder
+			cursor: not-allowed
+			pointer-events: none
+
+		.box-label
+			opacity: 0.5
+
+.bike-selection-box
+	padding: 35px 15px 0
+	background: #f5f5f5
+
+.selected-bike
+	position: relative
+
+	.cross-md-dark-grey
+		position: absolute
+		right: 0
+		top: -5px
+		cursor: pointer
+
+	.model-image
+		width: 189px
+		height: 106px
+		margin-bottom: 10px
+
+
+.select-box
+	&.select-box-size-13
+		height: 60px
+
+		.chosen-container
+			width: 100% !important
+			height: 25px
+
+			.chosen-single
+				font-size: 13px
+				color: $text-primary
+
+			.chosen-drop
+				position: absolute
+				width: 210px
+				top: -18px
+				display: none
+
+			.no-input-label
+				font-size: 14px
+
+			.chosen-results
+				max-height: 165px
+
+		.chosen-container-active
+			.chosen-drop
+				display: block
+
+.add-icon
+	width: 32px
+	height: 32px
+	display: inline-block
+	margin-bottom: 10px
+	background: url('http://imgd.aeplcdn.com/0x0/bw/static/sprites/d/plus-filled.png') no-repeat
