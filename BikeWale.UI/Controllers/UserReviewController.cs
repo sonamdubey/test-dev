@@ -32,6 +32,20 @@ namespace Bikewale.Controllers
 
         }
 
+        [Route("m/user-reviews/model/")]
+        public ActionResult ListReviews_Mobile()
+        {
+            ModelBase m = new ModelBase();
+            return View(m);
+        }
+
+        [Route("m/user-reviews/details/")]
+        public ActionResult ReviewDetails_Mobile()
+        {
+            ModelBase m = new ModelBase();
+            return View(m);
+        }
+
         /// <summary>
         /// Created by Subodh Jain on 10-04-2017
         /// Description : This action will fetch rate bike page.
