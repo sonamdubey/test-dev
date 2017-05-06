@@ -14,7 +14,7 @@
                                     <h3 class="font12 text-black text-center margin-bottom10">@string.Format("{0} vs {1}", bikedetails.Model1, bikedetails.Model2)</h3>
                                     <div class="grid-6">
                                         <div class="model-img-content">
-                                            <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath1, bikedetails.HostUrl1, Bikewale.Utility.ImageSize._144x81)" alt="@bike1" title="@bike1" src="" />
+                                            <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath1, bikedetails.HostUrl1, Bikewale.Utility.ImageSize._144x81,Bikewale.Utility.QualityFactor._60)" alt="@bike1" title="@bike1" src="" />
                                             <span class="swiper-lazy-preloader"></span>
                                         </div>
                                         @if (!string.IsNullOrEmpty(bikedetails.City1))
@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="grid-6">
                                         <div class="model-img-content">
-                                            <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath2, bikedetails.HostUrl2, Bikewale.Utility.ImageSize._144x81)" alt="@bike2" title="@bike2" src="" />
+                                            <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath2, bikedetails.HostUrl2, Bikewale.Utility.ImageSize._144x81, Bikewale.Utility.QualityFactor._60)" alt="@bike2" title="@bike2" src="" />
                                             <span class="swiper-lazy-preloader"></span>
                                         </div>
                                         @if (!string.IsNullOrEmpty(bikedetails.City2))
