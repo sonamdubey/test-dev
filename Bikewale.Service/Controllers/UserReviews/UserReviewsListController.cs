@@ -1,6 +1,5 @@
 ﻿using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
-using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UserReviews;
@@ -75,11 +74,11 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// To get all reviewed Bikes List
         /// </summary>
         /// <returns></returns>
-        [ResponseType(typeof(SearchResult))]
-        public IHttpActionResult Get(InputFilters filters)
+        [ResponseType(typeof(Bikewale.Entities.UserReviews.Search.SearchResult))]
+        public IHttpActionResult Get(Bikewale.Entities.UserReviews.Search.InputFilters filters)
         {
-            SearchResult objUserReviews = null;
-            IEnumerable<Review> objDTOUserReview = null;
+            Bikewale.Entities.UserReviews.Search.SearchResult objUserReviews = null;
+            Bikewale.DTO.UserReviews.Search.SearchResult objDTOUserReview = null;
             try
             {
                 if (filters != null && (!String.IsNullOrEmpty(filters.Model) || !String.IsNullOrEmpty(filters.Make)))
@@ -88,9 +87,9 @@ namespace Bikewale.Service.Controllers.UserReviews
                     if (objUserReviews != null)
                     {
 
-                        //objDTOUserReview = UserReviewsMapper.Convert(objUserReviews);
+                        objDTOUserReview = UserReviewsMapper.Convert(objUserReviews);
 
-                        return Ok(objUserReviews);
+                        return Ok(objDTOUserReview);
                     }
                 }
                 else
