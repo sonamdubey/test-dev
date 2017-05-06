@@ -1165,7 +1165,6 @@ namespace Bikewale.DAL.UserReviews
                             while (dr.Read())
                             {
                                 ReviewEntity objUserReview = new ReviewEntity();
-
                                 objUserReview.ReviewId = SqlReaderConvertor.ToUInt32(dr["ReviewId"]);
                                 objUserReview.ReviewTitle = Convert.ToString(dr["ReviewTitle"]);
                                 objUserReview.WrittenBy = Convert.ToString(dr["WrittenBy"]);
@@ -1243,14 +1242,14 @@ namespace Bikewale.DAL.UserReviews
                                     MaskingName = Convert.ToString(dr["modelmasking"]),
                                     ModelName = Convert.ToString(dr["modelName"])
                                 },
-                                OriginalImgPath = Convert.ToString(dr["OriginalImgPath"]),
+                                OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                 HostUrl = Convert.ToString(dr["hostUrl"]),
-                                TotalReviews = SqlReaderConvertor.ToUInt32(dr["TotalReviews"]),
-                                MostHelpfulReviews = SqlReaderConvertor.ToUInt32(dr["MostHelpfulReviews"]),
-                                MostRecentReviews = SqlReaderConvertor.ToUInt32(dr["MostRecentReviews"]),
-                                PostiveReviews = SqlReaderConvertor.ToUInt32(dr["PostiveReviews"]),
-                                NegativeReviews = SqlReaderConvertor.ToUInt32(dr["NegativeReviews"]),
-                                NeutralReviews = SqlReaderConvertor.ToUInt32(dr["NeutralReviews"]),
+                                TotalReviews = SqlReaderConvertor.ToUInt32(dr["totalreviews"]),
+                                MostHelpfulReviews = SqlReaderConvertor.ToUInt32(dr["totalreviews"]),
+                                MostRecentReviews = SqlReaderConvertor.ToUInt32(dr["totalreviews"]),
+                                PostiveReviews = SqlReaderConvertor.ToUInt32(dr["postivereviews"]),
+                                NegativeReviews = SqlReaderConvertor.ToUInt32(dr["negativereviews"]),
+                                NeutralReviews = SqlReaderConvertor.ToUInt32(dr["neutralreviews"]),
                             };
                         }
 
