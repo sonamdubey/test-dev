@@ -338,8 +338,11 @@
     <Compile Include="Used\UsedBikeSellerBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />
+    <Compile Include="UserReviews\BikeReviewsInfo.cs" />
     <Compile Include="UserReviews\BikeUserReviewRating.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
+    <Compile Include="UserReviews\InputFilters.cs" />
+    <Compile Include="UserReviews\ProcessedInputFilters.cs" />
     <Compile Include="UserReviews\ReviewDetailsEntity.cs" />
     <Compile Include="UserReviews\ReviewEntity.cs" />
     <Compile Include="UserReviews\ReviewEntityBase.cs" />
@@ -348,6 +351,7 @@
     <Compile Include="UserReviews\ReviewRatingEntityBase.cs" />
     <Compile Include="UserReviews\ReviewsListEntity.cs" />
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
+    <Compile Include="UserReviews\SearchResult.cs" />
     <Compile Include="UserReviews\UserReviewOverallRating.cs" />
     <Compile Include="UserReviews\UserReviewPageSourceEnum.cs" />
     <Compile Include="UserReviews\UserReviewPriceRange.cs" />

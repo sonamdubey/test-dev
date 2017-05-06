@@ -1,6 +1,8 @@
 ﻿using Bikewale.Entities.UserReviews;
+using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Notifications;
 using System;
 
@@ -15,16 +17,18 @@ namespace Bikewale.Cache.UserReviews
     {
         private readonly ICacheManager _cache;
         private readonly IUserReviewsRepository _objUserReviews;
+        private readonly IUserReviewsSearch _objUserReviewSearch;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="objUserReviews"></param>
-        public UserReviewsCacheRepository(ICacheManager cache, IUserReviewsRepository objUserReviews)
+        public UserReviewsCacheRepository(ICacheManager cache, IUserReviewsRepository objUserReviews, IUserReviewsSearch objUserReviewSearch)
         {
             _cache = cache;
             _objUserReviews = objUserReviews;
+            _objUserReviewSearch = objUserReviewSearch;
         }
 
         /// <summary>
@@ -46,7 +50,6 @@ namespace Bikewale.Cache.UserReviews
             try
             {
                 reviews = _cache.GetFromCache<ReviewListBase>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter));
-                //reviews = _cache.GetFromCache<IEnumerable<ReviewEntity>>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalReviews));
             }
             catch (Exception ex)
             {
@@ -88,6 +91,42 @@ namespace Bikewale.Cache.UserReviews
             try
             {
                 reviews = _cache.GetFromCache<ReviewListBase>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetUserReviews());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsData");
+            }
+            return reviews;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inputFilters"></param>
+        /// <returns></returns>
+        public SearchResult GetUserReviewsList(InputFilters inputFilters)
+        {
+            SearchResult reviews = null;
+            string key = "BW_UserReviews_";
+            try
+            {
+                reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan(24, 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsData");
+            }
+            return reviews;
+        }
+
+
+        public BikeReviewsInfo GetBikeuserReviewsInfo(uint modelId)
+        {
+            BikeReviewsInfo reviews = null;
+            string key = "BW_BikeReviewsInfo_" + modelId;
+            try
+            {
+                reviews = _cache.GetFromCache<BikeReviewsInfo>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetBikeuserReviewsInfo(modelId));
             }
             catch (Exception ex)
             {

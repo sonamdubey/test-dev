@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.UserReviews;
+using Bikewale.Entities.UserReviews.Search;
 
 namespace Bikewale.Interfaces.UserReviews
 {
@@ -11,5 +12,7 @@ namespace Bikewale.Interfaces.UserReviews
         ReviewListBase GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter);
         UserReviewsData GetUserReviewsData();
         ReviewListBase GetUserReviews();
+        SearchResult GetUserReviewsList(InputFilters inputFilters);
+        BikeReviewsInfo GetBikeuserReviewsInfo(uint modelId);
     }
 }

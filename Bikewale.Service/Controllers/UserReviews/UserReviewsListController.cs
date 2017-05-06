@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UserReviews;
@@ -31,31 +32,72 @@ namespace Bikewale.Service.Controllers.UserReviews
             _userReviews = userReviews;
         }
 
-        #region Get Reviewed Bike List
+        //#region Get Reviewed Bike List
+        ///// <summary>
+        ///// To get all reviewed Bikes List
+        ///// </summary>
+        ///// <returns></returns>
+        //[ResponseType(typeof(IEnumerable<ReviewTaggedBike>))]
+        //public IHttpActionResult Get()
+        //{
+        //    List<ReviewTaggedBikeEntity> objUserReview = null;
+        //    List<ReviewTaggedBike> objDTOUserReview = null;
+        //    try
+        //    {
+        //        objUserReview = _userReviewsRepo.GetReviewedBikesList();
+
+        //        if (objUserReview != null)
+        //        {
+        //            // Auto map the properties
+        //            objDTOUserReview = new List<ReviewTaggedBike>();
+        //            objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
+
+        //            objUserReview.Clear();
+        //            objUserReview = null;
+
+        //            return Ok(objDTOUserReview);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
+        //        objErr.SendMail();
+        //        return InternalServerError();
+        //    }
+
+        //    return NotFound();
+        //}   // Get 
+        //#endregion
+
+
+        #region Get UserReviews List - New
         /// <summary>
         /// To get all reviewed Bikes List
         /// </summary>
         /// <returns></returns>
-        [ResponseType(typeof(IEnumerable<ReviewTaggedBike>))]
-        public IHttpActionResult Get()
+        [ResponseType(typeof(SearchResult))]
+        public IHttpActionResult Get(InputFilters filters)
         {
-            List<ReviewTaggedBikeEntity> objUserReview = null;
-            List<ReviewTaggedBike> objDTOUserReview = null;
+            SearchResult objUserReviews = null;
+            IEnumerable<Review> objDTOUserReview = null;
             try
             {
-                objUserReview = _userReviewsRepo.GetReviewedBikesList();
-
-                if (objUserReview != null)
+                if (filters != null && (!String.IsNullOrEmpty(filters.Model) || !String.IsNullOrEmpty(filters.Make)))
                 {
-                    // Auto map the properties
-                    objDTOUserReview = new List<ReviewTaggedBike>();
-                    objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
+                    objUserReviews = _userReviewsCacheRepo.GetUserReviewsList(filters);
+                    if (objUserReviews != null)
+                    {
 
-                    objUserReview.Clear();
-                    objUserReview = null;
+                        //objDTOUserReview = UserReviewsMapper.Convert(objUserReviews);
 
-                    return Ok(objDTOUserReview);
+                        return Ok(objUserReviews);
+                    }
                 }
+                else
+                {
+                    return BadRequest();
+                }
+               
             }
             catch (Exception ex)
             {
@@ -67,6 +109,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             return NotFound();
         }   // Get 
         #endregion
+
 
         #region Get Most Reviewed Bike List
         /// <summary>
@@ -148,5 +191,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             return NotFound();
         }   // Get 
         #endregion
+
+
     }
 }

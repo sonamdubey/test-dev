@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.UserReviews;
+using Bikewale.Entities.UserReviews.Search;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.UserReviews
@@ -28,5 +29,7 @@ namespace Bikewale.Interfaces.UserReviews
         UserReviewSummary GetUserReviewSummary(uint reviewId);
         bool IsUserVerified(uint reviewId, ulong customerId);
         ReviewListBase GetUserReviews();
+        SearchResult GetUserReviewsList(string searchQuery);
+        BikeReviewsInfo GetBikeuserReviewsInfo(uint modelId);
     }   // class
 }   // namespace
