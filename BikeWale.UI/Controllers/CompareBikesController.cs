@@ -16,5 +16,13 @@ namespace Bikewale.Controllers
             ModelBase m = new ModelBase();
             return View(m);
         }
+
+        // GET: CompareBikes Details
+        [Route("compare/details/")]
+        public ActionResult CompareBikeDetails()
+        {
+            ModelBase m = new ModelBase();
+            return View(m);
+        }
     }
 }

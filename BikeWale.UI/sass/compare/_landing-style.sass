@@ -4,6 +4,9 @@
 .text-bold
 	font-weight: 600
 
+.font15
+	font-size: 15px
+
 .compare-banner
 	background: #89a3b7 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/new-launches-banner.jpg) no-repeat center
 	background-size: cover
@@ -44,12 +47,13 @@
 
 // compare box list
 $box-width: 209px
-$box-height: 215px
+$box-default-height: 215px
+$bike-box-height: 275px
 
 .compare-box-list
-	.item-box
+	.list-item
 		width: $box-width
-		min-height: $box-height
+		height: $box-default-height
 		margin-left: 33px
 		display: inline-block
 		vertical-align: top
@@ -60,9 +64,10 @@ $box-height: 215px
 
 	.box-placeholder
 		width: 100%
-		min-height: $box-height
+		height: $box-default-height
 		background: #f5f5f5
 		display: table
+		table-layout: fixed
 		text-align: center
 		cursor: pointer
 
@@ -81,11 +86,21 @@ $box-height: 215px
 			opacity: 0.5
 
 .bike-selection-box
+	height: $box-default-height
 	padding: 35px 15px 0
 	background: #f5f5f5
 
+// bike selection
+.compare-box-list
+	&.selection-start
+		.list-item,
+		.box-placeholder,
+		.bike-selection-box
+			height: $bike-box-height
+
 .selected-bike
 	position: relative
+	margin-bottom: 5px
 
 	.cross-md-dark-grey
 		position: absolute
@@ -97,7 +112,6 @@ $box-height: 215px
 		width: 189px
 		height: 106px
 		margin-bottom: 10px
-
 
 .select-box
 	&.select-box-size-13
@@ -127,9 +141,49 @@ $box-height: 215px
 			.chosen-drop
 				display: block
 
+@include button-size(160, 36, 14) // width, padding, font-size
+
+@mixin compare-vs-icon()
+	content: ''
+	position: absolute
+	width: 32px
+	height: 32px
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/vs-icon-32.png) no-repeat
+
+// vs icon
+.compare-box-list
+	&[data-selection-count="1"]
+		li:nth-child(2)
+			.selected-bike
+				&:after
+					left: -44px
+
+	li:last-child
+		.selected-bike
+			&:after
+				display: none
+
+.selected-bike
+	&:after
+		@include compare-vs-icon()
+		top: 50%
+		right: -24px
+
 .add-icon
 	width: 32px
 	height: 32px
 	display: inline-block
 	margin-bottom: 10px
-	background: url('http://imgd.aeplcdn.com/0x0/bw/static/sprites/d/plus-filled.png') no-repeat
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/plus-filled.png') no-repeat
+
+// tabs
+.bw-tabs-flex
+	ul
+		margin-bottom: 20px
+
+	li
+		color: $text-light
+
+		&.active,
+		&:hover
+			color: $text-primary

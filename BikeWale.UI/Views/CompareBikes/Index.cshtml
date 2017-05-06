@@ -20,105 +20,35 @@
         <div id="bike-comparison-box" class="grid-12">
             <div class="content-box-shadow negative-50 content-inner-block-20">
                 <ul class="compare-box-list" data-selection-count="0">
-                    <li class="item-box">
+                    <li class="list-item">
                         <div class="box-placeholder">
                             <span class="box-label"><span class="add-icon"></span><br />Add bike&nbsp;<span class="label-count">1</span></span>
                         </div>
-                        @*<div class="selected-bike">
-                            <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
-                            <p class="font12 text-black">Honda</p>
-                            <h2 class="font15 margin-bottom10">CB Shine</h2>
-                            <img src="https://imgd.aeplcdn.com/227x128/bw/models/honda-shine.jpg" alt="Honda CB Shine" class="model-image" />
-                            <p class="font14 text-light-grey margin-bottom5">Version</p>
-                            <p class="font14 text-bold margin-bottom10">Standard</p>
-                            <p class="font14 text-light-grey margin-bottom5">Ex-showroom price, Pune</p>
-                            <span class="bwsprite inr-lg"></span>
-                            <span class="font18 text-bold">1,25,000</span>
-                        </div>*@
                     </li>
-                    <li class="item-box">
+                    <li class="list-item">
                         <div class="box-placeholder">
                             <span class="box-label"><span class="add-icon"></span><br />Add bike&nbsp;<span class="label-count">2</span></span>
                         </div>
                     </li>
-                    <li class="item-box cur-disabled">
+                    <li class="list-item cur-disabled">
                         <div class="box-placeholder">
                             <span class="box-label"><span class="add-icon"></span><br />Add bike&nbsp;<span class="label-count">3</span></span>
                         </div>
                     </li>
-                    <li class="item-box cur-disabled">
+                    <li class="list-item cur-disabled">
                         <div class="box-placeholder">
                             <span class="box-label"><span class="add-icon"></span><br />Add bike&nbsp;<span class="label-count">4</span></span>
                         </div>
-                        <!--<div class="bike-selection-box">
-                            <div class="select-box select-box-size-13">
-                                <p class="select-label">Brand</p>
-                                <select class="chosen-select" data-title="Select brand">
-                                    <option></option>
-                                    <option value="1">Aprilia</option>
-                                    <option value="2">Bajaj</option>
-                                    <option value="3">Benelli</option>
-                                    <option value="4">BMW</option>
-                                    <option value="5">Ducati</option>
-                                    <option value="6">Harley Davidson</option>
-                                    <option value="7">Hero</option>
-                                    <option value="8">Hero Electric</option>
-                                    <option value="9">Hero Honda</option>
-                                    <option value="10">Honda</option>
-                                </select>
-                            </div>
-                            <div class="select-box select-box-no-input select-box-size-13">
-                                <p class="select-label">Model</p>
-                                <select class="chosen-select" data-title="Select model">
-                                    <option></option>
-                                    <option value="1">Avenger</option>
-                                    <option value="2">Avenger 150 Street</option>
-                                    <option value="3">Avenger 220 Cruise</option>
-                                    <option value="4">Avenger 220 Street</option>
-                                    <option value="5">Boxer</option>
-                                    <option value="6">Discover 125</option>
-                                    <option value="7">Dominar 400</option>
-                                </select>
-                            </div>
-                            <div class="select-box select-box-no-input select-box-size-13">
-                                <p class="select-label">Version</p>
-                                <select class="chosen-select" data-title="Select version">
-                                    <option></option>
-                                    <option value="1">Standard</option>
-                                    <option value="2">ABS</option>
-                                </select>
-                            </div>
-                        </div>-->
-                        <!--<div data-bind="template: { name: 'selected-bike-template', data: modelData }"></div>-->
                     </li>
                 </ul>
-                <div class="compare-now-btn text-center margin-top20 hide">
-                    <a href="" class="btn btn-orange">Compare now</a>
+                <div class="compare-now-btn text-center margin-top15 hide">
+                    <a href="" class="btn btn-orange btn-160-36">Compare now</a>
                 </div>
             </div>
         </div>
         <div class="clear"></div>
     </div>
 </section>
-
-<!--<script type="text/html" id="bike-selection-template">
-    <div class="bike-selection-box">
-        <div class="select-box select-box-size-13">
-            <p class="select-label">Brand</p>
-            <select data-bind="options: makeArrayObj, optionsText: 'makeName', optionsValue: 'makeId'"></select>
-        </div>
-    </div>
-</script>-->
-
-<!--<div class="select-box select-box-size-13">
-    <p class="select-label">Model</p>
-    <select class="chosen-select" data-placeholder="Select model" data-bind="options: modelArray(), chosen: { width: '100%' }, value: model, optionsText: 'modelName', optionsValue: 'modelId', event: { change: modelChanged }" disabled></select>
-</div>
-<div class="select-box select-box-size-13">
-    <p class="select-label">Version</p>
-    <select class="chosen-select" data-placeholder="Select version">
-    </select>
-</div>-->
 
 <script type="text/html" id="bike-template">
     <div class="selected-bike">
@@ -142,6 +72,393 @@
                 <p class="main-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque semper sem id elit volutpat, eget lobortis neque auctor. Nunc auctor quam in ipsum euismod porta. Integer lobortis cursus ultricies. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque semper sem id elit volutpat, eget lobortis neque auctor. Nunc auctor quam in ipsum euismod porta. Integer lobortis cursus ultricies</p>
                 <p class="more-content">Vivamus sit amet ultricies justo. Integer in leo dapibus, tincidunt libero eu, euismod leo. Suspendisse pellentesque risus dolor</p>
                 <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="grid-12">
+            <h2 class="section-heading">Popular comparisons</h2>
+            <div class="bw-tabs-panel content-box-shadow">
+                <div class="bw-tabs bw-tabs-flex font18">
+                    <ul>
+                        <li class="active" data-tabs="compareTypeBike">Bikes</li>
+                        <li data-tabs="compareTypeScooter">Scooters</li>
+                        <li data-tabs="compareTypeCruiser">Cruisers</li>
+                        <li data-tabs="compareTypeSport">Sports</li>
+                    </ul>
+                </div>
+                <div id="compareTypeBike" class="bw-tabs-data">
+                    <div class="jcarousel-wrapper inner-content-carousel comparison-type-carousel padding-bottom20">
+                        <div class="jcarousel">
+                            <ul>
+                                <li>
+                                    <a href="" title="" class="card-target">
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
+                                        </div>
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="margin-top20 text-center">
+                                            <span class="btn btn-white btn-160-36">Compare now</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="" class="card-target">
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
+                                        </div>
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="margin-top20 text-center">
+                                            <span class="btn btn-white btn-160-36">Compare now</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="" class="card-target">
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
+                                        </div>
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="margin-top20 text-center">
+                                            <span class="btn btn-white btn-160-36">Compare now</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="" class="card-target">
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
+                                        </div>
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="margin-top20 text-center">
+                                            <span class="btn btn-white btn-160-36">Compare now</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <span class="jcarousel-control-left">
+                            <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+                        </span>
+                        <span class="jcarousel-control-right">
+                            <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                        </span>
+                    </div>
+                </div>
+                <div id="compareTypeScooter" class="bw-tabs-data hide">
+                    <div class="jcarousel-wrapper inner-content-carousel comparison-type-carousel padding-bottom20">
+                        <div class="jcarousel">
+                            <ul>
+                                <li>
+                                    <a href="" title="" class="card-target">
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
+                                        </div>
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="margin-top20 text-center">
+                                            <span class="btn btn-white btn-160-36">Compare now</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="" class="card-target">
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
+                                        </div>
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="margin-top20 text-center">
+                                            <span class="btn btn-white btn-160-36">Compare now</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="" class="card-target">
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
+                                        </div>
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="margin-top20 text-center">
+                                            <span class="btn btn-white btn-160-36">Compare now</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <span class="jcarousel-control-left">
+                            <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+                        </span>
+                        <span class="jcarousel-control-right">
+                            <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                        </span>
+                    </div>
+                </div>
+                <div id="compareTypeCruiser" class="bw-tabs-data hide">
+                    <div class="jcarousel-wrapper inner-content-carousel comparison-type-carousel padding-bottom20">
+                        <div class="jcarousel">
+                            <ul>
+                                <li>
+                                    <a href="" title="" class="card-target">
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
+                                        </div>
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="margin-top20 text-center">
+                                            <span class="btn btn-white btn-160-36">Compare now</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="" class="card-target">
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
+                                        </div>
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="margin-top20 text-center">
+                                            <span class="btn btn-white btn-160-36">Compare now</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="" class="card-target">
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
+                                        </div>
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="margin-top20 text-center">
+                                            <span class="btn btn-white btn-160-36">Compare now</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <span class="jcarousel-control-left">
+                            <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+                        </span>
+                        <span class="jcarousel-control-right">
+                            <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                        </span>
+                    </div>
+                </div>
+                <div id="compareTypeSport" class="bw-tabs-data hide">
+                    <div class="jcarousel-wrapper inner-content-carousel comparison-type-carousel padding-bottom20">
+                        <div class="jcarousel">
+                            <ul>
+                                <li>
+                                    <a href="" title="" class="card-target">
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
+                                        </div>
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="margin-top20 text-center">
+                                            <span class="btn btn-white btn-160-36">Compare now</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="" class="card-target">
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
+                                        </div>
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="margin-top20 text-center">
+                                            <span class="btn btn-white btn-160-36">Compare now</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="" class="card-target">
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
+                                        </div>
+                                        <div class="grid-6">
+                                            <div class="model-img-content">
+                                                <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
+                                            </div>
+                                            <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
+                                            <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
+                                            <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="margin-top20 text-center">
+                                            <span class="btn btn-white btn-160-36">Compare now</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <span class="jcarousel-control-left">
+                            <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+                        </span>
+                        <span class="jcarousel-control-right">
+                            <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="clear"></div>

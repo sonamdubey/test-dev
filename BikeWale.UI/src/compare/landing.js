@@ -7,40 +7,6 @@
     price: '70,147'
 }
 
-var bike2 = {
-    makeName: 'Bajaj',
-    modelName: 'Pulsar RS200',
-    versionName: 'Standard',    
-    hostUrl: 'https://imgd.aeplcdn.com/',
-    originalImagePath: 'bw/models/bajaj-pulsar-rs200.jpg',
-    price: '1,38,826'
-}
-
-var bikeBrands = {
-    brandList: [
-        {
-            makeId: 2,
-            makeName: "Aprilia"
-        },
-        {
-            makeId: 1,
-            makeName: "Bajaj"
-        },
-        {
-            makeId: 40,
-            makeName: "Benelli"
-        },
-        {
-            makeId: 7,
-            makeName: "Honda"
-        },
-        {
-            makeId: 11,
-            makeName: "Royal Enfield"
-        },
-    ]
-}
-
 docReady(function () {  
 
     var compareBike = function () {
@@ -49,13 +15,13 @@ docReady(function () {
         self.makeArray = ko.observable(bike1);
     };
 
-    var bikeSelectionTemplate = function (data) {
-        var self = this;
+    $('.comparison-type-carousel .jcarousel-control-prev').jcarouselControl({
+        target: '-=2'
+    });
 
-        self.bikeData = ko.observable({
-            makeArrayObj: data
-        });
-    };
+    $('.comparison-type-carousel .jcarousel-control-next').jcarouselControl({
+        target: '+=2'
+    });
 
     var bikeTemplate = function (data) {
         var self = this;
@@ -74,44 +40,52 @@ docReady(function () {
         if(elementValue > 0) {
             var selectBox = $(this).closest('.select-box');
 
-            selectBox.addClass('done');
             compareBox.dropdownChange(selectBox, elementValue);
         }
     });
 
+    var defaultActiveBox = 2;
+
     $('.compare-box-list').on('click', '.box-placeholder', function () {
-        var elementListItem = $(this).closest('.item-box');
+        var listItem = $(this).closest('.list-item'),
+            listItemIndex = listItem.index(),
+            selectionCount = Number(listItem.closest('.compare-box-list').attr('data-selection-count'));
 
-        $(elementListItem).find('.box-placeholder').hide();
-        compareBox.setDropdown(elementListItem[0]);
+        var validateClick = false;
 
-        /*
-        $(this).remove();
+        if(listItemIndex >= defaultActiveBox) {
+            if(listItemIndex - selectionCount == 0) {
+                validateClick = true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            validateClick = true;
+        }
 
-        var data = bikeBrands.brandList;
-
-        var koHTML = '<div data-bind="template: { name: \'bike-selection-template\', data: bikeData }"></div>';
-
-        elementListItem.append(koHTML);
-        ko.applyBindings(new bikeSelectionTemplate(data), elementListItem[0]);
-        */
+        if(validateClick) {
+            $(listItem).find('.box-placeholder').hide();
+            compareBox.setDropdown(listItem[0]);
+        }
     });
 
     $('.compare-box-list').on('click', '.cancel-selected-item', function () {
-        var elementListItem = $(this).closest('.item-box'),
-            listParent = elementListItem.closest('.compare-box-list')[0];
+        var listItem = $(this).closest('.list-item'),
+            list = listItem.closest('.compare-box-list')[0];
 
-        elementListItem.remove();
-        compareBox.setPlaceholderBox(listParent);
+        listItem.remove();
+        compareBox.setPlaceholderBox(list);
     });
 
-    function setBikeDetails(elementListItem, data) {
+    function setBikeDetails(listItem, data) {
         var koHTML = '<div data-bind="template: { name: \'bike-template\', data: modelData }"></div>';
 
-        elementListItem.find('.bike-selection-box').hide();
-        elementListItem.append(koHTML);
+        listItem.find('.bike-selection-box').hide();
+        listItem.append(koHTML);
 
-        ko.applyBindings(new bikeTemplate(data), elementListItem[0]);
+        ko.applyBindings(new bikeTemplate(data), listItem[0]);
     };
 
     var compareBox = {
@@ -123,7 +97,7 @@ docReady(function () {
         setPlaceholderBox: function (list) {
             var li = document.createElement("li");
 
-            li.className = "item-box";
+            li.className = "list-item cur-disabled";
             li.innerHTML = compareBox.placeholderTemplate;
             list.appendChild(li);
 
@@ -132,7 +106,7 @@ docReady(function () {
         },
 
         setPlaceholderLabel: function (list) {
-            var listItem = list.getElementsByClassName('item-box'),
+            var listItem = list.getElementsByClassName('list-item'),
                 labelElement = list.getElementsByClassName('label-count'),
                 selectionCount = Number(list.getAttribute('data-selection-count')),
                 elementLength = labelElement.length;
@@ -142,12 +116,14 @@ docReady(function () {
             }
         },
 
-        setDropdown: function (elementListItem) {
+        setDropdown: function (listItem) {
             var div = document.createElement("div");
             div.className = "bike-selection-box";
 
-            var divTemplate = "";            
-            for(var i = 0; i < compareBox.dropdownArr.length; i++) {
+            var divTemplate = "",
+                dropdownLength = compareBox.dropdownArr.length;
+
+            for(var i = 0; i < dropdownLength; i++) {
                 var dropdownLabel = compareBox.dropdownArr[i];
 
                 divTemplate += '<div class="select-box select-box-size-13 select-' + dropdownLabel + '">';
@@ -162,12 +138,14 @@ docReady(function () {
             }
 
             div.innerHTML = divTemplate;
-            elementListItem.appendChild(div);
+            listItem.appendChild(div);
             
-            compareBox.getMakes(elementListItem);
+            compareBox.getMakes(listItem);
         },
 
         dropdownChange: function (selectBox, elementValue) {
+            selectBox.addClass('done');
+
             if($(selectBox).hasClass('select-brand')) {
                 compareBox.resetDropdownSelection(selectBox);
                 compareBox.getModels(elementValue, selectBox.next()[0]);
@@ -176,9 +154,9 @@ docReady(function () {
                 compareBox.resetDropdownSelection(selectBox);
                 compareBox.getVersions(elementValue, selectBox.next()[0]);
             }
-            if($(selectBox).hasClass('select-version')) {
-                var listItem = selectBox.closest('.item-box'),
-                    list = listItem.closest('.compare-box-list');
+            else if($(selectBox).hasClass('select-version')) {
+                var listItem = selectBox.closest('.list-item'),
+                    list = listItem.closest('.compare-box-list')[0];
 
                 setBikeDetails(listItem, bike1);
                 compareBox.setBikeCount(list, true); // true flag, to increment count
@@ -186,8 +164,8 @@ docReady(function () {
         },
 
         setBikeCount: function (list, incrementFlag) {
-            var selectionCount = Number($(list).attr('data-selection-count')),
-                listItemElement = $(list).find('.item-box');
+            var selectionCount = Number(list.getAttribute('data-selection-count')),
+                listItem = list.getElementsByClassName('list-item');
 
             if(!incrementFlag) {
                 selectionCount--;
@@ -195,21 +173,28 @@ docReady(function () {
             else {
                 selectionCount++;
             }
+            
+            list.className = "compare-box-list selection-start";
+            list.setAttribute('data-selection-count', selectionCount);
 
-            $(list).attr('data-selection-count', selectionCount);
-            listItemElement.addClass('cur-disabled');
-
+            // if selection count is 0, remove selection start class and increment it by 1 to enable 0th - 1st list item from array in below for loop
             if(!selectionCount) {
                 selectionCount++;
+                list.className = "compare-box-list";
             }
 
-            for(var i = 0; i < listItemElement.length; i++) {
+            var listItemLength = listItem.length;
+
+            for(var i = 0; i < listItemLength; i++) {
                 if(i <= selectionCount) {
-                    $(listItemElement[i]).removeClass('cur-disabled');
+                    listItem[i].className = "list-item";
+                }
+                else {
+                    listItem[i].className = "list-item cur-disabled";
                 }
             }
 
-            compareBox.setSubmitButton();
+            compareBox.setSubmitButton(list);
         },
 
         resetDropdownSelection: function (selectBox) {
@@ -219,7 +204,7 @@ docReady(function () {
             selectBoxSiblings.find('.chosen-select').empty().prop('disabled', true).trigger('chosen:updated');
         },
 
-        getMakes: function (elementListItem) {
+        getMakes: function (listItem) {
             $.ajax({
                 type: "Get",
                 async: false,
@@ -227,7 +212,7 @@ docReady(function () {
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (response) {
-                    compareBox.setMakesDropdown(response.makes, elementListItem);
+                    compareBox.setMakesDropdown(response.makes, listItem);
                 }
             });
         },
@@ -258,31 +243,18 @@ docReady(function () {
             });
         },
 
-        setMakesDropdown: function (response, elementListItem) {
-            var dropdownClass = compareBox.classPrefix + compareBox.dropdownArr[0],
-                dropdownOptions = "<option value></option>",
-                resoponseLength = response.length;
+        setMakesDropdown: function (response, listItem) {
+            var dropdownOptions = "<option value></option>",
+                responseLength = response.length;
 
-            for(var i = 0; i < resoponseLength; i++) {
+            for(var i = 0; i < responseLength; i++) {
                 dropdownOptions += '<option value="' + response[i].makeId + '">' + response[i].makeName + '</option>';
             }
 
-            $(elementListItem).find('.' + dropdownClass).html(dropdownOptions);
-            compareBox.initChosen(elementListItem);
+            var dropdownClass = compareBox.classPrefix + compareBox.dropdownArr[0];
 
-            /*var dropdownClass = compareBox.classPrefix + compareBox.dropdownArr[0],
-                dropdownSelect = elementListItem.getElementsByClassName(dropdownClass);
-
-            var brands = bikeBrands.brandList
-                dropdownOptions = "<option value></option>";
-
-            for(var i = 0; i < brands.length; i++) {
-                dropdownOptions += '<option value="' + brands[i].makeId + '">' + brands[i].makeName + '</option>';
-            }
-
-            $(elementListItem).find('.' + dropdownClass).html(dropdownOptions);
-            compareBox.initChosen(elementListItem);
-            */
+            $(listItem).find('.' + dropdownClass).html(dropdownOptions);
+            compareBox.initChosen(listItem);
         },
 
         setModelDropdown: function (response, selectBox) {
@@ -309,17 +281,16 @@ docReady(function () {
             compareBox.updateChosen(selectBox);
         },
 
-        initChosen: function (elementListItem) {
-            $(elementListItem).find('.chosen-select').chosen();
+        initChosen: function (listItem) {
+            $(listItem).find('.chosen-select').chosen();
         },
 
         updateChosen: function (selectBox) {
             $(selectBox).find('.chosen-select').prop('disabled', false).trigger("chosen:updated");
         },
 
-        setSubmitButton: function () {
-            var list = $(bikeComparisonBox).find('.compare-box-list'),
-                selectionCount = Number(list.attr('data-selection-count'));
+        setSubmitButton: function (list) {
+            var selectionCount = Number($(list).attr('data-selection-count'));
 
             if(selectionCount > 1) {
                 $(bikeComparisonBox).find('.compare-now-btn').show();

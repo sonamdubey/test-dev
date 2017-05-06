@@ -1,0 +1,135 @@
+﻿.text-slate-grey
+	color: #787878
+
+h1,
+.font-bold
+	font-weight: 700
+
+.text-bold
+	font-weight: 600
+
+.font15
+	font-size: 15px
+
+.h2-heading
+	font-size: 18px
+
+@include inline-grid(9)
+
+// overall-specs-tabs
+.bw-tabs-flex
+	&.overall-specs-tabs
+		ul
+			border-top: 1px solid $border-light
+			border-bottom-color: $border-light
+			margin-bottom: 0
+
+		li
+			padding-right: 15px
+			padding-left: 15px
+			width: auto
+			color: $text-light
+
+			&.active
+				font-weight: $font-semibold
+				color: $text-primary
+
+// model-accordion-tab
+.model-accordion-tab
+	padding: 18px 20px
+	background: #f9f9f9
+	border-top: 1px solid $border-light
+	border-bottom: 1px solid $border-light
+
+.accordion-list
+	li:first-child
+		.model-accordion-tab
+			border-top: 0
+
+.table-content
+	td
+		vertical-align: top
+		padding: 18px 20px
+		border-top: 1px solid #f5f5f5
+
+		&:first-child
+			color: $text-light
+			border-right: 1px solid $border-light
+
+	tr
+		&:first-child
+			td
+				border-top: 0
+
+	td.row-heading
+		font-weight: $font-semibold
+		color: $text-primary
+				
+$row-width: 976
+$row-heading-width: 162
+
+@mixin td-width($td-count)
+	td
+		padding: 0
+
+	@for $i from 2 through $td-count
+		td:nth-child(#{$i})
+			width: (($row-width - $row-heading-width) / ($td-count - 1)) * 1px
+
+// bike-count-2
+.bike-count-2
+	.table-content
+		.row-width-grid
+			@include td-width(4)
+
+	
+// icons
+.model-sprite
+	background: url('https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?
+	v=5Dec2016') no-repeat
+	display: inline-block
+
+.specs-2-sm-icon,
+.specs-3-sm-icon,
+.specs-4-sm-icon,
+.specs-5-sm-icon
+	width: 30px
+	height: 28px
+	margin-right: 10px
+	vertical-align: middle
+
+.specs-2-sm-icon
+	background-position: 0 -43px
+
+.specs-3-sm-icon
+	background-position: -40px -43px
+
+.specs-4-sm-icon
+	background-position: -80px -43px
+
+.specs-5-sm-icon
+	background-position: -120px -43px
+
+// icons
+.unchecked-box
+	width: 14px
+	height: 14px
+	background-position: -216px -120px
+	vertical-align: middle
+	margin-right: 10px
+
+.active
+	&.unchecked-box
+		background-position: -216px -135px
+
+.tick-grey,
+.cross-grey
+	height: 14px
+
+.tick-grey
+	width: 18px
+	background-position: -153px -515px
+
+.cross-grey
+	width: 14px
+	background-position: -181px -515px

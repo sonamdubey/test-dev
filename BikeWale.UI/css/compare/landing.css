@@ -36,6 +36,9 @@
 .text-bold {
   font-weight: 600; }
 
+.font15 {
+  font-size: 15px; }
+
 .compare-banner {
   background: #89a3b7 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/new-launches-banner.jpg) no-repeat center;
   background-size: cover;
@@ -69,21 +72,22 @@
 .article-list .line-height17 {
   line-height: 1.7; }
 
-.compare-box-list .item-box {
+.compare-box-list .list-item {
   width: 209px;
-  min-height: 215px;
+  height: 215px;
   margin-left: 33px;
   display: inline-block;
   vertical-align: top;
   margin-right: -4px; }
-  .compare-box-list .item-box:first-child {
+  .compare-box-list .list-item:first-child {
     margin-left: 0; }
 
 .compare-box-list .box-placeholder {
   width: 100%;
-  min-height: 215px;
+  height: 215px;
   background: #f5f5f5;
   display: table;
+  table-layout: fixed;
   text-align: center;
   cursor: pointer; }
   .compare-box-list .box-placeholder .box-label {
@@ -100,11 +104,18 @@
   opacity: 0.5; }
 
 .bike-selection-box {
+  height: 215px;
   padding: 35px 15px 0;
   background: #f5f5f5; }
 
+.compare-box-list.selection-start .list-item,
+.compare-box-list.selection-start .box-placeholder,
+.compare-box-list.selection-start .bike-selection-box {
+  height: 275px; }
+
 .selected-bike {
-  position: relative; }
+  position: relative;
+  margin-bottom: 5px; }
   .selected-bike .cross-md-dark-grey {
     position: absolute;
     right: 0;
@@ -135,12 +146,40 @@
   .select-box.select-box-size-13 .chosen-container-active .chosen-drop {
     display: block; }
 
+.btn-160-36 {
+  width: 160px;
+  font-size: 14px;
+  padding: 7px; }
+
+.compare-box-list[data-selection-count="1"] li:nth-child(2) .selected-bike:after {
+  left: -44px; }
+
+.compare-box-list li:last-child .selected-bike:after {
+  display: none; }
+
+.selected-bike:after {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/vs-icon-32.png) no-repeat;
+  top: 50%;
+  right: -24px; }
+
 .add-icon {
   width: 32px;
   height: 32px;
   display: inline-block;
   margin-bottom: 10px;
-  background: url("http://imgd.aeplcdn.com/0x0/bw/static/sprites/d/plus-filled.png") no-repeat; }
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/plus-filled.png") no-repeat; }
+
+.bw-tabs-flex ul {
+  margin-bottom: 20px; }
+
+.bw-tabs-flex li {
+  color: #82888b; }
+  .bw-tabs-flex li.active, .bw-tabs-flex li:hover {
+    color: #4d5057; }
 
 select {
   display: none; }
@@ -171,3 +210,36 @@ select {
 .done .select-label {
   font-size: 12px;
   top: -20px; }
+
+.comparison-type-carousel.inner-content-carousel .jcarousel li {
+  width: 453px;
+  min-height: 295px; }
+
+.comparison-type-carousel .card-target {
+  padding: 20px 10px;
+  display: block; }
+
+.comparison-type-carousel .model-img-content {
+  width: 189px;
+  height: 106px;
+  margin-bottom: 10px; }
+  .comparison-type-carousel .model-img-content img {
+    height: 106px; }
+
+.comparison-type-carousel .card-target .grid-6:first-of-type:after {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/vs-icon-32.png) no-repeat;
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  transform: scale(0.7);
+  top: 40%;
+  right: 0; }
+
+.btn-160-36 {
+  width: 160px;
+  font-size: 14px;
+  padding: 7px; }
