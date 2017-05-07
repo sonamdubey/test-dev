@@ -1298,6 +1298,7 @@ namespace Bikewale.DAL.UserReviews
                                     },
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     HostUrl = Convert.ToString(dr["hostUrl"]),
+                                    OverallRating = SqlReaderConvertor.ToFloat(dr["overallrating"]),
                                     TotalReviews = SqlReaderConvertor.ToUInt32(dr["totalreviews"]),
                                     OneStarRatings = SqlReaderConvertor.ToUInt32(dr["onestars"]),
                                     TwoStarRatings = SqlReaderConvertor.ToUInt32(dr["twostars"]),
@@ -1315,7 +1316,8 @@ namespace Bikewale.DAL.UserReviews
                                     PostiveReviews = SqlReaderConvertor.ToUInt32(dr["postivereviews"]),
                                     NegativeReviews = SqlReaderConvertor.ToUInt32(dr["negativereviews"]),
                                     NeutralReviews = SqlReaderConvertor.ToUInt32(dr["neutralreviews"])
-                                }
+                                },
+                                Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
                             };
                         }
 

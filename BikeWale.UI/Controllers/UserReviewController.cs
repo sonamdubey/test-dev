@@ -1,8 +1,10 @@
 ﻿using Bikewale.Common;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
 using System.Web.Mvc;
@@ -15,6 +17,8 @@ namespace Bikewale.Controllers
         private readonly IUserReviews _userReviews = null;
         private IBikeMaskingCacheRepository<BikeModelEntity, int> _objModel = null;
         private readonly IUserReviewsRepository _userReviewsRepo = null;
+        private readonly IUserReviewsCache _userReviewsCacheRepo = null;
+        private readonly IUserReviewsSearch _userReviewsSearch = null;
 
         /// <summary>
         /// 
@@ -22,21 +26,43 @@ namespace Bikewale.Controllers
         /// <param name="bikeInfo"></param>
         /// <param name="userReviews"></param>
 
-        public UserReviewController(IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo)
+        public UserReviewController(IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo, IUserReviewsCache userReviewsCacheRepo, IUserReviewsSearch userReviewsSearch)
         {
 
             _userReviews = userReviews;
             _userReviewsRepo = userReviewsRepo;
             _objModel = objModel;
-
-
+            _userReviewsCacheRepo = userReviewsCacheRepo;
+            _userReviewsSearch = userReviewsSearch;
         }
 
-        [Route("m/user-reviews/model/")]
-        public ActionResult ListReviews_Mobile()
+        [Route("m/model/{makeMasking}-bikes/{modelMasking}/reviews/")]
+        public ActionResult ListReviews_Mobile(string makeMasking, string modelMasking)
         {
-            ModelBase m = new ModelBase();
-            return View(m);
+            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch);
+
+            if (objData != null && objData.Status.Equals(StatusCodes.ContentFound))
+            {
+                UserReviewListingVM objVM = objData.GetData();
+                if (objData.Status.Equals(StatusCodes.ContentNotFound))
+                {
+                    return Redirect("/pagenotfound.aspx");
+                }
+                else
+                {
+                    return View(objVM);
+                }
+
+            }
+            else if (objData.Status.Equals(StatusCodes.RedirectPermanent))
+            {
+                return RedirectPermanent(objData.RedirectUrl);
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
+
         }
 
         [Route("m/user-reviews/details/")]

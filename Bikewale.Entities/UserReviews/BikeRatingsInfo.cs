@@ -4,6 +4,7 @@ namespace Bikewale.Entities.UserReviews
 {
     public class BikeRatingsInfo : BasicBikeEntityBase
     {
+        public float OverallRating { get; set; }
         public uint TotalReviews { get; set; }
         public uint TotalRatings { get; set; }
         public uint OneStarRatings { get; set; }
