@@ -120,6 +120,8 @@ namespace Bikewale.BAL.UserReviews.Search
 
             try
             {
+                filterInputs.Reviews = objFilters.Reviews;
+                filterInputs.Ratings = objFilters.Ratings;
 
                 if (!string.IsNullOrEmpty(objFilters.Make))
                     ProcessMakes(objFilters.Make);
@@ -236,14 +238,22 @@ namespace Bikewale.BAL.UserReviews.Search
                 this.filterInputs = ProcessFilters(inputFilters);
 
                 // Do not change the sequence
+                ApplyUserSearchType();
                 ApplyBikeFilter();
-
                 ApplyReviewTypeFilter();
             }
             catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.InitSearchQuery");
                 objError.SendMail();
+            }
+        }
+
+        private void ApplyUserSearchType()
+        {
+            if(!filterInputs.Ratings && filterInputs.Reviews)
+            {
+                whereClause += " and (title is not null or title <> '') ";
             }
         }
 
@@ -314,7 +324,7 @@ namespace Bikewale.BAL.UserReviews.Search
 
                     reviewType = reviewType.Substring(0, reviewType.Length - 1);
 
-                    whereClause += string.Format(" and ur.overallrating in ({0}) ", reviewType);
+                    whereClause += string.Format(" and ur.overallratingid in ({0}) ", reviewType);
                 }
             }
             catch (Exception ex)
@@ -339,7 +349,7 @@ namespace Bikewale.BAL.UserReviews.Search
                 customername as writtenby,
                 title as reviewtitle,
                 review comments,
-                lastmoderateddate reviewdate,
+                ifnull(ur.lastmoderateddate,ur.EntryDate) reviewdate,
                 upvotes liked,
                 downvotes disliked,
                 views viewed,
@@ -382,7 +392,7 @@ namespace Bikewale.BAL.UserReviews.Search
         private string GetWhereClause()
         {
             if (!string.IsNullOrEmpty(whereClause))
-                whereClause = string.Format(" where (title is not null or title <> '') and isactive=1 and status=2 {0} ", whereClause);
+                whereClause = string.Format(" where isactive=1 and status=2 {0} ", whereClause);
 
             return whereClause;
         }
@@ -402,7 +412,7 @@ namespace Bikewale.BAL.UserReviews.Search
                 switch (filterInputs.SortOrder)
                 {
                     case 1:
-                        orderBy = " ur.entrydatetime desc "; //most recent
+                        orderBy = " ifnull(ur.lastmoderateddate,ur.EntryDate) desc "; //most recent
                         break;
                     case 2:
                         orderBy = " bucket, helpfulness desc "; //most helpful
@@ -416,7 +426,7 @@ namespace Bikewale.BAL.UserReviews.Search
                         orderBy = " ur.overallratingid desc "; // most rated 
                         break;
                     default:
-                        orderBy = " ur.entrydatetime desc "; //most recent
+                        orderBy = " ifnull(ur.lastmoderateddate,ur.EntryDate) desc "; //most recent
                         break;
                 }
             }
@@ -451,7 +461,7 @@ namespace Bikewale.BAL.UserReviews.Search
 
                 if (totalPageCount > 0)
                 {
-                    string controllerurl = "/api/userreviews/search/?";
+                    string controllerurl = "/api/user-reviews/search/?";
 
                     currentPageNo = (objFilters.PN == 0) ? 1 : objFilters.PN;
                     if (currentPageNo == totalPageCount)

@@ -5,6 +5,7 @@ using Bikewale.DTO.UserReviews;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DTO;
+using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.UserReviews.Search;
 using System.Collections.Generic;
@@ -92,6 +93,7 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             Mapper.CreateMap<ReviewEntity, Review>();
             Mapper.CreateMap<ReviewRatingEntity, ReviewRating>();
             Mapper.CreateMap<ReviewRatingEntityBase, ReviewRatingBase>();
+            Mapper.CreateMap<PagingUrl, Bikewale.DTO.BikeBooking.PagingUrl>();
             Mapper.CreateMap<ReviewEntityBase, ReviewBase>();
             Mapper.CreateMap<Entities.UserReviews.Search.SearchResult, Bikewale.DTO.UserReviews.Search.SearchResult>();
             return Mapper.Map<Entities.UserReviews.Search.SearchResult, Bikewale.DTO.UserReviews.Search.SearchResult>(objUserReviews);

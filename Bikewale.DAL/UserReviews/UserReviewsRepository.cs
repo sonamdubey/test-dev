@@ -1172,8 +1172,6 @@ namespace Bikewale.DAL.UserReviews
                                 objUserReview.Liked = SqlReaderConvertor.ToUInt16(dr["Liked"]);
                                 objUserReview.Disliked = SqlReaderConvertor.ToUInt16(dr["Disliked"]);
                                 objUserReview.Viewed = SqlReaderConvertor.ToUInt32(dr["Viewed"]);
-                                objUserReview.MakeMaskingName = Convert.ToString(dr["makemaskingname"]);
-                                objUserReview.ModelMaskingName = Convert.ToString(dr["modelmaskingname"]);
                                 objUserReview.ReviewDate = Utility.SqlReaderConvertor.ToDateTime(dr["ReviewDate"]);
                                 objUserReview.OverAllRating = new ReviewRatingEntityBase()
                                 {

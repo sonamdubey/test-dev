@@ -15,5 +15,8 @@ namespace Bikewale.Entities.UserReviews.Search
         public int EndIndex { get; set; }
         public int PageNo { get; set; }
         public int PageSize { get; set; }
+
+        public bool Reviews { get; set; }
+        public bool Ratings { get; set; }
     }
 }
