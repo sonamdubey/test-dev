@@ -120,11 +120,12 @@ namespace Bikewale
             container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
             container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>();
             container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
+            container.RegisterType<IUserReviewsSearch, UserReviewsSearch>();
             container.RegisterType<IUserReviews, UserReviews>();
             container.RegisterType<IUsedBikesCache, UsedBikesCache>();
             container.RegisterType<IUsedBikes, UsedBikes>();
             container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
-            container.RegisterType<IUserReviewsSearch, UserReviewsSearch>();
+
             container.RegisterType<ICustomer<CustomerEntity, uint>, Customer<CustomerEntity, uint>>();
             container.RegisterType<ICustomerRepository<CustomerEntity, uint>, CustomerRepository<CustomerEntity, uint>>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

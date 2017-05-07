@@ -10,12 +10,8 @@ namespace Bikewale.Entities.BikeData.NewLaunched
     /// summary:- added BodyStyleId
     /// </summary>
     [Serializable]
-    public class NewLaunchedBikeEntityBase
+    public class NewLaunchedBikeEntityBase : BasicBikeEntityBase
     {
-        public BikeMakeEntityBase Make { get; set; }
-        public BikeModelEntityBase Model { get; set; }
-        public string HostUrl { get; set; }
-        public string OriginalImagePath { get; set; }
         public uint ReviewCount { get; set; }
         public double ReviewRate { get; set; }
         public uint MinPrice { get; set; }

@@ -32,7 +32,7 @@
         <div id="review-summary-card" class="container bg-white card-bottom-margin box-shadow font14">
             <div class="padding-15-20 content-box-shadow">
                 <div class="model-image-grid inline-block">
-                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.Summary.OriginalImgPath, Model.Summary.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._70)" alt="@Model.Summary.Make.MakeName @Model.Summary.Model.ModelName" />
+                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.Summary.OriginalImagePath, Model.Summary.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._70)" alt="@Model.Summary.Make.MakeName @Model.Summary.Model.ModelName" />
                 </div>
                 @if (Model.Summary.Make != null && Model.Summary.Model != null) {
                 <h1 class="model-details-grid inline-block">@string.Format("{0} {1}",Model.Summary.Make.MakeName, Model.Summary.Model.ModelName)</h1>

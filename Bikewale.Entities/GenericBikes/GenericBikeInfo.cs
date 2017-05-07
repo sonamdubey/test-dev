@@ -17,12 +17,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Description : Added PriceInCity
     /// </summary>
     [Serializable]
-    public class GenericBikeInfo
+    public class GenericBikeInfo : BasicBikeEntityBase
     {
-        public BikeMakeEntityBase Make { get; set; }
-        public BikeModelEntityBase Model { get; set; }
-        public string HostUrl { get; set; }
-        public string OriginalImagePath { get; set; }
         public uint VideosCount { get; set; }
         public uint PhotosCount { get; set; }
         public uint NewsCount { get; set; }

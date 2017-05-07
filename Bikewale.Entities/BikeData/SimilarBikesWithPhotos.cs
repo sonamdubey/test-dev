@@ -7,12 +7,8 @@ namespace Bikewale.Entities.BikeData
     /// Description : To get similar bikes with photos count
     /// </summary>
     [Serializable]
-    public class SimilarBikesWithPhotos
+    public class SimilarBikesWithPhotos : BasicBikeEntityBase
     {
-        public BikeMakeEntityBase Make { get; set; }
-        public BikeModelEntityBase Model { get; set; }
-        public string HostUrl { get; set; }
-        public string OriginalImagePath { get; set; }
         public uint PhotosCount { get; set; }
     }
 }

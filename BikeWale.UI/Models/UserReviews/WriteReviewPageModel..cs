@@ -93,7 +93,7 @@ namespace Bikewale.Models.UserReviews
                     objPage.Make = objReviewSummary.Make;
                     objPage.Model = objReviewSummary.Model;
                     objPage.HostUrl = objReviewSummary.HostUrl;
-                    objPage.OriginalImagePath = objReviewSummary.OriginalImgPath;
+                    objPage.OriginalImagePath = objReviewSummary.OriginalImagePath;
 
                     if (IsDesktop)
                         objPage.PreviousPageUrl = string.Format("/user-reviews/rate-bike/{0}/?reviewId={1}", objPage.Model.ModelId, _encodedString);

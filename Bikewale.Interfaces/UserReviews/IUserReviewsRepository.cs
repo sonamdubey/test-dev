@@ -30,6 +30,7 @@ namespace Bikewale.Interfaces.UserReviews
         bool IsUserVerified(uint reviewId, ulong customerId);
         ReviewListBase GetUserReviews();
         SearchResult GetUserReviewsList(string searchQuery);
-        BikeReviewsInfo GetBikeuserReviewsInfo(uint modelId);
+        BikeReviewsInfo GetBikeReviewsInfo(uint modelId);
+        BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId);
     }   // class
 }   // namespace

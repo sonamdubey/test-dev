@@ -56,7 +56,7 @@ namespace Bikewale.BAL.UserReviews.Search
             catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.GetUsedBikesList");
-                objError.SendMail();
+
             }
 
             return objResult;
@@ -76,17 +76,17 @@ namespace Bikewale.BAL.UserReviews.Search
             try
             {
                 searchQuery = string.Format(@" select sql_calc_found_rows {0}
-                                                from {1} 
-                                                {2}
-                                                order by {3} limit {4},{5};
+                                               from {1} 
+                                               where {2}
+                                               order by {3} limit {4},{5};
                                             
-                                                select found_rows() as RecordCount;"
+                                               select found_rows() as RecordCount;"
                                             , GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), filterInputs.StartIndex - 1, filterInputs.PageSize);
             }
             catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.GetSearchResultQuery");
-                objError.SendMail();
+
             }
 
             return searchQuery;
@@ -222,7 +222,6 @@ namespace Bikewale.BAL.UserReviews.Search
             catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviews.Search.ProcessPaging");
-
             }
         }
 
@@ -245,13 +244,13 @@ namespace Bikewale.BAL.UserReviews.Search
             catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.InitSearchQuery");
-                objError.SendMail();
+
             }
         }
 
         private void ApplyUserSearchType()
         {
-            if(!filterInputs.Ratings && filterInputs.Reviews)
+            if (!filterInputs.Ratings && filterInputs.Reviews)
             {
                 whereClause += " and (title is not null or title <> '') ";
             }
@@ -271,10 +270,10 @@ namespace Bikewale.BAL.UserReviews.Search
                 {
                     foreach (string str in filterInputs.Make)
                     {
-                        makeList += str + ",";
+                        makeList += "," + str;
                     }
 
-                    makeList = makeList.Substring(0, makeList.Length - 1);
+                    makeList = makeList.Substring(1);
 
                     makeFilter = string.Format(" ur.makeid in ({0}) ", makeList);
                 }
@@ -283,10 +282,10 @@ namespace Bikewale.BAL.UserReviews.Search
                 {
                     foreach (string str in filterInputs.Model)
                     {
-                        modelList += str + ",";
+                        modelList += "," + str;
                     }
 
-                    modelList = modelList.Substring(0, modelList.Length - 1);
+                    modelList = modelList.Substring(1);
 
                     modelFilter = string.Format(" ur.modelid in ({0}) ", modelList);
                 }
@@ -319,10 +318,10 @@ namespace Bikewale.BAL.UserReviews.Search
                 {
                     foreach (string str in filterInputs.Category)
                     {
-                        reviewType += str + ",";
+                        reviewType += "," + str;
                     }
 
-                    reviewType = reviewType.Substring(0, reviewType.Length - 1);
+                    reviewType = reviewType.Substring(1);
 
                     whereClause += string.Format(" and ur.overallratingid in ({0}) ", reviewType);
                 }
@@ -392,7 +391,7 @@ namespace Bikewale.BAL.UserReviews.Search
         private string GetWhereClause()
         {
             if (!string.IsNullOrEmpty(whereClause))
-                whereClause = string.Format(" where isactive=1 and status=2 {0} ", whereClause);
+                whereClause = string.Format(" isactive=1 and status=2 {0} ", whereClause);
 
             return whereClause;
         }

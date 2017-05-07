@@ -107,10 +107,39 @@ namespace Bikewale.Cache.UserReviews
         public SearchResult GetUserReviewsList(InputFilters inputFilters)
         {
             SearchResult reviews = null;
-            string key = "BW_UserReviews_";
+            if (inputFilters != null && (!String.IsNullOrEmpty(inputFilters.Model) || !String.IsNullOrEmpty(inputFilters.Make)))
+            {
+                string key = "BW_UserReviews_MO_" + inputFilters.Model;
+
+                try
+                {
+                    if (!string.IsNullOrEmpty(inputFilters.CAT))
+                    {
+
+                    }
+
+                    reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan(24, 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsData");
+                }
+            }
+            return reviews;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeReviewsInfo GetBikeReviewsInfo(uint modelId)
+        {
+            BikeReviewsInfo reviews = null;
+            string key = "BW_BikeReviewsInfo_MO_" + modelId;
             try
             {
-                reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan(24, 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
+                reviews = _cache.GetFromCache<BikeReviewsInfo>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetBikeReviewsInfo(modelId));
             }
             catch (Exception ex)
             {
@@ -119,14 +148,13 @@ namespace Bikewale.Cache.UserReviews
             return reviews;
         }
 
-
-        public BikeReviewsInfo GetBikeuserReviewsInfo(uint modelId)
+        public BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId)
         {
-            BikeReviewsInfo reviews = null;
-            string key = "BW_BikeReviewsInfo_" + modelId;
+            BikeRatingsReviewsInfo reviews = null;
+            string key = "BW_BikeRatingsReviewsInfo_MO_" + modelId;
             try
             {
-                reviews = _cache.GetFromCache<BikeReviewsInfo>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetBikeuserReviewsInfo(modelId));
+                reviews = _cache.GetFromCache<BikeRatingsReviewsInfo>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetBikeRatingsReviewsInfo(modelId));
             }
             catch (Exception ex)
             {

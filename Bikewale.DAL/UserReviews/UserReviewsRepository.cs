@@ -996,7 +996,7 @@ namespace Bikewale.DAL.UserReviews
                                      MaskingName = Convert.ToString(dr["modelmasking"]),
                                      ModelName = Convert.ToString(dr["modelName"])
                                  },
-                                 OriginalImgPath = Convert.ToString(dr["OriginalImgPath"]),
+                                 OriginalImagePath = Convert.ToString(dr["OriginalImgPath"]),
                                  HostUrl = Convert.ToString(dr["hostUrl"])
                              };
                         }
@@ -1212,7 +1212,7 @@ namespace Bikewale.DAL.UserReviews
         }
 
 
-        public BikeReviewsInfo GetBikeuserReviewsInfo(uint modelId)
+        public BikeReviewsInfo GetBikeReviewsInfo(uint modelId)
         {
             BikeReviewsInfo objBikeReviewInfo = null;
             try
@@ -1264,6 +1264,74 @@ namespace Bikewale.DAL.UserReviews
             }
 
             return objBikeReviewInfo;
+        }
+
+        public BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId)
+        {
+            BikeRatingsReviewsInfo objBikeRatingReviewInfo = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeratingsandreviewsinfo"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.UInt32, modelId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            objBikeRatingReviewInfo = new BikeRatingsReviewsInfo()
+                            {
+                                RatingDetails = new BikeRatingsInfo()
+                                {
+                                    Make = new BikeMakeEntityBase()
+                                    {
+                                        MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                        MaskingName = Convert.ToString(dr["makemasking"]),
+                                        MakeName = Convert.ToString(dr["makeName"])
+                                    },
+                                    Model = new BikeModelEntityBase()
+                                    {
+                                        ModelId = SqlReaderConvertor.ToInt32(dr["modelId"]),
+                                        MaskingName = Convert.ToString(dr["modelmasking"]),
+                                        ModelName = Convert.ToString(dr["modelName"])
+                                    },
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    HostUrl = Convert.ToString(dr["hostUrl"]),
+                                    TotalReviews = SqlReaderConvertor.ToUInt32(dr["totalreviews"]),
+                                    OneStarRatings = SqlReaderConvertor.ToUInt32(dr["onestars"]),
+                                    TwoStarRatings = SqlReaderConvertor.ToUInt32(dr["twostars"]),
+                                    ThreeStarRatings = SqlReaderConvertor.ToUInt32(dr["threestars"]),
+                                    FourStarRatings = SqlReaderConvertor.ToUInt32(dr["fourstars"]),
+                                    FiveStarRatings = SqlReaderConvertor.ToUInt32(dr["fivestars"]),
+                                    TotalRatings = SqlReaderConvertor.ToUInt32(dr["totalratings"]),
+
+                                },
+                                ReviewDetails = new BikeReviewsInfo()
+                                {
+                                    TotalReviews = SqlReaderConvertor.ToUInt32(dr["totalreviews"]),
+                                    MostHelpfulReviews = SqlReaderConvertor.ToUInt32(dr["totalreviews"]),
+                                    MostRecentReviews = SqlReaderConvertor.ToUInt32(dr["totalreviews"]),
+                                    PostiveReviews = SqlReaderConvertor.ToUInt32(dr["postivereviews"]),
+                                    NegativeReviews = SqlReaderConvertor.ToUInt32(dr["negativereviews"]),
+                                    NeutralReviews = SqlReaderConvertor.ToUInt32(dr["neutralreviews"])
+                                }
+                            };
+                        }
+
+                        dr.Close();
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+            }
+
+            return objBikeRatingReviewInfo;
         }
     }
 }

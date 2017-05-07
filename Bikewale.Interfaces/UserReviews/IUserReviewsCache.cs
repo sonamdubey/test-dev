@@ -13,6 +13,7 @@ namespace Bikewale.Interfaces.UserReviews
         UserReviewsData GetUserReviewsData();
         ReviewListBase GetUserReviews();
         SearchResult GetUserReviewsList(InputFilters inputFilters);
-        BikeReviewsInfo GetBikeuserReviewsInfo(uint modelId);
+        BikeReviewsInfo GetBikeReviewsInfo(uint modelId);
+        BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId);
     }
 }
