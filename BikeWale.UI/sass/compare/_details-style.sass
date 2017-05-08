@@ -64,7 +64,13 @@ h1,
 	td.row-heading
 		font-weight: $font-semibold
 		color: $text-primary
-				
+
+@mixin bike-column-count($selection-count, $td-count)
+	.bike-count-#{$selection-count}
+		.table-content
+			.row-width-grid
+				@include td-width($td-count)
+
 $row-width: 976
 $row-heading-width: 162
 
@@ -76,12 +82,63 @@ $row-heading-width: 162
 		td:nth-child(#{$i})
 			width: (($row-width - $row-heading-width) / ($td-count - 1)) * 1px
 
-// bike-count-2
-.bike-count-2
-	.table-content
-		.row-width-grid
-			@include td-width(4)
+// bike-column-count
+@include bike-column-count(2, 4) // selected bike count, columns count
 
+// colors tab
+.color-box-list
+	li
+		margin-bottom: 20px
+
+	.color-box
+		width: 32px
+		height: 32px
+		margin-right: 10px
+		background: #f1f1f1
+		border: 1px solid #f1f1f1
+
+	.color-box-label
+		width: 75%
+
+@mixin color-count($count)
+	.color-count-#{$count}
+		span
+			height: (100 / $count) * 1%
+
+.color-box
+	span
+		width: 100%
+		display: block !important
+		background: #f1f1f1
+
+@include color-count(1)
+@include color-count(2)
+@include color-count(3)
+
+// article list
+.model-preview-image-container
+	max-width: 292px
+	height: 164px
+	display: table
+	text-align: center
+	border: 1px solid #e2e2e2
+
+	a
+		width: 292px
+		height: 164px
+		display: block
+		background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center no-repeat
+
+		img
+			height: 164px
+
+.article-list
+	.article-target-link
+		margin-bottom: 8px
+		line-height: 1.5
+
+	.line-height17
+		line-height: 1.7
 	
 // icons
 .model-sprite
@@ -89,25 +146,25 @@ $row-heading-width: 162
 	v=5Dec2016') no-repeat
 	display: inline-block
 
-.specs-2-sm-icon,
-.specs-3-sm-icon,
-.specs-4-sm-icon,
-.specs-5-sm-icon
+.specs-2-sm,
+.specs-3-sm,
+.specs-4-sm,
+.specs-5-sm
 	width: 30px
 	height: 28px
 	margin-right: 10px
 	vertical-align: middle
 
-.specs-2-sm-icon
+.specs-2-sm
 	background-position: 0 -43px
 
-.specs-3-sm-icon
+.specs-3-sm
 	background-position: -40px -43px
 
-.specs-4-sm-icon
+.specs-4-sm
 	background-position: -80px -43px
 
-.specs-5-sm-icon
+.specs-5-sm
 	background-position: -120px -43px
 
 // icons

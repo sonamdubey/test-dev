@@ -7,13 +7,9 @@
     price: '70,147'
 }
 
-docReady(function () {  
+docReady(function () {
 
-    var compareBike = function () {
-        var self = this;
-
-        self.makeArray = ko.observable(bike1);
-    };
+    var bikeComparisonBox = document.getElementById('bike-comparison-box');
 
     $('.comparison-type-carousel .jcarousel-control-prev').jcarouselControl({
         target: '-=2'
@@ -29,11 +25,6 @@ docReady(function () {
         self.modelData = data;
     };
 
-    var vmCompareBike = new compareBike(),
-        bikeComparisonBox = document.getElementById('bike-comparison-box');
-
-    ko.applyBindings(vmCompareBike, bikeComparisonBox);
-
     $('.compare-box-list').on('change', '.select-box select', function () {
         var elementValue = $(this).val();
 
@@ -44,7 +35,7 @@ docReady(function () {
         }
     });
 
-    var defaultActiveBox = 2;
+    var defaultActiveBoxCount = 2;
 
     $('.compare-box-list').on('click', '.box-placeholder', function () {
         var listItem = $(this).closest('.list-item'),
@@ -53,7 +44,7 @@ docReady(function () {
 
         var validateClick = false;
 
-        if(listItemIndex >= defaultActiveBox) {
+        if(listItemIndex >= defaultActiveBoxCount) {
             if(listItemIndex - selectionCount == 0) {
                 validateClick = true;
             }

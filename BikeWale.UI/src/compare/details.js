@@ -1,7 +1,7 @@
 ﻿docReady(function() {
-    var dataRows = $('.table-content td');
-    var tickIcon = '<span class="bwsprite tick-grey"></span>',
-        crossIcon='<span class="bwsprite cross-grey"></span>';
+    var dataRows = $('.table-content td'),
+        tickIcon = '<span class="bwsprite tick-grey"></span>',
+        crossIcon = '<span class="bwsprite cross-grey"></span>';
 
     dataRows.each(function () {
         var td = $(this),

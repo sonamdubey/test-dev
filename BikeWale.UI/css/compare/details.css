@@ -93,29 +93,77 @@ h1,
 .bike-count-2 .table-content .row-width-grid td:nth-child(4) {
   width: 271.33333px; }
 
+.color-box-list li {
+  margin-bottom: 20px; }
+
+.color-box-list .color-box {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  background: #f1f1f1;
+  border: 1px solid #f1f1f1; }
+
+.color-box-list .color-box-label {
+  width: 75%; }
+
+.color-box span {
+  width: 100%;
+  display: block !important;
+  background: #f1f1f1; }
+
+.color-count-1 span {
+  height: 100%; }
+
+.color-count-2 span {
+  height: 50%; }
+
+.color-count-3 span {
+  height: 33.33333%; }
+
+.model-preview-image-container {
+  max-width: 292px;
+  height: 164px;
+  display: table;
+  text-align: center;
+  border: 1px solid #e2e2e2; }
+  .model-preview-image-container a {
+    width: 292px;
+    height: 164px;
+    display: block;
+    background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center no-repeat; }
+    .model-preview-image-container a img {
+      height: 164px; }
+
+.article-list .article-target-link {
+  margin-bottom: 8px;
+  line-height: 1.5; }
+
+.article-list .line-height17 {
+  line-height: 1.7; }
+
 .model-sprite {
   background: url("https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?;\a 	v=5Dec2016") no-repeat;
   display: inline-block; }
 
-.specs-2-sm-icon,
-.specs-3-sm-icon,
-.specs-4-sm-icon,
-.specs-5-sm-icon {
+.specs-2-sm,
+.specs-3-sm,
+.specs-4-sm,
+.specs-5-sm {
   width: 30px;
   height: 28px;
   margin-right: 10px;
   vertical-align: middle; }
 
-.specs-2-sm-icon {
+.specs-2-sm {
   background-position: 0 -43px; }
 
-.specs-3-sm-icon {
+.specs-3-sm {
   background-position: -40px -43px; }
 
-.specs-4-sm-icon {
+.specs-4-sm {
   background-position: -80px -43px; }
 
-.specs-5-sm-icon {
+.specs-5-sm {
   background-position: -120px -43px; }
 
 .unchecked-box {
