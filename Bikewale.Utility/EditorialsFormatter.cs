@@ -35,6 +35,8 @@ namespace Bikewale.Utility
                             _category = "FEATURES";
                             break;
                         case EnumCMSContentType.ComparisonTests:
+                            _category = "COMPARISON TESTS";
+                            break;
                         case EnumCMSContentType.RoadTest:
                             _category = "EXPERT REVIEWS";
                             break;
