@@ -1,4 +1,5 @@
-﻿using Bikewale.BAL.AppDeepLinking;
+﻿using Bikewale.BAL.App;
+using Bikewale.BAL.AppDeepLinking;
 using Bikewale.BAL.AutoComplete;
 using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
@@ -187,6 +188,11 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IModelsRepository, ModelsRepository>();
             container.RegisterType<IUpcoming, Upcoming>();
             container.RegisterType<IMobileVerificationCache, MobileVerificationCache>();
+
+            container.RegisterType<ISplashScreen, SplashScreen>();
+            container.RegisterType<ISplashScreenRepository, SplashScreenRepository>();
+            container.RegisterType<ISplashScreenCacheRepository, SplashScreenCacheRepository>();
+
             return container;
         }
     }

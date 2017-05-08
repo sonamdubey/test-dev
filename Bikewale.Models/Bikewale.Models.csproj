@@ -43,6 +43,7 @@
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
     <Compile Include="CompareBikes\PopularComparisonsVM.cs" />
+    <Compile Include="ComparisonTests\ComparisonTestIndexPageVM.cs" />
     <Compile Include="DealerShowroom\DealerCardVM.cs" />
     <Compile Include="DealerShowroom\DealersServiceCentersIndiaWidgetVM.cs" />
     <Compile Include="DealerShowroom\IndexVM.cs" />
