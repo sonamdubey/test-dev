@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Net;
+using System.Web.Http;
 using System.Web.Http.Results;
 
 namespace Bikewale.Service.Utilities
@@ -9,6 +10,7 @@ namespace Bikewale.Service.Utilities
     /// </summary>
     public class CompressionApiController : ApiController
     {
+
         /// <summary>
         /// Created by  :   Sumit Kate on 12 May 2016
         /// Description :   Overrride the Ok response.
@@ -21,5 +23,17 @@ namespace Bikewale.Service.Utilities
         {
             return new CustomOkResult<T>(content, this);
         }
+
+        /// <summary>
+        /// Returns the http Request as No content
+        /// </summary>
+        /// <returns>
+        /// Created by : Sangram Nandkhile on 08-May-2017 
+        /// </returns>
+        public StatusCodeResult NoContent()
+        {
+            return new StatusCodeResult(HttpStatusCode.NoContent, this);
+        }
+
     }
 }
