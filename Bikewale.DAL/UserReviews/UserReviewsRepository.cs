@@ -1175,7 +1175,7 @@ namespace Bikewale.DAL.UserReviews
                                 objUserReview.ReviewDate = Utility.SqlReaderConvertor.ToDateTime(dr["ReviewDate"]);
                                 objUserReview.OverAllRating = new ReviewRatingEntityBase()
                                 {
-                                    OverAllRating = SqlReaderConvertor.ToUInt16(dr["Viewed"])
+                                    OverAllRating = SqlReaderConvertor.ToUInt16(dr["overallrating"])
                                 };
                                 objUserReviewList.Add(objUserReview);
                             }

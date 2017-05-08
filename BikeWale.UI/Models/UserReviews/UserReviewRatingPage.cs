@@ -48,6 +48,8 @@ namespace Bikewale.Models
                 status = Entities.StatusCodes.ContentFound;
 
         }
+
+
         private void ProcessQuery(string Querystring)
         {
             try
@@ -75,7 +77,6 @@ namespace Bikewale.Models
             }
             catch (System.Exception ex)
             {
-
                 ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewRatingPage.ProcessQuery() - ModelId :{0}", _modelId));
             }
 

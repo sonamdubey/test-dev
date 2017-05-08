@@ -1,6 +1,6 @@
-﻿@model Bikewale.Entities.UserReviews.BikeReviewsInfo
-
-@if (Model!=null)
+﻿@model Bikewale.Models.UserReviews.UserReviewsSearchVM
+@using Bikewale.Entities.UserReviews;
+@if (Model.UserReviews != null && Model.ReviewsInfo != null)
 {
     <section>
         <div id="modelReviewsListing" class="container content-box-shadow card-bottom-margin">
@@ -8,11 +8,11 @@
             <div id="overallSpecsTopContent" class="bg-white position-rel user-review-tabs">
                 <div id="overallSpecsTab" class="overall-specs-tabs-container">
                     <ul class="overall-specs-tabs-wrapper">
-                        <li data-category="1" data-page-num="1" data-count="@Model.MostHelpfulReviews" data-bind="click: toggleReviewList" class="active">Most Helpful (@Model.MostHelpfulReviews)</li>
-                        <li data-category="2" data-page-num="1" data-count="@Model.MostRecentReviews" data-bind="click: toggleReviewList">Most Recent (@Model.MostRecentReviews)</li>
-                        <li data-category="3" data-page-num="1" data-count="@Model.PostiveReviews" data-bind="click: toggleReviewList">Positive (@Model.PostiveReviews)</li>
-                        <li data-category="4" data-page-num="1" data-count="@Model.NegativeReviews" data-bind="click: toggleReviewList">Negative (@Model.NegativeReviews)</li>
-                        <li data-category="5" data-page-num="1" data-count="@Model.NeutralReviews" data-bind="click: toggleReviewList">Neutral (@Model.NeutralReviews)</li>
+                        <li data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostHelpfulReviews" data-bind="click: toggleReviewList" class="active">Most Helpful (@Model.ReviewsInfo.MostHelpfulReviews)</li>
+                        <li data-category="2" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: toggleReviewList">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</li>
+                        <li data-cattypes="4,5" data-category="3" data-page-num="1" data-count="@Model.ReviewsInfo.PostiveReviews" data-bind="click: toggleReviewList">Positive (@Model.ReviewsInfo.PostiveReviews)</li>
+                        <li data-cattypes="1,2" data-category="4" data-page-num="1" data-count="@Model.ReviewsInfo.NegativeReviews" data-bind="click: toggleReviewList">Negative (@Model.ReviewsInfo.NegativeReviews)</li>
+                        <li data-cattypes="3" data-category="5" data-page-num="1" data-count="@Model.ReviewsInfo.NeutralReviews" data-bind="click: toggleReviewList">Neutral (@Model.ReviewsInfo.NeutralReviews)</li>
                     </ul>
                 </div>
             </div>
@@ -21,113 +21,154 @@
                 <span class="bwmsprite info-sm"></span>
                 <span class="grid-11-inline font14 text-light-grey">Reviews are sorted on the basis of upvotes</span>
             </div>
-
+            <!-- ko if : activeReviewList() && activeReviewList().length > 0 -->
             <div data-bind="visible: reviewsAvailable()">
-                <ul class="user-review-list" data-bind="template: { name: 'review-listing-template', foreach: activeReviewList }"></ul>
+                <ul class="user-review-list" data-bind="visible : (!noReviews() && TotalReviews() !== 0), css: IsLoading() ? 'loader-active' : '' ">
+                    @{ushort i = 0;}
+                    @foreach (ReviewEntity review in Model.UserReviews.Result)
+                    {
+                         <!-- ko if : activeReviewList()[@i] -->
+                           <li>
+                        <a href="" class="item-target">
+                            <div class="margin-bottom10">
+                                <span class="rating-badge bg-rate-@review.OverAllRating.OverAllRating" data-bind="css: 'bg-rate-' + activeReviewList()[@i].overAllRating.overAllRating">
+                                    <span class="bwmsprite star-white"></span>
+                                    <span data-bind="text: activeReviewList()[@i].overAllRating.overAllRating">@review.OverAllRating.OverAllRating</span>
+                                </span>
+                                <div class="grid-10-inline font15 text-black text-bold text-truncate">
+                                    <span class="review-title position-rel" data-bind="text: activeReviewList()[@i].reviewTitle">@review.ReviewTitle</span>
+                                </div>
+                            </div>
 
-                <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top">
-                    <div class="grid-5 omega text-light-grey font13">
-                        <div>
-                            <span class="text-bold">1</span>-<span class="text-bold">8</span>&nbsp;of&nbsp;<span class="text-bold">100</span>&nbsp;reviews
+                            <div class="margin-bottom10">
+                                <div class="grid-4 alpha padding-right5">
+                                    <span class="bwmsprite calender-grey-sm-icon"></span>
+                                    <span class="article-stats-content" data-bind="text: activeReviewList()[@i].reviewDate">@Bikewale.Utility.FormatDate.GetFormatDate(review.ReviewDate.ToString(), "MMMM dd, yyyy") </span>
+                                </div>
+                                <div class="grid-8 alpha omega">
+                                    <span class="bwmsprite author-grey-sm-icon"></span>
+                                    <span class="article-stats-content" data-bind="text: activeReviewList()[@i].writtenBy">@review.WrittenBy</span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="font14 text-slate-grey margin-bottom10">
+                                <p class="inline" data-bind="text: activeReviewList()[@i].comments">@Bikewale.Utility.FormatDescription.TruncateDescription(review.Comments, 160)</p>
+                                @if(review.Comments.Length > 160)
+                                {
+                                <span class="inline text-link">Read more</span>
+                                }                               
+                            </div>
+
+                            <div class="grid-7 alpha">
+                                <div class="item-stats-grid">
+                                    <span class="bwmsprite like-sm"></span>
+                                    <span data-bind="text: activeReviewList()[@i].liked">@review.Liked</span>
+                                </div>
+                                <div class="item-stats-grid">
+                                    <span class="bwmsprite dislike-sm"></span>
+                                    <span data-bind="text: activeReviewList()[@i].disliked">@review.Disliked</span>
+                                </div>
+                            </div>
+                            <div class="grid-5 omega text-right" data-bind="visible: (activeReviewList()[@i].viewed) > 0">
+                                <div class="item-views-grid">
+                                    <span class="bwmsprite views-sm"></span>
+                                    <span data-bind="text: activeReviewList()[@i].viewed">@review.Viewed</span><span>&nbsp;Views</span>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </a>
+                    </li>
+                         <!-- /ko -->
+                        i++;
+                    }
+
+                </ul>
+
+                <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noReviews() && TotalReviews() != 0 && Pagination().paginated() > 0" style="display: @(Model.Pager!=null && Model.Pager.TotalResults > 0 ? "block" : "none")">
+                    <div class="footer-pagination font14 border-solid-top padding-top10">
+                        <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalReviews() > 0">
+                            <p><span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="CurrencyText: Math.min(TotalReviews(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalReviews()">@Model.Pager.TotalResults</span> bikes</p>
                         </div>
+                        @if (Model.Pager.TotalResults > 8)
+                        {
+                            Html.RenderAction("Index", "Pager", new { objPager = Model.Pager });
+                        }
+                        <div class="clear"></div>
                     </div>
-                    <div id="pagination-list-content" class="grid-7 alpha omega position-rel rightfloat pagination-list-content">
-                        <ul id="pagination-list" class="pagination-list">
-                            <li class="page-url active">
-                                <a href="">1</a>
-                            </li>
-                            <li class="page-url">
-                                <a href="">2</a>
-                            </li>
-                            <li class="page-url">
-                                <a href="">3</a>
-                            </li>
-                            <li class="page-url">
-                                <a href="">4</a>
-                            </li>
-                            <li class="page-url">
-                                <a href="">5</a>
-                            </li>
-                        </ul>
-
-                        <span class="pagination-control-prev inactive">
-                            <a href="javascript:void(0)" class="bwmsprite prev-page-icon"></a>
-                        </span>
-                        <span class="pagination-control-next">
-                            <a href="javascript:void(0)" class="bwmsprite next-page-icon"></a>
-                        </span>
-                    </div>
-                    <div class="clear"></div>
                 </div>
             </div>
-
-            <div class="content-inner-block-20 text-center" data-bind="visible: !reviewsAvailable()">
+            <!-- /ko -->
+            <!-- ko ifnot :  activeReviewList() && activeReviewList().length <=0 -->
+            <div class="content-inner-block-20 text-center" style="display: @(Model.Pager!=null && Model.Pager.TotalResults > 0 ? "none" : "block")"  data-bind="visible: !reviewsAvailable()">
                 <div class="circle-placeholder">
                     <span class="bwmsprite review-lg margin-top25"></span>
                 </div>
                 <p class="font14 text-light-grey">There are no <span data-bind="text: categoryName"></span> reviews for this bike</p>
             </div>
+            <!-- /ko-->
+
 
             <div id="listingFooter"></div>
         </div>
     </section>
 
-    <script type="text/html" id="review-listing-template">
-        <li>
-            <a href="" class="item-target">
-                <div class="margin-bottom10">
-                    <span class="rating-badge" data-bind="css: 'bg-rate-' + rating">
-                        <span class="bwmsprite star-white"></span>
-                        <span data-bind="text: rating"></span>
-                    </span>
-                    <div class="grid-10-inline font15 text-black text-bold text-truncate">
-                        <span class="review-title position-rel" data-bind="text: title"></span>
+    @*<script type="text/html" id="review-listing-template">
+            <li>
+                <a href="" class="item-target">
+                    <div class="margin-bottom10">
+                        <span class="rating-badge" data-bind="css: 'bg-rate-' + rating">
+                            <span class="bwmsprite star-white"></span>
+                            <span data-bind="text: rating"></span>
+                        </span>
+                        <div class="grid-10-inline font15 text-black text-bold text-truncate">
+                            <span class="review-title position-rel" data-bind="text: title"></span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="margin-bottom10">
-                    <div class="grid-4 alpha padding-right5">
-                        <span class="bwmsprite calender-grey-sm-icon"></span>
-                        <span class="article-stats-content" data-bind="text: submittedOn"></span>
+                    <div class="margin-bottom10">
+                        <div class="grid-4 alpha padding-right5">
+                            <span class="bwmsprite calender-grey-sm-icon"></span>
+                            <span class="article-stats-content" data-bind="text: submittedOn"></span>
+                        </div>
+                        <div class="grid-8 alpha omega">
+                            <span class="bwmsprite author-grey-sm-icon"></span>
+                            <span class="article-stats-content" data-bind="text: author"></span>
+                        </div>
+                        <div class="clear"></div>
                     </div>
-                    <div class="grid-8 alpha omega">
-                        <span class="bwmsprite author-grey-sm-icon"></span>
-                        <span class="article-stats-content" data-bind="text: author"></span>
+
+                    <div class="font14 text-slate-grey margin-bottom10">
+                        <p class="inline" data-bind="text: description"></p>
+                        <span class="inline text-link">Read more</span>
+                    </div>
+
+                    <div class="grid-7 alpha">
+                        <div class="item-stats-grid">
+                            <span class="bwmsprite like-sm"></span>
+                            <span data-bind="text: likesCount"></span>
+                        </div>
+                        <div class="item-stats-grid">
+                            <span class="bwmsprite dislike-sm"></span>
+                            <span data-bind="text: disLikesCount"></span>
+                        </div>
+                    </div>
+                    <div class="grid-5 omega text-right" data-bind="visible: viewsCount > 0">
+                        <div class="item-views-grid">
+                            <span class="bwmsprite views-sm"></span>
+                            <span data-bind="text: viewsCount"></span><span>&nbsp;Views</span>
+                        </div>
                     </div>
                     <div class="clear"></div>
-                </div>
-
-                <div class="font14 text-slate-grey margin-bottom10">
-                    <p class="inline" data-bind="text: description"></p>
-                    <span class="inline text-link">Read more</span>
-                </div>
-
-                <div class="grid-7 alpha">
-                    <div class="item-stats-grid">
-                        <span class="bwmsprite like-sm"></span>
-                        <span data-bind="text: likesCount"></span>
-                    </div>
-                    <div class="item-stats-grid">
-                        <span class="bwmsprite dislike-sm"></span>
-                        <span data-bind="text: disLikesCount"></span>
-                    </div>
-                </div>
-                <div class="grid-5 omega text-right" data-bind="visible: viewsCount > 0">
-                    <div class="item-views-grid">
-                        <span class="bwmsprite views-sm"></span>
-                        <span data-bind="text: viewsCount"></span><span>&nbsp;Views</span>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </a>
-        </li>
-    </script>
+                </a>
+            </li>
+        </script>*@
 }
 else
 {
     <section>
         <div class="container content-box-shadow card-bottom-margin">
-            <h2 class="h2-heading padding-15-20 content-box-shadow">Reviews on Honda CB Shine</h2>
+            <h2 class="h2-heading padding-15-20 content-box-shadow">Reviews on @Model.BikeName</h2>
             <div class="content-inner-block-20 text-center">
                 <div class="circle-placeholder">
                     <span class="bwmsprite write-icon margin-top25"></span>

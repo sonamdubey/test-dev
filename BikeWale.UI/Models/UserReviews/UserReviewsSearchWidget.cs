@@ -1,32 +1,60 @@
-﻿using Bikewale.Entities.UserReviews.Search;
+﻿using Bikewale.Entities.UserReviews;
+using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.UserReviews;
 
 namespace Bikewale.Models.UserReviews
 {
     public class UserReviewsSearchWidget
     {
+
         private InputFilters _filters = null;
+        private uint _modelId;
         private readonly IUserReviewsCache _userReviewsCacheRepo = null;
-        public UserReviewsSearchWidget(InputFilters filters, IUserReviewsCache userReviewsCacheRepo)
+
+        public BikeReviewsInfo ReviewsInfo { get; set; }
+
+        public UserReviewsSearchWidget(uint modelId, InputFilters filters, IUserReviewsCache userReviewsCacheRepo)
         {
+            _modelId = modelId;
             _filters = filters;
             _userReviewsCacheRepo = userReviewsCacheRepo;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public UserReviewsSearchVM GetData()
         {
             UserReviewsSearchVM objData = new UserReviewsSearchVM();
+            objData.ModelId = _modelId;
+            objData.ReviewsInfo = ReviewsInfo;
             objData.UserReviews = _userReviewsCacheRepo.GetUserReviewsList(_filters);
 
-            if (objData.ReviewsInfo.Make == null || objData.ReviewsInfo.Model == null)
+            if (objData.UserReviews != null)
             {
-                objData.ReviewsInfo = _userReviewsCacheRepo.GetBikeReviewsInfo(objData.ModelId);
+                if (objData.ReviewsInfo != null && (objData.ReviewsInfo.Make == null || objData.ReviewsInfo.Model == null))
+                {
+                    objData.ReviewsInfo = _userReviewsCacheRepo.GetBikeReviewsInfo(objData.ModelId);
+                }
+
+                if (objData.ReviewsInfo != null && objData.ReviewsInfo.Make != null && objData.ReviewsInfo.Model != null)
+                {
+                    //set bike data and other properties
+                    objData.BikeName = string.Format("{0} {1}", objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Model.ModelName);
+                }
+
+                objData.Pager = new Entities.Pager.PagerEntity()
+                {
+                    PageNo = _filters.PN,
+                    PageSize = _filters.PS,
+                    PagerSlotSize = 5,
+                    BaseUrl = "",
+                    PageUrlType = "page/",
+                    TotalResults = objData.UserReviews.TotalCount
+                };
             }
 
-            if (objData.ReviewsInfo != null)
-            {
-                //set bike data and other properties
-            }
 
             return objData;
         }

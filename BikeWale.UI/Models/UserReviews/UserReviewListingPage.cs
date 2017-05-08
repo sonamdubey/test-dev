@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
@@ -8,6 +9,9 @@ using System;
 using System.Web;
 namespace Bikewale.Models.UserReviews
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class UserReviewListingPage
     {
         public string RedirectUrl { get; set; }
@@ -27,6 +31,10 @@ namespace Bikewale.Models.UserReviews
             ParseQueryString(makeMasking, modelMasking);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         internal UserReviewListingVM GetData()
         {
             UserReviewListingVM objData = new UserReviewListingVM();
@@ -39,8 +47,29 @@ namespace Bikewale.Models.UserReviews
                     objData.BikeName = string.Format("{0} {1}", objData.RatingsInfo.Make.MakeName, objData.RatingsInfo.Model.ModelName);
                 }
 
+                BindWidgets(objData);
+
             }
             return objData;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindWidgets(UserReviewListingVM objData)
+        {
+            InputFilters filters = new InputFilters()
+            {
+                Model = _modelId.ToString(),
+                SO = 2,
+                PN = 1,
+                PS = 8,
+                Reviews = true
+            };
+            var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _objUserReviewCache);
+            objUserReviews.ReviewsInfo = objData.ReviewsInfo;
+            objData.UserReviews = objUserReviews.GetData();
         }
 
         private void ParseQueryString(string makeMasking, string modelMasking)

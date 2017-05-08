@@ -418,7 +418,7 @@ namespace Bikewale.BAL.UserReviews.Search
                         break;
 
                     case 3:
-                        orderBy = " ur.viewed desc "; //most read or viewed
+                        orderBy = " ur.views desc "; //most read or viewed
                         break;
 
                     case 4:
