@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\AppVersionCacheRepository.cs" />
+    <Compile Include="App\SplashScreenCacheRepository.cs" />
     <Compile Include="BikeData\BikeMakesCacheRepository.cs" />
     <Compile Include="BikeData\BikeModelMaskingCache.cs" />
     <Compile Include="BikeData\BikeModelsCacheRepository.cs" />

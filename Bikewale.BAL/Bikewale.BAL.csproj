@@ -117,6 +117,7 @@
   <ItemGroup>
     <Compile Include="ABServiceRef\TCApi_Inquiry.cs" />
     <Compile Include="AppDeepLinking\DeepLinking.cs" />
+    <Compile Include="App\SplashScreen.cs" />
     <Compile Include="AutoBiz\Dealers.cs" />
     <Compile Include="AutoComplete\AutoSuggest.cs" />
     <Compile Include="BikeBooking\AbstractBikeBooking.cs" />
