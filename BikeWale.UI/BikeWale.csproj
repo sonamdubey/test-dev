@@ -3007,6 +3007,14 @@
     <Content Include="m\sass\upcoming-bikes\_media-query.sass" />
     <Content Include="sass\upcoming-bikes\upcoming-bikes.sass" />
     <Content Include="sass\upcoming-bikes\_upcoming-bikes-style.sass" />
+    <Content Include="sass\compare\landing.sass" />
+    <Content Include="sass\compare\_landing-style.sass" />
+    <Content Include="sass\components\_select-box-atf.sass" />
+    <Content Include="sass\components\_buttons.sass" />
+    <Content Include="sass\compare\details.sass" />
+    <Content Include="sass\compare\_details-style.sass" />
+    <Content Include="sass\modules\_comparison-type-carousel.sass" />
+    <Content Include="sass\components\_inline-grid.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -3036,6 +3044,8 @@
     <Content Include="src\common.js" />
     <Content Include="src\common.min.js" />
     <Content Include="src\common\chosen.jquery.min.js" />
+    <Content Include="src\compare\details.js" />
+    <Content Include="src\compare\landing.js" />
     <Content Include="src\content\details.js" />
     <Content Include="src\dealerlisting.js" />
     <Content Include="src\dealerpricequote.js" />
@@ -3662,6 +3672,8 @@
     <Content Include="Views\Shared\Ads\Desktop\Model_ATF_970x90.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320X100ATF.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320X100BTF.cshtml" />
+    <Content Include="Views\CompareBikes\Index.cshtml" />
+    <Content Include="Views\CompareBikes\CompareBikeDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
