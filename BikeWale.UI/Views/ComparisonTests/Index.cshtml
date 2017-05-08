@@ -78,7 +78,7 @@
 
                             <div id="footer-pagination" class="font14 padding-top10">
                                 <div class="grid-5 alpha omega text-light-grey">
-                                    <p>Showing <span class="text-default text-bold">@Model.StartIndex-@Model.EndIndex</span> of <span class="text-default text-bold">@Model.Articles.RecordCount</span> articles</p>
+                                    <p>Showing <span class="text-default text-bold">@string.Format("{0}-{1}", Model.StartIndex, Model.EndIndex)</span> of <span class="text-default text-bold">@Model.Articles.RecordCount</span> articles</p>
                                 </div>
                                 @if (Model.Articles.RecordCount > 10)
                                 {
