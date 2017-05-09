@@ -347,7 +347,7 @@ namespace Bikewale.BAL.UserReviews.Search
                 selectClause = @" id as reviewid, 
                 customername as writtenby,
                 title as reviewtitle,
-                review comments,
+                substring(review,1,165) comments,
                 ifnull(ur.lastmoderateddate,ur.EntryDate) reviewdate,
                 upvotes liked,
                 downvotes disliked,

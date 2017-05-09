@@ -54,10 +54,8 @@
 
                             <div class="font14 text-slate-grey margin-bottom10">
                                 <p class="inline" data-bind="text: activeReviewList()[@i].comments">@Bikewale.Utility.FormatDescription.TruncateDescription(review.Comments, 160)</p>
-                                @if(review.Comments.Length > 160)
-                                {
-                                <span class="inline text-link">Read more</span>
-                                }                               
+
+                                <span class="inline text-link" style="display: @(!string.IsNullOrEmpty(review.Comments) && review.Comments.Length > 160 ? "inline" : "none")" data-bind="visible : activeReviewList()[@i].comments && activeReviewList()[@i].comments.length > 160">Read more</span>                          
                             </div>
 
                             <div class="grid-7 alpha">
@@ -70,7 +68,7 @@
                                     <span data-bind="text: activeReviewList()[@i].disliked">@review.Disliked</span>
                                 </div>
                             </div>
-                            <div class="grid-5 omega text-right" data-bind="visible: (activeReviewList()[@i].viewed) > 0">
+                            <div class="grid-5 omega text-right" style="display: @(review.Viewed > 0 ? "block" : "none")"  data-bind="visible: activeReviewList()[@i].viewed > 0">
                                 <div class="item-views-grid">
                                     <span class="bwmsprite views-sm"></span>
                                     <span data-bind="text: activeReviewList()[@i].viewed">@review.Viewed</span><span>&nbsp;Views</span>
