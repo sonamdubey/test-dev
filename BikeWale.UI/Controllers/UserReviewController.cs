@@ -40,17 +40,15 @@ namespace Bikewale.Controllers
         /// <returns></returns>
         [Route("user-reviews/rate-bike/{modelId}/")]
         [Filters.DeviceDetection()]
-        public ActionResult RateBike(uint modelId,string q, string reviewId)
+        public ActionResult RateBike(uint modelId,string q)
         {
-            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, reviewId, _userReviewsRepo);
+            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, q, _userReviewsRepo);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
             if (objUserReview != null)
             {
                 if (objUserReview.status == Entities.StatusCodes.ContentFound)
                 {
-                    objUserReview.IsDesktop = true;
                     objUserReview.PlatFormId = 1;
-                        objUserReview.qEncoded = q;
                     UserReviewVM = objUserReview.GetData();
                     if (UserReviewVM != null && UserReviewVM.objModelEntity != null)
                         return View(UserReviewVM);
@@ -73,17 +71,15 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [Route("m/user-reviews/rate-bike/{modelId}/")]
-        public ActionResult RateBike_Mobile(uint modelId,string q, string reviewId)
+        public ActionResult RateBike_Mobile(uint modelId,string q)
         {
-            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, reviewId, _userReviewsRepo);
+            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, q, _userReviewsRepo);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
             if (objUserReview != null)
             {
                 if (objUserReview.status == Entities.StatusCodes.ContentFound)
                 {
                     objUserReview.PlatFormId = 2;
-                    
-                    objUserReview.qEncoded = q;
                     UserReviewVM = objUserReview.GetData();
                 }
                 else
@@ -118,7 +114,7 @@ namespace Bikewale.Controllers
 
 
             if (objRating != null)
-                strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, objRating.IsFake);
+                strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}&returnUrl={9}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, objRating.IsFake,returnUrl);
 
             string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
             if (objRating != null && !objRating.IsFake)
@@ -130,7 +126,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect(string.Format("/rate-your-bike/{0}/?reviewId={1}", modelId, strEncoded));
+                return Redirect(string.Format("/rate-your-bike/{0}/?q={1}", modelId, strEncoded));
             }
 
 

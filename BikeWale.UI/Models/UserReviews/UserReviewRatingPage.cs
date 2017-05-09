@@ -5,6 +5,7 @@ using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
+using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
@@ -24,10 +25,9 @@ namespace Bikewale.Models
 
         private bool _isFake;
         public StatusCodes status;
-
-        public bool IsDesktop { get; set; }
+        private string _returnUrl;
         public ushort PlatFormId { get; set; }
-        public string qEncoded { get; set; }
+       
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Added interfaces for bikeinfo and user reviews 
@@ -49,21 +49,6 @@ namespace Bikewale.Models
             
         }
 
-        private void ProcessEncoded(UserReviewRatingVM objData)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(qEncoded))
-                {
-                   objData.ReturnUrl  = Utils.Utils.DecryptTripleDES(qEncoded);                   
-                }
-            }
-            catch (System.Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewRatingPage.ProcessEncoded() - ModelId :{0}", _modelId));
-            }
-        }
-
         private void ProcessQuery(string Querystring)
         {
             try
@@ -74,6 +59,7 @@ namespace Bikewale.Models
                 uint.TryParse(queryCollection["reviewid"], out _reviewId);
                 ulong.TryParse(queryCollection["customerid"], out _customerId);
                 bool.TryParse(queryCollection["isFake"], out _isFake);
+                _returnUrl=Convert.ToString(queryCollection["returnUrl"]);
 
 
                 if (_reviewId > 0 && !_isFake)
@@ -110,11 +96,9 @@ namespace Bikewale.Models
                 GetBikeData(objUserVM);
 
                 GetUserRatings(objUserVM);
-                ProcessEncoded(objUserVM);
-
-
-                if (objUserVM != null && objUserVM.objModelEntity != null)
+                 if (objUserVM != null && objUserVM.objModelEntity != null)
                 {
+                    objUserVM.ReturnUrl = _returnUrl;
                     BindMetas(objUserVM);
                 }
             }

@@ -215,6 +215,6 @@
 </div>
 <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : ""%>/m/src/user-review/landing.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
-    var returnUrl = '<%=Utils.Utils.EncryptTripleDES("/user-reviews/") %>';
+    var returnUrl = '<%=Utils.Utils.EncryptTripleDES("returnUrl=/user-reviews/") %>';
 </script>
 <!-- #include file="/includes/footermobile.aspx" -->

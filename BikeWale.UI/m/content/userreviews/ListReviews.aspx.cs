@@ -279,7 +279,7 @@ namespace Bikewale.Mobile.Content
         }
         private void SetReturnUrl()
         {
-            returnUrl = Utils.Utils.EncryptTripleDES(string.Format("/{0}-bikes/{1}/user-reviews/",objModelEntity.MakeBase.MaskingName,objModelEntity.MaskingName));
+            returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/user-reviews/",objModelEntity.MakeBase.MaskingName,objModelEntity.MaskingName));
         }
 
         private void RegistorContainer()
