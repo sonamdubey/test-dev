@@ -1,4 +1,4 @@
-var helpfulReviews = [ 
+var helpfulReviews = [
     {
         "comments": "",
         "pros": null,
@@ -91,7 +91,7 @@ docReady(function () {
         self.reviewsAvailable = ko.observable(true);
         self.categoryName = ko.observable('');
         self.IsLoading = ko.observable(false);
-        self.Filters = ko.observable({ pn: 1, ps: 8,model:411,so:2 });
+        self.Filters = ko.observable({ pn: 1, ps: 8, model: 411, so: 2 });
         self.QueryString = ko.computed(function () {
             var qs = "";
             $.each(self.Filters(), function (i, val) {
@@ -123,9 +123,9 @@ docReady(function () {
 
                 self.Filters()["order"] = self.Filters()["order"] || eleSection.data("order") || "";
 
-                var filterType = $(e.target).closest("ul").data("filter");
-                if (filterType) {
-
+                var filterType = $(e.target).data("category");
+                if (filterType && filterType!="0") {
+                    self.toggleReviewList(e);
                 }
                 else if (e.target) {
                     self.ChangePageNumber(e);
@@ -144,7 +144,7 @@ docReady(function () {
             }
         };
 
-        self.toggleReviewList = function (data, event) {
+        self.toggleReviewList = function (event) {
             self.tabEvents.toggleTab($(event.currentTarget));
             self.tabEvents.getReviews($(event.currentTarget));
         };
@@ -159,28 +159,23 @@ docReady(function () {
 
             getReviews: function (element) {
                 var categoryId = Number(element.attr('data-category')),
-                    pageNumber = Number(element.attr('data-page-num')),
+                    pageNumber = Number(element.attr('data-page-num') || 1),
                     categoryCount = Number(element.attr('data-count')),
 
                 catTypes = element.attr('data-cattypes');
 
-                self.Filters()["pn"] = pageNumber;
-                self.Filters()["so"] = categoryId;
-                self.Filters()["cat"] = pageNumber;
-
+                self.Filters()["pn"] = pageNumber || 1;
                 self.Filters()["so"] = categoryId;
                 self.Filters()["cat"] = catTypes;
 
-                if (categoryId != 1 && categoryId != 2)
-                {
+                if (categoryId != 1 && categoryId != 2) {
                     self.Filters()["so"] = 2;
                 }
 
                 if (categoryCount) {
                     self.reviewsAvailable(true);
                     self.activeReviewCategory(categoryId);
-
-                    element.attr('data-page-num', pageNumber + 1);
+                    //element.attr('data-page-num', pageNumber + 1);
                 }
                 else {
                     self.tabEvents.setNoReview(categoryId);
@@ -198,7 +193,7 @@ docReady(function () {
 
         self.ApplyPagination = function () {
             try {
-                var pag = new vmPagination(self.CurPageNo(), self.Filters().pageSize, self.TotalReviews());
+                var pag = new vmPagination(self.Filters().pn, self.Filters().ps, self.TotalReviews());
                 self.Pagination(pag);
                 if (self.Pagination()) {
                     var n = self.Pagination().paginated(), pages = '', prevpg = '', nextpg = '';
@@ -244,10 +239,11 @@ docReady(function () {
                     if (selHash) {
                         var arr = selHash.split('&');
                         var curcityId = arr[0].split("=")[1], curmakeId = arr[1].split("=")[1], curmodelId = arr[2].split("=")[1];
-                       
+
                     }
                     self.CurPageNo(pnum);
                     self.getUserReviews();
+                    $("#overallSpecsTab ul li.active").attr('data-page-num', pnum);
                 }
                 e.preventDefault();
                 $('html, body').scrollTop(0);
@@ -269,13 +265,12 @@ docReady(function () {
                 var apiUrl = "/api/user-reviews/search/?reviews=true&" + qs;
                 $.getJSON(apiUrl)
                 .done(function (response) {
-                    if (response && response.result)
-                    {
+                    if (response && response.result) {
                         self.activeReviewList(response.result);
                         self.TotalReviews(response.totalCount);
                         self.noReviews(false);
-                    }                   
-                   
+                    }
+
                 })
                 .fail(function () {
                     self.noReviews(true);
@@ -284,7 +279,7 @@ docReady(function () {
                     self.ApplyPagination();
                     window.location.hash = qs;
                     self.IsLoading(false);
-                    $('html, body').scrollTop($('#newlaunched-bikes').offset().top);
+                    $('html, body').scrollTop($('#modelReviewsListing').offset().top);
                 });
             }
             else {
@@ -321,15 +316,14 @@ docReady(function () {
 
     var vmUserReviews = new modelUserReviews();
 
-    $("#brand-slideIn-drawer ul li,#year-slideIn-drawer ul li,#pagination-list-content ul li").click(function (e) {
+    $("#overallSpecsTab ul li , #pagination-list-content ul li").click(function (e) {
         if (vmUserReviews && !vmUserReviews.IsInitialized()) {
-            if (!$(e.target).parent().hasClass("active"))
-                vmUserReviews.init(e);
+            vmUserReviews.init(e);
             $('html, body').scrollTop(0);
             return false;
         }
     });
-      
+
 
 
     $window = $(window);
@@ -338,7 +332,7 @@ docReady(function () {
     specsFooter = $('#listingFooter');
     topNavBarHeight = overallSpecsTab.height();
 
-    if(overallSpecsTabsContainer.length > 0) {
+    if (overallSpecsTabsContainer.length > 0) {
         $(window).scroll(function () {
             var windowScrollTop = $window.scrollTop(),
                 specsTabsOffsetTop = overallSpecsTabsContainer.offset().top,
@@ -348,7 +342,7 @@ docReady(function () {
                 overallSpecsTab.addClass('fixed-tab-nav');
             }
 
-            else if (windowScrollTop + listItemHeight < specsTabsOffsetTop) { 
+            else if (windowScrollTop + listItemHeight < specsTabsOffsetTop) {
                 overallSpecsTab.removeClass('fixed-tab-nav');
             }
 
@@ -363,8 +357,8 @@ docReady(function () {
     $('.user-review-tabs .overall-specs-tabs-wrapper li').click(function () {
         scrollToStart('#modelReviewsListing', $('#overallSpecsTopContent'), $(this));
     });
-    
-    function scrollToStart (listId, focusPoint, tab) {
+
+    function scrollToStart(listId, focusPoint, tab) {
         $('html, body').animate({ scrollTop: focusPoint.offset().top }, 1000);
         centerItVariableWidth(tab, listId + ' .overall-specs-tabs-container');
         return false;
