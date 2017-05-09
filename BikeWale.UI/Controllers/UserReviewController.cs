@@ -2,6 +2,8 @@
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
@@ -15,6 +17,10 @@ namespace Bikewale.Controllers
         private readonly IUserReviews _userReviews = null;
         private IBikeMaskingCacheRepository<BikeModelEntity, int> _objModel = null;
         private readonly IUserReviewsRepository _userReviewsRepo = null;
+        private readonly IUserReviewsCache _userReviewsCache = null;
+        private readonly IBikeInfo _bikeInfo = null;
+        private readonly ICityCacheRepository _cityCache = null;
+        private readonly ICMSCacheContent _objArticles = null;
 
         /// <summary>
         /// 
@@ -22,14 +28,16 @@ namespace Bikewale.Controllers
         /// <param name="bikeInfo"></param>
         /// <param name="userReviews"></param>
 
-        public UserReviewController(IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo)
+        public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo, IUserReviewsCache userReviewsCache, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo)
         {
 
             _userReviews = userReviews;
             _userReviewsRepo = userReviewsRepo;
             _objModel = objModel;
-
-
+            _userReviewsCache = userReviewsCache;
+            _bikeInfo = bikeInfo;
+            _cityCache = cityCache;
+            _objArticles = objArticles;
         }
 
         [Route("m/user-reviews/model/")]
@@ -39,11 +47,18 @@ namespace Bikewale.Controllers
             return View(m);
         }
 
-        [Route("m/user-reviews/details/")]
-        public ActionResult ReviewDetails_Mobile()
+        [Route("m/user-reviews/details/{reviewId}")]
+        public ActionResult ReviewDetails_Mobile(uint reviewId)
         {
-            ModelBase m = new ModelBase();
-            return View(m);
+            UserReviewDetailsPage objUserReviewDetails = new UserReviewDetailsPage(reviewId, _userReviewsCache, _bikeInfo, _cityCache, _objArticles, _objModel);
+            if (objUserReviewDetails != null)
+            {
+                objUserReviewDetails.TabsCount = 3;
+                UserReviewDetailsVM objPage = objUserReviewDetails.GetData();
+                return View(objPage);
+            }
+            else
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
         }
 
         /// <summary>

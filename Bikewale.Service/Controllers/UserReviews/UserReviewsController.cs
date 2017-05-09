@@ -5,7 +5,9 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UserReviews;
 using Bikewale.Service.Utilities;
+using Bikewale.Utility;
 using System;
+using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -229,5 +231,64 @@ namespace Bikewale.Service.Controllers.UserReviews
             return NotFound();
         }   // Get review details
         #endregion
+
+        #region User Reviews voting
+        /// <summary>
+        /// Created by Sajal Gupta on 05-05-2017
+        /// Description : To vote user review 
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="vote"></param>
+        /// <returns></returns>
+        [Route("api/user-reviews/voteUserReview/{reviewId}/")]
+        public IHttpActionResult VoteUserReview(uint reviewId, int vote)
+        {
+            try
+            {
+                NameValueCollection nvc = new NameValueCollection();
+                nvc.Add("par_reviewId", reviewId.ToString());
+                nvc.Add("par_vote", vote.ToString());
+                SyncBWData.PushToQueue("VoteUserReview", DataBaseName.BW, nvc);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.VoteUserReview");
+                return InternalServerError();
+            }
+        }
+        #endregion
+
+
+        #region User Reviews abuse
+        /// <summary>
+        /// Created by Sajal Gupta on 05-05-2017
+        /// Description : Save abuse user review 
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="vote"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/user-reviews/abuseUserReview/")]
+        public IHttpActionResult SaveUserReviewAbuse(uint reviewId, string comments)
+        {
+            try
+            {
+                string ip = CurrentUser.GetClientIP();
+
+                NameValueCollection nvc = new NameValueCollection();
+                nvc.Add("par_reviewId", reviewId.ToString());
+                nvc.Add("par_comments", comments);
+                nvc.Add("par_ip", ip);
+                SyncBWData.PushToQueue("SaveUserReviewAbuse", DataBaseName.BW, nvc);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.SaveUserReviewAbuse");
+                return InternalServerError();
+            }
+        }
+        #endregion
+
     }
 }

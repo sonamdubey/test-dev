@@ -1,8 +1,13 @@
 ﻿using Bikewale.Entities.BikeData;
+using System;
 using System.Collections.Generic;
 
 namespace Bikewale.Entities.UserReviews
 {
+    /// <summary>
+    /// Modified by Sajal Gupta on 05-05-2017
+    /// Descruioption : Added UpVotes, DownVotes, Views, EntryDate
+    /// </summary>
     public class UserReviewSummary
     {
         public UserReviewOverallRating OverallRating { get; set; }
@@ -19,5 +24,9 @@ namespace Bikewale.Entities.UserReviews
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
         public UserReviewPageSourceEnum PageSource { get; set; }
+        public uint UpVotes { get; set; }
+        public uint DownVotes { get; set; }
+        public uint Views { get; set; }
+        public DateTime EntryDate { get; set; }
     }
 }

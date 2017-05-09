@@ -40,7 +40,7 @@ namespace Bikewale.Mobile
         protected double dealerLat, dealerLong;
         protected DealersCard ctrlDealerCard;
         protected LeadCaptureControl ctrlLeadCapture;
-        protected string maskingNumber, makeMaskingName, customerAreaName = string.Empty, pqAreaName = string.Empty, cityMaskingName = string.Empty, clientIP = CommonOpn.GetClientIP(), areaName = string.Empty,
+        protected string maskingNumber, makeMaskingName, customerAreaName = string.Empty, pqAreaName = string.Empty, cityMaskingName = string.Empty, clientIP = CurrentUser.GetClientIP(), areaName = string.Empty,
             cityName = string.Empty, makeName = string.Empty, dealerName = string.Empty, dealerArea = string.Empty, dealerCity = string.Empty, ctaSmallText = string.Empty;
         protected MMostPopularBikes ctrlPopoularBikeMake;
         protected ServiceCenterCard ctrlServiceCenterCard;
