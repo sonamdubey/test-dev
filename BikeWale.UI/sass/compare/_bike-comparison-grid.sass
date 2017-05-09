@@ -1,0 +1,80 @@
+﻿$row-width: 974
+$row-heading-width: 162
+
+@mixin column-count($count)
+	#bike-comparison-container
+		&[data-column-count="#{$count}"]
+			.compare-bike-list
+				.list-item
+					@include column-width($count)
+
+				@if $count != 4
+					.bike-image-block,
+					.box-placeholder
+						height: 117px
+
+				@else
+					.bike-image-block,
+					.box-placeholder
+						height: 85px
+
+			.table-content
+				.row-width-grid
+					@include td-width($count)
+
+
+@mixin column-width($count)
+	width: (($row-width - $row-heading-width) / ($count)) * 1px
+
+@mixin td-width($count)
+	td
+		padding: 0
+
+	@for $i from 2 through $count
+		td:nth-child(#{$i})
+			@include column-width($count)
+
+// bike-count
+@include column-count(3)
+@include column-count(4)
+
+@mixin compare-vs-icon()
+	content: ''
+	position: absolute
+	width: 32px
+	height: 32px
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/vs-icon-32.png) no-repeat
+
+.bike-details-block
+	&:before
+		@include compare-vs-icon()
+		top: 30%
+		left: -35px
+		@include transform(scale(0.7))
+
+.compare-bike-list
+	.list-item
+		&:first-child
+			.bike-details-block
+				&:before
+					display: none
+
+#comparison-floating-card
+	.bike-details-block
+		&:before
+			display: none
+
+	&.fixed-card
+		width: 976px
+		position: fixed
+		top: 0
+		left: 0
+		right: 0
+		z-index: 2
+		margin: 0 auto
+
+	.list-item
+		padding: 10px 15px
+
+	.cross-md-dark-grey
+		top: -5px

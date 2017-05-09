@@ -3015,6 +3015,7 @@
     <Content Include="sass\compare\_details-style.sass" />
     <Content Include="sass\modules\_comparison-type-carousel.sass" />
     <Content Include="sass\components\_inline-grid.sass" />
+    <Content Include="sass\compare\_bike-comparison-grid.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
