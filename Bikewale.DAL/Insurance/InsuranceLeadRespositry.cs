@@ -1,6 +1,6 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.Insurance;
+﻿using Bikewale.Entities.Insurance;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Data;
@@ -46,7 +46,7 @@ namespace Bikewale.DAL.Insurance
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, lead.CityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, String.IsNullOrEmpty(lead.Email) ? Convert.DBNull : lead.Email));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 10, String.IsNullOrEmpty(lead.Mobile) ? Convert.DBNull : lead.Mobile));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 30, String.IsNullOrEmpty(CommonOpn.GetClientIP()) ? "" : CommonOpn.GetClientIP()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 30, String.IsNullOrEmpty(CurrentUser.GetClientIP()) ? "" : CurrentUser.GetClientIP()));
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_insurancepolicytype", DbType.Byte, lead.InsurancePolicyType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeregistrationdate", DbType.DateTime, lead.BikeRegistrationDate));

@@ -908,6 +908,7 @@
     <Compile Include="Models\BikeModels\ModelPage.cs" />
     <Compile Include="Models\CompareBikes\ComparePopularBikes.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
+    <Compile Include="Models\ExpertReviews\ExpertReviewsModelWiseCard.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
@@ -953,6 +954,7 @@
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewListingPage.cs" />
+    <Compile Include="Models\UserReviews\UserReviewDetailsPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewRatingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewsSearchWidget.cs" />
@@ -3672,6 +3674,8 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad320X100ATF.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320X100BTF.cshtml" />
     <Content Include="Views\UserReview\_UserReviewsSearch_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReviewsModelWiseCard_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_SimilarBikeUserReview_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

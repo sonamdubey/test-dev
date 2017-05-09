@@ -101,6 +101,7 @@
     <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
     <Compile Include="Upcoming\UpcomingPageVM.cs" />
     <Compile Include="UserReviews\UserReviewListingVM.cs" />
+    <Compile Include="UserReviews\UserReviewDetailsVM.cs" />
     <Compile Include="UserReviews\UserReviewsSearchVM.cs" />
     <Compile Include="UserReviews\UserReviewSummaryVM.cs" />
     <Compile Include="UserReviews\WriteReviewPageSubmitResponse.cs" />

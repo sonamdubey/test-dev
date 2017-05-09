@@ -3,6 +3,8 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
@@ -19,6 +21,10 @@ namespace Bikewale.Controllers
         private readonly IUserReviewsRepository _userReviewsRepo = null;
         private readonly IUserReviewsCache _userReviewsCacheRepo = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
+        private readonly IUserReviewsCache _userReviewsCache = null;
+        private readonly IBikeInfo _bikeInfo = null;
+        private readonly ICityCacheRepository _cityCache = null;
+        private readonly ICMSCacheContent _objArticles = null;
 
         /// <summary>
         /// 
@@ -27,20 +33,23 @@ namespace Bikewale.Controllers
         /// <param name="userReviews"></param>
 
         public UserReviewController(IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo, IUserReviewsCache userReviewsCacheRepo, IUserReviewsSearch userReviewsSearch)
+        public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo, IUserReviewsCache userReviewsCache, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo)
         {
 
             _userReviews = userReviews;
             _userReviewsRepo = userReviewsRepo;
             _objModel = objModel;
+            _userReviewsCache = userReviewsCache;
+            _bikeInfo = bikeInfo;
+            _cityCache = cityCache;
             _userReviewsCacheRepo = userReviewsCacheRepo;
             _userReviewsSearch = userReviewsSearch;
         }
-
+            _objArticles = objArticles;
         [Route("m/model/{makeMasking}-bikes/{modelMasking}/reviews/")]
         public ActionResult ListReviews_Mobile(string makeMasking, string modelMasking)
         {
             UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch);
-
             if (objData != null && objData.Status.Equals(StatusCodes.ContentFound))
             {
                 UserReviewListingVM objVM = objData.GetData();
@@ -65,11 +74,18 @@ namespace Bikewale.Controllers
 
         }
 
-        [Route("m/user-reviews/details/")]
-        public ActionResult ReviewDetails_Mobile()
+        [Route("m/user-reviews/details/{reviewId}")]
+        public ActionResult ReviewDetails_Mobile(uint reviewId)
         {
-            ModelBase m = new ModelBase();
-            return View(m);
+            UserReviewDetailsPage objUserReviewDetails = new UserReviewDetailsPage(reviewId, _userReviewsCache, _bikeInfo, _cityCache, _objArticles, _objModel);
+            if (objUserReviewDetails != null)
+            {
+                objUserReviewDetails.TabsCount = 3;
+                UserReviewDetailsVM objPage = objUserReviewDetails.GetData();
+                return View(objPage);
+            }
+            else
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
         }
 
         /// <summary>

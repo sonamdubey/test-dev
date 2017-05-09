@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Bikewale.Entities.SimilarBikeUserReview>
+
+<div class="swiper-container card-container user-reviews-type-carousel">
+    <div class="swiper-wrapper">
+        @foreach (var bike in Model)
+        {
+            <div class="swiper-slide">
+                <div class="swiper-card">
+                    <a href="/m/user-reviews/details/@bike.Model.ModelId" title="@bike.Make.MakeName @bike.Model.ModelName user review" class="block">
+                        <div class="swiper-image-preview">
+                            <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" alt="" src="" />
+                            <span class="swiper-lazy-preloader"></span>
+                        </div>
+                        <div class="swiper-details-block">
+                            <h3 class="font12 text-black margin-bottom5 text-truncate">@bike.Make.MakeName @bike.Model.ModelName</h3>
+                            <span class="rating-badge bg-rate-@bike.OverAllRating">
+                                <span class="bwmsprite star-white"></span>@bike.OverAllRating
+                            </span>
+                            <span class="font12 text-light-grey inline-block">@bike.NumberOfRating ratings</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        }
+    </div>
+</div>

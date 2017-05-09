@@ -162,5 +162,26 @@ namespace Bikewale.Cache.UserReviews
             }
             return reviews;
         }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 05-05-2017
+        /// Description : Return user review summary by calling dal
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns></returns>
+        public UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId)
+        {
+            UserReviewSummary objUserReviewSummary = null;
+            string key = string.Format("BW_UserReviewDetails_{0}", reviewId);
+            try
+            {
+                objUserReviewSummary = _cache.GetFromCache<UserReviewSummary>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetUserReviewSummaryWithRating(reviewId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeMakesCacheRepository.GetUserReviewSummaryWithRating {0}", reviewId));
+            }
+            return objUserReviewSummary;
+        }
     }
 }

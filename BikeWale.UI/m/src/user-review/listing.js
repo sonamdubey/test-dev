@@ -1,3 +1,5 @@
+var reviewId;
+
 var helpfulReviews = [
     {
         "comments": "",
@@ -29,6 +31,12 @@ var reviewCategory = {
 var $window, overallSpecsTabsContainer, overallSpecsTab, specsFooter, topNavBarHeight;
 
 var listItemHeight = 230; // min item height + pagination height
+var reportAbusePopup, appendState;
+
+function abuseClick() {
+    reportAbusePopup.open();
+    appendState('reportPopup');
+}
 
 var vmPagination = function (curPgNum, pgSize, totalRecords) {
     var self = this;
@@ -79,6 +87,39 @@ var vmPagination = function (curPgNum, pgSize, totalRecords) {
 docReady(function () {
 
 
+    bwcache.setScope('ReviewDetailPage');    
+
+    reviewId = $('#divAbuse').attr('data-reviewId');
+
+    /* popup state */
+    appendState = function (state) {
+        window.history.pushState(state, '', '');
+    };
+
+    $(window).on('popstate', function (event) {
+        if ($('#report-abuse-popup').is(':visible')) {
+            reportAbusePopup.close();
+        }
+    });
+
+    $('.report-abuse-close-btn').on('click', function () {
+        reportAbusePopup.close();
+        history.back();
+    });
+
+    reportAbusePopup = {
+        open: function () {
+            $('#report-abuse-popup').show();
+            $('body').addClass('lock-browser-scroll');
+            $('#popup-background').show();
+        },
+
+        close: function () {
+            $('#report-abuse-popup').hide();
+            $('body').removeClass('lock-browser-scroll');
+            $('#popup-background').hide();
+        }
+    };
 
     var modelUserReviews = function () {
         var self = this;
@@ -365,3 +406,27 @@ docReady(function () {
     };
 
 });
+
+function reportAbuse() {
+    var isError = false;
+
+    if ($("#txtAbuseComments").val().trim() == "") {
+        $("#spnAbuseComments").html("Comments are required");
+        isError = true;
+    } else {
+        $("#spnAbuseComments").html("");
+    }
+
+    if (!isError) {
+        var commentsForAbuse = $("#txtAbuseComments").val().trim();
+
+        $.ajax({
+            type: "POST",
+            url: "/api/user-reviews/abuseUserReview/?reviewId=" + reviewId + "&comments=" + commentsForAbuse,
+            success: function (response) {
+                reportAbusePopup.close();
+                document.getElementById("divAbuse").innerHTML = "Your request has been sent to the administrator.";
+            }
+        });
+    }
+}

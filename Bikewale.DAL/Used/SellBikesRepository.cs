@@ -1,8 +1,8 @@
 ﻿
-using Bikewale.CoreDAL;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -48,7 +48,7 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 100, ad.Seller.CustomerEmail));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 20, ad.Seller.CustomerMobile));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, ad.Seller.CustomerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CurrentUser.GetClientIP()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_statusid", DbType.Byte, Convert.ToByte(ad.Status)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, ParameterDirection.InputOutput));
 
@@ -98,7 +98,7 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 100, ad.Seller.CustomerEmail));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 20, ad.Seller.CustomerMobile));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, ad.Seller.CustomerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CurrentUser.GetClientIP()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_statusid", DbType.Byte, Convert.ToByte(ad.Status)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, ad.InquiryId));
                     isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
