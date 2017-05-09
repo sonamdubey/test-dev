@@ -367,7 +367,6 @@
     <Compile Include="Utilities\CMSShareUrl.cs" />
     <Compile Include="Utilities\CompressionApiController.cs" />
     <Compile Include="Utilities\CustomOkResult.cs" />
-    <Compile Include="Utilities\WebApiExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
