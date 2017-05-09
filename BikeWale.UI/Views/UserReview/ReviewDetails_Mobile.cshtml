@@ -5,11 +5,16 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/listing.css' />";
     Model.Page_JS_Path = "/m/src/user-review/listing.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_UserReviews";
+    Model.AdTags.AdId = "1493795506249";
+    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.Ad_300x100 = true;
 }
 
 @if (Model != null)
 {
-    <section>
+    <section id="section-review-details" data-modelid="@Model.UserReviewDetailsObj.Model.ModelId">
         <div class="container content-box-shadow card-bottom-margin">
             <div class="content-inner-block-20 content-box-shadow">
                 <p class="font15 font-bold text-black margin-bottom10">@Model.UserReviewDetailsObj.Title</p>
@@ -61,37 +66,40 @@
             <div class="padding-right20 padding-left20 padding-bottom20">
                 <p class="font14 text-light-grey">@Model.UserReviewDetailsObj.Description</p>
 
-                <p class="font14 font-bold text-black margin-top20 margin-bottom15">Tips for prospective buyers</p>
-                <p class="font14 text-light-grey margin-bottom15">@Model.UserReviewDetailsObj.Tips</p>
+                @if (Model.UserReviewDetailsObj.Tips.Length > 0)
+                {
+                    <p class="font14 font-bold text-black margin-top20 margin-bottom15">Tips for prospective buyers</p>
+                    <p class="font14 text-light-grey margin-bottom15">@Model.UserReviewDetailsObj.Tips</p>
+                }
 
-                <button type="button" class="btn btn-inv-teal-group active margin-right5 margin-bottom10">
+                <button type="button" id="upvoteButton" onclick="upVoteReview()" class="btn btn-inv-teal-group margin-right5 margin-bottom10">
                     <span class="btn-label-grid">
                         <span class="bwmsprite like-sm"></span>
-                        <span class="btn-label">Upvoted</span>
+                        <span id="upvoteText" class="btn-label">Upvote</span>
                     </span>
-                    <span class="btn-count">@Model.UserReviewDetailsObj.UpVotes</span>
+                    <span id="upvoteCount" class="btn-count">@Model.UserReviewDetailsObj.UpVotes</span>
                 </button>
-                <button type="button" class="btn btn-inv-teal-group margin-right5 margin-bottom10">
+                <button type="button" id="downvoteButton" onclick="downVoteReview()" class="btn btn-inv-teal-group margin-right5 margin-bottom10">
                     <span class="btn-label-grid">
                         <span class="bwmsprite like-sm"></span>
-                        <span class="btn-label">Downvote</span>
+                        <span id="downvoteText" class="btn-label">Downvote</span>
                     </span>
-                    <span class="btn-count">@Model.UserReviewDetailsObj.DownVotes</span>
+                    <span id="downvoteCount" class="btn-count">@Model.UserReviewDetailsObj.DownVotes</span>
                 </button>
                 <div class="inline-block margin-bottom10">
                     <span class="bwmsprite views-sm"></span>
-                    <span class="font12 text-light-grey inline-block">@Model.UserReviewDetailsObj.Views views</span>
+                    <span class="font12 text-light-grey inline-block">@string.Format("{0} view{1}", Model.UserReviewDetailsObj.Views, Model.UserReviewDetailsObj.Views > 1 ? "s" : "")</span>
                 </div>
 
                 <div class="border-solid-top margin-top10 margin-bottom10"></div>
-                <p id="divAbuse" data-reviewId="@Model.ReviewId" class="font12 text-light-grey">Inappropriate review? <a href="javascript:void(0)" onclick="abuseClick()" id="report-abuse-target">Report Abuse</a></p>                
+                <p id="divAbuse" data-reviewid="@Model.ReviewId" class="font12 text-light-grey">Inappropriate review? <a href="javascript:void(0)" onclick="abuseClick()" id="report-abuse-target">Report Abuse</a></p>
             </div>
 
         </div>
     </section>
 
     <section>
-        <div class="container content-box-shadow card-bottom-margin content-inner-block-20">
+        <div id="bike-rating-box" class="container content-box-shadow card-bottom-margin content-inner-block-20">
             <p class="font16 text-black text-bold inline-block margin-right15">Rate this bike now</p>
             <div class="answer-star-list inline-block">
                 <input type="radio" id="rate-star-5" name="rate-bike" value="5">
@@ -106,10 +114,10 @@
                 <label class="bwmsprite star-0" for="rate-star-1" data-value="1"></label>
             </div>
         </div>
-    </section>    
+    </section>
 
     <section class="bg-white section-bottom-margin margin-bottom10">
-            @Html.Partial("~/views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.GenericBikeWidgetData)        
+        @Html.Partial("~/views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.GenericBikeWidgetData)
     </section>
 
     <section>
@@ -202,6 +210,10 @@
         </li>
     </script>
 
+    <div class="margin-bottom20 text-center">
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x100_Middle.cshtml", new { AdId = Model.AdTags.AdId });}
+    </div>
+
     <section>
         <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
             <div class="carousel-heading-content">
@@ -209,13 +221,13 @@
                     <h2 class="h2-heading">@Model.ExpertReviews.Title</h2>
                 </div>
                 <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="@Model.ExpertReviews.MoreExpertReviewUrl" title="@string.Format("View all expert reviews")" class="btn view-all-target-btn">View all</a>
+                    <a href="/m/@Model.ExpertReviews.MoreExpertReviewUrl" title="@string.Format("View all expert reviews")" class="btn view-all-target-btn">View all</a>
                 </div>
                 <div class="clear"></div>
             </div>
 
             @Html.Partial("~/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
-            
+
         </div>
     </section>
 
@@ -226,13 +238,13 @@
                     <h2 class="h2-heading">Reviews of similar bikes</h2>
                 </div>
                 <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="@string.Format("/m/{0}-bikes/{1}/user-reviews/", Model.GenericBikeWidgetData.BikeInfo.Make.MaskingName, Model.GenericBikeWidgetData.BikeInfo.Model.MaskingName)" title="View all" class="btn view-all-target-btn">View all</a>
+                    <a href="@string.Format("/m/{0}-bikes/{1}/reviews/", Model.GenericBikeWidgetData.BikeInfo.Make.MaskingName, Model.GenericBikeWidgetData.BikeInfo.Model.MaskingName)" title="View all" class="btn view-all-target-btn">View all</a>
                 </div>
                 <div class="clear"></div>
             </div>
 
             @Html.Partial("~/views/UserReview/_SimilarBikeUserReview_Mobile.cshtml", Model.SimilarBikeReviewWidget)
-            
+
         </div>
     </section>
 

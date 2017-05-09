@@ -23,6 +23,7 @@ namespace Bikewale.Models
         private ulong _customerId;
 
         private uint _pagesourceId;
+        private uint _selectedRating;
         private bool _isFake;
         public StatusCodes status;
 
@@ -34,13 +35,14 @@ namespace Bikewale.Models
         /// <param name="modelId"></param>
         /// <param name="bikeInfo"></param>
         /// <param name="userReviews"></param>
-        public UserReviewRatingPage(uint modelId, uint? pagesourceId, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, string Querystring, IUserReviewsRepository userReviewsRepo)
+        public UserReviewRatingPage(uint modelId, uint? pagesourceId, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, string Querystring, IUserReviewsRepository userReviewsRepo, uint? selectedRating)
         {
             _modelId = modelId;
             _userReviews = userReviews;
             _objModel = objModel;
             _Querystring = Querystring;
             _pagesourceId = pagesourceId ?? 0;
+            _selectedRating = (selectedRating ?? 0);
             _userReviewsRepo = userReviewsRepo;
             if (!string.IsNullOrEmpty(_Querystring))
                 ProcessQuery(_Querystring);
@@ -92,6 +94,8 @@ namespace Bikewale.Models
 
             try
             {
+                objUserVM.SelectedRating = _selectedRating;
+
                 GetBikeData(objUserVM);
 
                 GetUserRatings(objUserVM);

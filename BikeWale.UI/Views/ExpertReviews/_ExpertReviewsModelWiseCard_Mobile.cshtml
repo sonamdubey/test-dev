@@ -12,11 +12,11 @@
                                 <span class="swiper-lazy-preloader"></span>
                             </div>
                             <div class="swiper-details-block">
-                                <h3 class="text-black margin-bottom5">@article.Title</h3>
+                                <h3 class="text-black margin-bottom5">@Bikewale.Utility.FormatDescription.TruncateDescription(article.Title, 52)</h3>
 
                                 <div class="grid-6 alpha padding-right5">
                                     <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">@article.DisplayDate</span>
+                                    <span class="article-stats-content">@article.DisplayDate.ToString("MMM dd, yyyy")</span>
                                 </div>
                                 <div class="grid-6 alpha omega">
                                     <span class="bwmsprite author-grey-sm-icon"></span>

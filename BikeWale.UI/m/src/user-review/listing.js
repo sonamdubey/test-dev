@@ -1,4 +1,4 @@
-var reviewId;
+var reviewId, modelid;
 
 var helpfulReviews = [
     {
@@ -101,11 +101,65 @@ function abuseClick() {
     appendState('reportPopup');
 }
 
-docReady(function() {    
 
+function upVoteReview() {
+    bwcache.set("reviewVote_" + reviewId, "1");
+    $('#upvoteButton').addClass('active');
+    $('#upvoteText').text("Upvoted");
+    $('#downvoteButton').attr('disabled', 'disabled');
+    $('#upvoteCount').text(parseInt($('#upvoteCount').text()) + 1);
+    voteUserReview(1);
+}
+
+
+function downVoteReview() {
+    bwcache.set("reviewVote_" + reviewId, "0");
+    $('#downvoteButton').addClass('active');
+    $('#downvoteText').text("Downvoted");
+    $('#upvoteButton').attr('disabled', 'disabled');
+    $('#downvoteCount').text(parseInt($('#downvoteCount').text()) + 1);
+    voteUserReview(0);
+}
+
+
+function voteUserReview(vote) {
+    $.ajax({
+        type: "POST",
+        url: "/api/user-reviews/voteUserReview/?reviewId=" + reviewId + "&vote=" + vote,
+        success: function (response) {
+        }
+    });
+}
+
+docReady(function() {    
     bwcache.setScope('ReviewDetailPage');    
 
-    reviewId = $('#divAbuse').attr('data-reviewId');
+    reviewId = $('#divAbuse').attr('data-reviewId');  
+    modelid = $('#section-review-details').attr('data-modelId');
+
+    var vote = bwcache.get("reviewVote_" + reviewId);
+
+    if (vote != null)
+    {
+        if(vote == "0")
+        {
+            $('#downvoteButton').addClass('active');
+            $('#downvoteText').text("Downvoted");
+            $('#upvoteButton').attr('disabled', 'disabled');
+        }
+        else if(vote == "1")
+        {
+            $('#upvoteButton').addClass('active');
+            $('#upvoteText').text("Upvoted");
+            $('#downvoteButton').attr('disabled', 'disabled');
+        }
+    }     
+
+    $('#bike-rating-box').find('.answer-star-list input[type=radio]').change(function () {
+        var button = $(this),
+           buttonValue = Number(button.val());
+        window.location.href = "/m/rate-your-bike/" + modelid + "/?selectedRating=" + buttonValue;
+    });
 
     /* popup state */
     appendState = function (state) {

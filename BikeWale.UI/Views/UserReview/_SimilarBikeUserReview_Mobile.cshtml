@@ -6,7 +6,7 @@
         {
             <div class="swiper-slide">
                 <div class="swiper-card">
-                    <a href="/m/user-reviews/details/@bike.Model.ModelId" title="@bike.Make.MakeName @bike.Model.ModelName user review" class="block">
+                    <a href= @string.Format("/m/{0}-bikes/{1}/reviews/", @bike.Make.MaskingName, @bike.Model.MaskingName) title="@bike.Make.MakeName @bike.Model.ModelName user review" class="block">
                         <div class="swiper-image-preview">
                             <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" alt="" src="" />
                             <span class="swiper-lazy-preloader"></span>
@@ -16,7 +16,7 @@
                             <span class="rating-badge bg-rate-@bike.OverAllRating">
                                 <span class="bwmsprite star-white"></span>@bike.OverAllRating
                             </span>
-                            <span class="font12 text-light-grey inline-block">@bike.NumberOfRating ratings</span>
+                            <span class="font12 text-light-grey inline-block">@string.Format("{0} rating{1}", bike.NumberOfRating, (bike.NumberOfRating > 1 ? "s" : ""))</span>
                     </div>
                 </a>
             </div>

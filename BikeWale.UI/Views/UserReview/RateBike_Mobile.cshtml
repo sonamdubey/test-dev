@@ -19,7 +19,7 @@
                     <h2 class="margin-bottom10">How much do you like this bike?</h2>
                     <p class="text-slate-grey">Consider looks & styling, performance, servicing experience, mileage etc. before you rate.</p>
 
-                    <div id="bike-rating-box">
+                    <div id="bike-rating-box" data-selectedRating="@Model.SelectedRating">
                         <div class="circle-placeholder">
                             <span class="bwmsprite" data-bind="css: ratingCount() > 0 ? 'feedback-' + ratingCount() : 'star-one'"></span>
                         </div>

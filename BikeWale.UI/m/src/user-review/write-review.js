@@ -11,7 +11,7 @@ var bikeRating = {
 };
 
 var ratingQuestion = [];
-docReady(function () {
+docReady(function () {    
     bwcache.setScope('ReviewPage');
     if (page == "writeReview") {
         setTimeout(function () { appendHash("writeReview"); }, 1000);
@@ -24,7 +24,7 @@ docReady(function () {
         });
     }
    
-    ratingBox = $('#bike-rating-box');
+    ratingBox = $('#bike-rating-box');    
 
     if ($("#overallratingQuestion") && $("#overallratingQuestion").length)
         bikeRating.overallRating = JSON.parse(Base64.decode($('#overallratingQuestion').val()));
@@ -487,6 +487,11 @@ docReady(function () {
     vmWriteReview.GetFromBwCache();
 
     vmWriteReview.FillReviewData();
+
+    var selRating = $("#bike-rating-box").attr("data-selectedRating");
+    if (selRating > 0) {
+        ratingBox.find('.answer-star-list input[type=radio][value="' + selRating + '"]').trigger("click");       
+    }
 });
 
 var answer = {
