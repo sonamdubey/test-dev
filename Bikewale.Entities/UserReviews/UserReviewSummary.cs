@@ -19,5 +19,7 @@ namespace Bikewale.Entities.UserReviews
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
         public UserReviewPageSourceEnum PageSource { get; set; }
+        public string ReturnUrl { get; set; }
+        public ushort PlatformId { get; set; }
     }
 }

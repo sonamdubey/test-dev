@@ -40,7 +40,7 @@ namespace Bikewale.Controllers
         /// <returns></returns>
         [Route("user-reviews/rate-bike/{modelId}/")]
         [Filters.DeviceDetection()]
-        public ActionResult RateBike(uint modelId, uint? pagesourceid, string reviewId)
+        public ActionResult RateBike(uint modelId, uint? pagesourceid,string q, string reviewId)
         {
             UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, pagesourceid, _userReviews, _objModel, reviewId, _userReviewsRepo);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
@@ -49,6 +49,8 @@ namespace Bikewale.Controllers
                 if (objUserReview.status == Entities.StatusCodes.ContentFound)
                 {
                     objUserReview.IsDesktop = true;
+                    objUserReview.PlatFormId = 1;
+                        objUserReview.qEncoded = q;
                     UserReviewVM = objUserReview.GetData();
                     if (UserReviewVM != null && UserReviewVM.objModelEntity != null)
                         return View(UserReviewVM);
@@ -71,14 +73,19 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [Route("m/user-reviews/rate-bike/{modelId}/")]
-        public ActionResult RateBike_Mobile(uint modelId, uint? pagesourceid, string reviewId)
+        public ActionResult RateBike_Mobile(uint modelId, uint? pagesourceid,string q, string reviewId)
         {
             UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, pagesourceid, _userReviews, _objModel, reviewId, _userReviewsRepo);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
             if (objUserReview != null)
             {
                 if (objUserReview.status == Entities.StatusCodes.ContentFound)
+                {
+                    objUserReview.PlatFormId = 2;
+                    
+                    objUserReview.qEncoded = q;
                     UserReviewVM = objUserReview.GetData();
+                }
                 else
                     return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
                 if (UserReviewVM != null && UserReviewVM.objModelEntity != null)
@@ -98,13 +105,13 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, uint pagesourceId, bool? isDesktop)
+        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, uint pagesourceId, bool? isDesktop,string returnUrl,ushort platformId)
         {
 
 
             UserReviewRatingObject objRating = null;
 
-            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, pagesourceId, reviewId);
+            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, pagesourceId, reviewId,returnUrl,platformId);
 
 
             string strQueryString = string.Empty;

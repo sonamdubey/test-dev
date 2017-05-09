@@ -27,6 +27,8 @@ namespace Bikewale.Models
         public StatusCodes status;
 
         public bool IsDesktop { get; set; }
+        public ushort PlatFormId { get; set; }
+        public string qEncoded { get; set; }
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Added interfaces for bikeinfo and user reviews 
@@ -46,8 +48,25 @@ namespace Bikewale.Models
                 ProcessQuery(_Querystring);
             else
                 status = Entities.StatusCodes.ContentFound;
-
+            
         }
+
+        private void ProcessEncoded(UserReviewRatingVM objData)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(qEncoded))
+                {
+                   objData.ReturnUrl  = Utils.Utils.DecryptTripleDES(qEncoded);
+                   
+                }
+            }
+            catch (System.Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewRatingPage.ProcessEncoded() - ModelId :{0}", _modelId));
+            }
+        }
+
         private void ProcessQuery(string Querystring)
         {
             try
@@ -95,6 +114,8 @@ namespace Bikewale.Models
                 GetBikeData(objUserVM);
 
                 GetUserRatings(objUserVM);
+                ProcessEncoded(objUserVM);
+
 
                 if (objUserVM != null && objUserVM.objModelEntity != null)
                 {

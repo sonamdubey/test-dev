@@ -14,5 +14,6 @@ namespace Bikewale.Models
         public uint ReviewId { get; set; }
         public uint pagesourceId { get; set; }
         public bool IsFake { get; set; }
+        public string ReturnUrl { get; set; }
     }
 }
