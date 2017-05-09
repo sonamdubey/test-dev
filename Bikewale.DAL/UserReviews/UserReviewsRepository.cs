@@ -890,7 +890,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_username", DbType.String, userName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, emailId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceId", DbType.Int16, sourceId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientIP", DbType.String, Bikewale.CoreDAL.CommonOpn.GetClientIP()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientIP", DbType.String, CurrentUser.GetClientIP()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.Int16, reviewId > 0 ? reviewId : Convert.DBNull));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
@@ -1334,6 +1334,127 @@ namespace Bikewale.DAL.UserReviews
             }
 
             return objBikeRatingReviewInfo;
+        }
+
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 05-05-2017
+        /// Description : Get user reviews summary for all pages
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns></returns>
+        public UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId)
+        {
+            UserReviewSummary objUserReviewSummary = null;
+            IList<UserReviewRating> objUserReviewrating = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummaryWithRating_05052017"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.UInt32, reviewId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            objUserReviewSummary = new UserReviewSummary()
+                            {
+
+                                CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
+                                CustomerName = Convert.ToString(dr["CustomerName"]),
+                                Description = Convert.ToString(dr["Comments"]),
+                                Title = Convert.ToString(dr["ReviewTitle"]),
+                                Tips = Convert.ToString(dr["ReviewTips"]),
+                                UpVotes = SqlReaderConvertor.ToUInt16(dr["UpVotes"]),
+                                DownVotes = SqlReaderConvertor.ToUInt16(dr["DownVotes"]),
+                                Views = SqlReaderConvertor.ToUInt16(dr["Views"]),
+                                EntryDate = SqlReaderConvertor.ToDateTime(dr["EntryDate"]),
+                                OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
+                                OverallRating = new UserReviewOverallRating()
+                                {
+                                    Id = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
+                                    Value = SqlReaderConvertor.ToUInt16(dr["Rating"]),
+                                    Heading = Convert.ToString(dr["Heading"]),
+                                    Description = Convert.ToString(dr["Description"]),
+                                },
+                                Make = new BikeMakeEntityBase()
+                                {
+                                    MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                    MaskingName = Convert.ToString(dr["makemasking"]),
+                                    MakeName = Convert.ToString(dr["makeName"])
+                                },
+                                Model = new BikeModelEntityBase()
+                                {
+                                    ModelId = SqlReaderConvertor.ToInt32(dr["modelId"]),
+                                    MaskingName = Convert.ToString(dr["modelmasking"]),
+                                    ModelName = Convert.ToString(dr["modelName"])
+                                },
+                                OriginalImagePath = Convert.ToString(dr["OriginalImgPath"]),
+                                HostUrl = Convert.ToString(dr["hostUrl"])
+                            };
+                        }
+
+                        if (objUserReviewSummary != null && dr.NextResult())
+                        {
+                            var objQuestions = new List<UserReviewQuestion>();
+                            while (dr.Read())
+                            {
+                                objQuestions.Add(new UserReviewQuestion()
+                                {
+                                    SelectedRatingId = SqlReaderConvertor.ToUInt32(dr["answerValue"]),
+                                    Id = SqlReaderConvertor.ToUInt32(dr["QuestionId"]),
+                                    Heading = Convert.ToString(dr["Heading"]),
+                                    Description = Convert.ToString(dr["Description"]),
+                                    DisplayType = (UserReviewQuestionDisplayType)Convert.ToInt32(dr["DisplayType"]),
+                                    Type = (UserReviewQuestionType)Convert.ToInt32(dr["QuestionType"]),
+                                    Order = SqlReaderConvertor.ToUInt16(dr["DisplayOrder"]),
+                                    MinHeading = Convert.ToString(dr["minHeading"])
+                                });
+                            }
+                            objUserReviewSummary.Questions = objQuestions;
+                        }
+
+                        if (objUserReviewSummary != null && dr.NextResult())
+                        {
+                            objUserReviewrating = new List<UserReviewRating>();
+                            while (dr.Read())
+                            {
+                                objUserReviewrating.Add(
+                                    new UserReviewRating()
+                                    {
+                                        Id = SqlReaderConvertor.ToUInt32(dr["RatingId"]),
+                                        QuestionId = SqlReaderConvertor.ToUInt32(dr["QuestionId"]),
+                                        Text = Convert.ToString(dr["RatingText"]),
+                                        Value = Convert.ToString(dr["RatingValue"])
+                                    });
+                            }
+                        }
+
+                        dr.Close();
+                    }
+                }
+
+                if (objUserReviewSummary != null)
+                {
+
+                    foreach (var question in objUserReviewSummary.Questions)
+                    {
+                        var objRating = objUserReviewrating.Where(q => q.QuestionId == question.Id && question.SelectedRatingId.ToString() == q.Value);
+                        question.Rating = objRating;
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+            }
+
+            return objUserReviewSummary;
         }
     }
 }
