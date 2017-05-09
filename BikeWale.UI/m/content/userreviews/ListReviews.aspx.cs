@@ -44,6 +44,7 @@ namespace Bikewale.Mobile.Content
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty;
         protected PageMetaTags pageMetas;
         protected bool isReviewAvailable;
+        protected string returnUrl=string.Empty;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -83,6 +84,7 @@ namespace Bikewale.Mobile.Content
             }
             BindControl();
             CreatMetas();
+            SetReturnUrl();
         }
         /// <summary>
         /// Created By :- Subodh Jain 17 Jan 2017
@@ -274,6 +276,10 @@ namespace Bikewale.Mobile.Content
 
                 }
             }
+        }
+        private void SetReturnUrl()
+        {
+            returnUrl = Utils.Utils.EncryptTripleDES(string.Format("/{0}-bikes/{1}/user-reviews/",objModelEntity.MakeBase.MaskingName,objModelEntity.MaskingName));
         }
 
         private void RegistorContainer()

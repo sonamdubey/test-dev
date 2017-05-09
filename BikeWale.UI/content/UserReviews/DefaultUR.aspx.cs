@@ -68,7 +68,8 @@ namespace Bikewale.Content
 
         private void btnWrite_Click(object Sender, EventArgs e)
         {
-            Response.Redirect(string.Format("/rate-your-bike/{0}/?pagesourceid={1}", Request.Form["drpModel"], Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_UserReview_Landing), false));
+            string _returnUrl = Utils.Utils.EncryptTripleDES("/user-reviews/");
+            Response.Redirect(string.Format("/rate-your-bike/{0}/?q={1}", Request.Form["drpModel"], _returnUrl, false));
             HttpContext.Current.ApplicationInstance.CompleteRequest();
             this.Page.Visible = false;
         }

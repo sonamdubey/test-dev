@@ -670,7 +670,6 @@ namespace Bikewale.DAL.UserReviews
                 using (DbCommand cmd = DbFactory.GetDBCommand("updatereviewviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int32, reviewId));
 
                     success = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
@@ -871,7 +870,7 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint sourceId, uint reviewId,string returnUrl,ushort platformId)
+        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint reviewId,string returnUrl,ushort platformId)
         {
             uint reviewIdNew = 0;
 
@@ -888,7 +887,6 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_questionrating", DbType.String, ratingQuestionAns));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_username", DbType.String, userName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, emailId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceId", DbType.Int16, sourceId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_returnurl", DbType.String, returnUrl));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_platformid", DbType.Int16, platformId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientIP", DbType.String, Bikewale.CoreDAL.CommonOpn.GetClientIP()));
@@ -986,7 +984,6 @@ namespace Bikewale.DAL.UserReviews
                                  Title = Convert.ToString(dr["ReviewTitle"]),
                                  Tips = Convert.ToString(dr["ReviewTips"]),
                                  OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
-                                 PageSource = (UserReviewPageSourceEnum)Convert.ToInt32(dr["PageSourceId"]),
                                  ReturnUrl=Convert.ToString(dr["ReturnUrl"]),
                                  PlatformId=SqlReaderConvertor.ToUInt16(dr["PlatformId"]),
                                  Make = new BikeMakeEntityBase()

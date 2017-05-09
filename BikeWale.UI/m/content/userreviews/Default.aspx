@@ -215,6 +215,6 @@
 </div>
 <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : ""%>/m/src/user-review/landing.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
-    var pageSource = '<%=Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Landing) %>';
+    var returnUrl = '<%=Utils.Utils.EncryptTripleDES("/user-reviews/") %>';
 </script>
 <!-- #include file="/includes/footermobile.aspx" -->

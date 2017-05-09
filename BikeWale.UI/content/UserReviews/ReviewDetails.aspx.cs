@@ -19,6 +19,7 @@ namespace Bikewale.Content
         protected DiscussIt ucDiscuss;
         protected bool IsNew = false, IsUsed = false;
         protected ReviewDetailsEntity objReview;
+        protected string returnUrl = string.Empty;
         // String variables
         public string reviewId = "";
         public string lastUpdatedOn = "";
@@ -329,7 +330,7 @@ namespace Bikewale.Content
             pageMetas.Keywords = string.Format("{0} review, {0} user review, car review, owner feedback, consumer review", BikeName);
             pageMetas.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/user-reviews/{3}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, reviewId);
             pageMetas.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/user-reviews/{3}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, reviewId);
-
+            returnUrl = Utils.Utils.EncryptTripleDES(string.Format("/{0}-bikes/{1}/reviews/{2}",MakeMaskingName,ModelMaskingName,reviewId));
         }
         /// <summary>
         /// Created By :- Subodh Jain 17 Jan 2017

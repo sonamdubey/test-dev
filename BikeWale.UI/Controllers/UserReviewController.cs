@@ -40,9 +40,9 @@ namespace Bikewale.Controllers
         /// <returns></returns>
         [Route("user-reviews/rate-bike/{modelId}/")]
         [Filters.DeviceDetection()]
-        public ActionResult RateBike(uint modelId, uint? pagesourceid,string q, string reviewId)
+        public ActionResult RateBike(uint modelId,string q, string reviewId)
         {
-            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, pagesourceid, _userReviews, _objModel, reviewId, _userReviewsRepo);
+            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, reviewId, _userReviewsRepo);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
             if (objUserReview != null)
             {
@@ -73,9 +73,9 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [Route("m/user-reviews/rate-bike/{modelId}/")]
-        public ActionResult RateBike_Mobile(uint modelId, uint? pagesourceid,string q, string reviewId)
+        public ActionResult RateBike_Mobile(uint modelId,string q, string reviewId)
         {
-            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, pagesourceid, _userReviews, _objModel, reviewId, _userReviewsRepo);
+            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, reviewId, _userReviewsRepo);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
             if (objUserReview != null)
             {
@@ -105,20 +105,20 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, uint pagesourceId, bool? isDesktop,string returnUrl,ushort platformId)
+        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, bool? isDesktop,string returnUrl,ushort platformId)
         {
 
 
             UserReviewRatingObject objRating = null;
 
-            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, pagesourceId, reviewId,returnUrl,platformId);
+            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId,returnUrl,platformId);
 
 
             string strQueryString = string.Empty;
 
 
             if (objRating != null)
-                strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&pagesourceid={8}&isFake={9}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, pagesourceId, objRating.IsFake);
+                strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, objRating.IsFake);
 
             string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
             if (objRating != null && !objRating.IsFake)
