@@ -9,6 +9,8 @@ namespace Bikewale.Entities.BikeData
     /// Description : Added modelid1 and modelid2 for sponsored comparions
     /// Modified by : Aditi Srivastava on 25 Apr 2017
     /// Summary     : Added additional parameters (ID, IsScooterOnly) for generic use
+    /// Modified By :- Subodh Jain 10 may 2017
+    /// summary :- Added bodystyle1 and bodystyle2
     /// </summary>
     [Serializable]
     public class SimilarCompareBikeEntity
@@ -38,5 +40,7 @@ namespace Bikewale.Entities.BikeData
         public string Bike2 { get; set; }
         public int ID { get; set; }
         public bool IsScooterOnly { get; set; }
+        public uint BodyStyle1 { get; set; }
+        public uint BodyStyle2 { get; set; }
     }
 }
