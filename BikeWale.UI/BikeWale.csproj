@@ -3676,6 +3676,7 @@
     <Content Include="Views\UserReview\_UserReviewsSearch_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\_ExpertReviewsModelWiseCard_Mobile.cshtml" />
     <Content Include="Views\UserReview\_SimilarBikeUserReview_Mobile.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad300x100_Middle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

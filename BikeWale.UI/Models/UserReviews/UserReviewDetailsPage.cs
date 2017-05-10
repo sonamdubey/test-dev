@@ -61,6 +61,8 @@ namespace Bikewale.Models.UserReviews
                 objPage.SimilarBikeReviewWidget = _bikeModelsCache.GetSimilarBikesUserReviews((uint)objPage.UserReviewDetailsObj.Model.ModelId, 9);
 
                 BindQuestions(objPage);
+
+                BindPageMetas(objPage);
             }
             catch
             {
@@ -102,6 +104,20 @@ namespace Bikewale.Models.UserReviews
                 NameValueCollection nvc = new NameValueCollection();
                 nvc.Add("par_reviewId", _reviewId.ToString());
                 SyncBWData.PushToQueue("updateUserReviewViews", DataBaseName.BW, nvc);
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void BindPageMetas(UserReviewDetailsVM objPage)
+        {
+            try
+            {
+                objPage.PageMetaTags.Title = string.Format("{0} | User Review on {1} {2} - BikeWale", objPage.UserReviewDetailsObj.Title, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
+                objPage.PageMetaTags.Description = string.Format("Read review by {0} on {1} {2}. {0} says {3}. View detailed review on BikeWale.", objPage.UserReviewDetailsObj.CustomerName, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Title);
+                objPage.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/{2}", objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName, _reviewId);
             }
             catch
             {

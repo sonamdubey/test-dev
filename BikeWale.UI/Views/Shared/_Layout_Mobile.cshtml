@@ -106,9 +106,11 @@
                 case 6:
                     return String.Format("googletag.defineSlot('{0}_Middle_320x50', [320, 50], 'div-gpt-ad-{1}-5').addService(googletag.pubads());", adPath, adId);
                 case 7:
-                    return String.Format("googletag.defineSlot('{0}_ATF_320x100', [[320, 50], [320, 100]], 'div-gpt-ad-{1}-1').addService(googletag.pubads());;", adPath, adId);
+                    return String.Format("googletag.defineSlot('{0}_ATF_320x100', [[320, 50], [320, 100]], 'div-gpt-ad-{1}-6').addService(googletag.pubads());;", adPath, adId);
                 case 8:
-                    return String.Format("googletag.defineSlot('{0}_BTF_320x100', [[320, 50], [320, 100]], 'div-gpt-ad-{1}-0').addService(googletag.pubads());;", adPath, adId);
+                    return String.Format("googletag.defineSlot('{0}_BTF_320x100', [[320, 50], [320, 100]], 'div-gpt-ad-{1}-7').addService(googletag.pubads());;", adPath, adId);
+                case 9:
+                    return String.Format("googletag.defineSlot('{0}_300x100',  [300, 100], 'div-gpt-ad-{1}-8').addService(googletag.pubads());;", adPath, adId);
                 default:
                     return "";
             }
@@ -142,6 +144,7 @@
             @if(Model.AdTags.Ad_Mid_320x50){ @Html.Raw(GetAdSlot(6, Model.AdTags.AdPath, Model.AdTags.AdId))}
             @if(Model.AdTags.Ad320x100ATF){@Html.Raw(GetAdSlot(7, Model.AdTags.AdPath, Model.AdTags.AdId))}
             @if(Model.AdTags.Ad320x100BTF){@Html.Raw(GetAdSlot(8, Model.AdTags.AdPath, Model.AdTags.AdId))}
+            @if(Model.AdTags.Ad_300x100){@Html.Raw(GetAdSlot(9, Model.AdTags.AdPath, Model.AdTags.AdId))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}

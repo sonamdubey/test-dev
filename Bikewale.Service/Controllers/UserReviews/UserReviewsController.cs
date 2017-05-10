@@ -240,7 +240,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <param name="reviewId"></param>
         /// <param name="vote"></param>
         /// <returns></returns>
-        [Route("api/user-reviews/voteUserReview/{reviewId}/")]
+        [Route("api/user-reviews/voteUserReview/")]
         public IHttpActionResult VoteUserReview(uint reviewId, int vote)
         {
             try

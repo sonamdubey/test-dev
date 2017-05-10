@@ -80,7 +80,11 @@ namespace Bikewale.Controllers
             {
                 objUserReviewDetails.TabsCount = 3;
                 UserReviewDetailsVM objPage = objUserReviewDetails.GetData();
-                return View(objPage);
+
+                if (objPage.UserReviewDetailsObj != null && objPage.ReviewId > 0)
+                    return View(objPage);
+                else
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
             else
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
@@ -94,9 +98,9 @@ namespace Bikewale.Controllers
         /// <returns></returns>
         [Route("user-reviews/rate-bike/{modelId}/")]
         [Filters.DeviceDetection()]
-        public ActionResult RateBike(uint modelId, uint? pagesourceid, string reviewId)
+        public ActionResult RateBike(uint modelId, uint? pagesourceid, string reviewId, uint? selectedRating)
         {
-            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, pagesourceid, _userReviews, _objModel, reviewId, _userReviewsRepo);
+            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, pagesourceid, _userReviews, _objModel, reviewId, _userReviewsRepo, selectedRating);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
             if (objUserReview != null)
             {
@@ -125,9 +129,9 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [Route("m/user-reviews/rate-bike/{modelId}/")]
-        public ActionResult RateBike_Mobile(uint modelId, uint? pagesourceid, string reviewId)
+        public ActionResult RateBike_Mobile(uint modelId, uint? pagesourceid, string reviewId, uint? selectedRating)
         {
-            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, pagesourceid, _userReviews, _objModel, reviewId, _userReviewsRepo);
+            UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, pagesourceid, _userReviews, _objModel, reviewId, _userReviewsRepo, selectedRating);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
             if (objUserReview != null)
             {
