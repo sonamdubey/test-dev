@@ -258,11 +258,6 @@ var mvcPageViews = [
     },
     {
         folderName: 'Views/News/',
-        fileName: 'Index_Mobile.cshtml',
-        stylesheet: 'm/css/content/listing.css'
-    },
-    {
-        folderName: 'Views/News/',
         fileName: 'Detail.cshtml',
         stylesheet: 'css/content/details.css'
     },
@@ -501,8 +496,18 @@ var mvcPageViews = [
         fileName: 'Models_Mobile.cshtml',
         stylesheet: 'm/css/videos/videosByModel.css'
     }
-
 ];
+
+var mvcPwaPageViews=[{
+        folderName: 'Views/News/',
+        fileName: 'Index_Mobile.cshtml',
+        stylesheet: '/m/css/content/app.css'
+    },
+	{
+        folderName: 'Views/News/',
+        fileName: 'Detail_Mobile.cshtml',
+        stylesheet: '/m/css/content/app.css'
+    }];
 
 // replace css reference with internal css for MVC views
 gulp.task('replace-mvc-layout-css-reference', function () {
@@ -538,7 +543,22 @@ gulp.task('replace-mvc-pageview-css-reference', function () {
 
     console.log('internal css reference replaced');
 });
+gulp.task('replace-mvc-pwa-pageview-css-reference', function () {
+    var pageLength = mvcPwaPageViews.length;
 
+    for (var i = 0; i < pageLength; i++) {
+        var element = mvcPwaPageViews[i],
+            style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),			
+			styleTag = "<style type='text/css'>" + style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "").replace(/@/g, "@@") + "</style>",
+            styleLink = "<link rel='stylesheet' type='text/css' href='" + element.stylesheet + "' />";
+
+        gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })
+            .pipe(replace(styleLink, styleTag))
+            .pipe(gulp.dest(buildFolder + element.folderName));
+    }
+
+    console.log('internal css reference replaced');
+});
 // replace css reference with internal css
 gulp.task('replace-css-reference', function () {
     var pageLength = pageArray.length;
@@ -576,6 +596,7 @@ gulp.task('default', gulpSequence(
     'bw-framework-js',
     'replace-css-reference',
     'replace-mvc-layout-css-reference',
-	'replace-mvc-pageview-css-reference'
+	'replace-mvc-pageview-css-reference',
+	'replace-mvc-pwa-pageview-css-reference'
     )
 );

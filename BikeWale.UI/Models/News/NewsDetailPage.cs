@@ -3,7 +3,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
@@ -11,7 +10,6 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
 using Bikewale.Notifications;
-using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using System;
 using System.Linq;
@@ -51,6 +49,21 @@ namespace Bikewale.Models
 
         #region Public properties
         public bool IsMobile { get; set; }
+
+        public string CityName
+        {
+            get
+            {
+                if (currentCityArea == null)
+                {
+                    currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                    if (currentCityArea != null)
+                        CityId = currentCityArea.CityId;
+                }
+
+                return string.IsNullOrEmpty(currentCityArea.City) ? string.Empty : currentCityArea.City;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -109,7 +122,6 @@ namespace Bikewale.Models
 
                 if (objData.ArticleDetails != null)
                 {
-                    objData.ReduxStore = new PwaReduxStore();
                     status = StatusCodes.ContentFound;
                     GetTaggedBikeListByMake(objData);
                     GetTaggedBikeListByModel(objData);
@@ -117,15 +129,7 @@ namespace Bikewale.Models
                     GetWidgetData(objData,widgetTopCount);
 
                     if (objData.Model != null&& ModelId!=0 && objData.Model.ModelId != ModelId)
-                        objData.Model.ModelId = (int)ModelId;
-
-                    if (IsMobile)
-                    {
-                        var newsDetailReducer = objData.ReduxStore.NewsReducer.NewsDetailReducer;
-                        newsDetailReducer.ArticleDetailData.ArticleDetail = ConverterUtility.MapArticleDetailsToPwaArticleDetails(objData.ArticleDetails);
-                        newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapNewBikeListToPwaNewBikeList(objData, currentCityArea.City);
-                        newsDetailReducer.RelatedModelObject.ModelObject = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(objData.BikeInfo);
-                    }
+                        objData.Model.ModelId = (int)ModelId;                  
                 }
                 else
                     status = StatusCodes.ContentNotFound;
