@@ -20,5 +20,6 @@ namespace Bikewale.Models
         public IEnumerable<SimilarBikeUserReview> SimilarBikeReviewWidget { get; set; }
         public uint ReviewId { get; set; }
         public UserReviewsSearchVM UserReviews { get; set; }
+        public string PageUrl { get; set; }
     }
 }

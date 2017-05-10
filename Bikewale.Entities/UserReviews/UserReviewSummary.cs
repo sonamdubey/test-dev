@@ -19,8 +19,9 @@ namespace Bikewale.Entities.UserReviews
         public IEnumerable<UserReviewQuestion> Questions { get; set; }
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
-        public UserReviewPageSourceEnum PageSource { get; set; }
+        public string ReturnUrl { get; set; }
         public uint UpVotes { get; set; }
+        public ushort PlatformId { get; set; }
         public uint DownVotes { get; set; }
         public uint Views { get; set; }
         public DateTime EntryDate { get; set; }

@@ -96,9 +96,9 @@ namespace Bikewale.Models.UserReviews
                     objPage.OriginalImagePath = objReviewSummary.OriginalImagePath;
 
                     if (IsDesktop)
-                        objPage.PreviousPageUrl = string.Format("/user-reviews/rate-bike/{0}/?reviewId={1}", objPage.Model.ModelId, _encodedString);
+                        objPage.PreviousPageUrl = string.Format("/user-reviews/rate-bike/{0}/?q={1}", objPage.Model.ModelId, _encodedString);
                     else
-                        objPage.PreviousPageUrl = string.Format("/m/user-reviews/rate-bike/{0}/?reviewId={1}", objPage.Model.ModelId, _encodedString);
+                        objPage.PreviousPageUrl = string.Format("/m/user-reviews/rate-bike/{0}/?q={1}", objPage.Model.ModelId, _encodedString);
 
                     objPage.JsonReviewSummary = Newtonsoft.Json.JsonConvert.SerializeObject(objReviewSummary);
                 }

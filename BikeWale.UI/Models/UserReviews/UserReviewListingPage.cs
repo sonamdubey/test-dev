@@ -52,6 +52,7 @@ namespace Bikewale.Models.UserReviews
 
                 BindWidgets(objData);
 
+                objData.PageUrl = string.Format("/{0}-bikes/{1}/reviews/", objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.MaskingName);
             }
             return objData;
         }

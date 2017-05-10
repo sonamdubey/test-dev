@@ -73,6 +73,8 @@ namespace Bikewale.Models.UserReviews
                 BindPageMetas(objPage);
 
                 BindUserReviewSWidget(objPage);
+
+                objPage.PageUrl = string.Format("/{0}-bikes/{1}/reviews/{2}/", objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName, _reviewId);
             }
             catch (Exception ex)
             {

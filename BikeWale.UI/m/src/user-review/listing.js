@@ -144,7 +144,8 @@ docReady(function() {
     $('#bike-rating-box').find('.answer-star-list input[type=radio]').change(function () {
         var button = $(this),
            buttonValue = Number(button.val());
-        window.location.href = "/m/rate-your-bike/" + modelid + "/?selectedRating=" + buttonValue;
+        var q = $('#rate-star-' + buttonValue).attr('data-querystring');
+        window.location.href = "/m/rate-your-bike/" + modelid + "/?q=" + q;
     });
 
     /* popup state */

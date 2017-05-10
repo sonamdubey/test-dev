@@ -15,5 +15,6 @@ namespace Bikewale.Models.UserReviews
         public UserReviewsSearchVM UserReviews { get; set; }
         public RecentExpertReviewsVM ExpertReviews { get; set; }
         public IEnumerable<Entities.SimilarBikeUserReview> SimilarBikeReviewWidget { get; set; }
+        public string PageUrl { get; set; }
     }
 }

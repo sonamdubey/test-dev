@@ -448,6 +448,7 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\ComparisonTestsController.cs" />
     <Compile Include="Controllers\DealerShowroomController.cs" />
     <Compile Include="Controllers\BikeCareController.cs" />
     <Compile Include="Controllers\BestBikesController.cs" />
@@ -907,6 +908,7 @@
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\BikeModels\ModelPage.cs" />
     <Compile Include="Models\CompareBikes\ComparePopularBikes.cs" />
+    <Compile Include="Models\ComparisonTests\ComparisonTestsIndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
@@ -3674,6 +3676,8 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad320X100BTF.cshtml" />
     <Content Include="Views\UserReview\_UserReviewsSearch_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\_ExpertReviewsModelWiseCard_Mobile.cshtml" />
+    <Content Include="Views\ComparisonTests\Index.cshtml" />
+    <Content Include="Views\ComparisonTests\Index_Mobile.cshtml" />
     <Content Include="Views\UserReview\_SimilarBikeUserReview_Mobile.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad300x100_Middle.cshtml" />
     <None Include="Web.Debug.config">

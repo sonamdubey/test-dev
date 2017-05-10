@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\AppVersionRepository.cs" />
+    <Compile Include="App\SplashScreenRepository.cs" />
     <Compile Include="AutoBiz\DealerPriceQuote\DealerPriceQuoteRepository.cs" />
     <Compile Include="AutoBiz\DealersRepository\Dealers.cs" />
     <Compile Include="AutoBiz\Dealers\DealersRepository.cs" />

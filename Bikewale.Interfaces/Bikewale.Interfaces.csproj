@@ -53,6 +53,8 @@
     <Compile Include="AppDeepLinking\IDeepLinking.cs" />
     <Compile Include="App\IAppVersion.cs" />
     <Compile Include="App\IAppVersionCache.cs" />
+    <Compile Include="App\ISplashScreen.cs" />
+    <Compile Include="App\ISplashScreenCache.cs" />
     <Compile Include="AutoBiz\DealerPriceQuote\IDealer.cs" />
     <Compile Include="AutoBiz\DealerPriceQuote\IDealerPriceQuote.cs" />
     <Compile Include="AutoBiz\Dealers\IDealers.cs" />

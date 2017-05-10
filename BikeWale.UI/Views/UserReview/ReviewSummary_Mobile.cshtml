@@ -67,7 +67,7 @@
                     @if (!string.IsNullOrEmpty(Model.Summary.Description))
                     {
                     <div class="grid-12 alpha omega">
-                        <a class="btn btn-orange btn-full-width" href="@string.Format("/m{0}",Model.PrevPageUrl)">Done</a>
+                        <a class="btn btn-orange btn-full-width" href="@string.Format("/m{0}",Model.Summary.ReturnUrl)">Done</a>
                     </div>
                     }
                     else
@@ -76,7 +76,7 @@
                         <a class="btn btn-white btn-full-width" href="@string.Format("/m{0}",Model.WriteReviewLink)">Write a review</a>
                     </div>
                     <div class="grid-6 alpha omega">
-                        <a class="btn btn-orange btn-full-width" href="@string.Format("/m{0}",Model.PrevPageUrl)">Done</a>
+                        <a class="btn btn-orange btn-full-width" href="@string.Format("/m{0}", Model.Summary.ReturnUrl)">Done</a>
                     </div>
                     }
                     <div class="clear"></div>
@@ -153,7 +153,7 @@
             </div>
         </div>
     </section>
-    <input id="pageSource" type="hidden" value="@Model.PrevPageUrl" />
+    <input id="pageSource" type="hidden" value="@string.Format("/m{0}",Model.Summary.ReturnUrl)" />
     <div id="review-summary-page"></div>
 }
 <script type="text/javascript">

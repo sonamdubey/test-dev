@@ -44,6 +44,7 @@ namespace Bikewale.Content
         public uint cityid;
         public PageMetaTags pageMetas;
         protected bool isReviewAvailable;
+        protected string returnUrl = string.Empty;
         public string SortingCriteria
         {
             get
@@ -263,6 +264,7 @@ namespace Bikewale.Content
 
                 GoogleKeywords();
                 BindControls();
+                returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/user-reviews/",MakeMaskingName,ModelMaskingName));
                 CreatMetas();
             }
         }//pageload

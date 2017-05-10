@@ -341,6 +341,7 @@
     <Compile Include="Controllers\Model\ModelController.cs" />
     <Compile Include="Controllers\Model\ModelListController.cs" />
     <Compile Include="Controllers\ServiceCenter\SeriveCenterController.cs" />
+    <Compile Include="Controllers\App\SplashScreenController.cs" />
     <Compile Include="Controllers\State\StateListController.cs" />
     <Compile Include="Controllers\UsedBikes\UsedBikePhotosController.cs" />
     <Compile Include="Controllers\UsedBikes\UsedBikeSellerController.cs" />
@@ -366,6 +367,7 @@
     <Compile Include="Utilities\CMSShareUrl.cs" />
     <Compile Include="Utilities\CompressionApiController.cs" />
     <Compile Include="Utilities\CustomOkResult.cs" />
+    <!--<Compile Include="Utilities\WebApiExtensionMethods.cs" />-->
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -406,6 +408,7 @@
   <ItemGroup>
     <Folder Include="APISecurity\" />
     <Folder Include="Views\InsuranceLead\" />
+    <Folder Include="Views\SplashScreen\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
