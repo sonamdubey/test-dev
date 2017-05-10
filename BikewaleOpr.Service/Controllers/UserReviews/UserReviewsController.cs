@@ -1,5 +1,6 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Notifications.MailTemplates.UserReviews;
+using Bikewale.Utility;
 using BikewaleOpr.DTO.UserReviews;
 using BikewaleOpr.Entities.UserReviews;
 using BikewaleOpr.Entity.UserReviews;
@@ -47,7 +48,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                     // Send mail to the user on approval or rejection
                     if (inputs.ReviewStatus.Equals(ReviewsStatus.Approved) && oldTableReviewId > 0)
                     {
-                        string reviewUrl = string.Format("/{0}-bikes/{1}/user-reviews/{2}.html", inputs.MakeMaskingName, inputs.ModelMaskingName, oldTableReviewId);
+                        string reviewUrl = string.Format("{0}/{1}-bikes/{2}/user-reviews/{3}.html",BWConfiguration.Instance.BwHostUrl, inputs.MakeMaskingName, inputs.ModelMaskingName, oldTableReviewId);
 
                         ComposeEmailBase objBase = new ReviewApprovalEmail(inputs.CustomerName, reviewUrl, inputs.BikeName);
                         objBase.Send(inputs.CustomerEmail, "Congratulations! Your review has been published");

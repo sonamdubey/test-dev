@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
+using Bikewale.DTO;
 using Bikewale.DTO.Make;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Service.AutoMappers.Make
 {
@@ -28,5 +27,10 @@ namespace Bikewale.Service.AutoMappers.Make
             return Mapper.Map<IEnumerable<BikeMakeEntityBase>, IEnumerable<MakeBase>>(objMakeList);
         }
 
+        internal static SplashScreen Convert(SplashScreenEntity objSplash)
+        {
+            Mapper.CreateMap<SplashScreenEntity, SplashScreen>();
+            return Mapper.Map<SplashScreenEntity, SplashScreen>(objSplash);
+        }
     }
 }
