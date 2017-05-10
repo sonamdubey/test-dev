@@ -84,7 +84,7 @@ namespace Bikewale.Mobile.Content
             }
             BindControl();
             CreatMetas();
-            SetReturnUrl();
+           returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/user-reviews/",objModelEntity.MakeBase.MaskingName,objModelEntity.MaskingName));
         }
         /// <summary>
         /// Created By :- Subodh Jain 17 Jan 2017
@@ -277,11 +277,7 @@ namespace Bikewale.Mobile.Content
                 }
             }
         }
-        private void SetReturnUrl()
-        {
-            returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/user-reviews/",objModelEntity.MakeBase.MaskingName,objModelEntity.MaskingName));
-        }
-
+        
         private void RegistorContainer()
         {
             using (IUnityContainer container = new UnityContainer())
