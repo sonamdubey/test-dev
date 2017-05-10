@@ -1,5 +1,7 @@
 ﻿@model Bikewale.Models.RecentExpertReviewsVM
 
+@if (Model != null && Model.ArticlesList != null)
+{
     <div class="swiper-container card-container article-type-carousel">
         <div class="swiper-wrapper">
             @foreach (var article in @Model.ArticlesList)
@@ -30,3 +32,4 @@
             }
         </div>
     </div>
+}

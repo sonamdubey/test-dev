@@ -12,16 +12,16 @@
     Model.AdTags.Ad_300x100 = true;
 }
 
-@if (Model != null)
+@if (Model != null && Model.UserReviewDetailsObj != null && Model.UserReviewDetailsObj.Model != null && Model.UserReviewDetailsObj.Make != null)
 {
     <section id="section-review-details" data-modelid="@Model.UserReviewDetailsObj.Model.ModelId">
         <div class="container content-box-shadow card-bottom-margin">
             <div class="content-inner-block-20 content-box-shadow">
                 <p class="font15 font-bold text-black margin-bottom10">@Model.UserReviewDetailsObj.Title</p>
 
-                <span class="rating-badge bg-rate-5 no-margin leftfloat margin-right15">
+                <span class="rating-badge bg-rate-@Model.UserReviewDetailsObj.OverallRating.Value no-margin leftfloat margin-right15">
                     <span class="bwmsprite star-white"></span>
-                    <span>5</span>
+                    <span>@Model.UserReviewDetailsObj.OverallRating.Value</span>
                 </span>
                 <div class="grid-5 alpha padding-right5">
                     <span class="bwmsprite author-grey-sm-icon"></span>
@@ -34,34 +34,40 @@
                 <div class="clear"></div>
             </div>
 
-            <div class="bg-light position-rel top3">
-                <p class="font-bold font14 padding-top15 padding-left20">About the reviewer</p>
-                <ul class="about-reviewer-list item-count-@Model.RatingQuestionCount">
-                    @foreach (var q in Model.RatingQuestions)
-                    {
-                        <li>
-                            <span class="bwmsprite questionId-@q.Id"></span>
-                            <p class="item-question">@q.MinHeading</p>
-                            <p class="item-answer">@q.Rating.FirstOrDefault().Text</p>
-                        </li>
-                    }
-                </ul>
-            </div>
+            @if (Model.RatingQuestions != null)
+            {
+                <div class="bg-light position-rel top3">
+                    <p class="font-bold font14 padding-top15 padding-left20">About the reviewer</p>
+                    <ul class="about-reviewer-list item-count-@Model.RatingQuestionCount">
+                        @foreach (var q in Model.RatingQuestions)
+                        {
+                            <li>
+                                <span class="bwmsprite questionId-@q.Id"></span>
+                                <p class="item-question">@q.MinHeading</p>
+                                <p class="item-answer">@q.Rating.FirstOrDefault().Text</p>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
 
-            <div class="content-inner-block-20">
-                <h1 class="font14 margin-bottom10">Full review of @Model.UserReviewDetailsObj.Make.MakeName @Model.UserReviewDetailsObj.Model.ModelName</h1>
-                <ul class="horizontal-rating-graph user-review-graph">
-                    @foreach (var q in Model.ReviewQuestions)
-                    {
-                        <li>
-                            <span class="graph-bar-label">@q.Heading</span>
-                            <span class="graph-bar-bg">
-                                <span style="width:@(q.SelectedRatingId * 20)%" class="rating-bar bg-rate-@q.SelectedRatingId"></span>
-                            </span>
-                        </li>
-                    }
-                </ul>
-            </div>
+            @if (Model.ReviewQuestions != null)
+            {
+                <div class="content-inner-block-20">
+                    <h1 class="font14 margin-bottom10">Full review of @Model.UserReviewDetailsObj.Make.MakeName @Model.UserReviewDetailsObj.Model.ModelName</h1>
+                    <ul class="horizontal-rating-graph user-review-graph">
+                        @foreach (var q in Model.ReviewQuestions)
+                        {
+                            <li>
+                                <span class="graph-bar-label">@q.Heading</span>
+                                <span class="graph-bar-bg">
+                                    <span style="width:@(q.SelectedRatingId * 20)%" class="rating-bar bg-rate-@q.SelectedRatingId"></span>
+                                </span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
 
             <div class="padding-right20 padding-left20 padding-bottom20">
                 <p class="font14 text-light-grey">@Model.UserReviewDetailsObj.Description</p>
@@ -79,6 +85,7 @@
                     </span>
                     <span id="upvoteCount" class="btn-count">@Model.UserReviewDetailsObj.UpVotes</span>
                 </button>
+
                 <button type="button" id="downvoteButton" onclick="downVoteReview()" class="btn btn-inv-teal-group margin-right5 margin-bottom10">
                     <span class="btn-label-grid">
                         <span class="bwmsprite like-sm"></span>
@@ -86,6 +93,7 @@
                     </span>
                     <span id="downvoteCount" class="btn-count">@Model.UserReviewDetailsObj.DownVotes</span>
                 </button>
+
                 <div class="inline-block margin-bottom10">
                     <span class="bwmsprite views-sm"></span>
                     <span class="font12 text-light-grey inline-block">@string.Format("{0} view{1}", Model.UserReviewDetailsObj.Views, Model.UserReviewDetailsObj.Views > 1 ? "s" : "")</span>
@@ -116,9 +124,12 @@
         </div>
     </section>
 
-    <section class="bg-white section-bottom-margin margin-bottom10">
-        @Html.Partial("~/views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.GenericBikeWidgetData)
-    </section>
+    if (Model.GenericBikeWidgetData != null)
+    {
+        <section class="bg-white section-bottom-margin margin-bottom10">
+            @Html.Partial("~/views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.GenericBikeWidgetData)
+        </section>
+    }
 
     <section>
         <div id="modelReviewsListing" class="container content-box-shadow card-bottom-margin">
@@ -214,39 +225,45 @@
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x100_Middle.cshtml", new { AdId = Model.AdTags.AdId });}
     </div>
 
-    <section>
-        <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
-            <div class="carousel-heading-content">
-                <div class="swiper-heading-left-grid inline-block">
-                    <h2 class="h2-heading">@Model.ExpertReviews.Title</h2>
+    if (Model.ExpertReviews != null)
+    {
+        <section>
+            <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
+                <div class="carousel-heading-content">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2 class="h2-heading">@Model.ExpertReviews.Title</h2>
+                    </div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="/m/@Model.ExpertReviews.MoreExpertReviewUrl" title="@string.Format("View all expert reviews")" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="/m/@Model.ExpertReviews.MoreExpertReviewUrl" title="@string.Format("View all expert reviews")" class="btn view-all-target-btn">View all</a>
-                </div>
-                <div class="clear"></div>
+
+                @Html.Partial("~/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
+
             </div>
+        </section>
+    }
 
-            @Html.Partial("~/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
-
-        </div>
-    </section>
-
-    <section>
-        <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
-            <div class="carousel-heading-content">
-                <div class="swiper-heading-left-grid inline-block">
-                    <h2 class="h2-heading">Reviews of similar bikes</h2>
+    if (Model.SimilarBikeReviewWidget != null)
+    {
+        <section>
+            <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
+                <div class="carousel-heading-content">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2 class="h2-heading">Reviews of similar bikes</h2>
+                    </div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="@string.Format("/m/{0}-bikes/{1}/reviews/", Model.UserReviewDetailsObj.Make.MaskingName, Model.UserReviewDetailsObj.Model.MaskingName)" title="View all" cl title="View all" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="@string.Format("/m/{0}-bikes/{1}/reviews/", Model.GenericBikeWidgetData.BikeInfo.Make.MaskingName, Model.GenericBikeWidgetData.BikeInfo.Model.MaskingName)" title="View all" class="btn view-all-target-btn">View all</a>
-                </div>
-                <div class="clear"></div>
+
+                @Html.Partial("~/views/UserReview/_SimilarBikeUserReview_Mobile.cshtml", Model.SimilarBikeReviewWidget)
+
             </div>
-
-            @Html.Partial("~/views/UserReview/_SimilarBikeUserReview_Mobile.cshtml", Model.SimilarBikeReviewWidget)
-
-        </div>
-    </section>
+        </section>
+    }
 
     <div id="report-abuse-popup">
         <p class="font14 text-bold text-center margin-bottom10">Why do you want to report it abuse?</p>

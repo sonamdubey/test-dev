@@ -908,7 +908,6 @@
     <Compile Include="Models\BikeModels\ModelPage.cs" />
     <Compile Include="Models\CompareBikes\ComparePopularBikes.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
-    <Compile Include="Models\ExpertReviews\ExpertReviewsModelWiseCard.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
