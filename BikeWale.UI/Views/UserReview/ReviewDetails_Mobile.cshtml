@@ -34,7 +34,7 @@
                 <div class="clear"></div>
             </div>
 
-            @if (Model.RatingQuestions != null)
+            @if (Model.RatingQuestions != null && Model.RatingQuestions.Count > 0)
             {
                 <div class="bg-light position-rel top3">
                     <p class="font-bold font14 padding-top15 padding-left20">About the reviewer</p>
@@ -51,7 +51,7 @@
                 </div>
             }
 
-            @if (Model.ReviewQuestions != null)
+            @if (Model.ReviewQuestions != null && Model.ReviewQuestions.Count > 0)
             {
                 <div class="content-inner-block-20">
                     <h1 class="font14 margin-bottom10">Full review of @Model.UserReviewDetailsObj.Make.MakeName @Model.UserReviewDetailsObj.Model.ModelName</h1>
@@ -88,7 +88,7 @@
 
                 <button type="button" id="downvoteButton" onclick="downVoteReview()" class="btn btn-inv-teal-group margin-right5 margin-bottom10">
                     <span class="btn-label-grid">
-                        <span class="bwmsprite like-sm"></span>
+                        <span class="bwmsprite dislike-sm"></span>
                         <span id="downvoteText" class="btn-label">Downvote</span>
                     </span>
                     <span id="downvoteCount" class="btn-count">@Model.UserReviewDetailsObj.DownVotes</span>
@@ -131,7 +131,7 @@
         </section>
     }
 
-    if (Model.UserReviews != null)
+    if (Model.UserReviews != null && Model.UserReviews.UserReviews.TotalCount > 0)
     {
         @Html.Partial("~/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
     }
@@ -140,7 +140,7 @@
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x100_Middle.cshtml", new { AdId = Model.AdTags.AdId });}
     </div>
 
-    if (Model.ExpertReviews != null)
+    if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Count() > 0)
     {
         <section>
             <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
@@ -160,7 +160,7 @@
         </section>
     }
 
-    if (Model.SimilarBikeReviewWidget != null)
+    if (Model.SimilarBikeReviewWidget != null && Model.SimilarBikeReviewWidget.Count() > 0)
     {
         <section>
             <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
@@ -169,7 +169,7 @@
                         <h2 class="h2-heading">Reviews of similar bikes</h2>
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@string.Format("/m/{0}-bikes/{1}/reviews/", Model.UserReviewDetailsObj.Make.MaskingName, Model.UserReviewDetailsObj.Model.MaskingName)" title="View all" cl title="View all" class="btn view-all-target-btn">View all</a>
+                        <a href="/m/user-reviews/" title="View all" class="btn view-all-target-btn">View all</a>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -185,7 +185,7 @@
         <div class="report-abuse-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
         <p class="margin-bottom10">Comment</p>
         <textarea id="txtAbuseComments"></textarea>
-        <span id="spnAbuseComments"></span>
+        <span id="spnAbuseComments" class="errorText"></span>
         <div class="text-center">
             <button onclick="reportAbuse()" type="button" class="btn btn-orange">Report</button>
         </div>

@@ -22,7 +22,7 @@
                 <span class="grid-11-inline font14 text-light-grey">Reviews are sorted on the basis of upvotes</span>
             </div>
             <!-- ko if : activeReviewList() && activeReviewList().length > 0 -->
-            <div data-bind="visible: reviewsAvailable()">
+            <div style="display: @(Model.Pager != null && Model.Pager.TotalResults > 0 ? "block" : "none")"  data-bind="visible: reviewsAvailable()">
                 <ul class="user-review-list" data-bind="visible : (!noReviews() && TotalReviews() !== 0), css: IsLoading() ? 'loader-active' : '' ">
                     @{ushort i = 0;}
                     @foreach (ReviewEntity review in Model.UserReviews.Result)
@@ -84,7 +84,7 @@
 
                 </ul>
 
-                @if (Model.IsPagerNeeded)
+                @if (Model.IsPagerNeeded && ((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1) < Model.Pager.TotalResults)
                 {
                     <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noReviews() && TotalReviews() != 0 && Pagination().paginated() > 0" style="display: @(Model.Pager!=null && Model.Pager.TotalResults > 0 ? "block" : "none")">
                         <div class="footer-pagination font14 border-solid-top padding-top10">
@@ -101,7 +101,7 @@
                 }
             </div>
             <!-- /ko -->
-            <!-- ko ifnot :  activeReviewList() && activeReviewList().length <=0 -->
+            <!-- ko ifnot :  activeReviewList() && activeReviewList().length > 0 -->
             <div class="content-inner-block-20 text-center" style="display: @(Model.Pager!=null && Model.Pager.TotalResults > 0 ? "none" : "block")" data-bind="visible: !reviewsAvailable()">
                 <div class="circle-placeholder">
                     <span class="bwmsprite review-lg margin-top25"></span>

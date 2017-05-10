@@ -7,6 +7,13 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 
+<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+    <meta itemprop="ratingValue" content="@Model.RatingsInfo.OverallRating.ToString("0.0")">
+    <meta itemprop="worstRating" content="1">
+    <meta itemprop="bestRating" content="5">
+    <meta itemprop="itemreviewed" content="@Model.BikeName" />
+    <meta itemprop="ratingCount" content="@Model.RatingsInfo.TotalRatings"/>
+</span>
 <section id="section-review-list" data-modelid="@Model.ModelId">
     <div class="container content-box-shadow card-bottom-margin">
         <h1 class="font20 padding-15-20 content-box-shadow">@Model.BikeName user reviews</h1>

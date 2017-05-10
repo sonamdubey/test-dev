@@ -45,11 +45,12 @@ namespace Bikewale.Controllers
         }
 
         [Route("m/{makeMasking}-bikes/{modelMasking}/reviews/")]
-        public ActionResult ListReviews_Mobile(string makeMasking, string modelMasking)
+        public ActionResult ListReviews_Mobile(string makeMasking, string modelMasking, uint? pageNo)
         {
             UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles);
             if (objData != null && objData.Status.Equals(StatusCodes.ContentFound))
             {
+                objData.PageNumber = pageNo;
                 UserReviewListingVM objVM = objData.GetData();
                 if (objData.Status.Equals(StatusCodes.ContentNotFound))
                 {
@@ -106,8 +107,8 @@ namespace Bikewale.Controllers
         /// <returns></returns>
         [Route("user-reviews/rate-bike/{modelId}/")]
         [Filters.DeviceDetection()]
-        public ActionResult RateBike(uint modelId,string q, uint? selectedRating)        
-        {           
+        public ActionResult RateBike(uint modelId, string q, uint? selectedRating)
+        {
             UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, q, _userReviewsRepo);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
             if (objUserReview != null)
@@ -136,8 +137,8 @@ namespace Bikewale.Controllers
         /// </summary>
         /// <param name="q"></param>
         /// <returns></returns>
-        [Route("m/user-reviews/rate-bike/{modelId}/")]        
-        public ActionResult RateBike_Mobile(uint modelId,string q, uint? selectedRating)
+        [Route("m/user-reviews/rate-bike/{modelId}/")]
+        public ActionResult RateBike_Mobile(uint modelId, string q, uint? selectedRating)
         {
             UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, q, _userReviewsRepo);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
@@ -167,20 +168,20 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, bool? isDesktop,string returnUrl,ushort platformId)
+        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, bool? isDesktop, string returnUrl, ushort platformId)
         {
 
 
             UserReviewRatingObject objRating = null;
 
-            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId,returnUrl,platformId);
+            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId, returnUrl, platformId);
 
 
             string strQueryString = string.Empty;
 
 
             if (objRating != null)
-                strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}&returnUrl={9}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, objRating.IsFake,returnUrl);
+                strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}&returnUrl={9}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, objRating.IsFake, returnUrl);
 
             string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
             if (objRating != null && !objRating.IsFake)

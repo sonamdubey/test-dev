@@ -18,5 +18,6 @@ namespace Bikewale.Entities.UserReviews.Search
 
         public bool Reviews { get; set; }
         public bool Ratings { get; set; }
+        public uint SkipReviewId { get; set; }
     }
 }

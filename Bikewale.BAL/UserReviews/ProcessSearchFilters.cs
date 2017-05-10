@@ -132,6 +132,11 @@ namespace Bikewale.BAL.UserReviews.Search
                 if (!string.IsNullOrEmpty(objFilters.CAT))
                     ProcessCategories(objFilters.CAT);
 
+                if (objFilters.SkipReviewId > 0)
+                {
+                    filterInputs.SkipReviewId = objFilters.SkipReviewId;
+                }
+
                 filterInputs.SortOrder = objFilters.SO;
 
                 ProcessPaging(objFilters.PN, objFilters.PS);
@@ -240,12 +245,22 @@ namespace Bikewale.BAL.UserReviews.Search
                 ApplyUserSearchType();
                 ApplyBikeFilter();
                 ApplyReviewTypeFilter();
+                SkipReviewId();
             }
             catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.InitSearchQuery");
 
             }
+        }
+
+        private void SkipReviewId()
+        {
+            if (filterInputs.SkipReviewId > 0)
+            {
+                whereClause += string.Format(" and ur.id <> {0} ", filterInputs.SkipReviewId);
+            }
+
         }
 
         private void ApplyUserSearchType()

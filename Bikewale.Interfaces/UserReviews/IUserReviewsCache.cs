@@ -16,7 +16,7 @@ namespace Bikewale.Interfaces.UserReviews
         ReviewListBase GetUserReviews();
         SearchResult GetUserReviewsList(InputFilters inputFilters);
         UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId);
-        BikeReviewsInfo GetBikeReviewsInfo(uint modelId);
         BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId);
+        BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId);
     }
 }

@@ -150,12 +150,15 @@ namespace Bikewale.Models.UserReviews
                     SO = 2,
                     PN = 1,
                     PS = 8,
-                    Reviews = true
+                    Reviews = true,
+                    SkipReviewId = _reviewId
                 };
 
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache);
+                objUserReviews.SkipReviewId = _reviewId;
                 objPage.UserReviews = objUserReviews.GetData();
                 objPage.UserReviews.IsPagerNeeded = false;
+
             }
             catch (Exception ex)
             {

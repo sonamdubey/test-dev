@@ -871,7 +871,7 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint reviewId,string returnUrl,ushort platformId)
+        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId)
         {
             uint reviewIdNew = 0;
 
@@ -985,8 +985,8 @@ namespace Bikewale.DAL.UserReviews
                                  Title = Convert.ToString(dr["ReviewTitle"]),
                                  Tips = Convert.ToString(dr["ReviewTips"]),
                                  OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
-                                 ReturnUrl=Convert.ToString(dr["ReturnUrl"]),
-                                 PlatformId=SqlReaderConvertor.ToUInt16(dr["PlatformId"]),
+                                 ReturnUrl = Convert.ToString(dr["ReturnUrl"]),
+                                 PlatformId = SqlReaderConvertor.ToUInt16(dr["PlatformId"]),
                                  Make = new BikeMakeEntityBase()
                                  {
                                      MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
@@ -1215,7 +1215,7 @@ namespace Bikewale.DAL.UserReviews
         }
 
 
-        public BikeReviewsInfo GetBikeReviewsInfo(uint modelId)
+        public BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId)
         {
             BikeReviewsInfo objBikeReviewInfo = null;
             try
@@ -1224,6 +1224,7 @@ namespace Bikewale.DAL.UserReviews
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.UInt32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_skipreviewid", DbType.UInt32, (skipReviewId.HasValue ? skipReviewId.Value : 0)));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
