@@ -72,6 +72,12 @@ namespace Bikewale.Controllers
 
         }
 
+        /// <summary>
+        /// Created by sajal gupta on  10-05-2017
+        /// description : to load user review detail mobile page
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns></returns>
         [Route("m/user-reviews/details/{reviewId}")]
         public ActionResult ReviewDetails_Mobile(uint reviewId)
         {
@@ -79,15 +85,17 @@ namespace Bikewale.Controllers
             if (objUserReviewDetails != null)
             {
                 objUserReviewDetails.TabsCount = 3;
+                objUserReviewDetails.ExpertReviewsWidgetCount = 3;
+                objUserReviewDetails.SimilarBikeReviewWidgetCount = 9;
                 UserReviewDetailsVM objPage = objUserReviewDetails.GetData();
 
                 if (objPage.UserReviewDetailsObj != null && objPage.ReviewId > 0)
                     return View(objPage);
                 else
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return Redirect("/pageNotFound.aspx");
             }
             else
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return Redirect("/pageNotFound.aspx");
         }
 
         /// <summary>
