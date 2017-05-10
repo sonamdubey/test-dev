@@ -907,6 +907,9 @@
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\BikeModels\ModelPage.cs" />
     <Compile Include="Models\CompareBikes\ComparePopularBikes.cs" />
+    <Compile Include="Models\Compare\CompareIndex.cs" />
+    <Compile Include="Models\Compare\CompareWidget.cs" />
+    <Compile Include="Models\ComparisonTest\ComparisonTestWidget.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
@@ -3674,6 +3677,8 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad320X100BTF.cshtml" />
     <Content Include="Views\CompareBikes\Index.cshtml" />
     <Content Include="Views\CompareBikes\CompareBikeDetails.cshtml" />
+    <Content Include="Views\CompareBikes\_PopularComaprisonBodyStyle.cshtml" />
+    <Content Include="Views\ComparisonTest\_ComparisonTestWidget.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
