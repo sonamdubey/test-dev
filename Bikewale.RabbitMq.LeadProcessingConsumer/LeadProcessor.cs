@@ -28,7 +28,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         private QueueingBasicConsumer consumer;
         private NameValueCollection nvc = new NameValueCollection();
         private string _queueName, _hostName;
-        private uint _hondaGaddiId, _bajajFinanceId;
+        private uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId;
         public LeadConsumer()
         {
             try
@@ -41,6 +41,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 _RabbitMsgTTL = ConfigurationManager.AppSettings["RabbitMsgTTL"];
                 UInt32.TryParse(ConfigurationManager.AppSettings["HondaGaddiId"], out _hondaGaddiId);
                 UInt32.TryParse(ConfigurationManager.AppSettings["BajajFinanceId"], out _bajajFinanceId);
+                UInt32.TryParse(ConfigurationManager.AppSettings["RoyalEnfieldId"], out _RoyalEnfieldId);
                 InitConsumer();
                 _leadProcessor = new LeadProcessor();
 
@@ -205,10 +206,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 if (priceQuote != null)
                 {
                     Logs.WriteInfoLog(String.Format("Manufacturer Lead started processing."));
-
-
                     string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, priceQuote.VersionId, priceQuote.CityId, priceQuote.CampaignId);
-
                     ManufacturerLeadEntity leadEntity = new ManufacturerLeadEntity()
                     {
                         PQId = pqId,
@@ -220,7 +218,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         LeadSourceId = leadSourceId
 
                     };
-
 
                     if (_leadProcessor.SaveManufacturerLead(leadEntity))
                     {
@@ -238,10 +235,14 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             isSuccess = _leadProcessor.PushLeadToBajajFinance(priceQuote, pqId, pincodeId);
                             Logs.WriteInfoLog(String.Format("Bajaj Finance Lead submitted."));
                         }
+                        else if (priceQuote.DealerId == _RoyalEnfieldId)
+                        {
+                            Logs.WriteInfoLog(String.Format("Royal Enfield Lead started processing."));
+                            isSuccess = _leadProcessor.PushLeadToRoyalEnfield(priceQuote, pqId);
+                            Logs.WriteInfoLog(String.Format("Royal Enfield Lead submitted."));
+                        }
                     }
-
                     Logs.WriteInfoLog(String.Format("Manufacturer Lead submitted."));
-
                 }
             }
             catch (Exception ex)
@@ -437,7 +438,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             return isSuccess;
         }
 
-
         internal bool PushLeadToBajajFinance(PriceQuoteParametersEntity priceQuote, uint pqId, uint pincodeId)
         {
             bool isSuccess = false;
@@ -503,6 +503,28 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 Logs.WriteInfoLog(String.Format("PushLeadToBajajFinance : {0}", ex.Message));
             }
             return isSuccess;
+        }
+
+        internal bool PushLeadToRoyalEnfield(PriceQuoteParametersEntity priceQuote, uint pqId)
+        {
+            try
+            {
+                BikeQuotationEntity quotation = _repository.GetPriceQuoteById(pqId);
+                RoyalEnfieldWebAPI.Service service = new RoyalEnfieldWebAPI.Service();
+                string token = ConfigurationManager.AppSettings["RoyalEnfieldToken"];
+                string response = service.affiliates(priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, quotation.State, quotation.City, string.Empty, quotation.ModelName, "http://www.bikewale.com", token, "bikewale");
+                if (!string.IsNullOrEmpty(response))
+                {
+                    _repository.UpdateManufacturerLead(pqId, priceQuote.CustomerEmail, priceQuote.CustomerMobile, response);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteInfoLog(String.Format("PushLeadToRoyalEnfield : {0}", ex.Message));
+            }
+
+            return false;
         }
 
         internal PriceQuoteParametersEntity GetPriceQuoteDetails(uint pqId)
