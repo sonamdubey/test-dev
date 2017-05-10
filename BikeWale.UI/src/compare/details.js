@@ -1,4 +1,11 @@
-﻿docReady(function() {
+﻿var floatingCard = $('#comparison-floating-card'),
+    floatingCardHeight = floatingCard.height() - 44,
+    comparisonFooter = $('#comparison-footer'),
+    overallSpecsTabs = $('#overall-tabs'),
+    $window = $(window),
+    windowScrollTop;
+
+docReady(function() {
     $('.chosen-select').chosen();
 
     // version dropdown
@@ -30,27 +37,20 @@
 
     $('.compare-bike-list').on('click', '.cancel-selected-item', function () {
         var listItem = $(this).closest('.list-item'),
-            listItemIndex = listItem.index(),
-            list = listItem.closest('.compare-bike-list');
+            listItemIndex = listItem.index();
 
-        listItem.remove();
-
-        if(!list.hasClass('floating-compare-list')) {
-            if(list.find('.list-item').length > 1) {
-                $('.floating-compare-list li:eq('+ listItemIndex +')').remove();
-                compareBox.emptyTableData(listItemIndex);
-
-                if(!list.find('.box-placeholder').length) {
-                    compareBox.setPlaceholderBox(list[0]);
-                }
-
-                compareBox.resizeColumn(list[0]);
-                compareBox.setSponsoredIndex();
-            }
-            else {
-                //window.location.href = "/compare";
-            }
+        var bikeList = $('.compare-bike-list');
+        for(var i = 0; i < bikeList.length; i++) {
+            $(bikeList[i]).find('li:eq('+ listItemIndex +')').remove();
         }
+
+        var mainList = $('#bike-comparison-grid').find('.compare-bike-list');
+
+        compareBox.emptyTableData(listItemIndex);
+        compareBox.checkForPlaceholderBox(mainList);
+
+        compareBox.resizeColumn(mainList[0]);
+        compareBox.setSponsoredIndex();
     });
 
     $('.compare-bike-list').on('click', '.add-bike-form', function () {
@@ -70,14 +70,15 @@
         }
     });
 
-    var bodyElement = document.getElementsByTagName("body")[0],        
-        hideCommonFeatures = true,
+    var hideCommonFeatures = false,
         equivalentDataFound = false;
 
     var sponsoredColumn = document.getElementById('sponsored-column-active');
 
     $('.toggle-features-btn').on('click', function () {
-        if (hideCommonFeatures) {
+        var btn = $('.toggle-features-btn');
+        
+        if (!hideCommonFeatures) {
             if (!equivalentDataFound) {
                 var dataRows = document.getElementsByClassName('row-type-data');
 
@@ -85,14 +86,10 @@
                 equivalentDataFound = true;
             }
 
-            bodyElement.setAttribute('data-equivalent', 1);
-            compareBox.toggleBtnLabel($(this)[0], 'Show all features');
-            hideCommonFeatures = false;
+            compareBox.setFeaturesStatus(btn, 'Show all features', 1); // (btn, message, flag)
         }
         else {
-            bodyElement.setAttribute('data-equivalent', 0);
-            compareBox.toggleBtnLabel($(this)[0], 'Hide common features');
-            hideCommonFeatures = true;
+            compareBox.setFeaturesStatus(btn, 'Hide common features', 0);
         }
 
     });
@@ -105,6 +102,17 @@
         placeholderTemplate: '<p class="font15 text-bold margin-bottom20">Add bike to compare</p><div class="add-bike-form"><div class="box-placeholder"><span class="box-label"><span class="add-icon"></span></span></div><div class="text-center"><button type="button" class="add-compare-btn btn btn-white btn-160-32">Add another bike</button></div></div>',
 
         addToCompareButton: '<div class="text-center margin-top5"><a href="" class="btn btn-white btn-160-32">Add to compare</a></div>',
+
+        checkForPlaceholderBox: function (list) {
+            if(list.find('.list-item').length > 1) {
+                if(!list.find('.box-placeholder').length) {
+                    compareBox.setPlaceholderBox(list[0]);
+                }
+            }
+            else {
+                window.location.href = "/compare/details/";
+            }
+        },
 
         setPlaceholderBox: function (list) {
             var li = document.createElement("li");
@@ -125,6 +133,10 @@
                 $(dataRows[i]).find('td:eq(' + listItemIndex + ')').remove();
                 $(dataRows[i]).append('<td></td>');
             };
+
+            if(equivalentDataFound) {
+                compareBox.resetEquivalentData();
+            }
         },
 
         resizeColumn: function (list) {
@@ -137,7 +149,7 @@
         },
 
         detectEquivalentData: function (dataRows) {
-            var list = document.getElementsByClassName('compare-bike-list')[0],
+            var list = document.getElementById('bike-comparison-grid'),
                 bikeItemCount = list.getElementsByClassName('bike-details-block').length;
 
             var dataRowLength = dataRows.length;
@@ -147,8 +159,20 @@
             }
         },
 
+        resetEquivalentData: function () {
+            var dataRows = document.getElementsByClassName('row-type-data'),
+                dataRowLength = dataRows.length;
+
+            for(var i = 0; i < dataRowLength; i++) {
+                dataRows[i].className = 'row-type-data';
+            }
+
+            compareBox.setFeaturesStatus($('.toggle-features-btn'), 'Hide common features', 0);
+            equivalentDataFound = false;
+        },
+
         compareTableData: function (bikeItemCount, rowElement) {
-            var rowColumns = rowElement.getElementsByTagName("td"),
+            var rowColumns = rowElement.getElementsByTagName('td'),
                 isEquivalent = false;
 
             for(var i = 1; i < bikeItemCount; i++) {
@@ -162,12 +186,19 @@
             }
 
             if(isEquivalent) {
-                rowElement.className += " equivalent-data";
+                rowElement.className += ' equivalent-data';
             }
         },
 
-        toggleBtnLabel: function (btn, message) {
-            btn.getElementsByClassName('btn-label')[0].innerHTML = message;           
+        setFeaturesStatus: function (btn, message, flag) {
+            document.getElementsByTagName("body")[0].setAttribute('data-equivalent', flag);
+            compareBox.setBtnLabel(btn, message);
+
+            hideCommonFeatures =  Boolean(flag);
+        },
+
+        setBtnLabel: function (btn, message) {
+            btn.find('.btn-label').html(message);
         },
 
         setSponsoredIndex: function () {
@@ -317,5 +348,44 @@
     if(typeof sponsoredColumn !== 'undefined') {
         compareBox.setSponsoredIndex();
     }
+
+    var windowHeight = $window.height();
+
+    $window.on('scroll', function () {
+        var overallSpecsOffset = overallSpecsTabs.offset().top - floatingCardHeight,
+            footerOffsetForButton = comparisonFooter.offset().top - windowHeight,
+            footerOffsetForCard = comparisonFooter.offset().top - floatingCardHeight - 88;
+
+        windowScrollTop = $window.scrollTop();
+
+        if (windowScrollTop > overallSpecsOffset) {
+            floatingCard.addClass('fixed-card');
+
+            if (windowScrollTop > footerOffsetForCard) {
+                floatingCard.removeClass('fixed-card');
+            }
+        }
+        else if (windowScrollTop < overallSpecsOffset) {
+            floatingCard.removeClass('fixed-card');
+        }
+
+    });
+
+    /* floating tabs */
+    $('.overall-specs-tabs-wrapper').on('click', 'li', function () {
+        var elementIndex = $(this).index(),
+            tabId = $(this).attr('data-tabs'),
+            panel = $(this).closest('.bw-tabs-panel'),
+            floatingTabs = panel.find('.overall-specs-tabs-wrapper');
+
+        floatingTabs.find('li.active').removeClass('active');
+        for(var i = 0; i < floatingTabs.length; i++) {
+            $(floatingTabs[i]).find('li:eq(' + elementIndex + ')').addClass('active');
+        };
+
+        panel.find('.bw-tabs-data').removeClass('active').hide();
+        $('#' + tabId).addClass('active').show();
+        $('html, body').animate({ scrollTop: overallSpecsTabs.offset().top - floatingCardHeight }, 500); // 44px accordion tab height
+    });
 
 });

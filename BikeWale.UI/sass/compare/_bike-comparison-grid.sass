@@ -1,12 +1,13 @@
 ﻿$row-width: 974
+$row-width-1024: 940
 $row-heading-width: 162
 
-@mixin column-count($count)
+@mixin column-count($count, $width)
 	#bike-comparison-container
 		&[data-column-count="#{$count}"]
 			.compare-bike-list
 				.list-item
-					@include column-width($count)
+					@include column-width($count, $width)
 
 				@if $count != 4
 					.bike-image-block,
@@ -20,23 +21,23 @@ $row-heading-width: 162
 
 			.table-content
 				.row-width-grid
-					@include td-width($count)
+					@include td-width($count, $width)
 
 
-@mixin column-width($count)
-	width: (($row-width - $row-heading-width) / ($count)) * 1px
+@mixin column-width($count, $width)
+	width: (($width - $row-heading-width) / ($count)) * 1px
 
-@mixin td-width($count)
+@mixin td-width($count, $width)
 	td
 		padding: 0
 
 	@for $i from 2 through $count
 		td:nth-child(#{$i})
-			@include column-width($count)
+			@include column-width($count, $width)
 
 // bike-count
-@include column-count(3)
-@include column-count(4)
+@include column-count(3, $row-width)
+@include column-count(4, $row-width)
 
 @mixin compare-vs-icon()
 	content: ''
@@ -60,21 +61,32 @@ $row-heading-width: 162
 					display: none
 
 #comparison-floating-card
+	display: block
+	width: 976px
+	position: fixed
+	top: -200px
+	left: 0
+	right: 0
+	z-index: 2
+	margin: 0 auto
+	@include transition(0.2s, ease, all)
+
 	.bike-details-block
 		&:before
 			display: none
 
 	&.fixed-card
-		width: 976px
-		position: fixed
 		top: 0
-		left: 0
-		right: 0
-		z-index: 2
-		margin: 0 auto
 
 	.list-item
 		padding: 10px 15px
 
 	.cross-md-dark-grey
 		top: -5px
+
+@media only screen and (max-width: 1024px)
+	@include column-count(3, $row-width-1024)
+	@include column-count(4, $row-width-1024)
+
+	#comparison-floating-card
+		width: 940px

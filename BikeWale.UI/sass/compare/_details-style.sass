@@ -20,18 +20,20 @@ h1,
 
 @include inline-grid(9)
 
-// overall-specs-tabs
+// overall-specs-tabs-wrapper
 .bw-tabs-flex
-	&.overall-specs-tabs
+	&.overall-specs-tabs-wrapper
 		ul
 			border-top: 1px solid $border-light
-			border-bottom-color: $border-light
+			border-bottom: 1px solid #ccc
 			margin-bottom: 0
 
 		li
-			padding-right: 20px
-			padding-left: 20px
+			display: table-cell
+			padding: 10px 20px
+			text-align: center
 			width: auto
+			cursor: pointer
 			color: $text-light
 
 			&.active
@@ -231,7 +233,7 @@ body
 		border: 1px solid #f1f1f1
 
 	.color-box-label
-		width: 75%
+		width: 70%
 
 @mixin color-count($count)
 	.color-count-#{$count}
