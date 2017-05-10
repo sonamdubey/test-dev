@@ -122,87 +122,16 @@
     <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
         <div class="carousel-heading-content">
             <div class="swiper-heading-left-grid inline-block">
-                <h2 class="h2-heading">Expert Reviews on Honda CB Shine</h2>
+                <h2 class="h2-heading">@Model.ExpertReviews.Title</h2>
             </div>
             <div class="swiper-heading-right-grid inline-block text-right">
-                <a href="" title="" class="btn view-all-target-btn">View all</a>
+                <a href="/m/@Model.ExpertReviews.MoreExpertReviewUrl" title="@string.Format("View all expert reviews")" class="btn view-all-target-btn">View all</a>
             </div>
             <div class="clear"></div>
         </div>
 
-        <div class="swiper-container card-container article-type-carousel">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="" class="block">
-                            <div class="swiper-image-preview">
-                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//144x81//bw/ec/26957/Honda-CB-Shine-Front-threequarter-89848.jpg" alt="" src="" />
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="text-black margin-bottom5">Honda CB Shine crosses 50 lakh milestone</h3>
+        @Html.Partial("~/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
 
-                                <div class="grid-6 alpha padding-right5">
-                                    <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Feb 05, 2017</span>
-                                </div>
-                                <div class="grid-6 alpha omega">
-                                    <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">BikeWale Team</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="" class="block">
-                            <div class="swiper-image-preview">
-                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//144x81//bw/ec/26957/Honda-CB-Shine-Front-threequarter-89848.jpg" alt="" src="" />
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="text-black margin-bottom5">Honda CB Shine crosses 50 lakh milestone</h3>
-
-                                <div class="grid-6 alpha padding-right5">
-                                    <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Feb 05, 2017</span>
-                                </div>
-                                <div class="grid-6 alpha omega">
-                                    <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">BikeWale Team</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="" class="block">
-                            <div class="swiper-image-preview">
-                                <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//144x81//bw/ec/26957/Honda-CB-Shine-Front-threequarter-89848.jpg" alt="" src="" />
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="text-black margin-bottom5">Honda CB Shine crosses 50 lakh milestone</h3>
-
-                                <div class="grid-6 alpha padding-right5">
-                                    <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Feb 05, 2017</span>
-                                </div>
-                                <div class="grid-6 alpha omega">
-                                    <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">BikeWale Team</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 
@@ -213,65 +142,12 @@
                 <h2 class="h2-heading">Reviews of similar bikes</h2>
             </div>
             <div class="swiper-heading-right-grid inline-block text-right">
-                <a href="" title="" class="btn view-all-target-btn">View all</a>
+                <a href="@string.Format("/m/{0}-bikes/{1}/reviews/", Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" title="View all" class="btn view-all-target-btn">View all</a>
             </div>
             <div class="clear"></div>
         </div>
 
-        <div class="swiper-container card-container user-reviews-type-carousel">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="" class="block">
-                            <div class="swiper-image-preview">
-                                <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//310x174//bw/models/hero-passion-pro-kick-spoke-756.jpg?" alt="" src="" />
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="font12 text-black margin-bottom5 text-truncate">Hero Passion PRO i3s</h3>
-                                <span class="rating-badge bg-rate-4">
-                                    <span class="bwmsprite star-white"></span>4
-                                </span>
-                                <span class="font12 text-light-grey inline-block">23 ratings</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="" class="block">
-                            <div class="swiper-image-preview">
-                                <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//310x174//bw/models/hero-passion-pro-kick-spoke-756.jpg?" alt="" src="" />
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="font12 text-black margin-bottom5 text-truncate">Hero Passion PRO i3s</h3>
-                                <span class="rating-badge bg-rate-3">
-                                    <span class="bwmsprite star-white"></span>3
-                                </span>
-                                <span class="font12 text-light-grey inline-block">23 ratings</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="" class="block">
-                            <div class="swiper-image-preview">
-                                <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//310x174//bw/models/hero-passion-pro-kick-spoke-756.jpg?" alt="" src="" />
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="font12 text-black margin-bottom5 text-truncate">Hero Passion PRO i3s</h3>
-                                <span class="rating-badge bg-rate-2">
-                                    <span class="bwmsprite star-white"></span>2
-                                </span>
-                                <span class="font12 text-light-grey inline-block">23 ratings</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("~/views/UserReview/_SimilarBikeUserReview_Mobile.cshtml", Model.SimilarBikeReviewWidget)
+
     </div>
 </section>

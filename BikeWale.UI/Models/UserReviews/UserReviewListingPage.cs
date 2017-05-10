@@ -25,11 +25,12 @@ namespace Bikewale.Models.UserReviews
 
         private uint _modelId = 0;
 
-        public UserReviewListingPage(string makeMasking, string modelMasking, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IUserReviewsCache userReviewCache, IUserReviewsSearch objUserReviewSearch)
+        public UserReviewListingPage(string makeMasking, string modelMasking, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IUserReviewsCache userReviewCache, IUserReviewsSearch objUserReviewSearch, ICMSCacheContent objArticles)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objUserReviewCache = userReviewCache;
             _objUserReviewSearch = objUserReviewSearch;
+            _objArticles = objArticles;
             ParseQueryString(makeMasking, modelMasking);
         }
 
@@ -69,14 +70,30 @@ namespace Bikewale.Models.UserReviews
                 PS = 8,
                 Reviews = true
             };
-            var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _objUserReviewCache);
-            objUserReviews.ReviewsInfo = objData.ReviewsInfo;
-            objData.UserReviews = objUserReviews.GetData();
+           
+
+            if (objData.RatingsInfo != null)
+            {
+                var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _objUserReviewCache);
+               
+
+                if(objData.ReviewsInfo!=null)
+                {
+                    objData.ReviewsInfo.Make = objData.RatingsInfo.Make;
+                    objData.ReviewsInfo.Model = objData.RatingsInfo.Model;
+                }
+
+                objUserReviews.ReviewsInfo = objData.ReviewsInfo;
+                objData.UserReviews = objUserReviews.GetData();
+
+                objData.ExpertReviews = new RecentExpertReviews(9, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0} {1}", objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Model.ModelName)).GetData();
+
+                objData.SimilarBikeReviewWidget = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, 9);
+            
+            }
 
 
-            objData.ExpertReviews = new RecentExpertReviews(9, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0} {1}", objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Model.ModelName)).GetData();
 
-            objData.SimilarBikeReviewWidget = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, 9);
 
         }
 
