@@ -28,84 +28,87 @@
                     @foreach (ReviewEntity review in Model.UserReviews.Result)
                     {
                          <!-- ko if : activeReviewList()[@i] -->
-                           <li>
-                        <a href="" class="item-target">
-                            <div class="margin-bottom10">
-                                <span class="rating-badge bg-rate-@review.OverAllRating.OverAllRating" data-bind="css: 'bg-rate-' + activeReviewList()[@i].overAllRating.overAllRating">
-                                    <span class="bwmsprite star-white"></span>
-                                    <span data-bind="text: activeReviewList()[@i].overAllRating.overAllRating">@review.OverAllRating.OverAllRating</span>
-                                </span>
-                                <div class="grid-10-inline font15 text-black text-bold text-truncate">
-                                    <span class="review-title position-rel" data-bind="text: activeReviewList()[@i].reviewTitle">@review.ReviewTitle</span>
+                        <li>
+                            <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" class="item-target">
+                                <div class="margin-bottom10">
+                                    <span class="rating-badge bg-rate-@review.OverAllRating.OverAllRating" data-bind="css: 'bg-rate-' + activeReviewList()[@i].overAllRating.overAllRating">
+                                        <span class="bwmsprite star-white"></span>
+                                        <span data-bind="text: activeReviewList()[@i].overAllRating.overAllRating">@review.OverAllRating.OverAllRating</span>
+                                    </span>
+                                    <div class="grid-10-inline font15 text-black text-bold text-truncate">
+                                        <span class="review-title position-rel" data-bind="text: activeReviewList()[@i].reviewTitle">@review.ReviewTitle</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="margin-bottom10">
-                                <div class="grid-4 alpha padding-right5">
-                                    <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content" data-bind="formatDate: activeReviewList()[@i].reviewDate">@Bikewale.Utility.FormatDate.GetFormatDate(review.ReviewDate.ToString(), "MMMM dd, yyyy") </span>
+                                <div class="margin-bottom10">
+                                    <div class="grid-4 alpha padding-right5">
+                                        <span class="bwmsprite calender-grey-sm-icon"></span>
+                                        <span class="article-stats-content" data-bind="formatDate: activeReviewList()[@i].reviewDate">@Bikewale.Utility.FormatDate.GetFormatDate(review.ReviewDate.ToString(), "MMMM dd, yyyy") </span>
+                                    </div>
+                                    <div class="grid-8 alpha omega">
+                                        <span class="bwmsprite author-grey-sm-icon"></span>
+                                        <span class="article-stats-content" data-bind="text: activeReviewList()[@i].writtenBy">@review.WrittenBy</span>
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
-                                <div class="grid-8 alpha omega">
-                                    <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content" data-bind="text: activeReviewList()[@i].writtenBy">@review.WrittenBy</span>
+
+                                <div class="font14 text-slate-grey margin-bottom10">
+                                    <p class="inline" data-bind="text: activeReviewList()[@i].comments">@Bikewale.Utility.FormatDescription.TruncateDescription(review.Comments, 160)</p>
+
+                                    <span class="inline text-link" style="display: @(!string.IsNullOrEmpty(review.Comments) && review.Comments.Length > 160 ? "inline" : "none")" data-bind="visible : activeReviewList()[@i].comments && activeReviewList()[@i].comments.length > 160">Read more</span>
+                                </div>
+
+                                <div class="grid-7 alpha">
+                                    <div class="item-stats-grid">
+                                        <span class="bwmsprite like-sm"></span>
+                                        <span data-bind="text: activeReviewList()[@i].liked">@review.Liked</span>
+                                    </div>
+                                    <div class="item-stats-grid">
+                                        <span class="bwmsprite dislike-sm"></span>
+                                        <span data-bind="text: activeReviewList()[@i].disliked">@review.Disliked</span>
+                                    </div>
+                                </div>
+                                <div class="grid-5 omega text-right" style="display: @(review.Viewed > 0 ? "block" : "none")" data-bind="visible: activeReviewList()[@i].viewed >
+                                    0">
+                                    <div class="item-views-grid">
+                                        <span class="bwmsprite views-sm"></span>
+                                        <span data-bind="text: activeReviewList()[@i].viewed">@review.Viewed</span><span>&nbsp;Views</span>
+                                    </div>
                                 </div>
                                 <div class="clear"></div>
-                            </div>
-
-                            <div class="font14 text-slate-grey margin-bottom10">
-                                <p class="inline" data-bind="text: activeReviewList()[@i].comments">@Bikewale.Utility.FormatDescription.TruncateDescription(review.Comments, 160)</p>
-
-                                <span class="inline text-link" style="display: @(!string.IsNullOrEmpty(review.Comments) && review.Comments.Length > 160 ? "inline" : "none")" data-bind="visible : activeReviewList()[@i].comments && activeReviewList()[@i].comments.length > 160">Read more</span>                          
-                            </div>
-
-                            <div class="grid-7 alpha">
-                                <div class="item-stats-grid">
-                                    <span class="bwmsprite like-sm"></span>
-                                    <span data-bind="text: activeReviewList()[@i].liked">@review.Liked</span>
-                                </div>
-                                <div class="item-stats-grid">
-                                    <span class="bwmsprite dislike-sm"></span>
-                                    <span data-bind="text: activeReviewList()[@i].disliked">@review.Disliked</span>
-                                </div>
-                            </div>
-                            <div class="grid-5 omega text-right" style="display: @(review.Viewed > 0 ? "block" : "none")"  data-bind="visible: activeReviewList()[@i].viewed > 0">
-                                <div class="item-views-grid">
-                                    <span class="bwmsprite views-sm"></span>
-                                    <span data-bind="text: activeReviewList()[@i].viewed">@review.Viewed</span><span>&nbsp;Views</span>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </a>
-                    </li>
+                            </a>
+                        </li>
                          <!-- /ko -->
                         i++;
                     }
 
                 </ul>
 
-                <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noReviews() && TotalReviews() != 0 && Pagination().paginated() > 0" style="display: @(Model.Pager!=null && Model.Pager.TotalResults > 0 ? "block" : "none")">
-                    <div class="footer-pagination font14 border-solid-top padding-top10">
-                        <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalReviews() > 0">
-                            <p><span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="CurrencyText: Math.min(TotalReviews(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalReviews()">@Model.Pager.TotalResults</span> reviews</p>
+                @if (Model.IsPagerNeeded)
+                {
+                    <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noReviews() && TotalReviews() != 0 && Pagination().paginated() > 0" style="display: @(Model.Pager!=null && Model.Pager.TotalResults > 0 ? "block" : "none")">
+                        <div class="footer-pagination font14 border-solid-top padding-top10">
+                            <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalReviews() > 0">
+                                <p><span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="CurrencyText: Math.min(TotalReviews(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalReviews()">@Model.Pager.TotalResults</span> reviews</p>
+                            </div>
+                            @if (Model.Pager.TotalResults > 8)
+                            {
+                                Html.RenderAction("Index", "Pager", new { objPager = Model.Pager });
+                            }
+                            <div class="clear"></div>
                         </div>
-                        @if (Model.Pager.TotalResults > 8)
-                        {
-                            Html.RenderAction("Index", "Pager", new { objPager = Model.Pager });
-                        }
-                        <div class="clear"></div>
                     </div>
-                </div>
+                }
             </div>
             <!-- /ko -->
             <!-- ko ifnot :  activeReviewList() && activeReviewList().length <=0 -->
-            <div class="content-inner-block-20 text-center" style="display: @(Model.Pager!=null && Model.Pager.TotalResults > 0 ? "none" : "block")"  data-bind="visible: !reviewsAvailable()">
+            <div class="content-inner-block-20 text-center" style="display: @(Model.Pager!=null && Model.Pager.TotalResults > 0 ? "none" : "block")" data-bind="visible: !reviewsAvailable()">
                 <div class="circle-placeholder">
                     <span class="bwmsprite review-lg margin-top25"></span>
                 </div>
                 <p class="font14 text-light-grey">There are no <span data-bind="text: categoryName"></span> reviews for this bike</p>
             </div>
             <!-- /ko-->
-
 
             <div id="listingFooter"></div>
         </div>

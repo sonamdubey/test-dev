@@ -33,7 +33,7 @@ namespace Bikewale.Models.UserReviews
 
             if (objData.UserReviews != null)
             {
-                if (objData.ReviewsInfo != null && (objData.ReviewsInfo.Make == null || objData.ReviewsInfo.Model == null))
+                if (objData.ReviewsInfo == null)
                 {
                     objData.ReviewsInfo = _userReviewsCacheRepo.GetBikeReviewsInfo(objData.ModelId);
                 }

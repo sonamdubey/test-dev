@@ -4,6 +4,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
@@ -27,6 +28,7 @@ namespace Bikewale.Models.UserReviews
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _bikeModelsCache = null;
 
         private uint _reviewId;
+        private uint _modelId;
 
         public uint TabsCount { get; set; }
         public uint ExpertReviewsWidgetCount { get; set; }
@@ -52,21 +54,25 @@ namespace Bikewale.Models.UserReviews
                 objPage = new UserReviewDetailsVM();
                 objPage.UserReviewDetailsObj = _userReviewsCache.GetUserReviewSummaryWithRating(_reviewId);
 
+                _modelId = (uint)objPage.UserReviewDetailsObj.Model.ModelId;
+
                 objPage.ReviewId = _reviewId;
 
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
 
-                BikeInfoWidget genericBikeModel = new BikeInfoWidget(_bikeInfo, _cityCache, (uint)objPage.UserReviewDetailsObj.Model.ModelId, currentCityArea.CityId, TabsCount, BikeInfoTabType.UserReview);
+                BikeInfoWidget genericBikeModel = new BikeInfoWidget(_bikeInfo, _cityCache, _modelId, currentCityArea.CityId, TabsCount, BikeInfoTabType.UserReview);
                 objPage.GenericBikeWidgetData = genericBikeModel.GetData();
                 objPage.GenericBikeWidgetData.IsSmallSlug = false;
 
-                objPage.ExpertReviews = new RecentExpertReviews(ExpertReviewsWidgetCount, (uint)objPage.UserReviewDetailsObj.Make.MakeId, (uint)objPage.UserReviewDetailsObj.Model.ModelId, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName)).GetData();
+                objPage.ExpertReviews = new RecentExpertReviews(ExpertReviewsWidgetCount, (uint)objPage.UserReviewDetailsObj.Make.MakeId, _modelId, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName)).GetData();
 
-                objPage.SimilarBikeReviewWidget = _bikeModelsCache.GetSimilarBikesUserReviews((uint)objPage.UserReviewDetailsObj.Model.ModelId, SimilarBikeReviewWidgetCount);
+                objPage.SimilarBikeReviewWidget = _bikeModelsCache.GetSimilarBikesUserReviews(_modelId, SimilarBikeReviewWidgetCount);
 
                 BindQuestions(objPage);
 
                 BindPageMetas(objPage);
+
+                BindUserReviewSWidget(objPage);
             }
             catch (Exception ex)
             {
@@ -129,6 +135,29 @@ namespace Bikewale.Models.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewDetailsPage.BindPageMetas() - ReviewId :{0}", _reviewId));
+            }
+        }
+
+        public void BindUserReviewSWidget(UserReviewDetailsVM objPage)
+        {
+            try
+            {
+                InputFilters filters = new InputFilters()
+                {
+                    Model = _modelId.ToString(),
+                    SO = 2,
+                    PN = 1,
+                    PS = 8,
+                    Reviews = true
+                };
+
+                var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache);
+                objPage.UserReviews = objUserReviews.GetData();
+                objPage.UserReviews.IsPagerNeeded = false;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewDetailsPage.BindUserReviewSWidget() - ReviewId :{0}", _reviewId));
             }
         }
     }

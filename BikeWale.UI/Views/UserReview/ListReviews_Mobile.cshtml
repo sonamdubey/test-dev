@@ -7,7 +7,7 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 
-<section>
+<section id="section-review-list" data-modelid="@Model.ModelId">
     <div class="container content-box-shadow card-bottom-margin">
         <h1 class="font20 padding-15-20 content-box-shadow">@Model.BikeName user reviews</h1>
         <div class="padding-15-20">
@@ -99,7 +99,7 @@
 </section>
 
 <section>
-    <div class="container content-box-shadow card-bottom-margin content-inner-block-20">
+    <div id="bike-rating-box"  class="container content-box-shadow card-bottom-margin content-inner-block-20">
         <p class="font16 text-black text-bold inline-block margin-right15">Rate this bike now</p>
         <div class="answer-star-list inline-block">
             <input type="radio" id="rate-star-5" name="rate-bike" value="5">

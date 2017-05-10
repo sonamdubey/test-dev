@@ -116,8 +116,12 @@ function voteUserReview(vote) {
 docReady(function() {    
     bwcache.setScope('ReviewDetailPage');    
 
-    reviewId = $('#divAbuse').attr('data-reviewId');  
-    modelid = $('#section-review-details').attr('data-modelId');
+    reviewId = $('#divAbuse').attr('data-reviewId');
+
+    if ($('#section-review-details').length > 0)
+        modelid = $('#section-review-details').attr('data-modelId');
+    else
+        modelid = $('#section-review-list').attr('data-modelId');
 
     var vote = bwcache.get("reviewVote_" + reviewId);
 

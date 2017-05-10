@@ -44,7 +44,7 @@ namespace Bikewale.Controllers
             _objArticles = objArticles;
         }
 
-        [Route("m/model/{makeMasking}-bikes/{modelMasking}/reviews/")]
+        [Route("m/{makeMasking}-bikes/{modelMasking}/reviews/")]
         public ActionResult ListReviews_Mobile(string makeMasking, string modelMasking)
         {
             UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles);

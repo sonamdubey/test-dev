@@ -131,12 +131,11 @@
         </section>
     }
 
-@Html.Partial("~/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
+    if (Model.UserReviews != null)
+    {
+        @Html.Partial("~/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
+    }
 
-    
-
-
-    
     <div class="margin-bottom20 text-center">
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x100_Middle.cshtml", new { AdId = Model.AdTags.AdId });}
     </div>

@@ -12,5 +12,11 @@ namespace Bikewale.Models.UserReviews
         public SearchResult UserReviews { get; set; }
         public uint PageSize { get; set; }
         public PagerEntity Pager { get; set; }
+        private bool _IsPagerNeeded = true;
+        public bool IsPagerNeeded
+        {
+            get { return _IsPagerNeeded; }
+            set { _IsPagerNeeded = value; }
+        }
     }
 }
