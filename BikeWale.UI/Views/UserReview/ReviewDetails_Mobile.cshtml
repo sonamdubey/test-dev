@@ -17,7 +17,7 @@
     <section id="section-review-details" data-modelid="@Model.UserReviewDetailsObj.Model.ModelId">
         <div class="container content-box-shadow card-bottom-margin">
             <div class="content-inner-block-20 content-box-shadow">
-                <p class="font15 font-bold text-black margin-bottom10">@Model.UserReviewDetailsObj.Title</p>
+                <p class="font15 font-bold text-black margin-bottom10">@Bikewale.Utility.FormatDescription.TruncateDescription(Model.UserReviewDetailsObj.Title, 85)</p>
 
                 <span class="rating-badge bg-rate-@Model.UserReviewDetailsObj.OverallRating.Value no-margin leftfloat margin-right15">
                     <span class="bwmsprite star-white"></span>
@@ -51,10 +51,10 @@
                 </div>
             }
 
-            @if (Model.ReviewQuestions != null && Model.ReviewQuestions.Count > 0)
-            {
-                <div class="content-inner-block-20">
-                    <h1 class="font14 margin-bottom10">Full review of @Model.UserReviewDetailsObj.Make.MakeName @Model.UserReviewDetailsObj.Model.ModelName</h1>
+            <div class="content-inner-block-20">
+                <h1 class="font14 margin-bottom10">Full review of @Model.UserReviewDetailsObj.Make.MakeName @Model.UserReviewDetailsObj.Model.ModelName</h1>
+                @if (Model.ReviewQuestions != null && Model.ReviewQuestions.Count > 0)
+                {
                     <ul class="horizontal-rating-graph user-review-graph">
                         @foreach (var q in Model.ReviewQuestions)
                         {
@@ -66,12 +66,13 @@
                             </li>
                         }
                     </ul>
-                </div>
-            }
+                }
+            </div>
 
             <div class="padding-right20 padding-left20 padding-bottom20">
-                <p class="font14 text-light-grey">@Model.UserReviewDetailsObj.Description</p>
-
+                @if (!string.IsNullOrEmpty(Model.UserReviewDetailsObj.Description)) { 
+                <div class="padding-bottom10"><p class="font14 text-light-grey">@Html.Raw(Model.UserReviewDetailsObj.Description)</p></div>
+                }
                 @if (Model.UserReviewDetailsObj.Tips.Length > 0)
                 {
                     <p class="font14 font-bold text-black margin-top20 margin-bottom15">Tips for prospective buyers</p>
@@ -114,11 +115,11 @@
                 <label class="bwmsprite star-0" for="rate-star-5" data-value="5"></label>
                 <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=4", Model.PageUrl))" type="radio" id="rate-star-4" name="rate-bike" value="4">
                 <label class="bwmsprite star-0" for="rate-star-4" data-value="4"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=3", Model.PageUrl))"  type="radio" id="rate-star-3" name="rate-bike" value="3">
+                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=3", Model.PageUrl))" type="radio" id="rate-star-3" name="rate-bike" value="3">
                 <label class="bwmsprite star-0" for="rate-star-3" data-value="3"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=2", Model.PageUrl))"  type="radio" id="rate-star-2" name="rate-bike" value="2">
+                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=2", Model.PageUrl))" type="radio" id="rate-star-2" name="rate-bike" value="2">
                 <label class="bwmsprite star-0" for="rate-star-2" data-value="2"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=1", Model.PageUrl))"  type="radio" id="rate-star-1" name="rate-bike" value="1">
+                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=1", Model.PageUrl))" type="radio" id="rate-star-1" name="rate-bike" value="1">
                 <label class="bwmsprite star-0" for="rate-star-1" data-value="1"></label>
             </div>
         </div>
@@ -149,7 +150,7 @@
                         <h2 class="h2-heading">@Model.ExpertReviews.Title</h2>
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="/m/@Model.ExpertReviews.MoreExpertReviewUrl" title="@string.Format("View all expert reviews")" class="btn view-all-target-btn">View all</a>
+                        <a href="@string.Format("/m{0}", Model.ExpertReviews.MoreExpertReviewUrl)" title="@string.Format("{0} {1} Expert Reviews", Model.UserReviewDetailsObj.Make.MakeName, Model.UserReviewDetailsObj.Model.ModelName)" class="btn view-all-target-btn">View all</a>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -169,7 +170,7 @@
                         <h2 class="h2-heading">Reviews of similar bikes</h2>
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="/m/user-reviews/" title="View all" class="btn view-all-target-btn">View all</a>
+                        <a href="/m/user-reviews/" title="Bike user reviews" class="btn view-all-target-btn">View all</a>
                     </div>
                     <div class="clear"></div>
                 </div>
