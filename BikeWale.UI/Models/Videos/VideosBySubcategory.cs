@@ -49,6 +49,19 @@ namespace Bikewale.Models.Videos
             }
             return objVideos;
         }
+
+        public void SetWidgetProperties(string sectionBackgroundClass, string categoryIdList, VideosBySubcategoryVM objVideos)
+        {
+            if (objVideos != null)
+            {
+                objVideos.SectionTitle = VideoTitleDescription.VideoCategoryTitle(categoryIdList);
+                objVideos.CategoryIdList = categoryIdList;
+                objVideos.SectionBackgroundClass = sectionBackgroundClass;
+            }
+        }
+
+
+
         #endregion
     }
 }

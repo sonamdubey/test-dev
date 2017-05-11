@@ -48,6 +48,7 @@ namespace Bikewale.Models.Videos
         public VideosLandingPageVM GetData()
         {
             VideosLandingPageVM objVM = null;
+            bool isAPIData = Bikewale.Utility.BWConfiguration.Instance.UseAPIGateway;
             System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
             try
             {
@@ -57,7 +58,13 @@ namespace Bikewale.Models.Videos
                 BindLandingVideos(objVM);
                 VideosBySubcategory objSubCat = new VideosBySubcategory(_videos);
 
-                if (!Bikewale.Utility.BWConfiguration.Instance.UseAPIGateway)
+                if (isAPIData)
+                {
+                    isAPIData = GetDataFromApiGateWay(objVM, objSubCat);
+                }
+
+
+                if (!isAPIData)
                 {
                     objVM.ExpertReviewsWidgetData = objSubCat.GetData("", "55", _pageNo, ExpertReviewsTopCount);
                     objVM.FirstRideWidgetData = objSubCat.GetData("", "57", _pageNo, FirstRideWidgetTopCount);
@@ -69,10 +76,6 @@ namespace Bikewale.Models.Videos
                     objVM.PowerDriftTopMusicWidgetData = objSubCat.GetData("", "60", _pageNo, PowerDriftTopMusicWidgetTopCount);
                     objVM.MiscellaneousWidgetData = objSubCat.GetData("", "58", _pageNo, MiscellaneousWidgetTopCount);
                     objVM.Brands = new BrandWidgetModel(BrandWidgetTopCount, _bikeMakes, _objModelCache).GetData(Entities.BikeData.EnumBikeType.Videos);
-                }
-                else
-                {
-                    GetDataFromApiGateWay(objVM);
                 }
 
                 BindPageMetas(objVM);
@@ -95,135 +98,158 @@ namespace Bikewale.Models.Videos
         /// Created By : Sushil Kumar on 4th May 2017
         /// Description : Function to call api gateway to fecth videos landing page widgets data
         /// </summary>
-        private void GetDataFromApiGateWay(VideosLandingPageVM objVM)
+        private bool GetDataFromApiGateWay(VideosLandingPageVM objVM, VideosBySubcategory objSubCat)
         {
-            CallAggregator ca = new CallAggregator();
-            ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
+            bool isSuccess = false;
+            try
             {
-                ApplicationId = 2,
-                SubCategoryIds = "55",
-                StartIndex = _pageNo,
-                EndIndex = ExpertReviewsTopCount,
-                SortCategory = GrpcVideoSortOrderCategory.MostPopular
-            });
-            ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
-            {
-                ApplicationId = 2,
-                SubCategoryIds = "57",
-                StartIndex = _pageNo,
-                EndIndex = FirstRideWidgetTopCount,
-                SortCategory = GrpcVideoSortOrderCategory.MostPopular
-            });
-            ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
-            {
-                ApplicationId = 2,
-                SubCategoryIds = "59",
-                StartIndex = _pageNo,
-                EndIndex = LaunchAlertWidgetTopCount,
-                SortCategory = GrpcVideoSortOrderCategory.MostPopular
-            });
-            ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
-            {
-                ApplicationId = 2,
-                SubCategoryIds = "61",
-                StartIndex = _pageNo,
-                EndIndex = FirstLookWidgetTopCount,
-                SortCategory = GrpcVideoSortOrderCategory.MostPopular
-            });
-            ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
-            {
-                ApplicationId = 2,
-                SubCategoryIds = "62",
-                StartIndex = _pageNo,
-                EndIndex = PowerDriftBlockbusterWidgetTopCount,
-                SortCategory = GrpcVideoSortOrderCategory.MostPopular
-            });
-            ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
-            {
-                ApplicationId = 2,
-                SubCategoryIds = "51",
-                StartIndex = _pageNo,
-                EndIndex = MotorSportsWidgetTopCount,
-                SortCategory = GrpcVideoSortOrderCategory.MostPopular
-            });
-            ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
-            {
-                ApplicationId = 2,
-                SubCategoryIds = "63",
-                StartIndex = _pageNo,
-                EndIndex = PowerDriftSpecialsWidgetTopCount,
-                SortCategory = GrpcVideoSortOrderCategory.MostPopular
-            });
-            ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
-            {
-                ApplicationId = 2,
-                SubCategoryIds = "60",
-                StartIndex = _pageNo,
-                EndIndex = PowerDriftTopMusicWidgetTopCount,
-                SortCategory = GrpcVideoSortOrderCategory.MostPopular
-            });
-            ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
-            {
-                ApplicationId = 2,
-                SubCategoryIds = "58",
-                StartIndex = _pageNo,
-                EndIndex = MiscellaneousWidgetTopCount,
-                SortCategory = GrpcVideoSortOrderCategory.MostPopular
-            });
+                CallAggregator ca = new CallAggregator();
+                ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
+                {
+                    ApplicationId = 2,
+                    SubCategoryIds = "55",
+                    StartIndex = _pageNo,
+                    EndIndex = ExpertReviewsTopCount,
+                    SortCategory = GrpcVideoSortOrderCategory.MostPopular
+                });
+                ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
+                {
+                    ApplicationId = 2,
+                    SubCategoryIds = "57",
+                    StartIndex = _pageNo,
+                    EndIndex = FirstRideWidgetTopCount,
+                    SortCategory = GrpcVideoSortOrderCategory.MostPopular
+                });
+                ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
+                {
+                    ApplicationId = 2,
+                    SubCategoryIds = "59",
+                    StartIndex = _pageNo,
+                    EndIndex = LaunchAlertWidgetTopCount,
+                    SortCategory = GrpcVideoSortOrderCategory.MostPopular
+                });
+                ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
+                {
+                    ApplicationId = 2,
+                    SubCategoryIds = "61",
+                    StartIndex = _pageNo,
+                    EndIndex = FirstLookWidgetTopCount,
+                    SortCategory = GrpcVideoSortOrderCategory.MostPopular
+                });
+                ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
+                {
+                    ApplicationId = 2,
+                    SubCategoryIds = "62",
+                    StartIndex = _pageNo,
+                    EndIndex = PowerDriftBlockbusterWidgetTopCount,
+                    SortCategory = GrpcVideoSortOrderCategory.MostPopular
+                });
+                ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
+                {
+                    ApplicationId = 2,
+                    SubCategoryIds = "51",
+                    StartIndex = _pageNo,
+                    EndIndex = MotorSportsWidgetTopCount,
+                    SortCategory = GrpcVideoSortOrderCategory.MostPopular
+                });
+                ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
+                {
+                    ApplicationId = 2,
+                    SubCategoryIds = "63",
+                    StartIndex = _pageNo,
+                    EndIndex = PowerDriftSpecialsWidgetTopCount,
+                    SortCategory = GrpcVideoSortOrderCategory.MostPopular
+                });
+                ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
+                {
+                    ApplicationId = 2,
+                    SubCategoryIds = "60",
+                    StartIndex = _pageNo,
+                    EndIndex = PowerDriftTopMusicWidgetTopCount,
+                    SortCategory = GrpcVideoSortOrderCategory.MostPopular
+                });
+                ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
+                {
+                    ApplicationId = 2,
+                    SubCategoryIds = "58",
+                    StartIndex = _pageNo,
+                    EndIndex = MiscellaneousWidgetTopCount,
+                    SortCategory = GrpcVideoSortOrderCategory.MostPopular
+                });
 
-            var apiData = ca.GetResultsFromGateway();
+                var apiData = ca.GetResultsFromGateway();
 
-            if (apiData != null && apiData.OutputMessages != null)
-            {
-                var objApiData = apiData.OutputMessages;
+                if (apiData != null && apiData.OutputMessages != null)
+                {
+                    var objApiData = apiData.OutputMessages;
 
-                if (objApiData[0] != null)
-                {
-                    objVM.ExpertReviewsWidgetData = new VideosBySubcategoryVM();
-                    objVM.ExpertReviewsWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[0].Payload));
-                }
-                if (objApiData[1] != null)
-                {
-                    objVM.FirstRideWidgetData = new VideosBySubcategoryVM();
-                    objVM.FirstRideWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[1].Payload));
-                }
-                if (objApiData[2] != null)
-                {
-                    objVM.LaunchAlertWidgetData = new VideosBySubcategoryVM();
-                    objVM.LaunchAlertWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[2].Payload));
-                }
-                if (objApiData[3] != null)
-                {
-                    objVM.FirstLookWidgetData = new VideosBySubcategoryVM();
-                    objVM.FirstLookWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[3].Payload));
-                }
-                if (objApiData[4] != null)
-                {
-                    objVM.PowerDriftBlockbusterWidgetData = new VideosBySubcategoryVM();
-                    objVM.PowerDriftBlockbusterWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[4].Payload));
-                }
-                if (objApiData[5] != null)
-                {
-                    objVM.MotorSportsWidgetData = new VideosBySubcategoryVM();
-                    objVM.MotorSportsWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[5].Payload));
-                }
-                if (objApiData[6] != null)
-                {
-                    objVM.PowerDriftSpecialsWidgetData = new VideosBySubcategoryVM();
-                    objVM.PowerDriftSpecialsWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[6].Payload));
-                }
-                if (objApiData[7] != null)
-                {
-                    objVM.PowerDriftTopMusicWidgetData = new VideosBySubcategoryVM();
-                    objVM.PowerDriftTopMusicWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[7].Payload));
-                }
+                    if (objApiData[0] != null)
+                    {
+                        objVM.ExpertReviewsWidgetData = new VideosBySubcategoryVM();
+                        objVM.ExpertReviewsWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[0].Payload));
+                        objSubCat.SetWidgetProperties("", "55", objVM.ExpertReviewsWidgetData);
 
-                if (objApiData[8] != null)
-                {
-                    objVM.MiscellaneousWidgetData = new VideosBySubcategoryVM();
-                    objVM.MiscellaneousWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[8].Payload));
+                    }
+                    if (objApiData[1] != null)
+                    {
+                        objVM.FirstRideWidgetData = new VideosBySubcategoryVM();
+                        objVM.FirstRideWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[1].Payload));
+                        objSubCat.SetWidgetProperties("", "57", objVM.FirstRideWidgetData);
+                    }
+                    if (objApiData[2] != null)
+                    {
+                        objVM.LaunchAlertWidgetData = new VideosBySubcategoryVM();
+                        objVM.LaunchAlertWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[2].Payload));
+                        objSubCat.SetWidgetProperties("", "59", objVM.LaunchAlertWidgetData);
+                    }
+                    if (objApiData[3] != null)
+                    {
+                        objVM.FirstLookWidgetData = new VideosBySubcategoryVM();
+                        objVM.FirstLookWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[3].Payload));
+                        objSubCat.SetWidgetProperties("", "61", objVM.FirstLookWidgetData);
+                    }
+                    if (objApiData[4] != null)
+                    {
+                        objVM.PowerDriftBlockbusterWidgetData = new VideosBySubcategoryVM();
+                        objVM.PowerDriftBlockbusterWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[4].Payload));
+                        objSubCat.SetWidgetProperties("", "62", objVM.PowerDriftBlockbusterWidgetData);
+                    }
+                    if (objApiData[5] != null)
+                    {
+                        objVM.MotorSportsWidgetData = new VideosBySubcategoryVM();
+                        objVM.MotorSportsWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[5].Payload));
+                        objSubCat.SetWidgetProperties("", "51", objVM.MotorSportsWidgetData);
+                    }
+                    if (objApiData[6] != null)
+                    {
+                        objVM.PowerDriftSpecialsWidgetData = new VideosBySubcategoryVM();
+                        objVM.PowerDriftSpecialsWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[6].Payload));
+                        objSubCat.SetWidgetProperties("", "63", objVM.PowerDriftSpecialsWidgetData);
+                    }
+                    if (objApiData[7] != null)
+                    {
+                        objVM.PowerDriftTopMusicWidgetData = new VideosBySubcategoryVM();
+                        objVM.PowerDriftTopMusicWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[7].Payload));
+                        objSubCat.SetWidgetProperties("", "60", objVM.PowerDriftTopMusicWidgetData);
+                    }
+
+                    if (objApiData[8] != null)
+                    {
+                        objVM.MiscellaneousWidgetData = new VideosBySubcategoryVM();
+                        objVM.MiscellaneousWidgetData.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[8].Payload));
+                        objSubCat.SetWidgetProperties("", "55", objVM.MiscellaneousWidgetData);
+                    }
+
+                    isSuccess = true;
                 }
             }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "VideosLandingPage.GetDataFromApiGateWay()");
+
+            }
+
+            return isSuccess;
 
         }
 

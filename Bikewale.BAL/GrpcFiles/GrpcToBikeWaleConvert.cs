@@ -34,7 +34,6 @@ namespace Bikewale.BAL.GrpcFiles
                     var curArt = new ArticleSummary();
                     curArt.ArticleUrl = item.ArticleBase.ArticleUrl;
                     curArt.BasicId = item.ArticleBase.BasicId;
-                    //curArt.url = item.ArticleBaseObj.CompleteArticleUrl;
                     curArt.Title = item.ArticleBase.Title;
                     curArt.AuthorName = item.AuthorName;
                     curArt.CategoryId = (ushort)item.CategoryId;
