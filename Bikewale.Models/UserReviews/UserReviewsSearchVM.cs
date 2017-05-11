@@ -18,5 +18,6 @@ namespace Bikewale.Models.UserReviews
             get { return _IsPagerNeeded; }
             set { _IsPagerNeeded = value; }
         }
+        public string WidgetHeading { get; set; }
     }
 }

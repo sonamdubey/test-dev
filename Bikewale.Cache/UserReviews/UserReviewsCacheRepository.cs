@@ -5,6 +5,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Notifications;
 using System;
+using System.Collections;
 
 namespace Bikewale.Cache.UserReviews
 {
@@ -186,6 +187,26 @@ namespace Bikewale.Cache.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikeMakesCacheRepository.GetUserReviewSummaryWithRating {0}", reviewId));
             }
             return objUserReviewSummary;
+        }
+
+        /// <summary>
+        /// Created by Sajal gupta on 11-05-2017
+        /// Descriptio : Creates hash table for reviews id mapping
+        /// </summary>
+        /// <returns></returns>
+        public Hashtable GetUserReviewsIdMapping()
+        {
+            Hashtable htResult = null;
+            string key = "BW_UserReviewIdMapping";
+            try
+            {
+                htResult = _cache.GetFromCache<Hashtable>(key, new TimeSpan(30, 0, 0, 0), () => _objUserReviews.GetUserReviewsIdMapping());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objError = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewSummaryWithRating");
+            }
+            return htResult;
         }
     }
 }

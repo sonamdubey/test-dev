@@ -6,6 +6,7 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -1460,5 +1461,43 @@ namespace Bikewale.DAL.UserReviews
 
             return objUserReviewSummary;
         }
-    }
+
+        /// <summary>
+        /// Created by Sajal gupta on 11-05-2017
+        /// Descriptio : Creates hash table for reviews id mapping
+        /// </summary>
+        /// <returns></returns>
+        public Hashtable GetUserReviewsIdMapping()
+        {
+            Hashtable htResult = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("fetchuserreviewidmapping"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        htResult = new Hashtable();
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                if (!htResult.ContainsKey(dr["oldreviewid"]))
+                                    htResult.Add(dr["oldreviewid"], dr["newReviewId"]);
+                            }
+                        }
+                        dr.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objError = new ErrorClass(ex, "Bikewale.DAL.Used.Search.GetUserReviewSummaryWithRating");
+            }
+            return htResult;
+        }
+
+    }// class end
 }
