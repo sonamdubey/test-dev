@@ -60,12 +60,19 @@ namespace Bikewale.Models.Videos
 
                 if (isAPIData)
                 {
+                    System.Diagnostics.Stopwatch w1 = System.Diagnostics.Stopwatch.StartNew();
+
                     isAPIData = GetDataFromApiGateWay(objVM, objSubCat);
+
+                    w1.Stop();
+                    long elapsedMs = w1.ElapsedMilliseconds;
+                    log4net.ThreadContext.Properties["GatewayTimeTaken_Page"] = elapsedMs;
                 }
 
 
                 if (!isAPIData)
                 {
+                    System.Diagnostics.Stopwatch w2 = System.Diagnostics.Stopwatch.StartNew();
                     objVM.ExpertReviewsWidgetData = objSubCat.GetData("", "55", _pageNo, ExpertReviewsTopCount);
                     objVM.FirstRideWidgetData = objSubCat.GetData("", "57", _pageNo, FirstRideWidgetTopCount);
                     objVM.LaunchAlertWidgetData = objSubCat.GetData("", "59", _pageNo, LaunchAlertWidgetTopCount);
@@ -76,6 +83,9 @@ namespace Bikewale.Models.Videos
                     objVM.PowerDriftTopMusicWidgetData = objSubCat.GetData("", "60", _pageNo, PowerDriftTopMusicWidgetTopCount);
                     objVM.MiscellaneousWidgetData = objSubCat.GetData("", "58", _pageNo, MiscellaneousWidgetTopCount);
                     objVM.Brands = new BrandWidgetModel(BrandWidgetTopCount, _bikeMakes, _objModelCache).GetData(Entities.BikeData.EnumBikeType.Videos);
+                    w2.Stop();
+                    long elapsedMs = w2.ElapsedMilliseconds;
+                    log4net.ThreadContext.Properties["GRPCTimeTaken_Page"] = elapsedMs;
                 }
 
                 BindPageMetas(objVM);
