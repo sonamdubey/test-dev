@@ -512,7 +512,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 BikeQuotationEntity quotation = _repository.GetPriceQuoteById(pqId);
                 RoyalEnfieldWebAPI.Service service = new RoyalEnfieldWebAPI.Service();
                 string token = ConfigurationManager.AppSettings["RoyalEnfieldToken"];
-                string response = service.affiliates(priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, quotation.State, quotation.City, string.Empty, quotation.ModelName, "http://www.bikewale.com", token, "bikewale");
+                string response = ""; //service.affiliates(priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, quotation.State, quotation.City, string.Empty, quotation.ModelName, "http://www.bikewale.com", token, "bikewale");
                 if (!string.IsNullOrEmpty(response))
                 {
                     _repository.UpdateManufacturerLead(pqId, priceQuote.CustomerEmail, priceQuote.CustomerMobile, response);
@@ -523,7 +523,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             {
                 Logs.WriteInfoLog(String.Format("PushLeadToRoyalEnfield : {0}", ex.Message));
             }
-
             return false;
         }
 

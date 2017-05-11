@@ -1,9 +1,7 @@
 ﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.MobileVerification;
-using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.Utilities;
 using RabbitMqPublishing;
@@ -31,7 +29,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
         /// </summary>
         /// <param name="objIPQ"></param>
         /// <param name="dealer"></param>
-        public ManufacturerLeadController(IDealerPriceQuote objIPQ,IMobileVerificationCache mobileVerCacheRepo)
+        public ManufacturerLeadController(IDealerPriceQuote objIPQ, IMobileVerificationCache mobileVerCacheRepo)
         {
             _objIPQ = objIPQ;
             _mobileVerCacheRepo = mobileVerCacheRepo;
@@ -90,9 +88,12 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                                 objNVC.Add("pincodeId", objLead.PinCode.ToString());
                                 objNVC.Add("cityId", objLead.CityId.ToString());
                                 objNVC.Add("leadType", "2");
+                                objNVC.Add("manufacturerDealer", objLead.ManufacturerDealer);
+                                objNVC.Add("manufacturerDealerCity", objLead.ManufacturerDealerCity);
+                                objNVC.Add("ManufacturerDealerState", objLead.ManufacturerDealerState);
 
                                 RabbitMqPublish objRMQPublish = new RabbitMqPublish();
-                                objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC); 
+                                objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
                             }
 
                             status = true;

@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeBooking;
+﻿using Bikewale.Entities;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
@@ -184,6 +185,7 @@ namespace Bikewale.DAL.PriceQuote
                             objQuotation.LeadCapturePopupHeading = Convert.ToString(dr["LeadCapturePopupHeading"]);
                             objQuotation.LeadCapturePopupMessage = Convert.ToString(dr["LeadCapturePopupMessage"]);
                             objQuotation.PinCodeRequired = SqlReaderConvertor.ToBoolean(dr["PinCodeRequired"]);
+                            objQuotation.DealersRequired = SqlReaderConvertor.ToBoolean(dr["DealersRequired"]);
                             objQuotation.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
                         }
                     }
@@ -635,5 +637,45 @@ namespace Bikewale.DAL.PriceQuote
             }
             return objVersionInfo;
         }
+
+        public IEnumerable<ManufactureDealer> GetManufacturerDealers()
+        {
+            List<ManufactureDealer> dealers = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmanufacturerdealers";
+                    dealers = new List<ManufactureDealer>();
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                dealers.Add(new ManufactureDealer
+                                {
+                                    DealerName = Convert.ToString(dr["dealername"]),
+                                    BWDealerName = Convert.ToString(dr["bwdealername"]),
+                                    City = Convert.ToString(dr["city"]),
+                                    CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
+                                    State = Convert.ToString(dr["state"]),
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, String.Format("PriceQuoteRepository.GetManufacturerDealers()"));
+            }
+            return dealers;
+        }
+
     }   // Class
 }   // namespace
