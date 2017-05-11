@@ -1,9 +1,10 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewsSearchVM
 @using Bikewale.Entities.UserReviews;
+@using Bikewale.Utility;
 @if (Model.UserReviews != null && Model.ReviewsInfo != null)
 {
     <section>
-        <div id="modelReviewsListing" class="container content-box-shadow card-bottom-margin">
+        <div id="modelReviewsListing" class="container content-box-shadow card-bottom-margin" >
             <h2 class="h2-heading padding-top15 padding-right20 padding-left20">@Model.WidgetHeading</h2>
             <div id="overallSpecsTopContent" class="bg-white position-rel user-review-tabs">
                 <div id="overallSpecsTab" class="overall-specs-tabs-container">
@@ -17,13 +18,13 @@
                 </div>
             </div>
 
-            <div class="padding-top15 padding-bottom15 margin-right20 margin-left20 border-solid-bottom" data-bind="visible: (activeReviewCategory() == 3 || activeReviewCategory() == 4) && reviewsAvailable()">
+            <div style="display: none" class="padding-top15 padding-bottom15 margin-right20 margin-left20 border-solid-bottom" data-bind="visible: (activeReviewCategory() == 3 || activeReviewCategory() == 4 || activeReviewCategory() == 5) && reviewsAvailable()">
                 <span class="bwmsprite info-sm"></span>
-                <span class="grid-11-inline font14 text-light-grey">Reviews are sorted on the basis of upvotes</span>
+                <span class="grid-11-inline font14 text-light-grey hide">Reviews are sorted on the basis of helpfulness</span>
             </div>
             <!-- ko if : activeReviewList() && activeReviewList().length > 0 -->
             <div style="display: @(Model.Pager != null && Model.Pager.TotalResults > 0 ? "block" : "none")"  data-bind="visible: reviewsAvailable()">
-                <ul class="user-review-list" data-bind="visible : (!noReviews() && TotalReviews() !== 0), css: IsLoading() ? 'loader-active' : '' ">
+                <ul class="user-review-list" data-bind="visible : (!noReviews() && TotalReviews() !== 0), css: IsLoading() ? 'loader-active' : ''">
                     @{ushort i = 0;}
                     @foreach (ReviewEntity review in Model.UserReviews.Result)
                     {
@@ -53,26 +54,26 @@
                                 </div>
 
                                 <div class="font14 text-slate-grey margin-bottom10">
-                                    <p class="inline" data-bind="text: activeReviewList()[@i].comments">@Bikewale.Utility.FormatDescription.TruncateDescription(review.Comments, 160)</p>
+                                    <p class="inline" data-bind="text: activeReviewList()[@i].comments">@Bikewale.Utility.FormatDescription.TruncateDescription(review.Comments, 175)</p>
 
-                                    <span class="inline text-link" style="display: @(!string.IsNullOrEmpty(review.Comments) && review.Comments.Length > 160 ? "inline" : "none")" data-bind="visible : activeReviewList()[@i].comments && activeReviewList()[@i].comments.length > 160">Read more</span>
+                                    <span class="inline" style="display: @(!string.IsNullOrEmpty(review.Comments) && review.Comments.Length > 160 ? "inline" : "none")" data-bind="visible : activeReviewList()[@i].comments && activeReviewList()[@i].comments.length > 160">...<span class="text-link">Read more</span></span>
                                 </div>
 
                                 <div class="grid-7 alpha">
                                     <div class="item-stats-grid">
                                         <span class="bwmsprite like-sm"></span>
-                                        <span data-bind="text: activeReviewList()[@i].liked">@review.Liked</span>
+                                        <span data-bind="text: formatPrice(activeReviewList()[@i].liked)">@Format.FormatPrice(review.Liked.ToString())</span>
                                     </div>
                                     <div class="item-stats-grid">
                                         <span class="bwmsprite dislike-sm"></span>
-                                        <span data-bind="text: activeReviewList()[@i].disliked">@review.Disliked</span>
+                                        <span data-bind="text: formatPrice(activeReviewList()[@i].disliked)">@Format.FormatPrice(review.Disliked.ToString())</span>
                                     </div>
                                 </div>
                                 <div class="grid-5 omega text-right" style="display: @(review.Viewed > 0 ? "block" : "none")" data-bind="visible: activeReviewList()[@i].viewed >
                                     0">
                                     <div class="item-views-grid">
                                         <span class="bwmsprite views-sm"></span>
-                                        <span data-bind="text: activeReviewList()[@i].viewed">@review.Viewed</span><span>&nbsp;Views</span>
+                                        <span data-bind="text: formatPrice(activeReviewList()[@i].viewed)">@Format.FormatPrice(review.Viewed.ToString())</span><span>&nbsp;Views</span>
                                     </div>
                                 </div>
                                 <div class="clear"></div>
@@ -89,7 +90,7 @@
                     <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noReviews() && TotalReviews() != 0 && Pagination().paginated() > 0" style="display: @(Model.Pager!=null && Model.Pager.TotalResults > 0 ? "block" : "none")">
                         <div class="footer-pagination font14 border-solid-top padding-top10">
                             <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalReviews() > 0">
-                                <p><span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="CurrencyText: Math.min(TotalReviews(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalReviews()">@Model.Pager.TotalResults</span> reviews</p>
+                                <p><span class="text-bold" data-bind="text: formatPrice((Pagination().pageNumber() - 1) * Pagination().pageSize() + 1)">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="text: formatPrice(Math.min(TotalReviews(), Pagination().pageNumber() * Pagination().pageSize()))">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="text: formatPrice(TotalReviews())">@Model.Pager.TotalResults</span> reviews</p>
                             </div>
                             @if (Model.Pager.TotalResults > 8)
                             {

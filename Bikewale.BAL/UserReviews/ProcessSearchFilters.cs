@@ -362,8 +362,8 @@ namespace Bikewale.BAL.UserReviews.Search
                 selectClause = @" id as reviewid, 
                 customername as writtenby,
                 title as reviewtitle,
-                substring(review,1,165) comments,
-                ifnull(ur.lastmoderateddate,ur.EntryDate) reviewdate,
+                substring(striphtml(review),1,175) comments,
+                ifnull(ur.entrydate,ur.lastmoderateddate) reviewdate,
                 upvotes liked,
                 downvotes disliked,
                 views viewed,
@@ -426,7 +426,7 @@ namespace Bikewale.BAL.UserReviews.Search
                 switch (filterInputs.SortOrder)
                 {
                     case 1:
-                        orderBy = " ifnull(ur.lastmoderateddate,ur.EntryDate) desc "; //most recent
+                        orderBy = " ifnull(ur.entrydate,ur.lastmoderateddate) desc "; //most recent
                         break;
                     case 2:
                         orderBy = " bucket, helpfulness desc "; //most helpful
@@ -437,10 +437,10 @@ namespace Bikewale.BAL.UserReviews.Search
                         break;
 
                     case 4:
-                        orderBy = " ur.overallratingid desc "; // most rated 
+                        orderBy = " ur.overallratingid desc "; //most rated 
                         break;
                     default:
-                        orderBy = " ifnull(ur.lastmoderateddate,ur.EntryDate) desc "; //most recent
+                        orderBy = " ifnull(ur.entrydate,ur.lastmoderateddate) desc "; //most recent
                         break;
                 }
             }

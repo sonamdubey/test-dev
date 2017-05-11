@@ -159,10 +159,16 @@ namespace Bikewale.Models.UserReviews
                 };
 
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache);
-                objUserReviews.SkipReviewId = _reviewId;
-                objPage.UserReviews = objUserReviews.GetData();
+                if (objUserReviews != null)
+                {
+                    objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostHelpful;
+                    objUserReviews.SkipReviewId = _reviewId;
+                    objPage.UserReviews = objUserReviews.GetData();
                 objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
-                objPage.UserReviews.IsPagerNeeded = false;
+                    objPage.UserReviews.IsPagerNeeded = false;
+
+                }
+
 
             }
             catch (Exception ex)

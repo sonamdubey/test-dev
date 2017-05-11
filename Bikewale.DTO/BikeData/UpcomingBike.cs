@@ -39,5 +39,8 @@ namespace Bikewale.DTO.BikeData
 
         [JsonProperty(PropertyName = "bikeDesc")]
         public BikeDiscription BikeDescription { get; set; }
+
+        [JsonProperty(PropertyName = "isLaunchingThisMonth")]
+        public bool IsLaunchingThisMonth { get; set; }
     }
 }
