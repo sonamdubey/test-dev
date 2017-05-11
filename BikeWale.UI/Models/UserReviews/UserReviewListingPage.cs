@@ -93,8 +93,8 @@ namespace Bikewale.Models.UserReviews
 
 
                     objData.UserReviews = objUserReviews.GetData();
+                    objData.UserReviews.WidgetHeading = string.Format("Reviews on {0}", objData.BikeName);
                 }
-
                 objData.ExpertReviews = new RecentExpertReviews(9, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0} {1}", objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Model.ModelName)).GetData();
 
                 objData.SimilarBikeReviewWidget = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, 9);

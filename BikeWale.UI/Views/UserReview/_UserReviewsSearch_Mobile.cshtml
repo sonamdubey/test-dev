@@ -5,7 +5,7 @@
 {
     <section>
         <div id="modelReviewsListing" class="container content-box-shadow card-bottom-margin" >
-            <h2 class="h2-heading padding-top15 padding-right20 padding-left20">More reviews on @Model.BikeName</h2>
+            <h2 class="h2-heading padding-top15 padding-right20 padding-left20">@Model.WidgetHeading</h2>
             <div id="overallSpecsTopContent" class="bg-white position-rel user-review-tabs">
                 <div id="overallSpecsTab" class="overall-specs-tabs-container">
                     <ul class="overall-specs-tabs-wrapper">
@@ -30,7 +30,7 @@
                     {
                          <!-- ko if : activeReviewList()[@i] -->
                         <li>
-                            <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" class="item-target" title="@review.ReviewTitle" data-bind="attr : {'title' : activeReviewList()[@i].reviewTitle }">
+                            <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" title="@review.ReviewTitle" data-bind="attr : {'title' : activeReviewList()[@i].reviewTitle,'href' : '/m/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + activeReviewList()[@i].reviewId + '/'}" class="item-target">
                                 <div class="margin-bottom10">
                                     <span class="rating-badge bg-rate-@review.OverAllRating.OverAllRating" data-bind="css: 'bg-rate-' + activeReviewList()[@i].overAllRating.overAllRating">
                                         <span class="bwmsprite star-white"></span>
@@ -99,6 +99,12 @@
                             <div class="clear"></div>
                         </div>
                     </div>
+                }
+                else
+                {
+                    <div class="view-all-btn-container margin-left20 padding-bottom20">
+                        <a title="Read more reviews" class="bw-ga btn view-all-target-btn" href="@string.Format("/m/{0}-bikes/{1}/reviews/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName)">Read more reviews<span class="bwmsprite teal-right"></span></a>
+                    </div>                    
                 }
             </div>
             <!-- /ko -->

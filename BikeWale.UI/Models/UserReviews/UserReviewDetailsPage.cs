@@ -29,12 +29,14 @@ namespace Bikewale.Models.UserReviews
 
         private uint _reviewId;
         private uint _modelId;
+        private string _makeMaskingName;
+        private string _modelMaskingName;
 
         public uint TabsCount { get; set; }
         public uint ExpertReviewsWidgetCount { get; set; }
         public uint SimilarBikeReviewWidgetCount { get; set; }
 
-        public UserReviewDetailsPage(uint reviewId, IUserReviewsCache userReviewsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, ICMSCacheContent objArticles, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache)
+        public UserReviewDetailsPage(uint reviewId, IUserReviewsCache userReviewsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, ICMSCacheContent objArticles, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, string makeMaskingName, string modelMaskingName)
         {
             _reviewId = reviewId;
             _userReviewsCache = userReviewsCache;
@@ -42,6 +44,8 @@ namespace Bikewale.Models.UserReviews
             _cityCache = cityCache;
             _objArticles = objArticles;
             _bikeModelsCache = bikeModelsCache;
+            _makeMaskingName = makeMaskingName;
+            _modelMaskingName = modelMaskingName;
         }
 
         public UserReviewDetailsVM GetData()
@@ -160,6 +164,7 @@ namespace Bikewale.Models.UserReviews
                     objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostHelpful;
                     objUserReviews.SkipReviewId = _reviewId;
                     objPage.UserReviews = objUserReviews.GetData();
+                objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
                     objPage.UserReviews.IsPagerNeeded = false;
 
                 }

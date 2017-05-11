@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.UserReviews.Search;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.UserReviews
@@ -33,5 +34,6 @@ namespace Bikewale.Interfaces.UserReviews
         UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId);
         BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId);
         BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId);
+        Hashtable GetUserReviewsIdMapping();
     }   // class
 }   // namespace

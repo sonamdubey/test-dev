@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.UserReviews.Search;
+using System.Collections;
 
 namespace Bikewale.Interfaces.UserReviews
 {
@@ -7,7 +8,7 @@ namespace Bikewale.Interfaces.UserReviews
     /// Modified by :   Sumit Kate on 26 Apr 2017
     /// Description :   Add GetUserReviews to store old user reviews
     /// Modified by Sajal Gupta on 05-05-2017
-    /// Description : Added GetUserReviewSummaryWithRating
+    /// Description : Added GetUserReviewSummaryWithRating, GetUserReviewsIdMapping
     /// </summary>
     public interface IUserReviewsCache
     {
@@ -18,5 +19,6 @@ namespace Bikewale.Interfaces.UserReviews
         UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId);
         BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId);
         BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId);
+        Hashtable GetUserReviewsIdMapping();
     }
 }
