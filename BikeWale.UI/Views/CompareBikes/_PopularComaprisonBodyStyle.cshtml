@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Bikewale.Entities.BikeData.SimilarCompareBikeEntity>
+
+@if (Model != null)
+{
+    <div class="jcarousel-wrapper inner-content-carousel comparison-type-carousel padding-bottom20">
+        <div class="jcarousel">
+            <ul>
+                @foreach (var bike in Model)
+                {
+                    <li>
+                        <a href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl( bike.MakeMasking1, bike.ModelMasking1, bike.MakeMasking2, bike.ModelMasking2, bike.VersionId1, bike.VersionId2, bike.ModelId1, bike.ModelId2, Bikewale.Entities.Compare.CompareSources.Desktop_Comparison_Landing)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2)" class="card-target">
+                            <div class="grid-6">
+                                <div class="model-img-content">
+                                    <img class="lazy" alt="@bike.Bike1" title="@bike.Bike1" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath1, bike.HostUrl1, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._70)" src="" />
+                                </div>
+                                <h3 class="font15 text-black margin-bottom10 text-truncate">@bike.Bike1</h3>
+                                <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, @bike.City1</p>
+                                <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1))</span>
+                            </div>
+                            <div class="grid-6">
+                                <div class="model-img-content">
+                                    <img class="lazy" alt="@bike.Bike2" title="@bike.Bike2" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath2, bike.HostUrl2, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._70)" src="" />
+                                </div>
+                                <h3 class="font15 text-black margin-bottom10 text-truncate">@bike.Bike2</h3>
+                                <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, @bike.City2</p>
+                                <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price2))</span>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="margin-top20 text-center">
+                                <span class="btn btn-white btn-160-36">Compare now</span>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <span class="jcarousel-control-left">
+            <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+        </span>
+        <span class="jcarousel-control-right">
+            <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+        </span>
+    </div>
+}
+
