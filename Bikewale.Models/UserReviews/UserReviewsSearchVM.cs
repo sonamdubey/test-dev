@@ -13,6 +13,7 @@ namespace Bikewale.Models.UserReviews
         public uint PageSize { get; set; }
         public PagerEntity Pager { get; set; }
         public FilterBy ActiveReviewCategory { get; set; }
+        public string WriteReviewLink { get; set; }
         private bool _IsPagerNeeded = true;
         public bool IsPagerNeeded
         {

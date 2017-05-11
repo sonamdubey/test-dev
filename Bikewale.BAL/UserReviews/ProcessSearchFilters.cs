@@ -431,11 +431,9 @@ namespace Bikewale.BAL.UserReviews.Search
                     case 2:
                         orderBy = " bucket, helpfulness desc "; //most helpful
                         break;
-
                     case 3:
                         orderBy = " ur.views desc "; //most read or viewed
                         break;
-
                     case 4:
                         orderBy = " ur.overallratingid desc "; //most rated 
                         break;

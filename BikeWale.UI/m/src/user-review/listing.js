@@ -279,8 +279,11 @@ docReady(function() {
                 self.Filters()["so"] = categoryId;
                 self.Filters()["cat"] = catTypes;
 
-                if (categoryId != 1 && categoryId != 2) {
+                if (categoryId != 2) {
                     self.Filters()["so"] = 2;
+                }
+                else {
+                    self.Filters()["so"] = 1;
                 }
 
                 if (categoryCount) {
@@ -393,9 +396,6 @@ docReady(function() {
                     self.IsLoading(false);
                     $('html, body').scrollTop($('#modelReviewsListing').offset().top);
                 });
-            }
-            else {
-                history.back();
             }
         };
 
