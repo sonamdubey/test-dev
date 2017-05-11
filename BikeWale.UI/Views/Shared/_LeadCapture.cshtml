@@ -56,7 +56,7 @@
                 </ul>
             </div>
             <div class="form-control-box personal-info-list position-rel" data-bind="visible: dealersRequired()">
-                <div class="select-box select-box-no-input full-width-select">
+                <div class="select-box select-box-no-input full-width-select text-left">
                     <p class="select-label">Select dealer</p>
                     <select id="ddlMfgDealers" data-title="Select dealer" class="chosen-select margin-bottom10"></select>
                     <span class="boundary"></span>
@@ -185,7 +185,6 @@
 
                 if (options.pinCodeRequired != null)
                     self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true);
-
                 if (options.dealersRequired != null)
                     self.dealersRequired(options.dealersRequired != 'true' ? false : true);
 

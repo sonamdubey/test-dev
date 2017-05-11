@@ -60,7 +60,7 @@
 .dropdown-menu .dropdown-label,
 .dropdown-menu .dropdown-selected-item {
     max-width: 260px;
-    padding: 5px 30px 5px 0;
+    padding: 5px 30px 5px 5px;
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
@@ -640,4 +640,17 @@
 .campaign-button-content .btn {
     padding-right: 0;
     padding-left: 0;
+}
+
+.full-width-select .dropdown-select-wrapper,
+.full-width-select .dropdown-menu,
+.full-width-select .dropdown-menu .dropdown-label,
+.full-width-select .dropdown-menu .dropdown-selected-item,
+.full-width-select .dropdown-menu .dropdown-list-wrapper {
+    width: 100%;
+}
+
+.full-width-select .dropdown-menu .dropdown-label,
+.full-width-select .dropdown-menu .dropdown-selected-item {
+    max-width: 100%;
 }

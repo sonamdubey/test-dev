@@ -71,11 +71,16 @@
                             </li>
                         </ul>
                     </div>
-
-                    <div class="clear"></div>
-                    <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                    <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
-                </div>
+                    @*data-bind="visible: dealerRequired()"*@
+                    <div id="getDealer-select-box" class="form-control-box margin-bottom15 full-width-select text-left" data-bind="visible: dealersRequired()">
+                        <div class="dropdown-select-wrapper">
+                            <select id="ddlMfgDealers" class="dropdown-select"></select>
+                        </div>
+                    </div>
+                        <div class="clear"></div>
+                        <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                        <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+                    </div>
             </div>
 
             <!-- thank you message starts here -->
@@ -153,6 +158,7 @@
             self.dealerMessage = ko.observable();
             self.dealerDescription = ko.observable();
             self.pinCodeRequired = ko.observable();
+            self.dealersRequired = ko.observable();
             self.setOptions = function (options) {
                 if (options != null) {
                     if (options.dealerid != null)
@@ -198,7 +204,9 @@
 
                     if (options.pinCodeRequired != null)
                         self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true);
-
+                    if (options.dealersRequired != null)
+                        self.dealersRequired(options.dealersRequired != 'true' ? false : true);
+                    
                     if (options.pageurl != null)
                         self.pageUrl = options.pageurl;
 
@@ -427,8 +435,23 @@
                     if (isValid)
                         isValid &= self.checkPinCode(self.pincode());
                 }
+                debugger;
+                if (self.dealersRequired()) {
+                    isValid &= self.validateDealer();
+                }
                 if (self.isDealerBikes())
                     isValid &= self.validateBike();
+                return isValid;
+            };
+
+            self.validateDealer = function (inputName) {
+                var isValid = false;
+                if ($('#ddlMfgDealers :selected').text() == "") {
+                    validate.setError($('#ddlMfgDealers'), 'Please select dealer');
+                }
+                else {
+                    isValid = true;
+                }
                 return isValid;
             };
 
@@ -549,7 +572,10 @@
                         "cityId": self.cityId(),
                         "leadSourceId": self.leadSourceId(),
                         "PinCode": self.pincode(),
-                        "deviceId": getCookie('BWC')
+                        "deviceId": getCookie('BWC'),
+                        "manufacturerDealer": $('#ddlMfgDealers :selected').text(),
+                        "manufacturerDealerCity": $('#ddlMfgDealers :selected').data('city'),
+                        "manufacturerDealerState": $('#ddlMfgDealers :selected').data('state')
                     };
                     $.ajax({
                         type: "POST",
