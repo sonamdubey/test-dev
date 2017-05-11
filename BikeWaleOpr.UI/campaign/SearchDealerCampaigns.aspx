@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.campaign.SearchDealerCampaigns" Async="true" AsyncTimeout="60" %>
+
 <!-- #Include file="/includes/headerNew.aspx" -->
 <style type="text/css">
     .greenMessage {
@@ -35,50 +36,55 @@
     .position-rel {
         position: relative;
     }
+
     .active-contract {
         background-color: #ccc;
-    } 
+    }
+
     .unstarted-contract {
         background-color: #ccc;
-    } 
+    }
 </style>
 <div class="left">
     <h1>Manage Dealer Campaigns</h1>
     <div id="inputSection" class="position-rel margin-top10">
         <div style="border: 1px solid #777;" class="padding10">
-            <div class="margin-right10 verical-middle form-control-box" >Dealer's City : <span class="errMessage">* &nbsp</span>
+            <div class="margin-right10 verical-middle form-control-box">
+                Dealer's City : <span class="errMessage">* &nbsp</span>
                 <asp:dropdownlist id="drpCity" enabled="True" cssclass="drpClass" runat="server">
                     <asp:ListItem Text="--Select City--" Value="-1"/>
                     </asp:dropdownlist>
                 <span class="bwsprite error-icon hide"></span>
-            <div class="bw-blackbg-tooltip hide">Please Select City</div>
+                <div class="bw-blackbg-tooltip hide">Please Select City</div>
             </div>
-            <div class="margin-right10 verical-middle form-control-box position-rel" id="dvMakes">Bike Make : <span class="errMessage">* &nbsp</span>
-                <select id="ddlMakes" class="drpClass" >
+            <div class="margin-right10 verical-middle form-control-box position-rel" id="dvMakes">
+                Bike Make : <span class="errMessage">* &nbsp</span>
+                <select id="ddlMakes" class="drpClass">
                     <option value="">--Select Make--</option>
                 </select>
                 <span class="bwsprite error-icon hide"></span>
-            <div class="bw-blackbg-tooltip hide">Please Select Make</div>
+                <div class="bw-blackbg-tooltip hide">Please Select Make</div>
             </div>
-            <div class="margin-right10 verical-middle form-control-box position-rel" id="dvDealers">Dealer Name : <span class="errMessage">* &nbsp</span>
-                <select id="drpDealer" class="drpClass" >
+            <div class="margin-right10 verical-middle form-control-box position-rel" id="dvDealers">
+                Dealer Name : <span class="errMessage">* &nbsp</span>
+                <select id="drpDealer" class="drpClass">
                     <option value="">--Select Dealer--</option>
                 </select>
                 <span class="bwsprite error-icon hide"></span>
-            <div class="bw-blackbg-tooltip hide">Please Select Dealer</div>
+                <div class="bw-blackbg-tooltip hide">Please Select Dealer</div>
             </div>
             <div class="margin-right10 verical-middle">
-                <input class="verical-middle" type="checkbox" id="chkActiveCampaign" checked/>
+                <input class="verical-middle" type="checkbox" id="chkActiveCampaign" checked />
                 <label for="chkActiveCampaign" class="verical-middle">Show only active campaigns</label>
             </div>
             <div class="verical-middle">
                 <input id="btnGetCampaigns" type="button" value="Get Campaigns" />
             </div>
         </div>
-        <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; "></span>
-    </div> 
+        <span class="position-abt progress-bar" style="width: 100%; overflow: hidden;"></span>
+    </div>
 
-    <div style="margin-left:200px">
+    <div style="margin-left: 200px">
         <h4 id="selDealerHeading"></h4>
     </div>
     <div style="display: none; overflow-x: auto; overflow-y: hidden" id="DealerCampaignsList">
@@ -97,16 +103,17 @@
                     <td>Masking Number</td>
                     <td>Contract Status</td>
                     <td>Rules</td>
-                     <td>Edit Campaign</td>
+                    <td>Campaign Areas</td>
+                    <td>Edit Campaign</td>
                 </tr>
             </thead>
             <tbody data-bind="template: { name: 'DealerCampaignList', foreach: Table }">
             </tbody>
         </table>
     </div>
-    <script type="text/html" id="DealerCampaignList">        
+    <script type="text/html" id="DealerCampaignList">
         <tr class="dtItem" data-bind="style: { 'background-color': ColorCode }">
-            <td data-bind="text : $index() + 1"></td>
+            <td data-bind="text: $index() + 1"></td>
             <td data-bind="text: ContractId"></td>
             <td data-bind="text: PackageName"></td>
             <td data-bind="text: StartDate"></td>
@@ -116,11 +123,15 @@
             <td data-bind="text: ServingRadius"></td>
             <td data-bind="text: MaskingNumber"></td>
             <td data-bind="text: Status"></td>
-            <td >
-                <a  data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid='+ $root.dealerId() },text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank"></a>
+            <td>
+                <a data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid=' + $root.dealerId() }, text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank"></a>
             </td>
-            <td >
-                <a  data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + $root.dealerName() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + $root.dealerId() }" target="_blank"><img src="https://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
+            <td>
+                <a href="/dealercampaign/campaignservingareas/"><img src="https://opr.carwale.com/images/edit.jpg" alt="Edit" /></a>
+            </td>
+            <td>
+                <a data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + $root.dealerName() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + $root.dealerId() }" target="_blank">
+                    <img src="https://opr.carwale.com/images/edit.jpg" alt="Edit" /></a>
             </td>
         </tr>
     </script>
@@ -242,7 +253,7 @@
         }
     }
 
-    function GetDealerCampaigns(cityid,makeid,dealerId) {
+    function GetDealerCampaigns(cityid, makeid, dealerId) {
         if (validateInputs(cityid, makeid, dealerId)) {
             var onlyActiveCampaign = $(chkActiveCampaign).prop("checked");
             try {
@@ -321,15 +332,13 @@
         PopulateDealerMakes(cityId);
     });
 
-    ddlDealer.change(function () { showHideMatchError(ddlDealer, !(parseInt($(this).val()) > 0 ));  });
+    ddlDealer.change(function () { showHideMatchError(ddlDealer, !(parseInt($(this).val()) > 0)); });
 
-    ddlMakes.change(function ()
-    {
+    ddlMakes.change(function () {
         ClearDealers();
         PopulateDealers(ddlCity.val(), $(this).val());
     });
-    chkActiveCampaign.change(function ()
-    {
+    chkActiveCampaign.change(function () {
         PopulateDealers(ddlCity.val(), ddlMakes.val());
     });
 
@@ -362,7 +371,7 @@
                 case 5:
                     this.ColorCode = '#ff6666';
                     break;
-                default : 
+                default:
                     this.ColorCode = '#cfcfcf';
                     break;
             }

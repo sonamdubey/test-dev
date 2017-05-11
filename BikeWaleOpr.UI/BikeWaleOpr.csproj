@@ -410,6 +410,7 @@
       <DependentUpon>ViewReview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\DealerCampaignController.cs" />
     <Compile Include="Controllers\MakesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
@@ -1959,6 +1960,7 @@
     <Content Include="css\fonts\roboto\Roboto-Thin.woff2" />
     <Content Include="Views\Models\UsedModelImageUpload.cshtml" />
     <Content Include="Views\UserReviews\Index.cshtml" />
+    <Content Include="Views\DealerCampaign\CampaignServingAreas.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
