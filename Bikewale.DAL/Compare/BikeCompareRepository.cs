@@ -540,7 +540,7 @@ namespace Bikewale.DAL.Compare
             IList<SimilarCompareBikeEntity> topBikes = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikecomparison_25042017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikecomparison_09052017"))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
@@ -567,6 +567,7 @@ namespace Bikewale.DAL.Compare
                                 obj.OriginalImagePath1 = Convert.ToString(reader["VersionImgUrl"]);
                                 obj.HostUrl1 = Convert.ToString(reader["HostUrl"]);
                                 obj.IsScooterOnly = SqlReaderConvertor.ToBoolean(reader["IsScooter"]);
+                                obj.BodyStyle1 = SqlReaderConvertor.ToUInt16(reader["bodystyleid"]);
                                 topBikeList.Add(obj);
                             }
                             reader.Close();
@@ -605,6 +606,8 @@ namespace Bikewale.DAL.Compare
                                 OriginalImagePath2 = bike2.OriginalImagePath1,
                                 HostUrl1 = bike1.HostUrl1,
                                 HostUrl2 = bike2.HostUrl1,
+                                BodyStyle1 = bike1.BodyStyle1,
+                                BodyStyle2 = bike2.BodyStyle1,
                                 IsScooterOnly = (bike1.IsScooterOnly && bike2.IsScooterOnly)
                             });
                         }
@@ -819,5 +822,6 @@ namespace Bikewale.DAL.Compare
             return topBikeList;
 
         }
+
     }
 }
