@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
@@ -10,6 +11,10 @@ using System.Linq;
 using System.Text;
 namespace Bikewale.Models.BikeModels
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 26 Apr 2017
+    /// Description :   Replace Count with Count()
+    /// </summary>
     public class ModelPageVM : ModelBase
     {
 
@@ -20,6 +25,7 @@ namespace Bikewale.Models.BikeModels
         public ManufacturerCampaign ManufacturerCampaign { get; set; }
         public LeadCaptureEntity LeadCapture { get; set; }
         public IEnumerable<BestBikeEntityBase> objBestBikesList { get; set; }
+        public EMI EMIDetails { get; set; }
         public uint VersionId { get; set; }
         public uint DealerId { get; set; }
         public uint PQId { get; set; }
@@ -34,7 +40,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsOnRoadPriceAvailable { get; set; }
         public GlobalCityAreaEntity LocationCookie { get; set; }
         public bool IsAreaSelected { get; set; }
-        public bool IsLocationSelected { get { return (this.LocationCookie != null && this.LocationCookie.CityId > 0); } }
+        public bool IsLocationSelected { get { return (this.City != null && this.City.CityId > 0); } }
         public string Location { get { return (this.IsAreaSelected ? string.Format("{0}, {1}", LocationCookie.Area, LocationCookie.City) : (this.IsLocationSelected ? LocationCookie.City : "Mumbai")); } }
         public string LeadBtnLongText { get { return "Get offers from dealer"; } }
         public string LeadBtnShortText { get { return "Get offers"; } }
@@ -90,12 +96,12 @@ namespace Bikewale.Models.BikeModels
         public bool IsModelColorsAvailable { get { return (this.ModelPageEntity != null && this.ModelPageEntity.ModelColors != null && this.ModelPageEntity.ModelColors.Count() > 0); } }
         public bool IsUsedBikesAvailable { get { return (UsedModels != null && UsedModels.RecentUsedBikesList != null && UsedModels.RecentUsedBikesList.Count() > 0); } }
         public bool IsShowPriceTab { get; set; }
-        public bool IsUserReviewsAvailable { get { return UserReviews != null && UserReviews.ReviewList != null && UserReviews.ReviewList.Count > 0; } }
+        public bool IsUserReviewsAvailable { get { return UserReviews != null && UserReviews.ReviewList != null && UserReviews.ReviewList.Count() > 0; } }
+        public IEnumerable<ColorImageBaseEntity> ColorImages { get { return AreModelPhotosAvailable ? ModelPageEntity.AllPhotos.Where(x => x.ColorId > 0) : null; } }
 
         #endregion
 
         private StringBuilder colorStr = new StringBuilder();
-        //public ModelPageVM viewModel = null;
         public BikeRankingPropertiesEntity BikeRanking { get; set; }
         public string ModelSummary { get; set; }
         public uint CampaignId { get; set; }

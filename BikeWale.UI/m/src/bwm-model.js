@@ -93,7 +93,7 @@ function LoadTerms(offerId) {
 }
 
 function scrollHorizontal(pos) {
-    $('#overallSpecsTab').animate({ scrollLeft: pos + 'px' }, 500);
+    $('#overallSpecsTab').animate({ scrollLeft: pos - 15 + 'px' }, 500);
 }
 
 var appendState = function (state) {
@@ -134,6 +134,10 @@ docReady(function () {
     if (makeDealersContent.length != 0) {
         makeDealersContent.removeClass('bw-model-tabs-data');
     }
+
+    var tabElementThird = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(3)'),
+        tabElementSixth = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(6)'),
+        tabElementNinth = modelSpecsTabsContentWrapper.find('.bw-model-tabs-data:eq(9)');
 
     $("#viewprimarydealer, #dealername").on("click", function () {
         var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
@@ -239,22 +243,33 @@ docReady(function () {
             }
         });
 
-        var scrollToTab = $('#modelSpecsTabsContentWrapper .bw-model-tabs-data:eq(3)');
-        if (scrollToTab.length != 0) {
-            if (windowScrollTop > scrollToTab.offset().top - 45) {
-                if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
-                    $('.overall-specs-tabs-container').addClass('scrolled-left');
-                    scrollHorizontal(200);
+        if (tabElementThird.length != 0) {
+            focusFloatingTab(tabElementThird, 250, 0);
+        }
+
+        if (tabElementSixth.length != 0) {
+            focusFloatingTab(tabElementSixth, 500, 250);
+        }
+
+        if (tabElementNinth.length != 0) {
+            focusFloatingTab(tabElementNinth, 750, 500);
+        }
+
+        function focusFloatingTab(element, startPosition, endPosition) {
+            if (windowScrollTop > element.offset().top - 45) {
+                if (!$('#overallSpecsTab').hasClass('scrolled-left-' + startPosition)) {
+                    $('.overall-specs-tabs-container').addClass('scrolled-left-' + startPosition);
+                    scrollHorizontal(startPosition);
                 }
             }
 
-            else if (windowScrollTop < scrollToTab.offset().top) {
-                if ($('#overallSpecsTab').hasClass('scrolled-left')) {
-                    $('.overall-specs-tabs-container').removeClass('scrolled-left');
-                    scrollHorizontal(0);
+            else if (windowScrollTop < element.offset().top) {
+                if ($('#overallSpecsTab').hasClass('scrolled-left-' + startPosition)) {
+                    $('.overall-specs-tabs-container').removeClass('scrolled-left-' + startPosition);
+                    scrollHorizontal(endPosition);
                 }
             }
-        }
+        };
 
         if (windowScrollTop > halfBodyHeight) {
             if (windowScrollTop < lastScrollTop) {
@@ -274,7 +289,6 @@ docReady(function () {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": "" });
         window.location.href = $(this).data("pageurl") + "?versionId=" + $(this).val();
     });
-
 
     $('.overall-specs-tabs-wrapper li').click(function () {
         var target = $(this).attr('data-tabs');
@@ -370,16 +384,44 @@ docReady(function () {
 });
 
 docReady(function () {
+    
+    var userEventSource = true;
 
     var gallerySwiper = new Swiper('#model-photos-swiper', {
-        spaceBetween: 0,        
+        spaceBetween: 0,
+        direction: 'horizontal',
         nextButton: '.gallery-type-next',
-        prevButton: '.gallery-type-prev'
-    });
+        prevButton: '.gallery-type-prev',
+        onSlideChangeEnd: function (swiper) {
+            if (userEventSource) {
+                if (swiper.activeIndex < swiper.previousIndex) {
+                    triggerGA('Model_Page', 'Swiped_Left', myBikeName);
+                } else if (swiper.activeIndex > swiper.previousIndex) {
+                    triggerGA('Model_Page', 'Swiped_Right', myBikeName);
+                }
+            }
+            else {
+                if (swiper.activeIndex < swiper.previousIndex) {
+                    triggerGA('Model_Page', 'Image_Carousel_Clicked', myBikeName + '_Previous');
 
+                } else if (swiper.activeIndex > swiper.previousIndex) {
+                    triggerGA('Model_Page', 'Image_Carousel_Clicked', myBikeName + '_Next');
+                }
+            }
+        },
+        onTouchEnd: function (swiper, event) {
+            var targetId = event.target.id;
+            if (targetId == "next-btn" || targetId == "prev-btn") {
+                userEventSource = false;
+            }
+            else {
+                userEventSource = true;
+            }
+        },
+    });
+    
     if (photosCount > 10) {
         var overlayCount = '<span class="black-overlay text-white"><span class="font16 text-bold">+' + photosCount + '</span><br><span class="font14">images</span></span>';
-
         $("#model-photos-swiper .swiper-slide").last().find("a").append(overlayCount);
     }
 
@@ -424,7 +466,6 @@ docReady(function () {
             $('html, body').animate({ scrollTop: $('.model-preview-main-content').offset().top - 44 }, 500)
         }
     });
-
 
     $('#more-dealers-target').on('click', function () {
         popupDiv.open(dealersPopupDiv);

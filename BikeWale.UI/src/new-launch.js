@@ -1,8 +1,7 @@
 ﻿var vmPagination, newLaunches, vmNewLaunches;
 docReady(function () {
     var chosenSelectBox = $('.chosen-select');
-    var selectDropdownBox = $('.select-box-no-input');
-
+    var selectDropdownBox = $('.select-box-no-input');   
     chosenSelectBox.chosen();
     chosenSelectBox.each(function () {
         var text = $(this).attr('data-placeholder');
@@ -15,7 +14,7 @@ docReady(function () {
         }
     });
 
-    newLaunches = function () {
+    newLaunches = function () {        
         var self = this;
         self.IsInitialized = ko.observable(false);
         self.Filters = ko.observable({ pageNo: 1, pageSize: 15 });

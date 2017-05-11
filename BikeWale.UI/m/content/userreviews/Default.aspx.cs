@@ -1,7 +1,12 @@
-﻿using Bikewale.BAL.UserReviews;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.DAL.BikeData;
+using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
 using System;
@@ -20,7 +25,8 @@ namespace Bikewale.Mobile.Content
         protected LinkButton btnSubmit;
         protected Repeater rptMostReviewed, rptMostRead, rptMostHelpful, rptMostRecent, rptMostRated;
         private List<ReviewTaggedBikeEntity> objMostReviewed = null;
-        private IUserReviews objUserReviews = null;
+        private IUserReviewsRepository objUserReviews = null;
+        protected IEnumerable<BikeMakeEntityBase> objMakes = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -73,9 +79,9 @@ namespace Bikewale.Mobile.Content
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IUserReviews, UserReviews>();
+                container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
 
-                objUserReviews = container.Resolve<IUserReviews>();
+                objUserReviews = container.Resolve<IUserReviewsRepository>();
             }
         }
 
@@ -91,13 +97,16 @@ namespace Bikewale.Mobile.Content
             try
             {
                 MakeModelVersion mmv = new MakeModelVersion();
-
-                //ddlMake.DataSource = mmv.GetMakes("USERREVIEW");
-                //ddlMake.DataValueField = "Value";
-                //ddlMake.DataTextField = "Text";
-                //ddlMake.DataBind();
-                //ddlMake.Items.Insert(0, (new ListItem("--Select Make--", "0")));
                 mmv.GetMakes(EnumBikeType.UserReviews, ref ddlMake);
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            ;
+                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    objMakes = objCache.GetMakesByType(EnumBikeType.New);
+                }
             }
             catch (Exception ex)
             {

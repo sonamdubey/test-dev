@@ -125,6 +125,7 @@ namespace Bikewale.Models
                 objData.PQId = _pqId;
                 objData.ClientIP = CommonOpn.GetClientIP();
                 objData.Location = GetLocationCookie();
+                objData.CiyName = currentCity;
                 objData.MPQQueryString = mpqQueryString;
                 objData.PageUrl = pageUrl;
             }
@@ -204,6 +205,7 @@ namespace Bikewale.Models
                 {
                     Entities.Location.CityEntityBase city = cities.FirstOrDefault(m => m.CityId == _cityId);
                     currentCity = city != null ? city.CityName : String.Empty;
+
 
                     IEnumerable<Entities.Location.AreaEntityBase> areas = _objAreaCache.GetAreaList(_modelId, _cityId);
                     if (areas != null)

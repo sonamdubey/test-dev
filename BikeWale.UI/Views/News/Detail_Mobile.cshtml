@@ -53,12 +53,7 @@
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <meta name="theme-color" content="#2a2a2a" />
     <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
-
-
-
-    <style type="text/css">
-          #appBanner{background:#e2e2e2;padding:5px 5px 0;position:relative;overflow:hidden}.hide{display:none}.banner-close-btn{width:30px;height:30px;background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/banner-close-btn.png) no-repeat;position:absolute;top:0;right:0;cursor:pointer}.app-banner-img-container{float:left;width:130px;height:95px;position:relative;margin-right:12px}.app-banner-img-container img{position:absolute;bottom:0}.app-banner-text-container{float:left}.margin-top5{margin-top:5px}.text-grey{color:#787878!important}.text-bold{font-weight:700}.font20{font-size:20px}.font12{font-size:12px}.text-bold{font-weight:700}.margin-bottom5{margin-bottom:5px}.btn-orange{background:#ef3030;color:#fff}.btn-orange:hover{background:#f44336}.btn-orange:focus{background:#d42c2c}.btn,.btn-orange:hover,.btn:hover{text-decoration:none}
-    </style>
+    
     <link rel='stylesheet' type='text/css' href='/m/css/content/app.css' />
 
     <script defer type="text/javascript">
@@ -102,8 +97,14 @@
         googletag.cmd.push(function () {
 
             googletag.defineSlot('/1017752/Bikewale_Mobile_NewBikes_Top_320x50', [320,50], 'div-gpt-ad-1398766302464-0').addService(googletag.pubads());
+            googletag.defineSlot('/1017752/Bikewale_Mobile_NewBikes_Middle_320x50', [320,50], 'div-gpt-ad-1398766302464-5').addService(googletag.pubads());
             googletag.pubads().enableSingleRequest();
             googletag.pubads().collapseEmptyDivs();
+            googletag.pubads().addEventListener('slotRenderEnded', function(event) {                      
+                if(window.endTimer && typeof window.endTimer === "function") {
+                    window.endTimer("ad");
+                }
+            })
             googletag.enableServices();
         });
 
@@ -111,33 +112,14 @@
     </script>
 
 
-    <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/pwa/build/vendorv2.bundle.js" as="script">
-    <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/pwa/build/appv2.bundle.js" as="script">
+    <link rel="preload" href="@Url.Content("../../Scripts/vendor.bundle.js")" as="script">
+    <link rel="preload" href="@Url.Content("../../Scripts/app.bundle.js")" as="script">
     <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/min/src/frameworks.js?19apr2017v1" as="script">
     <link rel="preload" href="https://st2.aeplcdn.com/staging/bikewale/min/src/bwcache.js?19apr2017v1" as="script">
     <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/min/m/src/Plugins.js?19apr2017v1" as="script">
     <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/min/m/src/common.js?19apr2017v1" as="script">
 </head>
 <body>
-
-
-    @if (Model.IsAppBannerNeeded)
-    {
-        <div id="appBanner">
-            <div class="banner-close-btn" id="btnCrossApp"></div>
-            <div class="app-banner-img-container">
-                <img src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
-            </div>
-            <div class="app-banner-text-container margin-top5">
-                <p class="text-grey text-bold font20">India’s #1</p>
-                <p class="font12 text-bold text-grey margin-bottom5">Bike Research Destination</p>
-                <a id="btnInstallApp" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source=BikeWaleWebsite&utm_medium=HeaderSlug&utm_campaign=MobileHeaderSlug" target="_blank" class="app-banner-btn-container">
-                    <span class="btn btn-orange font12 text-bold">Install our app</span>
-                </a>
-            </div>
-            <div class="clear"></div>
-        </div>
-    }
 
 
     <div class="blackOut-window"></div>
@@ -206,16 +188,12 @@
 
     <script type="text/javascript">
         if(googletag) {
-            googletag.cmd.push(function(){
-                console.log('displaying ad')
+            googletag.cmd.push(function(){                
                 googletag.display('div-gpt-ad-1398766302464-0')
 
             })
 
-        }
-        else {
-            console.log('googletag not loaded yet')
-        }
+        }        
         
         var script_array = ["https://st.aeplcdn.com/staging/bikewale/pwa/build/vendorv2.bundle.js",
                             "https://st.aeplcdn.com/staging/bikewale/pwa/build/appv2.bundle.js",
@@ -243,19 +221,14 @@
     <script defer type="text/javascript">
         window.addEventListener('DOMContentLoaded', function() {
             if(navigator.serviceWorker) {
-                console.log('navigator serviceworker exists')
                 navigator.serviceWorker.register("@Url.Content("../swv2.js")").then(function(registration) {
-                    console.log('service worker registered');
                     registration.onupdatefound = function() {
                         var installingWorker = registration.installing;
                         installingWorker.onstatechange = function() {
-                            console.log('state-> '+installingWorker.state);
                         }
 
                     }
                 }).catch(function(err) {
-                    console.log(err)
-                    console.log('Unable to register service worker')
                 })
             }
 

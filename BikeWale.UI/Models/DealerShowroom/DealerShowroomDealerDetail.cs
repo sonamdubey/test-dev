@@ -53,6 +53,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 27 March 2017
         /// Summary :- To fetch data for dealer detail Page
+        /// Modified by : Aditi Srivastava on 24 Apr 2017
+        /// Summary     : Added null check for dealer details before functiion calls
         /// </summary>
         /// <returns></returns>
         public DealerShowroomDealerDetailsVM GetData()
@@ -64,18 +66,20 @@ namespace Bikewale.Models
                 objDealerDetails.DealerDetails = BindDealersData();
                 if (objMake != null)
                     objDealerDetails.Make = objMake;
-                if (objDealerDetails.DealerDetails != null)
+                if (objDealerDetails.DealerDetails != null && objDealerDetails.DealerDetails.DealerDetails != null)
+                {
                     cityId = (uint)objDealerDetails.DealerDetails.DealerDetails.CityId;
-                CityDetails = new CityHelper().GetCityById(cityId);
-                objDealerDetails.CityDetails = CityDetails;
+                    CityDetails = new CityHelper().GetCityById(cityId);
+                    objDealerDetails.CityDetails = CityDetails;
 
-                ProcessGlobalLocationCookie();
-                objDealerDetails.DealersList = BindOtherDealerWidget();
+                    ProcessGlobalLocationCookie();
+                    objDealerDetails.DealersList = BindOtherDealerWidget();
 
-                objDealerDetails.PopularBikes = BindMostPopularBikes();
-                objDealerDetails.ServiceCenterDetails = BindServiceCenterWidget();
-                BindPageMetas(objDealerDetails.PageMetaTags);
-                BindLeadCapture(objDealerDetails);
+                    objDealerDetails.PopularBikes = BindMostPopularBikes();
+                    objDealerDetails.ServiceCenterDetails = BindServiceCenterWidget();
+                    BindPageMetas(objDealerDetails.PageMetaTags);
+                    BindLeadCapture(objDealerDetails);
+                }
             }
             catch (System.Exception ex)
             {
@@ -184,8 +188,9 @@ namespace Bikewale.Models
             MostPopularBikeWidgetVM objPopularBikes = new MostPopularBikeWidgetVM();
             try
             {
-                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, true, false, PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels, 0, (uint)objMake.MakeId);
+                MostPopularBikesWidget popularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, false, true, PQSourceEnum.Desktop_DealerLocator_Detail_AvailableModels, 0, (uint)objMake.MakeId);
                 popularBikes.TopCount = 9;
+                popularBikes.CityId = cityId;
                 objPopularBikes = popularBikes.GetData();
                 objPopularBikes.PageCatId = 5;
                 objPopularBikes.PQSourceId = PQSourceEnum.Desktop_HP_MostPopular;

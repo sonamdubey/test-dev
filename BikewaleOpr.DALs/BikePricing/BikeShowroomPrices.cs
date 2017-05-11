@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Notifications;
+﻿using Bikewale.Notifications;
 using BikewaleOpr.Entities.BikePricing;
 using BikewaleOpr.Interface.BikePricing;
 using MySql.CoreDAL;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 
 namespace BikewaleOpr.DALs.BikePricing
 {
@@ -30,7 +27,7 @@ namespace BikewaleOpr.DALs.BikePricing
             IList<BikePrice> objPrices = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("GetVersionPricesByMakeCity"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("GetVersionPricesByMakeCity_07042017"))
                 {
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.UInt32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.UInt32, cityId));
@@ -57,7 +54,7 @@ namespace BikewaleOpr.DALs.BikePricing
 
                                 objPrice.LastUpdatedDate = Convert.ToString(dr["LastUpdatedDate"]);
                                 objPrice.LastUpdatedBy = Convert.ToString(dr["LastUpdatedBy"]);
-
+                                objPrice.BikeModelId = Convert.ToUInt32(dr["bikemodelid"]);
                                 objPrices.Add(objPrice);
                             }
                         }

@@ -98,6 +98,11 @@ namespace Bikewale.BAL.PriceQuote
             return objVersionsList;
         }
 
+        public IEnumerable<OtherVersionInfoEntity> GetOtherVersionsPrices(uint modelId, uint cityId)
+        {
+            return objPQ.GetOtherVersionsPrices(modelId, cityId);
+        }
+
         /// <summary>
         /// Author  :   Sumit Kate
         /// Created On  :   16 Oct 2015
@@ -169,5 +174,6 @@ namespace Bikewale.BAL.PriceQuote
         {
             return objPQ.GetVersionPricesByModelId(modelId, cityId, out hasArea);
         }
+
     }   // class
 }   // namespace

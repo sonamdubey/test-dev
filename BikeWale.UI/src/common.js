@@ -1,5 +1,5 @@
 // JavaScript Document
-var focusedMakeModel = null, focusedCity = null;
+var focusedMakeModel = null, focusedCity = null, isMakeModelRedirected = false;
 var objBikes = new Object(), objCity = new Object(),globalCityId = 0,_makeName = '',ga_pg_id = '0',pqSourceId = "37";
 var IsPriceQuoteLinkClicked = false, _target = 3, popup, recentSearches;
 var monthNames = ["January", "February", "March", "April", "May", "June",
@@ -170,7 +170,14 @@ function triggerGA(cat, act, lab) {
     catch (e) {// log error   
     }
 };
+function triggerNonInteractiveGA(cat, act, lab) {
+    try {
 
+        dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': cat, 'act': act, 'lab': lab });
+    }
+    catch (e) {// log error   
+    }
+}
 function attachListener(event, element, functionName) {
     if (element.addEventListener) {
         element.addEventListener(event, functionName, false);
@@ -699,6 +706,9 @@ docReady(function () {
     if (typeof (testimonialSlider) != 'undefined') {
         _target = 1;
     }
+    if (typeof (slideCountOne) != 'undefined') {
+        _target = 1;
+    }
     var jcarousel = $('.jcarousel').jcarousel({
         vertical: false
     });
@@ -776,6 +786,7 @@ docReady(function () {
             MakeModelRedirection(ui.item);
             var keywrd = ui.item.label + '_' + $('#newBikeList').val();
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+            isMakeModelRedirected = true;
         },
         open: function (result) {
             objBikes.result = result;
@@ -856,8 +867,9 @@ docReady(function () {
         click: function (event, ui, orgTxt) {
             var keywrd = ui.item.label + '_' + $('#globalSearch').val();
             var category = GetCatForNav();
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });   
             MakeModelRedirection(ui.item);
+            isMakeModelRedirected = true;
         },
         loaderStatus: function (status) {
             if (!status) {
@@ -937,9 +949,13 @@ docReady(function () {
 
             }
         }
-    }).keydown(function (e) {
+    })
+        .keydown(function (e) {
         if (e.keyCode == 13) {
-            $('#btnGlobalSearch').click();
+            if (!isMakeModelRedirected)
+                $('#btnGlobalSearch').click();
+            else
+                isMakeModelRedirected = false;
         }
 
     });

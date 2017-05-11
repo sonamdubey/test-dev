@@ -75,7 +75,7 @@ namespace BikewaleOpr.DALs.Bikedata
                 {
                     connection.Open();
 
-                    objMakes = connection.Query<BikeMakeEntity>("GetMakesList", CommandType.StoredProcedure).ToList();
+                    objMakes = connection.Query<BikeMakeEntity>("GetMakesList", CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -270,6 +270,35 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.UpdateSynopsis");
             }
+        }
+
+
+        public IEnumerable<BikeMakeEntityBase> GetMakes(ushort requestType)
+        {
+            IEnumerable<BikeMakeEntityBase> objMakes = null;
+
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_requesttype", requestType);
+
+                    objMakes = connection.Query<BikeMakeEntityBase>("getbikemakes_1712017", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetMakes");
+            }
+
+            return objMakes;
         }
     }   // class
 }   // namespace

@@ -240,11 +240,9 @@
                         @if (Model.IsPopularBikesDataAvailable)
                         {
                             <div class="bw-tabs-data features-bikes-container" id="mctrlMostPopularBikes">
-                                <div class="swiper-container card-container">
-                                    <div class="swiper-wrapper discover-bike-carousel">
-                                        @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularBikes)
-                                    </div>
-                                </div>
+
+                                @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularBikes)
+
                                 <div class="padding-left10 view-all-btn-container margin-top10">
                                     <a href="/m/best-bikes-in-india/" title="Popular Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
                                 </div>
@@ -253,11 +251,9 @@
                         @if (Model.IsNewLaunchedDataAvailable)
                         {
                             <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
-                                <div class="swiper-container card-container">
-                                    <div class="swiper-wrapper discover-bike-carousel">
-                                        @Html.Partial("~/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunchedBikes)
-                                    </div>
-                                </div>
+
+                                @Html.Partial("~/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunchedBikes)
+
                                 <div class="padding-left10 view-all-btn-container margin-top10">
                                     <a href="/m/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all launches<span class="bwmsprite teal-right"></span></a>
                                 </div>
@@ -266,11 +262,9 @@
                         @if (Model.IsUpcomingBikeAvailable)
                         {
                             <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
-                                <div class="swiper-container card-container">
-                                    <div class="swiper-wrapper discover-bike-carousel">
-                                        @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingBikes)
-                                    </div>
-                                </div>
+
+                                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingBikes)
+
                                 <div class="padding-left10 view-all-btn-container margin-top10">
                                     <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
                                 </div>
@@ -318,21 +312,21 @@
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>
 
-    <section>
-        @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
-    </section>
-
-
-@if (Model.CompareBikes != null)
-{
 <section>
-    <div class="container">
-        <div class="grid-12">
-            <h2 class="font18 margin-top20 margin-bottom20 text-center">Compare Bikes</h2>
-            @Html.Partial("~/Views/CompareBikes/_ComparisonMin_Mobile.cshtml", Model.CompareBikes)
-        </div>
-    </div>
+    @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
 </section>
+
+@if (Model.IsComparePopularBikesAvailable)
+{
+    <section>
+           <h2 class="font18 margin-bottom20 margin-top20 text-center">Compare Bikes</h2>
+            <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
+               @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.ComparePopularBikes)
+                <div class="view-all-btn-container margin-bottom5 margin-top15 text-center">
+                    <a href="/m/comparebikes/" title="New Bike Comparisons in India" class="btn view-all-target-btn">View all comparisons<span class="bwmsprite teal-right"></span></a>
+                </div>
+            </div>
+      </section>
 }
 
 <section>
@@ -357,7 +351,7 @@
                 <div class="bw-tabs-data" id="usedByModel">
                     @Html.Partial("~/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedModels)
                     <div class="padding-left10 view-all-btn-container margin-top15 padding-bottom20">
-                        <a href="/m/used/bikes-in-/@Model.LocationMasking" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
+                        <a href="/m/used/bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
                     </div>
                 </div>
             }

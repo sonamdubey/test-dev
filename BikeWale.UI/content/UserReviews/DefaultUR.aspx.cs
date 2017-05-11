@@ -1,12 +1,12 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.BikeData;
+using MySql.CoreDAL;
 using System;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI.WebControls;
-using System.Data.Common;
-using MySql.CoreDAL;
 
 namespace Bikewale.Content
 {
@@ -68,7 +68,7 @@ namespace Bikewale.Content
 
         private void btnWrite_Click(object Sender, EventArgs e)
         {
-            Response.Redirect("/content/userreviews/writereviews.aspx?bikem=" + Request.Form["drpModel"], false);
+            Response.Redirect(string.Format("/rate-your-bike/{0}/?pagesourceid={1}", Request.Form["drpModel"], Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_UserReview_Landing), false));
             HttpContext.Current.ApplicationInstance.CompleteRequest();
             this.Page.Visible = false;
         }
@@ -114,18 +114,18 @@ namespace Bikewale.Content
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
-                     {
+                    {
 
-                         dsMain = new DataSet();
-                         dsMain = ds;
+                        dsMain = new DataSet();
+                        dsMain = ds;
 
-                         rptMakes.DataSource = ds.Tables[0];
-                         rptMakes.DataBind();
+                        rptMakes.DataSource = ds.Tables[0];
+                        rptMakes.DataBind();
 
-                         rptMostReviewed.DataSource = ds.Tables[2];
-                         rptMostReviewed.DataBind();
-                         Trace.Warn("++dsmain rows count ", dsMain.Tables.Count.ToString());
-                     }
+                        rptMostReviewed.DataSource = ds.Tables[2];
+                        rptMostReviewed.DataBind();
+                        Trace.Warn("++dsmain rows count ", dsMain.Tables.Count.ToString());
+                    }
                 }
 
             }

@@ -1,5 +1,5 @@
-﻿using Bikewale.BAL.UserReviews;
-using Bikewale.Common;
+﻿using Bikewale.Common;
+using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.SEO;
 using Bikewale.Entities.UserReviews;
@@ -21,7 +21,7 @@ namespace Bikewale.Mobile.Content
     public class ReviewDetails : System.Web.UI.Page
     {
         protected String nextPageUrl = String.Empty, prevPageUrl = String.Empty;
-        private IUserReviews objUserReviews = null;
+        private IUserReviewsRepository objUserReviews = null;
         protected ReviewDetailsEntity objReview = null;
         protected UserReviewSimilarBike ctrlUserReviewSimilarBike;
         protected NewUserReviewList ctrlUserReviews;
@@ -183,9 +183,8 @@ namespace Bikewale.Mobile.Content
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IUserReviews, UserReviews>();
-
-                objUserReviews = container.Resolve<IUserReviews>();
+                container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
+                objUserReviews = container.Resolve<IUserReviewsRepository>();
             }
         }
         /// <summary>

@@ -9,6 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using Bikewale.DAL.CoreDAL;
+using Dapper;
+using System.Linq;
+
 namespace BikewaleOpr.DALs.Bikedata
 {
     public class BikeModelsRepository : IBikeModelsRepository
@@ -287,6 +291,42 @@ namespace BikewaleOpr.DALs.Bikedata
             return objImageList;
         }
 
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 17 Apr 2017
+        /// Summary : Function to get the list of bikemodels for the make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="requestType"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeModelEntityBase> GetModels(uint makeId, ushort requestType)
+        {
+            IEnumerable<BikeModelEntityBase> objModels = null;
+
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_makeid", makeId);
+                    param.Add("par_requesttype", requestType);
+
+                    objModels = connection.Query<BikeModelEntityBase>("getbikemodels_new_1704442017", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetModels");
+            }
+
+            return objModels;
+        }
     }
 }
 

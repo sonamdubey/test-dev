@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.DTO;
+﻿using Bikewale.DTO.UserReviews;
+using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
@@ -23,15 +24,17 @@ namespace Bikewale.Service.Controllers.UserReviews
     public class UserReviewsController : CompressionApiController//ApiController
     {
 
-        private readonly IUserReviews _userReviewsRepo = null;
+        private readonly IUserReviewsRepository _userReviewsRepo = null;
+        private readonly IUserReviews _userReviews = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="userReviewsRepo"></param>
-        public UserReviewsController(IUserReviews userReviewsRepo)
+        public UserReviewsController(IUserReviewsRepository userReviewsRepo, IUserReviews userReviews)
         {
             _userReviewsRepo = userReviewsRepo;
+            _userReviews = userReviews;
         }
 
         #region User Reviews Details
@@ -110,7 +113,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <param name="reviewId">Should be Positive</param>
         /// <returns>Boolean</returns>
         [ResponseType(typeof(Boolean))]
-        public IHttpActionResult Put(uint reviewId)
+        public IHttpActionResult Post(uint reviewId)
         {
             bool objURRating = false;
             try
@@ -141,7 +144,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <param name="isHelpful">Optional (use as '&isHelpful')</param>
         /// <returns>Boolean</returns>
         [ResponseType(typeof(Boolean))]
-        public IHttpActionResult Put(uint reviewId, bool isHelpful)
+        public IHttpActionResult Post(uint reviewId, bool isHelpful)
         {
             bool objURHelpful = false;
             try
@@ -172,7 +175,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <param name="userId"></param>
         /// <returns>Boolean</returns>
         [ResponseType(typeof(Boolean))]
-        public IHttpActionResult Put(uint reviewId, string comment, string userId)
+        public IHttpActionResult Post(uint reviewId, string comment, string userId)
         {
             bool objURAbuse = false;
             try
@@ -192,6 +195,39 @@ namespace Bikewale.Service.Controllers.UserReviews
             }
             return (IHttpActionResult)Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
         }   // Upadate Isabuse
+        #endregion
+
+        #region User Reviews Summary
+        /// <summary>
+        /// To get review Details 
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns>Review Details</returns>
+        [ResponseType(typeof(ReviewDetails)), Route("api/user-reviews/summary/{reviewId}/")]
+        public IHttpActionResult GetUserReviewSummary(uint reviewId)
+        {
+            UserReviewSummary objUserReview = null;
+            UserReviewSummaryDto objDTOUserReview = null;
+            try
+            {
+                objUserReview = _userReviews.GetUserReviewSummary(reviewId);
+
+                if (objUserReview != null)
+                {
+                    // Auto map the properties
+                    objDTOUserReview = new UserReviewSummaryDto();
+                    objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
+
+                    return Ok(objUserReview);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                return InternalServerError();
+            }
+            return NotFound();
+        }   // Get review details
         #endregion
     }
 }

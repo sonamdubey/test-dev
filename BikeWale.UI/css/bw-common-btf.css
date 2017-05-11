@@ -246,9 +246,9 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 }
 
 /* News-Reviews-Videos New Bikes */
-.newBikes-latest-updates-container .grid-4 { padding-left:10px; !important }
-.newBikes-latest-updates-container .grid-8 { padding-right:10px; !important }
-.article-target-link { font-size: 16px; font-weight: bold; color:#2a2a2a; display:block; }
+.newBikes-latest-updates-container .grid-4 { padding-left:10px !important; }
+.newBikes-latest-updates-container .grid-8 { padding-right:10px !important; }
+.article-target-link { font-size: 15px; font-weight: 600; color:#2a2a2a; display:block; }
 .article-target-link:hover { text-decoration:underline; }
 .article-stats-left-grid, .article-stats-right-grid { display:inline-block; vertical-align:top; min-width: 110px; padding-right: 10px; }
 .article-stats-content { font-size:12px; color: #82888b; display:inline-block; vertical-align:middle; }
@@ -414,8 +414,8 @@ a.action-btn:hover{text-decoration:none;}
 .bikeTitle {
     margin-bottom: 10px;
     color: #2a2a2a;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 600;
     text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -468,7 +468,6 @@ a.action-btn:hover{text-decoration:none;}
 
 
 /*************style for PQ Popup****************************/
-@charset "utf-8";
 .gb-close { background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/cw-sprite-v1.3.png?171214-v2) -190px -1042px no-repeat; display:inline-block; width:16px; height:16px; }
 .gb-close:hover { background-position:-190px -1072px; }
 #gb-head { border-bottom:none !important; margin:10px 10px 0px 10px !important; }
@@ -584,11 +583,12 @@ li.offertxt:hover span {display:inline}
     user-select: none;
     font-size: 16px;
     color: #82888b;
-    cursor: text;
+    cursor: default;
     -webkit-transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -o-transition: 0.2s ease all;
     transition: 0.2s ease all;
+    pointer-events: none;
 }
 .input-box input[type="text"]:focus,
 .input-box input[type="number"]:focus {
@@ -751,7 +751,7 @@ input[type="number"] {
     .select-box .chosen-container .chosen-single {
       color: #4d5057;
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 600;
       background: transparent; }
     .select-box .chosen-container .chosen-default {
       display: none; }
@@ -784,7 +784,7 @@ input[type="number"] {
       .select-box .chosen-container .chosen-results .highlighted {
         background-color: #f5f5f5; }
       .select-box .chosen-container .chosen-results .result-selected {
-        font-weight: 700; }
+        font-weight: 600; }
     .select-box .chosen-container .chosen-drop {
       width: 350px;
       z-index: 1;
@@ -853,17 +853,19 @@ input[type="number"] {
     text-align: center;
 }
 
+
+
 #priceQuoteWidget {
     display: none;
 }
 
-#priceQuoteWidget .bw-popup {
+.popup-loader-animate .bw-popup {
     left: 5%;
     right: 5%;
     margin: 0 auto;
 }
 
-#priceQuoteWidget .bw-popup-sm {
+.popup-loader-animate .bw-popup-sm {
     height: 400px;
     min-height: 400px;
     top: 0% !important;
@@ -874,7 +876,7 @@ input[type="number"] {
     transition: all 0.5s ease;
 }
 
-#priceQuoteWidget .location-loader-active.bw-popup-sm {
+.popup-loader-animate .location-loader-active.bw-popup-sm {
     width: 220px;
     height: 120px;
     min-height: 120px;
@@ -885,11 +887,11 @@ input[type="number"] {
     text-align: center;
 }
 
-#priceQuoteWidget .popup-inner-container {
+.popup-loader-animate .popup-inner-container {
     opacity: 0;
 }
 
-#priceQuoteWidget.activate-popup-content .popup-inner-container {
+.popup-loader-animate.activate-popup-content .popup-inner-container {
     opacity: 1;
     transition: opacity 0.2s;
     transition-delay: 0.2s;
@@ -939,6 +941,7 @@ input[type="number"] {
 .loader-front {
     z-index: 2;
 }
+
 
 /* marker icons */
 .red-marker, .black-marker {
@@ -1021,7 +1024,8 @@ input[type="number"] {
 }
 
 /* card */
-.card .details-column.text-truncate {
+.card .details-column.text-truncate,
+.details-column {
     width: 92%
 }
 

@@ -238,6 +238,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by: Sangram Nandkhile on 24 Nov 2016
         /// Summarry; Fetch make list by UINT makeid (method overload)
+        /// Modified by Sajal Gupta on 26-04-2017
+        /// Description : Added is Scooter only flag
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
@@ -249,7 +251,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmakedetails";
+                    cmd.CommandText = "getmakedetails_26042017";
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makename", DbType.String, 30, ParameterDirection.Output));
@@ -257,6 +259,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbType.Boolean, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isScooterOnly", DbType.Boolean, ParameterDirection.Output));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                     if (!string.IsNullOrEmpty(cmd.Parameters["par_makename"].Value.ToString()))
                     {
@@ -264,6 +267,7 @@ namespace Bikewale.DAL.BikeData
                         makeDetails.MakeName = cmd.Parameters["par_makename"].Value.ToString();
                         makeDetails.MaskingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
                         makeDetails.MakeId = Convert.ToInt32(makeId);
+                        makeDetails.IsScooterOnly = SqlReaderConvertor.ToBoolean(cmd.Parameters["par_isScooterOnly"].Value);
                     }
                 }
             }
@@ -597,10 +601,10 @@ namespace Bikewale.DAL.BikeData
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmakesynopsis"))
                 {
-                    
+
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    
+
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -622,7 +626,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex,string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.GetScooterMakeDescription: MakeId:{0}",makeId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.GetScooterMakeDescription: MakeId:{0}", makeId));
             }
 
             return objDesc;

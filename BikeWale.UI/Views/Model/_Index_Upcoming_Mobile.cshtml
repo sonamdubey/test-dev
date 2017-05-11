@@ -22,18 +22,20 @@
                         <div class="elevated-shadow-top padding-15-20">
                             <p class="font12 text-light-grey">Expected price</p>
                             @if (Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
-                                {
-                                <div itemscope itemtype="http://schema.org/Offer">
-                                    <div itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
-                                        <span class="font24 text-bold">
-                                            <span itemprop="priceCurrency" content="INR"><span class="bwmsprite inr-lg-icon margin-right5"></span></span>
-                                            <span itemprop="price minPrice">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin))</span>  -
-                                            <span class="bwmsprite inr-lg-icon margin-right5"></span>&nbsp;<span itemprop="maxPrice">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax))</span>
-                                    </div>
+                            {
+                                <div itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
+                                    <meta itemprop="priceCurrency" content="INR">
+                                    <meta itemprop="lowPrice" content="@Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin">
+                                    <meta itemprop="highPrice" content="@Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax">
+                                    <span class="font24 text-bold">
+                                        <span class="bwmsprite inr-lg-icon"></span>
+                                        @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin)) -
+                                        &nbsp;<span class="bwmsprite inr-lg-icon margin-right5"></span>@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax))
+                                    </span>
                                 </div>
-                                }
-                                else
-                                {
+                            }
+                            else
+                            {
                                 <p class="font26 default-showroom-text text-light-grey margin-bottom5">Price Unavailable</p>
                                 }
                             @if (!string.IsNullOrEmpty(Model.ModelPageEntity.UpcomingBike.ExpectedLaunchDate))

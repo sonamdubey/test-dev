@@ -43,6 +43,7 @@ namespace Bikewale.Content
         protected uint MakeId;
         public uint cityid;
         public PageMetaTags pageMetas;
+        protected bool isReviewAvailable;
         public string SortingCriteria
         {
             get
@@ -218,6 +219,7 @@ namespace Bikewale.Content
                             RatingComfort = objReview.ReviewRatingEntity.ComfortRating;
                             RatingFuelEconomy = objReview.ReviewRatingEntity.FuelEconomyRating;
                             RatingValueForMoney = objReview.ReviewRatingEntity.ValueRating;
+                            isReviewAvailable = objReview.ReviewRatingEntity.IsReviewAvailable;
                         }
                         if (objReview.BikeEntity != null && objReview.BikeEntity.MakeEntity != null)
                         {

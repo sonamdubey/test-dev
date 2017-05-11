@@ -895,8 +895,8 @@ namespace Bikewale.Cache.BikeData
 
             UpcomingBikesListInputEntity inputParams = new UpcomingBikesListInputEntity()
             {
-                StartIndex = startIndex,
-                EndIndex = endIndex,
+                PageNo = startIndex,
+                PageSize = endIndex,
                 MakeId = makeId.HasValue ? makeId.Value : 0,
                 ModelId = modelId.HasValue ? modelId.Value : 0
             };
@@ -957,7 +957,7 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> objBikes = null;
-            string key = "BW_PopularBikesByMake_" + makeId;
+            string key = "BW_PopularBikesByMake_" + makeId + "_TC_" + topCount;
             if (cityId > 0)
                 key = key + "_City_" + cityId;
 
@@ -1147,7 +1147,7 @@ namespace Bikewale.Cache.BikeData
             GenericBikeInfo objSearchList = null;
             try
             {
-                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBikeInfo(modelId));
+                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, new TimeSpan(23, 0, 0), () => _modelRepository.GetBikeInfo(modelId));
 
             }
             catch (Exception ex)
@@ -1168,7 +1168,12 @@ namespace Bikewale.Cache.BikeData
             GenericBikeInfo objSearchList = null;
             try
             {
-                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBikeInfo(modelId, cityId));
+                TimeSpan cacheTime = new TimeSpan(3, 0, 0);
+                if (cityId == 0)
+                {
+                    cacheTime = new TimeSpan(23, 0, 0);
+                }
+                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, cacheTime, () => _modelRepository.GetBikeInfo(modelId, cityId));
 
             }
             catch (Exception ex)

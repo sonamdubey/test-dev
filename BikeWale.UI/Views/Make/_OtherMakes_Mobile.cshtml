@@ -1,0 +1,22 @@
+﻿@model Bikewale.Models.OtherMakesVM
+@if (Model != null)
+{
+    foreach (var make in Model.Makes)
+    {
+        <div class="swiper-slide">
+            <div class="swiper-card">
+                <a href="@string.Format("/m{0}", make.Href)" title="@make.Title">
+                    <div class="brand-logo-image">
+                        <span class="brand-type">
+                            <span class="brandlogosprite brand-@make.MakeId"></span>
+                        </span>
+                    </div>
+                    <div class="swiper-details-block">
+                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">@make.MakeName</p>
+                        <h3 class="text-unbold text-light-grey font11">@make.Text</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+} 

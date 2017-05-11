@@ -42,5 +42,8 @@ namespace Bikewale.Entities.BikeData
 
         [JsonProperty("title"), DataMember]
         public string Title { get; set; }
+
+        [JsonProperty("text"), DataMember]
+        public string Text { get; set; }
     }
 }

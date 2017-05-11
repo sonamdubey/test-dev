@@ -310,7 +310,7 @@ Description : WebStorage Library with cookie as a fallback.
                             if (i.indexOf(_options.StoragePrefix) > -1) {
                                 var _item_ = JSON.parse(storage[i]) || {};
                                 var time = _item_.expiryTime || 1;
-                                if (time < currentTime) storage.removeItem(i)(i);
+                                if (time < currentTime) storage.removeItem(i);
 
                             }
                         }

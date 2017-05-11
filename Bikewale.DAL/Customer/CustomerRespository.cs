@@ -443,5 +443,42 @@ namespace Bikewale.DAL.Customer
         }
         #endregion
 
+
+        /// <summary>
+        /// Created By : Sangram Nandkhile Upadhyay on 13 Oct 2014
+        /// Summary : To get isfake flag by customer id
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public bool IsFakeCustomer(ulong customerId)
+        {
+            bool isFake = false;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "checkfakecustomerbyid";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.UInt64, customerId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            isFake = Convert.ToBoolean(dr["IsFake"]);
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.IsFakeCustomer({0})", customerId));
+            }
+
+            return isFake;
+        }
     }   // class
 }   // namespace

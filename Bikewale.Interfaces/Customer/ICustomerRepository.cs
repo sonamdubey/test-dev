@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bikewale.Interfaces.Customer
 {
     /// <summary>
@@ -22,5 +17,6 @@ namespace Bikewale.Interfaces.Customer
         void SavePasswordRecoveryToken(U customerId, string token);
         bool IsValidPasswordRecoveryToken(U customerId, string token);
         void DeactivatePasswordRecoveryToken(U customerId);
+        bool IsFakeCustomer(ulong customerId);
     }
 }

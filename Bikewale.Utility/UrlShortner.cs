@@ -32,17 +32,21 @@ namespace Bikewale.Utility
                 Request.ContentType = contentType;
                 Request.ContentLength = byteArray.Length;
                 Stream dataStream = Request.GetRequestStream();
-                dataStream.Write(byteArray, 0, byteArray.Length);
-                dataStream.Close();
+                if (dataStream != null)
+                {
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+                    dataStream.Close();
+                }
 
                 //  SEND MESSAGE
-
                 WebResponse Response = Request.GetResponse();
-                StreamReader Reader = new StreamReader(Response.GetResponseStream());
-                responseLine = Reader.ReadToEnd();
-                Reader.Close();
-
-                objResponse = JsonConvert.DeserializeObject<UrlShortnerResponse>(responseLine);
+                if (Response != null)
+                {
+                    StreamReader Reader = new StreamReader(Response.GetResponseStream());
+                    responseLine = Reader.ReadToEnd();
+                    Reader.Close();
+                    objResponse = JsonConvert.DeserializeObject<UrlShortnerResponse>(responseLine);
+                }
             }
             catch (Exception e)
             {

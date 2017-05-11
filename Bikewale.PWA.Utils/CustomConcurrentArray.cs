@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Utility;
+using System;
 using System.Web;
 
 namespace Bikewale.PWA.Utils
@@ -6,8 +7,7 @@ namespace Bikewale.PWA.Utils
     public class CustomConcurrentArray
     {
         PwaProcessedHtml[] _array;
-        
-        static int _limit=100;
+        static int _limit = BWConfiguration.Instance.PwaLocalCahceLimit;
         int _currentIndex=-1;
         object _addItemDictionaryLockObj;
 

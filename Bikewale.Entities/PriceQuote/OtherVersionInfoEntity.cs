@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PriceQuote
 {
@@ -12,14 +9,20 @@ namespace Bikewale.Entities.PriceQuote
     /// Desciption      :   Added the following properties
     ///                     Price,RTO,Insurance
     /// </summary>
+    [Serializable, DataContract]
     public class OtherVersionInfoEntity
     {
+        [DataMember]
         public uint VersionId { get; set; }
+        [DataMember]
         public string VersionName { get; set; }
-        
+        [DataMember]
         public ulong OnRoadPrice { get; set; }
+        [DataMember]
         public UInt32 Price { get; set; }
+        [DataMember]
         public UInt32 RTO { get; set; }
+        [DataMember]
         public UInt32 Insurance { get; set; }
     }
 }

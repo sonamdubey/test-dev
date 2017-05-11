@@ -15,12 +15,14 @@ using Bikewale.BAL.Security;
 using Bikewale.BAL.ServiceCenter;
 using Bikewale.BAL.Used.Search;
 using Bikewale.BAL.UsedBikes;
+using Bikewale.BAL.UserReviews;
 using Bikewale.Cache.App;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
+using Bikewale.Cache.MobileVerification;
 using Bikewale.Cache.ServiceCenter;
 using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
@@ -134,8 +136,9 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeSeries<BikeSeriesEntity, int>>();
             container.RegisterType<IState, StateRepository>();
             container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
-            container.RegisterType<IUserReviews, UserReviewsRepository>();
+            container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
             container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>();
+            container.RegisterType<IUserReviews, UserReviews>();
             container.RegisterType<ISearchResult, SearchResult>();
             container.RegisterType<IProcessFilter, ProcessFilter>();
             container.RegisterType<ICacheManager, MemcacheManager>();
@@ -184,6 +187,10 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>();
             container.RegisterType<INewBikeLaunchesBL, NewBikeLaunchesBL>();
             container.RegisterType<IDealerRepository, DealersRepository>();
+            container.RegisterType<IModelsCache, ModelsCache>();
+            container.RegisterType<IModelsRepository, ModelsRepository>();
+            container.RegisterType<IUpcoming, Upcoming>();
+            container.RegisterType<IMobileVerificationCache, MobileVerificationCache>();
             return container;
         }
     }

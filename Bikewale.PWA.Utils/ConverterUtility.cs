@@ -266,7 +266,8 @@ namespace Bikewale.PWA.Utils
                     bodyStyleBikes.CompleteListUrlAlternateLabel = orgBodyStyleBikes.WidgetLinkTitle;
                     bodyStyleBikes.CompleteListUrlLabel = "View all";
                     bodyStyleBikes.Heading = orgBodyStyleBikes.WidgetHeading;
-                    outData.Add(bodyStyleBikes);
+                    if (bodyStyleBikes.BikesList.Count > 0)
+                        outData.Add(bodyStyleBikes);
                 }
                 else
                 {///upcoming
@@ -277,7 +278,8 @@ namespace Bikewale.PWA.Utils
                     upcomingBikes.CompleteListUrlAlternateLabel = orgUpcomingBikes.WidgetLinkTitle;
                     upcomingBikes.CompleteListUrlLabel = "View all";
                     upcomingBikes.Heading = orgUpcomingBikes.WidgetHeading;
-                    outData.Add(upcomingBikes);
+                    if(upcomingBikes.BikesList.Count>0)
+                        outData.Add(upcomingBikes);
                 }
             }
 

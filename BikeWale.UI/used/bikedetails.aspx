@@ -30,6 +30,7 @@
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
+        var testimonialSlider = 0;
     </script>
 </head>
 <body>

@@ -3,7 +3,7 @@
 namespace BikewaleOpr.Entities.BikeData
 {
     /// <summary>
-    /// 
+    ///  Created By : Ashish G. Kamble
     /// </summary>
     public class BikeMakeEntityBase
     {

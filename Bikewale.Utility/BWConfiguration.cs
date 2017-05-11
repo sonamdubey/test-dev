@@ -21,6 +21,7 @@ namespace Bikewale.Utility
         private static readonly object padlock = new object();
 
         private int nonReadOnlyStatic = 0;
+        private readonly int _pwaLocalCahceLimit = 100;
 
         private readonly string _defaultCity = String.Empty,
             _bwconnectionString = String.Empty,
@@ -95,12 +96,14 @@ namespace Bikewale.Utility
             _FCMEnvironment = String.Empty,
             _LeadConsumerQueue = String.Empty,
             _PinCodesIndexName = string.Empty,
-            _DebugMobileSite = string.Empty;
+            _DebugMobileSite = string.Empty,
+            _CoverFoxLink = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false;
         private readonly int _SecurityHashLength = 0;
         private string _AWSS3Region = String.Empty;
         private uint _GrpcMaxTimeLimit = 100;
+        private uint _GrpcPoolSize = 1;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -184,6 +187,9 @@ namespace Bikewale.Utility
             _AWSS3Region = Convert.ToString(ConfigurationManager.AppSettings["AWSS3Region"]);
             _DebugMobileSite = Convert.ToString(ConfigurationManager.AppSettings["DebugMobileSite"]);
             _GrpcMaxTimeLimit = Convert.ToUInt32(ConfigurationManager.AppSettings["GrpcMaxTimeLimit"]);
+            _GrpcPoolSize = Convert.ToUInt32(ConfigurationManager.AppSettings["GrpcPoolSize"] ?? "1");
+            _CoverFoxLink = Convert.ToString(ConfigurationManager.AppSettings["CoverFox"]);
+            _pwaLocalCahceLimit = string.IsNullOrEmpty(ConfigurationManager.AppSettings["PwaLocalCahceLimit"]) ? 100 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaLocalCahceLimit"]);
         }
 
         // Static method to provide access to instance
@@ -316,5 +322,9 @@ namespace Bikewale.Utility
         public String AWSS3Region { get { return _AWSS3Region; } }
         public bool DebugMobileSite { get { return string.IsNullOrEmpty(_DebugMobileSite) ? false : Convert.ToBoolean(_DebugMobileSite); } }
         public uint GrpcMaxTimeLimit { get { return _GrpcMaxTimeLimit; } }
+        public uint GrpcPoolSize { get { return _GrpcPoolSize; } }
+        public string CoverFoxLink { get { return _CoverFoxLink; } }
+
+        public int PwaLocalCahceLimit { get { return _pwaLocalCahceLimit; } }
     }   // class
 }   // namespace

@@ -1,6 +1,5 @@
 ﻿using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
-using Bikewale.BAL.UserReviews;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.UserReviews;
@@ -19,9 +18,9 @@ using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
-
 namespace Bikewale.Mobile.Content
 {
     /// <summary>
@@ -30,7 +29,7 @@ namespace Bikewale.Mobile.Content
     /// </summary>
     public class ListReviews : System.Web.UI.Page
     {
-        private IUserReviews objUserReviews = null;
+        private IUserReviewsRepository objUserReviews = null;
         protected List<ReviewEntity> objReviewList;
         protected BikeModelEntity objModelEntity = null;
         protected Repeater rptUserReviews;
@@ -44,6 +43,7 @@ namespace Bikewale.Mobile.Content
         protected UserReviewSimilarBike ctrlUserReviewSimilarBike;
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty;
         protected PageMetaTags pageMetas;
+        protected bool isReviewAvailable;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -216,19 +216,26 @@ namespace Bikewale.Mobile.Content
             objRating = objUserReviews.GetBikeRatings(Convert.ToUInt32(modelId));
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 26 Apr 2017
+        /// Description :   Call ToList function
+        /// </summary>
         private void GetReviewList()
         {
             ReviewListBase reviews = null;
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
-                             .RegisterType<IUserReviews, UserReviewsRepository>()
+                             .RegisterType<IUserReviewsRepository, UserReviewsRepository>()
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                 var cache = container.Resolve<IUserReviewsCache>();
                 reviews = cache.GetBikeReviewsList(Convert.ToUInt32(startIndex), Convert.ToUInt32(endIndex), Convert.ToUInt32(modelId), 0, FilterBy.MostRecent);
-                objReviewList = reviews.ReviewList;
-                totalReviews = reviews.TotalReviews;
+                if (reviews != null && reviews.TotalReviews > 0)
+                {
+                    objReviewList = reviews.ReviewList.ToList();
+                    totalReviews = reviews.TotalReviews;
+                }
             }
             int totalPages = objPager.GetTotalPages(Convert.ToInt32(totalReviews), pageSize);
 
@@ -276,9 +283,8 @@ namespace Bikewale.Mobile.Content
                 container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
                 objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
 
-                container.RegisterType<IUserReviews, UserReviews>();
-
-                objUserReviews = container.Resolve<IUserReviews>();
+                container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
+                objUserReviews = container.Resolve<IUserReviewsRepository>();
 
                 container.RegisterType<IPager, Pager>();
                 objPager = container.Resolve<IPager>();

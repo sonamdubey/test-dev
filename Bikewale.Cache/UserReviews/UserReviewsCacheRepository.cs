@@ -14,14 +14,14 @@ namespace Bikewale.Cache.UserReviews
     public class UserReviewsCacheRepository : IUserReviewsCache
     {
         private readonly ICacheManager _cache;
-        private readonly IUserReviews _objUserReviews;
+        private readonly IUserReviewsRepository _objUserReviews;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="objUserReviews"></param>
-        public UserReviewsCacheRepository(ICacheManager cache, IUserReviews objUserReviews)
+        public UserReviewsCacheRepository(ICacheManager cache, IUserReviewsRepository objUserReviews)
         {
             _cache = cache;
             _objUserReviews = objUserReviews;
@@ -51,7 +51,47 @@ namespace Bikewale.Cache.UserReviews
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetBikeReviewsList");
-                objErr.SendMail();
+            }
+            return reviews;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public UserReviewsData GetUserReviewsData()
+        {
+            UserReviewsData reviewsRatings = null;
+
+            string key = "BW_UserReviewsRatings";
+            try
+            {
+                reviewsRatings = _cache.GetFromCache<UserReviewsData>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetUserReviewsData());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsData");
+            }
+            return reviewsRatings;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 26 Apr 2017
+        /// Description :   Returns the User Reviews by calling DAL
+        /// </summary>
+        /// <returns></returns>
+        public ReviewListBase GetUserReviews()
+        {
+            ReviewListBase reviews = null;
+            string key = "BW_UserReviews";
+            try
+            {
+                reviews = _cache.GetFromCache<ReviewListBase>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetUserReviews());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsData");
             }
             return reviews;
         }

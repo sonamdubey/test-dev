@@ -25,6 +25,7 @@ namespace Bikewale.Models.Price
         public uint PQId { get; set; }
         public uint DealerId { get; set; }
         public uint CityId { get; set; }
+        public string CiyName { get; set; }
         public uint AreaId { get; set; }
         public uint TotalPrice { get; set; }
         public DealerCardVM OtherDealers { get; set; }

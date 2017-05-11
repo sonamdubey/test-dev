@@ -3,45 +3,46 @@
 @if (Model.ModelPageEntity != null)
 {
     if (Model.ModelPageEntity.ModelVersionSpecs != null)
-    {
-        <p class="font12 text-light-grey margin-bottom5">Key Specs</p>
-        <ul id="key-specs-list" class="font14 text-light-grey">
-            @if (Model.ModelPageEntity.ModelVersionSpecs.Displacement != 0)
-        {
-        <li>
-            <span class="bwsprite capacity-sm"></span>
-            <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement) cc</span>
-        </li>
-        }
-            @if (Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall != 0)
-        {
-        <li>
-            <span class="bwsprite mileage-sm"></span>
-            <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall) kmpl</span>
-        </li>
-        }
-            @if (Model.ModelPageEntity.ModelVersionSpecs.MaxPower != 0)
-        {
-        <li>
-            <span class="bwsprite power-sm"></span>
-            <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower) bhp</span>
-        </li>
-        }
-            @if (Model.ModelPageEntity.ModelVersionSpecs.KerbWeight != 0)
-        {
-        <li>
-            <span class="bwsprite weight-sm"></span>
-            <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight) kgs</span>
-        </li>
-        }
-        </ul>
-
+    {   
+        <div class="font12 text-light-grey margin-bottom20">
+            <span class="inline-block margin-right15">Key specs</span>
+            <ul id="key-specs-list" class="inline-block">
+                @if (Model.ModelPageEntity.ModelVersionSpecs.Displacement != 0)
+                {
+                <li>
+                    <span class="bwsprite capacity-sm"></span>
+                    <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement) cc</span>
+                </li>
+                }
+                    @if (Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall != 0)
+                {
+                <li>
+                    <span class="bwsprite mileage-sm"></span>
+                    <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall) kmpl</span>
+                </li>
+                }
+                    @if (Model.ModelPageEntity.ModelVersionSpecs.MaxPower != 0)
+                {
+                <li>
+                    <span class="bwsprite power-sm"></span>
+                    <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower) bhp</span>
+                </li>
+                }
+                    @if (Model.ModelPageEntity.ModelVersionSpecs.KerbWeight != 0)
+                {
+                <li>
+                    <span class="bwsprite weight-sm"></span>
+                    <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight) kgs</span>
+                </li>
+                }
+            </ul>
+        </div>
     }
 
     if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 1)
     {
-        <div id="model-version-dropdown" class="padding-top25">
-            <div class="select-box select-box-no-input done size-small">
+        <div id="model-version-dropdown" class="margin-right20 padding-top20 vertical-top">
+            <div class="select-box select-box-no-input done">
                 <p class="select-label">Version</p>
                 <select id="ddlVersion" class="chosen-select" data-title="Version" data-selected-version="@Model.VersionId" data-pageurl="@Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)">
                     @foreach (var version in Model.ModelPageEntity.ModelVersions)
@@ -54,7 +55,23 @@
     }
     else
     {
-        <p class="font12 text-light-grey">Version</p>
-        <p id="singleversion" class="font14 text-bold margin-bottom15">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : Model.VersionName)</p>    
+        <div class="single-version-content vertical-top margin-right20">
+            <p class="font12 text-light-grey">Version</p>
+            <p class="text-bold dropdown-effect-light text-truncate">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : Model.VersionName)</p>
+        </div>
     }
+
+    if (Model.IsNewBike)
+    {
+        <div class="location-selection vertical-top">
+            <p class="font12 text-light-grey">Location</p>
+            <p class="bw-ga text-bold selected-city changecity text-truncate position-rel cur-pointer getquotation" data-persistent="true" data-reload="true" data-modelid="@Model.ModelId" l="@(string.Format("{0}_{1}_{2}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName, (Model.LocationCookie.AreaId > 0 ? string.Format("{0}_{1}", Model.LocationCookie.City, Model.LocationCookie.Area) : Model.LocationCookie.City)))" a="Location_Icon_Clicked" c="Model_Page">
+                <span>@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : "Select city"))</span>
+                <span class="bwsprite loc-change-blue"></span>
+            </p>
+        </div>
+    }
+
+
+    <div class="margin-bottom15"></div>
 }

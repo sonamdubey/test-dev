@@ -132,17 +132,20 @@
                 </div>
 
               <%if(objReview.ReviewEntity!=null) %>  <div class="padding-right20 padding-left20 margin-top10 font14 padding-bottom10">
-                    <h2 class="review-category-title">Good about this bike</h2>
+                  <% if (!String.IsNullOrEmpty(objReview.ReviewEntity.Pros)){ %>  
+                  <h2 class="review-category-title">Good about this bike</h2>
                     <p class="margin-bottom20"><%=  objReview.ReviewEntity.Pros %></p>
-
+                  <%} %>
+                  <% if (!String.IsNullOrEmpty(objReview.ReviewEntity.Cons)){ %>  
                     <h2 class="review-category-title">Not so good about this bike</h2>
                     <p class="margin-bottom20"><%=  objReview.ReviewEntity.Cons %></p>
-
+                  <%} %>
+                  <% if (!String.IsNullOrEmpty(objReview.ReviewEntity.Comments)){ %>  
                     <h2 class="review-category-title">Full Review</h2>
                     <div class="full-review-content">
                         <%= objReview.ReviewEntity.Comments %>
                     </div>
-
+                  <%} %>
                     <div class="inline-block margin-right15">
                         <span class="bwmsprite views-grey-sm-icon"></span>
                         <span class="font12 text-light-grey"><%=objReview.ReviewEntity.Viewed%></span>

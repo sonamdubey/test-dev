@@ -7,6 +7,8 @@ using BikewaleOpr.Interface.Used;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
+using BikewaleOpr.Interface.UserReviews;
+using BikewaleOpr.DALs.UserReviews;
 
 namespace BikewaleOpr
 {
@@ -29,7 +31,10 @@ namespace BikewaleOpr
                 .RegisterType<IBikeVersions, BikeVersionsRepository>()
                 .RegisterType<IBikeModels, BikeModels>()
                 .RegisterType<IUsedBikes, UsedBikes>()
-                .RegisterType<IHomePage, HomePage>();
+                .RegisterType<IHomePage, HomePage>()
+                .RegisterType<IUserReviewsRepository, UserReviewsRepository>()
+                .RegisterType<IBikeMakes, BikeMakesRepository>()
+                .RegisterType<IBikeModelsRepository, BikeModelsRepository>();
 
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

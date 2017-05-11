@@ -3,11 +3,13 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.Models.CompareBikes;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
 using System;
@@ -65,6 +67,7 @@ namespace Bikewale.Models
         public uint CityId { get { return GlobalCityArea.GetGlobalCityArea().CityId; } }
         public ushort BrandTopCount { get; set; }
         public PQSourceEnum PqSource { get; set; }
+        public CompareSources CompareSource { get; set; }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
@@ -102,7 +105,7 @@ namespace Bikewale.Models
                 BindUpcomingBikes(objViewModel);
                 BindDealersServiceCenters(objViewModel, cityEntity);
                 BindOtherScooterBrands(objViewModel, _makeId, 9);
-                BindCompareScootes(objViewModel);
+                BindCompareScootes(objViewModel,CompareSource);
                 SetFlags(objViewModel, CityId);
             }
             catch (Exception ex)
@@ -112,15 +115,20 @@ namespace Bikewale.Models
             return objViewModel;
         }
 
-        private void BindCompareScootes(ScootersMakePageVM objViewModel)
+        /// <summary>
+        /// Modified by : Aditi Srivastava on 25 Apr 2017
+        /// Summary  :  Moved the comparison logic to common model
+        /// Modified by : Aditi Srivastava on 27 Apr 2017
+        /// Summary  : Added source for comparisons
+        /// </summary>
+        private void BindCompareScootes(ScootersMakePageVM objViewModel, CompareSources CompareSource)
         {
             try
             {
                 string versionList = string.Join(",", objViewModel.Scooters.Select(m => m.objVersion.VersionId));
-                var compareBikes = _compareScooters.GetSimilarCompareBikes(versionList, 4, (int)CityId);
-                objViewModel.SimilarCompareScooters = new ScooterComparesVM();
-                objViewModel.SimilarCompareScooters.Bikes = compareBikes.Take(4).ToList();
-                objViewModel.SimilarCompareScooters.MakeName = _makeName;
+                PopularModelCompareWidget objCompare = new PopularModelCompareWidget(_compareScooters, 1, CityId, versionList);
+                objViewModel.SimilarCompareScooters = objCompare.GetData();
+                objViewModel.SimilarCompareScooters.CompareSource = CompareSource;
             }
             catch (Exception ex)
             {
@@ -141,7 +149,7 @@ namespace Bikewale.Models
             {
 
                 objData.IsScooterDataAvailable = objData.Scooters != null && objData.Scooters.Count() > 0;
-                objData.IsCompareDataAvailable = objData.SimilarCompareScooters != null && objData.SimilarCompareScooters.Bikes != null && objData.SimilarCompareScooters.Bikes.Count > 0;
+                objData.IsCompareDataAvailable = objData.SimilarCompareScooters != null && objData.SimilarCompareScooters.CompareBikes != null && objData.SimilarCompareScooters.CompareBikes.Count() > 0;
                 objData.IsUpComingBikesAvailable = objData.UpcomingScooters != null && objData.UpcomingScooters != null && objData.UpcomingScooters.UpcomingBikes != null && objData.UpcomingScooters.UpcomingBikes.Count() > 0;
                 objData.IsDealerAvailable = objData.Dealers != null && objData.Dealers.Dealers != null && objData.Dealers.Dealers.Count() > 0;
                 objData.IsServiceDataAvailable = objData.ServiceCenters != null && objData.ServiceCenters.ServiceCentersList != null && objData.ServiceCenters.ServiceCentersList.Count() > 0;
@@ -249,8 +257,9 @@ namespace Bikewale.Models
             UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
             objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
             {
-                EndIndex = 9,
-                StartIndex = 1
+                PageSize = 9,
+                PageNo = 1,
+                BodyStyleId = 5
             };
             objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
             objData.UpcomingScooters = objUpcoming.GetData();

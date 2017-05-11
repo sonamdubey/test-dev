@@ -396,6 +396,13 @@ namespace Bikewale.New
             Response.Redirect(returnUrl);
         } // btnSend_Click
 
+        /// <summary>
+        /// Creates the compare URL.
+        /// </summary>
+        /// <param name="bikeList">The bike list.</param>
+        /// <returns>
+        /// Created by : Sangram Nandkhile on 21-Apr-2017 
+        /// </returns>
         private string CreateCompareUrl(List<CompareMakeModelEntity> bikeList)
         {
             string url = string.Empty;

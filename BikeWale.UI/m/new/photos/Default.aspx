@@ -25,7 +25,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <% if (isModelPage)
+        <% if (!string.IsNullOrEmpty(returnUrl) &&  returnUrl.Length > 0)
            { %>
         <div class="gallery-loader-placeholder gallery-bg-overlay text-center"><span class="spin-loader fixed-loader"></span></div>
         <%}
@@ -330,8 +330,7 @@
         <script type="text/javascript">
             try {
                 var photoCount = "<%= vmModelPhotos!=null ?  vmModelPhotos.totalPhotosCount : 0 %>";
-                var modelId = "<%= modelId%>";
-                var isModelPage = <%= isModelPage.ToString().ToLower() %>;
+                var modelId = "<%= modelId%>";                
                 var ModelId="<%=vmModelPhotos.objModel.ModelId%>";
                 var videoCount = "<%=VideoCount%>";
                 var colorImageId = "<%= colorImageId%>";
@@ -339,6 +338,7 @@
                 var encodedVideoList = "<%= JSONVideoList%>";
                 var encodedImageList = "<%= JSONImageList %>";
                 var imageIndex = "<%= imageIndex %>";
+                var returnUrl = "<%= returnUrl%>";
             }catch(e)
             {
                 console.warn(e);
@@ -348,7 +348,7 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : ""%>/m/src/photos.js?<%= staticFileVersion%>"></script>
         <script type="text/javascript">            
             $(document).ready(function () {
-                if(isModelPage) {
+                if(returnUrl.length > 0) {
                     popupGallery.bindGallery(imageIndex);
                 }
             });

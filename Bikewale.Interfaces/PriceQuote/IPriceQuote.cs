@@ -19,13 +19,13 @@ namespace Bikewale.Interfaces.PriceQuote
         BikeQuotationEntity GetPriceQuoteById(ulong pqId);
         BikeQuotationEntity GetPriceQuote(PriceQuoteParametersEntity pqParams);
         List<OtherVersionInfoEntity> GetOtherVersionsPrices(ulong pqId);
+        IEnumerable<OtherVersionInfoEntity> GetOtherVersionsPrices(uint modelId, uint cityId);
         bool UpdatePriceQuote(UInt32 pqId, PriceQuoteParametersEntity pqParams);
         bool SaveBookingState(UInt32 pqId, PriceQuoteStates state);
         PriceQuoteParametersEntity FetchPriceQuoteDetailsById(UInt64 pqId);
         IEnumerable<PriceQuoteOfTopCities> FetchPriceQuoteOfTopCities(uint modelId, uint topCount);
         IEnumerable<PriceQuoteOfTopCities> GetModelPriceInNearestCities(uint modelId, uint cityId, ushort topCount);
         IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId, out bool HasArea);
-
         BikeQuotationEntity GetPriceQuoteById(ulong p, Entities.BikeBooking.LeadSourceEnum leadSourceEnum);
     }
 }

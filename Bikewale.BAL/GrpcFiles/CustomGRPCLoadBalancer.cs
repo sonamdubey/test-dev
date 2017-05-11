@@ -12,111 +12,77 @@ namespace GRPCLoadBalancer
     /// </summary>
     static class CustomGRPCLoadBalancerWithSingleton
     {
-        private static Queue<Channel> m_WorkingQueue;
-        private static object m_reachableQueueLockObject = new object();
-        static ILog _logger = LogManager.GetLogger(typeof(CustomGRPCLoadBalancerWithSingleton));
-        static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
+        static Channel[] _WorkingQueue;
 
-        static string serverList = BWConfiguration.Instance.GrpcArticleServerList;
+        static ILog _logger = LogManager.GetLogger(typeof(CustomGRPCLoadBalancerWithSingleton));
+        static bool _logGrpcErrors = Convert.ToBoolean(BWConfiguration.Instance.LogGrpcErrors);
+        static string _serverList = BWConfiguration.Instance.GrpcArticleServerList;
+        static int _poolSize = (int)BWConfiguration.Instance.GrpcPoolSize;
+        static int _WorkingQueueSize;
+        static int _currentIndex = 0;
 
         static CustomGRPCLoadBalancerWithSingleton()
         {
+            if (_poolSize <= 0)
+                _poolSize = 1;
 
-            m_WorkingQueue = new Queue<Channel>();
-
-            string[] allServers = serverList.Split(';');
-            for (int i = 0, j = allServers.Length; i < j; i++)
+            string[] allServers = _serverList.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            if (allServers.Length > 0)
             {
-                //singleton objects for all servers            
-                var ch = new Channel(allServers[i], ChannelCredentials.Insecure);
-                CheckIfConnectionIsWorking(ch);
-                m_WorkingQueue.Enqueue(ch);
+                _WorkingQueueSize = allServers.Length * _poolSize;
+                _WorkingQueue = new Channel[_WorkingQueueSize];
+                int idx = 0;
+                for (int j = 0; j < _poolSize; j++)
+                {
+                    for (int i = 0; i < allServers.Length; i++)
+                    {
+                        //singleton objects for all servers            
+                        var ch = new Channel(allServers[i], ChannelCredentials.Insecure);
+                        _WorkingQueue[idx] = ch;
+                        idx++;
+                    }
+                }
+
             }
 
         }
 
         internal static Channel GetWorkingChannel()
         {
-            Channel currentChosenChannel;
-
-            lock (m_reachableQueueLockObject)
+            Channel currentChosenChannel = null;
+            int curId = _currentIndex % _WorkingQueueSize;
+            int idx = 0;
+            while (idx < _WorkingQueueSize)
             {
-                for (int i = 0; i < m_WorkingQueue.Count; i++)
+                currentChosenChannel = _WorkingQueue[curId];
+                if (currentChosenChannel.State == ChannelState.Idle || currentChosenChannel.State == ChannelState.Ready)
                 {
-                    currentChosenChannel = m_WorkingQueue.Dequeue();
-                    m_WorkingQueue.Enqueue(currentChosenChannel);
-                    if (currentChosenChannel.State == ChannelState.Idle || currentChosenChannel.State == ChannelState.Ready)
-                    {
-                        return currentChosenChannel;
-                    }
-                    else if (_logGrpcErrors)
-                    {
-                        _logger.Error("Error102 " + currentChosenChannel.ResolvedTarget + " " + currentChosenChannel.State);
-                    }
-
+                    _currentIndex = ++curId;
+                    return currentChosenChannel;
                 }
+                else if (_logGrpcErrors)
+                {
+                    _logger.Error("Error102 " + currentChosenChannel.ResolvedTarget + " " + currentChosenChannel.State);
+                }
+                curId++;
+                curId = curId % _WorkingQueueSize;
+                idx++;
             }
             if (_logGrpcErrors)
             {
                 _logger.Error("Error101 No Channel Available");
             }
-
             return null;
 
         }
-
-        static bool CheckIfConnectionIsWorking(Channel serverChannel)
-        {
-
-            if (serverChannel != null)
-            {
-                try
-                {
-
-                    //send the heartbit
-                    var client = new EditCMSWindowsService.Messages.EditCMSGrpcService.EditCMSGrpcServiceClient(serverChannel);
-                    var output = client.CheckHeartBit
-                                (new EditCMSWindowsService.Messages.GrpcInt() { IntOutput = 2 },
-                                 null, GetForwardTime(1000));
-                    return output.IntOutput == 2;
-
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-            return false;
-        }
-
-
-        static DateTime GetForwardTime(int incrementMillisecond)
-        {
-            return DateTime.Now.AddMilliseconds(incrementMillisecond).ToUniversalTime();
-        }
-
-
         public static void DisposeChannels()
         {
-            Channel currentChosenChannel;
-            lock (m_reachableQueueLockObject)
+            for (int i = 0; i < _WorkingQueueSize; i++)
             {
-                int count = m_WorkingQueue.Count;
-                for (int i = 0; i < m_WorkingQueue.Count; i++)
-                {
-                    currentChosenChannel = m_WorkingQueue.Dequeue();
-                    currentChosenChannel.ShutdownAsync();
-
-                    if (_logGrpcErrors)
-                    {
-                        _logger.Error("Error103 disposed " + currentChosenChannel.ResolvedTarget);
-                    }
-
-                }
-
+                _WorkingQueue[i].ShutdownAsync();
             }
         }
-
     }
 
 }
+

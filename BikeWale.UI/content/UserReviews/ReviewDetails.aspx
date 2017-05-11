@@ -98,7 +98,7 @@
                                     </div>
                                 </div>
                                 <div class="grid-3 text-right alpha omega inline-block">
-                                    <a href="/content/userreviews/writereviews.aspx?bikem=<%= objReview.BikeEntity.ModelEntity.ModelId %>" class="btn btn-teal btn-size-150">Write a review</a>
+                                    <a href="<%=string.Format("/rate-your-bike/{0}/?pagesourceid={1}",objReview.BikeEntity.ModelEntity.ModelId,Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_UserReview_Details)) %>" class="btn btn-teal btn-size-150">Write a review</a>
                                 </div>
                             <div class="clear"></div>
                         </div>
@@ -119,7 +119,7 @@
                                    <%if(objReview.ModelSpecs.KerbWeight>0){ %>  <li><%=objReview.ModelSpecs.KerbWeight %> kgs</li>                       <%}%>
                                 </ul>
                                 <%} %>
-                                <%if (!objReview.New) {%>
+                                <%if (objReview.New) {%>
                           
                                 <p class="margin-top10 text-light-grey font14">Ex-showroom price, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                                 <div class="margin-top5">  
@@ -219,14 +219,19 @@ else
                                 </div>
                             </div>
                             <div class="padding-bottom20 font14">
+                                <% if (!String.IsNullOrEmpty(objReview.ReviewEntity.Pros)){ %>
                                 <div class="padding-top20 padding-bottom20">
                                     <h2 class="font18 margin-bottom10">Good about this bike</h2>
                                     <p><%= objReview.ReviewEntity.Pros %></p>
                                 </div>
+                                <% } %>
+                                <% if (!String.IsNullOrEmpty(objReview.ReviewEntity.Cons)){ %>
                                 <div class="padding-top20 border-solid-top padding-bottom20">
                                     <h2 class="font18 margin-bottom10">Not so good about this bike</h2>
                                     <p><%= objReview.ReviewEntity.Cons %></p>
                                 </div>
+                                <% } %>
+                                <% if (!String.IsNullOrEmpty(objReview.ReviewEntity.Comments)){ %>
                                 <div class="padding-top20 border-solid-top">
                                     <h2 class="font18 margin-bottom10">Full Review</h2>
                                     <div class="format-content"><%= objReview.ReviewEntity.Comments %></div>
@@ -250,6 +255,7 @@ else
                                         </div>
                                     </div>
                                 </div>
+                                <% } %>
                             </div>
                             <BikeWale:DiscussIt ID="ucDiscuss" runat="server" />
                         <div class="clear"></div>

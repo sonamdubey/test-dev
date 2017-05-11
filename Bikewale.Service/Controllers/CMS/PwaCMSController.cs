@@ -167,7 +167,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                                 bikes = _objModelCache.GetPopularBikesByBodyStyle((int)modelId, 9, cityId);
 
-                                if (bikes != null)
+                                if (bikes != null && bikes.Count()>0)
                                 {
                                     popularBikes = new PwaBikeNews();
                                     var bodyStyle = bikes.FirstOrDefault().BodyStyle;
@@ -189,7 +189,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                     filters.MakeId = (int)makeId;
 
                                 var tempbikes = _upcoming.GetModels(filters, EnumUpcomingBikesFilter.Default);
-                                if (tempbikes != null)
+                                if (tempbikes != null&& tempbikes.Count()>0)
                                 {
                                     upcomingBikes.BikesList = ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails(tempbikes, currentCityArea.City);
                                 }
@@ -222,7 +222,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         popularBikes.CompleteListUrlLabel = "View all";
 
                         bikes = _bikeModelEntity.GetMostPopularBikes(EnumBikeType.All, 9, 0, cityId);
-                        if (bikes != null)
+                        if (bikes != null && bikes.Count()>0)
                         {
                             popularBikes.BikesList= ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes, currentCityArea.City);
                         }
@@ -238,7 +238,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         filters.EndIndex = 9;                        
 
                         var tempbikes = _upcoming.GetModels(filters,EnumUpcomingBikesFilter.Default);
-                        if (tempbikes != null)
+                        if (tempbikes != null && tempbikes.Count()>0)
                         {
                             upcomingBikes.BikesList = ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails(tempbikes, currentCityArea.City);
                         }

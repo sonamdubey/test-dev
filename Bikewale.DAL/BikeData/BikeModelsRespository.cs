@@ -543,8 +543,8 @@ namespace Bikewale.DAL.BikeData
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, inputParams.StartIndex));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbType.Int32, inputParams.EndIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, inputParams.PageNo));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbType.Int32, inputParams.PageSize));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, (inputParams.MakeId > 0) ? inputParams.MakeId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, (inputParams.ModelId > 0) ? inputParams.ModelId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedprice", DbType.Boolean, (sortBy != EnumUpcomingBikesFilter.Default) ? ((sortBy == EnumUpcomingBikesFilter.PriceHighToLow) ? true : false) : Convert.DBNull));
@@ -1402,7 +1402,7 @@ namespace Bikewale.DAL.BikeData
             ReviewDetailsEntity objReview = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldescription_12012017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldescription_24042017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -1432,6 +1432,7 @@ namespace Bikewale.DAL.BikeData
                             objReview.IsFuturistic = Convert.ToBoolean(dr["Futuristic"]);
                             objReview.New = Convert.ToBoolean(dr["New"]);
                             objReview.Used = Convert.ToBoolean(dr["Used"]);
+                            objReview.ReviewRatingEntity.IsReviewAvailable = Convert.ToBoolean(dr["isReviewAvailable"]);
                             objReview.ModelBasePrice = Convert.ToString(dr["MinPrice"]);
                             objReview.ModelHighendPrice = Convert.ToString(dr["MaxPrice"]);
                             objReview.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
