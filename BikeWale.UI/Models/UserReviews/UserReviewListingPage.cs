@@ -80,15 +80,20 @@ namespace Bikewale.Models.UserReviews
             {
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _objUserReviewCache);
 
-
-                if (objData.ReviewsInfo != null)
+                if (objUserReviews != null)
                 {
-                    objData.ReviewsInfo.Make = objData.RatingsInfo.Make;
-                    objData.ReviewsInfo.Model = objData.RatingsInfo.Model;
-                }
+                    objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostHelpful;
 
-                objUserReviews.ReviewsInfo = objData.ReviewsInfo;
-                objData.UserReviews = objUserReviews.GetData();
+                    if (objData.ReviewsInfo != null)
+                    {
+                        objData.ReviewsInfo.Make = objData.RatingsInfo.Make;
+                        objData.ReviewsInfo.Model = objData.RatingsInfo.Model;
+                        objUserReviews.ReviewsInfo = objData.ReviewsInfo;
+                    }
+
+
+                    objData.UserReviews = objUserReviews.GetData();
+                }
 
                 objData.ExpertReviews = new RecentExpertReviews(9, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0} {1}", objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Model.ModelName)).GetData();
 

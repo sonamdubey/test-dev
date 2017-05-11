@@ -155,9 +155,15 @@ namespace Bikewale.Models.UserReviews
                 };
 
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache);
-                objUserReviews.SkipReviewId = _reviewId;
-                objPage.UserReviews = objUserReviews.GetData();
-                objPage.UserReviews.IsPagerNeeded = false;
+                if (objUserReviews != null)
+                {
+                    objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostHelpful;
+                    objUserReviews.SkipReviewId = _reviewId;
+                    objPage.UserReviews = objUserReviews.GetData();
+                    objPage.UserReviews.IsPagerNeeded = false;
+
+                }
+
 
             }
             catch (Exception ex)

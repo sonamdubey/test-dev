@@ -13,6 +13,7 @@ namespace Bikewale.Models.UserReviews
 
         public BikeReviewsInfo ReviewsInfo { get; set; }
         public uint? SkipReviewId { get; set; }
+        public FilterBy ActiveReviewCateory { get; set; }
 
         public UserReviewsSearchWidget(uint modelId, InputFilters filters, IUserReviewsCache userReviewsCacheRepo)
         {
@@ -30,6 +31,7 @@ namespace Bikewale.Models.UserReviews
             UserReviewsSearchVM objData = new UserReviewsSearchVM();
             objData.ModelId = _modelId;
             objData.ReviewsInfo = ReviewsInfo;
+            objData.ActiveReviewCategory = ActiveReviewCateory;
             objData.UserReviews = _userReviewsCacheRepo.GetUserReviewsList(_filters);
 
             if (objData.UserReviews != null)

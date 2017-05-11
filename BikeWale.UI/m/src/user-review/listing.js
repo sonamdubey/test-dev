@@ -178,6 +178,18 @@ docReady(function() {
         }
     };
 
+    ko.bindingHandlers.truncatedText = {
+        update: function (element, valueAccessor, allBindingsAccessor) {
+            var originalText = ko.utils.unwrapObservable(valueAccessor()),
+                length = ko.utils.unwrapObservable(allBindingsAccessor().maxTextLength) || 20,
+                truncatedText = originalText.length > length ? originalText.substring(0, length) + "...Read more" : originalText;
+            ko.bindingHandlers.text.update(element, function () {
+                return truncatedText;
+            });
+        }
+    };
+    
+
     var modelUserReviews = function () {
         var self = this;
         self.IsInitialized = ko.observable(false);
@@ -261,6 +273,7 @@ docReady(function() {
                     categoryCount = Number(element.attr('data-count')),
 
                 catTypes = element.attr('data-cattypes');
+                self.TotalReviews(categoryCount)
 
                 self.Filters()["pn"] = pageNumber || 1;
                 self.Filters()["so"] = categoryId;
@@ -273,7 +286,6 @@ docReady(function() {
                 if (categoryCount) {
                     self.reviewsAvailable(true);
                     self.activeReviewCategory(categoryId);
-                    //element.attr('data-page-num', pageNumber + 1);
                 }
                 else {
                     self.tabEvents.setNoReview(categoryId);
@@ -331,6 +343,7 @@ docReady(function() {
             try {
                 var ele = $(e.target), pnum = parseInt(ele.attr("data-pagenum"), 10);
                 if (pnum && !isNaN(pnum) && !ele.parent().hasClass("active")) {
+                    var activeReviewCat = $("#overallSpecsTab ul li.active");
                     var selHash = ele.attr("data-hash");
                     self.Filters()["pn"] = pnum;
 
@@ -339,9 +352,10 @@ docReady(function() {
                         var curcityId = arr[0].split("=")[1], curmakeId = arr[1].split("=")[1], curmodelId = arr[2].split("=")[1];
 
                     }
+                    self.TotalReviews(activeReviewCat.attr('data-count'));
                     self.CurPageNo(pnum);
                     self.getUserReviews();
-                    $("#overallSpecsTab ul li.active").attr('data-page-num', pnum);
+                    activeReviewCat.attr('data-page-num', pnum);
                 }
                 e.preventDefault();
                 $('html, body').scrollTop(0);
