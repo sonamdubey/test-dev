@@ -90,7 +90,7 @@ namespace Bikewale.Controllers
                 objUserReviewDetails.SimilarBikeReviewWidgetCount = 9;
                 UserReviewDetailsVM objPage = objUserReviewDetails.GetData();
 
-                if (objPage.UserReviewDetailsObj != null && objPage.ReviewId > 0)
+                if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Description.Length > 0 && objPage.ReviewId > 0)
                     return View(objPage);
                 else
                     return Redirect("/pageNotFound.aspx");

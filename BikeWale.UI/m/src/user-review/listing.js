@@ -85,7 +85,7 @@ var vmPagination = function (curPgNum, pgSize, totalRecords) {
 
 
 function upVoteReview() {
-    bwcache.set("reviewVote_" + reviewId, "1");
+    bwcache.set("reviewVote_" + reviewId, { "vote": "1" });
     $('#upvoteButton').addClass('active');
     $('#upvoteText').text("Upvoted");
     $('#downvoteButton').attr('disabled', 'disabled');
@@ -95,7 +95,7 @@ function upVoteReview() {
 
 
 function downVoteReview() {
-    bwcache.set("reviewVote_" + reviewId, "0");
+    bwcache.set("reviewVote_" + reviewId, {"vote" : "0"});
     $('#downvoteButton').addClass('active');
     $('#downvoteText').text("Downvoted");
     $('#upvoteButton').attr('disabled', 'disabled');
@@ -125,15 +125,15 @@ docReady(function() {
 
     var vote = bwcache.get("reviewVote_" + reviewId);
 
-    if (vote != null)
-    {
-        if(vote == "0")
+    if (vote != null && vote.vote)
+    {       
+        if(vote.vote == "0")
         {
             $('#downvoteButton').addClass('active');
             $('#downvoteText').text("Downvoted");
             $('#upvoteButton').attr('disabled', 'disabled');
         }
-        else if(vote == "1")
+        else
         {
             $('#upvoteButton').addClass('active');
             $('#upvoteText').text("Upvoted");
