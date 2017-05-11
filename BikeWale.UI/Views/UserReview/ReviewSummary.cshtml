@@ -77,7 +77,7 @@
 
                             <p>@Html.Raw(Model.Summary.Description)</p>
                         </div>
-                        <a href="@Model.PrevPageUrl" class="btn btn-orange btn-220-40 margin-top10">Done</a>
+                        <a href="@Model.Summary.ReturnUrl" class="btn btn-orange btn-220-40 margin-top10">Done</a>
 
 
                     }
@@ -86,7 +86,7 @@
                         <p class="font15 text-bold text-black margin-bottom10">Tell us more about your experience!</p>
                         <p class="text-slate-grey margin-bottom15">Share your experience of owning/riding @Model.Summary.Make.MakeName @Model.Summary.Model.ModelName. Your review will be very useful to people planning to buy the same bike.</p>
                         <a href="@Model.WriteReviewLink" class="btn btn-white btn-220-40">Write a review</a>
-                        <a href="@Model.PrevPageUrl" class="btn btn-orange btn-220-40 margin-left15">Done</a>
+                        <a href="@Model.Summary.ReturnUrl" class="btn btn-orange btn-220-40 margin-left15">Done</a>
 
                     }
 
@@ -162,13 +162,13 @@
                 <div class="clear"></div>
                 @if (string.IsNullOrEmpty(Model.Summary.Tips) && !(Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0) && string.IsNullOrEmpty(Model.Summary.Description))
                 {
-                    <a href="@Model.PrevPageUrl" class="btn btn-orange btn-220-40 margin-left15">Done</a>
+                    <a href="@Model.Summary.ReturnUrl" class="btn btn-orange btn-220-40 margin-left15">Done</a>
                 }
             </div>
         </div>
         <div class="clear"></div>
     </div>
-    <input id="pageSource" type="hidden" value="@Model.PrevPageUrl" />
+    <input id="pageSource" type="hidden" value="@Model.Summary.ReturnUrl" />
     <div id="review-summary-page"></div>
 </section>
 <script type="text/javascript">
