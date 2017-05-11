@@ -3684,6 +3684,8 @@
     <Content Include="Views\ComparisonTests\Index.cshtml" />
     <Content Include="Views\ComparisonTests\Index_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\Index_Mobile.cshtml" />
+    <Content Include="Views\CompareBikes\_PopularComaprisonBodyStyle_Mobile.cshtml" />
+    <Content Include="Views\ComparisonTest\_ComparisonTestWidget_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
 using System;
@@ -33,11 +34,11 @@ namespace Bikewale.Models.Compare
                 {
                     objComparison.topBikeCompares = topBikeCompares.Take(topCount);
 
-                    objComparison.topBikeComparesCruisers = topBikeCompares.Where(x => x.BodyStyle1 == 4 || x.BodyStyle2 == 4);
+                    objComparison.topBikeComparesCruisers = topBikeCompares.Where(x => x.BodyStyle1 == (uint)EnumBikeBodyStyles.Cruiser || x.BodyStyle2 == (uint)EnumBikeBodyStyles.Cruiser);
 
-                    objComparison.topBikeComparesSports = topBikeCompares.Where(x => x.BodyStyle1 == 3 || x.BodyStyle2 == 3);
+                    objComparison.topBikeComparesSports = topBikeCompares.Where(x => x.BodyStyle1 == (uint)EnumBikeBodyStyles.Sports || x.BodyStyle2 == (uint)EnumBikeBodyStyles.Sports);
 
-                    objComparison.topBikeComparesScooters = topBikeCompares.Where(x => x.BodyStyle1 == 5 || x.BodyStyle2 == 5);
+                    objComparison.topBikeComparesScooters = topBikeCompares.Where(x => x.BodyStyle1 == (uint)EnumBikeBodyStyles.Scooter || x.BodyStyle2 == (uint)EnumBikeBodyStyles.Scooter);
 
                     if (objComparison.topBikeComparesCruisers != null && objComparison.topBikeComparesCruisers.Count() > 0)
                         objComparison.topBikeComparesCruisers = objComparison.topBikeComparesCruisers.Take(topCount);
