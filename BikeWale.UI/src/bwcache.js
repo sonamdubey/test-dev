@@ -165,8 +165,8 @@ Description : WebStorage Library with cookie as a fallback.
         var getbyKey = function (key, storage) {
             try {
                 if (typeCheck(key, 'string')) {
-
                     var data = storage.getItem(key);
+
                     if (_options.EnableEncryption && data) data = decode(data);
                     var _item_ = JSON.parse(data) || {};
                     if (Object.keys(_item_).length !== 0 && !_item_.expiryTime || _item_.expiryTime === 0 || ((new Date()).getTime() <= _item_.expiryTime))
