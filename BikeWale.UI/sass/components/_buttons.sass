@@ -1,0 +1,12 @@
+﻿$button-padding-height: ( 32: 5px, 34: 6px, 36: 7px )
+
+@mixin button-size($width: 160, $height: 36, $font: 14)
+    .btn-#{$width}-#{$height}
+        width: $width * 1px
+        font-size: $font * 1px
+
+        @if map-has-key($button-padding-height, $height)
+            padding: map-get($button-padding-height, $height)
+        
+        @else
+            @warn "Unknown value. Required '#{$height}' value was not found in $button-padding-height."

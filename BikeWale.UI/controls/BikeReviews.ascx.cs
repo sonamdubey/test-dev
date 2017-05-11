@@ -96,7 +96,7 @@ namespace Bikewale.Controls
                     sql = @" select  cr.id as reviewid, title, overallr, 
                         concat(cm.name,'-',cmo.name) as modelname,
                         c.name as customername, c.id as customerid, 
-                        concat(cm.maskingname,cmo.maskingname) as modelmaskingname,
+                        cmo.maskingname as modelmaskingname,
                         substring(cr.comments,0,cast(floor(length(cr.comments)*0.4) as unsigned int)) as  shortcomment, 
                         cm.name as makename, cm.maskingname as makemaskingname, cmo.name carmodel 
                      from customerreviews as cr, customers as c,
