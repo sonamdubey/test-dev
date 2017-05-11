@@ -70,8 +70,9 @@
             }
 
             <div class="padding-right20 padding-left20 padding-bottom20">
-                <p class="font14 text-light-grey">@Model.UserReviewDetailsObj.Description</p>
-
+                @if (!string.IsNullOrEmpty(Model.UserReviewDetailsObj.Description)) { 
+                <div class="padding-bottom10"><p class="font14 text-light-grey">@Html.Raw(Model.UserReviewDetailsObj.Description)</p></div>
+                }
                 @if (Model.UserReviewDetailsObj.Tips.Length > 0)
                 {
                     <p class="font14 font-bold text-black margin-top20 margin-bottom15">Tips for prospective buyers</p>
