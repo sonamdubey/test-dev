@@ -4,6 +4,11 @@
     ViewBag.Title = "ListReviews_Mobile";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/listing.css' />";
     Model.Page_JS_Path = "/m/src/user-review/listing.js";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_UserReviews";
+    Model.AdTags.AdId = "1493795506249";
+    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.Ad_300x100 = true;
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 
@@ -27,7 +32,7 @@
                 </h2>
                 <p class="font11 text-light-grey">Ex-showroom, @BWConfiguration.Instance.DefaultName</p>
                 <span class="bwmsprite inr-xsm-icon"></span>
-                <span class="font16 text-bold">@Format.FormatPrice("-1",Model.RatingReviewData.Price.ToString())</span>
+                <span class="font16 text-bold">@Format.FormatNumeric(Model.RatingReviewData.Price.ToString())</span>
             </div>
         </div>
     </div>
@@ -124,6 +129,10 @@
 </section>
 
 @Html.Partial("~/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
+
+<div class="margin-bottom20 text-center">
+    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x100_Middle.cshtml", new { AdId = Model.AdTags.AdId });}
+</div>
 
 @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
 {
