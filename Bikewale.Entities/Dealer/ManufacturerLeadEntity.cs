@@ -39,6 +39,9 @@ namespace Bikewale.Entities.Dealer
 
         public string PinCode { get; set; }
 
+        [JsonProperty("manufacturerDealerId")]
+        public uint ManufacturerDealerId { get; set; }
+
         [JsonProperty("manufacturerDealer")]
         public string ManufacturerDealer { get; set; }
 

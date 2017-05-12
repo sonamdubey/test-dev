@@ -403,9 +403,7 @@
                     "leadSourceId": self.leadSourceId(),
                     "PinCode": self.pincode(),
                     "deviceId": getCookie('BWC'),
-                    "manufacturerDealer": $('#ddlMfgDealers :selected').text(),
-                    "manufacturerDealerCity": $('#ddlMfgDealers :selected').data('city'),
-                    "manufacturerDealerState": $('#ddlMfgDealers :selected').data('state')
+                    "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id')
                 };
                 $.ajax({
                     type: "POST",

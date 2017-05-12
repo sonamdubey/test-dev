@@ -231,7 +231,7 @@ docReady(function () {
                 var count = obj.length;
                 if (count >= 1) {
                     if (count == 1) {
-                        $("#ddlMfgDealers").append("<option value='0' data-city='" + obj[0].city + "' data-state='" + obj[0].state + "' >" + obj[0].dealerName + "</option>");
+                        $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
                         $("#ddlMfgDealers").val('0');
                         $("#ddlMfgDealers").closest('.select-box').addClass('done');
                         dleadvm.dealersRequired(false);
@@ -240,7 +240,7 @@ docReady(function () {
                         $("#ddlMfgDealers").append("<option value selected>Select dealer</option>");
                         for (i = 0; i < count; i++) {
                             var dt = obj[i];
-                            $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-city='" + dt.city + "' data-state='" + dt.state + "' >" + dt.dealerName + "</option>");
+                            $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-id='" + dt.id + "' >" + dt.dealerName + "</option>");
                         }
                     }
                 }

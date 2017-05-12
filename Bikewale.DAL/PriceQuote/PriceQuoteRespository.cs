@@ -154,7 +154,7 @@ namespace Bikewale.DAL.PriceQuote
                 objQuotation = new BikeQuotationEntity();
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getpricequote_new_02032017";
+                    cmd.CommandText = "getpricequote_new_12052017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, pqId));
@@ -657,6 +657,7 @@ namespace Bikewale.DAL.PriceQuote
                             {
                                 dealers.Add(new ManufactureDealer
                                 {
+                                    Id = Convert.ToString(dr["id"]),
                                     DealerName = Convert.ToString(dr["dealername"]),
                                     BWDealerName = Convert.ToString(dr["bwdealername"]),
                                     City = Convert.ToString(dr["city"]),

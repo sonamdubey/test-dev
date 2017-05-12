@@ -435,7 +435,6 @@
                     if (isValid)
                         isValid &= self.checkPinCode(self.pincode());
                 }
-                debugger;
                 if (self.dealersRequired()) {
                     isValid &= self.validateDealer();
                 }
@@ -573,9 +572,7 @@
                         "leadSourceId": self.leadSourceId(),
                         "PinCode": self.pincode(),
                         "deviceId": getCookie('BWC'),
-                        "manufacturerDealer": $('#ddlMfgDealers :selected').text(),
-                        "manufacturerDealerCity": $('#ddlMfgDealers :selected').data('city'),
-                        "manufacturerDealerState": $('#ddlMfgDealers :selected').data('state')
+                        "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id')
                     };
                     $.ajax({
                         type: "POST",

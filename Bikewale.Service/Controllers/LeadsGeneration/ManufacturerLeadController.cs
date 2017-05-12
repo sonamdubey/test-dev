@@ -88,9 +88,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                                 objNVC.Add("pincodeId", objLead.PinCode.ToString());
                                 objNVC.Add("cityId", objLead.CityId.ToString());
                                 objNVC.Add("leadType", "2");
-                                objNVC.Add("manufacturerDealer", objLead.ManufacturerDealer);
-                                objNVC.Add("manufacturerDealerCity", objLead.ManufacturerDealerCity);
-                                objNVC.Add("ManufacturerDealerState", objLead.ManufacturerDealerState);
+                                objNVC.Add("manufacturerDealerId", Convert.ToString(objLead.ManufacturerDealerId));
 
                                 RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                                 objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
