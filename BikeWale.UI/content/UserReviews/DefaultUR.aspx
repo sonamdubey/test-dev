@@ -55,7 +55,7 @@
 						    RepeatLayout="Table">
 						    <itemstyle Width="50%" HorizontalAlign="left"></itemstyle>
 						    <itemtemplate>
-							    <a href="/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-bikes/<%#  DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>/user-reviews/">
+							    <a href="/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-bikes/<%#  DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>/reviews/">
 								    <%# DataBinder.Eval(Container.DataItem, "ModelName")%> 
 								    (<%# DataBinder.Eval(Container.DataItem, "TotalReviews")%>)
 							    </a>
@@ -90,7 +90,7 @@
                 <asp:repeater id="rptMostReviewed" runat="server">
 					<itemtemplate>
 						<li>
-                            <a href="/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-bikes/<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>/user-reviews/">
+                            <a href="/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-bikes/<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>/reviews/">
 								<%# DataBinder.Eval(Container.DataItem, "ModelName")%> 
 							</a> (<%# DataBinder.Eval(Container.DataItem, "TotalReviews")%> reviews)
 						</li>

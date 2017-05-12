@@ -101,7 +101,7 @@
     <div id="mostReviewed" class="box new-line5" style="padding: 0px 5px;">
         <asp:repeater id="rptMostReviewed" runat="server">
                 <itemtemplate>
-                    <a href='/m/<%#DataBinder.Eval(Container.DataItem,"MakeEntity.MaskingName") %>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelEntity.MaskingName") %>/user-reviews/' style="text-decoration:none;" class="normal">                           
+                    <a href='/m/<%#DataBinder.Eval(Container.DataItem,"MakeEntity.MaskingName") %>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelEntity.MaskingName") %>/reviews/' style="text-decoration:none;" class="normal">                           
                         <div class="container">
                             <div class="sub-heading">
 		                        <b><%# DataBinder.Eval(Container.DataItem, "ModelEntity.ModelName")%> </b> (<%#DataBinder.Eval(Container.DataItem, "ReviewsCount ")%>)&nbsp;&nbsp;<span class="arr-small">&raquo;</span>
