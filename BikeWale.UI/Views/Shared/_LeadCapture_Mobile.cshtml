@@ -75,6 +75,8 @@
                     <div id="getDealer-select-box" class="form-control-box margin-bottom15 full-width-select text-left" data-bind="visible: dealersRequired()">
                         <div class="dropdown-select-wrapper">
                             <select id="ddlMfgDealers" class="dropdown-select"></select>
+                            <span class="boundary"></span>
+                            <span class="error-text hide"></span>
                         </div>
                     </div>
                         <div class="clear"></div>
@@ -445,11 +447,12 @@
 
             self.validateDealer = function (inputName) {
                 var isValid = false;
-                if ($('#ddlMfgDealers :selected').text() == "") {
+                if ($('#ddlMfgDealers').val() == "") {
                     validate.setError($('#ddlMfgDealers'), 'Please select dealer');
                 }
                 else {
                     isValid = true;
+                    validate.setError($('#ddlMfgDealers'), '');
                 }
                 return isValid;
             };
@@ -550,9 +553,7 @@
             };
 
             self.submitCampaignLead = function (data, event) {
-
                 self.pincode($("#getPinCode").val().trim());
-
                 var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
 
                 if (isValidCustomer && self.mfgCampaignId() > 0) {
@@ -862,7 +863,10 @@
                     }
                 }
             });
-
+            
+            $(document).on('click','#templist li', function () {
+                validate.setError($('#ddlMfgDealers'), '');
+            });
             dleadvm = new leadModel();
             ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
             dleadvm.setInputValues();
