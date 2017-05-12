@@ -107,6 +107,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Dec 2016
         /// Description :   Update Dealer Campaign
+        /// Modified by :   Sumit Kate on 12 May 2017
+        /// Description :   Modified the SP and removed dealer lead serving radius parameter
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="campaignId"></param>
@@ -121,13 +123,13 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <param name="callToAction"></param>
         /// <param name="isBookingAvailable"></param>
         /// <returns></returns>
-        public bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false)
+        public bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false)
         {
             bool isSuccess = false;
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatebwdealercampaign_29122016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatedealercampaign_12052017"))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -135,7 +137,6 @@ namespace BikewaleOpr.DALs.ContractCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbType.String, 200, dealerName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_phone", DbType.String, 50, maskingNumber));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealeremail", DbType.String, 200, dealerEmailId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerleadservingradius", DbType.Int32, dealerLeadServingRadius));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dailyleadlimit", DbType.Int32, dailyleadlimit > 0 ? dailyleadlimit : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbType.Boolean, isBookingAvailable));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
@@ -157,6 +158,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Dec 2016
         /// Description :   Insert new Dealer Campaign
+        /// Modified by :   Sumit Kate on 12 May 2017
+        /// Description :   Modified the SP and removed dealer lead serving radius parameter
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="userId"></param>
@@ -170,12 +173,12 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <param name="callToAction"></param>
         /// <param name="isBookingAvailable"></param>
         /// <returns></returns>
-        public int InsertBWDealerCampaign(bool isActive, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false)
+        public int InsertBWDealerCampaign(bool isActive, int userId, int dealerId, int contractId, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false)
         {
             int newCampaignId = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_insertbwdealercampaign_29122016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertdealercampaign_12052017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbType.String, 200, dealerName));
@@ -184,7 +187,6 @@ namespace BikewaleOpr.DALs.ContractCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbType.Int32, contractId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerleadservingradius", DbType.Int32, dealerLeadServingRadius));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dailyleadlimit", DbType.Int32, dailyleadlimit > 0 ? dailyleadlimit : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbType.Boolean, isBookingAvailable));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));

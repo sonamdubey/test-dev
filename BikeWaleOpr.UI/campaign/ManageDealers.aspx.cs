@@ -1,7 +1,6 @@
 ﻿using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
-using BikewaleOpr.CommuteDistance;
 using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entities.ContractCampaign;
@@ -25,12 +24,14 @@ namespace BikewaleOpr.Campaign
     /// Desc:       To manage dealer campaigs with add/update/delete options
     /// Modified By : Sushil Kumar on 29th Nov 2016
     /// Description : Added dailylimit textbox 
+    /// Modified by :   Sumit Kate on 12 May 2017
+    /// Description :   removed lead serving radius property and related code
     /// </summary>
     public class ManageDealers : System.Web.UI.Page
     {
         #region variable
         protected int dealerId, contractId, campaignId, currentUserId;
-        protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber, reqFormRadius, reqLeadsLimit;
+        protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber, reqLeadsLimit;
         protected Button btnUpdate;
         protected ManageDealerCampaign dealerCampaign;
         protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtCampaignName, txtLeadsLimit, txtDealerNumber;
@@ -42,7 +43,6 @@ namespace BikewaleOpr.Campaign
         protected HiddenField hdnOldMaskingNumber;
         protected CheckBox chkUseDefaultCallToAction;
         private const int DEFAULT_CALL_TO_ACTION = 1;
-        private CommuteDistanceBL objCommuteDistanceBL;
         private IDealerCampaignRepository campaignRepository;
         private IContractCampaign objCC;
         private DealerCampaignEntity campaign;
@@ -108,7 +108,6 @@ namespace BikewaleOpr.Campaign
                 // Update campaign
                 bool isActive = true;
                 int leadLimit = !String.IsNullOrEmpty(reqLeadsLimit) ? Convert.ToInt32(reqLeadsLimit) : 0;
-                int leadRadius = Convert.ToInt16(reqFormRadius);
                 UInt16 callToAction = (UInt16)(chkUseDefaultCallToAction.Checked ? DEFAULT_CALL_TO_ACTION : Convert.ToUInt16(ddlCallToAction.SelectedValue));
                 string campaignName = txtCampaignName.Text.Trim();
                 string dealerEmail = txtDealerEmail.Text.Trim();
@@ -120,7 +119,6 @@ namespace BikewaleOpr.Campaign
                         currentUserId,
                         dealerId,
                         contractId,
-                        leadRadius,
                         reqFormMaskingNumber,
                         campaignName,
                         dealerEmail,
@@ -138,7 +136,6 @@ namespace BikewaleOpr.Campaign
                          currentUserId,
                          dealerId,
                          contractId,
-                         leadRadius,
                          reqFormMaskingNumber,
                          campaignName,
                          dealerEmail,
@@ -153,13 +150,6 @@ namespace BikewaleOpr.Campaign
                 InsertUpdateContractCampaign();
 
                 ClearForm(Page.Form.Controls, true);
-                objCommuteDistanceBL = new CommuteDistanceBL();
-                objCommuteDistanceBL.DealerID = Convert.ToUInt16(dealerId);
-                objCommuteDistanceBL.LeadServingDistance = Convert.ToUInt16(reqFormRadius);
-                PageAsyncTask asynTask = new PageAsyncTask(objCommuteDistanceBL.OnBegin, objCommuteDistanceBL.OnEnd, null, null);
-                RegisterAsyncTask(asynTask);
-                ExecuteRegisteredAsyncTasks();
-
             }
             catch (Exception ex)
             {
@@ -251,8 +241,6 @@ namespace BikewaleOpr.Campaign
             }
             if (Request.Form["txtMaskingNumber"] != null)
                 reqFormMaskingNumber = Request.Form["txtMaskingNumber"] as string;
-            if (Request.Form["txtdealerRadius"] != null)
-                reqFormRadius = Request.Form["txtdealerRadius"] as string;
             if (Request.Form["txtLeadsLimit"] != null)
                 reqLeadsLimit = Request.Form["txtLeadsLimit"] as string;
             SetPageVariables();
@@ -330,7 +318,6 @@ namespace BikewaleOpr.Campaign
                     campaign = campaignRepository.FetchBWDealerCampaign((uint)campaignId);
                     if (campaign != null)
                     {
-                        txtdealerRadius.Text = Convert.ToString(campaign.ServingRadius);
                         if (!String.IsNullOrEmpty(campaign.MaskingNumber))
                         {
                             txtMaskingNumber.Text = campaign.MaskingNumber;
