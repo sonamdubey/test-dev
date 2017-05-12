@@ -151,17 +151,17 @@ namespace Bikewale.Models.UserReviews
                 InputFilters filters = new InputFilters()
                 {
                     Model = _modelId.ToString(),
-                    SO = 2,
+                    SO = 1,
                     PN = 1,
                     PS = 8,
                     Reviews = true,
-                    SkipReviewId = _reviewId
+                    SkipReviewId = _reviewId                  
                 };
 
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache);
                 if (objUserReviews != null)
                 {
-                    objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostHelpful;
+                    objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostRecent;
                     objUserReviews.SkipReviewId = _reviewId;
                     objPage.UserReviews = objUserReviews.GetData();
                     objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
