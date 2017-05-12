@@ -467,4 +467,21 @@ h2.text-bold { font-weight: bold; }
     .summary-specs-list .font12 {
         font-size: 11px;
     }
+    .full-width-select .dropdown-select-wrapper,
+.full-width-select .dropdown-menu,
+.full-width-select .dropdown-menu .dropdown-label,
+.full-width-select .dropdown-menu .dropdown-selected-item,
+.full-width-select .dropdown-menu .dropdown-list-wrapper {
+    width: 100%;
+}
+
+.full-width-select .dropdown-menu .dropdown-label,
+.full-width-select .dropdown-menu .dropdown-selected-item {
+    max-width: 100%;
+}
+}
+
+#getDealer-select-box .dropdown-select-wrapper {
+    border-bottom: 1px solid #82888b;
+    padding-bottom: 7px;
 }

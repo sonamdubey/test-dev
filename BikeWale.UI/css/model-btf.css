@@ -16,6 +16,14 @@
     height: 1px;
     border-top: 1px solid #e2e2e2;
 }
+.full-width-select .chosen-container {
+    width: 100% !important;
+}
+
+#ddlMfgDealers + .chosen-container .chosen-drop {
+    max-height: 190px;
+    overflow: hidden;
+}
 
 .compare-with-target:hover {
     text-decoration: none;

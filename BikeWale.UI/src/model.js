@@ -187,6 +187,7 @@ docReady(function () {
             "dealerMessage": ele.attr('data-item-message'),
             "dealerDescription": ele.attr('data-item-description'),
             "pinCodeRequired": ele.attr("data-ispincodrequired"),
+            "dealersRequired": ele.attr("data-dealersRequired"),
             "gaobject": {
                 cat: ele.attr("c"),
                 act: ele.attr("a"),
@@ -194,9 +195,46 @@ docReady(function () {
             }
 
         };
+        if (leadOptions.dealersRequired) {
+            generateDealerDropdown();
+        }
         dleadvm.setOptions(leadOptions);
     });
-
+    function generateDealerDropdown() {
+        $.ajax({
+            type: "GET",
+            url: "/api/ManufacturerCampaign/?city=" + cityId,
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (response) {
+                var obj = ko.toJS(response);
+                var count = obj.length;
+                if (count >= 1) {
+                    if (count == 1) {
+                        $("#ddlMfgDealers").append("<option value='0' data-city='" + obj[0].city + "' data-state='" + obj[0].state + "' >" + obj[0].dealerName + "</option>");
+                        $("#ddlMfgDealers").val('0');
+                        $("#ddlMfgDealers").closest('.select-box').addClass('done');
+                        dleadvm.dealersRequired(false);
+                    } else {
+                        $("#ddlMfgDealers").html('');
+                        $("#ddlMfgDealers").append("<option value></option>");
+                        for (i = 0; i < count; i++) {
+                            var dt = obj[i];
+                            $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-city='" + dt.city + "' data-state='" + dt.state + "' >" + dt.dealerName + "</option>");
+                        }
+                    }
+                }
+                $("#ddlMfgDealers").trigger("chosen:updated");
+            },
+        });
+    };
+    $('.chosen-select').on('change', function () {
+        var selectField = $(this);
+        if (selectField.val() > 0) {
+            selectField.closest('.select-box').addClass('done');
+            validate.setError($(this), '');
+        }
+    });
     $('#getEmailID').on("focus", function () {
         $('#assistGetEmail').parent().addClass('not-empty');
     });
