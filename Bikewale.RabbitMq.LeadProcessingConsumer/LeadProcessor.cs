@@ -523,7 +523,9 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 RoyalEnfieldDealer dealer = _repository.GetRoyalEnfieldDealerById(manufacturerDealerId);
                 RoyalEnfieldWebAPI.Service service = new RoyalEnfieldWebAPI.Service();
                 string token = ConfigurationManager.AppSettings["RoyalEnfieldToken"];
-                string response = service.affiliates(priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, dealer.DealerState, dealer.DealerCity, dealer.DealerName, quotation.ModelName, "http://www.bikewale.com", token, "bikewale");
+                string response = service.Organic(priceQuote.CustomerName, priceQuote.CustomerMobile, "India", dealer.DealerState,
+                    dealer.DealerCity, priceQuote.CustomerEmail, quotation.ModelName, dealer.DealerName, "", "https://www.bikewale.com", token, "bikewale");
+                // service.affiliates((priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, dealer.DealerState, dealer.DealerCity, dealer.DealerName, quotation.ModelName, "https://www.bikewale.com", token, "bikewale");
                 if (!string.IsNullOrEmpty(response))
                 {
                     _repository.UpdateManufacturerLead(pqId, priceQuote.CustomerEmail, priceQuote.CustomerMobile, response);
