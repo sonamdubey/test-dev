@@ -298,6 +298,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <summary>
         /// Created by  :   Sumit Kate on 18 jan 2017
         /// Description :   Call opr_getdealercampaigns
+        /// Modified by :   Sumit Kate on 12 May 2017
+        /// Description :   Populate CampaignServingStatus property
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="activecontract"></param>
@@ -336,7 +338,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
                                         ContractStatusText = Convert.ToString(dr["status"]),
                                         DailyLeadLimit = SqlReaderConvertor.ToUInt32(dr["dailyleadlimit"]),
                                         DailyLeads = SqlReaderConvertor.ToUInt32(dr["dailyleads"]),
-                                        RulesCount = SqlReaderConvertor.ToUInt32(dr["NoOfRules"])
+                                        RulesCount = SqlReaderConvertor.ToUInt32(dr["NoOfRules"]),
+                                        CampaignServingStatus = Convert.ToString(dr["campaignservingstatus"])
                                     }
                                     );
                             }

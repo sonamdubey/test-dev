@@ -93,11 +93,13 @@
                     <td>Contract End Date</td>
                     <td>Campaign Name</td>
                     <td>Campaign EmailId</td>
+                    <td>Campaign Serving Status</td>
                     <td>LeadServingRadius</td>
                     <td>Masking Number</td>
                     <td>Contract Status</td>
                     <td>Rules</td>
-                     <td>Edit Campaign</td>
+                    <td>Edit Campaign</td>
+                    <td>Campaign Areas</td>
                 </tr>
             </thead>
             <tbody data-bind="template: { name: 'DealerCampaignList', foreach: Table }">
@@ -113,6 +115,7 @@
             <td data-bind="text: EndDate"></td>
             <td data-bind="text: CampaignName"></td>
             <td data-bind="text: EmailId"></td>
+            <td data-bind="text: CampaignServingStatus"></td>
             <td data-bind="text: ServingRadius"></td>
             <td data-bind="text: MaskingNumber"></td>
             <td data-bind="text: Status"></td>
@@ -121,6 +124,9 @@
             </td>
             <td >
                 <a  data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + $root.dealerName() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + $root.dealerId() }" target="_blank"><img src="https://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
+            </td>
+            <td >
+                <a  data-bind="attr: { href: '/dealercampaign/CampaignServingAreas/?dealerId=' + $root.dealerId() }" target="_blank"><img src="https://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
             </td>
         </tr>
     </script>

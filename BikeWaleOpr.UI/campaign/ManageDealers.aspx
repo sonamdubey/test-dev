@@ -155,7 +155,7 @@
         <legend>Define Components</legend>
 
         <strong>Edit rules:</strong><span><a href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Rules</a></span>
-
+        <strong>Map Campaign Areas</strong><span><a href="/dealercampaign/CampaignServingAreas/?dealerId=<%= dealerId %>">Campaign Areas</a></span>
     </fieldset>
     <% } %>
 </div>
