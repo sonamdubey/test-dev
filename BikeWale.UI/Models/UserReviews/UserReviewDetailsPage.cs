@@ -135,7 +135,7 @@ namespace Bikewale.Models.UserReviews
                 {
                     objPage.PageMetaTags.Title = string.Format("{0} | User Review on {1} {2} - BikeWale", objPage.UserReviewDetailsObj.Title, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
                     objPage.PageMetaTags.Description = string.Format("Read review by {0} on {1} {2}. {0} says {3}. View detailed review on BikeWale.", objPage.UserReviewDetailsObj.CustomerName, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Title);
-                    objPage.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/{2}", objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName, _reviewId);
+                    objPage.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/{2}/", objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName, objPage.UserReviewDetailsObj.OldReviewId);
                 }
             }
             catch (Exception ex)
@@ -164,7 +164,7 @@ namespace Bikewale.Models.UserReviews
                     objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostHelpful;
                     objUserReviews.SkipReviewId = _reviewId;
                     objPage.UserReviews = objUserReviews.GetData();
-                objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
+                    objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
                     objPage.UserReviews.IsPagerNeeded = false;
 
                 }

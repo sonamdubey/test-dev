@@ -58,20 +58,24 @@
                     <ul class="horizontal-rating-graph user-review-graph">
                         @foreach (var q in Model.ReviewQuestions)
                         {
-                            <li>
-                                <span class="graph-bar-label">@q.Heading</span>
-                                <span class="graph-bar-bg">
-                                    <span style="width:@(q.SelectedRatingId * 20)%" class="rating-bar bg-rate-@q.SelectedRatingId"></span>
-                                </span>
-                            </li>
+                            if (q.SelectedRatingId > 0)
+                            {
+                                <li>
+                                    <span class="graph-bar-label">@q.Heading</span>
+                                    <span class="graph-bar-bg">
+                                        <span style="width:@(q.SelectedRatingId * 20)%" class="rating-bar bg-rate-@q.SelectedRatingId"></span>
+                                    </span>
+                                </li>
+                            }
                         }
                     </ul>
                 }
             </div>
 
             <div class="padding-right20 padding-left20 padding-bottom20">
-                @if (!string.IsNullOrEmpty(Model.UserReviewDetailsObj.Description)) { 
-                <div class="padding-bottom10"><p class="font14 text-light-grey">@Html.Raw(Model.UserReviewDetailsObj.Description)</p></div>
+                @if (!string.IsNullOrEmpty(Model.UserReviewDetailsObj.Description))
+                {
+                    <div class="padding-bottom10"><p class="font14 text-light-grey">@Html.Raw(Model.UserReviewDetailsObj.Description)</p></div>
                 }
                 @if (Model.UserReviewDetailsObj.Tips.Length > 0)
                 {

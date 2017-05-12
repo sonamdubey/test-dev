@@ -329,8 +329,8 @@ namespace Bikewale.Content
             pageMetas.Description = string.Format("{0} User Review - A review/feedback on {1} by {2}. Find out what {2} has to say about {1}.", BikeMake, BikeName, objReview.ReviewEntity.WrittenBy);
             pageMetas.Keywords = string.Format("{0} review, {0} user review, car review, owner feedback, consumer review", BikeName);
             pageMetas.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/user-reviews/{3}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, reviewId);
-            pageMetas.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/user-reviews/{3}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, reviewId);
-            returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/reviews/{2}",MakeMaskingName,ModelMaskingName,reviewId));
+            pageMetas.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/reviews/{3}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, reviewId);
+            returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/reviews/{2}", MakeMaskingName, ModelMaskingName, reviewId));
         }
         /// <summary>
         /// Created By :- Subodh Jain 17 Jan 2017

@@ -564,7 +564,7 @@ namespace Bikewale.DAL.BikeData
 
                                 objModel.ExpectedLaunchId = Convert.ToUInt16(dr["ExpectedLaunchId"]);
                                 objModel.ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMM yyyy") : "";
-                                objModel.ExpectedLaunchedDate = Convert.ToDateTime(dr["ExpectedLaunch"]); 
+                                objModel.ExpectedLaunchedDate = Convert.ToDateTime(dr["ExpectedLaunch"]);
                                 objModel.EstimatedPriceMin = Convert.ToUInt64(dr["EstimatedPriceMin"]);
                                 objModel.EstimatedPriceMax = Convert.ToUInt64(dr["EstimatedPriceMax"]);
                                 objModel.HostUrl = Convert.ToString(dr["HostURL"]);
@@ -1571,7 +1571,7 @@ namespace Bikewale.DAL.BikeData
         }
         /// <summary>
         /// Modified By :- Subodh Jain on 17 Jan 2017
-        /// Summary :- shifted function to dal layer
+        /// Summary :- shifted function to dal layer       
         /// </summary>
         /// <param name="reviewId"></param>
         /// <param name="isAlreadyViewed"></param>
@@ -1601,7 +1601,7 @@ namespace Bikewale.DAL.BikeData
                         }
 
                         cmd1.CommandType = CommandType.StoredProcedure;
-                        cmd1.CommandText = "getcustomerreviewinfo_16012017";
+                        cmd1.CommandText = "getcustomerreviewinfo_12052017";
                         cmd1.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int64, reviewId));
 
 
@@ -1619,6 +1619,7 @@ namespace Bikewale.DAL.BikeData
                                 objReview.ReviewEntity.Liked = SqlReaderConvertor.ToUInt16(dr["Liked"]);
                                 objReview.ReviewEntity.Pros = Convert.ToString(dr["Pros"]);
                                 objReview.ReviewEntity.ReviewDate = Convert.ToDateTime(dr["EntryDateTime"]);
+                                objReview.ReviewEntity.NewReviewId = SqlReaderConvertor.ToUInt32(dr["NewReviewId"]);
                                 objReview.ReviewEntity.ReviewTitle = Convert.ToString(dr["Title"]);
                                 objReview.ReviewEntity.WrittenBy = Convert.ToString(dr["CustomerName"]);
                                 objReview.ReviewEntity.Viewed = Convert.ToUInt32(dr["viewed"]);

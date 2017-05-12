@@ -488,7 +488,7 @@ namespace Bikewale.DAL.UserReviews
             try
             {
                 reviews = new ReviewListBase();
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikereviewslist"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikereviewslist_12052017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
@@ -506,6 +506,7 @@ namespace Bikewale.DAL.UserReviews
                             {
                                 ReviewEntity objRating = new ReviewEntity();
 
+                                objRating.NewReviewId = SqlReaderConvertor.ToUInt32(dr["NewReviewId"]);
                                 objRating.ReviewId = SqlReaderConvertor.ToUInt32(dr["ReviewId"]);
                                 objRating.WrittenBy = dr["CustomerName"].ToString();
                                 objRating.OverAllRating.OverAllRating = Convert.ToSingle(dr["OverallR"]);
@@ -1366,7 +1367,7 @@ namespace Bikewale.DAL.UserReviews
                         {
                             objUserReviewSummary = new UserReviewSummary()
                             {
-
+                                OldReviewId = SqlReaderConvertor.ToUInt16(dr["OldReviewId"]),
                                 CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
                                 CustomerName = Convert.ToString(dr["CustomerName"]),
                                 Description = Convert.ToString(dr["Comments"]),

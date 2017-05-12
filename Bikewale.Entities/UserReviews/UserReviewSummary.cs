@@ -25,5 +25,6 @@ namespace Bikewale.Entities.UserReviews
         public uint DownVotes { get; set; }
         public uint Views { get; set; }
         public DateTime EntryDate { get; set; }
+        public uint OldReviewId { get; set; }
     }
 }
