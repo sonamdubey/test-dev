@@ -33,7 +33,7 @@ namespace Bikewale.Service.Controllers
                     return Ok(objDTOSplash);
                 }
                 else
-                    return NoContent();
+                    return NotFound();
             }
             catch (Exception ex)
             {

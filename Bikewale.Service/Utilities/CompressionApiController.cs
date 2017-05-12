@@ -24,16 +24,16 @@ namespace Bikewale.Service.Utilities
             return new CustomOkResult<T>(content, this);
         }
 
-        /// <summary>
-        /// Returns the http Request as No content
-        /// </summary>
-        /// <returns>
-        /// Created by : Sangram Nandkhile on 08-May-2017 
-        /// </returns>
-        public StatusCodeResult NoContent()
-        {
-            return new StatusCodeResult(HttpStatusCode.NoContent, this);
-        }
+        ///// <summary>
+        ///// Returns the http Request as No content
+        ///// </summary>
+        ///// <returns>
+        ///// Created by : Sangram Nandkhile on 08-May-2017 
+        ///// </returns>
+        //public StatusCodeResult NoContent()
+        //{
+        //    return new StatusCodeResult(HttpStatusCode.NoContent, this);
+        //}
 
     }
 }
