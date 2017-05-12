@@ -17,7 +17,7 @@
     <meta itemprop="worstRating" content="1">
     <meta itemprop="bestRating" content="5">
     <meta itemprop="itemreviewed" content="@Model.BikeName" />
-    <meta itemprop="ratingCount" content="@Model.RatingsInfo.TotalRatings"/>
+    <meta itemprop="ratingCount" content="@Model.RatingsInfo.TotalRatings" />
 </span>
 <section id="section-review-list" data-modelid="@Model.ModelId">
     <div class="container content-box-shadow card-bottom-margin">
@@ -51,11 +51,11 @@
                     <div class="font12 text-slate-grey border-light-top padding-top10">
                         @if(Model.IsRatingsAvailable)
                         {
-                        <p class="margin-bottom5">@Model.RatingsInfo.TotalRatings ratings</p>
+                            <p class="margin-bottom5">@Model.RatingsInfo.TotalRatings ratings</p>
                         }
                         @if (Model.IsReviewsAvailable)
                         {
-                        <p>@Model.RatingsInfo.TotalReviews reviews</p>
+                            <p>@Model.RatingsInfo.TotalReviews reviews</p>
                         }
 
                     </div>
@@ -111,18 +111,18 @@
 </section>
 
 <section>
-    <div id="bike-rating-box"  class="container content-box-shadow card-bottom-margin content-inner-block-20">
+    <div id="bike-rating-box" class="container content-box-shadow card-bottom-margin content-inner-block-20">
         <p class="font16 text-black text-bold inline-block margin-right15">Rate this bike now</p>
         <div class="answer-star-list inline-block">
-            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=5", Model.PageUrl))"  type="radio" id="rate-star-5" name="rate-bike" value="5">
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=5", Model.PageUrl))" type="radio" id="rate-star-5" name="rate-bike" value="5">
             <label class="bwmsprite star-0" for="rate-star-5" data-value="5"></label>
-            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=4", Model.PageUrl))"  type="radio" id="rate-star-4" name="rate-bike" value="4">
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=4", Model.PageUrl))" type="radio" id="rate-star-4" name="rate-bike" value="4">
             <label class="bwmsprite star-0" for="rate-star-4" data-value="4"></label>
-            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=3", Model.PageUrl))"  type="radio" id="rate-star-3" name="rate-bike" value="3">
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=3", Model.PageUrl))" type="radio" id="rate-star-3" name="rate-bike" value="3">
             <label class="bwmsprite star-0" for="rate-star-3" data-value="3"></label>
-            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=2", Model.PageUrl))"  type="radio" id="rate-star-2" name="rate-bike" value="2">
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=2", Model.PageUrl))" type="radio" id="rate-star-2" name="rate-bike" value="2">
             <label class="bwmsprite star-0" for="rate-star-2" data-value="2"></label>
-            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=1", Model.PageUrl))"  type="radio" id="rate-star-1" name="rate-bike" value="1">
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=1", Model.PageUrl))" type="radio" id="rate-star-1" name="rate-bike" value="1">
             <label class="bwmsprite star-0" for="rate-star-1" data-value="1"></label>
         </div>
     </div>
@@ -143,7 +143,7 @@
                     <h2 class="h2-heading">@Model.ExpertReviews.Title</h2>
                 </div>
                 <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="/m/@Model.ExpertReviews.MoreExpertReviewUrl" title="@string.Format("View all expert reviews")" class="btn view-all-target-btn">View all</a>
+                    <a href="/m/@Model.ExpertReviews.MoreExpertReviewUrl" title="@string.Format(@"{0} {1} Expert Reviews",Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" class="btn view-all-target-btn">View all</a>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -152,24 +152,24 @@
 
         </div>
     </section>
-}
+    }
 
-@if (Model.SimilarBikeReviewWidget != null && Model.SimilarBikeReviewWidget.Count() > 0)
+    @if (Model.SimilarBikeReviewWidget != null && Model.SimilarBikeReviewWidget.Count() > 0)
 {
-  <section>
-    <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
-        <div class="carousel-heading-content">
-            <div class="swiper-heading-left-grid inline-block">
-                <h2 class="h2-heading">Reviews of similar bikes</h2>
-            </div>
-            <div class="swiper-heading-right-grid inline-block text-right">
-                <a href="@string.Format("/m/{0}-bikes/{1}/reviews/", Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" title="View all" class="btn view-all-target-btn">View all</a>
-            </div>
-            <div class="clear"></div>
-        </div>
+        <section>
+            <div class="container content-box-shadow padding-top15 padding-bottom10 card-bottom-margin">
+                <div class="carousel-heading-content">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2 class="h2-heading">Reviews of similar bikes</h2>
+                    </div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="@string.Format("/m/{0}-bikes/{1}/reviews/", Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" title="@string.Format(@"{0} {1} User reviews",Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" class="btn view-all-target-btn">View all</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
 
-        @Html.Partial("~/views/UserReview/_SimilarBikeUserReview_Mobile.cshtml", Model.SimilarBikeReviewWidget)
+                @Html.Partial("~/views/UserReview/_SimilarBikeUserReview_Mobile.cshtml", Model.SimilarBikeReviewWidget)
 
-    </div>
-</section>  
+            </div>
+        </section>
 }

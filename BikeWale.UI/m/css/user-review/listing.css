@@ -88,6 +88,21 @@ h1,
 .rate-count-1 {
   color: #EF3F30; }
 
+.rating-badge[data-rate-bg="5"] {
+  background-color: #198D55; }
+
+.rating-badge[data-rate-bg="4"] {
+  background-color: #13B65D; }
+
+.rating-badge[data-rate-bg="3"] {
+  background-color: #EFD700; }
+
+.rating-badge[data-rate-bg="2"] {
+  background-color: #FD971C; }
+
+.rating-badge[data-rate-bg="1"] {
+  background-color: #EF3F30; }
+
 .bg-rate-5 {
   background-color: #198D55; }
 
@@ -209,13 +224,6 @@ h1,
   .user-review-list .review-title {
     padding-right: 7px;
     padding-left: 7px; }
-    .user-review-list .review-title:before, .user-review-list .review-title:after {
-      content: '"';
-      position: absolute; }
-    .user-review-list .review-title:before {
-      left: 0; }
-    .user-review-list .review-title:after {
-      right: 0; }
   .user-review-list .star-white {
     margin-right: 0; }
 

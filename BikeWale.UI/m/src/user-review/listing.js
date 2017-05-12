@@ -1,4 +1,4 @@
-var reviewId=0, modelid, vmUserReviews;
+var reviewId=0, modelid, vmUserReviews,modelReviewsSection ;
 
 var helpfulReviews = [
     {
@@ -114,7 +114,9 @@ function voteUserReview(vote) {
 }
 
 docReady(function() {    
-    bwcache.setScope('ReviewDetailPage');    
+    bwcache.setScope('ReviewDetailPage');
+
+    modelReviewsSection = $("#modelReviewsListing");
 
     reviewId = $('#divAbuse').attr('data-reviewId');
 
@@ -333,7 +335,8 @@ docReady(function() {
                         $(".pagination-control-next").addClass("inactive");
                     }
                     self.NextPageHtml(nextpg);
-                    $("#pagination-list li[data-pagenum=" + self.Pagination().pageNumber() + "]").addClass("active");
+                    $("#pagination-list li").removeClass("active");
+                    $("#pagination-list li a[data-pagenum=" + self.Pagination().pageNumber() + "]").parent().addClass("active");
 
                 }
             } catch (e) {
@@ -361,7 +364,7 @@ docReady(function() {
                     activeReviewCat.attr('data-page-num', pnum);
                 }
                 e.preventDefault();
-                $('html, body').scrollTop(0);
+                $('html, body').scrollTop(modelReviewsSection.offset().top);
             } catch (e) {
                 console.warn("Unable to change page number : " + e.message);
             }
@@ -394,7 +397,7 @@ docReady(function() {
                     self.ApplyPagination();
                     window.location.hash = qs;
                     self.IsLoading(false);
-                    $('html, body').scrollTop($('#modelReviewsListing').offset().top);
+                    $('html, body').scrollTop(modelReviewsSection.offset().top);
                 });
             }
         };
@@ -431,7 +434,7 @@ docReady(function() {
     $("#overallSpecsTab ul li , #pagination-list-content ul li").click(function (e) {
         if (vmUserReviews && !vmUserReviews.IsInitialized()) {
             vmUserReviews.init(e);
-            $('html, body').scrollTop(0);
+            $('html, body').scrollTop(modelReviewsSection.offset().top);
             return false;
         }
     });
@@ -454,7 +457,7 @@ docReady(function() {
                 overallSpecsTab.addClass('fixed-tab-nav');
             }
 
-            else if (windowScrollTop + listItemHeight < specsTabsOffsetTop) {
+            else if (windowScrollTop < specsTabsOffsetTop) {
                 overallSpecsTab.removeClass('fixed-tab-nav');
             }
 

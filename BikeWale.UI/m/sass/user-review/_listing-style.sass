@@ -90,10 +90,12 @@ $graph-bg: #eee
 
 @mixin rating-background($count)
     @if map-has-key($rating-colors, $count)
-        .bg-rate-#{$count}
+        .rating-badge[data-rate-bg="#{$count}"]
             background-color: map-get($rating-colors, $count)
+
     @else
         @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined."
+
 
 @include rating-count(5)
 @include rating-count(4)
@@ -106,6 +108,22 @@ $graph-bg: #eee
 @include rating-background(3)
 @include rating-background(2)
 @include rating-background(1)
+
+
+.bg-rate-5
+	background-color: #198D55
+
+.bg-rate-4
+	background-color: #13B65D
+
+.bg-rate-3
+	background-color: #EFD700
+
+.bg-rate-2
+	background-color: #FD971C
+
+.bg-rate-1
+	background-color: #EF3F30
 
 // rating icons
 .star-icon
@@ -228,17 +246,6 @@ $graph-bg: #eee
     .review-title
         padding-right: 7px
         padding-left: 7px
-        
-        &:before,
-        &:after
-            content: '"'
-            position: absolute
-
-        &:before
-            left: 0
-
-        &:after
-            right: 0
 
     .star-white
         margin-right: 0

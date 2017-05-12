@@ -20,7 +20,7 @@
 
             <div style="display: none" class="padding-top15 padding-bottom15 margin-right20 margin-left20 border-solid-bottom" data-bind="visible: (activeReviewCategory() == 3 || activeReviewCategory() == 4 || activeReviewCategory() == 5) && reviewsAvailable()">
                 <span class="bwmsprite info-sm"></span>
-                <span class="grid-11-inline font14 text-light-grey hide">Reviews are sorted on the basis of helpfulness</span>
+                <span class="grid-11-inline font13 text-light-grey hide">Reviews are sorted on the basis of helpfulness</span>
             </div>
             <!-- ko if : activeReviewList() && activeReviewList().length > 0 -->
             <div style="display: @(Model.Pager != null && Model.Pager.TotalResults > 0 ? "block" : "none")"  data-bind="visible: reviewsAvailable()">
@@ -32,7 +32,7 @@
                         <li>
                             <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" title="@review.ReviewTitle" data-bind="attr : {'title' : activeReviewList()[@i].reviewTitle,'href' : '/m/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + activeReviewList()[@i].reviewId + '/'}" class="item-target">
                                 <div class="margin-bottom10">
-                                    <span class="rating-badge bg-rate-@review.OverAllRating.OverAllRating" data-bind="css: 'bg-rate-' + activeReviewList()[@i].overAllRating.overAllRating">
+                                    <span class="rating-badge" data-rate-bg="@review.OverAllRating.OverAllRating" data-bind="attr: {'data-rate-bg' : activeReviewList()[@i].overAllRating.overAllRating } ">
                                         <span class="bwmsprite star-white"></span>
                                         <span data-bind="text: activeReviewList()[@i].overAllRating.overAllRating">@review.OverAllRating.OverAllRating</span>
                                     </span>
