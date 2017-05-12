@@ -478,7 +478,10 @@ docReady(function() {
         centerItVariableWidth(tab, listId + ' .overall-specs-tabs-container');
         return false;
     };
-
+  
+    var checkedStar = $('input[name=rate-bike]:checked').val();
+    if (checkedStar)
+        document.getElementById('rate-star-' + parseInt(checkedStar)).checked = false;
 });
 
 function reportAbuse() {
