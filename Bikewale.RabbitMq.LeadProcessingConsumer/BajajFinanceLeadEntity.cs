@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Configuration;
 namespace Bikewale.RabbitMq.LeadProcessingConsumer
 {
     public class BajajFinanceLeadEntity
@@ -28,7 +29,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         public string source { get { return "Web Sales"; } }
         public string PurchaseType { get { return "Finance"; } }
         public string assignto { get { return "Call Center"; } }
-        public string subchannel { get { return "SC00058"; } }
+        public string subchannel { get { return "SC00250"; } }
         public string caseSourceFrom { get { return "Web"; } }
         public string Ext_UserID { get { return "Bikewale"; } }
         public string Ext_sysID { get { return "881"; } }
@@ -42,7 +43,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     {
 
         public string batch_id { get { return "1"; } }
-        public string AuthKey { get { return "B40CD4625A4966EAFB451E256D483EA3_UAT"; } }
+        public string AuthKey { get { return ConfigurationManager.AppSettings["BajajAuthKey"]; } }
         public IEnumerable<BajajFinanceLeadEntity> leadData { get; set; }
     }
 

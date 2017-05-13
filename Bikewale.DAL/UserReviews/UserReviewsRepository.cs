@@ -1305,6 +1305,7 @@ namespace Bikewale.DAL.UserReviews
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     HostUrl = Convert.ToString(dr["hostUrl"]),
                                     OverallRating = SqlReaderConvertor.ToFloat(dr["overallrating"]),
+                                    IsDiscontinued = SqlReaderConvertor.ToBoolean(dr["IsDiscontinued"]),
                                     TotalReviews = SqlReaderConvertor.ToUInt32(dr["totalreviews"]),
                                     OneStarRatings = SqlReaderConvertor.ToUInt32(dr["onestars"]),
                                     TwoStarRatings = SqlReaderConvertor.ToUInt32(dr["twostars"]),
@@ -1447,7 +1448,7 @@ namespace Bikewale.DAL.UserReviews
 
                     foreach (var question in objUserReviewSummary.Questions)
                     {
-                        var objRating = objUserReviewrating.Where(q => q.QuestionId == question.Id && question.SelectedRatingId.ToString() == q.Value);
+                        var objRating = objUserReviewrating.Where(q => q.QuestionId == question.Id && question.SelectedRatingId.ToString() == q.Value).ToList();
                         question.Rating = objRating;
                     }
                 }

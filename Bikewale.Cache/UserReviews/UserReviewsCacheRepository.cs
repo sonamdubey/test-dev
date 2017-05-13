@@ -4,6 +4,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Notifications;
+using System.Linq;
 using System;
 using System.Collections;
 
@@ -111,15 +112,34 @@ namespace Bikewale.Cache.UserReviews
             if (inputFilters != null && (!String.IsNullOrEmpty(inputFilters.Model) || !String.IsNullOrEmpty(inputFilters.Make)))
             {
                 string key = "BW_UserReviews_MO_" + inputFilters.Model;
-
+                bool skipDataLimit = (inputFilters.PN * inputFilters.PS) > 24;
                 try
                 {
-                    if (!string.IsNullOrEmpty(inputFilters.CAT))
+                    if (inputFilters.SO > 0)
                     {
+                        key = string.Format("{0}_CAT_{1}", key, inputFilters.SO);
+                    }
 
+                    if (skipDataLimit)
+                    {
+                        key = string.Format("{0}_PN_{1}_PS_{2}", key, inputFilters.PN, inputFilters.PS);
+                    }
+                    else
+                    {
+                        key += "_PN_1_PS_24";
                     }
 
                     reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan(24, 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
+
+                    if(reviews!=null && reviews.Result!=null && !skipDataLimit)
+                    {
+                        if(inputFilters.PN!=1)
+                        {
+                            reviews.Result = reviews.Result.Skip((inputFilters.PN-1) * inputFilters.PS); 
+                        }
+
+                        reviews.Result = reviews.Result.Take(inputFilters.PS);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -180,7 +200,7 @@ namespace Bikewale.Cache.UserReviews
             string key = string.Format("BW_UserReviewDetails_{0}", reviewId);
             try
             {
-                objUserReviewSummary = _cache.GetFromCache<UserReviewSummary>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetUserReviewSummaryWithRating(reviewId));
+                objUserReviewSummary = _cache.GetFromCache<UserReviewSummary>(key, new TimeSpan(12, 0, 0), () => _objUserReviews.GetUserReviewSummaryWithRating(reviewId));
             }
             catch (Exception ex)
             {
@@ -204,7 +224,7 @@ namespace Bikewale.Cache.UserReviews
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewSummaryWithRating");
+                ErrorClass objError = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsIdMapping");
             }
             return htResult;
         }

@@ -11,17 +11,17 @@
                     <ul class="overall-specs-tabs-wrapper">
                         @if (Model.ActiveReviewCategory.Equals(FilterBy.MostRecent))
                         {
-                            <li class="active" data-category="2" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</li>
-                            <li data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostHelpfulReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Helpful (@Model.ReviewsInfo.MostHelpfulReviews)</li>
+                            <li class="active" data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</li>
+                            <li data-category="2" data-page-num="1" data-count="@Model.ReviewsInfo.MostHelpfulReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Helpful (@Model.ReviewsInfo.MostHelpfulReviews)</li>
                         }
                         else
                         {
-                            <li class="active" data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostHelpfulReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Helpful (@Model.ReviewsInfo.MostHelpfulReviews)</li>
-                            <li data-category="2" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</li>
+                            <li class="active" data-category="2" data-page-num="1" data-count="@Model.ReviewsInfo.MostHelpfulReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Helpful (@Model.ReviewsInfo.MostHelpfulReviews)</li>
+                            <li data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</li>
                         }
-                        <li data-cattypes="4,5" data-category="3" data-page-num="1" data-count="@Model.ReviewsInfo.PostiveReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Positive (@Model.ReviewsInfo.PostiveReviews)</li>
-                        <li data-cattypes="1,2" data-category="4" data-page-num="1" data-count="@Model.ReviewsInfo.NegativeReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Negative (@Model.ReviewsInfo.NegativeReviews)</li>
-                        <li data-cattypes="3" data-category="5" data-page-num="1" data-count="@Model.ReviewsInfo.NeutralReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Neutral (@Model.ReviewsInfo.NeutralReviews)</li>
+                        <li data-cattypes="4,5" data-category="5" data-page-num="1" data-count="@Model.ReviewsInfo.PostiveReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Positive (@Model.ReviewsInfo.PostiveReviews)</li>
+                        <li data-cattypes="1,2" data-category="6" data-page-num="1" data-count="@Model.ReviewsInfo.NegativeReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Negative (@Model.ReviewsInfo.NegativeReviews)</li>
+                        <li data-cattypes="3" data-category="7" data-page-num="1" data-count="@Model.ReviewsInfo.NeutralReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Neutral (@Model.ReviewsInfo.NeutralReviews)</li>
                     </ul>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                                 <div class="margin-bottom10">
                                     <div class="grid-4 alpha padding-right5">
                                         <span class="bwmsprite calender-grey-sm-icon"></span>
-                                        <span class="article-stats-content" data-bind="formatDate: activeReviewList()[@i].reviewDate">@Bikewale.Utility.FormatDate.GetFormatDate(review.ReviewDate.ToString(), "MMM  yyyy") </span>
+                                        <span class="article-stats-content" data-bind="text: activeReviewList()[@i].reviewDate">@Bikewale.Utility.FormatDate.GetFormatDate(review.ReviewDate.ToString(), "MMM  yyyy") </span>
                                     </div>
                                     <div class="grid-8 alpha omega">
                                         <span class="bwmsprite author-grey-sm-icon"></span>
@@ -70,18 +70,18 @@
                                 <div class="grid-7 alpha">
                                     <div class="item-stats-grid">
                                         <span class="bwmsprite like-sm"></span>
-                                        <span data-bind="text: formatPrice(activeReviewList()[@i].liked)">@Format.FormatNumeric(review.Liked.ToString())</span>
+                                        <span data-bind="CurrencyText: activeReviewList()[@i].liked">@Format.FormatNumeric(review.Liked.ToString())</span>
                                     </div>
                                     <div class="item-stats-grid">
                                         <span class="bwmsprite dislike-sm"></span>
-                                        <span data-bind="text: formatPrice(activeReviewList()[@i].disliked)">@Format.FormatNumeric(review.Disliked.ToString())</span>
+                                        <span data-bind="CurrencyText: activeReviewList()[@i].disliked">@Format.FormatNumeric(review.Disliked.ToString())</span>
                                     </div>
                                 </div>
                                 <div class="grid-5 omega text-right" style="display: @(review.Viewed > 0 ? "block" : "none")" data-bind="visible: activeReviewList()[@i].viewed >
                                     0">
                                     <div class="item-views-grid">
                                         <span class="bwmsprite views-sm"></span>
-                                        <span data-bind="text: formatPrice(activeReviewList()[@i].viewed)">@Format.FormatNumeric(review.Viewed.ToString())</span><span>&nbsp;Views</span>
+                                        <span data-bind="CurrencyText: activeReviewList()[@i].viewed">@Format.FormatNumeric(review.Viewed.ToString())</span><span>&nbsp;Views</span>
                                     </div>
                                 </div>
                                 <div class="clear"></div>
@@ -98,7 +98,7 @@
                     <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noReviews() && TotalReviews() != 0 && Pagination().paginated() > 0" style="display: @(Model.Pager!=null && Model.Pager.TotalResults > 0 ? "block" : "none")">
                         <div class="footer-pagination font14 border-solid-top padding-top10">
                             <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalReviews() > 0">
-                                <p><span class="text-bold" data-bind="text: formatPrice((Pagination().pageNumber() - 1) * Pagination().pageSize() + 1)">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="text: formatPrice(Math.min(TotalReviews(), Pagination().pageNumber() * Pagination().pageSize()))">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="text: formatPrice(TotalReviews())">@Model.Pager.TotalResults</span> reviews</p>
+                                <p><span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="CurrencyText: Math.min(TotalReviews(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalReviews()">@Model.Pager.TotalResults</span> reviews</p>
                             </div>
                             @if (Model.Pager.TotalResults > 8)
                             {
@@ -108,7 +108,7 @@
                         </div>
                     </div>
                 }
-                else
+                else if (!Model.IsPagerNeeded)
                 {
                     <div class="view-all-btn-container margin-left20 padding-bottom20">
                         <a title="Read more reviews" class="bw-ga btn view-all-target-btn" href="@string.Format("/m/{0}-bikes/{1}/reviews/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName)">Read more reviews<span class="bwmsprite teal-right"></span></a>

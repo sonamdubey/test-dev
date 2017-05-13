@@ -207,7 +207,8 @@ var UserReviews = function () {
                 "CustomerEmail": summary.customerEmail,
                 "BikeName": summary.make.makeName + " " + summary.model.modelName,
                 "MakeMaskingName": summary.model.maskingName,
-                "ModelMaskingName": summary.make.maskingName
+                "ModelMaskingName": summary.make.maskingName,
+                "ModelId" : summary.model.modelid
 
             };
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace Bikewale.Entities.UserReviews
 {
+    [Serializable]
     public class UserReviewSummary : BasicBikeEntityBase
     /// <summary>
     /// Modified by Sajal Gupta on 05-05-2017

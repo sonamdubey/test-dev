@@ -1,31 +1,13 @@
 var reviewId=0, modelid, vmUserReviews,modelReviewsSection ;
 
-var helpfulReviews = [
-    {
-        "comments": "",
-        "pros": null,
-        "cons": null,
-        "liked": 0,
-        "disliked": 0,
-        "viewed": 0,
-        "makeMaskingName": null,
-        "modelMaskingName": null,
-        "overAllRating": {
-            "overAllRating": 0
-        },
-        "reviewId": 0,
-        "reviewTitle": "",
-        "reviewDate": "",
-        "writtenBy": "test"
-    }
-];
+var helpfulReviews = [];
 
 var reviewCategory = {
-    1: 'helpful',
-    2: 'recent',
-    3: 'positive',
-    4: 'negative',
-    5: 'neutral'
+    2: 'helpful',
+    1: 'recent',
+    5: 'positive',
+    6: 'negative',
+    7: 'neutral'
 }
 
 var $window, overallSpecsTabsContainer, overallSpecsTab, specsFooter, topNavBarHeight;
@@ -190,7 +172,14 @@ docReady(function() {
             });
         }
     };
-    
+
+    ko.bindingHandlers.CurrencyText = {
+        update: function (element, valueAccessor) {
+            var amount = valueAccessor();
+            var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
+            $(element).text(formattedAmount);
+        }
+    };  
 
     var modelUserReviews = function () {
         var self = this;
@@ -272,7 +261,7 @@ docReady(function() {
             getReviews: function (element) {
                 var categoryId = Number(element.attr('data-category')),
                     pageNumber = Number(element.attr('data-page-num') || 1),
-                    categoryCount = Number(element.attr('data-count')),
+                    categoryCount = Number(element.attr('data-count'));
 
                 catTypes = element.attr('data-cattypes');
                 self.TotalReviews(categoryCount)
@@ -280,13 +269,6 @@ docReady(function() {
                 self.Filters()["pn"] = pageNumber || 1;
                 self.Filters()["so"] = categoryId;
                 self.Filters()["cat"] = catTypes;
-
-                if (categoryId != 2) {
-                    self.Filters()["so"] = 2;
-                }
-                else {
-                    self.Filters()["so"] = 1;
-                }
 
                 if (categoryCount) {
                     self.reviewsAvailable(true);

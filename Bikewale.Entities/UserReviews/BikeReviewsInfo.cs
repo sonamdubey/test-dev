@@ -1,7 +1,9 @@
 ﻿using Bikewale.Entities.BikeData;
+using System;
 
 namespace Bikewale.Entities.UserReviews
 {
+    [Serializable]
     public class BikeReviewsInfo : BasicBikeEntityBase
     {
         public uint TotalReviews { get; set; }

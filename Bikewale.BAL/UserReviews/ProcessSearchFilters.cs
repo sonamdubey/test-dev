@@ -17,7 +17,8 @@ namespace Bikewale.BAL.UserReviews.Search
     public class UserReviewsSearch : IUserReviewsSearch
     {
         ProcessedInputFilters filterInputs = null;
-        string whereClause = string.Empty;
+        private string whereClause = string.Empty;
+        private uint _maxRecords = 24;
 
         private readonly IPager _pager = null;
         private readonly IUserReviewsRepository _objUserReviewrRepo = null;
@@ -55,7 +56,7 @@ namespace Bikewale.BAL.UserReviews.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.GetUsedBikesList");
+                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.GetUserReviewsSearchBikesList");
 
             }
 
@@ -70,6 +71,7 @@ namespace Bikewale.BAL.UserReviews.Search
         private string GetSearchResultQuery(InputFilters inputFilters)
         {
             string searchQuery = string.Empty;
+            bool SkipRecordsLimit = (inputFilters.PN * inputFilters.PS) > _maxRecords;
 
             InitSearchQuery(inputFilters);
 
@@ -81,11 +83,11 @@ namespace Bikewale.BAL.UserReviews.Search
                                                order by {3} limit {4},{5};
                                             
                                                select found_rows() as RecordCount;"
-                                            , GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), filterInputs.StartIndex - 1, filterInputs.PageSize);
+                    , GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), (SkipRecordsLimit) ? filterInputs.StartIndex - 1 : 0, (SkipRecordsLimit) ? filterInputs.PageSize : (int)_maxRecords);
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.GetSearchResultQuery");
+                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.SearchQuery.GetSearchResultQuery");
 
             }
 
@@ -249,7 +251,7 @@ namespace Bikewale.BAL.UserReviews.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.InitSearchQuery");
+                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.SearchQuery.InitSearchQuery");
 
             }
         }
@@ -315,7 +317,7 @@ namespace Bikewale.BAL.UserReviews.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplyBikeFilter");
+                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.SearchQuery.ApplyBikeFilter");
             }
         }
 
@@ -343,7 +345,7 @@ namespace Bikewale.BAL.UserReviews.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplySellerTypeFilter");
+                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.SearchQuery.ApplySellerTypeFilter");
             }
         }
 
@@ -373,7 +375,7 @@ namespace Bikewale.BAL.UserReviews.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.GetSelectClause");
+                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.SearchQuery.GetSelectClause");
             }
 
             return selectClause;
@@ -393,7 +395,7 @@ namespace Bikewale.BAL.UserReviews.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.GetFromClause");
+                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.SearchQuery.GetFromClause");
             }
 
             return fromClause;
@@ -429,6 +431,9 @@ namespace Bikewale.BAL.UserReviews.Search
                         orderBy = " ifnull(ur.entrydate,ur.lastmoderateddate) desc "; //most recent
                         break;
                     case 2:
+                    case 5:
+                    case 6:
+                    case 7:
                         orderBy = " bucket, helpfulness desc "; //most helpful
                         break;
                     case 3:
@@ -453,7 +458,7 @@ namespace Bikewale.BAL.UserReviews.Search
 
         /// <summary>
         /// Created By: Aditi Srivastava on 16 Sep 2016
-        /// Description: Set previous and next page urls for api result of used bikes
+        /// Description: Set previous and next page urls for api result of UserReviewsSearch bikes
         /// </summary>
         /// <param name="filterInputs"></param>
         /// <param name="totalRecordCount"></param>
@@ -491,14 +496,14 @@ namespace Bikewale.BAL.UserReviews.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.Used.GetPrevNextUrl");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.GetPrevNextUrl");
 
             }
             return objPager;
         }
         /// <summary>
         /// Created By: Aditi Srivastava on 16 Sep 2016
-        /// Description: Set api url parameters according to filters for used bikes
+        /// Description: Set api url parameters according to filters for UserReviewsSearch bikes
         /// </summary>
         /// <param name="objFilters"></param>
         /// <returns></returns>
@@ -523,7 +528,7 @@ namespace Bikewale.BAL.UserReviews.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.Used.GetApiUrl");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.UserReviewsSearch.GetApiUrl");
 
             }
             return apiUrlstr;

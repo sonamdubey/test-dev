@@ -1,6 +1,8 @@
 ﻿
+using System;
 namespace Bikewale.Entities.UserReviews.Search
 {
+    [Serializable]
     public class InputFilters
     {
         public string Make { get; set; }

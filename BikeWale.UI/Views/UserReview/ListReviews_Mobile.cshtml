@@ -11,14 +11,17 @@
     Model.AdTags.Ad_300x100 = true;
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
-
-<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+@if (Model.RatingsInfo!=null)
+{
+  <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
     <meta itemprop="ratingValue" content="@Model.RatingsInfo.OverallRating.ToString("0.0")">
     <meta itemprop="worstRating" content="1">
     <meta itemprop="bestRating" content="5">
     <meta itemprop="itemreviewed" content="@Model.BikeName" />
     <meta itemprop="ratingCount" content="@Model.RatingsInfo.TotalRatings" />
-</span>
+</span>  
+}
+
 <section id="section-review-list" data-modelid="@Model.ModelId">
     <div class="container content-box-shadow card-bottom-margin">
         <h1 class="font20 padding-15-20 content-box-shadow">@Model.BikeName user reviews</h1>
@@ -30,7 +33,7 @@
                 <h2 class="margin-bottom5 font12">
                     <a href="/m@(Bikewale.Utility.UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName" class="text-black">@Model.BikeName</a>
                 </h2>
-                <p class="font11 text-light-grey">Ex-showroom, @BWConfiguration.Instance.DefaultName</p>
+                <p class="font11 text-light-grey">@(Model.ReviewsInfo.IsDiscontinued ? "Last known ": "") Ex-showroom, @BWConfiguration.Instance.DefaultName</p>
                 <span class="bwmsprite inr-xsm-icon"></span>
                 <span class="font16 text-bold">@Format.FormatNumeric(Model.RatingReviewData.Price.ToString())</span>
             </div>
@@ -143,7 +146,7 @@
                     <h2 class="h2-heading">@Model.ExpertReviews.Title</h2>
                 </div>
                 <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="/m/@Model.ExpertReviews.MoreExpertReviewUrl" title="@string.Format(@"{0} {1} Expert Reviews",Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" class="btn view-all-target-btn">View all</a>
+                    <a href="/m@(Model.ExpertReviews.MoreExpertReviewUrl)" title="@string.Format(@"{0} {1} Expert Reviews",Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" class="btn view-all-target-btn">View all</a>
                 </div>
                 <div class="clear"></div>
             </div>

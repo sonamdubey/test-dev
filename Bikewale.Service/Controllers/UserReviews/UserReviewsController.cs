@@ -259,7 +259,6 @@ namespace Bikewale.Service.Controllers.UserReviews
         }
         #endregion
 
-
         #region User Reviews abuse
         /// <summary>
         /// Created by Sajal Gupta on 05-05-2017
