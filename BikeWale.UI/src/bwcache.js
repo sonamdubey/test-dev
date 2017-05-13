@@ -308,7 +308,9 @@ Description : WebStorage Library with cookie as a fallback.
                         var currentTime = (new Date()).getTime();
                         for (var i in storage) {
                             if (i.indexOf(_options.StoragePrefix) > -1) {
-                                var _item_ = JSON.parse(storage[i]) || {};
+                                var data = storage[i];
+                                if (_options.EnableEncryption && data) data = decode(data);
+                                var _item_ = JSON.parse(data) || {};
                                 var time = _item_.expiryTime || 1;
                                 if (time < currentTime) storage.removeItem(i);
 

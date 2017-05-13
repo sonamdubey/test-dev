@@ -3,6 +3,10 @@ using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
 namespace Bikewale.Models.UserReviews
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 7th May 2017
+    /// Description : Viewmodel for user reviews listing page
+    /// </summary>
     public class UserReviewListingVM : ModelBase
     {
         public uint ModelId { get; set; }

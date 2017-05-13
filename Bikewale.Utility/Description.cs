@@ -18,20 +18,25 @@ namespace Bikewale.Utility
         public static string TruncateDescription(string _desc, int? maxLength = null)
         {
             int descLength = 170;
-            _desc = Regex.Replace(_desc, @"<[^>]+>", string.Empty);
-
-            Regex regex = new Regex(@"\W+");
-            _desc = regex.Replace(_desc, " ");
-            if (maxLength.HasValue) { descLength = maxLength.Value; }
-
-            if (_desc.Length < descLength)
-                return _desc;
-            else
+            if (!string.IsNullOrEmpty(_desc))
             {
-                _desc = _desc.Substring(0, (descLength - 5));
-                _desc = _desc.Substring(0, _desc.LastIndexOf(" "));
-                return _desc + "...";
+                _desc = Regex.Replace(_desc, @"<[^>]+>", string.Empty);
+
+                Regex regex = new Regex(@"\W+");
+                _desc = regex.Replace(_desc, " ");
+                if (maxLength.HasValue) { descLength = maxLength.Value; }
+
+                if (_desc.Length < descLength)
+                    return _desc;
+                else
+                {
+                    _desc = _desc.Substring(0, (descLength - 5));
+                    _desc = _desc.Substring(0, _desc.LastIndexOf(" "));
+                    return _desc + "...";
+                }
             }
+            return _desc;
+
         }
         /// <summary>
         /// To remove all the HTML tags from text

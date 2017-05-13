@@ -26,11 +26,17 @@ namespace Bikewale.Controllers
         private readonly ICMSCacheContent _objArticles = null;
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 7th May 2017
+        /// Description : Constructor to resolve dependencies
         /// </summary>
+        /// <param name="objArticles"></param>
+        /// <param name="cityCache"></param>
         /// <param name="bikeInfo"></param>
+        /// <param name="userReviewsCacheRepo"></param>
         /// <param name="userReviews"></param>
-
+        /// <param name="objModel"></param>
+        /// <param name="userReviewsRepo"></param>
+        /// <param name="userReviewsSearch"></param>
         public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo, IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch)
         {
 
@@ -44,6 +50,14 @@ namespace Bikewale.Controllers
             _objArticles = objArticles;
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 7th May 2017
+        /// Description : Action method for mobile user reviews section
+        /// </summary>
+        /// <param name="makeMasking"></param>
+        /// <param name="modelMasking"></param>
+        /// <param name="pageNo"></param>
+        /// <returns></returns>
         [Route("m/{makeMasking}-bikes/{modelMasking}/reviews/")]
         public ActionResult ListReviews_Mobile(string makeMasking, string modelMasking, uint? pageNo)
         {
@@ -60,7 +74,6 @@ namespace Bikewale.Controllers
                 {
                     return View(objVM);
                 }
-
             }
             else if (objData.Status.Equals(StatusCodes.RedirectPermanent))
             {

@@ -1,10 +1,13 @@
-﻿using Bikewale.Cache.Core;
+﻿using Bikewale.BAL.UserReviews.Search;
+using Bikewale.Cache.Core;
 using Bikewale.Cache.UserReviews;
 using Bikewale.Common;
 using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -62,7 +65,9 @@ namespace Bikewale.Mobile.Controls
             {
                 container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
                     .RegisterType<ICacheManager, MemcacheManager>()
-                    .RegisterType<IUserReviewsRepository, UserReviewsRepository>();
+                    .RegisterType<IUserReviewsRepository, UserReviewsRepository>()
+                 .RegisterType<IUserReviewsSearch, UserReviewsSearch>();
+                container.RegisterType<IPager, BAL.Pager.Pager>();
 
                 objUserReviews = container.Resolve<IUserReviewsCache>();
 

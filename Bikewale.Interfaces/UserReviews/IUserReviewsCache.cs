@@ -9,6 +9,8 @@ namespace Bikewale.Interfaces.UserReviews
     /// Description :   Add GetUserReviews to store old user reviews
     /// Modified by Sajal Gupta on 05-05-2017
     /// Description : Added GetUserReviewSummaryWithRating, GetUserReviewsIdMapping
+    /// Modified By : Sushil Kumar on 7th May 2017
+    /// Description : Added methods to get bike reviews by search query and bike reviews and ratings info
     /// </summary>
     public interface IUserReviewsCache
     {

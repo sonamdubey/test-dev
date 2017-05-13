@@ -122,6 +122,7 @@ function reportAbuse() {
 docReady(function () {
 
     bwcache.setOptions({ 'EnableEncryption': true });
+
     bwcache.removeAll(true);
 
     modelReviewsSection = $("#modelReviewsListing");
@@ -239,13 +240,11 @@ docReady(function () {
                 var eleSection = $("#modelReviewsListing");
                 ko.applyBindings(self, eleSection[0]);
 
-                self.Filters()["make"] = self.Filters()["make"] || eleSection.data("make") || "";
-
-                self.Filters()["model"] = self.Filters()["model"] || eleSection.data("model") || "";
 
                 self.Filters()["cat"] = self.Filters()["cat"] || eleSection.data("cat") || "";
-
-                self.Filters()["order"] = self.Filters()["order"] || eleSection.data("order") || "";
+                self.Filters()["pn"] = self.Filters()["pn"] || eleSection.data("pn") || "";
+                self.Filters()["ps"] = self.Filters()["ps"] || eleSection.data("ps") || "";
+                self.Filters()["so"] = self.Filters()["so"] || eleSection.data("so") || "";
 
                 var filterType = $(e.target).data("category");
                 if (filterType && filterType != "0") {
@@ -382,7 +381,6 @@ docReady(function () {
             var qs = self.QueryString();
 
             if (self.PreviousQS() != qs) {
-
                 self.IsLoading(true);
                 self.PreviousQS(qs);
                 var cacheKey = "UserReviews_mo_" + modelid + "_cat_" + self.Filters()["so"] + "_pn_" + self.Filters()["pn"] + "_ps_" + self.Filters()["ps"];
@@ -395,7 +393,7 @@ docReady(function () {
                             self.activeReviewList(response.result);
                             self.TotalReviews(response.totalCount);
                             self.noReviews(false);
-                            bwcache.set({'key' : cacheKey,'value' :  response,'expiryTime' : 30});
+                            bwcache.set({ 'key': cacheKey, 'value': response, 'expiryTime': 30 });
                         }
 
                     })
@@ -425,24 +423,19 @@ docReady(function () {
         self.setPageFilters = function (e) {
             var currentQs = window.location.hash.substr(1);
             if (currentQs != "") {
+                vmUserReviews.IsLoading(true);
                 var _filters = currentQs.split("&"), objFilter = {};
                 for (var i = 0; i < _filters.length; i++) {
                     var f = _filters[i].split("=");
                     self.Filters()[f[0]] = f[1];
                 }
-                self.CurPageNo((self.Filters()["pageNo"] ? parseInt(self.Filters()["pageNo"]) : 0));
+                self.CurPageNo((self.Filters()["pn"] ? parseInt(self.Filters()["pn"]) : 0));
+                if (self.Filters()["so"]) {
+                    var ele = $("#overallSpecsTab ul li[data-category='" + self.Filters()["so"] + "']");
+                    self.tabEvents.toggleTab(ele);
+                    self.init(e);
+                };
 
-                if (self.Filters()["make"] && self.Filters()["make"] != "") {
-                    var selOption = $("#brand-slideIn-drawer ul li[data-makeid='" + self.Filters()["make"] + "']");
-                    self.selectedMake(selOption.data("makename"));
-                }
-
-                if (self.Filters()["yearLaunch"] && self.Filters()["yearLaunch"] != "") {
-                    var selOption = $("#year-slideIn-drawer ul li[data-bikeyear='" + self.Filters()["yearLaunch"] + "']");
-                    self.selectedYear(selOption.data("bikeyear"));
-                }
-
-                self.init(e);
             }
 
         };
@@ -453,8 +446,9 @@ docReady(function () {
 
     $("#overallSpecsTab ul li , #pagination-list-content ul li").click(function (e) {
         if (vmUserReviews && !vmUserReviews.IsInitialized()) {
-            vmUserReviews.init(e);
+            vmUserReviews.IsLoading(true);
             $('html, body').scrollTop(modelReviewsSection.offset().top);
+            vmUserReviews.init(e);
             return false;
         }
     });
@@ -502,4 +496,6 @@ docReady(function () {
     var checkedStar = $('input[name=rate-bike]:checked').val();
     if (checkedStar)
         document.getElementById('rate-star-' + parseInt(checkedStar)).checked = false;
+
+    vmUserReviews.setPageFilters(e);
 });

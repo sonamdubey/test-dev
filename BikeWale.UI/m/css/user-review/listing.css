@@ -608,3 +608,12 @@ h1,
   .pagination-list-content .pagination-list a {
     font-size: 12px;
     min-width: 22px; } }
+
+#sort-filters-loader {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(245, 245, 245, 0.95);
+  z-index: 4; }

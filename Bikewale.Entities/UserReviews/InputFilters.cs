@@ -2,6 +2,10 @@
 using System;
 namespace Bikewale.Entities.UserReviews.Search
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 7th May 2017
+    /// Description : Class for inut filters to be applied on user reviews listing page
+    /// </summary>
     [Serializable]
     public class InputFilters
     {

@@ -3,7 +3,7 @@
 {
     <div class="rating-box inline-block">
         <span class="bwsprite star-one"></span>
-        <span class="font14 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating</span><span class="padding-left2 font12 text-light-grey">/5</span>
+        <span class="font14 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span><span class="padding-left2 font12 text-light-grey">/5</span>
     </div>
     <div class="review-box font14 inline-block">
         <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">

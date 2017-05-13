@@ -45,6 +45,7 @@ namespace Bikewale.Mobile.Content
                                  .RegisterType<ICacheManager, MemcacheManager>()
                                  .RegisterType<IUserReviewsSearch, UserReviewsSearch>()
                                  .RegisterType<IPager, Pager>();
+                    container.RegisterType<IPager, BAL.Pager.Pager>();
 
                     _userReviewsCache = container.Resolve<IUserReviewsCache>();
 

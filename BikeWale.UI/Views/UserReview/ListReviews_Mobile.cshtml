@@ -14,7 +14,7 @@
 @if (Model.RatingsInfo!=null)
 {
   <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-    <meta itemprop="ratingValue" content="@Model.RatingsInfo.OverallRating.ToString("0.0")">
+      <meta itemprop="ratingValue" content="@Model.RatingsInfo.OverallRating.ToString("0.0").TrimEnd('0', '.')">
     <meta itemprop="worstRating" content="1">
     <meta itemprop="bestRating" content="5">
     <meta itemprop="itemreviewed" content="@Model.BikeName" />
@@ -49,16 +49,16 @@
                     <p class="font12 text-default margin-bottom10">Overall rating:</p>
                     <div class="margin-bottom10 rate-count-@Math.Round(Model.RatingsInfo.OverallRating)">
                         <span class="bwmsprite star-icon"></span>
-                        <span class="font26 text-bold inline-block">@Model.RatingsInfo.OverallRating.ToString("0.0")</span>
+                        <span class="font26 text-bold inline-block">@Model.RatingsInfo.OverallRating.ToString("0.0").TrimEnd('0', '.')</span>
                     </div>
                     <div class="font12 text-slate-grey border-light-top padding-top10">
                         @if(Model.IsRatingsAvailable)
                         {
-                            <p class="margin-bottom5">@Model.RatingsInfo.TotalRatings ratings</p>
+                            <p class="margin-bottom5">@Model.RatingsInfo.TotalRatings @(Model.RatingsInfo.TotalRatings > 0 ? "ratings" : "rating")</p>
                         }
                         @if (Model.IsReviewsAvailable)
                         {
-                            <p>@Model.RatingsInfo.TotalReviews reviews</p>
+                            <p>@Model.RatingsInfo.TotalReviews @(Model.RatingsInfo.TotalReviews > 0 ? "reviews" : "review")</p>
                         }
 
                     </div>
@@ -166,7 +166,7 @@
                         <h2 class="h2-heading">Reviews of similar bikes</h2>
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@string.Format("/m/{0}-bikes/{1}/reviews/", Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" title="@string.Format(@"{0} {1} User reviews",Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" class="btn view-all-target-btn">View all</a>
+                        <a href="/m/user-reviews/" title="@string.Format(@"{0} {1} User reviews",Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" class="btn view-all-target-btn">View all</a>
                     </div>
                     <div class="clear"></div>
                 </div>
