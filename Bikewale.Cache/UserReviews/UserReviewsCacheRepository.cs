@@ -4,9 +4,9 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Notifications;
-using System.Linq;
 using System;
 using System.Collections;
+using System.Linq;
 
 namespace Bikewale.Cache.UserReviews
 {
@@ -129,13 +129,13 @@ namespace Bikewale.Cache.UserReviews
                         key += "_PN_1_PS_24";
                     }
 
-                    reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan(24, 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
+                    reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan(12, 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
 
-                    if(reviews!=null && reviews.Result!=null && !skipDataLimit)
+                    if (reviews != null && reviews.Result != null && !skipDataLimit)
                     {
-                        if(inputFilters.PN!=1)
+                        if (inputFilters.PN != 1)
                         {
-                            reviews.Result = reviews.Result.Skip((inputFilters.PN-1) * inputFilters.PS); 
+                            reviews.Result = reviews.Result.Skip((inputFilters.PN - 1) * inputFilters.PS);
                         }
 
                         reviews.Result = reviews.Result.Take(inputFilters.PS);

@@ -170,7 +170,7 @@ Description : WebStorage Library with cookie as a fallback.
                     if (_options.EnableEncryption && data) data = decode(data);
                     var _item_ = JSON.parse(data) || {};
                     if (Object.keys(_item_).length !== 0 && !_item_.expiryTime || _item_.expiryTime === 0 || ((new Date()).getTime() <= _item_.expiryTime))
-                        return _item_; //if exists returns value else return null
+                        return _item_.value ? _item_.value : _item_; //if exists returns value else return null
                 }
                 else { errorLog(2); }
             }
@@ -222,7 +222,7 @@ Description : WebStorage Library with cookie as a fallback.
                 if (_webStorageSupported) {
                     var storage = ((isSession && typeCheck(isSession, 'boolean')) || _options.IsSessionStorage) ? window.sessionStorage : window.localStorage;
                     if (typeCheck(key, 'object')) {
-                        return getbyExpiry(createKey(key.key), key.expiry, (!key.isSession) ? storage : window.sessionStorage);
+                        return getbyExpiry(createKey(key.key), key.expiryTime, (!key.isSession) ? storage : window.sessionStorage);
                     }
                     else return getbyKey(key, storage);
                 }
@@ -355,8 +355,8 @@ Description : WebStorage Library with cookie as a fallback.
 		            else if (typeCheck(item.expiryTime, 'boolean')) {
 		                item.expiryTime = 0;
 		            }
-		            if (item.val != null || _options.AllowNullSave) {
-		                var data = JSON.stringify(item.val);
+		            if (item.value != null || _options.AllowNullSave) {
+		                var data = JSON.stringify(item);
 		                if (_options.EnableEncryption && data) data = encode(data);
 		                storage.setItem(item.key, data);
 		                return true;
@@ -382,12 +382,12 @@ Description : WebStorage Library with cookie as a fallback.
             try {
                 key = createKey(key);
                 if (_webStorageSupported) {
-                    var _item_ = { 'key': key, 'val': value };
+                    var _item_ = { 'key': key, 'value': value };
                     var storage = ((isSession && typeCheck(isSession, 'boolean')) || (typeCheck(isSession, 'undefined') && typeCheck(value, 'boolean')) || _options.IsSessionStorage) ? window.sessionStorage : window.localStorage;
                     if (typeCheck(key, 'object')) {
                         _item_ = {
                             'key': createKey(key.key, key.scope ? key.scope : ''),
-                            'val': key.value
+                            'value': key.value
                         };
                         if (key.expiryTime) _item_.expiryTime = key.expiryTime || 0;
 
