@@ -40,7 +40,7 @@ var UserReviews = function () {
         if (self.selectedMakeId() && self.selectedMakeId() > 0) {
             $.ajax({
                 type: "GET",
-                url: "api/models/makeid/" + self.selectedMakeId() + "/requesttype/8/",
+                url: "/api/models/makeid/" + self.selectedMakeId() + "/requesttype/8/",
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (response) {
@@ -159,7 +159,8 @@ var UserReviews = function () {
                 "CustomerEmail" : summary.customerEmail,
                 "BikeName" : summary.make.makeName + " " + summary.model.modelName,
                 "MakeMaskingName" : summary.model.maskingName,
-                "ModelMaskingName" : summary.make.maskingName
+                "ModelMaskingName": summary.make.maskingName,
+                "ModelId": summary.model.modelId
 
             };
 
@@ -208,7 +209,7 @@ var UserReviews = function () {
                 "BikeName": summary.make.makeName + " " + summary.model.modelName,
                 "MakeMaskingName": summary.model.maskingName,
                 "ModelMaskingName": summary.make.maskingName,
-                "ModelId" : summary.model.modelid
+                "ModelId" : summary.model.modelId
 
             };
 
