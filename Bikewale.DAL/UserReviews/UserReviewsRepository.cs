@@ -1248,6 +1248,7 @@ namespace Bikewale.DAL.UserReviews
                                 },
                                 OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                 HostUrl = Convert.ToString(dr["hostUrl"]),
+                                IsDiscontinued = SqlReaderConvertor.ToBoolean(dr["IsDiscontinued"]),
                                 TotalReviews = SqlReaderConvertor.ToUInt32(dr["totalreviews"]),
                                 MostHelpfulReviews = SqlReaderConvertor.ToUInt32(dr["totalreviews"]),
                                 MostRecentReviews = SqlReaderConvertor.ToUInt32(dr["totalreviews"]),

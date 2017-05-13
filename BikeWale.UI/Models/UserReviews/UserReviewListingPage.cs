@@ -109,6 +109,7 @@ namespace Bikewale.Models.UserReviews
                         {
                             objData.ReviewsInfo.Make = objData.RatingsInfo.Make;
                             objData.ReviewsInfo.Model = objData.RatingsInfo.Model;
+                            objData.ReviewsInfo.IsDiscontinued = objData.RatingsInfo.IsDiscontinued;
                             objUserReviews.ReviewsInfo = objData.ReviewsInfo;
                         }
 
