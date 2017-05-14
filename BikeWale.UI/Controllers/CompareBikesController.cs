@@ -41,6 +41,24 @@ namespace Bikewale.Controllers
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
         }
+        // GET: CompareBikes
+        [Route("m/compare/")]
+        public ActionResult Index_Mobile()
+        {
+            CompareIndex objCompare = new CompareIndex(_cachedCompare, _compareTest);
+
+            if (objCompare != null)
+            {
+                CompareVM CompareVM = null;
+
+                CompareVM = objCompare.GetData();
+                return View(CompareVM);
+            }
+            else
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
+        }
 
         // GET: CompareBikes Details
         [Route("compare/details/")]

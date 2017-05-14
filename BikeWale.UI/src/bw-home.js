@@ -127,12 +127,12 @@ function isValidInfoOnRoad() {
 
 function getPriceQuoteOnRoad() {
     var cityId = viewModelOnRoad.selectedCity(), areaId = viewModelOnRoad.selectedArea() ? viewModelOnRoad.selectedArea() : 0;
-    if($('#jsvalues').length > 0){
+    var ele = $('#btnDealerPriceOnRoad');
+    if ($('#jsvalues').length > 0) {
       clientip =  $('#jsvalues').data('clientip');
     }
     if (isValidInfoOnRoad()) {
-
-        if (cityId != onCookieObj.PQCitySelectedId || areaId > 0)
+         if (cityId != onCookieObj.PQCitySelectedId || areaId > 0)
             setLocationCookie($('#ddlCitiesOnRoad option:selected'), $('#ddlAreaOnRoad option:selected'));
         var obj = {
             'CityId': viewModelOnRoad.selectedCity(),
@@ -141,7 +141,7 @@ function getPriceQuoteOnRoad() {
             'ClientIP': clientip,
             'SourceType': '1',
             'VersionId': 0,
-            'pQLeadId': '@Convert.ToInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_New_PQ_Widget)',
+            'pQLeadId': ele.attr('data-pqleadid'),
             'deviceId': getCookie('BWC')
         };
 
@@ -180,7 +180,7 @@ function getPriceQuoteOnRoad() {
                         gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
                     }
 
-                    window.location = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
+                    window.location = "/pricequote/dealer/?MPQ=" + Base64.encode(cookieValue);
 
                 } else {
                     gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);

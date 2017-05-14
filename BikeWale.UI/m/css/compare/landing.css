@@ -1,17 +1,44 @@
 ﻿/* common */
-.padding-15-20 {
-    padding: 15px 20px;
-}
-
-.card-bottom-margin {
-    margin-bottom: 10px;
-}
-
 .margin-bottom3 {
     margin-bottom: 3px;
 }
 
+.font-bold {
+    font-weight: 700;
+}
+
+.text-bold {
+    font-weight: 600 !important;
+}
+
+.bw-tabs-flex.margin-bottom10 {
+    margin-bottom: 10px;
+}
+
+/* top card */
+.compare-landing-banner {
+    background: #8d8c8a url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/dealer-locator-banner.jpg) no-repeat center bottom;
+    background-size: cover;
+    height: 130px;
+    padding-top: 1px;
+}
+
+.banner-box-shadow {
+    background: #fff;
+    margin-top: -25px;
+    -moz-box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    -o-box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    -ms-box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    border-radius: 2px;
+}
+
 /* comparison main card */
+#compare-bike-landing {
+    min-height: 135px;
+}
+
 .bike-details-block {
     width: 50%;
     padding: 10px;
@@ -19,8 +46,11 @@
     position: relative;
 }
 
+.bike-details-block.match-height .compare-box-placeholder {
+    min-height: 204px
+}
+
 .comparison-main-card .bike-details-block:nth-of-type(1) {
-    position: relative;
     padding-right: 15px;
 }
 
@@ -32,7 +62,6 @@
     content: '';
     width: 1px;
     height: 94%;
-    border-right: 1px solid #ccc;
     position: absolute;
     top: 2.5%;
     right: 0;
@@ -55,6 +84,15 @@
     width: 82%;
 }
 
+.selected-bike-box {
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.comparison-main-card .bike-details-block.match-height:nth-of-type(2) .selected-bike-box {
+    padding-right: 10px;
+}
+
 .bike-details-block .btn-white {
     width: 134px;
     font-size: 12px;
@@ -66,7 +104,7 @@
 .bike-details-block .cross-sm-dark-grey {
     width: 20px;
     height: 20px;
-    top: 2px;
+    top: 5px;
     background-position: -80px -236px;
     cursor: pointer;
 }
@@ -76,7 +114,7 @@
 }
 
 .bike-details-block .bike-image-block {
-    width: 110px;
+    width: 121px;
 }
 
 .bike-details-block .bike-title-target {
@@ -97,7 +135,7 @@
 /* compare-box-placeholder */
 .compare-box-placeholder {
     width: 100%;
-    height: 210px;
+    height: 143px;
     background: #f5f5f5;
     display: table;
     text-align: center;
@@ -121,6 +159,42 @@
     background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/grey-bike.png) no-repeat;
     display: inline-block;
     margin-bottom: 12px;
+}
+
+/*popular comparison*/
+.comparison-swiper .swiper-slide,
+.comparison-swiper .swiper-card {
+    width: 310px;
+    min-height: 210px;
+}
+.comparison-swiper .card-target {
+    padding-top: 5px;
+    padding-bottom: 15px;
+    display: block;
+}
+.model-img-content {
+    width: 126px;
+    height: 71px;
+    margin-bottom: 10px;
+    position: relative;
+}
+.comparison-swiper .card-target .grid-6:first-of-type {
+    position: relative;
+}
+.comparison-swiper .card-target .grid-6:first-of-type:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 45px;
+    width: 22px;
+    height: 21px;
+    background: url("https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png") no-repeat;
+    display: block;
+}
+.btn-140-32 {
+    font-size: 14px;
+    padding: 5px;
+    width: 140px;
 }
 
 /* bike popup */
@@ -193,35 +267,45 @@
     padding-bottom: 40px;
 }
 
-/* compare bikes list */
-.compare-bikes-list a {
+/* bike comparison card */
+.collapsible-content .main-content {
+    display: inline;
+}
+.collapsible-content .more-content {
+    display: none;
+}
+.collapsible-content.active .more-content {
+    display: inline;
+}
+
+/* comparison tests */
+.review-image-wrapper {
+    width:120px;
+    height:68px;
+    border:1px solid #e2e2e2;
+    display:inline-block;
+    vertical-align:top;
+    margin-right:10px;
+}
+
+.review-image-wrapper a {
     width: 100%;
-    min-height: 140px;
-    padding-top: 15px;
-    padding-bottom: 12px;
     display: block;
-    border-top: 1px solid #e2e2e2;
-    background: #fff;
-    overflow: hidden;
 }
 
-.compare-bikes-list li:first-child a {
-    border-top: 0;
+.review-image-wrapper img {
+    width: 100%;
+    height: 68px;
 }
 
-.compare-bikes-list .comparison-image {
-    width: 110px;
-    height: 62px;
-    margin-bottom: 5px;
-    overflow: hidden;
-    text-align: center;
+.review-heading-wrapper {
+    width: 55%;
+    display: inline-block;
+    vertical-align: top;
 }
 
-.compare-bikes-list img {
-    height: 61px;
-}
-
-section .same-version-toast{
+/* version toast */
+.same-version-toast{
     padding: 20px;
     background-color: #333;
     font-size: 14px;

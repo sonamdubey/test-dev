@@ -136,22 +136,24 @@
     </section>
 }
 
+@if (Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
+{
+    <section>
+        <div class="container card-bottom-margin">
+            <div class="grid-12">
+                <h2 class="section-heading">Comparison tests</h2>
+                <div class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 font14 article-list">
 
-<section>
-    <div class="container card-bottom-margin">
-        <div class="grid-12">
-            <h2 class="section-heading">Comparison tests</h2>
-            <div class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 font14 article-list">
-                
-                @Html.Partial("~/Views/ComparisonTest/_ComparisonTestWidget.cshtml", Model.ArticlesList)
-                
-                <div class="padding-left10 more-article-target view-all-btn-container">
-                    <a title="Comparison Test" href="/comparison-tests/" class="btn view-all-target-btn">
-                        Read all reviews<span class="bwsprite teal-right"></span>
-                    </a>
+                    @Html.Partial("~/Views/ComparisonTest/_ComparisonTestWidget.cshtml", Model.ArticlesList)
+
+                    <div class="padding-left10 more-article-target view-all-btn-container">
+                        <a title="Comparison Test" href="/comparison-tests/" class="btn view-all-target-btn">
+                            Read all reviews<span class="bwsprite teal-right"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
-    </div>
-</section>
+    </section>
+}
