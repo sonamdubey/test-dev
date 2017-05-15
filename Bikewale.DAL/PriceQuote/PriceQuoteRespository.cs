@@ -513,6 +513,8 @@ namespace Bikewale.DAL.PriceQuote
         /// Description : Added makeId property to get makeId for dealers card widget 
         /// Modified By : Sushil Kumar on 8th June 2016
         /// Description : Added ismodelnew and isversion new data 
+        /// Modified By :   Sumit Kate on 15 May 2017
+        /// Description :   New sp version getversionpricesbymodelid
         /// </summary>
         /// <param name="modelId">Model Id</param>
         /// <param name="cityId">City Id </param>
@@ -528,7 +530,7 @@ namespace Bikewale.DAL.PriceQuote
 
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getversionpricesbymodelid";
+                    cmd.CommandText = "getversionpricesbymodelid_15052017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));

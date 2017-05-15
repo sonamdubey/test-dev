@@ -64,7 +64,7 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
-                if (campaign.InsertBWDealerCampaignRules(currentUserId, campaignId, cityId, dealerId, makeId, stateId, modelId))
+                if (campaign.InsertBWDealerCampaignRules(currentUserId, campaignId, dealerId, makeId, stateId, modelId))
                 {
                     lblGreenMessage.Text = "Rule(s) have been added !";
                 }

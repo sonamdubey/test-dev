@@ -1066,7 +1066,7 @@ namespace Bikewale.DAL.AutoBiz
             {
                 if (versionId > 0 && areaId > 0)
                 {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerslatlong_28042016"))
+                    using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerslatlong_15052017"))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 

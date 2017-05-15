@@ -56,8 +56,6 @@
                                 </th>
 								<th>Make</th>
                                 <th>Model</th>
-                                <th>State</th>
-                                <th>City</th>
                             </tr>
                     </HeaderTemplate>
                     <ItemTemplate>
@@ -67,8 +65,6 @@
                            </td>
                             <td><%# Eval("MakeName").ToString() %></td>
                             <td><%# Eval("ModelName").ToString() %></td>
-                            <td><%# Eval("StateName").ToString() %></td>
-                            <td><%# Eval("CityName").ToString() %></td>
                         </tr>
                     </ItemTemplate>
                     <FooterTemplate>
