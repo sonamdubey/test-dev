@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Configuration;
 namespace Bikewale.RabbitMq.LeadProcessingConsumer
 {
     public class BajajFinanceLeadEntity
