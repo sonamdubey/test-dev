@@ -999,3 +999,4 @@
 #prices-top-cities tr:nth-child(even) .city-name {
     padding-left: 20px
 }
+.select-box .chosen-container .chosen-results {overflow-y: scroll; max-height: 160px; padding-bottom: 20px; }

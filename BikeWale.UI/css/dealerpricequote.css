@@ -704,6 +704,7 @@
 }
 
 #ddlMfgDealers + .chosen-container .chosen-drop {
-    max-height: 190px;
+    max-height: 200px;
     overflow: hidden;
 }
+.select-box .chosen-container .chosen-results {overflow-y: scroll; max-height: 160px; padding-bottom: 20px; }
