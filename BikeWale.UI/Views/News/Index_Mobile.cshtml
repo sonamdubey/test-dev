@@ -9,6 +9,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    @{ 
+        var staticUrlPwa = Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA;
+    }
+
     @if (Model != null && Model.PageMetaTags != null)
     {
         if (!String.IsNullOrEmpty(Model.PageMetaTags.Title))
@@ -115,7 +119,7 @@
     <link rel="dns-prefetch" href="https://st.aeplcdn.com/">
     <link rel="dns-prefetch" href="https://st2.aeplcdn.com/">
     
-    <link rel="preload" href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA : "/Scripts")/vendor.bundle.js?@Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion" as="script"/>
+    <link rel="preload" href="@(!String.IsNullOrEmpty(staticUrlPwa) ? "https://st.aeplcdn.com" + staticUrlPwa : "/Scripts")/vendor.bundle.js?@Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion" as="script"/>
     <link rel="preload" href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA : "/Scripts")/app.bundle.js?@Bikewale.Utility.BWConfiguration.Instance.StaticAppFileVersion" as="script"/>
 
     <link rel="preload" href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion" as="script"/>
