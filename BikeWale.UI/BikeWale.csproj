@@ -1371,10 +1371,6 @@
       <DependentUpon>newsdetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\new\compare\CompareBike.aspx.cs">
-      <DependentUpon>CompareBike.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\new\compare\CompareBikeDetails.aspx.cs">
       <DependentUpon>CompareBikeDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1561,9 +1557,6 @@
     </Compile>
     <Compile Include="new\common\CompareBikes.cs" />
     <Compile Include="new\common\ModelPhotoGallery.cs" />
-    <Compile Include="new\compare\BikeComparison.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="new\compare\chooseBikesForComparison.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -2876,7 +2869,6 @@
     <Content Include="m\Insurance\Default.aspx" />
     <Content Include="m\news\Default.aspx" />
     <Content Include="m\news\newsdetails.aspx" />
-    <Content Include="m\new\compare\CompareBike.aspx" />
     <Content Include="m\new\compare\CompareBikeDetails.aspx" />
     <Content Include="m\new\newbikedealers\Default.aspx" />
     <Content Include="m\service\ServiceCenterList.aspx" />
@@ -3086,7 +3078,6 @@
     <Content Include="News\newsfeed.aspx" />
     <Content Include="News\Sitemap.aspx" />
     <Content Include="new\compare\CompareBikes.aspx" />
-    <Content Include="new\compare\default.aspx" />
     <Content Include="new\EMILoan.aspx" />
     <Content Include="new\locatenewbikedealers.aspx" />
     <Content Include="new\search_old.aspx" />
