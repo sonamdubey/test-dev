@@ -35,6 +35,11 @@ docReady(function () {
         }
     });
     $('#btnCompare').on('click', function () {
+        $.each(bikeDetails, function (i, val) {
+            val.index = i+1;
+
+        });
+
         bikeDetails.sort(function (a, b) {
             return a.modelId - b.modelId;
         });
@@ -49,9 +54,9 @@ docReady(function () {
         var querystring = "";
         $.each(bikeDetails, function (i, val) {
             if (i != bikeDetails.length - 1)
-                querystring += ("bike" + (i + 1) + "=" + val.versionId + "&");
+                querystring += ("bike" + (val.index) + "=" + val.versionId + "&");
             else
-                querystring += ("bike" + (i + 1) + "=" + val.versionId);
+                querystring += ("bike" + (val.index) + "=" + val.versionId);
 
         });
         window.location.href = window.location.domain + result + querystring;
@@ -343,6 +348,7 @@ docReady(function () {
                             data.modelmasking = response.modelDetails.maskingName;
                             data.modelId = response.modelDetails.modelId;
                             data.versionId = versionId;
+                            data.index = 0;
                             bikeDetails.push(data);
                             selectBox.first().find('.error-text').hide();
                             bwcache.set(key, response, 30);
@@ -366,6 +372,7 @@ docReady(function () {
                     data.modelmasking = response.modelDetails.maskingName;
                     data.modelId = response.modelDetails.modelId;
                     data.versionId = versionId;
+                    data.index = 0;
                     bikeDetails.push(data);
 
                 }
