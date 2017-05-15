@@ -62,7 +62,7 @@ namespace Bikewale.Models.ServiceCenters
                     objVM.City = new CityHelper().GetCityById(_cityId);
 
                 if (_makeId > 0)
-                    objVM.Make = new MakeHelper().GetMakeNameByMakeId(_makeId);
+                    objVM.Make = _bikeMakesCache.GetMakeDetails(_makeId);
 
                 objVM.ServiceCentersListObject = _objSC.GetServiceCentersByCity(_cityId, (int)_makeId);
                 objVM.NearByCityWidgetData = new ServiceCentersInNearByCities(_objSCCache, NearByCitiesWidgetTopCount, _cityId, objVM.Make).GetData();

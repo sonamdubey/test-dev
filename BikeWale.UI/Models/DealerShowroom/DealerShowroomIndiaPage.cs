@@ -1,5 +1,4 @@
 ﻿
-using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
@@ -61,7 +60,7 @@ namespace Bikewale.Models
             try
             {
 
-                objMake = new MakeHelper().GetMakeNameByMakeId(makeId);
+                objMake = _bikeMakesCache.GetMakeDetails(makeId);
                 if (objMake != null)
                     objDealerVM.Make = objMake;
 
