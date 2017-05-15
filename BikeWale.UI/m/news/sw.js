@@ -1,6 +1,6 @@
 (global => {
 
-	const version = '' // version
+	const version = '1' // version
 	var SIZE_0_0 = '0x0';
 	var SIZE_110_61 = '110x61';
 	var SIZE_160_89 = '160x89';
@@ -36,7 +36,7 @@
 									cache : {
 										name : 'api',
 										maxAgeSeconds : 86400,
-										maxEntries : 50
+										maxEntries : 100
 									}
 								})
 	

@@ -105,6 +105,9 @@ namespace Bikewale.Utility
         private uint _GrpcMaxTimeLimit = 100;
         private uint _GrpcPoolSize = 1;
         private bool _EnablePWALogging=false;
+        private string _StaticUrlPWA;
+        private string _StaticAppFileVersion;
+        private string _StaticVendorFileVersion;
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
         {
@@ -191,6 +194,9 @@ namespace Bikewale.Utility
             _CoverFoxLink = Convert.ToString(ConfigurationManager.AppSettings["CoverFox"]);
             _pwaLocalCahceLimit = string.IsNullOrEmpty(ConfigurationManager.AppSettings["PwaLocalCahceLimit"]) ? 100 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaLocalCahceLimit"]);
             _EnablePWALogging = string.IsNullOrEmpty(ConfigurationManager.AppSettings["EnablePWALogging"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["EnablePWALogging"]);
+            _StaticUrlPWA = ConfigurationManager.AppSettings["StaticUrlPWA"];
+            _StaticAppFileVersion = ConfigurationManager.AppSettings["StaticAppFileVersion"];
+            _StaticVendorFileVersion = ConfigurationManager.AppSettings["StaticVendorFileVersion"];
         }
 
         // Static method to provide access to instance
@@ -328,5 +334,9 @@ namespace Bikewale.Utility
 
         public int PwaLocalCahceLimit { get { return _pwaLocalCahceLimit; } }
         public bool EnablePWALogging { get { return _EnablePWALogging; } }
+
+        public string StaticUrlPWA { get { return _StaticUrlPWA; } }
+        public string StaticAppFileVersion { get { return _StaticAppFileVersion; } }
+        public string StaticVendorFileVersion { get { return _StaticVendorFileVersion; } }
     }   // class
 }   // namespace
