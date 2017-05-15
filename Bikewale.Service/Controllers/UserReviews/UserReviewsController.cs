@@ -272,7 +272,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         {
             try
             {
-                string ip = CurrentUser.GetClientIP();
+                string ip = Bikewale.Utility.CurrentUser.GetClientIP();
 
                 NameValueCollection nvc = new NameValueCollection();
                 nvc.Add("par_reviewId", reviewId.ToString());
