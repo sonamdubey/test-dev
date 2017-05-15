@@ -17,7 +17,7 @@ namespace Bikewale.Models.UserReviews
     public class WriteReviewPageModel
     {
         private readonly IUserReviews _userReviews = null;
-        private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId;
+        private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId, _pageSourceID;
         private string _encodedString, _userName, _emailId;
         private ulong _customerId;
 
@@ -62,6 +62,7 @@ namespace Bikewale.Models.UserReviews
                 uint.TryParse(queryCollection["overallrating"], out _overAllRating);
                 ulong.TryParse(queryCollection["customerid"], out _customerId);
                 uint.TryParse(queryCollection["priceRangeId"], out _priceRangeId);
+                uint.TryParse(queryCollection["pagesourceid"], out _pageSourceID);
                 _userName = queryCollection["userName"];
                 _emailId = queryCollection["emailId"];
             }
@@ -105,6 +106,7 @@ namespace Bikewale.Models.UserReviews
 
                 objPage.ReviewId = _reviewId;
                 objPage.CustomerId = _customerId;
+                objPage.PageSourceId = _pageSourceID;
                 objPage.EncodedWriteUrl = _encodedString;
 
                 GetUserRatings(objPage);

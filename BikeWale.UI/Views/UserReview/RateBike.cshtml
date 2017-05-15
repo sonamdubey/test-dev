@@ -18,7 +18,7 @@
                                 <h2 class="font18 margin-bottom10">How much do you like this bike?</h2>
                                 <p class="text-slate-grey">Consider looks & styling, performance, servicing experience, mileage etc. before you rate.</p>
 
-                                <div id="bike-rating-box">
+                                <div id="bike-rating-box" data-make-model="@string.Format("{0}_{1}_",Model.objModelEntity.MakeBase.MakeName, Model.objModelEntity.ModelName)">
                                     <div class="circle-placeholder">
                                         <span class="bwsprite" data-bind="css: ratingCount() > 0 ? 'feedback-' + ratingCount() : 'star-one'"></span>
                                     </div>
@@ -58,7 +58,7 @@
                                     </div>
 
                                     <div class="grid-6 alpha">
-                                        <div class="input-box" data-bind="css: userName().length > 0 ? 'not-empty' : ''">
+                                        <div class="input-box bw-ga" c="Rate_Bike" a="Name_Field_Focus" l="" data-bind="css: userName().length > 0 ? 'not-empty' : ''">
                                             <input type="text" id="txtUserName" name="userName" data-bind="textInput: userName" value="@(string.IsNullOrEmpty(Model.CustomerName) ? "" : Model.CustomerName)" />
                                             <label for="getUserName">Name<sup>*</sup></label>
                                             <span class="boundary"></span>
@@ -66,7 +66,7 @@
                                         </div>
                                     </div>
                                     <div class="grid-6 omega">
-                                        <div class="input-box" data-bind="css: emailId().length > 0 ? 'not-empty' : ''">
+                                        <div class="input-box  bw-ga" c="Rate_Bike" a="Email_Field_Focus" l="" data-bind="css: emailId().length > 0 ? 'not-empty' : ''">
                                             <input type="email" id="txtEmailID" name="emailId" data-bind="textInput: emailId" value="@(string.IsNullOrEmpty(Model.CustomerEmail) ? "" : Model.CustomerEmail)" />
                                             <label for="getEmailID">Email ID<sup>*</sup></label>
                                             <span class="boundary"></span>
@@ -83,7 +83,7 @@
                                     <input type="hidden" name="makeId" value="@Model.objModelEntity.MakeBase.MakeId" />
                                     <input type="hidden" name="ratingQuestionAns" id="rating-quesition-ans" />
                                     <input type="hidden" name="priceRangeId" value="@Model.PriceRangeId" />
-                                  
+                                    <input type="hidden" id="pageSourceId" name="pagesourceId" value="@Model.pagesourceId" />
                                     <input type="hidden" name="reviewId" value="@Model.ReviewId" />
                                     <input type="hidden" name="isDesktop" value="true" />
                                     <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />

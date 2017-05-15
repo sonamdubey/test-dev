@@ -344,7 +344,7 @@
                                                     %>
                                         <li>
                                             <a href="<%= Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Specification">
-                                                <span class="bwsprite specs-sm"></span>
+                                                <span class="bwsprite user-reviews-sm"></span>
                                                 <span class="icon-label">User Reviews</span>
                                             </a>
                                         </li>
@@ -354,7 +354,7 @@
                                               count++; %>
                                         <li>
                                             <a href="<%= Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Specification">
-                                                <span class="bwsprite specs-sm"></span>
+                                                <span class="bwsprite videos-sm"></span>
                                                 <span class="icon-label">Videos</span>
                                             </a>
                                         </li>
@@ -364,8 +364,8 @@
                                               count++; %>
                                         <li>
                                             <a href="<%=Bikewale.Utility.UrlFormatter.DealerLocatorUrl(bikeInfo.Make.MaskingName, CityDetails != null ? CityDetails.CityMaskingName : "india") %>" title="<%= bikeName %> Specification">
-                                                <span class="bwsprite specs-sm"></span>
-                                                <span class="icon-label">Videos</span>
+                                                <span class="bwsprite dealers-sm"></span>
+                                                <span class="icon-label">Dealers</span>
                                             </a>
                                         </li>
                                         <%} %>
