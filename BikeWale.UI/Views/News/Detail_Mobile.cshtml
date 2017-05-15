@@ -111,13 +111,17 @@
 
     </script>
 
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+    <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
+    <link rel="dns-prefetch" href="https://st.aeplcdn.com/">
+    <link rel="dns-prefetch" href="https://st2.aeplcdn.com/">
+    <link rel="preload" href="@Url.Content("/Scripts/vendor.bundle.js")" as="script">
+    <link rel="preload" href="@Url.Content("/Scripts/app.bundle.js")" as="script">
+    <link rel="preload" href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion" as="script">
+    <link rel="preload" href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st2.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/bwcache.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion" as="script">
+    <link rel="preload" href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion" as="script">
+    <link rel="preload" href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion" as="script">
 
-    <link rel="preload" href="@Url.Content("../../Scripts/vendor.bundle.js")" as="script">
-    <link rel="preload" href="@Url.Content("../../Scripts/app.bundle.js")" as="script">
-    <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/min/src/frameworks.js?19apr2017v1" as="script">
-    <link rel="preload" href="https://st2.aeplcdn.com/staging/bikewale/min/src/bwcache.js?19apr2017v1" as="script">
-    <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/min/m/src/Plugins.js?19apr2017v1" as="script">
-    <link rel="preload" href="https://st.aeplcdn.com/staging/bikewale/min/m/src/common.js?19apr2017v1" as="script">
 </head>
 <body>
 
@@ -195,12 +199,12 @@
 
         }        
         
-        var script_array = ["https://st.aeplcdn.com/staging/bikewale/pwa/build/vendorv2.bundle.js",
-                            "https://st.aeplcdn.com/staging/bikewale/pwa/build/appv2.bundle.js",
-                            "https://st.aeplcdn.com/staging/bikewale/min/src/frameworks.js?19apr2017v1",
-                            "https://st2.aeplcdn.com/staging/bikewale/min/src/bwcache.js?19apr2017v1",
-                            "https://st.aeplcdn.com/staging/bikewale/min/m/src/Plugins.js?19apr2017v1",
-                            "https://st.aeplcdn.com/staging/bikewale/min/m/src/common.js?19apr2017v1"
+        var script_array = ["@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/Scripts/vendor.bundle.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion",
+                        "@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/Scripts/app.bundle.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion",
+                        "@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion",
+                        "@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st2.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/bwcache.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion",
+                        "@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion",
+                        "@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"
         ];
       
         !function(e, t, r) {
@@ -221,7 +225,7 @@
     <script defer type="text/javascript">
         window.addEventListener('DOMContentLoaded', function() {
             if(navigator.serviceWorker) {
-                navigator.serviceWorker.register("@Url.Content("../swv2.js")").then(function(registration) {
+                navigator.serviceWorker.register("@Url.Content("/m/news/sw.js")").then(function(registration) {
                     registration.onupdatefound = function() {
                         var installingWorker = registration.installing;
                         installingWorker.onstatechange = function() {
