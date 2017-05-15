@@ -191,7 +191,14 @@
         };
     };
 
-    ko.applyBindings(new rateBikeVM(), document.getElementById("rate-bike-landing"));
+    var vmRateBikeVM = new rateBikeVM();
+
+    ko.applyBindings(vmRateBikeVM, document.getElementById("rate-bike-landing"));
+
+    var hashParameter = window.location.hash;
+    if (hashParameter == "#selectBike") {
+        vmRateBikeVM.openBikeSelection();
+    }
 
 
     $(window).on('popstate', function (event) {

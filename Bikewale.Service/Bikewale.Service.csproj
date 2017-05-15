@@ -250,6 +250,7 @@
     <Compile Include="AutoMappers\PriceQuote\DDQDealerDetailBaseMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\DPQuotationOutputMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Make\PQMakeListMapper.cs" />
+    <Compile Include="AutoMappers\PriceQuote\ManufacturingCampaign.cs" />
     <Compile Include="AutoMappers\PriceQuote\MobileVerification\PQMobVerifyMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Model\PQModelListMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\PQBikePriceQuoteOutputMapper.cs" />
@@ -300,6 +301,7 @@
     <Compile Include="Controllers\LeadsGeneration\ManufacturerLeadController.cs" />
     <Compile Include="Controllers\Make\DealerMakesController.cs" />
     <Compile Include="Controllers\Make\MakePageController.cs" />
+    <Compile Include="Controllers\Manufacturer\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\MobileAppAlerts\PushMobileAppAlertController.cs" />
     <Compile Include="Controllers\Model\ModelDescriptionController.cs" />
     <Compile Include="Controllers\Model\ModelPageController.cs" />
@@ -407,6 +409,7 @@
   <ItemGroup>
     <Folder Include="APISecurity\" />
     <Folder Include="Views\InsuranceLead\" />
+    <Folder Include="Views\ManufacturerCampaign\" />
     <Folder Include="Views\SplashScreen\" />
   </ItemGroup>
   <ItemGroup>

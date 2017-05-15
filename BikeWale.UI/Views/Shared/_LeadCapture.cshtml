@@ -55,11 +55,18 @@
                     </li>
                 </ul>
             </div>
-
-            <div class="clear"></div>
-            <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }" tabindex="5">Submit</a>
-            <p class="margin-top15 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
-        </div>
+            <div class="form-control-box personal-info-list position-rel" data-bind="visible: dealersRequired()">
+                <div class="select-box select-box-no-input full-width-select text-left">
+                    <p class="select-label">Select dealer</p>
+                    <select id="ddlMfgDealers" data-title="Select dealer" class="chosen-select margin-bottom10"></select>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+                <div class="clear"></div>
+                <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }" tabindex="5">Submit</a>
+                <p class="margin-top15 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+            </div>
     </div>
     <div id="dealer-lead-msg" class="hide">
         <div class="icon-outer-container rounded-corner50">
@@ -134,7 +141,10 @@
         self.dealerMessage = ko.observable();
         self.dealerDescription = ko.observable();
         self.pinCodeRequired = ko.observable();
+        self.dealersRequired = ko.observable();
         self.pincode = ko.observable();
+        //self.manufacturerDealer = ko.observable();
+        //self.manufacturerDealerCity = ko.observable();
         self.setOptions = function (options) {
             if (options != null) {
                 if (options.dealerid != null)
@@ -175,6 +185,8 @@
 
                 if (options.pinCodeRequired != null)
                     self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true);
+                if (options.dealersRequired != null)
+                    self.dealersRequired(options.dealersRequired != 'true' ? false : true);
 
                 if (options.isdealerbikes != null) {
                     self.isDealerBikes(options.isdealerbikes);
@@ -373,7 +385,6 @@
         self.submitCampaignLead = function (data, event) {
 
             self.pincode($("#getPinCode").val().trim());
-
             var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
 
             if (isValidCustomer && self.mfgCampaignId() > 0) {
@@ -391,7 +402,8 @@
                     "cityId": self.cityId(),
                     "leadSourceId": self.leadSourceId(),
                     "PinCode": self.pincode(),
-                    "deviceId": getCookie('BWC')
+                    "deviceId": getCookie('BWC'),
+                    "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id')
                 };
                 $.ajax({
                     type: "POST",
@@ -489,18 +501,13 @@
                 "pageurl": pageUrl,
                 "clientip": clientIP
             };
-
             self.setOptions(leadOptions);
-
             self.submitLead(d, e);
-
         };
 
         self.setPinCodeSuggestion = function () {
-
             $.fn.hint = bwHint;
             $.fn.bw_autocomplete = bwAutoComplete;
-
             $("#getPinCode").bw_autocomplete({
                 source: 4,
                 recordCount: 3,
@@ -594,7 +601,6 @@
                     }
                 }
             });
-
             return isValid;
         };
 
@@ -603,6 +609,9 @@
             isValid = self.validateUserName(inputName);
             isValid &= self.validateEmailId(inputEmail);
             isValid &= self.validateMobileNo(inputMobile);
+            if (self.dealersRequired()) {
+                isValid &= self.validateDealer();
+            }
             if (self.pinCodeRequired()) {
                 isValid &= self.validatePinCode();
                 if (isValid)
@@ -610,6 +619,17 @@
             }
             if (self.isDealerBikes())
                 isValid &= self.validateBike();
+            return isValid;
+        };
+
+        self.validateDealer = function (inputName) {
+            var isValid = false;
+            if ($('#ddlMfgDealers :selected').text() == "") {
+                validate.setError($('#ddlMfgDealers'), 'Please select dealer');
+            }
+            else {
+                isValid = true;
+            }
             return isValid;
         };
 

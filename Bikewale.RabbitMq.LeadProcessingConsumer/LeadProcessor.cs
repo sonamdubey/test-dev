@@ -28,7 +28,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         private QueueingBasicConsumer consumer;
         private NameValueCollection nvc = new NameValueCollection();
         private string _queueName, _hostName;
-        private uint _hondaGaddiId, _bajajFinanceId;
+        private uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId;
         public LeadConsumer()
         {
             try
@@ -41,6 +41,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 _RabbitMsgTTL = ConfigurationManager.AppSettings["RabbitMsgTTL"];
                 UInt32.TryParse(ConfigurationManager.AppSettings["HondaGaddiId"], out _hondaGaddiId);
                 UInt32.TryParse(ConfigurationManager.AppSettings["BajajFinanceId"], out _bajajFinanceId);
+                UInt32.TryParse(ConfigurationManager.AppSettings["RoyalEnfieldId"], out _RoyalEnfieldId);
                 InitConsumer();
                 _leadProcessor = new LeadProcessor();
 
@@ -101,7 +102,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     try
                     {
                         nvc = ByteArrayToObject(arg.Body);
-                        uint pqId, dealerId, pincodeId, leadSourceId, versionId, cityId;
+                        uint pqId, dealerId, pincodeId, leadSourceId, versionId, cityId, manufacturerDealerId;
                         LeadTypes leadType = default(LeadTypes);
                         if (nvc != null
                             && nvc.HasKeys()
@@ -116,6 +117,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             Enum.TryParse(nvc["leadType"], out leadType);
                             UInt32.TryParse(nvc["pincodeId"], out pincodeId);
                             UInt32.TryParse(nvc["LeadSourceId"], out leadSourceId);
+                            UInt32.TryParse(nvc["manufacturerDealerId"], out manufacturerDealerId);
 
                             PriceQuoteParametersEntity priceQuote = new PriceQuoteParametersEntity()
                             {
@@ -152,7 +154,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                                         success = PushDealerLead(priceQuote, pqId, iteration);
                                         break;
                                     case LeadTypes.Manufacturer:
-                                        success = PushManufacturerLead(priceQuote, pqId, pincodeId, leadSourceId, iteration);
+                                        success = PushManufacturerLead(priceQuote, pqId, pincodeId, leadSourceId, iteration, manufacturerDealerId);
                                         break;
                                     default:
                                         success = PushDealerLead(priceQuote, pqId, iteration);
@@ -197,7 +199,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
         }
 
-        private bool PushManufacturerLead(PriceQuoteParametersEntity priceQuote, uint pqId, uint pincodeId, uint leadSourceId, ushort iteration)
+        private bool PushManufacturerLead(PriceQuoteParametersEntity priceQuote, uint pqId, uint pincodeId, uint leadSourceId, ushort iteration, uint manufacturerDealerId)
         {
             bool isSuccess = false;
             try
@@ -205,10 +207,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 if (priceQuote != null)
                 {
                     Logs.WriteInfoLog(String.Format("Manufacturer Lead started processing."));
-
-
                     string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, priceQuote.VersionId, priceQuote.CityId, priceQuote.CampaignId);
-
                     ManufacturerLeadEntity leadEntity = new ManufacturerLeadEntity()
                     {
                         PQId = pqId,
@@ -220,7 +219,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         LeadSourceId = leadSourceId
 
                     };
-
 
                     if (_leadProcessor.SaveManufacturerLead(leadEntity))
                     {
@@ -238,10 +236,14 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             isSuccess = _leadProcessor.PushLeadToBajajFinance(priceQuote, pqId, pincodeId);
                             Logs.WriteInfoLog(String.Format("Bajaj Finance Lead submitted."));
                         }
+                        else if (priceQuote.DealerId == _RoyalEnfieldId)
+                        {
+                            Logs.WriteInfoLog(String.Format("Royal Enfield Lead started processing."));
+                            isSuccess = _leadProcessor.PushLeadToRoyalEnfield(priceQuote, pqId, manufacturerDealerId);
+                            Logs.WriteInfoLog(String.Format("Royal Enfield Lead submitted."));
+                        }
                     }
-
                     Logs.WriteInfoLog(String.Format("Manufacturer Lead submitted."));
-
                 }
             }
             catch (Exception ex)
@@ -437,7 +439,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             return isSuccess;
         }
 
-
         internal bool PushLeadToBajajFinance(PriceQuoteParametersEntity priceQuote, uint pqId, uint pincodeId)
         {
             bool isSuccess = false;
@@ -503,6 +504,39 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 Logs.WriteInfoLog(String.Format("PushLeadToBajajFinance : {0}", ex.Message));
             }
             return isSuccess;
+        }
+
+        /// <summary>
+        /// Pushes the lead to royal enfield.
+        /// </summary>
+        /// <param name="priceQuote">The price quote.</param>
+        /// <param name="pqId">The pq identifier.</param>
+        /// <param name="manufacturerDealerId">The manufacturer dealer identifier.</param>
+        /// <returns>
+        /// Created by : Sangram Nandkhile on 12-May-2017 
+        /// </returns>
+        internal bool PushLeadToRoyalEnfield(PriceQuoteParametersEntity priceQuote, uint pqId, uint manufacturerDealerId)
+        {
+            try
+            {
+                BikeQuotationEntity quotation = _repository.GetPriceQuoteById(pqId);
+                RoyalEnfieldDealer dealer = _repository.GetRoyalEnfieldDealerById(manufacturerDealerId);
+                RoyalEnfieldWebAPI.Service service = new RoyalEnfieldWebAPI.Service();
+                string token = ConfigurationManager.AppSettings["RoyalEnfieldToken"];
+                string response = service.Organic(priceQuote.CustomerName, priceQuote.CustomerMobile, "India", dealer.DealerState,
+                    dealer.DealerCity, priceQuote.CustomerEmail, quotation.ModelName, dealer.DealerName, "", "https://www.bikewale.com", token, "bikewale");
+                // service.affiliates((priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, dealer.DealerState, dealer.DealerCity, dealer.DealerName, quotation.ModelName, "https://www.bikewale.com", token, "bikewale");
+                if (!string.IsNullOrEmpty(response))
+                {
+                    _repository.UpdateManufacturerLead(pqId, priceQuote.CustomerEmail, priceQuote.CustomerMobile, response);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteInfoLog(String.Format("PushLeadToRoyalEnfield : {0}", ex.Message));
+            }
+            return false;
         }
 
         internal PriceQuoteParametersEntity GetPriceQuoteDetails(uint pqId)

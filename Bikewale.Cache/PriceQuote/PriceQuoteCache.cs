@@ -1,9 +1,11 @@
-﻿using Bikewale.Entities.PriceQuote;
+﻿using Bikewale.Entities;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Cache.PriceQuote
 {
@@ -83,6 +85,32 @@ namespace Bikewale.Cache.PriceQuote
                 ErrorClass objErr = new ErrorClass(ex, "PriceQuoteCache.GetOtherVersionsPrices");
             }
             return versions;
+        }
+
+        /// <summary>
+        /// Gets the manufacturer dealers.
+        /// </summary>
+        /// <param name="cityId">The city identifier.</param>
+        /// <returns>
+        /// Created by : Sangram Nandkhile on 10-May-2017 
+        /// </returns>
+        public IEnumerable<ManufactureDealer> GetManufacturerDealers(uint cityId)
+        {
+            IEnumerable<ManufactureDealer> dealers = null;
+            string key = "BW_Manufacturer_Dealers_All";
+            try
+            {
+                dealers = _cache.GetFromCache<IEnumerable<ManufactureDealer>>(key, new TimeSpan(24, 0, 0), () => _obPriceQuote.GetManufacturerDealers());
+                if (dealers != null && dealers.Count() > 0)
+                {
+                    dealers = (from d in dealers where d.CityId == cityId select d).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "PriceQuoteCache.GetManufacturerDealers");
+            }
+            return dealers;
         }
     }
 }

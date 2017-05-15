@@ -175,5 +175,16 @@ namespace Bikewale.BAL.PriceQuote
             return objPQ.GetVersionPricesByModelId(modelId, cityId, out hasArea);
         }
 
+
+        /// <summary>
+        /// Gets the manufacturer dealers.
+        /// </summary>
+        /// <returns>
+        /// Created by : Sangram Nandkhile on 10-May-2017 
+        /// </returns>
+        public IEnumerable<Entities.ManufactureDealer> GetManufacturerDealers()
+        {
+            return objPQ.GetManufacturerDealers();
+        }
     }   // class
 }   // namespace
