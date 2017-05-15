@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using RabbitMqPublishing.Common;
+using System;
+using System.Text.RegularExpressions;
 
 namespace Bikewale.Utility
 {
@@ -17,25 +19,33 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string TruncateDescription(string _desc, int? maxLength = null)
         {
-            int descLength = 170;
-            if (!string.IsNullOrEmpty(_desc))
+            try
             {
-                _desc = Regex.Replace(_desc, @"<[^>]+>", string.Empty);
-
-                Regex regex = new Regex(@"\W+");
-                _desc = regex.Replace(_desc, " ");
-                if (maxLength.HasValue) { descLength = maxLength.Value; }
-
-                if (_desc.Length < descLength)
-                    return _desc;
-                else
+                int descLength = 170;
+                if (!string.IsNullOrEmpty(_desc))
                 {
-                    _desc = _desc.Substring(0, (descLength - 5));
-                    _desc = _desc.Substring(0, _desc.LastIndexOf(" "));
-                    return _desc + "...";
+                    _desc = Regex.Replace(_desc, @"<[^>]+>", string.Empty);
+
+                    Regex regex = new Regex(@"\W+");
+                    _desc = regex.Replace(_desc, " ");
+                    if (maxLength.HasValue) { descLength = maxLength.Value; }
+
+                    if (_desc.Length < descLength)
+                        return _desc;
+                    else
+                    {
+                        _desc = _desc.Substring(0, (descLength - 5));
+                        _desc = _desc.Substring(0, _desc.LastIndexOf(" "));
+                        return _desc + "...";
+                    }
                 }
+                return _desc;
             }
-            return _desc;
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "FormatDescription.TruncateDescription()");
+                return "";
+            }
 
         }
         /// <summary>
