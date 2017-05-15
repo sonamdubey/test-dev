@@ -1,18 +1,18 @@
-﻿using Bikewale.Entities.CMS.Articles;
+﻿using Bikewale.Entities;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.Pager;
+using Bikewale.Models;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Bikewale.Models;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.Pager;
-using Bikewale.Interfaces.Location;
-using Bikewale.Interfaces.BikeData.UpComing;
-using Bikewale.Entities;
 
 namespace Bikewale.Controllers
 {
@@ -29,7 +29,7 @@ namespace Bikewale.Controllers
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
-        
+
         #region Constructor
         public ExpertReviewsController(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache)
         {
@@ -55,15 +55,17 @@ namespace Bikewale.Controllers
         {
             ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
-            {                
+            {
                 return Redirect("/pagenotfound.aspx");
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
                 return RedirectPermanent(obj.redirectUrl);
-            } else {
+            }
+            else
+            {
                 ExpertReviewsIndexPageVM objData = obj.GetData(4);
-                if(obj.status==StatusCodes.ContentNotFound)
+                if (obj.status == StatusCodes.ContentNotFound)
                     return Redirect("/pagenotfound.aspx");
                 else
                     return View(objData);
@@ -77,7 +79,7 @@ namespace Bikewale.Controllers
         [Route("m/expertreviews/")]
         public ActionResult Index_Mobile()
         {
-             ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming);
+            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -85,15 +87,15 @@ namespace Bikewale.Controllers
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
-                return RedirectPermanent(string.Format("/m{0}",obj.redirectUrl));
+                return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
             }
             else
             {
                 ExpertReviewsIndexPageVM objData = obj.GetData(9);
-                if(obj.status==StatusCodes.ContentNotFound)
+                if (obj.status == StatusCodes.ContentNotFound)
                     return Redirect("/m/pagenotfound.aspx");
                 else
-                return View(objData);
+                    return View(objData);
             }
         }
 
@@ -207,6 +209,8 @@ namespace Bikewale.Controllers
 
             return View("~/views/m/content/expertreviews/details_amp.cshtml", objExpertReviews);
         }
+
+
 
         #endregion
     }

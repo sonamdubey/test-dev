@@ -12,10 +12,8 @@ namespace Bikewale.Entities.Used
     /// Description : Added AdStatus and CustomerId for sold bikes scenario
     /// </summary>
     [Serializable]
-    public class ClassifiedInquiryDetails
+    public class ClassifiedInquiryDetails : BasicBikeEntityBase
     {
-        public BikeMakeEntityBase Make { get; set; }
-        public BikeModelEntityBase Model { get; set; }
         public BikeVersionEntityBase Version { get; set; }
         public StateEntityBase State { get; set; }
         public CityEntityBase City { get; set; }

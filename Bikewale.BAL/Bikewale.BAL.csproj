@@ -117,6 +117,7 @@
   <ItemGroup>
     <Compile Include="ABServiceRef\TCApi_Inquiry.cs" />
     <Compile Include="AppDeepLinking\DeepLinking.cs" />
+    <Compile Include="App\SplashScreen.cs" />
     <Compile Include="AutoBiz\Dealers.cs" />
     <Compile Include="AutoComplete\AutoSuggest.cs" />
     <Compile Include="BikeBooking\AbstractBikeBooking.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Used\UsedBikeBuyer.cs" />
     <Compile Include="Used\SearchBikes.cs" />
     <Compile Include="Used\SearchQuery.cs" />
+    <Compile Include="UserReviews\ProcessSearchFilters.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />
     <Compile Include="UserReviews\UserReviewsInputEntity.cs" />
     <Compile Include="Videos\Videos.cs" />

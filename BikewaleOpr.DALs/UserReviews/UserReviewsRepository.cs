@@ -125,6 +125,7 @@ namespace BikewaleOpr.DALs.UserReviews
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
+
                 }
             }
             catch (Exception ex)

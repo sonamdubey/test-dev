@@ -1,15 +1,17 @@
 ﻿using Bikewale.Entities.BikeData;
+using System;
 using System.Collections.Generic;
 
 namespace Bikewale.Entities.UserReviews
 {
-    public class UserReviewSummary
+    [Serializable]
+    public class UserReviewSummary : BasicBikeEntityBase
+    /// <summary>
+    /// Modified by Sajal Gupta on 05-05-2017
+    /// Descruioption : Added UpVotes, DownVotes, Views, EntryDate
+    /// </summary>
     {
         public UserReviewOverallRating OverallRating { get; set; }
-        public BikeMakeEntityBase Make { get; set; }
-        public BikeModelEntityBase Model { get; set; }
-        public string OriginalImgPath { get; set; }
-        public string HostUrl { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }
         public string TipsDescriptionSmall { get; set; }
@@ -18,6 +20,12 @@ namespace Bikewale.Entities.UserReviews
         public IEnumerable<UserReviewQuestion> Questions { get; set; }
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
-        public UserReviewPageSourceEnum PageSource { get; set; }
+        public string ReturnUrl { get; set; }
+        public uint UpVotes { get; set; }
+        public ushort PlatformId { get; set; }
+        public uint DownVotes { get; set; }
+        public uint Views { get; set; }
+        public DateTime EntryDate { get; set; }
+        public uint OldReviewId { get; set; }
     }
 }

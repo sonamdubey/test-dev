@@ -1,4 +1,5 @@
-﻿using Bikewale.BAL.AppDeepLinking;
+﻿using Bikewale.BAL.App;
+using Bikewale.BAL.AppDeepLinking;
 using Bikewale.BAL.AutoComplete;
 using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
@@ -16,6 +17,7 @@ using Bikewale.BAL.ServiceCenter;
 using Bikewale.BAL.Used.Search;
 using Bikewale.BAL.UsedBikes;
 using Bikewale.BAL.UserReviews;
+using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.App;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
@@ -72,6 +74,7 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
 using Microsoft.Practices.Unity;
 using System;
 
@@ -189,6 +192,10 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IUpcoming, Upcoming>();
             container.RegisterType<IMobileVerificationCache, MobileVerificationCache>();
             container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
+            container.RegisterType<IUserReviewsSearch, UserReviewsSearch>();
+            container.RegisterType<ISplashScreen, SplashScreen>();
+            container.RegisterType<ISplashScreenRepository, SplashScreenRepository>();
+            container.RegisterType<ISplashScreenCacheRepository, SplashScreenCacheRepository>();
             return container;
         }
     }

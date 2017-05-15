@@ -1,6 +1,7 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Notifications.MailTemplates.UserReviews;
 using Bikewale.Utility;
+using BikewaleOpr.BAL;
 using BikewaleOpr.DTO.UserReviews;
 using BikewaleOpr.Entities.UserReviews;
 using BikewaleOpr.Entity.UserReviews;
@@ -48,7 +49,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                     // Send mail to the user on approval or rejection
                     if (inputs.ReviewStatus.Equals(ReviewsStatus.Approved) && oldTableReviewId > 0)
                     {
-                        string reviewUrl = string.Format("{0}/{1}-bikes/{2}/user-reviews/{3}.html",BWConfiguration.Instance.BwHostUrl, inputs.MakeMaskingName, inputs.ModelMaskingName, oldTableReviewId);
+                        string reviewUrl = string.Format("{0}/{1}-bikes/{2}/user-reviews/{3}.html", BWConfiguration.Instance.BwHostUrl, inputs.MakeMaskingName, inputs.ModelMaskingName, oldTableReviewId);
 
                         ComposeEmailBase objBase = new ReviewApprovalEmail(inputs.CustomerName, reviewUrl, inputs.BikeName);
                         objBase.Send(inputs.CustomerEmail, "Congratulations! Your review has been published");
@@ -58,6 +59,19 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         ComposeEmailBase objBase = new ReviewRejectionEmail(inputs.CustomerName, inputs.BikeName);
                         objBase.Send(inputs.CustomerEmail, "Oops! We request you to verify your review again");
                     }
+
+                    if (inputs.ModelId > 0 && inputs.ReviewStatus != null)
+                    {
+                        //remove cache objects for reviews related to model
+                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_{0}_CAT_1_PN_1_PS_24", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_{0}_CAT_2_PN_1_PS_24", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_{0}_CAT_5_PN_1_PS_24", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_{0}_CAT_6_PN_1_PS_24", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_{0}_CAT_7_PN_1_PS_24", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_BikeReviewsInfo_MO_{0}", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_BikeRatingsReviewsInfo_MO_{0}", inputs.ModelId));
+                    }
+
                 }
                 else
                 {

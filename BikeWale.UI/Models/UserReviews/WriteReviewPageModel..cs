@@ -17,7 +17,7 @@ namespace Bikewale.Models.UserReviews
     public class WriteReviewPageModel
     {
         private readonly IUserReviews _userReviews = null;
-        private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId;
+        private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId, _pageSourceID;
         private string _encodedString, _userName, _emailId;
         private ulong _customerId;
 
@@ -62,6 +62,7 @@ namespace Bikewale.Models.UserReviews
                 uint.TryParse(queryCollection["overallrating"], out _overAllRating);
                 ulong.TryParse(queryCollection["customerid"], out _customerId);
                 uint.TryParse(queryCollection["priceRangeId"], out _priceRangeId);
+                uint.TryParse(queryCollection["pagesourceid"], out _pageSourceID);
                 _userName = queryCollection["userName"];
                 _emailId = queryCollection["emailId"];
             }
@@ -93,18 +94,19 @@ namespace Bikewale.Models.UserReviews
                     objPage.Make = objReviewSummary.Make;
                     objPage.Model = objReviewSummary.Model;
                     objPage.HostUrl = objReviewSummary.HostUrl;
-                    objPage.OriginalImagePath = objReviewSummary.OriginalImgPath;
+                    objPage.OriginalImagePath = objReviewSummary.OriginalImagePath;
 
                     if (IsDesktop)
-                        objPage.PreviousPageUrl = string.Format("/user-reviews/rate-bike/{0}/?reviewId={1}", objPage.Model.ModelId, _encodedString);
+                        objPage.PreviousPageUrl = string.Format("/user-reviews/rate-bike/{0}/?q={1}", objPage.Model.ModelId, _encodedString);
                     else
-                        objPage.PreviousPageUrl = string.Format("/m/user-reviews/rate-bike/{0}/?reviewId={1}", objPage.Model.ModelId, _encodedString);
+                        objPage.PreviousPageUrl = string.Format("/m/user-reviews/rate-bike/{0}/?q={1}", objPage.Model.ModelId, _encodedString);
 
                     objPage.JsonReviewSummary = Newtonsoft.Json.JsonConvert.SerializeObject(objReviewSummary);
                 }
 
                 objPage.ReviewId = _reviewId;
                 objPage.CustomerId = _customerId;
+                objPage.PageSourceId = _pageSourceID;
                 objPage.EncodedWriteUrl = _encodedString;
 
                 GetUserRatings(objPage);

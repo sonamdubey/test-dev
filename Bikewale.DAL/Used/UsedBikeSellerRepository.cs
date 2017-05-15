@@ -1,5 +1,4 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.Used;
+﻿using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -86,7 +85,7 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requestdatetime", DbType.DateTime, DateTime.Now));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, ""));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CurrentUser.GetClientIP()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.Output));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
@@ -184,7 +183,7 @@ namespace Bikewale.DAL.Used
             }
             return isRemoved;
         }
-	/// <summary>
+        /// <summary>
         /// Created by: Sangram Nandkhile on 25 Nov 2016
         /// Desc: To repost ad listing
         /// </summary>

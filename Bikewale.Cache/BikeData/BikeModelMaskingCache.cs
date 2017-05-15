@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
@@ -227,6 +228,22 @@ namespace Bikewale.Cache.BikeData
             try
             {
                 similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikeWithVideo>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetSimilarBikesVideos(modelId, totalRecords));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Cache.BikeData.GetSimilarBikesVideos_modelid: {0}", modelId));
+            }
+
+            return similarBikes;
+        }
+
+        public IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviews(uint modelId, uint totalRecords)
+        {
+            IEnumerable<SimilarBikeUserReview> similarBikes = null;
+            string key = string.Format("BW_SimilarBikes_UserReviews_{0}", modelId);
+            try
+            {
+                similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikeUserReview>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetSimilarBikesUserReviews(modelId, totalRecords));
             }
             catch (Exception ex)
             {

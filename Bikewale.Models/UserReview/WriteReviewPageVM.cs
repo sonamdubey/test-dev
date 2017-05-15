@@ -28,5 +28,6 @@ namespace Bikewale.Models
         public string UserName { get; set; }
         public WriteReviewPageSubmitResponse SubmitResponse { get; set; }
         public string JsonReviewSummary { get; set; }
+        public uint PageSourceId { get; set; }
     }
 }

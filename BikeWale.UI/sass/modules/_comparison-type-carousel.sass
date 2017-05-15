@@ -1,0 +1,38 @@
+﻿@mixin compare-vs-icon()
+	content: ''
+	position: absolute
+	width: 32px
+	height: 32px
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/vs-icon-32.png) no-repeat
+
+.comparison-type-carousel
+	&.inner-content-carousel
+		.jcarousel
+			li
+				width: 453px
+				min-height: 295px
+
+	.card-target
+		padding: 20px 10px
+		display: block
+
+	.model-img-content
+		width: 189px
+		height: 106px
+		margin-bottom: 10px
+
+		img
+			height: 106px
+
+	.card-target
+		.grid-6
+			&:first-of-type
+				&:after
+					@include compare-vs-icon()
+					@include transform(scale(0.7))
+					top: 40%
+					right: 0
+
+@import ../components/buttons
+
+@include button-size(160, 36, 14) // width, padding, font-size

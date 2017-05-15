@@ -109,6 +109,7 @@ namespace Bikewale.Models.BikeModels
         public int ModelColorPhotosCount { get; set; }
 
         public bool ShowOnRoadButton { get; set; }
+        public string ReturnUrl { get; set; }
     }
 
 }

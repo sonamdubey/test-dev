@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bikewale.Entities.UserReviews
 {
     /// <summary>
@@ -15,6 +10,9 @@ namespace Bikewale.Entities.UserReviews
         MostRecent = 1,
         MostHelpful = 2,
         MostRead = 3,
-        MostRated = 4
+        MostRated = 4,
+        Positive = 5,
+        Negative = 6,
+        Neutral = 7
     }
 }

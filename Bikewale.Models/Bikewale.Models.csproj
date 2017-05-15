@@ -43,6 +43,9 @@
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
     <Compile Include="CompareBikes\PopularComparisonsVM.cs" />
+    <Compile Include="Compare\CompareVM.cs" />
+    <Compile Include="Compare\ComparisonWidgetVM.cs" />
+    <Compile Include="ComparisonTests\ComparisonTestIndexPageVM.cs" />
     <Compile Include="DealerShowroom\DealerCardVM.cs" />
     <Compile Include="DealerShowroom\DealersServiceCentersIndiaWidgetVM.cs" />
     <Compile Include="DealerShowroom\IndexVM.cs" />
@@ -100,6 +103,9 @@
     <Compile Include="Shared\Showrooms.cs" />
     <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
     <Compile Include="Upcoming\UpcomingPageVM.cs" />
+    <Compile Include="UserReviews\UserReviewListingVM.cs" />
+    <Compile Include="UserReviews\UserReviewDetailsVM.cs" />
+    <Compile Include="UserReviews\UserReviewsSearchVM.cs" />
     <Compile Include="UserReviews\UserReviewSummaryVM.cs" />
     <Compile Include="UserReviews\WriteReviewPageSubmitResponse.cs" />
     <Compile Include="UserReview\WriteReviewPageVM.cs" />
@@ -125,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BikeMakes\" />
+    <Folder Include="ComparisonTest\" />
     <Folder Include="Desktop\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

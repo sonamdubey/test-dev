@@ -448,6 +448,7 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\ComparisonTestsController.cs" />
     <Compile Include="Controllers\DealerShowroomController.cs" />
     <Compile Include="Controllers\BikeCareController.cs" />
     <Compile Include="Controllers\BestBikesController.cs" />
@@ -907,6 +908,10 @@
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\BikeModels\ModelPage.cs" />
     <Compile Include="Models\CompareBikes\ComparePopularBikes.cs" />
+    <Compile Include="Models\Compare\CompareIndex.cs" />
+    <Compile Include="Models\Compare\CompareWidget.cs" />
+    <Compile Include="Models\ComparisonTest\ComparisonTestWidget.cs" />
+    <Compile Include="Models\ComparisonTests\ComparisonTestsIndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
     <Compile Include="Models\Features\IndexPage.cs" />
@@ -952,8 +957,11 @@
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterIndiaPage.cs" />
     <Compile Include="Models\Used\UsedBikesByModelCityWidget.cs" />
+    <Compile Include="Models\UserReviews\UserReviewListingPage.cs" />
+    <Compile Include="Models\UserReviews\UserReviewDetailsPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewRatingPage.cs" />
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
+    <Compile Include="Models\UserReviews\UserReviewsSearchWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewSummaryPage.cs" />
     <Compile Include="Models\UserReviews\WriteReviewPageModel..cs" />
     <Compile Include="Models\Videos\MakeVideosPage.cs" />
@@ -2815,6 +2823,7 @@
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\user-review\landing.css" />
+    <Content Include="m\css\user-review\listing-old.css" />
     <Content Include="m\css\user-review\listing.css" />
     <Content Include="m\css\user-review\write-review.css" />
     <Content Include="m\css\videos\bwm-videos-landing.css" />
@@ -2940,6 +2949,7 @@
     <Content Include="m\src\used\landing.js" />
     <Content Include="m\src\user-review\landing.js" />
     <Content Include="m\src\user-review\write-review.js" />
+    <Content Include="m\src\user-review\listing.js" />
     <Content Include="m\src\video\details.js" />
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
@@ -3002,11 +3012,21 @@
     <Content Include="m\sass\user-review\_write-review-media-query.sass" />
     <Content Include="m\sass\upcoming-bikes\upcoming-bikes.sass" />
     <Content Include="m\sass\upcoming-bikes\_upcoming-bikes-style.sass" />
+    <Content Include="m\sass\user-review\listing.sass" />
+    <Content Include="m\sass\user-review\_listing-style.sass" />
     <Content Include="sass\user-review\write-review.sass" />
     <Content Include="sass\user-review\_write-review-style.sass" />
     <Content Include="m\sass\upcoming-bikes\_media-query.sass" />
     <Content Include="sass\upcoming-bikes\upcoming-bikes.sass" />
     <Content Include="sass\upcoming-bikes\_upcoming-bikes-style.sass" />
+    <Content Include="sass\compare\landing.sass" />
+    <Content Include="sass\compare\_landing-style.sass" />
+    <Content Include="sass\components\_select-box-atf.sass" />
+    <Content Include="sass\components\_buttons.sass" />
+    <Content Include="sass\compare\details.sass" />
+    <Content Include="sass\compare\_details-style.sass" />
+    <Content Include="sass\modules\_comparison-type-carousel.sass" />
+    <Content Include="sass\components\_inline-grid.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -3036,6 +3056,8 @@
     <Content Include="src\common.js" />
     <Content Include="src\common.min.js" />
     <Content Include="src\common\chosen.jquery.min.js" />
+    <Content Include="src\compare\details.js" />
+    <Content Include="src\compare\landing.js" />
     <Content Include="src\content\details.js" />
     <Content Include="src\dealerlisting.js" />
     <Content Include="src\dealerpricequote.js" />
@@ -3657,11 +3679,26 @@
     <Content Include="Views\Make\_OtherMakes_Mobile.cshtml" />
     <Content Include="Views\Model\_BestBikes.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_ATF_300x250.cshtml" />
+    <Content Include="Views\UserReview\ListReviews_Mobile.cshtml" />
+    <Content Include="Views\UserReview\ReviewDetails_Mobile.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_BTF_300x250.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_BTF_970x90.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Model_ATF_970x90.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320X100ATF.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320X100BTF.cshtml" />
+    <Content Include="Views\UserReview\_UserReviewsSearch_Mobile.cshtml" />
+    <Content Include="Views\ExpertReviews\_ExpertReviewsModelWiseCard_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_SimilarBikeUserReview_Mobile.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad300x100_Middle.cshtml" />
+    <Content Include="Views\CompareBikes\Index.cshtml" />
+    <Content Include="Views\CompareBikes\CompareBikeDetails.cshtml" />
+    <Content Include="Views\CompareBikes\_PopularComaprisonBodyStyle.cshtml" />
+    <Content Include="Views\ComparisonTest\_ComparisonTestWidget.cshtml" />
+    <Content Include="Views\ComparisonTests\Index.cshtml" />
+    <Content Include="Views\ComparisonTests\Index_Mobile.cshtml" />
+    <Content Include="Views\CompareBikes\Index_Mobile.cshtml" />
+    <Content Include="Views\CompareBikes\_PopularComaprisonBodyStyle_Mobile.cshtml" />
+    <Content Include="Views\ComparisonTest\_ComparisonTestWidget_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

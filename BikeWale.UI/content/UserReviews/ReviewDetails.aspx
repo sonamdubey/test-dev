@@ -1,9 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.ReviewDetails" Trace="false" %>
-
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BikeWale" TagName="DiscussIt" Src="/Controls/DiscussIt.ascx" %>
-<%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
-<%@ Register TagPrefix="LD" TagName="LocateDealer" Src="/controls/locatedealer.ascx" %>
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <%@ Register TagPrefix="BW" TagName="UserReviewSimilarBike" Src="~/controls/UserReviewSimilarBike.ascx" %>
 <%@ Register Src="~/controls/NewUserReviewsList.ascx" TagPrefix="BW" TagName="UserReviews" %>
@@ -98,7 +95,7 @@
                                     </div>
                                 </div>
                                 <div class="grid-3 text-right alpha omega inline-block">
-                                    <a href="<%=string.Format("/rate-your-bike/{0}/?pagesourceid={1}",objReview.BikeEntity.ModelEntity.ModelId,Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_UserReview_Details)) %>" class="btn btn-teal btn-size-150">Write a review</a>
+                                    <a href="<%=string.Format("/rate-your-bike/{0}/?q={1}",objReview.BikeEntity.ModelEntity.ModelId,returnUrl) %>" class="btn btn-teal btn-size-150">Write a review</a>
                                 </div>
                             <div class="clear"></div>
                         </div>

@@ -7,12 +7,8 @@ namespace Bikewale.Entities.BikeData
     /// Summary:- Entity for similar bike videos
     /// </summary>
     [Serializable]
-    public class SimilarBikeWithVideo
+    public class SimilarBikeWithVideo : BasicBikeEntityBase
     {
-        public BikeMakeEntityBase Make { get; set; }
-        public BikeModelEntityBase Model { get; set; }
-        public string HostUrl { get; set; }
-        public string OriginalImagePath { get; set; }
         public uint VideoCount { get; set; }
     }
 }

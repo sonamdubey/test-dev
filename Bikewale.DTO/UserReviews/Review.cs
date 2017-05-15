@@ -8,14 +8,23 @@ namespace Bikewale.Entities.DTO
     /// </summary>
     public class Review : ReviewBase
     {
+        [JsonProperty("comments")]
         public string Comments { get; set; }
+        [JsonProperty("pros")]
         public string Pros { get; set; }
+        [JsonProperty("cons")]
         public string Cons { get; set; }
+        [JsonProperty("liked")]
         public ushort Liked { get; set; }
+        [JsonProperty("disliked")]
         public ushort Disliked { get; set; }
+        [JsonProperty("viewed")]
         public uint Viewed { get; set; }
+        [JsonProperty("makeMaskingName")]
         public string MakeMaskingName { get; set; }
+        [JsonProperty("modelMaskingName")]
         public string ModelMaskingName { get; set; }
+        [JsonProperty("overAllRating")]
         public ReviewRatingBase OverAllRating { get; set; }
         [JsonIgnore]
         public ReviewTaggedBike TaggedBike { get; set; }

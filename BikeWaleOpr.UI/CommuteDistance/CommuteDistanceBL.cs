@@ -102,9 +102,10 @@ namespace BikewaleOpr.CommuteDistance
             string formatedResp = string.Empty;
             UInt16 maxArea = Convert.ToUInt16(ConfigurationManager.AppSettings["areaMaxPerCall"]);
             GeoLocationEntity dealer = null;
+            IEnumerable<GeoLocationEntity> areas = null, areasBatch = null;
             try
             {
-                IEnumerable<GeoLocationEntity> areas = null, areasBatch = null;
+
                 //get the Areas served by the dealers by lead serving distance(straight line distance calculation)
                 areas = commuteDistance.GetAreaByDealer(dealerId, leadServingDistance, out dealer);
                 if (dealer != null && (areas != null && areas.Count() > 0))

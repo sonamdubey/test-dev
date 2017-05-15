@@ -47,7 +47,7 @@
         }
         <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
             <div class="grid-5 omega text-light-grey font13">
-                <span class="text-bold text-default">@Model.StartIndex-@Model.EndIndex</span> of <span class="text-bold text-default">@Model.TotalArticles</span> articles
+                <span class="text-bold text-default">@string.Format("{0}-{1}", Model.StartIndex, Model.EndIndex)</span> of <span class="text-bold text-default">@Model.TotalArticles</span> articles
             </div>
             @if (Model.TotalArticles > 10)
             {

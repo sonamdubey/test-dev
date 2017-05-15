@@ -1,0 +1,225 @@
+﻿@model  Bikewale.Models.CompareVM
+@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.IsTransparentHeader = true;
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/compare/landing.css' />";
+    Model.IsPageTypeLanding = true;
+    Model.Page_JS_Path = "/m/src/compare/landing.js";
+}
+
+
+<section>
+    <div class="container compare-landing-banner text-center">
+        <h1 class="font24 text-uppercase text-white padding-top20 margin-bottom5">Compare bikes</h1>
+        <h2 class="font14 text-unbold text-white">Making a decision is fairly easy</h2>
+    </div>
+</section>
+
+<section id="compare-bike-landing" style="display: none" data-bind="visible: true">
+    <div class="grid-12">
+        <div class="container banner-box-shadow">
+            <div class="comparison-main-card">
+                <div class="bike-details-block" data-bind="css: matchBoxHeight() ? 'match-height' : ''">
+                    <!-- ko if : !bike1() -->
+                    <div class="compare-box-placeholder" data-bind="click: function (d, e) { openBikeSelection(bike1) }">
+                        <div class="bike-icon-wrapper">
+                            <span class="grey-bike"></span>
+                            <p class="font14 text-light-grey">Add bike 1</p>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if : bike1() -->
+                    <div class="selected-bike-box">
+                        <span class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey" data-bind="click: function () { bike1(null); }"></span>
+                        <a data-bind="attr: { 'title': bike1().bikeName, 'data-versionid' : bike1().version.versionId  }" href="javascript:void(0)" title="" class="block margin-top10" rel="nofollow">
+                            <span class="font12 text-default text-truncate" data-bind="text: bike1().make.name"></span>
+                            <h2 class="font12 text-truncate margin-bottom5" data-bind="text: bike1().model.modelName"></h2>
+                            <img class="bike-image-block" data-bind="attr: { 'alt': bike1().bikeName, 'src': bike1().hostUrl + '/110x61/' + bike1().originalImagePath }" src="" alt="">
+                        </a>
+                        <p class="label-text">Version:</p>
+                        <p class="font12 margin-bottom5 text-bold text-truncate" data-bind="text: bike1().version.versionName"></p>
+                        <p class="text-truncate label-text">Ex-showroom, Mumbai</p>
+                        <p>
+                            <span class="bwmsprite inr-xsm-icon" data-bind="visible: bike1().price != '0'"></span><span class="font16 text-bold" data-bind="text: bike1().price != '0' ? bike1().price : 'Price not available'"></span>
+                        </p>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <div class="bike-details-block" data-bind="css: matchBoxHeight() ? 'match-height' : ''">
+                    <!-- ko if : !bike2() -->
+
+                    <div class="compare-box-placeholder" data-bind="click: function (d, e) { openBikeSelection(bike2); }">
+                        <div class="bike-icon-wrapper">
+                            <span class="grey-bike"></span>
+                            <p class="font14 text-light-grey">Add bike 2</p>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if : bike2() -->
+                    <div class="selected-bike-box">
+                        <span class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey" data-bind="click: function () { bike2(null); }"></span>
+                        <a data-bind="attr: { 'title': bike2().bikeName, 'data-versionid' : bike2().version.versionId }" href="javascript:void(0)" title="" class="block margin-top10" rel="nofollow">
+                            <span class="font12 text-default text-truncate" data-bind="text: bike2().make.name"></span>
+                            <h2 class="font12 text-truncate margin-bottom5" data-bind="text: bike2().model.modelName"></h2>
+                            <img class="bike-image-block" data-bind="attr: { 'alt': bike2().bikeName, 'src': bike2().hostUrl + '/110x61/' + bike2().originalImagePath }" src="" alt="">
+                        </a>
+                        <p class="label-text">Version:</p>
+                        <p class="font12 margin-bottom5 text-bold text-truncate" data-bind="text: bike2().version.versionName"></p>
+                        <p class="text-truncate label-text">Ex-showroom, Mumbai</p>
+                        <p>
+                            <span class="bwmsprite inr-xsm-icon" data-bind="visible: bike2().price != '0'"></span><span class="font16 text-bold" data-bind="    text: bike2().price != '0' ? bike2().price : 'Price not available'"></span>
+                        </p>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <div class="padding-bottom15 text-center" data-bind="visible: bike1() && bike2()">
+                    <a href="javascript:void(0)" data-bind="attr: { 'href': compareLink }" class="btn btn-orange btn-size-1" rel="nofollow">Compare now</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    
+    <!-- select bike starts here -->
+    <div id="select-bike-cover-popup" data-bind="with: bikeSelection" class="cover-window-popup">
+        <div class="ui-corner-top">
+            <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="click: closeBikePopup">
+                <span class="bwmsprite fa-angle-left"></span>
+            </div>
+            <div class="cover-popup-header leftfloat">Select bikes</div>
+            <div class="clear"></div>
+        </div>
+        <div class="bike-banner"></div>
+        <div id="select-make-wrapper" class="cover-popup-body" data-bind="visible: currentStep() == 1">
+            <div class="cover-popup-body-head">
+                <p class="no-back-btn-label head-label inline-block">Select Make</p>
+            </div>
+            <ul class="cover-popup-list with-arrow" data-bind="foreach:makesArray">
+                <li data-bind="click: $parent.makeChanged"><span data-bind="attr:{'data-masking':maskingName,'data-id':makeId},text:makeName"></span></li>
+            </ul>
+        </div>
+
+        <div id="select-model-wrapper" class="cover-popup-body" data-bind="visible: currentStep() == 2">
+            <div class="cover-popup-body-head">
+                <div data-bind="click: modelBackBtn" class="body-popup-back cur-pointer inline-block">
+                    <span class="bwmsprite back-long-arrow-left"></span>
+                </div>
+                <p class="head-label inline-block">Select Model</p>
+            </div>
+            <ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
+                <li data-bind="click: $parent.modelChanged">
+                    <span data-bind="text: modelName, attr: { 'data-id': modelId, 'data-masking': maskingName }"></span>
+                </li>
+            </ul>
+        </div>
+
+        <div id="select-version-wrapper" class="cover-popup-body" data-bind="visible : currentStep()==3">
+            <div class="cover-popup-body-head">
+                <div data-bind="click: versionBackBtn" class="body-popup-back cur-pointer inline-block">
+                    <span id="arrow-version-back" class="bwmsprite back-long-arrow-left"></span>
+                </div>
+                <p class="head-label inline-block">Select Version</p>
+            </div>
+            <ul class="cover-popup-list" data-bind="foreach: versionArray">
+                <li data-bind="click: $parent.versionChanged">
+                    <span data-bind="text: versionName, attr: { 'data-id': versionId }"></span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="cover-popup-loader-body" data-bind="visible : IsLoading()">
+            <div class="cover-popup-loader"></div>
+            <div class="cover-popup-loader-text font14" data-bind="text: LoadingText()"></div>
+        </div>
+    </div>
+    <!-- select bike ends here -->
+    
+
+    <div class="same-version-toast">
+        <p>Please select different bike for comparision.</p>
+    </div>
+</section>
+
+
+<section>
+    <div class="container card-bottom-margin">
+        <h2 class="font18 font-bold text-center margin-top20 margin-bottom10">Bike comparisons made easier</h2>
+        <div class="content-box-shadow content-inner-block-20 collapsible-content font14 text-slate-grey">
+            <p class="main-content">Are you confused between multiple bikes to choose from? Not sure what features should you compare?  Don't worry, bike comparison was never so easy.</p>
+            <p class="more-content"> BikeWale brings you an amazing tool 'Compare Bikes' for bike comparison based on prices, mileage, power, performance, and 100s of other features. Compare your favorite bikes to choose the one that suits your needs. Compare multiple bikes at once to find the best one.</p>
+            <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+        </div>
+    </div>
+</section>
+
+
+@if (Model.CompareBikes != null)
+{
+<section>
+    <div class="container card-bottom-margin">
+        <h2 class="font18 font-bold text-center margin-top20 margin-bottom10">Popular comparison</h2>
+        <div class="bw-tabs-panel content-box-shadow padding-bottom10">
+            <div class="bw-tabs bw-tabs-flex margin-bottom10">
+                <ul>
+                @if (Model.CompareBikes.topBikeCompares != null && Model.CompareBikes.topBikeCompares.Count() > 0)
+                {
+                <li class="active" data-tabs="compareTypeBike">Bikes</li>}
+                @if (Model.CompareBikes.topBikeComparesScooters != null && Model.CompareBikes.topBikeComparesScooters.Count() > 0)
+                {
+                <li data-tabs="compareTypeScooter">Scooters</li>}
+                @if (Model.CompareBikes.topBikeComparesCruisers != null && Model.CompareBikes.topBikeComparesCruisers.Count() > 0)
+                {
+                <li data-tabs="compareTypeCruiser">Cruisers</li>}
+                @if (Model.CompareBikes.topBikeComparesSports != null && Model.CompareBikes.topBikeComparesSports.Count() > 0)
+                {
+                <li data-tabs="compareTypeSport">Sports</li>}
+                </ul>
+            </div>
+            @if (Model.CompareBikes.topBikeCompares != null && Model.CompareBikes.topBikeCompares.Count() > 0)
+            {
+                <div id="compareTypeBike" class="bw-tabs-data">
+                    @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.CompareBikes.topBikeCompares)
+                </div>
+            }
+            @if (Model.CompareBikes.topBikeComparesScooters != null && Model.CompareBikes.topBikeComparesScooters.Count() > 0)
+            {
+                <div id="compareTypeScooter" class="bw-tabs-data hide">
+                    @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.CompareBikes.topBikeComparesScooters)
+                </div>
+            }
+            @if (Model.CompareBikes.topBikeComparesCruisers != null && Model.CompareBikes.topBikeComparesCruisers.Count() > 0)
+            {
+                <div id="compareTypeCruiser" class="bw-tabs-data hide">
+                    @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.CompareBikes.topBikeComparesCruisers)
+                </div>
+            }
+            @if (Model.CompareBikes.topBikeComparesSports != null && Model.CompareBikes.topBikeComparesSports.Count() > 0)
+            {
+                <div id="compareTypeSport" class="bw-tabs-data hide">
+                    @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.CompareBikes.topBikeComparesSports)
+                </div>
+            }
+        </div>
+    </div>
+</section>
+}
+@if (Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
+{
+<section>
+    <div class="container card-bottom-margin">
+        <h2 class="font18 font-bold text-center margin-top20 margin-bottom10">Bike comparisons by our experts</h2>
+        <div class="content-box-shadow content-inner-block-20 font14">
+            <div class="model-expert-review-container">
+                @Html.Partial("~/Views/ComparisonTest/_ComparisonTestWidget_Mobile.cshtml", Model.ArticlesList)
+
+
+                <div class="view-all-btn-container">
+                    <a title="Comparison Test" href="/m/comparison-tests/" class="bw-ga btn view-all-target-btn">View all<span class="bwmsprite teal-right"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+}

@@ -1,0 +1,158 @@
+﻿@model  Bikewale.Models.CompareVM
+@{
+    Model.IsTransparentHeader = true;
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/compare/landing.css' />";
+    Model.Page_JS_Path = "/src/compare/landing.js";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.IsPageTypeLanding = true;
+    Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/comparebikes/";
+}
+
+<header class="compare-banner">
+    <div id="banner-text-box" class="container">
+        <div class="welcome-box">
+            <h1 class="font30 text-uppercase">Compare bikes</h1>
+            <p class="font20 text-unbold text-white">Bike comparisons made easier</p>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <div id="bike-comparison-box" class="grid-12">
+            <div class="content-box-shadow negative-50 content-inner-block-20">
+                <ul class="compare-box-list" data-selection-count="0">
+                    <li class="list-item" data-value="0">
+                        <div class="box-placeholder">
+                            <span class="box-label"><span class="add-icon"></span><br />Add bike&nbsp;<span class="label-count">1</span></span>
+                        </div>
+                        <span class="error-text"></span>
+                    </li>
+                    <li class="list-item" data-value="1">
+                        <div class="box-placeholder">
+                            <span class="box-label"><span class="add-icon"></span><br />Add bike&nbsp;<span class="label-count">2</span></span>
+                        </div>
+                        <span class="error-text"></span>
+                    </li>
+                    <li class="list-item cur-disabled" data-value="2">
+                        <div class="box-placeholder">
+                            <span class="box-label"><span class="add-icon"></span><br />Add bike&nbsp;<span class="label-count">3</span></span>
+                        </div>
+                        <span class="error-text"></span>
+                    </li>
+                    <li class="list-item cur-disabled" data-value="3">
+                        <div class="box-placeholder">
+                            <span class="box-label"><span class="add-icon"></span><br />Add bike&nbsp;<span class="label-count">4</span></span>
+                        </div>
+                        <span class="error-text"></span>
+                    </li>
+                </ul>
+                <div class="compare-now-btn text-center margin-top15 hide">
+                    <button id="btnCompare" class="btn btn-orange btn-160-36">Compare now</button>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+<script type="text/html" id="bike-template">
+    <div class="selected-bike">
+        <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
+        <p class="font12 text-black" data-bind="text: makeName"></p>
+        <h2 class="font15 margin-bottom10" data-bind="text: modelName"></h2>
+        <img data-bind="attr: { 'src': hostUrl + '227x128' + originalImagePath, 'alt': makeName + ' ' + modelName }" src="" alt="" class="model-image" />
+        <p class="font14 text-light-grey margin-bottom5">Version</p>
+        <p class="font14 text-bold margin-bottom10" data-bind="text: versionName"></p>
+        <p class="font14 text-light-grey margin-bottom5">Ex-showroom price, @Bikewale.Utility.BWConfiguration.Instance.GetDefaultCityName</p>
+        <span class="bwsprite inr-lg"></span>
+        <span class="font18 text-bold" data-bind="text: price"></span>
+    </div>
+</script>
+
+<section>
+    <div class="container">
+        <div class="grid-12">
+            <h2 class="section-heading">Bike comparisons made easier</h2>
+            <div class="content-box-shadow content-inner-block-20 font14 text-slate-grey collapsible-content">
+                <p class="main-content">Are you confused between multiple bikes to choose from? Not sure what features should you compare?  Don't worry, bike comparison was never so easy. BikeWale brings you an amazing tool 'Compare Bikes' for bike comparison based on prices, mileage, power, performance, and 100s of other features.
+                Compare your favorite bikes to choose the one that suits your needs. Compare multiple bikes at once to find the best one.</p>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+
+@if (Model.CompareBikes != null)
+{
+    <section>
+        <div class="container">
+            <div class="grid-12">
+                <h2 class="section-heading">Popular comparisons</h2>
+                <div class="bw-tabs-panel content-box-shadow">
+                    <div class="bw-tabs bw-tabs-flex font18">
+                        <ul>
+@if (Model.CompareBikes.topBikeCompares != null && Model.CompareBikes.topBikeCompares.Count() > 0)
+                    {<li class="active" data-tabs="compareTypeBike">Bikes</li>}
+                           @if (Model.CompareBikes.topBikeComparesScooters != null && Model.CompareBikes.topBikeComparesScooters.Count() > 0)
+                    { <li data-tabs="compareTypeScooter">Scooters</li>}
+                            @if (Model.CompareBikes.topBikeComparesCruisers != null && Model.CompareBikes.topBikeComparesCruisers.Count() > 0)
+                    {<li data-tabs="compareTypeCruiser">Cruisers</li>}
+                          @if (Model.CompareBikes.topBikeComparesSports != null && Model.CompareBikes.topBikeComparesSports.Count() > 0)
+                    {<li data-tabs="compareTypeSport">Sports</li>}
+                        </ul>
+                    </div>
+                    @if (Model.CompareBikes.topBikeCompares != null && Model.CompareBikes.topBikeCompares.Count() > 0)
+                    {
+                        <div id="compareTypeBike" class="bw-tabs-data">
+                            @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle.cshtml", Model.CompareBikes.topBikeCompares)
+                        </div>
+                    }
+                    @if (Model.CompareBikes.topBikeComparesScooters != null && Model.CompareBikes.topBikeComparesScooters.Count() > 0)
+                    {
+                        <div id="compareTypeScooter" class="bw-tabs-data hide">
+                            @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle.cshtml", Model.CompareBikes.topBikeComparesScooters)
+                        </div>
+                    }
+                    @if (Model.CompareBikes.topBikeComparesCruisers != null && Model.CompareBikes.topBikeComparesCruisers.Count() > 0)
+                    {
+                        <div id="compareTypeCruiser" class="bw-tabs-data hide">
+                            @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle.cshtml", Model.CompareBikes.topBikeComparesCruisers)
+                        </div>
+                    }
+                    @if (Model.CompareBikes.topBikeComparesSports != null && Model.CompareBikes.topBikeComparesSports.Count() > 0)
+                    {
+                        <div id="compareTypeSport" class="bw-tabs-data hide">
+                            @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle.cshtml", Model.CompareBikes.topBikeComparesSports)
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
+
+@if (Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
+{
+    <section>
+        <div class="container card-bottom-margin">
+            <div class="grid-12">
+                <h2 class="section-heading">Bike comparisons by our experts</h2>
+                <div class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 font14 article-list">
+
+                    @Html.Partial("~/Views/ComparisonTest/_ComparisonTestWidget.cshtml", Model.ArticlesList)
+
+                    <div class="padding-left10 more-article-target view-all-btn-container">
+                        <a title="Comparison Test" href="/comparison-tests/" class="btn view-all-target-btn">
+                            Read all reviews<span class="bwsprite teal-right"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}

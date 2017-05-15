@@ -91,6 +91,7 @@
     <Compile Include="BikeBooking\PQ_QuotationEntity.cs" />
     <Compile Include="BikeBooking\RSAOfferClaimEntity.cs" />
     <Compile Include="BikeData\BikeColorsbyVersion.cs" />
+    <Compile Include="BikeData\BikeEntityBase.cs" />
     <Compile Include="BikeData\BikeInfoPageSource.cs" />
     <Compile Include="BikeData\BikeMakeModelBase.cs" />
     <Compile Include="BikeData\BikeMakeModelEntity.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="BikeData\Overview.cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
     <Compile Include="BikeData\SimilarBikesWithPhotos.cs" />
+    <Compile Include="BikeData\SimilarBikeUserReview.cs" />
     <Compile Include="BikeData\SimilarBikeWithVideo.cs" />
     <Compile Include="BikeData\SimilarCompareBikeEntity.cs" />
     <Compile Include="BikeData\Specifications.cs" />
@@ -309,6 +311,7 @@
     <Compile Include="ServiceCenters\ServiceCenterData.cs" />
     <Compile Include="ServiceCenters\ServiceCenterDetails.cs" />
     <Compile Include="service\ServiceCityEntity.cs" />
+    <Compile Include="App\SplashScreenEntity.cs" />
     <Compile Include="StatusCodes.cs" />
     <Compile Include="UrlShortner\UrlShortnerResponse.cs" />
     <Compile Include="Used\BikeDetails.cs" />
@@ -339,8 +342,13 @@
     <Compile Include="Used\UsedBikeSellerBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />
+    <Compile Include="UserReviews\BikeRatingsInfo.cs" />
+    <Compile Include="UserReviews\BikeRatingsReviewsInfo.cs" />
+    <Compile Include="UserReviews\BikeReviewsInfo.cs" />
     <Compile Include="UserReviews\BikeUserReviewRating.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
+    <Compile Include="UserReviews\InputFilters.cs" />
+    <Compile Include="UserReviews\ProcessedInputFilters.cs" />
     <Compile Include="UserReviews\ReviewDetailsEntity.cs" />
     <Compile Include="UserReviews\ReviewEntity.cs" />
     <Compile Include="UserReviews\ReviewEntityBase.cs" />
@@ -349,6 +357,7 @@
     <Compile Include="UserReviews\ReviewRatingEntityBase.cs" />
     <Compile Include="UserReviews\ReviewsListEntity.cs" />
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
+    <Compile Include="UserReviews\SearchResult.cs" />
     <Compile Include="UserReviews\UserReviewOverallRating.cs" />
     <Compile Include="UserReviews\UserReviewPageSourceEnum.cs" />
     <Compile Include="UserReviews\UserReviewPriceRange.cs" />

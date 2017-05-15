@@ -11,7 +11,7 @@ namespace Bikewale.Entities.UserReviews
     public class ReviewEntityBase
     {
         [DataMember]
-        public int ReviewId { get; set; }
+        public uint ReviewId { get; set; }
         [DataMember]
         public string ReviewTitle { get; set; }
         [DataMember]

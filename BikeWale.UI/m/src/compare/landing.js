@@ -3,6 +3,8 @@ var effect = 'slide',
     optionRight = { direction: 'right' },
     duration = 500;
 
+var compareSource = 8;
+
 var bikePopup = {
 
     container: $('#select-bike-cover-popup'),
@@ -59,9 +61,43 @@ var bikeSelection = function () {
     self.LoadingText = ko.observable('Loading...');
     self.currentStep = ko.observable(0);
     self.lastStep = ko.observable(4);
+    self.makesArray = ko.observableArray([]);
     self.modelArray = ko.observableArray();
     self.versionArray = ko.observableArray();
     self.currentCacheObj = ko.observable();
+
+    self.getMakes = function () {
+        var key = "compare_makes";
+        self.LoadingText("Loading bike models...");
+        self.IsLoading(true);
+        if (!bwcache.get(key)) {
+            $.ajax({
+                type: "Get",
+                async: false,
+                url: "/api/MakeList/?requesttype=2",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    bwcache.set(key, response.makes, 30);
+                    self.makesArray(response.makes);
+
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        bwcache.set(key, null, 30);
+                        self.makesArray(null);
+                    }
+                    self.IsLoading(false);
+                }
+            });
+        }
+        else {
+            data = bwcache.get(key);
+            self.makesArray(data);
+            self.IsLoading(false);
+
+        }
+    };
 
     self.makeChanged = function (data, event) {
         self.currentStep(self.currentStep() + 1);
@@ -161,7 +197,6 @@ var bikeSelection = function () {
                         self.bikeData(res);
                         bwcache.set(_cversionKey, res, true);
                         self.setCompareBikeHTML();
-                        self.currentStep(self.currentStep() + 1);                      
                     })
                     .fail(function () {
                         self.bikeData(null);
@@ -244,8 +279,11 @@ var compareBike = function () {
     self.bike2 = ko.observable();
     self.compareSource = ko.observable(compareSource);
 
+    self.matchBoxHeight = ko.observable(false);
+
     self.openBikeSelection = function (bike) {
         try {
+            self.bikeSelection().getMakes();
             self.bikeSelection().currentBike(bike);
             self.bikePopup.open();
             window.history.pushState('selectBike', '', '');
@@ -253,7 +291,7 @@ var compareBike = function () {
         } catch (e) {
            console.warn(e)
         }
-    };
+    }; 
 
     self.compareLink = ko.computed(function () {
         var _link = "/m/comparebikes/";
@@ -269,8 +307,16 @@ var compareBike = function () {
                   + self.bike2().make.masking + "-" + self.bike2().model.maskingName + "/"
                   + "?bike1=" + self.bike1().version.versionId + "&bike2=" + self.bike2().version.versionId
                   + "&source=" + self.compareSource());
-            }
+            }            
         }
+
+        if (self.bike1() || self.bike2()) {
+            self.matchBoxHeight(true);
+        }
+        else {
+            self.matchBoxHeight(false);
+        }
+
         return _link;
     });
 };
@@ -283,4 +329,3 @@ $(window).on('popstate', function (event) {
         bikePopup.close();
     }
 });
-
