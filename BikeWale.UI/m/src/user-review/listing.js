@@ -407,7 +407,7 @@ docReady(function () {
                     })
                     .always(function () {
                         self.ApplyPagination();
-                        window.location.hash = qs;
+                        //window.location.hash = qs;
                         self.IsLoading(false);
                         $('html, body').scrollTop(modelReviewsSection.offset().top);
                     });
@@ -417,7 +417,7 @@ docReady(function () {
                     self.TotalReviews(userreviewsData.totalCount);
                     self.noReviews(false);
                     self.ApplyPagination();
-                    window.location.hash = qs;
+                    //window.location.hash = qs;
                     self.IsLoading(false);
                     $('html, body').scrollTop(modelReviewsSection.offset().top);
                 }
@@ -508,5 +508,5 @@ docReady(function () {
     if (checkedStar)
         document.getElementById('rate-star-' + parseInt(checkedStar)).checked = false;
 
-   // vmUserReviews.setPageFilters(e);
+    // vmUserReviews.setPageFilters(e);
 });
