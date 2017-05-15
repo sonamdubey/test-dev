@@ -318,11 +318,49 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog(String.Format("Error in IsDealerDailyLeadLimitExceeds({0}) : Msg : {1}", 0, ex.Message));
+                Logs.WriteErrorLog(String.Format("Error in IsDealerDailyLeadLimitExceeds({0}) : Msg : {1}", campaignId, ex.Message));
             }
 
             return islimitexceeds;
 
+        }
+
+        /// <summary>
+        /// Gets the royal enfield dealer by identifier.
+        /// </summary>
+        /// <param name="re_dealerId">The re dealer identifier.</param>
+        /// <returns>
+        /// Created by : Sangram Nandkhile on 12-May-2017 
+        /// </returns>
+        public RoyalEnfieldDealer GetRoyalEnfieldDealerById(uint re_dealerId)
+        {
+            RoyalEnfieldDealer objDealerData = null;
+            try
+            {
+                objDealerData = new RoyalEnfieldDealer();
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getroyalendfieldealers";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.UInt32, re_dealerId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            objDealerData.DealerName = Convert.ToString(dr["dealerName"]);
+                            objDealerData.DealerCity = Convert.ToString(dr["dealercity"]);
+                            objDealerData.DealerState = Convert.ToString(dr["dealerstate"]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(String.Format("Error in GetRoyalEnfieldDealerById({0}) : Msg : {1}", re_dealerId, ex.Message));
+            }
+
+            return objDealerData;
         }
     }
 }
