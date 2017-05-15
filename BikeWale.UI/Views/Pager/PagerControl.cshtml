@@ -2,12 +2,12 @@
 
 @if (@Model != null && @Model.PagerOutput != null)
 {
-    <div id="pagination-list-content" class="grid-7 alpha omega position-rel rightfloat pagination-list-content">
+    <div id="pagination-list-content" class="grid-7 alpha omega position-rel rightfloat pagination-list-content" data-bind="visible : Pagination().hasPrevious() || Pagination().hasNext()">
         <ul id="pagination-list" class="pagination-list" data-bind="html: PagesListHtml">
-            @foreach (var pg in @Model.PagerOutput.PagesDetail)
+            @foreach (var pg in Model.PagerOutput.PagesDetail)
             {
-                <li class="@(pg.PageNo.Equals(@Model.CurrentPageNo) ? "active" : "")">
-                    <a data-hash="@((Model.ShowHash)? string.Format("city={0}&make={1}&model={2}", @Model.CityId, @Model.MakeId,@Model.ModelId) : "")" data-bind='click: function (d,e) {  ChangePageNumber(e); }' href="@pg.PageUrl" data-pagenum="@pg.PageNo">@pg.PageNo</a>
+                <li class="@(pg.PageNo.Equals(Model.CurrentPageNo) ? "active" : "")">
+                    <a data-hash="@((Model.ShowHash)? string.Format("city={0}&make={1}&model={2}", Model.CityId, Model.MakeId,Model.ModelId) : "")" data-bind='click: function (d,e) {  ChangePageNumber(e); }' href="@pg.PageUrl" data-pagenum="@pg.PageNo">@pg.PageNo</a>
                 </li>
             }
         </ul>

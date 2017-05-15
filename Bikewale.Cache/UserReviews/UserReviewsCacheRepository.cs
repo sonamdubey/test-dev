@@ -1,8 +1,12 @@
 ﻿using Bikewale.Entities.UserReviews;
+using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Notifications;
 using System;
+using System.Collections;
+using System.Linq;
 
 namespace Bikewale.Cache.UserReviews
 {
@@ -15,16 +19,18 @@ namespace Bikewale.Cache.UserReviews
     {
         private readonly ICacheManager _cache;
         private readonly IUserReviewsRepository _objUserReviews;
+        private readonly IUserReviewsSearch _objUserReviewSearch;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="objUserReviews"></param>
-        public UserReviewsCacheRepository(ICacheManager cache, IUserReviewsRepository objUserReviews)
+        public UserReviewsCacheRepository(ICacheManager cache, IUserReviewsRepository objUserReviews, IUserReviewsSearch objUserReviewSearch)
         {
             _cache = cache;
             _objUserReviews = objUserReviews;
+            _objUserReviewSearch = objUserReviewSearch;
         }
 
         /// <summary>
@@ -46,7 +52,6 @@ namespace Bikewale.Cache.UserReviews
             try
             {
                 reviews = _cache.GetFromCache<ReviewListBase>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter));
-                //reviews = _cache.GetFromCache<IEnumerable<ReviewEntity>>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalReviews));
             }
             catch (Exception ex)
             {
@@ -94,6 +99,134 @@ namespace Bikewale.Cache.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsData");
             }
             return reviews;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inputFilters"></param>
+        /// <returns></returns>
+        public SearchResult GetUserReviewsList(InputFilters inputFilters)
+        {
+            SearchResult reviews = null;
+            if (inputFilters != null && (!String.IsNullOrEmpty(inputFilters.Model) || !String.IsNullOrEmpty(inputFilters.Make)))
+            {
+                string key = "BW_UserReviews_MO_" + inputFilters.Model;
+                bool skipDataLimit = (inputFilters.PN * inputFilters.PS) > 24;
+                try
+                {
+                    if (inputFilters.SO > 0)
+                    {
+                        key = string.Format("{0}_CAT_{1}", key, inputFilters.SO);
+                    }
+
+                    if (skipDataLimit)
+                    {
+                        key = string.Format("{0}_PN_{1}_PS_{2}", key, inputFilters.PN, inputFilters.PS);
+                    }
+                    else
+                    {
+                        key += "_PN_1_PS_24";
+                    }
+
+                    reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan(12, 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
+
+                    if (reviews != null && reviews.Result != null && !skipDataLimit)
+                    {
+                        if (inputFilters.PN != 1)
+                        {
+                            reviews.Result = reviews.Result.Skip((inputFilters.PN - 1) * inputFilters.PS);
+                        }
+
+                        reviews.Result = reviews.Result.Take(inputFilters.PS);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsData");
+                }
+            }
+            return reviews;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId)
+        {
+            BikeReviewsInfo reviews = null;
+            string key = "BW_BikeReviewsInfo_MO_" + modelId;
+
+            if (skipReviewId.HasValue)
+                key = key + "_RId" + skipReviewId.Value;
+
+            try
+            {
+                reviews = _cache.GetFromCache<BikeReviewsInfo>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetBikeReviewsInfo(modelId, skipReviewId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsData");
+            }
+            return reviews;
+        }
+
+        public BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId)
+        {
+            BikeRatingsReviewsInfo reviews = null;
+            string key = "BW_BikeRatingsReviewsInfo_MO_" + modelId;
+            try
+            {
+                reviews = _cache.GetFromCache<BikeRatingsReviewsInfo>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetBikeRatingsReviewsInfo(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsData");
+            }
+            return reviews;
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 05-05-2017
+        /// Description : Return user review summary by calling dal
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns></returns>
+        public UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId)
+        {
+            UserReviewSummary objUserReviewSummary = null;
+            string key = string.Format("BW_UserReviewDetails_{0}", reviewId);
+            try
+            {
+                objUserReviewSummary = _cache.GetFromCache<UserReviewSummary>(key, new TimeSpan(12, 0, 0), () => _objUserReviews.GetUserReviewSummaryWithRating(reviewId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeMakesCacheRepository.GetUserReviewSummaryWithRating {0}", reviewId));
+            }
+            return objUserReviewSummary;
+        }
+
+        /// <summary>
+        /// Created by Sajal gupta on 11-05-2017
+        /// Descriptio : Creates hash table for reviews id mapping
+        /// </summary>
+        /// <returns></returns>
+        public Hashtable GetUserReviewsIdMapping()
+        {
+            Hashtable htResult = null;
+            string key = "BW_UserReviewIdMapping";
+            try
+            {
+                htResult = _cache.GetFromCache<Hashtable>(key, new TimeSpan(30, 0, 0, 0), () => _objUserReviews.GetUserReviewsIdMapping());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objError = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsIdMapping");
+            }
+            return htResult;
         }
     }
 }

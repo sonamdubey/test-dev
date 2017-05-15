@@ -1,6 +1,7 @@
 ﻿using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
+using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
@@ -22,6 +23,7 @@ using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -73,6 +75,7 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<ICacheManager, MemcacheManager>();
                 container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
                 container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
+                container.RegisterType<IUserReviewsSearch, UserReviewsSearch>();
                 container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
                 container.RegisterType<IBikeModelsCacheRepository<U>, BikeModelsCacheRepository<T, U>>();
                 container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();

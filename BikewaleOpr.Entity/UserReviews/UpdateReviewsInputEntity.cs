@@ -19,5 +19,6 @@ namespace BikewaleOpr.Entity.UserReviews
         public string BikeName { get; set; }
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
+        public uint ModelId { get; set; }
     }
 }

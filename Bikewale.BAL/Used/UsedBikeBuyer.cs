@@ -1,5 +1,4 @@
 ﻿
-using Bikewale.CoreDAL;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.MobileVerification;
 using Bikewale.Entities.UrlShortner;
@@ -244,7 +243,7 @@ namespace Bikewale.BAL.Used
                 else
                 {
                     //Register the new customer
-                    objCust = new CustomerEntity() { CustomerName = buyer.CustomerName, CustomerEmail = buyer.CustomerEmail, CustomerMobile = buyer.CustomerMobile, ClientIP = CommonOpn.GetClientIP() };
+                    objCust = new CustomerEntity() { CustomerName = buyer.CustomerName, CustomerEmail = buyer.CustomerEmail, CustomerMobile = buyer.CustomerMobile, ClientIP = CurrentUser.GetClientIP() };
                     buyer.CustomerId = _objCustomer.Add(objCust);
                 }
             }

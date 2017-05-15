@@ -264,7 +264,7 @@ namespace Bikewale.Content
 
                 GoogleKeywords();
                 BindControls();
-                returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/user-reviews/",MakeMaskingName,ModelMaskingName));
+                returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/user-reviews/", MakeMaskingName, ModelMaskingName));
                 CreatMetas();
             }
         }//pageload
@@ -278,8 +278,8 @@ namespace Bikewale.Content
             pageMetas.Title = string.Format("User Reviews: {0} | Bikes Reviews.", BikeName);
             pageMetas.Description = string.Format("{0} User Reviews - Read first-hand reviews of actual {0} owners. Find out what buyers of {0} have to say about the bike.", BikeName);
             pageMetas.Keywords = string.Format("{0} reviews, {0} Users Reviews, {0} customer reviews, {0} customer feedback, {0} owner feedback, user bike reviews, owner feedback, consumer feedback, buyer reviews", BikeName);
-            pageMetas.AlternateUrl = !string.IsNullOrEmpty(pageNumber) ? string.Format("{0}/m/{1}-bikes/{2}/user-reviews-p{3}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, pageNumber) : string.Format("{0}/m/{1}-bikes/{2}/user-reviews/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName);
-            pageMetas.CanonicalUrl = !string.IsNullOrEmpty(pageNumber) ? string.Format("{0}/{1}-bikes/{2}/user-reviews-p{3}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, pageNumber) : string.Format("{0}/{1}-bikes/{2}/user-reviews/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName);
+            pageMetas.AlternateUrl = !string.IsNullOrEmpty(pageNumber) ? string.Format("{0}/m/{1}-bikes/{2}/user-reviews-p{3}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, pageNumber) : string.Format("{0}/m/{1}-bikes/{2}/reviews/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName);
+            pageMetas.CanonicalUrl = !string.IsNullOrEmpty(pageNumber) ? string.Format("{0}/{1}-bikes/{2}/user-reviews-p{3}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, pageNumber) : string.Format("{0}/{1}-bikes/{2}/reviews/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName);
 
         }
         /// <summary>

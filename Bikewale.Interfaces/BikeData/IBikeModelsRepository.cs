@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
@@ -97,5 +98,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
+        IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviews(uint modelId, uint totalRecords);
     }
 }

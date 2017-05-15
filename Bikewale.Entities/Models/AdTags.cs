@@ -41,6 +41,7 @@ namespace Bikewale.Models
         public bool Ad320x150_Bottom { get; set; }
         public bool Ad320x100ATF { get; set; }
         public bool Ad320x100BTF { get; set; }
+        public bool Ad_300x100 { get; set; }
 
         #endregion
 

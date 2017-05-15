@@ -23,18 +23,19 @@ namespace Bikewale.Models
         private string _Querystring;
         private ulong _customerId;
 
+        private uint _selectedRating;
         private bool _isFake;
         public StatusCodes status;
         private string _returnUrl;
         public ushort PlatFormId { get; set; }
-       
+
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Added interfaces for bikeinfo and user reviews 
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="bikeInfo"></param>
-        /// <param name="userReviews"></param>
+        /// <param name="userReviews"></param>       
         public UserReviewRatingPage(uint modelId, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, string Querystring, IUserReviewsRepository userReviewsRepo)
         {
             _modelId = modelId;
@@ -46,8 +47,9 @@ namespace Bikewale.Models
                 ProcessQuery(_Querystring);
             else
                 status = Entities.StatusCodes.ContentFound;
-            
+
         }
+
 
         private void ProcessQuery(string Querystring)
         {
@@ -59,8 +61,8 @@ namespace Bikewale.Models
                 uint.TryParse(queryCollection["reviewid"], out _reviewId);
                 ulong.TryParse(queryCollection["customerid"], out _customerId);
                 bool.TryParse(queryCollection["isFake"], out _isFake);
-                _returnUrl=Convert.ToString(queryCollection["returnUrl"]);
-
+                _returnUrl = Convert.ToString(queryCollection["returnUrl"]);
+                uint.TryParse(queryCollection["selectedRating"], out _selectedRating);
 
                 if (_reviewId > 0 && !_isFake)
                 {
@@ -76,7 +78,6 @@ namespace Bikewale.Models
             }
             catch (System.Exception ex)
             {
-
                 ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewRatingPage.ProcessQuery() - ModelId :{0}", _modelId));
             }
 
@@ -93,10 +94,12 @@ namespace Bikewale.Models
 
             try
             {
+                objUserVM.SelectedRating = _selectedRating;
+
                 GetBikeData(objUserVM);
 
                 GetUserRatings(objUserVM);
-                 if (objUserVM != null && objUserVM.objModelEntity != null)
+                if (objUserVM != null && objUserVM.objModelEntity != null)
                 {
                     objUserVM.ReturnUrl = _returnUrl;
                     BindMetas(objUserVM);
@@ -225,7 +228,7 @@ namespace Bikewale.Models
                 }
                 objUserVM.IsFake = _isFake;
                 objUserVM.ReviewId = _reviewId;
-           
+
             }
             catch (System.Exception ex)
             {

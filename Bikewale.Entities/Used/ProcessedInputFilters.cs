@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bikewale.Entities.Used.Search
 {
     /// <summary>
@@ -17,9 +12,9 @@ namespace Bikewale.Entities.Used.Search
         public string[] Model { get; set; }
         public string MinBudget { get; set; }
         public string MaxBudget { get; set; }
-        public string Kms { get; set; }        
-        public string Age { get; set; }        
-        public string[] Owners { get; set; }        
+        public string Kms { get; set; }
+        public string Age { get; set; }
+        public string[] Owners { get; set; }
         public string[] SellerTypes { get; set; }
 
         public ushort SortOrder { get; set; }

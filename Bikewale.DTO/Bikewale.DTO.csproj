@@ -259,6 +259,7 @@
     <Compile Include="Used\UsedBikeBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="UserReviews\ReviewQuestionsDto.cs" />
+    <Compile Include="UserReviews\SearchResult.cs" />
     <Compile Include="UserReviews\UserReviewOverallRatingDto.cs" />
     <Compile Include="UserReviews\UserReviewQuestionDto.cs" />
     <Compile Include="UserReviews\UserReviewsInputEntity.cs" />

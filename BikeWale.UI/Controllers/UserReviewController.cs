@@ -1,8 +1,12 @@
 ﻿using Bikewale.Common;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
 using System.Web.Mvc;
@@ -15,21 +19,97 @@ namespace Bikewale.Controllers
         private readonly IUserReviews _userReviews = null;
         private IBikeMaskingCacheRepository<BikeModelEntity, int> _objModel = null;
         private readonly IUserReviewsRepository _userReviewsRepo = null;
+        private readonly IUserReviewsCache _userReviewsCacheRepo = null;
+        private readonly IUserReviewsSearch _userReviewsSearch = null;
+        private readonly IBikeInfo _bikeInfo = null;
+        private readonly ICityCacheRepository _cityCache = null;
+        private readonly ICMSCacheContent _objArticles = null;
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 7th May 2017
+        /// Description : Constructor to resolve dependencies
         /// </summary>
+        /// <param name="objArticles"></param>
+        /// <param name="cityCache"></param>
         /// <param name="bikeInfo"></param>
+        /// <param name="userReviewsCacheRepo"></param>
         /// <param name="userReviews"></param>
-
-        public UserReviewController(IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo)
+        /// <param name="objModel"></param>
+        /// <param name="userReviewsRepo"></param>
+        /// <param name="userReviewsSearch"></param>
+        public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo, IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch)
         {
 
             _userReviews = userReviews;
             _userReviewsRepo = userReviewsRepo;
             _objModel = objModel;
+            _bikeInfo = bikeInfo;
+            _cityCache = cityCache;
+            _userReviewsCacheRepo = userReviewsCacheRepo;
+            _userReviewsSearch = userReviewsSearch;
+            _objArticles = objArticles;
+        }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 7th May 2017
+        /// Description : Action method for mobile user reviews section
+        /// </summary>
+        /// <param name="makeMasking"></param>
+        /// <param name="modelMasking"></param>
+        /// <param name="pageNo"></param>
+        /// <returns></returns>
+        [Route("m/{makeMasking}-bikes/{modelMasking}/reviews/")]
+        public ActionResult ListReviews_Mobile(string makeMasking, string modelMasking, uint? pageNo)
+        {
+            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles);
+            if (objData != null && objData.Status.Equals(StatusCodes.ContentFound))
+            {
+                objData.PageNumber = pageNo;
+                UserReviewListingVM objVM = objData.GetData();
+                if (objData.Status.Equals(StatusCodes.ContentNotFound))
+                {
+                    return Redirect("/pagenotfound.aspx");
+                }
+                else
+                {
+                    return View(objVM);
+                }
+            }
+            else if (objData.Status.Equals(StatusCodes.RedirectPermanent))
+            {
+                return RedirectPermanent(objData.RedirectUrl);
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
 
+        }
+
+        /// <summary>
+        /// Created by sajal gupta on  10-05-2017
+        /// description : to load user review detail mobile page
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns></returns>
+        [Route("m/user-reviews/details/{reviewId}")]
+        public ActionResult ReviewDetails_Mobile(uint reviewId, string makeMaskingName, string modelMaskingName)
+        {
+            UserReviewDetailsPage objUserReviewDetails = new UserReviewDetailsPage(reviewId, _userReviewsCacheRepo, _bikeInfo, _cityCache, _objArticles, _objModel, makeMaskingName, modelMaskingName);
+            if (objUserReviewDetails != null)
+            {
+                objUserReviewDetails.TabsCount = 3;
+                objUserReviewDetails.ExpertReviewsWidgetCount = 3;
+                objUserReviewDetails.SimilarBikeReviewWidgetCount = 9;
+                UserReviewDetailsVM objPage = objUserReviewDetails.GetData();
+
+                if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Description.Length > 0 && objPage.ReviewId > 0)
+                    return View(objPage);
+                else
+                    return Redirect("/pageNotFound.aspx");
+            }
+            else
+                return Redirect("/pageNotFound.aspx");
         }
 
         /// <summary>
@@ -40,7 +120,7 @@ namespace Bikewale.Controllers
         /// <returns></returns>
         [Route("user-reviews/rate-bike/{modelId}/")]
         [Filters.DeviceDetection()]
-        public ActionResult RateBike(uint modelId,string q)
+        public ActionResult RateBike(uint modelId, string q, uint? selectedRating)
         {
             UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, q, _userReviewsRepo);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
@@ -71,7 +151,7 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [Route("m/user-reviews/rate-bike/{modelId}/")]
-        public ActionResult RateBike_Mobile(uint modelId,string q)
+        public ActionResult RateBike_Mobile(uint modelId, string q, uint? selectedRating)
         {
             UserReviewRatingPage objUserReview = new UserReviewRatingPage(modelId, _userReviews, _objModel, q, _userReviewsRepo);
             UserReviewRatingVM UserReviewVM = new UserReviewRatingVM();
@@ -101,20 +181,20 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, bool? isDesktop,string returnUrl,ushort platformId)
+        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, bool? isDesktop, string returnUrl, ushort platformId)
         {
 
 
             UserReviewRatingObject objRating = null;
 
-            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId,returnUrl,platformId);
+            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId, returnUrl, platformId);
 
 
             string strQueryString = string.Empty;
 
 
             if (objRating != null)
-                strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}&returnUrl={9}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, objRating.IsFake,returnUrl);
+                strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}&returnUrl={9}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, objRating.IsFake, returnUrl);
 
             string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
             if (objRating != null && !objRating.IsFake)

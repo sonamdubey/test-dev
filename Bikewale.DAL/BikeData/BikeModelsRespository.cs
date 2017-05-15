@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
@@ -563,6 +564,7 @@ namespace Bikewale.DAL.BikeData
 
                                 objModel.ExpectedLaunchId = Convert.ToUInt16(dr["ExpectedLaunchId"]);
                                 objModel.ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMM yyyy") : "";
+                                objModel.ExpectedLaunchedDate = Convert.ToDateTime(dr["ExpectedLaunch"]);
                                 objModel.EstimatedPriceMin = Convert.ToUInt64(dr["EstimatedPriceMin"]);
                                 objModel.EstimatedPriceMax = Convert.ToUInt64(dr["EstimatedPriceMax"]);
                                 objModel.HostUrl = Convert.ToString(dr["HostURL"]);
@@ -1569,7 +1571,7 @@ namespace Bikewale.DAL.BikeData
         }
         /// <summary>
         /// Modified By :- Subodh Jain on 17 Jan 2017
-        /// Summary :- shifted function to dal layer
+        /// Summary :- shifted function to dal layer       
         /// </summary>
         /// <param name="reviewId"></param>
         /// <param name="isAlreadyViewed"></param>
@@ -1599,7 +1601,7 @@ namespace Bikewale.DAL.BikeData
                         }
 
                         cmd1.CommandType = CommandType.StoredProcedure;
-                        cmd1.CommandText = "getcustomerreviewinfo_16012017";
+                        cmd1.CommandText = "getcustomerreviewinfo_12052017";
                         cmd1.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int64, reviewId));
 
 
@@ -1617,6 +1619,7 @@ namespace Bikewale.DAL.BikeData
                                 objReview.ReviewEntity.Liked = SqlReaderConvertor.ToUInt16(dr["Liked"]);
                                 objReview.ReviewEntity.Pros = Convert.ToString(dr["Pros"]);
                                 objReview.ReviewEntity.ReviewDate = Convert.ToDateTime(dr["EntryDateTime"]);
+                                objReview.ReviewEntity.NewReviewId = SqlReaderConvertor.ToUInt32(dr["NewReviewId"]);
                                 objReview.ReviewEntity.ReviewTitle = Convert.ToString(dr["Title"]);
                                 objReview.ReviewEntity.WrittenBy = Convert.ToString(dr["CustomerName"]);
                                 objReview.ReviewEntity.Viewed = Convert.ToUInt32(dr["viewed"]);
@@ -2163,6 +2166,60 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass err = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.GetSimilarBikesVideos_Model: {0}", modelId));
+            }
+            return SimilarBikeInfoList;
+        }
+
+        /// <summary>
+        /// Created by :- Sajal Gupta on 08-05-2017
+        /// Summary :- Bind User review count for similar bikes
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
+        public IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviews(uint modelId, uint totalRecords)
+        {
+            IList<SimilarBikeUserReview> SimilarBikeInfoList = null;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getalternativebikeswithreviewcount";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            SimilarBikeInfoList = new List<SimilarBikeUserReview>();
+
+                            while (dr.Read())
+                            {
+                                var bikeInfo = new SimilarBikeUserReview();
+                                bikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
+                                bikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
+                                bikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
+                                bikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
+                                bikeInfo.OverAllRating = SqlReaderConvertor.ToUInt32(dr["overallrating"]);
+                                bikeInfo.Make.MakeName = Convert.ToString(dr["makename"]);
+                                bikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
+                                bikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
+                                bikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
+                                bikeInfo.NumberOfRating = SqlReaderConvertor.ToUInt32(dr["numberOfRatings"]);
+                                SimilarBikeInfoList.Add(bikeInfo);
+
+                            }
+                            dr.Close();
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.GetSimilarBikesUserReviews_Model: {0}", modelId));
             }
             return SimilarBikeInfoList;
         }

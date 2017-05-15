@@ -55,7 +55,7 @@ namespace Bikewale.DAL.PriceQuote
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, pqParams.VersionId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte, pqParams.SourceId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, Bikewale.CoreDAL.CommonOpn.GetClientIP()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CurrentUser.GetClientIP()));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, pqParams.DealerId));
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqsourceid", DbType.Byte, (pqParams.PQLeadId.HasValue) ? pqParams.PQLeadId : Convert.DBNull));

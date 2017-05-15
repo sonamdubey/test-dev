@@ -1,5 +1,4 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.Customer;
+﻿using Bikewale.Entities.Customer;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.UserReviews;
@@ -314,7 +313,7 @@ namespace Bikewale.BAL.UserReviews
                 else
                 {
                     //Register the new customer
-                    objCust = new CustomerEntity() { CustomerName = customer.CustomerName, CustomerEmail = customer.CustomerEmail, CustomerMobile = customer.CustomerMobile, ClientIP = CommonOpn.GetClientIP() };
+                    objCust = new CustomerEntity() { CustomerName = customer.CustomerName, CustomerEmail = customer.CustomerEmail, CustomerMobile = customer.CustomerMobile, ClientIP = CurrentUser.GetClientIP() };
                     customer.CustomerId = _objCustomer.Add(objCust);
                 }
 

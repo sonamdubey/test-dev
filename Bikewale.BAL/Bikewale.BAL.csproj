@@ -165,6 +165,7 @@
     <Compile Include="Used\UsedBikeBuyer.cs" />
     <Compile Include="Used\SearchBikes.cs" />
     <Compile Include="Used\SearchQuery.cs" />
+    <Compile Include="UserReviews\ProcessSearchFilters.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />
     <Compile Include="UserReviews\UserReviewsInputEntity.cs" />
     <Compile Include="Videos\Videos.cs" />
