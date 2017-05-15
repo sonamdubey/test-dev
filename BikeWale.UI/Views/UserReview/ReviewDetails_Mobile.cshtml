@@ -101,7 +101,7 @@
 
                 <div class="inline-block margin-bottom10">
                     <span class="bwmsprite views-sm"></span>
-                    <span class="font12 text-light-grey inline-block">@string.Format("{0} view{1}", Model.UserReviewDetailsObj.Views, Model.UserReviewDetailsObj.Views > 1 ? "s" : "")</span>
+                    <span class="font12 text-light-grey inline-block">@string.Format("{0} view{1}", Bikewale.Utility.Format.FormatNumeric(Model.UserReviewDetailsObj.Views.ToString()), Model.UserReviewDetailsObj.Views > 1 ? "s" : "")</span>
                 </div>
 
                 <div class="border-solid-top margin-top10 margin-bottom10"></div>

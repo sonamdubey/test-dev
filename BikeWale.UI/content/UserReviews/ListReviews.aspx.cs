@@ -381,7 +381,7 @@ namespace Bikewale.Content
                 if (pageNumber != "")
                     rpgReviews.CurrentPageIndex = Convert.ToInt32(pageNumber);
                 //rpgReviews.BaseUrl = "/" + UrlRewrite.FormatSpecial(MakeName) + "-bikes/" + UrlRewrite.FormatSpecial(ModelName) + "/user-reviews/";
-                rpgReviews.BaseUrl = "/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/user-reviews/";
+                rpgReviews.BaseUrl = "/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/reviews/";
                 rpgReviews.SelectClause = selectClause;
                 rpgReviews.FromClause = fromClause;
                 rpgReviews.WhereClause = whereClause;
