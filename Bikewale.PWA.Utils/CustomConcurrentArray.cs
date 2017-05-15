@@ -61,34 +61,7 @@ namespace Bikewale.PWA.Utils
             _dict = new Dictionary<string, PwaProcessedHtml>();
             _queue = new Queue<string>();
             _addItemDictionaryLockObj = new object();
-        }
-
-
-        public PwaProcessedHtml GetOrSet(string key, Func<PwaProcessedHtml> createProcessedHtml)
-        {
-            PwaProcessedHtml outData;
-            if (_dict.TryGetValue(key, out outData))
-            {
-                return outData;
-            }
-            else
-            {
-                outData = createProcessedHtml();
-                lock (_addItemDictionaryLockObj)
-                {
-                    _currentCount++;
-                    if (_currentCount > _limit)
-                    //remove the first added entry from dictionary
-                    {
-                        _currentCount--;
-                        _dict.Remove(_queue.Dequeue());// it will never happen that the queue will be empty when _currentCount=limit
-                    }
-                    _queue.Enqueue(key);                    
-                    _dict[key] = outData;
-                }
-                return outData;
-            }
-        }
+        }  
 
         public PwaProcessedHtml Get(string key)
         {

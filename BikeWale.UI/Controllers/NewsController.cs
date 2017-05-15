@@ -7,6 +7,7 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models;
 using Bikewale.PWA.Utils;
+using Bikewale.Utility;
 using log4net;
 using Newtonsoft.Json;
 using React.Web.Mvc;
@@ -20,13 +21,11 @@ namespace Bikewale.Controllers
 {
     public class NewsController : Controller
     {
-        static CustomConcurrentArray _preProcessedNewslistHtmls = new CustomConcurrentArray();
-        static CustomConcurrentArray _preProcessedNewsDetailHtmls = new CustomConcurrentArray();
+        static bool _logPWAStats = BWConfiguration.Instance.EnablePWALogging;
+        static CustomConcurrentDictionary _preProcessedNewslistHtmls = new CustomConcurrentDictionary();
+        static CustomConcurrentDictionary _preProcessedNewsDetailHtmls = new CustomConcurrentDictionary();
         static HtmlHelper _htmlHelper=null;
         object _lockObject=new object();
-        //static string _hashOfRenderedStore = string.Empty;
-        //static IHtmlString _renderedStoreString = null;
-      //  static string _storeJsonString = string.Empty;
         static ILog _logger = LogManager.GetLogger("Pwa-Logger-Renderengine");
         private HtmlHelper NewsHtmlHelper
         {
@@ -152,8 +151,11 @@ namespace Bikewale.Controllers
                     IHtmlString processedString;
 
                     if (processedHtml==null)                  
-                    {//rerender                        
-                        var sw = Stopwatch.StartNew();
+                    {//rerender
+                        Stopwatch sw=null;
+                        if (_logPWAStats)                      
+                            sw = Stopwatch.StartNew();
+
                         var articleReducer = objData.ReduxStore.NewsReducer.NewsArticleListReducer;
                         processedString = NewsHtmlHelper.React("ServerRouterWrapper", new
                         {
@@ -164,9 +166,13 @@ namespace Bikewale.Controllers
                         }, containerId: "root");
                         jsonStr = tempStoreJson;
                         _preProcessedNewslistHtmls.Add(tempHashOfStoreJson, processedString, jsonStr);
-                        sw.Stop();
-                        ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
-                        _logger.Error(sw.ElapsedMilliseconds);
+
+                        if (_logPWAStats)
+                        {
+                            sw.Stop();
+                            ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+                            _logger.Error(sw.ElapsedMilliseconds); 
+                        }
                     }else
                     {
                         processedString = processedHtml.HtmlString;
@@ -281,7 +287,12 @@ namespace Bikewale.Controllers
 
                     if (processedHtml == null)
                     {//rerender                        
-                        var sw = Stopwatch.StartNew();
+                        Stopwatch sw=null;
+
+                        if (_logPWAStats)
+                        {
+                            sw = Stopwatch.StartNew(); 
+                        }
                         var articleReducer = objData.ReduxStore.NewsReducer.NewsDetailReducer;
                         processedString = NewsHtmlHelper.React("ServerRouterWrapper", new
                         {
@@ -293,9 +304,12 @@ namespace Bikewale.Controllers
                         }, containerId: "root");
                         jsonStr = tempStoreJson;
                         _preProcessedNewsDetailHtmls.Add(tempHashOfStoreJson, processedString, jsonStr);
-                        sw.Stop();
-                        ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
-                        _logger.Error(sw.ElapsedMilliseconds);
+                        if (_logPWAStats)
+                        {
+                            sw.Stop();
+                            ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
+                            _logger.Error(sw.ElapsedMilliseconds); 
+                        }
                     }
                     else
                     {

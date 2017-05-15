@@ -2,7 +2,6 @@
 @using System.Web.Script.Serialization
 @using Bikewale.Utility
 @using System.Diagnostics
-@using log4net
 @using Newtonsoft.Json
 <!doctype html>
 <html>
@@ -124,23 +123,10 @@
 
     <div class="blackOut-window"></div>
  
-    @{
-        ILog _logger = LogManager.GetLogger("Pwa-detail-Logger");
-        var sw = Stopwatch.StartNew();
-    }
-
-    @Html.Raw(Model.ServerRouterWrapper);
+     @Html.Raw(Model.ServerRouterWrapper);
     <script type="text/javascript">
             window.state = @Html.Raw(Model.WindowState)   
     </script>
-
-    @{
-
-        sw.Stop();
-        ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
-        _logger.Error(sw.ElapsedMilliseconds);
-    }
-
 
     <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
         <div class="globalcity-popup-data text-center">
