@@ -381,9 +381,14 @@ docReady(function () {
             var qs = self.QueryString();
 
             if (self.PreviousQS() != qs) {
-                self.IsLoading(true);
-                self.PreviousQS(qs);
-                var cacheKey = "UserReviews_mo_" + modelid + "_cat_" + self.Filters()["so"] + "_pn_" + self.Filters()["pn"] + "_ps_" + self.Filters()["ps"];
+                self.IsLoading(true);               
+                var cacheKey = "UserReviews_mo_" + modelid + "_cat_" + self.Filters()["so"] + "_pn_" + self.Filters()["pn"] + "_ps_" + self.Filters()["ps"],skipreviewid = self.Filters()["skipreviewid"];
+
+                if (skipreviewid && skipreviewid > 0)
+                {
+                    cacheKey += "_skiprid_" + skipreviewid;
+                }
+
                 var userreviewsData = bwcache.get(cacheKey);
                 if (!userreviewsData) {
                     var apiUrl = "/api/user-reviews/search/?reviews=true&" + qs;
@@ -418,6 +423,7 @@ docReady(function () {
                 }
 
             }
+            self.PreviousQS(qs);
         };
 
         self.setPageFilters = function (e) {
@@ -439,6 +445,11 @@ docReady(function () {
             }
 
         };
+
+        self.checkValidCache = function()
+        {
+
+        }
 
     }
 

@@ -245,11 +245,18 @@ namespace Bikewale.Service.Controllers.UserReviews
         {
             try
             {
-                NameValueCollection nvc = new NameValueCollection();
-                nvc.Add("par_reviewId", reviewId.ToString());
-                nvc.Add("par_vote", vote.ToString());
-                SyncBWData.PushToQueue("VoteUserReview", DataBaseName.BW, nvc);
-                return Ok();
+                if (vote == 0 || vote == 1)
+                {
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("par_reviewId", reviewId.ToString());
+                    nvc.Add("par_vote", vote.ToString());
+                    SyncBWData.PushToQueue("VoteUserReview", DataBaseName.BW, nvc);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch (Exception ex)
             {
@@ -272,7 +279,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         {
             try
             {
-                string ip = CurrentUser.GetClientIP();
+                string ip = Bikewale.Utility.CurrentUser.GetClientIP();
 
                 NameValueCollection nvc = new NameValueCollection();
                 nvc.Add("par_reviewId", reviewId.ToString());
