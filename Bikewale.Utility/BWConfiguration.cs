@@ -104,7 +104,7 @@ namespace Bikewale.Utility
         private string _AWSS3Region = String.Empty;
         private uint _GrpcMaxTimeLimit = 100;
         private uint _GrpcPoolSize = 1;
-
+        private bool _EnablePWALogging=false;
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
         {
@@ -190,6 +190,7 @@ namespace Bikewale.Utility
             _GrpcPoolSize = Convert.ToUInt32(ConfigurationManager.AppSettings["GrpcPoolSize"] ?? "1");
             _CoverFoxLink = Convert.ToString(ConfigurationManager.AppSettings["CoverFox"]);
             _pwaLocalCahceLimit = string.IsNullOrEmpty(ConfigurationManager.AppSettings["PwaLocalCahceLimit"]) ? 100 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaLocalCahceLimit"]);
+            _EnablePWALogging = string.IsNullOrEmpty(ConfigurationManager.AppSettings["EnablePWALogging"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["EnablePWALogging"]);
         }
 
         // Static method to provide access to instance
@@ -326,5 +327,6 @@ namespace Bikewale.Utility
         public string CoverFoxLink { get { return _CoverFoxLink; } }
 
         public int PwaLocalCahceLimit { get { return _pwaLocalCahceLimit; } }
+        public bool EnablePWALogging { get { return _EnablePWALogging; } }
     }   // class
 }   // namespace

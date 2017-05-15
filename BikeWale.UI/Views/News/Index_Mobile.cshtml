@@ -2,7 +2,6 @@
 @using System.Web.Script.Serialization
 @using Bikewale.Utility
 @using System.Diagnostics
-@using log4net;
 
 <!doctype html>
 <html>
@@ -127,31 +126,10 @@
 
 </head>
 <body>
-
-    @{
-        ILog _logger = LogManager.GetLogger("PWA-Bikewale-News");
-        Stopwatch stopwatch1 = Stopwatch.StartNew();
-
-    }
-
     @Html.Raw(Model.ServerRouterWrapper);
     <script type="text/javascript">
         window.state = @Html.Raw(Model.WindowState)
     </script>
-
-    @{
-        stopwatch1.Stop();
-    }
-
-    @{
-        Stopwatch stopwatch2 = Stopwatch.StartNew();
-    }
-
-    @{
-        stopwatch2.Stop();
-        ThreadContext.Properties["TimeTaken"] = stopwatch1.ElapsedMilliseconds;
-        _logger.Error("time for server render = " + stopwatch1.ElapsedMilliseconds + " ; time for setting state = " + stopwatch2.ElapsedMilliseconds);
-    }
 
     <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
         <div class="globalcity-popup-data text-center">
