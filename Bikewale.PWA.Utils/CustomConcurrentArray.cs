@@ -1,5 +1,6 @@
 ﻿using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
 using System.Web;
 
 namespace Bikewale.PWA.Utils
@@ -45,4 +46,77 @@ namespace Bikewale.PWA.Utils
         public IHtmlString HtmlString { get; set; }
         public String Json { get; set; }
     }
+
+
+    public class CustomConcurrentDictionary
+    {
+        Dictionary<string,PwaProcessedHtml> _dict;
+        static int _limit = BWConfiguration.Instance.PwaLocalCahceLimit;
+        Queue<string> _queue;
+        int _currentCount = 0;
+        object _addItemDictionaryLockObj;
+
+        public CustomConcurrentDictionary()
+        {
+            _dict = new Dictionary<string, PwaProcessedHtml>();
+            _queue = new Queue<string>();
+            _addItemDictionaryLockObj = new object();
+        }
+
+
+        public PwaProcessedHtml GetOrSet(string key, Func<PwaProcessedHtml> createProcessedHtml)
+        {
+            PwaProcessedHtml outData;
+            if (_dict.TryGetValue(key, out outData))
+            {
+                return outData;
+            }
+            else
+            {
+                outData = createProcessedHtml();
+                lock (_addItemDictionaryLockObj)
+                {
+                    _currentCount++;
+                    if (_currentCount > _limit)
+                    //remove the first added entry from dictionary
+                    {
+                        _currentCount--;
+                        _dict.Remove(_queue.Dequeue());// it will never happen that the queue will be empty when _currentCount=limit
+                    }
+                    _queue.Enqueue(key);                    
+                    _dict[key] = outData;
+                }
+                return outData;
+            }
+        }
+
+        public PwaProcessedHtml Get(string key)
+        {
+            PwaProcessedHtml outData;
+            if (_dict.TryGetValue(key,out outData))
+            {
+                return outData;
+            }
+            return null;            
+        }
+
+        public void Add(string key, IHtmlString value, string jsonStr)
+        {
+            lock (_addItemDictionaryLockObj)
+            {
+                _currentCount++;
+                if (_currentCount > _limit)
+                //remove the first added entry from dictionary
+                {
+                    _currentCount--;
+                    _dict.Remove(_queue.Dequeue());// it will never happen that the queue will be empty when _currentCount=limit
+                }
+                _queue.Enqueue(key);
+                _dict[key] = new PwaProcessedHtml() { HashKey = key, HtmlString = value, Json = jsonStr };
+            }
+        }
+
+    }
+    
+
 }

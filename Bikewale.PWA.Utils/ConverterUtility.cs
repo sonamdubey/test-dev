@@ -290,7 +290,7 @@ namespace Bikewale.PWA.Utils
         {
             PwaBikeInfo outBikeInfo = null;
 
-            if (objData != null)
+            if (objData != null && objData.BikeInfo!=null)
             {
                 var orgBikeInfo = objData.BikeInfo;
                 bool isUpComing = objData.IsUpcoming;

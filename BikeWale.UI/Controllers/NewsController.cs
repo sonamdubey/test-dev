@@ -183,6 +183,7 @@ namespace Bikewale.Controllers
             }
         }
 
+ 
         private void PopulateStoreForWidgetData(NewsIndexPageVM objData,string cityName)
         {
             List<PwaBikeNews> objPwaBikeNews = new List<PwaBikeNews>();

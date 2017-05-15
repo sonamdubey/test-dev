@@ -145,22 +145,25 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                             if (bikes != null)
                             {
                                 popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes, currentCityArea.City);
+
+
+                                if (makeId > 0)
+                                {
+                                    popularBikes.Heading = string.Format("Popular {0} bikes", makeData.MakeName);
+                                    popularBikes.CompleteListUrl = string.Format("/m/{0}-bikes/", makeData.MaskingName);
+                                    popularBikes.CompleteListUrlAlternateLabel = string.Format("{0} Bikes", makeData.MakeName);
+                                }
+                                else
+                                {
+                                    popularBikes.Heading = "Popular bikes";
+                                    popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
+                                    popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
+                                }
+                                popularBikes.CompleteListUrlLabel = "View all";
+
+                                objPwaBikeNews.Add(popularBikes);
                             }
-                            
-                            if (makeId > 0)
-                            {
-                                popularBikes.Heading = string.Format("Popular {0} bikes", makeData.MakeName);
-                                popularBikes.CompleteListUrl = string.Format("/m/{0}-bikes/", makeData.MaskingName);
-                                popularBikes.CompleteListUrlAlternateLabel = string.Format("{0} Bikes", makeData.MakeName);
-                            }
-                            else
-                            {
-                                popularBikes.Heading = "Popular bikes";
-                                popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
-                                popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";                                
-                            }
-                            popularBikes.CompleteListUrlLabel = "View all";
-                            objPwaBikeNews.Add(popularBikes);
+
                             popularBikes = null;
                             if (modelId > 0)
                             {
@@ -206,7 +209,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                 }
                                 upcomingBikes.CompleteListUrlAlternateLabel = "Upcoming Bikes in India";
                                 upcomingBikes.CompleteListUrlLabel = "View all";
-                                objPwaBikeNews.Add(upcomingBikes);                               
+                                if(upcomingBikes.BikesList != null)
+                                    objPwaBikeNews.Add(upcomingBikes);                               
                             }
                         }
 
@@ -214,35 +218,34 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     else 
                     {// negative or zero basic id means send popular Bikes and Upcoming Bikes
                      //get popular bikes
-
-                        PwaBikeNews popularBikes = new PwaBikeNews();
-                        popularBikes.Heading = "Popular bikes";
-                        popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
-                        popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
-                        popularBikes.CompleteListUrlLabel = "View all";
-
+                      
                         bikes = _bikeModelEntity.GetMostPopularBikes(EnumBikeType.All, 9, 0, cityId);
                         if (bikes != null && bikes.Count()>0)
                         {
+                            PwaBikeNews popularBikes = new PwaBikeNews();
+                            popularBikes.Heading = "Popular bikes";
+                            popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
+                            popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
+                            popularBikes.CompleteListUrlLabel = "View all";
                             popularBikes.BikesList= ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes, currentCityArea.City);
+                            objPwaBikeNews.Add(popularBikes);
                         }
-                        objPwaBikeNews.Add(popularBikes);
-
-                        PwaBikeNews upcomingBikes = new PwaBikeNews();
-                        upcomingBikes.Heading = "Upcoming bikes";
-                        upcomingBikes.CompleteListUrl = "/m/upcoming-bikes/";
-                        upcomingBikes.CompleteListUrlAlternateLabel = "Upcoming Bikes in India";
-                        upcomingBikes.CompleteListUrlLabel = "View all";
+                                                
                         UpcomingBikesListInputEntity filters = new UpcomingBikesListInputEntity();
                         filters.StartIndex = 1;
                         filters.EndIndex = 9;                        
-
                         var tempbikes = _upcoming.GetModels(filters,EnumUpcomingBikesFilter.Default);
                         if (tempbikes != null && tempbikes.Count()>0)
                         {
+                            PwaBikeNews upcomingBikes = new PwaBikeNews();
+                            upcomingBikes.Heading = "Upcoming bikes";
+                            upcomingBikes.CompleteListUrl = "/m/upcoming-bikes/";
+                            upcomingBikes.CompleteListUrlAlternateLabel = "Upcoming Bikes in India";
+                            upcomingBikes.CompleteListUrlLabel = "View all";
                             upcomingBikes.BikesList = ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails(tempbikes, currentCityArea.City);
+                            objPwaBikeNews.Add(upcomingBikes);
                         }
-                        objPwaBikeNews.Add(upcomingBikes);
+                        
                     }
 
                     return Ok(objPwaBikeNews);
