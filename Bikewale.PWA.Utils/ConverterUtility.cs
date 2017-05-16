@@ -24,7 +24,7 @@ namespace Bikewale.PWA.Utils
             {
                 outSummary = new PwaArticleSummary();
                 string catName = GetContentCategory(inpSum.CategoryId);
-                outSummary.ArticleUrl = string.Format("/m/{0}/{1}-{2}.html", catName.Replace(" ", "-").ToLower(), inpSum.BasicId, inpSum.ArticleUrl);
+                outSummary.ArticleUrl = GetArticleUrl(inpSum.CategoryId, inpSum.ArticleUrl, (int)inpSum.BasicId);
                 outSummary.ArticleApi = string.Format("api/pwa/id/{0}/page/", inpSum.BasicId);
                 outSummary.AuthorName = inpSum.AuthorName;
                 outSummary.Description = inpSum.Description;
@@ -46,7 +46,7 @@ namespace Bikewale.PWA.Utils
             var outDetails = new PwaArticleDetails();
             if (inpDet != null && inpDet.BasicId > 0)
             {
-                outDetails.ArticleUrl = string.Format("/m/news/{0}-{1}.html", inpDet.BasicId, inpDet.ArticleUrl);
+                outDetails.ArticleUrl = GetArticleUrl(inpDet.CategoryId, inpDet.ArticleUrl, (int)inpDet.BasicId);
                 outDetails.BasicId = inpDet.BasicId;
                 outDetails.Title = inpDet.Title;
                 outDetails.AuthorName = inpDet.AuthorName;
@@ -120,6 +120,38 @@ namespace Bikewale.PWA.Utils
                     break;
             }
             return _category;
+        }
+
+        private static string GetArticleUrl(int contentType,string url, int basicid)
+        {
+            string articleUrl = string.Empty;
+            EnumCMSContentType _contentType = (EnumCMSContentType)contentType;
+
+            switch (_contentType)
+            {
+                case EnumCMSContentType.AutoExpo2016:
+                case EnumCMSContentType.News:
+                    articleUrl = string.Format("/m/news/{0}-{1}.html", basicid, url);
+                    break;
+                case EnumCMSContentType.Features:
+                case EnumCMSContentType.SpecialFeature:
+                    articleUrl = string.Format("/m/features/{0}-{1}/",url, basicid);
+                    break;
+                case EnumCMSContentType.ComparisonTests:
+                case EnumCMSContentType.RoadTest:
+                    articleUrl = string.Format("/m/expert-reviews/{0}-{1}.html", url, basicid);
+                    break;
+                case EnumCMSContentType.TipsAndAdvices:
+                    articleUrl = string.Format("/m/bike-care/{0}-{1}.html", url, basicid);
+                    break;
+                case EnumCMSContentType.Videos:
+                    articleUrl = string.Format("/m/videos/{0}-{1}/", url, basicid);
+                    break;
+                default:
+                    string.Format("/m/{0}/{1}-{2}.html", _contentType.ToString().ToLower(), articleUrl, basicid);
+                    break;
+            }
+            return articleUrl;
         }
 
         public static List<PwaBikeDetails> MapMostPopularBikesBaseToPwaBikeDetails(IEnumerable<MostPopularBikesBase> inpList, string cityName)
