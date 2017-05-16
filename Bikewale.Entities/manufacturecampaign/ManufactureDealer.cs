@@ -1,6 +1,9 @@
 ﻿
+using System;
+using System.Runtime.Serialization;
 namespace Bikewale.Entities
 {
+    [Serializable, DataContract]
     public class ManufactureDealer
     {
         public string Id { get; set; }

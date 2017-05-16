@@ -312,7 +312,10 @@ Description : WebStorage Library with cookie as a fallback.
                                 if (_options.EnableEncryption && data) data = decode(data);
                                 var _item_ = JSON.parse(data) || {};
                                 var time = _item_.expiryTime || 1;
-                                if (time < currentTime) storage.removeItem(i);
+                                if (_item_.expiryTime)
+                                {
+                                    if (time < currentTime) storage.removeItem(i);
+                                }                             
 
                             }
                         }
