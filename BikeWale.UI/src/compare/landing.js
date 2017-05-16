@@ -111,7 +111,7 @@ docReady(function () {
         classPrefix: 'select-type-',
         dropdownArr: ['brand', 'model', 'version'],
 
-        placeholderTemplate: '<div class="box-placeholder"><span class="box-label"><span class="add-icon"></span><br />Add bike <span class="label-count"></span></span></div> <span class="error-text"></span>',
+        placeholderTemplate: '<div class="box-placeholder"><span class="box-label"><span class="add-icon"></span><br />Add bike <span class="label-count"></span></span></div>',
 
         setPlaceholderBox: function (list) {
             var li = document.createElement("li");
@@ -156,7 +156,7 @@ docReady(function () {
                 divTemplate += '</div>';
             }
 
-            div.innerHTML = divTemplate;
+            div.innerHTML = divTemplate + '<span class="error-text"></span>';
             listItem.appendChild(div);
 
             compareBox.getMakes(listItem);
