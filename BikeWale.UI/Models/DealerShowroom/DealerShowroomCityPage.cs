@@ -56,7 +56,7 @@ namespace Bikewale.Models.DealerShowroom
 
             try
             {
-                objMake = new MakeHelper().GetMakeNameByMakeId(makeId);
+                objMake = _bikeMakesCache.GetMakeDetails(makeId);
                 if (objMake != null)
                     objDealerVM.Make = objMake;
                 if (cityId > 0)

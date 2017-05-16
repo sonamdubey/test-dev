@@ -7,7 +7,7 @@
     Model.Page_JS_Path = "/m/src/compare/landing.js";
     Model.AdTags.AdPath = "/1017752/BikeWale_CompareBikes_Mobile";
     Model.AdTags.AdId = "1494843676829";
-    Model.AdTags.Ad_300x100 = true;
+    Model.AdTags.Ad320x100BTF = true;
     Model.AdTags.Ad_Bot_320x50 = true;    
 }
 
@@ -209,6 +209,11 @@
     </div>
 </section>
 }
+
+    <div class="margin-bottom20 text-center">
+    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+</div>
+
 @if (Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
 {
 <section>
