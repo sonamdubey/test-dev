@@ -330,6 +330,7 @@ docReady(function () {
                     isSameVersion = true;
             });
             if (!isSameVersion) {
+                selectBox.first().find('.error-text').hide();
                 if (!compareBox.checkCache(key)) {
                     $.ajax({
                         type: "Get",

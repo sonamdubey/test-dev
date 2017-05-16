@@ -2,7 +2,6 @@
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.ServiceCenter;
@@ -55,7 +54,7 @@ namespace Bikewale.Models.ServiceCenters
             {
                 objVM = new ServiceCenterIndiaPageVM();
                 objVM.ServiceCentersCityList = _objCache.GetServiceCenterList(Convert.ToUInt32(_makeId));
-                objVM.Make = new MakeHelper().GetMakeNameByMakeId(_makeId);
+                objVM.Make = _bikeMakesCache.GetMakeDetails(_makeId);
                 objVM.ServiceCenterBrandsList = new ServiceCentersByBrand(_objCache, _makeId).GetData();
                 objVM.UsedBikesByMakeList = BindUsedBikeByModel(_usedBikesTopCount);
                 objVM.BikeCareWidgetVM = new RecentBikeCare(_articles).GetData(_bikeCareRecordsCount, 0, 0);
@@ -99,7 +98,7 @@ namespace Bikewale.Models.ServiceCenters
                     if (objResponse.StatusCode == 200)
                     {
                         _makeId = objResponse.MakeId;
-                        var _cities = _objCache.GetServiceCenterCities(_makeId);                        
+                        var _cities = _objCache.GetServiceCenterCities(_makeId);
 
                         CityEntityBase city = null;
 

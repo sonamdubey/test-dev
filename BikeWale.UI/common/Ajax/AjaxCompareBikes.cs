@@ -29,18 +29,17 @@ namespace Bikewale.Ajax
             {
                 if (!String.IsNullOrEmpty(makeId) && uint.TryParse(makeId, out _makeid))
                 {
-                    sql = @" select distinct concat(ve.bikemodelid,'_',ve.modelmaskingname) as Value, ve.modelname as Text  
-                         from bikeversions ve
-                         join newbikespecifications n on ve.id = n.bikeversionid
-                         where ve.isdeleted = 0                           
-                         and ve.bikemakeid = " + _makeid;
+                    sql = @"select distinct concat( bm.id,'_',bm.maskingname) as Value, bm.name as Text  
+                         from bikemodels bm
+                         where bm.isdeleted = 0 
+                         and bm.bikemakeid = " + _makeid;
 
 
                     if (!(String.IsNullOrEmpty(compareBikes)))
                     {
                         if (compareBikes.Equals("New", StringComparison.CurrentCultureIgnoreCase))
                         {
-                            sql += " and ve.new=1 and ve.isfuturisticmodel = 0 and ve.isdeleted=0";
+                            sql += " and bm.new=1 and bm.futuristic = 0 and bm.isdeleted=0";
 
                         }
                     }
