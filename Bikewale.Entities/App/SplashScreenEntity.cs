@@ -12,5 +12,6 @@ namespace Bikewale.Entities
     public class SplashScreenEntity
     {
         public string SplashImgUrl { get; set; }
+        public uint SplashTimeOut { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace Bikewale.Entities
     {
         public string Id { get; set; }
         public string DealerName { get; set; }
+        public string DealerArea { get; set; }
         public string City { get; set; }
         public uint CityId { get; set; }
     }

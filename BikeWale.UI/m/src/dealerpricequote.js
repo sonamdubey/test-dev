@@ -240,7 +240,11 @@ docReady(function () {
                         $("#ddlMfgDealers").append("<option value selected>Select dealer</option>");
                         for (i = 0; i < count; i++) {
                             var dt = obj[i];
-                            $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-id='" + dt.id + "' >" + dt.dealerName + "</option>");
+                            var areaName = '';
+                            if (dt.area != null) {
+                                areaName = ", " + dt.area;
+                            }
+                            $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-id='" + dt.id + "' >" + dt.dealerName + areaName + "</option>");
                         }
                     }
                 }
