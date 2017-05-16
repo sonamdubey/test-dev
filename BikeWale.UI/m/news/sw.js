@@ -1,6 +1,6 @@
 (global => {
 
-	const version = '1' // version
+	const version = '2' // version
 	var SIZE_0_0 = '0x0';
 	var SIZE_110_61 = '110x61';
 	var SIZE_160_89 = '160x89';
@@ -10,10 +10,10 @@
 
 	var IMAGE_EXPIRATION_TIME = 86400;
 
-	var OFFLINE_PAGE = 'offline.html';
-	var VENDOR_JS = 'https://stg1.bikewale.com/Scripts/vendor.bundle.js';
-	var APP_JS = 'https://stg1.bikewale.com/Scripts/app.bundle.js';
-	var SW_TOOLBOX_JS = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/sw-toolbox.js';
+	var OFFLINE_PAGE = 'offline.html?15May2017v4';
+	var VENDOR_JS = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/vendor.bundle.js?15May2017v4';
+	var APP_JS = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/app.bundle.js?15May2017v4';
+	var SW_TOOLBOX_JS = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/sw-toolbox.js?15May2017v4';
 	var IMAGE_CDN_REGEX_PATTERN = /^https:\/\/imgd(\d)?.aeplcdn.com/
 	var ST_CDN_REGEX_PATTERN = /^https:\/\/st(\d)?.aeplcdn.com/
 	importScripts(SW_TOOLBOX_JS);
@@ -21,7 +21,7 @@
 	toolbox.options.cache = {
 		name: "bw-offline-precache"
 	}
-	global.toolbox.options.debug = true;
+	global.toolbox.options.debug = false;
 
 	global.toolbox.precache (
 		[
@@ -33,7 +33,7 @@
 
 	global.toolbox.router.get('/api/pwa/*',global.toolbox.networkFirst,
 								{
-									cache : {
+									cache : {	
 										name : 'api',
 										maxAgeSeconds : 86400,
 										maxEntries : 100
