@@ -751,16 +751,16 @@ a.btn:hover {
     margin-right: 5px
 }
 .campaign-offer-1 {
-    background-position: 0 -387px
+    background-position: -44px -244px;
 }
 .campaign-offer-2 {
-    background-position: 0 -418px
+    background-position: -44px -217px;
 }
 .campaign-offer-3 {
-    background-position: -28px -387px
+    background-position: -44px -139px;
 }
 .campaign-offer-4 {
-    background-position: -56px -387px
+    background-position: -44px -192px;
 }
 
 /* new campaign */
