@@ -169,7 +169,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                                 else
                                 {
                                     Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}, Message processed into dead letter queue", pqId, dealerId));
-                                    DeadLetterPublish(nvc, _queueName);
+                                    DeadLetterPublish(nvc, ConfigurationManager.AppSettings["QueueName"].ToUpper());
                                     _model.BasicReject(arg.DeliveryTag, false);
                                 }
                             }
