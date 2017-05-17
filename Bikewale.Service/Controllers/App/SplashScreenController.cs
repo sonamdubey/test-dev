@@ -4,7 +4,10 @@ using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Make;
 using Bikewale.Service.Utilities;
 using System;
+using System.Net;
 using System.Web.Http;
+using System.Web.Http.Results;
+using System.Linq;
 namespace Bikewale.Service.Controllers
 {
     /// <summary>
@@ -25,15 +28,31 @@ namespace Bikewale.Service.Controllers
             SplashScreen objDTOSplash = null;
             try
             {
-                var objSplash = _IsplashScreen.GetAppSplashScreen();
-                if (_IsplashScreen != null && objSplash != null)
+                // If android, IOS client sanitize the article content 
+                string platformId = string.Empty;
+
+                if (Request.Headers.Contains("platformId"))
                 {
-                    objDTOSplash = new SplashScreen();
-                    objDTOSplash = MakeListMapper.Convert(objSplash);
-                    return Ok(objDTOSplash);
+                    platformId = Request.Headers.GetValues("platformId").First().ToString();
+                }
+
+                if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
+                {
+                    var objSplash = _IsplashScreen.GetAppSplashScreen();
+                    if (_IsplashScreen != null && objSplash != null)
+                    {
+                        objDTOSplash = new SplashScreen();
+                        objDTOSplash = MakeListMapper.Convert(objSplash);
+                        return Ok(objDTOSplash);
+                    }
+                    else
+                        return new StatusCodeResult(HttpStatusCode.NoContent, this);
                 }
                 else
-                    return NotFound();
+                {
+                    return Unauthorized();
+                }
+
             }
             catch (Exception ex)
             {
