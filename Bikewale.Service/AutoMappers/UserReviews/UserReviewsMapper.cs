@@ -90,9 +90,9 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
             Mapper.CreateMap<ReviewTaggedBikeEntity, ReviewTaggedBike>();
-            Mapper.CreateMap<ReviewEntity, Review>();
+            Mapper.CreateMap<ReviewEntity, Bikewale.DTO.UserReviews.v2.Review>();
             Mapper.CreateMap<ReviewRatingEntity, ReviewRating>();
-            Mapper.CreateMap<ReviewRatingEntityBase, ReviewRatingBase>();
+            Mapper.CreateMap<ReviewRatingEntityBase, Bikewale.DTO.UserReviews.v2.ReviewRatingBase>();
             Mapper.CreateMap<PagingUrl, Bikewale.DTO.BikeBooking.PagingUrl>();
             Mapper.CreateMap<ReviewEntityBase, ReviewBase>();
             Mapper.CreateMap<Entities.UserReviews.Search.SearchResult, Bikewale.DTO.UserReviews.Search.SearchResult>();
