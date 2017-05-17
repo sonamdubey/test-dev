@@ -46,7 +46,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_08052017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_08112016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, makeType));
