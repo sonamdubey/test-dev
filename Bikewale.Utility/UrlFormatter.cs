@@ -380,7 +380,7 @@ namespace Bikewale.Utility
             }
             else
             {
-                url = String.Format("/{0}-bikes/{1}/user-reviews/", makeMaskingName, modelMaskingName);
+                url = String.Format("/{0}-bikes/{1}/reviews/", makeMaskingName, modelMaskingName);
             }
             return url;
         }
@@ -464,7 +464,7 @@ namespace Bikewale.Utility
 
         public static string FormatShowReviewLink(string makeName, string modelName)
         {
-            return string.Format("/{0}-bikes/{1}/user-reviews/", makeName, modelName);
+            return string.Format("/{0}-bikes/{1}/reviews/", makeName, modelName);
         }
 
         public static string FormatWriteReviewLink(uint modelId)

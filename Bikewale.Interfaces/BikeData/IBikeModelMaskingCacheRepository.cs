@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
 
@@ -17,6 +18,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary :- Added get make if video is present
     /// Modified By :- Subodh Jain 2 Feb 2017
     /// Summary :- Added GetSimilarBikesVideos method
+    /// Modified By :- Sajal Gupta on 08-05-2017
+    /// Summary :- Added GetSimilarBikesUserReviews method
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -30,6 +33,7 @@ namespace Bikewale.Interfaces.BikeData
         ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed);
         IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
         IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalcount);
+        IEnumerable<SimilarBikeUserReview> GetSimilarBikesUserReviews(uint modelId, uint totalRecords);
         T GetById(U id);
     }
 }

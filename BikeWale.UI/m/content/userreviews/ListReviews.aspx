@@ -15,7 +15,7 @@
         //menu = "9";
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/user-review/listing.css" />
+    <link rel="stylesheet" type="text/css" href="/m/css/user-review/listing-old.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
@@ -122,7 +122,7 @@
                     <%} 
                       }%>
                     <div class="margin-top15 margin-bottom5 text-center">
-                        <a id="btnRateBike" href="<%=string.Format("/m/rate-your-bike/{0}/?pagesourceid={1}",modelId,Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Listing))%>" class="btn btn-teal font16">Write a review</a>
+                        <a id="btnRateBike" href="<%=string.Format("/m/rate-your-bike/{0}/?q={1}",modelId,returnUrl)%>" class="btn btn-teal font16">Write a review</a>
                     </div>
                 </div>
             </div>

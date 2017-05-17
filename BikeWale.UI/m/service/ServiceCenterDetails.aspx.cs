@@ -1,7 +1,6 @@
 ﻿using Bikewale.BAL.ServiceCenter;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.ServiceCenter;
-using Bikewale.CoreDAL;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.ServiceCenter;
 using Bikewale.Entities.BikeData;
@@ -13,6 +12,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Mobile.Controls;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
@@ -35,7 +35,7 @@ namespace Bikewale.Mobile.Service
         protected int objServicemakeId, dealerBikesCount = 0;
         protected bool isDealerDetail;
         protected string makeName = string.Empty, maskingNumber = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty,
-            serviceCenteName = string.Empty, serviceCity = string.Empty, clientIP = CommonOpn.GetClientIP();
+            serviceCenteName = string.Empty, serviceCity = string.Empty, clientIP = CurrentUser.GetClientIP();
         protected double serviceLat, serviceLong;
         protected DealersCard ctrlDealerCard;
         protected ServiceCenterCard ctrlServiceCenterCard;
@@ -148,7 +148,7 @@ namespace Bikewale.Mobile.Service
                     ctrlusedBikeModel.MakeId = makeId;
                     if (cityId > 0)
                         ctrlusedBikeModel.CityId = cityId;
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand {0} Bikes in {1}",makeName, cityId > 0 ? serviceCity : "India");
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand {0} Bikes in {1}", makeName, cityId > 0 ? serviceCity : "India");
                     ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, cityId > 0 ? serviceCity : "India");
                     ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", makeMaskingName, cityId > 0 ? cityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;

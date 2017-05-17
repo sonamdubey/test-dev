@@ -1,6 +1,8 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms.Photos;
+using Bikewale.Common;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
@@ -32,6 +34,8 @@ namespace Bikewale.Mobile.New.Photos
         protected string JSONImageList = string.Empty, JSONVideoList = string.Empty;
         protected uint imageIndex = 0;
         private string queryString = string.Empty;
+        public CityEntityBase CityDetails;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -41,6 +45,8 @@ namespace Bikewale.Mobile.New.Photos
         /// Summary :- model page photo bind condition added in query string
         /// Modified by : Sajal Gupta on 16-03-2017
         /// Description : Fetch color image id from query srting.
+        /// MOdiefied By :- Subodh Jain 2 may 2017
+        /// Description :- Added city details entity
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -53,6 +59,11 @@ namespace Bikewale.Mobile.New.Photos
 
             ProcessQueryStringVariables();
             BindPhotosPage();
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            uint cityId = currentCityArea.CityId;
+
+            if (cityId > 0)
+                CityDetails = new CityHelper().GetCityById(cityId);
         }
 
         /// <summary>

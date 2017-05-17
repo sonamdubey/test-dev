@@ -1,0 +1,192 @@
+﻿.text-slate-grey
+	color: #787878
+
+h1,
+.font-bold
+	font-weight: 700
+
+.text-bold
+	font-weight: 600
+
+.font15
+	font-size: 15px
+
+.h2-heading
+	font-size: 18px
+
+@include inline-grid(9)
+
+// overall-specs-tabs
+.bw-tabs-flex
+	&.overall-specs-tabs
+		ul
+			border-top: 1px solid $border-light
+			border-bottom-color: $border-light
+			margin-bottom: 0
+
+		li
+			padding-right: 15px
+			padding-left: 15px
+			width: auto
+			color: $text-light
+
+			&.active
+				font-weight: $font-semibold
+				color: $text-primary
+
+// model-accordion-tab
+.model-accordion-tab
+	padding: 18px 20px
+	background: #f9f9f9
+	border-top: 1px solid $border-light
+	border-bottom: 1px solid $border-light
+
+.accordion-list
+	li:first-child
+		.model-accordion-tab
+			border-top: 0
+
+.table-content
+	td
+		vertical-align: top
+		padding: 18px 20px
+		border-top: 1px solid #f5f5f5
+
+		&:first-child
+			color: $text-light
+			border-right: 1px solid $border-light
+
+	tr
+		&:first-child
+			td
+				border-top: 0
+
+	td.row-heading
+		font-weight: $font-semibold
+		color: $text-primary
+
+@mixin bike-column-count($selection-count, $td-count)
+	.bike-count-#{$selection-count}
+		.table-content
+			.row-width-grid
+				@include td-width($td-count)
+
+$row-width: 976
+$row-heading-width: 162
+
+@mixin td-width($td-count)
+	td
+		padding: 0
+
+	@for $i from 2 through $td-count
+		td:nth-child(#{$i})
+			width: (($row-width - $row-heading-width) / ($td-count - 1)) * 1px
+
+// bike-column-count
+@include bike-column-count(2, 4) // selected bike count, columns count
+
+// colors tab
+.color-box-list
+	li
+		margin-bottom: 20px
+
+	.color-box
+		width: 32px
+		height: 32px
+		margin-right: 10px
+		background: #f1f1f1
+		border: 1px solid #f1f1f1
+
+	.color-box-label
+		width: 75%
+
+@mixin color-count($count)
+	.color-count-#{$count}
+		span
+			height: (100 / $count) * 1%
+
+.color-box
+	span
+		width: 100%
+		display: block !important
+		background: #f1f1f1
+
+@include color-count(1)
+@include color-count(2)
+@include color-count(3)
+
+// article list
+.model-preview-image-container
+	max-width: 292px
+	height: 164px
+	display: table
+	text-align: center
+	border: 1px solid #e2e2e2
+
+	a
+		width: 292px
+		height: 164px
+		display: block
+		background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center no-repeat
+
+		img
+			height: 164px
+
+.article-list
+	.article-target-link
+		margin-bottom: 8px
+		line-height: 1.5
+
+	.line-height17
+		line-height: 1.7
+	
+// icons
+.model-sprite
+	background: url('https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?
+	v=5Dec2016') no-repeat
+	display: inline-block
+
+.specs-2-sm,
+.specs-3-sm,
+.specs-4-sm,
+.specs-5-sm
+	width: 30px
+	height: 28px
+	margin-right: 10px
+	vertical-align: middle
+
+.specs-2-sm
+	background-position: 0 -43px
+
+.specs-3-sm
+	background-position: -40px -43px
+
+.specs-4-sm
+	background-position: -80px -43px
+
+.specs-5-sm
+	background-position: -120px -43px
+
+// icons
+.unchecked-box
+	width: 14px
+	height: 14px
+	background-position: -216px -120px
+	vertical-align: middle
+	margin-right: 10px
+
+.active
+	&.unchecked-box
+		background-position: -216px -135px
+
+.tick-grey,
+.cross-grey
+	height: 14px
+
+.tick-grey
+	width: 18px
+	background-position: -153px -515px
+
+.cross-grey
+	width: 14px
+	background-position: -181px -515px

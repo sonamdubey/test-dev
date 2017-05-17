@@ -60,7 +60,7 @@
 
                 <div class="container content-box-shadow content-inner-block-20 card-bottom-margin font14">
                     <h2 class="padding-bottom5">Can you share a little more about this bike?<span class="text-light-grey text-unbold font14">&nbsp;(Optional)</span></h2>
-                    <ul id="bike-review-questions" class="review-question-list margin-bottom20" data-bind="foreach: reviewQuestions">
+                    <ul id="bike-review-questions" data-make-model="@string.Format("{0}_{1}_", Model.Make.MakeName, Model.Model.ModelName)" class="review-question-list margin-bottom20" data-bind="foreach: reviewQuestions">
                         <!-- ko if: displayType == 1 -->
                         <li class="list-item question-type-star">
                             <p class="item-title" data-bind="text: heading"></p>
@@ -95,7 +95,9 @@
                     <input type="hidden" name="emailId" value="@Model.EmailId" />
                     <input type="hidden" name="makeName" value="@Model.Make.MakeName" />
                     <input type="hidden" name="modelName" value="@Model.Model.ModelName" />
-                    <input type="hidden" name="encodedString" value="@Model.EncodedWriteUrl" />                    
+                    <input type="hidden" name="encodedString" value="@Model.EncodedWriteUrl" />  
+                    <input type="hidden" id="pageSourceId" value="@Model.PageSourceId" />
+                    <input type="hidden" id="overAllRatings" value="@Model.Rating.Value" />                  
 
                     <h3 class="font15 margin-bottom10">Tips for other riders</h3>
                     <p class="text-light-grey margin-bottom10">Share key tips which you think were useful while owning/riding this bike.</p>

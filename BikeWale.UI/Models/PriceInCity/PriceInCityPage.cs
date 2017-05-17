@@ -229,46 +229,47 @@ namespace Bikewale.Models
                     objVM = new PriceInCityPageVM();
                     //Get Bike version Prices
                     objVM.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(modelId, cityId, out hasAreaAvailable);
-                    if (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Count() > 0)
+                    if (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Where(x => x.IsVersionNew).Count()>0)
                     {
-                        firstVersion = objVM.BikeVersionPrices.FirstOrDefault();
+                        firstVersion = objVM.BikeVersionPrices.First();
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
                         if (objVM.IsNew)
                         {
-                            objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(x=>x.IsVersionNew);
+                            objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
                         }
-                        versionCount = (uint)objVM.BikeVersionPrices.Count();
-                        minSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
-                        var objMin = minSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
-                        if (objMin != null)
-                            objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
+                           versionCount = (uint)objVM.BikeVersionPrices.Count();
+                            minSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
+                            var objMin = minSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
+                            if (objMin != null)
+                                objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
 
-                        BindBikeBasicDetails(objVM);
-                        BindServiceCenters(objVM);
-                        BindSimilarBikes(objVM);
-                        BindBikeInfoRank(objVM);
-                       
-                        if (objVM.IsNew)
-                        {
-                            BindPriceInNearestCities(objVM);
-                            BindPriceInTopCities(objVM);
-                            if (isAreaSelected)
-                                GetDealerPriceQuote(objVM);
-                        }
-                        BindDealersWidget(objVM);
-                       
-                        var objModelColours = _modelCache.GetModelColor(Convert.ToInt16(modelId));
-                        colorCount = (uint)(objModelColours != null ? objModelColours.Count() : 0);
+                            BindBikeBasicDetails(objVM);
+                            BindServiceCenters(objVM);
+                            BindSimilarBikes(objVM);
+                            BindBikeInfoRank(objVM);
 
-                        objVM.PageDescription = PageDescription();
-                        objVM.IsAreaSelected = isAreaSelected;
-                        objVM.IsAreaAvailable = hasAreaAvailable;
-                        objVM.Page_H1 = String.Format("{0} price in {1}", objVM.BikeName, objVM.CityEntity.CityName);
+                            if (objVM.IsNew)
+                            {
+                                BindPriceInNearestCities(objVM);
+                                BindPriceInTopCities(objVM);
+                                if (isAreaSelected)
+                                    GetDealerPriceQuote(objVM);
+                            }
+                            BindDealersWidget(objVM);
 
-                        var locationCookie = GlobalCityArea.GetGlobalCityArea();
+                            var objModelColours = _modelCache.GetModelColor(Convert.ToInt16(modelId));
+                            colorCount = (uint)(objModelColours != null ? objModelColours.Count() : 0);
 
-                        objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
-                        BuildPageMetas(objVM.PageMetaTags);
+                            objVM.PageDescription = PageDescription();
+                            objVM.IsAreaSelected = isAreaSelected;
+                            objVM.IsAreaAvailable = hasAreaAvailable;
+                            objVM.Page_H1 = String.Format("{0} price in {1}", objVM.BikeName, objVM.CityEntity.CityName);
+
+                            var locationCookie = GlobalCityArea.GetGlobalCityArea();
+
+                            objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
+                            BuildPageMetas(objVM.PageMetaTags);
+                        
                     }
                     else
                     {

@@ -53,6 +53,8 @@
     <Compile Include="AppDeepLinking\IDeepLinking.cs" />
     <Compile Include="App\IAppVersion.cs" />
     <Compile Include="App\IAppVersionCache.cs" />
+    <Compile Include="App\ISplashScreen.cs" />
+    <Compile Include="App\ISplashScreenCache.cs" />
     <Compile Include="AutoBiz\DealerPriceQuote\IDealer.cs" />
     <Compile Include="AutoBiz\DealerPriceQuote\IDealerPriceQuote.cs" />
     <Compile Include="AutoBiz\Dealers\IDealers.cs" />
@@ -142,6 +144,7 @@
     <Compile Include="Used\IUsedBikeDetailsCacheRepository.cs" />
     <Compile Include="Used\IUsedBikeSeller.cs" />
     <Compile Include="Used\IUsedBikeSellerRepository.cs" />
+    <Compile Include="UserReviews\ISearchFilters.cs" />
     <Compile Include="UserReviews\IUserReviews.cs" />
     <Compile Include="UserReviews\IUserReviewsRepository.cs" />
     <Compile Include="UserReviews\IUserReviewsCache.cs" />

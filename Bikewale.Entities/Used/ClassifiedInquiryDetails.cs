@@ -12,10 +12,8 @@ namespace Bikewale.Entities.Used
     /// Description : Added AdStatus and CustomerId for sold bikes scenario
     /// </summary>
     [Serializable]
-    public class ClassifiedInquiryDetails
+    public class ClassifiedInquiryDetails //: BasicBikeEntityBase
     {
-        public BikeMakeEntityBase Make { get; set; }
-        public BikeModelEntityBase Model { get; set; }
         public BikeVersionEntityBase Version { get; set; }
         public StateEntityBase State { get; set; }
         public CityEntityBase City { get; set; }
@@ -26,5 +24,12 @@ namespace Bikewale.Entities.Used
         public ushort PhotosCount { get { if (Photo != null) { return Convert.ToUInt16(Photo.Count); } return 0; } }
         public short AdStatus { get; set; }
         public uint CustomerId { get; set; }
+
+        public BikeMakeEntityBase Make { get; set; }
+        public BikeModelEntityBase Model { get; set; }
+        public string OriginalImagePath { get; set; }
+        public string HostUrl { get; set; }
+        public bool IsDiscontinued { get; set; }
+        public bool IsUpcoming { get; set; }
     }
 }

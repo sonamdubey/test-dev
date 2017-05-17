@@ -3,6 +3,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Utility;
@@ -22,6 +23,7 @@ namespace Bikewale.Models.Upcoming
         private UpcomingBikesListInputEntity _filters;
         private readonly ushort _pageNumber;
         private readonly string _makeMaskingName;
+        private readonly IBikeMakesCacheRepository<int> _bikeMakesCache = null;
 
         #endregion
 
@@ -39,7 +41,7 @@ namespace Bikewale.Models.Upcoming
 
         #region Constructor
 
-        public UpcomingByMakePageModel(string makeMaskingName, IUpcoming upcoming, ushort? pageNumber, int pageSize, INewBikeLaunchesBL newLaunches, string baseUrl)
+        public UpcomingByMakePageModel(string makeMaskingName, IUpcoming upcoming, ushort? pageNumber, int pageSize, INewBikeLaunchesBL newLaunches, string baseUrl, IBikeMakesCacheRepository<int> bikeMakesCache)
         {
             _upcoming = upcoming;
 
@@ -58,6 +60,7 @@ namespace Bikewale.Models.Upcoming
 
             _newLaunches = newLaunches;
             _makeMaskingName = makeMaskingName;
+            _bikeMakesCache = bikeMakesCache;
             ProcessQueryString();
 
             _filters.MakeId = (int)MakeId;
@@ -77,7 +80,7 @@ namespace Bikewale.Models.Upcoming
             try
             {
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
-                objUpcoming.Make = new MakeHelper().GetMakeNameByMakeId(MakeId);
+                objUpcoming.Make = _bikeMakesCache.GetMakeDetails(MakeId);
                 BindPageMetaTags(objUpcoming.PageMetaTags, _makeMaskingName, objUpcoming.Make.MakeName);
                 var upcomingBikes = _upcoming.GetModels(_filters, SortBy);
                 objUpcoming.Brands = _upcoming.BindUpcomingMakes(topbrandCount);

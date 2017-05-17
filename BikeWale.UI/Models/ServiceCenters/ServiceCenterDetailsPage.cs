@@ -60,7 +60,7 @@ namespace Bikewale.Models.ServiceCenters
                     objVM.City = new CityHelper().GetCityById(_cityId);
 
                 if (_makeId > 0)
-                    objVM.Make = new MakeHelper().GetMakeNameByMakeId(_makeId);
+                    objVM.Make = _bikeMakesCache.GetMakeDetails(_makeId);
 
                 MostPopularBikesWidget objPopularBikesWidget = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, false, true, PQSourceEnum.Mobile_ServiceCenter_Listing_CityPage, 0, _makeId);
                 objPopularBikesWidget.TopCount = (int)PopularBikeWidgetTopCount;

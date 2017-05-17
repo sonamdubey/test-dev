@@ -104,17 +104,17 @@ namespace Bikewale.BAL.GrpcFiles
 
         public static DateTime ParseDateObject(string strDateValue)
         {
-            return Convert.ToDateTime(strDateValue);
-            //DateTime outValue;
+            //return Convert.ToDateTime(strDateValue);
+            DateTime outValue;
 
-            //if
-            //    (DateTime.TryParse(Convert.ToString(strDateValue), out outValue))
-            //    return outValue;
-            //else
-            //{
-            //    DateTime.TryParse(strDateValue, new CultureInfo("en-IN"), DateTimeStyles.AssumeLocal, out outValue);
-            //    return outValue;
-            //}
+            if
+                (DateTime.TryParse(Convert.ToString(strDateValue), out outValue))
+                return outValue;
+            else
+            {
+                DateTime.TryParse(strDateValue, new System.Globalization.CultureInfo("en-IN"), System.Globalization.DateTimeStyles.AssumeLocal, out outValue);
+                return outValue;
+            }
         }
 
 

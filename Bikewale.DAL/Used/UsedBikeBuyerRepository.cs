@@ -1,6 +1,6 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Interfaces.Used;
+﻿using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Data;
@@ -67,7 +67,7 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_buyerid", DbType.Int64, Convert.ToUInt64(buyerId)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_consumertype", DbType.Byte, consumerType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_buyermessage", DbType.String, 200, buyerMessage));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CurrentUser.GetClientIP()));
                     isDone = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) > 0 ? true : false;
 
                 }

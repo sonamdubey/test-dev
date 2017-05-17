@@ -13,7 +13,7 @@
             </p>
         </div>
         <div class="model-user-review-title-container">
-            <a class="target-link" title="@review.ReviewTitle" href="@String.Format("/m/{0}-bikes/{1}/user-reviews/{2}.html",review.MakeMaskingName,review.ModelMaskingName,review.ReviewId)">@FormatDescription.TruncateDescription(review.ReviewTitle,44)</a>
+            <a class="target-link" title="@review.ReviewTitle" href="@String.Format("/m/{0}-bikes/{1}/reviews/{2}/",review.MakeMaskingName,review.ModelMaskingName,review.NewReviewId)">@FormatDescription.TruncateDescription(review.ReviewTitle,44)</a>
             <div class="grid-7 alpha padding-right5">
                 <span class="bwmsprite calender-grey-sm-icon"></span>
                 <span class="article-stats-content">@review.ReviewDate.ToString("MMM dd, yyyy")</span>

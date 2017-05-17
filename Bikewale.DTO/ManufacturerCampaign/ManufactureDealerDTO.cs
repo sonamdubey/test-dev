@@ -10,7 +10,7 @@ namespace Bikewale.DTO
         public string DealerName { get; set; }
         [JsonProperty("city")]
         public string City { get; set; }
-        [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonProperty("area")]
+        public string DealerArea { get; set; }
     }
 }

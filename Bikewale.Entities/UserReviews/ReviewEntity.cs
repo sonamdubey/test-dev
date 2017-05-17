@@ -28,5 +28,7 @@ namespace Bikewale.Entities.UserReviews
         public ReviewRatingEntityBase OverAllRating { get { return objRating; } set { objRating = value; } }
         [DataMember]
         public ReviewTaggedBikeEntity TaggedBike { get; set; }
+        [DataMember]
+        public uint NewReviewId { get; set; }
     }
 }

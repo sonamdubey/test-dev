@@ -77,7 +77,7 @@
                         <div class="grid-9 alpha inline-block float-none">
                             <h1><%= BikeName %> User Reviews</h1>
                         </div><div class="grid-3 text-right alpha omega inline-block float-none">
-                            <a href="<%=string.Format("/rate-your-bike/{0}/?pagesourceid={1}",modelId,Convert.ToInt32(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_UserReview_Listing))%>" class="btn btn-teal btn-size-150">Write a review</a>
+                            <a href="<%=string.Format("/rate-your-bike/{0}/?q={1}",modelId,returnUrl)%>" class="btn btn-teal btn-size-150">Write a review</a>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -218,7 +218,7 @@
                                 </p>
                             </div>
                             <div class="model-user-review-title-container">
-                                <h3><a class="article-target-link line-height" title="<%#DataBinder.Eval(Container.DataItem, "Title") %>" href="/<%= MakeMaskingName %>-bikes/<%= ModelMaskingName %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html"><%# DataBinder.Eval(Container.DataItem, "Title").ToString() %></a></h3>
+                                <h3><a class="article-target-link line-height" title="<%#DataBinder.Eval(Container.DataItem, "Title") %>" href="/<%= MakeMaskingName %>-bikes/<%= ModelMaskingName %>/reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>/"><%# DataBinder.Eval(Container.DataItem, "Title").ToString() %></a></h3>
                                 <div class="article-stats-left-grid">
                                     <span class="bwsprite calender-grey-sm-icon"></span>
                                     <span class="article-stats-content"><%#Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString((DataBinder.Eval(Container.DataItem, "EntryDateTime"))), "MMM dd, yyyy") %></span>
@@ -228,7 +228,7 @@
                                     <span class="article-stats-content"><%# DataBinder.Eval(Container.DataItem, "CustomerName").ToString() %></span>
                                 </div>
                                 <p class="margin-top12 text-default font14">
-                                    <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "subcomments").ToString()) %><a href="/<%= MakeMaskingName %>-bikes/<%= ModelMaskingName %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">...Read more</a>
+                                    <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "subcomments").ToString()) %><a href="/<%= MakeMaskingName %>-bikes/<%= ModelMaskingName %>/reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>/">...Read more</a>
                                 </p>
                             </div>
                             <div class="clear"></div>

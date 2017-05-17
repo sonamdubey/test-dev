@@ -159,7 +159,7 @@
                 self.currentStep(self.currentStep() + 1);
                 self.LoadingText("Redirecting to bike rating...");
                 self.IsLoading(true);
-                window.location = "/m/rate-your-bike/" + self.model().modelId + "/?pagesourceid=" + pageSource;
+                window.location = "/m/rate-your-bike/" + self.model().modelId + "/?q=" + returnUrl;
             }
         }
 

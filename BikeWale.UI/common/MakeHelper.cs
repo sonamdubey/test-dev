@@ -18,6 +18,8 @@ namespace Bikewale.Common
         /// <summary>
         /// Created by : Sangram Nandkhile on 23 Nov 2016
         /// Description: Method to get make name by makeId.
+        /// Modified by sajal Gupta on 15-05-2017
+        /// Description : Call to cache layer instead of dal.
         /// </summary>
         /// <param name="cityMaskingName"></param>
         public BikeMakeEntityBase GetMakeNameByMakeId(uint makeId)
@@ -28,8 +30,11 @@ namespace Bikewale.Common
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                    var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                    objBikeMakeEntityBase = makesRepository.GetMakeDetails(makeId);
+                    container.RegisterType<ICacheManager, MemcacheManager>();
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
+
+                    var makesCacheRepo = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    objBikeMakeEntityBase = makesCacheRepo.GetMakeDetails(makeId);
                 }
             }
             catch (Exception ex)

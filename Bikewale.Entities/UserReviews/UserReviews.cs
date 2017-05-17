@@ -19,6 +19,9 @@ namespace Bikewale.Entities.UserReviews
         [JsonProperty("heading"), DataMember]
         public string Heading { get; set; }
 
+        [JsonProperty("minHeading"), DataMember]
+        public string MinHeading { get; set; }
+
         [JsonProperty("description"), DataMember]
         public string Description { get; set; }
 

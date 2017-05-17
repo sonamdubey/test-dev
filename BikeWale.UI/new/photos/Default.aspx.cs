@@ -3,6 +3,7 @@ using Bikewale.BindViewModels.Webforms.Photos;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Utility;
 using System;
@@ -27,7 +28,7 @@ namespace Bikewale.New.Photos
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected string JSONImageList = string.Empty, JSONVideoList = string.Empty, JSONFirstImage = string.Empty;
         private string queryString = string.Empty;
-
+        public CityEntityBase CityDetails;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -38,6 +39,8 @@ namespace Bikewale.New.Photos
         /// Description : Get imageindex from querystring.
         /// Modified by : Sajal Gupta on 28-02-2017
         /// Description : Get colorImageId from querystring.
+        /// MOdiefied By :- Subodh Jain 2 may 2017
+        /// Description :- Added city details entity
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -55,6 +58,11 @@ namespace Bikewale.New.Photos
                 ProcessQueryStringVariables();
                 BindPhotosPage();
                 BindPageWidgets();
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                uint cityId = currentCityArea.CityId;
+
+                if (cityId > 0)
+                    CityDetails = new CityHelper().GetCityById(cityId);
 
             }
             catch (Exception ex)

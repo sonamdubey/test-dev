@@ -1947,41 +1947,6 @@ namespace Bikewale.CoreDAL
         }
 
         /// <summary>
-        /// Created By : Sadhana Upadhyay on 1st April 2014
-        /// Summary : Function to get Client IP Address
-        /// </summary>
-        /// <returns></returns>
-        public static string GetClientIP()
-        {
-            //string clientIp = HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
-            //return clientIp;
-            string[] serVars = { "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "HTTP_X_FORWARDED", "HTTP_X_CLUSTER_CLIENT_IP", "HTTP_FORWARDED_FOR", "HTTP_FORWARDED", "REMOTE_ADDR" };
-            string clientIp = string.Empty;
-            foreach (string serverVariable in serVars)
-            {
-                clientIp = HttpContext.Current.Request.ServerVariables[serverVariable] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables[serverVariable];
-                if (!String.IsNullOrEmpty(clientIp))
-                {
-                    if (serverVariable == "HTTP_X_FORWARDED_FOR")
-                    {
-                        if (!string.IsNullOrEmpty(clientIp))
-                        {
-                            string[] ipRange = clientIp.Split(',');
-                            if (ipRange != null)
-                            {
-                                clientIp = ipRange[ipRange.Length - 1];
-                            }
-                        }
-                    }
-                    break;
-                }
-            }
-            //string clientIp = HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
-
-            return clientIp;
-        }
-
-        /// <summary>
         /// Written By : Ashwini Todkar on 20 May 2014
         /// Summary    : Method to get formated string from date e.g. 1 day ago
         /// </summary>

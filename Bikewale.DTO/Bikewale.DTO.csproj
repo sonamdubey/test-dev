@@ -245,6 +245,7 @@
     <Compile Include="PriceQuote\VersionPrice.cs" />
     <Compile Include="PriceQuote\Version\PQByCityArea.cs" />
     <Compile Include="PriceQuote\Version\v2\PQByCityAreaV2.cs" />
+    <Compile Include="App\SplashScreen.cs" />
     <Compile Include="UsedBikes\BikeInterestDetailsDTO.cs" />
     <Compile Include="UsedBikes\PhotoRequestDTO.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
@@ -259,6 +260,7 @@
     <Compile Include="Used\UsedBikeBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="UserReviews\ReviewQuestionsDto.cs" />
+    <Compile Include="UserReviews\SearchResult.cs" />
     <Compile Include="UserReviews\UserReviewOverallRatingDto.cs" />
     <Compile Include="UserReviews\UserReviewQuestionDto.cs" />
     <Compile Include="UserReviews\UserReviewsInputEntity.cs" />

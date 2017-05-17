@@ -1,5 +1,4 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.Customer;
+﻿using Bikewale.Entities.Customer;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.UserReviews;
@@ -140,7 +139,7 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="userName"></param>
         /// <param name="emailId"></param>
         /// <returns></returns>        
-        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint sourceId, uint reviewId)
+        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint reviewId,string returnUrl, ushort platformId)
         {
 
             UserReviewRatingObject objRating = null;
@@ -157,7 +156,7 @@ namespace Bikewale.BAL.UserReviews
 
                 if (!objRating.IsFake)
                 {
-                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, sourceId, reviewId);
+                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, reviewId,returnUrl,platformId);
                     objRating.CustomerId = objCust.CustomerId;
                 }
                 else
@@ -314,7 +313,7 @@ namespace Bikewale.BAL.UserReviews
                 else
                 {
                     //Register the new customer
-                    objCust = new CustomerEntity() { CustomerName = customer.CustomerName, CustomerEmail = customer.CustomerEmail, CustomerMobile = customer.CustomerMobile, ClientIP = CommonOpn.GetClientIP() };
+                    objCust = new CustomerEntity() { CustomerName = customer.CustomerName, CustomerEmail = customer.CustomerEmail, CustomerMobile = customer.CustomerMobile, ClientIP = CurrentUser.GetClientIP() };
                     customer.CustomerId = _objCustomer.Add(objCust);
                 }
 

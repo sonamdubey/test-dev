@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
+using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.UserReviews;
@@ -14,6 +15,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
@@ -44,6 +46,7 @@ namespace Bikewale.Mobile.Content
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty;
         protected PageMetaTags pageMetas;
         protected bool isReviewAvailable;
+        protected string returnUrl = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -83,6 +86,7 @@ namespace Bikewale.Mobile.Content
             }
             BindControl();
             CreatMetas();
+            returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/user-reviews/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName));
         }
         /// <summary>
         /// Created By :- Subodh Jain 17 Jan 2017
@@ -227,7 +231,9 @@ namespace Bikewale.Mobile.Content
             {
                 container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
                              .RegisterType<IUserReviewsRepository, UserReviewsRepository>()
-                             .RegisterType<ICacheManager, MemcacheManager>();
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                              .RegisterType<IUserReviewsSearch, UserReviewsSearch>();
+                container.RegisterType<IPager, BAL.Pager.Pager>();
 
                 var cache = container.Resolve<IUserReviewsCache>();
                 reviews = cache.GetBikeReviewsList(Convert.ToUInt32(startIndex), Convert.ToUInt32(endIndex), Convert.ToUInt32(modelId), 0, FilterBy.MostRecent);
