@@ -508,5 +508,4 @@ docReady(function () {
     if (checkedStar)
         document.getElementById('rate-star-' + parseInt(checkedStar)).checked = false;
 
-    // vmUserReviews.setPageFilters(e);
 });

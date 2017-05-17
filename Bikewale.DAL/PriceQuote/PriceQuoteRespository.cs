@@ -660,7 +660,8 @@ namespace Bikewale.DAL.PriceQuote
                                     Id = Convert.ToString(dr["id"]),
                                     DealerName = Convert.ToString(dr["bwdealername"]),
                                     City = Convert.ToString(dr["city"]),
-                                    CityId = SqlReaderConvertor.ToUInt32(dr["cityid"])
+                                    CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
+                                    DealerArea = Convert.ToString(dr["dealerarea"]),
                                 });
                             }
                             dr.Close();

@@ -4,8 +4,15 @@ using System;
 namespace Bikewale.Entities.UserReviews
 {
     [Serializable]
-    public class BikeRatingsInfo : BasicBikeEntityBase
+    public class BikeRatingsInfo //: BasicBikeEntityBase
     {
+        public BikeMakeEntityBase Make { get; set; }
+        public BikeModelEntityBase Model { get; set; }
+        public string OriginalImagePath { get; set; }
+        public string HostUrl { get; set; }
+        public bool IsDiscontinued { get; set; }
+        public bool IsUpcoming { get; set; }
+
         public float OverallRating { get; set; }
         public uint TotalReviews { get; set; }
         public uint TotalRatings { get; set; }

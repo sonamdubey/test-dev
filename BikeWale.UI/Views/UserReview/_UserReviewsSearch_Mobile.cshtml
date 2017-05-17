@@ -52,11 +52,11 @@
                                 <div class="margin-bottom10">
                                     <div class="grid-4 alpha padding-right5">
                                         <span class="bwmsprite calender-grey-sm-icon"></span>
-                                        <span class="article-stats-content" data-bind="text: activeReviewList()[@i].reviewDate">@Bikewale.Utility.FormatDate.GetFormatDate(review.ReviewDate.ToString(), "MMM  yyyy") </span>
+                                        &nbsp;<span class="article-stats-content" data-bind="text: activeReviewList()[@i].reviewDate">@Bikewale.Utility.FormatDate.GetFormatDate(review.ReviewDate.ToString(), "MMM  yyyy") </span>
                                     </div>
                                     <div class="grid-8 alpha omega">
                                         <span class="bwmsprite author-grey-sm-icon"></span>
-                                        <span class="article-stats-content" data-bind="text: activeReviewList()[@i].writtenBy">@review.WrittenBy</span>
+                                        &nbsp;<span class="article-stats-content" data-bind="text: activeReviewList()[@i].writtenBy">@review.WrittenBy</span>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -81,7 +81,7 @@
                                     0">
                                     <div class="item-views-grid">
                                         <span class="bwmsprite views-sm"></span>
-                                        <span data-bind="CurrencyText: activeReviewList()[@i].viewed">@Format.FormatNumeric(review.Viewed.ToString())</span><span>&nbsp;Views</span>
+                                        &nbsp;<span data-bind="CurrencyText: activeReviewList()[@i].viewed">@Format.FormatNumeric(review.Viewed.ToString())</span><span>&nbsp;Views</span>
                                     </div>
                                 </div>
                                 <div class="clear"></div>
@@ -123,10 +123,8 @@
                 </div>
                 <p class="font14 text-light-grey">There are no <span data-bind="text: categoryName"></span> reviews for this bike</p>
             </div>
-            <!-- /ko-->
-
+            <!-- /ko -->
             <div id="listingFooter"></div>
-
             <div id="sort-filters-loader" style="display: none;" data-bind="visible : IsLoading()">
                 <div id="popup-loader"></div>
             </div>

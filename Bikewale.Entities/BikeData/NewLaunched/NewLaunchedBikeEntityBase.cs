@@ -10,7 +10,7 @@ namespace Bikewale.Entities.BikeData.NewLaunched
     /// summary:- added BodyStyleId
     /// </summary>
     [Serializable]
-    public class NewLaunchedBikeEntityBase : BasicBikeEntityBase
+    public class NewLaunchedBikeEntityBase //: BasicBikeEntityBase
     {
         public uint ReviewCount { get; set; }
         public double ReviewRate { get; set; }
@@ -21,5 +21,12 @@ namespace Bikewale.Entities.BikeData.NewLaunched
         public uint Price { get; set; }
         public CityEntityBase City { get; set; }
         public uint BodyStyleId { get; set; }
+
+        public BikeMakeEntityBase Make { get; set; }
+        public BikeModelEntityBase Model { get; set; }
+        public string OriginalImagePath { get; set; }
+        public string HostUrl { get; set; }
+        public bool IsDiscontinued { get; set; }
+        public bool IsUpcoming { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewListingVM
 @using Bikewale.Utility;
 @{
-    ViewBag.Title = "ListReviews_Mobile";
+    Model.PageMetaTags.Title = "ListReviews_Mobile";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/listing.css' />";
     Model.Page_JS_Path = "/m/src/user-review/listing.js";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_UserReviews";
@@ -14,7 +14,7 @@
 @if (Model.RatingsInfo!=null)
 {
   <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-      <meta itemprop="ratingValue" content="@Model.RatingsInfo.OverallRating.ToString("0.0").TrimEnd('0', '.')">
+    <meta itemprop="ratingValue" content="@Model.RatingsInfo.OverallRating.ToString("0.0").TrimEnd('0', '.')">
     <meta itemprop="worstRating" content="1">
     <meta itemprop="bestRating" content="5">
     <meta itemprop="itemreviewed" content="@Model.BikeName" />
@@ -69,7 +69,7 @@
             <ul class="horizontal-rating-graph margin-neg5">
                 <li>
                     <span class="bwmsprite star-0"></span>
-                    <span class="star-label">5</span>
+                    <span class="star-label">5&nbsp;</span>
                     <span class="graph-bar-bg">
                         <span style="width: @(Model.RatingsInfo.FiveStarRatings * 100 / Model.RatingsInfo.TotalRatings)%" class="rating-bar bg-rate-5"></span>
                     </span>
@@ -77,7 +77,7 @@
                 </li>
                 <li>
                     <span class="bwmsprite star-0"></span>
-                    <span class="star-label">4</span>
+                    <span class="star-label">4&nbsp;</span>
                     <span class="graph-bar-bg">
                         <span style="width: @(Model.RatingsInfo.FourStarRatings * 100 / Model.RatingsInfo.TotalRatings)%" class="rating-bar bg-rate-4"></span>
                     </span>
@@ -85,7 +85,7 @@
                 </li>
                 <li>
                     <span class="bwmsprite star-0"></span>
-                    <span class="star-label">3</span>
+                    <span class="star-label">3&nbsp;</span>
                     <span class="graph-bar-bg">
                         <span style="width: @(Model.RatingsInfo.ThreeStarRatings * 100 / Model.RatingsInfo.TotalRatings)%" class="rating-bar bg-rate-3"></span>
                     </span>
@@ -93,7 +93,7 @@
                 </li>
                 <li>
                     <span class="bwmsprite star-0"></span>
-                    <span class="star-label">2</span>
+                    <span class="star-label">2&nbsp;</span>
                     <span class="graph-bar-bg">
                         <span style="width: @(Model.RatingsInfo.TwoStarRatings * 100 / Model.RatingsInfo.TotalRatings)%" class="rating-bar bg-rate-2"></span>
                     </span>
@@ -101,7 +101,7 @@
                 </li>
                 <li>
                     <span class="bwmsprite star-0"></span>
-                    <span class="star-label">1</span>
+                    <span class="star-label">1&nbsp;</span>
                     <span class="graph-bar-bg">
                         <span style="width: @(Model.RatingsInfo.OneStarRatings * 100 / Model.RatingsInfo.TotalRatings)%" class="rating-bar bg-rate-1"></span>
                     </span>
@@ -117,15 +117,15 @@
     <div id="bike-rating-box" class="container content-box-shadow card-bottom-margin content-inner-block-20">
         <p class="font16 text-black text-bold inline-block margin-right15">Rate this bike now</p>
         <div class="answer-star-list inline-block">
-            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=5", Model.PageUrl))" type="radio" id="rate-star-5" name="rate-bike" value="5">
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5", Model.PageUrl))" type="radio" id="rate-star-5" name="rate-bike" value="5">
             <label class="bwmsprite star-0" for="rate-star-5" data-value="5"></label>
-            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=4", Model.PageUrl))" type="radio" id="rate-star-4" name="rate-bike" value="4">
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=4", Model.PageUrl))" type="radio" id="rate-star-4" name="rate-bike" value="4">
             <label class="bwmsprite star-0" for="rate-star-4" data-value="4"></label>
-            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=3", Model.PageUrl))" type="radio" id="rate-star-3" name="rate-bike" value="3">
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=3", Model.PageUrl))" type="radio" id="rate-star-3" name="rate-bike" value="3">
             <label class="bwmsprite star-0" for="rate-star-3" data-value="3"></label>
-            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=2", Model.PageUrl))" type="radio" id="rate-star-2" name="rate-bike" value="2">
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=2", Model.PageUrl))" type="radio" id="rate-star-2" name="rate-bike" value="2">
             <label class="bwmsprite star-0" for="rate-star-2" data-value="2"></label>
-            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=1", Model.PageUrl))" type="radio" id="rate-star-1" name="rate-bike" value="1">
+            <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=1", Model.PageUrl))" type="radio" id="rate-star-1" name="rate-bike" value="1">
             <label class="bwmsprite star-0" for="rate-star-1" data-value="1"></label>
         </div>
     </div>

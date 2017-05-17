@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Bikewale.Entities.UserReviews
 {
     [Serializable]
-    public class UserReviewSummary : BasicBikeEntityBase
+    public class UserReviewSummary //: BasicBikeEntityBase
     /// <summary>
     /// Modified by Sajal Gupta on 05-05-2017
     /// Descruioption : Added UpVotes, DownVotes, Views, EntryDate
@@ -27,5 +27,12 @@ namespace Bikewale.Entities.UserReviews
         public uint Views { get; set; }
         public DateTime EntryDate { get; set; }
         public uint OldReviewId { get; set; }
+
+        public BikeMakeEntityBase Make { get; set; }
+        public BikeModelEntityBase Model { get; set; }
+        public string OriginalImagePath { get; set; }
+        public string HostUrl { get; set; }
+        public bool IsDiscontinued { get; set; }
+        public bool IsUpcoming { get; set; }
     }
 }

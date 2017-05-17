@@ -2,6 +2,7 @@
 using Bikewale.Entities;
 using Bikewale.Interfaces.App;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,7 @@ namespace Bikewale.DAL.App
                             {
                                 var image = new SplashScreenEntity();
                                 image.SplashImgUrl = Convert.ToString(dr["imagepath"].ToString());
+                                image.SplashTimeOut = SqlReaderConvertor.ToUInt32(dr["timeout"]);
                                 splashScreenImages.Add(image);
                             }
                             dr.Close();

@@ -25,11 +25,11 @@
                 </span>
                 <div class="grid-5 alpha padding-right5">
                     <span class="bwmsprite author-grey-sm-icon"></span>
-                    <span class="article-stats-content" data-bind="text: author">@Model.UserReviewDetailsObj.CustomerName</span>
+                    &nbsp;<span class="article-stats-content" data-bind="text: author">@Model.UserReviewDetailsObj.CustomerName</span>
                 </div>
                 <div class="grid-4 alpha omega">
                     <span class="bwmsprite calender-grey-sm-icon"></span>
-                    <span class="article-stats-content" data-bind="text: submittedOn">@Model.UserReviewDetailsObj.EntryDate.ToString("MMMM dd, yyyy")</span>
+                    &nbsp;<span class="article-stats-content" data-bind="text: submittedOn">@Model.UserReviewDetailsObj.EntryDate.ToString("MMMM dd, yyyy")</span>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -111,7 +111,7 @@
         </div>
     </section>
 
-    if (Model.UserReviews != null && Model.UserReviews.UserReviews.TotalCount > 0)
+    if (Model.UserReviews != null && Model.UserReviews.UserReviews.TotalCount > 1)
     {
         @Html.Partial("~/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
     }
@@ -124,15 +124,15 @@
         <div id="bike-rating-box" class="container content-box-shadow card-bottom-margin content-inner-block-20">
             <p class="font16 text-black text-bold inline-block margin-right15">Rate this bike now</p>
             <div class="answer-star-list inline-block">
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=5", Model.PageUrl))" type="radio" id="rate-star-5" name="rate-bike" value="5">
+                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5", Model.PageUrl))" type="radio" id="rate-star-5" name="rate-bike" value="5">
                 <label class="bwmsprite star-0" for="rate-star-5" data-value="5"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=4", Model.PageUrl))" type="radio" id="rate-star-4" name="rate-bike" value="4">
+                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=4", Model.PageUrl))" type="radio" id="rate-star-4" name="rate-bike" value="4">
                 <label class="bwmsprite star-0" for="rate-star-4" data-value="4"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=3", Model.PageUrl))" type="radio" id="rate-star-3" name="rate-bike" value="3">
+                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=3", Model.PageUrl))" type="radio" id="rate-star-3" name="rate-bike" value="3">
                 <label class="bwmsprite star-0" for="rate-star-3" data-value="3"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=2", Model.PageUrl))" type="radio" id="rate-star-2" name="rate-bike" value="2">
+                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=2", Model.PageUrl))" type="radio" id="rate-star-2" name="rate-bike" value="2">
                 <label class="bwmsprite star-0" for="rate-star-2" data-value="2"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl=/m{0}&selectedRating=1", Model.PageUrl))" type="radio" id="rate-star-1" name="rate-bike" value="1">
+                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=1", Model.PageUrl))" type="radio" id="rate-star-1" name="rate-bike" value="1">
                 <label class="bwmsprite star-0" for="rate-star-1" data-value="1"></label>
             </div>
         </div>
