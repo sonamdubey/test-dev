@@ -17,7 +17,7 @@ namespace Bikewale.Entities.GenericBikes
     /// Description : Added PriceInCity
     /// </summary>
     [Serializable]
-    public class GenericBikeInfo : BasicBikeEntityBase
+    public class GenericBikeInfo //: BasicBikeEntityBase
     {
         public uint VideosCount { get; set; }
         public uint PhotosCount { get; set; }
@@ -38,6 +38,13 @@ namespace Bikewale.Entities.GenericBikes
         public uint DealersCount { get; set; }
         public ICollection<BikeInfoTab> Tabs { get; set; }
         public uint PriceInCity { get; set; }
+
+        public BikeMakeEntityBase Make { get; set; }
+        public BikeModelEntityBase Model { get; set; }
+        public string OriginalImagePath { get; set; }
+        public string HostUrl { get; set; }
+        public bool IsDiscontinued { get; set; }
+        public bool IsUpcoming { get; set; }
     }
     /// Created  By :- subodh Jain 10 Feb 2017
     /// Summary :- BikeInfo Slug details GetBikeInfo

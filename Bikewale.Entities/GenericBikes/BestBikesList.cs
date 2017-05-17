@@ -15,7 +15,7 @@ namespace Bikewale.Entities.GenericBikes
     /// Description : Added UsedBikesCount, PriceInCity and city property
     /// </summary>
     [Serializable]
-    public class BestBikeEntityBase : BasicBikeEntityBase
+    public class BestBikeEntityBase //: BasicBikeEntityBase
     {
         public string BikeName { get; set; }
         public uint TotalVersions { get; set; }
@@ -35,5 +35,11 @@ namespace Bikewale.Entities.GenericBikes
         public uint UsedBikesCount { get; set; }
         public CityEntityBase UsedCity { get; set; }
         public string PriceInCity { get; set; }
+        public BikeMakeEntityBase Make { get; set; }
+        public BikeModelEntityBase Model { get; set; }
+        public string OriginalImagePath { get; set; }
+        public string HostUrl { get; set; }
+        public bool IsDiscontinued { get; set; }
+        public bool IsUpcoming { get; set; }
     }
 }
