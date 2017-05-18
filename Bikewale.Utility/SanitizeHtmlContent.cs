@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Bikewale.Entities.CMS.Articles;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Bikewale.Entities.CMS.Articles;
 
 namespace Bikewale.Utility
 {
@@ -18,6 +15,8 @@ namespace Bikewale.Utility
 
         /// <summary>
         /// Dictionary for the input html elements and associated tags for each element.
+        /// Modified by :   Sumit Kate on 18 May 2017
+        /// Description :   Added Rupee HTML character code with Rupee synmbol
         /// </summary>
         private static readonly Dictionary<string, string> patternList = new Dictionary<string, string>()
         { 
@@ -68,7 +67,8 @@ namespace Bikewale.Utility
             {"&ldquo;", "“"},
             {"&rdquo;", "”"},
             {"&bull;", "-"},//bullet is replaced by -
-            {@"<iframe\s+[^>]*?src\s*=\s*[""']([^""']+)[""']\s*.*?/*></iframe>", "[BWVideoSrc]bwvideosep:$1[BWVideoSrc]"}
+            {@"<iframe\s+[^>]*?src\s*=\s*[""']([^""']+)[""']\s*.*?/*></iframe>", "[BWVideoSrc]bwvideosep:$1[BWVideoSrc]"},
+            {"&#x20B9", "₹"}
         };
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace Bikewale.Utility
                         contents[i] = RemoveStrongTag(contents[i]);
                         AddParaToList(objHtmlContent, contents[i].Trim(), true);
                     }
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -169,7 +169,6 @@ namespace Bikewale.Utility
 
             return objHtmlContent;
         }
-        
 
         /// <summary>
         /// Function to remove the html content from the input html
@@ -184,7 +183,7 @@ namespace Bikewale.Utility
                 content = Regex.Replace(content, pattern.Key, pattern.Value);
 
             return content;
-        
+
         }
 
 
@@ -232,7 +231,7 @@ namespace Bikewale.Utility
             //setMargin = false;
         }
 
-        
+
         /// <summary>
         /// Add image urls to HtmlItems List of Image type
         /// </summary>
