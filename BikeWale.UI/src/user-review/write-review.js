@@ -395,8 +395,7 @@ docReady(function () {
         self.reviewCharLimit = ko.observable(300);
         self.reviewTitle = ko.observable('');
         self.detailedReview = ko.observable('');
-        self.reviewTips = ko.observable('');
-
+        self.reviewTips = ko.observable('');        
         self.detailedReviewFlag = ko.observable(false);
         self.detailedReviewError = ko.observable('');
         self.focusFormActive = ko.observable(false);
@@ -404,6 +403,11 @@ docReady(function () {
         self.reviewQuestions = ko.observableArray(reviewQuestion);
 
         //self.hoverFeedbackRating = ko.observable(0);
+        
+        self.descLength = ko.computed(function () {
+
+            return self.detailedReview().replace(/\n|\r/g, "").length;
+        });
 
         self.submitReview = function () {
             var array = new Array;
@@ -414,6 +418,17 @@ docReady(function () {
             });
 
             $('#reviewQuestion').val(array.join(","));
+
+            var descArray = vmWriteReview.detailedReview().split('\n');
+            var formattedDescArray = "";
+
+            for (i = 0; i < descArray.length; i++) {
+                if (descArray[i].trim() != "") {
+                    formattedDescArray = formattedDescArray + "<p>" + descArray[i] + "</p>";
+                }
+            }
+
+            $('#formattedDescripton').val(formattedDescArray);
 
             if (self.detailedReview().length > 0 || self.reviewTitle().length > 0) {
                 if (self.validateReviewForm()) {
@@ -426,6 +441,7 @@ docReady(function () {
                 triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + self.detailedReviewFlag() + '_' + pageSourceID + '_' + self.detailedReview().trim().length);
                 return true;
             }
+            
         };
 
         self.validateReviewForm = function () {
@@ -449,7 +465,7 @@ docReady(function () {
 
         self.validate = {
             detailedReview: function () {
-                if (self.detailedReview().trim().length < 300) {
+                if (self.descLength() < 300) {
                     self.detailedReview(self.detailedReview().trim());
                     self.detailedReviewFlag(true);
                     self.detailedReviewError('Your review should contain at least 300 characters.');
