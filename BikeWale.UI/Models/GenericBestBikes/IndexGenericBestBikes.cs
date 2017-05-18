@@ -26,7 +26,7 @@ namespace Bikewale.Models
 
         public ushort makeTopCount { get; set; }
 
-        public StatusCodes status;
+        public StatusCodes status { get; set; }
         public EnumBikeBodyStyles BodyStyleType = EnumBikeBodyStyles.AllBikes;
         public IndexGenericBestBikes(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakes<BikeMakeEntity, int> bikeMakes)
         {
@@ -160,19 +160,21 @@ namespace Bikewale.Models
         /// </summary>
         private void FetchBestBikesList(IndexBestBikesVM obj)
         {
-
+            uint cityId=0;
             try
             {
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
 
-                uint cityId = location != null ? location.CityId : 0;
+                cityId = location != null ? location.CityId : 0;
                 int topCount = 10;
-                obj.objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType, cityId).Take(topCount);
+                obj.objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType, cityId);
+                if (obj.objBestBikesList != null)
+                    obj.objBestBikesList = obj.objBestBikesList.Take(topCount);
 
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("FetchBestBikesList{0} ", BodyStyleType));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("FetchBestBikesList BodyStyle:{0} cityId:{}", BodyStyleType, cityId));
             }
         }
 

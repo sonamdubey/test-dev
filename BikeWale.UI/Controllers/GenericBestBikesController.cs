@@ -36,7 +36,11 @@ namespace Bikewale.Controllers
                     IndexBestBikesVM obj = new IndexBestBikesVM();
                     objBestBikes.makeTopCount = 10;
                     obj = objBestBikes.GetData();
-                    return View(obj);
+                    if (obj != null)
+                        return View(obj);
+                    else
+                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+
                 }
                 else
                 {
@@ -69,7 +73,10 @@ namespace Bikewale.Controllers
                     objBestBikes.makeTopCount = 6;
                     IndexBestBikesVM obj = new IndexBestBikesVM();
                     obj = objBestBikes.GetData();
-                    return View(obj);
+                    if (obj != null)
+                        return View(obj);
+                    else
+                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
                 }
                 else
                 {
