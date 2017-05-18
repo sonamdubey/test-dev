@@ -111,7 +111,7 @@
         </div>
     </section>
 
-    if (Model.UserReviews != null && Model.UserReviews.UserReviews.TotalCount > 1)
+    if (Model.UserReviews != null && Model.UserReviews.UserReviews.TotalCount > 0)
     {
         @Html.Partial("~/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
     }

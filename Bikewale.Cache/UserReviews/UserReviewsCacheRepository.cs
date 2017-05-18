@@ -129,7 +129,15 @@ namespace Bikewale.Cache.UserReviews
                         key += "_PN_1_PS_24";
                     }
 
-                    reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan(12, 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
+                    if (inputFilters.SkipReviewId > 0)
+                    {
+                        key = string.Format("{0}_skipId_{1}", key, inputFilters.SkipReviewId);
+                    }
+
+                    if (skipDataLimit)
+                        reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan(1, 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
+                    else
+                        reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan(12, 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
 
                     if (reviews != null && reviews.Result != null && !skipDataLimit)
                     {
