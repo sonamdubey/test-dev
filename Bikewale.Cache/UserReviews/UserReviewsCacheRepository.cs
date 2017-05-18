@@ -129,15 +129,8 @@ namespace Bikewale.Cache.UserReviews
                         key += "_PN_1_PS_24";
                     }
 
-                    if (inputFilters.SkipReviewId > 0)
-                    {
-                        key = string.Format("{0}_skipId_{1}", key, inputFilters.SkipReviewId);
-                    }
+                    reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan((skipDataLimit ? 1 : 24), 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
 
-                    if (skipDataLimit)
-                        reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan(1, 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
-                    else
-                        reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan(12, 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
 
                     if (reviews != null && reviews.Result != null && !skipDataLimit)
                     {
@@ -147,6 +140,11 @@ namespace Bikewale.Cache.UserReviews
                         }
 
                         reviews.Result = reviews.Result.Take(inputFilters.PS);
+
+                        if (inputFilters.SkipReviewId > 0)
+                        {
+                            reviews.Result = reviews.Result.Where(x => x.ReviewId != inputFilters.SkipReviewId);
+                        }
                     }
                 }
                 catch (Exception ex)
