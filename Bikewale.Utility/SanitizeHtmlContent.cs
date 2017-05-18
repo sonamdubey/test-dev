@@ -68,7 +68,7 @@ namespace Bikewale.Utility
             {"&rdquo;", "”"},
             {"&bull;", "-"},//bullet is replaced by -
             {@"<iframe\s+[^>]*?src\s*=\s*[""']([^""']+)[""']\s*.*?/*></iframe>", "[BWVideoSrc]bwvideosep:$1[BWVideoSrc]"},
-            {"&#x20B9", "₹"}
+            {"&#x20B9;", "₹"}
         };
 
         /// <summary>
