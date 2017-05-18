@@ -3590,7 +3590,7 @@
     <Content Include="Views\CompareBikes\_PopularModelCompare.cshtml" />
     <Content Include="Views\CompareBikes\_PopularModelCompare_Mobile.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
-    <Content Include="Views\News\Index_Mobile.cshtml" />
+    <Content Include="Views\News\Index_Mobile_Pwa.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikes_Vertical.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Middle.cshtml" />
     <Content Include="Views\DealerShowroom\DealerDetail.cshtml" />
@@ -3694,6 +3694,7 @@
     <Content Include="Views\Upcoming\Index.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikesList.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikesList_Mobile.cshtml" />
+    <Content Include="Views\News\Index_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

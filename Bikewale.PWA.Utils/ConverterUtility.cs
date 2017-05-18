@@ -193,7 +193,7 @@ namespace Bikewale.PWA.Utils
                     DetailPageUrl = "/m" + UrlFormatter.BikePageUrl(item.MakeBase.MaskingName, item.ModelBase.MaskingName),
                     ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostUrl, ImageSize._174x98, QualityFactor._70),
                     Price = item.EstimatedPriceMin > 0 ? Format.FormatPrice(item.EstimatedPriceMin.ToString()) : string.Empty,
-                    PriceDescription = item.EstimatedPriceMin > 0 ? "Ex-showroom," + curCityName : string.Empty,
+                    PriceDescription = item.EstimatedPriceMin > 0 ? "Expected price"  : string.Empty,
                     PriceSuffix = item.EstimatedPriceMin > 0 ? "onwards" : "Price not available"
                 }
                 );

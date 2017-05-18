@@ -131,8 +131,37 @@ namespace Bikewale.Controllers
             else
             {
                 NewsIndexPageVM objData = obj.GetData(9);
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pagenotfound.aspx");
+                else
+                return View(objData);
+            }
+        }
 
-                if (objData != null)
+        /// <summary>
+        /// Created by : Prasad Gawde on 18 May 2017
+        /// Summmary   : Action method to render news listing page -mobile
+        /// </summary>
+        [Route("m/news/index_pwa/")]
+        public ActionResult Index_Mobile_Pwa()
+        {
+            NewsIndexPage obj = new NewsIndexPage(_articles, _pager, _models, _bikeModels, _upcoming);
+            obj.IsMobile = true;
+            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            {
+                return Redirect("/m/pagenotfound.aspx");
+            }
+            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(string.Format("/m{0}", obj.redirectUrl));
+            }
+            else
+            {
+                NewsIndexPageVM objData = obj.GetData(9);
+
+                if (objData != null &&
+                    (objData.Model == null || string.IsNullOrEmpty(objData.Model.ModelName)) &&
+                    (objData.Make == null || string.IsNullOrEmpty(objData.Make.MakeName)))
                 {
                     //setting the store for Redux
                     objData.ReduxStore = new PwaReduxStore();
@@ -146,14 +175,14 @@ namespace Bikewale.Controllers
 
                     var tempStoreJson = JsonConvert.SerializeObject(objData.ReduxStore);
                     var tempHashOfStoreJson = ConverterUtility.GetSha256Hash(tempStoreJson);
-                    var processedHtml=_preProcessedNewslistHtmls.Get(tempHashOfStoreJson);
+                    var processedHtml = _preProcessedNewslistHtmls.Get(tempHashOfStoreJson);
                     string jsonStr;
                     IHtmlString processedString;
 
-                    if (processedHtml==null)                  
+                    if (processedHtml == null)
                     {//rerender
-                        Stopwatch sw=null;
-                        if (_logPWAStats)                      
+                        Stopwatch sw = null;
+                        if (_logPWAStats)
                             sw = Stopwatch.StartNew();
 
                         var articleReducer = objData.ReduxStore.NewsReducer.NewsArticleListReducer;
@@ -171,25 +200,26 @@ namespace Bikewale.Controllers
                         {
                             sw.Stop();
                             ThreadContext.Properties["TimeTaken"] = sw.ElapsedMilliseconds;
-                            _logger.Error(sw.ElapsedMilliseconds); 
+                            _logger.Error(sw.ElapsedMilliseconds);
                         }
-                    }else
+                    }
+                    else
                     {
                         processedString = processedHtml.HtmlString;
                         jsonStr = processedHtml.Json;
                     }
                     objData.ServerRouterWrapper = processedString;
                     objData.WindowState = jsonStr;
-                }                
+                    
+                }
 
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/m/pagenotfound.aspx");
                 else
-                return View(objData);
+                    return View(objData);
             }
         }
 
- 
         private void PopulateStoreForWidgetData(NewsIndexPageVM objData,string cityName)
         {
             List<PwaBikeNews> objPwaBikeNews = new List<PwaBikeNews>();
