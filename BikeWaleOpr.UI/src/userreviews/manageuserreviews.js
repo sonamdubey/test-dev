@@ -30,6 +30,7 @@ var UserReviews = function () {
     self.reviewDescription = ko.observable();
     self.reviewTips = ko.observable();
     self.disapprovalId = ko.observable();
+    self.shortListCheckBox = ko.observable(false);
 
     self.changeMake = function (d, e) {
         var makeId = $(e.target).val();
@@ -160,10 +161,9 @@ var UserReviews = function () {
                 "BikeName" : summary.make.makeName + " " + summary.model.modelName,
                 "MakeMaskingName" : summary.model.maskingName,
                 "ModelMaskingName": summary.make.maskingName,
-                "ModelId": summary.model.modelId
-
-            };
-
+                "ModelId": summary.model.modelId,
+                "IsShortListed": self.shortListCheckBox()
+            };           
             $.ajax({
                 type: "POST",
                 url : "/api/userreviews/id/" + self.selectedReviewId()+"/updatestatus/",
@@ -188,8 +188,8 @@ var UserReviews = function () {
                     }
                    
                 }
-            });
-        }
+            });            
+        }       
     };
 
     self.rejectReview = function () {
@@ -245,7 +245,7 @@ var UserReviews = function () {
         else
         {
             Materialize.toast("Please select disapproval reason", 2000);
-        }
+        }        
     };
 
 };
@@ -257,6 +257,11 @@ if (userReview)
     vmUserReview.setPageFilters();
 }
 
+$(document).ready(function () {
+    $('#reviewdetails').modal({       
+        complete: function () { vmUserReview.shortListCheckBox(false); }
+    });
+});
 
 
 
