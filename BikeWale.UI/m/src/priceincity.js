@@ -107,6 +107,7 @@ docReady(function () {
             self.onRoadPrice = ko.observable();
             self.isDiscontinued = ko.observable(isDiscontinued.toLowerCase() == "true");
             self.setVersionDetails = function (version) {
+                $("#priceincity").attr("data-versionid",version.VersionId);
                 self.exshowroomPrice(formatPrice(version.ExShowroomPrice));
                 self.rtoPrice(formatPrice(version.RTO));
                 self.insurancePrice(formatPrice(version.Insurance));
@@ -412,4 +413,40 @@ docReady(function () {
   
     var cityName = $dvPgVar.data("cityarea");
     triggerNonInteractiveGA('Price_in_City_Page', 'CoverFox_Link_Shown', bikeName + '_' + cityName);
+
+    $(".leadcapturebtn").click(function (e) {
+        ele = $(this);
+        try {
+            var leadOptions = {
+                "dealerid": ele.attr('data-item-id'),
+                "dealername": ele.attr('data-item-name'),
+                "dealerarea": ele.attr('data-item-area'),
+                "versionid": $("#priceincity").data("versionid"),
+                "leadsourceid": ele.attr('data-leadsourceid'),
+                "pqsourceid": ele.attr('data-pqsourceid'),
+                "isleadpopup": ele.attr('data-isleadpopup'),
+                "mfgCampid": ele.attr('data-mfgcampid'),
+                "pqid": $("#priceincity").data("pqid") || 0,
+                "pageurl": window.location.href,
+                "clientip": '',
+                "dealerHeading": ele.attr('data-item-heading'),
+                "dealerMessage": ele.attr('data-item-message'),
+                "dealerDescription": ele.attr('data-item-description'),
+                "pinCodeRequired": ele.attr("data-ispincodrequired"),
+                "dealersRequired": ele.attr("data-dealersrequired"),
+                "gaobject": {
+                    cat: ele.attr("c"),
+                    act: ele.attr("a"),
+                    lab: ele.attr("v")
+                }
+            };
+            if (leadOptions.dealersRequired) {
+                generateDealerDropdown();
+            }
+            dleadvm.setOptions(leadOptions);
+        } catch (e) {
+            console.warn("Unable to get submit details : " + e.message);
+        }
+
+    });
 });

@@ -16,7 +16,7 @@
 }
 @if (Model != null && Model.BikeModel != null && Model.CityEntity != null) {
 
-<section>
+<section id="priceincity" data-pqid="@Model.PQId" data-versionid="@Model.VersionId">
     <div class="container">
         <div class="padding-top10 padding-left20 padding-right20 bg-white">
             <h1 class="font20">@Model.Page_H1</h1>
@@ -112,6 +112,13 @@
                         </div>
                     }
                 </div>
+
+                @if (Model.IsNew && Model.ManufacturerCampaign != null)
+                {
+                    <div class="position-rel left-neg10 margin-bottom20">
+                        @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
+                    </div>
+                }
 
                 <!-- model about start -->
                 <div class="content-box-shadow card-bottom-margin">
@@ -442,4 +449,8 @@
     { Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.CityEntity.CityId, cityName = Model.CityEntity.CityName }); }
     <div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
     <div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div>
+}
+@if (Model.IsNew && Model.ManufacturerAdShown)
+{
+    @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 }

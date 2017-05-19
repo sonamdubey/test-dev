@@ -63,8 +63,7 @@
                     </div>
 
                 </div>
-
-                @if (Model.ManufacturerCampaign != null && Model.ManufacturerCampaign.ShowAd && Model.IsLocationSelected && !Model.ShowOnRoadButton)
+                @if (Model.ManufacturerCampaign != null && Model.LocationCookie.CityId > 0)
                 {
                     @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
                 }
