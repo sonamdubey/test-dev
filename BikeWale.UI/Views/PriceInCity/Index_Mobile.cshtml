@@ -129,13 +129,13 @@
                 </div>
                 <!-- model orp end -->
                 <!-- model dealers start -->
-                @if (Model.HasDealers || Model.HasServiceCenters)
+                @if (Model.HasDealers || Model.HasServiceCenters || Model.HasCampaignDealer)
                 {
                     <div id="dealerContent" class="bw-model-tabs-data card-bottom-margin">
-                        @if (Model.HasDealers)
+                        @if (Model.HasDealers || Model.HasCampaignDealer)
                         {
                             <div class="content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
-                                @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew)
+                                @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.ManufacturerAdShown)
                                 {
                                     <div class="padding-right20 padding-bottom20 padding-left20">
                                         <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Showrooms in @Model.CityEntity.CityName</h2>
@@ -152,7 +152,7 @@
                                 }
                                 else
                                 {
-                                    if (Model.HasCampaignDealer && Model.IsNew)
+                                    if (Model.HasCampaignDealer && Model.IsNew && !Model.ManufacturerAdShown)
                                     {
                                         <div class="padding-right20 padding-bottom20 padding-left20">
                                             <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Dealer near you</h2>
@@ -177,7 +177,7 @@
                                 }
                                 @if (Model.HasDealers)
                                 {
-                                    if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew)
+                                    if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.ManufacturerAdShown)
                                     {
                                         <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
                                     }

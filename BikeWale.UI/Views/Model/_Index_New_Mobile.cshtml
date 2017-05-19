@@ -46,7 +46,7 @@
                             </div>
                         </div>
 
-                        @if (Model.IsDealerDetailsExists)
+                        @if (Model.IsDealerDetailsExists || Model.DetailedDealer != null)
                         {
                             @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Mobile.cshtml", Model)
                         }
