@@ -11,6 +11,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
@@ -59,6 +60,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IBikeCompareCacheRepository _objCompare;
         private readonly IUserReviewsCache _userReviewCache;
         private readonly IUsedBikesCache _usedBikesCache;
+        private readonly IUpcoming _upcoming = null;
 
         private ModelPageVM objData = null;
         private uint _modelId, _cityId, _areaId;
@@ -77,7 +79,7 @@ namespace Bikewale.Models.BikeModels
         public LeadSourceEnum LeadSource { get; set; }
         public bool IsMobile { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes)
+        public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -88,6 +90,7 @@ namespace Bikewale.Models.BikeModels
             _objDealerDetails = objDealerDetails;
             _objVersionCache = objVersionCache;
             _objBestBikes = objBestBikes;
+            _upcoming = upcoming;
 
             _objArticles = objArticles;
             _objVideos = objVideos;
@@ -206,7 +209,7 @@ namespace Bikewale.Models.BikeModels
                     objData.ExpertReviews = new RecentExpertReviews(3, (uint)objMake.MakeId, objData.ModelId, objMake.MakeName, objMake.MaskingName, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, _objArticles, string.Format("{0} Reviews", objData.BikeName)).GetData();
                     objData.Videos = new RecentVideos(1, 3, (uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, objData.ModelId, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, _objVideos).GetData();
                     objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/", objMake.MaskingName, objData.ModelPageEntity.ModelDetails.MaskingName));
-                   
+
 
                     if (!objData.IsUpcomingBike)
                     {
@@ -277,6 +280,13 @@ namespace Bikewale.Models.BikeModels
                             objData.EMIDetails = setDefaultEMIDetails(objData.BikePrice);
                         }
 
+
+
+                    }
+                    if (objData.IsUpcomingBike)
+                    {
+
+                        objData.objUpcomingBikes = BindUpCompingBikesWidget();
                     }
                 }
 
@@ -285,6 +295,39 @@ namespace Bikewale.Models.BikeModels
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindControls");
             }
+        }
+
+        /// <summary>
+        /// Created By:- Subodh Jain 23 March 2017
+        /// Summary:- Binding data for upcoming bike widget
+        /// </summary>
+        /// <returns></returns>
+        private UpcomingBikesWidgetVM BindUpCompingBikesWidget()
+        {
+            UpcomingBikesWidgetVM objUpcomingBikes = null;
+            try
+            {
+                UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
+
+                objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+                {
+                    PageSize = 10,
+                    PageNo = 1,
+                };
+                objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+                objUpcomingBikes = objUpcoming.GetData();
+                if (objUpcomingBikes != null && objUpcomingBikes.UpcomingBikes != null)
+                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Where(x => x.ModelBase.ModelId != _modelId);
+                if (objUpcomingBikes != null && objUpcomingBikes.UpcomingBikes != null)
+                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Take(9);
+
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerShowroomIndiaPage.BindUpCompingBikesWidget()");
+            }
+            return objUpcomingBikes;
         }
 
         /// <summary>
