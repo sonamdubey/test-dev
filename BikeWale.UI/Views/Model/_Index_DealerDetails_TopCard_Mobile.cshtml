@@ -1,5 +1,5 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
-
+@if (Model.IsDealerDetailsExists) { 
 <div id="model-dealer-card">
     @if (Model.IsPremiumDealer)
     {
@@ -75,6 +75,7 @@
     }
     else
     {
+        if (Model.IsDealerDetailsExists && !Model.IsPremiumDealer) { 
         <div class="padding-bottom20">
             <div class="inline-block nearby-partner-left-col">
                 <div class="dealership-icon-wrapper inline-block margin-right5">
@@ -87,8 +88,10 @@
             <a id="viewprimarydealer" onclick="secondarydealer_Click(@Model.DealerId);" c="Model_Page" a="View_Dealer_Details_Clicked" v="bikeVersionLocation" href="javascript:void(0)" class="btn btn-orange btn-sm-0 bw-ga">View dealer details</a>
         </div>
     }
+    }
 </div>
-@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0)
+}
+@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && !Model.ManufacturerCampaign.ShowAd)
 {
     <div class="padding-15-20 border-solid-top font16">
         <a href="javascript:void(0)" rel="nofollow" id="more-dealers-target">Prices from @Model.DetailedDealer.SecondaryDealerCount more partner dealers<span class="bwmsprite blue-right-arrow-icon"></span></a>
