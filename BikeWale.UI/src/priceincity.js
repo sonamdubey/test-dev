@@ -371,7 +371,7 @@ docReady(function () {
                 $("#ddlMfgDealers").trigger("chosen:updated");
             },
         });
-    };
+    }; 
 });
 
 // add divider
