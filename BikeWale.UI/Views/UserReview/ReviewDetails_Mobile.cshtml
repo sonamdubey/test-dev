@@ -1,7 +1,6 @@
 ﻿@model Bikewale.Models.UserReviewDetailsVM
 
-@{
-    ViewBag.Title = "ReviewDetails_Mobile";
+@{    
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/listing.css' />";
     Model.Page_JS_Path = "/m/src/user-review/listing.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
@@ -111,7 +110,7 @@
         </div>
     </section>
 
-    if (Model.UserReviews != null && Model.UserReviews.UserReviews.TotalCount > 1)
+    if (Model.UserReviews != null && Model.UserReviews.UserReviews.TotalCount > 0)
     {
         @Html.Partial("~/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
     }

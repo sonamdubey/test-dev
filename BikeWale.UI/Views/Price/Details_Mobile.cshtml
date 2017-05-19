@@ -130,7 +130,7 @@
 </div>
 
 
-@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0)
+@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && (Model.ManufacturerCampaign == null || !Model.ManufacturerCampaign.ShowAd))
 {
     <section>
         @Html.Partial("~/Views/Price/_SecondaryDealers_Mobile.cshtml", Model.DetailedDealer.SecondaryDealers)
