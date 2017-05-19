@@ -21,6 +21,8 @@ namespace Bikewale.DAL.Compare
     /// </summary>
     public class BikeCompareRepository : IBikeCompare
     {
+        ///  Modified by : Aditi Srivastava on 18 May 2017
+        /// Summary      : Used nullable bool for specs and features
         public BikeCompareEntity DoCompare(string versions)
         {
             BikeCompareEntity compare = null;
@@ -72,7 +74,7 @@ namespace Bikewale.DAL.Compare
                                 {
                                     specs.Add(new BikeSpecification()
                                     {
-                                        AlloyWheels = SqlReaderConvertor.ToNullableBool(reader["AlloyWheels"]),
+                                        AlloyWheels = reader["AlloyWheels"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["AlloyWheels"]) : null,
                                         Battery = Convert.ToString(reader["Battery"]),
                                         Bore = SqlReaderConvertor.ToNullableFloat(reader["Bore"]),
                                         Brake_Tail_Light = Convert.ToString(reader["Brake_Tail_Light"]),
@@ -84,7 +86,7 @@ namespace Bikewale.DAL.Compare
                                         Cylinders = SqlReaderConvertor.ToNullableUInt16(reader["Cylinders"]),
                                         Displacement = SqlReaderConvertor.ToNullableFloat(reader["Displacement"]),
                                         ElectricSystem = Convert.ToString(reader["ElectricSystem"]),
-                                        FrontDisc = SqlReaderConvertor.ToNullableBool(reader["FrontDisc"]),
+                                        FrontDisc = reader["FrontDisc"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["FrontDisc"]) : null,
                                         FrontDisc_DrumSize = SqlReaderConvertor.ToNullableUInt16(reader["FrontDisc_DrumSize"]),
                                         FrontSuspension = Convert.ToString(reader["FrontSuspension"]),
                                         FrontTyre = Convert.ToString(reader["FrontTyre"]),
@@ -107,14 +109,14 @@ namespace Bikewale.DAL.Compare
                                         OverallHeight = SqlReaderConvertor.ToNullableUInt16(reader["OverallHeight"]),
                                         OverallLength = SqlReaderConvertor.ToNullableUInt16(reader["OverallLength"]),
                                         OverallWidth = SqlReaderConvertor.ToNullableUInt16(reader["OverallWidth"]),
-                                        PassLight = SqlReaderConvertor.ToNullableBool(reader["PassLight"]),
+                                        PassLight = reader["PassLight"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["PassLight"]) : null,
                                         Performance_0_40_m = SqlReaderConvertor.ToNullableFloat(reader["Performance_0_40_m"]),
                                         Performance_0_60_kmph = SqlReaderConvertor.ToNullableFloat(reader["Performance_0_60_kmph"]),
                                         Performance_0_80_kmph = SqlReaderConvertor.ToNullableFloat(reader["Performance_0_80_kmph"]),
                                         Performance_60_0_kmph = Convert.ToString(reader["Performance_60_0_kmph"]),
                                         Performance_80_0_kmph = Convert.ToString(reader["Performance_80_0_kmph"]),
-                                        RadialTyres = SqlReaderConvertor.ToNullableBool(reader["RadialTyres"]),
-                                        RearDisc = SqlReaderConvertor.ToNullableBool(reader["RearDisc"]),
+                                        RadialTyres = reader["RadialTyres"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["RadialTyres"]) : null,
+                                        RearDisc = reader["RearDisc"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["RearDisc"]) : null,
                                         RearDisc_DrumSize = SqlReaderConvertor.ToNullableUInt16(reader["RearDisc_DrumSize"]),
                                         RearSuspension = Convert.ToString(reader["RearSuspension"]),
                                         RearTyre = Convert.ToString(reader["RearTyre"]),
@@ -124,7 +126,7 @@ namespace Bikewale.DAL.Compare
                                         Stroke = SqlReaderConvertor.ToNullableFloat(reader["Stroke"]),
                                         TopSpeed = SqlReaderConvertor.ToNullableFloat(reader["TopSpeed"]),
                                         TransmissionType = Convert.ToString(reader["TransmissionType"]),
-                                        TubelessTyres = SqlReaderConvertor.ToNullableBool(reader["TubelessTyres"]),
+                                        TubelessTyres = reader["TubelessTyres"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["TubelessTyres"]) : null,
                                         TurnSignal = Convert.ToString(reader["TurnSignal"]),
                                         ValvesPerCylinder = SqlReaderConvertor.ToNullableUInt16(reader["ValvesPerCylinder"]),
                                         VersionId = SqlReaderConvertor.ToUInt32(reader["BikeVersionId"]),
@@ -142,27 +144,27 @@ namespace Bikewale.DAL.Compare
                                 {
                                     features.Add(new BikeFeature()
                                     {
-                                        AntilockBrakingSystem = SqlReaderConvertor.ToNullableBool(reader["AntilockBrakingSystem"]),
-                                        Clock = SqlReaderConvertor.ToNullableBool(reader["Clock"]),
-                                        DigitalFuelGauge = SqlReaderConvertor.ToNullableBool(reader["DigitalFuelGauge"]),
-                                        ElectricStart = SqlReaderConvertor.ToNullableBool(reader["ElectricStart"]),
-                                        FuelGauge = SqlReaderConvertor.ToNullableBool(reader["FuelGauge"]),
-                                        Killswitch = SqlReaderConvertor.ToNullableBool(reader["Killswitch"]),
-                                        LowBatteryIndicator = SqlReaderConvertor.ToNullableBool(reader["LowBatteryIndicator"]),
-                                        LowFuelIndicator = SqlReaderConvertor.ToNullableBool(reader["LowFuelIndicator"]),
-                                        LowOilIndicator = SqlReaderConvertor.ToNullableBool(reader["LowOilIndicator"]),
+                                        AntilockBrakingSystem = reader["AntilockBrakingSystem"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["AntilockBrakingSystem"]) : null,
+                                        Clock = reader["Clock"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["Clock"]) : null,
+                                        DigitalFuelGauge = reader["DigitalFuelGauge"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["DigitalFuelGauge"]) : null,
+                                        ElectricStart = reader["ElectricStart"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["ElectricStart"]) : null,
+                                        FuelGauge = reader["FuelGauge"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["FuelGauge"]) : null,
+                                        Killswitch = reader["Killswitch"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["Killswitch"]) : null,
+                                        LowBatteryIndicator = reader["LowBatteryIndicator"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["LowBatteryIndicator"]) : null,
+                                        LowFuelIndicator = reader["LowFuelIndicator"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["LowFuelIndicator"]) : null,
+                                        LowOilIndicator = reader["LowOilIndicator"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["LowOilIndicator"]) : null,
                                         NoOfTripmeters = Convert.ToString(reader["NoOfTripmeters"]),
-                                        PillionBackrest = SqlReaderConvertor.ToNullableBool(reader["PillionBackrest"]),
-                                        PillionFootrest = SqlReaderConvertor.ToNullableBool(reader["PillionFootrest"]),
-                                        PillionGrabrail = SqlReaderConvertor.ToNullableBool(reader["PillionGrabrail"]),
-                                        PillionSeat = SqlReaderConvertor.ToNullableBool(reader["PillionSeat"]),
-                                        ShiftLight = SqlReaderConvertor.ToNullableBool(reader["ShiftLight"]),
+                                        PillionBackrest = reader["PillionBackrest"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["PillionBackrest"]) : null,
+                                        PillionFootrest = reader["PillionFootrest"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["PillionFootrest"]) : null,
+                                        PillionGrabrail = reader["PillionGrabrail"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["PillionGrabrail"]) : null,
+                                        PillionSeat = reader["PillionSeat"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["PillionSeat"]) : null,
+                                        ShiftLight = reader["ShiftLight"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["ShiftLight"]) : null,
                                         Speedometer = Convert.ToString(reader["Speedometer"]),
-                                        StandAlarm = SqlReaderConvertor.ToNullableBool(reader["StandAlarm"]),
-                                        SteppedSeat = SqlReaderConvertor.ToNullableBool(reader["SteppedSeat"]),
-                                        Tachometer = SqlReaderConvertor.ToNullableBool(reader["Tachometer"]),
+                                        StandAlarm = reader["StandAlarm"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["StandAlarm"]) : null,
+                                        SteppedSeat = reader["SteppedSeat"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["SteppedSeat"]) : null,
+                                        Tachometer = reader["Tachometer"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["Tachometer"]) : null,
                                         TachometerType = Convert.ToString(reader["TachometerType"]),
-                                        Tripmeter = SqlReaderConvertor.ToNullableBool(reader["Tripmeter"]),
+                                        Tripmeter = reader["Tripmeter"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["Tripmeter"]) : null,
                                         TripmeterType = Convert.ToString(reader["TripmeterType"]),
                                         VersionId = SqlReaderConvertor.ToUInt32(reader["BikeVersionId"])
                                     });
@@ -235,6 +237,8 @@ namespace Bikewale.DAL.Compare
         /// <summary>
         /// Modified By :   Sushil Kumar on 2nd Feb 2017
         /// Description :   To fetch bike comparisiosn data along with its versions and colors
+        ///  Modified by : Aditi Srivastava on 18 May 2017
+        /// Summary     : used nullable bool for specs and features
         /// </summary>
         /// <param name="versions"></param>
         /// <param name="cityId"></param>
@@ -316,7 +320,7 @@ namespace Bikewale.DAL.Compare
                                     #region Bike Specification
                                     specs.Add(new BikeSpecification()
                                         {
-                                            AlloyWheels = SqlReaderConvertor.ToNullableBool(reader["AlloyWheels"]),
+                                            AlloyWheels = reader["AlloyWheels"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["AlloyWheels"]) : null,
                                             Battery = Convert.ToString(reader["Battery"]),
                                             Bore = SqlReaderConvertor.ToNullableFloat(reader["Bore"]),
                                             Brake_Tail_Light = Convert.ToString(reader["Brake_Tail_Light"]),
@@ -328,7 +332,7 @@ namespace Bikewale.DAL.Compare
                                             Cylinders = SqlReaderConvertor.ToNullableUInt16(reader["Cylinders"]),
                                             Displacement = SqlReaderConvertor.ToNullableFloat(reader["Displacement"]),
                                             ElectricSystem = Convert.ToString(reader["ElectricSystem"]),
-                                            FrontDisc = SqlReaderConvertor.ToNullableBool(reader["FrontDisc"]),
+                                            FrontDisc = reader["FrontDisc"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["FrontDisc"]) : null,
                                             FrontDisc_DrumSize = SqlReaderConvertor.ToNullableUInt16(reader["FrontDisc_DrumSize"]),
                                             FrontSuspension = Convert.ToString(reader["FrontSuspension"]),
                                             FrontTyre = Convert.ToString(reader["FrontTyre"]),
@@ -351,14 +355,14 @@ namespace Bikewale.DAL.Compare
                                             OverallHeight = SqlReaderConvertor.ToNullableUInt16(reader["OverallHeight"]),
                                             OverallLength = SqlReaderConvertor.ToNullableUInt16(reader["OverallLength"]),
                                             OverallWidth = SqlReaderConvertor.ToNullableUInt16(reader["OverallWidth"]),
-                                            PassLight = SqlReaderConvertor.ToNullableBool(reader["PassLight"]),
+                                            PassLight = reader["PassLight"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["PassLight"]) : null,
                                             Performance_0_40_m = SqlReaderConvertor.ToNullableFloat(reader["Performance_0_40_m"]),
                                             Performance_0_60_kmph = SqlReaderConvertor.ToNullableFloat(reader["Performance_0_60_kmph"]),
                                             Performance_0_80_kmph = SqlReaderConvertor.ToNullableFloat(reader["Performance_0_80_kmph"]),
                                             Performance_60_0_kmph = Convert.ToString(reader["Performance_60_0_kmph"]),
                                             Performance_80_0_kmph = Convert.ToString(reader["Performance_80_0_kmph"]),
-                                            RadialTyres = SqlReaderConvertor.ToNullableBool(reader["RadialTyres"]),
-                                            RearDisc = SqlReaderConvertor.ToNullableBool(reader["RearDisc"]),
+                                            RadialTyres = reader["RadialTyres"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["RadialTyres"]) : null,
+                                            RearDisc = reader["RearDisc"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["RearDisc"]) : null,
                                             RearDisc_DrumSize = SqlReaderConvertor.ToNullableUInt16(reader["RearDisc_DrumSize"]),
                                             RearSuspension = Convert.ToString(reader["RearSuspension"]),
                                             RearTyre = Convert.ToString(reader["RearTyre"]),
@@ -368,7 +372,7 @@ namespace Bikewale.DAL.Compare
                                             Stroke = SqlReaderConvertor.ToNullableFloat(reader["Stroke"]),
                                             TopSpeed = SqlReaderConvertor.ToNullableFloat(reader["TopSpeed"]),
                                             TransmissionType = Convert.ToString(reader["TransmissionType"]),
-                                            TubelessTyres = SqlReaderConvertor.ToNullableBool(reader["TubelessTyres"]),
+                                            TubelessTyres = reader["TubelessTyres"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["TubelessTyres"]) : null,
                                             TurnSignal = Convert.ToString(reader["TurnSignal"]),
                                             ValvesPerCylinder = SqlReaderConvertor.ToNullableUInt16(reader["ValvesPerCylinder"]),
                                             VersionId = SqlReaderConvertor.ToUInt32(reader["BikeVersionId"]),
@@ -381,27 +385,27 @@ namespace Bikewale.DAL.Compare
                                     #region Bike Features
                                     features.Add(new BikeFeature()
                                             {
-                                                AntilockBrakingSystem = SqlReaderConvertor.ToNullableBool(reader["AntilockBrakingSystem"]),
-                                                Clock = SqlReaderConvertor.ToNullableBool(reader["Clock"]),
-                                                DigitalFuelGauge = SqlReaderConvertor.ToNullableBool(reader["DigitalFuelGauge"]),
-                                                ElectricStart = SqlReaderConvertor.ToNullableBool(reader["ElectricStart"]),
-                                                FuelGauge = SqlReaderConvertor.ToNullableBool(reader["FuelGauge"]),
-                                                Killswitch = SqlReaderConvertor.ToNullableBool(reader["Killswitch"]),
-                                                LowBatteryIndicator = SqlReaderConvertor.ToNullableBool(reader["LowBatteryIndicator"]),
-                                                LowFuelIndicator = SqlReaderConvertor.ToNullableBool(reader["LowFuelIndicator"]),
-                                                LowOilIndicator = SqlReaderConvertor.ToNullableBool(reader["LowOilIndicator"]),
+                                                AntilockBrakingSystem = reader["TubelessTyres"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["AntilockBrakingSystem"]) : null,
+                                                Clock = reader["Clock"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["Clock"]) : null,
+                                                DigitalFuelGauge = reader["DigitalFuelGauge"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["DigitalFuelGauge"]) : null,
+                                                ElectricStart = reader["ElectricStart"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["ElectricStart"]) : null,
+                                                FuelGauge = reader["FuelGauge"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["FuelGauge"]) : null,
+                                                Killswitch = reader["Killswitch"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["Killswitch"]) : null,
+                                                LowBatteryIndicator = reader["LowBatteryIndicator"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["LowBatteryIndicator"]) : null,
+                                                LowFuelIndicator = reader["LowFuelIndicator"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["LowFuelIndicator"]) : null,
+                                                LowOilIndicator = reader["LowOilIndicator"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["LowOilIndicator"]) : null,
                                                 NoOfTripmeters = Convert.ToString(reader["NoOfTripmeters"]),
-                                                PillionBackrest = SqlReaderConvertor.ToNullableBool(reader["PillionBackrest"]),
-                                                PillionFootrest = SqlReaderConvertor.ToNullableBool(reader["PillionFootrest"]),
-                                                PillionGrabrail = SqlReaderConvertor.ToNullableBool(reader["PillionGrabrail"]),
-                                                PillionSeat = SqlReaderConvertor.ToNullableBool(reader["PillionSeat"]),
-                                                ShiftLight = SqlReaderConvertor.ToNullableBool(reader["ShiftLight"]),
+                                                PillionBackrest = reader["PillionBackrest"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["PillionBackrest"]) : null,
+                                                PillionFootrest = reader["PillionFootrest"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["PillionFootrest"]) : null,
+                                                PillionGrabrail = reader["PillionGrabrail"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["PillionGrabrail"]) : null,
+                                                PillionSeat = reader["PillionSeat"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["PillionSeat"]) : null,
+                                                ShiftLight = reader["ShiftLight"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["ShiftLight"]) : null,
                                                 Speedometer = Convert.ToString(reader["Speedometer"]),
-                                                StandAlarm = SqlReaderConvertor.ToNullableBool(reader["StandAlarm"]),
-                                                SteppedSeat = SqlReaderConvertor.ToNullableBool(reader["SteppedSeat"]),
-                                                Tachometer = SqlReaderConvertor.ToNullableBool(reader["Tachometer"]),
+                                                StandAlarm = reader["StandAlarm"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["StandAlarm"]) : null,
+                                                SteppedSeat = reader["SteppedSeat"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["SteppedSeat"]) : null,
+                                                Tachometer = reader["Tachometer"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["Tachometer"]) : null,
                                                 TachometerType = Convert.ToString(reader["TachometerType"]),
-                                                Tripmeter = SqlReaderConvertor.ToNullableBool(reader["Tripmeter"]),
+                                                Tripmeter = reader["Tripmeter"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(reader["Tripmeter"]) : null,
                                                 TripmeterType = Convert.ToString(reader["TripmeterType"]),
                                                 VersionId = SqlReaderConvertor.ToUInt32(reader["BikeVersionId"])
                                             });

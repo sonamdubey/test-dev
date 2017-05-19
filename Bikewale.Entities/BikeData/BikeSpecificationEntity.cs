@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeData
 {
+    /// Modified by : Aditi Srivastava on 18 May 2017
+    /// Summary     : Changed data types from bool to nullable bool
     [Serializable]
     public class BikeSpecificationEntity
     {
@@ -47,46 +49,46 @@ namespace Bikewale.Entities.BikeData
 	    public string FrontSuspension { get; set; }
 	    public string RearSuspension { get; set; }
 	    public string BrakeType { get; set; }
-	    public bool FrontDisc { get; set; }
+	    public bool? FrontDisc { get; set; }
 	    public ushort FrontDisc_DrumSize { get; set; }
-	    public bool RearDisc { get; set; }
+	    public bool? RearDisc { get; set; }
 	    public ushort RearDisc_DrumSize { get; set; }
 	    public string CalliperType { get; set; }
 	    public float WheelSize { get; set; }
 	    public string FrontTyre { get; set; }
 	    public string RearTyre { get; set; }
-	    public bool TubelessTyres { get; set; }
-	    public bool RadialTyres { get; set; }
-	    public bool AlloyWheels { get; set; }
+	    public bool? TubelessTyres { get; set; }
+	    public bool? RadialTyres { get; set; }
+	    public bool? AlloyWheels { get; set; }
 	    public string ElectricSystem { get; set; }
 	    public string Battery { get; set; }
 	    public string HeadlightType { get; set; }
 	    public string HeadlightBulbType { get; set; }
 	    public string Brake_Tail_Light { get; set; }
 	    public string TurnSignal { get; set; }
-	    public bool PassLight { get; set; }
+	    public bool? PassLight { get; set; }
 	    public string Speedometer { get; set; }
-	    public bool Tachometer { get; set; }
+	    public bool? Tachometer { get; set; }
 	    public string TachometerType { get; set; }
-	    public bool ShiftLight { get; set; }
-	    public bool ElectricStart { get; set; }
-	    public bool Tripmeter { get; set; }
+	    public bool? ShiftLight { get; set; }
+	    public bool? ElectricStart { get; set; }
+	    public bool? Tripmeter { get; set; }
 	    public string NoOfTripmeters { get; set; }
 	    public string TripmeterType { get; set; }
-	    public bool LowFuelIndicator { get; set; }
-	    public bool LowOilIndicator { get; set; }
-	    public bool LowBatteryIndicator { get; set; }
-	    public bool FuelGauge { get; set; }
-	    public bool DigitalFuelGauge { get; set; }
-	    public bool PillionSeat { get; set; }
-	    public bool PillionFootrest { get; set; }
-	    public bool PillionBackrest { get; set; }
-	    public bool PillionGrabrail { get; set; }
-	    public bool StandAlarm { get; set; }
-	    public bool SteppedSeat { get; set; }
-	    public bool AntilockBrakingSystem { get; set; }
-	    public bool Killswitch { get; set; }
-	    public bool Clock { get; set; }
+	    public bool? LowFuelIndicator { get; set; }
+	    public bool? LowOilIndicator { get; set; }
+	    public bool? LowBatteryIndicator { get; set; }
+	    public bool? FuelGauge { get; set; }
+	    public bool? DigitalFuelGauge { get; set; }
+	    public bool? PillionSeat { get; set; }
+	    public bool? PillionFootrest { get; set; }
+	    public bool? PillionBackrest { get; set; }
+	    public bool? PillionGrabrail { get; set; }
+	    public bool? StandAlarm { get; set; }
+	    public bool? SteppedSeat { get; set; }
+	    public bool? AntilockBrakingSystem { get; set; }
+	    public bool? Killswitch { get; set; }
+	    public bool? Clock { get; set; }
 	    public string Colors { get; set; }
         public float MaxPowerRPM { get; set; }
         public float MaximumTorqueRPM { get; set; }

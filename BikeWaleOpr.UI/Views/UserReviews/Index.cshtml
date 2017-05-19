@@ -180,7 +180,11 @@
                 <div class="clear"></div>
             </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer row">
+            <span >
+                <input type="checkbox" class="filled-in" id="shortList" data-bind="checked: $root.shortListCheckBox" />
+                <label class="margin-top10" for="shortList">ShortList review</label>
+            </span>
             <a href="#!" class="modal-action btn waves-effect waves-light red lighten-2  modal-close " data-target="rejectionReason" data-bind="click : function(){ $('#reviewdetails').modal('close'); }">Reject</a>
             <a href="#!" class="modal-action btn waves-effect waves-light modal-close " data-bind="click : $root.approveReview " style="margin-right : 10px">Approve</a>
 

@@ -47,11 +47,14 @@
     <div id="inputSection" class="position-rel margin-top10">
         <div style="border: 1px solid #777;" class="padding10">
             <div class="margin-right10 verical-middle form-control-box" >Dealer's City : <span class="errMessage">* &nbsp</span>
-                <asp:dropdownlist id="drpCity" enabled="True" cssclass="drpClass" runat="server">
+                <div class="materialize-select">
+                    <asp:dropdownlist id="drpCity" enabled="True" cssclass="drpClass" runat="server">
                     <asp:ListItem Text="--Select City--" Value="-1"/>
                     </asp:dropdownlist>
-                <span class="bwsprite error-icon hide"></span>
-            <div class="bw-blackbg-tooltip hide">Please Select City</div>
+                    <span class="bwsprite error-icon hide"></span>
+                    <div class="bw-blackbg-tooltip hide">Please Select City</div>
+                    <span class="caret">▼</span>
+                </div>
             </div>
             <div class="margin-right10 verical-middle form-control-box position-rel" id="dvMakes">Bike Make : <span class="errMessage">* &nbsp</span>
                 <select id="ddlMakes" class="drpClass" >

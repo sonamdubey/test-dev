@@ -91,6 +91,8 @@ namespace Bikewale.BAL.Compare
         /// <summary>
         /// Created By : Sushil Kumar on 2nd Feb 2017
         /// Description : Removed transpose logic from DoCompare and moved into common for both app and website
+        /// Modified by : Aditi Srivastava on 18 May 2017
+        /// Summary     : used nullable bool function to format specs and features
         /// </summary>
         /// <param name="compareEntity"></param>
         /// <param name="versions"></param>
@@ -295,7 +297,7 @@ namespace Bikewale.BAL.Compare
                     bwsFrontDisc.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        bwsFrontDisc.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).FrontDisc.Value), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).FrontDisc.Value) });
+                        bwsFrontDisc.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).FrontDisc), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).FrontDisc) });
                     }
                     brakesWheelsSuspension.SpecCategory.Add(bwsFrontDisc);
 
@@ -315,7 +317,7 @@ namespace Bikewale.BAL.Compare
                     bwsRearDisc.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        bwsRearDisc.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).RearDisc.Value), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).RearDisc.Value) });
+                        bwsRearDisc.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).RearDisc), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).RearDisc) });
                     }
                     brakesWheelsSuspension.SpecCategory.Add(bwsRearDisc);
 
@@ -375,7 +377,7 @@ namespace Bikewale.BAL.Compare
                     bwsTubelessTyres.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        bwsTubelessTyres.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).TubelessTyres.Value), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).TubelessTyres.Value) });
+                        bwsTubelessTyres.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).TubelessTyres), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).TubelessTyres) });
                     }
                     brakesWheelsSuspension.SpecCategory.Add(bwsTubelessTyres);
 
@@ -385,7 +387,7 @@ namespace Bikewale.BAL.Compare
                     bwsRadialTyres.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        bwsRadialTyres.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).RadialTyres.Value), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).RadialTyres.Value) });
+                        bwsRadialTyres.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).RadialTyres), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).RadialTyres) });
                     }
                     brakesWheelsSuspension.SpecCategory.Add(bwsRadialTyres);
 
@@ -395,7 +397,7 @@ namespace Bikewale.BAL.Compare
                     bwsAlloyWheels.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        bwsAlloyWheels.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).AlloyWheels.Value), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).AlloyWheels.Value) });
+                        bwsAlloyWheels.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).AlloyWheels), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).AlloyWheels) });
                     }
                     brakesWheelsSuspension.SpecCategory.Add(bwsAlloyWheels);
 
@@ -640,7 +642,7 @@ namespace Bikewale.BAL.Compare
                     Tachometer.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        Tachometer.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Tachometer.Value) });
+                        Tachometer.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Tachometer) });
                     }
                     feature.SpecCategory.Add(Tachometer);
 
@@ -662,7 +664,7 @@ namespace Bikewale.BAL.Compare
                     ShiftLight.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        ShiftLight.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).ShiftLight.Value) });
+                        ShiftLight.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).ShiftLight) });
                     }
                     feature.SpecCategory.Add(ShiftLight);
 
@@ -673,7 +675,7 @@ namespace Bikewale.BAL.Compare
                     ElectricStart.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        ElectricStart.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).ElectricStart.Value) });
+                        ElectricStart.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).ElectricStart) });
                     }
                     feature.SpecCategory.Add(ElectricStart);
 
@@ -684,7 +686,7 @@ namespace Bikewale.BAL.Compare
                     Tripmeter.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        Tripmeter.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Tripmeter.Value) });
+                        Tripmeter.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Tripmeter) });
                     }
                     feature.SpecCategory.Add(Tripmeter);
 
@@ -717,7 +719,7 @@ namespace Bikewale.BAL.Compare
                     LowFuelIndicator.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        LowFuelIndicator.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).LowFuelIndicator.Value) });
+                        LowFuelIndicator.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).LowFuelIndicator) });
                     }
                     feature.SpecCategory.Add(LowFuelIndicator);
 
@@ -728,7 +730,7 @@ namespace Bikewale.BAL.Compare
                     LowOilIndicator.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        LowOilIndicator.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).LowOilIndicator.Value) });
+                        LowOilIndicator.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).LowOilIndicator) });
                     }
                     feature.SpecCategory.Add(LowOilIndicator);
 
@@ -739,7 +741,7 @@ namespace Bikewale.BAL.Compare
                     LowBatteryIndicator.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        LowBatteryIndicator.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).LowBatteryIndicator.Value) });
+                        LowBatteryIndicator.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).LowBatteryIndicator) });
                     }
                     feature.SpecCategory.Add(LowBatteryIndicator);
 
@@ -750,7 +752,7 @@ namespace Bikewale.BAL.Compare
                     FuelGauge.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        FuelGauge.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).FuelGauge.Value) });
+                        FuelGauge.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).FuelGauge) });
                     }
                     feature.SpecCategory.Add(FuelGauge);
 
@@ -761,7 +763,7 @@ namespace Bikewale.BAL.Compare
                     DigitalFuelGauges.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        DigitalFuelGauges.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).DigitalFuelGauge.Value) });
+                        DigitalFuelGauges.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).DigitalFuelGauge) });
                     }
                     feature.SpecCategory.Add(DigitalFuelGauges);
 
@@ -772,7 +774,7 @@ namespace Bikewale.BAL.Compare
                     PillionSeat.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        PillionSeat.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).PillionSeat.Value) });
+                        PillionSeat.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).PillionSeat) });
                     }
                     feature.SpecCategory.Add(PillionSeat);
 
@@ -783,7 +785,7 @@ namespace Bikewale.BAL.Compare
                     PillionFootrest.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        PillionFootrest.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).PillionFootrest.Value) });
+                        PillionFootrest.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).PillionFootrest) });
                     }
                     feature.SpecCategory.Add(PillionFootrest);
 
@@ -794,7 +796,7 @@ namespace Bikewale.BAL.Compare
                     PillionBackrest.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        PillionBackrest.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).PillionBackrest.Value) });
+                        PillionBackrest.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).PillionBackrest) });
                     }
                     feature.SpecCategory.Add(PillionBackrest);
 
@@ -805,7 +807,7 @@ namespace Bikewale.BAL.Compare
                     PillionGrabrail.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        PillionGrabrail.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).PillionGrabrail.Value) });
+                        PillionGrabrail.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).PillionGrabrail) });
                     }
                     feature.SpecCategory.Add(PillionGrabrail);
 
@@ -816,7 +818,7 @@ namespace Bikewale.BAL.Compare
                     StandAlarm.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        StandAlarm.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).StandAlarm.Value) });
+                        StandAlarm.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).StandAlarm) });
                     }
                     feature.SpecCategory.Add(StandAlarm);
 
@@ -827,7 +829,7 @@ namespace Bikewale.BAL.Compare
                     SteppedSeat.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        SteppedSeat.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).SteppedSeat.Value) });
+                        SteppedSeat.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).SteppedSeat) });
                     }
                     feature.SpecCategory.Add(SteppedSeat);
 
@@ -838,7 +840,7 @@ namespace Bikewale.BAL.Compare
                     AntilockBrakingSystem.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        AntilockBrakingSystem.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).AntilockBrakingSystem.Value) });
+                        AntilockBrakingSystem.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).AntilockBrakingSystem) });
                     }
                     feature.SpecCategory.Add(AntilockBrakingSystem);
 
@@ -849,7 +851,7 @@ namespace Bikewale.BAL.Compare
                     Killswitch.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        Killswitch.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Killswitch.Value) });
+                        Killswitch.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Killswitch) });
                     }
                     feature.SpecCategory.Add(Killswitch);
 
@@ -860,7 +862,7 @@ namespace Bikewale.BAL.Compare
                     Clock.CompareSpec = new List<CompareBikeData>();
                     foreach (var version in arrVersion)
                     {
-                        Clock.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Clock.Value) });
+                        Clock.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Clock) });
                     }
                     feature.SpecCategory.Add(Clock);
                     compareEntity.CompareFeatures.Spec.Add(feature);

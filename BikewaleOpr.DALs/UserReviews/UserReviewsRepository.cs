@@ -94,11 +94,13 @@ namespace BikewaleOpr.DALs.UserReviews
         /// <summary>
         /// Written By : Ashish G. Kamble on 18 Apr 2017
         /// Summary : Function to approve or discard the user review
+        /// Modified by Sajal gupta on 17-05-2017
+        /// Description : Added iShortListed to sp.
         /// </summary>
         /// <param name="reviewId"></param>
         /// <param name="status"></param>
         /// <param name="disapprovalReasonId"></param>
-        public uint UpdateUserReviewsStatus(uint reviewId, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId, string review, string reviewTitle, string reviewTips)
+        public uint UpdateUserReviewsStatus(uint reviewId, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId, string review, string reviewTitle, string reviewTips, bool iShortListed)
         {
             uint oldTableReviewId = 0;
 
@@ -115,11 +117,12 @@ namespace BikewaleOpr.DALs.UserReviews
                     param.Add("par_review", String.IsNullOrEmpty(review) ? null : review);
                     param.Add("par_title", String.IsNullOrEmpty(reviewTitle) ? null : reviewTitle);
                     param.Add("par_tips", String.IsNullOrEmpty(reviewTips) ? null : reviewTips);
+                    param.Add("par_isShortListed", iShortListed);
                     param.Add("par_oldTableReviewId", value: 0, dbType: DbType.UInt32, direction: ParameterDirection.Output);
 
                     connection.Open();
 
-                    connection.Query("updateuserreviewstatus", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Query("updateuserreviewstatus_17052017", param: param, commandType: CommandType.StoredProcedure);
 
                     oldTableReviewId = param.Get<uint>("par_oldTableReviewId");
 
