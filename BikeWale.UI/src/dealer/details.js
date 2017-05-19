@@ -3,7 +3,8 @@ var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress
 var customerViewModel, dealerDetailsViewModel;
 var dealerLat;
 var googleMapAPIKey;
-var dealerLong, dropdown, assistGetModel, currentCityName, pqId, pageUrl, clientIP;
+var dealerLong, dropdown, assistGetModel, currentCityName, pqId, pageUrl, clientIP, cityArea;
+eventCategory = "Dealer_Locator_Detail";
 
 docReady(function () {
     pageUrl = window.location.href;
@@ -275,6 +276,8 @@ function validateBikeData() {
         return true;
     }
     else {
+        gaLabel = $('#getLeadBike option:selected').text() + '_' + cityArea;
+        
         validateDropdown.dropdown.hideError($('#getLeadBike'));
         return false;
     }

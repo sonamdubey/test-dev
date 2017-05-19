@@ -2,6 +2,7 @@ var assistFormSubmit, assistGetName, assistGetEmail, assistGetMobile;
 var getOnRoadPriceBtn, onroadPriceConfirmBtn;
 var getOffersClick = false, selectDropdownBox;
 var $window, modelDetailsFloatingCard, modelSpecsTabsContentWrapper;
+eventCategory = "Model_Page";
 
 // colour carousel
 var colourCarousel, carouselColorList;
@@ -288,7 +289,7 @@ docReady(function () {
 
     getOnRoadPriceBtn = $("#getOnRoadPriceBtn"),
     onroadPriceConfirmBtn = $("#onroadPriceConfirmBtn");
-
+    gaLabel = getBikeVersionLocation();
     (function ($) {
 
         var connector = function (itemNavigation, carouselStage) {

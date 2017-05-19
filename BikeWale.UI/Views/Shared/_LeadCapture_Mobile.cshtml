@@ -111,7 +111,8 @@
     <!-- Lead Capture pop up end  -->
 
     <script type="text/javascript">
-
+        var gaLabel = "", eventCategory = "";
+        var eventAction = "Lead_Submitted";
         var leadBtnBookNow, leadCapturePopup, leadBike;
         var fullName, emailid, mobile, detailsSubmitBtn;
         var prevEmail = "", prevMobile = "", prevPinCode = "";
@@ -392,13 +393,15 @@
                             if (xhr.status != 200)
                                 self.IsVerified(false);
 
-                            self.pushToGA(self.GAObject());
+                           // self.pushToGA(self.GAObject());
                         }
                     });
                 }
             };
 
             self.submitLead = function (data, event) {
+                if (self.selectedBike() != null)
+                    gaLabel = self.selectedBike().bike + "_" + cityAreaName;
 
                 if (self.mfgCampaignId() > 0) {
                     self.submitCampaignLead(data, event);
@@ -415,6 +418,8 @@
                             $("#contactDetailsPopup").hide();
                             $("#personalInfo").hide();
                             $("#notify-response").fadeIn();
+                            debugger;
+                            triggerGA(eventCategory, eventAction, gaLabel);
                         }
                         else {
                             $("#leadCapturePopup").show();

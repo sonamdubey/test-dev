@@ -64,7 +64,7 @@
                 </div>
             </div>
                 <div class="clear"></div>
-                <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }" tabindex="5">Submit</a>
+                <a class="btn btn-orange bw-ga" id="user-details-submit-btn" data-bind="event: { click: submitLead }" tabindex="5">Submit</a>
                 <p class="margin-top15 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
             </div>
     </div>
@@ -93,15 +93,18 @@
 </div>
 <!-- scripts goes here -->
 <script type="text/javascript">
-
-    var leadBtnBookNow , leadCapturePopup , leadBike ;
+    
+    var gaLabel = "",eventCategory="";
+    var eventAction = "Lead_Submitted";
+    var leadBtnBookNow, leadCapturePopup, leadBike;
     var fullName,emailid , mobile ;
     var assistanceGetName , assistanceGetEmail, assistanceGetMobile,detailsSubmitBtn ;
     var prevEmail = "",prevMobile = "",prevPinCode = "";
     var leadmodelid = '@Model.ModelId', leadcityid = '@Model.CityId', leadareaid = '@Model.AreaId';
     var leadBikeName = '@Model.BikeName',leadLocation = '@Model.Location'; 
-    var objPinCodes = new Object(),dleadvm,validate;
-
+    var objPinCodes = new Object(), dleadvm, validate;
+    
+    
     function leadModel() {
         var arr = setuserDetails();
         var self = this;
@@ -220,7 +223,6 @@
 
                     startLoading(leadBike.parent());
                     leadBike.prev().show();
-
                     $.ajax({
                         type: "GET",
                         url: "/api/DealerBikes/?dealerId=" + self.dealerId() + "&campaignId=" + self.campaignId(),
@@ -376,7 +378,7 @@
                         if (xhr.status != 200)
                             self.IsVerified(false);
 
-                        self.pushToGA(self.GAObject());
+                       // self.pushToGA(self.GAObject());
                     }
                 });
             }
@@ -433,9 +435,13 @@
                 });
                 setPQUserCookie();
             }
+            triggerGA(eventCategory, eventAction, gaLabel)
         };
 
         self.submitLead = function (data, event) {
+            if(self.selectedBike()!=null)
+            gaLabel = self.selectedBike().bike + "_" + cityName + ((areaName!=null && areaName!="") ? ("_"+ areaName):"");
+            
 
             if (self.mfgCampaignId() > 0) {
                 self.submitCampaignLead(data, event);
@@ -472,6 +478,7 @@
                             $("#buyingAssistance").hide();
                             $("#dealer-assist-msg").fadeIn();
                         }
+                        triggerGA(eventCategory, eventAction, gaLabel);
                     }
                     else {
                         if (self.IsLeadPopup()) {
@@ -483,6 +490,7 @@
                     setPQUserCookie();
                 }
             }
+           
         };
 
         self.HiddenSubmitLead = function (d, e) {

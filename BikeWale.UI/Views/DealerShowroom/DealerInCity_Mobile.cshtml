@@ -55,7 +55,7 @@
                             </a>
                         </div>
                     </a>
-                    <input  data-leadsourceid="20" data-item-id="@Details.DealerId" data-item-type="@Details.DealerType" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaId" data-campid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" type="button" class="btn btn-white margin-top10 leadcapturebtn @(string.Format("{0}", Details.DealerType == 3 || Details.DealerType == 2 ? "margin-top20" : "hide"))" value="@Details.DisplayTextLarge" />
+                    <input data-leadsourceid="20" data-item-id="@Details.DealerId" data-item-type="@Details.DealerType" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaId" data-campid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" type="button" class="btn btn-white margin-top10 leadcapturebtn bw-ga @(string.Format("{0}", Details.DealerType == 3 || Details.DealerType == 2 ? "margin-top20" : "hide"))" c="Dealer_Locator" a="Get_Offers_Clicked" l="@Model.getOffersGALabel" value="@Details.DisplayTextLarge" />
                 </li>
             }
         </ul>
@@ -168,3 +168,7 @@
 </section>
 @Html.Partial("~/Views/Make/_BrandCityPopup_Mobile.cshtml", Model.BrandCityPopupWidget)
 @{Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.CityDetails.CityId, cityName = Model.CityDetails.CityName });}
+<script type="text/javascript">
+    eventCategory = "Dealer_Locator";
+    var cityAreaName = "@Model.CityDetails.CityName" + "@(Model.AreaName!="" ? ("_"+Model.AreaName) : "")";
+</script>

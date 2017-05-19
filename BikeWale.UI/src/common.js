@@ -213,6 +213,18 @@ function GetCatForNav() {
             case "5":
                 ret_category = "Search_Page";
                 break;
+            case "6":
+                ret_category = "DealerPriceQuote_Page";
+                break;
+            case "7":
+                ret_category = "Dealer_Locator_Page";
+                break;
+            case "8":
+                ret_category = "Dealer_Locator_Detail_Page";
+                break;
+            case "9":
+                ret_category = "Booking_Page";
+                break;
         }
         return ret_category;
     }

@@ -3,6 +3,8 @@ var dealerLat;
 var dealerLong;
 var locationKey;
 var googleMapAPIKey, pageUrl;
+eventCategory = "Dealer_Locator_Detail";
+var cityName, areaName;
 docReady(function () {
     dealerLong = document.getElementById("locationSearch").getAttribute("data-long");
     pageUrl = window.location.href;

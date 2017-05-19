@@ -7,6 +7,7 @@ var dropdown;
 var window, overallSpecsTabsContainer, modelSpecsTabsContentWrapper, modelSpecsFooter, topNavBarHeight;
 var backToTopBtn, halfBodyHeight, overViewContentHeight;
 var lastScrollTop = 0;
+eventCategory = "Model_Page";
 
 function getBikeVersion() {
     return versionName;
@@ -238,12 +239,13 @@ docReady(function () {
 
     if (bikeVersionLocation == '') {
         bikeVersionLocation = getBikeVersionLocation();
-    }
+      }
     if (bikeVersion == '') {
         bikeVersion = getBikeVersion();
     }
 
     getCityArea = GetGlobalCityArea();
+    gaLabel = myBikeName + '_' + getCityArea;
 
     $(window).scroll(function () {
         var windowScrollTop = $window.scrollTop(),

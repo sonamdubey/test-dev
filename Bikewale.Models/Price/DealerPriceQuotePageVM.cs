@@ -10,7 +10,6 @@ namespace Bikewale.Models.Price
     /// </summary>
     public class DealerPriceQuotePageVM : ModelBase
     {
-
         public BikeVersionEntity SelectedVersion { get; set; }
         public IEnumerable<BikeVersionsListEntity> VersionsList { get; set; }
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DetailedDealer { get; set; }

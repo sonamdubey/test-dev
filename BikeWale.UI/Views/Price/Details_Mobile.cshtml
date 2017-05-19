@@ -291,13 +291,14 @@
     var leadSourceId = "@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DPQ_SecondaryDealers)";
     var bikeName = "@Model.BikeName", bikeVersionPrice = "@Model.TotalPrice";
     var quotationPage = true;
+    eventCategory = "Dealer_PQ";
 
     docReady(function () {
         ga_pg_id = "7";
         try {
             getCityArea = GetGlobalCityArea();
             bikeVerLocation = bikeName + '_' + versionName + '_' + getCityArea;
-
+            gaLabel = bikeVerLocation;
             @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealers != null && Model.DetailedDealer.SecondaryDealerCount > 0)
          {
              <text>triggerNonInteractiveGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>

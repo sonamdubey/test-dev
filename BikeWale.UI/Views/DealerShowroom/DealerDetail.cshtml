@@ -319,4 +319,6 @@
     </div>
 </section>  
         <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>
-
+<script type="text/javascript">
+     cityArea = "@Model.CityDetails.CityName" + "@(Model.DealerDetails.DealerDetails.Area!=null ? ("_"+Model.DealerDetails.DealerDetails.Area.AreaName) : "")";
+  </script>

@@ -100,7 +100,7 @@
                                     </p>
                                 </a>
                                 <div class="@string.Format("{0}", Details.DealerType == 3 || Details.DealerType == 2 ? "margin-top20" : "hide")">
-                                    <a id="dealerLead" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14" data-item-name="@Details.Name" data-item-area="" data-campid="@Details.CampaignId" data-pqsourceid="(int)@Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton" class="btn btn-white btn-full-width font14 leadcapturebtn">@Details.DisplayTextLarge</a>
+                                    <a id="dealerLead" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14" data-item-name="@Details.Name" data-item-area="" data-campid="@Details.CampaignId" data-pqsourceid="(int)@Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton" class="btn btn-white btn-full-width font14 leadcapturebtn bw-ga" c="Dealer_Locator" a="Get_Offers_Clicked" l="@Model.getOffersGALabel">@Details.DisplayTextLarge</a>
                                 </div>
                             </li>
                         }
@@ -225,3 +225,8 @@
 @Html.Partial("~/Views/Make/_BrandCityPopup.cshtml", Model.BrandCityPopupWidget)
 @{Html.RenderAction("ChangeLocation", "Location", new { cityId = Model.CityDetails.CityId, cityName = Model.CityDetails.CityName });}
 <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>
+<script type="text/javascript">
+    eventCategory = "Dealer_Locator";
+    var cityName = "@Model.CityDetails.CityName";
+    var areaName = "@Model.AreaName";
+</script>
