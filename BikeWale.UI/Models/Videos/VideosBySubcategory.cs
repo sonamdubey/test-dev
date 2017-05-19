@@ -61,11 +61,11 @@ namespace Bikewale.Models.Videos
             {
                 if (payload != null && !string.IsNullOrEmpty(categoryIdList))
                 {
-                    widget = new VideosBySubcategoryVM();
-                    widget.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(payload));
-                    widget.SectionTitle = VideoTitleDescription.VideoCategoryTitle(categoryIdList);
-                    widget.CategoryIdList = categoryIdList;
-                    widget.SectionBackgroundClass = sectionBackgroundClass;
+                    objVideos = new VideosBySubcategoryVM();
+                    objVideos.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(payload));
+                    objVideos.SectionTitle = VideoTitleDescription.VideoCategoryTitle(categoryIdList);
+                    objVideos.CategoryIdList = categoryIdList;
+                    objVideos.SectionBackgroundClass = sectionBackgroundClass;
                 }
                 widget = objVideos;
             }
