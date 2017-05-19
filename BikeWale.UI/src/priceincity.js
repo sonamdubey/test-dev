@@ -343,7 +343,7 @@ docReady(function () {
     function generateDealerDropdown() {
         $.ajax({
             type: "GET",
-            url: "/api/ManufacturerCampaign/?city=" + cityId,
+            url: "/api/ManufacturerCampaign/?city=" + $("#priceincity").data("cityid") || 0,
             contentType: "application/json",
             dataType: 'json',
             success: function (response) {
