@@ -51,7 +51,7 @@
         </div>
     </section>
 
-    <section id="priceincity" data-pqid="@Model.PQId" data-versionid="@Model.VersionId">
+    <section id="priceincity" data-pqid="@Model.PQId" data-versionid="@Model.VersionId" data-cityid="@Model.CityEntity.CityId">
         <div class="container">
             <div class="grid-12">
                 <div class="padding-top15 padding-left20 content-box-shadow">
@@ -470,7 +470,7 @@
     </section>
 
 
-<!-- top 10 bikes start -->
+    <!-- top 10 bikes start -->
 
     if (Model.BikeRank != null)
     {
@@ -548,8 +548,8 @@
     <div class="hide" id="dvVersionPrice" data-isdiscontinued="@Model.IsDiscontinued">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices))</div>
     <div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
     <div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div>
-}
-@if (Model.IsNew && Model.ManufacturerAdShown)
-{
-    @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
+    if (Model.IsNew && Model.ManufacturerAdShown)
+    {
+        @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
+    }
 }
