@@ -51,7 +51,7 @@
         </div>
     </section>
 
-    <section>
+    <section id="priceincity" data-pqid="@Model.PQId" data-versionid="@Model.VersionId">
         <div class="container">
             <div class="grid-12">
                 <div class="padding-top15 padding-left20 content-box-shadow">
@@ -75,7 +75,7 @@
                                         @if (Model.IsDiscontinued)
                                         {
                                             <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
-                                        }                                       
+                                        }
                                         <a href="@Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.Make.MaskingName, Model.BikeModel.MaskingName)?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))">
                                             <img src="@Model.ModelImage" title="@Model.BikeName" alt="@Model.BikeName" />
                                         </a>
@@ -93,7 +93,7 @@
                                                     {
                                                         <option value="@version.VersionId">@version.VersionName</option>
                                                     }
-                                                  </select>
+                                                </select>
                                             </div>
                                         </div>
                                     }
@@ -164,7 +164,7 @@
                                 <div class="grid-4 padding-left5 omega">
                                     <div class="padding-left10">
 
-                                        @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew)
+                                        @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.ManufacturerAdShown)
                                         {
                                             <div class="padding-top30">
                                                 <div class="margin-bottom15">
@@ -185,7 +185,7 @@
                                             </div>
                                         }
 
-                                        else if (Model.HasCampaignDealer && Model.IsNew)
+                                        else if (Model.HasCampaignDealer && Model.IsNew && !Model.ManufacturerAdShown)
                                         {
                                             <div class="padding-top30">
                                                 <div class="margin-bottom15">
@@ -224,6 +224,12 @@
                             }
                         </div>
 
+                        @if (Model.IsNew && Model.ManufacturerAdShown)
+                        {
+                            <div class="position-rel left-neg10">
+                                @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
+                            </div>
+                        }
                         <!-- model about start (widget)-->
                         @if (Model.BikeInfo != null)
                         {
@@ -464,8 +470,9 @@
     </section>
 
 
-    <!-- model prices in other cities start -->
-    if (Model.IsNew)
+<!-- top 10 bikes start -->
+
+    if (Model.BikeRank != null)
     {
         <section>
             <div class="container section-bottom-margin">
@@ -541,4 +548,8 @@
     <div class="hide" id="dvVersionPrice" data-isdiscontinued="@Model.IsDiscontinued">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices))</div>
     <div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
     <div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div>
+}
+@if (Model.IsNew && Model.ManufacturerAdShown)
+{
+    @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
 }
