@@ -1,6 +1,6 @@
 ﻿var ratingBox, page;
 var userNameField, userEmailIdField, vmWriteReview;
-var detailedReviewField, reviewTitleField, reviewQuestion,ratingOverAll,pageSourceID;
+var detailedReviewField, reviewTitleField, reviewQuestion, ratingOverAll, pageSourceID;
 var writeReview;
 var makeModelName;
 var bikeRating = {
@@ -44,7 +44,7 @@ docReady(function () {
         pageSourceID = Number($('#pageSourceId').val());
 
     if (document.getElementById("bike-rating-box") != null && document.getElementById("bike-rating-box").getAttribute("data-make-model")) {
-        makeModelName= document.getElementById("bike-rating-box").getAttribute("data-make-model");
+        makeModelName = document.getElementById("bike-rating-box").getAttribute("data-make-model");
     }
     if (document.getElementById("bike-review-questions") != null && document.getElementById("bike-review-questions").getAttribute("data-make-model")) {
         makeModelName = document.getElementById("bike-review-questions").getAttribute("data-make-model");
@@ -173,13 +173,11 @@ docReady(function () {
             isValid = self.validate.ratingCount();
             isValid &= self.validate.ratingForm();
             isValid &= self.personalDetails().validateDetails();
-          
-            if (isValid)
-            {
+
+            if (isValid) {
                 triggerGA('Rate_Bike', 'Rating_Submit_Success', makeModelName + pageSourceID);
             }
-            else
-            {
+            else {
                 triggerGA('Rate_Bike', 'Rating_Submit_Error', makeModelName);
             }
             self.focusFormActive(false);
@@ -315,9 +313,9 @@ docReady(function () {
         vmRateBike.feedbackSubtitle(descText);
         vmRateBike.ratingCount(buttonValue);
         vmRateBike.clickEventRatingCount(buttonValue);
-   
+
         triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue);
-        
+
     });
 
     $('#rate-bike-questions').find('.question-type-text input[type=radio]').change(function () {
@@ -395,15 +393,13 @@ docReady(function () {
         self.reviewCharLimit = ko.observable(300);
         self.reviewTitle = ko.observable('');
         self.detailedReview = ko.observable('');
-        self.reviewTips = ko.observable('');        
+        self.reviewTips = ko.observable('');
         self.detailedReviewFlag = ko.observable(false);
         self.detailedReviewError = ko.observable('');
         self.focusFormActive = ko.observable(false);
 
         self.reviewQuestions = ko.observableArray(reviewQuestion);
 
-        //self.hoverFeedbackRating = ko.observable(0);
-        
         self.descLength = ko.computed(function () {
 
             return self.detailedReview().replace(/\n|\r/g, "").length;
@@ -424,11 +420,12 @@ docReady(function () {
 
             for (i = 0; i < descArray.length; i++) {
                 if (descArray[i].trim() != "") {
-                    formattedDescArray = formattedDescArray + "<p>" + descArray[i] + "</p>";
+                    formattedDescArray += "<p>" + descArray[i] + "</p>";
                 }
             }
 
-            $('#formattedDescripton').val(formattedDescArray);
+            if ($('#formattedDescripton'))
+                $('#formattedDescripton').val(formattedDescArray);
 
             if (self.detailedReview().length > 0 || self.reviewTitle().length > 0) {
                 if (self.validateReviewForm()) {
@@ -441,7 +438,7 @@ docReady(function () {
                 triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + self.detailedReviewFlag() + '_' + pageSourceID + '_' + self.detailedReview().trim().length);
                 return true;
             }
-            
+
         };
 
         self.validateReviewForm = function () {
@@ -449,12 +446,10 @@ docReady(function () {
 
             isValid = self.validate.detailedReview();
             isValid &= self.validate.reviewTitle();
-            if (isValid)
-            {
-                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + !vmWriteReview.detailedReviewFlag()+'_'+pageSourceID + '_' + self.detailedReview().trim().length);
+            if (isValid) {
+                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + !vmWriteReview.detailedReviewFlag() + '_' + pageSourceID + '_' + self.detailedReview().trim().length);
             }
-    else
-            {
+            else {
                 triggerGA('Write_Review', 'Review_Submit_Error', makeModelName + self.detailedReview().trim().length);
             }
 
@@ -574,7 +569,7 @@ docReady(function () {
 
     descReviewField.on('focus', function () {
         vmWriteReview.detailedReviewFlag(false);
-        triggerGA('Write_Review', 'Write_a_Review', makeModelName + ratingOverAll+'_'+pageSourceID);
+        triggerGA('Write_Review', 'Write_a_Review', makeModelName + ratingOverAll + '_' + pageSourceID);
 
     });
 
