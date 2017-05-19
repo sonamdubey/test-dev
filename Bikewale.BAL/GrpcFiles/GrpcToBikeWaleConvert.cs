@@ -34,10 +34,10 @@ namespace Bikewale.BAL.GrpcFiles
                     var curArt = new ArticleSummary();
                     curArt.ArticleUrl = item.ArticleBase.ArticleUrl;
                     curArt.BasicId = item.ArticleBase.BasicId;
-                    curArt.Title = item.ArticleBase.Title;
+                    curArt.Title = item.ArticleBase.Title.Replace("&#x20B9;", "₹");
                     curArt.AuthorName = item.AuthorName;
                     curArt.CategoryId = (ushort)item.CategoryId;
-                    curArt.Description = item.Description;
+                    curArt.Description = item.Description.Replace("&#x20B9;", "₹");
                     curArt.DisplayDate = ParseDateObject(item.DisplayDate);
                     curArt.FacebookCommentCount = item.FacebookCommentCount;
                     curArt.HostUrl = item.HostUrl;
@@ -75,7 +75,7 @@ namespace Bikewale.BAL.GrpcFiles
                         AuthorName = curGrpcArticleSummary.AuthorName,
                         BasicId = curGrpcArticleSummary.ArticleBase.BasicId,
                         CategoryId = (ushort)curGrpcArticleSummary.CategoryId,
-                        Description = curGrpcArticleSummary.Description,
+                        Description = curGrpcArticleSummary.Description.Replace("&#x20B9;", "₹"),
                         DisplayDate = ParseDateObject(curGrpcArticleSummary.DisplayDate),
                         FacebookCommentCount = curGrpcArticleSummary.FacebookCommentCount,
                         HostUrl = curGrpcArticleSummary.HostUrl,
@@ -84,7 +84,7 @@ namespace Bikewale.BAL.GrpcFiles
                         LargePicUrl = curGrpcArticleSummary.LargePicUrl,
                         OriginalImgUrl = curGrpcArticleSummary.OriginalImgUrl,
                         SmallPicUrl = curGrpcArticleSummary.SmallPicUrl,
-                        Title = curGrpcArticleSummary.ArticleBase.Title,
+                        Title = curGrpcArticleSummary.ArticleBase.Title.Replace("&#x20B9;", "₹"),
                         Views = curGrpcArticleSummary.Views
                     };
 
@@ -216,11 +216,11 @@ namespace Bikewale.BAL.GrpcFiles
                     ArticleDetails bwArticleDetails = new ArticleDetails()
                     {
                         ArticleUrl = artBase.ArticleUrl,
-                        Title = artBase.Title,
+                        Title = artBase.Title.Replace("&#x20B9;", "₹"),
                         BasicId = artBase.BasicId,
                         CategoryId = (ushort)artSummary.CategoryId,
                         AuthorName = artSummary.AuthorName,
-                        Description = artSummary.Description,
+                        Description = artSummary.Description.Replace("&#x20B9;", "₹"),
                         DisplayDate = ParseDateObject(artSummary.DisplayDate),
                         FacebookCommentCount = artSummary.FacebookCommentCount,
                         HostUrl = artSummary.HostUrl,
@@ -258,12 +258,12 @@ namespace Bikewale.BAL.GrpcFiles
                 var curArt = new ArticleSummary();
                 curArt.ArticleUrl = data.ArticleBase.ArticleUrl;
                 curArt.BasicId = data.ArticleBase.BasicId;
-                curArt.Title = data.ArticleBase.Title;
+                curArt.Title = data.ArticleBase.Title.Replace("&#x20B9;", "₹");
                 curArt.AuthorName = data.AuthorName;
                 //curArt.AuthorMaskingName = data.AuthorMaskingName;
                 curArt.CategoryId = (ushort)data.CategoryId;
                 //curArt.CategoryMaskingName = data.CategoryMaskingName;
-                curArt.Description = data.Description;
+                curArt.Description = data.Description.Replace("&#x20B9;", "₹");
                 curArt.DisplayDate = Convert.ToDateTime(data.DisplayDate);
                 curArt.FacebookCommentCount = data.FacebookCommentCount;
                 curArt.HostUrl = data.HostUrl;
@@ -295,11 +295,11 @@ namespace Bikewale.BAL.GrpcFiles
                     ArticlePageDetails bwArticleDetails = new ArticlePageDetails()
                     {
                         ArticleUrl = artBase.ArticleUrl,
-                        Title = artBase.Title,
+                        Title = artBase.Title.Replace("&#x20B9;", "₹"),
                         BasicId = artBase.BasicId,
                         CategoryId = (ushort)artSummary.CategoryId,
                         AuthorName = artSummary.AuthorName,
-                        Description = artSummary.Description,
+                        Description = artSummary.Description.Replace("&#x20B9;", "₹"),
                         DisplayDate = ParseDateObject(artSummary.DisplayDate),
                         FacebookCommentCount = artSummary.FacebookCommentCount,
                         HostUrl = artSummary.HostUrl,
@@ -393,7 +393,7 @@ namespace Bikewale.BAL.GrpcFiles
                 {
                     ArticleUrl = grpcArtBase.ArticleUrl,
                     BasicId = grpcArtBase.BasicId,
-                    Title = grpcArtBase.Title
+                    Title = grpcArtBase.Title.Replace("&#x20B9;", "₹")
                 };
                 return bwArticleBase;
             }

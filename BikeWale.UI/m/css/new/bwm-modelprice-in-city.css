@@ -493,3 +493,39 @@
         padding-left: 0;
     }
 }
+/* new campaign */
+.campaign-content .tel-sm-icon {
+    top: 0;
+}
+.campaign-content .campaign-title-content {
+    padding-left: 20px;
+    width: 70%;
+}
+.campaign-content .campaign-logo {
+    width: 80px;
+    height: 40px;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg?v06Apr2017) no-repeat;
+}
+.campaign-disc-list {
+    padding-left: 20px;
+}
+.campaign-disc-list li {
+    list-style: disc;
+    margin-bottom: 10px;
+}
+.campaign-button-content .btn {
+    padding-right: 0;
+    padding-left: 0;
+}
+.full-width-select .dropdown-select-wrapper,
+.full-width-select .dropdown-menu,
+.full-width-select .dropdown-menu .dropdown-label,
+.full-width-select .dropdown-menu .dropdown-selected-item,
+.full-width-select .dropdown-menu .dropdown-list-wrapper {
+    width: 100%;
+}
+
+.full-width-select .dropdown-menu .dropdown-label,
+.full-width-select .dropdown-menu .dropdown-selected-item {
+    max-width: 100%;
+}
