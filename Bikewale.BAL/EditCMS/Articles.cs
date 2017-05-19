@@ -251,7 +251,7 @@ namespace Bikewale.BAL.EditCMS
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-      #endregion
+        #endregion
 
 
         #region Article Details
@@ -314,7 +314,7 @@ namespace Bikewale.BAL.EditCMS
 
             return objImages;
         }
-       
+
         #endregion
 
         #region Update the View Count

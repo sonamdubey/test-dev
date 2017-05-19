@@ -1,7 +1,11 @@
-﻿using Bikewale.Entities.Videos;
+﻿using ApiGatewayLibrary;
+using Bikewale.BAL.GrpcFiles;
+using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using EditCMSWindowsService.Messages;
+using Google.Protobuf;
 using System;
 
 namespace Bikewale.Models.Videos
@@ -49,6 +53,69 @@ namespace Bikewale.Models.Videos
             }
             return objVideos;
         }
+
+        public void SetWidgetDataProperties(string sectionBackgroundClass, string categoryIdList, ByteString payload, out VideosBySubcategoryVM widget)
+        {
+            VideosBySubcategoryVM objVideos = null;
+            try
+            {
+                if (payload != null && !string.IsNullOrEmpty(categoryIdList))
+                {
+                    objVideos = new VideosBySubcategoryVM();
+                    objVideos.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(payload));
+                    objVideos.SectionTitle = VideoTitleDescription.VideoCategoryTitle(categoryIdList);
+                    objVideos.CategoryIdList = categoryIdList;
+                    objVideos.SectionBackgroundClass = sectionBackgroundClass;
+                }
+                widget = objVideos;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Videos.AddGrpcCallsToAPIGateway");
+                widget = null;
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoryIds"></param>
+        /// <param name="categoryTotalRecords"></param>
+        /// <returns></returns>
+        public CallAggregator AddGrpcCallsToAPIGateway(string[] categoryIds, ushort[] categoryTotalRecords)
+        {
+            CallAggregator ca = null;
+            try
+            {
+                bool IsRecordsCountAvailable = categoryTotalRecords != null && categoryTotalRecords.Length > 0;
+                if (categoryIds != null && categoryIds.Length > 0)
+                {
+                    ca = new CallAggregator();
+                    for (ushort i = 0; i < categoryIds.Length; i++)
+                    {
+                        ca.AddCall("EditCMS", "GetVideosBySubCategories", new GrpcVideosBySubCategoriesURI()
+                        {
+                            ApplicationId = 2,
+                            SubCategoryIds = categoryIds[i],
+                            StartIndex = 1,
+                            EndIndex = (uint)(IsRecordsCountAvailable ? categoryTotalRecords[i] : 9),
+                            SortCategory = GrpcVideoSortOrderCategory.MostPopular
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Videos.AddGrpcCallsToAPIGateway");
+            }
+
+            return ca;
+
+        }
+
+
+
         #endregion
     }
 }
