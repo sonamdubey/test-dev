@@ -54,17 +54,27 @@ namespace Bikewale.Models.Videos
             return objVideos;
         }
 
-        public void SetWidgetDataProperties(string sectionBackgroundClass, string categoryIdList, ByteString payload,out VideosBySubcategoryVM widget)
+        public void SetWidgetDataProperties(string sectionBackgroundClass, string categoryIdList, ByteString payload, out VideosBySubcategoryVM widget)
         {
-            if (payload!=null && !string.IsNullOrEmpty(categoryIdList))
+            VideosBySubcategoryVM objVideos = null;
+            try
             {
-                widget = new VideosBySubcategoryVM();
-                widget.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(payload));
-                widget.SectionTitle = VideoTitleDescription.VideoCategoryTitle(categoryIdList);
-                widget.CategoryIdList = categoryIdList;
-                widget.SectionBackgroundClass = sectionBackgroundClass;
+                if (payload != null && !string.IsNullOrEmpty(categoryIdList))
+                {
+                    widget = new VideosBySubcategoryVM();
+                    widget.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(payload));
+                    widget.SectionTitle = VideoTitleDescription.VideoCategoryTitle(categoryIdList);
+                    widget.CategoryIdList = categoryIdList;
+                    widget.SectionBackgroundClass = sectionBackgroundClass;
+                }
+                widget = objVideos;
             }
-           
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.Videos.AddGrpcCallsToAPIGateway");
+                widget = null;
+            }
+
         }
 
         /// <summary>
