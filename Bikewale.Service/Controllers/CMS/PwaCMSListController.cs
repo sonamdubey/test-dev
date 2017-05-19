@@ -40,7 +40,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// <param name="posts">No of records per page. Should be greater than 0.</param>
         /// <param name="pageNumber">page number for which data is required.</param>
         /// <returns>Category Content List</returns>
-        [ResponseType(typeof(IEnumerable<PwaContentBase>)), Route("api/pwa/cat/{categoryIds}/posts/{posts}/pn/{pageNumber}/")]
+        [ResponseType(typeof(IEnumerable<PwaContentBase>)), Route("api/pwa/cms/cat/{categoryIds}/posts/{posts}/pn/{pageNumber}/")]
         public IHttpActionResult Get(string categoryIds, int posts, int pageNumber)
         {
             Bikewale.Entities.CMS.Articles.CMSContent objFeaturedArticles = null;

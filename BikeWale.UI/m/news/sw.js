@@ -1,21 +1,14 @@
 (global => {
 
-	const version = '2' // version
-	var SIZE_0_0 = '0x0';
-	var SIZE_110_61 = '110x61';
-	var SIZE_160_89 = '160x89';
-	var SIZE_600_337 = '600x337';
-	var SIZE_640_348 = '640x348';
-	var SIZE_174_98 = '174x98';
+	var IMAGE_EXPIRATION_TIME = 864000;
 
-	var IMAGE_EXPIRATION_TIME = 86400;
-
-	var OFFLINE_PAGE = 'offline.html?15May2017v4';
-	var VENDOR_JS = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/vendor.bundle.js?15May2017v4';
-	var APP_JS = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/app.bundle.js?15May2017v4';
-	var SW_TOOLBOX_JS = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/sw-toolbox.js?15May2017v4';
-	var IMAGE_CDN_REGEX_PATTERN = /^https:\/\/imgd(\d)?.aeplcdn.com/
-	var ST_CDN_REGEX_PATTERN = /^https:\/\/st(\d)?.aeplcdn.com/
+	var OFFLINE_PAGE = 'offline.html?19May2017v2';
+	var VENDOR_JS = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/vendor.bundle.js?19May2017v2';
+	var APP_JS = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/app.bundle.js?19May2017v2';
+	var SW_TOOLBOX_JS = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/sw-toolbox.js?19May2017v2';
+	var IMAGE_CDN_REGEX_PATTERN = /^https:\/\/imgd(\d)?.aeplcdn.com/;
+	var ST_CDN_REGEX_PATTERN = /^https:\/\/st(\d)?.aeplcdn.com/;
+	var GOOGLE_FONTS = 'https://fonts.googleapis.com/css?family=Open+Sans:400,600,700'
 	importScripts(SW_TOOLBOX_JS);
 
 	toolbox.options.cache = {
@@ -27,7 +20,8 @@
 		[
 			OFFLINE_PAGE,
 			VENDOR_JS,
-			APP_JS
+			APP_JS,
+			GOOGLE_FONTS
 		]
 	)
 
@@ -35,7 +29,7 @@
 								{
 									cache : {	
 										name : 'api',
-										maxAgeSeconds : 86400,
+										maxAgeSeconds : 864000,
 										maxEntries : 100
 									}
 								})
@@ -59,70 +53,17 @@
 			}
 		})
 	
-   
-	global.toolbox.router.get('/'+SIZE_0_0+'/*',global.toolbox.networkFirst,		
+	global.toolbox.router.get('/*',global.toolbox.cacheFirst,		
 								{
 									cache : {
-												name : 'cdn-images-'+SIZE_0_0,
+												name : 'cdn-images',
 												maxAgeSeconds : IMAGE_EXPIRATION_TIME,
-												maxEntries : 60
+												maxEntries : 150
 											},
 									origin : IMAGE_CDN_REGEX_PATTERN
 									
 								});
-
-
-	global.toolbox.router.get('/'+SIZE_110_61+'/*',global.toolbox.cacheFirst,
-								{
-									cache : {
-												name : 'cdn-images-'+SIZE_110_61,
-												maxAgeSeconds : IMAGE_EXPIRATION_TIME,
-												maxEntries : 40
-											},
-									origin : IMAGE_CDN_REGEX_PATTERN
-								});
-
-
-	global.toolbox.router.get('/'+SIZE_160_89+'/*',global.toolbox.cacheFirst,
-								{
-									cache : {
-												name : 'cdn-images-'+SIZE_160_89,
-												maxAgeSeconds : IMAGE_EXPIRATION_TIME,
-												maxEntries : 40
-											},
-									origin : IMAGE_CDN_REGEX_PATTERN
-								});
-
-
-	global.toolbox.router.get('/'+SIZE_174_98+'/*',global.toolbox.cacheFirst,
-								{
-									cache : {
-												name : 'cdn-images-'+SIZE_174_98,
-												maxAgeSeconds : IMAGE_EXPIRATION_TIME,
-												maxEntries : 40
-											},
-									origin : IMAGE_CDN_REGEX_PATTERN
-								});
-
-	global.toolbox.router.get('/'+SIZE_600_337+'/*',global.toolbox.cacheFirst,
-								{
-									cache : {
-												name : 'cdn-images-'+SIZE_600_337,
-												maxAgeSeconds : IMAGE_EXPIRATION_TIME,
-												maxEntries : 25
-											},
-									origin : IMAGE_CDN_REGEX_PATTERN
-								});
-
-	global.toolbox.router.get('/'+SIZE_640_348+'/*',global.toolbox.cacheFirst,
-								{
-									cache : {
-												name : 'cdn-images-'+SIZE_640_348,
-												maxAgeSeconds : IMAGE_EXPIRATION_TIME,
-												maxEntries : 25
-											},
-									origin : IMAGE_CDN_REGEX_PATTERN
-								});
+   
 
 	global.toolbox.router.get('/*',function(request,values,options) {
 			return global.toolbox.cacheFirst(request,values,options).then(function(response) {
@@ -138,7 +79,7 @@
 		mode: "cors",
 		cache : {
 			name : 'cdn-JS',
-			maxAgeSeconds : 86400,
+			maxAgeSeconds : 864000,
 			maxEntries : 10
 		},
 		origin : ST_CDN_REGEX_PATTERN
@@ -148,7 +89,7 @@
 	global.toolbox.router.get('/*',global.toolbox.cacheFirst,{
 		cache : {
 			name : 'google-resources',
-			maxAgeSeconds : 86400,
+			maxAgeSeconds : 864000,
 			maxEntries : 10
 		},
 		origin : /^(http:\/\/www.googletagmanager.com)|(https:\/\/fonts.googleapis.com)|(https:\/\/fonts.gstatic.com)|(https:\/\/www.google-analytics.com)|(https:\/\/tpc.googlesyndication.com)|(https:\/\/www.googletagservices.com)/

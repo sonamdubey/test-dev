@@ -71,7 +71,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>News Details</returns>
-        [ResponseType(typeof(PwaArticleDetails)), Route("api/pwa/id/{basicId}/page/")]
+        [ResponseType(typeof(PwaArticleDetails)), Route("api/pwa/cms/id/{basicId}/page/")]
         public IHttpActionResult GetArticleDetailsPage(string basicId)
         {
             uint _basicId = default(uint);
@@ -113,7 +113,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>Two Lists of Bikes</returns>
-        [ResponseType(typeof(List<PwaBikeNews>)), Route("api/pwa/bikelists/id/{basicId}/page/")]
+        [ResponseType(typeof(List<PwaBikeNews>)), Route("api/pwa/cms/bikelists/id/{basicId}/page/")]
         public IHttpActionResult GetBikeListsForEditCms(string basicId)
         {
             int _basicId;
@@ -186,8 +186,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                             {
                                 PwaBikeNews upcomingBikes = new PwaBikeNews();                               
                                 UpcomingBikesListInputEntity filters = new UpcomingBikesListInputEntity();
-                                filters.StartIndex = 1;
-                                filters.EndIndex = 9;
+                                filters.PageNo = 1;
+                                filters.PageSize = 9;
                                 if (makeId > 0)
                                     filters.MakeId = (int)makeId;
 
@@ -340,7 +340,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>News Details</returns>
-        [ResponseType(typeof(PwaBikeInfo)), Route("api/pwa/bikeinfo/id/{basicId}/page/")]
+        [ResponseType(typeof(PwaBikeInfo)), Route("api/pwa/cms/bikeinfo/id/{basicId}/page/")]
         public IHttpActionResult GetBikeInfo(string basicId)
         {
             uint _basicId = default(uint);

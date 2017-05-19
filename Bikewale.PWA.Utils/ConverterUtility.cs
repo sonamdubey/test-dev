@@ -25,7 +25,7 @@ namespace Bikewale.PWA.Utils
                 outSummary = new PwaArticleSummary();
                 string catName = GetContentCategory(inpSum.CategoryId);
                 outSummary.ArticleUrl = GetArticleUrl(inpSum.CategoryId, inpSum.ArticleUrl, (int)inpSum.BasicId);
-                outSummary.ArticleApi = string.Format("api/pwa/id/{0}/page/", inpSum.BasicId);
+                outSummary.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", inpSum.BasicId);
                 outSummary.AuthorName = inpSum.AuthorName;
                 outSummary.Description = inpSum.Description;
                 outSummary.BasicId = inpSum.BasicId;
@@ -62,7 +62,7 @@ namespace Bikewale.PWA.Utils
                 outDetails.ShareUrl = ReturnShareUrl(outDetails);
                 outDetails.LargePicUrl = inpDet.LargePicUrl;
                 outDetails.SmallPicUrl = inpDet.SmallPicUrl;
-                outDetails.ArticleApi = string.Format("api/pwa/id/{0}/page/", inpDet.BasicId);
+                outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", inpDet.BasicId);
             }
             return outDetails;
         }

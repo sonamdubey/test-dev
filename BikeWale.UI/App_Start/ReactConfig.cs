@@ -13,7 +13,7 @@ namespace Bikewale
               .SetUseDebugReact(false)
               .AddScriptWithoutTransform("~/Scripts/server.bundle.js")
               .SetStartEngines(25)
-              .SetMaxEngines(150)
+              .SetMaxEngines(100)
               .SetReuseJavaScriptEngines(true)
               //.SetAllowMsieEngine(false);
               ;

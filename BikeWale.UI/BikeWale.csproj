@@ -2886,6 +2886,8 @@
     <Content Include="m\css\dealer\details.css" />
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
+    <Content Include="m\news\offline.html" />
+    <Content Include="m\news\sw.js" />
     <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\faq.aspx" />
@@ -3066,7 +3068,6 @@
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
-    <Content Include="Scripts\swv2.js" />
     <Content Include="Scripts\vendor.bundle.js" />
     <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
@@ -3723,6 +3724,7 @@
     <Content Include="Views\CompareBikes\Index_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_PopularComaprisonBodyStyle_Mobile.cshtml" />
     <Content Include="Views\ComparisonTest\_ComparisonTestWidget_Mobile.cshtml" />
+    <Content Include="Views\News\Detail_Mobile_nopwa.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

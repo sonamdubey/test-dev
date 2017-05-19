@@ -108,6 +108,8 @@ namespace Bikewale.Utility
         private string _StaticUrlPWA;
         private string _StaticAppFileVersion;
         private string _StaticVendorFileVersion;
+        private string _ServiceWorkerPath;
+        private bool _DisablePWA;
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
         {
@@ -197,6 +199,8 @@ namespace Bikewale.Utility
             _StaticUrlPWA = ConfigurationManager.AppSettings["StaticUrlPWA"];
             _StaticAppFileVersion = ConfigurationManager.AppSettings["StaticAppFileVersion"];
             _StaticVendorFileVersion = ConfigurationManager.AppSettings["StaticVendorFileVersion"];
+            _ServiceWorkerPath = ConfigurationManager.AppSettings["ServiceWorkerPath"];
+            _DisablePWA = string.IsNullOrEmpty(ConfigurationManager.AppSettings["DisablePWA"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["DisablePWA"]);
         }
 
         // Static method to provide access to instance
@@ -338,5 +342,7 @@ namespace Bikewale.Utility
         public string StaticUrlPWA { get { return _StaticUrlPWA; } }
         public string StaticAppFileVersion { get { return _StaticAppFileVersion; } }
         public string StaticVendorFileVersion { get { return _StaticVendorFileVersion; } }
+        public string ServiceWorkerPath { get { return _ServiceWorkerPath; } }
+        public bool DisablePWA { get { return _DisablePWA; } }
     }   // class
 }   // namespace

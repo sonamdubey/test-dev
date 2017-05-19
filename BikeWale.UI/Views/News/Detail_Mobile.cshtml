@@ -12,9 +12,6 @@
     @{
         var StaticUrlPWA = Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA;
         var StaticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
-    Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
-    Model.AdTags.Ad_320x50 = true;
-    Model.AdTags.Ad_Bot_320x50 = true;
 
         var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/vendor.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion;
         var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/app.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticAppFileVersion;
@@ -69,7 +66,7 @@
     <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
     
     <link rel='stylesheet' type='text/css' href='/m/css/content/app.css' />
-
+    <style type='text/css' rel='stylesheet'>@@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}</style>
     <script defer type="text/javascript">
         !function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);
     </script>
@@ -130,13 +127,13 @@
     <link rel="dns-prefetch" href="https://st.aeplcdn.com/">
     <link rel="dns-prefetch" href="https://st2.aeplcdn.com/">
 
-    <link rel="preload" href="@VendorJsUrl" as="script" />
-    <link rel="preload" href="@AppJsUrl" as="script" />
+    <script type="text/javascript" src="@VendorJsUrl" defer></script>
+    <script type="text/javascript" src="@AppJsUrl" defer></script>
+    <script type="text/javascript" src="@FrameworksJsUrl" defer></script>
+    <script type="text/javascript" src="@BwcacheJsUrl" defer></script>
+    <script type="text/javascript" src="@PluginJsUrl" defer></script>
+    <script type="text/javascript" src="@CommonJsUrl" defer></script>
 
-    <link rel="preload" href="@FrameworksJsUrl" as="script" />
-    <link rel="preload" href="@BwcacheJsUrl" as="script" />
-    <link rel="preload" href="@PluginJsUrl" as="script" />
-    <link rel="preload" href="@CommonJsUrl" as="script" />
 
 </head>
 <body>
@@ -191,7 +188,7 @@
             <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left;height:auto !important;background:#fff;" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
         </div>
     </div> <!-- global-search-popup code ends here -->
- 
+    <div class="blackOut-window"></div>
 
     <script type="text/javascript">
         if(googletag) {
@@ -203,33 +200,22 @@
 
         }        
         
-        var script_array = ["@VendorJsUrl",
-                        "@AppJsUrl",
-                        "@FrameworksJsUrl",
-                        "@BwcacheJsUrl",
-                        "@PluginJsUrl",
-                        "@CommonJsUrl"
-        ];
-      
-        !function(e, t, r) {
-            function n() {
-                for (; d[0] && "loaded" == d[0][f];) c = d.shift(), c[o] = !i.parentNode.insertBefore(c, i)
+        docReady(function () {
+            try {
+                AppEntryPoint();   
+            } catch (e) {
+                console.warn(e.message);
             }
-            for (var s, a, c, d = [], i = document.scripts[0], o = "onreadystatechange", f = "readyState"; s =  script_array.shift();)
-                a = document.createElement(t), "async" in i ? (a.async = !1,document.head.appendChild(a)) : i[f] ? (d.push(a), a[o] = n) : document.write("<" + script + ' src="' + s + '" defer></' + script + ">"), a.src = s
-        }(document, "script", script_array);
+        });
 
 
     </script>
 
 
-
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
-
     <script defer type="text/javascript">
         window.addEventListener('DOMContentLoaded', function() {
-            if(navigator.serviceWorker) {
-                navigator.serviceWorker.register("@Url.Content("/m/news/sw.js")").then(function(registration) {
+            if('serviceWorker' in navigator) {
+                navigator.serviceWorker.register("@Url.Content(Bikewale.Utility.BWConfiguration.Instance.ServiceWorkerPath)").then(function(registration) {
                     registration.onupdatefound = function() {
                         var installingWorker = registration.installing;
                         installingWorker.onstatechange = function() {

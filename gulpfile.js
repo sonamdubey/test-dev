@@ -537,16 +537,23 @@ var mvcPageViews = [
     }
 ];
 
-var mvcPwaPageViews=[{
+var mvcPwaPageViews=[
+    {
         folderName: 'Views/News/',
-        fileName: 'Index_Mobile.cshtml',
+        fileName: 'Index_Mobile_Pwa.cshtml',
         stylesheet: '/m/css/content/app.css'
     },
 	{
         folderName: 'Views/News/',
         fileName: 'Detail_Mobile.cshtml',
         stylesheet: '/m/css/content/app.css'
-    }];
+    },
+	{
+        folderName: 'm/news/',
+        fileName: 'offline.html',
+        stylesheet: '/m/css/content/app.css'
+    }
+];
 
 // replace css reference with internal css for MVC views
 gulp.task('replace-mvc-layout-css-reference', function () {
