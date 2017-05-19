@@ -605,3 +605,12 @@ width: 100%;
 .left-neg10 {
     left: -10px;
 }
+.full-width-select .chosen-container {
+    width: 100% !important;
+}
+
+#ddlMfgDealers + .chosen-container .chosen-drop {
+    max-height: 200px;
+    overflow: hidden;
+}
+.select-box .chosen-container .chosen-results {overflow-y: scroll; max-height: 160px; padding-bottom: 20px; }

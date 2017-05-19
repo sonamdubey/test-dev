@@ -517,3 +517,15 @@
     padding-right: 0;
     padding-left: 0;
 }
+.full-width-select .dropdown-select-wrapper,
+.full-width-select .dropdown-menu,
+.full-width-select .dropdown-menu .dropdown-label,
+.full-width-select .dropdown-menu .dropdown-selected-item,
+.full-width-select .dropdown-menu .dropdown-list-wrapper {
+    width: 100%;
+}
+
+.full-width-select .dropdown-menu .dropdown-label,
+.full-width-select .dropdown-menu .dropdown-selected-item {
+    max-width: 100%;
+}
