@@ -3051,6 +3051,7 @@
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
+    <Content Include="Scripts\sw-toolbox.js" />
     <Content Include="Scripts\vendor.bundle.js" />
     <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
@@ -3176,6 +3177,7 @@
     <Content Include="src\used-details.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
+    <Content Include="src\user-review\write-review.js" />
     <Content Include="src\Videos\detail.js" />
     <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="src\zebra-datepicker.js" />
