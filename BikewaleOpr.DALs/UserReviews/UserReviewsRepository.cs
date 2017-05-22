@@ -192,7 +192,8 @@ namespace BikewaleOpr.DALs.UserReviews
                                     ModelName = Convert.ToString(dr["modelName"])
                                 },
                                 OriginalImgPath = Convert.ToString(dr["OriginalImgPath"]),
-                                HostUrl = Convert.ToString(dr["hostUrl"])
+                                HostUrl = Convert.ToString(dr["hostUrl"]),
+                                IsShortListed = SqlReaderConvertor.ToBoolean(dr["isShortListed"])
                             };
                         }
 
