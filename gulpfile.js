@@ -267,7 +267,7 @@ var mvcPageViews = [
     },
     {
         folderName: 'Views/News/',
-        fileName: 'Detail_Mobile.cshtml',
+        fileName: 'Detail_Mobile_nopwa.cshtml',
         stylesheet: 'm/css/content/details.css'
     },
     {

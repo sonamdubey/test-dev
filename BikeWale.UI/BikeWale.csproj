@@ -72,14 +72,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Bikewale.PWA.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bikewale.PWA.Entities\bin\Release\Bikewale.PWA.Entities.dll</HintPath>
-    </Reference>
-    <Reference Include="Bikewale.PWA.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bikewale.PWA.Utils\bin\Release\Bikewale.PWA.Utils.dll</HintPath>
-    </Reference>
     <Reference Include="Carwale.BL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.BL.dll</HintPath>
@@ -108,9 +100,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.Utility.dll</HintPath>
     </Reference>
-    <Reference Include="ClearScript, Version=5.4.8.0, Culture=neutral, PublicKeyToken=935d0c957da47c73, processorArchitecture=MSIL">
-      <HintPath>..\packages\ClearScript.V8.5.4.8\lib\net40\ClearScript.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ClearScript">
+      <HintPath>..\Libs\PWA\ClearScript.dll</HintPath>
     </Reference>
     <Reference Include="Dapper">
       <HintPath>..\Libs\Dapper.dll</HintPath>
@@ -141,25 +132,20 @@
     <Reference Include="itextsharp">
       <HintPath>..\Libs\itextsharp.dll</HintPath>
     </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.ChakraCore, Version=2.3.2.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.ChakraCore.2.3.2\lib\net45\JavaScriptEngineSwitcher.ChakraCore.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="JavaScriptEngineSwitcher.ChakraCore">
+      <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.ChakraCore.dll</HintPath>
     </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.Core.2.2.0\lib\net45\JavaScriptEngineSwitcher.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="JavaScriptEngineSwitcher.Core">
+      <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.Core.dll</HintPath>
     </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.Msie, Version=2.3.2.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.Msie.2.3.2\lib\net45\JavaScriptEngineSwitcher.Msie.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="JavaScriptEngineSwitcher.Msie">
+      <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.Msie.dll</HintPath>
     </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.V8, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.2.2.0\lib\net45\JavaScriptEngineSwitcher.V8.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="JavaScriptEngineSwitcher.V8">
+      <HintPath>..\Libs\PWA\JavaScriptEngineSwitcher.V8.dll</HintPath>
     </Reference>
-    <Reference Include="JSPool, Version=2.0.0.0, Culture=neutral, PublicKeyToken=2fc7775f73072640, processorArchitecture=MSIL">
-      <HintPath>..\packages\JSPool.2.0.0\lib\net451\JSPool.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="JSPool">
+      <HintPath>..\Libs\PWA\JSPool.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -183,9 +169,8 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MsieJavaScriptEngine, Version=2.1.2.0, Culture=neutral, PublicKeyToken=a3a2846a37ac0d3e, processorArchitecture=MSIL">
-      <HintPath>..\packages\MsieJavaScriptEngine.2.1.2\lib\net45\MsieJavaScriptEngine.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MsieJavaScriptEngine">
+      <HintPath>..\Libs\PWA\MsieJavaScriptEngine.dll</HintPath>
     </Reference>
     <Reference Include="MSMQLibrary, Version=1.0.0.1, Culture=neutral, PublicKeyToken=14ca6d48bbc78a0c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -217,17 +202,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\RabbitMqPublishing.dll</HintPath>
     </Reference>
-    <Reference Include="React.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Core.3.0.0\lib\net40\React.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="React.Core">
+      <HintPath>..\Libs\PWA\React.Core.dll</HintPath>
     </Reference>
-    <Reference Include="React.Web, Version=3.0.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Web.3.0.0\lib\net40\React.Web.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="React.Web">
+      <HintPath>..\Libs\PWA\React.Web.dll</HintPath>
     </Reference>
-    <Reference Include="React.Web.Mvc4, Version=3.0.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
-      <HintPath>..\packages\React.Web.Mvc4.3.0.0\lib\net40\React.Web.Mvc4.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="React.Web.Mvc4">
+      <HintPath>..\Libs\PWA\React.Web.Mvc4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -302,13 +284,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Utils.dll</HintPath>
     </Reference>
-    <Reference Include="VroomJs, Version=1.2.3.0, Culture=neutral, PublicKeyToken=e7c52e67fcb0044f, processorArchitecture=MSIL">
-      <HintPath>..\packages\VroomJs.1.2.3\lib\net45\VroomJs.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="VroomJs">
+      <HintPath>..\Libs\PWA\VroomJs.dll</HintPath>
     </Reference>
-    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\Libs\PWA\WebActivatorEx.dll</HintPath>
     </Reference>
     <Reference Include="WURFL, Version=1.3.1.0, Culture=neutral, PublicKeyToken=816aeec277aa13b9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -3071,6 +3051,7 @@
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
+    <Content Include="Scripts\sw-toolbox.js" />
     <Content Include="Scripts\vendor.bundle.js" />
     <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
@@ -3196,6 +3177,7 @@
     <Content Include="src\used-details.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
+    <Content Include="src\user-review\write-review.js" />
     <Content Include="src\Videos\detail.js" />
     <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="src\zebra-datepicker.js" />
@@ -3796,6 +3778,14 @@
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
       <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.PWA.Entities\Bikewale.PWA.Entities.csproj">
+      <Project>{891ee3d8-f296-4efc-a136-a278f0f06f61}</Project>
+      <Name>Bikewale.PWA.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.PWA.Utils\Bikewale.PWA.Utils.csproj">
+      <Project>{c1ec6868-50c6-41a0-a849-c0f8e4351eb2}</Project>
+      <Name>Bikewale.PWA.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Service\Bikewale.Service.csproj">
       <Project>{ad048b21-3cd3-406c-ba62-86260f6de6e6}</Project>

@@ -115,7 +115,7 @@
                 if(window.endTimer && typeof window.endTimer === "function") {
                     window.endTimer("ad");
                 }
-            })
+            });
             googletag.enableServices();
         });
 
@@ -193,11 +193,10 @@
     <script type="text/javascript">
         if(googletag) {
             googletag.cmd.push(function(){                
-                googletag.display('div-gpt-ad-1395986297721-0')
-                googletag.display('div-gpt-ad-1395986297721-1')
+                googletag.display('div-gpt-ad-1395986297721-0');
+                googletag.display('div-gpt-ad-1395986297721-1');
                 
-            })
-
+            });
         }        
         
         docReady(function () {
