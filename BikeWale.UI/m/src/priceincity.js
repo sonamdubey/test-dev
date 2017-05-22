@@ -16,7 +16,6 @@ function formatPrice(price) {
 
     return price;
 }
-
 docReady(function () {
     try {
         // activate first tab
@@ -107,6 +106,7 @@ docReady(function () {
             self.onRoadPrice = ko.observable();
             self.isDiscontinued = ko.observable(isDiscontinued.toLowerCase() == "true");
             self.setVersionDetails = function (version) {
+                $("#priceincity").attr("data-versionid",version.VersionId);
                 self.exshowroomPrice(formatPrice(version.ExShowroomPrice));
                 self.rtoPrice(formatPrice(version.RTO));
                 self.insurancePrice(formatPrice(version.Insurance));
@@ -412,4 +412,73 @@ docReady(function () {
   
     var cityName = $dvPgVar.data("cityarea");
     triggerNonInteractiveGA('Price_in_City_Page', 'CoverFox_Link_Shown', bikeName + '_' + cityName);
+
+    $(".leadcapturebtn").click(function (e) {
+        ele = $(this);
+        try {
+            var leadOptions = {
+                "dealerid": ele.attr('data-item-id'),
+                "dealername": ele.attr('data-item-name'),
+                "dealerarea": ele.attr('data-item-area'),
+                "versionid": $("#priceincity").data("versionid"),
+                "leadsourceid": ele.attr('data-leadsourceid'),
+                "pqsourceid": ele.attr('data-pqsourceid'),
+                "isleadpopup": ele.attr('data-isleadpopup'),
+                "mfgCampid": ele.attr('data-mfgcampid'),
+                "pqid": $("#priceincity").data("pqid") || 0,
+                "pageurl": window.location.href,
+                "clientip": '',
+                "dealerHeading": ele.attr('data-item-heading'),
+                "dealerMessage": ele.attr('data-item-message'),
+                "dealerDescription": ele.attr('data-item-description'),
+                "pinCodeRequired": ele.attr("data-ispincodrequired"),
+                "dealersRequired": ele.attr("data-dealersrequired"),
+                "gaobject": {
+                    cat: ele.attr("c"),
+                    act: ele.attr("a"),
+                    lab: ele.attr("v")
+                }
+            };
+            if (leadOptions.dealersRequired) {
+                generateDealerDropdown();
+            }
+            dleadvm.setOptions(leadOptions);
+        } catch (e) {
+            console.warn("Unable to get submit details : " + e.message);
+        }
+
+    });
+    function generateDealerDropdown() {
+        $.ajax({
+            type: "GET",
+            url: "/api/ManufacturerCampaign/?city=" + $("#priceincity").data("cityid") || 0,
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (response) {
+                var obj = ko.toJS(response);
+                var count = obj.length;
+                if (count >= 1) {
+                    if (count == 1) {
+                        $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
+                        $("#ddlMfgDealers").val('0');
+                        $("#ddlMfgDealers").closest('.select-box').addClass('done');
+                        dleadvm.dealersRequired(false);
+                    } else {
+                        $("#ddlMfgDealers").html('');
+                        $("#ddlMfgDealers").append("<option value selected>Select dealer</option>");
+                        for (i = 0; i < count; i++) {
+                            var dt = obj[i];
+                            var areaName = '';
+                            if (dt.area != null) {
+                                areaName = ", " + dt.area;
+                            }
+                            $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-id='" + dt.id + "'  >" + dt.dealerName + areaName + "</option>");
+                        }
+                    }
+                }
+                $("#getDealer-select-box").find(".dropdown-menu").remove();
+                dropdown.setMenu($("#ddlMfgDealers"));
+            },
+        });
+    };
 });

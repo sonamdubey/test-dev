@@ -114,6 +114,8 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_DealerLocator_Landing_Check_on_road_price = 88,
         Mobile_DealerLocator_Landing_Check_on_road_price = 89,
         Desktop_UpcomiingBikes_NewLaunchesWidget = 90,
-        Mobile_UpcomiingBikes_NewLaunchesWidget = 91
+        Mobile_UpcomiingBikes_NewLaunchesWidget = 91,
+        Desktop_PriceInCity_Manufacturer_LeadCapture = 92,
+        Mobile_PriceInCity_Manufacturer_LeadCapture = 93
     }
 }

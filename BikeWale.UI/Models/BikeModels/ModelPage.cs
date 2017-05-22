@@ -206,7 +206,7 @@ namespace Bikewale.Models.BikeModels
                     objData.ExpertReviews = new RecentExpertReviews(3, (uint)objMake.MakeId, objData.ModelId, objMake.MakeName, objMake.MaskingName, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, _objArticles, string.Format("{0} Reviews", objData.BikeName)).GetData();
                     objData.Videos = new RecentVideos(1, 3, (uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, objData.ModelId, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, _objVideos).GetData();
                     objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/", objMake.MaskingName, objData.ModelPageEntity.ModelDetails.MaskingName));
-                   
+
 
                     if (!objData.IsUpcomingBike)
                     {
@@ -785,7 +785,7 @@ namespace Bikewale.Models.BikeModels
                 }
                 if (objData.ManufacturerCampaign != null)
                 {
-                    objData.ManufacturerCampaign.ShowAd = objData.DetailedDealer == null && objData.IsLocationSelected && objData.ManufacturerCampaign.IsAdAvailable;
+                    objData.ManufacturerCampaign.ShowAd = (!(objData.IsPremiumDealer || objData.IsDealerDetailsExists) && objData.ManufacturerCampaign.IsAdAvailable);
 
                 }
             }
