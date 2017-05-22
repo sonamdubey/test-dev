@@ -225,21 +225,21 @@ namespace Bikewale.BAL.EditCMS
         {
             try
             {
-               
-                    var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categoryIds, (uint)startIndex, (uint)endIndex, makeId, modelId);
 
-                    if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
-                    {
-                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
+                var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categoryIds, (uint)startIndex, (uint)endIndex, makeId, modelId);
 
-                    }
-                   
+                if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
+                {
+                    return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
 
-               
+                }
+
+
+
             }
             catch (Exception err)
             {
-                _logger.Error(err.Message, err);                
+                _logger.Error(err.Message, err);
             }
             return null;
         }
@@ -254,7 +254,7 @@ namespace Bikewale.BAL.EditCMS
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-      #endregion
+        #endregion
 
 
         #region Article Details
@@ -317,7 +317,7 @@ namespace Bikewale.BAL.EditCMS
 
             return objImages;
         }
-       
+
         #endregion
 
         #region Update the View Count
