@@ -5,11 +5,13 @@ using Bikewale.Entities.CMS;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Models.BestBikes;
+using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -38,7 +40,7 @@ namespace Bikewale.Models
         private string make = string.Empty, model = string.Empty;
         private MakeHelper makeHelper = null;
         private ModelHelper modelHelper = null;
-        private GlobalCityAreaEntity currentCityArea;
+        private GlobalCityAreaEntity currentCityArea=null;
         public string redirectUrl;
         public StatusCodes status;
         private BikeModelEntity objModel = null;
@@ -50,6 +52,22 @@ namespace Bikewale.Models
 
         #region Public properties
         public bool IsMobile { get; set; }
+
+        public string CityName
+        {
+            get
+            {
+                if (currentCityArea == null)
+                {
+                    currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                    if (currentCityArea != null)
+                        CityId = currentCityArea.CityId;
+                }
+
+                return string.IsNullOrEmpty(currentCityArea.City) ? string.Empty : currentCityArea.City;
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -100,8 +118,9 @@ namespace Bikewale.Models
                 if (objModel != null)
                     objData.Model = objModel;
 
-                objData.Articles = _articles.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
 
+                objData.Articles = _articles.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
+                             
                 if (objData.Articles != null && objData.Articles.RecordCount > 0)
                 {
                     status = StatusCodes.ContentFound;
@@ -115,7 +134,7 @@ namespace Bikewale.Models
                 else
                 {
                     status = StatusCodes.ContentNotFound;
-                }
+                }            
             }
             catch (Exception ex)
             {
@@ -123,6 +142,7 @@ namespace Bikewale.Models
             }
             return objData;
         }
+        
 
         /// <summary>
         /// Created by : Aditi Srivastava on 27 Mar 2017
