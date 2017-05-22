@@ -92,13 +92,11 @@
                 </div>
             </div>
             <div class="clear"></div>
-
-            @if (Model.ManufacturerCampaign != null && Model.ManufacturerCampaign.ShowAd && Model.IsLocationSelected && !Model.ShowOnRoadButton)
+            @if (Model.ManufacturerCampaign != null && Model.LocationCookie.CityId > 0)
             {
                 @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
             }
-
-            @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && Model.City != null)
+            @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && (Model.ManufacturerCampaign == null || !Model.ManufacturerCampaign.ShowAd))
             {
                 <div class="grid-12 margin-bottom20">
                     <div class="content-box-shadow">

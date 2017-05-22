@@ -83,6 +83,7 @@ namespace Bikewale.Controllers
                 model.TopCount = 3;
                 model.PQSource = PQSourceEnum.Desktop_PriceInCity_Dealer_Detail_Click;
                 model.Platform = DTO.PriceQuote.PQSources.Desktop;
+                model.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Desktop;
                 objVM = model.GetData();
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {
@@ -127,6 +128,7 @@ namespace Bikewale.Controllers
                 model.TopCount = 9;
                 model.PQSource = PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click;
                 model.Platform = DTO.PriceQuote.PQSources.Mobile;
+                model.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Mobile;
                 objVM = model.GetData();
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {

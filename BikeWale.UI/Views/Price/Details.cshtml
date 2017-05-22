@@ -238,7 +238,7 @@
 </section>
 
 
-@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0)
+@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && (Model.ManufacturerCampaign == null || !Model.ManufacturerCampaign.ShowAd))
 {
     <section>
         <div class="container margin-bottom20">

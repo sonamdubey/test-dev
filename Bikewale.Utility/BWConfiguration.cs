@@ -98,7 +98,7 @@ namespace Bikewale.Utility
             _DebugMobileSite = string.Empty,
             _CoverFoxLink = string.Empty;
 
-        private readonly bool _IsAppTrackDayVisible = false;
+        private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
         private string _AWSS3Region = String.Empty;
         private uint _GrpcMaxTimeLimit = 100;
@@ -188,6 +188,7 @@ namespace Bikewale.Utility
             _GrpcMaxTimeLimit = Convert.ToUInt32(ConfigurationManager.AppSettings["GrpcMaxTimeLimit"]);
             _GrpcPoolSize = Convert.ToUInt32(ConfigurationManager.AppSettings["GrpcPoolSize"] ?? "1");
             _CoverFoxLink = Convert.ToString(ConfigurationManager.AppSettings["CoverFox"]);
+            _UseAPIGateway = !String.IsNullOrEmpty(ConfigurationManager.AppSettings["UseAPIGateway"]) ? Convert.ToBoolean(ConfigurationManager.AppSettings["UseAPIGateway"]) : false;
         }
 
         // Static method to provide access to instance
@@ -322,5 +323,6 @@ namespace Bikewale.Utility
         public uint GrpcMaxTimeLimit { get { return _GrpcMaxTimeLimit; } }
         public uint GrpcPoolSize { get { return _GrpcPoolSize; } }
         public string CoverFoxLink { get { return _CoverFoxLink; } }
+        public bool UseAPIGateway { get { return _UseAPIGateway; } }
     }   // class
 }   // namespace

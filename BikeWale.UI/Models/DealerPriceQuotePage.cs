@@ -34,7 +34,7 @@ namespace Bikewale.Models
         public string RedirectUrl { get; set; }
         public uint OtherTopCount { get; set; }
         public StatusCodes Status { get; set; }
-
+        public LeadSourceEnum LeadSource { get; set; }
         private uint _modelId, _versionId, _cityId, _areaId, _pqId, _dealerId, _makeId;
         private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty;
 
@@ -257,53 +257,48 @@ namespace Bikewale.Models
                 detailedDealer = _objDealerPQDetails.GetDealerQuotationV2(_cityId, _versionId, _dealerId, _areaId);
                 if (detailedDealer != null)
                 {
-
-                    if (detailedDealer.PrimaryDealer != null)
+                    if (detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null)
                     {
 
-                        if (detailedDealer.PrimaryDealer.DealerDetails != null)
+                        #region Set Dealer Details
+                        if (string.IsNullOrEmpty(detailedDealer.PrimaryDealer.DealerDetails.DisplayTextLarge))
+                            detailedDealer.PrimaryDealer.DealerDetails.DisplayTextLarge = objData.LeadBtnLongText;
+                        if (string.IsNullOrEmpty(detailedDealer.PrimaryDealer.DealerDetails.DisplayTextSmall))
+                            detailedDealer.PrimaryDealer.DealerDetails.DisplayTextSmall = objData.LeadBtnShortText;
+
+                        //EMI details
+                        #region Set EMI Details
+                        var objEMI = detailedDealer.PrimaryDealer.EMIDetails;
+                        if (objEMI != null)
                         {
-                            #region Set Dealer Details
-                            if (string.IsNullOrEmpty(detailedDealer.PrimaryDealer.DealerDetails.DisplayTextLarge))
-                                detailedDealer.PrimaryDealer.DealerDetails.DisplayTextLarge = objData.LeadBtnLongText;
-                            if (string.IsNullOrEmpty(detailedDealer.PrimaryDealer.DealerDetails.DisplayTextSmall))
-                                detailedDealer.PrimaryDealer.DealerDetails.DisplayTextSmall = objData.LeadBtnShortText;
-
-                            //EMI details
-                            #region Set EMI Details
-                            var objEMI = detailedDealer.PrimaryDealer.EMIDetails;
-                            if (objEMI != null)
+                            var _objEMI = setDefaultEMIDetails();
+                            if (objEMI.MinDownPayment < 1 || objEMI.MaxDownPayment < 1)
                             {
-                                var _objEMI = setDefaultEMIDetails();
-                                if (objEMI.MinDownPayment < 1 || objEMI.MaxDownPayment < 1)
-                                {
-                                    objEMI.MinDownPayment = _objEMI.MinDownPayment;
-                                    objEMI.MaxDownPayment = _objEMI.MaxDownPayment;
-                                }
-
-                                if (objEMI.MinTenure < 1 || objEMI.MaxTenure < 1)
-                                {
-                                    objEMI.MinTenure = _objEMI.MinTenure;
-                                    objEMI.MaxTenure = _objEMI.MaxTenure;
-                                }
-
-                                if (objEMI.MinRateOfInterest < 1 || objEMI.MaxRateOfInterest < 1)
-                                {
-                                    objEMI.MinRateOfInterest = _objEMI.MinRateOfInterest;
-                                    objEMI.MaxRateOfInterest = _objEMI.MaxRateOfInterest;
-                                }
-                            }
-                            else
-                            {
-                                objEMI = setDefaultEMIDetails();
+                                objEMI.MinDownPayment = _objEMI.MinDownPayment;
+                                objEMI.MaxDownPayment = _objEMI.MaxDownPayment;
                             }
 
-                            detailedDealer.PrimaryDealer.EMIDetails = objEMI;
+                            if (objEMI.MinTenure < 1 || objEMI.MaxTenure < 1)
+                            {
+                                objEMI.MinTenure = _objEMI.MinTenure;
+                                objEMI.MaxTenure = _objEMI.MaxTenure;
+                            }
 
-                            #endregion
-                            #endregion
-
+                            if (objEMI.MinRateOfInterest < 1 || objEMI.MaxRateOfInterest < 1)
+                            {
+                                objEMI.MinRateOfInterest = _objEMI.MinRateOfInterest;
+                                objEMI.MaxRateOfInterest = _objEMI.MaxRateOfInterest;
+                            }
                         }
+                        else
+                        {
+                            objEMI = setDefaultEMIDetails();
+                        }
+
+                        detailedDealer.PrimaryDealer.EMIDetails = objEMI;
+
+                        #endregion
+                        #endregion
                         if (detailedDealer.PrimaryDealer.PriceList != null && detailedDealer.PrimaryDealer.PriceList.Count() > 0)
                         {
                             #region Dealer PriceQuote
@@ -313,23 +308,36 @@ namespace Bikewale.Models
                         else
                         {
                             #region Bikewale PriceQuote
-                            objData.Quotation = _objPQ.GetPriceQuoteById(Convert.ToUInt64(_pqId), LeadSourceEnum.DPQ_Desktop);
+                            objData.Quotation = _objPQ.GetPriceQuoteById(Convert.ToUInt64(_pqId), LeadSource);
                             if (objData.Quotation != null)
                             {
                                 objData.TotalPrice = (uint)objData.Quotation.OnRoadPrice;
-
-                                #region Set manufacturer campaign details
-                                objData.ManufacturerCampaign = new ManufacturerCampaign()
-                                                       {
-                                                           ShowAd = detailedDealer.PrimaryDealer.DealerDetails == null && detailedDealer.SecondaryDealerCount == 0,
-                                                           Ad = Format.FormatManufacturerAd(objData.Quotation.ManufacturerAd, objData.Quotation.CampaignId, objData.Quotation.ManufacturerName, objData.Quotation.MaskingNumber, objData.Quotation.ManufacturerId, objData.Quotation.Area, objData.PQLeadSource.ToString(), objData.PQSourcePage.ToString(), string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objData.Quotation.MaskingNumber) ? "hide" : string.Empty, objData.Quotation.LeadCapturePopupHeading, objData.Quotation.LeadCapturePopupDescription, objData.Quotation.LeadCapturePopupMessage, objData.Quotation.PinCodeRequired),
-                                                           Name = objData.Quotation.ManufacturerName,
-                                                           Id = objData.Quotation.ManufacturerId
-                                                       };
-                                #endregion
                             }
                             #endregion
                         }
+                    }
+                    else
+                    {
+                        #region Bikewale PriceQuote
+                        objData.Quotation = _objPQ.GetPriceQuoteById(Convert.ToUInt64(_pqId), LeadSource);
+                        if (objData.Quotation != null)
+                        {
+                            objData.TotalPrice = (uint)objData.Quotation.OnRoadPrice;
+                        }
+                        #endregion
+                        #region Set manufacturer campaign details
+
+                        if (objData.Quotation.ManufacturerId > 0 && (detailedDealer.PrimaryDealer == null || detailedDealer.PrimaryDealer.DealerDetails == null))
+                        {
+                            objData.ManufacturerCampaign = new ManufacturerCampaign()
+                            {
+                                Ad = Format.FormatManufacturerAd(objData.Quotation.ManufacturerAd, objData.Quotation.CampaignId, objData.Quotation.ManufacturerName, objData.Quotation.MaskingNumber, objData.Quotation.ManufacturerId, objData.Quotation.Area, objData.PQLeadSource.ToString(), objData.PQSourcePage.ToString(), string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objData.Quotation.MaskingNumber) ? "hide" : string.Empty, objData.Quotation.LeadCapturePopupHeading, objData.Quotation.LeadCapturePopupDescription, objData.Quotation.LeadCapturePopupMessage, objData.Quotation.PinCodeRequired),
+                                Name = objData.Quotation.ManufacturerName,
+                                Id = objData.Quotation.ManufacturerId
+                            };
+                            objData.ManufacturerCampaign.ShowAd = detailedDealer.PrimaryDealer.DealerDetails == null;
+                        }
+                        #endregion
                     }
                 }
                 else

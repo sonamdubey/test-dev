@@ -1,8 +1,11 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using ApiGatewayLibrary;
+using Bikewale.BAL.GrpcFiles;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
+using EditCMSWindowsService.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +48,7 @@ namespace Bikewale.Models.Videos
         public VideosLandingPageVM GetData()
         {
             VideosLandingPageVM objVM = null;
+            bool isAPIData = Bikewale.Utility.BWConfiguration.Instance.UseAPIGateway;
             System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
             try
             {
@@ -53,16 +57,38 @@ namespace Bikewale.Models.Videos
 
                 BindLandingVideos(objVM);
                 VideosBySubcategory objSubCat = new VideosBySubcategory(_videos);
-                objVM.ExpertReviewsWidgetData = objSubCat.GetData("", "55", _pageNo, ExpertReviewsTopCount);
-                objVM.FirstRideWidgetData = objSubCat.GetData("", "57", _pageNo, FirstRideWidgetTopCount);
-                objVM.LaunchAlertWidgetData = objSubCat.GetData("", "59", _pageNo, LaunchAlertWidgetTopCount);
-                objVM.FirstLookWidgetData = objSubCat.GetData("", "61", _pageNo, FirstLookWidgetTopCount);
-                objVM.PowerDriftBlockbusterWidgetData = objSubCat.GetData("", "62", _pageNo, PowerDriftBlockbusterWidgetTopCount);
-                objVM.MotorSportsWidgetData = objSubCat.GetData("", "51", _pageNo, MotorSportsWidgetTopCount);
-                objVM.PowerDriftSpecialsWidgetData = objSubCat.GetData("", "63", _pageNo, PowerDriftSpecialsWidgetTopCount);
-                objVM.PowerDriftTopMusicWidgetData = objSubCat.GetData("", "60", _pageNo, PowerDriftTopMusicWidgetTopCount);
-                objVM.MiscellaneousWidgetData = objSubCat.GetData("", "58", _pageNo, MiscellaneousWidgetTopCount);
-                objVM.Brands = new BrandWidgetModel(BrandWidgetTopCount, _bikeMakes, _objModelCache).GetData(Entities.BikeData.EnumBikeType.Videos);
+
+                if (isAPIData)
+                {
+                    System.Diagnostics.Stopwatch w1 = System.Diagnostics.Stopwatch.StartNew();
+
+                    isAPIData = GetDataFromApiGateWay(objVM, objSubCat);
+
+                    w1.Stop();
+                    long elapsedMs = w1.ElapsedMilliseconds;
+                    log4net.ThreadContext.Properties["GatewayTimeTaken_Page"] = elapsedMs;
+                }
+
+
+                if (!isAPIData)
+                {
+                    System.Diagnostics.Stopwatch w2 = System.Diagnostics.Stopwatch.StartNew();
+                    objVM.MotorSportsWidgetData = objSubCat.GetData("", "51", _pageNo, MotorSportsWidgetTopCount);
+                    objVM.ExpertReviewsWidgetData = objSubCat.GetData("", "55", _pageNo, ExpertReviewsTopCount);
+                    objVM.FirstRideWidgetData = objSubCat.GetData("", "57", _pageNo, FirstRideWidgetTopCount);
+                    objVM.MiscellaneousWidgetData = objSubCat.GetData("", "58", _pageNo, MiscellaneousWidgetTopCount);
+                    objVM.LaunchAlertWidgetData = objSubCat.GetData("", "59", _pageNo, LaunchAlertWidgetTopCount);
+                    objVM.PowerDriftTopMusicWidgetData = objSubCat.GetData("", "60", _pageNo, PowerDriftTopMusicWidgetTopCount);
+                    objVM.FirstLookWidgetData = objSubCat.GetData("", "61", _pageNo, FirstLookWidgetTopCount);
+                    objVM.PowerDriftBlockbusterWidgetData = objSubCat.GetData("", "62", _pageNo, PowerDriftBlockbusterWidgetTopCount);
+                    objVM.PowerDriftSpecialsWidgetData = objSubCat.GetData("", "63", _pageNo, PowerDriftSpecialsWidgetTopCount);
+
+                    objVM.Brands = new BrandWidgetModel(BrandWidgetTopCount, _bikeMakes, _objModelCache).GetData(Entities.BikeData.EnumBikeType.Videos);
+                    w2.Stop();
+                    long elapsedMs = w2.ElapsedMilliseconds;
+                    log4net.ThreadContext.Properties["GRPCTimeTaken_Page"] = elapsedMs;
+                }
+
                 BindPageMetas(objVM);
             }
             catch (Exception ex)
@@ -78,6 +104,64 @@ namespace Bikewale.Models.Videos
             }
             return objVM;
         }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 4th May 2017
+        /// Description : Function to call api gateway to fecth videos landing page widgets data
+        /// </summary>
+        private bool GetDataFromApiGateWay(VideosLandingPageVM objVM, VideosBySubcategory objSubCat)
+        {
+            bool isSuccess = false;
+            try
+            {
+                string[] categoryIds = new string[] { "51", "55", "57", "58", "59", "60", "61", "62", "63" };
+                ushort[] categoryTotalRecords = new ushort[] { MotorSportsWidgetTopCount, ExpertReviewsTopCount, FirstRideWidgetTopCount, MiscellaneousWidgetTopCount, LaunchAlertWidgetTopCount, PowerDriftTopMusicWidgetTopCount, FirstLookWidgetTopCount, PowerDriftBlockbusterWidgetTopCount, PowerDriftSpecialsWidgetTopCount };
+
+                VideosBySubcategoryVM[] widgetsData = new VideosBySubcategoryVM[categoryIds.Length];
+                CallAggregator ca = objSubCat.AddGrpcCallsToAPIGateway(categoryIds, categoryTotalRecords);
+
+
+                var apiData = ca.GetResultsFromGateway();
+
+                if (apiData != null && apiData.OutputMessages != null)
+                {
+
+                    var objApiData = apiData.OutputMessages;
+
+                    if (objApiData != null && objApiData.Count > 0)
+                    {
+
+                        for (ushort i = 0; i < objApiData.Count; i++)
+                        {
+                            objSubCat.SetWidgetDataProperties("", categoryIds[i], objApiData[i].Payload, out widgetsData[i]);
+                        }
+
+                        objVM.MotorSportsWidgetData = widgetsData[0];
+                        objVM.ExpertReviewsWidgetData = widgetsData[1];
+                        objVM.FirstRideWidgetData = widgetsData[2];
+                        objVM.MiscellaneousWidgetData = widgetsData[3];
+                        objVM.LaunchAlertWidgetData = widgetsData[4];
+                        objVM.PowerDriftTopMusicWidgetData = widgetsData[5];
+                        objVM.FirstLookWidgetData = widgetsData[6];
+                        objVM.PowerDriftBlockbusterWidgetData = widgetsData[7];
+                        objVM.PowerDriftSpecialsWidgetData = widgetsData[8];
+
+                    }
+
+                    isSuccess = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "VideosLandingPage.GetDataFromApiGateWay()");
+
+            }
+
+            return isSuccess;
+
+        }
+
+
 
         private void BindPageMetas(VideosLandingPageVM objPageVM)
         {
