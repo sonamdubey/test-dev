@@ -360,7 +360,7 @@ namespace Bikewale.DAL.BikeData
                                 t.ModelSeries.SeriesName = string.Empty;
                                 t.ModelSeries.MaskingName = string.Empty;
                                 t.ReviewCount = Convert.ToInt32(dr["ReviewCount"]);
-                                t.RatingCount = Convert.ToInt32(dr["RatingsCount"]);
+                                t.RatingCount = SqlReaderConvertor.ToInt32(dr["RatingsCount"]);
                                 t.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
                                 t.ReviewUIRating = string.Format("{0:0.0}", t.ReviewRate);
                                 t.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
