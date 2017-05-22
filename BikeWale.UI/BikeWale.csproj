@@ -3404,6 +3404,10 @@
     <Content Include="sass\generic\listing.sass" />
     <Content Include="sass\generic\_listing-style.sass" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="sass\modules\_bike-style-icons.sass" />
+    <Content Include="sass\modules\_block-buttons.sass" />
+    <Content Include="m\sass\modules\_bike-style-icons.sass" />
+    <Content Include="m\sass\modules\_block-buttons.sass" />
     <Content Include="Views\Shared\_Layout_Mobile.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
