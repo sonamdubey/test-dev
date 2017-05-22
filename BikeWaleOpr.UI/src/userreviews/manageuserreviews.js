@@ -15,7 +15,7 @@ var $dateInput = $dateInput.pickadate('picker')
 var userReview = $("#UserReviews");
 var userId = userReview.data("userid");
 
-var dummyJSON = '{"overallRating":{"id":0,"value":0,"description":"","heading":"Superb!!","responseHeading":null},"make":{"makeId":0,"makeName":"","maskingName":"","hostUrl":null,"logoUrl":null},"model":{"modelId":0,"modelName":"","maskingName":""},"originalImgPath":"","hostUrl":"","description":"","title":"","tips":"","overallRatingId":0,"questions":[{"qId":0,"qtype":0,"heading":"","description":"","selectedRatingId":0,"displayType":0,"rating":[{"ratingId":0,"ratingValue":"0","ratingText":""}],"isRequired":"true","visibility":"true","subQuestionId":0}],"customerName":"","customerEmail":""}';
+var dummyJSON = '{"overallRating":{"id":0,"value":0,"description":"","heading":"Superb!!","responseHeading":null},"make":{"makeId":0,"makeName":"","maskingName":"","hostUrl":null,"logoUrl":null},"model":{"modelId":0,"modelName":"","maskingName":""},"originalImgPath":"","hostUrl":"","description":"","title":"","tips":"","overallRatingId":0,"questions":[{"qId":0,"qtype":0,"heading":"","description":"","selectedRatingId":0,"displayType":0,"rating":[{"ratingId":0,"ratingValue":"0","ratingText":""}],"isRequired":"true","visibility":"true","subQuestionId":0}],"customerName":"","customerEmail":"","isShortListed":""}';
 
 var UserReviews = function () {
     var self = this;
@@ -134,7 +134,8 @@ var UserReviews = function () {
                         self.reviewSummary(response);
                         self.reviewTitle(response.title);
                         self.reviewDescription(response.description);
-                        self.reviewTips(response.tips);                       
+                        self.reviewTips(response.tips);
+                        self.shortListCheckBox(response.isShortListed);
                     }
                 },
                 complete: function (xhr) {
