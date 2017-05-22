@@ -9,6 +9,7 @@ var bikeRating = {
 };
 
 var ratingQuestion = [];
+var ratingError = false, questionError = false, userNameError = false, emailError = false;
 
 docReady(function () {
     bwcache.setScope('ReviewPage');
@@ -180,7 +181,7 @@ docReady(function () {
             }
             else
             {
-                triggerGA('Rate_Bike', 'Rating_Submit_Error', makeModelName);
+                triggerGA('Rate_Bike', 'Rating_Submit_Error', makeModelName+ratingError+'_'+questionError+'_'+userNameError+'_'+emailError);
             }
             self.focusFormActive(false);
             return isValid;
@@ -193,9 +194,11 @@ docReady(function () {
                     self.ratingErrorText("Please rate the bike before submitting!");
                     self.focusFormActive(true);
                     answer.focusForm($('#rate-bike-form'));
+                    ratingError = true;
                 }
                 else {
                     self.validateRatingCountFlag(false);
+                    ratingError = false;
                 }
 
                 return !self.validateRatingCountFlag();
@@ -217,6 +220,7 @@ docReady(function () {
                         if (!checkedRadioButton.length) {
                             item.find('.error-text').show();
                             errorCount++;
+                            questionError = true;
                             if (!self.focusFormActive()) {
                                 answer.focusForm($('#rate-bike-questions'));
                             }
@@ -229,6 +233,7 @@ docReady(function () {
 
                 if (!errorCount) {
                     isValid = true;
+                    questionError = false;
                 }
 
                 return isValid;
@@ -260,17 +265,21 @@ docReady(function () {
 
                 if (vmRateBike.userName().indexOf('&') != -1) {
                     validate.setError(userNameField, 'Invalid name');
+                    userNameError = true;
                 }
                 else if (nameLength == 0) {
                     validate.setError(userNameField, 'Please enter your name');
+                    userNameError = true;
                 }
                 else if (nameLength >= 1) {
                     validate.hideError(userNameField);
                     isValid = true;
+                    userNameError = false;
                 }
             }
             else {
                 validate.setError(userNameField, 'Please enter your name');
+                userNameError = true;
             }
 
             return isValid;
@@ -282,14 +291,17 @@ docReady(function () {
 
             if (vmRateBike.emailId() == "") {
                 validate.setError(userEmailIdField, 'Please enter email id');
+                emailError = true;
             }
             else if (!reEmail.test(vmRateBike.emailId())) {
+                emailError = true;
                 validate.setError(userEmailIdField, 'Please enter your valid email ID');
             }
 
             else {
                 validate.hideError(userEmailIdField);
                 isValid = true;
+                emailError = false;
             }
 
             return isValid;
@@ -325,7 +337,7 @@ docReady(function () {
             subQuestionId = Number(questionField.attr('data-sub-question'));
 
         questionField.find('.error-text').slideUp();
-
+        triggerGA('Rate_Bike', 'Rate_' + questionField.attr('id') + '_' + makeModelName + Number($(this).val()));
         if (subQuestionId > 0) {
             var buttonValue = Number($(this).val()),
                 subQuestionField = $('#question-' + subQuestionId);

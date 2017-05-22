@@ -63,14 +63,15 @@ namespace Bikewale.Controllers
         /// <summary>
         /// Created By : Sushil Kumar on 23rd March 2017
         /// Description  : Controller method to call desktop dealerpricequote page with mpq 
+        /// Modified by :   Sumit Kate on 19 May 2017
+        /// Description :   Pass the lead source id
         /// </summary>
         /// <returns></returns>
         [Route("pricequote/dealer/")]
         public ActionResult Details()
         {
             DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache);
-
-
+            obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Desktop;
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 obj.OtherTopCount = 3;
@@ -96,13 +97,15 @@ namespace Bikewale.Controllers
         /// <summary>
         /// Created By : Sushil Kumar on 23rd March 2017
         /// Description  : Controller method to call mobile dealerpricequote page with mpq 
+        /// Modified by :   Sumit Kate on 19 May 2017
+        /// Description :   Pass the lead source id
         /// </summary>
         /// <returns></returns>
         [Route("m/pricequote/dealer/")]
         public ActionResult Details_Mobile()
         {
             DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache);
-
+            obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Mobile;
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 obj.OtherTopCount = 9;
