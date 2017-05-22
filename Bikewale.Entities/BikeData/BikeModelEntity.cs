@@ -37,6 +37,8 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public int ReviewCount { get; set; }
         [DataMember]
+        public int RatingCount { get; set; }
+        [DataMember]
         public string OriginalImagePath { get; set; }
         [DataMember]
         public int PhotosCount { get; set; }  //Added by Aditi Srivastava

@@ -7,6 +7,7 @@ using Bikewale.Service.AutoMappers.UserReviews;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using System;
+using System.Collections;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http;
@@ -28,20 +29,24 @@ namespace Bikewale.Service.Controllers.UserReviews
 
         private readonly IUserReviewsRepository _userReviewsRepo = null;
         private readonly IUserReviews _userReviews = null;
+        private readonly IUserReviewsCache _userReviewsCache = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="userReviewsRepo"></param>
-        public UserReviewsController(IUserReviewsRepository userReviewsRepo, IUserReviews userReviews)
+        public UserReviewsController(IUserReviewsRepository userReviewsRepo, IUserReviews userReviews, IUserReviewsCache userReviewsCache)
         {
             _userReviewsRepo = userReviewsRepo;
             _userReviews = userReviews;
+            _userReviewsCache = userReviewsCache;
         }
 
         #region User Reviews Details
         /// <summary>
         /// To get review Details 
+        /// Modified by Sajal Gupta in 19-05-2017
+        /// Description : Added logic update view count.
         /// </summary>
         /// <param name="reviewId"></param>
         /// <returns>Review Details</returns>
@@ -56,6 +61,16 @@ namespace Bikewale.Service.Controllers.UserReviews
 
                 if (objUserReview != null)
                 {
+                    //update viewcount
+                    Hashtable ht = _userReviewsCache.GetUserReviewsIdMapping();
+                    if (ht.ContainsKey((int)reviewId))
+                    {
+                        uint newReviewId = Convert.ToUInt32(ht[(int)reviewId]);
+                        NameValueCollection nvc = new NameValueCollection();
+                        nvc.Add("par_reviewId", newReviewId.ToString());
+                        SyncBWData.PushToQueue("updateUserReviewViews", DataBaseName.BW, nvc);
+                    }
+
                     // Auto map the properties
                     objDTOUserReview = new ReviewDetails();
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);

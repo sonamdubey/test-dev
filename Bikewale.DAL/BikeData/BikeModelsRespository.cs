@@ -318,7 +318,9 @@ namespace Bikewale.DAL.BikeData
         /// Modified By : Sadhana Upadhyay on 20 Aug 2014
         /// Summary : To retrieve new and used flag
         /// Modified By: Aditi Srivastava on 25th Aug,2016
-        /// Summary: Used a different sp(earlier getmodeldetails_new) to retrieve model details using data reader
+        /// Summary: Used a different sp(earlier getmodeldetails_new) to retrieve model details using data reader'
+        /// Modified by sajal gupta on 19/05/2017
+        /// Description : Added ratings count
         /// </summary>
         /// <param name="id">Model Id should be a positive number.</param>
         /// <returns>Returns object containing the particular model's all details.</returns>
@@ -327,7 +329,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_25082016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_19052017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -358,6 +360,7 @@ namespace Bikewale.DAL.BikeData
                                 t.ModelSeries.SeriesName = string.Empty;
                                 t.ModelSeries.MaskingName = string.Empty;
                                 t.ReviewCount = Convert.ToInt32(dr["ReviewCount"]);
+                                t.RatingCount = Convert.ToInt32(dr["RatingsCount"]);
                                 t.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
                                 t.ReviewUIRating = string.Format("{0:0.0}", t.ReviewRate);
                                 t.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
@@ -1284,7 +1287,7 @@ namespace Bikewale.DAL.BikeData
                                     FrontSuspension = Convert.ToString(dr["frontsuspension"]),
                                     RearSuspension = Convert.ToString(dr["rearsuspension"]),
                                     BrakeType = dr["braketype"].ToString(),
-                                    FrontDisc = dr["frontdisc"]!=DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["frontdisc"]):null,
+                                    FrontDisc = dr["frontdisc"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["frontdisc"]) : null,
                                     FrontDisc_DrumSize = Convert.ToUInt16(dr["frontdisc_drumsize"]),
                                     RearDisc = dr["reardisc"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["reardisc"]) : null,
                                     RearDisc_DrumSize = Convert.ToUInt16(dr["reardisc_drumsize"]),
