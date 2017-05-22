@@ -8,6 +8,6 @@ namespace Bikewale.DTO
         public string SplashImgUrl { get; set; }
 
         [JsonProperty("splashTimeOut")]
-        public string SplashTimeOut { get; set; }
+        public uint SplashTimeOut { get; set; }
     }
 }
