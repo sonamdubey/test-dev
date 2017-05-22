@@ -1,14 +1,17 @@
 (global => {
 
-	var IMAGE_EXPIRATION_TIME = 864000;
+    var jsVersion = '22May2017v1';
+	var GOOGLE_FONTS = 'https://fonts.googleapis.com/css?family=Open+Sans:400,600,700'
+	var baseUrl = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/';
+	var OFFLINE_PAGE = 'offline.html?' + jsVersion;
+	var VENDOR_JS = baseUrl + 'vendor.bundle.js?' + jsVersion;
+	var APP_JS = baseUrl + 'app.bundle.js?' + jsVersion;
+	var SW_TOOLBOX_JS = baseUrl + 'sw-toolbox.js?' + jsVersion;
 
-	var OFFLINE_PAGE = 'offline.html?19May2017v2';
-	var VENDOR_JS = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/vendor.bundle.js?19May2017v2';
-	var APP_JS = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/app.bundle.js?19May2017v2';
-	var SW_TOOLBOX_JS = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/sw-toolbox.js?19May2017v2';
+	var IMAGE_EXPIRATION_TIME = 864000;
 	var IMAGE_CDN_REGEX_PATTERN = /^https:\/\/imgd(\d)?.aeplcdn.com/;
 	var ST_CDN_REGEX_PATTERN = /^https:\/\/st(\d)?.aeplcdn.com/;
-	var GOOGLE_FONTS = 'https://fonts.googleapis.com/css?family=Open+Sans:400,600,700'
+	
 	importScripts(SW_TOOLBOX_JS);
 
 	toolbox.options.cache = {

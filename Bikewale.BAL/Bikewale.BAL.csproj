@@ -67,9 +67,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elasticsearch.Net">
-      <HintPath>..\Libs\Elasticsearch.Net.dll</HintPath>
-    </Reference>
     <Reference Include="Carwale.BL">
       <HintPath>..\Libs\Carwale.BL.dll</HintPath>
     </Reference>
@@ -84,6 +81,10 @@
     </Reference>
     <Reference Include="Carwale.Interfaces">
       <HintPath>..\Libs\Carwale.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="Gelf4Net">
       <HintPath>..\Libs\Gelf4Net.dll</HintPath>
@@ -117,7 +118,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\mvc 5\unity 4.0.1\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
-    <Reference Include="Nest">
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
