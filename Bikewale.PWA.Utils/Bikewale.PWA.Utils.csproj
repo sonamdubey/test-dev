@@ -73,12 +73,6 @@
     <Reference Include="Bikewale.Models">
       <HintPath>..\Bikewale.Models\bin\Release\Bikewale.Models.dll</HintPath>
     </Reference>
-    <Reference Include="Bikewale.PWA.Entities">
-      <HintPath>..\Bikewale.PWA.Entities\bin\Release\Bikewale.PWA.Entities.dll</HintPath>
-    </Reference>
-    <Reference Include="Bikewale.Utility">
-      <HintPath>..\Bikewale.Utility\bin\Release\Bikewale.Utility.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -93,6 +87,16 @@
     <Compile Include="ConverterUtility.cs" />
     <Compile Include="CustomConcurrentArray.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bikewale.PWA.Entities\Bikewale.PWA.Entities.csproj">
+      <Project>{891ee3d8-f296-4efc-a136-a278f0f06f61}</Project>
+      <Name>Bikewale.PWA.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
+      <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
+      <Name>Bikewale.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
