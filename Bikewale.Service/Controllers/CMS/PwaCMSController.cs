@@ -232,8 +232,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         }
                                                 
                         UpcomingBikesListInputEntity filters = new UpcomingBikesListInputEntity();
-                        filters.StartIndex = 1;
-                        filters.EndIndex = 9;                        
+                        filters.PageNo = 1;
+                        filters.PageSize = 9;                 
                         var tempbikes = _upcoming.GetModels(filters,EnumUpcomingBikesFilter.Default);
                         if (tempbikes != null && tempbikes.Count()>0)
                         {
