@@ -1,6 +1,8 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
+using Bikewale.Entities.PWA.Articles;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -20,6 +22,9 @@ namespace Bikewale.Models
         public string PageH2 { get; set; }
         public PopularBodyStyleVM PopularBodyStyle { get; set; }
         public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
-        public UpcomingBikesWidgetVM UpcomingBikes { get; set; }        
+        public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
+        public PwaReduxStore ReduxStore { get; set; }
+        public IHtmlString ServerRouterWrapper { get; set; }
+        public string WindowState { get; set; }
     }
 }

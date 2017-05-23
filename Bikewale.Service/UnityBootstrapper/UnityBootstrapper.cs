@@ -120,6 +120,9 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
             container.RegisterType<IPager, Pager>();
             container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>();
+            container.RegisterType<IUpcoming, Upcoming>();
+            container.RegisterType<IModelsCache, ModelsCache>();
+            container.RegisterType<IModelsRepository, ModelsRepository>();
             container.RegisterType<IBikeCompare, BikeComparison>();
             container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
             container.RegisterType<ICity, CityRepository>();
@@ -144,6 +147,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IProcessFilter, ProcessFilter>();
             container.RegisterType<ICacheManager, MemcacheManager>();
             container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+            container.RegisterType<IBikeInfo, BikeInfo>();
             container.RegisterType<IPopularUsedBikesCacheRepository, PopularUsedBikesCacheRepository>();
             container.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
             container.RegisterType<IAppVersion, AppVersionRepository>();

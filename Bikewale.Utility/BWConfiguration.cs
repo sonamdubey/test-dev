@@ -21,6 +21,7 @@ namespace Bikewale.Utility
         private static readonly object padlock = new object();
 
         private int nonReadOnlyStatic = 0;
+        private readonly int _pwaLocalCahceLimit = 100;
 
         private readonly string _defaultCity = String.Empty,
             _bwconnectionString = String.Empty,
@@ -103,7 +104,12 @@ namespace Bikewale.Utility
         private string _AWSS3Region = String.Empty;
         private uint _GrpcMaxTimeLimit = 100;
         private uint _GrpcPoolSize = 1;
-
+        private bool _EnablePWALogging=false;
+        private string _StaticUrlPWA;
+        private string _StaticAppFileVersion;
+        private string _StaticVendorFileVersion;
+        private string _ServiceWorkerPath;
+        private bool _DisablePWA;
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
         {
@@ -188,7 +194,14 @@ namespace Bikewale.Utility
             _GrpcMaxTimeLimit = Convert.ToUInt32(ConfigurationManager.AppSettings["GrpcMaxTimeLimit"]);
             _GrpcPoolSize = Convert.ToUInt32(ConfigurationManager.AppSettings["GrpcPoolSize"] ?? "1");
             _CoverFoxLink = Convert.ToString(ConfigurationManager.AppSettings["CoverFox"]);
+            _pwaLocalCahceLimit = string.IsNullOrEmpty(ConfigurationManager.AppSettings["PwaLocalCahceLimit"]) ? 100 : Convert.ToInt32(ConfigurationManager.AppSettings["PwaLocalCahceLimit"]);
             _UseAPIGateway = !String.IsNullOrEmpty(ConfigurationManager.AppSettings["UseAPIGateway"]) ? Convert.ToBoolean(ConfigurationManager.AppSettings["UseAPIGateway"]) : false;
+            _EnablePWALogging = string.IsNullOrEmpty(ConfigurationManager.AppSettings["EnablePWALogging"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["EnablePWALogging"]);
+            _StaticUrlPWA = ConfigurationManager.AppSettings["StaticUrlPWA"];
+            _StaticAppFileVersion = ConfigurationManager.AppSettings["StaticAppFileVersion"];
+            _StaticVendorFileVersion = ConfigurationManager.AppSettings["StaticVendorFileVersion"];
+            _ServiceWorkerPath = ConfigurationManager.AppSettings["ServiceWorkerPath"];
+            _DisablePWA = string.IsNullOrEmpty(ConfigurationManager.AppSettings["DisablePWA"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["DisablePWA"]);
         }
 
         // Static method to provide access to instance
@@ -323,6 +336,15 @@ namespace Bikewale.Utility
         public uint GrpcMaxTimeLimit { get { return _GrpcMaxTimeLimit; } }
         public uint GrpcPoolSize { get { return _GrpcPoolSize; } }
         public string CoverFoxLink { get { return _CoverFoxLink; } }
+
         public bool UseAPIGateway { get { return _UseAPIGateway; } }
+        public int PwaLocalCahceLimit { get { return _pwaLocalCahceLimit; } }
+        public bool EnablePWALogging { get { return _EnablePWALogging; } }
+
+        public string StaticUrlPWA { get { return _StaticUrlPWA; } }
+        public string StaticAppFileVersion { get { return _StaticAppFileVersion; } }
+        public string StaticVendorFileVersion { get { return _StaticVendorFileVersion; } }
+        public string ServiceWorkerPath { get { return _ServiceWorkerPath; } }
+        public bool DisablePWA { get { return _DisablePWA; } }
     }   // class
 }   // namespace
