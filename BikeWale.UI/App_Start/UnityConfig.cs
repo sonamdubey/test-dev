@@ -125,6 +125,7 @@ namespace Bikewale
             container.RegisterType<IUsedBikesCache, UsedBikesCache>();
             container.RegisterType<IUsedBikes, UsedBikes>();
             container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
+            container.RegisterType<IBikeCompare, Bikewale.BAL.Compare.BikeComparison>();
 
             container.RegisterType<ICustomer<CustomerEntity, uint>, Customer<CustomerEntity, uint>>();
             container.RegisterType<ICustomerRepository<CustomerEntity, uint>, CustomerRepository<CustomerEntity, uint>>();

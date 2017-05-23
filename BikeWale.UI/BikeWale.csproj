@@ -912,6 +912,7 @@
     <Compile Include="Models\BikeCare\RecentBikeCare.cs" />
     <Compile Include="Models\BikeModels\ModelPage.cs" />
     <Compile Include="Models\CompareBikes\ComparePopularBikes.cs" />
+    <Compile Include="Models\Compare\CompareDetails.cs" />
     <Compile Include="Models\Compare\CompareIndex.cs" />
     <Compile Include="Models\Compare\CompareWidget.cs" />
     <Compile Include="Models\ComparisonTest\ComparisonTestWidget.cs" />

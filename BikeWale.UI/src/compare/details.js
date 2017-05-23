@@ -7,7 +7,114 @@
 
 docReady(function() {
     $('.chosen-select').chosen();
+    /* toggle common features */
+    var bodyElement = document.getElementsByTagName("body")[0],
+    toggleFeaturesBtn = document.getElementById("toggle-features-btn"),
+    hideCommonFeatures = true,
+    equivalentDataFound = false,
+    hideFeaturesClasses = "btn btn-teal btn-full-width",
+    showFeaturesClasses = "btn btn-inv-teal btn-full-width";
 
+    toggleFeaturesBtn.addEventListener("click", function () {
+        if (hideCommonFeatures) {
+            if (!equivalentDataFound) {
+                var headingRows = document.getElementsByClassName("row-type-heading"),
+                    dataRows = document.getElementsByClassName("row-type-data"),
+                    isSponsoredBikeActive = document.getElementById("sponsored-column-active");
+
+                if (bikeDetails.length == 2) {
+                    compareColumns.countTwo(headingRows, dataRows);
+                }
+                else if (bikeDetails.length == 3) {
+                    compareColumns.countThree(headingRows, dataRows);
+                }
+                else {
+
+                    compareColumns.countFour(headingRows, dataRows);
+                }
+
+                equivalentDataFound = true;
+            }
+            bodyElement.className = "hide-equivalent-data";
+
+            toggleFeaturesBtn.className = showFeaturesClasses;
+            toggleFeaturesBtn.innerHTML = "Show all features";
+
+            hideCommonFeatures = false;
+        }
+        else {
+            bodyElement.className = "show-equivalent-data";
+
+            toggleFeaturesBtn.className = hideFeaturesClasses;
+            toggleFeaturesBtn.innerHTML = "Hide common features";
+
+            hideCommonFeatures = true;
+        }
+
+    });
+
+    var compareColumns = {
+        countTwo: function (headingRows, dataRows) {
+            var dataRowLength = dataRows.length;
+
+            for (var i = 0; i < dataRowLength; i++) {
+                var rowElement = dataRows[i],
+                    rowColumns = rowElement.getElementsByTagName("td");
+
+                if (rowColumns[0].innerHTML === rowColumns[1].innerHTML) {
+                    rowElement.className += " equivalent-data";
+                    headingRows[i].className += " equivalent-data";
+                }
+
+            }
+        },
+
+        countThree: function (headingRows, dataRows) {
+            var dataRowLength = dataRows.length;
+
+            for (var i = 0; i < dataRowLength; i++) {
+                var rowElement = dataRows[i],
+                    rowColumns = rowElement.getElementsByTagName("td");
+
+                if (rowColumns[0].innerHTML === rowColumns[1].innerHTML && rowColumns[1].innerHTML === rowColumns[2].innerHTML) 
+                  {
+                        rowElement.className += " equivalent-data";
+                        headingRows[i].className += " equivalent-data";
+                    }
+                }
+
+            
+        },
+        countFour: function (headingRows, dataRows) {
+            var dataRowLength = dataRows.length;
+
+            for (var i = 0; i < dataRowLength; i++) {
+                var rowElement = dataRows[i],
+                    rowColumns = rowElement.getElementsByTagName("td");
+
+                if (rowColumns[0].innerHTML === rowColumns[1].innerHTML && rowColumns[1].innerHTML === rowColumns[2].innerHTML && rowColumns[2].innerHTML === rowColumns[3].innerHTML) {
+                    rowElement.className += " equivalent-data";
+                    headingRows[i].className += " equivalent-data";
+                }
+            }
+
+
+        }
+    };
+
+
+    var bikeDetails = new Array();
+    var basicInfo = JSON.parse(Base64.decode(document.getElementById("bike-comparison-grid").getAttribute("data-basicInfo")));
+
+    $.each(basicInfo, function (i, val) {
+        var data = {};
+        data.makemasking = val.MakeMaskingName;
+        data.modelmasking = val.ModelMaskingName;
+        data.modelId = val.ModelId;
+        data.versionId = val.VersionId;
+        data.index = 0;
+        bikeDetails.push(data);
+    });
     // version dropdown
     selectDropdownBox = $('.select-box-no-input');
 
@@ -34,16 +141,21 @@ docReady(function() {
             td.html(crossIcon);
         }
     });
-
+    $('#bike-comparison-container').on('click', '#btnCompare', function ()  {
+        getUrl();
+    });
+    
     $('.compare-bike-list').on('click', '.cancel-selected-item', function () {
         var listItem = $(this).closest('.list-item'),
             listItemIndex = listItem.index();
-
+        if (listItem[0].getAttribute('data-value'))
+            bikeDetails.splice(listItem[0].getAttribute('data-value'), 1);
         var bikeList = $('.compare-bike-list');
         for(var i = 0; i < bikeList.length; i++) {
             $(bikeList[i]).find('li:eq('+ listItemIndex +')').remove();
         }
-
+        if (bikeDetails.length > 1)
+            getUrl();
         var mainList = $('#bike-comparison-grid').find('.compare-bike-list');
 
         compareBox.emptyTableData(listItemIndex);
@@ -51,8 +163,36 @@ docReady(function() {
 
         compareBox.resizeColumn(mainList[0]);
         compareBox.setSponsoredIndex();
-    });
 
+    });
+    var getUrl = function ()
+    {
+        $.each(bikeDetails, function (i, val) {
+            val.index = i + 1;
+
+        });
+        bikeDetails.sort(function (a, b) {
+            return a.modelId - b.modelId;
+        });
+        var result = "";
+        $.each(bikeDetails, function (i, val) {
+            if (i != bikeDetails.length - 1)
+                result += (val.makemasking + "-" + val.modelmasking + "-vs-");
+            else
+                result += (val.makemasking + "-" + val.modelmasking + "/?");
+
+        });
+        var querystring = "";
+        $.each(bikeDetails, function (i, val) {
+            if (i != bikeDetails.length - 1)
+                querystring += ("bike" + (val.index) + "=" + val.versionId + "&");
+            else
+                querystring += ("bike" + (val.index) + "=" + val.versionId);
+
+        });
+        window.location = '/comparebikes/' + result + querystring + "&source=" + '7';
+
+    }
     $('.compare-bike-list').on('click', '.add-bike-form', function () {
         var listItem = $(this).closest('.list-item');
 
@@ -101,7 +241,7 @@ docReady(function() {
 
         placeholderTemplate: '<p class="font15 text-bold margin-bottom20">Add bike to compare</p><div class="add-bike-form"><div class="box-placeholder"><span class="box-label"><span class="add-icon"></span></span></div><div class="text-center"><button type="button" class="add-compare-btn btn btn-white btn-160-32">Add another bike</button></div></div>',
 
-        addToCompareButton: '<div class="text-center margin-top5"><a href="" class="btn btn-white btn-160-32">Add to compare</a></div>',
+        addToCompareButton: '<div class="text-center margin-top5"><button id="btnCompare" class="btn btn-white btn-160-32">Add to compare</button></div> <span class="error-text"></span>',
 
         checkForPlaceholderBox: function (list) {
             if(list.find('.list-item').length > 1) {
@@ -247,7 +387,10 @@ docReady(function() {
                 compareBox.resetDropdownSelection(selectBox);
                 compareBox.getVersions(elementValue, selectBox.next()[0]);
             }
-            else if($(selectBox).hasClass('select-version')) {
+            else if ($(selectBox).hasClass('select-version')) {
+                var listItem = selectBox.closest('.list-item'),
+                    list = listItem.closest('.compare-box-list')[0];
+                compareBox.getVersionData(elementValue, listItem);
                 
             }
         },
@@ -263,7 +406,7 @@ docReady(function() {
             $.ajax({
                 type: "Get",
                 async: false,
-                url: "/api/MakeList/?requesttype=7",
+                url: "/api/MakeList/?requesttype=2",
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (response) {
@@ -276,7 +419,7 @@ docReady(function() {
             $.ajax({
                 type: "Get",
                 async: false,
-                url: "/api/modellist/?requestType=3&makeId=" + makeId,
+                url: "/api/modellist/?requestType=2&makeId=" + makeId,
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (response) {
@@ -297,7 +440,44 @@ docReady(function() {
                 }
             });
         },
+        getVersionData: function (versionId, selectBox) {
+           
+            isSameVersion = false;
+            $.each(bikeDetails, function (i, val) {
+                if (val.versionId == versionId)
+                    isSameVersion = true;
+            });
+            if (!isSameVersion) {
+                selectBox.first().find('.error-text').hide();
+                
+                    $.ajax({
+                        type: "Get",
+                        async: false,
+                        url: "/api/v2/Version/?versionId=" + versionId,
+                        contentType: "application/json",
+                        dataType: 'json',
+                        success: function (response) {
+                            var data = {};
+                            data.makemasking = response.makeDetails.maskingName;
+                            data.modelmasking = response.modelDetails.maskingName;
+                            data.modelId = response.modelDetails.modelId;
+                            data.versionId = versionId;
+                            data.index = 0;
+                            bikeDetails.push(data);
+                            selectBox.first().find('.error-text').hide();
+                            selectBox.first().find('#btnCompare').show();
+                        }
+                       
+                    });
+             
+            }
+            else {
+                selectBox.first().find('#btnCompare').hide();
+                selectBox.first().find('.error-text').text("Please choose different bikes for comparison.");
 
+            }
+
+        },
         setMakesDropdown: function (response, listItem) {
             var dropdownOptions = "<option value></option>",
                 responseLength = response.length;

@@ -1,8 +1,15 @@
-﻿@{
+﻿@model Bikewale.Models.CompareDetailsVM
+@{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/compare/details.css' />";
     Model.Page_JS_Path = "/src/compare/details.js";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+    bool isFirstActiveTab = true;
+    int i = 0;
+    Model.AdTags.AdId = "1395986297721";
+    Model.AdTags.AdPath = "/1017752/BikeWale_CompareBikes_";
+    Model.AdTags.Ad_300x250 = true;
+    Model.AdTags.Ad_300x250BTF = true;
+    }
 
 <section>
     <div class="container padding-top10">
@@ -16,13 +23,13 @@
                     </li>
                     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                         <span class="bwsprite fa-angle-right margin-right10"></span>
-                        <a href="/" itemprop="url" title="New bike launches">
+                        <a href="/comparebikes/" itemprop="url" title="Compare Bikes">
                             <span itemprop="title">Compare bikes</span>
                         </a>
                     </li>
                     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                         <span class="bwsprite fa-angle-right margin-right10"></span>
-                        <span itemprop="title">KTM 390 Duke vs Bajaj Dominar 400</span>
+                        <span itemprop="title">@Model.comparisionText</span>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -33,111 +40,85 @@
 </section>
 
 <section>
-    <div id="bike-comparison-container" class="container card-bottom-margin" data-column-count="4">
+    <div id="bike-comparison-container" class="container card-bottom-margin" data-column-count="@(Model.Compare.BasicInfo.Count()<4?Model.Compare.BasicInfo.Count()+1:4)">
         <div id="sponsored-column-active" class="grid-12">
             <div class="content-box-shadow card-bottom-margin bw-tabs-panel">
-                <h1 class="content-box-shadow padding-15-20 margin-bottom2">Bike Comparison - KTM 390 Duke vs Bajaj Dominar 400</h1>
+                <h1 class="content-box-shadow padding-15-20 margin-bottom2">Bike Comparison - @Model.comparisionText</h1>
 
                 <div class="grid-2 padding-left20 padding-top20">
                     <div class="toggle-features-btn cur-pointer">
                         <span class="bwsprite unchecked-box"></span>
-                        <span class="btn-label font14 inline-grid-9">Hide common features</span>
+                        <span id="toggle-features-btn" class="btn-label font14 inline-grid-9">Hide common features</span>
                     </div>
                 </div>
-                <div id="bike-comparison-grid" class="grid-10 alpha omega">
+                <div id="bike-comparison-grid" data-basicinfo="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.Compare.BasicInfo));" class="grid-10 alpha omega">
                     <ul class="compare-bike-list">
-                        <li class="list-item">
-                            <div class="bike-details-block">
-                                <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
-                                <a href="" title="Honda CB Shine" class="item-target-link underline-none">
-                                    <p class="font12 text-black">Honda</p>
-                                    <h2 class="font15 margin-bottom10 text-truncate">CB Shine</h2>
-                                    <img class="bike-image-block" src="https://imgd.aeplcdn.com/227x128/bw/models/honda-shine.jpg" alt="Honda CB Shine">
-                                </a>
-                                <div class="select-box select-box-no-input done">
-                                    <p class="select-label">Version</p>
-                                    <select class="chosen-select" data-title="Version">
-                                        <option value=""></option>
-                                        <option value="4580" selected>Drum (BS IV)</option>
-                                        <option value="4581">Disk (BS IV)</option>
-                                        <option value="4582">CBS (BS IV)</option>
-                                    </select>
+                        @foreach (var bike in Model.Compare.BasicInfo)
+                        {
+                            string bikeName = string.Format("{0} {1}", bike.Make, bike.Model);
+                            <li class="@string.Format("list-item {0}", (bike.VersionId != Model.sponsoredVersionId) ? "" : "sponsored-list")" data-value="@i @{i++;}">
+                                <div class=" bike-details-block">
+                                    <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
+                                    @if (bike.VersionId == Model.sponsoredVersionId)
+                                    {
+                                        <span class="position-abt text-light-grey font12 top-neg17">Sponsored</span>
+                                    }
+
+                                    <a href="@string.Format("/{0}-bikes/{1}/",bike.MakeMaskingName,bike.ModelMaskingName)" title="@bikeName" class="item-target-link underline-none">
+                                        <p class="font12 text-black">@bike.Make</p>
+                                        <h2 class="font15 margin-bottom10 text-truncate">@bike.Model</h2>
+                                        <img class="bike-image-block" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.ImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._70)" alt="@bikeName">
+                                    </a>
+                                    @if (bike.Versions.Count() > 1)
+                                    {
+                                        <div class="select-box select-box-no-input done">
+                                            <p class="select-label">Version</p>
+                                            <select class="chosen-select" data-title="Version">
+                                                @foreach (var v in bike.Versions)
+                                                {
+                                                    <option value="@v.VersionId" @(bike.VersionId != v.VersionId) ?"":"selected"> @v.VersionName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="single-version-content">
+                                            <p class="font12 text-light-grey">Version</p>
+                                            <p class="text-bold font14 dropdown-effect-light text-truncate">@bike.Versions.FirstOrDefault().VersionName</p>
+                                        </div>
+                                    }
+                                    <p class="font-12 text-light-grey margin-bottom2">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+                                    <div class="margin-bottom5">
+                                        <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 font-bold" data-bind="text: price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
+                                    </div>
+                                    @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.FeaturedBike))
+                                    {
+                                        <a href="javascript:void(0)" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@bike.Make" data-modelname="@bike.Model" data-modelid="@bike.ModelId" class="btn btn-white btn-160-32 getquotation">Check on-road price</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Model.FeaturedBike" class="font14 know-more-target">Know more<span class="bwsprite know-more-icon"></span></a>
+                                    }
+
                                 </div>
-                                <p class="font-12 text-light-grey margin-bottom2">Ex-showroom, Mumbai</p>
-                                <div class="margin-bottom5">
-                                    <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 font-bold" data-bind="text: price">70,147</span>
+                            </li>
+                        }
+                        @if (Model.Compare.BasicInfo.Count() < 4 && !Model.isSponsoredBike)
+                        {
+                            <li class="list-item">
+                                <p class="font15 text-bold margin-bottom20">Add bike to compare</p>
+                                <div class="add-bike-form">
+                                    <div class="box-placeholder">
+                                        <span class="box-label"><span class="add-icon"></span></span>
+                                    </div>
+                                    <div class="text-center">
+                                        <button  type="button" class="add-compare-btn btn btn-white btn-160-32">Add another bike</button>
+                                    </div>
                                 </div>
-                                <a href="" class="btn btn-white btn-160-32">Check on-road price</a>
-                            </div>
-                        </li>
-                        <li class="list-item">
-                            <div class="bike-details-block">
-                                <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
-                                <a href="" title="Honda CB Shine" class="item-target-link underline-none">
-                                    <p class="font12 text-black">Honda</p>
-                                    <h2 class="font15 margin-bottom10 text-truncate">CB Shine</h2>
-                                    <img class="bike-image-block" src="https://imgd.aeplcdn.com/227x128/bw/models/honda-shine.jpg" alt="Honda CB Shine">
-                                </a>
-                                <div class="single-version-content">
-                                    <p class="font12 text-light-grey">Version</p>
-                                    <p class="text-bold font14 dropdown-effect-light text-truncate">Standard</p>
-                                </div>
-                                <p class="font-12 text-light-grey margin-bottom2">Ex-showroom, Mumbai</p>
-                                <div class="margin-bottom5">
-                                    <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 font-bold" data-bind="text: price">70,147</span>
-                                </div>
-                                <a href="" class="btn btn-white btn-160-32">Check on-road price</a>
-                            </div>
-                        </li>
-                        <li class="list-item">
-                            <div class="bike-details-block">
-                                <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
-                                <a href="" title="Honda CB Shine" class="item-target-link underline-none">
-                                    <p class="font12 text-black">Honda</p>
-                                    <h2 class="font15 margin-bottom10 text-truncate">CB Shine</h2>
-                                    <img class="bike-image-block" src="https://imgd.aeplcdn.com/227x128/bw/models/honda-shine.jpg" alt="Honda CB Shine">
-                                </a>
-                                <div class="select-box select-box-no-input done">
-                                    <p class="select-label">Version</p>
-                                    <select class="chosen-select" data-title="Version">
-                                        <option value=""></option>
-                                        <option value="4580" selected>Drum (BS IV)</option>
-                                        <option value="4581">Disk (BS IV)</option>
-                                        <option value="4582">CBS (BS IV)</option>
-                                    </select>
-                                </div>
-                                <p class="font-12 text-light-grey margin-bottom2">Ex-showroom, Mumbai</p>
-                                <div class="margin-bottom5">
-                                    <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 font-bold" data-bind="text: price">70,147</span>
-                                </div>
-                                <a href="" class="btn btn-white btn-160-32">Check on-road price</a>
-                            </div>
-                        </li>
-                        <li class="list-item sponsored-list-item">
-                            <div class="bike-details-block">
-                                <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
-                                <span class="position-abt text-light-grey font12 top-neg17">Sponsored</span>
-                                <a href="" title="Honda CB Shine" class="item-target-link underline-none">
-                                    <p class="font12 text-black">Honda</p>
-                                    <h2 class="font15 margin-bottom10 text-truncate">CB Shine</h2>
-                                    <img class="bike-image-block" src="https://imgd.aeplcdn.com/227x128/bw/models/honda-shine.jpg" alt="Honda CB Shine">
-                                </a>
-                                <div class="select-box select-box-no-input done">
-                                    <p class="select-label">Version</p>
-                                    <select class="chosen-select" data-title="Version">
-                                        <option value=""></option>
-                                        <option value="4580" selected>Drum (BS IV)</option>
-                                        <option value="4581">Disk (BS IV)</option>
-                                        <option value="4582">CBS (BS IV)</option>
-                                    </select>
-                                </div>
-                                <p class="font-12 text-light-grey margin-bottom2">Ex-showroom, Mumbai</p>
-                                <div class="margin-bottom5">
-                                    <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 font-bold" data-bind="text: price">70,147</span>
-                                </div>
-                                <a href="" class="font14 know-more-target">Know more<span class="bwsprite know-more-icon"></a>
-                            </div>
-                        </li>
+                            </li>
+                        }
+
                     </ul>
                     <div class="clear"></div>
                 </div>
@@ -152,47 +133,33 @@
                     </div>
                     <div class="grid-10 alpha omega">
                         <ul class="compare-bike-list floating-compare-list">
-                            <li class="list-item">
-                                <div class="bike-details-block">
-                                    <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
-                                    <a href="" title="Honda CB Shine" class="item-target-link underline-none">
-                                        <p class="font12 text-black">Honda</p>
-                                        <p class="font14 text-bold text-black margin-bottom5 text-truncate">CB Shine</p>
-                                    </a>
-                                    <a href="" class="btn btn-white btn-160-32">Check on-road price</a>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="bike-details-block">
-                                    <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
-                                    <a href="" title="Honda CB Shine" class="item-target-link underline-none">
-                                        <p class="font12 text-black">Honda</p>
-                                        <p class="font14 text-bold text-black margin-bottom5 text-truncate">CB Shine</p>
-                                    </a>
-                                    <a href="" class="btn btn-white btn-160-32">Check on-road price</a>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="bike-details-block">
-                                    <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
-                                    <a href="" title="Honda CB Shine" class="item-target-link underline-none">
-                                        <p class="font12 text-black">Honda</p>
-                                        <p class="font14 text-bold text-black margin-bottom5 text-truncate">CB Shine</p>
-                                    </a>
-                                    <a href="" class="btn btn-white btn-160-32">Check on-road price</a>
-                                </div>
-                            </li>
-                            <li class="list-item sponsored-list-item">
-                                <div class="bike-details-block">
-                                    <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
-                                    <span class="position-abt text-light-grey font9 top-neg10">Sponsored</span>
-                                    <a href="" title="Honda CB Shine" class="item-target-link underline-none">
-                                        <p class="font12 text-black">Honda</p>
-                                        <p class="font14 text-bold text-black margin-bottom5 text-truncate">CB Shine</p>
-                                    </a>
-                                    <a href="" class="know-more-target">Know more<span class="bwsprite know-more-icon"></span></a>
-                                </div>
-                            </li>
+                            @foreach (var bike in Model.Compare.BasicInfo)
+                            {
+                                string bikeName = string.Format("{0} {1}", bike.Make, bike.Model);
+                                <li class="@string.Format("list-item {0}", (bike.VersionId != Model.sponsoredVersionId) ? "" : "sponsored-list-item")">
+                                    <div class="bike-details-block">
+                                        <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
+                                        @if (bike.VersionId == Model.sponsoredVersionId)
+                                        {
+                                            <span class="position-abt text-light-grey font9 top-neg10">Sponsored</span>
+                                        }
+
+                                        <a href="@bikeName" title="@bikeName" class="item-target-link underline-none">
+                                            <p class="font12 text-black">@bike.Make</p>
+                                            <p class="font14 text-bold text-black margin-bottom5 text-truncate">@bike.Model</p>
+                                        </a>
+                                        @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.FeaturedBike))
+                                        {
+                                            <a href="javascript:void(0)" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@bike.Make" data-modelname="@bike.Model" data-modelid="@bike.ModelId" class="btn btn-white btn-160-32 getquotation">Check on-road price</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Model.FeaturedBike" class="know-more-target">Know more<span class="bwsprite know-more-icon"></span></a>
+                                        }
+
+                                    </div>
+                                </li>
+                            }
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -213,417 +180,187 @@
                         <li data-tabs="coloursTabContent">Colours</li>
                     </ul>
                 </div>
+                @if (Model.Compare.CompareSpecifications != null)
+                {
+                    <div id="specsTabContent" class="bw-tabs-data font14">
 
-                <div id="specsTabContent" class="bw-tabs-data font14">
-                    <ul class="accordion-list">
-                        <li>
-                            <div class="model-accordion-tab">
-                                <span class="model-sprite specs-2-sm"></span>
-                                <span class="accordion-tab-label">Engine &amp; Transmission</span>
-                            </div>
+                        <ul class="accordion-list">
+                            @{isFirstActiveTab = true;}  @foreach (var spec in Model.Compare.CompareSpecifications.Spec)
+                            {
+                                <li>
+                                    <div class="model-accordion-tab">
+                                        <span class="model-sprite specs-@spec.Value-sm"></span>
+                                        <span class="accordion-tab-label">@spec.Text</span>
+                                    </div>
+                                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                        <tbody>
+                                            @foreach (var specCat in spec.SpecCategory)
+                                            {
+                                                <tr class="row-width-grid">
+                                                    <td width="162"></td>
+                                                    @foreach (var compSpec in specCat.CompareSpec)
+                                                    {
+                                                        <td></td>
+                                                    }
+                                                    <td></td>
+                                                </tr>
+                                            }
+
+                                            @{isFirstActiveTab = false;} @foreach (var specCat in spec.SpecCategory)
+                                            {
+
+                                                <tr class="row-type-data">
+                                                    <td>@specCat.Text</td>
+                                                    @foreach (var compSpec in specCat.CompareSpec)
+                                                    {
+                                                        <td>@compSpec.Value</td>
+                                                       
+                                                    }
+                                                    <td></td>
+                                                </tr>
+
+                                            }
+                                        </tbody>
+
+                                    </table>
+                                </li>
+                            }
+                        </ul>
+
+                    </div>
+                }
+
+                @if (Model.Compare.CompareFeatures != null)
+                {
+                    <div id="featuresTabContent" class="bw-tabs-data font14 hide">
+                        @foreach (var spec in Model.Compare.CompareFeatures.Spec)
+                        {
                             <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
                                 <tbody>
-                                    <tr class="row-width-grid">
-                                        <td width="162"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td>Brake Type</td>
-                                        <td>Disc</td>
-                                        <td>Disc</td>
-                                        <td>Disc</td>
-                                        <td>Disc</td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td>Front Disc</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>No</td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td>Calliper Type</td>
-                                        <td>Front-4-Piston , Rear-Single Piston Calliper</td>
-                                        <td>--</td>
-                                        <td>--</td>
-                                        <td>Front-4-Piston , Rear-Single Piston Calliper</td>
-                                    </tr>
+                                    @foreach (var specCat in spec.SpecCategory)
+                                    {
+                                        <tr class="row-width-grid">
+                                            <td width="162"></td>
+                                            @foreach (var compSpec in specCat.CompareSpec)
+                                            {
+                                                <td></td>
+                                            }
+                                            <td></td>
+                                        </tr>
+                                    }
+
+                                    @{isFirstActiveTab = false;} @foreach (var specCat in spec.SpecCategory)
+                                    {
+
+                                        <tr class="row-type-data">
+                                            <td>@specCat.Text</td>
+                                            @foreach (var compSpec in specCat.CompareSpec)
+                                            {
+                                                <td>@compSpec.Value</td>
+                                              
+                                            }
+                                            <td></td>
+                                        </tr>
+
+                                    }
                                 </tbody>
                             </table>
-                        </li>
-                        <li>
-                            <div class="model-accordion-tab">
-                                <span class="model-sprite specs-3-sm"></span>
-                                <span class="accordion-tab-label">Brakes, Wheels and Suspension</span>
-                            </div>
-                            <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                                <tbody>
-                                    <tr class="row-width-grid">
-                                        <td width="162"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td>Brake Type</td>
-                                        <td>Disc</td>
-                                        <td>Disc</td>
-                                        <td>Disc</td>
-                                        <td>Disc</td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td>Front Disc</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>Yes</td>
-                                        <td>No</td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td>Calliper Type</td>
-                                        <td>Front-4-Piston , Rear-Single Piston Calliper</td>
-                                        <td>--</td>
-                                        <td>--</td>
-                                        <td>Front-4-Piston , Rear-Single Piston Calliper</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </li>
-                        <li>
-                            <div class="model-accordion-tab">
-                                <span class="model-sprite specs-4-sm"></span>
-                                <span class="accordion-tab-label">Dimensions and Chassis</span>
-                            </div>
-                            <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                                <tbody>
-                                    <tr class="row-width-grid">
-                                        <td width="162"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td>Brake Type</td>
-                                        <td>Disc</td>
-                                        <td>Disc</td>
-                                        <td>Disc</td>
-                                        <td>Disc</td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td>Front Disc</td>
-                                        <td>Yes</td>
-                                        <td>No</td>
-                                        <td>No</td>
-                                        <td>Yes</td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td>Calliper Type</td>
-                                        <td>Front-4-Piston , Rear-Single Piston Calliper</td>
-                                        <td>--</td>
-                                        <td>--</td>
-                                        <td>Front-4-Piston , Rear-Single Piston Calliper</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </li>
-                        <li>
-                            <div class="model-accordion-tab">
-                                <span class="model-sprite specs-5-sm"></span>
-                                <span class="accordion-tab-label">Fuel efficiency and Performance</span>
-                            </div>
-                            <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                                <tbody>
-                                    <tr class="row-width-grid">
-                                        <td width="162"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td>Brake Type</td>
-                                        <td>Disc</td>
-                                        <td>Disc</td>
-                                        <td>Disc</td>
-                                        <td>Disc</td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td>Front Disc</td>
-                                        <td>Yes</td>
-                                        <td>No</td>
-                                        <td>No</td>
-                                        <td>Yes</td>
-                                    </tr>
-                                    <tr class="row-type-data">
-                                        <td>Calliper Type</td>
-                                        <td>Front-4-Piston , Rear-Single Piston Calliper</td>
-                                        <td>--</td>
-                                        <td>--</td>
-                                        <td>Front-4-Piston , Rear-Single Piston Calliper</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </li>
-                    </ul>
-                </div>
-                <div id="featuresTabContent" class="bw-tabs-data font14 hide">
-                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                        <tbody>
-                            <tr class="row-width-grid">
-                                <td width="162"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr class="row-type-data">
-                                <td>Speedometer</td>
-                                <td>Digital</td>
-                                <td>Digital</td>
-                                <td>Digital</td>
-                                <td>Digital</td>
-                            </tr>
-                            <tr class="row-type-data">
-                                <td>Tachometer</td>
-                                <td>Yes</td>
-                                <td>Yes</td>
-                                <td>Yes</td>
-                                <td>Yes</td>
-                            </tr>
-                            <tr class="row-type-data">
-                                <td>Tachometer Type</td>
-                                <td>Analogue</td>
-                                <td>Digital</td>
-                                <td>Digital</td>
-                                <td>Analogue</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="coloursTabContent" class="bw-tabs-data font14 hide">
-                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                        <tbody>
-                            <tr class="row-width-grid">
-                                <td width="162"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr class="row-type-data">
-                                <td>Avialable Colours</td>
-                                <td>
-                                    <ul class="color-box-list">
-                                        <li>
-                                            <div class="color-box inline-block color-count-1">
-                                                <span style="background-color: #f5f5f5"></span>
-                                            </div>
-                                            <p class="color-box-label inline-block text-truncate">Bianco</p>
-                                        </li>
-                                        <li>
-                                            <div class="color-box inline-block color-count-2">
-                                                <span style="background-color: #00559C"></span>
-                                                <span style="background-color: #CBCED1"></span>
-                                            </div>
-                                            <p class="color-box-label inline-block text-truncate">Athletic Blue Metallic</p>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul class="color-box-list">
-                                        <li>
-                                            <div class="color-box inline-block color-count-1">
-                                                <span style="background-color: #747375"></span>
-                                            </div>
-                                            <p class="color-box-label inline-block text-truncate">Geny Grey Metallic</p>
-                                        </li>
-                                        <li>
-                                            <div class="color-box inline-block color-count-1">
-                                                <span style="background-color: #EA353A"></span>
-                                            </div>
-                                            <p class="color-box-label inline-block text-truncate">Sports Red</p>
-                                        </li>
-                                        <li>
-                                            <div class="color-box inline-block color-count-2">
-                                                <span style="background-color: #AE2731"></span>
-                                                <span style="background-color: #CBCED1"></span>
-                                            </div>
-                                            <p class="color-box-label inline-block text-truncate">Rebel Red Metallic</p>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul class="color-box-list">
-                                        <li>
-                                            <div class="color-box inline-block color-count-1">
-                                                <span style="background-color: #f5f5f5"></span>
-                                            </div>
-                                            <p class="color-box-label inline-block text-truncate">Bianco</p>
-                                        </li>
-                                        <li>
-                                            <div class="color-box inline-block color-count-2">
-                                                <span style="background-color: #00559C"></span>
-                                                <span style="background-color: #CBCED1"></span>
-                                            </div>
-                                            <p class="color-box-label inline-block text-truncate">Athletic Blue Metallic</p>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul class="color-box-list">
-                                        <li>
-                                            <div class="color-box inline-block color-count-1">
-                                                <span style="background-color: #747375"></span>
-                                            </div>
-                                            <p class="color-box-label inline-block text-truncate">Geny Grey Metallic</p>
-                                        </li>
-                                        <li>
-                                            <div class="color-box inline-block color-count-1">
-                                                <span style="background-color: #EA353A"></span>
-                                            </div>
-                                            <p class="color-box-label inline-block text-truncate">Sports Red</p>
-                                        </li>
-                                        <li>
-                                            <div class="color-box inline-block color-count-2">
-                                                <span style="background-color: #AE2731"></span>
-                                                <span style="background-color: #CBCED1"></span>
-                                            </div>
-                                            <p class="color-box-label inline-block text-truncate">Rebel Red Metallic</p>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        }
+                    </div>
+                }
+                @if (Model.Compare.CompareColors != null)
+                {
+                    <div id="coloursTabContent" class="bw-tabs-data font14 hide">
+                        <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                            <tbody>
+                                <tr class="row-width-grid">
+                                    <td width="162"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td>Avialable Colours</td>
+                                    @foreach (var bike in Model.Compare.CompareColors.bikes)
+                                    {
+                                        <td>
+                                            <ul class="color-box-list">
+                                                @foreach (var color in bike.bikeColors)
+                                                {
+                                                    <li>
+                                                        <div class="color-box inline-block color-count-@color.HexCodes.Count()">
+                                                            @foreach (var hexCode in color.HexCodes)
+                                                            {
+                                                                <span style="background-color: #@hexCode"></span>
+                                                            }
+                                                        </div>
+                                                        <p class="color-box-label inline-block text-truncate">@color.Color </p>
+                                                    </li>
+                                                }
+
+                                            </ul>
+                                        </td>
+                                    }
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                }
 
                 <div id="comparison-footer"></div>
             </div>
+            @if (Model.isUsedBikePresent)
+            {
+                <div id="used-bikes-container" class="content-box-shadow font14">
+                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr class="row-width-grid">
+                                <td width="162"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td class="row-heading">Used bikes you may like</td>
+                                @foreach (var bike in Model.Compare.BasicInfo)
+                                {
+                                    <td>
+                                        @if (bike.UsedBikeCount.BikeCount > 0)
+                                        {
+                                            <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" ) ">@string.Format("{0} Used {1} {2}",bike.UsedBikeCount.BikeCount,bike.Make,bike.Model)</a><br />
+                                            <span>
+                                                Starting at&nbsp;<span class="bwsprite inr-sm-dark"></span>@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
+                                            </span>}
+                                        else
+                                        {
+                                            <span>--</span>
 
-            <div id="used-bikes-container" class="content-box-shadow font14">
-                <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
-                    <tbody>
-                        <tr class="row-width-grid">
-                            <td width="162"></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="row-type-data">
-                            <td class="row-heading">Used bikes you may like</td>
-                            <td>
-                                <a href="">10 Used KTM 390 Duke</a><br />
-                                <span>Starting at&nbsp;<span class="bwsprite inr-sm-dark"></span>1,23,000
-                                </span>
-                            </td>
-                            <td>
-                                <a href="">10 Bajaj Dominar 400</a><br />
-                                <span>Starting at&nbsp;<span class="bwsprite inr-sm-dark"></span>1,23,000
-                                </span>
-                            </td>
-                            <td>
-                                <a href="">10 Used KTM 390 Duke</a><br />
-                                <span>Starting at&nbsp;<span class="bwsprite inr-sm-dark"></span>1,23,000
-                                </span>
-                            </td>
-                            <td>
-                                <a href="">10 Bajaj Dominar 400</a><br />
-                                <span>Starting at&nbsp;<span class="bwsprite inr-sm-dark"></span>1,23,000
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                                        }
+                                    </td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            }
         </div>
         <div class="clear"></div>
     </div>
 </section>
-
+@if (Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
+{
 <section>
     <div class="container card-bottom-margin">
         <div class="grid-12">
             <div class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 article-list font14">
                 <h2 class="h2-heading margin-bottom20 margin-left10">Similar bike comparisons by our experts</h2>
-                <article class="margin-bottom20">
-                    <div class="grid-4">
-                        <div class="model-preview-image-container">
-                            <a href="">
-                                <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&amp;q=75" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" alt="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" src="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="grid-8">
-                        <header>
-                            <a href="" class="article-target-link" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test</a>
-                        </header>
-                        <div class="article-stats-left-grid">
-                            <span class="bwsprite calender-grey-sm-icon"></span>
-                            <span class="article-stats-content">Jun 06, 2016</span>
-                        </div>
-                        <div class="article-stats-right-grid">
-                            <span class="bwsprite author-grey-sm-icon"></span>
-                            <span class="article-stats-content">Pratheek Kunder</span>
-                        </div>
-                        <p class="line-height17 margin-top10">Two bikes Two different body styles yet we rsquo re doing a comparison test Why Because both get almost the same set of features technology and also the same set of buyers And these bikes are easily the most accessible and affordable performance motorcycles under Rs 1 5... </p>
-                    </div>
-                    <div class="clear"></div>
-                </article>
-                <article class="margin-bottom20">
-                    <div class="grid-4">
-                        <div class="model-preview-image-container">
-                            <a href="">
-                                <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&amp;q=75" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" alt="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" src="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="grid-8">
-                        <header>
-                            <a href="" class="article-target-link" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test</a>
-                        </header>
-                        <div class="article-stats-left-grid">
-                            <span class="bwsprite calender-grey-sm-icon"></span>
-                            <span class="article-stats-content">Jun 06, 2016</span>
-                        </div>
-                        <div class="article-stats-right-grid">
-                            <span class="bwsprite author-grey-sm-icon"></span>
-                            <span class="article-stats-content">Pratheek Kunder</span>
-                        </div>
-                        <p class="line-height17 margin-top10">Two bikes Two different body styles yet we rsquo re doing a comparison test Why Because both get almost the same set of features technology and also the same set of buyers And these bikes are easily the most accessible and affordable performance motorcycles under Rs 1 5... </p>
-                    </div>
-                    <div class="clear"></div>
-                </article>
-                <article class="margin-bottom20">
-                    <div class="grid-4">
-                        <div class="model-preview-image-container">
-                            <a href="">
-                                <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&amp;q=75" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" alt="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" src="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="grid-8">
-                        <header>
-                            <a href="" class="article-target-link" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test</a>
-                        </header>
-                        <div class="article-stats-left-grid">
-                            <span class="bwsprite calender-grey-sm-icon"></span>
-                            <span class="article-stats-content">Jun 06, 2016</span>
-                        </div>
-                        <div class="article-stats-right-grid">
-                            <span class="bwsprite author-grey-sm-icon"></span>
-                            <span class="article-stats-content">Pratheek Kunder</span>
-                        </div>
-                        <p class="line-height17 margin-top10">Two bikes Two different body styles yet we rsquo re doing a comparison test Why Because both get almost the same set of features technology and also the same set of buyers And these bikes are easily the most accessible and affordable performance motorcycles under Rs 1 5... </p>
-                    </div>
-                    <div class="clear"></div>
-                </article>
+                @Html.Partial("~/Views/ComparisonTest/_ComparisonTestWidget.cshtml", Model.ArticlesList)
                 <div class="padding-left10 more-article-target view-all-btn-container">
-                    <a title="" href="" class="btn view-all-target-btn">Read all reviews<span class="bwsprite teal-right"></span>
+                    <a title="Comparison Test" href="/comparison-tests/" class="btn view-all-target-btn">
+                        Read all reviews<span class="bwsprite teal-right"></span>
                     </a>
                 </div>
             </div>
@@ -631,15 +368,14 @@
         <div class="clear"></div>
     </div>
 </section>
-
+}
 <section>
     <div class="container card-bottom-margin">
         <div class="grid-12">
             <div class="content-box-shadow content-inner-block-20">
-                <p class="h2-heading text-bold text-black margin-bottom20">Bike Comparison - KTM 390 Duke vs Bajaj Dominar 400</p>
+                <p class="h2-heading text-bold text-black margin-bottom20">Bike Comparison - @Model.templateSummaryTitle</p>
                 <div class="font14 text-slate-grey collapsible-content">
-                    <p class="main-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque semper sem id elit volutpat, eget lobortis neque auctor. Nunc auctor quam in ipsum euismod porta. Integer lobortis cursus ultricies. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque semper sem id elit volutpat, eget lobortis neque auctor. Nunc auctor quam in ipsum euismod porta. Integer lobortis cursus ultricies</p>
-                    <p class="more-content">Vivamus sit amet ultricies justo. Integer in leo dapibus, tincidunt libero eu, euismod leo. Suspendisse pellentesque risus dolor</p>
+                    <p class="main-content">@Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText,300)</p><p class="more-content">@Model.compareSummaryText.Substring(300)</p>
                     <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                 </div>
             </div>
@@ -653,114 +389,7 @@
         <div class="grid-12">
             <div class="content-box-shadow padding-top20">
                 <h2 class="h2-heading padding-left20 margin-bottom20">People who compared above bikes also compared</h2>
-                <div class="jcarousel-wrapper inner-content-carousel comparison-type-carousel padding-bottom20">
-                    <div class="jcarousel">
-                        <ul>
-                            <li>
-                                <a href="" title="" class="card-target">
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
-                                        </div>
-                                        <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
-                                        <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
-                                        <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
-                                    </div>
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
-                                        </div>
-                                        <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
-                                        <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
-                                        <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="margin-top20 text-center">
-                                        <span class="btn btn-white btn-160-36">Compare now</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" title="" class="card-target">
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
-                                        </div>
-                                        <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
-                                        <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
-                                        <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
-                                    </div>
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
-                                        </div>
-                                        <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
-                                        <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
-                                        <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="margin-top20 text-center">
-                                        <span class="btn btn-white btn-160-36">Compare now</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" title="" class="card-target">
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
-                                        </div>
-                                        <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
-                                        <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
-                                        <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
-                                    </div>
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
-                                        </div>
-                                        <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
-                                        <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
-                                        <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="margin-top20 text-center">
-                                        <span class="btn btn-white btn-160-36">Compare now</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" title="" class="card-target">
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="lazy" alt="Royal Enfield Himalayan" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/royalenfield-himalayan.jpg" src="" />
-                                        </div>
-                                        <h3 class="font15 text-black margin-bottom10 text-truncate">Royal Enfield Himalayan</h3>
-                                        <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
-                                        <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,63,338</span>
-                                    </div>
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="lazy" alt="Honda CB Hornet 160R" title="" data-original="https://imgd1.aeplcdn.com//210x118//bw/models/honda-cb-hornet-160r.jpg" src="" />
-                                        </div>
-                                        <h3 class="font15 text-black margin-bottom10 text-truncate">Honda CB Hornet 160R</h3>
-                                        <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, Mumbai</p>
-                                        <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">87,543</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="margin-top20 text-center">
-                                        <span class="btn btn-white btn-160-36">Compare now</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <span class="jcarousel-control-left">
-                        <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
-                    </span>
-                    <span class="jcarousel-control-right">
-                        <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
-                    </span>
-                </div>
+                @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle.cshtml", Model.topBikeCompares)
             </div>
         </div>
         <div class="clear"></div>
