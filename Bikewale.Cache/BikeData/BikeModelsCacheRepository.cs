@@ -61,6 +61,8 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created By: Sangram Nandkhile on 01 Dec 2016
         /// Summary: To Create a overload of cached model entity with version Id
+        /// Modified by Sajal Gupta on 19-05-2017
+        /// Description : Changed version of cache key.
         /// </summary>
         public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
         {

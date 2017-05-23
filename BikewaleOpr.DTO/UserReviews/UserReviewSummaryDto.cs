@@ -42,5 +42,8 @@ namespace BikewaleOpr.DTO.UserReviews
 
         [JsonProperty("customerEmail")]
         public string CustomerEmail { get; set; }
+
+        [JsonProperty("isShortListed")]
+        public bool IsShortListed { get; set; }
     }
 }
