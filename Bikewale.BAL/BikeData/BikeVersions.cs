@@ -1,9 +1,11 @@
 ﻿using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -78,6 +80,11 @@ namespace Bikewale.BAL.BikeData
             throw new NotImplementedException();
         }
 
+        public IEnumerable<BikeVersionsSegment> GetModelVersionsDAL()
+        {
+            throw new NotImplementedException();
+        }
+
         public T GetById(U id)
         {
             T t = versionRepository.GetById(id);
@@ -122,6 +129,33 @@ namespace Bikewale.BAL.BikeData
         public IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId)
         {
             return versionRepository.GetColorsbyVersionId(versionId);
+        }
+
+        /// <summary>
+        /// Created by sajal gupta on 23-05-2017 to get version segmets details
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BikeModelVersionsDetails> GetModelVersions()
+        {
+            try
+            {
+                IEnumerable<BikeVersionsSegment> bikeVersions = versionRepository.GetModelVersionsDAL();
+
+                IEnumerable<BikeModelVersionsDetails> objVersionList = new List<BikeModelVersionsDetails>();
+
+                objVersionList = bikeVersions.GroupBy(
+                    p => new { p.ModelId, p.ModelMaskingName, p.ModelName, p.CCSegment, p.TopVersionId },
+                    p => p.VersionId > 0 ? new BikeVersionSegmentDetails(p.Segment, p.VersionName) { VersionId = p.VersionId, BodyStyle = p.BodyStyle } : null,
+                    (key, g) => new BikeModelVersionsDetails() { CCSegment = string.IsNullOrEmpty(key.CCSegment) ? "NA" : key.CCSegment, ModelId = key.ModelId, ModelName = key.ModelName, MaskingName = string.IsNullOrEmpty(key.ModelMaskingName) ? "NA" : key.ModelMaskingName, Versions = ((g != null && g.Count() > 0 && g.FirstOrDefault() != null) ? g : null), BodyStyle = (g != null && key.TopVersionId > 0 && g.FirstOrDefault(x => x != null && x.VersionId == key.TopVersionId) != null) ? g.FirstOrDefault(x => x != null && x.VersionId == key.TopVersionId).BodyStyle : "NA" }
+                    );
+
+                return objVersionList;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.BikeData.Bikeversions.GetModelVersions");
+                return null;
+            }
         }
     }   // Class
 }   // namespace
