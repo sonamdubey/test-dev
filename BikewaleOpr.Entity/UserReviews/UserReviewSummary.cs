@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 namespace BikewaleOpr.Entities.UserReviews
 {
-        [Serializable, DataContract]
+    [Serializable, DataContract]
     public class UserReviewSummary
     {
         [DataMember]
@@ -31,6 +31,8 @@ namespace BikewaleOpr.Entities.UserReviews
         public string CustomerName { get; set; }
         [DataMember]
         public string CustomerEmail { get; set; }
+        [DataMember]
+        public bool IsShortListed { get; set; }
 
     }
 }

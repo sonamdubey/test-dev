@@ -178,6 +178,19 @@ namespace Bikewale.Utility
         }
 
         /// <summary>
+        /// Created by : Aditi Srivastava on 17 May 2017
+        /// Summary    : Format bool values based on tru, false or null
+        /// </summary>
+        public static string ShowAvailable(bool? value)
+        {
+            string showValue = string.Empty;
+
+            showValue = value.HasValue ?(value.Value.Equals(true) ? "Yes" : "No"):"--";
+
+            return showValue;
+        }
+
+        /// <summary>
         /// Written By : Ashish G. Kamble on 12 Sept 2015
         /// Summary : Function to format the version specs
         /// </summary>

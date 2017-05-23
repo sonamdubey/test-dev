@@ -497,6 +497,7 @@
     <Compile Include="Controllers\CompareBikesController.cs" />
     <Compile Include="Controllers\ExpertReviewsController.cs" />
     <Compile Include="Controllers\FeaturesController.cs" />
+    <Compile Include="Controllers\GenericBestBikesController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\MakeController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
@@ -959,6 +960,7 @@
     <Compile Include="Models\Features\IndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsDetailPage.cs" />
+    <Compile Include="Models\GenericBestBikes\IndexGenericBestBikes.cs" />
     <Compile Include="Models\Make\BrandCityPopupModel.cs" />
     <Compile Include="Models\Make\DealerServiceCenterWidgetModel.cs" />
     <Compile Include="Models\DealerPriceQuotePage.cs" />
@@ -3435,6 +3437,10 @@
     <Content Include="sass\generic\listing.sass" />
     <Content Include="sass\generic\_listing-style.sass" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="sass\modules\_bike-style-icons.sass" />
+    <Content Include="sass\modules\_block-buttons.sass" />
+    <Content Include="m\sass\modules\_bike-style-icons.sass" />
+    <Content Include="m\sass\modules\_block-buttons.sass" />
     <Content Include="Views\Shared\_Layout_Mobile.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
@@ -3710,6 +3716,10 @@
     <Content Include="Views\CompareBikes\_PopularComaprisonBodyStyle_Mobile.cshtml" />
     <Content Include="Views\ComparisonTest\_ComparisonTestWidget_Mobile.cshtml" />
     <Content Include="Views\News\Detail_Mobile_nopwa.cshtml" />
+    <Content Include="Views\GenericBestBikes\Index.cshtml" />
+    <Content Include="Views\GenericBestBikes\Index_Mobile.cshtml" />
+    <Content Include="Views\GenericBestBikes\_BestBikesGenericPage.cshtml" />
+    <Content Include="Views\GenericBestBikes\_BestBikesGenericPage_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -4,6 +4,8 @@ namespace BikewaleOpr.Entity.UserReviews
     /// <summary>
     /// Written By : Ashish G. Kamble on 19 Apr 2017
     /// Summary : Class to get the required properties to update the user review info
+    /// Modified by sajal gupta on 17-05-2017
+    /// Description : Added IsShortListed
     /// </summary>
     public class UpdateReviewsInputEntity
     {
@@ -20,5 +22,6 @@ namespace BikewaleOpr.Entity.UserReviews
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
         public uint ModelId { get; set; }
+        public bool IsShortListed { get; set; }
     }
 }

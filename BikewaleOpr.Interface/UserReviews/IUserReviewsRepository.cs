@@ -12,7 +12,7 @@ namespace BikewaleOpr.Interface.UserReviews
     {
         IEnumerable<ReviewBase> GetReviewsList(ReviewsInputFilters filter);
         IEnumerable<DiscardReasons> GetUserReviewsDiscardReasons();
-        uint UpdateUserReviewsStatus(uint reviewId, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId, string review, string reviewTitle, string reviewTips);
+        uint UpdateUserReviewsStatus(uint reviewId, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId, string review, string reviewTitle, string reviewTips, bool iShortListed);
         UserReviewSummary GetUserReviewSummary(uint reviewId);
     }
 }
