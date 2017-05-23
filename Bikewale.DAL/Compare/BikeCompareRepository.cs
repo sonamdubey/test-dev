@@ -633,6 +633,8 @@ namespace Bikewale.DAL.Compare
         /// Desc : Added cityid as parameter
         /// Modified By : Sushil Kumar on 2nd Dec 2016
         /// Description : DAL layer to similar comaprisions bikes changed topcount to ushort  
+        /// Modified By :-Subodh Jain 23 May 2017 
+        /// Added :- Bike1 and Bike 2
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>
         /// <returns></returns>
@@ -676,7 +678,9 @@ namespace Bikewale.DAL.Compare
                                     HostUrl1 = Convert.ToString(reader["HostUrl1"]),
                                     HostUrl2 = Convert.ToString(reader["HostUrl2"]),
                                     City1 = Convert.ToString(reader["city1"]),
-                                    City2 = Convert.ToString(reader["city2"])
+                                    City2 = Convert.ToString(reader["city2"]),
+                                    Bike1 = string.Format("{0} {1}", Convert.ToString(reader["Make1"]), Convert.ToString(reader["Model1"])),
+                                    Bike2 = string.Format("{0} {1}", Convert.ToString(reader["Make2"]), Convert.ToString(reader["Model2"]))
                                 });
                             }
                             reader.Close();

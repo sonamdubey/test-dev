@@ -80,6 +80,7 @@
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
     <Compile Include="CompareBikes\PopularComparisonsVM.cs" />
+    <Compile Include="Compare\CompareDetailsVM.cs" />
     <Compile Include="Compare\CompareVM.cs" />
     <Compile Include="Compare\ComparisonWidgetVM.cs" />
     <Compile Include="ComparisonTests\ComparisonTestIndexPageVM.cs" />
