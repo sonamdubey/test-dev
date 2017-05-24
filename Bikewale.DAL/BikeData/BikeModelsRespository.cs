@@ -2207,7 +2207,7 @@ namespace Bikewale.DAL.BikeData
                                 bikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
                                 bikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
                                 bikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
-                                bikeInfo.OverAllRating = SqlReaderConvertor.ToUInt32(dr["overallrating"]);
+                                bikeInfo.OverAllRating = SqlReaderConvertor.ParseToDouble(dr["overallrating"]);
                                 bikeInfo.Make.MakeName = Convert.ToString(dr["makename"]);
                                 bikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
                                 bikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
