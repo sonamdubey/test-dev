@@ -68,8 +68,9 @@ namespace Bikewale.Utility
             _notificationUserId = String.Empty,
             _notificationOtherUserId = String.Empty,
             _notificationToUserMailId = String.Empty,
-            _notificationCCUserMailId = String.Empty;
-
+            _notificationCCUserMailId = String.Empty,
+            _EmailsForBikeChange = String.Empty,
+            _BwHostUrl = String.Empty;
 
 
         private readonly bool _CORSEnabled = false, _IsAppTrackDayVisible = false;
@@ -138,6 +139,8 @@ namespace Bikewale.Utility
             _SecurityHashLength = Convert.ToInt32(ConfigurationManager.AppSettings["SecurityHashLength"]);
             _UnitSoldDataNotificationDay = Convert.ToInt32(ConfigurationManager.AppSettings["unitSoldDataNotificationDay"]);
             _AWSS3Region = Convert.ToString(ConfigurationManager.AppSettings["AWSS3Region"]);
+            _EmailsForBikeChange = Convert.ToString(ConfigurationManager.AppSettings["EmailsForBikeChange"]);
+            _BwHostUrl = Convert.ToString(ConfigurationManager.AppSettings["BwHostUrl"]);
         }
 
         // Static method to provide access to instance
@@ -276,5 +279,7 @@ namespace Bikewale.Utility
         public int SecurityHashLength { get { return _SecurityHashLength; } }
         public int UnitSoldDataNotificationDay { get { return _UnitSoldDataNotificationDay; } }
         public String AWSS3Region { get { return _AWSS3Region; } }
+        public string EmailsForBikeChange { get { return _EmailsForBikeChange; } }
+        public string BwHostUrl { get { return _BwHostUrl; } }
     }   // class
 }   // namespace

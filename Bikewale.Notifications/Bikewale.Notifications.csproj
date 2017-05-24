@@ -76,6 +76,9 @@
     <Compile Include="MailTemplates\CustomerRegistrationMailTemplate.cs" />
     <Compile Include="MailTemplates\ErrorMailTemplate.cs" />
     <Compile Include="MailTemplates\FeedbackMailer.cs" />
+    <Compile Include="MailTemplates\MakeMaskingNameChangedMail.cs" />
+    <Compile Include="MailTemplates\ModelMaskingNameChangedMail.cs" />
+    <Compile Include="MailTemplates\ModelDiscontinuedMail.cs" />
     <Compile Include="MailTemplates\ModelSoldUnitMailTemplate.cs" />
     <Compile Include="MailTemplates\NewBikePriceQuoteMailToDealerTemplate.cs" />
     <Compile Include="MailTemplates\NewBikePriceQuoteMailToDealerTemplate_old.cs" />
@@ -110,6 +113,7 @@
     <Compile Include="SendMails.cs" />
     <Compile Include="SMS\SMSCommon.cs" />
     <Compile Include="SMS\SMSTypes.cs" />
+    <Compile Include="SendEmailOnModelChange.cs" />
     <Compile Include="UserReviewsEmails.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +124,10 @@
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
       <Name>Bikewale.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
+      <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
+      <Name>BikewaleOpr.Entity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

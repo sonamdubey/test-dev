@@ -56,6 +56,7 @@
     <Compile Include="BikeData\BikeMakeEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
+    <Compile Include="BikeData\BikeModelMailEntity.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
     <Compile Include="BikeData\OprNotificationType.cs" />
     <Compile Include="BikeData\SoldUnitData.cs" />
