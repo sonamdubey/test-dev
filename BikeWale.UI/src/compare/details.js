@@ -492,6 +492,7 @@ docReady(function() {
             else {
                 selectBox.first().find('#btnCompare').hide();
                 selectBox.first().find('.error-text').text("Please choose different bikes for comparison.");
+                selectBox.first().find('.error-text').show();
 
             }
 

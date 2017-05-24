@@ -139,6 +139,8 @@ namespace Bikewale.Models
                     break;
                 case EnumBikeBodyStyles.Scooter:
                     obj.Content = "Whether you live in a metro or a small town, you will find lots of scooters around! Scooters in India have gained immense popularity in the last decade. With more than 10 brands and over 50 models, it gets really difficult to pick the best scooter. We have more than 50 lakh people researching scooters on BikeWale every month, so this list of best scooters in India is made out of our users’ choice and truly reflects the popularity of scooters. We bring you information about ex-showroom price, colors, variants, monthly units sold, popularity and launch date of best scooters to help you pick the best one. Have a look at the list of best scooters in India to find the most suitable scooter for you.";
+                    obj.pqSource = PQSourceEnum.Desktop_Generic_Scooters;
+                    obj.bannerImage = "https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/scooter-style-banner.jpg";
                     break;
                 case EnumBikeBodyStyles.Sports:
                     obj.Content = "All of us have dreamt of buying a sports bike at some point. The difficult question to answer has always been ‘which is the best sports bike?’. BikeWale brings you a list of top 10 sports bikes in India. The list has been curated from the enormous amount of data being generated while researching sports bikes on BikeWale. We bring you information about ex-showroom price, colors, variants, monthly units sold, popularity and launch date of the best sports bikes to help you pick the best one. To buy the best sports bikes, BikeWale recommends you to explore the list of best sports bikes in India.";
@@ -160,7 +162,7 @@ namespace Bikewale.Models
         /// </summary>
         private void FetchBestBikesList(IndexBestBikesVM obj)
         {
-            uint cityId=0;
+            uint cityId = 0;
             try
             {
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
