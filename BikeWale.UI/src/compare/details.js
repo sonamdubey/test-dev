@@ -378,7 +378,7 @@ docReady(function() {
 
         dropdownChange: function (selectBox, elementValue) {
             selectBox.addClass('done');
-
+            var sameversion=false;
             if($(selectBox).hasClass('select-brand')) {
                 compareBox.resetDropdownSelection(selectBox);
                 compareBox.getModels(elementValue, selectBox.next()[0]);
@@ -391,11 +391,23 @@ docReady(function() {
                 var listItem = selectBox.closest('.list-item'),
                     list = listItem.closest('.compare-box-list')[0];
                 if (listItem[0].getAttribute('data-value') && bikeDetails[Number(listItem[0].getAttribute('data-value'))].versionId != elementValue) {
-                    bikeDetails.splice(listItem[0].getAttribute('data-value'), 1);
-                    compareBox.getVersionData(elementValue, listItem);
-                    getUrl();
+                    $.each(bikeDetails, function (i, val) {
+                        if (val.versionId == elementValue)
+                            sameversion = true;
+
+                    });
+                    if (!sameversion) {
+                        bikeDetails.splice(listItem[0].getAttribute('data-value'), 1);
+                        compareBox.getVersionData(elementValue, listItem);
+                        getUrl();
+                    }
+                    else {
+                        listItem.first().find('.error-text').text("Please choose different bikes for comparison.");
+                        listItem.first().find('.error-text').show();
+                    }
                 }
                 else {
+                    listItem.first().find('.error-text').hide();
                     compareBox.getVersionData(elementValue, listItem);
                 }
             }
