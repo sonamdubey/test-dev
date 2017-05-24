@@ -86,7 +86,10 @@ namespace Bikewale.Controllers
                 {
                     CompareDetailsVM objVM = null;
                     objVM = objDetails.GetData();
-
+                    if (objDetails.status == Entities.StatusCodes.RedirectPermanent)
+                    {
+                        return RedirectPermanent(objDetails.redirectionUrl);
+                    }
                     if (objVM != null && objVM.Compare != null)
                     {
                         return View(objVM);
@@ -98,7 +101,7 @@ namespace Bikewale.Controllers
                 }
                 else if (objDetails.status == Entities.StatusCodes.RedirectPermanent)
                 {
-                    return Redirect(objDetails.redirectionUrl);
+                    return RedirectPermanent(objDetails.redirectionUrl);
                 }
                 else if ((objDetails.status == Entities.StatusCodes.RedirectTemporary))
                 {

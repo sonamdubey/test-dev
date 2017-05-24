@@ -9,7 +9,7 @@
     Model.AdTags.AdPath = "/1017752/BikeWale_CompareBikes_";
     Model.AdTags.Ad_300x250 = true;
     Model.AdTags.Ad_300x250BTF = true;
-    }
+}
 
 <section>
     <div class="container padding-top10">
@@ -74,10 +74,10 @@
                                         <div class="select-box select-box-no-input select-version done">
                                             <p class="select-label">Version</p>
                                             <select class="chosen-select" data-title="Version">
-                                                
+
                                                 @foreach (var v in bike.Versions)
                                                 {
-                                                    <option value="@v.VersionId" @(bike.VersionId != v.VersionId ?"":"selected")> @v.VersionName</option>
+                                                    <option value="@v.VersionId" @(bike.VersionId != v.VersionId ? "" : "selected")> @v.VersionName</option>
                                                 }
                                             </select>
                                         </div>
@@ -115,7 +115,7 @@
                                         <span class="box-label"><span class="add-icon"></span></span>
                                     </div>
                                     <div class="text-center">
-                                        <button  type="button" class="add-compare-btn btn btn-white btn-160-32">Add another bike</button>
+                                        <button type="button" class="add-compare-btn btn btn-white btn-160-32">Add another bike</button>
                                     </div>
                                 </div>
                             </li>
@@ -147,7 +147,7 @@
                                             <span class="position-abt text-light-grey font9 top-neg10">Sponsored</span>
                                         }
 
-                                        <a href="@bikeName" title="@bikeName" class="item-target-link underline-none">
+                                        <a href="@string.Format("/{0}-bikes/{1}/", bike.MakeMaskingName, bike.ModelMaskingName)" title="@bikeName" class="item-target-link underline-none">
                                             <p class="font12 text-black">@bike.Make</p>
                                             <p class="font14 text-bold text-black margin-bottom5 text-truncate">@bike.Model</p>
                                         </a>
@@ -217,7 +217,7 @@
                                                     @foreach (var compSpec in specCat.CompareSpec)
                                                     {
                                                         <td>@compSpec.Value</td>
-                                                       
+
                                                     }
                                                     <td></td>
                                                 </tr>
@@ -260,7 +260,7 @@
                                             @foreach (var compSpec in specCat.CompareSpec)
                                             {
                                                 <td>@compSpec.Value</td>
-                                              
+
                                             }
                                             <td></td>
                                         </tr>
@@ -333,7 +333,7 @@
                                     <td>
                                         @if (bike.UsedBikeCount.BikeCount > 0)
                                         {
-                                            <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" ) ">@string.Format("{0} Used {1} {2}",bike.UsedBikeCount.BikeCount,bike.Make,bike.Model)</a><br />
+                                            <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" )" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a><br />
                                             <span>
                                                 Starting at&nbsp;<span class="bwsprite inr-sm-dark"></span>@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
                                             </span>}
@@ -353,25 +353,7 @@
         <div class="clear"></div>
     </div>
 </section>
-@if (Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
-{
-<section>
-    <div class="container card-bottom-margin">
-        <div class="grid-12">
-            <div class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 article-list font14">
-                <h2 class="h2-heading margin-bottom20 margin-left10">Similar bike comparisons by our experts</h2>
-                @Html.Partial("~/Views/ComparisonTest/_ComparisonTestWidget.cshtml", Model.ArticlesList)
-                <div class="padding-left10 more-article-target view-all-btn-container">
-                    <a title="Comparison Test" href="/comparison-tests/" class="btn view-all-target-btn">
-                        Read all reviews<span class="bwsprite teal-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="clear"></div>
-    </div>
-</section>
-}
+
 @if (Model.compareSummaryText != null)
 {
     <section>

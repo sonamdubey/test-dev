@@ -55,7 +55,7 @@ namespace Bikewale.Models
             {
                 BindSimilarBikes(obj);
                 GetComparedBikeDetails(obj);
-                BindCompareTest(obj);
+
             }
             catch (Exception ex)
             {
@@ -85,26 +85,7 @@ namespace Bikewale.Models
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.BindSimilarBikes()");
             }
         }
-        /// <summary>
-        /// Created By :- Subodh Jain 09 May 2017
-        /// Summary :- Function for Bind Compare Test
-        /// </summary>
-        /// <returns></returns>
-        public void BindCompareTest(CompareDetailsVM objVM)
-        {
-            ComparisonTestWidget objCompare = new ComparisonTestWidget(_compareTest);
-            try
-            {
-                objCompare.topCount = 3;
-                objVM.ArticlesList = objCompare.GetData();
-            }
-            catch (System.Exception ex)
-            {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.CompareDetails.BindCompareTest()");
-            }
-
-        }
         /// <summary>
         /// Created By :- Subodh Jain 09 May 2017
         /// Summary :- Function for GetComparedBikeDetails
@@ -286,7 +267,7 @@ namespace Bikewale.Models
             string[] strArray = originalUrl.Trim().Split('/');
             if (strArray.Length > 1)
             {
-                _baseUrl = strArray[3];
+                _baseUrl = strArray[2];
             }
             string[] queryArr = originalUrl.Split('?');
             if (queryArr.Length > 1)

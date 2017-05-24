@@ -4,7 +4,7 @@
     overallSpecsTabs = $('#overall-tabs'),
     $window = $(window),
     windowScrollTop;
-
+var data = {};
 docReady(function() {
     $('.chosen-select').chosen();
     /* toggle common features */
@@ -167,6 +167,7 @@ docReady(function() {
     });
     var getUrl = function ()
     {
+        bikeDetails.push(data);
         $.each(bikeDetails, function (i, val) {
             val.index = i + 1;
 
@@ -241,7 +242,7 @@ docReady(function() {
 
         placeholderTemplate: '<p class="font15 text-bold margin-bottom20">Add bike to compare</p><div class="add-bike-form"><div class="box-placeholder"><span class="box-label"><span class="add-icon"></span></span></div><div class="text-center"><button type="button" class="add-compare-btn btn btn-white btn-160-32">Add another bike</button></div></div>',
 
-        addToCompareButton: '<div class="text-center margin-top5"><button id="btnCompare" class="btn btn-white btn-160-32">Add to compare</button></div> <span class="error-text"></span>',
+        addToCompareButton: '<div class="text-center margin-top5"><button id="btnCompare" class="btn btn-white btn-160-32 hide">Add to compare</button></div> <span class="error-text"></span>',
 
         checkForPlaceholderBox: function (list) {
             if(list.find('.list-item').length > 1) {
@@ -467,7 +468,6 @@ docReady(function() {
             });
             if (!isSameVersion) {
                 selectBox.first().find('.error-text').hide();
-                
                     $.ajax({
                         type: "Get",
                         async: false,
@@ -475,13 +475,12 @@ docReady(function() {
                         contentType: "application/json",
                         dataType: 'json',
                         success: function (response) {
-                            var data = {};
+                             data = {};
                             data.makemasking = response.makeDetails.maskingName;
                             data.modelmasking = response.modelDetails.maskingName;
                             data.modelId = response.modelDetails.modelId;
                             data.versionId = versionId;
                             data.index = 0;
-                            bikeDetails.push(data);
                             selectBox.first().find('.error-text').hide();
                             selectBox.first().find('#btnCompare').show();
                         }
