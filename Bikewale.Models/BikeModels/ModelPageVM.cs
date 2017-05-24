@@ -14,6 +14,7 @@ namespace Bikewale.Models.BikeModels
     /// <summary>
     /// Modified by :   Sumit Kate on 26 Apr 2017
     /// Description :   Replace Count with Count()
+    /// Modified By :- Subodh Jain added objUpcomingBikes
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -25,6 +26,7 @@ namespace Bikewale.Models.BikeModels
         public ManufacturerCampaign ManufacturerCampaign { get; set; }
         public LeadCaptureEntity LeadCapture { get; set; }
         public IEnumerable<BestBikeEntityBase> objBestBikesList { get; set; }
+        public UpcomingBikesWidgetVM objUpcomingBikes { get; set; }
         public EMI EMIDetails { get; set; }
         public uint VersionId { get; set; }
         public uint DealerId { get; set; }
