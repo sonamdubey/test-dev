@@ -28,5 +28,12 @@ namespace Bikewale.Service.AutoMappers.BikeData
             }
             return null;
         }
+
+        public static IEnumerable<ModelSpecificationsDTO> Convert(IEnumerable<BikeModelVersionsDetails> entity)
+        {
+            Mapper.CreateMap<BikeVersionSegmentDetails, VersionSegmentDTO>();
+            Mapper.CreateMap<BikeModelVersionsDetails, ModelSpecificationsDTO>();
+            return Mapper.Map<IEnumerable<BikeModelVersionsDetails>, IEnumerable<ModelSpecificationsDTO>>(entity);
+        }
     }
 }

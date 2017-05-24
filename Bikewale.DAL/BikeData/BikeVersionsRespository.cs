@@ -98,6 +98,11 @@ namespace Bikewale.DAL.BikeData
             throw new NotImplementedException();
         }
 
+        public IEnumerable<BikeModelVersionsDetails> GetModelVersions()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
             List<BikeVersionMinSpecs> objMinSpecs = new List<BikeVersionMinSpecs>();
@@ -606,5 +611,53 @@ namespace Bikewale.DAL.BikeData
             }
             return objVersionColors;
         }
+
+        /// <summary>
+        /// created by sajal gupta on 23-05-2017
+        /// description : Dal layer function to get version segm,ent details
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BikeVersionsSegment> GetModelVersionsDAL()
+        {
+            ICollection<BikeVersionsSegment> objBikeVersions = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelversions"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objBikeVersions = new List<BikeVersionsSegment>();
+                            while (dr.Read())
+                            {
+                                BikeVersionsSegment objVersion = new BikeVersionsSegment();
+                                objVersion.VersionId = SqlReaderConvertor.ToUInt32(dr["versionId"]);
+                                objVersion.BodyStyle = Convert.ToString(dr["bodystyle"]);
+                                objVersion.ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                objVersion.ModelId = SqlReaderConvertor.ToUInt32(dr["BikeModelId"]);
+                                objVersion.ModelName = Convert.ToString(dr["ModelName"]);
+                                objVersion.Segment = Convert.ToString(dr["bodySegment"]);
+                                objVersion.VersionName = Convert.ToString(dr["versionName"]);
+                                objVersion.CCSegment = Convert.ToString(dr["ClassSegmentName"]);
+                                objVersion.TopVersionId = SqlReaderConvertor.ToUInt32(dr["topversionid"]);
+                                objBikeVersions.Add(objVersion);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeVersionsRepository.GetModelVersions: {0}");
+            }
+            return objBikeVersions;
+        }
+
     }   // class
 }   // namespace

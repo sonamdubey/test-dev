@@ -17,7 +17,7 @@ namespace Bikewale
             routes.IgnoreRoute("{*allcss}", new { allcss = @".*\.css(/.*)?" });
             routes.IgnoreRoute("{*alljs}", new { alljs = @".*\.js(/.*)?" });
             routes.IgnoreRoute("{*ico}", new { alljs = @".*\.ico(/.*)?" });
-
+            routes.IgnoreRoute("{*json}", new { alljs = @".*\.json(/.*)?" });
 
             routes.MapRoute(
                 name: "bikewale.ui.m",

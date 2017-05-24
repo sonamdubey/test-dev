@@ -1,0 +1,22 @@
+﻿@model Bikewale.Models.NewsIndexPageVM
+@using Bikewale.Utility
+@using System.Text.RegularExpressions
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/listing.css' />";
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewBikes";
+    Model.AdTags.AdId = "1398766302464";
+    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_Mid_320x50 = true;
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+}
+
+@Html.React("ServerRouterWrapper", new
+{
+    Url = "/m/news/",
+    ArticleListData = Model.ReduxStore.NewsReducer.NewsArticleListReducer.ArticleListData,
+    NewBikesListData = Model.ReduxStore.NewsReducer.NewsArticleListReducer.NewBikesListData
+}, containerId: "root")
+
+<script src="@Url.Content("../../Scripts/server.bundle.js")"></script>
+@Html.ReactInitJavaScript()
+

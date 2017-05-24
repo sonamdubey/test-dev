@@ -49,6 +49,21 @@ namespace Bikewale.Models
 
         #region Public properties
         public bool IsMobile { get; set; }
+
+        public string CityName
+        {
+            get
+            {
+                if (currentCityArea == null)
+                {
+                    currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                    if (currentCityArea != null)
+                        CityId = currentCityArea.CityId;
+                }
+
+                return string.IsNullOrEmpty(currentCityArea.City) ? string.Empty : currentCityArea.City;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -112,6 +127,9 @@ namespace Bikewale.Models
                     GetTaggedBikeListByModel(objData);
                     SetPageMetas(objData);
                     GetWidgetData(objData, widgetTopCount);
+
+                    if (objData.Model != null&& ModelId!=0 && objData.Model.ModelId != ModelId)
+                        objData.Model.ModelId = (int)ModelId;                  
                 }
                 else
                     status = StatusCodes.ContentNotFound;
