@@ -25,7 +25,5 @@ namespace Bikewale.Models
         public MostPopularBikeWidgetVM PopularBikes { get; set; }
         public ServiceCenterDetailsWidgetVM ServiceCenterDetails { get; set; }
         public BrandCityPopupVM BrandCityPopUp { get; set; }
-        public string getOffersGALabel { get; set; }
-        public string AreaName { get; set; }
     }
 }

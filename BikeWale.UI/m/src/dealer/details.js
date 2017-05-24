@@ -53,7 +53,10 @@ docReady(function () {
             "clientip": clientIP,
             "isregisterpq": true,
             "isdealerbikes": true,
-            "campid":  ele.attr('data-champaignid')
+            "campid": ele.attr('data-champaignid'),
+            "dealerareaname": ele.attr('data-item-area'),
+            "dealercityname": ele.attr('data-cityname'),
+            "eventcategory" : ele.attr('data-eventcategory')
         };
         dleadvm.setOptions(leadOptions);
     });

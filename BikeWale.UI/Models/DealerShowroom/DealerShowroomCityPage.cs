@@ -80,9 +80,7 @@ namespace Bikewale.Models.DealerShowroom
                 objDealerVM.PopularBikes = BindMostPopularBikes();
                 BindPageMetas(objDealerVM);
                 BindLeadCapture(objDealerVM);
-                objDealerVM.AreaName = globalCityArea != null ? globalCityArea.Area : "";
-                objDealerVM.getOffersGALabel = (objDealerVM.AreaName == "") ? string.Format("{0}_{1}", objDealerVM.Make.MakeName, objDealerVM.CityDetails.CityName) : string.Format("{0}_{1}_{2}", objDealerVM.Make.MakeName, objDealerVM.CityDetails.CityName, objDealerVM.AreaName);
-            }
+              }
             catch (Exception ex)
             {
 
@@ -184,6 +182,11 @@ namespace Bikewale.Models.DealerShowroom
             try
             {
                 objDealerList = _objDealerCache.GetDealerByMakeCity(cityId, makeId);
+                if(objDealerList!=null && objDealerList.Dealers!=null && objDealerList.Dealers.Count()>0)
+                foreach (var dealer in objDealerList.Dealers)
+                {
+                    dealer.GetOffersGALabel = string.Format("{0}_{1}_{2}", objMake.MakeName, dealer.City, dealer.objArea.AreaName);
+                }
             }
             catch (Exception ex)
             {

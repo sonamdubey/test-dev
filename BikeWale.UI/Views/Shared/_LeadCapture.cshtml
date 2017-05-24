@@ -94,7 +94,7 @@
 <!-- scripts goes here -->
 <script type="text/javascript">
     
-    var gaLabel = "",eventCategory="";
+    var gaLabel = "";
     var eventAction = "Lead_Submitted";
     var leadBtnBookNow, leadCapturePopup, leadBike;
     var fullName,emailid , mobile ;
@@ -146,10 +146,23 @@
         self.pinCodeRequired = ko.observable();
         self.dealersRequired = ko.observable();
         self.pincode = ko.observable();
+        self.dealerCityName = ko.observable();
+        self.dealerAreaName = ko.observable();
+        self.eventCategory = ko.observable();
         //self.manufacturerDealer = ko.observable();
         //self.manufacturerDealerCity = ko.observable();
         self.setOptions = function (options) {
             if (options != null) {
+                debugger;
+                if (options.eventcategory != null)
+                    self.eventCategory(options.eventcategory);
+
+                if (options.dealercityname != null)
+                    self.dealerCityName(options.dealercityname);
+
+                if (options.dealerareaname != null)
+                    self.dealerAreaName(options.dealerareaname);
+
                 if (options.dealerid != null)
                     self.dealerId(options.dealerid);
 
@@ -435,12 +448,12 @@
                 });
                 setPQUserCookie();
             }
-            triggerGA(eventCategory, eventAction, gaLabel)
+           // triggerGA(eventCategory, eventAction, gaLabel)
         };
 
         self.submitLead = function (data, event) {
             if(self.selectedBike()!=null)
-            gaLabel = self.selectedBike().bike + "_" + cityName + ((areaName!=null && areaName!="") ? ("_"+ areaName):"");
+                gaLabel = self.selectedBike().bike + "_" + self.dealerCityName() + ((self.dealerAreaName() != null) ? ("_" + self.dealerAreaName()) : "");
             
 
             if (self.mfgCampaignId() > 0) {
@@ -478,7 +491,7 @@
                             $("#buyingAssistance").hide();
                             $("#dealer-assist-msg").fadeIn();
                         }
-                        triggerGA(eventCategory, eventAction, gaLabel);
+                        triggerGA(self.eventCategory(), eventAction, gaLabel);
                     }
                     else {
                         if (self.IsLeadPopup()) {
@@ -507,7 +520,9 @@
                 "pqid": pqId,
                 "isregisterpq": ele.attr('data-isregisterpq'),
                 "pageurl": pageUrl,
-                "clientip": clientIP
+                "clientip": clientIP,
+                "eventcategory": ele.attr('c'),
+                "dealercityname" : ele.attr('data-cityname')
             };
             self.setOptions(leadOptions);
             self.submitLead(d, e);
