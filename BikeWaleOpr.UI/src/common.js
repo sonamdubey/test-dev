@@ -4,7 +4,12 @@ $('.modal').modal();
 $('.collapsible').collapsible();
 // Do not remove this code. Its written to get values from checkbox to controller
 $("input:checkbox").change(function () { $(this).val($(this).is(':checked')); });
-$('select').material_select();
+var select = $('select');
+select.each(function () {
+    if (!$(this).hasClass('chosen-select')) {
+        $(this).material_select();
+    }
+});
 $(document).ready(function () {
     pageFooter.setPosition();
 });

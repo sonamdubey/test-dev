@@ -9,6 +9,9 @@ using System.Web.Mvc;
 using Unity.Mvc5;
 using BikewaleOpr.Interface.UserReviews;
 using BikewaleOpr.DALs.UserReviews;
+using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.DALs.ContractCampaign;
+using BikewaleOpr.CommuteDistance;
 
 namespace BikewaleOpr
 {
@@ -34,7 +37,9 @@ namespace BikewaleOpr
                 .RegisterType<IHomePage, HomePage>()
                 .RegisterType<IUserReviewsRepository, UserReviewsRepository>()
                 .RegisterType<IBikeMakes, BikeMakesRepository>()
-                .RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
+                .RegisterType<IDealerCampaignRepository, DealerCampaignRepository>()
+                .RegisterType<ICommuteDistance, CommuteDistanceBL>();
 
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

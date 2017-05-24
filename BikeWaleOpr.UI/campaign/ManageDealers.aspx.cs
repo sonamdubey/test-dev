@@ -153,12 +153,12 @@ namespace BikewaleOpr.Campaign
                 InsertUpdateContractCampaign();
 
                 ClearForm(Page.Form.Controls, true);
-                objCommuteDistanceBL = new CommuteDistanceBL();
-                objCommuteDistanceBL.DealerID = Convert.ToUInt16(dealerId);
-                objCommuteDistanceBL.LeadServingDistance = Convert.ToUInt16(reqFormRadius);
-                PageAsyncTask asynTask = new PageAsyncTask(objCommuteDistanceBL.OnBegin, objCommuteDistanceBL.OnEnd, null, null);
-                RegisterAsyncTask(asynTask);
-                ExecuteRegisteredAsyncTasks();
+                //objCommuteDistanceBL = new CommuteDistanceBL();
+                //objCommuteDistanceBL.DealerID = Convert.ToUInt16(dealerId);
+                //objCommuteDistanceBL.LeadServingDistance = Convert.ToUInt16(reqFormRadius);
+                //PageAsyncTask asynTask = new PageAsyncTask(objCommuteDistanceBL.OnBegin, objCommuteDistanceBL.OnEnd, null, null);
+                //RegisterAsyncTask(asynTask);
+                //ExecuteRegisteredAsyncTasks();
 
             }
             catch (Exception ex)

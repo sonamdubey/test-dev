@@ -2,6 +2,7 @@
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ContractCampaign;
 using System.Collections.Generic;
+using BikewaleOpr.Entity.DealerCampaign;
 namespace BikewaleOpr.Interface.ContractCampaign
 {
     /// <summary>
@@ -19,5 +20,12 @@ namespace BikewaleOpr.Interface.ContractCampaign
         ICollection<BikeMakeEntityBase> MakesByDealerCity(uint cityId);
         ICollection<DealerEntityBase> DealersByMakeCity(uint cityId, uint makeId, bool activecontract);
         ICollection<DealerCampaignDetailsEntity> DealerCampaigns(uint dealerId, bool activecontract);
+
+        IEnumerable<CampaignAreas> GetMappedDealerCampaignAreas(uint dealerId);
+        void SaveDealerCampaignAreaMapping(uint dealerId, ushort campaignServingStatus, ushort servingRadius, string cityIdList);
+        DealerAreaDistance GetDealerToAreasDistance(uint dealerId, ushort campaignServingStatus, ushort servingRadius, string cityIdList);
+        DealerAreaDistance GetDealerAreasWithLatLong(uint dealerId, string areasList);
+        void SaveAdditionalAreasMapping(uint dealerId, string areasList);        
+        void DeleteAdditionalMappedAreas(uint dealerId, string areadIdList);
     }
 }

@@ -449,6 +449,7 @@
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsPageModel.cs" />
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
       <DependentUpon>DealerDetailedPriceQuote.aspx</DependentUpon>
@@ -1911,6 +1912,7 @@
     <Content Include="src\common\common.js" />
     <Content Include="src\content\makes.js" />
     <Content Include="src\content\usedimageupload.js" />
+    <Content Include="src\dealercampaign\campaignservingareas.js" />
     <Content Include="src\framework.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
