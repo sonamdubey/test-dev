@@ -1,0 +1,205 @@
+﻿.text-bold
+    font-weight: 600
+
+h1,
+.font-bold
+    font-weight: 700
+
+.text-slate-grey
+    color: #787878
+
+.h2-heading
+	font-size: 18px
+
+.font15
+	font-size: 15px
+
+.line-height17
+	line-height: 1.7
+
+// rating colors
+$rating-colors: (1: #EF3F30, 2: #FD971C, 3: #EFD700, 4: #13B65D, 5: #198D55)
+
+$graph-bg: #eee
+
+@mixin rating-count($count)
+    @if map-has-key($rating-colors, $count)
+        .rate-count-#{$count}
+            color: map-get($rating-colors, $count)
+
+    @else
+        @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined."
+
+@mixin rating-background($count)
+    @if map-has-key($rating-colors, $count)
+        .rating-badge[data-rate-bg="#{$count}"]
+            background-color: map-get($rating-colors, $count)
+
+    @else
+        @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined."
+
+
+@include rating-count(5)
+@include rating-count(4)
+@include rating-count(3)
+@include rating-count(2)
+@include rating-count(1)
+
+@include rating-background(5)
+@include rating-background(4)
+@include rating-background(3)
+@include rating-background(2)
+@include rating-background(1)
+
+.bg-rate-5
+	background-color: #198D55
+
+.bg-rate-4
+	background-color: #13B65D
+
+.bg-rate-3
+	background-color: #EFD700
+
+.bg-rate-2
+	background-color: #FD971C
+
+.bg-rate-1
+	background-color: #EF3F30
+
+// rating icons
+.star-icon
+    width: 26px
+    height: 25px
+    vertical-align: middle
+    @include transform(scale(0.8))
+
+.rate-count-1
+    .star-icon
+        background-position: 0 -790px
+
+.rate-count-2
+    .star-icon
+        background-position: -46px -790px
+
+.rate-count-3
+    .star-icon
+        background-position: 0 -757px
+
+.rate-count-4
+    .star-icon
+        background-position: -92px -790px
+
+.rate-count-5
+    .star-icon
+        background-position: -138px -790px
+
+// user-review-list
+.user-review-list
+	padding-right: 20px
+	padding-left: 20px
+
+	li
+		border-top: 1px solid #e2e2e2
+
+		&:first-child
+			border-top: 0
+
+	.item-target
+		display: block
+		padding-top: 15px
+		padding-bottom: 15px
+
+		&:hover
+			text-decoration: none
+
+	.list-item-title
+		width: 90%
+		font-weight: $font-semibold
+		font-size: 15px
+		color: #2a2a2a
+
+.like-sm,
+.dislike-sm,
+.views-sm
+    width: 15px
+    height: 14px
+    vertical-align: middle
+
+.like-sm
+    background-position: -153px -501px
+
+.dislike-sm
+    background-position: -168px -501px
+
+.views-sm
+    background-position: -60px -305px
+
+// rating badges
+.rating-badge
+    min-width: 40px
+    height: 20px
+    font-size: 14px
+    font-weight: 600
+    color: #fff
+    display: inline-block
+    vertical-align: middle
+    margin-right: 8px
+    text-align: center
+    @include border-radius(2px)
+
+.star-white
+    width: 12px
+    height: 12px
+    background-position: -218px -103px
+    position: relative
+    top: 1px
+    margin-right: 4px
+
+// article list
+.model-preview-image-container
+	max-width: 292px
+	height: 164px
+	display: table
+	text-align: center
+	border: 1px solid #e2e2e2
+
+	a
+		width: 292px
+		height: 164px
+		display: block
+		background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center no-repeat
+
+		img
+			height: 164px
+
+.article-list
+	.article-target-link
+		margin-bottom: 8px
+		line-height: 1.5
+
+	.line-height17
+		line-height: 1.7
+
+// user reviews of similar bikes carousel
+.user-reviews-type-carousel
+	li,
+	.jcarousel-card
+		min-height: 245px
+
+.divider-left
+	&:before
+		content: ''
+		width: 1px
+		height: 15px
+		border-left: 1px solid #eee
+		padding-left: 10px
+		margin-left: 10px
+
+// icons
+.star-0
+	width: 26px
+	height: 25px
+	vertical-align: middle
+
+.star-0
+	background-position: -184px -790px

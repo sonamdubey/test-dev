@@ -20,6 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -2290,7 +2291,7 @@
     <Content Include="css\used\bikes-in-city.css" />
     <Content Include="css\used\landing.css" />
     <Content Include="css\used\details.css" />
-    <Content Include="css\user-review\listing.css" />
+    <Content Include="css\user-review\listing-old.css" />
     <Content Include="css\user-review\write-review.css" />
     <Content Include="css\video\detail.css" />
     <Content Include="css\video\landing.css" />
@@ -3024,6 +3025,9 @@
     <Content Include="sass\compare\_details-style.sass" />
     <Content Include="sass\modules\_comparison-type-carousel.sass" />
     <Content Include="sass\components\_inline-grid.sass" />
+    <Content Include="sass\user-review\listing.sass" />
+    <Content Include="sass\user-review\_listing-style.sass" />
+    <Content Include="sass\modules\_overall-floating-tabs.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -3152,6 +3156,7 @@
     <Content Include="src\used-details.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
+    <Content Include="src\user-review\listing.js" />
     <Content Include="src\user-review\write-review.js" />
     <Content Include="src\Videos\detail.js" />
     <Content Include="src\Videos\videoByCategory.js" />
@@ -3703,6 +3708,7 @@
     <Content Include="Views\GenericBestBikes\Index_Mobile.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage_Mobile.cshtml" />
+    <Content Include="Views\UserReview\ListReviews.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
