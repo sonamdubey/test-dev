@@ -1,5 +1,5 @@
 ﻿var ratingBox, page;
-var userNameField, userEmailIdField, vmWriteReview, vmRateBike;
+var userNameField, userEmailIdField, vmWriteReview;
 var detailedReviewField, reviewTitleField, reviewQuestion, ratingOverAll, pageSourceID;
 var writeReview;
 var makeModelName;
@@ -307,7 +307,7 @@ docReady(function () {
         };
     };
 
-    vmRateBike = new rateBike(),
+    var vmRateBike = new rateBike(),
         rateBikeForm = document.getElementById('rate-bike-form');
 
     if (rateBikeForm) {
