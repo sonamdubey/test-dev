@@ -68,7 +68,7 @@
 										            <div class="article-date">
 											            <span class="bwsprite calender-grey-icon inline-block"></span>
 											            <span class="inline-block">
-												            <%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(article.DisplayDate),"MMMM dd, yyyy") %>
+												            <%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(article.DisplayDate),"dd MMMM yyyy") %>
 											            </span>
 										            </div>
 										            <div class="article-author">

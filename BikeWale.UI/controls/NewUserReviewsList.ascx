@@ -21,7 +21,7 @@
                         </a>
                         <div class="article-stats-left-grid">
                             <span class="bwsprite calender-grey-sm-icon"></span>
-                            <span class="article-stats-content"><%#Eval("ReviewDate", "{0:MMM dd, yyyy}") %></span>
+                            <span class="article-stats-content"><%#Eval("ReviewDate", "{0:dd MMMM yyyy}") %></span>
                         </div>
                         <div class="article-stats-right-grid">
                             <span class="bwsprite author-grey-sm-icon"></span>

@@ -14,6 +14,8 @@ namespace Bikewale.DTO.UserReviews.DTO.v2
         [JsonIgnore]
         public DateTime ReviewDate { get; set; }
         [JsonProperty("reviewDate")]
-        public String DisplayReviewDate { get { return ReviewDate.ToString("MMM yyyy"); } }
+        public String DisplayReviewDate { get { return ReviewDate.ToString("dd MMMM yyyy"); } }
+        [JsonProperty("reviewShortDate")]
+        public String DisplayReviewShortDate { get { return ReviewDate.ToString("dd MMM yyyy"); } }
     }
 }

@@ -643,9 +643,11 @@ docReady(function () {
         vmWriteReview.validate.reviewTitle();
 
     vmWriteReview.GetFromBwCache();
-
     vmWriteReview.FillReviewData();
-
+    window.onbeforeunload = function () {
+        if ($("#bike-rating-box input[type='radio']:checked").attr("value") != null)
+            return false;
+    }
 });
 
 var answer = {

@@ -23,7 +23,7 @@ namespace Bikewale.Notifications.MailTemplates
         public override string ComposeBody()
         {
            //  StringBuilder sb = null;
-          return string.Format(_MailBody, DateTime.Now.ToString("MMM dd, yyyy"), PageUrl, Feedback);
+          return string.Format(_MailBody, DateTime.Now.ToString("dd MMMM yyyy"), PageUrl, Feedback);
 
             //try
             //{
@@ -34,7 +34,7 @@ namespace Bikewale.Notifications.MailTemplates
 
             //  sb.Append("<div style=\"max-width:670px; margin:0 auto; border:1px solid #d8d8d8; font-family: Arial, Helvetica, sans-serif; font-size:12px; color:#333333; padding:10px; word-wrap:break-word\">");
             //  sb.Append("<div style=\"margin:5px 0 0; background:#fff;\"><div style=\"padding:10px 10px 0;\"><div style=\"font-size:14px; font-weight:bold; color:#333333; margin-bottom:10px; float:left\">Dear Saurabh Awasthi,</div>");
-            //  sb.Append("<div style=\"font-size:14px; font-weight:normal; color:#333333; margin-bottom:10px; float:right\">" + DateTime.Now.ToString("MMM dd, yyyy") + "</div><div style=\"clear:both;\"></div>");
+            //  sb.Append("<div style=\"font-size:14px; font-weight:normal; color:#333333; margin-bottom:10px; float:right\">" + DateTime.Now.ToString("dd MMMM yyyy") + "</div><div style=\"clear:both;\"></div>");
             //  sb.Append("<div style=\"color:#666666;\">BikeWale user has submitted a feedback. The feedback details are as follows: </div></div></div><div style=\"margin:5px 0 0; background:#fff;\">");
             //  sb.Append("<div style=\"padding:10px 10px 0;\"><table><tbody><tr><td style=\"width:70px;font-size:14px;\"><b>Page Url : </b></td><td style=\"font-size:12px;\"><a href=\"" + PageUrl + "\">" + PageUrl + "</a></td></tr>");
             //  sb.Append("<tr><td style=\"font-size:14px;\"><b>Feedback : </b></td><td style=\"font-size:12px;\">" + Feedback + "</td></tr></tbody></table></div></div></div>");

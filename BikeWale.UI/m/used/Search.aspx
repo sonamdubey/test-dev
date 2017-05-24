@@ -117,7 +117,7 @@
                                             </a>
                                         </h2>
                                         <div class="margin-bottom5">
-                                            <span class="font12 text-x-light">Updated on: <%= bike.LastUpdated.ToString("dd MMM yy") %></span>
+                                            <span class="font12 text-x-light">Updated on: <%= bike.LastUpdated.ToString("dd MMMM yyyy") %></span>
                                         </div>
                                         <%if (!string.IsNullOrEmpty(bike.ModelYear))
                                           { %>

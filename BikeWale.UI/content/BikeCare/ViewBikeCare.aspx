@@ -60,7 +60,7 @@
                                 <h1 class="margin-bottom5"><%= pageTitle%></h1>
                                 <div>
 									<span class="bwsprite calender-grey-sm-icon"></span>
-									<span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %></span>
+									<span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "dd MMMM yyyy, hh:mm tt") %></span>
 									<span class="bwsprite author-grey-sm-icon"></span>
 									<span class="article-stats-content margin-right20"><%= objTipsAndAdvice.AuthorName %></span>
                                     <span class="font12 inline-block text-light-grey"><%= (bikeTested!=null && !String.IsNullOrEmpty(bikeTested.ToString())) ? String.Format("{0}",bikeTested) : "" %></span>

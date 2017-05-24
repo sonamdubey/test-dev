@@ -501,7 +501,7 @@ namespace Bikewale.DAL.BikeData
                             objModel = new UpcomingBikeEntity()
                             {
                                 ExpectedLaunchId = Convert.ToUInt16(dr["id"]),
-                                ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMM yyyy") : "",
+                                ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMMM yyyy") : "",
                                 EstimatedPriceMin = Convert.ToUInt64(dr["EstimatedPriceMin"]),
                                 EstimatedPriceMax = Convert.ToUInt64(dr["EstimatedPriceMax"]),
                                 HostUrl = Convert.ToString(dr["HostURL"]),
@@ -566,7 +566,7 @@ namespace Bikewale.DAL.BikeData
                                 UpcomingBikeEntity objModel = new UpcomingBikeEntity();
 
                                 objModel.ExpectedLaunchId = Convert.ToUInt16(dr["ExpectedLaunchId"]);
-                                objModel.ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMM yyyy") : "";
+                                objModel.ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMMM yyyy") : "";
                                 objModel.ExpectedLaunchedDate = Convert.ToDateTime(dr["ExpectedLaunch"]);
                                 objModel.EstimatedPriceMin = Convert.ToUInt64(dr["EstimatedPriceMin"]);
                                 objModel.EstimatedPriceMax = Convert.ToUInt64(dr["EstimatedPriceMax"]);

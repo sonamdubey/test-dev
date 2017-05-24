@@ -43,7 +43,7 @@ namespace Bikewale.Notifications.MailTemplates
                 + "                <div style=\"display:table-cell; vertical-align: middle;\">Congratulations!</div>"
                 + "            </div>"
                 + "        </div>"
-                + "    </div><div>", DateTime.Now.ToString("MMM dd, yyyy"));
+                + "    </div><div>", DateTime.Now.ToString("dd MMMM yyyy"));
 
 
                 sb.AppendFormat("<div style=\"margin:0 10px;\">"

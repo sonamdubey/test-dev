@@ -94,7 +94,7 @@
                                         <td valign="top" class="text-bold text-grey">
                                             @string.Format("{0} {1}", bike.TotalModelColors, bike.TotalModelColors > 1 ? " colors" : " color")
                                         </td>
-                                        <td valign="top" class="text-bold text-grey">@string.Format("{0}", bike.LaunchDate.HasValue ? FormatDate.GetFormatDate(bike.LaunchDate.ToString(), "MMM yyyy") : "Before 2012")</td>
+                                        <td valign="top" class="text-bold text-grey">@string.Format("{0}", bike.LaunchDate.HasValue ? FormatDate.GetFormatDate(bike.LaunchDate.ToString(), "MMMM yyyy") : "Before 2012")</td>
                                         <td valign="top" class="text-bold text-grey">@string.Format("{0}", bike.UnitsSold > 0 ? Format.FormatNumeric(bike.UnitsSold.ToString()) : "Not Available") </td>
                                     </tr>
                                 </tbody>

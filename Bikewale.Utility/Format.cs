@@ -28,22 +28,36 @@ namespace Bikewale.Utility
                 return FormatNumeric(price);
         }
 
+        /// <summary>
+        /// Formats the numeric value - Price, views, likes etc.
+        /// </summary>
+        /// <param name="numberToFormat">The number to format.</param>
+        /// <returns>
+        /// Updated by : Sangram Nandkhile on 23-May-2017 
+        /// Summary: Added check to show only 3 commas 
+        /// For ex. The number 98007654321 will be formatted as  9800,76,54,321
+        /// </returns>
         public static string FormatNumeric(string numberToFormat)
         {
-            string formatted = "";
-            int breakPoint = 3;
-
-            for (int i = numberToFormat.Length - 1; i >= 0; i--)
+            string formatted = string.Empty;
+            try
             {
-                formatted = numberToFormat[i].ToString() + formatted;
-                if ((numberToFormat.Length - i) == breakPoint && numberToFormat.Length > breakPoint)
+                int breakPoint = 3, noOfCommas = 3;
+                for (int i = numberToFormat.Length - 1; i >= 0; i--)
                 {
-                    //HttpContext.Current.Trace.Warn(formatted);
-                    formatted = "," + formatted;
-                    breakPoint += 2;
+                    formatted = numberToFormat[i].ToString() + formatted;
+                    if ((numberToFormat.Length - i) == breakPoint && numberToFormat.Length > breakPoint && noOfCommas > 0)
+                    {
+                        formatted = "," + formatted;
+                        breakPoint += 2;
+                        noOfCommas--;
+                    }
                 }
             }
-
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("FormatNumeric, input : {0}", numberToFormat));
+            }
             return formatted;
         }
 
@@ -137,7 +151,6 @@ namespace Bikewale.Utility
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, String.Format("FormatPriceShort, input : {0}", number));
-                objErr.SendMail();
                 return "N/A";
             }
 

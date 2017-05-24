@@ -13,7 +13,8 @@ var bikeRating = {
 
 var ratingQuestion = [];
 var ratingError = false, questionError = false, userNameError = false, emailError = false;
-docReady(function () {    
+docReady(function () {
+
     bwcache.setScope('ReviewPage');
     if (page == "writeReview") {
         setTimeout(function () { appendHash("writeReview"); }, 1000);
@@ -550,6 +551,11 @@ docReady(function () {
     var selRating = $("#bike-rating-box").attr("data-selectedRating");
     if (selRating > 0) {
         ratingBox.find('.answer-star-list input[type=radio][value="' + selRating + '"]').trigger("click");
+    }
+
+    window.onbeforeunload = function () {
+        if ($("#bike-rating-box input[type='radio']:checked").attr("value") != null)
+            return false;
     }
 });
 

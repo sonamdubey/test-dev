@@ -212,7 +212,7 @@
                                 </li>
                                 <li>
                                     <p class="bike-details-key">Registration year</p>
-                                    <p class="bike-details-value"><%= Bikewale.Utility.FormatDate.GetFormatDate(inquiryDetails.MinDetails.ModelYear.ToString(),"MMM yyyy") %></p>
+                                    <p class="bike-details-value"><%= Bikewale.Utility.FormatDate.GetFormatDate(inquiryDetails.MinDetails.ModelYear.ToString(),"MMMM yyyy") %></p>
                                 </li>
                             </ul>
                         </div>

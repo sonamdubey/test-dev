@@ -80,7 +80,7 @@
                                     <h1 class="margin-bottom5"><%= objReview.ReviewEntity.ReviewTitle  %></h1>
                                     <div>
                                         <span class="bwsprite calender-grey-sm-icon"></span>
-                                        <span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(objReview.ReviewEntity.ReviewDate), "MMMM dd, yyyy hh:mm tt")  %></span>
+                                        <span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(objReview.ReviewEntity.ReviewDate), "dd MMMM yyyy, hh:mm tt")  %></span>
                                         <span class="bwsprite author-grey-sm-icon"></span>
                                         <span class="article-stats-content text-capitalize">
                                             <%if (handleName != "")
@@ -236,7 +236,7 @@ else
                                     <div class="margin-bottom15 text-light-grey">
                                         <div class="grid-5 alpha">
                                             <span class="bwsprite review-sm-lgt-grey"></span>
-                                            <span class="article-stats-content margin-right15"><%=objReview.ReviewEntity.Viewed%></span>
+                                            <span class="article-stats-content margin-right15"><%= Bikewale.Utility.Format.FormatNumeric(objReview.ReviewEntity.Viewed.ToString())%></span>
                                             <span class="bwsprite like-icon"></span>
                                             <span id="spnLiked" class="article-stats-content margin-right15"><%=objReview.ReviewEntity.Liked%></span>
                                             <span class="bwsprite dislike-icon"></span>

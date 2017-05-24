@@ -137,7 +137,7 @@ namespace Bikewale.Mobile.Videos
                         if (videoModel.MakeName != null || videoModel.ModelName != null)
                             isMakeModelTag = true;
                         if (!string.IsNullOrEmpty(videoModel.DisplayDate))
-                            videoModel.DisplayDate = FormatDate.GetFormatDate(videoModel.DisplayDate, "MMMM dd, yyyy");
+                            videoModel.DisplayDate = FormatDate.GetFormatDate(videoModel.DisplayDate, "dd MMMM yyyy");
                         videoModel.Description = FormatDescription.SanitizeHtml(videoModel.Description);
                     }
                     else

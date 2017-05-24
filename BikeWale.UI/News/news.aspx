@@ -77,7 +77,7 @@
                                 <h1 class="margin-bottom5"><%= objArticle.Title %></h1>
                                 <div>
                                     <span class="bwsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(objArticle.DisplayDate), "MMMM dd, yyyy hh:mm tt") %></span>
+                                    <span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(objArticle.DisplayDate), "dd MMMM yyyy, hh:mm tt") %></span>
                                     <span class="bwsprite author-grey-sm-icon"></span>
                                     <span class="article-stats-content"><%= objArticle.AuthorName %></span>
                                 </div>

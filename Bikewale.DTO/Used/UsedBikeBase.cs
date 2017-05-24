@@ -49,7 +49,7 @@ namespace Bikewale.DTO.Used.Search
         [JsonProperty("lastUpdated")]
         public DateTime LastUpdated { get; set; }
         [JsonProperty("strLastUpdated")]
-        public string StrLastUpdated { get { return LastUpdated.ToString("dd MMM yy"); } }
+        public string StrLastUpdated { get { return LastUpdated.ToString("dd MMMM yyyy"); } }
         [JsonProperty("bikeName")]
         public string BikeName { get { return string.Format("{0} {1} {2}", MakeName, ModelName, VersionName); } }
     }

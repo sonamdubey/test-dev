@@ -80,7 +80,7 @@
                         <div class="text-center margin-bottom40">
                             <h1 class="article-heading text-unbold"><%= objTrackDay.Title %></h1>
                             <p class="article-author margin-bottom10"><i><%= objTrackDay.AuthorName %></i></p>
-                            <p class="font12 text-light-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(objTrackDay.DisplayDate.ToString(),"MMM dd, yyyy") %></p>
+                            <p class="font12 text-light-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(objTrackDay.DisplayDate.ToString(),"dd MMMM yyyy") %></p>
                         </div>
 
                         <%= String.IsNullOrEmpty(objTrackDay.Content) ? "" : objTrackDay.Content %>
