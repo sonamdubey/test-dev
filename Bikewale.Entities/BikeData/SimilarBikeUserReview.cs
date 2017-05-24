@@ -14,7 +14,7 @@ namespace Bikewale.Entities
         public BikeModelEntityBase Model { get; set; }
         public string HostUrl { get; set; }
         public string OriginalImagePath { get; set; }
-        public uint OverAllRating { get; set; }
+        public double OverAllRating { get; set; }
         public uint NumberOfRating { get; set; }
     }
 }
