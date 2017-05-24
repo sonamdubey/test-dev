@@ -1,11 +1,9 @@
 ﻿using ApiGatewayLibrary;
-using Bikewale.BAL.GrpcFiles;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
-using EditCMSWindowsService.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,13 +80,11 @@ namespace Bikewale.Models.Videos
                     objVM.FirstLookWidgetData = objSubCat.GetData("", "61", _pageNo, FirstLookWidgetTopCount);
                     objVM.PowerDriftBlockbusterWidgetData = objSubCat.GetData("", "62", _pageNo, PowerDriftBlockbusterWidgetTopCount);
                     objVM.PowerDriftSpecialsWidgetData = objSubCat.GetData("", "63", _pageNo, PowerDriftSpecialsWidgetTopCount);
-
-                    objVM.Brands = new BrandWidgetModel(BrandWidgetTopCount, _bikeMakes, _objModelCache).GetData(Entities.BikeData.EnumBikeType.Videos);
                     w2.Stop();
                     long elapsedMs = w2.ElapsedMilliseconds;
                     log4net.ThreadContext.Properties["GRPCTimeTaken_Page"] = elapsedMs;
                 }
-
+                objVM.Brands = new BrandWidgetModel(BrandWidgetTopCount, _bikeMakes, _objModelCache).GetData(Entities.BikeData.EnumBikeType.Videos);
                 BindPageMetas(objVM);
             }
             catch (Exception ex)

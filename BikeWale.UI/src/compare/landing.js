@@ -43,7 +43,7 @@ docReady(function () {
         bikeDetails.sort(function (a, b) {
             return a.modelId - b.modelId;
         });
-        var result = "";
+        var result = "/comparebikes/";
         $.each(bikeDetails, function (i, val) {
             if(i!=bikeDetails.length-1)
                 result += (val.makemasking + "-" + val.modelmasking + "-vs-");
@@ -59,7 +59,7 @@ docReady(function () {
                 querystring += ("bike" + (val.index) + "=" + val.versionId);
 
         });
-        window.location.href = window.location.domain + result + querystring;
+        window.location.href = window.location.origin + result + querystring+"&source=19";
     });
 
     var defaultActiveBoxCount = 2;

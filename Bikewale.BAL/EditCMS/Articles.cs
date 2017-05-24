@@ -233,9 +233,6 @@ namespace Bikewale.BAL.EditCMS
                     return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
 
                 }
-
-
-
             }
             catch (Exception err)
             {

@@ -14,20 +14,26 @@ h1,
 .h2-heading
 	font-size: 18px
 
+.underline-none
+	&:hover
+		text-decoration: none
+
 @include inline-grid(9)
 
-// overall-specs-tabs
+// overall-specs-tabs-wrapper
 .bw-tabs-flex
-	&.overall-specs-tabs
+	&.overall-specs-tabs-wrapper
 		ul
 			border-top: 1px solid $border-light
-			border-bottom-color: $border-light
+			border-bottom: 1px solid #ccc
 			margin-bottom: 0
 
 		li
-			padding-right: 15px
-			padding-left: 15px
+			display: table-cell
+			padding: 10px 20px
+			text-align: center
 			width: auto
+			cursor: pointer
 			color: $text-light
 
 			&.active
@@ -65,25 +71,159 @@ h1,
 		font-weight: $font-semibold
 		color: $text-primary
 
-@mixin bike-column-count($selection-count, $td-count)
-	.bike-count-#{$selection-count}
-		.table-content
-			.row-width-grid
-				@include td-width($td-count)
+// compare-bike-list
+.compare-bike-list
+	.list-item
+		padding: 20px
+		float: left
 
-$row-width: 976
-$row-heading-width: 162
+		&:first-child
+			border-left: 1px solid #e2e2e2
 
-@mixin td-width($td-count)
-	td
-		padding: 0
+	.bike-details-block
+		position: relative
 
-	@for $i from 2 through $td-count
-		td:nth-child(#{$i})
-			width: (($row-width - $row-heading-width) / ($td-count - 1)) * 1px
+		.item-target-link
+			display: block
+			width: 88%
 
-// bike-column-count
-@include bike-column-count(2, 4) // selected bike count, columns count
+	.cross-md-dark-grey
+		position: absolute
+		right: 0
+		top: -10px
+		cursor: pointer
+
+.margin-bottom2
+	margin-bottom: 2px
+
+.top-neg17
+	top: -17px
+
+.top-neg10
+	top: -10px
+
+// chosen
+#bike-comparison-grid
+	.select-box
+		height: 40px
+		margin-top: 20px
+
+	.chosen-container
+		width: 100% !important
+		height: 28px
+
+	.chosen-single,
+	.no-input-label
+		font-size: 14px
+		color: #4d5057
+
+	.chosen-drop
+		width: 260px !important
+		position: absolute
+		top: -15px
+
+// last item chosen
+#bike-comparison-container
+	&[data-column-count="4"]
+		.list-item
+			&:last-child
+				.chosen-with-drop
+					.chosen-drop
+						left: -95px		
+	
+// single version
+.single-version-content
+	width: 100%
+	margin-bottom: 12px
+
+.dropdown-effect-light
+	padding: 3px 18px 7px 0
+	position: relative
+	background: transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat
+	border-bottom: 1px solid #ddd
+
+	&:after
+		content: ""
+		position: absolute
+		top: 0
+		right: 0
+		width: 15px
+		height: 100%
+		background: #fff
+		opacity: 0.7
+
+// add bike
+$box-default-height: 90px
+
+.select-box
+	&.select-box-size-13
+		.chosen-results
+			max-height: 165px
+
+.compare-bike-list
+	.box-placeholder
+		width: 100%
+		height: $box-default-height
+		background: #f5f5f5
+		display: table
+		table-layout: fixed
+		text-align: center
+		cursor: pointer
+		margin-bottom: 20px
+
+	.box-label
+		display: table-cell
+		vertical-align: middle
+
+	.bike-selection-box
+		margin-top: 30px
+
+@import ../components/buttons
+
+@include button-size(160, 32, 14) // width, padding, font-size
+
+// sponsored-column-active
+$sponsored-bg: #f8fcfd
+//$sponsored-bg: #f5f5f5
+
+@mixin sponsored-column($index, $bg-color)
+	#sponsored-column-active
+		&[data-sponsored-column="#{$index}"]
+			.table-content
+				tr
+					@include set-background($index, $bg-color)
+
+@mixin set-background($index, $bg-color)
+	td:nth-child(#{$index + 1})
+		background: $bg-color
+
+.sponsored-list-item
+	background: $sponsored-bg
+
+@include sponsored-column(2, $sponsored-bg)
+@include sponsored-column(3, $sponsored-bg)
+@include sponsored-column(4, $sponsored-bg)
+
+.know-more-target
+	font-size: $font-size-base
+	position: relative
+	top: 6px
+
+// floating card
+
+// hide-show common features
+body
+	&[data-equivalent="1"]
+		.equivalent-data
+			display: none
+
+		.toggle-features-btn
+			.unchecked-box
+				background-position: -216px -135px
+
+	&[data-equivalent="0"]
+		.equivalent-data
+			display: table-row
 
 // colors tab
 .color-box-list
@@ -98,7 +238,7 @@ $row-heading-width: 162
 		border: 1px solid #f1f1f1
 
 	.color-box-label
-		width: 75%
+		width: 70%
 
 @mixin color-count($count)
 	.color-count-#{$count}
@@ -190,3 +330,17 @@ $row-heading-width: 162
 .cross-grey
 	width: 14px
 	background-position: -181px -515px
+
+.add-icon
+	width: 32px
+	height: 32px
+	display: inline-block
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/plus-filled.png') no-repeat
+
+.know-more-icon
+	width: 12px
+	height: 12px
+	background-position: -210px -598px
+	margin-left: 5px
+	position: relative
+	top: 1px
