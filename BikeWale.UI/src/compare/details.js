@@ -390,8 +390,14 @@ docReady(function() {
             else if ($(selectBox).hasClass('select-version')) {
                 var listItem = selectBox.closest('.list-item'),
                     list = listItem.closest('.compare-box-list')[0];
-                compareBox.getVersionData(elementValue, listItem);
-                
+                if (listItem[0].getAttribute('data-value') && bikeDetails[Number(listItem[0].getAttribute('data-value'))].versionId != elementValue) {
+                    bikeDetails.splice(listItem[0].getAttribute('data-value'), 1);
+                    compareBox.getVersionData(elementValue, listItem);
+                    getUrl();
+                }
+                else {
+                    compareBox.getVersionData(elementValue, listItem);
+                }
             }
         },
 
