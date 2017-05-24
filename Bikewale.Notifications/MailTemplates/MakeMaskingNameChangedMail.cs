@@ -32,10 +32,18 @@ namespace Bikewale.Notifications.MailTemplates
         public override string ComposeBody()
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("<table border='1px'  style='border-collapse:collapse;'><tbody><tr><th>Sr. No.</th><th>Bike Name</th><th>Old Url</th><th>New Url</th></tr>");
+            
+            int i = 1;
             foreach (var model in models)
-            {              
-             sb.AppendFormat("<p>The URL of {0} {1} has changed from {2} to {3}.</p>", makeName, model.ModelName, model.OldUrl, model.NewUrl);
+            {
+             if(i>1)
+                 sb.AppendFormat("<tr><td style='text-align:center'>{0}.</td><td style='padding:5px;'>{1} {2}</td> <td style='padding:5px;'>{3}</td> <td style='padding:5px;'>{4}</td></tr>", i, makeName, model.ModelName, model.OldUrl, model.NewUrl);
+             else
+                 sb.AppendFormat("<tr><td style='text-align:center'>{0}.</td><td style='padding:5px;'>{1} Bikes</td> <td style='padding:5px;'>{2}</td> <td style='padding:5px;'>{3}</td></tr>", i, makeName, model.OldUrl, model.NewUrl);             
+             i++;
             }
+            sb.AppendFormat("</tbody></table>");
             return sb.ToString();
         }
     }

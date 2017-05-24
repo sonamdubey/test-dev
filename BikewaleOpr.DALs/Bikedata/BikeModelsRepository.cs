@@ -348,10 +348,13 @@ namespace BikewaleOpr.DALs.Bikedata
                         if (dr != null)
                         {
                             models = new Collection<BikeModelMailEntity>();
-
+                            BikeModelMailEntity obj = new BikeModelMailEntity();
+                            obj.OldUrl = string.Format("{0}/{1}-bikes/", hostUrl, oldMakeMasking);
+                            obj.NewUrl = string.Format("{0}/{1}-bikes/", hostUrl, newMakeMasking);
+                            models.Add(obj);
                             while (dr.Read())
                             {
-                                BikeModelMailEntity obj = new BikeModelMailEntity();
+                                obj = new BikeModelMailEntity();
                                 obj.ModelId = Convert.ToInt32(dr["ModelId"]);
                                 obj.ModelName = Convert.ToString(dr["ModelName"]);
                                 obj.MaskingName = Convert.ToString(dr["ModelMasking"]);
