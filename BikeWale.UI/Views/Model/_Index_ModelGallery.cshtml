@@ -3,7 +3,7 @@
 }
 
 <div class="bw-tabs-panel">
-    @if (!Model.IsUpcomingBike && Model.ColorImages != null && Model.ColorImages.Count() > 0)
+    @if (Model.ColorImages != null && Model.ColorImages.Count() > 0)
     {
         <div class="bw-tabs bw-group-flex toggle-btn-label text-center margin-bottom5">
             <ul>
