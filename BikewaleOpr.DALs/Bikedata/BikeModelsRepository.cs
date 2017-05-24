@@ -355,8 +355,8 @@ namespace BikewaleOpr.DALs.Bikedata
                                 obj.ModelId = Convert.ToInt32(dr["ModelId"]);
                                 obj.ModelName = Convert.ToString(dr["ModelName"]);
                                 obj.MaskingName = Convert.ToString(dr["ModelMasking"]);
-                                obj.OldUrl = string.Format("{0}{1}-bikes/{2}/", hostUrl, oldMakeMasking, obj.MaskingName);
-                                obj.NewUrl = string.Format("{0}{1}-bikes/{2}/", hostUrl, newMakeMasking, obj.MaskingName);
+                                obj.OldUrl = string.Format("{0}/{1}-bikes/{2}/", hostUrl, oldMakeMasking, obj.MaskingName);
+                                obj.NewUrl = string.Format("{0}/{1}-bikes/{2}/", hostUrl, newMakeMasking, obj.MaskingName);
                                 models.Add(obj);
                             }
                             dr.Close();

@@ -32,10 +32,10 @@ namespace Bikewale.Notifications
         /// <summary>
         /// Send email on make masking name change
         /// </summary>
-        public static void SendMakeMaskingNameChangeMail(string userEmail, string makeName, string makeMasking,IEnumerable<BikeModelMailEntity> models )
+        public static void SendMakeMaskingNameChangeMail(string userEmail, string makeName,IEnumerable<BikeModelMailEntity> models )
         {
-            ComposeEmailBase objEmail = new MakeMaskingNameChangedMail(makeName, makeMasking, models);
-            objEmail.Send(userEmail, string.Format("URL of {0} bikes have changed", makeName));
+            ComposeEmailBase objEmail = new MakeMaskingNameChangedMail(makeName, models);
+            objEmail.Send(userEmail, string.Format("URLs of {0} bikes have changed", makeName));
         }
     }
 }

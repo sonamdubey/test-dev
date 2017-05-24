@@ -199,7 +199,7 @@ namespace BikeWaleOpr.Common
         /// <returns>nothing</returns>
 
         [AjaxPro.AjaxMethod()]
-        public bool UpdateModelMaskingName(string maskingName, string updatedBy, string modelId,string oldMaskingName,string makeMasking)
+        public bool UpdateModelMaskingName(string maskingName, string updatedBy, string modelId,string oldMaskingName,string makeMasking,string makeName, string modelName)
         {
             bool isSuccess = false;
             try
@@ -213,7 +213,7 @@ namespace BikeWaleOpr.Common
                     string newUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl,makeMasking, maskingName);
                     foreach (var mailId in emails)
                     {
-                        SendEmailOnModelChange.SendModelMaskingNameChangeMail(mailId, mmv.Make, mmv.Model,oldUrl,newUrl);
+                        SendEmailOnModelChange.SendModelMaskingNameChangeMail(mailId, makeName, modelName,oldUrl,newUrl);
                     }
                 }
             }

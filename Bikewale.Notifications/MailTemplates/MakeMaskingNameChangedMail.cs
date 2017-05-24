@@ -16,15 +16,13 @@ namespace Bikewale.Notifications.MailTemplates
     public class MakeMaskingNameChangedMail : ComposeEmailBase
     {
         private IEnumerable<BikeModelMailEntity> models;
-        private string makeName,
-                     makeMasking;
+        private string makeName;
         /// <summary>
         /// Initialize the member variables values
         /// </summary>
-        public MakeMaskingNameChangedMail(string makeName, string makeMasking, IEnumerable<BikeModelMailEntity> models)
+        public MakeMaskingNameChangedMail(string makeName, IEnumerable<BikeModelMailEntity> models)
         {
-            this.makeName = makeName;
-            this.makeMasking = makeMasking;
+            this.makeName = makeName;            
             this.models = models;
         }
         /// <summary>
