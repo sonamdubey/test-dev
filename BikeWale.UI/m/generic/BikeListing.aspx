@@ -121,7 +121,7 @@
                                         <td valign="top" class="text-bold text-grey">
                                                 <%= bike.TotalModelColors > 0 ? bike.TotalModelColors : 1 %><%= (bike.TotalModelColors > 1 ? " colors" : " color") %>
                                         </td>
-                                        <td valign="top" class="text-bold text-grey"><%= bike.LaunchDate.HasValue ? Bikewale.Utility.FormatDate.GetFormatDate(bike.LaunchDate.ToString(),"MMM yyyy") : "Before 2012" %></td>
+                                        <td valign="top" class="text-bold text-grey"><%= bike.LaunchDate.HasValue ? Bikewale.Utility.FormatDate.GetFormatDate(bike.LaunchDate.ToString(),"MMMM yyyy") : "Before 2012" %></td>
                                         <td valign="top" class="text-bold text-grey"><%= Bikewale.Utility.Format.FormatPrice(bike.UnitsSold.ToString()) %></td>
                                     </tr>
                                 </tbody>

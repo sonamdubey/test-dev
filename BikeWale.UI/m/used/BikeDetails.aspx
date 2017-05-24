@@ -127,7 +127,7 @@
                         </li>
                         <li>
                             <p class="specs-features-label">Manufacturing year</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatDate.GetFormatDate(inquiryDetails.MinDetails.ModelYear.ToString(),"MMM yyyy") %></p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatDate.GetFormatDate(inquiryDetails.MinDetails.ModelYear.ToString(),"MMMM yyyy") %></p>
                         </li>
                         <% if (!string.IsNullOrEmpty(inquiryDetails.OtherDetails.Color.ColorName))
                            { %>

@@ -18,7 +18,7 @@ namespace Bikewale.Utility
             if (String.IsNullOrEmpty(_date))
                 return string.Empty;
             else
-                return Convert.ToDateTime(_date).ToString("dd MMM yyyy");
+                return Convert.ToDateTime(_date).ToString("dd MMMM yyyy");
         }
 
 

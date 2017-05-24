@@ -15,7 +15,7 @@
                         </div>
                         <div class="reviews-desc-wrapper">
                             <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" class="article-target-link font14">@video.VideoTitle"</a>
-                            <div class="font12 text-light-grey margin-top10 margin-bottom10">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate),"MMMM dd, yyyy")</div>
+                            <div class="font12 text-light-grey margin-top10 margin-bottom10">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate),"dd MMMM yyyy")</div>
                             <div class="font14 text-light-grey margin-bottom15">@FormatDescription.TruncateDescription(video.Description,125)</div>
                             <div class="grid-4 alpha omega border-light-right font14">
                                 <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Views))</span>

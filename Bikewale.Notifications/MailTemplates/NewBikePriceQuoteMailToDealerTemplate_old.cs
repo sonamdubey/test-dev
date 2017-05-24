@@ -1,11 +1,8 @@
 ﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using Bikewale.Utility;
 
 namespace Bikewale.Notifications.MailTemplates
 {
@@ -15,7 +12,7 @@ namespace Bikewale.Notifications.MailTemplates
     /// </summary>
     public class NewBikePriceQuoteMailToDealerTemplate_old : ComposeEmailBase
     {
-        
+
         private string MailHTML = null;
 
         public NewBikePriceQuoteMailToDealerTemplate_old(string makeName, string modelName, string dealerName, string customerName, string customerEmail, string customerMobile,
@@ -76,7 +73,7 @@ namespace Bikewale.Notifications.MailTemplates
                                     + "</div>"
                                 + "</div>"
                                 + "<div style=\"display:inline-block; vertical-align:top; max-width:428px; text-align:left; padding:0 20px 0 10px;\">"
-                    , date.ToString("MMM dd, yyyy"), dealerName.Trim(), makeName + " " + modelName, customerName, customerEmail, customerMobile, areaName + ", " + cityName, imagePath);
+                    , date.ToString("dd MMMM yyyy"), dealerName.Trim(), makeName + " " + modelName, customerName, customerEmail, customerMobile, areaName + ", " + cityName, imagePath);
                 //Pricelist codediv
                 if (priceList != null && priceList.Count > 0)
                 {

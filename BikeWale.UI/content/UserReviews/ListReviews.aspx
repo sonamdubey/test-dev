@@ -221,7 +221,7 @@
                                 <h3><a class="article-target-link line-height" title="<%#DataBinder.Eval(Container.DataItem, "Title") %>" href="/<%= MakeMaskingName %>-bikes/<%= ModelMaskingName %>/reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>/"><%# DataBinder.Eval(Container.DataItem, "Title").ToString() %></a></h3>
                                 <div class="article-stats-left-grid">
                                     <span class="bwsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content"><%#Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString((DataBinder.Eval(Container.DataItem, "EntryDateTime"))), "MMM dd, yyyy") %></span>
+                                    <span class="article-stats-content"><%#Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString((DataBinder.Eval(Container.DataItem, "EntryDateTime"))), "dd MMMM yyyy") %></span>
                                 </div>
                                 <div class="article-stats-right-grid">
                                     <span class="bwsprite author-grey-sm-icon"></span>

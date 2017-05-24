@@ -35,7 +35,7 @@
 					            <td valign="top" style="padding-left:10px;">
 						            <div><h2><b><%= bike.BikeName %></b>&nbsp;&nbsp;<span class="arr-small">&raquo;</span></h2></div>
 						            <div class="darkgray new-line5">When to expect</div>
-						            <div class="darkgray new-line"> <%= String.IsNullOrEmpty(bike.ExpectedLaunchDate) ? "N/A" : Convert.ToDateTime(bike.ExpectedLaunchDate).ToString("MMM yyyy") %></div>
+						            <div class="darkgray new-line"> <%= String.IsNullOrEmpty(bike.ExpectedLaunchDate) ? "N/A" : Convert.ToDateTime(bike.ExpectedLaunchDate).ToString("MMMM yyyy") %></div>
 						            <div class="darkgray new-line5">Estimated price</div>
 						            <div class="darkgray new-line">Rs.<%= Bikewale.Common.CommonOpn.FormatPrice(bike.EstimatedPriceMin.ToString(), bike.EstimatedPriceMax.ToString())%></div>
 					            </td>

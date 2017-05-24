@@ -24,7 +24,7 @@ namespace Bikewale.Service.Utilities
             foreach (var article in objCMSFArticles.Articles)
             {
                 article.ShareUrl = ReturnShareUrl(article);
-                article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
+                article.FormattedDisplayDate = article.DisplayDate.ToString("dd MMMM yyyy");
             }
             return objCMSFArticles;
         }
@@ -43,7 +43,7 @@ namespace Bikewale.Service.Utilities
             foreach (var article in objCMSFArticles)
             {
                 article.ShareUrl = ReturnShareUrl(article);
-                article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
+                article.FormattedDisplayDate = article.DisplayDate.ToString("dd MMMM yyyy");
             }
             return objCMSFArticles;
         }
@@ -62,7 +62,7 @@ namespace Bikewale.Service.Utilities
             foreach (var article in objCMSFArticles)
             {
                 article.ShareUrl = ReturnShareUrl(article);
-                article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
+                article.FormattedDisplayDate = article.DisplayDate.ToString("dd MMMM yyyy");
             }
             return objCMSFArticles;
         }

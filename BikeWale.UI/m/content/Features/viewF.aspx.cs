@@ -149,7 +149,7 @@ namespace Bikewale.Mobile.Content
             ampUrl = string.Format("{0}/m/features/{1}-{2}/amp/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objFeature.ArticleUrl, objArticle.BasicId);
             author = objFeature.AuthorName;
             pageTitle = objFeature.Title;
-            displayDate = Convert.ToDateTime(objFeature.DisplayDate).ToString("MMMM dd, yyyy hh:mm tt");
+            displayDate = Convert.ToDateTime(objFeature.DisplayDate).ToString("dd MMMM yyyy, hh:mm tt");
         }
 
         private void BindPages()

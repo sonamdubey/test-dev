@@ -1,5 +1,5 @@
 ﻿var ratingBox, page;
-var userNameField, userEmailIdField, vmWriteReview;
+var userNameField, userEmailIdField, vmWriteReview, vmRateBike;
 var detailedReviewField, reviewTitleField, reviewQuestion, ratingOverAll, pageSourceID;
 var writeReview;
 var makeModelName;
@@ -307,7 +307,7 @@ docReady(function () {
         };
     };
 
-    var vmRateBike = new rateBike(),
+    vmRateBike = new rateBike(),
         rateBikeForm = document.getElementById('rate-bike-form');
 
     if (rateBikeForm) {
@@ -643,9 +643,11 @@ docReady(function () {
         vmWriteReview.validate.reviewTitle();
 
     vmWriteReview.GetFromBwCache();
-
     vmWriteReview.FillReviewData();
-
+    window.onbeforeunload = function () {
+        if ($("#bike-rating-box input[type='radio']:checked").attr("value") != null)
+            return false;
+    }
 });
 
 var answer = {

@@ -17,7 +17,7 @@
                             <div class="margin-top10">
                                 <a href="@string.Format("/m{0}",UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId)))" class="text-default font14 text-bold">@video.VideoTitle"</a>
 
-                                <p class="font12 text-xlight-grey margin-top10 margin-bottom10">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate),"MMMM dd, yyyy")</p>
+                                <p class="font12 text-xlight-grey margin-top10 margin-bottom10">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate),"dd MMMM yyyy")</p>
                                 <p class="font14 text-light-grey margin-bottom10 line-height17">@FormatDescription.TruncateDescription(video.Description,75)</p>
                                 <div class="grid-6 alpha omega border-light-right font14">
                                     <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-default">@Format.FormatPrice(Convert.ToString(video.Views))</span>

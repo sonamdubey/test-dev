@@ -55,7 +55,7 @@
                             <% if(listingDetails.TotalViews != 0 && listingDetails.StatusId != 2) { %>
                             <a class="buttons btn-xs" href="/mybikewale/buyerdetails.aspx?id=<%= listingDetails.InquiryId %>">View Buyer Details</a>
                             <% } %>
-                            <div class="margin-top10">Bike Listed On : <%= listingDetails.EntryDate.ToString("MMMM dd, yyyy") %></div>
+                            <div class="margin-top10">Bike Listed On : <%= listingDetails.EntryDate.ToString("dd MMMM yyyy") %></div>
                         </div>
                     </div>                    
                     <div class="grid_2 omega">
