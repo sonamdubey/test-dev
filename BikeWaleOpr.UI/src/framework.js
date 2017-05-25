@@ -151,3 +151,1635 @@ new a.O;var b=new a.vb;0<b.ad&&a.Db(b);a.b("jqueryTmplTemplateEngine",a.vb)})()}
 
 /* Chosen v1.3.0 | (c) 2011-2014 by Harvest | MIT License, https://github.com/harvesthq/chosen/blob/master/LICENSE.md */
 !function () { var a, AbstractChosen, Chosen, SelectParser, b, c = {}.hasOwnProperty, d = function (a, b) { function d() { this.constructor = a } for (var e in b) c.call(b, e) && (a[e] = b[e]); return d.prototype = b.prototype, a.prototype = new d, a.__super__ = b.prototype, a }; SelectParser = function () { function SelectParser() { this.options_index = 0, this.parsed = [] } return SelectParser.prototype.add_node = function (a) { return "OPTGROUP" === a.nodeName.toUpperCase() ? this.add_group(a) : this.add_option(a) }, SelectParser.prototype.add_group = function (a) { var b, c, d, e, f, g; for (b = this.parsed.length, this.parsed.push({ array_index: b, group: !0, label: this.escapeExpression(a.label), children: 0, disabled: a.disabled, classes: a.className }), f = a.childNodes, g = [], d = 0, e = f.length; e > d; d++) c = f[d], g.push(this.add_option(c, b, a.disabled)); return g }, SelectParser.prototype.add_option = function (a, b, c) { return "OPTION" === a.nodeName.toUpperCase() ? ("" !== a.text ? (null != b && (this.parsed[b].children += 1), this.parsed.push({ array_index: this.parsed.length, options_index: this.options_index, value: a.value, text: a.text, html: a.innerHTML, selected: a.selected, disabled: c === !0 ? c : a.disabled, group_array_index: b, classes: a.className, style: a.style.cssText })) : this.parsed.push({ array_index: this.parsed.length, options_index: this.options_index, empty: !0 }), this.options_index += 1) : void 0 }, SelectParser.prototype.escapeExpression = function (a) { var b, c; return null == a || a === !1 ? "" : /[\&\<\>\"\'\`]/.test(a) ? (b = { "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#x27;", "`": "&#x60;" }, c = /&(?!\w+;)|[\<\>\"\'\`]/g, a.replace(c, function (a) { return b[a] || "&amp;" })) : a }, SelectParser }(), SelectParser.select_to_array = function (a) { var b, c, d, e, f; for (c = new SelectParser, f = a.childNodes, d = 0, e = f.length; e > d; d++) b = f[d], c.add_node(b); return c.parsed }, AbstractChosen = function () { function AbstractChosen(a, b) { this.form_field = a, this.options = null != b ? b : {}, AbstractChosen.browser_is_supported() && (this.is_multiple = this.form_field.multiple, this.set_default_text(), this.set_default_values(), this.setup(), this.set_up_html(), this.register_observers(), this.on_ready()) } return AbstractChosen.prototype.set_default_values = function () { var a = this; return this.click_test_action = function (b) { return a.test_active_click(b) }, this.activate_action = function (b) { return a.activate_field(b) }, this.active_field = !1, this.mouse_on_container = !1, this.results_showing = !1, this.result_highlighted = null, this.allow_single_deselect = null != this.options.allow_single_deselect && null != this.form_field.options[0] && "" === this.form_field.options[0].text ? this.options.allow_single_deselect : !1, this.disable_search_threshold = this.options.disable_search_threshold || 0, this.disable_search = this.options.disable_search || !1, this.enable_split_word_search = null != this.options.enable_split_word_search ? this.options.enable_split_word_search : !0, this.group_search = null != this.options.group_search ? this.options.group_search : !0, this.search_contains = this.options.search_contains || !1, this.single_backstroke_delete = null != this.options.single_backstroke_delete ? this.options.single_backstroke_delete : !0, this.max_selected_options = this.options.max_selected_options || 1 / 0, this.inherit_select_classes = this.options.inherit_select_classes || !1, this.display_selected_options = null != this.options.display_selected_options ? this.options.display_selected_options : !0, this.display_disabled_options = null != this.options.display_disabled_options ? this.options.display_disabled_options : !0 }, AbstractChosen.prototype.set_default_text = function () { return this.default_text = this.form_field.getAttribute("data-placeholder") ? this.form_field.getAttribute("data-placeholder") : this.is_multiple ? this.options.placeholder_text_multiple || this.options.placeholder_text || AbstractChosen.default_multiple_text : this.options.placeholder_text_single || this.options.placeholder_text || AbstractChosen.default_single_text, this.results_none_found = this.form_field.getAttribute("data-no_results_text") || this.options.no_results_text || AbstractChosen.default_no_result_text }, AbstractChosen.prototype.mouse_enter = function () { return this.mouse_on_container = !0 }, AbstractChosen.prototype.mouse_leave = function () { return this.mouse_on_container = !1 }, AbstractChosen.prototype.input_focus = function () { var a = this; if (this.is_multiple) { if (!this.active_field) return setTimeout(function () { return a.container_mousedown() }, 50) } else if (!this.active_field) return this.activate_field() }, AbstractChosen.prototype.input_blur = function () { var a = this; return this.mouse_on_container ? void 0 : (this.active_field = !1, setTimeout(function () { return a.blur_test() }, 100)) }, AbstractChosen.prototype.results_option_build = function (a) { var b, c, d, e, f; for (b = "", f = this.results_data, d = 0, e = f.length; e > d; d++) c = f[d], b += c.group ? this.result_add_group(c) : this.result_add_option(c), (null != a ? a.first : void 0) && (c.selected && this.is_multiple ? this.choice_build(c) : c.selected && !this.is_multiple && this.single_set_selected_text(c.text)); return b }, AbstractChosen.prototype.result_add_option = function (a) { var b, c; return a.search_match ? this.include_option_in_results(a) ? (b = [], a.disabled || a.selected && this.is_multiple || b.push("active-result"), !a.disabled || a.selected && this.is_multiple || b.push("disabled-result"), a.selected && b.push("result-selected"), null != a.group_array_index && b.push("group-option"), "" !== a.classes && b.push(a.classes), c = document.createElement("li"), c.className = b.join(" "), c.style.cssText = a.style, c.setAttribute("data-option-array-index", a.array_index), c.innerHTML = a.search_text, this.outerHTML(c)) : "" : "" }, AbstractChosen.prototype.result_add_group = function (a) { var b, c; return a.search_match || a.group_match ? a.active_options > 0 ? (b = [], b.push("group-result"), a.classes && b.push(a.classes), c = document.createElement("li"), c.className = b.join(" "), c.innerHTML = a.search_text, this.outerHTML(c)) : "" : "" }, AbstractChosen.prototype.results_update_field = function () { return this.set_default_text(), this.is_multiple || this.results_reset_cleanup(), this.result_clear_highlight(), this.results_build(), this.results_showing ? this.winnow_results() : void 0 }, AbstractChosen.prototype.reset_single_select_options = function () { var a, b, c, d, e; for (d = this.results_data, e = [], b = 0, c = d.length; c > b; b++) a = d[b], a.selected ? e.push(a.selected = !1) : e.push(void 0); return e }, AbstractChosen.prototype.results_toggle = function () { return this.results_showing ? this.results_hide() : this.results_show() }, AbstractChosen.prototype.results_search = function () { return this.results_showing ? this.winnow_results() : this.results_show() }, AbstractChosen.prototype.winnow_results = function () { var a, b, c, d, e, f, g, h, i, j, k, l; for (this.no_results_clear(), d = 0, f = this.get_search_text(), a = f.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), i = new RegExp(a, "i"), c = this.get_search_regex(a), l = this.results_data, j = 0, k = l.length; k > j; j++) b = l[j], b.search_match = !1, e = null, this.include_option_in_results(b) && (b.group && (b.group_match = !1, b.active_options = 0), null != b.group_array_index && this.results_data[b.group_array_index] && (e = this.results_data[b.group_array_index], 0 === e.active_options && e.search_match && (d += 1), e.active_options += 1), (!b.group || this.group_search) && (b.search_text = b.group ? b.label : b.text, b.search_match = this.search_string_match(b.search_text, c), b.search_match && !b.group && (d += 1), b.search_match ? (f.length && (g = b.search_text.search(i), h = b.search_text.substr(0, g + f.length) + "</em>" + b.search_text.substr(g + f.length), b.search_text = h.substr(0, g) + "<em>" + h.substr(g)), null != e && (e.group_match = !0)) : null != b.group_array_index && this.results_data[b.group_array_index].search_match && (b.search_match = !0))); return this.result_clear_highlight(), 1 > d && f.length ? (this.update_results_content(""), this.no_results(f)) : (this.update_results_content(this.results_option_build()), this.winnow_results_set_highlight()) }, AbstractChosen.prototype.get_search_regex = function (a) { var b; return b = this.search_contains ? "" : "^", new RegExp(b + a, "i") }, AbstractChosen.prototype.search_string_match = function (a, b) { var c, d, e, f; if (b.test(a)) return !0; if (this.enable_split_word_search && (a.indexOf(" ") >= 0 || 0 === a.indexOf("[")) && (d = a.replace(/\[|\]/g, "").split(" "), d.length)) for (e = 0, f = d.length; f > e; e++) if (c = d[e], b.test(c)) return !0 }, AbstractChosen.prototype.choices_count = function () { var a, b, c, d; if (null != this.selected_option_count) return this.selected_option_count; for (this.selected_option_count = 0, d = this.form_field.options, b = 0, c = d.length; c > b; b++) a = d[b], a.selected && (this.selected_option_count += 1); return this.selected_option_count }, AbstractChosen.prototype.choices_click = function (a) { return a.preventDefault(), this.results_showing || this.is_disabled ? void 0 : this.results_show() }, AbstractChosen.prototype.keyup_checker = function (a) { var b, c; switch (b = null != (c = a.which) ? c : a.keyCode, this.search_field_scale(), b) { case 8: if (this.is_multiple && this.backstroke_length < 1 && this.choices_count() > 0) return this.keydown_backstroke(); if (!this.pending_backstroke) return this.result_clear_highlight(), this.results_search(); break; case 13: if (a.preventDefault(), this.results_showing) return this.result_select(a); break; case 27: return this.results_showing && this.results_hide(), !0; case 9: case 38: case 40: case 16: case 91: case 17: break; default: return this.results_search() } }, AbstractChosen.prototype.clipboard_event_checker = function () { var a = this; return setTimeout(function () { return a.results_search() }, 50) }, AbstractChosen.prototype.container_width = function () { return null != this.options.width ? this.options.width : "" + this.form_field.offsetWidth + "px" }, AbstractChosen.prototype.include_option_in_results = function (a) { return this.is_multiple && !this.display_selected_options && a.selected ? !1 : !this.display_disabled_options && a.disabled ? !1 : a.empty ? !1 : !0 }, AbstractChosen.prototype.search_results_touchstart = function (a) { return this.touch_started = !0, this.search_results_mouseover(a) }, AbstractChosen.prototype.search_results_touchmove = function (a) { return this.touch_started = !1, this.search_results_mouseout(a) }, AbstractChosen.prototype.search_results_touchend = function (a) { return this.touch_started ? this.search_results_mouseup(a) : void 0 }, AbstractChosen.prototype.outerHTML = function (a) { var b; return a.outerHTML ? a.outerHTML : (b = document.createElement("div"), b.appendChild(a), b.innerHTML) }, AbstractChosen.browser_is_supported = function () { return "Microsoft Internet Explorer" === window.navigator.appName ? document.documentMode >= 8 : /iP(od|hone)/i.test(window.navigator.userAgent) ? !1 : /Android/i.test(window.navigator.userAgent) && /Mobile/i.test(window.navigator.userAgent) ? !1 : !0 }, AbstractChosen.default_multiple_text = "Select Some Options", AbstractChosen.default_single_text = "Select an Option", AbstractChosen.default_no_result_text = "No results match", AbstractChosen }(), a = jQuery, a.fn.extend({ chosen: function (b) { return AbstractChosen.browser_is_supported() ? this.each(function () { var c, d; c = a(this), d = c.data("chosen"), "destroy" === b && d instanceof Chosen ? d.destroy() : d instanceof Chosen || c.data("chosen", new Chosen(this, b)) }) : this } }), Chosen = function (c) { function Chosen() { return b = Chosen.__super__.constructor.apply(this, arguments) } return d(Chosen, c), Chosen.prototype.setup = function () { return this.form_field_jq = a(this.form_field), this.current_selectedIndex = this.form_field.selectedIndex, this.is_rtl = this.form_field_jq.hasClass("chosen-rtl") }, Chosen.prototype.set_up_html = function () { var b, c; return b = ["chosen-container"], b.push("chosen-container-" + (this.is_multiple ? "multi" : "single")), this.inherit_select_classes && this.form_field.className && b.push(this.form_field.className), this.is_rtl && b.push("chosen-rtl"), c = { "class": b.join(" "), style: "width: " + this.container_width() + ";", title: this.form_field.title }, this.form_field.id.length && (c.id = this.form_field.id.replace(/[^\w]/g, "_") + "_chosen"), this.container = a("<div />", c), this.is_multiple ? this.container.html('<ul class="chosen-choices"><li class="search-field"><input type="text" value="' + this.default_text + '" class="default" autocomplete="off" style="width:25px;" /></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div>') : this.container.html('<a class="chosen-single chosen-default" tabindex="-1"><span>' + this.default_text + '</span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" /></div><ul class="chosen-results"></ul></div>'), this.form_field_jq.hide().after(this.container), this.dropdown = this.container.find("div.chosen-drop").first(), this.search_field = this.container.find("input").first(), this.search_results = this.container.find("ul.chosen-results").first(), this.search_field_scale(), this.search_no_results = this.container.find("li.no-results").first(), this.is_multiple ? (this.search_choices = this.container.find("ul.chosen-choices").first(), this.search_container = this.container.find("li.search-field").first()) : (this.search_container = this.container.find("div.chosen-search").first(), this.selected_item = this.container.find(".chosen-single").first()), this.results_build(), this.set_tab_index(), this.set_label_behavior() }, Chosen.prototype.on_ready = function () { return this.form_field_jq.trigger("chosen:ready", { chosen: this }) }, Chosen.prototype.register_observers = function () { var a = this; return this.container.bind("touchstart.chosen", function (b) { a.container_mousedown(b) }), this.container.bind("touchend.chosen", function (b) { a.container_mouseup(b) }), this.container.bind("mousedown.chosen", function (b) { a.container_mousedown(b) }), this.container.bind("mouseup.chosen", function (b) { a.container_mouseup(b) }), this.container.bind("mouseenter.chosen", function (b) { a.mouse_enter(b) }), this.container.bind("mouseleave.chosen", function (b) { a.mouse_leave(b) }), this.search_results.bind("mouseup.chosen", function (b) { a.search_results_mouseup(b) }), this.search_results.bind("mouseover.chosen", function (b) { a.search_results_mouseover(b) }), this.search_results.bind("mouseout.chosen", function (b) { a.search_results_mouseout(b) }), this.search_results.bind("mousewheel.chosen DOMMouseScroll.chosen", function (b) { a.search_results_mousewheel(b) }), this.search_results.bind("touchstart.chosen", function (b) { a.search_results_touchstart(b) }), this.search_results.bind("touchmove.chosen", function (b) { a.search_results_touchmove(b) }), this.search_results.bind("touchend.chosen", function (b) { a.search_results_touchend(b) }), this.form_field_jq.bind("chosen:updated.chosen", function (b) { a.results_update_field(b) }), this.form_field_jq.bind("chosen:activate.chosen", function (b) { a.activate_field(b) }), this.form_field_jq.bind("chosen:open.chosen", function (b) { a.container_mousedown(b) }), this.form_field_jq.bind("chosen:close.chosen", function (b) { a.input_blur(b) }), this.search_field.bind("blur.chosen", function (b) { a.input_blur(b) }), this.search_field.bind("keyup.chosen", function (b) { a.keyup_checker(b) }), this.search_field.bind("keydown.chosen", function (b) { a.keydown_checker(b) }), this.search_field.bind("focus.chosen", function (b) { a.input_focus(b) }), this.search_field.bind("cut.chosen", function (b) { a.clipboard_event_checker(b) }), this.search_field.bind("paste.chosen", function (b) { a.clipboard_event_checker(b) }), this.is_multiple ? this.search_choices.bind("click.chosen", function (b) { a.choices_click(b) }) : this.container.bind("click.chosen", function (a) { a.preventDefault() }) }, Chosen.prototype.destroy = function () { return a(this.container[0].ownerDocument).unbind("click.chosen", this.click_test_action), this.search_field[0].tabIndex && (this.form_field_jq[0].tabIndex = this.search_field[0].tabIndex), this.container.remove(), this.form_field_jq.removeData("chosen"), this.form_field_jq.show() }, Chosen.prototype.search_field_disabled = function () { return this.is_disabled = this.form_field_jq[0].disabled, this.is_disabled ? (this.container.addClass("chosen-disabled"), this.search_field[0].disabled = !0, this.is_multiple || this.selected_item.unbind("focus.chosen", this.activate_action), this.close_field()) : (this.container.removeClass("chosen-disabled"), this.search_field[0].disabled = !1, this.is_multiple ? void 0 : this.selected_item.bind("focus.chosen", this.activate_action)) }, Chosen.prototype.container_mousedown = function (b) { return this.is_disabled || (b && "mousedown" === b.type && !this.results_showing && b.preventDefault(), null != b && a(b.target).hasClass("search-choice-close")) ? void 0 : (this.active_field ? this.is_multiple || !b || a(b.target)[0] !== this.selected_item[0] && !a(b.target).parents("a.chosen-single").length || (b.preventDefault(), this.results_toggle()) : (this.is_multiple && this.search_field.val(""), a(this.container[0].ownerDocument).bind("click.chosen", this.click_test_action), this.results_show()), this.activate_field()) }, Chosen.prototype.container_mouseup = function (a) { return "ABBR" !== a.target.nodeName || this.is_disabled ? void 0 : this.results_reset(a) }, Chosen.prototype.search_results_mousewheel = function (a) { var b; return a.originalEvent && (b = a.originalEvent.deltaY || -a.originalEvent.wheelDelta || a.originalEvent.detail), null != b ? (a.preventDefault(), "DOMMouseScroll" === a.type && (b = 40 * b), this.search_results.scrollTop(b + this.search_results.scrollTop())) : void 0 }, Chosen.prototype.blur_test = function () { return !this.active_field && this.container.hasClass("chosen-container-active") ? this.close_field() : void 0 }, Chosen.prototype.close_field = function () { return a(this.container[0].ownerDocument).unbind("click.chosen", this.click_test_action), this.active_field = !1, this.results_hide(), this.container.removeClass("chosen-container-active"), this.clear_backstroke(), this.show_search_field_default(), this.search_field_scale() }, Chosen.prototype.activate_field = function () { return this.container.addClass("chosen-container-active"), this.active_field = !0, this.search_field.val(this.search_field.val()), this.search_field.focus() }, Chosen.prototype.test_active_click = function (b) { var c; return c = a(b.target).closest(".chosen-container"), c.length && this.container[0] === c[0] ? this.active_field = !0 : this.close_field() }, Chosen.prototype.results_build = function () { return this.parsing = !0, this.selected_option_count = null, this.results_data = SelectParser.select_to_array(this.form_field), this.is_multiple ? this.search_choices.find("li.search-choice").remove() : this.is_multiple || (this.single_set_selected_text(), this.disable_search || this.form_field.options.length <= this.disable_search_threshold ? (this.search_field[0].readOnly = !0, this.container.addClass("chosen-container-single-nosearch")) : (this.search_field[0].readOnly = !1, this.container.removeClass("chosen-container-single-nosearch"))), this.update_results_content(this.results_option_build({ first: !0 })), this.search_field_disabled(), this.show_search_field_default(), this.search_field_scale(), this.parsing = !1 }, Chosen.prototype.result_do_highlight = function (a) { var b, c, d, e, f; if (a.length) { if (this.result_clear_highlight(), this.result_highlight = a, this.result_highlight.addClass("highlighted"), d = parseInt(this.search_results.css("maxHeight"), 10), f = this.search_results.scrollTop(), e = d + f, c = this.result_highlight.position().top + this.search_results.scrollTop(), b = c + this.result_highlight.outerHeight(), b >= e) return this.search_results.scrollTop(b - d > 0 ? b - d : 0); if (f > c) return this.search_results.scrollTop(c) } }, Chosen.prototype.result_clear_highlight = function () { return this.result_highlight && this.result_highlight.removeClass("highlighted"), this.result_highlight = null }, Chosen.prototype.results_show = function () { return this.is_multiple && this.max_selected_options <= this.choices_count() ? (this.form_field_jq.trigger("chosen:maxselected", { chosen: this }), !1) : (this.container.addClass("chosen-with-drop"), this.results_showing = !0, this.search_field.focus(), this.search_field.val(this.search_field.val()), this.winnow_results(), this.form_field_jq.trigger("chosen:showing_dropdown", { chosen: this })) }, Chosen.prototype.update_results_content = function (a) { return this.search_results.html(a) }, Chosen.prototype.results_hide = function () { return this.results_showing && (this.result_clear_highlight(), this.container.removeClass("chosen-with-drop"), this.form_field_jq.trigger("chosen:hiding_dropdown", { chosen: this })), this.results_showing = !1 }, Chosen.prototype.set_tab_index = function () { var a; return this.form_field.tabIndex ? (a = this.form_field.tabIndex, this.form_field.tabIndex = -1, this.search_field[0].tabIndex = a) : void 0 }, Chosen.prototype.set_label_behavior = function () { var b = this; return this.form_field_label = this.form_field_jq.parents("label"), !this.form_field_label.length && this.form_field.id.length && (this.form_field_label = a("label[for='" + this.form_field.id + "']")), this.form_field_label.length > 0 ? this.form_field_label.bind("click.chosen", function (a) { return b.is_multiple ? b.container_mousedown(a) : b.activate_field() }) : void 0 }, Chosen.prototype.show_search_field_default = function () { return this.is_multiple && this.choices_count() < 1 && !this.active_field ? (this.search_field.val(this.default_text), this.search_field.addClass("default")) : (this.search_field.val(""), this.search_field.removeClass("default")) }, Chosen.prototype.search_results_mouseup = function (b) { var c; return c = a(b.target).hasClass("active-result") ? a(b.target) : a(b.target).parents(".active-result").first(), c.length ? (this.result_highlight = c, this.result_select(b), this.search_field.focus()) : void 0 }, Chosen.prototype.search_results_mouseover = function (b) { var c; return c = a(b.target).hasClass("active-result") ? a(b.target) : a(b.target).parents(".active-result").first(), c ? this.result_do_highlight(c) : void 0 }, Chosen.prototype.search_results_mouseout = function (b) { return a(b.target).hasClass("active-result") ? this.result_clear_highlight() : void 0 }, Chosen.prototype.choice_build = function (b) { var c, d, e = this; return c = a("<li />", { "class": "search-choice" }).html("<span>" + b.html + "</span>"), b.disabled ? c.addClass("search-choice-disabled") : (d = a("<a />", { "class": "search-choice-close", "data-option-array-index": b.array_index }), d.bind("click.chosen", function (a) { return e.choice_destroy_link_click(a) }), c.append(d)), this.search_container.before(c) }, Chosen.prototype.choice_destroy_link_click = function (b) { return b.preventDefault(), b.stopPropagation(), this.is_disabled ? void 0 : this.choice_destroy(a(b.target)) }, Chosen.prototype.choice_destroy = function (a) { return this.result_deselect(a[0].getAttribute("data-option-array-index")) ? (this.show_search_field_default(), this.is_multiple && this.choices_count() > 0 && this.search_field.val().length < 1 && this.results_hide(), a.parents("li").first().remove(), this.search_field_scale()) : void 0 }, Chosen.prototype.results_reset = function () { return this.reset_single_select_options(), this.form_field.options[0].selected = !0, this.single_set_selected_text(), this.show_search_field_default(), this.results_reset_cleanup(), this.form_field_jq.trigger("change"), this.active_field ? this.results_hide() : void 0 }, Chosen.prototype.results_reset_cleanup = function () { return this.current_selectedIndex = this.form_field.selectedIndex, this.selected_item.find("abbr").remove() }, Chosen.prototype.result_select = function (a) { var b, c; return this.result_highlight ? (b = this.result_highlight, this.result_clear_highlight(), this.is_multiple && this.max_selected_options <= this.choices_count() ? (this.form_field_jq.trigger("chosen:maxselected", { chosen: this }), !1) : (this.is_multiple ? b.removeClass("active-result") : this.reset_single_select_options(), c = this.results_data[b[0].getAttribute("data-option-array-index")], c.selected = !0, this.form_field.options[c.options_index].selected = !0, this.selected_option_count = null, this.is_multiple ? this.choice_build(c) : this.single_set_selected_text(c.text), (a.metaKey || a.ctrlKey) && this.is_multiple || this.results_hide(), this.search_field.val(""), (this.is_multiple || this.form_field.selectedIndex !== this.current_selectedIndex) && this.form_field_jq.trigger("change", { selected: this.form_field.options[c.options_index].value }), this.current_selectedIndex = this.form_field.selectedIndex, this.search_field_scale())) : void 0 }, Chosen.prototype.single_set_selected_text = function (a) { return null == a && (a = this.default_text), a === this.default_text ? this.selected_item.addClass("chosen-default") : (this.single_deselect_control_build(), this.selected_item.removeClass("chosen-default")), this.selected_item.find("span").text(a) }, Chosen.prototype.result_deselect = function (a) { var b; return b = this.results_data[a], this.form_field.options[b.options_index].disabled ? !1 : (b.selected = !1, this.form_field.options[b.options_index].selected = !1, this.selected_option_count = null, this.result_clear_highlight(), this.results_showing && this.winnow_results(), this.form_field_jq.trigger("change", { deselected: this.form_field.options[b.options_index].value }), this.search_field_scale(), !0) }, Chosen.prototype.single_deselect_control_build = function () { return this.allow_single_deselect ? (this.selected_item.find("abbr").length || this.selected_item.find("span").first().after('<abbr class="search-choice-close"></abbr>'), this.selected_item.addClass("chosen-single-with-deselect")) : void 0 }, Chosen.prototype.get_search_text = function () { return this.search_field.val() === this.default_text ? "" : a("<div/>").text(a.trim(this.search_field.val())).html() }, Chosen.prototype.winnow_results_set_highlight = function () { var a, b; return b = this.is_multiple ? [] : this.search_results.find(".result-selected.active-result"), a = b.length ? b.first() : this.search_results.find(".active-result").first(), null != a ? this.result_do_highlight(a) : void 0 }, Chosen.prototype.no_results = function (b) { var c; return c = a('<li class="no-results">' + this.results_none_found + ' "<span></span>"</li>'), c.find("span").first().html(b), this.search_results.append(c), this.form_field_jq.trigger("chosen:no_results", { chosen: this }) }, Chosen.prototype.no_results_clear = function () { return this.search_results.find(".no-results").remove() }, Chosen.prototype.keydown_arrow = function () { var a; return this.results_showing && this.result_highlight ? (a = this.result_highlight.nextAll("li.active-result").first()) ? this.result_do_highlight(a) : void 0 : this.results_show() }, Chosen.prototype.keyup_arrow = function () { var a; return this.results_showing || this.is_multiple ? this.result_highlight ? (a = this.result_highlight.prevAll("li.active-result"), a.length ? this.result_do_highlight(a.first()) : (this.choices_count() > 0 && this.results_hide(), this.result_clear_highlight())) : void 0 : this.results_show() }, Chosen.prototype.keydown_backstroke = function () { var a; return this.pending_backstroke ? (this.choice_destroy(this.pending_backstroke.find("a").first()), this.clear_backstroke()) : (a = this.search_container.siblings("li.search-choice").last(), a.length && !a.hasClass("search-choice-disabled") ? (this.pending_backstroke = a, this.single_backstroke_delete ? this.keydown_backstroke() : this.pending_backstroke.addClass("search-choice-focus")) : void 0) }, Chosen.prototype.clear_backstroke = function () { return this.pending_backstroke && this.pending_backstroke.removeClass("search-choice-focus"), this.pending_backstroke = null }, Chosen.prototype.keydown_checker = function (a) { var b, c; switch (b = null != (c = a.which) ? c : a.keyCode, this.search_field_scale(), 8 !== b && this.pending_backstroke && this.clear_backstroke(), b) { case 8: this.backstroke_length = this.search_field.val().length; break; case 9: this.results_showing && !this.is_multiple && this.result_select(a), this.mouse_on_container = !1; break; case 13: this.results_showing && a.preventDefault(); break; case 32: this.disable_search && a.preventDefault(); break; case 38: a.preventDefault(), this.keyup_arrow(); break; case 40: a.preventDefault(), this.keydown_arrow() } }, Chosen.prototype.search_field_scale = function () { var b, c, d, e, f, g, h, i, j; if (this.is_multiple) { for (d = 0, h = 0, f = "position:absolute; left: -1000px; top: -1000px; display:none;", g = ["font-size", "font-style", "font-weight", "font-family", "line-height", "text-transform", "letter-spacing"], i = 0, j = g.length; j > i; i++) e = g[i], f += e + ":" + this.search_field.css(e) + ";"; return b = a("<div />", { style: f }), b.text(this.search_field.val()), a("body").append(b), h = b.width() + 25, b.remove(), c = this.container.outerWidth(), h > c - 10 && (h = c - 10), this.search_field.css({ width: h + "px" }) } }, Chosen }(AbstractChosen) }.call(this);
+
+/*
+ * easy-autocomplete
+ * jQuery plugin for autocompletion
+ * 
+ * @author Łukasz Pawełczak (http://github.com/pawelczak)
+ * @version 1.3.5
+ * Copyright  License: 
+ */
+
+/*
+ * EasyAutocomplete - Configuration 
+ */
+var EasyAutocomplete = (function(scope){
+
+	scope.Configuration = function Configuration(options) {
+		var defaults = {
+			data: "list-required",
+			url: "list-required",
+			dataType: "json",
+
+			listLocation: function(data) {
+				return data;
+			},
+
+			xmlElementName: "",
+
+			getValue: function(element) {
+				return element;
+			},
+
+			sourceType: function(element) {
+			    return element;
+			},
+
+			autocompleteOff: true,
+
+			placeholder: false,
+
+			ajaxCallback: function() {},
+
+			matchResponseProperty: false,
+
+			list: {
+				sort: {
+					enabled: false,
+					method: function(a, b) {
+						a = defaults.getValue(a);
+						b = defaults.getValue(b);
+						if (a < b) {
+							return -1;
+						}
+						if (a > b) {
+							return 1;
+						}
+						return 0;
+					}
+				},
+
+				maxNumberOfElements: 6,
+
+				hideOnEmptyPhrase: true,
+
+				match: {
+					enabled: false,
+					caseSensitive: false,
+					method: function(element, phrase) {
+
+						if (element.search(phrase) > -1) {
+							return true;
+						} else {
+							return false;
+						}
+					}
+				},
+
+				showAnimation: {
+					type: "normal", //normal|slide|fade
+					time: 400,
+					callback: function() {}
+				},
+
+				hideAnimation: {
+					type: "normal",
+					time: 400,
+					callback: function() {}
+				},
+
+				/* Events */
+				onClickEvent: function() {},
+				onSelectItemEvent: function() {},
+				onLoadEvent: function() {},
+				onChooseEvent: function() {},
+				onKeyEnterEvent: function() {},
+				onMouseOverEvent: function() {},
+				onMouseOutEvent: function() {},	
+				onShowListEvent: function() {},
+				onHideListEvent: function() {}
+			},
+
+			highlightPhrase: true,
+
+			theme: "",
+
+			cssClasses: "",
+
+			minCharNumber: 0,
+
+			requestDelay: 0,
+
+			adjustWidth: true,
+
+			ajaxSettings: {},
+
+			preparePostData: function(data, inputPhrase) {return data;},
+
+			loggerEnabled: true,
+
+			template: "",
+
+			categoriesAssigned: false,
+
+			categories: [{
+				maxNumberOfElements: 4
+			}]
+
+		};
+		
+		var externalObjects = ["ajaxSettings", "template"];
+
+		this.get = function(propertyName) {
+			return defaults[propertyName];
+		};
+
+		this.equals = function(name, value) {
+			if (isAssigned(name)) {
+				if (defaults[name] === value) {
+					return true;
+				}
+			} 
+			
+			return false;
+		};
+
+		this.checkDataUrlProperties = function() {
+			if (defaults.url === "list-required" && defaults.data === "list-required") {
+				return false;
+			}
+			return true;
+		};
+		this.checkRequiredProperties = function() {
+			for (var propertyName in defaults) {
+				if (defaults[propertyName] === "required") {
+					logger.error("Option " + propertyName + " must be defined");
+					return false;
+				}
+			}
+			return true;
+		};
+
+		this.printPropertiesThatDoesntExist = function(consol, optionsToCheck) {
+			printPropertiesThatDoesntExist(consol, optionsToCheck);
+		};
+
+
+		prepareDefaults();
+
+		mergeOptions();
+
+		if (defaults.loggerEnabled === true) {
+			printPropertiesThatDoesntExist(console, options);	
+		}
+
+		addAjaxSettings();
+
+		processAfterMerge();
+		function prepareDefaults() {
+
+			if (options.dataType === "xml") {
+				
+				if (!options.getValue) {
+
+					options.getValue = function(element) {
+						return $(element).text();
+					};
+				}
+
+				
+				if (!options.list) {
+
+					options.list = {};
+				} 
+
+				if (!options.list.sort) {
+					options.list.sort = {};
+				}
+
+
+				options.list.sort.method = function(a, b) {
+					a = options.getValue(a);
+					b = options.getValue(b);
+					if (a < b) {
+						return -1;
+					}
+					if (a > b) {
+						return 1;
+					}
+					return 0;
+				};
+
+				if (!options.list.match) {
+					options.list.match = {};
+				}
+
+				options.list.match.method = function(element, phrase) {
+
+					if (element.search(phrase) > -1) {
+						return true;
+					} else {
+						return false;
+					}
+				};
+
+			}
+			if (options.categories !== undefined && options.categories instanceof Array) {
+
+				var categories = [];
+
+				for (var i = 0, length = options.categories.length; i < length; i += 1) { 
+
+					var category = options.categories[i];
+
+					for (var property in defaults.categories[0]) {
+
+						if (category[property] === undefined) {
+							category[property] = defaults.categories[0][property];
+						}
+					}
+
+					categories.push(category);
+				}
+
+				options.categories = categories;
+			}
+		}
+
+		function mergeOptions() {
+
+			defaults = mergeObjects(defaults, options);
+
+			function mergeObjects(source, target) {
+				var mergedObject = source || {};
+
+				for (var propertyName in source) {
+					if (target[propertyName] !== undefined && target[propertyName] !== null) {
+
+						if (typeof target[propertyName] !== "object" || 
+								target[propertyName] instanceof Array) {
+							mergedObject[propertyName] = target[propertyName];
+						} else {
+							mergeObjects(source[propertyName], target[propertyName]);
+						}
+					}
+				}
+			
+				/* If data is an object */
+				if (target.data !== undefined && target.data !== null && typeof target.data === "object") {
+					mergedObject.data = target.data;
+				}
+
+				return mergedObject;
+			}
+		}	
+
+
+		function processAfterMerge() {
+			
+			if (defaults.url !== "list-required" && typeof defaults.url !== "function") {
+				var defaultUrl = defaults.url;
+				defaults.url = function() {
+					return defaultUrl;
+				};
+			}
+
+			if (defaults.ajaxSettings.url !== undefined && typeof defaults.ajaxSettings.url !== "function") {
+				var defaultUrl = defaults.ajaxSettings.url;
+				defaults.ajaxSettings.url = function() {
+					return defaultUrl;
+				};
+			}
+
+			if (typeof defaults.listLocation === "string") {
+				var defaultlistLocation = defaults.listLocation;
+
+				if (defaults.dataType.toUpperCase() === "XML") {
+					defaults.listLocation = function(data) {
+						return $(data).find(defaultlistLocation);
+					};
+				} else {
+					defaults.listLocation = function(data) {
+						return data[defaultlistLocation];
+					};	
+				}
+			}
+
+			if (typeof defaults.getValue === "string") {
+				var defaultsGetValue = defaults.getValue;
+				defaults.getValue = function(element) {
+					return element[defaultsGetValue];
+				};
+			}
+
+			if (options.categories !== undefined) {
+				defaults.categoriesAssigned = true;
+			}
+
+		}
+
+		function addAjaxSettings() {
+
+			if (options.ajaxSettings !== undefined && typeof options.ajaxSettings === "object") {
+				defaults.ajaxSettings = options.ajaxSettings;
+			} else {
+				defaults.ajaxSettings = {};	
+			}
+			
+		}
+
+		function isAssigned(name) {
+			if (defaults[name] !== undefined && defaults[name] !== null) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function printPropertiesThatDoesntExist(consol, optionsToCheck) {
+			
+			checkPropertiesIfExist(defaults, optionsToCheck);
+
+			function checkPropertiesIfExist(source, target) {
+				for(var property in target) {
+					if (source[property] === undefined) {
+						consol.log("Property '" + property + "' does not exist in EasyAutocomplete options API.");		
+					}
+
+					if (typeof source[property] === "object" && $.inArray(property, externalObjects) === -1) {
+						checkPropertiesIfExist(source[property], target[property]);
+					}
+				}	
+			}
+		}
+	};
+
+	return scope;
+
+})(EasyAutocomplete || {});
+
+
+/*
+ * EasyAutocomplete - Logger 
+ */
+var EasyAutocomplete = (function(scope){
+	
+	scope.Logger = function Logger() {
+
+		this.error = function(message) {
+			console.log("ERROR: " + message);
+		};
+
+		this.warning = function(message) {
+			console.log("WARNING: " + message);
+		};
+	};
+
+	return scope;
+
+})(EasyAutocomplete || {});
+	
+
+/*
+ * EasyAutocomplete - Constans
+ */
+var EasyAutocomplete = (function(scope){	
+	
+	scope.Constans = function Constans() {
+		var constants = {
+			CONTAINER_CLASS: "easy-autocomplete-container",
+			CONTAINER_ID: "eac-container-",
+
+			WRAPPER_CSS_CLASS: "easy-autocomplete"
+		};
+
+		this.getValue = function(propertyName) {
+			return constants[propertyName];
+		};
+
+	};
+
+	return scope;
+
+})(EasyAutocomplete || {});
+
+/*
+ * EasyAutocomplete - ListBuilderService 
+ *
+ * @author Łukasz Pawełczak 
+ *
+ */
+var EasyAutocomplete = (function(scope) {
+
+	scope.ListBuilderService = function ListBuilderService(configuration, proccessResponseData) {
+
+
+		this.init = function(data) {
+			var listBuilder = [],
+				builder = {};
+
+			builder.data = configuration.get("listLocation")(data);
+			builder.getValue = configuration.get("getValue");
+			builder.maxListSize = configuration.get("list").maxNumberOfElements;
+
+				
+			listBuilder.push(builder);
+
+			return listBuilder;
+		};
+
+		this.updateCategories = function(listBuilder, data) {
+			
+			if (configuration.get("categoriesAssigned")) {
+
+				listBuilder = [];
+
+				for(var i = 0; i < configuration.get("categories").length; i += 1) {
+
+					var builder = convertToListBuilder(configuration.get("categories")[i], data);
+
+					listBuilder.push(builder);
+				}
+
+			} 
+
+			return listBuilder;
+		};
+
+		this.convertXml = function(listBuilder) {
+			if(configuration.get("dataType").toUpperCase() === "XML") {
+
+				for(var i = 0; i < listBuilder.length; i += 1) {
+					listBuilder[i].data = convertXmlToList(listBuilder[i]);
+				}
+			}
+
+			return listBuilder;
+		};
+
+		this.processData = function(listBuilder, inputPhrase) {
+
+			for(var i = 0, length = listBuilder.length; i < length; i+=1) {
+				listBuilder[i].data = proccessResponseData(configuration, listBuilder[i], inputPhrase);
+			}
+
+			return listBuilder;
+		};
+
+		this.checkIfDataExists = function(listBuilders) {
+
+			for(var i = 0, length = listBuilders.length; i < length; i += 1) {
+
+				if (listBuilders[i].data !== undefined && listBuilders[i].data instanceof Array) {
+					if (listBuilders[i].data.length > 0) {
+						return true;
+					}
+				} 
+			}
+
+			return false;
+		};
+
+
+		function convertToListBuilder(category, data) {
+
+			var builder = {};
+
+			if(configuration.get("dataType").toUpperCase() === "XML") {
+
+				builder = convertXmlToListBuilder();
+			} else {
+
+				builder = convertDataToListBuilder();
+			}
+			
+
+			if (category.header !== undefined) {
+				builder.header = category.header;
+			}
+
+			if (category.maxNumberOfElements !== undefined) {
+				builder.maxNumberOfElements = category.maxNumberOfElements;
+			}
+
+			if (configuration.get("list").maxNumberOfElements !== undefined) {
+
+				builder.maxListSize = configuration.get("list").maxNumberOfElements;
+			}
+
+			if (category.getValue !== undefined) {
+
+				if (typeof category.getValue === "string") {
+					var defaultsGetValue = category.getValue;
+					builder.getValue = function(element) {
+						return element[defaultsGetValue];
+					};
+				} else if (typeof category.getValue === "function") {
+					builder.getValue = category.getValue;
+				}
+
+			} else {
+				builder.getValue = configuration.get("getValue");	
+			}
+			
+
+			return builder;
+
+
+			function convertXmlToListBuilder() {
+
+				var builder = {},
+					listLocation;
+
+				if (category.xmlElementName !== undefined) {
+					builder.xmlElementName = category.xmlElementName;
+				}
+
+				if (category.listLocation !== undefined) {
+
+					listLocation = category.listLocation;
+				} else if (configuration.get("listLocation") !== undefined) {
+
+					listLocation = configuration.get("listLocation");
+				}
+
+				if (listLocation !== undefined) {
+					if (typeof listLocation === "string") {
+						builder.data = $(data).find(listLocation);
+					} else if (typeof listLocation === "function") {
+
+						builder.data = listLocation(data);
+					}
+				} else {
+
+					builder.data = data;
+				}
+
+				return builder;
+			}
+
+
+			function convertDataToListBuilder() {
+
+				var builder = {};
+
+				if (category.listLocation !== undefined) {
+
+					if (typeof category.listLocation === "string") {
+						builder.data = data[category.listLocation];
+					} else if (typeof category.listLocation === "function") {
+						builder.data = category.listLocation(data);
+					}
+				} else {
+					builder.data = data;
+				}
+
+				return builder;
+			}
+		}
+
+		function convertXmlToList(builder) {
+			var simpleList = [];
+
+			if (builder.xmlElementName === undefined) {
+				builder.xmlElementName = configuration.get("xmlElementName");
+			}
+
+
+			$(builder.data).find(builder.xmlElementName).each(function() {
+				simpleList.push(this);
+			});
+
+			return simpleList;
+		}
+
+	};
+
+	return scope;
+
+})(EasyAutocomplete || {});
+
+
+/*
+ * EasyAutocomplete - Data proccess module
+ *
+ * Process list to display:
+ * - sort 
+ * - decrease number to specific number
+ * - show only matching list
+ *
+ */
+var EasyAutocomplete = (function(scope) {
+
+	scope.proccess = function proccessData(config, listBuilder, phrase) {
+
+		scope.proccess.match = match;
+
+		var list = listBuilder.data,
+			inputPhrase = phrase;//TODO REFACTOR
+
+		list = findMatch(list, inputPhrase);
+		list = reduceElementsInList(list);
+		list = sort(list);
+
+		return list;
+
+
+		function findMatch(list, phrase) {
+			var preparedList = [],
+				value = "";
+
+			if (config.get("list").match.enabled) {
+
+				for(var i = 0, length = list.length; i < length; i += 1) {
+
+					value = config.get("getValue")(list[i]);
+					
+					if (match(value, phrase)) {
+						preparedList.push(list[i]);	
+					}
+					
+				}
+
+			} else {
+				preparedList = list;
+			}
+
+			return preparedList;
+		}
+
+		function match(value, phrase) {
+
+			if (!config.get("list").match.caseSensitive) {
+
+				if (typeof value === "string") {
+					value = value.toLowerCase();	
+				}
+				
+				phrase = phrase.toLowerCase();
+			}
+			if (config.get("list").match.method(value, phrase)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		function reduceElementsInList(list) {
+			if (listBuilder.maxNumberOfElements !== undefined && list.length > listBuilder.maxNumberOfElements) {
+				list = list.slice(0, listBuilder.maxNumberOfElements);
+			}
+
+			return list;
+		}
+
+		function sort(list) {
+			if (config.get("list").sort.enabled) {
+				list.sort(config.get("list").sort.method);
+			}
+
+			return list;
+		}
+		
+	};
+
+
+	return scope;
+
+
+})(EasyAutocomplete || {});
+
+
+/*
+ * EasyAutocomplete - Template 
+ *
+ * 
+ *
+ */
+var EasyAutocomplete = (function(scope){
+
+	scope.Template = function Template(options) {
+
+
+		var genericTemplates = {
+			basic: {
+				type: "basic",
+				method: function(element) { return element; },
+				cssClass: ""
+			},
+			description: {
+				type: "description",
+				fields: {
+					description: "description"
+				},
+				method: function(element) {	return element + " - description"; },
+				cssClass: "eac-description"
+			},
+			iconLeft: {
+				type: "iconLeft",
+				fields: {
+					icon: ""
+				},
+				method: function(element) {
+					return element;
+				},
+				cssClass: "eac-icon-left"
+			},
+			iconRight: {
+				type: "iconRight",
+				fields: {
+					iconSrc: ""
+				},
+				method: function(element) {
+					return element;
+				},
+				cssClass: "eac-icon-right"
+			},
+			links: {
+				type: "links",
+				fields: {
+					link: ""
+				},
+				method: function(element) {
+					return element;
+				},
+				cssClass: ""
+			},
+			custom: {
+				type: "custom",
+				method: function() {},
+				cssClass: ""
+			}
+		},
+
+
+
+		/*
+		 * Converts method with {{text}} to function
+		 */
+		convertTemplateToMethod = function(template) {
+
+
+			var _fields = template.fields,
+				buildMethod;
+
+			if (template.type === "description") {
+
+				buildMethod = genericTemplates.description.method; 
+
+				if (typeof _fields.description === "string") {
+					buildMethod = function(elementValue, element) {
+						return elementValue + " - <span>" + element[_fields.description] + "</span>";
+					};					
+				} else if (typeof _fields.description === "function") {
+					buildMethod = function(elementValue, element) {
+						return elementValue + " - <span>" + _fields.description(element) + "</span>";
+					};	
+				}
+
+				return buildMethod;
+			}
+
+			if (template.type === "iconRight") {
+
+				if (typeof _fields.iconSrc === "string") {
+					buildMethod = function(elementValue, element) {
+						return elementValue + "<img class='eac-icon' src='" + element[_fields.iconSrc] + "' />" ;
+					};					
+				} else if (typeof _fields.iconSrc === "function") {
+					buildMethod = function(elementValue, element) {
+						return elementValue + "<img class='eac-icon' src='" + _fields.iconSrc(element) + "' />" ;
+					};
+				}
+
+				return buildMethod;
+			}
+
+
+			if (template.type === "iconLeft") {
+
+				if (typeof _fields.iconSrc === "string") {
+					buildMethod = function(elementValue, element) {
+						return "<img class='eac-icon' src='" + element[_fields.iconSrc] + "' />" + elementValue;
+					};					
+				} else if (typeof _fields.iconSrc === "function") {
+					buildMethod = function(elementValue, element) {
+						return "<img class='eac-icon' src='" + _fields.iconSrc(element) + "' />" + elementValue;
+					};
+				}
+
+				return buildMethod;
+			}
+
+			if(template.type === "links") {
+
+				if (typeof _fields.link === "string") {
+					buildMethod = function(elementValue, element) {
+						return "<a href='" + element[_fields.link] + "' >" + elementValue + "</a>";
+					};					
+				} else if (typeof _fields.link === "function") {
+					buildMethod = function(elementValue, element) {
+						return "<a href='" + _fields.link(element) + "' >" + elementValue + "</a>";
+					};
+				}
+
+				return buildMethod;
+			}
+
+
+			if (template.type === "custom") {
+
+				return template.method;
+			}
+
+			return genericTemplates.basic.method;
+
+		},
+
+
+		prepareBuildMethod = function(options) {
+			if (!options || !options.type) {
+
+				return genericTemplates.basic.method;
+			}
+
+			if (options.type && genericTemplates[options.type]) {
+
+				return convertTemplateToMethod(options);
+			} else {
+
+				return genericTemplates.basic.method;
+			}
+
+		},
+
+		templateClass = function(options) {
+			var emptyStringFunction = function() {return "";};
+
+			if (!options || !options.type) {
+
+				return emptyStringFunction;
+			}
+
+			if (options.type && genericTemplates[options.type]) {
+				return (function () { 
+					var _cssClass = genericTemplates[options.type].cssClass;
+					return function() { return _cssClass;};
+				})();
+			} else {
+				return emptyStringFunction;
+			}
+		};
+
+
+		this.getTemplateClass = templateClass(options);
+
+		this.build = prepareBuildMethod(options);
+
+
+	};
+
+	return scope;
+
+})(EasyAutocomplete || {});
+
+
+/*
+ * EasyAutocomplete - jQuery plugin for autocompletion
+ *
+ */
+var EasyAutocomplete = (function(scope) {
+
+	
+	scope.main = function Core($input, options) {
+				
+		var module = {
+				name: "EasyAutocomplete",
+				shortcut: "eac"
+			};
+
+		var consts = new scope.Constans(),
+			config = new scope.Configuration(options),
+			logger = new scope.Logger(),
+			template = new scope.Template(options.template),
+			listBuilderService = new scope.ListBuilderService(config, scope.proccess),
+			checkParam = config.equals,
+
+			$field = $input, 
+			$container = "",
+			elementsList = [],
+			selectedElement = -1,
+			requestDelayTimeoutId;
+
+		scope.consts = consts;
+
+		this.getConstants = function() {
+			return consts;
+		};
+
+		this.getConfiguration = function() {
+			return config;
+		};
+
+		this.getContainer = function() {
+			return $container;
+		};
+
+		this.getSelectedItemIndex = function() {
+			return selectedElement;
+		};
+
+		this.getItems = function () {
+			return elementsList;
+		};
+
+		this.getItemData = function(index) {
+
+			if (elementsList.length < index || elementsList[index] === undefined) {
+				return -1;
+			} else {
+				return elementsList[index];
+			}
+		};
+
+		this.getSelectedItemData = function() {
+			return this.getItemData(selectedElement);
+		};
+
+		this.build = function() {
+			prepareField();
+		};
+
+		this.init = function() {
+			init();
+		};
+		function init() {
+
+			if ($field.length === 0) {
+				logger.error("Input field doesn't exist.");
+				return;
+			}
+
+			if (!config.checkDataUrlProperties()) {
+				logger.error("One of options variables 'data' or 'url' must be defined.");
+				return;
+			}
+
+			if (!config.checkRequiredProperties()) {
+				logger.error("Will not work without mentioned properties.");
+				return;
+			}
+
+
+			prepareField();
+			bindEvents();	
+
+		}
+		function prepareField() {
+
+				
+			if ($field.parent().hasClass(consts.getValue("WRAPPER_CSS_CLASS"))) {
+				removeContainer();
+				removeWrapper();
+			} 
+			
+			createWrapper();
+			createContainer();	
+
+			$container = $("#" + getContainerId());
+			if (config.get("placeholder")) {
+				$field.attr("placeholder", config.get("placeholder"));
+			}
+
+
+			function createWrapper() {
+				var $wrapper = $("<div>"),
+					classes = consts.getValue("WRAPPER_CSS_CLASS");
+
+			
+				if (config.get("theme") && config.get("theme") !== "") {
+					classes += " eac-" + config.get("theme");
+				}
+
+				if (config.get("cssClasses") && config.get("cssClasses") !== "") {
+					classes += " " + config.get("cssClasses");
+				}
+
+				if (template.getTemplateClass() !== "") {
+					classes += " " + template.getTemplateClass();
+				}
+				
+
+				$wrapper
+					.addClass(classes);
+				$field.wrap($wrapper);
+
+
+				if (config.get("adjustWidth") === true) {
+					adjustWrapperWidth();	
+				}
+				
+
+			}
+
+			function adjustWrapperWidth() {
+				var fieldWidth = $field.outerWidth();
+
+				$field.parent().css("width", fieldWidth);				
+			}
+
+			function removeWrapper() {
+				$field.unwrap();
+			}
+
+			function createContainer() {
+				var $elements_container = $("<div>").addClass(consts.getValue("CONTAINER_CLASS"));
+
+				$elements_container
+						.attr("id", getContainerId())
+						.prepend($("<ul>"));
+
+
+				(function() {
+
+					$elements_container
+						/* List show animation */
+						.on("show.eac", function() {
+
+							switch(config.get("list").showAnimation.type) {
+
+								case "slide":
+									var animationTime = config.get("list").showAnimation.time,
+										callback = config.get("list").showAnimation.callback;
+
+									$elements_container.find("ul").slideDown(animationTime, callback);
+								break;
+
+								case "fade":
+									var animationTime = config.get("list").showAnimation.time,
+										callback = config.get("list").showAnimation.callback;
+
+									$elements_container.find("ul").fadeIn(animationTime), callback;
+								break;
+
+								default:
+									$elements_container.find("ul").show();
+								break;
+							}
+
+							config.get("list").onShowListEvent();
+							
+						})
+						/* List hide animation */
+						.on("hide.eac", function() {
+
+							switch(config.get("list").hideAnimation.type) {
+
+								case "slide":
+									var animationTime = config.get("list").hideAnimation.time,
+										callback = config.get("list").hideAnimation.callback;
+
+									$elements_container.find("ul").slideUp(animationTime, callback);
+								break;
+
+								case "fade":
+									var animationTime = config.get("list").hideAnimation.time,
+										callback = config.get("list").hideAnimation.callback;
+
+									$elements_container.find("ul").fadeOut(animationTime, callback);
+								break;
+
+								default:
+									$elements_container.find("ul").hide();
+								break;
+							}
+
+							config.get("list").onHideListEvent();
+
+						})
+						.on("selectElement.eac", function() {
+							$elements_container.find("ul li").removeClass("selected");
+							$elements_container.find("ul li").eq(selectedElement).addClass("selected");
+
+							config.get("list").onSelectItemEvent();
+						})
+						.on("loadElements.eac", function(event, listBuilders, phrase) {
+			
+
+							var $item = "",
+								$listContainer = $elements_container.find("ul");
+
+							$listContainer
+								.empty()
+								.detach();
+
+							elementsList = [];
+							var counter = 0;
+							for(var builderIndex = 0, listBuildersLength = listBuilders.length; builderIndex < listBuildersLength; builderIndex += 1) {
+
+								var listData = listBuilders[builderIndex].data;
+
+								if (listData.length === 0) {
+									continue;
+								}
+
+								if (listBuilders[builderIndex].header !== undefined && listBuilders[builderIndex].header.length > 0) {
+									$listContainer.append("<div class='eac-category' >" + listBuilders[builderIndex].header + "</div>");
+								}
+
+								for(var i = 0, listDataLength = listData.length; i < listDataLength && counter < listBuilders[builderIndex].maxListSize; i += 1) {
+									$item = $("<li><div class='eac-item'></div></li>");
+									
+
+									(function() {
+										var j = i,
+											itemCounter = counter,
+											elementsValue = listBuilders[builderIndex].getValue(listData[j]);
+
+										$item.find(" > div")
+											.on("click", function() {
+
+												$field.val(elementsValue).trigger("change");
+
+												selectedElement = itemCounter;
+												selectElement(itemCounter);
+
+												config.get("list").onClickEvent();
+												config.get("list").onChooseEvent();
+											})
+											.mouseover(function() {
+
+												selectedElement = itemCounter;
+												selectElement(itemCounter);	
+
+												config.get("list").onMouseOverEvent();
+											})
+											.mouseout(function() {
+												config.get("list").onMouseOutEvent();
+											})
+											.html(template.build(highlight(elementsValue, phrase), listData[j]));
+									})();
+
+									$listContainer.append($item);
+									elementsList.push(listData[i]);
+									counter += 1;
+								}
+							}
+
+							$elements_container.append($listContainer);
+
+							config.get("list").onLoadEvent();
+						});
+
+				})();
+
+				$field.after($elements_container);
+			}
+
+			function removeContainer() {
+				$field.next("." + consts.getValue("CONTAINER_CLASS")).remove();
+			}
+
+			function highlight(string, phrase) {
+
+				if(config.get("highlightPhrase") && phrase !== "") {
+					return highlightPhrase(string, phrase);	
+				} else {
+					return string;
+				}
+					
+			}
+
+			function escapeRegExp(str) {
+				return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+ 			}
+
+			function highlightPhrase(string, phrase) {
+				var escapedPhrase = escapeRegExp(phrase);
+				return (string + "").replace(new RegExp("(" + escapedPhrase + ")", "gi") , "<b>$1</b>");
+			}
+
+
+
+		}
+		function getContainerId() {
+			
+			var elementId = $field.attr("id");
+
+			elementId = consts.getValue("CONTAINER_ID") + elementId;
+
+			return elementId;
+		}
+		function bindEvents() {
+
+			bindAllEvents();
+			
+
+			function bindAllEvents() {
+				if (checkParam("autocompleteOff", true)) {
+					removeAutocomplete();
+				}
+
+				bindFocusOut();
+				bindKeyup();
+				bindKeydown();
+				bindKeypress();
+				bindFocus();
+				bindBlur();
+			}
+
+			function bindFocusOut() {
+				$field.focusout(function () {
+
+					var fieldValue = $field.val(),
+						phrase;
+
+					if (!config.get("list").match.caseSensitive) {
+						fieldValue = fieldValue.toLowerCase();
+					}
+
+					for (var i = 0, length = elementsList.length; i < length; i += 1) {
+
+						phrase = config.get("getValue")(elementsList[i]);
+						if (!config.get("list").match.caseSensitive) {
+							phrase = phrase.toLowerCase();
+						}
+
+						if (phrase === fieldValue) {
+							selectedElement = i;
+							selectElement(selectedElement);
+							return;
+						}
+					}
+				});
+			}
+
+			function bindKeyup() {
+				$field
+				.off("keyup")
+				.keyup(function(event) {
+
+					switch(event.keyCode) {
+
+						case 27:
+
+							hideContainer();
+							loseFieldFocus();
+						break;
+
+						case 38:
+
+							event.preventDefault();
+
+							if(elementsList.length > 0 && selectedElement > 0) {
+
+								selectedElement -= 1;
+
+								$field.val(config.get("getValue")(elementsList[selectedElement]));
+
+								selectElement(selectedElement);
+
+							}						
+						break;
+
+						case 40:
+
+							event.preventDefault();
+
+							if(elementsList.length > 0 && selectedElement < elementsList.length - 1) {
+
+								selectedElement += 1;
+
+								$field.val(config.get("getValue")(elementsList[selectedElement]));
+
+								selectElement(selectedElement);
+								
+							}
+
+						break;
+
+						default:
+
+							if (event.keyCode > 40 || event.keyCode === 8) {
+
+								var inputPhrase = $field.val();
+
+								if (!(config.get("list").hideOnEmptyPhrase === true && event.keyCode === 8 && inputPhrase === "")) {
+
+									if (config.get("requestDelay") > 0) {
+										if (requestDelayTimeoutId !== undefined) {
+											clearTimeout(requestDelayTimeoutId);
+										}
+
+										requestDelayTimeoutId = setTimeout(function () { loadData(inputPhrase);}, config.get("requestDelay"));
+									} else {
+										loadData(inputPhrase);
+									}
+
+								} else {
+									hideContainer();
+								}
+								
+							}
+
+
+						break;
+					}
+				
+
+					function loadData(inputPhrase) {
+
+
+						if (inputPhrase.length < config.get("minCharNumber")) {
+							return;
+						}
+
+
+						if (config.get("data") !== "list-required") {
+
+							var data = config.get("data");
+
+							var listBuilders = listBuilderService.init(data);
+
+							listBuilders = listBuilderService.updateCategories(listBuilders, data);
+							
+							listBuilders = listBuilderService.processData(listBuilders, inputPhrase);
+
+							loadElements(listBuilders, inputPhrase);
+
+							if ($field.parent().find("li").length > 0) {
+								showContainer();	
+							} else {
+								hideContainer();
+							}
+
+						}
+
+						var settings = createAjaxSettings();
+
+						if (settings.url === undefined || settings.url === "") {
+							settings.url = config.get("url");
+						}
+
+						if (settings.dataType === undefined || settings.dataType === "") {
+							settings.dataType = config.get("dataType");
+						}
+
+
+						if (settings.url !== undefined && settings.url !== "list-required") {
+
+							settings.url = settings.url(inputPhrase);
+
+							settings.data = config.get("preparePostData")(settings.data, inputPhrase);
+
+							$.ajax(settings) 
+								.done(function(data) {
+								    var sourceType = config.get("sourceType");
+								    if (sourceType == 3) {
+								        data = data.suggestionList;
+								    }
+
+									var listBuilders = listBuilderService.init(data);
+
+									listBuilders = listBuilderService.updateCategories(listBuilders, data);
+									
+									listBuilders = listBuilderService.convertXml(listBuilders);
+									if (checkInputPhraseMatchResponse(inputPhrase, data)) {
+
+										listBuilders = listBuilderService.processData(listBuilders, inputPhrase);
+
+										loadElements(listBuilders, inputPhrase);	
+																				
+									}
+
+									if (listBuilderService.checkIfDataExists(listBuilders) && $field.parent().find("li").length > 0) {
+										showContainer();	
+									} else {
+										hideContainer();
+									}
+
+									config.get("ajaxCallback")();
+
+								})
+								.fail(function() {
+									logger.warning("Fail to load response data");
+								})
+								.always(function() {
+
+								});
+						}
+
+						
+
+						function createAjaxSettings() {
+
+							var settings = {},
+								ajaxSettings = config.get("ajaxSettings") || {};
+
+							for (var set in ajaxSettings) {
+								settings[set] = ajaxSettings[set];
+							}
+
+							return settings;
+						}
+
+						function checkInputPhraseMatchResponse(inputPhrase, data) {
+
+							if (config.get("matchResponseProperty") !== false) {
+								if (typeof config.get("matchResponseProperty") === "string") {
+									return (data[config.get("matchResponseProperty")] === inputPhrase);
+								}
+
+								if (typeof config.get("matchResponseProperty") === "function") {
+									return (config.get("matchResponseProperty")(data) === inputPhrase);
+								}
+
+								return true;
+							} else {
+								return true;
+							}
+
+						}
+
+					}
+
+
+				});
+			}
+
+			function bindKeydown() {
+				$field
+					.on("keydown", function(evt) {
+	        		    evt = evt || window.event;
+	        		    var keyCode = evt.keyCode;
+	        		    if (keyCode === 38) {
+	        		        suppressKeypress = true; 
+	        		        return false;
+	        		    }
+		        	})
+					.keydown(function(event) {
+
+						if (event.keyCode === 13 && selectedElement > -1) {
+
+							$field.val(config.get("getValue")(elementsList[selectedElement]));
+
+							config.get("list").onKeyEnterEvent();
+							config.get("list").onChooseEvent();
+
+							selectedElement = -1;
+							hideContainer();
+
+							event.preventDefault();
+						}
+					});
+			}
+
+			function bindKeypress() {
+				$field
+				.off("keypress");
+			}
+
+			function bindFocus() {
+				$field.focus(function() {
+
+					if ($field.val() !== "" && elementsList.length > 0) {
+						
+						selectedElement = -1;
+						showContainer();	
+					}
+									
+				});
+			}
+
+			function bindBlur() {
+				$field.blur(function() {
+					setTimeout(function() { 
+						
+						selectedElement = -1;
+						hideContainer();
+					}, 250);
+				});
+			}
+
+			function removeAutocomplete() {
+				$field.attr("autocomplete","off");
+			}
+
+		}
+
+		function showContainer() {
+			$container.trigger("show.eac");
+		}
+
+		function hideContainer() {
+			$container.trigger("hide.eac");
+		}
+
+		function selectElement(index) {
+			
+			$container.trigger("selectElement.eac", index);
+		}
+
+		function loadElements(list, phrase) {
+			$container.trigger("loadElements.eac", [list, phrase]);
+		}
+
+		function loseFieldFocus() {
+			$field.trigger("blur");
+		}
+
+
+	};
+	scope.eacHandles = [];
+
+	scope.getHandle = function(id) {
+		return scope.eacHandles[id];
+	};
+
+	scope.inputHasId = function(input) {
+
+		if($(input).attr("id") !== undefined && $(input).attr("id").length > 0) {
+			return true;
+		} else {
+			return false;
+		}
+
+	};
+
+	scope.assignRandomId = function(input) {
+
+		var fieldId = "";
+
+		do {
+			fieldId = "eac-" + Math.floor(Math.random() * 10000);		
+		} while ($("#" + fieldId).length !== 0);
+		
+		elementId = scope.consts.getValue("CONTAINER_ID") + fieldId;
+
+		$(input).attr("id", fieldId);
+ 
+	};
+
+	scope.setHandle = function(handle, id) {
+		scope.eacHandles[id] = handle;
+	};
+
+
+	return scope;
+
+})(EasyAutocomplete || {});
+
+(function($) {
+
+	$.fn.easyAutocomplete = function(options) {
+
+		return this.each(function() {
+			var $this = $(this),
+				eacHandle = new EasyAutocomplete.main($this, options);
+
+			if (!EasyAutocomplete.inputHasId($this)) {
+				EasyAutocomplete.assignRandomId($this);
+			}
+
+			eacHandle.init();
+
+			EasyAutocomplete.setHandle(eacHandle, $this.attr("id"));
+
+		});
+	};
+
+	$.fn.getSelectedItemIndex = function() {
+
+		var inputId = $(this).attr("id");
+
+		if (inputId !== undefined) {
+			return EasyAutocomplete.getHandle(inputId).getSelectedItemIndex();
+		}
+
+		return -1;
+	};
+
+	$.fn.getItems = function () {
+
+		var inputId = $(this).attr("id");
+
+		if (inputId !== undefined) {
+			return EasyAutocomplete.getHandle(inputId).getItems();
+		}
+
+		return -1;
+	};
+
+	$.fn.getItemData = function(index) {
+
+		var inputId = $(this).attr("id");
+
+		if (inputId !== undefined && index > -1) {
+			return EasyAutocomplete.getHandle(inputId).getItemData(index);
+		}
+
+		return -1;
+	};
+
+	$.fn.getSelectedItemData = function() {
+
+		var inputId = $(this).attr("id");
+
+		if (inputId !== undefined) {
+			return EasyAutocomplete.getHandle(inputId).getSelectedItemData();
+		}
+
+		return -1;
+	};
+
+})(jQuery);

@@ -79,7 +79,7 @@ namespace BikewaleOpr.Controllers
         {
             objModel.MapCampaignAreas(dealerId,campaignid, campaignServingStatus, servingRadius, cityIdList);
 
-            return RedirectToAction("CampaignServingAreas");
+            return RedirectToAction("CampaignServingAreas", routeValues: new { dealerId = dealerId, campaignId = campaignid });
         }
         #endregion
 
@@ -92,12 +92,12 @@ namespace BikewaleOpr.Controllers
         /// <param name="dealerId"></param>
         /// <param name="areaIdList">Comma separated area id list. e.g. areaid1, areaid2, areaid3</param>
         /// <returns></returns>
-        [Route("dealercampaign/servingareas/dealerid/{dealerId}/add/additional/"), HttpPost]
-        public ActionResult MapAdditionalAreas(uint dealerId, string areaIdList)
+        [Route("dealercampaign/servingareas/dealerid/{dealerId}/campaignid/{campaignid}/add/additional/"), HttpPost]
+        public ActionResult MapAdditionalAreas(uint dealerId, uint campaignid, string areaIdList)
         {
             objModel.MapAdditionalAreas(dealerId, areaIdList);
 
-            return RedirectToAction("CampaignServingAreas");
+            return RedirectToAction("CampaignServingAreas", routeValues: new { dealerId = dealerId, campaignId = campaignid });
         }
         #endregion
 
@@ -110,12 +110,12 @@ namespace BikewaleOpr.Controllers
         /// <param name="dealerId"></param>
         /// <param name="areaIdList">Comma separated area id list. e.g. areaid1, areaid2, areaid3</param>
         /// <returns></returns>
-        [Route("dealercampaign/servingareas/dealerid/{dealerId}/remove/additional/"), HttpPost]
-        public ActionResult RemmoveAdditionallyMappedAreas(uint dealerId, string areaIdList)
+        [Route("dealercampaign/servingareas/dealerid/{dealerId}/campaignid/{campaignid}/remove/additional/"), HttpPost]
+        public ActionResult RemmoveAdditionallyMappedAreas(uint dealerId, uint campaignid, string areaIdList)
         {
             objModel.RemmoveAdditionallyMappedAreas(dealerId, areaIdList);
 
-            return RedirectToAction("CampaignServingAreas");
+            return RedirectToAction("CampaignServingAreas", routeValues: new { dealerId = dealerId, campaignId = campaignid });
         }
         #endregion
 

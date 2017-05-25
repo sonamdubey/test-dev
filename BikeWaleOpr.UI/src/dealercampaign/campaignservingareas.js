@@ -1,53 +1,39 @@
 ﻿$(document).ready(function () {
-    var ddlCityAdditional = $("#ddlCityAdditional");
-    var ddlCityMultiple = $("#ddlCityMultiple");
+    var ddlCityMultiple = $("#ddlCityMultiple");        
+    var ddlAdditionalAreas = $("#ddlAdditionalAreas");
 
-    ddlCityAdditional.chosen({ no_results_text: "No matches found!!", search_contains: true });
     ddlCityMultiple.chosen({ width: "300px", no_results_text: "No matches found!!", search_contains: true });
+    
+    $("#autocomplete-addCity").bw_easyAutocomplete({
+        inputField: $("#autocomplete-addCity"),
+        source: 3,
+        click: function () {            
+            var objCity = $("#autocomplete-addCity").getSelectedItemData();
 
-    $('#divMultipleCities').material_chip({
-        autocompleteOptions: {
-            data: {
-                'Apple': null,
-                'Microsoft': null,
-                'Google': null
-            },
-            limit: Infinity,
-            minLength: 1
-        }
-    });
-
-    //$('#autocomplete-addCity').autocomplete({
-    //    data: {
-    //        "Apple": null,
-    //        "Microsoft": null,
-    //        "Google": 'http://placehold.it/250x250'
-    //    },
-    //    limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
-    //    onAutocomplete: function (val) {
-    //        // Callback function when value is autcompleted.
-    //    },
-    //    minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
-    //});
-
-    $(function () {
-        $.ajax({
-            type: 'GET',
-            url: 'https://restcountries.eu/rest/v2/all?fields=name',
-            success: function (response) {
-                var countryArray = response;
-                var dataCountry = {};
-                for (var i = 0; i < countryArray.length; i++) {
-                    //console.log(countryArray[i].name);
-                    dataCountry[countryArray[i].name] = countryArray[i].flag; //countryArray[i].flag or null
+            $.ajax({
+                type: "GET",
+                url: bwHostUrl + "/api/arealist/?cityId=" + objCity.payload.cityId,
+                datatype: "json",                
+                success: function (response) {
+                    ddlAdditionalAreas.empty().append("<option value=\"0\" disabled>Select Areas</option>").removeAttr("disabled");
+                    for (var i = 0; i < response.Area.length; i++) {
+                        ddlAdditionalAreas.append("<option value=" + response.Area[i].areaId + ">" + response.Area[i].areaName + "</option>");
+                    }
+                },
+                //error: function (xhr, ajaxOptions, thrownError) {                    
+                    //ddlAdditionalAreas.empty().append("<option value=\"0\" disabled>Select Areas</option>").removeAttr("disabled");
+                    //Materialize.toast("AJAX request failed status : " + xhr.status + " and err : " + thrownError, 4000);
+                //},
+                complete: function (xhr) {
+                    if (xhr.status == 404) {
+                        ddlAdditionalAreas.empty().append("<option value=\"0\" disabled>Select Areas</option>").removeAttr("disabled");
+                        Materialize.toast('No areas are added for given city', 4000);
+                    }
+                    ddlAdditionalAreas.material_select();
                 }
-                $('#autocomplete-addCity').autocomplete({
-                    data: dataCountry,
-                    limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
-                });
-            }
-        });
-    });
+            });
+        }
+    });    
 
     $("#btnMapAreas").click(function () {
         var campaignServingStatus = $("[name=campaignServingStatus]:checked").val();
@@ -84,4 +70,13 @@
     function validateData(status) {
         
     }
+
+    $("#btnMapAdditionalAreas").click(function () {
+        var selectedAreas = "";
+        $(ddlAdditionalAreas).find("option:selected").each(function () {
+            selectedAreas += $(this).val() + ",";
+        });
+
+        $("#txtAreaIdList").val(selectedAreas.substring(0, selectedAreas.length - 1));
+    });
 });

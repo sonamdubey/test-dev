@@ -511,6 +511,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
 
                     using (var results = connection.QueryMultiple("GetDealerAreasWithLatLong", param: param, commandType: CommandType.StoredProcedure))
                     {
+                        objDistances = new DealerAreaDistance();
                         objDistances.DealerLocation = results.Read<GeoLocationEntity>().SingleOrDefault();
                         objDistances.Areas = results.Read<GeoLocationEntity>();
                     }
@@ -548,7 +549,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
                     var param = new DynamicParameters();
 
                     param.Add("par_dealerid", dealerId);
-                    param.Add("par_areaslist", areasList);
+                    param.Add("par_arealist", areasList);
 
                     connection.Query("SaveAdditionalAreasMapping", param: param, commandType: CommandType.StoredProcedure);
 

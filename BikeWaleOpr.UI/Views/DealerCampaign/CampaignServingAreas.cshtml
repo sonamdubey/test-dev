@@ -121,19 +121,21 @@
                                 <div class="bw-blackbg-tooltip hide">Select City</div>
                                 <span class="caret">▼</span>
                             </div>*@
+                            
                             <div class="input-field row s12 margin-omega">
-                                <input type="text" id="autocomplete-addCity" class="autocomplete" autocomplete="off" />
-                                <label for="autocomplete-addCity">Select City</label>    
+                                <input type="text" id="autocomplete-addCity" />    
+                                @*<label for="autocomplete-addCity">Select City</label>*@    
                             </div>                            
                             <div class="input-field row s12 margin-omega">
-                                <select multiple>
-                                    <option>Select Areas</option>
-                                    <option>Nerul</option>
-                                    <option>Panvel</option>
+                                <select id="ddlAdditionalAreas" multiple>
+                                    <option disabled>Select Areas</option>
+                                    @*<option>Nerul</option>
+                                    <option>Panvel</option>*@
                                 </select>
                             </div>
                             <div class="input-field row s12">
-                                <button id="btnMapAdditionalAreas" class="btn waves-effect waves-light" type="submit" name="action" formaction="/dealercampaign/servingareas/dealerid/@Model.DealerId/add/additional/">
+                                <input id="txtAreaIdList" name="areaIdList" type="hidden" value="" />
+                                <button id="btnMapAdditionalAreas" class="btn waves-effect waves-light" type="submit" name="action" formaction="/dealercampaign/servingareas/dealerid/@Model.DealerId/campaignid/@Model.CampaignId/add/additional/">
                                     Map Areas
                                 </button>
                             </div>
@@ -159,7 +161,7 @@
                                 </select>
                             </div>
                             <div class="input-field row s12">
-                                <button id="btnRemoveAreas" class="btn waves-effect waves-light" type="submit" name="action" formaction="/dealercampaign/servingareas/dealerid/@Model.DealerId/remove/additional/">
+                                <button id="btnRemoveAreas" class="btn waves-effect waves-light" type="submit" name="action" formaction="/dealercampaign/servingareas/dealerid/@Model.DealerId/campaignid/@Model.CampaignId/remove/additional/">
                                     Remove Areas
                                 </button>
                             </div>
@@ -170,4 +172,7 @@
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    bwHostUrl = '@Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrlForJs';
+</script>
 <script src="~/src/dealercampaign/campaignservingareas.js"></script>
