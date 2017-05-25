@@ -8,6 +8,9 @@ h1,
 .text-slate-grey
     color: #787878
 
+.text-xt-light
+	color: #a2a2a2
+
 .h2-heading
 	font-size: 18px
 
@@ -93,35 +96,112 @@ $graph-bg: #eee
     .star-icon
         background-position: -138px -790px
 
+// top card
+// inline grid
+$grid-base-size: 8.33333333
+
+@mixin grid-inline($size)
+    .grid-#{$size}-inline
+        width: ($grid-base-size * $size) * 1%
+        display: inline-block
+        vertical-align: middle
+        margin-right: -4px
+
+@include grid-inline(7)
+
+// rate bike
+.padding-20-10
+	padding: 20px 10px
+
+.overall-rating-box
+	width: 207px
+	margin-right: -4px
+	background: rgba(245, 245, 245, 0.5)
+
+.review-left-divider
+	position: relative
+	margin-left: 15px
+	padding-left: 15px
+
+	&:before
+		content: ""
+		position: absolute
+		top: 3px
+		left: 0
+		width: 1px
+		height: 12px
+		border-left: 1px solid #787878
+
+.answer-star-list
+	> input
+		display: none
+
+		+ label
+			float: right
+			width: 37px
+			cursor: pointer
+
+		&:checked
+			+ label,
+			~ label
+				background-position: 0 -757px
+
+.hover-effect
+	> input
+		+ label:hover,
+		+ label:hover ~ label
+				background-position: 0 -757px
+
+.rate-bike-slug
+	.answer-star-list
+		> input
+			+ label
+				width: 47px
+
+			&:first-child
+				+ label
+					width: 25px
+
+.border-grey-right
+	border-right: 1px solid #eee
+
 // user-review-list
 .user-review-list
-	padding-right: 20px
-	padding-left: 20px
+	padding-right: 10px
+	padding-left: 10px
 
-	li
+	.list-item
+		padding-top: 20px
+		padding-bottom: 20px
 		border-top: 1px solid #e2e2e2
 
 		&:first-child
 			border-top: 0
 
-	.item-target
-		display: block
-		padding-top: 15px
-		padding-bottom: 15px
-
-		&:hover
-			text-decoration: none
-
 	.list-item-title
-		width: 90%
 		font-weight: $font-semibold
 		font-size: 15px
 		color: #2a2a2a
 
+	a
+		&:hover
+			text-decoration: none
+
+.border-light-top
+	border-top: 1px solid #f5f5f5
+
+.border-light-right
+	border-right: 1px solid #f5f5f5
+
+.info-sm
+	width: 14px
+	height: 14px
+	background-position: -176px -768px
+	vertical-align: middle
+
 .like-sm,
-.dislike-sm,
-.views-sm
-    width: 15px
+.dislike-sm
+    width: 14px
     height: 14px
     vertical-align: middle
 
@@ -131,8 +211,23 @@ $graph-bg: #eee
 .dislike-sm
     background-position: -168px -501px
 
-.views-sm
-    background-position: -60px -305px
+// about list icons
+.questionId-1,
+.questionId-2,
+.questionId-3
+	width: 24px
+	height: 16px
+	vertical-align: middle
+	margin-right: 10px
+
+.questionId-1
+    background-position: -48px -825px
+
+.questionId-2
+    background-position: 0 -825px
+
+.questionId-3
+    background-position: -24px -825px
 
 // rating badges
 .rating-badge
@@ -154,6 +249,25 @@ $graph-bg: #eee
     position: relative
     top: 1px
     margin-right: 4px
+
+@mixin circle-placeholder($diameter, $border-color: #e2e2e2, $background-color: #fff)
+	.circle-placeholder-#{$diameter}
+		width: $diameter * 1px
+		height: $diameter * 1px
+		border: 1px solid $border-color
+		background: $background-color
+		margin: 0 auto
+		text-align: center
+		@include border-radius(50%)
+
+// no reviews
+@include circle-placeholder(80, #e2e2e2, #f5f5f5) // (diameter, border-color, background-color)
+@include circle-placeholder(60, #e2e2e2, #fff)
+
+.review-lg
+	width: 24px
+	height: 25px
+	background-position: -172px -737px
 
 // article list
 .model-preview-image-container
@@ -195,11 +309,56 @@ $graph-bg: #eee
 		padding-left: 10px
 		margin-left: 10px
 
+// button
+.btn-inv-teal-group
+    font-size: 14px
+    color: #82888b
+    padding: 0
+    background: transparent
+    border: 1px solid #d5d5d5
+
+    span
+        display: inline-block
+        vertical-align: middle
+
+    .btn-label-grid,
+    .btn-count
+        padding: 2px 6px
+        background: transparent
+
+    .btn-label-grid
+        border-right: 1px solid #d5d5d5
+
+    .btn-label
+        position: relative
+        top: -1px
+
+    &.active
+        border-color: #41B4C4
+        pointer-events: none
+
+        .btn-label-grid
+            background: #41B4C4
+            border-right-color: #41B4C4
+
+        .btn-count
+            color: #41B4C4
+
+        .like-sm
+            background-position: -105px -773px
+
+        .dislike-sm
+            background-position: -122px -773px
+
 // icons
-.star-0
+.star-0,
+.star-1
 	width: 26px
 	height: 25px
 	vertical-align: middle
 
 .star-0
 	background-position: -184px -790px
+
+.star-1
+	background-position: 0 -757px

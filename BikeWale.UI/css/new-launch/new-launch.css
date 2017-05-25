@@ -30,6 +30,9 @@
 .collapsible-content.active .more-content {
   display: inline; }
 
+.collapsible-content.toggle-off.active .read-more-target {
+  display: none; }
+
 .btn-180-32 {
   width: 180px;
   padding: 5px;
