@@ -3,7 +3,7 @@
 var userNameField, userEmailIdField;
 var descReviewField, reviewTitleField;
 var value_overallrating, reviewQuestion, reviewOverallRatingId, ratingOverAll, pageSourceID;
-var vmWriteReview;
+var vmWriteReview, isSubmit = false;
 var makeModelName;
 var array_rating;
 var bikeRating = {
@@ -137,7 +137,7 @@ docReady(function () {
 
                 $("#finaloverallrating").val(value_overallrating);
                 $("#rating-quesition-ans").val(array_rating);
-
+                isSubmit = true;
                 return true;
             }
 
@@ -554,7 +554,7 @@ docReady(function () {
     }
 
     window.onbeforeunload = function () {
-        if ($("#bike-rating-box input[type='radio']:checked").attr("value") != null)
+        if (!isSubmit && $("#bike-rating-box input[type='radio']:checked").attr("value") != null)
             return false;
     }
 });
@@ -572,7 +572,7 @@ var answer = {
         catch (e) {
             console.warn(e.message);
         }
-    }
+   } 
 };
 
 /* form validation */

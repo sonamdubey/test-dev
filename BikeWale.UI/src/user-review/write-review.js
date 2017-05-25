@@ -1,7 +1,7 @@
 ﻿var ratingBox, page;
 var userNameField, userEmailIdField, vmWriteReview;
 var detailedReviewField, reviewTitleField, reviewQuestion, ratingOverAll, pageSourceID;
-var writeReview;
+var writeReview, isSubmit = false;
 var makeModelName;
 var bikeRating = {
     ratingCount: 0,
@@ -161,7 +161,7 @@ docReady(function () {
 
                 $("#finaloverallrating").val(value_overallrating);
                 $("#rating-quesition-ans").val(array_rating);
-
+                isSubmit = true;
                 return true;
             }
 
@@ -645,7 +645,7 @@ docReady(function () {
     vmWriteReview.GetFromBwCache();
     vmWriteReview.FillReviewData();
     window.onbeforeunload = function () {
-        if ($("#bike-rating-box input[type='radio']:checked").attr("value") != null)
+        if((!isSubmit && $("#bike-rating-box input[type='radio']:checked").attr("value") != null))
             return false;
     }
 });
