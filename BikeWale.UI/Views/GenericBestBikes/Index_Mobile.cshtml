@@ -92,7 +92,14 @@
                                 <tbody>
                                     <tr>
                                         <td valign="top" class="text-bold text-grey">
-                                            @string.Format("{0} {1}", bike.TotalModelColors, bike.TotalModelColors > 1 ? " colors" : " color")
+                                            @if (bike.TotalModelColors > 0) {
+                                                 <text>@string.Format("{0} {1}", bike.TotalModelColors, bike.TotalModelColors > 1 ? " colors" : " color")</text>
+                                            }
+                                            else
+                                            {
+                                               <text>@string.Format("N/A")</text>
+                                            }
+                                           
                                         </td>
                                         <td valign="top" class="text-bold text-grey">@string.Format("{0}", bike.LaunchDate.HasValue ? FormatDate.GetFormatDate(bike.LaunchDate.ToString(), "MMMM yyyy") : "Before 2012")</td>
                                         <td valign="top" class="text-bold text-grey">@string.Format("{0}", bike.UnitsSold > 0 ? Format.FormatNumeric(bike.UnitsSold.ToString()) : "Not Available") </td>
@@ -183,9 +190,12 @@
     </section>
 
 }
+@if (Model.Brands != null && Model.BestBikes.CurrentPage != EnumBikeBodyStyles.Scooter)
+{
+
 <section>
     <div class="container">
-        <h2 class="section-heading">Not Sure? Check out other @string.Format("{0}", Model.BestBikes != null && Model.BestBikes.CurrentPage != EnumBikeBodyStyles.Scooter?"bikes":"scooters")</h2>
+        <h2 class="section-heading">Not Sure? Check out other bikes</h2>
         <div class="grid-12 alpha omega">
             <div class="bw-tabs-panel padding-bottom20 content-box-shadow bg-white" id="discoverBikesContainer">
 
@@ -329,6 +339,110 @@
         <div class="clear"></div>
     </div>
 </section>
+}
+@if (Model.Brands != null && Model.BestBikes.CurrentPage == EnumBikeBodyStyles.Scooter)
+{
+<section>
+   
+    <div class="container "> 
+        <h2 class="section-heading">Not Sure? Check out other scooters</h2>     
+        <div class="grid-12">
+            <div class="banner-box-shadow">
+                <div class="bw-tabs-panel">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul>
+                            <li class="active" data-tabs="brand-tab">Brand</li>
+                            <li data-tabs="budget-tab">Budget</li>
+                            <li data-tabs="displacement-tab">Displacement</li>
+                        </ul>
+                    </div>
+                    <div id="brand-tab" class="bw-tabs-data">
+                        <div class="container bg-white box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
+                            @{ Html.RenderPartial("~/views/make/_Brands_Mobile.cshtml", Model.Brands); }
+                        </div>
+                    </div>
+                    <div id="budget-tab" class="bw-tabs-data hide">
+                        <ul class="elevated-card-list padding-top10">
+                            <li>
+                                <a href="/m/new/bike-search/?ridestyle=5&budget=0-50000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite budget-one"></span>
+                                        </div>
+                                        <span class="key-size-14">Upto</span><br />
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">50K</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/m/new/bike-search/?ridestyle=5&budget=50000-70000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite budget-two"></span>
+                                        </div>
+                                        <span class="key-size-14">Between</span><br />
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">50K</span> -
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">70K</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/m/new/bike-search/?ridestyle=5&budget=70000-6000000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite budget-three"></span>
+                                        </div>
+                                        <span class="key-size-14">Above</span><br />
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">70K</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="displacement-tab" class="bw-tabs-data hide">
+                        <ul class="elevated-card-list padding-top10">
+                            <li>
+                                <a href="/m/new/bike-search/?ridestyle=5&displacement=1" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite engine-lg engine-sm"></span>
+                                        </div>
+                                        <span class="key-size-14">Upto</span><br />
+                                        <span class="value-size-15">100 cc</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/m/new/bike-search/?ridestyle=5&displacement=7" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite engine-lg engine-md"></span>
+                                        </div>
+                                        <span class="key-size-14">Between</span><br />
+                                        <span class="value-size-15">100 - 125 cc</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/m/new/bike-search/?ridestyle=5&displacement=8+3+4+5+6" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite engine-lg"></span>
+                                        </div>
+                                        <span class="key-size-14">Above</span><br />
+                                        <span class="value-size-15">125 cc</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+}
 <section>
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Best bikes in other categories</h2>
