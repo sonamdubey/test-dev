@@ -37,6 +37,7 @@ namespace Bikewale.Controllers
 
         // GET: CompareBikes
         [Route("compare/")]
+        [Filters.DeviceDetection()]
         public ActionResult Index()
         {
             CompareIndex objCompare = new CompareIndex(_cachedCompare, _compareTest);
@@ -74,6 +75,7 @@ namespace Bikewale.Controllers
 
         // GET: CompareBikes Details
         [Route("compare/details/")]
+        [Filters.DeviceDetection()]
         public ActionResult CompareBikeDetails()
         {
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];

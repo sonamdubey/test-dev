@@ -24,6 +24,7 @@ namespace Bikewale.Controllers
         /// Summary :- Generic Bike Model Index;
         /// </summary>
         [Route("bestbikes/")]
+        [Filters.DeviceDetection()]
         public ActionResult Index()
         {
             IndexGenericBestBikes objBestBikes = new IndexGenericBestBikes(_objBestBikes, _bikeMakes);
