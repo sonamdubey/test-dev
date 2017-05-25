@@ -167,7 +167,7 @@ namespace Bikewale.Models
                     obj.PageMetaTags.Title = string.Format("Compare {0} - BikeWale", obj.comparisionText);
                     obj.PageMetaTags.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison India";
                     obj.PageMetaTags.Description = string.Format("Compare {0} at Bikewale. Compare Price, Mileage, Engine Power, Features, Specifications, Colours and much more.", string.Join(" and ", bikeList));
-                    string compareUrl = CreateCanonicalUrl(obj.Compare.BasicInfo);
+                    string compareUrl = CreateCanonicalUrl(obj);
                     CheckForRedirection(compareUrl);
                     CreateCompareSummary(obj.Compare.BasicInfo, obj.Compare.CompareColors, obj);
                     obj.PageMetaTags.CanonicalUrl = string.Format("{0}/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, compareUrl);
@@ -244,12 +244,12 @@ namespace Bikewale.Models
         /// Summary :- Function for CreateCanonicalUrl
         /// </summary>
         /// <returns></returns>
-        private string CreateCanonicalUrl(IEnumerable<BikeEntityBase> basicInfo)
+        private string CreateCanonicalUrl(CompareDetailsVM obj)
         {
             string canon = string.Empty;
             try
             {
-                canon = string.Join("-vs-", basicInfo.OrderBy(x => x.ModelId).Select(x => string.Format("{0}-{1}", x.MakeMaskingName, x.ModelMaskingName)));
+                canon = string.Join("-vs-", obj.Compare.BasicInfo.Where(x => x.VersionId != obj.sponsoredVersionId).OrderBy(x => x.ModelId).Select(x => string.Format("{0}-{1}", x.MakeMaskingName, x.ModelMaskingName)));
             }
             catch (Exception ex)
             {

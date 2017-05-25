@@ -107,13 +107,16 @@ docReady(function() {
     var basicInfo = JSON.parse(Base64.decode(document.getElementById("bike-comparison-grid").getAttribute("data-basicInfo")));
 
     $.each(basicInfo, function (i, val) {
-        var data = {};
-        data.makemasking = val.MakeMaskingName;
-        data.modelmasking = val.ModelMaskingName;
-        data.modelId = val.ModelId;
-        data.versionId = val.VersionId;
-        data.index = 0;
-        bikeDetails.push(data);
+        if (Number(document.getElementById("bike-comparison-grid").getAttribute("data-sponseredId")) != val.VersionId) {
+            var data = {};
+            data.makemasking = val.MakeMaskingName;
+            data.modelmasking = val.ModelMaskingName;
+            data.modelId = val.ModelId;
+            data.versionId = val.VersionId;
+            data.index = 0;
+
+            bikeDetails.push(data);
+        }
     });
     // version dropdown
     selectDropdownBox = $('.select-box-no-input');
@@ -344,6 +347,7 @@ docReady(function() {
         },
 
         setSponsoredIndex: function () {
+            
             var listItemIndex = $('#bike-comparison-grid .compare-bike-list .sponsored-list-item').index() + 1; // increment by 1, since index starts with 0 and nth-child with 1
 
             $(sponsoredColumn).attr('data-sponsored-column', listItemIndex);
@@ -484,8 +488,9 @@ docReady(function() {
                             data.index = 0;
                             if (selectBox[0].getAttribute('data-value'))
                                 bikeDetails[Number(selectBox[0].getAttribute('data-value'))] = data;
-                            else
+                            else {
                                 bikeDetails.push(data);
+                            }
                             selectBox.first().find('.error-text').hide();
                             selectBox.first().find('#btnCompare').show();
                         }

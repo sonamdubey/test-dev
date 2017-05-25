@@ -51,12 +51,12 @@
                         <span id="toggle-features-btn" class="btn-label font14 inline-grid-9">Hide common features</span>
                     </div>
                 </div>
-                <div id="bike-comparison-grid" data-basicinfo="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.Compare.BasicInfo));" class="grid-10 alpha omega">
+                <div id="bike-comparison-grid" data-basicinfo="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.Compare.BasicInfo));" data-sponseredId="@Model.sponsoredVersionId" class="grid-10 alpha omega">
                     <ul class="compare-bike-list">
                         @foreach (var bike in Model.Compare.BasicInfo)
                         {
                             string bikeName = string.Format("{0} {1}", bike.Make, bike.Model);
-                            <li class="@string.Format("list-item {0}", (bike.VersionId != Model.sponsoredVersionId) ? "" : "sponsored-list")" data-value="@i @{i++;}">
+                            <li class="@string.Format("list-item {0}", (bike.VersionId != Model.sponsoredVersionId) ? "" : "sponsored-list-item")" data-value="@i @{i++;}">
                                 <div class=" bike-details-block">
                                     <span class="bwsprite cancel-selected-item cross-md-dark-grey"></span>
                                     @if (bike.VersionId == Model.sponsoredVersionId)
