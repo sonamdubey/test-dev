@@ -2984,6 +2984,7 @@
     <Content Include="m\src\used\bikes-in-city.js" />
     <Content Include="m\src\used\landing.js" />
     <Content Include="m\src\user-review\listing.js" />
+    <Content Include="m\src\user-review\write-review.js" />
     <Content Include="m\src\video\details.js" />
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
@@ -3051,10 +3052,8 @@
     <Content Include="sass\compare\_details-style.sass" />
     <Content Include="sass\modules\_comparison-type-carousel.sass" />
     <Content Include="sass\components\_inline-grid.sass" />
-
     <Content Include="sass\compare\_bike-comparison-grid.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
     <Content Include="Scripts\server.bundle.js" />
