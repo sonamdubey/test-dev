@@ -88,7 +88,9 @@
                                             <option>Mumbai</option>
                                             <option>Thane</option>
                                         </select>*@
-                                        <div id="divMultipleCities" class="chips chips-autocomplete"></div>
+                                        @*<div id="divMultipleCities" class="chips chips-autocomplete"></div>*@
+                                        <div id="autocomplete-addMulCity-data"></div>
+                                        <input type="text" id="autocomplete-addMulCity" />
                                         <div class="input-field row s12 margin-alpha margin-omega">
                                             <input id="txtServingRadiusForStatus5" type="text" class="validate" name="CampaignServingRadius" length="4" maxlength="4">
                                             <label for="txtServingRadiusForStatus5">kms</label>
@@ -111,26 +113,13 @@
                 <li>
                     <div class="collapsible-header" id="dvMapAdditionalAreas"><strong>Map Additional Areas</strong></div>
                     <div class="collapsible-body">
-                        <div class="container">
-                            @*<div class="row s12 materialize-select margin-top10 city-select-270">
-                                <select id="ddlCityAdditional" class="chosen-select">
-                                    <option>Mumbai</option>
-                                    <option>Thane</option>
-                                </select>
-                                <span class="bwsprite error-icon hide"></span>
-                                <div class="bw-blackbg-tooltip hide">Select City</div>
-                                <span class="caret">▼</span>
-                            </div>*@
-                            
+                        <div class="container">                            
                             <div class="input-field row s12 margin-omega">
-                                <input type="text" id="autocomplete-addCity" />    
-                                @*<label for="autocomplete-addCity">Select City</label>*@    
+                                <input type="text" id="autocomplete-addCity" />
                             </div>                            
                             <div class="input-field row s12 margin-omega">
                                 <select id="ddlAdditionalAreas" multiple>
-                                    <option disabled>Select Areas</option>
-                                    @*<option>Nerul</option>
-                                    <option>Panvel</option>*@
+                                    <option disabled>Select Areas</option>                                    
                                 </select>
                             </div>
                             <div class="input-field row s12">

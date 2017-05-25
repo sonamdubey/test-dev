@@ -1,14 +1,12 @@
 ﻿if (msg != "") { Materialize.toast(msg, 5000); }
 var objAdditionalAreaJson;
-var ddlMappedAdditionalAreas;
-﻿$(document).ready(function () {
-    var ddlCityMultiple = $("#ddlCityMultiple");        
-    var ddlAdditionalAreas = $("#ddlAdditionalAreas");
-    var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
-    ddlMappedAdditionalAreas = $("#ddlMappedAdditionalAreas");
+var ddlMappedAdditionalAreas = $("#ddlMappedAdditionalAreas");
+var ddlAdditionalAreas = $("#ddlAdditionalAreas");
+var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
 
-    ddlCityMultiple.chosen({ width: "300px", no_results_text: "No matches found!!", search_contains: true });    
-    objAdditionalAreaJson = JSON.parse($("<div>").html(strAdditionalAreaJson).text());
+﻿$(document).ready(function () {
+    if (strAdditionalAreaJson) { objAdditionalAreaJson = JSON.parse($("<div>").html(strAdditionalAreaJson).text()); }
+
     $("#autocomplete-addCity").bw_easyAutocomplete({
         inputField: $("#autocomplete-addCity"),
         source: 3,
@@ -25,10 +23,6 @@ var ddlMappedAdditionalAreas;
                         ddlAdditionalAreas.append("<option value=" + response.Area[i].areaId + ">" + response.Area[i].areaName + "</option>");
                     }
                 },
-                //error: function (xhr, ajaxOptions, thrownError) {                    
-                    //ddlAdditionalAreas.empty().append("<option value=\"0\" disabled>Select Areas</option>").removeAttr("disabled");
-                    //Materialize.toast("AJAX request failed status : " + xhr.status + " and err : " + thrownError, 4000);
-                //},
                 complete: function (xhr) {
                     if (xhr.status == 404) {
                         ddlAdditionalAreas.empty().append("<option value=\"0\" disabled>Select Areas</option>").removeAttr("disabled");
@@ -38,7 +32,18 @@ var ddlMappedAdditionalAreas;
                 }
             });
         }
-    });    
+    });
+
+    $("#autocomplete-addMulCity").bw_easyAutocomplete({
+        inputField: $("#autocomplete-addMulCity"),
+        source: 3,
+        click: function () {
+            var objCity = $("#autocomplete-addMulCity");
+            var objSelectedCity = objCity.getSelectedItemData();
+            $("#autocomplete-addMulCity-data").append('<div class="chip" data-cityId=' + objSelectedCity.payload.cityId + '>' + objSelectedCity.payload.cityName + '<i class="close material-icons">close</i></div>');
+            objCity.val("");
+        }
+    });
 
     $("#btnMapAreas").click(function () {
         var campaignServingStatus = $("[name=campaignServingStatus]:checked").val();
@@ -52,8 +57,8 @@ var ddlMappedAdditionalAreas;
                 setMappingData("0", "");
                 break;
             case "3":
-                validateData(campaignServingStatus);
-                setMappingData($("#txtServingRadiusForStatus3").val(), "");
+                validateData(campaignServingStatus);                
+                setMappingData($("#txtServingRadiusForStatus3").val(), selectedCities);
                 break;
             case "4":
                 validateData(campaignServingStatus);
@@ -61,20 +66,17 @@ var ddlMappedAdditionalAreas;
                 break;
             case "5":
                 validateData(campaignServingStatus);
-                setMappingData($("#txtServingRadiusForStatus5").val(), "");
+                var selectedCities = "";
+                $("#autocomplete-addMulCity-data .chip").each(function () {
+                    selectedCities += $(this).attr("data-cityId") + ",";
+                });
+                selectedCities = (selectedCities.substring(0, selectedCities.length - 1));
+                setMappingData($("#txtServingRadiusForStatus5").val(), selectedCities);
                 break;
-        }
-        //return false;
+        }        
     });
 
-    function setMappingData(servingRadius, cityIdList) {
-        $("#hdnServingRadius").val(servingRadius);
-        $("#hdnCityIdList").val(cityIdList);
-    }
-
-    function validateData(status) {
-        
-    }
+    
 
     $("#btnMapAdditionalAreas").click(function () {
         var selectedAreas = "";
@@ -87,27 +89,37 @@ var ddlMappedAdditionalAreas;
 
     if (ddlMappedAdditionalCity) {
         ddlMappedAdditionalCity.change(ddlMappedAdditionalCity_onChange);
-    }
-
-    function ddlMappedAdditionalCity_onChange(e) {
-        var cityId;
-        var selectOption = $("<option disabled>Select area</option>");
-        try {
-            cityId = e.currentTarget.value;
-            var areas = $.grep(objAdditionalAreaJson, function (i, n) { return i.City.Id == cityId; });
-            ddlMappedAdditionalAreas.empty();
-            ddlMappedAdditionalAreas.append(selectOption);
-            $.each(areas[0].AdditionalAreas, function (key, value) {
-                ddlMappedAdditionalAreas.append($("<option></option>")
-                               .attr("value", value.Id)
-                               .text(value.Name));
-            });
-            ddlMappedAdditionalAreas.material_select();
-        } catch (e) {
-            console.warn(e.message);
-        }        
-    }
+    }    
 });
+
+function setMappingData(servingRadius, cityIdList) {
+    $("#hdnServingRadius").val(servingRadius ? servingRadius : 0);
+    $("#hdnCityIdList").val(cityIdList);
+}
+
+function validateData(status) {
+
+}
+
+function ddlMappedAdditionalCity_onChange(e) {
+    var cityId;
+    var selectOption = $("<option disabled>Select area</option>");
+    try {
+        cityId = e.currentTarget.value;
+        var areas = $.grep(objAdditionalAreaJson, function (i, n) { return i.City.Id == cityId; });
+        ddlMappedAdditionalAreas.empty();
+        ddlMappedAdditionalAreas.append(selectOption);
+        $.each(areas[0].AdditionalAreas, function (key, value) {
+            ddlMappedAdditionalAreas.append($("<option></option>")
+                           .attr("value", value.Id)
+                           .text(value.Name));
+        });
+        ddlMappedAdditionalAreas.material_select();
+    } catch (e) {
+        console.warn(e.message);
+    }
+}
+
 function removeAdditionalAreas() {
     try {
         var selectedAreas = '';

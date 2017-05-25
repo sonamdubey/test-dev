@@ -49,7 +49,7 @@ namespace BikewaleOpr.Controllers
         {
             CampaignServingAreasVM objVM = null;
 
-            if (dealerId > 0)
+            if (dealerId > 0 && campaignid > 0)
             {
                 objVM = objModel.GetPageData(dealerId,campaignid);                
             }
@@ -76,8 +76,14 @@ namespace BikewaleOpr.Controllers
         [Route("dealercampaign/servingareas/dealerid/{dealerId}/campaignid/{campaignid}/add/"), HttpPost]
         public ActionResult MapCampaignAreas(uint dealerId, uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList)
         {
-            objModel.MapCampaignAreas(dealerId,campaignid, campaignServingStatus, servingRadius, cityIdList);
-            TempData["msg"] = "Mapped areas with dealer location successfully!!!";
+            if (dealerId > 0 && campaignid > 0 && campaignServingStatus > 0)
+            {
+                objModel.MapCampaignAreas(dealerId, campaignid, campaignServingStatus, servingRadius, cityIdList);
+                TempData["msg"] = "Campaign areas mapped successfully";
+            } else {
+                TempData["msg"] = "Please provide valid inputs";
+            }
+            
             return RedirectToAction("CampaignServingAreas", routeValues: new { dealerId = dealerId, campaignId = campaignid });
         }
         #endregion
@@ -94,8 +100,14 @@ namespace BikewaleOpr.Controllers
         [Route("dealercampaign/servingareas/dealerid/{dealerId}/campaignid/{campaignid}/add/additional/"), HttpPost]
         public ActionResult MapAdditionalAreas(uint dealerId, uint campaignid, string areaIdList)
         {
-            objModel.MapAdditionalAreas(dealerId, areaIdList);
-            TempData["msg"] = "Mapped additional areas with dealer location successfully!!!";
+            if (dealerId > 0 && campaignid > 0 && !string.IsNullOrEmpty(areaIdList))
+            {
+                objModel.MapAdditionalAreas(dealerId, areaIdList);
+                TempData["msg"] = "Mapped additional areas with dealer location successfully!!!";
+            } else {
+                TempData["msg"] = "Please provide valid inputs";
+            }
+
             return RedirectToAction("CampaignServingAreas", routeValues: new { dealerId = dealerId, campaignId = campaignid });
         }
         #endregion
@@ -112,8 +124,14 @@ namespace BikewaleOpr.Controllers
         [Route("dealercampaign/servingareas/dealerid/{dealerId}/campaignid/{campaignid}/remove/additional/"), HttpPost]
         public ActionResult RemmoveAdditionallyMappedAreas(uint dealerId, uint campaignid, string removeAreaIdList)
         {
-            objModel.RemmoveAdditionallyMappedAreas(dealerId, removeAreaIdList);
-            TempData["msg"] = "Removed additional mapped areas with dealer location successfully!!!";
+            if (dealerId > 0 && campaignid > 0 && !string.IsNullOrEmpty(removeAreaIdList))
+            {
+                objModel.RemmoveAdditionallyMappedAreas(dealerId, removeAreaIdList);
+                TempData["msg"] = "Removed additional mapped areas with dealer location successfully!!!";
+            } else {
+                TempData["msg"] = "Please provide valid inputs";
+            }
+
             return RedirectToAction("CampaignServingAreas", routeValues: new { dealerId = dealerId, campaignId = campaignid });
         }
         #endregion
