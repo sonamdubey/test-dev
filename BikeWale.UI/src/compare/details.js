@@ -167,13 +167,14 @@ docReady(function() {
     });
     var getUrl = function ()
     {
-        bikeDetails.push(data);
+       
         $.each(bikeDetails, function (i, val) {
             val.index = i + 1;
 
         });
         bikeDetails.sort(function (a, b) {
-            return a.modelId - b.modelId;
+                return a.modelId - b.modelId;
+            
         });
         var result = "";
         $.each(bikeDetails, function (i, val) {
@@ -398,7 +399,7 @@ docReady(function() {
 
                     });
                     if (!sameversion) {
-                        bikeDetails.splice(listItem[0].getAttribute('data-value'), 1);
+                       
                         compareBox.getVersionData(elementValue, listItem);
                         getUrl();
                     }
@@ -481,6 +482,10 @@ docReady(function() {
                             data.modelId = response.modelDetails.modelId;
                             data.versionId = versionId;
                             data.index = 0;
+                            if (selectBox[0].getAttribute('data-value'))
+                                bikeDetails[Number(selectBox[0].getAttribute('data-value'))] = data;
+                            else
+                                bikeDetails.push(data);
                             selectBox.first().find('.error-text').hide();
                             selectBox.first().find('#btnCompare').show();
                         }
