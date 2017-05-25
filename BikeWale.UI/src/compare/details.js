@@ -22,10 +22,10 @@ docReady(function() {
                     dataRows = document.getElementsByClassName("row-type-data"),
                     isSponsoredBikeActive = document.getElementById("sponsored-column-active");
 
-                if (bikeDetails.length == 2) {
+                if (bikeDetails.length + Number(document.getElementById("bike-comparison-grid").getAttribute("data-sponseredId")) > 0 ? 1 : 0 == 2) {
                     compareColumns.countTwo(headingRows, dataRows);
                 }
-                else if (bikeDetails.length == 3) {
+                else if (bikeDetails.length + Number(document.getElementById("bike-comparison-grid").getAttribute("data-sponseredId"))>0?1:0 == 3) {
                     compareColumns.countThree(headingRows, dataRows);
                 }
                 else {
