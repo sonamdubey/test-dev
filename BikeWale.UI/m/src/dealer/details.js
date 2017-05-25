@@ -3,7 +3,6 @@ var dealerLat;
 var dealerLong;
 var locationKey;
 var googleMapAPIKey, pageUrl;
-eventCategory = "Dealer_Locator_Detail";
 var cityName, areaName;
 docReady(function () {
     dealerLong = document.getElementById("locationSearch").getAttribute("data-long");
@@ -56,7 +55,12 @@ docReady(function () {
             "campid": ele.attr('data-champaignid'),
             "dealerareaname": ele.attr('data-item-area'),
             "dealercityname": ele.attr('data-cityname'),
-            "eventcategory" : ele.attr('data-eventcategory')
+            "eventcategory": ele.attr('data-eventcategory'),
+            "gaobject": {
+                cat: ele.attr('c'),
+                act: ele.attr('a'),
+                lab: ele.attr('l')
+            }
         };
         dleadvm.setOptions(leadOptions);
     });

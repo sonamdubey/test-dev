@@ -106,6 +106,7 @@ namespace Bikewale.Models
                 City = CityDetails.CityName
 
             };
+            objDealerDetails.GALabel = string.Format("{0}_{1}_{2}", objDealerDetails.Make.MakeName, CityDetails.CityName, objDealerDetails.DealerDetails.DealerDetails.Area.AreaName);
         }
 
         /// <summary>

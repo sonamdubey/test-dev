@@ -2,7 +2,6 @@ var assistFormSubmit, assistGetName, assistGetEmail, assistGetMobile;
 var getOnRoadPriceBtn, onroadPriceConfirmBtn;
 var getOffersClick = false, selectDropdownBox;
 var $window, modelDetailsFloatingCard, modelSpecsTabsContentWrapper;
-eventCategory = "Model_Page";
 
 // colour carousel
 var colourCarousel, carouselColorList;
@@ -189,6 +188,7 @@ docReady(function () {
             "dealerDescription": ele.attr('data-item-description'),
             "pinCodeRequired": ele.attr("data-ispincodrequired"),
             "dealersRequired": ele.attr("data-dealersRequired"),
+            "eventcategory" : ele.attr("c"),
             "gaobject": {
                 cat: ele.attr("c"),
                 act: ele.attr("a"),
@@ -199,6 +199,7 @@ docReady(function () {
         if (leadOptions.dealersRequired) {
             generateDealerDropdown();
         }
+        gaLabel = getBikeVersionLocation();
         dleadvm.setOptions(leadOptions);
     });
     function generateDealerDropdown() {
@@ -289,7 +290,7 @@ docReady(function () {
 
     getOnRoadPriceBtn = $("#getOnRoadPriceBtn"),
     onroadPriceConfirmBtn = $("#onroadPriceConfirmBtn");
-    gaLabel = getBikeVersionLocation();
+    
     (function ($) {
 
         var connector = function (itemNavigation, carouselStage) {

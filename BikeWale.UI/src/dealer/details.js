@@ -4,7 +4,6 @@ var customerViewModel, dealerDetailsViewModel;
 var dealerLat;
 var googleMapAPIKey;
 var dealerLong, dropdown, assistGetModel, currentCityName, pqId, pageUrl, clientIP, cityArea;
-eventCategory = "Dealer_Locator_Detail";
 
 docReady(function () {
     pageUrl = window.location.href;

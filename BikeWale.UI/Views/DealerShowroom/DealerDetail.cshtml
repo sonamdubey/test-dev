@@ -186,7 +186,7 @@
                     </div>
                     <div class="type-sumit-button">
                         <input type="button" id="dealer-assist-btn" data-isregisterpq="true" data-item-name="@Model.DealerDetails.DealerDetails.Name" data-item-area="@((Model.DealerDetails.DealerDetails.Area!=null)? Model.DealerDetails.DealerDetails.Area.AreaName : "")" data-leadsourceid="14" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="@Convert.ToInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers)"
-                               data-item-id="@Model.DealerDetails.DealerDetails.DealerId" data-cityname="@Model.CityDetails.CityName" data-eventcategory="Dealer_Detail" data-bind="click: function (d, e) { validateBikeData(); validateUserLeadDetails(); HiddenSubmitLead(d, e) }" value="@Model.DealerDetails.DealerDetails.DisplayTextSmall" />
+                               data-item-id="@Model.DealerDetails.DealerDetails.DealerId" data-cityname="@Model.CityDetails.CityName" data-eventcategory="Dealer_Locator_Detail" data-bind="click: function (d, e) { validateBikeData(); validateUserLeadDetails(); HiddenSubmitLead(d, e) }" value="@Model.DealerDetails.DealerDetails.DisplayTextSmall" />
                     </div>
                     <p>By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
                 </div>

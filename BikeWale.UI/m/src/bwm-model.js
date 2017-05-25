@@ -7,7 +7,6 @@ var dropdown;
 var window, overallSpecsTabsContainer, modelSpecsTabsContentWrapper, modelSpecsFooter, topNavBarHeight;
 var backToTopBtn, halfBodyHeight, overViewContentHeight;
 var lastScrollTop = 0;
-eventCategory = "Model_Page";
 
 function getBikeVersion() {
     return versionName;
@@ -169,6 +168,7 @@ docReady(function () {
                 "dealerDescription": ele.attr('data-item-description'),
                 "pinCodeRequired": ele.attr("data-ispincodrequired"),
                 "dealersRequired": ele.attr("data-dealersrequired"),
+                "eventcategory"  : "Model_Page",
                 "gaobject": {
                     cat: ele.attr("c"),
                     act: ele.attr("a"),
@@ -178,6 +178,7 @@ docReady(function () {
             if (leadOptions.dealersRequired) {
                 generateDealerDropdown();
             }
+            gaLabel = myBikeName + '_' + getCityArea;
             dleadvm.setOptions(leadOptions);
         } catch (e) {
             console.warn("Unable to get submit details : " + e.message);
@@ -245,8 +246,7 @@ docReady(function () {
     }
 
     getCityArea = GetGlobalCityArea();
-    gaLabel = myBikeName + '_' + getCityArea;
-
+    
     $(window).scroll(function () {
         var windowScrollTop = $window.scrollTop(),
             modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,

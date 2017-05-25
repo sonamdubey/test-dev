@@ -418,8 +418,7 @@
     var versionName = "@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")";
     var bikeVerLocation, EMIviewModel, dealerType = '@Model.DealerType', bikeVersionPrice = "@Model.TotalPrice";
     var pageUrl = window.location.href;
-    eventCategory = "Dealer_PQ";
-    
+        
     docReady(function () {
         try {
             getCityArea = GetGlobalCityArea();

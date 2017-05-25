@@ -160,7 +160,7 @@
     <div id="pricequote-floating-button-wrapper" class="grid-12 alpha omega">
         <div class="float-button float-fixed">
             <div class="grid-@(!String.IsNullOrEmpty(PrimaryDealerDetails.MaskingNumber) ? "6" : "12") alpha omega padding-right5">
-                <input type="button" data-role="none" id="leadBtnBookNow" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" data-leadsourceid="17" data-item-registerpq="false" data-item-id="@PrimaryDealerDetails.DealerId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" name="leadBtnBookNow" class="btn btn-full-width btn-orange leadcapturebtn" value="@PrimaryDealerDetails.DisplayTextSmall" />
+                <input type="button" data-role="none" id="leadBtnBookNow" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" data-leadsourceid="17" data-item-registerpq="false" data-item-id="@PrimaryDealerDetails.DealerId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" c="Dealer_PQ" name="leadBtnBookNow" class="btn btn-full-width btn-orange leadcapturebtn" value="@PrimaryDealerDetails.DisplayTextSmall" />
             </div>
             @if (!String.IsNullOrEmpty(PrimaryDealerDetails.MaskingNumber))
             {

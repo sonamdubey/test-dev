@@ -153,7 +153,6 @@
         //self.manufacturerDealerCity = ko.observable();
         self.setOptions = function (options) {
             if (options != null) {
-                debugger;
                 if (options.eventcategory != null)
                     self.eventCategory(options.eventcategory);
 
@@ -391,7 +390,6 @@
                         if (xhr.status != 200)
                             self.IsVerified(false);
 
-                       // self.pushToGA(self.GAObject());
                     }
                 });
             }
@@ -448,7 +446,7 @@
                 });
                 setPQUserCookie();
             }
-           // triggerGA(eventCategory, eventAction, gaLabel)
+           //triggerGA(eventCategory, eventAction, gaLabel)
         };
 
         self.submitLead = function (data, event) {
