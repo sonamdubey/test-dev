@@ -5,6 +5,7 @@ using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
+using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
@@ -22,11 +23,11 @@ namespace Bikewale.Models
         private string _Querystring;
         private ulong _customerId;
 
-        private uint _pagesourceId;
         private bool _isFake;
         public StatusCodes status;
-
-        public bool IsDesktop { get; set; }
+        private string _returnUrl;
+        public ushort PlatFormId { get; set; }
+       
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Added interfaces for bikeinfo and user reviews 
@@ -34,20 +35,20 @@ namespace Bikewale.Models
         /// <param name="modelId"></param>
         /// <param name="bikeInfo"></param>
         /// <param name="userReviews"></param>
-        public UserReviewRatingPage(uint modelId, uint? pagesourceId, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, string Querystring, IUserReviewsRepository userReviewsRepo)
+        public UserReviewRatingPage(uint modelId, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, string Querystring, IUserReviewsRepository userReviewsRepo)
         {
             _modelId = modelId;
             _userReviews = userReviews;
             _objModel = objModel;
             _Querystring = Querystring;
-            _pagesourceId = pagesourceId ?? 0;
             _userReviewsRepo = userReviewsRepo;
             if (!string.IsNullOrEmpty(_Querystring))
                 ProcessQuery(_Querystring);
             else
                 status = Entities.StatusCodes.ContentFound;
-
+            
         }
+
         private void ProcessQuery(string Querystring)
         {
             try
@@ -57,8 +58,8 @@ namespace Bikewale.Models
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(_decodedString);
                 uint.TryParse(queryCollection["reviewid"], out _reviewId);
                 ulong.TryParse(queryCollection["customerid"], out _customerId);
-                uint.TryParse(queryCollection["pagesourceid"], out _pagesourceId);
                 bool.TryParse(queryCollection["isFake"], out _isFake);
+                _returnUrl=Convert.ToString(queryCollection["returnUrl"]);
 
 
                 if (_reviewId > 0 && !_isFake)
@@ -95,9 +96,9 @@ namespace Bikewale.Models
                 GetBikeData(objUserVM);
 
                 GetUserRatings(objUserVM);
-
-                if (objUserVM != null && objUserVM.objModelEntity != null)
+                 if (objUserVM != null && objUserVM.objModelEntity != null)
                 {
+                    objUserVM.ReturnUrl = _returnUrl;
                     BindMetas(objUserVM);
                 }
             }
@@ -224,8 +225,7 @@ namespace Bikewale.Models
                 }
                 objUserVM.IsFake = _isFake;
                 objUserVM.ReviewId = _reviewId;
-                objUserVM.pagesourceId = _pagesourceId;
-
+           
             }
             catch (System.Exception ex)
             {

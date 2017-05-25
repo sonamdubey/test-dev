@@ -38,7 +38,7 @@ docReady(function () {
         bikeDetails.sort(function (a, b) {
             return a.modelId - b.modelId;
         });
-       
+        var result = "";
         $.each(bikeDetails, function (i, val) {
             if(i!=bikeDetails.length-1)
                 result += (val.makemasking + "-" + val.modelmasking + "-vs-");

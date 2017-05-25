@@ -44,14 +44,15 @@ namespace BikewaleOpr.Controllers
         /// </summary>
         /// <param name="dealerId">mandatory field</param>
         /// <returns></returns>
-        [Route("dealercampaign/servingareas/dealerid/{dealerId}/")]
-        public ActionResult CampaignServingAreas(uint dealerId)
+        [Route("dealercampaign/servingareas/dealerid/{dealerId}/campaignid/{campaignid}/")]
+        public ActionResult CampaignServingAreas(uint dealerId,uint campaignid)
         {
             CampaignServingAreasVM objVM = null;
 
             if (dealerId > 0)
             {
                 objVM = objModel.GetPageData(dealerId);
+                objVM.CampaignId = campaignid;
             }
             else
             {
@@ -73,10 +74,10 @@ namespace BikewaleOpr.Controllers
         /// <param name="servingRadius">Serving radius for the given dealer (campaign serving radius).</param>
         /// <param name="cityIdList">Comma separated city id list. e.g. cityid1, cityid2, cityid3</param>
         /// <returns></returns>
-        [Route("dealercampaign/servingareas/dealerid/{dealerId}/add/"), HttpPost]
-        public ActionResult MapCampaignAreas(uint dealerId, ushort campaignServingStatus, ushort servingRadius, string cityIdList)
+        [Route("dealercampaign/servingareas/dealerid/{dealerId}/campaignid/{campaignid}/add/"), HttpPost]
+        public ActionResult MapCampaignAreas(uint dealerId, uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList)
         {
-            objModel.MapCampaignAreas(dealerId, campaignServingStatus, servingRadius, cityIdList);
+            objModel.MapCampaignAreas(dealerId,campaignid, campaignServingStatus, servingRadius, cityIdList);
 
             return RedirectToAction("CampaignServingAreas");
         }

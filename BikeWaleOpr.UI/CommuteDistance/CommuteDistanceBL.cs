@@ -36,7 +36,7 @@ namespace BikewaleOpr.CommuteDistance
         /// <param name="servingRadius">Serving radius for the given dealer (campaign serving radius).</param>
         /// <param name="cityIdList">Comma separated city id list. e.g. cityid1, cityid2, cityid3</param>
         /// <returns></returns>
-        public bool SaveCampaignAreas(uint dealerId, ushort campaignServingStatus, ushort servingRadius, string cityIdList)
+        public bool SaveCampaignAreas(uint dealerId, uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList)
         {
             bool isUpdated = false;
 
@@ -49,7 +49,7 @@ namespace BikewaleOpr.CommuteDistance
                 isUpdated = UpdateCommuteDistance(dealerId, objDealerAreaDist);
 
                 // map campaign areas
-                _campaignRepo.SaveDealerCampaignAreaMapping(dealerId, campaignServingStatus, servingRadius, cityIdList);
+                _campaignRepo.SaveDealerCampaignAreaMapping(dealerId,campaignid, campaignServingStatus, servingRadius, cityIdList);
             }
             catch (Exception ex)
             {

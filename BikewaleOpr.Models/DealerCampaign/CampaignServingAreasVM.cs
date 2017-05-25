@@ -15,6 +15,7 @@ namespace BikewaleOpr.Models.DealerCampaign
     {
         public uint DealerId { get; set; }
         public string DealerName { get; set; }
+        public uint CampaignId { get; set; }
         public IEnumerable<CityArea> MappedAreas{ get; set; }        
         public IEnumerable<CityArea> AdditionallyMappedAreas { get; set; }
         public IEnumerable<City> Cities { get; set; }

@@ -161,7 +161,6 @@ var bikeSelection = function () {
                         self.bikeData(res);
                         bwcache.set(_cversionKey, res, true);
                         self.setCompareBikeHTML();
-                        self.currentStep(self.currentStep() + 1);                      
                     })
                     .fail(function () {
                         self.bikeData(null);
@@ -244,6 +243,8 @@ var compareBike = function () {
     self.bike2 = ko.observable();
     self.compareSource = ko.observable(compareSource);
 
+    self.matchBoxHeight = ko.observable(false);
+
     self.openBikeSelection = function (bike) {
         try {
             self.bikeSelection().currentBike(bike);
@@ -269,8 +270,16 @@ var compareBike = function () {
                   + self.bike2().make.masking + "-" + self.bike2().model.maskingName + "/"
                   + "?bike1=" + self.bike1().version.versionId + "&bike2=" + self.bike2().version.versionId
                   + "&source=" + self.compareSource());
-            }
+            }            
         }
+
+        if (self.bike1() || self.bike2()) {
+            self.matchBoxHeight(true);
+        }
+        else {
+            self.matchBoxHeight(false);
+        }
+
         return _link;
     });
 };

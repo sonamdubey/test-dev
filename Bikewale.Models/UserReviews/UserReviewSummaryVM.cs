@@ -6,7 +6,6 @@ namespace Bikewale.Models
     {
         public UserReviewSummary Summary { get; set; }
         public string WriteReviewLink { get; set; }
-        public string PrevPageUrl { get; set; }
     }
 
 }
