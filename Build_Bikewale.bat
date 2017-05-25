@@ -1,0 +1,1 @@
+MsBuild.exe BikewalePro.sln /t:Build /p:Configuration=Release
