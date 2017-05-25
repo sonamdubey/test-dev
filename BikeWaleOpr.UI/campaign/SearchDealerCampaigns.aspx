@@ -62,19 +62,25 @@
             </div>
             <div class="margin-right10 verical-middle form-control-box position-rel" id="dvMakes">
                 Bike Make : <span class="errMessage">* &nbsp</span>
-                <select id="ddlMakes" class="drpClass">
-                    <option value="">--Select Make--</option>
-                </select>
-                <span class="bwsprite error-icon hide"></span>
-                <div class="bw-blackbg-tooltip hide">Please Select Make</div>
+                <div class="materialize-select">
+                    <select id="ddlMakes" class="drpClass">
+                        <option value="">--Select Make--</option>
+                    </select>
+                    <span class="bwsprite error-icon hide"></span>
+                    <div class="bw-blackbg-tooltip hide">Please Select Make</div>
+                    <span class="caret">▼</span>
+                </div>
             </div>
             <div class="margin-right10 verical-middle form-control-box position-rel" id="dvDealers">
                 Dealer Name : <span class="errMessage">* &nbsp</span>
-                <select id="drpDealer" class="drpClass">
-                    <option value="">--Select Dealer--</option>
-                </select>
-                <span class="bwsprite error-icon hide"></span>
-                <div class="bw-blackbg-tooltip hide">Please Select Dealer</div>
+                <div class="materialize-select">
+                    <select id="drpDealer" class="drpClass">
+                        <option value="">--Select Dealer--</option>
+                    </select>
+                    <span class="bwsprite error-icon hide"></span>
+                    <div class="bw-blackbg-tooltip hide">Please Select Dealer</div>
+                    <span class="caret">▼</span>
+                </div>
             </div>
             <div class="margin-right10 verical-middle">
                 <input class="verical-middle" type="checkbox" id="chkActiveCampaign" checked />
@@ -131,11 +137,13 @@
             <td>
                 <a data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid=' + $root.dealerId() }, text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank"></a>
             </td>
-            <td >
-                <a  data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + $root.dealerName() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + $root.dealerId() }" target="_blank"><img src="https://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
+            <td>
+                <a data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + $root.dealerName() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + $root.dealerId() }" target="_blank">
+                    <img src="https://opr.carwale.com/images/edit.jpg" alt="Edit" /></a>
             </td>
-            <td >
-                <a  data-bind="attr: { href: '/dealercampaign/servingareas/dealerid/' + $root.dealerId() + '/campaignid/' + CampaignId() }" target="_blank"><img src="https://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
+            <td>
+                <a data-bind="attr: { href: '/dealercampaign/servingareas/dealerid/' + $root.dealerId() + '/campaignid/' + CampaignId() }" target="_blank">
+                    <img src="https://opr.carwale.com/images/edit.jpg" alt="Edit" /></a>
             </td>
         </tr>
     </script>
