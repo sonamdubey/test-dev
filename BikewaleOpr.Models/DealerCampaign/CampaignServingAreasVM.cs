@@ -1,9 +1,5 @@
-﻿using System;
+﻿using BikewaleOpr.Entity.DealerCampaign;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BikewaleOpr.Entity.DealerCampaign;
 
 namespace BikewaleOpr.Models.DealerCampaign
 {
@@ -19,6 +15,7 @@ namespace BikewaleOpr.Models.DealerCampaign
         public IEnumerable<CityArea> MappedAreas{ get; set; }        
         public IEnumerable<CityArea> AdditionallyMappedAreas { get; set; }
         public IEnumerable<City> Cities { get; set; }
+        public string AdditionalAreaJson { get; set; }
         //public IEnumerable<City> AdditionalCities { get; set; }
 
     }   // class

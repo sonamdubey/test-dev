@@ -51,8 +51,7 @@ namespace BikewaleOpr.Controllers
 
             if (dealerId > 0)
             {
-                objVM = objModel.GetPageData(dealerId);
-                objVM.CampaignId = campaignid;
+                objVM = objModel.GetPageData(dealerId,campaignid);                
             }
             else
             {
@@ -78,7 +77,7 @@ namespace BikewaleOpr.Controllers
         public ActionResult MapCampaignAreas(uint dealerId, uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList)
         {
             objModel.MapCampaignAreas(dealerId,campaignid, campaignServingStatus, servingRadius, cityIdList);
-
+            TempData["msg"] = "Mapped areas with dealer location successfully!!!";
             return RedirectToAction("CampaignServingAreas", routeValues: new { dealerId = dealerId, campaignId = campaignid });
         }
         #endregion
@@ -96,7 +95,7 @@ namespace BikewaleOpr.Controllers
         public ActionResult MapAdditionalAreas(uint dealerId, uint campaignid, string areaIdList)
         {
             objModel.MapAdditionalAreas(dealerId, areaIdList);
-
+            TempData["msg"] = "Mapped additional areas with dealer location successfully!!!";
             return RedirectToAction("CampaignServingAreas", routeValues: new { dealerId = dealerId, campaignId = campaignid });
         }
         #endregion
@@ -108,13 +107,13 @@ namespace BikewaleOpr.Controllers
         /// Summary : Action to remove multiple areas mapped with the dealers location
         /// </summary>
         /// <param name="dealerId"></param>
-        /// <param name="areaIdList">Comma separated area id list. e.g. areaid1, areaid2, areaid3</param>
+        /// <param name="removeAreaIdList">Comma separated area id list. e.g. areaid1, areaid2, areaid3</param>
         /// <returns></returns>
         [Route("dealercampaign/servingareas/dealerid/{dealerId}/campaignid/{campaignid}/remove/additional/"), HttpPost]
-        public ActionResult RemmoveAdditionallyMappedAreas(uint dealerId, uint campaignid, string areaIdList)
+        public ActionResult RemmoveAdditionallyMappedAreas(uint dealerId, uint campaignid, string removeAreaIdList)
         {
-            objModel.RemmoveAdditionallyMappedAreas(dealerId, areaIdList);
-
+            objModel.RemmoveAdditionallyMappedAreas(dealerId, removeAreaIdList);
+            TempData["msg"] = "Removed additional mapped areas with dealer location successfully!!!";
             return RedirectToAction("CampaignServingAreas", routeValues: new { dealerId = dealerId, campaignId = campaignid });
         }
         #endregion

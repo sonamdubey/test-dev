@@ -135,7 +135,7 @@
                 <a  data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + $root.dealerName() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + $root.dealerId() }" target="_blank"><img src="https://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
             </td>
             <td >
-                <a  data-bind="attr: { href: '/dealercampaign/servingareas/dealerid/' + $root.dealerId() + '/campaignid/' + CampaignId() }" target="_blank"><img src="https://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
+                <a  data-bind="attr: { href: '/dealercampaign/servingareas/dealerid/' + $root.dealerId() + '/campaignid/' + CampaignId() + '/' }" target="_blank"><img src="https://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
             </td>
         </tr>
     </script>

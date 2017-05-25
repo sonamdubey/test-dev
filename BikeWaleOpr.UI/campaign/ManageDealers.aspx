@@ -153,9 +153,12 @@
        { %>
     <fieldset>
         <legend>Define Components</legend>
-
-        <strong>Edit rules:</strong><span><a href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Rules</a></span>
-        <strong>Map Campaign Areas</strong><span><a href="/dealercampaign/CampaignServingAreas/?dealerId=<%= dealerId %>">Campaign Areas</a></span>
+        <div class="box">
+            <div><strong>Edit rules:</strong><span class="margin-left10"><a target="_blank" href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Rules</a></span></div>
+            <div>
+                <strong>Map Campaign Areas:</strong><span class="margin-left10"><a target="_blank" href="/dealercampaign/servingareas/dealerid/<%= dealerId %>/campaignid/<%= campaignId %>/">Campaign Areas</a></span>
+            </div>
+        </div>
     </fieldset>
     <% } %>
 </div>

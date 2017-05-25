@@ -35,11 +35,12 @@ namespace BikewaleOpr.Models.DealerCampaign
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns>Returns viewmodel CampaignServingAreasVM</returns>
-        public CampaignServingAreasVM GetPageData(uint dealerId)
+        public CampaignServingAreasVM GetPageData(uint dealerId, uint campaignid)
         {
             CampaignServingAreasVM objVM = new CampaignServingAreasVM();
 
             objVM.DealerId = dealerId;
+            objVM.CampaignId = campaignid;
             objVM.DealerName = "";
 
             // Get areas mapped to the dealer's location from db
@@ -62,10 +63,10 @@ namespace BikewaleOpr.Models.DealerCampaign
                 if (cityAreas.Any(m => m.AdditionalAreas != null && m.AdditionalAreas.Count() > 0))
                     objVM.AdditionallyMappedAreas = cityAreas.Where(m => m.AdditionalAreas != null && m.AdditionalAreas.Count() > 0).Select(m => new CityArea() { City = m.City, Areas = m.AdditionalAreas });
 
-                //if (objVM.AdditionallyMappedAreas != null && objVM.AdditionallyMappedAreas.Count() > 0)
-                //{
-                //    objVM.AdditionalCities = objVM.AdditionallyMappedAreas.Select(s => s.City);
-                //}
+                if (objVM.AdditionallyMappedAreas != null && objVM.AdditionallyMappedAreas.Count() > 0)
+                {
+                    objVM.AdditionalAreaJson = Newtonsoft.Json.JsonConvert.SerializeObject(objVM.AdditionallyMappedAreas);
+                }
             }
 
             return objVM;

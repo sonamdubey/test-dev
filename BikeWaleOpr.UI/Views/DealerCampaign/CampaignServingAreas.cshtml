@@ -64,7 +64,7 @@
                                     <label for="campaignServingStatus3">Dealer's city and serving radius</label>
                                     <div class="toggle-field-content padding-left35 margin-alpha margin-omega hide">
                                         <div class="input-field">
-                                            <input id="txtServingRadiusForStatus3" type="text" class="validate" name="CampaignServingRadius" length="3" maxlength="3">
+                                            <input id="txtServingRadiusForStatus3" type="text" class="validate" name="CampaignServingRadius" length="4" maxlength="4">
                                             <label for="txtServingRadiusForStatus3">kms</label>
                                         </div>
                                     </div>
@@ -74,7 +74,7 @@
                                     <label for="campaignServingStatus4">Within serving radius</label>
                                     <div class="toggle-field-content padding-left35 margin-alpha margin-omega hide">
                                         <div class="input-field">
-                                            <input id="txtServingRadiusForStatus4" type="text" class="validate" name="CampaignServingRadius" length="3" maxlength="3">
+                                            <input id="txtServingRadiusForStatus4" type="text" class="validate" name="CampaignServingRadius" length="4" maxlength="4">
                                             <label for="txtServingRadiusForStatus4">kms</label>
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
                                         </select>*@
                                         <div id="divMultipleCities" class="chips chips-autocomplete"></div>
                                         <div class="input-field row s12 margin-alpha margin-omega">
-                                            <input id="txtServingRadiusForStatus5" type="text" class="validate" name="CampaignServingRadius" length="3" maxlength="3">
+                                            <input id="txtServingRadiusForStatus5" type="text" class="validate" name="CampaignServingRadius" length="4" maxlength="4">
                                             <label for="txtServingRadiusForStatus5">kms</label>
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
 
                 </li>
                 <li>
-                    <div class="collapsible-header"><strong>Map Additional Areas</strong></div>
+                    <div class="collapsible-header" id="dvMapAdditionalAreas"><strong>Map Additional Areas</strong></div>
                     <div class="collapsible-body">
                         <div class="container">
                             @*<div class="row s12 materialize-select margin-top10 city-select-270">
@@ -146,25 +146,30 @@
                     <div class="collapsible-header"><strong>Remove Additional Areas</strong></div>
                     <div class="collapsible-body">
                         <div class="container">
+                            @if (Model.AdditionallyMappedAreas != null && Model.AdditionallyMappedAreas.Count() > 0)
+                            {
                             <div class="input-field row s12">
-                                <select>
+                                <select id="ddlMappedAdditionalCity">
                                     <option>Select Cities</option>
-                                    <option>Mumbai</option>
-                                    <option>Thane</option>
+                                    @foreach (var city in Model.AdditionallyMappedAreas)
+                                    {
+                                        <option value="@city.City.Id">@city.City.Name</option>
+                                    }
                                 </select>
                             </div>
                             <div class="input-field row s12">
-                                <select multiple>
-                                    <option>Select Areas</option>
-                                    <option>Sea woods</option>
-                                    <option>Andheri</option>
+                                <select multiple id="ddlMappedAdditionalAreas">                                    
                                 </select>
                             </div>
                             <div class="input-field row s12">
-                                <button id="btnRemoveAreas" class="btn waves-effect waves-light" type="submit" name="action" formaction="/dealercampaign/servingareas/dealerid/@Model.DealerId/campaignid/@Model.CampaignId/remove/additional/">
-                                    Remove Areas
-                                </button>
+                                <input type="hidden" name="removeAreaIdList" id="hdnMappedAreas" value="" />
+                                <button id="btnRemoveAreas" class="btn waves-effect waves-light" onclick="return removeAdditionalAreas();" type="submit" name="action" formaction="/dealercampaign/servingareas/dealerid/@Model.DealerId/campaignid/@Model.CampaignId/remove/additional/" >Remove Areas</button>
                             </div>
+                            }
+                            else
+                            {
+                                <div class="margin-top10 margin-bottom10">No additional areas mapped!!!</div>
+                            }
                         </div>
                     </div>
                 </li>
@@ -173,6 +178,8 @@
     </div>
 </div>
 <script type="text/javascript">
-    bwHostUrl = '@Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrlForJs';
+    var bwHostUrl = '@Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrlForJs';
+    var strAdditionalAreaJson = "@Model.AdditionalAreaJson";
+    var msg = '@Convert.ToString(TempData["msg"])';
 </script>
 <script src="~/src/dealercampaign/campaignservingareas.js"></script>

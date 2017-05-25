@@ -582,8 +582,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
 
                     var param = new DynamicParameters();
 
-                    param.Add("par_dealerid", dealerId);
-                    param.Add("par_areadistance", areadIdList);
+                    param.Add("par_dealerId", dealerId);
+                    param.Add("par_areaIds", areadIdList);
 
                     connection.Query("deleteAdditionalMappedAreas", param: param, commandType: CommandType.StoredProcedure);
 
