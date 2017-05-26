@@ -5,6 +5,7 @@
     $window = $(window),
     windowScrollTop;
 var data = {};
+
 docReady(function() {
     $('.chosen-select').chosen();
     /* toggle common features */
@@ -151,14 +152,17 @@ docReady(function() {
     $('.compare-bike-list').on('click', '.cancel-selected-item', function () {
         var listItem = $(this).closest('.list-item'),
             listItemIndex = listItem.index();
-        if (listItem[0].getAttribute('data-value'))
-            bikeDetails.splice(listItem[0].getAttribute('data-value'), 1);
+    
         var bikeList = $('.compare-bike-list');
         for(var i = 0; i < bikeList.length; i++) {
             $(bikeList[i]).find('li:eq('+ listItemIndex +')').remove();
         }
-        if (bikeDetails.length > 1)
+        if (listItem[0].getAttribute('data-value') && Number(listItem[0].getAttribute('data-value')) + 1 <= bikeDetails.length) {
+            bikeDetails.splice(Number(listItem[0].getAttribute('data-value')), 1);
+            if(bikeDetails.length>1)
             getUrl();
+        }
+            
         var mainList = $('#bike-comparison-grid').find('.compare-bike-list');
 
         compareBox.emptyTableData(listItemIndex);
