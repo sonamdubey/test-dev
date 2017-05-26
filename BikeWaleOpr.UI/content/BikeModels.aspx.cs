@@ -638,7 +638,7 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, "deleteModelMostPopularBikes");
             }
         }
 
