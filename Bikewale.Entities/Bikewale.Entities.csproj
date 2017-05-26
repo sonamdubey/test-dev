@@ -105,7 +105,6 @@
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
     <Compile Include="BikeData\BikeModelPageEntity.cs" />
     <Compile Include="BikeData\BikeModelsListEntity.cs" />
-    <Compile Include="BikeData\BikePriceCity.cs" />
     <Compile Include="BikeData\BikeSeriesEntity.cs">
       <SubType>Code</SubType>
     </Compile>
