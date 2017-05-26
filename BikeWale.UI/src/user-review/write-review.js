@@ -341,7 +341,7 @@ docReady(function () {
             var buttonValue = Number($(this).val()),
                 subQuestionField = $('#question-' + subQuestionId);
 
-            if (buttonValue == 1) {
+            if (buttonValue == 5) {
                 subQuestionField.slideUp();
                 subQuestionField.removeAttr('data-required');
             }
