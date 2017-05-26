@@ -317,7 +317,7 @@ docReady(function () {
             var buttonValue = Number($(this).val()),
                 subQuestionField = $('#question-' + subQuestionId);
 
-            if (buttonValue == 1) {
+            if (buttonValue == 5) {
                 subQuestionField.hide();
                 subQuestionField.removeAttr('data-required');
             }
