@@ -31,6 +31,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
 
         /// <summary>
         /// Function to update ther user reviews status. It can be approved or discarded. In case of disapproval need reason for disapproval.
+        /// Modified by : Aditi Srivastava on 25 May 2017
+        /// Summary     : Form user review detail link using new review id instead of old one to avoid redirection
         /// </summary>
         /// <param name="reviewId">User review id for which updation will happen</param>
         /// <param name="reviewStatus">Pass 2 for Approved or 3 for Discarded</param>
@@ -47,9 +49,9 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                     uint oldTableReviewId = _userReviewsRepo.UpdateUserReviewsStatus(inputs.ReviewId, inputs.ReviewStatus, inputs.ModeratorId, inputs.DisapprovalReasonId, inputs.Review, inputs.ReviewTitle, inputs.ReviewTips, inputs.IsShortListed);
 
                     // Send mail to the user on approval or rejection
-                    if (inputs.ReviewStatus.Equals(ReviewsStatus.Approved) && oldTableReviewId > 0)
+                    if (inputs.ReviewStatus.Equals(ReviewsStatus.Approved))
                     {
-                        string reviewUrl = string.Format("{0}/{1}-bikes/{2}/user-reviews/{3}.html", BWConfiguration.Instance.BwHostUrl, inputs.MakeMaskingName, inputs.ModelMaskingName, oldTableReviewId);
+                        string reviewUrl = string.Format("{0}/{1}-bikes/{2}/user-reviews/{3}/", BWConfiguration.Instance.BwHostUrl, inputs.MakeMaskingName, inputs.ModelMaskingName, inputs.ReviewId);
 
                         ComposeEmailBase objBase = new ReviewApprovalEmail(inputs.CustomerName, reviewUrl, inputs.BikeName);
                         objBase.Send(inputs.CustomerEmail, "Congratulations! Your review has been published");
