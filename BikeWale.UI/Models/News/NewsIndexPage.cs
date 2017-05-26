@@ -10,9 +10,11 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
+using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Models.BestBikes;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -27,6 +29,7 @@ namespace Bikewale.Models
     {
         #region Variables for dependency injection and constructor
         private readonly ICMSCacheContent _articles = null;
+        private readonly IPWACMSCacheRepository _renderedArticles = null;
         private readonly IPager _pager = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
         private readonly IUpcoming _upcoming = null;
@@ -71,13 +74,14 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public NewsIndexPage(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming)
+        public NewsIndexPage(ICMSCacheContent articles, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles)
         {
             _articles = articles;
             _pager = pager;
             _models = models;
             _bikeModels = bikeModels;
             _upcoming = upcoming;
+            _renderedArticles = renderedArticles;
             ProcessQueryString();
         }
         #endregion
@@ -142,7 +146,124 @@ namespace Bikewale.Models
             }
             return objData;
         }
-        
+
+        /// <summary>
+        /// Created By : Prasad Gawde on 25 May 2017
+        /// Summary    : Get page data for PWA
+        /// </summary>
+        /// <returns></returns>
+        public NewsIndexPageVM GetPwaData(int widgetTopCount)
+        {
+            NewsIndexPageVM objData = new NewsIndexPageVM();
+
+            try
+            {
+                int _startIndex = 0, _endIndex = 0;
+                _pager.GetStartEndIndex(pageSize, curPageNo, out _startIndex, out _endIndex);
+
+                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                categorList.Add(EnumCMSContentType.News);
+                if (MakeId == 0 && ModelId == 0)
+                {
+                    categorList.Add(EnumCMSContentType.AutoExpo2016);
+                    categorList.Add(EnumCMSContentType.Features);
+                    categorList.Add(EnumCMSContentType.RoadTest);
+                    categorList.Add(EnumCMSContentType.ComparisonTests);
+                    categorList.Add(EnumCMSContentType.SpecialFeature);
+                    categorList.Add(EnumCMSContentType.TipsAndAdvices);
+                }
+                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+
+                categorList.Clear();
+                categorList = null;
+                if (objMake != null)
+                    objData.Make = objMake;
+                if (objModel != null)
+                    objData.Model = objModel;
+
+
+                objData.Articles = _articles.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
+
+                if (objData.Articles != null && objData.Articles.RecordCount > 0)
+                {
+                    status = StatusCodes.ContentFound;
+                    objData.StartIndex = _startIndex;
+                    objData.EndIndex = _endIndex > objData.Articles.RecordCount ? Convert.ToInt32(objData.Articles.RecordCount) : _endIndex;
+                    BindLinkPager(objData);
+                    SetPageMetas(objData);
+                    CreatePrevNextUrl(objData);
+                    GetWidgetData(objData, widgetTopCount);
+
+                    try
+                    {
+
+                        if ((objData.Model == null || string.IsNullOrEmpty(objData.Model.ModelName)) &&
+                            (objData.Make == null || string.IsNullOrEmpty(objData.Make.MakeName)))
+                        {
+                            //setting the store for Redux
+                            objData.ReduxStore = new PwaReduxStore();
+                            var tempStoreArticleList = objData.ReduxStore.NewsReducer.NewsArticleListReducer.ArticleListData.ArticleList;
+                            tempStoreArticleList.Articles = ConverterUtility.MapArticleSummaryListToPwaArticleSummaryList(objData.Articles.Articles);
+                            tempStoreArticleList.StartIndex = (uint)objData.StartIndex;
+                            tempStoreArticleList.EndIndex = (uint)objData.EndIndex;
+                            tempStoreArticleList.RecordCount = (uint)objData.Articles.RecordCount;
+                            PopulateStoreForWidgetData(objData, CityName);
+
+                            var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
+
+                            objData.ServerRouterWrapper = _renderedArticles.GetNewsListDetails(ConverterUtility.GetSha256Hash(storeJson), objData.ReduxStore.NewsReducer.NewsArticleListReducer, 
+                                "/m/news/", "root", "ServerRouterWrapper");                            
+                            objData.WindowState = storeJson;
+                        }
+                    }
+                    catch
+                    {
+                        status = StatusCodes.ContentNotFound;
+                    }
+                }
+                else
+                {
+                    status = StatusCodes.ContentNotFound;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.News.NewsIndexPage.GetPwaData");
+            }
+            return objData;
+        }
+
+        private void PopulateStoreForWidgetData(NewsIndexPageVM objData, string cityName)
+        {
+            List<PwaBikeNews> objPwaBikeNews = new List<PwaBikeNews>();
+            if (objData.MostPopularBikes != null && objData.MostPopularBikes.Bikes != null)
+            {
+                PwaBikeNews popularBikes = new PwaBikeNews();
+                popularBikes.Heading = "Popular bikes";
+                popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
+                popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
+                popularBikes.CompleteListUrlLabel = "View all";
+                popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objData.MostPopularBikes.Bikes,
+                    cityName);
+
+                objPwaBikeNews.Add(popularBikes);
+            }
+
+            if (objData.UpcomingBikes != null && objData.UpcomingBikes.UpcomingBikes != null)
+            {
+                PwaBikeNews upcomingBikes = new PwaBikeNews();
+                upcomingBikes.Heading = "Upcoming bikes";
+                upcomingBikes.CompleteListUrl = "/m/upcoming-bikes/";
+                upcomingBikes.CompleteListUrlAlternateLabel = "Upcoming Bikes in India";
+                upcomingBikes.CompleteListUrlLabel = "View all";
+                upcomingBikes.BikesList = ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails(objData.UpcomingBikes.UpcomingBikes
+                    , cityName);
+                objPwaBikeNews.Add(upcomingBikes);
+            }
+
+            objData.ReduxStore.NewsReducer.NewsArticleListReducer.NewBikesListData.NewBikesList = objPwaBikeNews;
+        }
+
 
         /// <summary>
         /// Created by : Aditi Srivastava on 27 Mar 2017

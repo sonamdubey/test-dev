@@ -7,6 +7,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
 using Bikewale.Notifications;
@@ -14,6 +15,9 @@ using Bikewale.Utility;
 using System;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
+using Bikewale.Entities.PWA.Articles;
+using Bikewale.PWA.Utils;
 
 namespace Bikewale.Models
 {
@@ -31,6 +35,7 @@ namespace Bikewale.Models
         private readonly ICityCacheRepository _cityCacheRepo;
         private IUpcoming _upcoming = null;
         private string _basicId;
+        private readonly IPWACMSCacheRepository _renderedArticles = null;
         #endregion
 
         #region Page level variables
@@ -67,7 +72,7 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public NewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId)
+        public NewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -76,6 +81,7 @@ namespace Bikewale.Models
             _bikeInfo = bikeInfo;
             _cityCacheRepo = cityCacheRepo;
             _basicId = basicId;
+            _renderedArticles = renderedArticles;
             ProcessQueryString();
         }
         #endregion
@@ -140,6 +146,54 @@ namespace Bikewale.Models
             }
             return objData;
         }
+
+
+        /// <summary>
+        /// Created By : Prasad Gawde on 25 May 2017
+        /// Summary    : Get page data for PWA
+        /// </summary>
+        /// <returns></returns>
+        public NewsDetailPageVM GetPwaData(int widgetTopCount)
+        {
+            NewsDetailPageVM objData = new NewsDetailPageVM();
+            try
+            {
+                objData.ArticleDetails = _cmsCache.GetNewsDetails(basicId);
+
+                if (objData.ArticleDetails != null)
+                {
+                    status = StatusCodes.ContentFound;
+                    GetTaggedBikeListByMake(objData);
+                    GetTaggedBikeListByModel(objData);
+                    SetPageMetas(objData);
+                    GetWidgetData(objData, widgetTopCount);
+
+                    if (objData.Model != null && ModelId != 0 && objData.Model.ModelId != ModelId)
+                        objData.Model.ModelId = (int)ModelId;
+
+                    objData.ReduxStore = new PwaReduxStore();
+
+                    var newsDetailReducer = objData.ReduxStore.NewsReducer.NewsDetailReducer;
+                    newsDetailReducer.ArticleDetailData.ArticleDetail = ConverterUtility.MapArticleDetailsToPwaArticleDetails(objData.ArticleDetails);
+                    newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapNewBikeListToPwaNewBikeList(objData, CityName);
+                    newsDetailReducer.RelatedModelObject.ModelObject = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(objData.BikeInfo);
+
+                    var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
+
+                    objData.ServerRouterWrapper = _renderedArticles.GetNewsDetails(ConverterUtility.GetSha256Hash(storeJson), objData.ReduxStore.NewsReducer.NewsDetailReducer,
+                                newsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl, "root", "ServerRouterWrapper");
+                    objData.WindowState = storeJson;
+                }
+                else
+                    status = StatusCodes.ContentNotFound;
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Models.NewsDetailPage.GetData");
+            }
+            return objData;
+        }
+
 
         /// <summary>
         /// Created by : Aditi Srivastava on 29 Mar 2017
