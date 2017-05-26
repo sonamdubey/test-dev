@@ -18,6 +18,10 @@ using log4net;
 
 namespace Bikewale.BAL.PWA.CMS
 {
+    /// <summary>
+    /// Created By : Prasad Gawde on 25th May 2017
+    /// Description : The class is responsible for server side rendering of Newslist and News details
+    /// </summary>
     public class PWACMSRenderedData : IPWACMSContentRepository
     {
         static bool _logPWAStats = BWConfiguration.Instance.EnablePWALogging;
@@ -40,7 +44,8 @@ namespace Bikewale.BAL.PWA.CMS
             if (!string.IsNullOrEmpty(htmlTag))
             {
                 reactComponent.ContainerTag = htmlTag;
-            }
+            }     
+                   
             var result = reactComponent.RenderHtml();
             return new HtmlString(result);
         }

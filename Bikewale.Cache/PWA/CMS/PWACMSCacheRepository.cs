@@ -32,7 +32,7 @@ namespace Bikewale.Cache.PWA.CMS
             IHtmlString outStr=null;    
             try
             {
-                outStr = new HtmlString(_cache.GetFromCache<String>(key, new TimeSpan(0, 24, 0, 0), () => _objPWACmsContents.GetNewsListDetails(reducer,url,containerId,componentName).ToString()));
+                outStr = new HtmlString(_cache.GetFromCache<String>(key, new TimeSpan(0, 24, 0, 0), () => Convert.ToString(_objPWACmsContents.GetNewsListDetails(reducer,url,containerId,componentName))));
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace Bikewale.Cache.PWA.CMS
             IHtmlString outStr = null;
             try
             {
-                outStr = new HtmlString(_cache.GetFromCache<string>(key, new TimeSpan(0, 24, 0, 0), () => _objPWACmsContents.GetNewsDetails(reducer, url, containerId, componentName).ToString()));
+                outStr = new HtmlString(_cache.GetFromCache<string>(key, new TimeSpan(0, 24, 0, 0), () => Convert.ToString(_objPWACmsContents.GetNewsDetails(reducer, url, containerId, componentName))));
             }
             catch (Exception ex)
             {
