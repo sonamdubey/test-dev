@@ -67,10 +67,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bikewale.PWA.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bikewale.PWA.Entities\bin\Release\Bikewale.PWA.Entities.dll</HintPath>
-    </Reference>
     <Reference Include="Enyim.Caching, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Enyim.Caching.dll</HintPath>
@@ -140,6 +136,10 @@
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
       <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.PWA.Entities\Bikewale.PWA.Entities.csproj">
+      <Project>{891ee3d8-f296-4efc-a136-a278f0f06f61}</Project>
+      <Name>Bikewale.PWA.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
