@@ -11,7 +11,7 @@ namespace Bikewale.Entities.Used
         public Customer.CustomerEntityBase SellerDetails { get; set; }
         public DateTime MakeYear { get; set; }
         public ushort Owner { get; set; }
-        public uint RideDistance { get; set; }
+        public string RideDistance { get; set; }
         public string City { get; set; }
         public string HostUrl { get; set; }
         public string OriginalImagePath {get;set;}

@@ -171,7 +171,7 @@ namespace BikewaleOpr.Used
                                 sellerProfile.SellerDetails.CustomerEmail = Convert.ToString(dr["selleremail"]);
                                 sellerProfile.MakeYear = SqlReaderConvertor.ToDateTime(dr["makeyear"]);
                                 sellerProfile.Owner = SqlReaderConvertor.ToUInt16(dr["owner"]);
-                                sellerProfile.RideDistance = SqlReaderConvertor.ToUInt32(dr["distance"]);
+                                sellerProfile.RideDistance = Convert.ToString(dr["distance"]);
                                 sellerProfile.HostUrl = Convert.ToString(dr["hosturl"]);
                                 sellerProfile.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
                                 dr.Close();
