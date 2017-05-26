@@ -22,5 +22,6 @@ namespace BikewaleOpr.Interface
         void GetAreaLatLong(uint areaId, out double lattitude, out double longitude);
         List<DealerLatLong> GetDealersLatLong(uint versionId, uint areaId);
         DealerPriceQuoteEntity GetPriceQuoteForAllDealer(uint versionId, uint cityId, string dealerIds);
+        string AddRulesOnPriceUpdation(string modelList, uint dealerId, uint makeId, uint updatedBy); // added by sajal gupta on 25-05-2017
     }
 }

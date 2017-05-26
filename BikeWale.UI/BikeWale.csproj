@@ -160,9 +160,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\mvc 5\newtonsoft 6.0.4\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NReco.PdfGenerator">
       <HintPath>..\Libs\NReco.PdfGenerator.dll</HintPath>
