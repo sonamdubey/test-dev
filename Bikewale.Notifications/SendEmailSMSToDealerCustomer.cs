@@ -449,9 +449,9 @@ namespace Bikewale.Notifications
         /// <param name="profileId"></param>
         /// <param name="bikeName"></param>
         /// <param name="formattedPrice"></param>
-        public static void UsedBikeApprovalEmailToIndividual(CustomerEntityBase seller, string profileId, string bikeName, DateTime makeYear, string owner, string distance,string city, string imgPath,int inquiryId,string bwHostUrl)
+        public static void UsedBikeApprovalEmailToIndividual(CustomerEntityBase seller, string profileId, string bikeName, DateTime makeYear, string owner, string distance, string city, string imgPath, int inquiryId, string bwHostUrl)
         {
-            ComposeEmailBase objEmail = new ListingApprovalEmailToSeller(seller.CustomerName, profileId, bikeName,makeYear,owner,distance,city,imgPath,inquiryId,bwHostUrl);
+            ComposeEmailBase objEmail = new ListingApprovalEmailToSeller(seller.CustomerName, profileId, bikeName, makeYear, owner, distance, city, imgPath, inquiryId, bwHostUrl);
             objEmail.Send(seller.CustomerEmail, String.Format("Your {0} bike listing has been approved on BikeWale.", bikeName));
         }
 
@@ -480,9 +480,9 @@ namespace Bikewale.Notifications
         /// <param name="profileId"></param>
         /// <param name="bikeName"></param>
         /// <param name="formattedPrice"></param>
-        public static void UsedBikeEditedApprovalEmailToSeller(CustomerEntityBase seller, string profileId, string bikeName)
+        public static void UsedBikeEditedApprovalEmailToSeller(CustomerEntityBase seller, string profileId, string bikeName, string modelImage, string kms, string writeReviewLink)
         {
-            ComposeEmailBase objEmail = new EditedListingApprovalEmailToSeller(seller.CustomerName, profileId, bikeName);
+            ComposeEmailBase objEmail = new EditedListingApprovalEmailToSeller(seller.CustomerName, profileId, bikeName, modelImage, kms, writeReviewLink);
             objEmail.Send(seller.CustomerEmail, String.Format("Changes to your {0} bike listing have been approved on BikeWale.", bikeName));
         }
         ///  Created by  :   Aditi Srivastava on 2 Nov 2016
@@ -506,9 +506,9 @@ namespace Bikewale.Notifications
         /// <param name="profileId"></param>
         /// <param name="bikeName"></param>
         /// <param name="formattedPrice"></param>
-        public static void UsedBikeEditedRejectionEmailToSeller(CustomerEntityBase seller, string profileId, string bikeName)
+        public static void UsedBikeEditedRejectionEmailToSeller(CustomerEntityBase seller, string profileId, string bikeName, string modelImage, string kms, string writeReviewLink)
         {
-            ComposeEmailBase objEmail = new EditedListingRejectionEmailToSeller(seller.CustomerName, profileId, bikeName);
+            ComposeEmailBase objEmail = new EditedListingRejectionEmailToSeller(seller.CustomerName, profileId, bikeName, modelImage, kms, writeReviewLink);
             objEmail.Send(seller.CustomerEmail, String.Format("Changes to your {0} bike listing have not been approved on BikeWale.", bikeName));
         }
 
