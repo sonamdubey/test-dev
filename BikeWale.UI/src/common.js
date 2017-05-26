@@ -721,6 +721,9 @@ docReady(function () {
     if (typeof (slideCountOne) != 'undefined') {
         _target = 1;
     }
+    if (typeof (slideCountTwo) != 'undefined') {
+        _target = 2;
+    }
     var jcarousel = $('.jcarousel').jcarousel({
         vertical: false
     });
