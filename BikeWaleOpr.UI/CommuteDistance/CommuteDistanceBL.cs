@@ -35,21 +35,22 @@ namespace BikewaleOpr.CommuteDistance
         /// <param name="campaignServingStatus">Status of the serving areas to the particular campaign.</param>
         /// <param name="servingRadius">Serving radius for the given dealer (campaign serving radius).</param>
         /// <param name="cityIdList">Comma separated city id list. e.g. cityid1, cityid2, cityid3</param>
+        /// <param name="stateIdList">Comma separated state id list. e.g. stateId1, stateId2, stateId3</param>
         /// <returns></returns>
-        public bool SaveCampaignAreas(uint dealerId, uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList)
+        public bool SaveCampaignAreas(uint dealerId, uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList, string stateIdList)
         {
             bool isUpdated = false;
 
             try
             {
                 //get the Areas served by the dealers by lead serving distance(straight line distance calculation)
-                DealerAreaDistance objDealerAreaDist = _campaignRepo.GetDealerToAreasDistance(dealerId, campaignServingStatus, servingRadius, cityIdList);
+                DealerAreaDistance objDealerAreaDist = _campaignRepo.GetDealerToAreasDistance(dealerId, campaignServingStatus, servingRadius, cityIdList, stateIdList);
 
                 // get dealer to areas distance from google api
                 isUpdated = UpdateCommuteDistance(dealerId, objDealerAreaDist);
 
                 // map campaign areas
-                _campaignRepo.SaveDealerCampaignAreaMapping(dealerId,campaignid, campaignServingStatus, servingRadius, cityIdList);
+                _campaignRepo.SaveDealerCampaignAreaMapping(dealerId,campaignid, campaignServingStatus, servingRadius, cityIdList, stateIdList);
             }
             catch (Exception ex)
             {

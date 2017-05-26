@@ -73,11 +73,13 @@ var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
                 selectedCities = (selectedCities.substring(0, selectedCities.length - 1));
                 setMappingData($("#txtServingRadiusForStatus5").val(), selectedCities);
                 break;
+            case "6":
+                validateData(campaignServingStatus);                
+                setMappingData($("#txtServingRadiusForStatus6").val(), "");
+                break;
         }        
     });
-
-    
-
+   
     $("#btnMapAdditionalAreas").click(function () {
         var selectedAreas = "";
         $(ddlAdditionalAreas).find("option:selected").each(function () {

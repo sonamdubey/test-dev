@@ -407,7 +407,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <param name="campaignServingStatus">Status of the serving areas to the particular campaign.</param>
         /// <param name="servingRadius">Serving radius for the given dealer (campaign serving radius).</param>
         /// <param name="cityIdList">Comma separated city id list. e.g. cityid1, cityid2, cityid3</param>
-        public void SaveDealerCampaignAreaMapping(uint dealerId,uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList)
+        public void SaveDealerCampaignAreaMapping(uint dealerId,uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList, string stateIdList)
         {
             try
             {
@@ -422,6 +422,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
                     param.Add("par_campaignServingStatus", campaignServingStatus);                    
                     param.Add("par_servingRadius", servingRadius);
                     param.Add("par_cityIds", cityIdList);
+                    param.Add("par_stateIds", stateIdList);
 
                     connection.Query("SaveDealerCampaignAreasMapping", param: param, commandType: CommandType.StoredProcedure);
 
@@ -448,7 +449,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <param name="servingRadius">Serving radius for the given dealer (campaign serving radius).</param>
         /// <param name="cityIdList">Comma separated city id list. e.g. cityid1, cityid2, cityid3</param>
         /// <returns></returns>
-        public DealerAreaDistance GetDealerToAreasDistance(uint dealerId, ushort campaignServingStatus, ushort servingRadius, string cityIdList)
+        public DealerAreaDistance GetDealerToAreasDistance(uint dealerId, ushort campaignServingStatus, ushort servingRadius, string cityIdList, string stateIdList)
         {
             DealerAreaDistance objDistances = null;
             
@@ -464,6 +465,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
                     param.Add("par_campaignServingStatus", campaignServingStatus);
                     param.Add("par_leadservingdistance", servingRadius);
                     param.Add("par_cityIds", cityIdList);
+                    param.Add("par_stateIds", stateIdList);
 
                     objDistances = new DealerAreaDistance();
 

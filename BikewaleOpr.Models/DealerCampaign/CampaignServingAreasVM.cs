@@ -1,5 +1,6 @@
 ﻿using BikewaleOpr.Entity.DealerCampaign;
 using System.Collections.Generic;
+using BikewaleOpr.Entities;
 
 namespace BikewaleOpr.Models.DealerCampaign
 {
@@ -17,6 +18,7 @@ namespace BikewaleOpr.Models.DealerCampaign
         public IEnumerable<City> Cities { get; set; }
         public string AdditionalAreaJson { get; set; }
         //public IEnumerable<City> AdditionalCities { get; set; }
+        public IEnumerable<StateEntityBase> States { get; set; }
 
     }   // class
 }   // namespace

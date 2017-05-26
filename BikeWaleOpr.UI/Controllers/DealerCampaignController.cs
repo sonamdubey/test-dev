@@ -7,6 +7,7 @@ using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.DealerCampaign;
 using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.Interface.Location;
 using BikewaleOpr.Models.DealerCampaign;
 
 namespace BikewaleOpr.Controllers
@@ -23,9 +24,9 @@ namespace BikewaleOpr.Controllers
         /// Constuctor to initialize the dependencies
         /// </summary>
         /// <param name="campaignRepo"></param>
-        public DealerCampaignController(IDealerCampaignRepository campaignRepo, ICommuteDistance distance)
+        public DealerCampaignController(IDealerCampaignRepository campaignRepo, ICommuteDistance distance, ILocation location)
         {            
-            objModel = new CampaignServingAreasModel(campaignRepo, distance);
+            objModel = new CampaignServingAreasModel(campaignRepo, distance, location);
         }
 
         /// <summary>
@@ -74,11 +75,11 @@ namespace BikewaleOpr.Controllers
         /// <param name="cityIdList">Comma separated city id list. e.g. cityid1, cityid2, cityid3</param>
         /// <returns></returns>
         [Route("dealercampaign/servingareas/dealerid/{dealerId}/campaignid/{campaignid}/add/"), HttpPost]
-        public ActionResult MapCampaignAreas(uint dealerId, uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList)
+        public ActionResult MapCampaignAreas(uint dealerId, uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList, string[] stateIdList)
         {
             if (dealerId > 0 && campaignid > 0 && campaignServingStatus > 0)
             {
-                objModel.MapCampaignAreas(dealerId, campaignid, campaignServingStatus, servingRadius, cityIdList);
+                objModel.MapCampaignAreas(dealerId, campaignid, campaignServingStatus, servingRadius, cityIdList, stateIdList);
                 TempData["msg"] = "Campaign areas mapped successfully";
             } else {
                 TempData["msg"] = "Please provide valid inputs";

@@ -70,10 +70,27 @@
         z-index: 1000;
         background: rgb(250, 246, 246) url('https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
     }
+
+    /* Style the list */
+    ul.breadcrumb {padding: 10px 0;list-style: none;background-color: #eee;font-size: 17px;margin-top:10px;}
+    /* Display list items side by side */
+    ul.breadcrumb li {display: inline;}
+    /* Add a slash symbol (/) before/behind each list item */
+    ul.breadcrumb li+li:before {padding: 8px;color: black;content: ">\00a0";}
+    /* Add a color to all links inside the list */
+    ul.breadcrumb li a {color: #0275d8;text-decoration: none;}
+    /* Add a color on mouse-over */
+    ul.breadcrumb li a:hover {color: #01447e;}
 </style>
 <div class="left">
     <div>
-        <h1><a id='backbutton' href="javascript:void(0)" title="Back to Manage Campaigns Page" style="padding:10px">&lt;</a> Edit Dealer Campaign</h1>
+        <%--<h1><a id='backbutton' href="javascript:void(0)" title="Back to Manage Campaigns Page" style="padding:10px">&lt; Back</a> Edit Dealer Campaign (Step 1)</h1>--%>
+        <ul class="breadcrumb">
+            <li><a id='backbutton' href="javascript:void(0)" title="Back to Manage Campaigns Page" style="padding:10px">Manage Campaigns (Step 1)</a></li>
+            <li>Edit Dealer Campaign (Step 2)</li>
+            <li><a target="_blank" href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>" title="Manage Model Rules Mapping">Campaign Model Rules (Step 3)</a></li>
+            <li><a target="_blank" href="/dealercampaign/servingareas/dealerid/<%= dealerId %>/campaignid/<%= campaignId %>/" title="Manage Campaign Areas Mapping">Campaign Serving Areas (Step 4)</a></li>
+        </ul>
         <div id="box" class="box">
             <table class="margin-top10 margin-bottom10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 60%; border-collapse: collapse;">
                 <tbody>
@@ -153,11 +170,9 @@
        { %>
     <fieldset>
         <legend>Define Components</legend>
-        <div class="box">
-            <div><strong>Edit rules:</strong><span class="margin-left10"><a target="_blank" href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Rules</a></span></div>
-            <div>
-                <strong>Map Campaign Areas:</strong><span class="margin-left10"><a target="_blank" href="/dealercampaign/servingareas/dealerid/<%= dealerId %>/campaignid/<%= campaignId %>/">Campaign Areas</a></span>
-            </div>
+        <div class="box" style="font-size:13px;">
+            <div class="margin-top10"><a target="_blank" href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Manage Campaign Model Rules (Step 3)</a></div>
+            <div class="margin-top10"><a target="_blank" href="/dealercampaign/servingareas/dealerid/<%= dealerId %>/campaignid/<%= campaignId %>/">Manage Campaign Serving Areas (Step 4)</a></div>
         </div>
     </fieldset>
     <% } %>

@@ -24,8 +24,8 @@ namespace BikewaleOpr.Interface.ContractCampaign
         ICollection<DealerCampaignDetailsEntity> DealerCampaigns(uint dealerId, bool activecontract);
 
         IEnumerable<CampaignAreas> GetMappedDealerCampaignAreas(uint dealerId);
-        void SaveDealerCampaignAreaMapping(uint dealerId, uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList);
-        DealerAreaDistance GetDealerToAreasDistance(uint dealerId, ushort campaignServingStatus, ushort servingRadius, string cityIdList);
+        void SaveDealerCampaignAreaMapping(uint dealerId, uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList, string stateIdList);
+        DealerAreaDistance GetDealerToAreasDistance(uint dealerId, ushort campaignServingStatus, ushort servingRadius, string cityIdList, string stateIdList);
         DealerAreaDistance GetDealerAreasWithLatLong(uint dealerId, string areasList);
         void SaveAdditionalAreasMapping(uint dealerId, string areasList);        
         void DeleteAdditionalMappedAreas(uint dealerId, string areadIdList);

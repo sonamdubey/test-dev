@@ -97,11 +97,29 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="input-field row s12 toggle-field-parent">
+                                    <input type="radio" id="campaignServingStatus6" value="6" name="campaignServingStatus" />
+                                    <label for="campaignServingStatus6">Multiple States</label>
+                                    <div class="toggle-field-content select-auto-width padding-left35 margin-top10">
+                                        @if(Model.States != null && Model.States.Count() > 0)
+                                        {
+                                        <select id="ddlStates" name="stateIdList" multiple>
+                                            <option disabled>Select States</option>
+                                            @foreach (var state in Model.States) {
+                                                <option value="@state.StateId">@state.StateName</option>
+                                            }
+                                        </select>
+                                        } else {
+                                            <span>Problem in retrieving states</span>
+                                        }
+                                    </div>
+                                </div>
 
                             </div>
                             <div class="input-field row s12">
                                 <input type="hidden" value="0" name="servingRadius" id="hdnServingRadius" />
                                 <input type="hidden" value="" name="cityIdList" id="hdnCityIdList" />
+                                @*<input type="hidden" value="" name="stateIdList" id="hdnStateIdList" />*@
                                 <button id="btnMapAreas" class="btn waves-effect waves-light" type="submit" name="action" formaction="/dealercampaign/servingareas/dealerid/@Model.DealerId/campaignid/@Model.CampaignId/add/">
                                     Map Areas
                                 </button>

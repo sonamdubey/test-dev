@@ -6,6 +6,8 @@ using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.DealerCampaign;
 using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.Interface.Location;
+using Bikewale.Utility;
 
 namespace BikewaleOpr.Models.DealerCampaign
 {
@@ -17,15 +19,17 @@ namespace BikewaleOpr.Models.DealerCampaign
     {
         private readonly IDealerCampaignRepository _campaignRepo = null;
         private readonly ICommuteDistance _distance = null;
+        private readonly ILocation _location = null;
 
         /// <summary>
         /// Constructor to initialize the dependencies
         /// </summary>
         /// <param name="campaignRepo"></param>
-        public CampaignServingAreasModel(IDealerCampaignRepository campaignRepo, ICommuteDistance distance)
+        public CampaignServingAreasModel(IDealerCampaignRepository campaignRepo, ICommuteDistance distance, ILocation location)
         {
             _campaignRepo = campaignRepo;
             _distance = distance;
+            _location = location;
         }
 
         #region GetPageData method
@@ -69,6 +73,9 @@ namespace BikewaleOpr.Models.DealerCampaign
                 }
             }
 
+            // Get states for mapping to dropdownlist
+            objVM.States = _location.GetStates();
+
             return objVM;
         } 
         #endregion
@@ -82,9 +89,9 @@ namespace BikewaleOpr.Models.DealerCampaign
         /// <param name="campaignServingStatus">Status of the serving areas to the particular campaign.</param>
         /// <param name="servingRadius">Serving radius for the given dealer (campaign serving radius).</param>
         /// <param name="cityIdList">Comma separated city id list. e.g. cityid1, cityid2, cityid3</param>
-        public void MapCampaignAreas(uint dealerId, uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList)
+        public void MapCampaignAreas(uint dealerId, uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList, string[] stateIdList)
         {
-            _distance.SaveCampaignAreas(dealerId, campaignid, campaignServingStatus, servingRadius, cityIdList);
+            _distance.SaveCampaignAreas(dealerId, campaignid, campaignServingStatus, servingRadius, cityIdList, stateIdList.ToCSV());
         }
 
 
