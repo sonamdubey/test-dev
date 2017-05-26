@@ -1,7 +1,6 @@
 .text-bold {
   font-weight: 600; }
 
-h1,
 .font-bold {
   font-weight: 700; }
 
@@ -95,12 +94,71 @@ h1,
   vertical-align: middle;
   margin-right: -4px; }
 
+.horizontal-rating-graph span {
+  display: inline-block;
+  vertical-align: middle; }
+
+.horizontal-rating-graph .star-0 {
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -o-transform: scale(0.5);
+  transform: scale(0.5); }
+
+.horizontal-rating-graph .star-label {
+  font-size: 14px;
+  margin-left: -8px; }
+
+.horizontal-rating-graph .graph-bar-bg {
+  width: 60%;
+  height: 5px;
+  margin-right: 18px;
+  margin-left: 18px;
+  position: relative;
+  background: #eee;
+  border-radius: 3px; }
+  .horizontal-rating-graph .graph-bar-bg .rating-bar {
+    height: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 3px; }
+
+.horizontal-rating-graph .graph-bar-label,
+.horizontal-rating-graph .graph-bar-count {
+  font-size: 12px;
+  color: #82888b; }
+
+.horizontal-rating-graph .graph-bar-label {
+  width: 110px; }
+
+.horizontal-rating-graph.user-review-graph .graph-bar-bg {
+  width: 49%; }
+
+.horizontal-rating-graph.user-review-graph li {
+  margin-bottom: 7px; }
+
+.model-card-details .left-grid-image {
+  width: 82px;
+  height: 46px; }
+  .model-card-details .left-grid-image img {
+    height: 46px; }
+
+.model-card-details .right-grid-details {
+  width: 73%;
+  padding-left: 15px; }
+
+.pos-top5 {
+  top: 5px; }
+
+.line-height25 {
+  line-height: 25px; }
+
 .padding-20-10 {
   padding: 20px 10px; }
 
 .overall-rating-box {
   width: 207px;
-  margin-right: -4px;
+  margin-right: 15px;
   background: rgba(245, 245, 245, 0.5); }
 
 .review-left-divider {
@@ -120,18 +178,20 @@ h1,
   display: none; }
   .answer-star-list > input + label {
     float: right;
-    width: 37px;
+    width: 35px;
     cursor: pointer; }
   .answer-star-list > input:checked + label,
   .answer-star-list > input:checked ~ label {
     background-position: 0 -757px; }
+  .answer-star-list > input:first-child + label {
+    width: 25px; }
 
 .hover-effect > input + label:hover,
 .hover-effect > input + label:hover ~ label {
   background-position: 0 -757px; }
 
 .rate-bike-slug .answer-star-list > input + label {
-  width: 47px; }
+  width: 45px; }
 
 .rate-bike-slug .answer-star-list > input:first-child + label {
   width: 25px; }
@@ -139,13 +199,19 @@ h1,
 .border-grey-right {
   border-right: 1px solid #eee; }
 
+.border-grey-top {
+  border-top: 1px solid #eee; }
+
+.border-grey-bottom {
+  border-bottom: 1px solid #eee; }
+
 .user-review-list {
-  padding-right: 10px;
-  padding-left: 10px; }
+  padding-right: 20px;
+  padding-left: 20px; }
   .user-review-list .list-item {
     padding-top: 20px;
     padding-bottom: 20px;
-    border-top: 1px solid #e2e2e2; }
+    border-top: 1px solid #eee; }
     .user-review-list .list-item:first-child {
       border-top: 0; }
   .user-review-list .list-item-title {
@@ -243,10 +309,21 @@ h1,
   -ms-border-radius: 50%;
   border-radius: 50%; }
 
+.btn-auto-32 {
+  font-size: 14px;
+  padding: 5px 13px; }
+
 .review-lg {
   width: 24px;
   height: 25px;
   background-position: -172px -737px; }
+
+.write-icon {
+  width: 30px;
+  height: 32px;
+  background-position: -200px -737px;
+  position: relative;
+  left: 2px; }
 
 .model-preview-image-container {
   max-width: 292px;
@@ -320,9 +397,19 @@ h1,
 
 .star-0 {
   background-position: -184px -790px; }
+  .star-0.no-outline {
+    background-position: -53px -757px; }
 
 .star-1 {
   background-position: 0 -757px; }
+
+@media only screen and (max-width: 1024px) {
+  .overall-rating-box {
+    width: 190px;
+    padding-right: 10px;
+    padding-left: 10px; }
+  .horizontal-rating-graph .graph-bar-bg {
+    width: 55%; } }
 
 .overall-tabs {
   height: 45px; }
