@@ -652,7 +652,7 @@
                 alert("Please select dealer");
         });
 
-       /* $("#btnManagePrice").click(function () {
+       $("#btnManagePrice").click(function () {
             if (dVm.validateInputs(dVm.selectedCity(), dVm.selectedMake(), dVm.selectedDealer())) {
                 showHideMatchError(ddlCities, false);
                 showHideMatchError(ddlMakes, false);
@@ -665,7 +665,7 @@
                 return false;
             }
 
-        });*/
+        });
 
         if (isPostBack()) {
             dVm.selectedCity(ddlCities.select().val());
