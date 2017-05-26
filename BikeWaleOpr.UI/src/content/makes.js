@@ -109,7 +109,7 @@ var updateBikeMake = function () {
     self.selectedMake = ko.observable(null); 
     self.makeName = ko.observable("");
     self.makeMaskingName = ko.observable("");   
-
+    self.oldMakeMasking = ko.observable("");
     self.updateMakeDetails = function () {
         var isValid = true;
 
@@ -147,7 +147,6 @@ var makeViewModel = function () {
     self.synopsis = ko.observable(vmAddSynopsis);
     self.addMake = ko.observable(vmaddMake);
     self.updateMake = ko.observable(vmUpdateMake);
-
     self.setmakedata = function (e) {
         ele = $(e.target).closest("tr");       
         var objMake = {
@@ -156,7 +155,8 @@ var makeViewModel = function () {
             "maskingName": $(ele[0]).data("maskingname"),
             "new": ($(ele[0]).data("new").toLowerCase() == "true"),
             "used": ($(ele[0]).data("used").toLowerCase() == "true"),
-            "futuristic": ($(ele[0]).data("futuristic").toLowerCase() == "true")
+            "futuristic": ($(ele[0]).data("futuristic").toLowerCase() == "true"),
+            "oldMakeMasking": $(ele[0]).data("oldmakemasking")
         }        
         self.selectedMake(objMake);
     }
@@ -167,6 +167,7 @@ var makeViewModel = function () {
             self.updateMake().selectedMake(self.selectedMake());
             self.updateMake().makeName(self.selectedMake().makeName);
             self.updateMake().makeMaskingName(self.selectedMake().maskingName);
+            self.updateMake().oldMakeMasking(self.selectedMake().oldMakeMasking);
             Materialize.updateTextFields();
         }
     });

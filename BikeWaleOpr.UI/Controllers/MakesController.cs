@@ -8,6 +8,7 @@ using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using Microsoft.Practices.Unity;
+using Bikewale.Utility;
 
 namespace BikeWaleOpr.MVC.UI.Controllers.Content
 {
@@ -18,10 +19,12 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
     public class MakesController : Controller
     {
         private readonly IBikeMakes makesRepo;
+        private readonly IBikeModelsRepository modelsRepo;
 
-        public MakesController(IBikeMakes _makesRepo)
+        public MakesController(IBikeMakes _makesRepo,IBikeModelsRepository _modelsRepo)
         {
             makesRepo = _makesRepo;
+            modelsRepo = _modelsRepo;
         }
 
         /// <summary>
@@ -84,6 +87,8 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
 
         /// <summary>
         /// Function to update the given make details
+        /// Modified by : Aditi Srivastava on 24 May 2017
+        /// Summary     : Send mail when make masking name is changed
         /// </summary>
         /// <returns></returns>         
         public ActionResult Update(BikeMakeEntity make)
@@ -92,9 +97,19 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
             {
                 if (make != null && make.MakeId > 0)
                 {
+                    string hostUrl = BWOprConfiguration.Instance.BwHostUrl;
+                    IEnumerable<BikeModelMailEntity> models = null;
                     make.UpdatedBy = BikeWaleOpr.Common.CurrentUser.Id;
                     makesRepo.UpdateMake(make);
-
+                    if (string.Compare(make.OldMakeMasking, make.MaskingName) != 0)
+                    {
+                        models = modelsRepo.GetModelsByMake((uint)make.MakeId, hostUrl, make.OldMakeMasking, make.MaskingName);
+                        IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
+                        foreach (var mail in emails)
+                        {
+                            SendEmailOnModelChange.SendMakeMaskingNameChangeMail(mail,make.MakeName,models);
+                        }
+                    }
                     TempData["msg"] = make.MakeName + " Make Updated Successfully";
                 }
                 else {

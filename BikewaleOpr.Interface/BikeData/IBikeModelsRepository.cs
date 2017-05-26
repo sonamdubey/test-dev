@@ -12,6 +12,8 @@ namespace BikewaleOpr.Interface.BikeData
     /// Description : Added SaveModelUnitSold, GetLastSoldUnitData
     ///  Modified by : Sajal Gupta on 03-03-2017
     /// Description : Added FetchPhotoId, DeleteUsedBikeModelImage, GetUsedBikeModelImageByMake, GetPendingUsedBikesWithoutModelImage
+    /// Modified by : Aditi Srivastava on 23 May 2017
+    /// Summary     : added function to get model ingo by makeId
     /// </summary>
     public interface IBikeModelsRepository
     {
@@ -23,5 +25,6 @@ namespace BikewaleOpr.Interface.BikeData
         bool DeleteUsedBikeModelImage(uint modelId);
         IEnumerable<UsedBikeModelImageData> GetUsedBikeModelImageByMake(uint makeId);
         UsedBikeImagesNotificationData GetPendingUsedBikesWithoutModelImage();
+        IEnumerable<BikeModelMailEntity> GetModelsByMake(uint makeId, string hostUrl, string oldMakeMasking, string newMakeMasking);
     }
 }

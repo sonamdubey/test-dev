@@ -12,6 +12,7 @@ using System.Data.Common;
 using Bikewale.DAL.CoreDAL;
 using Dapper;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace BikewaleOpr.DALs.Bikedata
 {
@@ -327,6 +328,52 @@ namespace BikewaleOpr.DALs.Bikedata
 
             return objModels;
         }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 23 May 2017
+        /// Summary    : Get models information for a particular makeId
+        /// </summary>
+        public IEnumerable<BikeModelMailEntity> GetModelsByMake(uint makeId, string hostUrl, string oldMakeMasking, string newMakeMasking)
+        {
+            ICollection<BikeModelMailEntity> models = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelsbymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.UInt32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            models = new Collection<BikeModelMailEntity>();
+                            BikeModelMailEntity obj = new BikeModelMailEntity();
+                            obj.OldUrl = string.Format("{0}/{1}-bikes/", hostUrl, oldMakeMasking);
+                            obj.NewUrl = string.Format("{0}/{1}-bikes/", hostUrl, newMakeMasking);
+                            models.Add(obj);
+                            while (dr.Read())
+                            {
+                                obj = new BikeModelMailEntity();
+                                obj.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                obj.ModelName = Convert.ToString(dr["ModelName"]);
+                                obj.MaskingName = Convert.ToString(dr["ModelMasking"]);
+                                obj.OldUrl = string.Format("{0}/{1}-bikes/{2}/", hostUrl, oldMakeMasking, obj.MaskingName);
+                                obj.NewUrl = string.Format("{0}/{1}-bikes/{2}/", hostUrl, newMakeMasking, obj.MaskingName);
+                                models.Add(obj);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.GetModelsByMake : makeId {0}", makeId));
+            }
+            return models;
+        }
+
     }
 }
 
