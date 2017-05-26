@@ -28,7 +28,7 @@ namespace Bikewale.Models.DealerShowroom
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
         private readonly IServiceCenter _objSC = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-
+        private GlobalCityAreaEntity globalCityArea;
         public MakeMaskingResponse objResponse;
         public uint cityId, makeId, TopCount;
         public StatusCodes status;
@@ -48,6 +48,8 @@ namespace Bikewale.Models.DealerShowroom
         /// <summary>
         /// Created By :- Subodh Jain 27 March 2017
         /// Summary :- To Fetch Data realted to Dealer in city Page
+        /// Modified by : Aditi Srivastava on 19 MAy 2017
+        /// Summary     : Added variable for GA trigger 
         /// </summary>
         /// <returns></returns>
         public DealerShowroomCityPageVM GetData()
@@ -56,6 +58,8 @@ namespace Bikewale.Models.DealerShowroom
 
             try
             {
+                
+                
                 objMake = _bikeMakesCache.GetMakeDetails(makeId);
                 if (objMake != null)
                     objDealerVM.Make = objMake;
@@ -76,7 +80,7 @@ namespace Bikewale.Models.DealerShowroom
                 objDealerVM.PopularBikes = BindMostPopularBikes();
                 BindPageMetas(objDealerVM);
                 BindLeadCapture(objDealerVM);
-            }
+              }
             catch (Exception ex)
             {
 
@@ -178,6 +182,11 @@ namespace Bikewale.Models.DealerShowroom
             try
             {
                 objDealerList = _objDealerCache.GetDealerByMakeCity(cityId, makeId);
+                if(objDealerList!=null && objDealerList.Dealers!=null && objDealerList.Dealers.Count()>0)
+                foreach (var dealer in objDealerList.Dealers)
+                {
+                    dealer.GetOffersGALabel = string.Format("{0}_{1}_{2}", objMake.MakeName, dealer.City, dealer.objArea.AreaName);
+                }
             }
             catch (Exception ex)
             {

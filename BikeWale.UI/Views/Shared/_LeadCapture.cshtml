@@ -64,7 +64,7 @@
                 </div>
             </div>
                 <div class="clear"></div>
-                <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }" tabindex="5">Submit</a>
+                <a class="btn btn-orange bw-ga" id="user-details-submit-btn" data-bind="event: { click: submitLead }" tabindex="5">Submit</a>
                 <p class="margin-top15 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
             </div>
     </div>
@@ -93,15 +93,18 @@
 </div>
 <!-- scripts goes here -->
 <script type="text/javascript">
-
-    var leadBtnBookNow , leadCapturePopup , leadBike ;
+    
+    var gaLabel = "";
+    var eventAction = "Lead_Submitted";
+    var leadBtnBookNow, leadCapturePopup, leadBike;
     var fullName,emailid , mobile ;
     var assistanceGetName , assistanceGetEmail, assistanceGetMobile,detailsSubmitBtn ;
     var prevEmail = "",prevMobile = "",prevPinCode = "";
     var leadmodelid = '@Model.ModelId', leadcityid = '@Model.CityId', leadareaid = '@Model.AreaId';
     var leadBikeName = '@Model.BikeName',leadLocation = '@Model.Location'; 
-    var objPinCodes = new Object(),dleadvm,validate;
-
+    var objPinCodes = new Object(), dleadvm, validate;
+    
+    
     function leadModel() {
         var arr = setuserDetails();
         var self = this;
@@ -143,10 +146,22 @@
         self.pinCodeRequired = ko.observable();
         self.dealersRequired = ko.observable();
         self.pincode = ko.observable();
+        self.dealerCityName = ko.observable();
+        self.dealerAreaName = ko.observable();
+        self.eventCategory = ko.observable();
         //self.manufacturerDealer = ko.observable();
         //self.manufacturerDealerCity = ko.observable();
         self.setOptions = function (options) {
             if (options != null) {
+                if (options.eventcategory != null)
+                    self.eventCategory(options.eventcategory);
+
+                if (options.dealercityname != null)
+                    self.dealerCityName(options.dealercityname);
+
+                if (options.dealerareaname != null)
+                    self.dealerAreaName(options.dealerareaname);
+
                 if (options.dealerid != null)
                     self.dealerId(options.dealerid);
 
@@ -220,7 +235,6 @@
 
                     startLoading(leadBike.parent());
                     leadBike.prev().show();
-
                     $.ajax({
                         type: "GET",
                         url: "/api/DealerBikes/?dealerId=" + self.dealerId() + "&campaignId=" + self.campaignId(),
@@ -376,7 +390,6 @@
                         if (xhr.status != 200)
                             self.IsVerified(false);
 
-                        self.pushToGA(self.GAObject());
                     }
                 });
             }
@@ -433,9 +446,13 @@
                 });
                 setPQUserCookie();
             }
+           //triggerGA(eventCategory, eventAction, gaLabel)
         };
 
         self.submitLead = function (data, event) {
+            if(self.selectedBike()!=null)
+                gaLabel = self.selectedBike().bike + "_" + self.dealerCityName() + ((self.dealerAreaName() != null) ? ("_" + self.dealerAreaName()) : "");
+            
 
             if (self.mfgCampaignId() > 0) {
                 self.submitCampaignLead(data, event);
@@ -472,6 +489,7 @@
                             $("#buyingAssistance").hide();
                             $("#dealer-assist-msg").fadeIn();
                         }
+                        triggerGA(self.eventCategory(), eventAction, gaLabel);
                     }
                     else {
                         if (self.IsLeadPopup()) {
@@ -483,6 +501,7 @@
                     setPQUserCookie();
                 }
             }
+           
         };
 
         self.HiddenSubmitLead = function (d, e) {
@@ -499,7 +518,9 @@
                 "pqid": pqId,
                 "isregisterpq": ele.attr('data-isregisterpq'),
                 "pageurl": pageUrl,
-                "clientip": clientIP
+                "clientip": clientIP,
+                "eventcategory": ele.attr('c'),
+                "dealercityname" : ele.attr('data-cityname')
             };
             self.setOptions(leadOptions);
             self.submitLead(d, e);

@@ -10,6 +10,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by Subodh Jain on 30 March 2017
     /// Summary :- Dealer details view model
+    /// Modified by : Aditi Srivastava on 25 May 2017
+    /// Summary     : Added GALabel for GA triggers
     /// </summary>
     public class DealerShowroomDealerDetailsVM : ModelBase
     {
@@ -24,6 +26,6 @@ namespace Bikewale.Models
         public uint PQAreaID { get; set; }
         public string PQAreaName { get; set; }
         public string CustomerAreaName { get; set; }
-
+        public string GALabel { get; set; }
     }
 }
