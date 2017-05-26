@@ -449,9 +449,9 @@ namespace Bikewale.Notifications
         /// <param name="profileId"></param>
         /// <param name="bikeName"></param>
         /// <param name="formattedPrice"></param>
-        public static void UsedBikeApprovalEmailToIndividual(CustomerEntityBase seller, string profileId, string bikeName)
+        public static void UsedBikeApprovalEmailToIndividual(CustomerEntityBase seller, string profileId, string bikeName, DateTime makeYear, string owner, string distance,string city, string imgPath,int inquiryId,string bwHostUrl)
         {
-            ComposeEmailBase objEmail = new ListingApprovalEmailToSeller(seller.CustomerName, profileId, bikeName);
+            ComposeEmailBase objEmail = new ListingApprovalEmailToSeller(seller.CustomerName, profileId, bikeName,makeYear,owner,distance,city,imgPath,inquiryId,bwHostUrl);
             objEmail.Send(seller.CustomerEmail, String.Format("Your {0} bike listing has been approved on BikeWale.", bikeName));
         }
 

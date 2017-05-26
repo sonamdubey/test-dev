@@ -143,5 +143,49 @@ namespace BikewaleOpr.Used
             return isSuccess;
         }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava on 26 May 2017 
+        /// Summary    : Get seller and bike details based on inquiryId
+        /// </summary>
+        public UsedBikeProfileDetails GetUsedBikeSellerDetails(int inquiryId, bool isDealer)
+        {
+            UsedBikeProfileDetails sellerProfile = null;
+            try
+            {
+                if (!isDealer)
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand("classified_getsellerdetails_26052017"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                        {
+                            if (dr != null && dr.Read())
+                            {
+                                sellerProfile = new UsedBikeProfileDetails();
+                                sellerProfile.SellerDetails = new CustomerEntityBase();
+                                sellerProfile.SellerDetails.CustomerId = SqlReaderConvertor.ToUInt64(dr["SellerId"]);
+                                sellerProfile.SellerDetails.CustomerName = Convert.ToString(dr["SellerName"]);
+                                sellerProfile.SellerDetails.CustomerMobile = Convert.ToString(dr["contact"]) ;
+                                sellerProfile.SellerDetails.CustomerEmail = Convert.ToString(dr["selleremail"]);
+                                sellerProfile.MakeYear = SqlReaderConvertor.ToDateTime(dr["makeyear"]);
+                                sellerProfile.Owner = SqlReaderConvertor.ToUInt16(dr["owner"]);
+                                sellerProfile.RideDistance = Convert.ToString(dr["distance"]);
+                                sellerProfile.HostUrl = Convert.ToString(dr["hosturl"]);
+                                sellerProfile.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
+                                dr.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "GetUsedBikeSellerDetails" + inquiryId);
+            }
+            return sellerProfile;
+        }
+
     }
 }
