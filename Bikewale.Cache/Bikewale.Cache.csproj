@@ -80,6 +80,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -107,6 +108,7 @@
     <Compile Include="MobileVerification\MobileVerificationCache.cs" />
     <Compile Include="PriceQuote\PriceQuoteCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PWA\CMS\PWACMSCacheRepository.cs" />
     <Compile Include="ServiceCenter\ServiceCenterCacheRepository.cs" />
     <Compile Include="UsedBikes\UsedBikesCache.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesCacheRepository.cs" />

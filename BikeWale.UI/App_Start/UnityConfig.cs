@@ -6,6 +6,7 @@ using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
+using Bikewale.BAL.PWA.CMS;
 using Bikewale.BAL.ServiceCenter;
 using Bikewale.BAL.UsedBikes;
 using Bikewale.BAL.UserReviews;
@@ -18,6 +19,7 @@ using Bikewale.Cache.DealersLocator;
 using Bikewale.Cache.HomePage;
 using Bikewale.Cache.Location;
 using Bikewale.Cache.PriceQuote;
+using Bikewale.Cache.PWA.CMS;
 using Bikewale.Cache.ServiceCenter;
 using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
@@ -51,6 +53,7 @@ using Bikewale.Interfaces.HomePage;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UsedBikes;
@@ -129,6 +132,9 @@ namespace Bikewale
 
             container.RegisterType<ICustomer<CustomerEntity, uint>, Customer<CustomerEntity, uint>>();
             container.RegisterType<ICustomerRepository<CustomerEntity, uint>, CustomerRepository<CustomerEntity, uint>>();
+            container.RegisterType<IPWACMSContentRepository, PWACMSRenderedData>();
+            container.RegisterType<IPWACMSCacheRepository, PWACMSCacheRepository>();
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
