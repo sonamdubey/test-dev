@@ -152,9 +152,9 @@
   padding: 7px; }
 
 .compare-box-list[data-selection-count="1"] li:nth-child(2) .selected-bike:after {
-  left: -44px; }
+  display: none; }
 
-.compare-box-list li:last-child .selected-bike:after {
+.compare-box-list li:first-child .selected-bike:after {
   display: none; }
 
 .selected-bike:after {
@@ -164,7 +164,7 @@
   height: 32px;
   background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/vs-icon-32.png) no-repeat;
   top: 50%;
-  right: -24px; }
+  left: -24px; }
 
 .add-icon {
   width: 32px;

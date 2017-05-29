@@ -35,6 +35,7 @@ namespace Bikewale.Notifications.MailTemplates
             sb.AppendFormat("<table border='1px'  style='border-collapse:collapse;'><tbody><tr><th>Sr. No.</th><th>Bike Name</th><th>Old Url</th><th>New Url</th></tr>");
             
             int i = 1;
+            if(models!=null)
             foreach (var model in models)
             {
              if(i>1)
