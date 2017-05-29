@@ -197,13 +197,13 @@ namespace Bikewale.Models.BikeModels
                         {
                             index++;
                             cityList = string.Format("{0} {1}", cityList, city.CityName);
-                            if (index > 3 || objData.PriceInTopCities.PriceQuoteList.Count() <= index)
+                            if (index >=3 || objData.PriceInTopCities.PriceQuoteList.Count() <= index)
                                 break;
                             else if (index > 1)
                                 cityList += ",";
 
                         }
-                        cityList = string.Format("{0} and {1}", cityList, objData.PriceInTopCities.PriceQuoteList.First().CityName);
+                        cityList = string.Format("{0} and {1}", cityList, objData.PriceInTopCities.PriceQuoteList.Last().CityName);
                     }
 
                     if (objData.PriceInTopCities != null && objData.PriceInTopCities.PriceQuoteList != null && objData.PriceInTopCities.PriceQuoteList.Count() == 1)
