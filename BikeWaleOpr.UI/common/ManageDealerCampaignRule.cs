@@ -66,7 +66,7 @@ namespace BikewaleOpr.Common
         /// <param name="modelId"></param>
         /// <returns></returns>
 
-        public bool InsertBWDealerCampaignRules(int userId, int campaignId, int dealerId, int makeId, int stateId, string modelIds)
+        public bool InsertBWDealerCampaignRules(int userId, int campaignId, int dealerId, int makeId, string modelIds)
         {
             bool isSuccess = false;
             try
@@ -76,7 +76,7 @@ namespace BikewaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, stateId));
+                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, stateId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.String, modelIds));
