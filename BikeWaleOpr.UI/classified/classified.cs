@@ -359,6 +359,7 @@ namespace BikeWaleOpr.Classified
                     isSuccess = true;
 
                     UsedBikeProfileDetails seller = _objSellerRepository.GetUsedBikeSellerDetails(inquiryId, false);
+                    string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceId={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
                     if (seller != null)
                     {
                         
@@ -371,7 +372,9 @@ namespace BikeWaleOpr.Classified
                             ,seller.City
                             ,Image.GetPathToShowImages(seller.OriginalImagePath,seller.HostUrl,ImageSize._110x61)
                             ,inquiryId
-                            ,BWConfiguration.Instance.BwHostUrl);
+                            ,BWConfiguration.Instance.BwHostUrl
+                            ,seller.ModelId
+                            ,qEncoded);
                        
                         newSms.ApprovalUsedSellListingSMS(
                             EnumSMSServiceType.ApprovalUsedSellListingToSeller,

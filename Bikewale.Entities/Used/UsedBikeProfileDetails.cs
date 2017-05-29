@@ -13,6 +13,8 @@ namespace Bikewale.Entities.Used
         public ushort Owner { get; set; }
         public string RideDistance { get; set; }
         public string City { get; set; }
+
+        public uint ModelId { get; set; }
         public string HostUrl { get; set; }
         public string OriginalImagePath {get;set;}
     }

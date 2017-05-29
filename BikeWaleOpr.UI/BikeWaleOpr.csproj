@@ -178,6 +178,9 @@
     <Reference Include="Unity.Mvc5">
       <HintPath>..\Libs\mvc 5\unity 4.0.1\Unity.Mvc5.dll</HintPath>
     </Reference>
+    <Reference Include="Utils">
+      <HintPath>..\BikeWale.UI\bin\Utils.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
