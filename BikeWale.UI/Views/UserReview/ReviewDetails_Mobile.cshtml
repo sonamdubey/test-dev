@@ -20,7 +20,7 @@
 
                 <span class="rating-badge bg-rate-@Model.UserReviewDetailsObj.OverallRating.Value no-margin leftfloat margin-right15">
                     <span class="bwmsprite star-white"></span>
-                    <span>@Model.UserReviewDetailsObj.OverallRating.Value</span>
+                    <span>&nbsp;@Model.UserReviewDetailsObj.OverallRating.Value</span>
                 </span>
                 <div class="grid-5 alpha padding-right5">
                     <span class="bwmsprite author-grey-sm-icon"></span>
@@ -87,7 +87,7 @@
                         <span class="bwmsprite like-sm"></span>
                         <span id="upvoteText" class="btn-label">Upvote</span>
                     </span>
-                    <span id="upvoteCount" class="btn-count">@Model.UserReviewDetailsObj.UpVotes</span>
+                    <span id="upvoteCount" class="btn-count">&nbsp;@Model.UserReviewDetailsObj.UpVotes</span>
                 </button>
 
                 <button type="button" id="downvoteButton" onclick="downVoteReview()" class="btn btn-inv-teal-group margin-right5 margin-bottom10">
@@ -95,12 +95,12 @@
                         <span class="bwmsprite dislike-sm"></span>
                         <span id="downvoteText" class="btn-label">Downvote</span>
                     </span>
-                    <span id="downvoteCount" class="btn-count">@Model.UserReviewDetailsObj.DownVotes</span>
+                    <span id="downvoteCount" class="btn-count">&nbsp;@Model.UserReviewDetailsObj.DownVotes</span>
                 </button>
 
                 <div class="inline-block margin-bottom10">
                     <span class="bwmsprite views-sm"></span>
-                    <span class="font12 text-light-grey inline-block">@string.Format("{0} view{1}", Bikewale.Utility.Format.FormatNumeric(Model.UserReviewDetailsObj.Views.ToString()), Model.UserReviewDetailsObj.Views > 1 ? "s" : "")</span>
+                    <span class="font12 text-light-grey inline-block">&nbsp;@string.Format("{0} view{1}", Bikewale.Utility.Format.FormatNumeric(Model.UserReviewDetailsObj.Views.ToString()), Model.UserReviewDetailsObj.Views > 1 ? "s" : "")</span>
                 </div>
 
                 <div class="border-solid-top margin-top10 margin-bottom10"></div>
