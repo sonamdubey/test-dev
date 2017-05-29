@@ -182,17 +182,17 @@
 				<%--<ItemStyle BackColor="#FFFF7F"></ItemStyle>--%>
 				<itemtemplate>
 					<div class="<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Futuristic" )) ? "yellow" : Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "New" )) ? "green" : "orange" %>"><%# DataBinder.Eval( Container.DataItem, "Name" ) %></div>
-				<span id="modName"><asp:HiddenField id="hdnModelName" runat="server" value='<%# DataBinder.Eval( Container.DataItem, "Name" ) %>'></asp:HiddenField></span>
-                <span id="makeMaskName"><asp:hiddenfield id="hdnMakeMasking" runat="server" Value='<%# DataBinder.Eval( Container.DataItem, "makemasking" ) %>'></asp:hiddenfield></span>
+				    <span id="makeMaskName"><asp:hiddenfield id="hdnMakeMasking" runat="server" Value='<%# DataBinder.Eval( Container.DataItem, "makemasking" ) %>'></asp:hiddenfield></span>
                 </itemtemplate>
 				<edititemtemplate>
 					<asp:TextBox ID="txtModelName" MaxLength="50" Columns="15" Text='<%# DataBinder.Eval( Container.DataItem, "Name" ) %>' runat="server" />
+					<asp:TextBox ID="TextBox1" MaxLength="50" Columns="15" Text='<%# DataBinder.Eval( Container.DataItem, "Name" ) %>' runat="server" />
 					<asp:Label Visible="false" ID="lblMakeId" Text='<%# DataBinder.Eval( Container.DataItem, "BikeMakeId" ) %>' runat="server"></asp:Label>
 				</edititemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="Masking Name" ItemStyle-Width="350">
 				<itemtemplate>
-				  <span><%# DataBinder.Eval( Container.DataItem, "MaskingName" ) %></span>&nbsp;&nbsp;<a ID="editId_<%# DataBinder.Eval( Container.DataItem, "ID" ) %>" class='pointer <%# string.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "MaskingName" ).ToString()) ? "hide" : "" %>' title="Update Masking Name">Edit</a> 
+				  <span><%# DataBinder.Eval( Container.DataItem, "MaskingName" ) %></span>&nbsp;&nbsp;<a ID="editId_<%# DataBinder.Eval( Container.DataItem, "ID" ) %>"  data-modelname='<%# DataBinder.Eval( Container.DataItem, "Name" ) %>' class='pointer <%# string.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "MaskingName" ).ToString()) ? "hide" : "" %>' title="Update Masking Name">Edit</a> 
 				</itemtemplate>            
 			    </asp:TemplateColumn>
 			<asp:BoundColumn DataField="BikeMakeId" ReadOnly="true" ItemStyle-CssClass="doNotDisplay" HeaderStyle-CssClass="doNotDisplay" />
@@ -439,7 +439,8 @@
 		        var modelId = $(this).attr("id").split("_")[1];	
 		        var objOldMask = $(this).siblings();
 		        var oldMaskingName = objOldMask.text();
-		        var makeName,modelName;
+		        var makeName;
+		        var modelName=$(this).attr("data-modelname");
 
 		        objYes.click(function(){
 		            boxObj.find("#divWarnMsg").hide();
@@ -454,7 +455,7 @@
 		        boxObj.find("#btnUpdateMaskName").click(function () {
 		            var maskName = boxObj.find("#txtUpdMaskName").val();
 		            var errMask = boxObj.find("#errUpdMaskName");  
-		   
+		            
 		            errMask.text("");
 
 		            if (maskName == ""|| maskName == null)
@@ -477,7 +478,6 @@
 		                    makeName = $("#cmbMakes option:selected").text();		                    
 		                }
 		                
-		                modelName=$('#modName input[type=hidden]').val();
 		                $.ajax({
 		                    type: "POST",
 		                    url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
