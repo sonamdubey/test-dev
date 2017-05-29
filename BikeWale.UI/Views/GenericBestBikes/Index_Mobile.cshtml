@@ -344,102 +344,99 @@
 {
 <section>
    
-    <div class="container "> 
+    <div class="container section-bottom-margin"> 
         <h2 class="section-heading">Not Sure? Check out other scooters</h2>     
-        <div class="grid-12">
-            <div class="banner-box-shadow">
-                <div class="bw-tabs-panel">
-                    <div class="bw-tabs bw-tabs-flex">
-                        <ul>
-                            <li class="active" data-tabs="brand-tab">Brand</li>
-                            <li data-tabs="budget-tab">Budget</li>
-                            <li data-tabs="displacement-tab">Displacement</li>
-                        </ul>
+        <div class="box-shadow bg-white padding-bottom10">
+            <div class="bw-tabs-panel">
+                <div class="bw-tabs bw-tabs-flex margin-bottom10">
+                    <ul>
+                        <li class="active" data-tabs="brand-tab">Brand</li>
+                        <li data-tabs="budget-tab">Budget</li>
+                        <li data-tabs="displacement-tab">Displacement</li>
+                    </ul>
+                </div>
+                <div id="brand-tab" class="bw-tabs-data">
+                    <div class="padding-bottom10 text-center collapsible-brand-content">
+                        @{ Html.RenderPartial("~/views/make/_Brands_Mobile.cshtml", Model.Brands); }
                     </div>
-                    <div id="brand-tab" class="bw-tabs-data">
-                        <div class="container bg-white box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
-                            @{ Html.RenderPartial("~/views/make/_Brands_Mobile.cshtml", Model.Brands); }
-                        </div>
-                    </div>
-                    <div id="budget-tab" class="bw-tabs-data hide">
-                        <ul class="elevated-card-list padding-top10">
-                            <li>
-                                <a href="/m/new/bike-search/?ridestyle=5&budget=0-50000" rel="nofollow">
-                                    <div class="table-middle">
-                                        <div class="tab-icon-container">
-                                            <span class="bwmsprite budget-one"></span>
-                                        </div>
-                                        <span class="key-size-14">Upto</span><br />
-                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">50K</span>
+                </div>
+                <div id="budget-tab" class="bw-tabs-data hide">
+                    <ul class="elevated-card-list padding-top10">
+                        <li>
+                            <a href="/m/new/bike-search/?ridestyle=5&budget=0-50000" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwmsprite budget-one"></span>
                                     </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/new/bike-search/?ridestyle=5&budget=50000-70000" rel="nofollow">
-                                    <div class="table-middle">
-                                        <div class="tab-icon-container">
-                                            <span class="bwmsprite budget-two"></span>
-                                        </div>
-                                        <span class="key-size-14">Between</span><br />
-                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">50K</span> -
-                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">70K</span>
+                                    <span class="key-size-14">Upto</span><br />
+                                    <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">50K</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/new/bike-search/?ridestyle=5&budget=50000-70000" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwmsprite budget-two"></span>
                                     </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/new/bike-search/?ridestyle=5&budget=70000-6000000" rel="nofollow">
-                                    <div class="table-middle">
-                                        <div class="tab-icon-container">
-                                            <span class="bwmsprite budget-three"></span>
-                                        </div>
-                                        <span class="key-size-14">Above</span><br />
-                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">70K</span>
+                                    <span class="key-size-14">Between</span><br />
+                                    <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">50K</span> -
+                                    <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">70K</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/new/bike-search/?ridestyle=5&budget=70000-6000000" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwmsprite budget-three"></span>
                                     </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="displacement-tab" class="bw-tabs-data hide">
-                        <ul class="elevated-card-list padding-top10">
-                            <li>
-                                <a href="/m/new/bike-search/?ridestyle=5&displacement=1" rel="nofollow">
-                                    <div class="table-middle">
-                                        <div class="tab-icon-container">
-                                            <span class="bwmsprite engine-lg engine-sm"></span>
-                                        </div>
-                                        <span class="key-size-14">Upto</span><br />
-                                        <span class="value-size-15">100 cc</span>
+                                    <span class="key-size-14">Above</span><br />
+                                    <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">70K</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="displacement-tab" class="bw-tabs-data hide">
+                    <ul class="elevated-card-list padding-top10">
+                        <li>
+                            <a href="/m/new/bike-search/?ridestyle=5&displacement=1" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwmsprite engine-lg engine-sm"></span>
                                     </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/new/bike-search/?ridestyle=5&displacement=7" rel="nofollow">
-                                    <div class="table-middle">
-                                        <div class="tab-icon-container">
-                                            <span class="bwmsprite engine-lg engine-md"></span>
-                                        </div>
-                                        <span class="key-size-14">Between</span><br />
-                                        <span class="value-size-15">100 - 125 cc</span>
+                                    <span class="key-size-14">Upto</span><br />
+                                    <span class="value-size-15">100 cc</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/new/bike-search/?ridestyle=5&displacement=7" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwmsprite engine-lg engine-md"></span>
                                     </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/new/bike-search/?ridestyle=5&displacement=8+3+4+5+6" rel="nofollow">
-                                    <div class="table-middle">
-                                        <div class="tab-icon-container">
-                                            <span class="bwmsprite engine-lg"></span>
-                                        </div>
-                                        <span class="key-size-14">Above</span><br />
-                                        <span class="value-size-15">125 cc</span>
+                                    <span class="key-size-14">Between</span><br />
+                                    <span class="value-size-15">100 - 125 cc</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/new/bike-search/?ridestyle=5&displacement=8+3+4+5+6" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwmsprite engine-lg"></span>
                                     </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                                    <span class="key-size-14">Above</span><br />
+                                    <span class="value-size-15">125 cc</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="clear"></div>
     </div>
 </section>
 }

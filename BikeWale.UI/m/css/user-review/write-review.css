@@ -29,6 +29,37 @@ h1,
 .font15 {
   font-size: 15px; }
 
+.model-ribbon {
+  position: absolute;
+  top: -10px;
+  left: -20px;
+  font-size: 12px;
+  padding: 2px 10px;
+  display: inline-block;
+  z-index: 2; }
+  .model-ribbon:before, .model-ribbon:after {
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-style: solid;
+    border-color: transparent;
+    right: -10px; }
+  .model-ribbon:before {
+    top: 0;
+    border-width: 11px 10px 0 0; }
+  .model-ribbon:after {
+    bottom: 0;
+    border-width: 0 10px 11px 0; }
+
+.discontinued-ribbon {
+  color: #4d5057;
+  background: #b5b5b5; }
+  .discontinued-ribbon:before {
+    border-top-color: #b5b5b5; }
+  .discontinued-ribbon:after {
+    border-bottom-color: #b5b5b5; }
+
 #bike-rating-box {
   width: 100%;
   min-height: 146px;
