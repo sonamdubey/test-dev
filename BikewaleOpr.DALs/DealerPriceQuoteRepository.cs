@@ -198,7 +198,7 @@ namespace BikewaleOpr.DALs
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "DealerPriceQuoteRepository.AddRulesOnPriceUpdation");
             }
 
             return modelNamesList;

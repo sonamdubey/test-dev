@@ -521,9 +521,10 @@
 
     <%--End Pivotal Tracker # : 95144444 & 96417936 Author : Sumit Kate--%>
     $(document).ready(function () {
-        if ($("#alertText").val()) {
-            alert($("#alertText").val());
-            $("#alertText").val("");
+        var alertBox = $("#alertText");
+        if (alertBox.val()) {
+            alert(alertBox.val());
+            alertBox.val("");
         }
 
         if ($("#ddlState").val() > 0) {
