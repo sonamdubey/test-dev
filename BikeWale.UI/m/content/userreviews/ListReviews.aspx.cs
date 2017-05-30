@@ -86,7 +86,7 @@ namespace Bikewale.Mobile.Content
             }
             BindControl();
             CreatMetas();
-            returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/user-reviews/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName));
+            returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/user-reviews/&sourceid={2}", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName,(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Listing));
         }
         /// <summary>
         /// Created By :- Subodh Jain 17 Jan 2017
