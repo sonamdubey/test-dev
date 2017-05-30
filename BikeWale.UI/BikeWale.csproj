@@ -3028,6 +3028,8 @@
     <Content Include="sass\user-review\listing.sass" />
     <Content Include="sass\user-review\_listing-style.sass" />
     <Content Include="sass\modules\_overall-floating-tabs.sass" />
+    <Content Include="sass\modules\_rating-circle.sass" />
+    <Content Include="sass\modules\_report-abuse-popup.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

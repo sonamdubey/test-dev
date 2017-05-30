@@ -20,70 +20,12 @@ docReady(function() {
 
     var modelUserReviews = function () {
         var self = this;
-        /*
-        self.IsInitialized = ko.observable(false);
-        self.PagesListHtml = ko.observable("");
-        self.PrevPageHtml = ko.observable("");
-        self.NextPageHtml = ko.observable("");
-        */
+        
         self.activeReviewList = ko.observableArray(helpfulReviews);
         self.activeReviewCategory = ko.observable(0);
         self.reviewsAvailable = ko.observable(true);
         self.categoryName = ko.observable('');
-        /*
-        self.IsLoading = ko.observable(false);
-        self.Filters = ko.observable({ pn: 1, ps: 8, model: modelid, so: 2, skipreviewid: reviewId });
-        self.QueryString = ko.computed(function () {
-            var qs = "";
-            $.each(self.Filters(), function (i, val) {
-                if (val != null && val != "")
-                    qs += "&" + i + "=" + val;
-            });
-            qs = qs.substr(1);
-            return qs;
-        });
-        self.PageUrl = ko.observable();
-        self.CurPageNo = ko.observable();
-        self.PreviousQS = ko.observable("");
-        self.TotalReviews = ko.observable();
-        self.noReviews = ko.observable(self.TotalReviews() == 0);
-        self.Pagination = ko.observable(new vmPagination());
-
-
-        self.init = function (e) {
-            if (!self.IsInitialized()) {
-
-                var eleSection = $("#modelReviewsListing");
-                ko.applyBindings(self, eleSection[0]);
-
-
-                self.Filters()["cat"] = self.Filters()["cat"] || eleSection.data("cat") || "";
-                self.Filters()["pn"] = self.Filters()["pn"] || eleSection.data("pn") || "";
-                self.Filters()["ps"] = self.Filters()["ps"] || eleSection.data("ps") || "";
-                self.Filters()["so"] = self.Filters()["so"] || eleSection.data("so") || "";
-
-                var filterType = $(e.target).data("category");
-                if (filterType && filterType != "0") {
-                    self.toggleReviewList(e);
-                }
-                else if (e.target) {
-                    self.ChangePageNumber(e);
-                }
-                else {
-                    self.getUserReviews();
-                }
-
-                $(document).on("click", "#pagination-list-content ul li,.pagination-control-prev a,.pagination-control-next a", function (e) {
-                    if (self.IsInitialized()) {
-                        self.ChangePageNumber(e);
-                    }
-                });
-
-                self.IsInitialized(true);
-            }
-        };
-        */
-
+        
         self.toggleReviewList = function (event) {
             self.tabEvents.toggleTab($(event.currentTarget));
             self.tabEvents.getReviews($(event.currentTarget));
@@ -153,6 +95,48 @@ docReady(function() {
 
     $("#overallSpecsTab a , #pagination-list-content ul li").click(function (e) {
         $('html, body').animate({ scrollTop: $('#overallTabsWrapper').offset().top }, 500);
+
+        resetCollapsibleContent();
     });
+
+    function resetCollapsibleContent() {
+        var activeCollapsible = $('.user-review-list').find('.collapsible-content.active');
+        activeCollapsible.removeClass('active');
+        activeCollapsible.find('.read-more-target').text('...Read more');
+    }
+
+    $('#btnReportClick').on('click', function() {
+        reportAbusePopup.open();
+    });
+
+    $('#report-background, .report-abuse-close-btn').on('click', function() {
+        reportAbusePopup.close();
+    });
+
+    $(document).keydown(function (event) {
+        if(event.keyCode == 27) {
+            if(reportAbusePopup.popupElement.is(':visible')) {
+                reportAbusePopup.close();
+            }
+        }
+    });
+
+    var reportAbusePopup = {
+        popupElement: $('#report-abuse'),
+        
+        bgContainer: $('#report-background'),
+
+        open: function () {
+            reportAbusePopup.popupElement.show();
+            popup.lock();
+            $(".blackOut-window").hide();
+            reportAbusePopup.bgContainer.show();
+        },
+        close: function () {
+            reportAbusePopup.popupElement.hide();
+            popup.unlock();
+            reportAbusePopup.bgContainer.hide();
+        }
+    };
 
 });
