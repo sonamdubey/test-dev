@@ -509,7 +509,7 @@ namespace Bikewale.Notifications
         public static void UsedBikeEditedRejectionEmailToSeller(CustomerEntityBase seller, string profileId, string bikeName, string modelImage, string kms, string writeReviewLink)
         {
             ComposeEmailBase objEmail = new EditedListingRejectionEmailToSeller(seller.CustomerName, profileId, bikeName, modelImage, kms, writeReviewLink);
-            objEmail.Send(seller.CustomerEmail, String.Format("Changes to your {0} bike listing have not been approved on BikeWale.", bikeName));
+            objEmail.Send(seller.CustomerEmail, String.Format("Changes to your {0} bike listing have been discarded on BikeWale.", bikeName));
         }
 
         /// <summary>
