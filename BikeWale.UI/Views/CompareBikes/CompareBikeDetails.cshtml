@@ -7,26 +7,13 @@
     int i = 0;
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/BikeWale_CompareBikes_";
-    Model.AdTags.Ad_Model_ATF_970x90 = true;
-    Model.AdTags.Ad_Model_BTF_970x90 = true;
+    Model.AdTags.Ad_970x90Bottom = true;
+    Model.AdTags.Ad_970x90 = true;
     
     }
 <script type="text/javascript">
     var slideCountTwo = 2;
 </script>
-@if (Model.AdTags.Ad_Model_ATF_970x90)
-{
-<div class="bg-white ">
-    <div class="container">
-        <div class="grid-12">
-            <div>
-                @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_970x90.cshtml", new { AdId = Model.AdTags.AdId });}
-            </div>
-        </div>
-        <div class="clear"></div>
-    </div>
-</div>
-}
 <section>
     <div class="container padding-top10">
         <div class="grid-12">
@@ -405,4 +392,4 @@
         <div class="clear"></div>
     </div>
 </section>
-  @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_970x90.cshtml", new { AdId = Model.AdTags.AdId });}
+ 
