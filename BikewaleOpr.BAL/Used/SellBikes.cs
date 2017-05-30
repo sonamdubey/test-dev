@@ -36,30 +36,31 @@ namespace BikewaleOpr.BAL.Used
             bool isSuccess = _sellerRepo.SaveEditedInquiry(inquiryId, isApproved, approvedBy);
             if (isSuccess)
             {
-                MemCachedUtil.Remove(string.Format("BW_ProfileDetails_{0}",inquiryId));
-                UsedBikeSellerBase seller = _sellerRepo.GetSellerDetails((int)inquiryId, false);
+                MemCachedUtil.Remove(string.Format("BW_ProfileDetails_{0}", inquiryId));
+                UsedBikeProfileDetails seller = _sellerRepo.GetUsedBikeSellerDetails((int)inquiryId, false);
                 if (seller != null)
                 {
                     SMSTypes newSms = new SMSTypes();
+                    string modelImage = Bikewale.Utility.Image.GetModelImage(seller.HostUrl, seller.OriginalImagePath, Bikewale.Utility.ImageSize._110x61);
                     if (isApproved == 0)
                     {
-                        SendEmailSMSToDealerCustomer.UsedBikeEditedRejectionEmailToSeller(seller.Details, profileId, bikeName);
+                        SendEmailSMSToDealerCustomer.UsedBikeEditedRejectionEmailToSeller(seller.SellerDetails, profileId, bikeName, modelImage, seller.RideDistance, "");
                         newSms.RejectionEditedUsedSellListingSMS(
                             EnumSMSServiceType.RejectionEditedUsedBikeListingToSeller,
-                            seller.Details.CustomerMobile,
+                            seller.SellerDetails.CustomerMobile,
                             profileId,
-                            seller.Details.CustomerName,
+                            seller.SellerDetails.CustomerName,
                             HttpContext.Current.Request.ServerVariables["URL"]
                             );
                     }
                     else
                     {
-                        SendEmailSMSToDealerCustomer.UsedBikeEditedApprovalEmailToSeller(seller.Details, profileId, bikeName);
+                        SendEmailSMSToDealerCustomer.UsedBikeEditedApprovalEmailToSeller(seller.SellerDetails, profileId, bikeName, modelImage, seller.RideDistance, "");
                         newSms.ApprovalEditedUsedSellListingSMS(
                             EnumSMSServiceType.ApprovalEditedUsedBikeListingToSeller,
-                            seller.Details.CustomerMobile,
+                            seller.SellerDetails.CustomerMobile,
                             profileId,
-                            seller.Details.CustomerName,
+                            seller.SellerDetails.CustomerName,
                             HttpContext.Current.Request.ServerVariables["URL"]
                             );
                     }

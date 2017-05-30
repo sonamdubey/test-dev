@@ -92,6 +92,15 @@ namespace Bikewale.Utility
             return physicalPath;
         }
 
+        public static string GetModelImage(string hostUrl, string imagePath, string size)
+        {
+            string fullImagePath = string.Empty;
+
+            fullImagePath = Bikewale.Utility.Image.GetPathToShowImages(imagePath, hostUrl, size);
+
+            return fullImagePath;
+        }
+
     }
 
     public class ImageSize
