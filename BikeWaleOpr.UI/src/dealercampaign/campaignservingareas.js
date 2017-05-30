@@ -10,6 +10,7 @@ var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
     $("#autocomplete-addCity").bw_easyAutocomplete({
         inputField: $("#autocomplete-addCity"),
         source: 3,
+        hosturlForAPI: bwHostUrl,
         click: function () {            
             var objCity = $("#autocomplete-addCity").getSelectedItemData();
 
@@ -38,6 +39,7 @@ var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
     $("#autocomplete-addMulCity").bw_easyAutocomplete({
         inputField: $("#autocomplete-addMulCity"),
         source: 3,
+        hosturlForAPI: bwHostUrl,
         click: function () {
             var objCity = $("#autocomplete-addMulCity");
             var objSelectedCity = objCity.getSelectedItemData();
@@ -71,7 +73,7 @@ var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
                         validate.inputField.showError(objServingRadius);
                     }
 
-                    setMappingData(objServingRadius, "");
+                    setMappingData(servingRadius, "");
                     break;
                 case "4":
                     var objServingRadius = $("#txtServingRadiusForStatus4")
@@ -82,7 +84,7 @@ var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
                         validate.inputField.showError(objServingRadius);
                     }
 
-                    setMappingData(objServingRadius, "");
+                    setMappingData(servingRadius, "");
                     break;
                 case "5":
                     var selectedCities = "";
