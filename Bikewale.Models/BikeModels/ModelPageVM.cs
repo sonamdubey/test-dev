@@ -68,7 +68,7 @@ namespace Bikewale.Models.BikeModels
         public string PageUrl { get; set; }
         public int PQSourcePage { get { return (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_ModelPage; } }
         public int PQLeadSource { get { return 32; } }
-
+        public string VersionPriceListSummary { get; set; }
 
         #region Model Page Widgets with Flags
         public RecentNewsVM News { get; set; }

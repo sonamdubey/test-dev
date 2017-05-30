@@ -110,7 +110,8 @@ namespace Bikewale.Models
                 obj.sponsoredVersionId = _objCompare.GetFeaturedBike(_versionsList);
 
                 if (obj.sponsoredVersionId > 0) _versionsList = string.Format("{0},{1}", _versionsList, obj.sponsoredVersionId);
-
+                var arrayVersionList = _versionsList.Split(',');
+                _versionsList = string.Join(",", arrayVersionList.Take(4));
                 obj.Compare = _objCompareCache.DoCompare(_versionsList, CityId);
 
                 if (obj.Compare != null && obj.Compare.BasicInfo != null)
@@ -118,13 +119,13 @@ namespace Bikewale.Models
                     GetComparisionTextAndMetas(obj);
                     obj.isUsedBikePresent = obj.Compare.BasicInfo.FirstOrDefault(x => x.UsedBikeCount.BikeCount > 0) != null;
 
-                    if (obj.sponsoredVersionId > 0)
-                    {
-                        var objFeaturedComparision = obj.Compare.BasicInfo.FirstOrDefault(f => f.VersionId == obj.sponsoredVersionId);
-                        if (objFeaturedComparision != null)
-                            obj.FeaturedBike = Bikewale.Utility.SponsoredComparision.FetchValue(objFeaturedComparision.ModelId.ToString());
-                    }
+
+                    var objFeaturedComparision = obj.Compare.BasicInfo.FirstOrDefault(f => f.VersionId == obj.sponsoredVersionId);
+                    if (objFeaturedComparision != null)
+                        obj.FeaturedBike = Bikewale.Utility.SponsoredComparision.FetchValue(objFeaturedComparision.ModelId.ToString());
+
                 }
+
                 obj.PQSourceId = PQSourceEnum.Desktop_CompareBike;
             }
             catch (Exception ex)
@@ -217,15 +218,18 @@ namespace Bikewale.Models
                 string bikeNames = string.Empty, bikePrice = string.Empty, variants = string.Empty;
                 foreach (var bike in basicInfo)
                 {
-                    string bikName = string.Format("{0} {1}", bike.Make, bike.Model);
-                    int versionCount = bike.Versions.Count();
-                    uint versionId = bike.VersionId;
-                    string price = Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bike.Price));
-                    int colorCount = colors.bikes[i].bikeColors.Count;
-                    bikeNames += bikName + (i < count - 1 ? ", " : " and ");
-                    bikePrice += string.Format(" {0} is Rs. {1} {2}", bikName, price, (i < count - 1 ? ", " : " and "));
-                    variants += string.Format(" {0} is available in {1} {4} and {2} {5}{3}", bikName, colorCount, versionCount, (i < count - 1 ? ", " : " and "), colorCount > 1 ? "colours" : "colour", versionCount > 1 ? "variants" : "variant");
-                    i++;
+                    if (bike.VersionId != obj.sponsoredVersionId)
+                    {
+                        string bikName = string.Format("{0} {1}", bike.Make, bike.Model);
+                        int versionCount = bike.Versions.Count();
+                        uint versionId = bike.VersionId;
+                        string price = Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bike.Price));
+                        int colorCount = colors.bikes[i].bikeColors.Count;
+                        bikeNames += bikName + (i < count - 1 ? ", " : " and ");
+                        bikePrice += string.Format(" {0} is Rs. {1} {2}", bikName, price, (i < count - 1 ? ", " : " and "));
+                        variants += string.Format(" {0} is available in {1} {4} and {2} {5}{3}", bikName, colorCount, versionCount, (i < count - 1 ? ", " : " and "), colorCount > 1 ? "colours" : "colour", versionCount > 1 ? "variants" : "variant");
+                        i++;
+                    }
                 }
                 bikeNames = bikeNames.Remove(bikeNames.Length - 5);
                 bikePrice = bikePrice.Remove(bikePrice.Length - 6);
@@ -310,7 +314,7 @@ namespace Bikewale.Models
                     ModelMapping objCache = new ModelMapping();
                     int totalModels = models.Length;
 
-                    for (ushort iTmp = 0; iTmp < maxComparisions; iTmp++)
+                    for (ushort iTmp = 0; iTmp < totalModels; iTmp++)
                     {
                         string modelMaskingName = models[iTmp];
                         if (!string.IsNullOrEmpty(modelMaskingName) && _objModelMaskingCache != null)

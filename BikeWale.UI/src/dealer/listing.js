@@ -187,7 +187,10 @@ docReady(function () {
             "isdealerbikes": true,
             "pageurl": window.location.href,
             "isregisterpq": true,
-            "clientip": clientip
+            "clientip": clientip,
+            "dealercityname": ele.attr('data-cityname'),
+            "dealerareaname": ele.attr('data-areaname'),
+            "eventcategory": ele.attr('data-eventcategory')
         };
         dleadvm.setOptions(leadOptions);
     });

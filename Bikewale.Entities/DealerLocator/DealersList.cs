@@ -23,5 +23,6 @@ namespace Bikewale.Entities.DealerLocator
         public uint CampaignId { get; set; }
         public string DisplayTextLarge { get; set; }
         public string DisplayTextSmall { get; set; }
+        public string GetOffersGALabel { get; set; }
     }
 }

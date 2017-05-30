@@ -5,104 +5,9 @@
     $window = $(window),
     windowScrollTop;
 var data = {};
+
 docReady(function() {
     $('.chosen-select').chosen();
-    /* toggle common features */
-    var bodyElement = document.getElementsByTagName("body")[0],
-    toggleFeaturesBtn = document.getElementById("toggle-features-btn"),
-    hideCommonFeatures = true,
-    equivalentDataFound = false,
-    hideFeaturesClasses = "btn btn-teal btn-full-width",
-    showFeaturesClasses = "btn btn-inv-teal btn-full-width";
-
-    toggleFeaturesBtn.addEventListener("click", function () {
-        if (hideCommonFeatures) {
-            if (!equivalentDataFound) {
-                var headingRows = document.getElementsByClassName("row-type-heading"),
-                    dataRows = document.getElementsByClassName("row-type-data"),
-                    isSponsoredBikeActive = document.getElementById("sponsored-column-active");
-
-                if (bikeDetails.length + Number(document.getElementById("bike-comparison-grid").getAttribute("data-sponseredId")) > 0 ? 1 : 0 == 2) {
-                    compareColumns.countTwo(headingRows, dataRows);
-                }
-                else if (bikeDetails.length + Number(document.getElementById("bike-comparison-grid").getAttribute("data-sponseredId"))>0?1:0 == 3) {
-                    compareColumns.countThree(headingRows, dataRows);
-                }
-                else {
-
-                    compareColumns.countFour(headingRows, dataRows);
-                }
-
-                equivalentDataFound = true;
-            }
-            bodyElement.className = "hide-equivalent-data";
-
-            toggleFeaturesBtn.className = showFeaturesClasses;
-            toggleFeaturesBtn.innerHTML = "Show all features";
-
-            hideCommonFeatures = false;
-        }
-        else {
-            bodyElement.className = "show-equivalent-data";
-
-            toggleFeaturesBtn.className = hideFeaturesClasses;
-            toggleFeaturesBtn.innerHTML = "Hide common features";
-
-            hideCommonFeatures = true;
-        }
-
-    });
-
-    var compareColumns = {
-        countTwo: function (headingRows, dataRows) {
-            var dataRowLength = dataRows.length;
-
-            for (var i = 0; i < dataRowLength; i++) {
-                var rowElement = dataRows[i],
-                    rowColumns = rowElement.getElementsByTagName("td");
-
-                if (rowColumns[0].innerHTML === rowColumns[1].innerHTML) {
-                    rowElement.className += " equivalent-data";
-                    headingRows[i].className += " equivalent-data";
-                }
-
-            }
-        },
-
-        countThree: function (headingRows, dataRows) {
-            var dataRowLength = dataRows.length;
-
-            for (var i = 0; i < dataRowLength; i++) {
-                var rowElement = dataRows[i],
-                    rowColumns = rowElement.getElementsByTagName("td");
-
-                if (rowColumns[0].innerHTML === rowColumns[1].innerHTML && rowColumns[1].innerHTML === rowColumns[2].innerHTML) 
-                  {
-                        rowElement.className += " equivalent-data";
-                        headingRows[i].className += " equivalent-data";
-                    }
-                }
-
-            
-        },
-        countFour: function (headingRows, dataRows) {
-            var dataRowLength = dataRows.length;
-
-            for (var i = 0; i < dataRowLength; i++) {
-                var rowElement = dataRows[i],
-                    rowColumns = rowElement.getElementsByTagName("td");
-
-                if (rowColumns[0].innerHTML === rowColumns[1].innerHTML && rowColumns[1].innerHTML === rowColumns[2].innerHTML && rowColumns[2].innerHTML === rowColumns[3].innerHTML) {
-                    rowElement.className += " equivalent-data";
-                    headingRows[i].className += " equivalent-data";
-                }
-            }
-
-
-        }
-    };
-
-
     var bikeDetails = new Array();
     var basicInfo = JSON.parse(Base64.decode(document.getElementById("bike-comparison-grid").getAttribute("data-basicInfo")));
 
@@ -151,14 +56,17 @@ docReady(function() {
     $('.compare-bike-list').on('click', '.cancel-selected-item', function () {
         var listItem = $(this).closest('.list-item'),
             listItemIndex = listItem.index();
-        if (listItem[0].getAttribute('data-value'))
-            bikeDetails.splice(listItem[0].getAttribute('data-value'), 1);
+    
         var bikeList = $('.compare-bike-list');
         for(var i = 0; i < bikeList.length; i++) {
             $(bikeList[i]).find('li:eq('+ listItemIndex +')').remove();
         }
-        if (bikeDetails.length > 1)
+        if (listItem[0].getAttribute('data-value') && Number(listItem[0].getAttribute('data-value')) + 1 <= bikeDetails.length) {
+            bikeDetails.splice(Number(listItem[0].getAttribute('data-value')), 1);
+            if(bikeDetails.length>1)
             getUrl();
+        }
+            
         var mainList = $('#bike-comparison-grid').find('.compare-bike-list');
 
         compareBox.emptyTableData(listItemIndex);

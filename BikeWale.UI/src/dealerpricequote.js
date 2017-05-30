@@ -128,12 +128,12 @@ docReady(function () {
             "dealerDescription": ele.attr('data-item-description'),
             "pinCodeRequired": ele.attr("data-ispincodrequired"),
             "dealersRequired": ele.attr("data-dealersRequired"),
+            "eventcategory":ele.attr("c"),
             "gaobject": {
                 cat: ele.attr("c"),
                 act: ele.attr("a"),
                 lab: bikeVerLocation
-            }
-
+            }          
         };
         if (leadOptions.dealersRequired) {
             generateDealerDropdown();

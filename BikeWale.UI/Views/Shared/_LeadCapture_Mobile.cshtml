@@ -111,7 +111,8 @@
     <!-- Lead Capture pop up end  -->
 
     <script type="text/javascript">
-
+        var gaLabel = "";
+        var eventAction = "Lead_Submitted";
         var leadBtnBookNow, leadCapturePopup, leadBike;
         var fullName, emailid, mobile, detailsSubmitBtn;
         var prevEmail = "", prevMobile = "", prevPinCode = "";
@@ -161,8 +162,20 @@
             self.dealerDescription = ko.observable();
             self.pinCodeRequired = ko.observable();
             self.dealersRequired = ko.observable();
+            self.dealerCityName = ko.observable();
+            self.dealerAreaName = ko.observable();
+            self.eventCategory = ko.observable();
             self.setOptions = function (options) {
                 if (options != null) {
+                    if (options.eventcategory != null)
+                        self.eventCategory(options.eventcategory);
+
+                    if (options.dealercityname != null)
+                        self.dealerCityName(options.dealercityname);
+
+                    if (options.dealerareaname != null)
+                        self.dealerAreaName(options.dealerareaname);
+
                     if (options.dealerid != null)
                         self.dealerId(options.dealerid);
 
@@ -391,14 +404,14 @@
                             self.hideLoader();
                             if (xhr.status != 200)
                                 self.IsVerified(false);
-
-                            self.pushToGA(self.GAObject());
                         }
                     });
                 }
             };
 
             self.submitLead = function (data, event) {
+                if (self.selectedBike() != null)
+                    gaLabel = gaLabel = self.selectedBike().bike + "_" + self.dealerCityName() + ((self.dealerAreaName() != null) ? ("_" + self.dealerAreaName()) : "");
 
                 if (self.mfgCampaignId() > 0) {
                     self.submitCampaignLead(data, event);
@@ -415,6 +428,7 @@
                             $("#contactDetailsPopup").hide();
                             $("#personalInfo").hide();
                             $("#notify-response").fadeIn();
+                            triggerGA(self.eventCategory(), eventAction, gaLabel);
                         }
                         else {
                             $("#leadCapturePopup").show();

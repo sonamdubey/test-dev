@@ -6,7 +6,6 @@
 
     <div class="content-box-shadow padding-top15 padding-right20 padding-bottom20 padding-left20">
         <h2>@Model.BikeName Summary</h2>
-
         @if (Model.ModelPageEntity.ModelVersionSpecs != null)
         {
             <ul class="summary-specs-list text-center padding-bottom10">
@@ -55,6 +54,10 @@
 
         }
 
+        <p class="font14 text-light-grey line-height16">@Html.Raw(Model.ModelSummary)</p>
+
+
+   
 
         <div class="border-solid-bottom padding-bottom10 margin-bottom15">
             <table id="model-key-highlights" cellspacing="0" cellpadding="0" width="100%" border="0" class="font14 text-left">
@@ -69,8 +72,8 @@
                 <tr>
                     <td valign="top" width="36%">Price</td>
                     <td valign="top" width="64%">
-                        <span class="bwmsprite inr-dark-grey-xsm-icon"></span><span class="text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.ModelPageEntity.ModelDetails.MinPrice))</span><br />
-                        <span class="font12 text-light-grey">(Ex-showroom @Bikewale.Utility.BWConfiguration.Instance.DefaultName)</span>
+                        <span class="bwmsprite inr-dark-grey-xsm-icon"></span><span class="text-bold">@(Model.BikePrice > 0 && Model.IsLocationSelected ? string.Format("{0}", Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())) : Bikewale.Utility.Format.FormatPrice(Model.ModelPageEntity.ModelDetails.MinPrice.ToString()))</span><br />
+                        <span class="font12 text-light-grey">@(Model.BikePrice > 0 && Model.IsLocationSelected ? string.Format("On-road {0}", Model.City.CityName) : string.Format("Ex-showroom {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName))</span>
                     </td>
                 </tr>
                     }
@@ -106,21 +109,20 @@
             </table>
         </div>
 
-        <p class="font14 text-light-grey line-height16">@Model.ModelSummary</p>
-
+        
         @if (Model.BikeRanking != null && Model.BikeRanking.Rank > 0)
         {
-        <a href="@(string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)))" title="Top 10 @Model.BikeRanking.StyleName in India" class="model-rank-slug margin-top10">
-            <div class="inline-block icon-red-bg">
-                <span class="bwmsprite rank-graph"></span>
-            </div>
-            <div class="rank-slug-label inline-block text-bold text-default">
-                <p class="font14">@Html.Raw(Model.BikeRanking.Rank > 1 ? Model.BikeRanking.RankText : "") Most Popular @Model.BikeRanking.BikeType</p>
-                <p class="font11">Check out the complete list.</p>
-            </div>
-            <span class="trend-arrow"></span>
-            <span class="bwmsprite right-arrow"></span>
-        </a>
+            <a href="@(string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)))" title="Top 10 @Model.BikeRanking.StyleName in India" class="model-rank-slug margin-top10">
+                <div class="inline-block icon-red-bg">
+                    <span class="bwmsprite rank-graph"></span>
+                </div>
+                <div class="rank-slug-label inline-block text-bold text-default">
+                    <p class="font14">@Html.Raw(Model.BikeRanking.Rank > 1 ? Model.BikeRanking.RankText : "") Most Popular @Model.BikeRanking.BikeType</p>
+                    <p class="font11">Check out the complete list.</p>
+                </div>
+                <span class="trend-arrow"></span>
+                <span class="bwmsprite right-arrow"></span>
+            </a>
         }
     </div>
 }
