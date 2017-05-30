@@ -185,6 +185,30 @@
     width: 240px; /* right left 15px padding */
 }
 
+input[type=text].invalid + label:after,
+.easy-autocomplete input[type=text].invalid + label.active:after {
+    top: 35px;
+    font-size: 11px;
+}
+
+input[type=text].invalid + label.active:after {
+    top: 60px;
+}
+
+.input-field label.active:after {
+    top: 45px;
+}
+
+.label-present .error-label,
+.label-present label.active {
+    display: block;
+    color: #F44336;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    top: 45px;
+    font-size: 11px;
+}
+
 /* easy autocomplete */
 .easy-autocomplete {
     width: 100% !important;

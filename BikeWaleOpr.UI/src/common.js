@@ -109,3 +109,60 @@ var pageFooter = {
         });
     };
 }(jQuery));
+
+$(document).ready(function () {
+    var autocompleteInputField = $('.easy-autocomplete input');
+
+    autocompleteInputField.each(function () {
+        var autocompleteElement = $(this).closest('.easy-autocomplete'),
+            labelElement = autocompleteElement.next('label');
+
+        if (autocompleteElement.find('label').length == 0) {
+            labelElement.insertAfter(autocompleteElement.find('input'));
+        }
+    });
+});
+
+var materialSelect = {
+    removeLabel: function (selectField) {
+        selectField.closest('.select-wrapper').next('label').remove();
+    }
+}
+
+// error messages
+var validate = {
+    inputField: {
+        showError: function (inputField) {
+            inputField.addClass('invalid');
+        },
+        hideError: function (inputField) {
+            inputField.removeClass('invalid');
+        }
+    },
+
+    selectField: {
+        showError: function (selectField, message) {
+            var inputField = selectField.siblings('input'),
+                selectWrapper = selectField.closest('.select-wrapper');
+
+            inputField.addClass('invalid');
+
+            if(!selectWrapper.hasClass('label-present')) {
+                selectWrapper.addClass('label-present');
+                selectWrapper.append('<label class="error-label">' + message + '</label>');
+            }
+        },
+
+        hideError: function (selectField) {
+            var inputField = selectField.siblings('input'),
+                selectWrapper = selectField.closest('.select-wrapper');
+
+            inputField.removeClass('invalid');
+
+            if (selectWrapper.hasClass('label-present')) {
+                selectWrapper.removeClass('label-present');
+                selectWrapper.find('label.error-label').remove();
+            }
+        }
+    }
+}

@@ -29,6 +29,7 @@ var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
                         Materialize.toast('No areas are added for given city', 4000);
                     }
                     ddlAdditionalAreas.material_select();
+                    materialSelect.removeLabel(ddlAdditionalAreas);
                 }
             });
         }
@@ -46,47 +47,99 @@ var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
     });
 
     $("#btnMapAreas").click(function () {
-        var campaignServingStatus = $("[name=campaignServingStatus]:checked").val();
-        switch (campaignServingStatus) {
-            case "1":
-                validateData(campaignServingStatus);
-                setMappingData("0", "");
-                break;
-            case "2":
-                validateData(campaignServingStatus);
-                setMappingData("0", "");
-                break;
-            case "3":
-                validateData(campaignServingStatus);                
-                setMappingData($("#txtServingRadiusForStatus3").val(), selectedCities);
-                break;
-            case "4":
-                validateData(campaignServingStatus);
-                setMappingData($("#txtServingRadiusForStatus4").val(), "");
-                break;
-            case "5":
-                validateData(campaignServingStatus);
-                var selectedCities = "";
-                $("#autocomplete-addMulCity-data .chip").each(function () {
-                    selectedCities += $(this).attr("data-cityId") + ",";
-                });
-                selectedCities = (selectedCities.substring(0, selectedCities.length - 1));
-                setMappingData($("#txtServingRadiusForStatus5").val(), selectedCities);
-                break;
-            case "6":
-                validateData(campaignServingStatus);                
-                setMappingData($("#txtServingRadiusForStatus6").val(), "");
-                break;
-        }        
+        var isValid = true;
+
+        if (!$("input[name='campaignServingStatus']:checked").val()) {
+            isValid = false;
+            Materialize.toast("Please select campaign mapping status", 6000);
+        }
+        else {
+            var campaignServingStatus = $("[name=campaignServingStatus]:checked").val();
+            switch (campaignServingStatus) {
+                case "1":
+                    setMappingData("0", "");
+                    break;
+                case "2":
+                    setMappingData("0", "");
+                    break;
+                case "3":
+                    var objServingRadius = $("#txtServingRadiusForStatus3");
+                    var servingRadius = parseInt(objServingRadius.val());
+
+                    if (isNaN(servingRadius) || parseInt(servingRadius) <= 0) {
+                        isValid = false;
+                        validate.inputField.showError(objServingRadius);
+                    }
+
+                    setMappingData(objServingRadius, "");
+                    break;
+                case "4":
+                    var objServingRadius = $("#txtServingRadiusForStatus4")
+                    var servingRadius = parseInt(objServingRadius.val());
+
+                    if (isNaN(servingRadius) || parseInt(servingRadius) <= 0) {
+                        isValid = false;
+                        validate.inputField.showError(objServingRadius);
+                    }
+
+                    setMappingData(objServingRadius, "");
+                    break;
+                case "5":
+                    var selectedCities = "";
+                    $("#autocomplete-addMulCity-data .chip").each(function () {
+                        selectedCities += $(this).attr("data-cityId") + ",";
+                    });
+                    selectedCities = (selectedCities.substring(0, selectedCities.length - 1));
+
+                    if (selectedCities == "") {
+                        isValid = false;
+                        validate.inputField.showError($("#autocomplete-addMulCity"));
+                    }
+
+                    var objServingRadius = $("#txtServingRadiusForStatus5");
+                    var servingRadius = objServingRadius.val();
+
+                    if (servingRadius)
+                    {
+                        servingRadius = parseInt(servingRadius);
+
+                        if (isNaN(servingRadius) || servingRadius <= 0) {
+                            isValid = false;
+                            validate.inputField.showError(objServingRadius);
+                        } 
+                    }
+
+                    setMappingData($("#txtServingRadiusForStatus5").val(), selectedCities);
+                    break;
+                case "6":
+                    if ($("#ddlStates").val() == null) {
+                        isValid = false;
+                        validate.selectField.showError($("#ddlStates"), "Please select atleast one state.");
+                    }
+
+                    setMappingData("0", "");
+                    break;
+            }
+        }
+        
+        return isValid;
     });
    
     $("#btnMapAdditionalAreas").click(function () {
         var selectedAreas = "";
+        var txtAreaIdList = $("#txtAreaIdList");       
+
         $(ddlAdditionalAreas).find("option:selected").each(function () {
             selectedAreas += $(this).val() + ",";
         });
 
-        $("#txtAreaIdList").val(selectedAreas.substring(0, selectedAreas.length - 1));
+        if (selectedAreas == "" && selectedAreas.length <= 0) {
+            validate.selectField.showError(ddlAdditionalAreas, "Please select atleast one area");
+            return false;
+        }
+        else {
+            txtAreaIdList.val(selectedAreas.substring(0, selectedAreas.length - 1));
+        }        
     });
 
     if (ddlMappedAdditionalCity) {
@@ -94,13 +147,15 @@ var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
     }    
 });
 
+$("#ddlStates").on("change", function () {
+    if ($(this).val() != null) {
+        validate.selectField.hideError($(this));
+    }
+});
+
 function setMappingData(servingRadius, cityIdList) {
     $("#hdnServingRadius").val(servingRadius ? servingRadius : 0);
     $("#hdnCityIdList").val(cityIdList);
-}
-
-function validateData(status) {
-
 }
 
 function ddlMappedAdditionalCity_onChange(e) {
@@ -108,15 +163,18 @@ function ddlMappedAdditionalCity_onChange(e) {
     var selectOption = $("<option disabled>Select area</option>");
     try {
         cityId = e.currentTarget.value;
-        var areas = $.grep(objAdditionalAreaJson, function (i, n) { return i.City.Id == cityId; });
         ddlMappedAdditionalAreas.empty();
         ddlMappedAdditionalAreas.append(selectOption);
-        $.each(areas[0].AdditionalAreas, function (key, value) {
-            ddlMappedAdditionalAreas.append($("<option></option>")
-                           .attr("value", value.Id)
-                           .text(value.Name));
-        });
+        if (cityId > 0) {
+            var areas = $.grep(objAdditionalAreaJson, function (i, n) { return i.City.Id == cityId; });                        
+            $.each(areas[0].AdditionalAreas, function (key, value) {
+                ddlMappedAdditionalAreas.append($("<option></option>")
+                               .attr("value", value.Id)
+                               .text(value.Name));
+            });
+        }
         ddlMappedAdditionalAreas.material_select();
+        materialSelect.removeLabel(ddlMappedAdditionalAreas);
     } catch (e) {
         console.warn(e.message);
     }
@@ -129,12 +187,12 @@ function removeAdditionalAreas() {
             if ($(this).val())
                 selectedAreas += $(this).val() + ",";
         });
-        if (selectedAreas) {
-            $("#hdnMappedAreas").val(selectedAreas.substring(0, selectedAreas.length - 1));            
-        }
-        else {
-            Materialize.toast("Please select area.", 4000);
-            return false
+
+        if (selectedAreas == "" && selectedAreas.length <= 0) {
+            validate.selectField.showError(ddlMappedAdditionalAreas, "Please select atleast one area");
+            return false;
+        } else {
+            $("#hdnMappedAreas").val(selectedAreas.substring(0, selectedAreas.length - 1));
         }
     } catch (e) {
         console.warn(e.message);
