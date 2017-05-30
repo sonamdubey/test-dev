@@ -864,6 +864,8 @@ namespace Bikewale.DAL.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Save user review ratings
+        /// Modified by : Aditi Srivastava on 29 May 2017
+        /// Summary     : Added sourceId parameter
         /// </summary>
         /// <param name="overAllrating"></param>
         /// <param name="ratingQuestionAns"></param>
@@ -880,7 +882,7 @@ namespace Bikewale.DAL.UserReviews
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings_08052017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings_29052017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
