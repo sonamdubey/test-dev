@@ -36,8 +36,12 @@ namespace BikeWaleOpr.BikeBooking
         protected Button btnAddCat, addShowPrice, btnUpdate, btnDelete, btnTransferPriceSheet, btnUpdateDealerPrice;
         //protected string choice = string.Empty;
         protected Label lblSaved, lblTransferStatus, lblDealerPriceStatus;
+        protected HiddenField alertText;
         protected string selectedChoice = string.Empty;
+        protected string updatedModelNames = string.Empty;
         protected string[] a;
+
+        protected StringBuilder modelNames;
 
         protected override void OnInit(EventArgs e)
         {
@@ -390,6 +394,10 @@ namespace BikeWaleOpr.BikeBooking
                 UpdatePrice(rptModels, dealerId, cityId);
                 UpdateDays(rptModels, dealerId, cityId);
                 GetDealerPrices(cityId, dealerId, makeId);
+
+                if (!string.IsNullOrEmpty(updatedModelNames))
+                    alertText.Value = string.Format("Rules have been added for this dealer for models -> {0}", updatedModelNames);
+
             }
         }
 
@@ -429,7 +437,7 @@ namespace BikeWaleOpr.BikeBooking
         private bool UpdatePrice(Repeater rptModels, uint dealerId, uint cityId)
         {
             bool isPriceSaved = false;
-
+            modelNames = new StringBuilder();
             DataTable table = new DataTable();
 
             table.Columns.Add("DealerId", typeof(int));
@@ -445,6 +453,10 @@ namespace BikeWaleOpr.BikeBooking
 
                 HtmlInputCheckBox chkUpdate = (HtmlInputCheckBox)rptModels.Items[i].FindControl("chkUpdate");
                 Repeater rptValues = (Repeater)rptModels.Items[i].FindControl("rptValues");
+                if (chkUpdate.Checked)
+                {
+                    modelNames = modelNames.AppendFormat("{0}:{1}, ", ((HiddenField)rptModels.Items[i].FindControl("txtModelId")).Value.Trim(), ((HiddenField)rptModels.Items[i].FindControl("txtModel")).Value.Trim());
+                }
                 if (rptValues.Items.Count > 0)
                 {
                     for (int j = 0; j < rptValues.Items.Count; j++)
@@ -453,6 +465,7 @@ namespace BikeWaleOpr.BikeBooking
                         {
                             TextBox txtValue = (TextBox)rptValues.Items[j].FindControl("txtValue");
                             Label lblCategoryId = (Label)rptValues.Items[j].FindControl("lblCategoryId");
+
                             if (lbVersionId.Text.Length > 0 && txtValue.Text.Trim().Length > 0)
                             {
                                 table.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId, lblCategoryId.Text.Trim(), txtValue.Text.Trim(), CurrentUser.Id);
@@ -491,6 +504,8 @@ namespace BikeWaleOpr.BikeBooking
                 container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
                 IDealerPriceQuote objPQ = container.Resolve<DealerPriceQuoteRepository>();
                 isSuccess = objPQ.SaveDealerPrice(table);
+
+                updatedModelNames = objPQ.AddRulesOnPriceUpdation(Convert.ToString(modelNames), Convert.ToUInt32(table.Rows[0][0]), makeId, Convert.ToUInt32(CurrentUser.Id));
             }
             if (isSuccess)
             {
