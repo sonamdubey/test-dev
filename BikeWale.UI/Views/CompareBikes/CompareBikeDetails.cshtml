@@ -201,17 +201,19 @@
                                     </div>
                                     <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
                                         <tbody>
-                                            @foreach (var specCat in spec.SpecCategory)
-                                            {
-                                                <tr class="row-width-grid">
-                                                    <td width="162"></td>
-                                                    @foreach (var compSpec in specCat.CompareSpec)
-                                                    {
-                                                        <td></td>
-                                                    }
-                                                    <td></td>
-                                                </tr>
-                                            }
+                                            <tr class="row-width-grid">
+                                                <td width="162"></td>
+                                                @foreach (var specCat in spec.SpecCategory)
+                                                {
+
+                                                foreach (var compSpec in specCat.CompareSpec)
+                                                {
+                                                <td></td>
+                                                }
+                                                <td></td>
+
+                                                }
+                                            </tr>
 
                                             @{isFirstActiveTab = false;} @foreach (var specCat in spec.SpecCategory)
                                             {
@@ -245,17 +247,19 @@
                         {
                             <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
                                 <tbody>
-                                    @foreach (var specCat in spec.SpecCategory)
-                                    {
-                                        <tr class="row-width-grid">
-                                            <td width="162"></td>
-                                            @foreach (var compSpec in specCat.CompareSpec)
-                                            {
-                                                <td></td>
-                                            }
-                                            <td></td>
-                                        </tr>
-                                    }
+                                    <tr class="row-width-grid">
+                                        <td width="162"></td>
+                                        @foreach (var specCat in spec.SpecCategory)
+                                        {
+
+                                        foreach (var compSpec in specCat.CompareSpec)
+                                        {
+                                        <td></td>
+                                        }
+                                        <td></td>
+
+                                        }
+                                    </tr>
 
                                     @{isFirstActiveTab = false;} @foreach (var specCat in spec.SpecCategory)
                                     {
