@@ -411,6 +411,7 @@
       <DependentUpon>ViewReview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\DealerCampaignController.cs" />
     <Compile Include="Controllers\MakesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
@@ -449,6 +450,7 @@
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsPageModel.cs" />
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
       <DependentUpon>DealerDetailedPriceQuote.aspx</DependentUpon>
@@ -1911,6 +1913,7 @@
     <Content Include="src\common\common.js" />
     <Content Include="src\content\makes.js" />
     <Content Include="src\content\usedimageupload.js" />
+    <Content Include="src\dealercampaign\campaignservingareas.js" />
     <Content Include="src\framework.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
@@ -1960,6 +1963,7 @@
     <Content Include="css\fonts\roboto\Roboto-Thin.woff2" />
     <Content Include="Views\Models\UsedModelImageUpload.cshtml" />
     <Content Include="Views\UserReviews\Index.cshtml" />
+    <Content Include="Views\DealerCampaign\CampaignServingAreas.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

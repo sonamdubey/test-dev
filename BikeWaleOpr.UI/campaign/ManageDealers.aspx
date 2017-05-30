@@ -70,13 +70,27 @@
         z-index: 1000;
         background: rgb(250, 246, 246) url('https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
     }
+
+    /* Style the list */
+    ul.breadcrumb {padding: 10px 0;list-style: none;background-color: #eee;font-size: 17px;margin-top:10px;}
+    /* Display list items side by side */
+    ul.breadcrumb li {display: inline;}
+    /* Add a slash symbol (/) before/behind each list item */
+    ul.breadcrumb li+li:before {padding: 8px;color: black;content: ">\00a0";}
+    /* Add a color to all links inside the list */
+    ul.breadcrumb li a {color: #0275d8;text-decoration: none;}
+    /* Add a color on mouse-over */
+    ul.breadcrumb li a:hover {color: #01447e;}
 </style>
-<div>
-    <fieldset class="margin-left10">
-        <a id='backbutton' href="javascript:void(0)">Back to Manage Campaigns Page</a>
-        <legend>
-            <h3>Edit Dealer Campaign</h3>
-        </legend>
+<div class="left">
+    <div>
+        <%--<h1><a id='backbutton' href="javascript:void(0)" title="Back to Manage Campaigns Page" style="padding:10px">&lt; Back</a> Edit Dealer Campaign (Step 1)</h1>--%>
+        <ul class="breadcrumb">
+            <li><a id='backbutton' href="javascript:void(0)" title="Back to Manage Campaigns Page" style="padding:10px">Manage Campaigns (Step 1)</a></li>
+            <li>Edit Dealer Campaign (Step 2)</li>
+            <li><a target="_blank" href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>" title="Manage Model Rules Mapping">Campaign Model Rules (Step 3)</a></li>
+            <li><a target="_blank" href="/dealercampaign/servingareas/dealerid/<%= dealerId %>/campaignid/<%= campaignId %>/" title="Manage Campaign Areas Mapping">Campaign Serving Areas (Step 4)</a></li>
+        </ul>
         <div id="box" class="box">
             <table class="margin-top10 margin-bottom10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 60%; border-collapse: collapse;">
                 <tbody>
@@ -121,12 +135,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 20%"><strong>Campaign Lead Serving radius(in kms) :</strong><b class="required">*</b></td>
-                        <td>
-                            <asp:textbox runat="server" id="txtdealerRadius" placeholder="" class="numeric req width300" />
-                        </td>
-                    </tr>
-                    <tr>
                         <td style="width: 20%"><strong>Daily Leads Limit :</strong></td>
                         <td>
                             <asp:textbox runat="server" id="txtLeadsLimit" placeholder="" class="numeric width300" />
@@ -156,18 +164,16 @@
             <br />
 
         </div>
-
-
-
-    </fieldset>
+    </div>
 
     <% if (isCampaignPresent)
        { %>
     <fieldset>
         <legend>Define Components</legend>
-
-        <strong>Edit rules:</strong><span><a href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Rules</a></span>
-
+        <div class="box" style="font-size:13px;">
+            <div class="margin-top10"><a target="_blank" href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Manage Campaign Model Rules (Step 3)</a></div>
+            <div class="margin-top10"><a target="_blank" href="/dealercampaign/servingareas/dealerid/<%= dealerId %>/campaignid/<%= campaignId %>/">Manage Campaign Serving Areas (Step 4)</a></div>
+        </div>
     </fieldset>
     <% } %>
 </div>
@@ -195,23 +201,10 @@
                 }
             });
 
-            if (!isValid) {
-                $('#lblErrorSummary').html('Please fill values');
-            }
-
-            if (isValid) {
-                if ($('#txtdealerRadius').val() == '0') {
-                    var r = confirm("By selecting dealer radius as 0 KM, You are allocating a dealer to entire city. Do you confirm ?");
-                    if (!r)
-                        isValid = false;
-                }
-                $("#pageloaddiv").show();
-            }
-
             if (isValid) {
                 var maskingNumber = $("#txtMaskingNumber").val().trim();
                 var nos = parseInt(dealerNoEle.attr("data-numberCount"));
-                if (nos && maskingNumber != txtMaskingNumber && maskingNumber != "") {
+                if (maskingNumber != "" && nos && maskingNumber != txtMaskingNumber) {
                     var r = confirm("You are mapping " + nos + " dealer numbers to 1 masking number. Are you sure you want to continue?");
                     if (!r) {
                         isValid = false;
@@ -220,10 +213,10 @@
 
                 }
                 $("#pageloaddiv").show();
-
+                
+            }else {
+                $('#lblErrorSummary').html('Please fill values');
             }
-
-
         } catch (e) {
             console.warn(e.message);
             isValid = false;
@@ -246,8 +239,7 @@
                     beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ReleaseNumber"); },
                     success: function (response) {
                         if (JSON.parse(response).value) {
-                            $("#txtMaskingNumber").val('');
-                            //bindMaskingNumber(dealerId);                                
+                            $("#txtMaskingNumber").val('');                             
                             alert("Masking Number is released successful.");
                             location.reload();
                         }

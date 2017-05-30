@@ -125,6 +125,7 @@
     <Compile Include="Format.cs" />
     <Compile Include="FormatDate.cs" />
     <Compile Include="FormatMinSpecs.cs" />
+    <Compile Include="FormatString.cs" />
     <Compile Include="GenericBikes\GenericBikesCategoriesMapping.cs" />
     <Compile Include="GetEmailList.cs" />
     <Compile Include="GlobalCityArea.cs" />

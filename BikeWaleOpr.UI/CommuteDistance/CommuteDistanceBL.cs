@@ -6,143 +6,137 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.Entity.DealerCampaign;
+using BikewaleOpr.Interface;
 
 namespace BikewaleOpr.CommuteDistance
 {
     /// <summary>
     /// Created By  :   Sumit Kate on 18 Apr 2016
     /// Description :   Commute Distance Business Layer
+    /// Modified BY : Ashish G. Kamble on 16 May 2017
+    /// Summary : Removed old asyncrounous code and replaced with async and await. Also changed the process to assign the areas to the dealer.
     /// </summary>
-    public class CommuteDistanceBL
+    public class CommuteDistanceBL : ICommuteDistance
     {
-        private string _taskprogress;
-        private AsyncTaskDelegate _dlgt;
-        public UInt16 DealerID { get; set; }
-        public UInt16 LeadServingDistance { get; set; }
+        private readonly IDealerCampaignRepository _campaignRepo = null;
 
-        /// <summary>
-        /// Call back delegate
-        /// </summary>
-        protected delegate void AsyncTaskDelegate();
-
-        /// <summary>
-        /// Task progress string
-        /// </summary>
-        public String TaskProgress
+        public CommuteDistanceBL(IDealerCampaignRepository campaignRepo)
         {
-            get
-            {
-                return _taskprogress;
-            }
+            _campaignRepo = campaignRepo;
         }
 
         /// <summary>
-        /// Calls the heavy task
-        /// </summary>
-        public void DoTheAsyncTask()
-        {
-            UpdateCommuteDistance(DealerID, LeadServingDistance);
-        }
-
-        /// <summary>        
-        /// Define the method that will get called to
-        /// start the asynchronous task.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <param name="cb"></param>
-        /// <param name="extraData"></param>
-        /// <returns></returns>
-        public IAsyncResult OnBegin(object sender, EventArgs e,
-            AsyncCallback cb, object extraData)
-        {
-            _taskprogress = "Beginning async task.";
-
-            _dlgt = new AsyncTaskDelegate(DoTheAsyncTask);
-            IAsyncResult result = _dlgt.BeginInvoke(cb, extraData);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Define the method that will get called when
-        /// the asynchronous task is ended.
-        /// </summary>
-        /// <param name="ar"></param>
-        public void OnEnd(IAsyncResult ar)
-        {
-            _taskprogress = "Asynchronous task completed.";
-            _dlgt.EndInvoke(ar);
-        }
-
-
-
-        /// <summary>
-        /// Define the method that will get called if the task
-        /// is not completed within the asynchronous timeout interval.
-        /// </summary>
-        /// <param name="ar"></param>
-        public void OnTimeout(IAsyncResult ar)
-        {
-            _taskprogress = "Ansynchronous task failed to complete, because it exceeded the AsyncTimeout parameter.";
-        }
-
-        /// <summary>
-        /// Created by  :   Sumit Kate on 18 Apr 2016
-        /// Description :   Calculates the Commute Distance between dealer and areas
+        /// Written By : Ashish G. Kamble on 12 May 2017
+        /// Summary : Function to map campaign areas with dealer location.
         /// </summary>
         /// <param name="dealerId"></param>
-        /// <param name="leadServingDistance"></param>
+        /// <param name="campaignServingStatus">Status of the serving areas to the particular campaign.</param>
+        /// <param name="servingRadius">Serving radius for the given dealer (campaign serving radius).</param>
+        /// <param name="cityIdList">Comma separated city id list. e.g. cityid1, cityid2, cityid3</param>
+        /// <param name="stateIdList">Comma separated state id list. e.g. stateId1, stateId2, stateId3</param>
         /// <returns></returns>
-        public bool UpdateCommuteDistance(UInt16 dealerId, UInt16 leadServingDistance)
+        public bool SaveCampaignAreas(uint dealerId, uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList, string stateIdList)
         {
-            CommuteDistanceRepository commuteDistance = new CommuteDistanceRepository();
-            GoogleDistanceAPIHelper googleApi = null;
-            IEnumerable<GeoLocationDestinationEntity> apiResp = null;
-            string formatedResp = string.Empty;
-            UInt16 maxArea = Convert.ToUInt16(ConfigurationManager.AppSettings["areaMaxPerCall"]);
-            GeoLocationEntity dealer = null;
+            bool isUpdated = false;
+
+            try
+            {
+                //get the Areas served by the dealers by lead serving distance(straight line distance calculation)
+                DealerAreaDistance objDealerAreaDist = _campaignRepo.GetDealerToAreasDistance(dealerId, campaignServingStatus, servingRadius, cityIdList, stateIdList);
+
+                // get dealer to areas distance from google api
+                isUpdated = UpdateCommuteDistance(dealerId, objDealerAreaDist);
+
+                // map campaign areas
+                _campaignRepo.SaveDealerCampaignAreaMapping(dealerId,campaignid, campaignServingStatus, servingRadius, cityIdList, stateIdList);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "SaveCampaignAreas");
+                objErr.SendMail();
+            }
+
+            return isUpdated;
+        }
+
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 15 May 2017
+        /// Summary : Function to map the additional areas to the dealer's location
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="areasList">Provide list in (,) separated format separated by comma e.g. 'areaid1,'areaid2'</param>
+        public bool SaveAdditionalCampaignAreas(uint dealerId, string areaIdList)
+        {
+            bool isUpdated = false;
+
+            try
+            {
+                // Get dealer location along with areas latitude and longitude 
+                DealerAreaDistance objDealerAreaDist = _campaignRepo.GetDealerAreasWithLatLong(dealerId, areaIdList);
+
+                // get dealer to areas distance from google api
+                isUpdated = UpdateCommuteDistance(dealerId, objDealerAreaDist);
+
+                // map additional campaign areas
+                _campaignRepo.SaveAdditionalAreasMapping(dealerId, areaIdList);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "SaveAdditionalCampaignAreas");
+                objErr.SendMail();                
+            }
+
+            return isUpdated;
+        }
+
+
+        #region UpdateCommuteDistance method
+        /// <summary>
+        /// Modified By : Ashish G. Kamble on 17 May 2017
+        /// Summary : Function to get the distance between dealer location and the area using google api. Updates dealertoarea distance in the master table for distances.
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="objDealerAreaDist"></param>
+        /// <returns></returns>
+        public bool UpdateCommuteDistance(uint dealerId, DealerAreaDistance objDealerAreaDist)
+        {
             IEnumerable<GeoLocationEntity> areas = null, areasBatch = null;
             try
             {
+                CommuteDistanceRepository commuteDistance = new CommuteDistanceRepository();
 
-                //get the Areas served by the dealers by lead serving distance(straight line distance calculation)
-                areas = commuteDistance.GetAreaByDealer(dealerId, leadServingDistance, out dealer);
+                GeoLocationEntity dealer = objDealerAreaDist.DealerLocation;
+                areas = objDealerAreaDist.Areas;
+
                 if (dealer != null && (areas != null && areas.Count() > 0))
                 {
-                    googleApi = new GoogleDistanceAPIHelper();
+                    GoogleDistanceAPIHelper googleApi = new GoogleDistanceAPIHelper();
+
                     areasBatch = areas.Take(50);
+
                     int batchCounter = 0;
+
                     do
                     {
-                        //Call the Google API
-                        apiResp = googleApi.GetDistanceUsingArrayIndex(dealer, areasBatch, false);
+                        //Call the Google API and get distances between areas and dealer location
+                        IEnumerable<GeoLocationDestinationEntity> apiResp = googleApi.GetDistanceUsingArrayIndex(dealer, areasBatch, false);
+
                         if (apiResp != null && apiResp.Count() > 0)
                         {
-                            formatedResp = googleApi.FormatApiResp(apiResp);
+                            string formatedResp = googleApi.FormatApiResp(apiResp);
+
                             //update the areas with Commute Distance
-                            if (commuteDistance.UpdateArea(dealer.Id, formatedResp))
-                            {
-                                Debug.WriteLine(String.Format("Distance updated for batch no. {0} dealerID : {1} ", (batchCounter + 1), dealer.Id));
-                            }
-                            else
-                            {
-                                Debug.WriteLine(String.Format("Distance updated FAILED for batch no. {0} dealerID : {1} ", (batchCounter + 1), dealer.Id));
-                            }
+                            commuteDistance.UpdateArea(dealer.Id, formatedResp);
                         }
-                        else
-                        {
-                            Debug.WriteLine(String.Format("failed to get Google API responce for dealerID: {0} and Batchcount {1}", dealer.Id, (batchCounter + 1)));
-                        }
+
                         ++batchCounter;
                         areasBatch = areas.Skip(50 * batchCounter).Take(50);
-                        Thread.Sleep(500);
+                        Thread.Sleep(100);
+
                     } while (areasBatch.Count() > 0);
-                    Debug.WriteLine(String.Format("update for dealerID {0}", dealer.Id));
-                }
-                else
-                {
-                    Debug.WriteLine(String.Format("Failed to get area for dealerId : {0}", dealer.Id));
                 }
             }
             catch (Exception ex)
@@ -151,9 +145,10 @@ namespace BikewaleOpr.CommuteDistance
                 objErr.SendMail();
                 return false;
             }
+
             return true;
-        }
+        } 
+        #endregion
 
-
-    }
-}
+    }   // class
+}   // namespace

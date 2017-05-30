@@ -1,50 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.DealersRules" EnableEventValidation="false" %>
 
 <!-- #Include file="/includes/headerNew.aspx" -->
-        <fieldset class="margin-left10">
-            <legend>Add a New Rule</legend>
-            <div id="box" class="box">
-                <table>
-                    <tr>
-                        <td class="valign margin-left20">Make:
-                            <asp:DropDownList ID="ddlMake" runat="server" Width="100%" />
-                        </td>
-                        <td class="valign margin-left20">Model:
-                            <%--<asp:DropDownList ID="ddlModel" runat="server" Width="100%" />--%>
-                            <asp:DropDownList ID="ddlModel" multiple="multiple" runat="server" style="width:100%;height: 100px;" />
-                            <asp:HiddenField ID="hdnSelectedModel" runat="server" />
-                        </td>
-                        <td class="valign margin-left20">State:
-                            <asp:DropDownList ID="ddlState" runat="server" Width="100%" />
-                        </td>
-                        <td class="valign margin-left20">City:
-                            <asp:DropDownList ID="ddlCity" runat="server" Width="100%" />
-                            <asp:HiddenField ID="hdnSelectedCity" runat="server" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="margin-left20">
-                            <asp:Button runat="server" ID="btnSaveRule" OnClientClick="return ValidateForm();" Text="Save" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </fieldset>
-        <asp:Label class="redmsg errMessage margin-bottom10 margin-left10 greenMessage" ID="lblErrorSummary" runat="server" />
-        <br />
-        <asp:Label class="greenMessage margin-bottom10 margin-left10" ID="lblGreenMessage" runat="server" />
-        <br />
-        <% 
-            if(rptRules.DataSource!= null){ 
-        %>
-        <asp:Button runat="server" OnClientClick="return deleteRules();" class="margin-bottom10 margin-left10" ID="btnDelete" Text="Delete" />
-        <br />
-        <% 
-            } 
-        %>
-        <asp:Repeater ID="rptRules" runat="server">
+    <h1 class="margin-left10">Manage Campaign Model Rules</h1>
+<div class="margin-top10 floatLeft" style="width: 850px; display: inline-block;">
+    <asp:Repeater ID="rptRules" runat="server">
                     <HeaderTemplate>
-                        <h1>Added Rule(s) :</h1>
+                        <h2 class="margin-left10" style="font-size:large;">Added Rule(s) :</h2>
                         <br />
                         <table border="1" style="border-collapse: collapse;" cellpadding="5" class="margin-left10">
                             <tr style="background-color: #D4CFCF;">
@@ -56,8 +17,6 @@
                                 </th>
 								<th>Make</th>
                                 <th>Model</th>
-                                <th>State</th>
-                                <th>City</th>
                             </tr>
                     </HeaderTemplate>
                     <ItemTemplate>
@@ -67,28 +26,52 @@
                            </td>
                             <td><%# Eval("MakeName").ToString() %></td>
                             <td><%# Eval("ModelName").ToString() %></td>
-                            <td><%# Eval("StateName").ToString() %></td>
-                            <td><%# Eval("CityName").ToString() %></td>
                         </tr>
                     </ItemTemplate>
                     <FooterTemplate>
                         </table>
                     </FooterTemplate>
                 </asp:Repeater>
-
         <asp:HiddenField ID="hdnCheckedRules" runat="server" Value="" />
+</div>
+<div class="margin-top10" style="position: fixed; right: 20px;">
+    <fieldset class="margin-left10">            
+            <legend>Add Campaign Model Rules</legend>
+            <div id="box" class="box">                
+                    <div class="margin-top10">
+                        <asp:DropDownList ID="ddlMake" runat="server" Width="100%" />
+                    </div>
+                    <div class="margin-top10">
+                        <asp:DropDownList ID="ddlModel" multiple="multiple" runat="server" style="width:100%;height: 100px;" />
+                            <asp:HiddenField ID="hdnSelectedModel" runat="server" />                        
+                    </div>
+                    <div class="margin-top10"><asp:Button runat="server" ID="btnSaveRule" OnClientClick="return ValidateForm();" Text="Save Model Rules" /></div>                
+            </div>
+        <div class="margin-top10"><asp:Label class="redmsg errMessage margin-bottom10 margin-left10 greenMessage" ID="lblErrorSummary" runat="server" /></div>
+        <div class="margin-top10"><asp:Label class="greenMessage margin-bottom10 margin-left10" ID="lblGreenMessage" runat="server" /></div>
+        </fieldset>
+
+        <% 
+            if(rptRules.DataSource!= null){ 
+        %>
+        <fieldset class="margin-left10 margin-top20">            
+            <legend>Remove Campaign Model Rules</legend>
+        <asp:Button runat="server" OnClientClick="return deleteRules();" class="margin-bottom10 margin-left10 margin-top10" ID="btnDelete" Text="Delete Model Rules" />
+        </fieldset>
+        <br />
+        <% 
+            } 
+        %>
+</div>
+        
+        
         <script type="text/javascript">
             $(document).ready(function () {
                 if ($("#ddlMake").val() > 0) {
                     GetModels($("#ddlMake"));
                 }
-                if ($("#ddlState").val() > 0) {
-                    loadStateCities();
-                }
-                $("#ddlModel").append("<option value='0' title=''> -- Select Models --</option>");
-                $("#ddlCity").append("<option value='0' title=''> -- Select City --</option>");
-                $('#ddlModel').prop('disabled', true);
-                $('#ddlCity').prop('disabled', true);
+                $("#ddlModel").append("<option value='0' title=''> -- Select Models --</option>");                
+                $('#ddlModel').prop('disabled', true);                
             });
 
             $("#ddlMake").change(function () {
@@ -96,22 +79,6 @@
                 $("#ddlModel").val("0").attr("disabled", "disabled");
                 GetModels(this);
                 $('#hdnSelectedModel').val('');
-            });
-
-            $("#ddlState").change(function () {
-                loadStateCities();
-                $('#hdnSelectedCity').val('');
-            });
-
-            //$("#ddlModel").change(function () {
-            //    alert(1)
-            //    if ($("#ddlModel").val() != 0) {
-            //        $('#hdnSelectedModel').val($("#ddlModel").val());
-            //    }
-            //});
-
-            $("#ddlCity").change(function () {
-                $('#hdnSelectedCity').val($("#ddlCity").val());
             });
 
             $("#rptRules_chkAll").click(function () {
@@ -125,12 +92,12 @@
 
             function ValidateForm() {
                 $('#lblErrorSummary').html('');
-                if ($("#ddlCity").val() == null || $("#ddlModel").val() == null){
-                    alert('Select values from List');
+                if ($("#ddlModel").val() == null){
+                    alert('Please select bike models');
                     return false;
                 }
-                else if ($("#ddlMake").val() == 0 || $("#ddlState").val() == 0 || $("#ddlCity").val() == 0 ||  $("#ddlModel").val() == 0) {
-                    alert('Select values from List')
+                else if ($("#ddlMake").val() == 0 || $("#ddlModel").val() == 0) {
+                    alert('Please select bike models')
                     return false;
                 }
                 else {
@@ -180,39 +147,16 @@
                     $("#ddlModel").val("0").attr("disabled", "disabled");
                 }
             }
-            function loadStateCities() {
-                var stateId = $("#ddlState").val();
-                if (stateId > 0) {
-                    var requestType = "ALL";
-                    $("#hdnCities").val("");
-                    $.ajax({
-                        type: "POST",
-                        url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                        data: '{"requestType":"' + requestType + '", "stateId":"' + stateId + '"}',
-                        beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetCWCities"); },
-                        success: function (response) {
-                            var responseJSON = eval('(' + response + ')');
-                            var resObj = eval('(' + responseJSON.value + ')');
-                            bindDropDownList(resObj, $("#ddlCity"), "", "--Select city--");
-                        }
-                    });
-                } else {
-                    $("#ddlCity").val("0").attr("disabled", "disabled");
-                }
-            }
+
             function bindDropDownList(response, cmbToFill, viewStateId, selectString) {
-                if (response.Table != null) {
-                    //if (!selectString || selectString == '') selectString = "--Select--";
+                if (response.Table != null) {                    
                     $(cmbToFill).empty();
                     $(cmbToFill).prop('disabled', false);
                     if (selectString != '') {
                         $(cmbToFill).append("<option value=\"0\" title='" + selectString + "'>" + selectString + "</option>");
                     }
                     var hdnValues = "";
-                    // Add select all option for Models
-                    //if (($(cmbToFill).attr('id') == 'ddlModel')) {
-                    //    $(cmbToFill).append("<option value=\"-1\" title='-- Select all --'>" + '-- Select all --' + "</option>");
-                    //}
+
                     for (var i = 0; i < response.Table.length; i++) {
                         $(cmbToFill).append("<option value=" + response.Table[i].Value + " title='" + response.Table[i].Text + "'>" + response.Table[i].Text + "</option>");
                         if (hdnValues == "")
