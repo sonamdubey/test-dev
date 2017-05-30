@@ -186,6 +186,10 @@ var EasyAutocomplete = (function(scope){
 			    return element;
 			},
 
+			hosturlForAPI: function (element) {
+			    return element;
+			},
+
 			autocompleteOff: true,
 
 			placeholder: false,

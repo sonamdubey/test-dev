@@ -38,9 +38,17 @@ var pageFooter = {
                 console.log("please define options");
                 return;
             }
-            else if (options.source == null || options.source == undefined || options.source == '') {
-                console.log("please define source");
-                return;
+            else {
+                
+                if (options.source == null || options.source == undefined || options.source == '') {
+                    console.log("please define source");
+                    return;
+                }
+
+                if (!options.hosturlForAPI) {
+                    console.log("please define hosturlForAPI");
+                    return;
+                }
             }
 
             var requestTerm;
@@ -54,7 +62,7 @@ var pageFooter = {
                     requestTerm = value.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/-/g, ' ').replace(/[^A-Za-z0-9 ]/g, '').toLowerCase();
 
                     if (requestTerm.length > 0) {
-                        var path = "http://localhost:9011/api/AutoSuggest/?source=" + options.source + "&inputText=" + requestTerm + "&noofrecords=8";
+                        var path = options.hosturlForAPI + "/api/AutoSuggest/?source=" + options.source + "&inputText=" + requestTerm + "&noofrecords=8";
 
                         return path;
                     }
@@ -63,6 +71,7 @@ var pageFooter = {
                 getValue: "text",
 
                 sourceType: options.source,
+                hosturlForAPI: options.hosturlForAPI,
 
                 template: {
                     type: "custom",
