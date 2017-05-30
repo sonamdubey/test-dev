@@ -22,7 +22,7 @@
                         </a>
                         <div class="article-stats-left-grid">
                             <span class="bwsprite calender-grey-sm-icon"></span>
-                            <span class="article-stats-content"><%#Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMM dd, yyyy") %></span>
+                            <span class="article-stats-content"><%#Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"dd MMMM yyyy") %></span>
                         </div>
                         <div class="article-stats-right-grid">
                             <span class="bwsprite author-grey-sm-icon"></span>

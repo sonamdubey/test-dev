@@ -56,7 +56,7 @@
                             </div>
 
                             <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-                                <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block"><%= Bikewale.Utility.FormatDate.GetFormatDate(news.DisplayDate.ToString(),"MMM dd, yyyy") %></span>
+                                <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block"><%= Bikewale.Utility.FormatDate.GetFormatDate(news.DisplayDate.ToString(),"dd MMMM yyyy") %></span>
                             </div>
 
                             <div class="article-stats-wrapper font12 leftfloat text-light-grey">

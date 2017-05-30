@@ -60,153 +60,127 @@
                     @Html.Partial("~/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
                 </div>
                 <div class="bw-tabs-data hide" id="discoverBudget">
-                    <div class="budget-container">
-                        <ul class="text-center">
-                            <li>
-                                <a href="/m/new/bike-search/?budget=0-50000">
-                                    <span class="budget-title-box font14">
-                                        Upto
-                                    </span>
-                                    <span class="budget-amount-box">
-                                        <span class="bwmsprite inr-grey-xxsm-icon"></span>
-                                        <span class="font14 text-bold">50,000</span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/new/bike-search/?budget=50000-100000">
-                                    <span class="budget-title-box font14">
-                                        Between
-                                    </span>
-                                    <span class="budget-amount-box font14 text-bold">
-                                        <span class="bwmsprite inr-grey-xxsm-icon"></span>
-                                        <span>50,000 - </span>
-                                        <span class="bwmsprite inr-grey-xxsm-icon"></span>
-                                        <span>1</span>
-                                        <span class="budget-amount-text-box">Lac</span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/new/bike-search/?budget=100000-250000">
-                                    <span class="budget-title-box font14">
-                                        Between
-                                    </span>
-                                    <span class="budget-amount-box font14 text-bold">
-                                        <span class="bwmsprite inr-grey-xxsm-icon"></span>
-                                        <span>1</span>
-                                        <span class="budget-amount-text-box">Lac</span>
-                                        <span>- </span>
-                                        <span class="bwmsprite inr-grey-xxsm-icon"></span>
-                                        <span>2.5</span>
-                                        <span class="budget-amount-text-box">Lac</span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/new/bike-search/?budget=250000-">
-                                    <span class="budget-title-box font14">
-                                        Above
-                                    </span>
-                                    <span class="budget-amount-box font14 text-bold">
-                                        <span class="bwmsprite inr-grey-xxsm-icon"></span>
-                                        <span>2.5</span>
-                                        <span class="budget-amount-text-box">Lac</span>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul class="block-button-list text-center">
+                        <li>
+                            <a href="/m/new/bike-search/?budget=0-50000" class="list-item">
+                                <span class="block-key-field">Upto</span>
+                                <span class="block">
+                                    <span class="bwmsprite inr-grey-xxsm-icon"></span>
+                                    <span class="font14 text-bold">50,000</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/new/bike-search/?budget=50000-100000" class="list-item">
+                                <span class="block-key-field">Between</span>
+                                <span class="block font14 text-bold">
+                                    <span class="bwmsprite inr-grey-xxsm-icon"></span>
+                                    <span>50,000 - </span>
+                                    <span class="bwmsprite inr-grey-xxsm-icon"></span>
+                                    <span>1 Lac</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/new/bike-search/?budget=100000-250000" class="list-item">
+                                <span class="block-key-field">Between</span>
+                                <span class="block font14 text-bold">
+                                    <span class="bwmsprite inr-grey-xxsm-icon"></span>
+                                    <span>1 Lac</span>
+                                    <span>- </span>
+                                    <span class="bwmsprite inr-grey-xxsm-icon"></span>
+                                    <span>2.5 Lac</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/new/bike-search/?budget=250000-" class="list-item">
+                                <span class="block-key-field">Above</span>
+                                <span class="block">
+                                    <span class="bwmsprite inr-grey-xxsm-icon"></span>
+                                    <span class="font14 text-bold">2.5 Lac</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="bw-tabs-data hide" id="discoverMileage">
-                    <div class="mileage-container">
-                        <ul class="text-center">
-                            <li>
-                                <a href="/m/new/bike-search/?mileage=1">
-                                    <span class="mileage-title-box font14">
-                                        Above
-                                    </span>
-                                    <span class="mileage-amount-box">
-                                        <span class="font14 text-bold">70 Kmpl</span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/new/bike-search/?mileage=2">
-                                    <span class="mileage-title-box font14">
-                                        Between
-                                    </span>
-                                    <span class="mileage-amount-box font14 text-bold">
-                                        <span class="">70</span>
-                                        <span class="mileage-amount-text-box">Kmpl</span>
-                                        <span class="">- 50</span>
-                                        <span class="mileage-amount-text-box">Kmpl</span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/new/bike-search/?mileage=3">
-                                    <span class="mileage-title-box font14">
-                                        Between
-                                    </span>
-                                    <span class="mileage-amount-box font14 text-bold">
-                                        <span class="">50</span>
-                                        <span class="mileage-amount-text-box">Kmpl</span>
-                                        <span class="">- 30</span>
-                                        <span class="mileage-amount-text-box">Kmpl</span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/new/bike-search/?mileage=4">
-                                    <span class="mileage-title-box font14">
-                                        Upto
-                                    </span>
-                                    <span class="mileage-amount-box">
-                                        <span class="font14 text-bold">30 Kmpl</span>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul class="block-button-list text-center">
+                        <li>
+                            <a href="/m/new/bike-search/?mileage=1" class="list-item">
+                                <span class="block-key-field font14">Above</span>
+                                <span class="block">
+                                    <span class="font14 text-bold">70 Kmpl</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/new/bike-search/?mileage=2" class="list-item">
+                                <span class="block-key-field font14">Between</span>
+                                <span class="block font14 text-bold">
+                                    <span class="">70</span>
+                                    <span class="mileage-amount-text-box">Kmpl</span>
+                                    <span class="">- 50</span>
+                                    <span class="mileage-amount-text-box">Kmpl</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/new/bike-search/?mileage=3" class="list-item">
+                                <span class="block-key-field font14">Between</span>
+                                <span class="block font14 text-bold">
+                                    <span class="">50</span>
+                                    <span class="mileage-amount-text-box">Kmpl</span>
+                                    <span class="">- 30</span>
+                                    <span class="mileage-amount-text-box">Kmpl</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/new/bike-search/?mileage=4" class="list-item">
+                                <span class="block-key-field font14">Upto</span>
+                                <span class="block">
+                                    <span class="font14 text-bold">30 Kmpl</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="bw-tabs-data hide" id="discoverStyle">
-                    <div class="style-type-container">
-                        <ul class="text-center">
-                            <li>
-                                <a href="/m/new/bike-search/?ridestyle=5">
-                                    <span class="style-type">
-                                        <span class="styletypesprite style-scooters"></span>
-                                    </span>
-                                    <span class="style-type-title">Scooters</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/new/bike-search/?ridestyle=3">
-                                    <span class="style-type">
-                                        <span class="styletypesprite style-street"></span>
-                                    </span>
-                                    <span class="style-type-title">Street</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/new/bike-search/?ridestyle=1">
-                                    <span class="style-type">
-                                        <span class="styletypesprite style-cruiser"></span>
-                                    </span>
-                                    <span class="style-type-title">Cruiser</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/m/new/bike-search/?ridestyle=2">
-                                    <span class="style-type">
-                                        <span class="styletypesprite style-sports"></span>
-                                    </span>
-                                    <span class="style-type-title">Sports</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="bw-tabs-data style-type-container hide" id="discoverStyle">
+                    <ul class="block-button-list text-center">
+                        <li>
+                            <a href="/m/new/bike-search/?ridestyle=5" class="list-item">
+                                <span class="style-type">
+                                    <span class="styletypesprite style-scooters"></span>
+                                </span>
+                                <span class="style-type-title">Scooters</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/new/bike-search/?ridestyle=3" class="list-item">
+                                <span class="style-type">
+                                    <span class="styletypesprite style-street"></span>
+                                </span>
+                                <span class="style-type-title">Street</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/new/bike-search/?ridestyle=1" class="list-item">
+                                <span class="style-type">
+                                    <span class="styletypesprite style-cruiser"></span>
+                                </span>
+                                <span class="style-type-title">Cruiser</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/m/new/bike-search/?ridestyle=2" class="list-item">
+                                <span class="style-type">
+                                    <span class="styletypesprite style-sports"></span>
+                                </span>
+                                <span class="style-type-title">Sports</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

@@ -188,6 +188,7 @@ docReady(function () {
             "dealerDescription": ele.attr('data-item-description'),
             "pinCodeRequired": ele.attr("data-ispincodrequired"),
             "dealersRequired": ele.attr("data-dealersRequired"),
+            "eventcategory" : ele.attr("c"),
             "gaobject": {
                 cat: ele.attr("c"),
                 act: ele.attr("a"),
@@ -198,6 +199,7 @@ docReady(function () {
         if (leadOptions.dealersRequired) {
             generateDealerDropdown();
         }
+        gaLabel = getBikeVersionLocation();
         dleadvm.setOptions(leadOptions);
     });
     function generateDealerDropdown() {
@@ -288,7 +290,7 @@ docReady(function () {
 
     getOnRoadPriceBtn = $("#getOnRoadPriceBtn"),
     onroadPriceConfirmBtn = $("#onroadPriceConfirmBtn");
-
+    
     (function ($) {
 
         var connector = function (itemNavigation, carouselStage) {

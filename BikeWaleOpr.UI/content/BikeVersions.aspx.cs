@@ -252,6 +252,14 @@ namespace BikeWaleOpr.Content
                      vupdatedby=@vupdatedby
                      where id=@key";
 
+            if (!chkNew1.Checked)
+            {
+                uint makeId;
+                uint.TryParse(Request.Form["cmbMakes"], out makeId);
+                deleteVersionMostPopularBikes(Convert.ToUInt32(dtgrdMembers.DataKeys[e.Item.ItemIndex]), makeId);
+            }
+
+
             DbParameter[] param = new[]
                 {
                     DbFactory.GetDbParam("@versionname", DbType.String, 30, txt.Text.Trim().Replace("'", "''")),
@@ -333,6 +341,10 @@ namespace BikeWaleOpr.Content
                     nvc.Add("IsDeleted", "1");
                     SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CW, nvc);
                 }
+
+                uint makeId;
+                uint.TryParse(Request.Form["cmbMakes"], out makeId);
+                deleteVersionMostPopularBikes((uint)_versionId, makeId);
             }
             catch (SqlException ex)
             {
@@ -348,6 +360,37 @@ namespace BikeWaleOpr.Content
             // Set CurrentPageIndex to the page the user clicked.
             dtgrdMembers.CurrentPageIndex = e.NewPageIndex;
             BindGrid();
+        }
+
+        /// <summary>
+        /// Created by sajal gupta on 24-05-2017
+        /// description : This function will delete this particular version from popularbikes table and refresh the cache
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="makeId"></param>
+        void deleteVersionMostPopularBikes(uint versionId, uint makeId)
+        {
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("deleteversionmostpopularbikes"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int32, versionId));
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                }
+
+                MemCachedUtil.Remove(String.Format("BW_PopularBikesByMake_{0}", makeId));
+                //CLear popularBikes key
+
+                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
+                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
+                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
+                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            }
         }
 
         protected void Sort_Grid(Object sender, DataGridSortCommandEventArgs e)

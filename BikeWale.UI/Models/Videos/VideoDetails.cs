@@ -57,7 +57,7 @@ namespace Bikewale.Models
                     model.VideoId = _videoId;
                     if (model.Video.MakeName != null || model.Video.ModelName != null)
                         model.IsBikeTagged = true;
-                    model.DisplayDate = FormatDate.GetFormatDate(model.Video.DisplayDate, "MMMM dd, yyyy");
+                    model.DisplayDate = FormatDate.GetFormatDate(model.Video.DisplayDate, "dd MMMM yyyy");
                     model.Description = FormatDescription.SanitizeHtml(model.Video.Description);
                     model.SmallDescription = model.IsSmallDescription ? StrinHtmlHelpers.TruncateHtml(_videoEntity.Description, 200, " ..") : "";
                     CreateDescriptionTag(model);

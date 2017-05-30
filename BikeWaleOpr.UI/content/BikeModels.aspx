@@ -182,17 +182,19 @@
 				<%--<ItemStyle BackColor="#FFFF7F"></ItemStyle>--%>
 				<itemtemplate>
 					<div class="<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Futuristic" )) ? "yellow" : Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "New" )) ? "green" : "orange" %>"><%# DataBinder.Eval( Container.DataItem, "Name" ) %></div>
-				</itemtemplate>
+				    <span id="makeMaskName"><asp:hiddenfield id="hdnMakeMasking" runat="server" Value='<%# DataBinder.Eval( Container.DataItem, "makemasking" ) %>'></asp:hiddenfield></span>
+                </itemtemplate>
 				<edititemtemplate>
 					<asp:TextBox ID="txtModelName" MaxLength="50" Columns="15" Text='<%# DataBinder.Eval( Container.DataItem, "Name" ) %>' runat="server" />
+					<asp:TextBox ID="TextBox1" MaxLength="50" Columns="15" Text='<%# DataBinder.Eval( Container.DataItem, "Name" ) %>' runat="server" />
 					<asp:Label Visible="false" ID="lblMakeId" Text='<%# DataBinder.Eval( Container.DataItem, "BikeMakeId" ) %>' runat="server"></asp:Label>
 				</edititemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="Masking Name" ItemStyle-Width="350">
 				<itemtemplate>
-				  <span><%# DataBinder.Eval( Container.DataItem, "MaskingName" ) %></span>&nbsp;&nbsp;<a ID="editId_<%# DataBinder.Eval( Container.DataItem, "ID" ) %>" class='pointer <%# string.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "MaskingName" ).ToString()) ? "hide" : "" %>' title="Update Masking Name">Edit</a> 
+				  <span><%# DataBinder.Eval( Container.DataItem, "MaskingName" ) %></span>&nbsp;&nbsp;<a ID="editId_<%# DataBinder.Eval( Container.DataItem, "ID" ) %>"  data-modelname='<%# DataBinder.Eval( Container.DataItem, "Name" ) %>' class='pointer <%# string.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "MaskingName" ).ToString()) ? "hide" : "" %>' title="Update Masking Name">Edit</a> 
 				</itemtemplate>            
-			</asp:TemplateColumn>
+			    </asp:TemplateColumn>
 			<asp:BoundColumn DataField="BikeMakeId" ReadOnly="true" ItemStyle-CssClass="doNotDisplay" HeaderStyle-CssClass="doNotDisplay" />
 			<asp:TemplateColumn HeaderText="CC Segment" ItemStyle-Width="1100">
 				<itemtemplate>
@@ -290,10 +292,10 @@
 				<itemtemplate>
                     <div class="text-align-center">
 					    <input type="button" value="Add" onclick="javascript:window.open('bikesynopsis.aspx?model=<%# DataBinder.Eval( Container.DataItem, "ID" ) %>    ','','left=200,width=900,height=600,scrollbars=yes')" />
-                    </div>
-				</itemtemplate>
-			</asp:TemplateColumn>
-		</columns>
+                    </div>                    
+                    </itemtemplate>
+			</asp:TemplateColumn>  
+		</columns>        
 	</asp:datagrid>
     <div id="divMaskName" class="hide">
         <div id="divWarnMsg" class="errorMessage">
@@ -315,7 +317,7 @@
         </div>
     </div>
     <script type="text/javascript" language="javascript">
-
+        var makeName;
         $(".deleteBike").click(function () {
             if (!confirm("Do you really want to delete this model."))
             {
@@ -437,6 +439,8 @@
 		        var modelId = $(this).attr("id").split("_")[1];	
 		        var objOldMask = $(this).siblings();
 		        var oldMaskingName = objOldMask.text();
+		        var makeName;
+		        var modelName=$(this).attr("data-modelname");
 
 		        objYes.click(function(){
 		            boxObj.find("#divWarnMsg").hide();
@@ -451,7 +455,7 @@
 		        boxObj.find("#btnUpdateMaskName").click(function () {
 		            var maskName = boxObj.find("#txtUpdMaskName").val();
 		            var errMask = boxObj.find("#errUpdMaskName");  
-		   
+		            
 		            errMask.text("");
 
 		            if (maskName == ""|| maskName == null)
@@ -467,12 +471,17 @@
 		                maskName = maskName.trim();
 		                maskName = maskName.replace(/\s+/g, "-");
 		                maskName = removeHyphens(maskName);
-		                //$('#txtUpdMaskName').val(maskName);
-					
+		                var makeMasking = $('#makeMaskName input[type=hidden]').val();
+
+		                if ($("#cmbMakes option:selected").val() != '0') 
+		                {
+		                    makeName = $("#cmbMakes option:selected").text();		                    
+		                }
+		                
 		                $.ajax({
 		                    type: "POST",
 		                    url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-		                    data: '{"maskingName":"' + maskName + '","updatedBy":"'+ updBy +'","modelId":"' + modelId + '"}',
+		                    data: '{"maskingName":"' + maskName + '","updatedBy":"'+ updBy +'","modelId":"' + modelId + '","makeMasking":"'+ makeMasking + '","oldMaskingName":"'+ oldMaskingName+'","makeName":"'+ makeName+'","modelName":"'+ modelName+'"}',
 		                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "UpdateModelMaskingName"); },
 		                    success: function (response) {
 		                        if(eval('(' + response + ')').value)

@@ -11,6 +11,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
@@ -59,6 +60,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IBikeCompareCacheRepository _objCompare;
         private readonly IUserReviewsCache _userReviewCache;
         private readonly IUsedBikesCache _usedBikesCache;
+        private readonly IUpcoming _upcoming = null;
 
         private ModelPageVM objData = null;
         private uint _modelId, _cityId, _areaId;
@@ -77,7 +79,7 @@ namespace Bikewale.Models.BikeModels
         public LeadSourceEnum LeadSource { get; set; }
         public bool IsMobile { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes)
+        public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -88,6 +90,7 @@ namespace Bikewale.Models.BikeModels
             _objDealerDetails = objDealerDetails;
             _objVersionCache = objVersionCache;
             _objBestBikes = objBestBikes;
+            _upcoming = upcoming;
 
             _objArticles = objArticles;
             _objVideos = objVideos;
@@ -135,6 +138,8 @@ namespace Bikewale.Models.BikeModels
 
                     CreateMetas();
 
+                    BindVersionPriceListSummary();
+
                     #endregion Do Not change the sequence
                 }
             }
@@ -144,6 +149,79 @@ namespace Bikewale.Models.BikeModels
             }
 
             return objData;
+
+        }
+
+        private void BindVersionPriceListSummary()
+        {
+            try
+            {
+                if (objData.IsModelDetails)
+                {
+                    string specsDescirption = string.Empty;
+                    string cityList = string.Empty;
+                    string versionDescirption = objData.ModelPageEntity.ModelVersions.Count > 1 ? string.Format(" It is available in {0} versions", objData.ModelPageEntity.ModelVersions.Count) : string.Format(" It is available in {0} version", objData.ModelPageEntity.ModelVersions.Count);
+                    ushort index = 0;
+                    if (objData.ModelPageEntity.ModelVersions != null && objData.ModelPageEntity.ModelVersions.Count() > 1)
+                    {
+                        versionDescirption += "- ";
+                        foreach (var version in objData.ModelPageEntity.ModelVersions)
+                        {
+
+
+
+                            index++;
+                            if (objData.ModelPageEntity.ModelVersions.Count() <= index)
+                                break;
+                            else if (index > 1)
+                                versionDescirption += ",";
+                            versionDescirption = string.Format("{0} {1}", versionDescirption, version.VersionName);
+
+
+                        }
+                        versionDescirption = string.Format("{0} and {1}", versionDescirption, objData.ModelPageEntity.ModelVersions.Last().VersionName);
+                    }
+                    if (objData.ModelPageEntity.ModelVersions != null && objData.ModelPageEntity.ModelVersions.Count() == 1)
+                        versionDescirption = string.Format("{0}", objData.ModelPageEntity.ModelVersions.First().VersionName);
+                    string priceDescription = string.Empty;
+                    if (objData.BikePrice > 0 && objData.IsLocationSelected && objData.City != null)
+                        priceDescription = string.Format("Price - &#x20B9; {0} onwards (On-road, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(objData.BikePrice)), objData.City.CityName);
+                    else
+                        priceDescription = objData.ModelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("Price - &#x20B9; {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(objData.ModelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
+                                        
+                    index = 0;
+                    if (objData.PriceInTopCities != null && objData.PriceInTopCities.PriceQuoteList != null&& objData.PriceInTopCities.PriceQuoteList.Count()>1)
+                    {
+                        cityList = objData.PriceInTopCities.PriceQuoteList != null && objData.PriceInTopCities.PriceQuoteList.Count() > 0 ? string.Format(". See price of {0} in top {1}:", objData.ModelPageEntity.ModelDetails.ModelName, objData.PriceInTopCities.PriceQuoteList.Count() > 1 ? "cities" : "city") : string.Empty;
+                        foreach (var city in objData.PriceInTopCities.PriceQuoteList)
+                        {
+                            index++;
+                            cityList = string.Format("{0} {1}", cityList, city.CityName);
+                            if (index >=3 || objData.PriceInTopCities.PriceQuoteList.Count() <= index)
+                                break;
+                            else if (index >= 1)
+                                cityList += ",";
+
+                        }
+                        cityList = string.Format("{0} and {1}", cityList, objData.PriceInTopCities.PriceQuoteList.Last().CityName);                        
+                    }
+
+                    if (objData.PriceInTopCities != null && objData.PriceInTopCities.PriceQuoteList != null && objData.PriceInTopCities.PriceQuoteList.Count() == 1)
+                    {
+                        cityList = string.Format("{0}", objData.PriceInTopCities.PriceQuoteList.First().CityName);
+                    }
+
+
+                    objData.VersionPriceListSummary = string.Format("{0} {1}{2}{3}.", objData.BikeName, priceDescription, versionDescirption, cityList);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.BikeModels.ModelPage --> BindVersionPriceListSummary()");
+            }
+
+
 
         }
 
@@ -163,7 +241,11 @@ namespace Bikewale.Models.BikeModels
 
                     string versionDescirption = objData.ModelPageEntity.ModelVersions.Count > 1 ? string.Format(" It is available in {0} versions", objData.ModelPageEntity.ModelVersions.Count) : string.Format(" It is available in {0} version", objData.ModelPageEntity.ModelVersions.Count);
 
-                    string priceDescription = objData.ModelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("Price - Rs. {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(objData.ModelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
+                    string priceDescription = string.Empty;
+                    if (objData.BikePrice > 0 && objData.IsLocationSelected && objData.City != null)
+                        priceDescription = string.Format("Price - &#x20B9; {0} onwards (On-road, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(objData.BikePrice)), objData.City.CityName);
+                    else
+                        priceDescription = objData.ModelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("Price - &#x20B9; {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(objData.ModelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
                     if (objData.ModelPageEntity != null && objData.ModelPageEntity.ModelVersionSpecs != null && (objData.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0 || objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0))
                     {
                         if ((objData.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0 && objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0))
@@ -177,7 +259,7 @@ namespace Bikewale.Models.BikeModels
                             specsDescirption = string.Format("{0} has a top speed of {1} kmph.", bikeModelName, objData.ModelPageEntity.ModelVersionSpecs.TopSpeed);
                         }
                     }
-                    objData.ModelSummary = string.Format("{0} {1}{2}.{3}{4}", objData.BikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
+                    objData.ModelSummary = string.Format("{0} {1}{2}. {3} {4}", objData.BikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
                 }
             }
             catch (Exception ex)
@@ -277,6 +359,13 @@ namespace Bikewale.Models.BikeModels
                             objData.EMIDetails = setDefaultEMIDetails(objData.BikePrice);
                         }
 
+
+
+                    }
+                    if (objData.IsUpcomingBike)
+                    {
+
+                        objData.objUpcomingBikes = BindUpCompingBikesWidget();
                     }
                 }
 
@@ -285,6 +374,39 @@ namespace Bikewale.Models.BikeModels
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindControls");
             }
+        }
+
+        /// <summary>
+        /// Created By:- Subodh Jain 23 March 2017
+        /// Summary:- Binding data for upcoming bike widget
+        /// </summary>
+        /// <returns></returns>
+        private UpcomingBikesWidgetVM BindUpCompingBikesWidget()
+        {
+            UpcomingBikesWidgetVM objUpcomingBikes = null;
+            try
+            {
+                UpcomingBikesWidget objUpcoming = new UpcomingBikesWidget(_upcoming);
+
+                objUpcoming.Filters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+                {
+                    PageSize = 10,
+                    PageNo = 1,
+                };
+                objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+                objUpcomingBikes = objUpcoming.GetData();
+                if (objUpcomingBikes != null && objUpcomingBikes.UpcomingBikes != null)
+                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Where(x => x.ModelBase.ModelId != _modelId);
+                if (objUpcomingBikes != null && objUpcomingBikes.UpcomingBikes != null)
+                    objUpcomingBikes.UpcomingBikes = objUpcomingBikes.UpcomingBikes.Take(9);
+
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Models.ModelPage.BindUpCompingBikesWidget()");
+            }
+            return objUpcomingBikes;
         }
 
         /// <summary>
@@ -947,7 +1069,7 @@ namespace Bikewale.Models.BikeModels
                         colorStr.AppendFormat("{0} is available in {1} different colours : ", objData.BikeName, colorCount);
                         var colorArr = objData.ModelPageEntity.ModelColors.Select(x => x.ColorName).Take(colorCount - 1);
                         // Comma separated colors (except last one)
-                        colorStr.Append(string.Join(",", colorArr));
+                        colorStr.Append(string.Join(", ", colorArr));
                         // Append last color with And
                         colorStr.AppendFormat(" and {0}.", lastColor);
                     }

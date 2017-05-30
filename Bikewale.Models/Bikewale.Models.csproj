@@ -80,6 +80,7 @@
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
     <Compile Include="CompareBikes\PopularComparisonsVM.cs" />
+    <Compile Include="Compare\CompareDetailsVM.cs" />
     <Compile Include="Compare\CompareVM.cs" />
     <Compile Include="Compare\ComparisonWidgetVM.cs" />
     <Compile Include="ComparisonTests\ComparisonTestIndexPageVM.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Features\DetailFeatureVM.cs" />
     <Compile Include="Features\IndexFeatureVM.cs" />
     <Compile Include="ExpertReviews\ExpertReviewsDetailPageVM.cs" />
+    <Compile Include="GenericBestBikes\IndexBestBikesVM.cs" />
     <Compile Include="Make\BrandCityPopupVM.cs" />
     <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />
     <Compile Include="Make\MakePageVM.cs" />

@@ -1,4 +1,6 @@
-﻿using BikewaleOpr.BAL.ContractCampaign;
+﻿using Bikewale.Notifications;
+using Bikewale.Utility;
+using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
 using BikewaleOpr.DALs.ManufactureCampaign;
@@ -197,13 +199,23 @@ namespace BikeWaleOpr.Common
         /// <returns>nothing</returns>
 
         [AjaxPro.AjaxMethod()]
-        public bool UpdateModelMaskingName(string maskingName, string updatedBy, string modelId)
+        public bool UpdateModelMaskingName(string maskingName, string updatedBy, string modelId,string oldMaskingName,string makeMasking,string makeName, string modelName)
         {
             bool isSuccess = false;
             try
             {
                 MakeModelVersion mmv = new MakeModelVersion();
                 isSuccess = mmv.UpdateModelMaskingName(maskingName, updatedBy, modelId);
+                if (isSuccess)
+                {
+                    IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
+                    string oldUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl, makeMasking, oldMaskingName);
+                    string newUrl = string.Format("{0}/{1}-bikes/{2}/", BWOprConfiguration.Instance.BwHostUrl,makeMasking, maskingName);
+                    foreach (var mailId in emails)
+                    {
+                        SendEmailOnModelChange.SendModelMaskingNameChangeMail(mailId, makeName, modelName,oldUrl,newUrl);
+                    }
+                }
             }
             catch (Exception err)
             {
@@ -415,7 +427,7 @@ namespace BikeWaleOpr.Common
         /// </summary>
         /// <param name="profileId"></param>
         [AjaxPro.AjaxMethod()]
-        public bool ApproveListing(int inquiryId,string bikeName,string profileId)
+        public bool ApproveListing(int inquiryId, string bikeName, string profileId)
         {
             bool isSuccess = false;
             try
@@ -712,8 +724,8 @@ namespace BikeWaleOpr.Common
             return isSuccess;
         }
 
-        
-       
+
+
         /// <summary>
         ///  Created By : Sushil Kumar
         ///  Created On : 18th April 2016

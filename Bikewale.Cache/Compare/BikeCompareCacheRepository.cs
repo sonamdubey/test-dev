@@ -71,6 +71,8 @@ namespace Bikewale.Cache.Compare
         /// <summary>
         /// Modified By : Sushil Kumar on 2nd Dec 2016
         /// Description : changed timespan for cache to 1 hour
+        /// Modified by : Aditi Srivastava on 18 May 2017
+        /// Summary     : Changed cache key due to change in entity 
         /// </summary>
         /// <param name="versions"></param>
         /// <returns></returns>
@@ -80,7 +82,7 @@ namespace Bikewale.Cache.Compare
             string key = string.Empty;
             try
             {
-                key = "BW_Compare_Bikes_" + versions.Replace(',', '_');
+                key = "BW_Compare_Bikes_v2" + versions.Replace(',', '_');
                 compareEntity = _cache.GetFromCache<BikeCompareEntity>(key, new TimeSpan(1, 0, 0), () => _compareRepository.DoCompare(versions));
             }
             catch (Exception ex)
@@ -147,6 +149,8 @@ namespace Bikewale.Cache.Compare
         /// <summary>
         /// Created By :   Sushil Kumar on 2nd Feb 2017
         /// Description :   To cache bikecomparision data
+        /// Modified by : Aditi Srivastava on 18 May 2017
+        /// Summary     : Changed cache key due to change in entity
         /// </summary>
         /// <param name="versions"></param>
         /// <param name="cityId"></param>
@@ -157,7 +161,7 @@ namespace Bikewale.Cache.Compare
             string key = string.Empty;
             try
             {
-                key = string.Format("BW_Compare_Bikes_{0}_City_{1}", versions.Replace(',', '_'), cityId);
+                key = string.Format("BW_Compare_Bikes_v2_{0}_City_{1}", versions.Replace(',', '_'), cityId);
                 compareEntity = _cache.GetFromCache<BikeCompareEntity>(key, new TimeSpan(1, 0, 0), () => _compareRepository.DoCompare(versions, cityId));
             }
             catch (Exception ex)

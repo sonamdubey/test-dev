@@ -98,6 +98,11 @@ namespace Bikewale.DAL.BikeData
             throw new NotImplementedException();
         }
 
+        public IEnumerable<BikeModelVersionsDetails> GetModelVersions()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
             List<BikeVersionMinSpecs> objMinSpecs = new List<BikeVersionMinSpecs>();
@@ -225,6 +230,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Summary : Function to get all specifications for the given version id.
         /// Modified By : Sadhana on 20 Aug 2014 to get row no. retrieved.
+        /// Modified by : Aditi Srivastava on 25 may 2017
+        /// Summary     : Changed boolean parameters to nullable boolean
         /// </summary>
         /// <param name="versionId">Only positive numbers are allowed.</param>
         /// <returns>Returns object containing all specifications of the given version.</returns>
@@ -373,46 +380,46 @@ namespace Bikewale.DAL.BikeData
                         objSpecs.FrontSuspension = paramColl["par_frontsuspension"].Value.ToString();
                         objSpecs.RearSuspension = paramColl["par_rearsuspension"].Value.ToString();
                         objSpecs.BrakeType = paramColl["par_braketype"].Value.ToString();
-                        objSpecs.FrontDisc = Convert.ToBoolean(paramColl["par_frontdisc"].Value);
+                        objSpecs.FrontDisc = paramColl["par_frontdisc"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_frontdisc"].Value) : null;
                         objSpecs.FrontDisc_DrumSize = Convert.ToUInt16(paramColl["par_frontdisc_drumsize"].Value);
-                        objSpecs.RearDisc = Convert.ToBoolean(paramColl["par_reardisc"].Value);
+                        objSpecs.RearDisc = paramColl["par_reardisc"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_reardisc"].Value) : null;
                         objSpecs.RearDisc_DrumSize = Convert.ToUInt16(paramColl["par_reardisc_drumsize"].Value);
                         objSpecs.CalliperType = paramColl["par_callipertype"].Value.ToString();
                         objSpecs.WheelSize = Convert.ToSingle(paramColl["par_wheelsize"].Value);
                         objSpecs.FrontTyre = paramColl["par_fronttyre"].Value.ToString();
                         objSpecs.RearTyre = paramColl["par_reartyre"].Value.ToString();
-                        objSpecs.TubelessTyres = Convert.ToBoolean(paramColl["par_tubelesstyres"].Value);
-                        objSpecs.RadialTyres = Convert.ToBoolean(paramColl["par_radialtyres"].Value);
-                        objSpecs.AlloyWheels = Convert.ToBoolean(paramColl["par_alloywheels"].Value);
+                        objSpecs.TubelessTyres = paramColl["par_tubelesstyres"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_tubelesstyres"].Value) : null;
+                        objSpecs.RadialTyres = paramColl["par_radialtyres"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_radialtyres"].Value) : null; 
+                        objSpecs.AlloyWheels = paramColl["par_alloywheels"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_alloywheels"].Value) : null;
                         objSpecs.ElectricSystem = paramColl["par_electricsystem"].Value.ToString();
                         objSpecs.Battery = paramColl["par_battery"].Value.ToString();
                         objSpecs.HeadlightType = paramColl["par_headlighttype"].Value.ToString();
                         objSpecs.HeadlightBulbType = paramColl["par_headlightbulbtype"].Value.ToString();
                         objSpecs.Brake_Tail_Light = paramColl["par_brake_tail_light"].Value.ToString();
                         objSpecs.TurnSignal = paramColl["par_turnsignal"].Value.ToString();
-                        objSpecs.PassLight = Convert.ToBoolean(paramColl["par_passlight"].Value);
+                        objSpecs.PassLight = paramColl["par_passlight"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_passlight"].Value) : null;
                         objSpecs.Speedometer = paramColl["par_speedometer"].Value.ToString();
-                        objSpecs.Tachometer = Convert.ToBoolean(paramColl["par_tachometer"].Value);
+                        objSpecs.Tachometer = paramColl["par_tachometer"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_tachometer"].Value) : null;
                         objSpecs.TachometerType = paramColl["par_tachometertype"].Value.ToString();
-                        objSpecs.ShiftLight = Convert.ToBoolean(paramColl["par_shiftlight"].Value);
-                        objSpecs.ElectricStart = Convert.ToBoolean(paramColl["par_electricstart"].Value);
-                        objSpecs.Tripmeter = Convert.ToBoolean(paramColl["par_tripmeter"].Value);
+                        objSpecs.ShiftLight = paramColl["par_shiftlight"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_shiftlight"].Value) : null; 
+                        objSpecs.ElectricStart = paramColl["par_electricstart"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_electricstart"].Value) : null; 
+                        objSpecs.Tripmeter = paramColl["par_tripmeter"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_tripmeter"].Value) : null; 
                         objSpecs.NoOfTripmeters = paramColl["par_nooftripmeters"].Value.ToString();
                         objSpecs.TripmeterType = paramColl["par_tripmetertype"].Value.ToString();
-                        objSpecs.LowFuelIndicator = Convert.ToBoolean(paramColl["par_lowfuelindicator"].Value);
-                        objSpecs.LowOilIndicator = Convert.ToBoolean(paramColl["par_lowoilindicator"].Value);
-                        objSpecs.LowBatteryIndicator = Convert.ToBoolean(paramColl["par_lowbatteryindicator"].Value);
-                        objSpecs.FuelGauge = Convert.ToBoolean(paramColl["par_fuelgauge"].Value);
-                        objSpecs.DigitalFuelGauge = Convert.ToBoolean(paramColl["par_digitalfuelgauge"].Value);
-                        objSpecs.PillionSeat = Convert.ToBoolean(paramColl["par_pillionseat"].Value);
-                        objSpecs.PillionFootrest = Convert.ToBoolean(paramColl["par_pillionfootrest"].Value);
-                        objSpecs.PillionBackrest = Convert.ToBoolean(paramColl["par_pillionbackrest"].Value);
-                        objSpecs.PillionGrabrail = Convert.ToBoolean(paramColl["par_PillionGrabrail"].Value);
-                        objSpecs.StandAlarm = Convert.ToBoolean(paramColl["par_standalarm"].Value);
-                        objSpecs.SteppedSeat = Convert.ToBoolean(paramColl["par_SteppedSeat"].Value);
-                        objSpecs.AntilockBrakingSystem = Convert.ToBoolean(paramColl["par_antilockbrakingsystem"].Value);
-                        objSpecs.Killswitch = Convert.ToBoolean(paramColl["par_killswitch"].Value);
-                        objSpecs.Clock = Convert.ToBoolean(paramColl["par_clock"].Value);
+                        objSpecs.LowFuelIndicator = paramColl["par_lowfuelindicator"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_lowfuelindicator"].Value) : null;
+                        objSpecs.LowOilIndicator = paramColl["par_lowoilindicator"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_lowoilindicator"].Value) : null;
+                        objSpecs.LowBatteryIndicator = paramColl["par_lowbatteryindicator"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_lowbatteryindicator"].Value) : null;
+                        objSpecs.FuelGauge = paramColl["par_fuelgauge"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_fuelgauge"].Value) : null;
+                        objSpecs.DigitalFuelGauge = paramColl["par_digitalfuelgauge"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_digitalfuelgauge"].Value) : null;
+                        objSpecs.PillionSeat = paramColl["par_pillionseat"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_pillionseat"].Value) : null;
+                        objSpecs.PillionFootrest = paramColl["par_pillionfootrest"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_pillionfootrest"].Value) : null;
+                        objSpecs.PillionBackrest = paramColl["par_pillionbackrest"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_pillionbackrest"].Value) : null;
+                        objSpecs.PillionGrabrail = paramColl["par_PillionGrabrail"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_PillionGrabrail"].Value) : null; 
+                        objSpecs.StandAlarm = paramColl["par_standalarm"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_standalarm"].Value) : null; 
+                        objSpecs.SteppedSeat = paramColl["par_SteppedSeat"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_SteppedSeat"].Value) : null; 
+                        objSpecs.AntilockBrakingSystem = paramColl["par_antilockbrakingsystem"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_antilockbrakingsystem"].Value) : null;
+                        objSpecs.Killswitch = paramColl["par_killswitch"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_killswitch"].Value) : null;
+                        objSpecs.Clock = paramColl["par_clock"].Value != DBNull.Value ? SqlReaderConvertor.ToNullableBool(paramColl["par_clock"].Value) : null;
                         objSpecs.MaxPowerRPM = Convert.ToSingle(paramColl["par_maxpowerrpm"].Value);
                         objSpecs.MaximumTorqueRPM = Convert.ToSingle(paramColl["par_maximumtorquerpm"].Value);
                         objSpecs.Colors = paramColl["par_colors"].Value.ToString();
@@ -606,5 +613,53 @@ namespace Bikewale.DAL.BikeData
             }
             return objVersionColors;
         }
+
+        /// <summary>
+        /// created by sajal gupta on 23-05-2017
+        /// description : Dal layer function to get version segm,ent details
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BikeVersionsSegment> GetModelVersionsDAL()
+        {
+            ICollection<BikeVersionsSegment> objBikeVersions = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelversions"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objBikeVersions = new List<BikeVersionsSegment>();
+                            while (dr.Read())
+                            {
+                                BikeVersionsSegment objVersion = new BikeVersionsSegment();
+                                objVersion.VersionId = SqlReaderConvertor.ToUInt32(dr["versionId"]);
+                                objVersion.BodyStyle = Convert.ToString(dr["bodystyle"]);
+                                objVersion.ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                objVersion.ModelId = SqlReaderConvertor.ToUInt32(dr["BikeModelId"]);
+                                objVersion.ModelName = Convert.ToString(dr["ModelName"]);
+                                objVersion.Segment = Convert.ToString(dr["bodySegment"]);
+                                objVersion.VersionName = Convert.ToString(dr["versionName"]);
+                                objVersion.CCSegment = Convert.ToString(dr["ClassSegmentName"]);
+                                objVersion.TopVersionId = SqlReaderConvertor.ToUInt32(dr["topversionid"]);
+                                objBikeVersions.Add(objVersion);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeVersionsRepository.GetModelVersions: {0}");
+            }
+            return objBikeVersions;
+        }
+
     }   // class
 }   // namespace

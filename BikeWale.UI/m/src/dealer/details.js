@@ -3,6 +3,7 @@ var dealerLat;
 var dealerLong;
 var locationKey;
 var googleMapAPIKey, pageUrl;
+var cityName, areaName;
 docReady(function () {
     dealerLong = document.getElementById("locationSearch").getAttribute("data-long");
     pageUrl = window.location.href;
@@ -51,7 +52,15 @@ docReady(function () {
             "clientip": clientIP,
             "isregisterpq": true,
             "isdealerbikes": true,
-            "campid":  ele.attr('data-champaignid')
+            "campid": ele.attr('data-champaignid'),
+            "dealerareaname": ele.attr('data-item-area'),
+            "dealercityname": ele.attr('data-cityname'),
+            "eventcategory": ele.attr('data-eventcategory'),
+            "gaobject": {
+                cat: ele.attr('c'),
+                act: ele.attr('a'),
+                lab: ele.attr('l')
+            }
         };
         dleadvm.setOptions(leadOptions);
     });

@@ -22,7 +22,7 @@
                     <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="article-target-link"  title="<%#DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %>"  ><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></a>
                     <div class="article-stats-left-grid">
                         <span class="bwsprite calender-grey-sm-icon"></span>
-                        <span class="article-stats-content"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(),"MMM dd, yyyy") %></span>
+                        <span class="article-stats-content"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(),"dd MMMM yyyy") %></span>
                     </div>
                     <div class="article-stats-right-grid">
                         <span class="bwsprite review-sm-lgt-grey"></span>

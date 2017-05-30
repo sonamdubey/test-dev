@@ -318,7 +318,9 @@ namespace Bikewale.DAL.BikeData
         /// Modified By : Sadhana Upadhyay on 20 Aug 2014
         /// Summary : To retrieve new and used flag
         /// Modified By: Aditi Srivastava on 25th Aug,2016
-        /// Summary: Used a different sp(earlier getmodeldetails_new) to retrieve model details using data reader
+        /// Summary: Used a different sp(earlier getmodeldetails_new) to retrieve model details using data reader'
+        /// Modified by sajal gupta on 19/05/2017
+        /// Description : Added ratings count
         /// </summary>
         /// <param name="id">Model Id should be a positive number.</param>
         /// <returns>Returns object containing the particular model's all details.</returns>
@@ -327,7 +329,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_25082016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_19052017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -358,6 +360,7 @@ namespace Bikewale.DAL.BikeData
                                 t.ModelSeries.SeriesName = string.Empty;
                                 t.ModelSeries.MaskingName = string.Empty;
                                 t.ReviewCount = Convert.ToInt32(dr["ReviewCount"]);
+                                t.RatingCount = SqlReaderConvertor.ToInt32(dr["RatingsCount"]);
                                 t.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
                                 t.ReviewUIRating = string.Format("{0:0.0}", t.ReviewRate);
                                 t.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
@@ -498,7 +501,7 @@ namespace Bikewale.DAL.BikeData
                             objModel = new UpcomingBikeEntity()
                             {
                                 ExpectedLaunchId = Convert.ToUInt16(dr["id"]),
-                                ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMM yyyy") : "",
+                                ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMMM yyyy") : "",
                                 EstimatedPriceMin = Convert.ToUInt64(dr["EstimatedPriceMin"]),
                                 EstimatedPriceMax = Convert.ToUInt64(dr["EstimatedPriceMax"]),
                                 HostUrl = Convert.ToString(dr["HostURL"]),
@@ -563,7 +566,7 @@ namespace Bikewale.DAL.BikeData
                                 UpcomingBikeEntity objModel = new UpcomingBikeEntity();
 
                                 objModel.ExpectedLaunchId = Convert.ToUInt16(dr["ExpectedLaunchId"]);
-                                objModel.ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMM yyyy") : "";
+                                objModel.ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMMM yyyy") : "";
                                 objModel.ExpectedLaunchedDate = Convert.ToDateTime(dr["ExpectedLaunch"]);
                                 objModel.EstimatedPriceMin = Convert.ToUInt64(dr["EstimatedPriceMin"]);
                                 objModel.EstimatedPriceMax = Convert.ToUInt64(dr["EstimatedPriceMax"]);
@@ -1226,13 +1229,15 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created By : Sangram Nandkhile on 01 Dec 2016
         /// Summary : Function to get all specifications of all the versions of ModelId
+        /// Modified by : Aditi Srivastava on 18 May 2017
+        /// Summary     : Changed data types of specs and features from bool to nullable bool used a versioned sp
         /// </summary>
         public IEnumerable<BikeSpecificationEntity> GetModelSpecifications(U modelId)
         {
             List<BikeSpecificationEntity> objMinspecs = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemodelspecifications"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemodelspecifications_18052017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -1252,21 +1257,21 @@ namespace Bikewale.DAL.BikeData
                                     Bore = Convert.ToSingle(dr["bore"]),
                                     Stroke = Convert.ToSingle(dr["stroke"]),
                                     ValvesPerCylinder = Convert.ToUInt16(dr["valvespercylinder"]),
-                                    FuelDeliverySystem = dr["fueldeliverysystem"].ToString(),
-                                    FuelType = dr["fueltype"].ToString(),
-                                    Ignition = dr["ignition"].ToString(),
-                                    SparkPlugsPerCylinder = dr["sparkplugspercylinder"].ToString(),
-                                    CoolingSystem = dr["coolingsystem"].ToString(),
-                                    GearboxType = dr["gearboxtype"].ToString(),
+                                    FuelDeliverySystem = Convert.ToString(dr["fueldeliverysystem"]),
+                                    FuelType = Convert.ToString(dr["fueltype"]),
+                                    Ignition = Convert.ToString(dr["ignition"]),
+                                    SparkPlugsPerCylinder = Convert.ToString(dr["sparkplugspercylinder"]),
+                                    CoolingSystem = Convert.ToString(dr["coolingsystem"]),
+                                    GearboxType = Convert.ToString(dr["gearboxtype"]),
                                     NoOfGears = Convert.ToUInt16(dr["noofgears"].ToString()),
-                                    TransmissionType = dr["transmissiontype"].ToString(),
-                                    Clutch = dr["clutch"].ToString(),
+                                    TransmissionType = Convert.ToString(dr["transmissiontype"]),
+                                    Clutch = Convert.ToString(dr["clutch"]),
                                     Performance_0_60_kmph = Convert.ToSingle(dr["performance_0_60_kmph"]),
                                     Performance_0_80_kmph = Convert.ToSingle(dr["performance_0_80_kmph"]),
                                     Performance_0_40_m = Convert.ToSingle(dr["performance_0_40_m"]),
                                     TopSpeed = Convert.ToUInt16(dr["topspeed"]),
-                                    Performance_60_0_kmph = dr["performance_60_0_kmph"].ToString(),
-                                    Performance_80_0_kmph = dr["performance_80_0_kmph"].ToString(),
+                                    Performance_60_0_kmph = Convert.ToString(dr["performance_60_0_kmph"]),
+                                    Performance_80_0_kmph = Convert.ToString(dr["performance_80_0_kmph"]),
                                     KerbWeight = Convert.ToUInt16(dr["kerbweight"]),
                                     OverallLength = Convert.ToUInt16(dr["overalllength"]),
                                     OverallWidth = Convert.ToUInt16(dr["overallwidth"]),
@@ -1278,50 +1283,50 @@ namespace Bikewale.DAL.BikeData
                                     ReserveFuelCapacity = Convert.ToSingle(dr["reservefuelcapacity"]),
                                     FuelEfficiencyOverall = Convert.ToUInt16(dr["fuelefficiencyoverall"]),
                                     FuelEfficiencyRange = Convert.ToUInt16(dr["fuelefficiencyrange"]),
-                                    ChassisType = dr["chassistype"].ToString(),
-                                    FrontSuspension = dr["frontsuspension"].ToString(),
-                                    RearSuspension = dr["rearsuspension"].ToString(),
+                                    ChassisType = Convert.ToString(dr["chassistype"]),
+                                    FrontSuspension = Convert.ToString(dr["frontsuspension"]),
+                                    RearSuspension = Convert.ToString(dr["rearsuspension"]),
                                     BrakeType = dr["braketype"].ToString(),
-                                    FrontDisc = Convert.ToBoolean(dr["frontdisc"]),
+                                    FrontDisc = dr["frontdisc"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["frontdisc"]) : null,
                                     FrontDisc_DrumSize = Convert.ToUInt16(dr["frontdisc_drumsize"]),
-                                    RearDisc = Convert.ToBoolean(dr["reardisc"]),
+                                    RearDisc = dr["reardisc"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["reardisc"]) : null,
                                     RearDisc_DrumSize = Convert.ToUInt16(dr["reardisc_drumsize"]),
                                     CalliperType = dr["callipertype"].ToString(),
                                     WheelSize = Convert.ToSingle(dr["wheelsize"]),
                                     FrontTyre = dr["fronttyre"].ToString(),
                                     RearTyre = dr["reartyre"].ToString(),
-                                    TubelessTyres = Convert.ToBoolean(dr["tubelesstyres"]),
-                                    RadialTyres = Convert.ToBoolean(dr["radialtyres"]),
-                                    AlloyWheels = Convert.ToBoolean(dr["alloywheels"]),
+                                    TubelessTyres = dr["tubelesstyres"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["tubelesstyres"]) : null,
+                                    RadialTyres = dr["radialtyres"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["radialtyres"]) : null,
+                                    AlloyWheels = dr["alloywheels"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["alloywheels"]) : null,
                                     ElectricSystem = dr["electricsystem"].ToString(),
                                     Battery = dr["battery"].ToString(),
                                     HeadlightType = dr["headlighttype"].ToString(),
                                     HeadlightBulbType = dr["headlightbulbtype"].ToString(),
                                     Brake_Tail_Light = dr["brake_tail_light"].ToString(),
                                     TurnSignal = dr["turnsignal"].ToString(),
-                                    PassLight = Convert.ToBoolean(dr["passlight"]),
+                                    PassLight = dr["passlight"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["passlight"]) : null,
                                     Speedometer = dr["speedometer"].ToString(),
-                                    Tachometer = Convert.ToBoolean(dr["tachometer"]),
+                                    Tachometer = dr["tachometer"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["tachometer"]) : null,
                                     TachometerType = dr["tachometertype"].ToString(),
-                                    ShiftLight = Convert.ToBoolean(dr["shiftlight"]),
-                                    ElectricStart = Convert.ToBoolean(dr["electricstart"]),
-                                    Tripmeter = Convert.ToBoolean(dr["tripmeter"]),
+                                    ShiftLight = dr["shiftlight"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["shiftlight"]) : null,
+                                    ElectricStart = dr["electricstart"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["electricstart"]) : null,
+                                    Tripmeter = dr["tripmeter"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["tripmeter"]) : null,
                                     NoOfTripmeters = dr["nooftripmeters"].ToString(),
                                     TripmeterType = dr["tripmetertype"].ToString(),
-                                    LowFuelIndicator = Convert.ToBoolean(dr["lowfuelindicator"]),
-                                    LowOilIndicator = Convert.ToBoolean(dr["lowoilindicator"]),
-                                    LowBatteryIndicator = Convert.ToBoolean(dr["lowbatteryindicator"]),
-                                    FuelGauge = Convert.ToBoolean(dr["fuelgauge"]),
-                                    DigitalFuelGauge = Convert.ToBoolean(dr["digitalfuelgauge"]),
-                                    PillionSeat = Convert.ToBoolean(dr["pillionseat"]),
-                                    PillionFootrest = Convert.ToBoolean(dr["pillionfootrest"]),
-                                    PillionBackrest = Convert.ToBoolean(dr["pillionbackrest"]),
-                                    PillionGrabrail = Convert.ToBoolean(dr["PillionGrabrail"]),
-                                    StandAlarm = Convert.ToBoolean(dr["standalarm"]),
-                                    SteppedSeat = Convert.ToBoolean(dr["SteppedSeat"]),
-                                    AntilockBrakingSystem = Convert.ToBoolean(dr["antilockbrakingsystem"]),
-                                    Killswitch = Convert.ToBoolean(dr["killswitch"]),
-                                    Clock = Convert.ToBoolean(dr["clock"]),
+                                    LowFuelIndicator = dr["lowfuelindicator"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["lowfuelindicator"]) : null,
+                                    LowOilIndicator = dr["lowoilindicator"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["lowoilindicator"]) : null,
+                                    LowBatteryIndicator = dr["lowbatteryindicator"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["lowbatteryindicator"]) : null,
+                                    FuelGauge = dr["fuelgauge"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["fuelgauge"]) : null,
+                                    DigitalFuelGauge = dr["digitalfuelgauge"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["digitalfuelgauge"]) : null,
+                                    PillionSeat = dr["pillionseat"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["pillionseat"]) : null,
+                                    PillionFootrest = dr["pillionfootrest"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["pillionfootrest"]) : null,
+                                    PillionBackrest = dr["pillionbackrest"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["pillionbackrest"]) : null,
+                                    PillionGrabrail = dr["PillionGrabrail"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["PillionGrabrail"]) : null,
+                                    StandAlarm = dr["standalarm"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["standalarm"]) : null,
+                                    SteppedSeat = dr["SteppedSeat"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["SteppedSeat"]) : null,
+                                    AntilockBrakingSystem = dr["antilockbrakingsystem"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["antilockbrakingsystem"]) : null,
+                                    Killswitch = dr["killswitch"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["killswitch"]) : null,
+                                    Clock = dr["clock"] != DBNull.Value ? SqlReaderConvertor.ToNullableBool(dr["clock"]) : null,
                                     MaxPowerRPM = Convert.ToSingle(dr["maxpowerrpm"]),
                                     MaximumTorqueRPM = Convert.ToSingle(dr["maximumtorquerpm"]),
                                     Colors = dr["colors"].ToString()
@@ -2202,7 +2207,7 @@ namespace Bikewale.DAL.BikeData
                                 bikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
                                 bikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
                                 bikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
-                                bikeInfo.OverAllRating = SqlReaderConvertor.ToUInt32(dr["overallrating"]);
+                                bikeInfo.OverAllRating = SqlReaderConvertor.ParseToDouble(dr["overallrating"]);
                                 bikeInfo.Make.MakeName = Convert.ToString(dr["makename"]);
                                 bikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
                                 bikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);

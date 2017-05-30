@@ -23,7 +23,7 @@
                 </tr>
                 @foreach (var m in Model)
                 {
-                    <tr data-makeid="@m.MakeId" data-makename="@m.MakeName" data-maskingname="@m.MaskingName" data-new="@(m.New)" data-used="@(m.Used)" data-futuristic="@(m.Futuristic)">
+                    <tr data-makeid="@m.MakeId" data-makename="@m.MakeName" data-maskingname="@m.MaskingName" data-new="@(m.New)" data-used="@(m.Used)" data-futuristic="@(m.Futuristic)" data-oldmakemasking="@m.MaskingName">
                         <td>@m.MakeId</td>
                         <td class="@(m.New && m.Used ? "teal lighten-4" : (m.Futuristic) ? "lime lighten-4" : "red lighten-4")"> @m.MakeName</td>
                         <td>@m.MaskingName</td>
@@ -56,7 +56,7 @@
                             <div class="input-field row s12">
                                 <input id="txtMakeMaskingName" type="text" class="validate" name="MaskingName" data-bind="textInput: makeMaskingName,css:makeMaskingMsg()!=''?'invalid':'' " length="50" maxlength="50">
                                 <label for="txtMakeMaskingName" data-error="" data-bind="attr:{'data-error':makeMaskingMsg},css:makeMaskingMsg()!=''?'active':''">Make Masking Name</label>
-                            </div>
+                              </div>
                             <div class="input-field row s12">
                                 <button id="btnAddMake" class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : { click : function() { return validateMakeSubmit();}}">
                                     Add Make
@@ -85,7 +85,7 @@
                     <div class="input-field row m12">
                         <input id="txtUMakeMaskingName" type="text" class="validate" name="maskingName" data-bind="textInput: makeMaskingName">
                         <label for="txtUMakeMaskingName">Masking Name</label>
-                    </div>
+                        </div>
                     <div class="input-field row m12">
                         <div class="input-field col m4">
                             <input type="checkbox" id="chkNewUpdate" name="New" data-bind="checked: selectedMake() ? selectedMake().new : false" /><label for="chkNewUpdate">New</label>
@@ -100,7 +100,8 @@
                         </div>
                     </div>
                     <input type="hidden" id="hdnUpdateMakeId" name="MakeId" data-bind="textInput: selectedMake() ? selectedMake().makeId : 0" />
-                </div>
+                    <input type="hidden" id="hdnOldMakeMasking" name="OldMakeMasking" data-bind="textInput: selectedMake() ? selectedMake().oldMakeMasking :''" />
+                 </div>
             </div>
             <div class="modal-footer">
                 <a class=" modal-action modal-close waves-effect waves-green teal white-text btn-flat" data-bind="event : {click : function() { updateMakeDetails() }}" id="btnUpdateMake" style="margin-left:5px;">Update</a>

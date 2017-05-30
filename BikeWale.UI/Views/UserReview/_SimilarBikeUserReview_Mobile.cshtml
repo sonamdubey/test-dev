@@ -13,8 +13,8 @@
                         </div>
                         <div class="swiper-details-block">
                             <h3 class="font12 text-black margin-bottom5 text-truncate">@bike.Make.MakeName @bike.Model.ModelName</h3>
-                            <span class="rating-badge" data-rate-bg="@bike.OverAllRating">
-                                <span class="bwmsprite star-white"></span>@bike.OverAllRating
+                            <span class="rating-badge" data-rate-bg="@Math.Round(bike.OverAllRating)">
+                                <span class="bwmsprite star-white"></span>@bike.OverAllRating.ToString("0.0").TrimEnd('0', '.')
                             </span>
                             <span class="font12 text-light-grey inline-block">@string.Format("{0} rating{1}", bike.NumberOfRating, (bike.NumberOfRating > 1 ? "s" : ""))</span>
                     </div>

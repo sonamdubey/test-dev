@@ -58,7 +58,7 @@
                                 </h3>
                                 <div class="grid-7 alpha padding-right5">
                                     <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content"> <%= Bikewale.Utility.FormatDate.GetFormatDate(article.DisplayDate.ToString(),"MMM dd, yyyy") %></span>
+                                    <span class="article-stats-content"> <%= Bikewale.Utility.FormatDate.GetFormatDate(article.DisplayDate.ToString(),"dd MMMM yyyy") %></span>
                                 </div>
                                 <div class="grid-5 alpha omega">
                                     <span class="bwmsprite author-grey-sm-icon"></span>

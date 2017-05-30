@@ -18,7 +18,7 @@ foreach(var video in Model.VideosList){
         <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" class="article-target-link"  title="@video.VideoTitle">@video.VideoTitle</a>
         <div class="article-stats-left-grid">
             <span class="bwsprite calender-grey-sm-icon"></span>
-            <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "MMM dd, yyyy")</span>
+            <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMMM yyyy")</span>
         </div>
         <div class="article-stats-right-grid">
             <span class="bwsprite review-sm-lgt-grey"></span>

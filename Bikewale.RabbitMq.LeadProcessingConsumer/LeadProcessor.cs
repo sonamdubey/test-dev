@@ -414,8 +414,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 {
                     string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(gaadiLead);
                     byte[] toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(jsonString);
-                    leadURL = String.Format("{1}{0}", _hondaGaddiAPIUrl, System.Convert.ToBase64String(toEncodeAsBytes));
-
+                    leadURL = String.Format("{0}{1}", _hondaGaddiAPIUrl, System.Convert.ToBase64String(toEncodeAsBytes));
+                    Logs.WriteInfoLog(String.Format("PushLeadToGaadi : {0}", leadURL));
                     using (HttpResponseMessage _response = _httpClient.GetAsync(leadURL).Result)
                     {
                         if (_response.IsSuccessStatusCode)
@@ -434,7 +434,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
             catch (Exception ex)
             {
-                Logs.WriteInfoLog(String.Format("PushLeadToGaadi : {0}", ex.Message));
+                Logs.WriteErrorLog(String.Format("PushLeadToGaadi : {0}", ex.Message));
             }
             return isSuccess;
         }

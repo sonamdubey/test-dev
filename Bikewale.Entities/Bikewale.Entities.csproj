@@ -142,6 +142,7 @@
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
     <Compile Include="BikeData\BikeModelPageEntity.cs" />
     <Compile Include="BikeData\BikeModelsListEntity.cs" />
+    <Compile Include="BikeData\BikeModelVersionsDetails.cs" />
     <Compile Include="BikeData\BikeSeriesEntity.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -153,7 +154,9 @@
     <Compile Include="BikeData\BikeVersionEntity.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionMinSpecs.cs" />
+    <Compile Include="BikeData\BikeVersionSegmentDetails.cs" />
     <Compile Include="BikeData\BikeVersionsListEntity.cs" />
+    <Compile Include="BikeData\BikeVersionsSegment.cs" />
     <Compile Include="BikeData\CompareMakeModelEntity.cs" />
     <Compile Include="BikeData\EnumBikeData.cs" />
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />

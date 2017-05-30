@@ -30,7 +30,7 @@
                     <h1 class="margin-bottom10"><%= pageTitle %></h1>
                     <div class="grid-6 alpha padding-right5">
                         <span class="bwmsprite calender-grey-sm-icon"></span>
-                        <span class="article-stats-content"><%=Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMM dd, yyyy hh:mm tt") %></span>
+                        <span class="article-stats-content"><%=Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "dd MMMM yyyy, hh:mm tt") %></span>
                     </div>
                     <div class="grid-6 alpha omega">
                         <span class="bwmsprite author-grey-sm-icon"></span>

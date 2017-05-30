@@ -239,7 +239,7 @@ namespace Bikewale.Controls
             if (_PubDate.ToString() == "")
                 return "";
             else
-                return "- " + Convert.ToDateTime(_PubDate).ToString("dd MMM yyyy");
+                return "- " + Convert.ToDateTime(_PubDate).ToString("dd MMMM yyyy");
         }
 
         //protected void GetFirstNews(DataRow dr)

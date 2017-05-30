@@ -63,7 +63,7 @@
                                 <h1><%= articleTitle%></h1>
                                 <div>
                                     <span class="bwsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %></span>
+                                    <span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "dd MMMM yyyy, hh:mm tt") %></span>
                                     <span class="bwsprite author-grey-sm-icon"></span>
                                     <span class="article-stats-content"><%= authorName%></span>
                                 </div>

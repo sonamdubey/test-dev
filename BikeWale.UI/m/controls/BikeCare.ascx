@@ -12,7 +12,7 @@
                         <a href="/m<%=Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId),article.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.TipsAndAdvices)) %>" title="<%=article.Title%>" class="target-link"><%=Bikewale.Utility.FormatDescription.TruncateDescription( article.Title, 44)%></a>
                         <div class="grid-7 alpha padding-right5">
                             <span class="bwmsprite calender-grey-sm-icon"></span>
-                            <span class="article-stats-content"><%=Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(article.DisplayDate), "MMM dd, yyyy") %></span>
+                            <span class="article-stats-content"><%=Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(article.DisplayDate), "dd MMMM yyyy") %></span>
                         </div>
                         <div class="grid-5 alpha omega">
                             <span class="bwmsprite author-grey-sm-icon"></span>

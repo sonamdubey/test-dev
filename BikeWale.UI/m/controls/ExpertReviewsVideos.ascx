@@ -16,7 +16,7 @@
                             <div class="margin-top10">
                                 <a href="/m<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="text-default font14 text-bold"><%# DataBinder.Eval(Container.DataItem,"VideoTitle")%></a>
 
-                                <p class="font12 text-xlight-grey margin-top10 margin-bottom10"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMMM dd, yyyy") %></p>
+                                <p class="font12 text-xlight-grey margin-top10 margin-bottom10"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"dd MMMM yyyy") %></p>
                                 <p class="font14 text-light-grey margin-bottom10 line-height17"><%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem,"Description").ToString(),75) %></p>
                                 <div class="grid-6 alpha omega border-light-right font14">
                                     <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-default"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString())%></span>

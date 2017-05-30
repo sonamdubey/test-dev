@@ -163,6 +163,7 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 #makeNewsContent .target-link, #makeReviewsContent .review-heading-wrapper .target-link, #makeVideosContent .target-link, #modelReviewsContent .review-heading-wrapper .target-link, #modelReviewsContent .model-user-review-title-container .target-link, #modelVideosContent .target-link { margin-bottom:7px; }
 .target-link:hover { text-decoration:underline; }
 .article-stats-content { font-size:12px; color: #82888b; width: 78%; display:inline-block; vertical-align:middle; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
+.article-stats-content-no-truncate { font-size:11px; color: #82888b; width: 78%; display:inline-block; vertical-align:middle; text-align:left; white-space:nowrap; overflow:hidden; }
 .article-stats-content.video-view-count { width: 72%; }
 .video-image-thumbnail { position:relative; height: 68px; }
 

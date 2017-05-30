@@ -1,9 +1,11 @@
-﻿using Bikewale.Utility;
+﻿using Bikewale.Notifications;
+using Bikewale.Utility;
 using BikewaleOpr.common;
 using BikeWaleOpr.Common;
 using Enyim.Caching;
 using MySql.CoreDAL;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
@@ -100,7 +102,7 @@ namespace BikeWaleOpr.Content
                 catch (SqlException ex)
                 {
                     Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                    BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
                     objErr.SendMail();
                 }
 
@@ -187,7 +189,7 @@ namespace BikeWaleOpr.Content
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             BindGrid();
@@ -214,7 +216,8 @@ namespace BikeWaleOpr.Content
             {
                 sql = @" select mo.id, mo.name, if(mo.used,1,0) as used, if(mo.new,1,0) as new, if(mo.indian,1,0) as indian,mo.maskingname, 
                 if(mo.imported,1,0) as imported, if(mo.classic,1,0) as  classic, if(mo.modified,1,0) as  modified, if(mo.futuristic,1,0) as futuristic, mo.bikemakeid,cast( mo.mocreatedon as char(24)) as createdon,cast( mo.moupdatedon  as char(24)) as updatedon,ou.username as updatedby 
-                ,bcs.classsegmentname  
+                ,bcs.classsegmentname 
+                ,mo.makemaskingname as makemasking
                 from bikemodels mo left join oprusers ou 
                 on mo.moupdatedby = ou.id 
                 left join bikeclasssegments bcs on mo.bikeclasssegmentsid = bcs.bikeclasssegmentsid 
@@ -238,7 +241,7 @@ namespace BikeWaleOpr.Content
             catch (Exception err)
             {
                 Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
         }
@@ -296,6 +299,15 @@ namespace BikeWaleOpr.Content
                     SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                 }
 
+
+                if (!chkNew1.Checked)
+                {
+                    uint makeId, modelId;
+                    uint.TryParse(lblMakeId.Text, out makeId);
+                    uint.TryParse(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), out modelId);
+                    deleteModelMostPopularBikes(modelId, makeId);
+                }
+
                 //Update Upcoming Bike
                 if (chkFuturistic1.Checked)
                     MakeUpcomingBike(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), lblMakeId.Text);
@@ -306,17 +318,24 @@ namespace BikeWaleOpr.Content
                     Trace.Warn("Writing File" + dtgrdMembers.DataKeys[e.Item.ItemIndex]);
                     WriteFileModel(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), txt.Text.Trim().Replace("'", "''"));
                 }
-
+                //trigger mail to notify that a model has been discontinued
                 if (chkUsed1.Checked && !chkFuturistic1.Checked && !chkNew1.Checked)
                 {
                     try
                     {
                         MakeModelVersion mmv = new MakeModelVersion();
                         mmv.DiscontinueBikeModel(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                        mmv.Make = cmbMakes.SelectedItem.Text;
+                        mmv.Model = txt.Text;
+                        IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
+                        foreach (var mailId in emails)
+                        {
+                            SendEmailOnModelChange.SendModelDiscontinuedEmail(mailId,mmv.Make,mmv.Model,DateTime.Now);
+                        }
                     }
                     catch (Exception ex)
                     {
-                        ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                        BikeWaleOpr.Common.ErrorClass errObj = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                         errObj.SendMail();
                     }
                 }
@@ -327,7 +346,7 @@ namespace BikeWaleOpr.Content
 
                 //Refresh memcache object for bikeModelDetails
                 MemCachedUtil.Remove(string.Format("BW_ModelDetails_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
-                MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
+                MemCachedUtil.Remove(string.Format("BW_ModelDetail_v1_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
                 MemCachedUtil.Remove(string.Format("BW_GenericBikeInfo_MO_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
                 //Refresh memcache object for popularBikes change
                 MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
@@ -336,12 +355,12 @@ namespace BikeWaleOpr.Content
             }
             catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
 
@@ -368,10 +387,11 @@ namespace BikeWaleOpr.Content
             //CLear popularBikes key
             UInt32 makeId;
             UInt32.TryParse(cmbMakes.SelectedValue, out makeId);
-            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
-            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
-            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
-            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
+
+            uint modelId;
+            uint.TryParse(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), out modelId);
+            deleteModelMostPopularBikes(modelId, makeId);
+
             BindGrid();
         }
 
@@ -421,14 +441,14 @@ namespace BikeWaleOpr.Content
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             catch (Exception err)
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
         }   // End of make upcoming bike method
@@ -485,7 +505,7 @@ namespace BikeWaleOpr.Content
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
                 isSaved = false;
             } // catch Exception
@@ -548,13 +568,13 @@ namespace BikeWaleOpr.Content
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
 
@@ -584,13 +604,43 @@ namespace BikeWaleOpr.Content
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             BindGrid();
             Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Segment Updated Successfully.');", true);
         }   // End of UpdateModelSegments
 
+        /// <summary>
+        /// Created by sajal gupta on 24-05-2017
+        /// description : This function will delete this particular model from popularbikes table and refresh the cache
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="makeId"></param>
+        void deleteModelMostPopularBikes(uint modelId, uint makeId)
+        {
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("deletemodelmostpopularbikes"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                }
+
+                MemCachedUtil.Remove(String.Format("BW_PopularBikesByMake_{0}", makeId));
+                //CLear popularBikes key
+
+                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
+                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
+                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
+                BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
+            }
+            catch (Exception ex)
+            {
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, "deleteModelMostPopularBikes");
+            }
+        }
 
         /// <summary>
         /// Written By : Ashwini Todkar on 20 March 2014
@@ -616,13 +666,13 @@ namespace BikeWaleOpr.Content
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
         }   //End of UpdateModelSegments
