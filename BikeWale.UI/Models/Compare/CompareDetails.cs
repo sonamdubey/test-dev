@@ -314,7 +314,7 @@ namespace Bikewale.Models
                     ModelMapping objCache = new ModelMapping();
                     int totalModels = models.Length;
 
-                    for (ushort iTmp = 0; iTmp < maxComparisions; iTmp++)
+                    for (ushort iTmp = 0; iTmp < totalModels; iTmp++)
                     {
                         string modelMaskingName = models[iTmp];
                         if (!string.IsNullOrEmpty(modelMaskingName) && _objModelMaskingCache != null)
