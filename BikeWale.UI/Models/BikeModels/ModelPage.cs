@@ -208,8 +208,10 @@ namespace Bikewale.Models.BikeModels
                     objData.News = new RecentNews(3, (uint)objMake.MakeId, objData.ModelId, objMake.MakeName, objMake.MaskingName, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, "News", _objArticles).GetData();
                     objData.ExpertReviews = new RecentExpertReviews(3, (uint)objMake.MakeId, objData.ModelId, objMake.MakeName, objMake.MaskingName, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, _objArticles, string.Format("{0} Reviews", objData.BikeName)).GetData();
                     objData.Videos = new RecentVideos(1, 3, (uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, objData.ModelId, objData.ModelPageEntity.ModelDetails.ModelName, objData.ModelPageEntity.ModelDetails.MaskingName, _objVideos).GetData();
-                    objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/", objMake.MaskingName, objData.ModelPageEntity.ModelDetails.MaskingName));
-
+                    if (IsMobile)
+                        objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, objData.ModelPageEntity.ModelDetails.MaskingName, (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage));
+                    else
+                        objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, objData.ModelPageEntity.ModelDetails.MaskingName, (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_ModelPage));
 
                     if (!objData.IsUpcomingBike)
                     {

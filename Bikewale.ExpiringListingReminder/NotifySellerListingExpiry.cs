@@ -1,7 +1,9 @@
 ﻿
+using Bikewale.Entities;
 using Bikewale.Entities.UrlShortner;
 using Bikewale.Notifications;
 using Bikewale.Notifications.MailTemplates.UsedBikes;
+using Bikewale.Utility;
 using Consumer;
 using System;
 
@@ -144,16 +146,36 @@ namespace Bikewale.ExpiringListingReminder
 
                 if (shortRepostUrl != null)
                     repostUrl = shortRepostUrl.ShortUrl;
-
+                string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceId={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
                 if (EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller.Equals(dayRemaining))
                 {
-                    ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, seller.makeName, seller.modelName, EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller, repostUrl,_emailHeadingOneDay);
+                    ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, 
+                        seller.makeName, 
+                        seller.modelName, 
+                        EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller, 
+                        repostUrl,
+                        _emailHeadingOneDay, 
+                        Image.GetPathToShowImages(seller.OriginalImagePath, seller.HostUrl, ImageSize._110x61), 
+                        Format.FormatNumeric(seller.RideDistance),
+                        qEncoded, 
+                        BWConfiguration.Instance.BwHostUrl,
+                        seller.ModelId);
                     objEmail.Send(seller.sellerEmail, _emailSubjectOneDay);
                     Logs.WriteInfoLog("One day remaining Email sent to inquiryId " + seller.inquiryId);
                 }
                 else
                 {
-                    ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, seller.makeName, seller.modelName, EnumSMSServiceType.BikeListingExpirySevenDaySMSToSeller, repostUrl,_emailHeadingSevenDay);
+                    ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName,
+                        seller.makeName, 
+                        seller.modelName, 
+                        EnumSMSServiceType.BikeListingExpirySevenDaySMSToSeller, 
+                        repostUrl,
+                        _emailHeadingSevenDay,
+                        Image.GetPathToShowImages(seller.OriginalImagePath, seller.HostUrl, ImageSize._110x61),
+                        Format.FormatNumeric(seller.RideDistance),
+                        qEncoded,
+                        BWConfiguration.Instance.BwHostUrl,
+                        seller.ModelId);
                     objEmail.Send(seller.sellerEmail, _emailSubjectSevenDay);
                     Logs.WriteInfoLog("Seven day remaining Email sent to inquiryId " + seller.inquiryId);
                 }
