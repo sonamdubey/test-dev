@@ -31,7 +31,7 @@ namespace BikewaleOpr.BAL.Used
         /// <param name="isApproved"></param>
         /// <param name="approvedBy"></param>
         /// <returns></returns>
-        public bool SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy, string profileId, string bikeName)
+        public bool SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy, string profileId, string bikeName, uint modelId)
         {
             bool isSuccess = _sellerRepo.SaveEditedInquiry(inquiryId, isApproved, approvedBy);
             if (isSuccess)
@@ -44,7 +44,7 @@ namespace BikewaleOpr.BAL.Used
                     string modelImage = Bikewale.Utility.Image.GetModelImage(seller.HostUrl, seller.OriginalImagePath, Bikewale.Utility.ImageSize._110x61);
                     if (isApproved == 0)
                     {
-                        SendEmailSMSToDealerCustomer.UsedBikeEditedRejectionEmailToSeller(seller.SellerDetails, profileId, bikeName, modelImage, seller.RideDistance, "");
+                        SendEmailSMSToDealerCustomer.UsedBikeEditedRejectionEmailToSeller(seller.SellerDetails, profileId, bikeName, modelImage, seller.RideDistance);
                         newSms.RejectionEditedUsedSellListingSMS(
                             EnumSMSServiceType.RejectionEditedUsedBikeListingToSeller,
                             seller.SellerDetails.CustomerMobile,
@@ -55,7 +55,9 @@ namespace BikewaleOpr.BAL.Used
                     }
                     else
                     {
-                        SendEmailSMSToDealerCustomer.UsedBikeEditedApprovalEmailToSeller(seller.SellerDetails, profileId, bikeName, modelImage, seller.RideDistance, "");
+                        string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceId={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
+                        string writeReview = string.Format("{0}/rate-your-bike/{1}/?q={2}", Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrl, modelId, qEncoded);
+                        SendEmailSMSToDealerCustomer.UsedBikeEditedApprovalEmailToSeller(seller.SellerDetails, profileId, bikeName, modelImage, seller.RideDistance, writeReview);
                         newSms.ApprovalEditedUsedSellListingSMS(
                             EnumSMSServiceType.ApprovalEditedUsedBikeListingToSeller,
                             seller.SellerDetails.CustomerMobile,

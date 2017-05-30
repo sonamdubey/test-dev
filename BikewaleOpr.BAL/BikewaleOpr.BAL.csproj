@@ -85,6 +85,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Utils">
+      <HintPath>..\..\..\..\work\bikewaleweb\Libs\Utils.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BikeModels.cs" />

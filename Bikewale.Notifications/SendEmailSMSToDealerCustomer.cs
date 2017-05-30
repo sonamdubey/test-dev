@@ -506,9 +506,9 @@ namespace Bikewale.Notifications
         /// <param name="profileId"></param>
         /// <param name="bikeName"></param>
         /// <param name="formattedPrice"></param>
-        public static void UsedBikeEditedRejectionEmailToSeller(CustomerEntityBase seller, string profileId, string bikeName, string modelImage, string kms, string writeReviewLink)
+        public static void UsedBikeEditedRejectionEmailToSeller(CustomerEntityBase seller, string profileId, string bikeName, string modelImage, string kms)
         {
-            ComposeEmailBase objEmail = new EditedListingRejectionEmailToSeller(seller.CustomerName, profileId, bikeName, modelImage, kms, writeReviewLink);
+            ComposeEmailBase objEmail = new EditedListingRejectionEmailToSeller(seller.CustomerName, profileId, bikeName, modelImage, kms);
             objEmail.Send(seller.CustomerEmail, String.Format("Changes to your {0} bike listing have been discarded on BikeWale.", bikeName));
         }
 

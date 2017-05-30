@@ -80,11 +80,14 @@ namespace Bikewale.BAL.UsedBikes
                     else
                     {
                         result.Status.Code = SellAdStatus.MobileVerified;
-                        if (!isEdit)
-                            SendNotification(ad);
+                        //if (!isEdit)
+                        //    SendNotification(ad);
                     }
                     ad.Status = result.Status.Code;
                     result.InquiryId = AddOrUpdateAd(ad);
+                    if (result.Status.Code == SellAdStatus.MobileVerified && !isEdit){
+                        SendNotification(ad);
+                    }
                 }
                 else // Redirect user
                 {
@@ -203,7 +206,9 @@ namespace Bikewale.BAL.UsedBikes
                 string profileId = (ad.Seller.SellerType == SellerType.Individual) ? String.Format("S{0}", ad.InquiryId) : String.Format("D{0}", ad.InquiryId);
                 ModelHostImagePath modelImage = _modelCache.GetModelPhotoInfo(ad.Model.ModelId);
                 string modelImg = Bikewale.Utility.Image.GetPathToShowImages(modelImage.OriginalImgPath, modelImage.HostURL, Bikewale.Utility.ImageSize._110x61);
-                SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString(), modelImg, ad.KiloMeters.ToString(), string.Format("https://www.bikewale.com/rate-your-bike/{0}/", ad.Model.ModelId));
+                string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceId={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
+                string writeReviewlink = string.Format("{0}/rate-your-bike/{1}/?q={2}'", BWConfiguration.Instance.BwHostUrl,ad.Model.ModelId, qEncoded);
+                SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString(), modelImg, ad.KiloMeters.ToString(), writeReviewlink);
                 SMSTypes smsType = new SMSTypes();
                 smsType.UsedSellSuccessfulListingSMS(
                     EnumSMSServiceType.SuccessfulUsedSelllistingToSeller,

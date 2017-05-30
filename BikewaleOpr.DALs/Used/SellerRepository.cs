@@ -69,11 +69,9 @@ namespace BikewaleOpr.Used
             IList<SellBikeAd> sellerListing = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getclassifiedpendinginquiries"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getclassifiedpendinginquiries_30052017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
-
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         sellerListing = new List<SellBikeAd>();
@@ -85,6 +83,8 @@ namespace BikewaleOpr.Used
                                 ad.Version = new Bikewale.Entities.BikeData.BikeVersionEntityBase();
                                 ad.InquiryId = SqlReaderConvertor.ToUInt32(dr["InquiryId"]);
                                 ad.ProfileId = Convert.ToString(dr["ProfileId"]);
+                                ad.Model = new Bikewale.Entities.BikeData.BikeModelEntityBase();
+                                ad.Model.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
                                 ad.Version = new Bikewale.Entities.BikeData.BikeVersionEntityBase();
                                 ad.Version.VersionName = Convert.ToString(dr["LiveBikeName"]);
                                 ad.NewVersion = new Bikewale.Entities.BikeData.BikeVersionEntityBase();
