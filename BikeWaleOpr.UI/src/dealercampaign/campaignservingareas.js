@@ -123,6 +123,9 @@ var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
                     break;
             }
         }
+
+        if (isValid)
+            progress.showProgress();
         
         return isValid;
     });
@@ -140,6 +143,7 @@ var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
             return false;
         }
         else {
+            progress.showProgress();
             txtAreaIdList.val(selectedAreas.substring(0, selectedAreas.length - 1));
         }        
     });
@@ -194,6 +198,7 @@ function removeAdditionalAreas() {
             validate.selectField.showError(ddlMappedAdditionalAreas, "Please select atleast one area");
             return false;
         } else {
+            progress.showProgress();
             $("#hdnMappedAreas").val(selectedAreas.substring(0, selectedAreas.length - 1));
         }
     } catch (e) {

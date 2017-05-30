@@ -175,3 +175,13 @@ var validate = {
         }
     }
 }
+
+var progress = {    
+    showProgress: function () {
+        $(".progress").removeClass("hide").addClass("show");
+    },
+
+    hideProgress: function () {
+        $(".progress").removeClass("show").addClass("hide");
+    }
+}
