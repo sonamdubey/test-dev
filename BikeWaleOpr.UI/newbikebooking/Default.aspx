@@ -109,6 +109,7 @@
     </div>
     <div><span class="errorMessage margin-top10" id="spnError"></span></div>
     <div id="bindModels">
+        <asp:HiddenField ID="alertText" runat="server"></asp:HiddenField>
         <asp:label runat="server" id="lblSaved" class="errorMessage"></asp:label>
         <asp:repeater id="rptModels" runat="server">
                 <HeaderTemplate>
@@ -132,10 +133,13 @@
                         <td style="text-align: center;">
                             <asp:Label style="display:none;" id="lblVersionId" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
                             <input type="checkbox" versionid='<%#Eval("VersionId") %>' id="chkUpdate" class="checkboxAll itsGrey" runat="server"/>
+                        <asp:HiddenField ID="txtModel" Value='<%# Eval("Model") %>' runat="server" ></asp:HiddenField>
+                        <asp:HiddenField ID="txtModelId" Value='<%# Eval("BikeModelId") %>' runat="server" ></asp:HiddenField>                       
                         </td>
                         <td><%# Eval("Make") %></td>
                         <td><%# Eval("Model") %></td>
-                        <td><%# Eval("VersionName") %></td>
+                        <td><%# Eval("VersionName") %></td>   
+                                         
                         <asp:Repeater ID="rptValues" DataSource="<%# GetPQCommonAttrs() %>"  runat="server" >
                             <ItemTemplate>
                                 <td style="width:90px; text-align:center">
@@ -160,10 +164,14 @@
                             <td style="text-align: center;">
                             <asp:Label style="display:none;" id="lblVersionId" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
                             <input type="checkbox" versionid='<%#Eval("VersionId") %>'  id="chkUpdate" class="checkboxAll" runat="server" />
+                            <asp:HiddenField ID="txtModel" Value='<%# Eval("Model") %>' runat="server" ></asp:HiddenField>
+                            <asp:HiddenField ID="txtModelId" Value='<%# Eval("BikeModelId") %>' runat="server" ></asp:HiddenField>                           
+                        </td>
                         </td>
                         <td><%# Eval("Make") %></td>
                         <td><%# Eval("Model") %></td>
                         <td><%# Eval("VersionName") %></td>
+                        
                         <asp:Repeater ID="rptValues" DataSource="<%# GetPQCommonAttrs() %>"  runat="server" >
                             <ItemTemplate>
                                 <td style="width:90px;text-align:center">
@@ -421,7 +429,7 @@
         $('#spnError').text("");
         $('.checkboxAll').each(function () {
             if ((this).checked) {
-                var parentInputRow = $(this).parent().parent().find('input');
+                var parentInputRow = $(this).parent().parent().find("input[type='text']");
                 for (var i = 1; i < parentInputRow.length; i++) {
                     if (isNaN(parentInputRow[i].value) || parentInputRow[i].value.trim() == "") {
                         $('#spnError').text("Please Enter Numeric Values in Selected Text-Box Field(s)");
@@ -513,6 +521,12 @@
 
     <%--End Pivotal Tracker # : 95144444 & 96417936 Author : Sumit Kate--%>
     $(document).ready(function () {
+        var alertBox = $("#alertText");
+        if (alertBox.val()) {
+            alert(alertBox.val());
+            alertBox.val("");
+        }
+
         if ($("#ddlState").val() > 0) {
             LoadStateCities();
         }
@@ -639,7 +653,7 @@
                 alert("Please select dealer");
         });
 
-        $("#btnManagePrice").click(function () {
+       $("#btnManagePrice").click(function () {
             if (dVm.validateInputs(dVm.selectedCity(), dVm.selectedMake(), dVm.selectedDealer())) {
                 showHideMatchError(ddlCities, false);
                 showHideMatchError(ddlMakes, false);
