@@ -19,7 +19,7 @@ namespace Bikewale.DTO.BikeData
         [JsonIgnore]
         public DateTime LaunchDate { get; set; }
         [JsonProperty("launchDate")]
-        public String DisplayLaunchDate { get { return LaunchDate.ToString("dd MMMM yyyy"); } }
+        public String DisplayLaunchDate { get { return LaunchDate.ToString("dd MMM yyyy"); } }
         [JsonProperty("specs")]
         public MinSpecs Specs { get; set; }
     }
