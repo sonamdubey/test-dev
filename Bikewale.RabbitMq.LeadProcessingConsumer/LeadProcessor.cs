@@ -238,9 +238,9 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         }
                         else if (priceQuote.DealerId == _RoyalEnfieldId)
                         {
-                            Logs.WriteInfoLog(String.Format("Royal Enfield Lead started processing."));
+                            Logs.WriteInfoLog(String.Format("Royal Enfield Lead started processing. PQId --> {0}", pqId));
                             isSuccess = _leadProcessor.PushLeadToRoyalEnfield(priceQuote, pqId, manufacturerDealerId);
-                            Logs.WriteInfoLog(String.Format("Royal Enfield Lead submitted."));
+                            Logs.WriteInfoLog(String.Format("Royal Enfield Lead submitted. PQId --> {0}", pqId));
                         }
                     }
                     Logs.WriteInfoLog(String.Format("Manufacturer Lead submitted."));
@@ -525,7 +525,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 RoyalEnfieldDealer dealer = _repository.GetRoyalEnfieldDealerById(manufacturerDealerId);
                 RoyalEnfieldWebAPI.Service service = new RoyalEnfieldWebAPI.Service();
                 string token = ConfigurationManager.AppSettings["RoyalEnfieldToken"];
-                Logs.WriteInfoLog( string.Format("Royal Enfield: Params Logged --> Customer Name: {0}, Mobile: {1}, State: {2}, City: {3}, Email: {4}, Model Name: {5}, Dealer Name: {6}", priceQuote.CustomerName, priceQuote.CustomerMobile, dealer.DealerState, dealer.DealerCity, priceQuote.CustomerEmail, quotation.ModelName, dealer.DealerName));
+                if(quotation != null)
+                    Logs.WriteInfoLog(String.Format("Royal Enfield: Params Logged --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(quotation)));
                 string response = service.Organic(priceQuote.CustomerName, priceQuote.CustomerMobile, "India", dealer.DealerState,
                     dealer.DealerCity, priceQuote.CustomerEmail, quotation.ModelName, dealer.DealerName, "", "https://www.bikewale.com", token, "bikewale");
                 // service.affiliates((priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, dealer.DealerState, dealer.DealerCity, dealer.DealerName, quotation.ModelName, "https://www.bikewale.com", token, "bikewale");
