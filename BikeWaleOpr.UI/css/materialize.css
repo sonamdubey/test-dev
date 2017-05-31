@@ -3195,9 +3195,10 @@ nav ul a span.badge {
   height: 4px;
   display: block;
   width: 100%;
-  background-color: #acece6;
+  background-color: #ff8a80;
   border-radius: 2px;
-  margin: 0.5rem 0 1rem 0;
+  /*margin: 0.5rem 0 1rem 0;*/
+  margin: 0 0 1rem 0;
   overflow: hidden;
 }
 
@@ -3206,12 +3207,12 @@ nav ul a span.badge {
   top: 0;
   left: 0;
   bottom: 0;
-  background-color: #26a69a;
+  background-color: #ff5252;
   transition: width .3s linear;
 }
 
 .progress .indeterminate {
-  background-color: #26a69a;
+  background-color: #ff5252;
 }
 
 .progress .indeterminate:before {
