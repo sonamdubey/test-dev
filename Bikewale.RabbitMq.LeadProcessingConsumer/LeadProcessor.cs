@@ -513,7 +513,9 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="pqId">The pq identifier.</param>
         /// <param name="manufacturerDealerId">The manufacturer dealer identifier.</param>
         /// <returns>
-        /// Created by : Sangram Nandkhile on 12-May-2017 
+        /// Created by : Sangram Nandkhile on 12-May-2017
+        /// Updated by : Sangram Nandkhile on 31-May-2017
+        /// Summary : Parameters logged
         /// </returns>
         internal bool PushLeadToRoyalEnfield(PriceQuoteParametersEntity priceQuote, uint pqId, uint manufacturerDealerId)
         {
@@ -523,6 +525,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 RoyalEnfieldDealer dealer = _repository.GetRoyalEnfieldDealerById(manufacturerDealerId);
                 RoyalEnfieldWebAPI.Service service = new RoyalEnfieldWebAPI.Service();
                 string token = ConfigurationManager.AppSettings["RoyalEnfieldToken"];
+                Logs.WriteInfoLog( string.Format("Royal Enfield: Params Logged --> Customer Name: {0}, Mobile: {1}, State: {2}, City: {3}, Email: {4}, Model Name: {5}, Dealer Name: {6}", priceQuote.CustomerName, priceQuote.CustomerMobile, dealer.DealerState, dealer.DealerCity, priceQuote.CustomerEmail, quotation.ModelName, dealer.DealerName));
                 string response = service.Organic(priceQuote.CustomerName, priceQuote.CustomerMobile, "India", dealer.DealerState,
                     dealer.DealerCity, priceQuote.CustomerEmail, quotation.ModelName, dealer.DealerName, "", "https://www.bikewale.com", token, "bikewale");
                 // service.affiliates((priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, dealer.DealerState, dealer.DealerCity, dealer.DealerName, quotation.ModelName, "https://www.bikewale.com", token, "bikewale");
@@ -531,10 +534,14 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     _repository.UpdateManufacturerLead(pqId, priceQuote.CustomerEmail, priceQuote.CustomerMobile, response);
                     return true;
                 }
+                else
+                {
+                    Logs.WriteErrorLog("PushLeadToRoyalEnfield : Null response recieved from Royal Enfield API ");
+                }
             }
             catch (Exception ex)
             {
-                Logs.WriteInfoLog(String.Format("PushLeadToRoyalEnfield : {0}", ex.Message));
+                Logs.WriteErrorLog(String.Format("PushLeadToRoyalEnfield : {0}", ex.Message));
             }
             return false;
         }
