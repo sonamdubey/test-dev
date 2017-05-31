@@ -2,7 +2,6 @@
 
 <%@ Import Namespace="BikeWaleOpr.Common" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-
 <style type="text/css">
     .greenMessage {
         color: #6B8E23;
@@ -84,43 +83,42 @@
 </style>
 <div class="left">
     <div>
-        <%--<h1><a id='backbutton' href="javascript:void(0)" title="Back to Manage Campaigns Page" style="padding:10px">&lt; Back</a> Edit Dealer Campaign (Step 1)</h1>--%>
-        <ul class="breadcrumb">
+        <ul class="breadcrumb margin-top15">
             <li><a id='backbutton' href="javascript:void(0)" title="Back to Manage Campaigns Page" style="padding:10px">Manage Campaigns (Step 1)</a></li>
             <li>Edit Dealer Campaign (Step 2)</li>
-            <li><a target="_blank" href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>" title="Manage Model Rules Mapping">Campaign Model Rules (Step 3)</a></li>
+            <li><a target="_blank" href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>" title="Manage Models Mapping">Campaign Models (Step 3)</a></li>
             <li><a target="_blank" href="/dealercampaign/servingareas/dealerid/<%= dealerId %>/campaignid/<%= campaignId %>/" title="Manage Campaign Areas Mapping">Campaign Serving Areas (Step 4)</a></li>
         </ul>
         <div id="box" class="box">
-            <table class="margin-top10 margin-bottom10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 60%; border-collapse: collapse;">
+            <table class="margin-top10" rules="all" cellspacing="0" cellpadding="8" style="border-width: 1px; border-style: solid; width: 70%; border-collapse: collapse;font-size: 13px;">
                 <tbody>
                     <tr>
-                        <td style="width: 20%"><strong>Dealer :</strong> </td>
+                        <td style="width: 20%"><strong>Dealer Name :</strong> </td>
                         <td><span id="spnDealerName"><%= dealerName  %></span></td>
                     </tr>
                     <tr>
                         <td style="width: 20%"><strong>Campaign Name :</strong> </td>
                         <td>
-                            <asp:textbox runat="server" name="maskingNumber" id="txtCampaignName" maxlength="100" class="req width300" enabled="true" />
+                            <asp:textbox runat="server" name="maskingNumber" id="txtCampaignName" maxlength="100" class="req width300 font13" enabled="true" />
                             <span style="color: red">Please do not add area names in the campaign name.</span>
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 20%"><strong>Campaign Dealer Number :</strong></td>
                         <td>
-                            <asp:textbox runat="server" name="dealerNumber" id="txtDealerNumber" class="width300" disabled />
+                            <asp:textbox runat="server" name="dealerNumber" id="txtDealerNumber" class="width300 font13" disabled />
                             <span style="color: red" id="dealerNumberMsg">Mapping a masking number will result in calling to both masking and dealer numbers one after another.</span>
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 20%"><strong>Campaign Masking Number :</strong><b class='required'>*</b></td>
                         <td>
-                            <asp:textbox runat="server" readonly="true" name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="numeric width300" enabled="true" />
+                            <asp:textbox runat="server" readonly="true" name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="numeric width300 font13" enabled="true" />
                             <%
                                 if (ddlMaskingNumber.DataSource != null)
                                 { 
                             %>
-                            <asp:dropdownlist id="ddlMaskingNumber" runat="server"></asp:dropdownlist>
+                            <asp:dropdownlist id="ddlMaskingNumber" runat="server" class="font13"></asp:dropdownlist>
                             <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />
                             <% if (isCampaignPresent)
                                { %> <a id="releaseMaskingNumber" href="javascript:void(0)">Release Masking number</a><%} %>
@@ -130,14 +128,14 @@
                     <tr>
                         <td style="width: 20%"><strong>Campaign Email ID :</strong><b class="required">*</b></td>
                         <td>
-                            <asp:textbox textmode="multiline" multiline="true" height="50" width="200" runat="server" id="txtDealerEmail" placeholder="Enter Email ids separated by comma" class="req width300" />
+                            <asp:textbox textmode="multiline" multiline="true" height="50" width="600" runat="server" id="txtDealerEmail" placeholder="Enter Email ids separated by comma" class="req font13" />
                             <span id="spnDealerEmail" class="Required marginleft18"></span>
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 20%"><strong>Daily Leads Limit :</strong></td>
                         <td>
-                            <asp:textbox runat="server" id="txtLeadsLimit" placeholder="" class="numeric width300" />
+                            <asp:textbox runat="server" id="txtLeadsLimit" placeholder="" class="numeric width300 font13" />
                         </td>
                     </tr>
                     <tr>
@@ -152,7 +150,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <asp:button id="btnUpdate" onclientclick="return ValidateForm();" text="Save" runat="server" cssclass="padding10" />
+                            <asp:button id="btnUpdate" onclientclick="return ValidateForm();" text="Save Campaign" runat="server" cssclass="padding10" />
                         </td>
                     </tr>
                 </tbody>
@@ -165,17 +163,6 @@
 
         </div>
     </div>
-
-    <% if (isCampaignPresent)
-       { %>
-    <fieldset>
-        <legend>Define Components</legend>
-        <div class="box" style="font-size:13px;">
-            <div class="margin-top10"><a target="_blank" href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Manage Campaign Model Rules (Step 3)</a></div>
-            <div class="margin-top10"><a target="_blank" href="/dealercampaign/servingareas/dealerid/<%= dealerId %>/campaignid/<%= campaignId %>/">Manage Campaign Serving Areas (Step 4)</a></div>
-        </div>
-    </fieldset>
-    <% } %>
 </div>
 <script type="text/javascript">
 

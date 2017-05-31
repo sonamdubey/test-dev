@@ -37,5 +37,7 @@ namespace BikewaleOpr.Entity.ContractCampaign
         public uint DailyLeads { get; set; }
         [JsonProperty("CampaignServingStatus")]
         public string CampaignServingStatus { get; set; }
+        [JsonProperty("DealerName")]
+        public string DealerName { get; set; }
     }
 }

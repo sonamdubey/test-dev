@@ -61,4 +61,10 @@ namespace BikewaleOpr.Entity.DealerCampaign
         public GeoLocationEntity DealerLocation { get; set; }
         public IEnumerable<GeoLocationEntity> Areas { get; set; }
     }
+
+    public class DealerCampaignArea
+    {
+        public string DealerName { get; set; }
+        public IEnumerable<CampaignAreas> Areas { get; set; }
+    }
 }

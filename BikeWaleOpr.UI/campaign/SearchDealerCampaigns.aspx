@@ -50,7 +50,7 @@
     <div id="inputSection" class="position-rel margin-top10">
         <div style="border: 1px solid #777;" class="padding10">
             <div class="margin-right10 verical-middle form-control-box">
-                Dealer's City : <span class="errMessage">* &nbsp</span>
+                Dealer's City : 
                 <div class="materialize-select">
                     <asp:dropdownlist id="drpCity" enabled="True" cssclass="drpClass" runat="server">
                     <asp:ListItem Text="--Select City--" Value="-1"/>
@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div class="margin-right10 verical-middle form-control-box position-rel" id="dvMakes">
-                Bike Make : <span class="errMessage">* &nbsp</span>
+                Bike Make : 
                 <div class="materialize-select">
                     <select id="ddlMakes" class="drpClass">
                         <option value="">--Select Make--</option>
@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="margin-right10 verical-middle form-control-box position-rel" id="dvDealers">
-                Dealer Name : <span class="errMessage">* &nbsp</span>
+                Dealer Name : 
                 <div class="materialize-select">
                     <select id="drpDealer" class="drpClass">
                         <option value="">--Select Dealer--</option>
@@ -113,7 +113,7 @@
                     <td>Masking Number</td>
                     <td>Contract Status</td>                    
                     <td>Edit Campaign</td>
-                    <td>Rules</td>
+                    <td>Campaign Models</td>
                     <td>Campaign Areas</td>
                 </tr>
             </thead>
@@ -135,15 +135,15 @@
             <td data-bind="text: MaskingNumber"></td>
             <td data-bind="text: Status"></td>            
             <td>
-                <a data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + $root.dealerName() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + $root.dealerId() }" target="_blank">
+                <a data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + DealerName() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + DealerId() }" target="_blank">
                     <img src="https://opr.carwale.com/images/edit.jpg" alt="Edit" />
                 </a>
             </td>
             <td >
-                <a data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid=' + $root.dealerId() }, text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank"></a>
+                <a data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid=' + DealerId() + '&dealerName=' + DealerName() }, text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank"></a>
             </td>
             <td>
-                <a  data-bind="attr: { href: '/dealercampaign/servingareas/dealerid/' + $root.dealerId() + '/campaignid/' + CampaignId() + '/' }" target="_blank">
+                <a  data-bind="attr: { href: '/dealercampaign/servingareas/dealerid/' + DealerId() + '/campaignid/' + CampaignId() + '/' }" target="_blank">
                     <img src="https://opr.carwale.com/images/edit.jpg" alt="Edit"/>
                 </a>
             </td>
@@ -256,11 +256,7 @@
                         }
                     }
                 });
-            }
-            else {
-                showHideMatchError(ddlCity, true);
-                ClearMakes();
-            }
+            }            
         } catch (e) {
             showToast("Error occured : " + e.message);
             ClearMakes();
@@ -271,12 +267,12 @@
         if (validateInputs(cityid, makeid, dealerId)) {
             var onlyActiveCampaign = $(chkActiveCampaign).prop("checked");
             try {
-                if (onlyActiveCampaign != 'undefined' && parseInt(dealerId)) {
+                if (onlyActiveCampaign != 'undefined') {
                     var dealerName = $("#drpDealer option:selected").text();
                     var element = document.getElementById('DealerCampaignsList');
                     $.ajax({
                         type: "GET",
-                        url: "/api/dealercampaigns/dealer/" + dealerId + "/?activecontract=" + onlyActiveCampaign,
+                        url: "/api/dealercampaigns/dealer/" + dealerId + "/?activecontract=" + onlyActiveCampaign + "&cityId=" +cityid +"&makeId=" + makeid,
                         beforeSend: function (xhr) {
                             startLoading($("#inputSection"));
                         },
@@ -285,9 +281,7 @@
                             ko.cleanNode(element);
                             if (response) {
                                 var resp = new Object();
-                                resp.Table = response;
-                                resp.dealerId = dealerId;
-                                resp.dealerName = dealerName;
+                                resp.Table = response;                                
                                 ko.applyBindings(new DealerViewModel(resp), element);
                                 $('#DealerCampaignsList').show();
                             }
@@ -318,7 +312,7 @@
     function validateInputs(cityid, makeid, dealerId) {
         var isValid = true;
         if (navigator.onLine) {
-            if (!parseInt(cityid)) {
+            /*if (!parseInt(cityid)) {
                 showHideMatchError(ddlCity, true);
                 isValid = false;
             }
@@ -329,7 +323,7 @@
             if (!parseInt(dealerId)) {
                 showHideMatchError(ddlDealer, true);
                 isValid = false;
-            }
+            }*/
         }
         else {
             showToast("Oops you're offline!!! Please check the network connetion.");
@@ -357,11 +351,13 @@
     });
 
     $("#btnGetCampaigns").click(function () {
-        var dealerId = ddlDealer.val();
+        var dealerId = ddlDealer.val() ? ddlDealer.val() : 0;
+        var cityId = ddlCity.val() ? ddlCity.val() : 0;
+        var makeId = ddlMakes.val() ? ddlMakes.val() : 0;
         showHideMatchError(ddlCity, false);
         showHideMatchError(ddlMakes, false);
         showHideMatchError(ddlDealer, false);
-        GetDealerCampaigns(ddlCity.val(), ddlMakes.val(), dealerId);
+        GetDealerCampaigns(cityId, makeId, dealerId);
     });
 
 

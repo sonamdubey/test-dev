@@ -44,33 +44,39 @@ namespace BikewaleOpr.Models.DealerCampaign
             CampaignServingAreasVM objVM = new CampaignServingAreasVM();
 
             objVM.DealerId = dealerId;
-            objVM.CampaignId = campaignid;
-            objVM.DealerName = "";
+            objVM.CampaignId = campaignid;            
 
             // Get areas mapped to the dealer's location from db
-            IEnumerable<CampaignAreas> objAreas = _campaignRepo.GetMappedDealerCampaignAreas(dealerId);
+            DealerCampaignArea objAreas = _campaignRepo.GetMappedDealerCampaignAreas(dealerId);
 
-            // Get actually mapped areas to dealer's location (list contains both automatically mapped and additionally mapped areas). Grouping areas according to cities
-            IEnumerable<CityArea> cityAreas = objAreas.GroupBy(
-                p => new { p.CityId, p.CityName },
-                p => new Area() { Id = p.AreaId, Name = p.AreaName, IsAutoAssigned = p.IsAutoAssigned },
-                (key, g) => new CityArea() { City = new City() { Id = key.CityId, Name = key.CityName }, Areas = g }
-                );
-
-            if (cityAreas != null)
+            if (objAreas!=null)
             {
-                // Filter automatically mapped areas
-                if (cityAreas.Any(m => m.AutoAssignedAreas != null && m.AutoAssignedAreas.Count() > 0))
-                    objVM.MappedAreas = cityAreas.Where(m => m.AutoAssignedAreas != null && m.AutoAssignedAreas.Count() > 0).Select(m => new CityArea() { City = m.City, Areas = m.AutoAssignedAreas });
-
-                // Filter additionally mapped areas
-                if (cityAreas.Any(m => m.AdditionalAreas != null && m.AdditionalAreas.Count() > 0))
-                    objVM.AdditionallyMappedAreas = cityAreas.Where(m => m.AdditionalAreas != null && m.AdditionalAreas.Count() > 0).Select(m => new CityArea() { City = m.City, Areas = m.AdditionalAreas });
-
-                if (objVM.AdditionallyMappedAreas != null && objVM.AdditionallyMappedAreas.Count() > 0)
+                // Get actually mapped areas to dealer's location (list contains both automatically mapped and additionally mapped areas). Grouping areas according to cities
+                objVM.DealerName = objAreas.DealerName;
+                if (objAreas.Areas!=null && objAreas.Areas.Count() > 0)
                 {
-                    objVM.AdditionalAreaJson = Newtonsoft.Json.JsonConvert.SerializeObject(objVM.AdditionallyMappedAreas);
-                }
+                    IEnumerable<CityArea> cityAreas = objAreas.Areas.GroupBy(
+                                p => new { p.CityId, p.CityName },
+                                p => new Area() { Id = p.AreaId, Name = p.AreaName, IsAutoAssigned = p.IsAutoAssigned },
+                                (key, g) => new CityArea() { City = new City() { Id = key.CityId, Name = key.CityName }, Areas = g }
+                                );
+
+                    if (cityAreas != null)
+                    {
+                        // Filter automatically mapped areas
+                        if (cityAreas.Any(m => m.AutoAssignedAreas != null && m.AutoAssignedAreas.Count() > 0))
+                            objVM.MappedAreas = cityAreas.Where(m => m.AutoAssignedAreas != null && m.AutoAssignedAreas.Count() > 0).Select(m => new CityArea() { City = m.City, Areas = m.AutoAssignedAreas });
+
+                        // Filter additionally mapped areas
+                        if (cityAreas.Any(m => m.AdditionalAreas != null && m.AdditionalAreas.Count() > 0))
+                            objVM.AdditionallyMappedAreas = cityAreas.Where(m => m.AdditionalAreas != null && m.AdditionalAreas.Count() > 0).Select(m => new CityArea() { City = m.City, Areas = m.AdditionalAreas });
+
+                        if (objVM.AdditionallyMappedAreas != null && objVM.AdditionallyMappedAreas.Count() > 0)
+                        {
+                            objVM.AdditionalAreaJson = Newtonsoft.Json.JsonConvert.SerializeObject(objVM.AdditionallyMappedAreas);
+                        }
+                    } 
+                } 
             }
 
             // Get states for mapping to dropdownlist

@@ -1,13 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.DealersRules" EnableEventValidation="false" %>
 
 <!-- #Include file="/includes/headerNew.aspx" -->
-    <h1 class="margin-left10">Manage Campaign Model Rules</h1>
+    <h1 class="margin-left10"><%= dealerName %> campaign models</h1>
 <div class="margin-top10 floatLeft" style="width: 850px; display: inline-block;">
     <asp:Repeater ID="rptRules" runat="server">
-                    <HeaderTemplate>
-                        <h2 class="margin-left10" style="font-size:large;">Added Rule(s) :</h2>
-                        <br />
-                        <table border="1" style="border-collapse: collapse;" cellpadding="5" class="margin-left10">
+                    <HeaderTemplate>                        
+                        <table border="1" style="border-collapse: collapse;" cellpadding="5" class="margin-left10 font13">
                             <tr style="background-color: #D4CFCF;">
                                 <th>
                                     <div>Select All</div>
@@ -35,17 +33,17 @@
         <asp:HiddenField ID="hdnCheckedRules" runat="server" Value="" />
 </div>
 <div class="margin-top10" style="position: fixed; right: 20px;">
-    <fieldset class="margin-left10">            
-            <legend>Add Campaign Model Rules</legend>
+    <fieldset class="margin-left10 font13">            
+            <legend>Add Campaign Models</legend>
             <div id="box" class="box">                
                     <div class="margin-top10">
-                        <asp:DropDownList ID="ddlMake" runat="server" Width="100%" />
+                        <asp:DropDownList ID="ddlMake" runat="server" Width="100%" class="font13" />
                     </div>
                     <div class="margin-top10">
-                        <asp:DropDownList ID="ddlModel" multiple="multiple" runat="server" style="width:100%;height: 100px;" />
+                        <asp:DropDownList ID="ddlModel" multiple="multiple" runat="server" style="width:100%;height: 100px;" class="font13"/>
                             <asp:HiddenField ID="hdnSelectedModel" runat="server" />                        
                     </div>
-                    <div class="margin-top10"><asp:Button runat="server" ID="btnSaveRule" OnClientClick="return ValidateForm();" Text="Save Model Rules" /></div>                
+                    <div class="margin-top10"><asp:Button runat="server" ID="btnSaveRule" OnClientClick="return ValidateForm();" Text="Save Models" /></div>                
             </div>
         <div class="margin-top10"><asp:Label class="redmsg errMessage margin-bottom10 margin-left10 greenMessage" ID="lblErrorSummary" runat="server" /></div>
         <div class="margin-top10"><asp:Label class="greenMessage margin-bottom10 margin-left10" ID="lblGreenMessage" runat="server" /></div>
@@ -55,8 +53,8 @@
             if(rptRules.DataSource!= null){ 
         %>
         <fieldset class="margin-left10 margin-top20">            
-            <legend>Remove Campaign Model Rules</legend>
-        <asp:Button runat="server" OnClientClick="return deleteRules();" class="margin-bottom10 margin-left10 margin-top10" ID="btnDelete" Text="Delete Model Rules" />
+            <legend>Remove Campaign Models</legend>
+        <asp:Button runat="server" OnClientClick="return deleteRules();" class="margin-bottom10 margin-left10 margin-top10" ID="btnDelete" Text="Delete Models" />
         </fieldset>
         <br />
         <% 

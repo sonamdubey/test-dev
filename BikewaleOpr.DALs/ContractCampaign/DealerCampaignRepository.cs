@@ -309,14 +309,16 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <param name="dealerId"></param>
         /// <param name="activecontract"></param>
         /// <returns></returns>
-        public ICollection<DealerCampaignDetailsEntity> DealerCampaigns(uint dealerId, bool activecontract)
+        public ICollection<DealerCampaignDetailsEntity> DealerCampaigns(uint dealerId, uint cityId, uint makeId, bool activecontract)
         {
             ICollection<DealerCampaignDetailsEntity> callToActions = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("opr_getdealercampaigns"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("opr_getdealercampaigns_31052017"))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId > 0 ? dealerId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId > 0 ? cityId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId > 0 ? makeId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_activecontract", DbType.Int16, activecontract ? 1 : 0));
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
@@ -344,7 +346,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
                                         DailyLeadLimit = SqlReaderConvertor.ToUInt32(dr["dailyleadlimit"]),
                                         DailyLeads = SqlReaderConvertor.ToUInt32(dr["dailyleads"]),
                                         RulesCount = SqlReaderConvertor.ToUInt32(dr["NoOfRules"]),
-                                        CampaignServingStatus = Convert.ToString(dr["campaignservingstatus"])
+                                        CampaignServingStatus = Convert.ToString(dr["campaignservingstatus"]),
+                                        DealerName = Convert.ToString(dr["organization"])
                                     }
                                     );
                             }
@@ -368,9 +371,9 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>        
-        public IEnumerable<CampaignAreas> GetMappedDealerCampaignAreas(uint dealerId)
+        public DealerCampaignArea GetMappedDealerCampaignAreas(uint dealerId)
         {
-            IEnumerable<CampaignAreas> objAreas = null;
+            DealerCampaignArea objDealerCampaignArea = null;
 
             try
             {
@@ -382,10 +385,16 @@ namespace BikewaleOpr.DALs.ContractCampaign
 
                     param.Add("par_dealerId", dealerId);
 
-                    objAreas = connection.Query<CampaignAreas>("GetMappedDealerCampaignAreas", param: param, commandType: CommandType.StoredProcedure);
+                    objDealerCampaignArea = new DealerCampaignArea();
+                    using (var results = connection.QueryMultiple("GetMappedDealerCampaignAreas", param: param, commandType: CommandType.StoredProcedure))
+                    {
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
+                        objDealerCampaignArea.DealerName = results.Read<string>().SingleOrDefault();
+                        objDealerCampaignArea.Areas = results.Read<CampaignAreas>();
+                    }
+
+                        if (connection.State == ConnectionState.Open)
+                            connection.Close();
                 }
             }
             catch (Exception ex)
@@ -393,7 +402,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetMappedDealerCampaignAreas");
             }
 
-            return objAreas;
+            return objDealerCampaignArea;
         }
         #endregion  // End of GetMappedDealerCampaignAreas
 

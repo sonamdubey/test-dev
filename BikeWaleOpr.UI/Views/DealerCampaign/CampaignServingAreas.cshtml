@@ -1,9 +1,12 @@
 ﻿@model BikewaleOpr.Models.DealerCampaign.CampaignServingAreasVM
 @using System.Linq;
-@{
-    ViewBag.Title = "Dealer Campaign Serving Areas";
-    ViewBag.PageTitle = "Dealer Campaign Serving Areas";
-}
+
+@if (Model != null && Model.DealerId > 0)
+{
+    {
+        ViewBag.Title = Model.DealerName + " campaign serving areas";
+        ViewBag.PageTitle = Model.DealerName + " campaign serving areas";
+    }
 <div class="row" style="margin-top:5px;">
     <div class="col m9">
         @if (Model.MappedAreas != null && Model.MappedAreas.Count() > 0)
@@ -100,7 +103,8 @@
                                         {
                                         <select id="ddlStates" name="stateIdList" multiple>
                                             <option disabled>Select States</option>
-                                            @foreach (var state in Model.States) {
+                                            @foreach (var state in Model.States)
+                                            {
                                                 <option value="@state.StateId">@state.StateName</option>
                                             }
                                         </select>
@@ -187,3 +191,4 @@
     var msg = '@Convert.ToString(TempData["msg"])';
 </script>
 <script src="~/src/dealercampaign/campaignservingareas.js"></script>
+}

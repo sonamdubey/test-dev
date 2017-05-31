@@ -14,7 +14,7 @@ namespace BikewaleOpr.Campaign
     {
         #region variable
         public int campaignId, dealerId, currentUserId, makeId;
-        public string modelId;
+        public string modelId,dealerName;
         public DropDownList ddlMake, ddlModel; //, ddlState, ddlCity;
         public Button btnSaveRule, btnReset, btnDeleteRules, btnDelete;
         public Repeater rptRules;
@@ -157,6 +157,10 @@ namespace BikewaleOpr.Campaign
                 if (!string.IsNullOrEmpty(Request.QueryString["dealerid"]))
                 {
                     dealerId = Convert.ToInt32(Request.QueryString["dealerid"]);
+                }
+                if (!String.IsNullOrEmpty(Request.QueryString["dealerName"]))
+                {
+                    dealerName = Convert.ToString(Request.QueryString["dealerName"]);
                 }
             }
             catch (Exception ex)
