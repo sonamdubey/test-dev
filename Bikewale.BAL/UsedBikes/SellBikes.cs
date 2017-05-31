@@ -80,12 +80,11 @@ namespace Bikewale.BAL.UsedBikes
                     else
                     {
                         result.Status.Code = SellAdStatus.MobileVerified;
-                        //if (!isEdit)
-                        //    SendNotification(ad);
                     }
                     ad.Status = result.Status.Code;
                     result.InquiryId = AddOrUpdateAd(ad);
-                    if (result.Status.Code == SellAdStatus.MobileVerified && !isEdit){
+                    if (result.Status.Code == SellAdStatus.MobileVerified && !isEdit)
+                    {
                         SendNotification(ad);
                     }
                 }
@@ -207,7 +206,7 @@ namespace Bikewale.BAL.UsedBikes
                 ModelHostImagePath modelImage = _modelCache.GetModelPhotoInfo(ad.Model.ModelId);
                 string modelImg = Bikewale.Utility.Image.GetPathToShowImages(modelImage.OriginalImgPath, modelImage.HostURL, Bikewale.Utility.ImageSize._110x61);
                 string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceId={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
-                string writeReviewlink = string.Format("{0}/rate-your-bike/{1}/?q={2}'", BWConfiguration.Instance.BwHostUrl,ad.Model.ModelId, qEncoded);
+                string writeReviewlink = string.Format("{0}/rate-your-bike/{1}/?q={2}'", BWConfiguration.Instance.BwHostUrl, ad.Model.ModelId, qEncoded);
                 SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString(), modelImg, ad.KiloMeters.ToString(), writeReviewlink);
                 SMSTypes smsType = new SMSTypes();
                 smsType.UsedSellSuccessfulListingSMS(

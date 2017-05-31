@@ -3,6 +3,7 @@ using Bikewale.Notifications;
 using BikewaleOpr.Interface.Used;
 using System.Collections.Generic;
 using System.Web;
+using Utils;
 
 namespace BikewaleOpr.BAL.Used
 {
@@ -41,7 +42,7 @@ namespace BikewaleOpr.BAL.Used
                 if (seller != null)
                 {
                     SMSTypes newSms = new SMSTypes();
-                    string modelImage = Bikewale.Utility.Image.GetModelImage(seller.HostUrl, seller.OriginalImagePath, Bikewale.Utility.ImageSize._110x61);
+                    string modelImage = Bikewale.Utility.Image.GetPathToShowImages(seller.OriginalImagePath, seller.HostUrl, Bikewale.Utility.ImageSize._110x61);
                     if (isApproved == 0)
                     {
                         SendEmailSMSToDealerCustomer.UsedBikeEditedRejectionEmailToSeller(seller.SellerDetails, profileId, bikeName, modelImage, seller.RideDistance);
