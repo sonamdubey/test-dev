@@ -15,6 +15,9 @@ using React;
 using System.Diagnostics;
 using Bikewale.Utility;
 using log4net;
+using React.TinyIoC;
+using React.Exceptions;
+
 
 namespace Bikewale.BAL.PWA.CMS
 {
@@ -27,28 +30,63 @@ namespace Bikewale.BAL.PWA.CMS
         static bool _logPWAStats = BWConfiguration.Instance.EnablePWALogging;
         static ILog _logger = LogManager.GetLogger("Pwa-Logger-Renderengine");
 
+        /// <summary>
+        /// Gets the React environment
+        /// </summary>
         private static IReactEnvironment Environment
         {
-            // TODO: Figure out if this can be injected
-            get { return AssemblyRegistration.Container.Resolve<IReactEnvironment>(); }
+            get
+            {
+                try
+                {
+                    return AssemblyRegistration.Container.Resolve<IReactEnvironment>();
+                }
+                catch (TinyIoCResolutionException ex)
+                {
+                    throw new ReactNotInitialisedException(
+#if LEGACYASPNET
+						"ReactJS.NET has not been initialised correctly.",
+#else
+                        "ReactJS.NET has not been initialised correctly. Please ensure you have " +
+                        "called services.AddReact() and app.UseReact() in your Startup.cs file.",
+#endif
+                        ex
+                    );
+                }
+            }
         }
 
-        private static IHtmlString React<T>(
+  
+        static IHtmlString React<T>(
             string componentName,
             T props,
             string htmlTag = null,
-            string containerId = null
+            string containerId = null,
+            bool clientOnly = false,
+            bool serverOnly = false,
+            string containerClass = null
         )
         {
-            var reactComponent = Environment.CreateComponent(componentName, props, containerId);
-            if (!string.IsNullOrEmpty(htmlTag))
+            try
             {
-                reactComponent.ContainerTag = htmlTag;
-            }     
-                   
-            var result = reactComponent.RenderHtml();
-            return new HtmlString(result);
+                var reactComponent = Environment.CreateComponent(componentName, props, containerId, clientOnly);
+                if (!string.IsNullOrEmpty(htmlTag))
+                {
+                    reactComponent.ContainerTag = htmlTag;
+                }
+                if (!string.IsNullOrEmpty(containerClass))
+                {
+                    reactComponent.ContainerClass = containerClass;
+                }
+                var result = reactComponent.RenderHtml(clientOnly, serverOnly);
+                return new HtmlString(result);
+            }
+            finally
+            {
+                Environment.ReturnEngineToPool();
+            }
         }
+
 
         public IHtmlString GetNewsListDetails(PwaNewsArticleListReducer reducer, string url, string containerId, string componentName)
         {
