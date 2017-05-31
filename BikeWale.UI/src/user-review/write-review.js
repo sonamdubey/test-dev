@@ -142,7 +142,7 @@ docReady(function () {
 
         };
 
-        self.submitRating = function () {
+        self.submitRating = function () {            
             if (self.validateRateBikeForm()) {
                 array_rating = new Array;
                 value_overallrating = $("#bike-rating-box input[type='radio']:checked").attr("value");
@@ -341,7 +341,7 @@ docReady(function () {
             var buttonValue = Number($(this).val()),
                 subQuestionField = $('#question-' + subQuestionId);
 
-            if (buttonValue == 5) {
+            if (buttonValue == 1) {
                 subQuestionField.slideUp();
                 subQuestionField.removeAttr('data-required');
             }
