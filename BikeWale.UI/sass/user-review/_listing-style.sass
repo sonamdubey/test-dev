@@ -70,10 +70,13 @@ $graph-bg: #eee
 
 // rating icons
 .star-icon
-    width: 26px
-    height: 25px
-    vertical-align: middle
-    @include transform(scale(0.8))
+	width: 26px
+	height: 25px
+	vertical-align: middle
+	@include transform(scale(0.8))
+	
+	&.star-size-16
+		@include transform(scale(0.6))
 
 .rate-count-1
     .star-icon
@@ -188,11 +191,11 @@ $grid-base-size: 8.33333333
 	&:before
 		content: ""
 		position: absolute
-		top: 3px
+		top: 4px
 		left: 0
 		width: 1px
 		height: 12px
-		border-left: 1px solid #787878
+		border-left: 1px solid #e2e2e2
 
 .answer-star-list
 	> input
@@ -268,12 +271,12 @@ $grid-base-size: 8.33333333
 
 	li
 		float: left
-		margin-left: 15px
+		margin-right: 15px
 		margin-top: 10px
 		margin-bottom: 10px
 
-		&:first-child
-			margin-left: 0
+		&:last-child
+			margin-right: 0
 
 	.list-item-label
 		font-size: 14px
@@ -288,6 +291,7 @@ $grid-base-size: 8.33333333
 
 .report-abuse-label
 	display: none
+	color: #82888b
 
 .collapsible-content
 	&.active
@@ -431,44 +435,46 @@ $grid-base-size: 8.33333333
 
 // button
 .btn-inv-teal-group
-    font-size: 14px
-    color: #82888b
-    padding: 0
-    background: transparent
-    border: 1px solid #d5d5d5
+	font-size: 14px
+	color: #82888b
+	padding: 0
+	background: transparent
+	border: 1px solid #d5d5d5
 
-    span
-        display: inline-block
-        vertical-align: middle
+	span
+		display: inline-block
+		vertical-align: middle
 
-    .btn-label-grid,
-    .btn-count
-        padding: 2px 6px
-        background: transparent
+	.btn-label-grid,
+	.btn-count
+		padding: 2px 6px
+		background: transparent
 
-    .btn-label-grid
-        border-right: 1px solid #d5d5d5
+	.btn-label-grid
+		border-right: 1px solid #d5d5d5
 
-    .btn-label
-        position: relative
-        top: -1px
+	.btn-label
+		position: relative
+		top: -1px
+		padding-left: 3px
 
-    &.active
-        border-color: #41B4C4
-        pointer-events: none
+	&.active
+		border-color: #41b4c4
+		pointer-events: none
 
-        .btn-label-grid
-            background: #41B4C4
-            border-right-color: #41B4C4
+		.btn-label-grid
+			color: #fff
+			background: #41b4c4
+			border-right-color: #41b4c4
 
-        .btn-count
-            color: #41B4C4
+		.btn-count
+			color: #41b4c4
 
-        .like-sm
-            background-position: -105px -773px
+		.like-sm
+			background-position: -105px -773px
 
-        .dislike-sm
-            background-position: -122px -773px
+		.dislike-sm
+			background-position: -122px -773px
 
 // icons
 .star-0,

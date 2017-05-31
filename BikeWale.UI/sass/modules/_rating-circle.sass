@@ -1,5 +1,5 @@
 ﻿$circle-dimension: 30px
-$rating-progress-width: 4px
+$rating-progress-width: 3px
 
 .rating-circle
     width: $circle-dimension
@@ -33,7 +33,7 @@ $rating-progress-width: 4px
     clip: rect(0, $circle-dimension, $circle-dimension, $circle-dimension/2)
 
 .rating-progress:before,
-.above-50-percent .rating-progress:after
+.rating-progress:after
     content: ''
     width: $circle-dimension
     height: $circle-dimension
@@ -44,7 +44,9 @@ $rating-progress-width: 4px
     @include border-radius(50%)
     clip: rect(0, $circle-dimension/2, $circle-dimension, 0)
 
-.above-50-percent
+.circle-rate-3,
+.circle-rate-4,
+.circle-rate-5
     .rating-progress
         clip: rect(auto, auto, auto, auto)
 

@@ -371,5 +371,12 @@ namespace Bikewale.Controllers
             ModelBase m = new ModelBase();
             return View(m);
         }
+
+        [Route("user-reviews/details")]
+        public ActionResult ReviewDetails()
+        {
+            ModelBase m = new ModelBase();
+            return View(m);
+        }
     }
 }

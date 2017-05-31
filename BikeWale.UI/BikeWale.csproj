@@ -3711,6 +3711,7 @@
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage_Mobile.cshtml" />
     <Content Include="Views\UserReview\ListReviews.cshtml" />
+    <Content Include="Views\UserReview\ReviewDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
