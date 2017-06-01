@@ -635,7 +635,7 @@ namespace Bikewale.Notifications
         /// </summary>
         public void RejectionEditedUsedSellListingSMS(EnumSMSServiceType smsType, string number, string profileId, string customerName, string pageurl)
         {
-            string message = String.Format("Hi {0}, the changes to your bike listing(profile id - {1}) have not been approved on BikeWale. Listing price or photos could be an issue. Please re-submit it with correct info.", customerName, profileId.ToUpper());
+            string message = String.Format("Hi {0}, the changes to your bike listing(profile id - {1}) have been discarded on BikeWale. Listing price or photos could be an issue. Please re-submit it with correct info.", customerName, profileId.ToUpper());
             try
             {
                 SMSCommon sc = new SMSCommon();

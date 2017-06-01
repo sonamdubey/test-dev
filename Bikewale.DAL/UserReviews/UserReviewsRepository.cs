@@ -864,6 +864,8 @@ namespace Bikewale.DAL.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Save user review ratings
+        /// Modified by : Aditi Srivastava on 29 May 2017
+        /// Summary     : Added sourceId parameter
         /// </summary>
         /// <param name="overAllrating"></param>
         /// <param name="ratingQuestionAns"></param>
@@ -873,14 +875,14 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId)
+        public uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId, ushort? sourceId)
         {
             uint reviewIdNew = 0;
 
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings_08052017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings_29052017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
@@ -894,6 +896,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientIP", DbType.String, CurrentUser.GetClientIP()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_platformid", DbType.Int16, platformId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.Int16, reviewId > 0 ? reviewId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Int16, (sourceId.HasValue && sourceId.Value > 0) ? sourceId : Convert.DBNull));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
