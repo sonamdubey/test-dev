@@ -21,10 +21,12 @@ namespace BikeWaleOpr.Content
         protected DropDownList drpMake1, drpModel1, drpVersion1, drpMake2, drpModel2, drpVersion2;
         protected Button btnSave, btnCancel;
         protected HtmlInputHidden hdn_drpModel1, hdn_drpVersion1, hdn_drpModel2, hdn_drpVersion2;
-        protected HtmlInputCheckBox chkIsActive;
+        protected HtmlInputCheckBox chkIsActive, chkIsSponsored;
         protected string cId = string.Empty;
         public string hostURL = string.Empty;
         protected IEnumerable<PopularBikeComparision> objBikeComps = null;
+        protected TextBox fromDate, toDate, fromTime, toTime;
+        protected string toTimeString, fromTimeString;
 
         private IPopularBikeComparisions _objCompBikesRepo = null;
         private IBikeMakes _objMakesRepo = null;
@@ -309,6 +311,22 @@ namespace BikeWaleOpr.Content
                             FillBikeData(_objComparision);
                         }
                         chkIsActive.Checked = _objComparision.IsActive;
+                        chkIsSponsored.Checked = _objComparision.IsSponsored;
+
+                        DateTime sponStartDate = _objComparision.SponsoredStartDate;
+                        DateTime sponEndDate = _objComparision.SponsoredStartDate;
+
+                        if (sponStartDate != null && sponStartDate != DateTime.MinValue)
+                        {
+                            fromDate.Text = _objComparision.SponsoredStartDate.ToString("yyyy-MM-dd");
+                            fromTimeString = Convert.ToString(_objComparision.SponsoredStartDate.TimeOfDay);
+                        }
+
+                        if (sponEndDate != null && sponEndDate != DateTime.MinValue)
+                        {
+                            toDate.Text = _objComparision.SponsoredEndDate.ToString("yyyy-MM-dd");
+                            toTimeString = Convert.ToString(_objComparision.SponsoredEndDate.TimeOfDay);
+                        }
                     }
                 }
             }
@@ -339,10 +357,21 @@ namespace BikeWaleOpr.Content
                 }
 
                 if (_objCompBikesRepo != null)
-                {
+                {                    
+                    DateTime fTime = DateTime.Parse(fromTime.Text, System.Globalization.CultureInfo.CurrentCulture);
+                    DateTime tTime = DateTime.Parse(toTime.Text, System.Globalization.CultureInfo.CurrentCulture);
 
+                    DateTime parFromTime= DateTime.MinValue, parToTime = DateTime.MinValue;
 
-                    isDataSaved = _objCompBikesRepo.SaveBikeComparision(compareId, Convert.ToUInt32(drpVersion1.SelectedItem.Value), Convert.ToUInt32(drpVersion2.SelectedItem.Value), chkIsActive.Checked);
+                    if (chkIsSponsored.Checked)
+                    {
+                        if(fTime != null)
+                         parFromTime = Convert.ToDateTime(fromDate.Text).Date.Add(fTime.TimeOfDay);
+                        if(tTime != null)
+                         parToTime = Convert.ToDateTime(toDate.Text).Date.Add(tTime.TimeOfDay);
+                    }
+
+                    isDataSaved = _objCompBikesRepo.SaveBikeComparision(compareId, Convert.ToUInt32(drpVersion1.SelectedItem.Value), Convert.ToUInt32(drpVersion2.SelectedItem.Value), chkIsActive.Checked, chkIsSponsored.Checked, parFromTime, parToTime);
                 }
 
                 if (isDataSaved)
