@@ -1,4 +1,7 @@
-﻿// read more list - collapse
+﻿var $window, overallSpecsTabsContainer, specsTabsContentWrapper, specsFooter;
+var topNavBarHeight = 45;
+
+// read more list - collapse
 $(document).on('click','.read-more-list', function () {
     var element = $(this),
         parentElemtent = element.closest('.collapsible-list');
@@ -38,6 +41,8 @@ docReady(function () {
 
 	var makeField = $('#form-make-field'),
 		modelField = $('#form-model-field');
+
+	$('#back-to-top').remove();
 
     var bikePopup = {
 
@@ -194,7 +199,6 @@ docReady(function () {
         }
     });
 
-
 	$("#submit-bike-selection").click(function () {
 		if(makeField.attr('data-make-id') > 0) {
 			if(modelField.attr('data-model-id') > 0) {
@@ -240,4 +244,53 @@ docReady(function () {
             $('html, body').scrollTop(-windowScrollTop);
         }
 	};
+
+	$window = $(window);
+	overallSpecsTabsContainer = $('.overall-specs-tabs-container');
+	specsTabsContentWrapper = $('#specsTabsContentWrapper');
+	specsFooter = $('#specsFooter');
+
+	$(window).scroll(function () {
+        var windowScrollTop = $window.scrollTop(),
+            specsTabsOffsetTop = specsTabsContentWrapper.offset().top,
+            specsFooterOffsetTop = specsFooter.offset().top;
+
+        if (windowScrollTop > specsTabsOffsetTop) {
+            overallSpecsTabsContainer.addClass('fixed-tab-nav');
+        }
+
+        else if (windowScrollTop < specsTabsOffsetTop) {
+            overallSpecsTabsContainer.removeClass('fixed-tab-nav');
+        }
+
+        if (overallSpecsTabsContainer.hasClass('fixed-tab-nav')) {
+            if (windowScrollTop > specsFooterOffsetTop - topNavBarHeight) {
+                overallSpecsTabsContainer.removeClass('fixed-tab-nav');
+            }
+        }
+
+        $('#specsTabsContentWrapper .bw-model-tabs-data').each(function () {
+            var top = $(this).offset().top - topNavBarHeight,
+                bottom = top + $(this).outerHeight();
+
+            if (windowScrollTop >= top && windowScrollTop <= bottom) {
+                overallSpecsTabsContainer.find('li').removeClass('active');
+                $('#specsTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
+
+                $(this).addClass('active');
+
+                var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('id') + '"]');
+                overallSpecsTabsContainer.find(currentActiveTab).addClass('active');
+            }
+        });   
+
+    });
+
+	$('.overall-specs-tabs-wrapper li').click(function () {
+        var target = $(this).attr('data-tabs');
+        $('html, body').animate({ scrollTop: $(target).offset().top - topNavBarHeight }, 1000);
+        centerItVariableWidth($(this), '.overall-specs-tabs-container');
+        return false;
+    });
+
 });
