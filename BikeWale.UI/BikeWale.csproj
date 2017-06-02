@@ -2984,6 +2984,7 @@
     <Content Include="m\src\used\bikes-in-city.js" />
     <Content Include="m\src\used\landing.js" />
     <Content Include="m\src\user-review\listing.js" />
+    <Content Include="m\src\user-review\review-contest.js" />
     <Content Include="m\src\user-review\write-review.js" />
     <Content Include="m\src\video\details.js" />
     <Content Include="m\src\video\videoByCategory.js" />
@@ -3053,6 +3054,20 @@
     <Content Include="sass\modules\_comparison-type-carousel.sass" />
     <Content Include="sass\components\_inline-grid.sass" />
     <Content Include="sass\compare\_bike-comparison-grid.sass" />
+    <Content Include="sass\upcoming-bikes\upcoming-bikes.sass" />
+    <Content Include="sass\upcoming-bikes\_upcoming-bikes-style.sass" />
+    <Content Include="sass\user-review\write-review.sass" />
+    <Content Include="sass\user-review\_write-review-style.sass" />
+    <Content Include="m\sass\upcoming-bikes\upcoming-bikes.sass" />
+    <Content Include="m\sass\upcoming-bikes\_media-query.sass" />
+    <Content Include="m\sass\upcoming-bikes\_upcoming-bikes-style.sass" />
+    <Content Include="m\sass\user-review\write-review.sass" />
+    <Content Include="m\sass\user-review\_write-review-style.sass" />
+    <Content Include="m\sass\user-review\_write-review-media-query.sass" />
+    <Content Include="m\sass\modules\_overall-floating-tabs.sass" />
+    <Content Include="m\sass\user-review\review-contest.sass" />
+    <Content Include="m\sass\user-review\_review-contest-style.sass" />
+    <Content Include="m\sass\modules\_collapsible-list.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3723,6 +3738,7 @@
     <Content Include="Views\GenericBestBikes\Index_Mobile.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage_Mobile.cshtml" />
+    <Content Include="Views\UserReview\WriteReviewContest_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3868,8 +3884,8 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>true</UseIIS>
-          <AutoAssignPort>false</AutoAssignPort>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9011</IISUrl>

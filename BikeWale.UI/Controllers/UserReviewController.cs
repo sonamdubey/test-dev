@@ -364,5 +364,12 @@ namespace Bikewale.Controllers
                 return Redirect("/pageNotFound.aspx");
             }
         }
+
+        [Route("m/user-reviews/contest/")]
+        public ActionResult WriteReviewContest_Mobile()
+        {
+            ModelBase m = new ModelBase();
+            return View(m);
+        }
     }
 }
