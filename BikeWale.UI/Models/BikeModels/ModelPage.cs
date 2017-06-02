@@ -160,35 +160,39 @@ namespace Bikewale.Models.BikeModels
                 {
                     string specsDescirption = string.Empty;
                     string cityList = string.Empty;
+                    string priceDescription = string.Empty;
                     string versionDescirption = objData.ModelPageEntity.ModelVersions.Count > 1 ? string.Format(" It is available in {0} versions", objData.ModelPageEntity.ModelVersions.Count) : string.Format(" It is available in {0} version", objData.ModelPageEntity.ModelVersions.Count);
                     ushort index = 0;
-                    if (objData.ModelPageEntity.ModelVersions != null && objData.ModelPageEntity.ModelVersions.Count() > 1)
+                    if (objData.ModelPageEntity.ModelVersions != null )
                     {
-                        versionDescirption += "- ";
-                        foreach (var version in objData.ModelPageEntity.ModelVersions)
+                        if (objData.ModelPageEntity.ModelVersions.Count() > 1)
                         {
+                            versionDescirption += "- ";
+                            foreach (var version in objData.ModelPageEntity.ModelVersions)
+                            {
+                                index++;
+                                if (objData.ModelPageEntity.ModelVersions.Count() <= index)
+                                    break;
+                                else if (index > 1)
+                                    versionDescirption += ",";
+                                versionDescirption = string.Format("{0} {1}", versionDescirption, version.VersionName);
 
 
-
-                            index++;
-                            if (objData.ModelPageEntity.ModelVersions.Count() <= index)
-                                break;
-                            else if (index > 1)
-                                versionDescirption += ",";
-                            versionDescirption = string.Format("{0} {1}", versionDescirption, version.VersionName);
-
-
+                            }
+                            versionDescirption = string.Format("{0} and {1}", versionDescirption, objData.ModelPageEntity.ModelVersions.Last().VersionName); 
                         }
-                        versionDescirption = string.Format("{0} and {1}", versionDescirption, objData.ModelPageEntity.ModelVersions.Last().VersionName);
+                        else if (objData.ModelPageEntity.ModelVersions.Count() == 1)
+                            versionDescirption = string.Format("{0}", objData.ModelPageEntity.ModelVersions.First().VersionName);
                     }
-                    if (objData.ModelPageEntity.ModelVersions != null && objData.ModelPageEntity.ModelVersions.Count() == 1)
-                        versionDescirption = string.Format("{0}", objData.ModelPageEntity.ModelVersions.First().VersionName);
-                    string priceDescription = string.Empty;
+                    
+
+
                     if (objData.BikePrice > 0 && objData.IsLocationSelected && objData.City != null)
                         priceDescription = string.Format("Price - &#x20B9; {0} onwards (On-road, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(objData.BikePrice)), objData.City.CityName);
                     else
                         priceDescription = objData.ModelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("Price - &#x20B9; {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(objData.ModelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
-                                        
+
+
                     index = 0;
                     if (objData.PriceInTopCities != null && objData.PriceInTopCities.PriceQuoteList != null&& objData.PriceInTopCities.PriceQuoteList.Count()>1)
                     {
