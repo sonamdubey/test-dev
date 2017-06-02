@@ -34,7 +34,8 @@
                     <% } %>
                     <td class="text-align-center">
                         <% if(listing.IsBikeDataEdited) { %>
-                        <input data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" id="btnApprove" type="button" value="Approve" /><input id="btnDiscard" class="margin-left5" type="button" value="Discard" data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" />
+                        <input data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" data-modelid="<%=listing.Model.ModelId %>" id="btnApprove" type="button" value="Approve" />
+                        <input id="btnDiscard" class="margin-left5" type="button" value="Discard" data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-modelid="<%=listing.Model.ModelId %>" data-attr-bikename="<%=listing.Version.VersionName %>" />
                         <% } %>
                     </td>
                 </tr>
@@ -59,7 +60,8 @@
         var selInquiry = (btn).attr('data-attr-id');
         var profileId = (btn).attr('data-attr-profileid');
         var bikename = (btn).attr('data-attr-bikename');
-        var uri = BwOprHostUrl + "/api/used/sell/pendinginquiries/" + selInquiry + "/?isApproved=" + status + "&approvedBy=" + userid + "&profileId=" + profileId + "&bikeName=" + bikename;
+        var modelId = (btn).attr('data-modelid');
+        var uri = BwOprHostUrl + "/api/used/sell/pendinginquiries/" + selInquiry + "/?isApproved=" + status + "&approvedBy=" + userid + "&profileId=" + profileId + "&bikeName=" + bikename + "&modelId=" + modelId;
         $.ajax({
             type: "POST",
             url: uri,

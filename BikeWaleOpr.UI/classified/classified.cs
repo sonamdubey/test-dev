@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
+using Bikewale.Utility;
 /// <summary>
 /// Created By Sanjay Soni ON 1/10/2014
 /// </summary>
@@ -357,16 +358,29 @@ namespace BikeWaleOpr.Classified
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                     isSuccess = true;
 
-                    UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, false);
+                    UsedBikeProfileDetails seller = _objSellerRepository.GetUsedBikeSellerDetails(inquiryId, false);
+                    string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
                     if (seller != null)
                     {
+                        
                         SMSTypes newSms = new SMSTypes();
-                        SendEmailSMSToDealerCustomer.UsedBikeApprovalEmailToIndividual(seller.Details, profileId, bikeName);
+                        
+                        SendEmailSMSToDealerCustomer.UsedBikeApprovalEmailToIndividual(seller.SellerDetails, profileId, bikeName
+                            ,seller.MakeYear
+                            ,Format.AddNumberOrdinal((uint)seller.Owner)
+                            ,Format.FormatNumeric(seller.RideDistance)
+                            ,seller.City
+                            ,Image.GetPathToShowImages(seller.OriginalImagePath,seller.HostUrl,ImageSize._110x61)
+                            ,inquiryId
+                            ,BWConfiguration.Instance.BwHostUrl
+                            ,seller.ModelId
+                            ,qEncoded);
+                       
                         newSms.ApprovalUsedSellListingSMS(
                             EnumSMSServiceType.ApprovalUsedSellListingToSeller,
-                            seller.Details.CustomerMobile,
+                            seller.SellerDetails.CustomerMobile,
                             profileId,
-                            seller.Details.CustomerName,
+                            seller.SellerDetails.CustomerName,
                             HttpContext.Current.Request.ServerVariables["URL"]
                             );
                     }

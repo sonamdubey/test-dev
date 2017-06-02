@@ -22,7 +22,7 @@ namespace Bikewale.Models
         private uint _reviewId;
         private string _Querystring;
         private ulong _customerId;
-
+        private ushort _sourceId;
         private uint _selectedRating;
         private bool _isFake;
         public StatusCodes status;
@@ -63,6 +63,7 @@ namespace Bikewale.Models
                 bool.TryParse(queryCollection["isFake"], out _isFake);
                 _returnUrl = Convert.ToString(queryCollection["returnUrl"]);
                 uint.TryParse(queryCollection["selectedRating"], out _selectedRating);
+                ushort.TryParse(queryCollection["sourceid"], out _sourceId);
 
                 if (_reviewId > 0 && !_isFake)
                 {
@@ -101,6 +102,7 @@ namespace Bikewale.Models
                 GetUserRatings(objUserVM);
                 if (objUserVM != null && objUserVM.objModelEntity != null)
                 {
+                    objUserVM.SourceId = _sourceId;
                     objUserVM.ReturnUrl = _returnUrl;
                     BindMetas(objUserVM);
                 }
