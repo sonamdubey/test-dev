@@ -22,10 +22,12 @@ namespace Bikewale
             UnityConfig.RegisterComponents();
             Bikewale.Service.WebApiConfig.Register(GlobalConfiguration.Configuration);
             RouteConfig.RegisterRoutes(RouteTable.Routes);            
-            GlobalConfiguration.Configuration.EnsureInitialized();
-            AssemblyRegistration.Container.Resolve<IReactEnvironment>();
-            
+            GlobalConfiguration.Configuration.EnsureInitialized();   
+                        
             ConfigureWurfl();
+
+            if (!BWConfiguration.Instance.DisablePWA)
+                AssemblyRegistration.Container.Resolve<IReactEnvironment>();
         }
 
         protected void Application_PostAuthenticateRequest(object sender, EventArgs e)

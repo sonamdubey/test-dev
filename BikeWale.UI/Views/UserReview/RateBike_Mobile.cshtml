@@ -45,8 +45,8 @@
                         <p class="error-text" data-bind="" style="display: none">This is a compulsory field.</p>
 
                         <div class="answer-radio-list" data-bind="foreach: rating">
-                            <input type="radio" data-bind="attr: {questionId:$parentContext.$index()+1,id: 'q-' + $parentContext.$index() + '-' + $index(), name: 'rating-q-' + $parentContext.$index(),value:$index() + 1,'data-checked' : ($index() + 1 == $parentContext.$data.selectedRatingId) ? 'true' : 'false'} " />
-                            <label data-bind="attr: {for: 'q-' + $parentContext.$index() + '-' + $index(), 'data-value': $index() + 1}, text: ratingText"></label>
+                            <input type="radio" data-bind="attr: {questionId:$parentContext.$index()+1,id: 'q-' + $parentContext.$index() + '-' + $index(), name: 'rating-q-' + $parentContext.$index(),value:ratingValue,'data-checked' : (ratingValue == $parentContext.$data.selectedRatingId) ? 'true' : 'false'} " />
+                            <label data-bind="attr: {for: 'q-' + $parentContext.$index() + '-' + $index(), 'data-value': ratingValue}, text: ratingText"></label>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -82,6 +82,7 @@
                 <input type="hidden" name="priceRangeId" value="@Model.PriceRangeId" />                
                 <input type="hidden" name="reviewId" value="@Model.ReviewId" />
                 <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                <input type="hidden" name="sourceId" value="@Model.SourceId" />
                 <input type="hidden" name="platformId" value="2" />
                 <input type="submit" class="btn btn-orange" value="Submit rating" data-bind="click: submitRating" />                          
             </div>
