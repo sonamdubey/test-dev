@@ -198,7 +198,7 @@ docReady(function () {
 	$("#submit-bike-selection").click(function () {
 		if(makeField.attr('data-make-id') > 0) {
 			if(modelField.attr('data-model-id') > 0) {
-				var returnUrl = "";
+			    var returnUrl = $('#querystring').data('query');
 				window.location = "/m/rate-your-bike/" + Number(modelField.attr('data-model-id')) + "/?q=" + returnUrl;
 			}
 			else {
