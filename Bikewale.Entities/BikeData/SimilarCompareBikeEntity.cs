@@ -11,6 +11,8 @@ namespace Bikewale.Entities.BikeData
     /// Summary     : Added additional parameters (ID, IsScooterOnly) for generic use
     /// Modified By :- Subodh Jain 10 may 2017
     /// summary :- Added bodystyle1 and bodystyle2
+    /// Modified by : Aditi Srivastava on 2 June 2017
+    /// Summary     : Added IsSponsored Flag and Start and end dates
     /// </summary>
     [Serializable]
     public class SimilarCompareBikeEntity
@@ -42,5 +44,8 @@ namespace Bikewale.Entities.BikeData
         public bool IsScooterOnly { get; set; }
         public uint BodyStyle1 { get; set; }
         public uint BodyStyle2 { get; set; }
+        public bool IsSponsored { get; set; }
+        public DateTime SponsoredStartDate { get; set; }
+        public DateTime SponsoredEndDate { get; set; }
     }
 }

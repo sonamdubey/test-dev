@@ -20,6 +20,7 @@ namespace Bikewale.Models
         #region Public properties
         public uint TopCount { get; set; }
         public uint CityId { get; set; }
+        public bool IsScooter { get; set; }
         #endregion
 
         #region Contructor
@@ -41,7 +42,10 @@ namespace Bikewale.Models
             {
                 if (TopCount == 0)
                     TopCount = 9;
-                objComparison.CompareBikes = _objCompare.GetPopularCompareList(CityId);
+                if (IsScooter)
+                    objComparison.CompareBikes = _objCompare.GetScooterCompareList(CityId);
+                else
+                    objComparison.CompareBikes = _objCompare.GetPopularCompareList(CityId);
                 if (objComparison.CompareBikes != null && objComparison.CompareBikes.Count() > 0)
                 {
                     objComparison.IsDataAvailable = true;

@@ -20,7 +20,7 @@ namespace Bikewale.Models
         public MostPopularBikeWidgetVM PopularBikes { get; set; }
         public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
         public BestBikeWidgetVM BestBikes { get; set; }
-        public ComparisonMinWidgetVM CompareBikes { get; set; }
+        //public ComparisonMinWidgetVM CompareBikes { get; set; }
         public UsedBikeCitiesWidgetVM UsedBikeCities { get; set; }
         public UsedBikeModelsWidgetVM UsedModels { get; set; }
         public RecentNewsVM News { get; set; }

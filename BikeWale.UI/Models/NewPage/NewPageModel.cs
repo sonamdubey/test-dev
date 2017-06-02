@@ -106,11 +106,8 @@ namespace Bikewale.Models
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
             objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
 
-            if (IsMobile)
-                BindCompareBikes(objVM, CompareSource, cityId);
-            else
-                objVM.CompareBikes = new ComparisonMinWidget(_cachedCompare, 4, true, EnumBikeType.New).GetData();
-
+            BindCompareBikes(objVM, CompareSource, cityId);
+          
             objVM.BestBikes = new BestBikeWidgetModel(null).GetData();
 
             objVM.News = new RecentNews(3, _articles).GetData();

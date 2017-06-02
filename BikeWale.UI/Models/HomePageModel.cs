@@ -11,7 +11,6 @@ using Bikewale.Interfaces.HomePage;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.Videos;
-using Bikewale.Models.CompareBikes;
 using Bikewale.Utility;
 using System;
 using System.Linq;
@@ -122,12 +121,8 @@ namespace Bikewale.Models
 
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
             objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
-
-            if (IsMobile)
-                BindCompareBikes(objVM, CompareSource, cityId);
-            else
-                objVM.CompareBikes = new ComparisonMinWidget(_cachedCompare, 4, true, EnumBikeType.New).GetData();
-
+            BindCompareBikes(objVM, CompareSource, cityId);
+            
             objVM.BestBikes = new BestBikeWidgetModel(null).GetData();
 
             objVM.UsedBikeCities = new UsedBikeCitiesWidgetModel(cityMaskingName, string.Empty, _IUsedBikesCache).GetData();

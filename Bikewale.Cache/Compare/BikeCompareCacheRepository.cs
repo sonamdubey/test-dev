@@ -190,5 +190,25 @@ namespace Bikewale.Cache.Compare
             }
             return topScootersComapareBase;
         }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 2 June 2017
+        /// Summary    : Get list of comparisons of popular scooters
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<SimilarCompareBikeEntity> GetScooterCompareList(uint cityId)
+        {
+            IEnumerable<SimilarCompareBikeEntity> compareBikeList = null;
+            string key = string.Format("BW_PopularScootersComparison_CityId_{0}", cityId);
+            try
+            {
+                compareBikeList = _cache.GetFromCache<IEnumerable<SimilarCompareBikeEntity>>(key, new TimeSpan(12, 0, 0, 0), () => _compareRepository.GetScooterCompareList(cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.GetScooterCompareList");
+            }
+            return compareBikeList;
+        }
     }
 }

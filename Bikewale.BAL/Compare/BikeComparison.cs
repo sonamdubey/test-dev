@@ -976,5 +976,10 @@ namespace Bikewale.BAL.Compare
         {
             return _objCompare.GetPopularCompareList(cityId);
         }
+
+        public IEnumerable<SimilarCompareBikeEntity> GetScooterCompareList(uint cityId)
+        {
+            return _objCompare.GetScooterCompareList(cityId);
+        }
     }
 }
