@@ -25,8 +25,8 @@ namespace BikeWaleOpr.Content
         protected string cId = string.Empty;
         public string hostURL = string.Empty;
         protected IEnumerable<PopularBikeComparision> objBikeComps = null;
-        protected TextBox fromDate, toDate, fromTime, toTime;
-        protected string toTimeString, fromTimeString;
+        protected TextBox txtFromDate, txtToDate, txtFromTime, txtToTime;
+        protected string strToTime, strFromTime;
 
         private IPopularBikeComparisions _objCompBikesRepo = null;
         private IBikeMakes _objMakesRepo = null;
@@ -313,26 +313,25 @@ namespace BikeWaleOpr.Content
                         chkIsActive.Checked = _objComparision.IsActive;
                         chkIsSponsored.Checked = _objComparision.IsSponsored;
 
-                        DateTime sponStartDate = _objComparision.SponsoredStartDate;
-                        DateTime sponEndDate = _objComparision.SponsoredStartDate;
+                        DateTime dtStartDate = _objComparision.SponsoredStartDate;
+                        DateTime dtEndDate = _objComparision.SponsoredEndDate;
 
-                        if (sponStartDate != null && sponStartDate != DateTime.MinValue)
+                        if (dtStartDate != null && dtStartDate != DateTime.MinValue)
                         {
-                            fromDate.Text = _objComparision.SponsoredStartDate.ToString("yyyy-MM-dd");
-                            fromTimeString = Convert.ToString(_objComparision.SponsoredStartDate.TimeOfDay);
+                            txtFromDate.Text = _objComparision.SponsoredStartDate.ToString("yyyy-MM-dd");
+                            strFromTime = Convert.ToString(_objComparision.SponsoredStartDate.TimeOfDay);
                         }
 
-                        if (sponEndDate != null && sponEndDate != DateTime.MinValue)
+                        if (dtEndDate != null && dtEndDate != DateTime.MinValue)
                         {
-                            toDate.Text = _objComparision.SponsoredEndDate.ToString("yyyy-MM-dd");
-                            toTimeString = Convert.ToString(_objComparision.SponsoredEndDate.TimeOfDay);
+                            txtToDate.Text = _objComparision.SponsoredEndDate.ToString("yyyy-MM-dd");
+                            strToTime = Convert.ToString(_objComparision.SponsoredEndDate.TimeOfDay);
                         }
                     }
                 }
             }
             catch (Exception err)
-            {
-                Trace.Warn(err.Message + err.Source);
+            {                
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.ConsumeError();
             }
@@ -358,20 +357,20 @@ namespace BikeWaleOpr.Content
 
                 if (_objCompBikesRepo != null)
                 {                    
-                    DateTime fTime = DateTime.Parse(fromTime.Text, System.Globalization.CultureInfo.CurrentCulture);
-                    DateTime tTime = DateTime.Parse(toTime.Text, System.Globalization.CultureInfo.CurrentCulture);
+                    DateTime dtFromTime = DateTime.Parse(txtFromTime.Text, System.Globalization.CultureInfo.CurrentCulture);
+                    DateTime dtToTime = DateTime.Parse(txtToTime.Text, System.Globalization.CultureInfo.CurrentCulture);
 
-                    DateTime parFromTime= DateTime.MinValue, parToTime = DateTime.MinValue;
+                    DateTime combinedFromDate = DateTime.MinValue, combinedToDate = DateTime.MinValue;
 
                     if (chkIsSponsored.Checked)
                     {
-                        if(fTime != null)
-                         parFromTime = Convert.ToDateTime(fromDate.Text).Date.Add(fTime.TimeOfDay);
-                        if(tTime != null)
-                         parToTime = Convert.ToDateTime(toDate.Text).Date.Add(tTime.TimeOfDay);
+                        if(dtFromTime != null)
+                            combinedFromDate = Convert.ToDateTime(txtFromDate.Text).Date.Add(dtFromTime.TimeOfDay);
+                        if(dtToTime != null)
+                            combinedToDate = Convert.ToDateTime(txtToDate.Text).Date.Add(dtToTime.TimeOfDay);
                     }
 
-                    isDataSaved = _objCompBikesRepo.SaveBikeComparision(compareId, Convert.ToUInt32(drpVersion1.SelectedItem.Value), Convert.ToUInt32(drpVersion2.SelectedItem.Value), chkIsActive.Checked, chkIsSponsored.Checked, parFromTime, parToTime);
+                    isDataSaved = _objCompBikesRepo.SaveBikeComparision(compareId, Convert.ToUInt32(drpVersion1.SelectedItem.Value), Convert.ToUInt32(drpVersion2.SelectedItem.Value), chkIsActive.Checked, chkIsSponsored.Checked, combinedFromDate, combinedToDate);
                 }
 
                 if (isDataSaved)

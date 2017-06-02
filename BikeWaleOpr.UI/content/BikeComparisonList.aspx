@@ -102,15 +102,15 @@
                     <div class="margin-top10 text-bold">
                     Starting Date: 
                     </div>
-                        <asp:TextBox ID="fromDate" runat="server" placeholder="From" type="date" title="Sponsored comparison Starting Date"></asp:TextBox>
-                    <asp:TextBox ID="fromTime" runat="server" type="time"></asp:TextBox>
+                        <asp:TextBox ID="txtFromDate" runat="server" placeholder="From" type="date" title="Sponsored comparison Starting Date"></asp:TextBox>
+                    <asp:TextBox ID="txtFromTime" runat="server" type="time"></asp:TextBox>
                 </div>
                 <div class="margin-top10 margin-bottom10 form-control-box">
                     <div class="margin-top10 text-bold">
                     Ending Date: 
                     </div>
-                    <asp:TextBox ID="toDate" runat="server" placeholder="To" type="date" title="Sponsored comparison Ending Date"></asp:TextBox>
-                    <asp:TextBox ID="toTime" runat="server" type="time"></asp:TextBox>
+                    <asp:TextBox ID="txtToDate" runat="server" placeholder="To" type="date" title="Sponsored comparison Ending Date"></asp:TextBox>
+                    <asp:TextBox ID="txtToTime" runat="server" type="time"></asp:TextBox>
                 </div>                
                 <div class="margin-top10 margin-bottom10">
                     <input type="checkbox" id="chkIsSponsored" text="IsSponsored" runat="server" /> IsSponsored
@@ -158,7 +158,7 @@
                     <td class="centreAlign"><a href='bikecomparisonlist.aspx?id=<%= bike.ComparisionId %>'><img border=0 src=https://opr.carwale.com/images/edit.jpg /></a></td> 
                    <td><input class="txtWidth priority" type="text" style="width:25px" id="txtPriority" value="<%= (bike.PriorityOrder > 0) ? bike.PriorityOrder.ToString() : string.Empty %>" compId='<%= bike.ComparisionId %>' /></td>
                    <td class="centreAlign"><span id="status"><%= bike.IsActive ? "Active" : "Inactive" %></span></td>
-                   <td class="centreAlign"><span id="sponsored"><%= bike.IsSponsored ? "Yes" : "No" %></span></td>
+                   <td class="centreAlign"><span class="sponsored"><%= bike.IsSponsored ? "Yes" : "No" %></span></td>
                    <td><%= bike.SponsoredStartDate == DateTime.MinValue ? "--" :  bike.SponsoredStartDate.ToString() %></td>
                    <td><%= bike.SponsoredEndDate == DateTime.MinValue ? "--" :  bike.SponsoredEndDate.ToString() %></td>
                    <td class="centreAlign"><a class="delete" Id='<%= bike.ComparisionId %>' style="cursor:pointer;" ><img src="https://opr.carwale.com/images/icons/delete.ico" border="0"/></a></td>                              
@@ -173,19 +173,19 @@
     var ddlMake1 = $("#drpMake1"), ddlMake2 = $("#drpMake2");
     var ddlModel1 = $("#drpModel1"), ddlModel2 = $("#drpModel2");
     var ddlVersion1 = $("#drpVersion1"), ddlVersion2 = $("#drpVersion2");
-    var toTimeString = "<%= toTimeString%>";
-    var fromTimeString = "<%= fromTimeString%>";
+    var toTimeString = "<%= strToTime%>";
+    var fromTimeString = "<%= strFromTime%>";
 
     $(document).ready(function () {
         if (toTimeString)
-            $('#toTime').val(toTimeString);
+            $('#txtToTime').val(toTimeString);
         else
-            $('#toTime').val("00:00:00");
+            $('#txtToTime').val("00:00:00");
 
         if(fromTimeString)
-            $('#fromTime').val(fromTimeString);
+            $('#txtFromTime').val(fromTimeString);
         else
-            $('#fromTime').val("00:00:00");
+            $('#txtFromTime').val("00:00:00");
     });
 
     $('select').each(function () {
@@ -364,7 +364,7 @@
         var objPriorities = {};
         var status = false;
         $(":text.priority").each(function () {
-            if ($(this).parent().parent().find("#sponsored").text() == "No") {
+            if ($(this).closest("tr").find(".sponsored").text() == "No") {
                 var text = $(this).val();
                 if (objPriorities[text])
                     status = true;
@@ -379,7 +379,7 @@
     function CheckNullText() {
         var IsNull = false;
         $(":text.priority").each(function () {
-            if ($(this).parent().parent().find("#sponsored").text() == "No" && ($(this).val() == '' || $(this).val() == 0)) {
+            if ($(this).closest("tr").find(".sponsored").text() == "No" && ($(this).val() == '' || $(this).val() == 0)) {
                 IsNull = true;
             }
         });
