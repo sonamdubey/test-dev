@@ -9,29 +9,53 @@
     <div class="container contest-banner-container card-bottom-margin">
         <div class="contest-banner"></div>
         <div class="text-center">
-            <h1 class="font14 text-white text-unbold margin-bottom5">Help your friend by writing fair reviews</h1>
-            <a href="" class="btn btn-orange btn-130-34 text-uppercase">Write a review</a>
+            <h1 class="font14 text-white text-unbold margin-bottom5">Help your friends by writing a fair review</h1>
+            <a href="/m/user-reviews/#selectBike" class="btn btn-orange btn-130-34 text-uppercase">Write a review</a>
         </div>
     </div>
 </section>
 
 <section class="font-oxygen">
-    <div class="container">
+	<div class="rewards-banner">
+		<p class="font13">Best review wins</p>
+		<p class="font14 font-bold">Amazon voucher worth&nbsp;<span class="inr-green-14"></span>1,000 every week</p>
+	</div>
+</section>
+
+<section class="font-oxygen">
+    <div id="specsTabsContentWrapper" class="container">
         <div id="overallSpecsTopContent" class="bg-white position-rel">
             <div id="overallSpecsTab" class="overall-specs-tabs-container">
                 <ul class="overall-specs-tabs-wrapper">
-                    <li data-tabs="overviewContent" class="active">Overview</li>
-                    <li data-tabs="cheatsheetContent">Cheatsheet</li>
-                    <li data-tabs="winnersContent">Winner reviews</li>
-                    <li data-tabs="tncContent">T&amp;C</li>
+                    <li data-tabs="#overviewContent" class="active">Overview</li>
+                    <li data-tabs="#cheatsheetContent">Cheatsheet</li>
+                    <li data-tabs="#winnersContent">Featured reviews</li>
+                    <li data-tabs="#tncContent">T&amp;C</li>
                 </ul>
             </div>
         </div>
 
         <div id="overviewContent" class="bw-model-tabs-data content-box-shadow padding-25-20 active margin-bottom40 text-center">
             <h2 class="h2-heading">Write a review</h2>
-            <p class="font-light">Write a review of your bike - new or old, owned or sold - and help fellow riders make the right choice</p>
-			<p class="font14 margin-bottom15">Start writing review</p>
+            <p class="font-light bottom-divider">Write a review of your bike - new or old, owned or sold - and help fellow riders make the right choice</p>
+
+			<p class="font14 text-light-black margin-bottom15">Write it right</p>
+			<ul class="guideline-list">
+				<li class="list-item">
+					<span class="guideline-sprite truth-icon"></span>
+					<p>Tell the truth</p>
+				</li>
+				<li class="list-item">
+					<span class="guideline-sprite details-icon"></span>
+					<p>Put in details</p>
+				</li>
+				<li class="list-item">
+					<span class="guideline-sprite original-icon"></span>
+					<p>Be original</p>
+				</li>
+			</ul>
+			
+			<p class="font14 margin-bottom15 text-dark">Start writing your review</p>
 			<div id="bike-selection-form">
 				<div id="form-make-field" class="form-control-box form-input-box margin-bottom20" data-bind="click: function (d, e) { openBikeSelection(); }">
 					<span data-bind="text: makeName">Select make</span>
@@ -45,7 +69,7 @@
 					<span class="bwmsprite error-icon errorIcon"></span>
 					<div class="bw-blackbg-tooltip errorText"></div>
 				</div>
-				<input id="submit-bike-selection" type="button" class="btn btn-orange btn-full-width text-uppercase" value="Submit">
+				<input id="submit-bike-selection" type="button" class="btn btn-orange btn-full-width text-uppercase" value="Write your review">
 
 				<div id="select-bike-cover-popup" data-bind="with: bikeSelection" class="cover-window-popup text-left">
 					<div class="ui-corner-top">
@@ -113,41 +137,38 @@
         </div>
 
         <div id="winnersContent" class="bw-model-tabs-data content-box-shadow padding-top25 margin-bottom40">
-            @*<div class="my-flipster">
-                <ul>
-                    <li>
-                        <img src="http://brokensquare.com/Code/jquery-flipster/demo/img/text1.gif" />
-                    </li>
-                    <li>
-                        <img src="http://brokensquare.com/Code/jquery-flipster/demo/img/text2.gif" />
-                    </li>
-                    <li>
-                        <img src="http://brokensquare.com/Code/jquery-flipster/demo/img/text3.gif" />
-                    </li>
-                    <li>
-                        <img src="http://brokensquare.com/Code/jquery-flipster/demo/img/text4.gif" />
-                    </li>
-                    <li>
-                        <img src="http://brokensquare.com/Code/jquery-flipster/demo/img/text5.gif" />
-                    </li>
-                </ul>
-            </div>*@
-            <h2 class="h2-heading text-white text-center">Previous winners reviews</h2>
+            <h2 class="h2-heading text-white text-center">Featured reviews</h2>
             <div class="swiper-container noSwiper winner-review-swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <span class="review-author john-doe"></span>
-						<p class="card-title">Vipin Pandit</p>
-						<span class="rating-badge" data-rate-bg="5">
-							<span class="bwmsprite star-white"></span>
-							<span>5</span>
+						<p class="card-title">Chetan</p>
+						<span class="rating-badge" data-rate-bg="4">
+							<span class="bwmsprite star-white"></span>4
 						</span>
+						<p class="font14 font-bold text-black margin-top5">TVS Apache RTR 160</p>
+						<p class="font12 font-light margin-bottom15">"Very good style as compare to Unicorn. People turns heads to.."</p>
+						<a href="/m/tvs-bikes/apache-160/reviews/506/" class="text-underline">Read full review</a>
                     </div>
                     <div class="swiper-slide">
                         <span class="review-author john-doe"></span>
+						<p class="card-title">Souranils</p>
+						<span class="rating-badge" data-rate-bg="4">
+							<span class="bwmsprite star-white"></span>4
+						</span>
+						<p class="font14 font-bold text-black margin-top5">Honda CB Hornet 160R</p>
+						<p class="font12 font-light margin-bottom15">"Looks wise the best in the segment, better than fz or gixxer, in.."</p>
+						<a href="/m/honda-bikes/hornet/reviews/997/" class="text-underline">Read full review</a>
                     </div>
-                    <div class="swiper-slide">
+					<div class="swiper-slide">
                         <span class="review-author john-doe"></span>
+						<p class="card-title">B Lava Kumar</p>
+						<span class="rating-badge" data-rate-bg="1">
+							<span class="bwmsprite star-white"></span>1
+						</span>
+						<p class="font14 font-bold text-black margin-top5">Royal Enfield Classic 350</p>
+						<p class="font12 font-light margin-bottom15">"I have been hearing some weird noises from engine since day.."</p>
+						<a href="/m/royalenfield-bikes/classic/reviews/452/" class="text-underline">Read full review</a>
                     </div>
                 </div>
                 <div class="swiper-pagination"></div>
@@ -184,6 +205,7 @@
             </div>
         </div>
 
+		<div id="specsFooter"></div>
 
     </div>
 </section>
