@@ -146,7 +146,7 @@ namespace Bikewale.ExpiringListingReminder
 
                 if (shortRepostUrl != null)
                     repostUrl = shortRepostUrl.ShortUrl;
-                string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceId={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
+                string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
                 if (EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller.Equals(dayRemaining))
                 {
                     ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, 

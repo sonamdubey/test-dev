@@ -56,7 +56,7 @@ namespace BikewaleOpr.BAL.Used
                     }
                     else
                     {
-                        string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceId={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
+                        string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
                         string writeReview = string.Format("{0}/rate-your-bike/{1}/?q={2}", Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrl, modelId, qEncoded);
                         SendEmailSMSToDealerCustomer.UsedBikeEditedApprovalEmailToSeller(seller.SellerDetails, profileId, bikeName, modelImage, seller.RideDistance, writeReview);
                         newSms.ApprovalEditedUsedSellListingSMS(
