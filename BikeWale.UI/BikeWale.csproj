@@ -3723,6 +3723,8 @@
     <Content Include="Views\GenericBestBikes\Index_Mobile.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage_Mobile.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
