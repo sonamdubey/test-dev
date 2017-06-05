@@ -223,6 +223,8 @@ docReady(function () {
 
     onRoadcity = $('#ddlCitiesOnRoad'), onRoadArea = $('#ddlAreaOnRoad'), onRoadMakeModel = $('#getFinalPrice');
 
+	$('#back-to-top').remove();
+
     // knockout OnRoadData binding
     viewModelOnRoad = {
         selectedCity: ko.observable(),

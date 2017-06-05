@@ -189,7 +189,7 @@
 </section>
 <section>
     <!--  Upcoming, New Launches and Top Selling code starts here -->
-    <div class="container">
+    <div class="container margin-bottom20">
         <div class="grid-12 alpha omega">
             <h2 class="font18 text-center margin-top20 margin-bottom10">Featured bikes</h2>
             <div class="featured-bikes-panel content-box-shadow padding-bottom15">
@@ -292,19 +292,19 @@
 
 @if (Model.IsComparePopularBikesAvailable)
 {
-    <section>
-           <h2 class="font18 margin-bottom20 margin-top20 text-center">Compare Bikes</h2>
-            <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
-               @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.ComparePopularBikes)
-                <div class="view-all-btn-container margin-bottom5 margin-top15 text-center">
-                    <a href="/m/comparebikes/" title="New Bike Comparisons in India" class="btn view-all-target-btn">View all comparisons<span class="bwmsprite teal-right"></span></a>
-                </div>
-            </div>
-      </section>
+<section>
+	<h2 class="font18 margin-bottom10 margin-top20 text-center">Compare Bikes</h2>
+	<div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
+		@Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.ComparePopularBikes)
+		<div class="view-all-btn-container margin-bottom5 margin-top15 text-center">
+			<a href="/m/comparebikes/" title="New Bike Comparisons in India" class="btn view-all-target-btn">View all comparisons<span class="bwmsprite teal-right"></span></a>
+		</div>
+	</div>
+</section>
 }
 
 <section>
-    <div class="container padding-top10">
+    <div class="container margin-bottom20">
         <h2 class="font18 text-center margin-top20 margin-bottom10">Find used bikes</h2>
         <div class="bw-tabs-panel content-box-shadow">
             <div class="bw-tabs bw-tabs-flex tabs-bottom15">
