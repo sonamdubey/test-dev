@@ -1,0 +1,21 @@
+﻿.swiper-container-3d
+    -webkit-perspective: 1200px
+    -moz-perspective: 1200px
+    -o-perspective: 1200px
+    perspective: 1200px
+
+    .swiper-wrapper,
+    .swiper-slide
+        -webkit-transform-style: preserve-3d
+        -moz-transform-style: preserve-3d
+        -ms-transform-style: preserve-3d
+        transform-style: preserve-3d
+
+.swiper-container-coverflow
+    .swiper-wrapper
+        // Windows 8 IE 10 fix
+        -ms-perspective: 1200px
+
+.coverflow-swiper
+    .swiper-slide:first-child
+        margin-left: 0
