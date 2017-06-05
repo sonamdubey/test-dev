@@ -7,6 +7,10 @@ using Bikewale.Entities.BikeData;
 
 namespace Bikewale.Models
 {
+    /// <summary>
+    /// Summary: View model for write Review
+    /// Created by: Sangram Nandkhile on 05 June 2017
+    /// </summary>
     public class WriteReviewContestVM : ModelBase
     {
         public IEnumerable<BikeMakeEntityBase> Makes { get; set; }

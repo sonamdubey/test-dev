@@ -7,6 +7,10 @@ using Bikewale.Entities.UserReviews;
 
 namespace Bikewale.Models.UserReviews
 {
+    /// <summary>
+    /// Created by: Sangram Nandkhile on 05 Jun 2017
+    /// Summary: Write review contest
+    /// </summary>
     public class WriteReviewContest
     {
         private readonly IBikeMakesCacheRepository<int> _makeRepository = null;
@@ -14,7 +18,10 @@ namespace Bikewale.Models.UserReviews
         {
             _makeRepository = makeRepository;
         }
-
+        /// <summary>
+        /// Summary: To Create Write review contest GET data
+        /// </summary>
+        /// <returns></returns>
         public WriteReviewContestVM GetData()
         {
             WriteReviewContestVM viewModel = new WriteReviewContestVM();
@@ -24,6 +31,10 @@ namespace Bikewale.Models.UserReviews
             return viewModel;
         }
 
+        /// <summary>
+        /// Summary: Bind meta tags
+        /// </summary>
+        /// <param name="objData"></param>
         private void BindPageMetas(WriteReviewContestVM objData)
         {
             objData.PageMetaTags.Title = "Bike review Contest";
