@@ -22,6 +22,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     {
         private readonly string _applicationName, _retryCount, _RabbitMsgTTL;
         private readonly LeadProcessor _leadProcessor;
+        private readonly LeadProcessingRepository _repository = null;
 
         private IConnection _connetionRabbitMq;
         private IModel _model;
@@ -44,7 +45,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 UInt32.TryParse(ConfigurationManager.AppSettings["RoyalEnfieldId"], out _RoyalEnfieldId);
                 InitConsumer();
                 _leadProcessor = new LeadProcessor();
-
+                _repository = new LeadProcessingRepository();
             }
             catch (Exception ex)
             {
@@ -217,7 +218,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         DealerId = priceQuote.DealerId,
                         PinCodeId = pincodeId,
                         LeadSourceId = leadSourceId
-
                     };
 
                     if (_leadProcessor.SaveManufacturerLead(leadEntity))
@@ -238,9 +238,17 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         }
                         else if (priceQuote.DealerId == _RoyalEnfieldId)
                         {
-                            Logs.WriteInfoLog(String.Format("Royal Enfield Lead started processing. PQId --> {0}", pqId));
-                            isSuccess = _leadProcessor.PushLeadToRoyalEnfield(priceQuote, pqId, manufacturerDealerId);
-                            Logs.WriteInfoLog(String.Format("Royal Enfield Lead submitted. PQId --> {0}", pqId));
+                            // Check if lead is duplicate (already pushed), don't hit the RE API
+                            if (!_repository.IsLeadExists(_RoyalEnfieldId, priceQuote.CustomerMobile))
+                            {
+                                Logs.WriteInfoLog(String.Format("Royal Enfield Lead started processing. PQId --> {0}", pqId));
+                                isSuccess = _leadProcessor.PushLeadToRoyalEnfield(priceQuote, pqId, manufacturerDealerId);
+                                Logs.WriteInfoLog(String.Format("Royal Enfield Lead submitted. PQId --> {0}", pqId));
+                            }
+                            else
+                            {
+                                Logs.WriteInfoLog(String.Format("Royal Enfield: Duplicate lead submitted. PQId --> {0}", pqId));
+                            }
                         }
                     }
                     Logs.WriteInfoLog(String.Format("Manufacturer Lead submitted."));
@@ -537,12 +545,12 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 }
                 else
                 {
-                    Logs.WriteErrorLog("PushLeadToRoyalEnfield : Null response recieved from Royal Enfield API ");
+                    Logs.WriteErrorLog(string.Format("PushLeadToRoyalEnfield : Null response recieved from Royal Enfield API. PQId ==>{0} ", pqId));
                 }
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog(String.Format("PushLeadToRoyalEnfield : {0}", ex.Message));
+                Logs.WriteErrorLog(String.Format("PushLeadToRoyalEnfield : PQId :{0}, ErrorMessage: {1}", pqId, ex.Message));
             }
             return false;
         }
