@@ -30,6 +30,9 @@
 .collapsible-content.active .more-content {
   display: inline; }
 
+.collapsible-content.toggle-off.active .read-more-target {
+  display: none; }
+
 .scooters-banner {
   background: #82817e url(https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/scooters-banner.jpg) no-repeat center;
   background-size: cover;
