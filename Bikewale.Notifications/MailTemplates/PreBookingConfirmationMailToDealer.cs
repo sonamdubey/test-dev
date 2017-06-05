@@ -171,7 +171,7 @@ namespace Bikewale.Notifications.MailTemplates
 
                 sb.AppendFormat("    <div style=\"border-top:1px solid #f5f5f5;margin:10px 20px 0 20px; line-height:1.5;\">"
                 + "        <div style=\"font-size:14px; color:#82888b; margin:15px 0 10px 0;\">Please let us know when customer makes further payment / takes delivery, and we will transfer booking amount to your bank account.</div>"
-                + "            <div style=\"font-size:14px; color:#82888b; margin-bottom:10px;\">Please feel free to call Rohit at 99203 13466 for any queries or help required in the process.</div>"
+                + "            <div style=\"font-size:14px; color:#82888b; margin-bottom:10px;\">Please feel free to call Asif at 99307 46975 for any queries or help required in the process.</div>"
                 + "            <div style=\"margin-bottom:25px; color:#82888b;\">Regards,<br />Team BikeWale</div>"
                 + ""
                 + "        </div>"

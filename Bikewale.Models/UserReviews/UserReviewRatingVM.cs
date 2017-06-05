@@ -3,6 +3,10 @@ namespace Bikewale.Models
 {
     public class UserReviewRatingVM : ModelBase
     {
+        /// <summary>
+        /// Modified by : Aditi Srivastava on 30 May 2017
+        /// Summary     : Added sourceId parameter
+        /// </summary>
         public BikeModelEntity objModelEntity { get; set; }
         public string OverAllRatingText { get; set; }
         public string RatingQuestion { get; set; }
@@ -15,5 +19,6 @@ namespace Bikewale.Models
         public bool IsFake { get; set; }
         public uint SelectedRating { get; set; }
         public string ReturnUrl { get; set; }
+        public ushort SourceId { get; set; }
     }
 }

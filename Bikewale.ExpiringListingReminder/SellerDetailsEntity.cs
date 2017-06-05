@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 namespace Bikewale.ExpiringListingReminder
 {
     /// <summary>
@@ -13,5 +13,12 @@ namespace Bikewale.ExpiringListingReminder
         public string sellerName { get; set; }
         public string sellerMobileNumber { get; set; }
         public string sellerEmail { get; set; }
+        public DateTime MakeYear { get; set; }
+        public ushort Owner { get; set; }
+        public string RideDistance { get; set; }
+        public string City { get; set; }
+        public uint ModelId { get; set; }
+        public string HostUrl { get; set; }
+        public string OriginalImagePath { get; set; }
     }
 }

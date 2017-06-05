@@ -23,7 +23,7 @@ namespace Bikewale.ExpiringListingReminder
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "classified_getexpiringlistings";
+                    cmd.CommandText = "classified_getexpiringlistings_30052017";
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
@@ -42,7 +42,14 @@ namespace Bikewale.ExpiringListingReminder
                                     modelName = Convert.ToString(dr["ModelName"]),
                                     sellerName = Convert.ToString(dr["CustomerName"]),
                                     sellerMobileNumber = Convert.ToString(dr["CustomerMobile"]),
-                                    sellerEmail = Convert.ToString(dr["CustomerEmail"])
+                                    sellerEmail = Convert.ToString(dr["CustomerEmail"]),
+                                    ModelId=SqlReaderConvertor.ToUInt32(dr["ModelId"]),
+                                    MakeYear=SqlReaderConvertor.ToDateTime(dr["MakeYear"]),
+                                    Owner=SqlReaderConvertor.ToUInt16(dr["Owner"]),
+                                    RideDistance = Convert.ToString(dr["Kilometers"]),
+                                    City=Convert.ToString(dr["city"]),
+                                    HostUrl= Convert.ToString(dr["HostURL"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
                                 });
                             }
 
@@ -61,7 +68,14 @@ namespace Bikewale.ExpiringListingReminder
                                         modelName = Convert.ToString(dr["ModelName"]),
                                         sellerName = Convert.ToString(dr["CustomerName"]),
                                         sellerMobileNumber = Convert.ToString(dr["CustomerMobile"]),
-                                        sellerEmail = Convert.ToString(dr["CustomerEmail"])
+                                        sellerEmail = Convert.ToString(dr["CustomerEmail"]),
+                                        ModelId = SqlReaderConvertor.ToUInt32(dr["ModelId"]),
+                                        MakeYear = SqlReaderConvertor.ToDateTime(dr["MakeYear"]),
+                                        Owner = SqlReaderConvertor.ToUInt16(dr["Owner"]),
+                                        RideDistance = Convert.ToString(dr["Kilometers"]),
+                                        City = Convert.ToString(dr["city"]),
+                                        HostUrl = Convert.ToString(dr["HostURL"]),
+                                        OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
                                     });
                                 }
 
