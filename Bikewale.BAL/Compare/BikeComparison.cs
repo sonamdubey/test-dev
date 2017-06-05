@@ -21,6 +21,8 @@ namespace Bikewale.BAL.Compare
     /// Description : Added methods for featured bike and sponsored bike comparisions
     /// Modified By : Sushil Kumar on 2nd Feb 2017
     /// Description : Added methods for comparisions bikes binding using transpose methodology
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added cache call for comparison carousel for further processing in element order
     /// </summary>
     public class BikeComparison : IBikeCompare
     {
@@ -31,7 +33,10 @@ namespace Bikewale.BAL.Compare
         static readonly ILog _logger = LogManager.GetLogger(typeof(BikeComparison));
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
 
-
+        /// <summary>
+        /// Modified by : Aditi Srivastava on 5 June 2017
+        /// Summary     : Resolution for cache layer functions
+        /// </summary>
         public BikeComparison()
         {
             using (IUnityContainer objPQCont = new UnityContainer())
@@ -914,7 +919,9 @@ namespace Bikewale.BAL.Compare
 
         /// <summary>
         /// Created By : Sushil Kumar on 2nd Dec 2016
-        /// Description : BAL layer to similar cache comaprisions bikes                  
+        /// Description : BAL layer to similar cache comaprisions bikes   
+        /// Modified by : Aditi Srivastava on 5 June 2017
+        /// Summary     : Added cache call instead of DAL
         /// </summary>
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>

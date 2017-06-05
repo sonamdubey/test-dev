@@ -10,6 +10,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by : Aditi Srivastava on 25 Apr 2017
     /// Summary    : To get list of popular comparisons
+    /// Modified by : Aditi Srivastava on 2 June 2017
+    /// Summary     : Added BL instance instead of cache
     /// </summary>
     public class ComparePopularBikes
     {
@@ -34,6 +36,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 25 Apr 2017
         /// Summary    : To get list of popular comparisons
+        /// Modified by : Aditi Srivastava on 2 June 2017
+        /// Summary     : Added conditional call for scooters and bikes for comparison carousel
         /// </summary>
         public PopularComparisonsVM GetData()
         {

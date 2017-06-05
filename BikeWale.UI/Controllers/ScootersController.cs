@@ -22,6 +22,8 @@ namespace Bikewale.Controllers
     /// <summary>
     /// Created by  :   Sumit Kate on 30 Mar 2017
     /// Description :   Scooters Controller
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance for comparison list
     /// </summary>
     public class ScootersController : Controller
     {
@@ -50,6 +52,8 @@ namespace Bikewale.Controllers
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
         /// Description :   Returns view model Desktop Scooter landing page
+        /// Modified by : Aditi Srivastava on 5 June 2017
+        /// Summary     : Added comparison source
         /// </summary>
         /// <returns></returns>
         [Route("scooters/")]
@@ -67,6 +71,8 @@ namespace Bikewale.Controllers
         /// <summary>
         /// Modified by :   Sumit Kate on 30 Mar 2017
         /// Description :   Returns view model Mobile Scooter landing page
+        /// Modified by : Aditi Srivastava on 5 June 2017
+        /// Summary     : Added comparison source
         /// </summary>
         /// <returns></returns>
         [Route("m/scooters/")]

@@ -930,7 +930,7 @@ namespace Bikewale.DAL.Compare
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.Compare.GetScooterCompareList");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.Compare.GetScooterCompareList- CityId : {0}",cityId));
             }
 
             return topBikes;

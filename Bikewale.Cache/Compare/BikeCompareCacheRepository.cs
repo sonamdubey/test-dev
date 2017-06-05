@@ -52,6 +52,8 @@ namespace Bikewale.Cache.Compare
         /// <summary>
         /// Created by : Aditi Srivastava on 25 Apr 2017
         /// Summary    : Get list of comparisons of popular bikes
+        /// Modified by :Adit Srivastava on 5 June 2017
+        /// Summary     : Changed cache key
         /// </summary>
         /// <returns></returns>
         public IEnumerable<SimilarCompareBikeEntity> GetPopularCompareList(uint cityId)
@@ -64,7 +66,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.GetPopularCompareList");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetPopularCompareList- CityId : {0}", cityId));
             }
             return compareBikeList;
         }
@@ -206,7 +208,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.GetScooterCompareList");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetScooterCompareList- CityId : {0}",cityId));
             }
             return compareBikeList;
         }

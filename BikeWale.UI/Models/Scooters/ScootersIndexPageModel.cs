@@ -14,6 +14,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by  :   Sumit Kate on 30 Mar 2017
     /// Description :   ScootersIndexPage Model
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance instead of cache for comparison carousel
     /// </summary>
     public class ScootersIndexPageModel
     {
@@ -97,20 +99,26 @@ namespace Bikewale.Models
             }
         }
 
-       /// <summary>
-       /// Created by : Aditi Srivastava on 2 June 2017
-       /// Summary : Bind popular scooter comparisons
-       /// </summary>
+        /// <summary>
+        /// Created by : Aditi Srivastava on 2 June 2017
+        /// Summary : Bind popular scooter comparisons
+        /// </summary>
         private void BindComparison(ScootersIndexPageVM objVM)
         {
-            ComparePopularBikes objCompare = new ComparePopularBikes(_compareScooters);
-            objCompare.TopCount = 9;
-            objCompare.CityId = CityId;
-            objCompare.IsScooter = true;
-            objVM.ComparePopularScooters = objCompare.GetData();
-            objVM.HasComparison = (objVM.ComparePopularScooters != null && objVM.ComparePopularScooters.CompareBikes != null && objVM.ComparePopularScooters.CompareBikes.Count() > 0);
-            objVM.ComparePopularScooters.CompareSource = CompareSource;
-        }
+            try {
+                ComparePopularBikes objCompare = new ComparePopularBikes(_compareScooters);
+                objCompare.TopCount = 9;
+                objCompare.CityId = CityId;
+                objCompare.IsScooter = true;
+                objVM.ComparePopularScooters = objCompare.GetData();
+                objVM.HasComparison = (objVM.ComparePopularScooters != null && objVM.ComparePopularScooters.CompareBikes != null && objVM.ComparePopularScooters.CompareBikes.Count() > 0);
+                objVM.ComparePopularScooters.CompareSource = CompareSource;
+            }
+            catch(Exception ex)
+            {
+                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindComparison");
+            }
+       }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017

@@ -9,6 +9,8 @@ namespace Bikewale.Models.CompareBikes
     /// <summary>
     /// Created By Sajal Gupta on 25-03-2017
     /// This class is created to fetch data for similar comparison widget (Desktop + Mobile)
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance instead of cache
     /// </summary>
     public class PopularModelCompareWidget
     {

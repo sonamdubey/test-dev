@@ -23,6 +23,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by: Sangram Nandkhile on 27-Mar-2017
     /// Model for make page
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance instead of cache for comaprison carousel
     /// </summary>
     public class MakePageModel
     {

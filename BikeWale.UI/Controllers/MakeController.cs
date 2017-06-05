@@ -20,6 +20,8 @@ namespace Bikewale.Controllers
     /// <author>
     /// Created by: Sangram Nandkhile on 27-Mar-2017
     /// Summary: Controller which holds actions for Make
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance for comparison list
     /// </author>
     public class MakeController : Controller
     {

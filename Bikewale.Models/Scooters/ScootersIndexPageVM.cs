@@ -4,6 +4,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by  :   Sumit Kate on 30 Mar 2017
     /// Description :   ScootersIndexPage View Model
+    /// Modified by : Aditi Srivastava on 2 June 2017
+    /// Summary     : Replaced ComparisonMinWidgetVM with new PopularComparisonsVM (carousel)
     /// </summary>
     public class ScootersIndexPageVM : ModelBase
     {

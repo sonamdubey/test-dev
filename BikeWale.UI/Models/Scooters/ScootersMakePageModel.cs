@@ -20,6 +20,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by: Sangram Nandkhile on 31-Mar-2017
     /// Model for scooters make page
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance instead of cache for comparison carousel
     /// </summary>
     public class ScootersMakePageModel
     {

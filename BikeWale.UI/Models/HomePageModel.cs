@@ -20,6 +20,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by: Sangram Nandkhile on 24-Mar-2017
     /// Summary:  Model for homepage
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance instead of cache for comaprison carousel
     /// </summary>
     public class HomePageModel
     {
@@ -71,7 +73,9 @@ namespace Bikewale.Models
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
         /// Modified by : Aditi Srivastava on 25 Apr 2017
-        /// Summary  :  Added function to bind popular comparison carousel for
+        /// Summary  :  Added different functions to bind popular comparison carousel for msite and desktop
+        /// Modified by : Aditi Srivastava on 3 June 2017
+        /// Summary     : Added single function for comaprison carousel for both msite and desktop
         /// </returns>
         public HomePageVM GetData()
         {
