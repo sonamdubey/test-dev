@@ -374,11 +374,24 @@ namespace Bikewale.Controllers
             return View(m);
         }
 
-        [Route("user-reviews/details")]
-        public ActionResult ReviewDetails()
+        [Route("user-reviews/details/{reviewId}")]
+        public ActionResult ReviewDetails(uint reviewId, string makeMaskingName, string modelMaskingName)
         {
-            ModelBase m = new ModelBase();
-            return View(m);
+            UserReviewDetailsPage objUserReviewDetails = new UserReviewDetailsPage(reviewId, _userReviewsCacheRepo, _bikeInfo, _cityCache, _objArticles, _objModel, makeMaskingName, modelMaskingName);
+            if (objUserReviewDetails != null)
+            {
+                objUserReviewDetails.TabsCount = 3;
+                objUserReviewDetails.ExpertReviewsWidgetCount = 3;
+                objUserReviewDetails.SimilarBikeReviewWidgetCount = 9;
+                UserReviewDetailsVM objPage = objUserReviewDetails.GetData();
+
+                if (objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Description.Length > 0 && objPage.ReviewId > 0)
+                    return View(objPage);
+                else
+                    return Redirect("/pageNotFound.aspx");
+            }
+            else
+                return Redirect("/pageNotFound.aspx");
         }
     }
 }
