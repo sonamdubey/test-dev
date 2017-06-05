@@ -367,6 +367,10 @@ namespace Bikewale.Controllers
             }
         }
 
+        /// <summary>
+        /// Summary: Controller to fetch contest data
+        /// Created by: Sangram Nandkhile on 05 June 2017
+        /// </summary>
         [Route("m/user-reviews/contest/")]
         public ActionResult WriteReviewContest_Mobile()
         {
