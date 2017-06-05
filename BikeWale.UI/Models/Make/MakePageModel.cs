@@ -37,14 +37,14 @@ namespace Bikewale.Models
         private readonly IUsedBikeDetailsCacheRepository _cachedBikeDetails = null;
         private readonly IDealerCacheRepository _cacheDealers = null;
         private readonly IUpcoming _upcoming = null;
-        private readonly IBikeCompareCacheRepository _compareBikes = null;
+        private readonly IBikeCompare _compareBikes = null;
         private readonly IServiceCenter _objSC;
         public StatusCodes status;
         public MakeMaskingResponse objResponse;
         public string redirectUrl;
         public CompareSources CompareSource { get; set; }
 
-        public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompareCacheRepository compareBikes, IServiceCenter objSC)
+        public MakePageModel(string makeMaskingName, uint topCount, IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC)
         {
             this._makeMaskingName = makeMaskingName;
             this._dealerServiceCenters = dealerServiceCenters;

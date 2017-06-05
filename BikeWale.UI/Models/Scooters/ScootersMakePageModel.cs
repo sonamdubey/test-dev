@@ -26,7 +26,7 @@ namespace Bikewale.Models
         private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IUpcoming _upcoming = null;
-        private readonly IBikeCompareCacheRepository _compareScooters = null;
+        private readonly IBikeCompare _compareScooters = null;
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IServiceCenter _objService = null;
@@ -47,7 +47,7 @@ namespace Bikewale.Models
             IBikeMakes<BikeMakeEntity, int> bikeMakes,
             IBikeModels<BikeModelEntity, int> bikeModels,
             IUpcoming upcoming,
-            IBikeCompareCacheRepository compareScooters,
+            IBikeCompare compareScooters,
             IBikeMakesCacheRepository<int> objMakeCache,
             IDealerCacheRepository objDealerCache,
             IServiceCenter objServices

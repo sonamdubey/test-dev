@@ -14,7 +14,7 @@ namespace Bikewale.Models
     public class ComparePopularBikes
     {
         #region Private variables
-        private readonly IBikeCompareCacheRepository _objCompare=null;
+        private readonly IBikeCompare _objCompare=null;
         #endregion
 
         #region Public properties
@@ -24,7 +24,7 @@ namespace Bikewale.Models
         #endregion
 
         #region Contructor
-        public ComparePopularBikes(IBikeCompareCacheRepository objCompare)
+        public ComparePopularBikes(IBikeCompare objCompare)
         {
             _objCompare = objCompare;
         }

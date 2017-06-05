@@ -14,11 +14,11 @@ namespace Bikewale.Models.Compare
     /// <returns></returns>
     public class CompareWidget
     {
-        private readonly IBikeCompareCacheRepository _objCompareCache;
+        private readonly IBikeCompare _objCompareCache;
 
         public int topCount { get; set; }
         public uint cityId { get; set; }
-        public CompareWidget(IBikeCompareCacheRepository objCompareCache)
+        public CompareWidget(IBikeCompare objCompareCache)
         {
             _objCompareCache = objCompareCache;
 

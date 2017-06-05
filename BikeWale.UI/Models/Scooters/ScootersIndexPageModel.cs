@@ -21,7 +21,7 @@ namespace Bikewale.Models
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IUpcoming _upcoming = null;
-        private readonly IBikeCompareCacheRepository _compareScooters = null;
+        private readonly IBikeCompare _compareScooters = null;
         
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
@@ -36,7 +36,7 @@ namespace Bikewale.Models
             IBikeModels<BikeModelEntity, int> bikeModels,
             INewBikeLaunchesBL newLaunches,
             IUpcoming upcoming,
-            IBikeCompareCacheRepository compareScooters
+            IBikeCompare compareScooters
             )
         {
             _bikeMakes = bikeMakes;

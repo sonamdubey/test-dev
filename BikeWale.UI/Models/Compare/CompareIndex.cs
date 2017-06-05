@@ -14,11 +14,11 @@ namespace Bikewale.Models
     /// </summary>
     public class CompareIndex
     {
-        private readonly IBikeCompareCacheRepository _cachedCompare = null;
+        private readonly IBikeCompare _cachedCompare = null;
         private readonly ICMSCacheContent _compareTest = null;
 
         private uint _cityId;
-        public CompareIndex(IBikeCompareCacheRepository cachedCompare, ICMSCacheContent compareTest)
+        public CompareIndex(IBikeCompare cachedCompare, ICMSCacheContent compareTest)
         {
             _cachedCompare = cachedCompare;
             _compareTest = compareTest;

@@ -30,7 +30,7 @@ namespace Bikewale.Models
         private readonly ICityCacheRepository _IUsedBikesCache = null;
         private readonly IHomePageBannerCacheRepository _cachedBanner = null;
         private readonly IBikeModelsCacheRepository<int> _cachedModels = null;
-        private readonly IBikeCompareCacheRepository _cachedCompare = null;
+        private readonly IBikeCompare _objCompare = null;
         private readonly IUsedBikeDetailsCacheRepository _cachedBikeDetails = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
@@ -47,7 +47,7 @@ namespace Bikewale.Models
 
         #endregion
 
-        public HomePageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompareCacheRepository cachedCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
+        public HomePageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
@@ -57,7 +57,7 @@ namespace Bikewale.Models
             _IUsedBikesCache = usedBikeCache;
             _cachedBanner = cachedBanner;
             _cachedModels = cachedModels;
-            _cachedCompare = cachedCompare;
+            _objCompare = objCompare;
             _cachedBikeDetails = cachedBikeDetails;
             _videos = videos;
             _articles = articles;
@@ -170,7 +170,7 @@ namespace Bikewale.Models
         /// </summary>
         private void BindCompareBikes(HomePageVM objVM, CompareSources CompareSource, uint cityId)
         {
-            ComparePopularBikes objCompare = new ComparePopularBikes(_cachedCompare);
+            ComparePopularBikes objCompare = new ComparePopularBikes(_objCompare);
             objCompare.TopCount = 9;
             objCompare.CityId = cityId;
             objVM.ComparePopularBikes = objCompare.GetData();

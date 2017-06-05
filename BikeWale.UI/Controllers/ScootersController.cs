@@ -31,10 +31,10 @@ namespace Bikewale.Controllers
         private readonly IBikeModels<BikeModelEntity, int> _objBikeModel = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _objMakeRepo = null;
         private readonly IUpcoming _upcoming = null;
-        private readonly IBikeCompareCacheRepository _compareScooters = null;
+        private readonly IBikeCompare _compareScooters = null;
         private readonly IDealerCacheRepository _dealerCache = null;
         private readonly IServiceCenter _serviceCenter = null;
-        public ScootersController(IBikeMakes<BikeMakeEntity, int> objMakeRepo, IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompareCacheRepository compareScooters, IDealerCacheRepository dealerCache, IBikeMakesCacheRepository<int> objMakeCache, IBikeModels<BikeModelEntity, int> objBikeModel, IBikeMakes<BikeMakeEntity, int> objMakeRepor, IServiceCenter serviceCenter)
+        public ScootersController(IBikeMakes<BikeMakeEntity, int> objMakeRepo, IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompare compareScooters, IDealerCacheRepository dealerCache, IBikeMakesCacheRepository<int> objMakeCache, IBikeModels<BikeModelEntity, int> objBikeModel, IBikeMakes<BikeMakeEntity, int> objMakeRepor, IServiceCenter serviceCenter)
         {
             _newLaunches = newLaunches;
             _models = models;

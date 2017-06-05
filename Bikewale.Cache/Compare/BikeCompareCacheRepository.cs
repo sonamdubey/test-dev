@@ -57,7 +57,7 @@ namespace Bikewale.Cache.Compare
         public IEnumerable<SimilarCompareBikeEntity> GetPopularCompareList(uint cityId)
         {
             IEnumerable<SimilarCompareBikeEntity> compareBikeList = null;
-            string key = string.Format("BW_PopularSimilarBikes_CityId_{0}", cityId);
+            string key = string.Format("BW_PopularSimilarBikes_CityId_v2_{0}", cityId);
             try
             {
                 compareBikeList = _cache.GetFromCache<IEnumerable<SimilarCompareBikeEntity>>(key, new TimeSpan(12, 0, 0, 0), () => _compareRepository.GetPopularCompareList(cityId));
@@ -199,7 +199,7 @@ namespace Bikewale.Cache.Compare
         public IEnumerable<SimilarCompareBikeEntity> GetScooterCompareList(uint cityId)
         {
             IEnumerable<SimilarCompareBikeEntity> compareBikeList = null;
-            string key = string.Format("BW_PopularScootersComparison_CityId_{0}", cityId);
+            string key = string.Format("BW_PopularScootersComparison_CityId_v2_{0}", cityId);
             try
             {
                 compareBikeList = _cache.GetFromCache<IEnumerable<SimilarCompareBikeEntity>>(key, new TimeSpan(12, 0, 0, 0), () => _compareRepository.GetScooterCompareList(cityId));

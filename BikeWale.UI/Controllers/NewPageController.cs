@@ -30,14 +30,14 @@ namespace Bikewale.Controllers
         private readonly ICityCacheRepository _usedBikeCities = null;
         private readonly IHomePageBannerCacheRepository _cachedBanner = null;
         private readonly IBikeModelsCacheRepository<int> _cachedModels = null;
-        private readonly IBikeCompareCacheRepository _cachedCompare = null;
+        private readonly IBikeCompare _cachedCompare = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly ICMSCacheContent _expertReviews = null;
 
         NewPageVM objData = null;
 
-        public NewPageController(IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCities, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompareCacheRepository cachedCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
+        public NewPageController(IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCities, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare cachedCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
         {
             _bikeMakes = bikeMakes;
             _bikeModels = bikeModels;

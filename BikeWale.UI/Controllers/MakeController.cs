@@ -32,10 +32,10 @@ namespace Bikewale.Controllers
         private readonly IUsedBikeDetailsCacheRepository _cachedBikeDetails;
         private readonly IDealerCacheRepository _cacheDealers;
         private readonly IUpcoming _upcoming = null;
-        private readonly IBikeCompareCacheRepository _compareBikes;
+        private readonly IBikeCompare _compareBikes;
         private readonly IServiceCenter _objService;
 
-        public MakeController(IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompareCacheRepository compareBikes, IServiceCenter objService)
+        public MakeController(IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objService)
         {
             _dealerServiceCenters = dealerServiceCenters;
             _bikeModelsCache = bikeModelsCache;

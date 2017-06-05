@@ -14,9 +14,9 @@ namespace Bikewale.Models.CompareBikes
     {
         private string _versionList;
         private uint _topCount, _cityId;
-        private readonly IBikeCompareCacheRepository _objCompare;
+        private readonly IBikeCompare _objCompare;
 
-        public PopularModelCompareWidget(IBikeCompareCacheRepository objCompare, uint topCount, uint cityId, string versionList)
+        public PopularModelCompareWidget(IBikeCompare objCompare, uint topCount, uint cityId, string versionList)
         {
             _versionList = versionList;
             _topCount = topCount;
