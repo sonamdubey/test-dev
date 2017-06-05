@@ -19,7 +19,7 @@ namespace Bikewale.Models.UserReviews
         {
             WriteReviewContestVM viewModel = new WriteReviewContestVM();
             viewModel.Makes = _makeRepository.GetMakesByType(Entities.BikeData.EnumBikeType.UserReviews);
-            viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", (int)UserReviewPageSourceEnum.Mobile_ModelPage));
+            viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", (int)UserReviewPageSourceEnum.Mobile_UserReviewContestPage));
             BindPageMetas(viewModel);
             return viewModel;
         }
