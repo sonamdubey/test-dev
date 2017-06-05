@@ -193,6 +193,10 @@ docReady(function () {
 
     ko.applyBindings(vmRateBikeVM, document.getElementById("bike-selection-form"));
 
+	$('#write-review-target').on('click', function (){
+		$('html, body').animate({ scrollTop: $('#bike-selection-form').offset().top - (topNavBarHeight * 2) }, 1000);
+	});
+
     $(window).on('popstate', function (event) {
         if ($('#select-bike-cover-popup').is(':visible')) {
             bikePopup.close();

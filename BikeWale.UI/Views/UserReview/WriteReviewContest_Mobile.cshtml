@@ -5,12 +5,14 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 
+<link href="https://fonts.googleapis.com/css?family=Oxygen:300,400,700" rel="stylesheet">
+
 <section class="font-oxygen">
     <div class="container contest-banner-container card-bottom-margin">
         <div class="contest-banner"></div>
         <div class="text-center">
             <h1 class="font14 text-white text-unbold margin-bottom5">Help your friends by writing a fair review</h1>
-            <a href="/m/user-reviews/#selectBike" class="btn btn-orange btn-130-34 text-uppercase">Write a review</a>
+            <a href="javascript:void(0)" id="write-review-target" class="btn btn-orange btn-130-34 text-uppercase" rel="nofollow">Write a review</a>
         </div>
     </div>
 </section>
@@ -206,5 +208,4 @@
     </div>
 </section>
 
-<link href="https://fonts.googleapis.com/css?family=Oxygen:300,400,700" rel="stylesheet">
 <span id="querystring" data-query="@Model.QueryString" />
