@@ -3069,6 +3069,11 @@
     <Content Include="m\sass\user-review\review-contest.sass" />
     <Content Include="m\sass\user-review\_review-contest-style.sass" />
     <Content Include="m\sass\modules\_collapsible-list.sass" />
+    <Content Include="m\sass\modules\_swiper-atf.sass" />
+    <Content Include="m\sass\modules\_swiper-pagination.sass" />
+    <Content Include="m\sass\modules\_swiper-3d.sass" />
+    <Content Include="m\sass\user-review\_review-swiper-3d.sass" />
+    <Content Include="m\sass\modules\_rating-badge.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
