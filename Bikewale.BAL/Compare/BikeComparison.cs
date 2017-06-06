@@ -999,15 +999,8 @@ namespace Bikewale.BAL.Compare
                 if (compareBikes != null && compareBikes.Count() > 0)
                 {
                     Random rnd = new Random();
-                    compareBikes = (from item in compareBikes
-                                    orderby
-                                    rnd.Next()
-                                    where item.IsSponsored
-                                    select item).Union(from item in compareBikes
-                                                       orderby
-                                                       item.DisplayPriority ascending
-                                                       where (!item.IsSponsored)
-                                                       select item);
+                    compareBikes = compareBikes.Where(x => x.IsSponsored).OrderBy(x => rnd.Next())
+                                   .Union(compareBikes.Where(x => !x.IsSponsored).OrderBy(x => x.DisplayPriority));
                 }
             }
             catch (Exception ex)
@@ -1032,15 +1025,8 @@ namespace Bikewale.BAL.Compare
                 if (compareScooters != null && compareScooters.Count() > 0)
                 {
                     Random rnd = new Random();
-                    compareScooters = (from item in compareScooters
-                                       orderby
-                                    rnd.Next()
-                                    where item.IsSponsored
-                                    select item).Union(from item in compareScooters
-                                                       orderby
-                                                       item.DisplayPriority ascending
-                                                       where (!item.IsSponsored)
-                                                       select item);
+                    compareScooters = compareScooters.Where(x => x.IsSponsored).OrderBy(x => rnd.Next())
+                                   .Union(compareScooters.Where(x => !x.IsSponsored).OrderBy(x => x.DisplayPriority));
                 }
             }
             catch (Exception ex)
