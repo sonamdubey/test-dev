@@ -18,13 +18,15 @@ namespace BikewaleOpr.DALs.PopularComparisions
         /// <summary>
         /// Created By : Sushil Kumar on 26th Oct 2016 
         /// Description : Save comparision list to db 
+        /// Modified by Sajal gupta on 02-06-2017
+        /// description : Added functionality to add sponsored comparison
         /// </summary>
         /// <param name="compareId"></param>
         /// <param name="versionId1"></param>
         /// <param name="versionId2"></param>
         /// <param name="isActive"></param>
         /// <returns></returns>
-        public bool SaveBikeComparision(ushort compareId, uint versionId1, uint versionId2, bool isActive)
+        public bool SaveBikeComparision(ushort compareId, uint versionId1, uint versionId2, bool isActive, bool isSponsored, DateTime sponsoredStartDate, DateTime sponsoredEndDate)
         {
             bool isDataSaved = false;
             try
@@ -39,6 +41,9 @@ namespace BikewaleOpr.DALs.PopularComparisions
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid2", DbType.UInt32, versionId2));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydate", DbType.DateTime, DateTime.Now));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sponstartdate", DbType.DateTime, sponsoredStartDate));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sponenddate", DbType.DateTime, sponsoredEndDate));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_issponsored", DbType.Boolean, isSponsored));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_compid", DbType.Int32, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.Int16, ParameterDirection.Output));
 
@@ -98,6 +103,9 @@ namespace BikewaleOpr.DALs.PopularComparisions
                                 _objBikeComparision.EntryDate = SqlReaderConvertor.ToDateTime(dr["entrydate"]);
                                 _objBikeComparision.IsActive = SqlReaderConvertor.ToBoolean(dr["isactive"]);
                                 _objBikeComparision.PriorityOrder = SqlReaderConvertor.ToUInt16(dr["displaypriority"]);
+                                _objBikeComparision.IsSponsored = SqlReaderConvertor.ToBoolean(dr["IsSponsored"]);
+                                _objBikeComparision.SponsoredStartDate = SqlReaderConvertor.ToDateTime(dr["SponsoredStartDate"]);
+                                _objBikeComparision.SponsoredEndDate = SqlReaderConvertor.ToDateTime(dr["SponsoredEndDate"]);
                                 objBikeCamparisions.Add(_objBikeComparision);
                             }
                         }

@@ -28,7 +28,7 @@ namespace Bikewale.Notifications.MailTemplates
                 sb.Append(string.Format("<div>Dear Team,<br /><div><br /><div>Customer with Booking id :<b>{0}&nbsp;</b>has cancelled booking and following is the feedback we've received.</div></div><div><br /></div><div><b>Feedback:</b></div><div><br />{1}</div></div>", _bwId, _feedbackText));
                 return sb.ToString();
             }
-            catch (Exception ex)
+            catch
             {
                 return string.Empty;
             }

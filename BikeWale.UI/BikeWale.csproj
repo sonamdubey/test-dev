@@ -186,7 +186,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NReco.PdfGenerator">
       <HintPath>..\Libs\NReco.PdfGenerator.dll</HintPath>
@@ -1008,6 +1008,7 @@
     <Compile Include="Models\UserReviews\UserReviewsListWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewsSearchWidget.cs" />
     <Compile Include="Models\UserReviews\UserReviewSummaryPage.cs" />
+    <Compile Include="Models\UserReviews\WriteReviewContest.cs" />
     <Compile Include="Models\UserReviews\WriteReviewPageModel..cs" />
     <Compile Include="Models\Videos\MakeVideosPage.cs" />
     <Compile Include="Models\Videos\ModelWiseVideosPage.cs" />
@@ -2984,6 +2985,7 @@
     <Content Include="m\src\used\bikes-in-city.js" />
     <Content Include="m\src\used\landing.js" />
     <Content Include="m\src\user-review\listing.js" />
+    <Content Include="m\src\user-review\review-contest.js" />
     <Content Include="m\src\user-review\write-review.js" />
     <Content Include="m\src\video\details.js" />
     <Content Include="m\src\video\videoByCategory.js" />
@@ -3053,6 +3055,25 @@
     <Content Include="sass\modules\_comparison-type-carousel.sass" />
     <Content Include="sass\components\_inline-grid.sass" />
     <Content Include="sass\compare\_bike-comparison-grid.sass" />
+    <Content Include="sass\upcoming-bikes\upcoming-bikes.sass" />
+    <Content Include="sass\upcoming-bikes\_upcoming-bikes-style.sass" />
+    <Content Include="sass\user-review\write-review.sass" />
+    <Content Include="sass\user-review\_write-review-style.sass" />
+    <Content Include="m\sass\upcoming-bikes\upcoming-bikes.sass" />
+    <Content Include="m\sass\upcoming-bikes\_media-query.sass" />
+    <Content Include="m\sass\upcoming-bikes\_upcoming-bikes-style.sass" />
+    <Content Include="m\sass\user-review\write-review.sass" />
+    <Content Include="m\sass\user-review\_write-review-style.sass" />
+    <Content Include="m\sass\user-review\_write-review-media-query.sass" />
+    <Content Include="m\sass\modules\_overall-floating-tabs.sass" />
+    <Content Include="m\sass\user-review\review-contest.sass" />
+    <Content Include="m\sass\user-review\_review-contest-style.sass" />
+    <Content Include="m\sass\modules\_collapsible-list.sass" />
+    <Content Include="m\sass\modules\_swiper-atf.sass" />
+    <Content Include="m\sass\modules\_swiper-pagination.sass" />
+    <Content Include="m\sass\modules\_swiper-3d.sass" />
+    <Content Include="m\sass\user-review\_review-swiper-3d.sass" />
+    <Content Include="m\sass\modules\_rating-badge.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3725,6 +3746,7 @@
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage_Mobile.cshtml" />
     <Content Include="Views\CompareBikes\_SimilarComparisons.cshtml" />
     <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile.cshtml" />
+    <Content Include="Views\UserReview\WriteReviewContest_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3899,11 +3921,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy $(ProjectDir)..\libs\grpc_csharp_ext.x64.dll $(ProjectDir)bin\ 
-copy $(ProjectDir)..\libs\grpc_csharp_ext.x86.dll $(ProjectDir)bin\
-<!--if not exist "$(TargetDir)" md "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)packages\ClearScript.V8.5.4.8\tools\native\x86\*.*" "$(TargetDir)"
-if not exist "$(TargetDir)" md "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)packages\ClearScript.V8.5.4.8\tools\native\amd64\*.*" "$(TargetDir)"--></PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

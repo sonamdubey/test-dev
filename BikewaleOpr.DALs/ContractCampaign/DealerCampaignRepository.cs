@@ -8,6 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using BikewaleOpr.Entity.DealerCampaign;
+using Bikewale.DAL.CoreDAL;
+using Dapper;
+using System.Linq;
+
 namespace BikewaleOpr.DALs.ContractCampaign
 {
     /// <summary>
@@ -107,6 +112,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Dec 2016
         /// Description :   Update Dealer Campaign
+        /// Modified by :   Sumit Kate on 12 May 2017
+        /// Description :   Modified the SP and removed dealer lead serving radius parameter
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="campaignId"></param>
@@ -121,13 +128,13 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <param name="callToAction"></param>
         /// <param name="isBookingAvailable"></param>
         /// <returns></returns>
-        public bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false)
+        public bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false)
         {
             bool isSuccess = false;
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatebwdealercampaign_29122016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatedealercampaign_12052017"))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -135,7 +142,6 @@ namespace BikewaleOpr.DALs.ContractCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbType.String, 200, dealerName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_phone", DbType.String, 50, maskingNumber));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealeremail", DbType.String, 200, dealerEmailId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerleadservingradius", DbType.Int32, dealerLeadServingRadius));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dailyleadlimit", DbType.Int32, dailyleadlimit > 0 ? dailyleadlimit : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbType.Boolean, isBookingAvailable));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
@@ -157,6 +163,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Dec 2016
         /// Description :   Insert new Dealer Campaign
+        /// Modified by :   Sumit Kate on 12 May 2017
+        /// Description :   Modified the SP and removed dealer lead serving radius parameter
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="userId"></param>
@@ -170,12 +178,12 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <param name="callToAction"></param>
         /// <param name="isBookingAvailable"></param>
         /// <returns></returns>
-        public int InsertBWDealerCampaign(bool isActive, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false)
+        public int InsertBWDealerCampaign(bool isActive, int userId, int dealerId, int contractId, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false)
         {
             int newCampaignId = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_insertbwdealercampaign_29122016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertdealercampaign_12052017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbType.String, 200, dealerName));
@@ -184,7 +192,6 @@ namespace BikewaleOpr.DALs.ContractCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbType.Int32, contractId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerleadservingradius", DbType.Int32, dealerLeadServingRadius));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dailyleadlimit", DbType.Int32, dailyleadlimit > 0 ? dailyleadlimit : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbType.Boolean, isBookingAvailable));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
@@ -296,18 +303,22 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <summary>
         /// Created by  :   Sumit Kate on 18 jan 2017
         /// Description :   Call opr_getdealercampaigns
+        /// Modified by :   Sumit Kate on 12 May 2017
+        /// Description :   Populate CampaignServingStatus property
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="activecontract"></param>
         /// <returns></returns>
-        public ICollection<DealerCampaignDetailsEntity> DealerCampaigns(uint dealerId, bool activecontract)
+        public ICollection<DealerCampaignDetailsEntity> DealerCampaigns(uint dealerId, uint cityId, uint makeId, bool activecontract)
         {
             ICollection<DealerCampaignDetailsEntity> callToActions = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("opr_getdealercampaigns"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("opr_getdealercampaigns_31052017"))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId > 0 ? dealerId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId > 0 ? cityId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId > 0 ? makeId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_activecontract", DbType.Int16, activecontract ? 1 : 0));
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
@@ -334,7 +345,9 @@ namespace BikewaleOpr.DALs.ContractCampaign
                                         ContractStatusText = Convert.ToString(dr["status"]),
                                         DailyLeadLimit = SqlReaderConvertor.ToUInt32(dr["dailyleadlimit"]),
                                         DailyLeads = SqlReaderConvertor.ToUInt32(dr["dailyleads"]),
-                                        RulesCount = SqlReaderConvertor.ToUInt32(dr["NoOfRules"])
+                                        RulesCount = SqlReaderConvertor.ToUInt32(dr["NoOfRules"]),
+                                        CampaignServingStatus = Convert.ToString(dr["campaignservingstatus"]),
+                                        DealerName = Convert.ToString(dr["organization"])
                                     }
                                     );
                             }
@@ -349,5 +362,252 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             return callToActions;
         }
-    }
-}
+
+
+        #region GetMappedDealerCampaignAreas method
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 15 May 2017
+        /// Summary : Function to get all mapped areas to a particular dealer's location
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>        
+        public DealerCampaignArea GetMappedDealerCampaignAreas(uint dealerId)
+        {
+            DealerCampaignArea objDealerCampaignArea = null;
+
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_dealerId", dealerId);
+
+                    objDealerCampaignArea = new DealerCampaignArea();
+                    using (var results = connection.QueryMultiple("GetMappedDealerCampaignAreas", param: param, commandType: CommandType.StoredProcedure))
+                    {
+
+                        objDealerCampaignArea.DealerName = results.Read<string>().SingleOrDefault();
+                        objDealerCampaignArea.Areas = results.Read<CampaignAreas>();
+                    }
+
+                        if (connection.State == ConnectionState.Open)
+                            connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetMappedDealerCampaignAreas");
+            }
+
+            return objDealerCampaignArea;
+        }
+        #endregion  // End of GetMappedDealerCampaignAreas
+
+
+        #region SaveDealerCampaignAreaMapping method
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 15 May 2017
+        /// Summary : Function to save the dealer's location to the list of areas for the given campaign
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="campaignServingStatus">Status of the serving areas to the particular campaign.</param>
+        /// <param name="servingRadius">Serving radius for the given dealer (campaign serving radius).</param>
+        /// <param name="cityIdList">Comma separated city id list. e.g. cityid1, cityid2, cityid3</param>
+        public void SaveDealerCampaignAreaMapping(uint dealerId,uint campaignid, ushort campaignServingStatus, ushort servingRadius, string cityIdList, string stateIdList)
+        {
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_dealerid", dealerId);
+                    param.Add("par_campaignid", campaignid);
+                    param.Add("par_campaignServingStatus", campaignServingStatus);                    
+                    param.Add("par_servingRadius", servingRadius);
+                    param.Add("par_cityIds", cityIdList);
+                    param.Add("par_stateIds", stateIdList);
+
+                    connection.Query("SaveDealerCampaignAreasMapping", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.SaveDealerCampaignAreaMapping");
+            }
+        }   // end of SaveDealerCampaignAreaMapping 
+        #endregion
+
+
+        #region GetDealerToAreasDistance method
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 15 May 2017
+        /// Summary : Function to get the distance of dealer's location to areas in within serving radius and based on the campaign serving status. 
+        /// Distance calculated on basis of haversine formula.
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="campaignServingStatus">Status of the serving areas to the particular campaign.</param>
+        /// <param name="servingRadius">Serving radius for the given dealer (campaign serving radius).</param>
+        /// <param name="cityIdList">Comma separated city id list. e.g. cityid1, cityid2, cityid3</param>
+        /// <returns></returns>
+        public DealerAreaDistance GetDealerToAreasDistance(uint dealerId, ushort campaignServingStatus, ushort servingRadius, string cityIdList, string stateIdList)
+        {
+            DealerAreaDistance objDistances = null;
+            
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_dealerid", dealerId);
+                    param.Add("par_campaignServingStatus", campaignServingStatus);
+                    param.Add("par_leadservingdistance", servingRadius);
+                    param.Add("par_cityIds", cityIdList);
+                    param.Add("par_stateIds", stateIdList);
+
+                    objDistances = new DealerAreaDistance();
+
+                    using (var results = connection.QueryMultiple("GetDealerToAreasDistance", param: param, commandType: CommandType.StoredProcedure))
+                    {
+                        objDistances.DealerLocation = results.Read<GeoLocationEntity>().SingleOrDefault();
+                        objDistances.Areas = results.Read<GeoLocationEntity>();
+                    }
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetDealerToAreasDistance");
+            }
+
+            return objDistances;
+        }   // End of GetDealerToAreasDistance 
+        #endregion
+
+
+        #region GetDealerAreasWithLatLong method
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 15 May 2017
+        /// Summary : Function to get the additional areas to the dealer's location along with latitude and longitude.
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="areasList">Provide list in (,) separated format separated by comma e.g. 'areaid1,areaid2'</param>
+        public DealerAreaDistance GetDealerAreasWithLatLong(uint dealerId, string areasList)
+        {
+            DealerAreaDistance objDistances = null;
+
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_dealerid", dealerId);
+                    param.Add("par_areaslist", areasList);
+
+                    using (var results = connection.QueryMultiple("GetDealerAreasWithLatLong", param: param, commandType: CommandType.StoredProcedure))
+                    {
+                        objDistances = new DealerAreaDistance();
+                        objDistances.DealerLocation = results.Read<GeoLocationEntity>().SingleOrDefault();
+                        objDistances.Areas = results.Read<GeoLocationEntity>();
+                    }
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.SaveAdditionalAreasMapping");
+            }
+
+            return objDistances;
+
+        }   // End of GetDealerAreasWithLatLong 
+        #endregion
+
+
+        #region SaveAdditionalAreasMapping method
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 15 May 2017
+        /// Summary : Function to map the additional areas to the dealer's location along with distance between them. Distance calculated based on google distance api.
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="areasList">Provide list in (,) separated format separated by comma e.g. 'areaid1,areaid2'</param>
+        public void SaveAdditionalAreasMapping(uint dealerId, string areasList)
+        {
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_dealerid", dealerId);
+                    param.Add("par_arealist", areasList);
+
+                    connection.Query("SaveAdditionalAreasMapping", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.SaveAdditionalAreasMapping");
+            }
+        }   // End of SaveAdditionalAreasMapping 
+        #endregion
+
+
+        #region DeleteAdditionalMappedAreas method
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 15 May 2017
+        /// Summary : Function to delete the additionally mapped areas to the dealer's location.
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="areadIdList">Comma separated area id list. e.g. areaid1, areaid2, areaid3</param>
+        public void DeleteAdditionalMappedAreas(uint dealerId, string areadIdList)
+        {
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_dealerId", dealerId);
+                    param.Add("par_areaIds", areadIdList);
+
+                    connection.Query("deleteAdditionalMappedAreas", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.DeleteAdditionalMappedAreas");
+            }
+        }   // End of DeleteAdditionalMappedAreas 
+        #endregion
+
+    }   // class
+}   // namespace
