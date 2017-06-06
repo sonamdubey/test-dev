@@ -53,11 +53,16 @@ namespace Bikewale.Controllers
             _expertReviews = expertReviews;
         }
         // GET: HomePage
+        /// <summary>
+        /// Modified by : Aditi Srivastava on 6 June 2017
+        /// Summary     : Added compare source
+        /// </summary>
         [Route("newpage/")]
         [DeviceDetection]
         public ActionResult Index()
         {
             NewPageModel obj = new NewPageModel(10, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedModels, _compare, _videos, _articles, _expertReviews);
+            obj.CompareSource = CompareSources.Desktop_NewBikes_MostPopular_Compare_Widget;
             objData = obj.GetData();
             return View(objData);
         }
