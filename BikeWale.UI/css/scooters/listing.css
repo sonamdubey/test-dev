@@ -383,6 +383,9 @@
     width: 280px; } }
 	
 /*Compare carousel*/
+.inner-content-carousel.comparison-type-carousel .jcarousel {
+    left: 17px !important;
+}
 .comparison-type-carousel.inner-content-carousel .jcarousel li {
   width: 453px;
   min-height: 295px; }
