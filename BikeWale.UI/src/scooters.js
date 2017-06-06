@@ -38,6 +38,33 @@ $(document).ready(function () {
     if (makeDealersContent.length != 0) {
         makeDealersContent.removeClass('bw-model-tabs-data');
     }
+
+
+
+    $('.comparison-type-carousel').jcarousel();
+
+    $('.comparison-type-carousel .jcarousel-control-prev')
+        .on('jcarouselcontrol:active', function () {
+            $(this).removeClass('inactive');
+        })
+        .on('jcarouselcontrol:inactive', function () {
+            $(this).addClass('inactive');
+        })
+        .jcarouselControl({
+            target: '-=2'
+        });
+
+    $('.comparison-type-carousel .jcarousel-control-next')
+        .on('jcarouselcontrol:active', function () {
+            $(this).removeClass('inactive');
+        })
+        .on('jcarouselcontrol:inactive', function () {
+            $(this).addClass('inactive');
+        })
+        .jcarouselControl({
+            target: '+=2'
+        });
+
 });
 
 // floating tabs
