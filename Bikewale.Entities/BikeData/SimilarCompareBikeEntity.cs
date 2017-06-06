@@ -12,7 +12,7 @@ namespace Bikewale.Entities.BikeData
     /// Modified By :- Subodh Jain 10 may 2017
     /// summary :- Added bodystyle1 and bodystyle2
     /// Modified by : Aditi Srivastava on 2 June 2017
-    /// Summary     : Added IsSponsored Flag and Start and end dates
+    /// Summary     : Added IsSponsored Flag and Start and end dates and DisplayPriority
     /// </summary>
     [Serializable]
     public class SimilarCompareBikeEntity
@@ -47,5 +47,6 @@ namespace Bikewale.Entities.BikeData
         public bool IsSponsored { get; set; }
         public DateTime SponsoredStartDate { get; set; }
         public DateTime SponsoredEndDate { get; set; }
+        public ushort DisplayPriority { get; set; }
     }
 }

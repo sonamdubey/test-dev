@@ -46,7 +46,7 @@ namespace Bikewale.BAL.Compare
                 objPQCont.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
                 _objCompare = objPQCont.Resolve<IBikeCompare>();
                 _objCache = objPQCont.Resolve<IBikeCompareCacheRepository>();
-                
+
             }
         }
 
@@ -65,7 +65,7 @@ namespace Bikewale.BAL.Compare
 
             try
             {
-           
+
                 //sets the base URI for HTTP requests
                 string _apiUrl = String.Format("/webapi/SponsoredCarVersion/GetSponsoredCarVersion/?vids={0}&categoryId=1&platformId=2", versions);
 
@@ -992,24 +992,25 @@ namespace Bikewale.BAL.Compare
         /// </summary>
         public IEnumerable<SimilarCompareBikeEntity> GetPopularCompareList(uint cityId)
         {
-            List<SimilarCompareBikeEntity> compareBikes = null;
+            IEnumerable<SimilarCompareBikeEntity> compareBikes = null;
             try
             {
                 compareBikes = (List<SimilarCompareBikeEntity>)_objCache.GetPopularCompareList(cityId);
                 if (compareBikes != null && compareBikes.Count() > 0)
                 {
                     Random rnd = new Random();
-                    var sponsoredList = compareBikes.Where(x => x.IsSponsored).Select(x => x);
-                    var randomSponsored =  from item in sponsoredList
-                                          orderby rnd.Next()
-                                         select item;
-                    var remainingCompare = compareBikes.Where(x => !x.IsSponsored).Select(x => x);
-                    compareBikes=new List<SimilarCompareBikeEntity>();
-                    compareBikes.AddRange(randomSponsored);
-                    compareBikes.AddRange(remainingCompare);
+                    compareBikes = (from item in compareBikes
+                                    orderby
+                                    rnd.Next()
+                                    where item.IsSponsored
+                                    select item).Union(from item in compareBikes
+                                                       orderby
+                                                       item.DisplayPriority ascending
+                                                       where (!item.IsSponsored)
+                                                       select item);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.GetPopularCompareList - CityId: {0}", cityId));
             }
@@ -1024,24 +1025,25 @@ namespace Bikewale.BAL.Compare
         /// </summary>
         public IEnumerable<SimilarCompareBikeEntity> GetScooterCompareList(uint cityId)
         {
-            List<SimilarCompareBikeEntity> compareScooters = null;
+            IEnumerable<SimilarCompareBikeEntity> compareScooters = null;
             try
             {
                 compareScooters = (List<SimilarCompareBikeEntity>)_objCache.GetScooterCompareList(cityId);
                 if (compareScooters != null && compareScooters.Count() > 0)
                 {
                     Random rnd = new Random();
-                    var sponsoredList = compareScooters.Where(x => x.IsSponsored).Select(x => x);
-                    var randomSponsored = from item in sponsoredList
-                                          orderby rnd.Next()
-                                          select item;
-                    var remainingCompare = compareScooters.Where(x => !x.IsSponsored).Select(x => x);
-                    compareScooters = new List<SimilarCompareBikeEntity>();
-                    compareScooters.AddRange(randomSponsored);
-                    compareScooters.AddRange(remainingCompare);
+                    compareScooters = (from item in compareScooters
+                                       orderby
+                                    rnd.Next()
+                                    where item.IsSponsored
+                                    select item).Union(from item in compareScooters
+                                                       orderby
+                                                       item.DisplayPriority ascending
+                                                       where (!item.IsSponsored)
+                                                       select item);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.GetScooterCompareList - CityId: {0}", cityId));
             }

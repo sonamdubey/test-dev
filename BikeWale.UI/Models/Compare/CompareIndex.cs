@@ -89,7 +89,7 @@ namespace Bikewale.Models
         /// <returns></returns>
         public void BindCompareBike(CompareVM objVM)
         {
-            CompareWidget objCompare = new CompareWidget(_cachedCompare);
+            CompareWidget objCompare = new CompareWidget(_compare);
             try
             {
                 objCompare.topCount = 9;

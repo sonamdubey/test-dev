@@ -538,7 +538,7 @@ namespace Bikewale.DAL.Compare
         /// Created by : Aditi Srivastava on 24 Apr 2017
         /// Summary    : Get comparison of popular bikes
         /// Modified by : Aditi Srivastava on 2 June 2017
-        /// Summary     : Added flag and end and start date for sponsored comparison
+        /// Summary     : Added flag and end and start date for sponsored comparison and DisplayPriority
         /// </summary>
         public IEnumerable<SimilarCompareBikeEntity> GetPopularCompareList(uint cityId)
         {
@@ -577,6 +577,7 @@ namespace Bikewale.DAL.Compare
                                 obj.IsSponsored = SqlReaderConvertor.ToBoolean(reader["IsSponsored"]);
                                 obj.SponsoredStartDate = SqlReaderConvertor.ToDateTime(reader["SponsoredStartDate"]);
                                 obj.SponsoredEndDate = SqlReaderConvertor.ToDateTime(reader["SponsoredEndDate"]);
+                                obj.DisplayPriority = SqlReaderConvertor.ToUInt16(reader["priority"]);
                                 topBikeList.Add(obj);
                             }
                             reader.Close();
@@ -620,7 +621,8 @@ namespace Bikewale.DAL.Compare
                                 IsScooterOnly = (bike1.IsScooterOnly && bike2.IsScooterOnly),
                                 IsSponsored=(bike1.IsSponsored && bike2.IsSponsored),
                                 SponsoredStartDate=bike1.SponsoredStartDate,
-                                SponsoredEndDate=bike1.SponsoredEndDate
+                                SponsoredEndDate=bike1.SponsoredEndDate,
+                                DisplayPriority=bike1.DisplayPriority
                             });
                         }
                     }
@@ -879,6 +881,7 @@ namespace Bikewale.DAL.Compare
                                 obj.IsSponsored = SqlReaderConvertor.ToBoolean(reader["IsSponsored"]);
                                 obj.SponsoredStartDate = SqlReaderConvertor.ToDateTime(reader["SponsoredStartDate"]);
                                 obj.SponsoredEndDate = SqlReaderConvertor.ToDateTime(reader["SponsoredEndDate"]);
+                                obj.DisplayPriority = SqlReaderConvertor.ToUInt16(reader["priority"]);
                                 topBikeList.Add(obj);
                             }
                             reader.Close();
@@ -921,7 +924,8 @@ namespace Bikewale.DAL.Compare
                                 BodyStyle2 = bike2.BodyStyle1,
                                 IsSponsored = (bike1.IsSponsored && bike2.IsSponsored),
                                 SponsoredStartDate = bike1.SponsoredStartDate,
-                                SponsoredEndDate = bike1.SponsoredEndDate
+                                SponsoredEndDate = bike1.SponsoredEndDate,
+                                DisplayPriority=bike1.DisplayPriority
                             });
                         }
                     }
