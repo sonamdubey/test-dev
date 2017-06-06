@@ -52,19 +52,21 @@ namespace Bikewale.Cache.Compare
         /// <summary>
         /// Created by : Aditi Srivastava on 25 Apr 2017
         /// Summary    : Get list of comparisons of popular bikes
+        /// Modified by :Adit Srivastava on 5 June 2017
+        /// Summary     : Changed cache key
         /// </summary>
         /// <returns></returns>
         public IEnumerable<SimilarCompareBikeEntity> GetPopularCompareList(uint cityId)
         {
             IEnumerable<SimilarCompareBikeEntity> compareBikeList = null;
-            string key = string.Format("BW_PopularSimilarBikes_CityId_{0}", cityId);
+            string key = string.Format("BW_PopularSimilarBikes_CityId_v2_{0}", cityId);
             try
             {
                 compareBikeList = _cache.GetFromCache<IEnumerable<SimilarCompareBikeEntity>>(key, new TimeSpan(12, 0, 0, 0), () => _compareRepository.GetPopularCompareList(cityId));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.GetPopularCompareList");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetPopularCompareList- CityId : {0}", cityId));
             }
             return compareBikeList;
         }
@@ -189,6 +191,26 @@ namespace Bikewale.Cache.Compare
 
             }
             return topScootersComapareBase;
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 2 June 2017
+        /// Summary    : Get list of comparisons of popular scooters
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<SimilarCompareBikeEntity> GetScooterCompareList(uint cityId)
+        {
+            IEnumerable<SimilarCompareBikeEntity> compareBikeList = null;
+            string key = string.Format("BW_PopularScootersComparison_CityId_v2_{0}", cityId);
+            try
+            {
+                compareBikeList = _cache.GetFromCache<IEnumerable<SimilarCompareBikeEntity>>(key, new TimeSpan(12, 0, 0, 0), () => _compareRepository.GetScooterCompareList(cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.GetScooterCompareList- CityId : {0}",cityId));
+            }
+            return compareBikeList;
         }
     }
 }
