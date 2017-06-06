@@ -10,7 +10,6 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
 using System.Web.Mvc;
-
 namespace Bikewale.Controllers
 {
     public class UserReviewController : Controller
@@ -24,6 +23,8 @@ namespace Bikewale.Controllers
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
         private readonly ICMSCacheContent _objArticles = null;
+        private readonly IBikeMakesCacheRepository<int> _makesRepository;
+
 
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
@@ -37,7 +38,7 @@ namespace Bikewale.Controllers
         /// <param name="objModel"></param>
         /// <param name="userReviewsRepo"></param>
         /// <param name="userReviewsSearch"></param>
-        public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo, IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch)
+        public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo, IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository<int> makesRepository)
         {
 
             _userReviews = userReviews;
@@ -48,6 +49,7 @@ namespace Bikewale.Controllers
             _userReviewsCacheRepo = userReviewsCacheRepo;
             _userReviewsSearch = userReviewsSearch;
             _objArticles = objArticles;
+            _makesRepository = makesRepository;
         }
 
         /// <summary>
@@ -366,5 +368,18 @@ namespace Bikewale.Controllers
                 return Redirect("/pageNotFound.aspx");
             }
         }
+
+        /// <summary>
+        /// Summary: Controller to fetch contest data
+        /// Created by: Sangram Nandkhile on 05 June 2017
+        /// </summary>
+        [Route("m/user-reviews/contest/")]
+        public ActionResult WriteReviewContest_Mobile()
+        {
+            WriteReviewContest objData = new WriteReviewContest(_makesRepository);
+            WriteReviewContestVM objVM = objData.GetData();
+            return View(objVM);
+        }
+
     }
 }

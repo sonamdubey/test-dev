@@ -359,7 +359,7 @@ namespace BikeWaleOpr.Classified
                     isSuccess = true;
 
                     UsedBikeProfileDetails seller = _objSellerRepository.GetUsedBikeSellerDetails(inquiryId, false);
-                    string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceId={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
+                    string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
                     if (seller != null)
                     {
                         
