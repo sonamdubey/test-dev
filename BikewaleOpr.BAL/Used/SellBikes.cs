@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.Used;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using BikewaleOpr.Interface.Used;
 using System.Collections.Generic;
 using System.Web;
@@ -45,7 +46,7 @@ namespace BikewaleOpr.BAL.Used
                     string modelImage = Bikewale.Utility.Image.GetPathToShowImages(seller.OriginalImagePath, seller.HostUrl, Bikewale.Utility.ImageSize._110x61);
                     if (isApproved == 0)
                     {
-                        SendEmailSMSToDealerCustomer.UsedBikeEditedRejectionEmailToSeller(seller.SellerDetails, profileId, bikeName, modelImage, seller.RideDistance);
+                        SendEmailSMSToDealerCustomer.UsedBikeEditedRejectionEmailToSeller(seller.SellerDetails, profileId, bikeName, modelImage, Format.FormatNumeric(seller.RideDistance));
                         newSms.RejectionEditedUsedSellListingSMS(
                             EnumSMSServiceType.RejectionEditedUsedBikeListingToSeller,
                             seller.SellerDetails.CustomerMobile,
@@ -59,7 +60,7 @@ namespace BikewaleOpr.BAL.Used
                         string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
 
                         string writeReview = string.Format("{0}/rate-your-bike/{1}/?q={2}", Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrl, modelId, qEncoded);
-                        SendEmailSMSToDealerCustomer.UsedBikeEditedApprovalEmailToSeller(seller.SellerDetails, profileId, bikeName, modelImage, seller.RideDistance, writeReview);
+                        SendEmailSMSToDealerCustomer.UsedBikeEditedApprovalEmailToSeller(seller.SellerDetails, profileId, bikeName, modelImage, Format.FormatNumeric(seller.RideDistance), writeReview);
                         newSms.ApprovalEditedUsedSellListingSMS(
                             EnumSMSServiceType.ApprovalEditedUsedBikeListingToSeller,
                             seller.SellerDetails.CustomerMobile,
