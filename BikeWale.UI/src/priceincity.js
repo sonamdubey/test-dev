@@ -8,6 +8,14 @@ docReady(function () {
 
     $('.overall-specs-tabs-wrapper a').first().addClass('active');
    
+    // ad blocker active than fallback method
+    if (window.canRunAds === undefined) {
+        callFallBackWriteReview();
+    }
+    function callFallBackWriteReview() {
+        $('#adBlocker').show();
+    };
+
     // version dropdown
     $('.chosen-select').chosen();
 
