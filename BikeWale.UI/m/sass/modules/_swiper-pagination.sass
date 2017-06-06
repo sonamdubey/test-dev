@@ -1,0 +1,31 @@
+﻿.swiper-pagination
+    position: absolute
+    text-align: center
+    z-index: 10
+
+    &.swiper-pagination-hidden
+        opacity: 0
+
+.swiper-pagination-bullet
+    width: 10px
+    height: 10px
+    display: inline-block
+    border-radius: 100%
+    background: #000
+    opacity: 0.2
+
+.swiper-pagination-clickable
+    .swiper-pagination-bullet
+        cursor: pointer
+
+.swiper-pagination-bullet-active
+    opacity: 1
+
+.swiper-container-horizontal
+    > .swiper-pagination
+        bottom: 10px
+        left: 0
+        width: 100%
+
+    .swiper-pagination-bullet
+        margin: 0 5px

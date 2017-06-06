@@ -2,7 +2,6 @@
 
 <%@ Import Namespace="BikeWaleOpr.Common" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-
 <style type="text/css">
     .greenMessage {
         color: #6B8E23;
@@ -70,43 +69,56 @@
         z-index: 1000;
         background: rgb(250, 246, 246) url('https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
     }
+
+    /* Style the list */
+    ul.breadcrumb {padding: 10px 0;list-style: none;background-color: #eee;font-size: 17px;margin-top:10px;}
+    /* Display list items side by side */
+    ul.breadcrumb li {display: inline;}
+    /* Add a slash symbol (/) before/behind each list item */
+    ul.breadcrumb li+li:before {padding: 8px;color: black;content: ">\00a0";}
+    /* Add a color to all links inside the list */
+    ul.breadcrumb li a {color: #0275d8;text-decoration: none;}
+    /* Add a color on mouse-over */
+    ul.breadcrumb li a:hover {color: #01447e;}
 </style>
-<div>
-    <fieldset class="margin-left10">
-        <a id='backbutton' href="javascript:void(0)">Back to Manage Campaigns Page</a>
-        <legend>
-            <h3>Edit Dealer Campaign</h3>
-        </legend>
+<div class="left">
+    <div>
+        <ul class="breadcrumb margin-top15">
+            <li><a id='backbutton' href="javascript:void(0)" title="Back to Manage Campaigns Page" style="padding:10px">Manage Campaigns (Step 1)</a></li>
+            <li>Edit Dealer Campaign (Step 2)</li>
+            <li><a target="_blank" href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>" title="Manage Models Mapping">Campaign Models (Step 3)</a></li>
+            <li><a target="_blank" href="/dealercampaign/servingareas/dealerid/<%= dealerId %>/campaignid/<%= campaignId %>/" title="Manage Campaign Areas Mapping">Campaign Serving Areas (Step 4)</a></li>
+        </ul>
         <div id="box" class="box">
-            <table class="margin-top10 margin-bottom10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 60%; border-collapse: collapse;">
+            <table class="margin-top10" rules="all" cellspacing="0" cellpadding="8" style="border-width: 1px; border-style: solid; width: 70%; border-collapse: collapse;font-size: 13px;">
                 <tbody>
                     <tr>
-                        <td style="width: 20%"><strong>Dealer :</strong> </td>
+                        <td style="width: 20%"><strong>Dealer Name :</strong> </td>
                         <td><span id="spnDealerName"><%= dealerName  %></span></td>
                     </tr>
                     <tr>
                         <td style="width: 20%"><strong>Campaign Name :</strong> </td>
                         <td>
-                            <asp:textbox runat="server" name="maskingNumber" id="txtCampaignName" maxlength="100" class="req width300" enabled="true" />
+                            <asp:textbox runat="server" name="maskingNumber" id="txtCampaignName" maxlength="100" class="req width300 font13" enabled="true" />
                             <span style="color: red">Please do not add area names in the campaign name.</span>
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 20%"><strong>Campaign Dealer Number :</strong></td>
                         <td>
-                            <asp:textbox runat="server" name="dealerNumber" id="txtDealerNumber" class="width300" disabled />
+                            <asp:textbox runat="server" name="dealerNumber" id="txtDealerNumber" class="width300 font13" disabled />
                             <span style="color: red" id="dealerNumberMsg">Mapping a masking number will result in calling to both masking and dealer numbers one after another.</span>
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 20%"><strong>Campaign Masking Number :</strong><b class='required'>*</b></td>
                         <td>
-                            <asp:textbox runat="server" readonly="true" name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="numeric width300" enabled="true" />
+                            <asp:textbox runat="server" readonly="true" name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="numeric width300 font13" enabled="true" />
                             <%
                                 if (ddlMaskingNumber.DataSource != null)
                                 { 
                             %>
-                            <asp:dropdownlist id="ddlMaskingNumber" runat="server"></asp:dropdownlist>
+                            <asp:dropdownlist id="ddlMaskingNumber" runat="server" class="font13"></asp:dropdownlist>
                             <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />
                             <% if (isCampaignPresent)
                                { %> <a id="releaseMaskingNumber" href="javascript:void(0)">Release Masking number</a><%} %>
@@ -116,20 +128,14 @@
                     <tr>
                         <td style="width: 20%"><strong>Campaign Email ID :</strong><b class="required">*</b></td>
                         <td>
-                            <asp:textbox textmode="multiline" multiline="true" height="50" width="200" runat="server" id="txtDealerEmail" placeholder="Enter Email ids separated by comma" class="req width300" />
+                            <asp:textbox textmode="multiline" multiline="true" height="50" width="600" runat="server" id="txtDealerEmail" placeholder="Enter Email ids separated by comma" class="req font13" />
                             <span id="spnDealerEmail" class="Required marginleft18"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 20%"><strong>Campaign Lead Serving radius(in kms) :</strong><b class="required">*</b></td>
-                        <td>
-                            <asp:textbox runat="server" id="txtdealerRadius" placeholder="" class="numeric req width300" />
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 20%"><strong>Daily Leads Limit :</strong></td>
                         <td>
-                            <asp:textbox runat="server" id="txtLeadsLimit" placeholder="" class="numeric width300" />
+                            <asp:textbox runat="server" id="txtLeadsLimit" placeholder="" class="numeric width300 font13" />
                         </td>
                     </tr>
                     <tr>
@@ -144,7 +150,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <asp:button id="btnUpdate" onclientclick="return ValidateForm();" text="Save" runat="server" cssclass="padding10" />
+                            <asp:button id="btnUpdate" onclientclick="return ValidateForm();" text="Save Campaign" runat="server" cssclass="padding10" />
                         </td>
                     </tr>
                 </tbody>
@@ -156,20 +162,7 @@
             <br />
 
         </div>
-
-
-
-    </fieldset>
-
-    <% if (isCampaignPresent)
-       { %>
-    <fieldset>
-        <legend>Define Components</legend>
-
-        <strong>Edit rules:</strong><span><a href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Rules</a></span>
-
-    </fieldset>
-    <% } %>
+    </div>
 </div>
 <script type="text/javascript">
 
@@ -195,23 +188,10 @@
                 }
             });
 
-            if (!isValid) {
-                $('#lblErrorSummary').html('Please fill values');
-            }
-
-            if (isValid) {
-                if ($('#txtdealerRadius').val() == '0') {
-                    var r = confirm("By selecting dealer radius as 0 KM, You are allocating a dealer to entire city. Do you confirm ?");
-                    if (!r)
-                        isValid = false;
-                }
-                $("#pageloaddiv").show();
-            }
-
             if (isValid) {
                 var maskingNumber = $("#txtMaskingNumber").val().trim();
                 var nos = parseInt(dealerNoEle.attr("data-numberCount"));
-                if (nos && maskingNumber != txtMaskingNumber && maskingNumber != "") {
+                if (maskingNumber != "" && nos && maskingNumber != txtMaskingNumber) {
                     var r = confirm("You are mapping " + nos + " dealer numbers to 1 masking number. Are you sure you want to continue?");
                     if (!r) {
                         isValid = false;
@@ -220,10 +200,10 @@
 
                 }
                 $("#pageloaddiv").show();
-
+                
+            }else {
+                $('#lblErrorSummary').html('Please fill values');
             }
-
-
         } catch (e) {
             console.warn(e.message);
             isValid = false;
@@ -246,8 +226,7 @@
                     beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ReleaseNumber"); },
                     success: function (response) {
                         if (JSON.parse(response).value) {
-                            $("#txtMaskingNumber").val('');
-                            //bindMaskingNumber(dealerId);                                
+                            $("#txtMaskingNumber").val('');                             
                             alert("Masking Number is released successful.");
                             location.reload();
                         }

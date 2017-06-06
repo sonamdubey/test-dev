@@ -2,6 +2,10 @@
 
 namespace BikewaleOpr.Entities.PopularComparisions
 {
+    /// <summary>
+    /// Modified by Sajal Gupta on 02-06-2017
+    /// Description : Added IsSponsored, SponsoredStartDate, SponsoredEndDate
+    /// </summary>
     public class PopularBikeComparision
     {
         public uint ComparisionId { get; set; }
@@ -22,5 +26,8 @@ namespace BikewaleOpr.Entities.PopularComparisions
         public string UpdatedBy { get; set; }
         public ushort PriorityOrder { get; set; }
         public bool IsActive { get; set; }
+        public bool IsSponsored { get; set; }
+        public DateTime SponsoredStartDate { get; set; }
+        public DateTime SponsoredEndDate { get; set; }
     }
 }

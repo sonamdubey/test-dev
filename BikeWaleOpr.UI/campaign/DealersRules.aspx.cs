@@ -13,13 +13,13 @@ namespace BikewaleOpr.Campaign
     public class DealersRules : System.Web.UI.Page
     {
         #region variable
-        public int campaignId, dealerId, currentUserId, cityId, stateId, makeId;
-        public string modelId;
-        public DropDownList ddlMake, ddlModel, ddlState, ddlCity;
+        public int campaignId, dealerId, currentUserId, makeId;
+        public string modelId,dealerName;
+        public DropDownList ddlMake, ddlModel; //, ddlState, ddlCity;
         public Button btnSaveRule, btnReset, btnDeleteRules, btnDelete;
         public Repeater rptRules;
         public ManageDealerCampaignRule campaign = null;
-        public HiddenField hdnSelectedModel, hdnSelectedCity, hdnCheckedRules;
+        public HiddenField hdnSelectedModel, hdnCheckedRules;
         public Label lblGreenMessage, lblErrorSummary;
         #endregion
 
@@ -64,7 +64,7 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
-                if (campaign.InsertBWDealerCampaignRules(currentUserId, campaignId, cityId, dealerId, makeId, stateId, modelId))
+                if (campaign.InsertBWDealerCampaignRules(currentUserId, campaignId, dealerId, makeId, modelId))
                 {
                     lblGreenMessage.Text = "Rule(s) have been added !";
                 }
@@ -91,15 +91,11 @@ namespace BikewaleOpr.Campaign
         /// Description :  Sets basic variable for get, set, update functions
         /// </summary>
         private void SetPageVariables()
-        {
-            if (!string.IsNullOrEmpty(hdnSelectedCity.Value))
-                cityId = Convert.ToInt32(hdnSelectedCity.Value);
+        {            
             if (!string.IsNullOrEmpty(hdnSelectedModel.Value))
                 modelId = hdnSelectedModel.Value;
             if (!string.IsNullOrEmpty(ddlMake.SelectedValue))
-                makeId = Convert.ToInt32(ddlMake.SelectedValue);
-            if (!string.IsNullOrEmpty(ddlState.SelectedValue))
-                stateId = Convert.ToInt32(ddlState.SelectedValue);
+                makeId = Convert.ToInt32(ddlMake.SelectedValue);            
         }
 
         /// <summary>
@@ -130,34 +126,7 @@ namespace BikewaleOpr.Campaign
                 objErr.SendMail();
             }
         }
-
-        /// <summary>
-        /// Created By : Sangram Nandkhile on 19 March 2016.
-        /// Description :  Populates the States dropdown
-        /// </summary>
-        private void FillStates()
-        {
-            try
-            {
-                ManageStates objStates = new ManageStates();
-                DataSet ds = objStates.GetAllStatesDetails();
-                if (ds != null && ds.Tables.Count > 0)
-                {
-                    ddlState.DataSource = ds.Tables[0];
-                    ddlState.DataTextField = "Name";
-                    ddlState.DataValueField = "ID";
-                    ddlState.DataBind();
-                    ddlState.Items.Insert(0, new ListItem("--Select State--", "-1"));
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.FillStates");
-                objErr.SendMail();
-            }
-        }
-
+         
         /// <summary>
         /// Created By : Sangram Nandkhile on 19 March 2016.
         /// Description :  Populates all the dropdown lists
@@ -166,7 +135,7 @@ namespace BikewaleOpr.Campaign
         {
             ParseQueryString();
             FillMakes();
-            FillStates();
+
             if (!IsPostBack)
             {
                 BindRules();
@@ -188,6 +157,10 @@ namespace BikewaleOpr.Campaign
                 if (!string.IsNullOrEmpty(Request.QueryString["dealerid"]))
                 {
                     dealerId = Convert.ToInt32(Request.QueryString["dealerid"]);
+                }
+                if (!String.IsNullOrEmpty(Request.QueryString["dealerName"]))
+                {
+                    dealerName = Convert.ToString(Request.QueryString["dealerName"]);
                 }
             }
             catch (Exception ex)

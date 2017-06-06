@@ -146,6 +146,7 @@
     <Compile Include="UserReviews\UserReviewDetailsVM.cs" />
     <Compile Include="UserReviews\UserReviewsSearchVM.cs" />
     <Compile Include="UserReviews\UserReviewSummaryVM.cs" />
+    <Compile Include="UserReviews\WriteReviewContest.cs" />
     <Compile Include="UserReviews\WriteReviewPageSubmitResponse.cs" />
     <Compile Include="UserReview\WriteReviewPageVM.cs" />
     <Compile Include="UserReviews\UserReviewRatingVM.cs" />

@@ -1,0 +1,37 @@
+﻿$rating-colors: (1: #EF3F30, 2: #FD971C, 3: #EFD700, 4: #13B65D, 5: #198D55)
+
+@mixin rating-background($count)
+    @if map-has-key($rating-colors, $count)
+        .rating-badge[data-rate-bg="#{$count}"]
+            background-color: map-get($rating-colors, $count)
+
+    @else
+        @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined."
+
+@include rating-background(5)
+@include rating-background(4)
+@include rating-background(3)
+@include rating-background(2)
+@include rating-background(1)
+
+.rating-badge
+	min-width: 40px
+	height: 20px
+	padding-right: 5px
+	padding-left: 5px
+	font-size: 14px
+	font-weight: 600
+	color: #fff
+	display: inline-block
+	vertical-align: middle
+	margin-right: 6px
+	text-align: center
+	@include border-radius(2px)
+
+.star-white
+	width: 12px
+	height: 12px
+	background-position: -172px -447px
+	position: relative
+	top: 1px
+	margin-right: 4px
