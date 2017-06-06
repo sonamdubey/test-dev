@@ -108,26 +108,19 @@ namespace BikewaleOpr.Service.Controllers
         /// <param name="activecontract"></param>
         /// <returns></returns>
         [HttpGet, Route("api/dealercampaigns/dealer/{dealerId}/")]
-        public IHttpActionResult DealerCampaigns(uint dealerId, bool activecontract = false)
+        public IHttpActionResult DealerCampaigns(uint dealerId, uint cityId, uint makeId, bool activecontract = false)
         {
             try
             {
-                if (dealerId > 0)
+                IEnumerable<DealerCampaignDetailsEntity> campaigns = null;
+                campaigns = _objDealerCampaignRepository.DealerCampaigns(dealerId, cityId, makeId, activecontract);
+                if (campaigns != null)
                 {
-                    IEnumerable<DealerCampaignDetailsEntity> campaigns = null;
-                    campaigns = _objDealerCampaignRepository.DealerCampaigns(dealerId, activecontract);
-                    if (campaigns != null)
-                    {
-                        return Ok(campaigns);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
+                    return Ok(campaigns);
                 }
                 else
                 {
-                    return BadRequest();
+                    return NotFound();
                 }
             }
             catch (Exception ex)
