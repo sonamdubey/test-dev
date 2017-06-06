@@ -11,6 +11,7 @@ namespace Bikewale.Entities.UserReviews
     /// Descruioption : Added UpVotes, DownVotes, Views, EntryDate
     /// </summary>
     {
+        public uint ReviewId { get; set; }
         public UserReviewOverallRating OverallRating { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }

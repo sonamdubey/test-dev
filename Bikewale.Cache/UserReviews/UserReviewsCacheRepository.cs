@@ -6,6 +6,7 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Notifications;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bikewale.Cache.UserReviews
@@ -114,7 +115,7 @@ namespace Bikewale.Cache.UserReviews
                 string key = "BW_UserReviews_MO_" + inputFilters.Model;
                 bool skipDataLimit = (inputFilters.PN * inputFilters.PS) > 24;
                 try
-                {
+                {                    
                     if (inputFilters.SO > 0)
                     {
                         key = string.Format("{0}_CAT_{1}", key, inputFilters.SO);
@@ -233,6 +234,52 @@ namespace Bikewale.Cache.UserReviews
                 ErrorClass objError = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsIdMapping");
             }
             return htResult;
+        }
+
+        public BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId)
+        {
+            BikeReviewIdListByCategory objReviewIdList = null;
+            try
+            {
+                string key = "BW_ReviewIdList";
+                objReviewIdList = _cache.GetFromCache<BikeReviewIdListByCategory>(key, new TimeSpan(6, 0, 0), () => _objUserReviews.GetReviewsIdListByModel(modelId));
+            }
+            catch
+            {
+
+            }
+            return objReviewIdList;
+        }
+
+        public IEnumerable<UserReviewSummary> GetUserReviewSummaryList(IEnumerable<uint> reviewIdList)
+        {
+            IEnumerable<UserReviewSummary> objSummaryList = null;
+            try
+            {
+                string[] keys;
+                keys = new string[reviewIdList.Count()];
+
+                int i = 0;
+                foreach(var id in reviewIdList)
+                {
+                    keys[i++] = string.Format("BW_UserReviewDetails_{0}", id);
+                }
+
+                string reviewCSV = String.Join(",", reviewIdList.ToArray());
+                Func<string, IEnumerable<UserReviewSummary>> fnCallback =_objUserReviews.GetUserReviewSummaryList;                
+
+                objSummaryList = _cache.GetListFromCache<UserReviewSummary>(reviewIdList.Select(p => p.ToString()).ToArray(),
+                    keys,
+                    new TimeSpan(1, 0, 0),
+                    fnCallback);
+                
+            }
+            catch
+            {
+
+            }
+            return objSummaryList;
+
         }
     }
 }

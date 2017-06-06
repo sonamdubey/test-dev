@@ -367,7 +367,7 @@ namespace Bikewale.BAL.UserReviews.Search
                 substring(striphtml(review),1,175) comments,
                 ifnull(ur.entrydate,ur.lastmoderateddate) reviewdate,
                 upvotes liked,
-                downvotes disliked,
+                downvotes disliked, 
                 views viewed,
                 overallratingid overallrating,
                 if(views >= 100,1,2) bucket,
