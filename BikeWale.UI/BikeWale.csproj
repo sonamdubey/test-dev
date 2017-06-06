@@ -508,6 +508,7 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NewLaunchesController.cs" />
     <Compile Include="Controllers\ScootersController.cs" />
+    <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\UpcomingController.cs" />
     <Compile Include="Controllers\UserReviewController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
@@ -997,6 +998,7 @@
     <Compile Include="Models\ServiceCenters\ServiceCenterCityPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterDetailsPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterLandingPage.cs" />
+    <Compile Include="Models\Survey\BajajSurveyModel.cs" />
     <Compile Include="Models\Upcoming\UpcomingByMakePageModel.cs" />
     <Compile Include="Models\Upcoming\UpcomingPageModel.cs" />
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
@@ -3723,6 +3725,7 @@
     <Content Include="Views\GenericBestBikes\Index_Mobile.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage_Mobile.cshtml" />
+    <Content Include="Views\Survey\BajajSurvey_Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3868,8 +3871,8 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>true</UseIIS>
-          <AutoAssignPort>false</AutoAssignPort>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9011</IISUrl>
