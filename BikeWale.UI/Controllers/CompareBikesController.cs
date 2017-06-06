@@ -20,10 +20,7 @@ namespace Bikewale.Controllers
         private readonly ICMSCacheContent _compareTest = null;
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelMaskingCache = null;
-
         private readonly IBikeCompare _objCompare = null;
-
-
 
         public CompareBikesController(IBikeCompareCacheRepository cachedCompare, ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompare objCompare, IBikeMakesCacheRepository<int> objMakeCache)
         {
@@ -32,15 +29,14 @@ namespace Bikewale.Controllers
             _objModelMaskingCache = objModelMaskingCache;
             _objCompare = objCompare;
             _objMakeCache = objMakeCache;
-
-        }
+          }
 
         // GET: CompareBikes
         [Route("compare/")]
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            CompareIndex objCompare = new CompareIndex(_cachedCompare, _compareTest);
+            CompareIndex objCompare = new CompareIndex(_objCompare, _compareTest);
 
             if (objCompare != null)
             {
@@ -58,7 +54,7 @@ namespace Bikewale.Controllers
         [Route("m/compare/")]
         public ActionResult Index_Mobile()
         {
-            CompareIndex objCompare = new CompareIndex(_cachedCompare, _compareTest);
+            CompareIndex objCompare = new CompareIndex(_objCompare, _compareTest);
 
             if (objCompare != null)
             {

@@ -10,17 +10,19 @@ namespace Bikewale.Models.Compare
     /// <summary>
     /// Created By :- Subodh Jain 09 May 2017
     /// Summary :- Model For compare bike with body style
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance for comparison list
     /// </summary>
     /// <returns></returns>
     public class CompareWidget
     {
-        private readonly IBikeCompareCacheRepository _objCompareCache;
+        private readonly IBikeCompare _objCompare;
 
         public int topCount { get; set; }
         public uint cityId { get; set; }
-        public CompareWidget(IBikeCompareCacheRepository objCompareCache)
+        public CompareWidget(IBikeCompare objCompare)
         {
-            _objCompareCache = objCompareCache;
+            _objCompare = objCompare;
 
         }
         public ComparisonWidgetVM GetData()
@@ -29,7 +31,7 @@ namespace Bikewale.Models.Compare
             try
             {
                 IEnumerable<SimilarCompareBikeEntity> topBikeCompares = null;
-                topBikeCompares = _objCompareCache.GetPopularCompareList(cityId);
+                topBikeCompares = _objCompare.GetPopularCompareList(cityId);
                 if (topBikeCompares != null && topBikeCompares.Count() > 0)
                 {
                     objComparison.topBikeCompares = topBikeCompares.Take(topCount);

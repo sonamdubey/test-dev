@@ -20,6 +20,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by: Sangram Nandkhile on 31-Mar-2017
     ///  Model for new page
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance instead of cache for comparison carousel
     /// </summary>
     public class NewPageModel
     {
@@ -29,7 +31,7 @@ namespace Bikewale.Models
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly ICityCacheRepository _IUsedBikesCache = null;
         private readonly IBikeModelsCacheRepository<int> _cachedModels = null;
-        private readonly IBikeCompareCacheRepository _cachedCompare = null;
+        private readonly IBikeCompare _objCompare = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly ICMSCacheContent _expertReviews = null;
@@ -46,7 +48,7 @@ namespace Bikewale.Models
 
         #endregion
 
-        public NewPageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IBikeModelsCacheRepository<int> cachedModels, IBikeCompareCacheRepository cachedCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
+        public NewPageModel(ushort topCount, ushort launchedRcordCount, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
@@ -55,7 +57,7 @@ namespace Bikewale.Models
             _bikeModels = bikeModels;
             _IUsedBikesCache = usedBikeCache;
             _cachedModels = cachedModels;
-            _cachedCompare = cachedCompare;
+            _objCompare = objCompare;
             _videos = videos;
             _articles = articles;
             _expertReviews = expertReviews;
@@ -106,11 +108,8 @@ namespace Bikewale.Models
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
             objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
 
-            if (IsMobile)
-                BindCompareBikes(objVM, CompareSource, cityId);
-            else
-                objVM.CompareBikes = new ComparisonMinWidget(_cachedCompare, 4, true, EnumBikeType.New).GetData();
-
+            BindCompareBikes(objVM, CompareSource, cityId);
+          
             objVM.BestBikes = new BestBikeWidgetModel(null).GetData();
 
             objVM.News = new RecentNews(3, _articles).GetData();
@@ -131,7 +130,7 @@ namespace Bikewale.Models
         /// </summary>
         private void BindCompareBikes(NewPageVM objVM, CompareSources CompareSource, uint cityId)
         {
-            ComparePopularBikes objCompare = new ComparePopularBikes(_cachedCompare);
+            ComparePopularBikes objCompare = new ComparePopularBikes(_objCompare);
             objCompare.TopCount = 9;
             objCompare.CityId = cityId;
             objVM.ComparePopularBikes = objCompare.GetData();

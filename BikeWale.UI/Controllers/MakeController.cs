@@ -20,6 +20,8 @@ namespace Bikewale.Controllers
     /// <author>
     /// Created by: Sangram Nandkhile on 27-Mar-2017
     /// Summary: Controller which holds actions for Make
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance for comparison list
     /// </author>
     public class MakeController : Controller
     {
@@ -32,10 +34,10 @@ namespace Bikewale.Controllers
         private readonly IUsedBikeDetailsCacheRepository _cachedBikeDetails;
         private readonly IDealerCacheRepository _cacheDealers;
         private readonly IUpcoming _upcoming = null;
-        private readonly IBikeCompareCacheRepository _compareBikes;
+        private readonly IBikeCompare _compareBikes;
         private readonly IServiceCenter _objService;
 
-        public MakeController(IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompareCacheRepository compareBikes, IServiceCenter objService)
+        public MakeController(IDealerCacheRepository dealerServiceCenters, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository<int> bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objService)
         {
             _dealerServiceCenters = dealerServiceCenters;
             _bikeModelsCache = bikeModelsCache;
