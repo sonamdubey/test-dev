@@ -51,11 +51,16 @@ namespace Bikewale.Controllers
         }
         // GET: HomePage
         //[Route("homepage/")]
+        /// <summary>
+        /// Modified by : Aditi Srivastava on 6 June 2017
+        /// Summary     : Added compare source
+        /// </summary>
         [DeviceDetection]
         public ActionResult Index()
         {
             HomePageVM objData = null;
             HomePageModel obj = new HomePageModel(10, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _expertReviews);
+            obj.CompareSource = CompareSources.Desktop_Home_MostPopular_Compare_Widget;
             objData = obj.GetData();
             return View(objData);
 
