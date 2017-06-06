@@ -999,7 +999,7 @@ namespace Bikewale.BAL.Compare
                 if (compareBikes != null && compareBikes.Count() > 0)
                 {
                     Random rnd = new Random();
-                    compareBikes = compareBikes.Where(x => x.IsSponsored).OrderBy(x => rnd.Next())
+                    compareBikes = compareBikes.Where(x => x.IsSponsored && x.SponsoredEndDate>=DateTime.Now && x.SponsoredStartDate<=DateTime.Now).OrderBy(x => rnd.Next())
                                    .Union(compareBikes.Where(x => !x.IsSponsored).OrderBy(x => x.DisplayPriority));
                 }
             }
@@ -1025,7 +1025,7 @@ namespace Bikewale.BAL.Compare
                 if (compareScooters != null && compareScooters.Count() > 0)
                 {
                     Random rnd = new Random();
-                    compareScooters = compareScooters.Where(x => x.IsSponsored).OrderBy(x => rnd.Next())
+                    compareScooters = compareScooters.Where(x => x.IsSponsored && x.SponsoredEndDate >= DateTime.Now && x.SponsoredStartDate <= DateTime.Now).OrderBy(x => rnd.Next())
                                    .Union(compareScooters.Where(x => !x.IsSponsored).OrderBy(x => x.DisplayPriority));
                 }
             }
