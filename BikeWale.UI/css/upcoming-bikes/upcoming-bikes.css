@@ -30,6 +30,9 @@
 .collapsible-content.active .more-content {
   display: inline; }
 
+.collapsible-content.toggle-off.active .read-more-target {
+  display: none; }
+
 .upcoming-bikes-banner {
   background: #89a3b7 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/new-launches-banner.jpg) no-repeat center;
   background-size: cover;

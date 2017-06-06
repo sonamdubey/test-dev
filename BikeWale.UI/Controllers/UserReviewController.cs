@@ -366,5 +366,19 @@ namespace Bikewale.Controllers
                 return Redirect("/pageNotFound.aspx");
             }
         }
+
+        [Route("user-reviews/model")]
+        public ActionResult ListReviews()
+        {
+            ModelBase m = new ModelBase();
+            return View(m);
+        }
+
+        [Route("user-reviews/details")]
+        public ActionResult ReviewDetails()
+        {
+            ModelBase m = new ModelBase();
+            return View(m);
+        }
     }
 }
