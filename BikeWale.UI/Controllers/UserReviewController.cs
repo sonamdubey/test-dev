@@ -23,7 +23,7 @@ namespace Bikewale.Controllers
         private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
-        private readonly ICMSCacheContent _objArticles = null;
+        private readonly ICMSCacheContent _objArticles = null;       
 
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
@@ -61,7 +61,7 @@ namespace Bikewale.Controllers
         [Route("m/{makeMasking}-bikes/{modelMasking}/reviews/")]
         public ActionResult ListReviews_Mobile(string makeMasking, string modelMasking, uint? pageNo)
         {
-            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles);
+            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch);
             if (objData != null && objData.Status.Equals(StatusCodes.ContentFound))
             {
                 objData.PageNumber = pageNo;
@@ -95,7 +95,7 @@ namespace Bikewale.Controllers
         [Route("m/user-reviews/details/{reviewId}")]
         public ActionResult ReviewDetails_Mobile(uint reviewId, string makeMaskingName, string modelMaskingName)
         {
-            UserReviewDetailsPage objUserReviewDetails = new UserReviewDetailsPage(reviewId, _userReviewsCacheRepo, _bikeInfo, _cityCache, _objArticles, _objModel, makeMaskingName, modelMaskingName);
+            UserReviewDetailsPage objUserReviewDetails = new UserReviewDetailsPage(reviewId, _userReviewsCacheRepo, _bikeInfo, _cityCache, _objArticles, _objModel, makeMaskingName, modelMaskingName, _userReviewsSearch);
             if (objUserReviewDetails != null)
             {
                 objUserReviewDetails.TabsCount = 3;

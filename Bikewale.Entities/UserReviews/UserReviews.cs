@@ -28,6 +28,9 @@ namespace Bikewale.Entities.UserReviews
         [JsonProperty("selectedRatingId"), DataMember]
         public uint SelectedRatingId { get; set; }
 
+        [JsonProperty("selectedRatingText"), DataMember]
+        public string SelectedRatingText { get; set; }
+
         [JsonProperty("displayType"), DataMember]
         public UserReviewQuestionDisplayType DisplayType { get; set; }
 
@@ -48,6 +51,8 @@ namespace Bikewale.Entities.UserReviews
 
         [JsonProperty("subQuestionId"), DataMember]
         public uint SubQuestionId { get; set; }
+
+        public uint ReviewId { get; set; }
     }
 
     [Serializable]

@@ -25,6 +25,7 @@ namespace Bikewale.Models.UserReviews
         private readonly IUserReviewsCache _objUserReviewCache;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelMaskingCache;
         private readonly ICMSCacheContent _objArticles = null;
+        private readonly IUserReviewsSearch _userReviewsSearch = null;
         private uint _modelId = 0;
 
         /// <summary>
@@ -37,12 +38,13 @@ namespace Bikewale.Models.UserReviews
         /// <param name="userReviewCache"></param>
         /// <param name="objUserReviewSearch"></param>
         /// <param name="objArticles"></param>
-        public UserReviewListingPage(string makeMasking, string modelMasking, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IUserReviewsCache userReviewCache, IUserReviewsSearch objUserReviewSearch, ICMSCacheContent objArticles)
+        public UserReviewListingPage(string makeMasking, string modelMasking, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IUserReviewsCache userReviewCache, IUserReviewsSearch objUserReviewSearch, ICMSCacheContent objArticles, IUserReviewsSearch userReviewsSearch)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objUserReviewCache = userReviewCache;
             _objUserReviewSearch = objUserReviewSearch;
             _objArticles = objArticles;
+            _userReviewsSearch = userReviewsSearch;
             ParseQueryString(makeMasking, modelMasking);
         }
 
@@ -99,7 +101,7 @@ namespace Bikewale.Models.UserReviews
 
                 if (objData.RatingsInfo != null)
                 {
-                    var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _objUserReviewCache);
+                    var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _objUserReviewCache, _userReviewsSearch);
 
                     if (objUserReviews != null)
                     {

@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UserReviews;
 using Bikewale.Service.Utilities;
@@ -24,11 +25,13 @@ namespace Bikewale.Service.Controllers.UserReviews
         private readonly IUserReviewsRepository _userReviewsRepo = null;
         private readonly IUserReviewsCache _userReviewsCacheRepo = null;
         private readonly IUserReviews _userReviews = null;
-        public UserReviewsListController(IUserReviewsRepository userReviewsRepo, IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews)
+        private readonly IUserReviewsSearch _userReviewsSearch = null;
+        public UserReviewsListController(IUserReviewsRepository userReviewsRepo, IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IUserReviewsSearch userReviewsSearch)
         {
             _userReviewsRepo = userReviewsRepo;
             _userReviewsCacheRepo = userReviewsCacheRepo;
             _userReviews = userReviews;
+            _userReviewsSearch = userReviewsSearch;
         }
 
         #region Get Reviewed Bike List
@@ -83,7 +86,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             {
                 if (filters != null && (!String.IsNullOrEmpty(filters.Model) || !String.IsNullOrEmpty(filters.Make)))
                 {
-                    objUserReviews = _userReviewsCacheRepo.GetUserReviewsList(filters);
+                    objUserReviews = _userReviewsSearch.GetUserReviewsList(filters);                       
                     if (objUserReviews != null)
                     {
 
