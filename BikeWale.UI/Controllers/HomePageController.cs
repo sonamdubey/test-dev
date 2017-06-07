@@ -60,7 +60,7 @@ namespace Bikewale.Controllers
         {
             HomePageVM objData = null;
             HomePageModel obj = new HomePageModel(10, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _expertReviews);
-            obj.CompareSource = CompareSources.Desktop_Home_MostPopular_Compare_Widget;
+            obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
             objData = obj.GetData();
             return View(objData);
 
@@ -73,7 +73,7 @@ namespace Bikewale.Controllers
             HomePageVM objData = null;
             HomePageModel obj = new HomePageModel(6, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _expertReviews);
             obj.IsMobile = true;
-            obj.CompareSource = CompareSources.Mobile_Home_MostPopular_Compare_Widget;
+            obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             objData = obj.GetData();
             return View(objData);
         }
