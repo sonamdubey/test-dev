@@ -377,9 +377,10 @@ namespace Bikewale.Controllers
         [Route("user-reviews/details/{reviewId}")]
         public ActionResult ReviewDetails(uint reviewId, string makeMaskingName, string modelMaskingName)
         {
-            UserReviewDetailsPage objUserReviewDetails = new UserReviewDetailsPage(reviewId, _userReviewsCacheRepo, _bikeInfo, _cityCache, _objArticles, _objModel, makeMaskingName, modelMaskingName);
+            UserReviewDetailsPage objUserReviewDetails = new UserReviewDetailsPage(reviewId, _userReviewsCacheRepo, _bikeInfo, _cityCache, _objArticles, _objModel, makeMaskingName, modelMaskingName, _userReviewsSearch);
             if (objUserReviewDetails != null)
             {
+                objUserReviewDetails.IsDesktop = true;
                 objUserReviewDetails.TabsCount = 3;
                 objUserReviewDetails.ExpertReviewsWidgetCount = 3;
                 objUserReviewDetails.SimilarBikeReviewWidgetCount = 9;

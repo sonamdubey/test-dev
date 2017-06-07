@@ -504,6 +504,7 @@
 .collapsible-content.active .more-content {
   display: inline; }
 
+.collapsible-content.main-content-off.active .main-content,
 .collapsible-content.toggle-off.active .read-more-target {
   display: none; }
 

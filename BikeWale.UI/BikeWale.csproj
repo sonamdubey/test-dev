@@ -3732,6 +3732,7 @@
     <Content Include="Views\UserReview\ListReviews.cshtml" />
     <Content Include="Views\UserReview\ReviewDetails.cshtml" />
     <Content Include="Views\UserReview\_SimilarBikeUserReview.cshtml" />
+    <Content Include="Views\UserReview\_UserReviewsSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

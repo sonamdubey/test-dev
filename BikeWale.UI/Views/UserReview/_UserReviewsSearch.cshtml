@@ -1,0 +1,141 @@
+﻿@model Bikewale.Models.UserReviews.UserReviewsSearchVM
+@using Bikewale.Entities.UserReviews;
+@using Bikewale.Utility;
+@if (Model.UserReviews != null && Model.ReviewsInfo != null && Model.ReviewsInfo.TotalReviews > 0)
+{
+    <section>
+        <div id="modelReviewsListing" class="container card-bottom-margin">
+            <div class="grid-12">
+                <div class="content-box-shadow padding-top20">
+                    <h2 class="h2-heading padding-left20">@Model.WidgetHeading</h2>
+                    <div id="overallTabsWrapper" class="overall-tabs user-review-tabs position-rel">
+                        <div id="overallSpecsTab" class="overall-specs-tabs-container">
+                            <div class="overall-specs-tabs-wrapper">
+                                <a href="javascript:void(0)" class="active" data-category="2" data-page-num="1" data-count="@Model.ReviewsInfo.MostHelpfulReviews" data-bind="click: function(d, e) { toggleReviewList(e); }" rel="nofollow">Most Helpful (@Model.ReviewsInfo.MostHelpfulReviews)</a>
+                                <a href="javascript:void(0)" data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d, e) { toggleReviewList(e); }" rel="nofollow">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</a>
+                                <a href="javascript:void(0)" data-category="5" data-page-num="1" data-count="@Model.ReviewsInfo.PostiveReviews" data-bind="click: function(d, e) { toggleReviewList(e); }" rel="nofollow">Positive (@Model.ReviewsInfo.PostiveReviews)</a>
+                                <a href="javascript:void(0)" data-category="6" data-page-num="1" data-count="@Model.ReviewsInfo.NegativeReviews" data-bind="click: function(d, e) { toggleReviewList(e); }" rel="nofollow">Negative (@Model.ReviewsInfo.NegativeReviews)</a>
+                                <a href="javascript:void(0)" data-category="7" data-page-num="1" data-count="@Model.ReviewsInfo.NeutralReviews" data-bind="click: function(d, e) { toggleReviewList(e); }" rel="nofollow">Neutral (@Model.ReviewsInfo.NeutralReviews)</a>
+                            </div>
+                        </div>
+                    </div>
+                    @*<p class="padding-top15 padding-bottom15 margin-right20 margin-left20 border-grey-bottom">
+                            <span class="bwsprite info-sm margin-right5"></span>
+                            <span class="font13 text-light-grey inline-block">Reviews are sorted on the basis of helpfulness</span>
+                        </p>*@
+                    <div style="display: @(Model.Pager != null && Model.Pager.TotalResults > 0 ? "block" : "none")" data-bind="visible: reviewsAvailable()">
+                        <ul class="user-review-list">
+                            @foreach (UserReviewSummary review in Model.UserReviews.ResultDesktop)
+                            {
+                                <li class="list-item">
+                                    <div class="grid-9 alpha padding-right20 border-light-right">
+                                        <div class="margin-bottom10">
+                                            <span class="rating-badge" data-rate-bg="@review.OverallRating.Value"><span class="bwsprite star-white"></span>@review.OverallRating.Value</span>
+                                            <a href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" class="list-item-title inline-block margin-right5"> @review.Title</a>
+                                            <span class="font12 inline-block text-light-grey">8 days ago by @review.CustomerName</span>
+                                        </div>
+                                        <div class="collapsible-content toggle-off main-content-off margin-bottom10 font14 text-slate-grey">
+                                            <div class="main-content">
+                                                @*@{string shortDesc = FormatDescription.TruncateDescription(review.Description, 150);
+                                                    int len = shortDesc.Length;}
+                                                @Html.Raw(shortDesc)*@
+                                                @Html.Raw((review.Description.TruncateHtml(200)))
+                                            </div>
+                                            <div class="more-content">
+                                                @Html.Raw(review.Description)
+                                                <ul class="rating-circle-list">
+                                                    @foreach (UserReviewQuestion ques in review.Questions)
+                                                    {
+                                                        if (ques.Type == UserReviewQuestionType.Review)
+                                                        {
+                                                            <li>
+                                                                <div class="rating-circle circle-rate-@ques.SelectedRatingId">
+                                                                    <p class="circle-label">@ques.SelectedRatingId</p>
+                                                                    <span class="rating-progress">
+                                                                    </span>
+                                                                </div>
+                                                                <p class="list-item-label">@ques.Heading</p>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                            <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                                        </div>
+
+                                        <button type="button" class="btn btn-inv-teal-group margin-right10 active">
+                                            <span class="btn-label-grid">
+                                                <span class="bwsprite like-sm"></span>
+                                            </span><span class="btn-count">@review.UpVotes</span>
+                                        </button>
+
+                                        <button type="button" class="btn btn-inv-teal-group">
+                                            <span class="btn-label-grid">
+                                                <span class="bwsprite dislike-sm"></span>
+                                            </span><span class="btn-count">@review.DownVotes</span>
+                                        </button>
+
+                                        <p class="report-abuse-label rightfloat line-height26">Inappropriate review? <a href="javascript:void(0)" id="btnReportClick" rel="nofollow">Report Abuse</a></p>
+                                        <div class="clear"></div>
+
+                                    </div>
+                                    <div class="grid-3 omega padding-left20">
+                                        <ul>
+                                            @foreach (UserReviewQuestion ques in review.Questions)
+                                            {
+                                                if (ques.Type == UserReviewQuestionType.Rating)
+                                                {
+                                                    <li class="margin-bottom10">
+                                                        <span class="bwsprite questionId-@ques.Id"></span>
+                                                        <div class="inline-block">
+                                                            <p class="font10 text-xt-light">@ques.MinHeading</p>
+                                                            <p class="font14 text-slate-grey">@ques.SelectedRatingText</p>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="clear"></div>
+                                </li>
+                                                        }
+                        </ul>
+
+                        
+                        <div class="padding-right20 padding-bottom10 padding-left20">
+                            <div class="footer-pagination font14 border-solid-top padding-top10">
+                                <div class="grid-5 alpha omega text-light-grey">
+                                    <p><span class="text-bold">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span>&nbsp;of&nbsp;<span class="text-bold">@Model.Pager.TotalResults</span>&nbsp;reviews</p>
+                                </div>
+                                <div id="pagination-list-content" class="grid-7 alpha omega position-rel rightfloat pagination-list-content">
+                                    @if (Model.Pager.TotalResults > 8)
+                                    {
+                                        Html.RenderAction("Index", "Pager", new { objPager = Model.Pager });
+                                    }
+                                    <span class="pagination-control-prev inactive">
+                                        <a href="" class="bwmsprite bwsprite prev-page-icon"></a>
+                                    </span>
+                                    <span class="pagination-control-next">
+                                        <a href="" class="bwmsprite bwsprite next-page-icon"></a>
+                                    </span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                    @*<div class="content-inner-block-20 text-center" data-bind="visible: !reviewsAvailable()">
+                        <div class="circle-placeholder-80">
+                            <span class="bwsprite review-lg margin-top25"></span>
+                        </div>
+                        <p class="font14 text-light-grey margin-top20">There are no <span data-bind="text: categoryName"></span> reviews for this bike</p>
+                    </div>*@
+
+                    <div id="listingFooter"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+                                                        }

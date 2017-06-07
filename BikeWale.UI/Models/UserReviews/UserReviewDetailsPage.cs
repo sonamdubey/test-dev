@@ -37,6 +37,7 @@ namespace Bikewale.Models.UserReviews
         public uint TabsCount { get; set; }
         public uint ExpertReviewsWidgetCount { get; set; }
         public uint SimilarBikeReviewWidgetCount { get; set; }
+        public bool IsDesktop { get; set; }
 
         public UserReviewDetailsPage(uint reviewId, IUserReviewsCache userReviewsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, ICMSCacheContent objArticles, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, string makeMaskingName, string modelMaskingName, IUserReviewsSearch userReviewsSearch)
         {
@@ -152,22 +153,44 @@ namespace Bikewale.Models.UserReviews
         {
             try
             {
-                InputFilters filters = new InputFilters()
+                InputFilters filters = null;
+                if (!IsDesktop)
                 {
-                    Model = _modelId.ToString(),
-                    SO = 1,
-                    PN = 1,
-                    PS = 8,
-                    Reviews = true,
-                    SkipReviewId = _reviewId                  
-                };
+                    filters = new InputFilters()
+                    {
+                        Model = _modelId.ToString(),
+                        SO = 1,
+                        PN = 1,
+                        PS = 8,
+                        Reviews = true,
+                        SkipReviewId = _reviewId
+                    };
+                }
+                else
+                {
+                    filters = new InputFilters()
+                    {
+                        Model = _modelId.ToString(),
+                        SO = 1,
+                        PN = 1,
+                        PS = 10,
+                        Reviews = true,
+                        SkipReviewId = _reviewId
+                    };
+                }
+
 
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache, _userReviewsSearch);
                 if (objUserReviews != null)
                 {
                     objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostRecent;
                     objUserReviews.SkipReviewId = _reviewId;
-                    objPage.UserReviews = objUserReviews.GetData();
+
+                    if (IsDesktop)
+                        objPage.UserReviews = objUserReviews.GetDataDesktop();
+                    else
+                        objPage.UserReviews = objUserReviews.GetData();
+
                     objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
                     objPage.UserReviews.IsPagerNeeded = false;
 

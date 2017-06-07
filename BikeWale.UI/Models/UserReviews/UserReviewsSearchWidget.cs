@@ -21,7 +21,7 @@ namespace Bikewale.Models.UserReviews
         public uint? SkipReviewId { get; set; }
         public FilterBy ActiveReviewCateory { get; set; }
         public string WriteReviewLink { get; set; }
-
+        public bool IsDesktop { get; set; }
 
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
@@ -72,6 +72,47 @@ namespace Bikewale.Models.UserReviews
                         PageSize = _filters.PS,
                         PagerSlotSize = 5,
                         BaseUrl = String.Format("/m/{0}-bikes/{1}/reviews/", objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.MaskingName),
+                        PageUrlType = "page/",
+                        TotalResults = objData.UserReviews.TotalCount
+                    };
+                }
+
+
+            }
+
+
+            return objData;
+        }
+
+        public UserReviewsSearchVM GetDataDesktop()
+        {
+            UserReviewsSearchVM objData = new UserReviewsSearchVM();
+            objData.ModelId = _modelId;
+            objData.ReviewsInfo = ReviewsInfo;
+            objData.ActiveReviewCategory = ActiveReviewCateory;
+
+            objData.UserReviews = _userReviewsSearch.GetUserReviewsListDesktop(_filters);
+
+            if (objData.UserReviews != null)
+            {
+                if (objData.ReviewsInfo == null)
+                {
+                    objData.ReviewsInfo = _userReviewsCacheRepo.GetBikeReviewsInfo(objData.ModelId, SkipReviewId);
+                }
+
+                if (objData.ReviewsInfo != null && objData.ReviewsInfo.Make != null && objData.ReviewsInfo.Model != null)
+                {
+                    //set bike data and other properties
+                    objData.BikeName = string.Format("{0} {1}", objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Model.ModelName);
+
+                    objData.WriteReviewLink = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/", objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.MaskingName));
+
+                    objData.Pager = new Entities.Pager.PagerEntity()
+                    {
+                        PageNo = _filters.PN,
+                        PageSize = _filters.PS,
+                        PagerSlotSize = 5,
+                        BaseUrl = String.Format("/{0}-bikes/{1}/reviews/", objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.MaskingName),
                         PageUrlType = "page/",
                         TotalResults = objData.UserReviews.TotalCount
                     };
