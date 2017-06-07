@@ -10,7 +10,7 @@
                 </div>
                 <h3 class="font14 text-black margin-bottom5">@Model.TopComparisonRecord.Bike1</h3>
                 <div class="text-default text-bold">
-                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(@Model.TopComparisonRecord.Price1))</span>
+                    @Html.Raw("<span class='font16' >&#x20B9;</span>")&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(@Model.TopComparisonRecord.Price1))</span>
                     @if(@Model.TopComparisonRecord.Price1 > 0) {
                     <span class="font12">&nbsp;onwards</span>
                     }
@@ -23,7 +23,7 @@
                 </div>
                 <h3 class="font14 text-black margin-bottom5">@Model.TopComparisonRecord.Bike2</h3>
                 <div class="text-default text-bold">
-                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(@Model.TopComparisonRecord.Price2))</span>
+                    @Html.Raw("<span class='font16' >&#x20B9;</span>")&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(@Model.TopComparisonRecord.Price2))</span>
                     @if (@Model.TopComparisonRecord.Price2 > 0)
                     {
                         <span class="font12">&nbsp;onwards</span>

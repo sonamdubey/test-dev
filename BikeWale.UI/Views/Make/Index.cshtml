@@ -79,7 +79,7 @@
                                         <div class="text-bold">
                                             @{ if (bike.VersionPrice == 0)
                                                      { @Html.Raw("<span class='font16'>Price Unavailable</span>"); }
-                                                     else { @Html.Raw(String.Format("<span class='bwsprite inr-lg'></span> <span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice)))); }
+                                                     else { @Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span> <span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice)))); }
                                             }
                                         </div>
                                         @if (bike.VersionPrice > 0) { 

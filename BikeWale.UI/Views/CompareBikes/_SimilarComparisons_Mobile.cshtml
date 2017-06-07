@@ -22,7 +22,7 @@
                                             { <p class="font11 text-light-grey text-truncate">Ex-showroom, @bikedetails.City1</p>}
                                             else
                                             {<p class="font11 text-light-grey text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>}
-                                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price1))</span>
+                                            @Html.Raw("<span class='font16 text-default text-bold'> &#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price1))</span>
                                         </div>
                                         <div class="grid-6">
                                             <div class="model-img-content">
@@ -33,7 +33,7 @@
                                             { <p class="font11 text-light-grey text-truncate">Ex-showroom, @bikedetails.City2</p>}
                                             else
                                             {<p class="font11 text-light-grey text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>}
-                                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price2))</span>
+                                            @Html.Raw("<span class='font16 text-default text-bold'> &#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price2))</span>
                                         </div>
                                         <div class="clear"></div>
                                         <div class="margin-top15 text-center">

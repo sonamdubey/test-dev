@@ -16,7 +16,7 @@
                         @if(bike.VersionPrice > 0) { 
                         <p class="text-truncate text-light-grey font11">Ex-showroom, @(!string.IsNullOrEmpty(bike.CityName)? bike.CityName : BWConfiguration.Instance.DefaultName)</p>
                         <p class="text-default">
-                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span>
+                            @Html.Raw("<span class='text-bold font16' >&#x20B9;</span>")&nbsp;<span class="text-bold font16">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span>
                         </p>
                         }else { 
                         <p class="text-default">

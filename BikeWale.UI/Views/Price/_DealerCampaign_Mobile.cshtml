@@ -265,7 +265,7 @@
                 <div class="clearfix">
                     <p class="grid-5 font16 text-left text-light-grey alpha position-rel pos-top2">Indicative EMI</p>
                     <div class="indicative-emi-amount text-right grid-7 omega font18 text-bold">
-                        <span class="bwmsprite inr-sm-icon"></span>
+                        @Html.Raw("<span class='font18 text-bold'> &#x20B9;</span>")
                         <span id="emiAmount" data-bind="text: formatPrice(monthlyEMI())"></span>&nbsp;per month
                     </div>
                 </div>

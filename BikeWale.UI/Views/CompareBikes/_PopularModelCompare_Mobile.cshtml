@@ -14,7 +14,7 @@
                             <span class="swiper-lazy-preloader"></span>
                         </div>
                         <p class="font11 text-light-grey text-truncate">Ex-showroom, @bike.City1</p>
-                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1))</span>
+                        @Html.Raw("<span class='text-bold text-default font16' >&#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1))</span>
                     </div>
                     <div class="grid-6">
                         <div class="model-img-content">
@@ -22,7 +22,7 @@
                             <span class="swiper-lazy-preloader"></span>
                         </div>
                         <p class="font11 text-light-grey text-truncate">Ex-showroom, @bike.City2</p>
-                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price2))</span>
+                        @Html.Raw("<span class='text-bold text-default font16' >&#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price2))</span>
                     </div>
                     <div class="clear"></div>
                     <div class="margin-top15 text-center">

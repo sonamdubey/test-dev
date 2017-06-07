@@ -11,7 +11,7 @@
                     @priceQuote.CityName
                 </a>
                 <span class="nearby-city-price">
-                    <span class="bwmsprite inr-dark-grey-xsm-icon"></span>&nbsp;
+                    @Html.Raw("<span>&#x20B9;</span>")&nbsp;
                     @Bikewale.Utility.Format.FormatPrice(Convert.ToString(priceQuote.OnRoadPrice))
                 </span>
             </li>

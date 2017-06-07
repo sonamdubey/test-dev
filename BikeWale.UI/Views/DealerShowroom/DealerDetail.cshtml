@@ -220,7 +220,7 @@
                                     </div>
                                     <p class="text-light-grey margin-bottom5">On-road price, @Model.CityDetails.CityName</p>
                                     <div>
-                                        <span class="bwsprite inr-lg"></span>
+                                        @Html.Raw("<span class='font18 text-default text-bold'>&#x20B9;</span>")
                                         <span class="font18 text-default text-bold">@Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bike.VersionPrice))</span>
                                     </div>
                                 </div>
