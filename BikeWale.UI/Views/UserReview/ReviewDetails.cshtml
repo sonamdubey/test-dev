@@ -85,7 +85,7 @@
                                     {
                                         if (q.SelectedRatingId > 0)
                                         {
-                                             <li>
+                                            <li>
                                                 <div class="rating-circle circle-rate-@q.SelectedRatingId">
                                                     <p class="circle-label">@q.SelectedRatingId</p>
                                                     <span class="rating-progress">
@@ -119,26 +119,26 @@
                         <div class="grid-3 omega padding-left20">
                             <ul>
                                 @*<li class="margin-bottom10">
-                                    <span class="bwsprite questionId-1"></span>
-                                    <div class="inline-block">
-                                        <p class="font10 text-xt-light">Used the bike for</p>
-                                        <p class="font14 text-slate-grey">Daily commute</p>
-                                    </div>
-                                </li>
-                                <li class="margin-bottom10">
-                                    <span class="bwsprite questionId-2"></span>
-                                    <div class="inline-block">
-                                        <p class="font10 text-xt-light">Owned the bike for</p>
-                                        <p class="font14 text-slate-grey">Doesn't own</p>
-                                    </div>
-                                </li>
-                                <li class="margin-bottom10">
-                                    <span class="bwsprite questionId-3"></span>
-                                    <div class="inline-block">
-                                        <p class="font10 text-xt-light">Ridden the bike for</p>
-                                        <p class="font14 text-slate-grey">10000-15000 kms</p>
-                                    </div>
-                                </li>*@
+                                        <span class="bwsprite questionId-1"></span>
+                                        <div class="inline-block">
+                                            <p class="font10 text-xt-light">Used the bike for</p>
+                                            <p class="font14 text-slate-grey">Daily commute</p>
+                                        </div>
+                                    </li>
+                                    <li class="margin-bottom10">
+                                        <span class="bwsprite questionId-2"></span>
+                                        <div class="inline-block">
+                                            <p class="font10 text-xt-light">Owned the bike for</p>
+                                            <p class="font14 text-slate-grey">Doesn't own</p>
+                                        </div>
+                                    </li>
+                                    <li class="margin-bottom10">
+                                        <span class="bwsprite questionId-3"></span>
+                                        <div class="inline-block">
+                                            <p class="font10 text-xt-light">Ridden the bike for</p>
+                                            <p class="font14 text-slate-grey">10000-15000 kms</p>
+                                        </div>
+                                    </li>*@
                                 @foreach (var q in Model.RatingQuestions)
                                 {
                                     <li class="margin-bottom10">
@@ -164,7 +164,7 @@
             @Html.Partial("~/views/BikeModels/_BikeInfoCard.cshtml", Model.GenericBikeWidgetData)
         </section>
     }
-    
+
     <section>
         <div id="modelReviewsListing" class="container card-bottom-margin">
             <div class="grid-12">
@@ -527,16 +527,16 @@
                     </div>
                     <div class="rightfloat padding-top15 answer-star-list hover-effect">
                         @*<input type="radio" name="rate-bike" id="rate-bike-5" value="5">
-                        <label class="bwsprite star-0" for="rate-bike-5" data-value="5"></label>
-                        <input type="radio" name="rate-bike" id="rate-bike-4" value="4">
-                        <label class="bwsprite star-0" for="rate-bike-4" data-value="4"></label>
-                        <input type="radio" name="rate-bike" id="rate-bike-3" value="3">
-                        <label class="bwsprite star-0" for="rate-bike-3" data-value="3"></label>
-                        <input type="radio" name="rate-bike" id="rate-bike-2" value="2">
-                        <label class="bwsprite star-0" for="rate-bike-2" data-value="2"></label>
-                        <input type="radio" name="rate-bike" id="rate-bike-1" value="1">
-                        <label class="bwsprite star-0" for="rate-bike-1" data-value="1"></label>*@
-                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-5" name="rate-bike" value="5" >
+                            <label class="bwsprite star-0" for="rate-bike-5" data-value="5"></label>
+                            <input type="radio" name="rate-bike" id="rate-bike-4" value="4">
+                            <label class="bwsprite star-0" for="rate-bike-4" data-value="4"></label>
+                            <input type="radio" name="rate-bike" id="rate-bike-3" value="3">
+                            <label class="bwsprite star-0" for="rate-bike-3" data-value="3"></label>
+                            <input type="radio" name="rate-bike" id="rate-bike-2" value="2">
+                            <label class="bwsprite star-0" for="rate-bike-2" data-value="2"></label>
+                            <input type="radio" name="rate-bike" id="rate-bike-1" value="1">
+                            <label class="bwsprite star-0" for="rate-bike-1" data-value="1"></label>*@
+                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-5" name="rate-bike" value="5">
                         <label class="bwsprite star-0" for="rate-bike-5" data-value="5"></label>
                         <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=4&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-4" name="rate-bike" value="4">
                         <label class="bwsprite star-0" for="rate-bike-4" data-value="4"></label>
@@ -554,85 +554,200 @@
         </div>
     </section>
 
+    @*<section>
+            <div class="container card-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 article-list font14">
+                        <h2 class="h2-heading margin-bottom20 margin-left10">Expert reviews on Pulsar RS200</h2>
+                        <article class="margin-bottom20">
+                            <div class="grid-4">
+                                <div class="model-preview-image-container">
+                                    <a href="">
+                                        <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&amp;q=75" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" alt="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" src="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="grid-8">
+                                <header>
+                                    <a href="" class="article-target-link" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test</a>
+                                </header>
+                                <div class="article-stats-left-grid">
+                                    <span class="bwsprite calender-grey-sm-icon"></span>
+                                    <span class="article-stats-content">Jun 06, 2016</span>
+                                </div>
+                                <div class="article-stats-right-grid">
+                                    <span class="bwsprite author-grey-sm-icon"></span>
+                                    <span class="article-stats-content">Pratheek Kunder</span>
+                                </div>
+                                <p class="line-height17 margin-top10">Two bikes Two different body styles yet we rsquo re doing a comparison test Why Because both get almost the same set of features technology and also the same set of buyers And these bikes are easily the most accessible and affordable performance motorcycles under Rs 1 5... </p>
+                            </div>
+                            <div class="clear"></div>
+                        </article>
+                        <article class="margin-bottom20">
+                            <div class="grid-4">
+                                <div class="model-preview-image-container">
+                                    <a href="">
+                                        <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&amp;q=75" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" alt="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" src="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="grid-8">
+                                <header>
+                                    <a href="" class="article-target-link" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test</a>
+                                </header>
+                                <div class="article-stats-left-grid">
+                                    <span class="bwsprite calender-grey-sm-icon"></span>
+                                    <span class="article-stats-content">Jun 06, 2016</span>
+                                </div>
+                                <div class="article-stats-right-grid">
+                                    <span class="bwsprite author-grey-sm-icon"></span>
+                                    <span class="article-stats-content">Pratheek Kunder</span>
+                                </div>
+                                <p class="line-height17 margin-top10">Two bikes Two different body styles yet we rsquo re doing a comparison test Why Because both get almost the same set of features technology and also the same set of buyers And these bikes are easily the most accessible and affordable performance motorcycles under Rs 1 5... </p>
+                            </div>
+                            <div class="clear"></div>
+                        </article>
+                        <article class="margin-bottom20">
+                            <div class="grid-4">
+                                <div class="model-preview-image-container">
+                                    <a href="">
+                                        <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&amp;q=75" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" alt="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" src="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="grid-8">
+                                <header>
+                                    <a href="" class="article-target-link" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test</a>
+                                </header>
+                                <div class="article-stats-left-grid">
+                                    <span class="bwsprite calender-grey-sm-icon"></span>
+                                    <span class="article-stats-content">Jun 06, 2016</span>
+                                </div>
+                                <div class="article-stats-right-grid">
+                                    <span class="bwsprite author-grey-sm-icon"></span>
+                                    <span class="article-stats-content">Pratheek Kunder</span>
+                                </div>
+                                <p class="line-height17 margin-top10">Two bikes Two different body styles yet we rsquo re doing a comparison test Why Because both get almost the same set of features technology and also the same set of buyers And these bikes are easily the most accessible and affordable performance motorcycles under Rs 1 5... </p>
+                            </div>
+                            <div class="clear"></div>
+                        </article>
+                        <div class="padding-left10 more-article-target view-all-btn-container">
+                            <a title="" href="" class="btn view-all-target-btn">
+                                Read all expert reviews<span class="bwsprite teal-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container card-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-bottom20">
+                        <div class="carousel-heading-content padding-top20">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2 class="h2-heading">Reviews of similar bikes</h2>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="" title="" class="btn view-all-target-btn">View all</a>
+                            </div>
+                        </div>
+                        <div class="jcarousel-wrapper inner-content-carousel user-reviews-type-carousel">
+                            <div class="jcarousel">
+                                <ul>
+                                    <li>
+                                        <a href="" class="jcarousel-card">
+                                            <div class="model-jcarousel-image-preview">
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-duke-200.jpg?20172702105543&q=75" src="" alt="KTM 200 Duke" />
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="font15 text-black margin-bottom10">KTM 200 Duke</h3>
+                                                <span class="rating-badge" data-rate-bg="3"><span class="bwsprite star-white"></span>3</span>
+                                                <span class="font14 text-light-grey inline-block">23 ratings</span>
+                                                <span class="font14 text-light-grey inline-block divider-left">23 reviews</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="jcarousel-card">
+                                            <div class="model-jcarousel-image-preview">
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-duke-200.jpg?20172702105543&q=75" src="" alt="KTM 200 Duke" />
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="font15 text-black margin-bottom10">KTM 200 Duke</h3>
+                                                <span class="rating-badge" data-rate-bg="4"><span class="bwsprite star-white"></span>4</span>
+                                                <span class="font14 text-light-grey inline-block">23 ratings</span>
+                                                <span class="font14 text-light-grey inline-block divider-left">23 reviews</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="jcarousel-card">
+                                            <div class="model-jcarousel-image-preview">
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-duke-200.jpg?20172702105543&q=75" src="" alt="KTM 200 Duke" />
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="font15 text-black margin-bottom10">KTM 200 Duke</h3>
+                                                <span class="rating-badge" data-rate-bg="5"><span class="bwsprite star-white"></span>5</span>
+                                                <span class="font14 text-light-grey inline-block">23 ratings</span>
+                                                <span class="font14 text-light-grey inline-block divider-left">23 reviews</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="jcarousel-card">
+                                            <div class="model-jcarousel-image-preview">
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-duke-200.jpg?20172702105543&q=75" src="" alt="KTM 200 Duke" />
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="font15 text-black margin-bottom10">KTM 200 Duke</h3>
+                                                <span class="rating-badge" data-rate-bg="2"><span class="bwsprite star-white"></span>2</span>
+                                                <span class="font14 text-light-grey inline-block">23 ratings</span>
+                                                <span class="font14 text-light-grey inline-block divider-left">23 reviews</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="jcarousel-card">
+                                            <div class="model-jcarousel-image-preview">
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-duke-200.jpg?20172702105543&q=75" src="" alt="KTM 200 Duke" />
+                                            </div>
+                                            <div class="card-desc-block">
+                                                <h3 class="font15 text-black margin-bottom10">KTM 200 Duke</h3>
+                                                <span class="rating-badge" data-rate-bg="1"><span class="bwsprite star-white"></span>1</span>
+                                                <span class="font14 text-light-grey inline-block">23 ratings</span>
+                                                <span class="font14 text-light-grey inline-block divider-left">23 reviews</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span class="jcarousel-control-left">
+                                <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+                            </span>
+                            <span class="jcarousel-control-right">
+                                <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                            </span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>*@
+
+if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Count() > 0)
+{
     <section>
         <div class="container card-bottom-margin">
             <div class="grid-12">
                 <div class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 article-list font14">
-                    <h2 class="h2-heading margin-bottom20 margin-left10">Expert reviews on Pulsar RS200</h2>
-                    <article class="margin-bottom20">
-                        <div class="grid-4">
-                            <div class="model-preview-image-container">
-                                <a href="">
-                                    <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&amp;q=75" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" alt="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" src="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="grid-8">
-                            <header>
-                                <a href="" class="article-target-link" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test</a>
-                            </header>
-                            <div class="article-stats-left-grid">
-                                <span class="bwsprite calender-grey-sm-icon"></span>
-                                <span class="article-stats-content">Jun 06, 2016</span>
-                            </div>
-                            <div class="article-stats-right-grid">
-                                <span class="bwsprite author-grey-sm-icon"></span>
-                                <span class="article-stats-content">Pratheek Kunder</span>
-                            </div>
-                            <p class="line-height17 margin-top10">Two bikes Two different body styles yet we rsquo re doing a comparison test Why Because both get almost the same set of features technology and also the same set of buyers And these bikes are easily the most accessible and affordable performance motorcycles under Rs 1 5... </p>
-                        </div>
-                        <div class="clear"></div>
-                    </article>
-                    <article class="margin-bottom20">
-                        <div class="grid-4">
-                            <div class="model-preview-image-container">
-                                <a href="">
-                                    <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&amp;q=75" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" alt="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" src="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="grid-8">
-                            <header>
-                                <a href="" class="article-target-link" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test</a>
-                            </header>
-                            <div class="article-stats-left-grid">
-                                <span class="bwsprite calender-grey-sm-icon"></span>
-                                <span class="article-stats-content">Jun 06, 2016</span>
-                            </div>
-                            <div class="article-stats-right-grid">
-                                <span class="bwsprite author-grey-sm-icon"></span>
-                                <span class="article-stats-content">Pratheek Kunder</span>
-                            </div>
-                            <p class="line-height17 margin-top10">Two bikes Two different body styles yet we rsquo re doing a comparison test Why Because both get almost the same set of features technology and also the same set of buyers And these bikes are easily the most accessible and affordable performance motorcycles under Rs 1 5... </p>
-                        </div>
-                        <div class="clear"></div>
-                    </article>
-                    <article class="margin-bottom20">
-                        <div class="grid-4">
-                            <div class="model-preview-image-container">
-                                <a href="">
-                                    <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/ec/23651/TVS-Apache-RTR-200-4V-vs-Bajaj-Pulsar-RS200-73930.jpg?wm=2&amp;q=75" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" alt="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test" src="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="grid-8">
-                            <header>
-                                <a href="" class="article-target-link" title="TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparison test</a>
-                            </header>
-                            <div class="article-stats-left-grid">
-                                <span class="bwsprite calender-grey-sm-icon"></span>
-                                <span class="article-stats-content">Jun 06, 2016</span>
-                            </div>
-                            <div class="article-stats-right-grid">
-                                <span class="bwsprite author-grey-sm-icon"></span>
-                                <span class="article-stats-content">Pratheek Kunder</span>
-                            </div>
-                            <p class="line-height17 margin-top10">Two bikes Two different body styles yet we rsquo re doing a comparison test Why Because both get almost the same set of features technology and also the same set of buyers And these bikes are easily the most accessible and affordable performance motorcycles under Rs 1 5... </p>
-                        </div>
-                        <div class="clear"></div>
-                    </article>
+                    <h2 class="h2-heading margin-bottom20 margin-left10">@Model.ExpertReviews.Title</h2>
+                    @Html.Partial("~/views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
                     <div class="padding-left10 more-article-target view-all-btn-container">
-                        <a title="" href="" class="btn view-all-target-btn">
+                        <a href="@Model.ExpertReviews.MoreExpertReviewUrl" title="@string.Format("{0} {1} Expert Reviews", Model.UserReviewDetailsObj.Make.MakeName, Model.UserReviewDetailsObj.Model.ModelName)" class="btn view-all-target-btn">
                             Read all expert reviews<span class="bwsprite teal-right"></span>
                         </a>
                     </div>
@@ -641,102 +756,30 @@
             <div class="clear"></div>
         </div>
     </section>
+}
 
-    <section>
-        <div class="container card-bottom-margin">
-            <div class="grid-12">
-                <div class="content-box-shadow padding-bottom20">
-                    <div class="carousel-heading-content padding-top20">
-                        <div class="swiper-heading-left-grid inline-block">
-                            <h2 class="h2-heading">Reviews of similar bikes</h2>
+if (Model.SimilarBikeReviewWidget != null && Model.SimilarBikeReviewWidget.Count() > 0)
+{
+        <section>
+            <div class="container card-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-bottom20">
+                        <div class="carousel-heading-content padding-top20">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2 class="h2-heading">Reviews of similar bikes</h2>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/user-reviews/" title="@string.Format("{0} {1} user reviews", Model.UserReviewDetailsObj.Make.MakeName, Model.UserReviewDetailsObj.Model.ModelName)" class="btn view-all-target-btn">View all</a>
+                            </div>
                         </div>
-                        <div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="" title="" class="btn view-all-target-btn">View all</a>
-                        </div>
+                        @Html.Partial("~/views/UserReview/_SimilarBikeUserReview.cshtml", Model.SimilarBikeReviewWidget)
+                         <div class="clear"></div>
                     </div>
-                    <div class="jcarousel-wrapper inner-content-carousel user-reviews-type-carousel">
-                        <div class="jcarousel">
-                            <ul>
-                                <li>
-                                    <a href="" class="jcarousel-card">
-                                        <div class="model-jcarousel-image-preview">
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-duke-200.jpg?20172702105543&q=75" src="" alt="KTM 200 Duke" />
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="font15 text-black margin-bottom10">KTM 200 Duke</h3>
-                                            <span class="rating-badge" data-rate-bg="3"><span class="bwsprite star-white"></span>3</span>
-                                            <span class="font14 text-light-grey inline-block">23 ratings</span>
-                                            <span class="font14 text-light-grey inline-block divider-left">23 reviews</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" class="jcarousel-card">
-                                        <div class="model-jcarousel-image-preview">
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-duke-200.jpg?20172702105543&q=75" src="" alt="KTM 200 Duke" />
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="font15 text-black margin-bottom10">KTM 200 Duke</h3>
-                                            <span class="rating-badge" data-rate-bg="4"><span class="bwsprite star-white"></span>4</span>
-                                            <span class="font14 text-light-grey inline-block">23 ratings</span>
-                                            <span class="font14 text-light-grey inline-block divider-left">23 reviews</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" class="jcarousel-card">
-                                        <div class="model-jcarousel-image-preview">
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-duke-200.jpg?20172702105543&q=75" src="" alt="KTM 200 Duke" />
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="font15 text-black margin-bottom10">KTM 200 Duke</h3>
-                                            <span class="rating-badge" data-rate-bg="5"><span class="bwsprite star-white"></span>5</span>
-                                            <span class="font14 text-light-grey inline-block">23 ratings</span>
-                                            <span class="font14 text-light-grey inline-block divider-left">23 reviews</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" class="jcarousel-card">
-                                        <div class="model-jcarousel-image-preview">
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-duke-200.jpg?20172702105543&q=75" src="" alt="KTM 200 Duke" />
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="font15 text-black margin-bottom10">KTM 200 Duke</h3>
-                                            <span class="rating-badge" data-rate-bg="2"><span class="bwsprite star-white"></span>2</span>
-                                            <span class="font14 text-light-grey inline-block">23 ratings</span>
-                                            <span class="font14 text-light-grey inline-block divider-left">23 reviews</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" class="jcarousel-card">
-                                        <div class="model-jcarousel-image-preview">
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//310x174//bw/models/ktm-duke-200.jpg?20172702105543&q=75" src="" alt="KTM 200 Duke" />
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="font15 text-black margin-bottom10">KTM 200 Duke</h3>
-                                            <span class="rating-badge" data-rate-bg="1"><span class="bwsprite star-white"></span>1</span>
-                                            <span class="font14 text-light-grey inline-block">23 ratings</span>
-                                            <span class="font14 text-light-grey inline-block divider-left">23 reviews</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <span class="jcarousel-control-left">
-                            <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
-                        </span>
-                        <span class="jcarousel-control-right">
-                            <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
-                        </span>
-                    </div>
-                    <div class="clear"></div>
                 </div>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-        </div>
-    </section>
+        </section>
+    }
 
     <div id="report-abuse">
         <p class="font20 text-bold text-center margin-bottom20">Why do you want to report it abuse?</p>
