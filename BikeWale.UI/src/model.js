@@ -140,6 +140,15 @@ docReady(function () {
     // add divider between version prices table and prices in nearby cities
     addDivider($('#version-prices-grid'), $('#nearby-prices-grid'));
 
+    // ad blocker active than fallback method
+    if (window.canRunAds === undefined) {
+        callFallBackWriteReview();
+    }
+
+    function callFallBackWriteReview() {
+        $('#adBlocker').show();
+    };
+
     // bw group flex tabs
     $('.toggle-btn-label').on('click', 'li', function() {
         $(this).removeClass('inactive').siblings().addClass('inactive');

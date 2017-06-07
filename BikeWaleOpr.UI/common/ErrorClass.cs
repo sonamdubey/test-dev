@@ -1,6 +1,7 @@
 // ErrorClass.cs
 //
 
+using log4net;
 using System;
 using System.Configuration;
 using System.Data.OleDb;
@@ -11,8 +12,13 @@ using System.Web;
 
 namespace BikeWaleOpr.Common
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 12 May 2017
+    /// Description :   Added GreyLog logging code
+    /// </summary>
     public class ErrorClass
     {
+        protected static readonly ILog log = LogManager.GetLogger(typeof(ErrorClass));
         Exception err;
         SqlException sqlErr;
         OleDbException oleErr;
@@ -29,6 +35,7 @@ namespace BikeWaleOpr.Common
         {
             this.err = ex;	//assign the exception
             this.pageUrl = pageUrl;		//assign the page url
+            log.Error(pageUrl, ex);
         }
 
         public ErrorClass(SqlException ex, string pageUrl)
@@ -36,6 +43,7 @@ namespace BikeWaleOpr.Common
             this.sqlErr = ex;	//assign the sql exeption
             err = (Exception)sqlErr;	//convert the sqlexceptio to exception
             this.pageUrl = pageUrl;		//assign the page url
+            log.Error(pageUrl, ex);
         }
 
         public ErrorClass(OleDbException ex, string pageUrl)
@@ -43,6 +51,7 @@ namespace BikeWaleOpr.Common
             this.oleErr = ex;	//assign the sql exeption
             err = (Exception)oleErr;	//convert the sqlexceptio to exception
             this.pageUrl = pageUrl;		//assign the page url
+            log.Error(pageUrl, ex);
         }
 
         /********************************************************************************************

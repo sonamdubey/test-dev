@@ -398,6 +398,8 @@ namespace Bikewale.DAL.Dealer
         /// Description :   Added Optional parameter(inherited from Interface) and pass model id if value is > 0
         /// Modified By : Sajal Gupta on 29-12-2016
         /// Description : Read CallToActionLongText, CallToActionSmallText parameters.
+        /// Modified by :   Sumit Kate on 15 may 2017
+        /// Description :   Refer new SP
         /// </summary>
         /// <param name="cityId">e.g. 1</param>
         /// <param name="makeId">e.g. 9</param>
@@ -412,7 +414,7 @@ namespace Bikewale.DAL.Dealer
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getdealerbymakecity_29122016";
+                    cmd.CommandText = "getdealerbymakecity_15052017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelid > 0 ? modelid : Convert.DBNull));

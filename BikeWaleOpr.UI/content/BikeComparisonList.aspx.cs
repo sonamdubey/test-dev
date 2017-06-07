@@ -21,10 +21,12 @@ namespace BikeWaleOpr.Content
         protected DropDownList drpMake1, drpModel1, drpVersion1, drpMake2, drpModel2, drpVersion2;
         protected Button btnSave, btnCancel;
         protected HtmlInputHidden hdn_drpModel1, hdn_drpVersion1, hdn_drpModel2, hdn_drpVersion2;
-        protected HtmlInputCheckBox chkIsActive;
+        protected HtmlInputCheckBox chkIsActive, chkIsSponsored;
         protected string cId = string.Empty;
         public string hostURL = string.Empty;
         protected IEnumerable<PopularBikeComparision> objBikeComps = null;
+        protected TextBox txtFromDate, txtToDate, txtFromTime, txtToTime;
+        protected string strToTime, strFromTime;
 
         private IPopularBikeComparisions _objCompBikesRepo = null;
         private IBikeMakes _objMakesRepo = null;
@@ -309,12 +311,27 @@ namespace BikeWaleOpr.Content
                             FillBikeData(_objComparision);
                         }
                         chkIsActive.Checked = _objComparision.IsActive;
+                        chkIsSponsored.Checked = _objComparision.IsSponsored;
+
+                        DateTime dtStartDate = _objComparision.SponsoredStartDate;
+                        DateTime dtEndDate = _objComparision.SponsoredEndDate;
+
+                        if (dtStartDate != null && dtStartDate != DateTime.MinValue)
+                        {
+                            txtFromDate.Text = _objComparision.SponsoredStartDate.ToString("yyyy-MM-dd");
+                            strFromTime = Convert.ToString(_objComparision.SponsoredStartDate.TimeOfDay);
+                        }
+
+                        if (dtEndDate != null && dtEndDate != DateTime.MinValue)
+                        {
+                            txtToDate.Text = _objComparision.SponsoredEndDate.ToString("yyyy-MM-dd");
+                            strToTime = Convert.ToString(_objComparision.SponsoredEndDate.TimeOfDay);
+                        }
                     }
                 }
             }
             catch (Exception err)
-            {
-                Trace.Warn(err.Message + err.Source);
+            {                
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.ConsumeError();
             }
@@ -339,10 +356,21 @@ namespace BikeWaleOpr.Content
                 }
 
                 if (_objCompBikesRepo != null)
-                {
+                {                    
+                    DateTime dtFromTime = DateTime.Parse(txtFromTime.Text, System.Globalization.CultureInfo.CurrentCulture);
+                    DateTime dtToTime = DateTime.Parse(txtToTime.Text, System.Globalization.CultureInfo.CurrentCulture);
 
+                    DateTime combinedFromDate = DateTime.MinValue, combinedToDate = DateTime.MinValue;
 
-                    isDataSaved = _objCompBikesRepo.SaveBikeComparision(compareId, Convert.ToUInt32(drpVersion1.SelectedItem.Value), Convert.ToUInt32(drpVersion2.SelectedItem.Value), chkIsActive.Checked);
+                    if (chkIsSponsored.Checked)
+                    {
+                        if(dtFromTime != null)
+                            combinedFromDate = Convert.ToDateTime(txtFromDate.Text).Date.Add(dtFromTime.TimeOfDay);
+                        if(dtToTime != null)
+                            combinedToDate = Convert.ToDateTime(txtToDate.Text).Date.Add(dtToTime.TimeOfDay);
+                    }
+
+                    isDataSaved = _objCompBikesRepo.SaveBikeComparision(compareId, Convert.ToUInt32(drpVersion1.SelectedItem.Value), Convert.ToUInt32(drpVersion2.SelectedItem.Value), chkIsActive.Checked, chkIsSponsored.Checked, combinedFromDate, combinedToDate);
                 }
 
                 if (isDataSaved)

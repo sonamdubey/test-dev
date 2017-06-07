@@ -45,7 +45,7 @@ namespace Bikewale.DAL.BikeBooking
 
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "savebikedealerquotations_30122015";
+                    cmd.CommandText = "savebikedealerquotations_15052017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, entity.DealerId));
@@ -556,6 +556,8 @@ namespace Bikewale.DAL.BikeBooking
         /// <summary>
         /// Created by  :   Sumit Kate on 16 Dec 2016
         /// Description :   Call getpricequoteversion_15122016 SP
+        /// Modified by :   Sumit Kate on 15 May 2017
+        /// Description :   Change getpricequoteversion_15052017
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -568,7 +570,7 @@ namespace Bikewale.DAL.BikeBooking
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getpricequoteversion_15122016";
+                    cmd.CommandText = "getpricequoteversion_15052017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));

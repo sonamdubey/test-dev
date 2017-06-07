@@ -10,7 +10,6 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
 using System.Web.Mvc;
-
 namespace Bikewale.Controllers
 {
     public class UserReviewController : Controller
@@ -24,6 +23,8 @@ namespace Bikewale.Controllers
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
         private readonly ICMSCacheContent _objArticles = null;
+        private readonly IBikeMakesCacheRepository<int> _makesRepository;
+
 
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
@@ -37,7 +38,7 @@ namespace Bikewale.Controllers
         /// <param name="objModel"></param>
         /// <param name="userReviewsRepo"></param>
         /// <param name="userReviewsSearch"></param>
-        public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo, IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch)
+        public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo, IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel, IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository<int> makesRepository)
         {
 
             _userReviews = userReviews;
@@ -48,6 +49,7 @@ namespace Bikewale.Controllers
             _userReviewsCacheRepo = userReviewsCacheRepo;
             _userReviewsSearch = userReviewsSearch;
             _objArticles = objArticles;
+            _makesRepository = makesRepository;
         }
 
         /// <summary>
@@ -177,24 +179,26 @@ namespace Bikewale.Controllers
         /// <summary>
         /// Created by Subodh Jain on 10-04-2017
         /// Description : This action will submit rating
+        /// Modified by : Aditi Srivastava on 29 May 2017
+        /// Summary     : Added sourceId parameter
         /// </summary>
         /// <param name="q"></param>
         /// <returns></returns>
         [HttpPost, Route("user-reviews/ratings/save/"), ValidateAntiForgeryToken]
-        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, bool? isDesktop, string returnUrl, ushort platformId)
+        public ActionResult SubmitRating(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint priceRangeId, uint reviewId, bool? isDesktop, string returnUrl, ushort platformId, ushort? sourceId)
         {
 
 
             UserReviewRatingObject objRating = null;
 
-            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId, returnUrl, platformId);
+            objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId, returnUrl, platformId, sourceId);
 
 
             string strQueryString = string.Empty;
 
 
             if (objRating != null)
-                strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}&returnUrl={9}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, objRating.IsFake, returnUrl);
+                strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}&returnUrl={9}&sourceid={10}", objRating.ReviewId, makeId, modelId, overAllrating, objRating.CustomerId, priceRangeId, userName, emailId, objRating.IsFake, returnUrl, sourceId);
 
             string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
             if (objRating != null && !objRating.IsFake)
@@ -364,5 +368,18 @@ namespace Bikewale.Controllers
                 return Redirect("/pageNotFound.aspx");
             }
         }
+
+        /// <summary>
+        /// Summary: Controller to fetch contest data
+        /// Created by: Sangram Nandkhile on 05 June 2017
+        /// </summary>
+        [Route("m/user-reviews/contest/")]
+        public ActionResult WriteReviewContest_Mobile()
+        {
+            WriteReviewContest objData = new WriteReviewContest(_makesRepository);
+            WriteReviewContestVM objVM = objData.GetData();
+            return View(objVM);
+        }
+
     }
 }
