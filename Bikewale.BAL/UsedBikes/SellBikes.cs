@@ -137,7 +137,7 @@ namespace Bikewale.BAL.UsedBikes
             try
             {
                 //Check if Customer exists
-                objCust = _objCustomer.GetByEmail(user.CustomerEmail);
+                objCust = _objCustomer.GetByEmailMobile(user.CustomerEmail, user.CustomerMobile);
                 if (objCust != null && objCust.CustomerId > 0)
                 {
                     //If exists update the mobile number and name
