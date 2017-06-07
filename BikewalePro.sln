@@ -97,6 +97,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.UserReviewsRatingE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.UserReviewsReminder", "Bikewale.UserReviewsReminder\Bikewale.UserReviewsReminder.csproj", "{C91DB082-5666-4D10-AA1F-154B7934A63C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.Automappers", "Bikewale.Automappers\Bikewale.Automappers.csproj", "{DE038FA1-6471-43BA-8877-659BBA7416DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -563,6 +565,18 @@ Global
 		{C91DB082-5666-4D10-AA1F-154B7934A63C}.Release|x64.Build.0 = Release|Any CPU
 		{C91DB082-5666-4D10-AA1F-154B7934A63C}.Release|x86.ActiveCfg = Release|Any CPU
 		{C91DB082-5666-4D10-AA1F-154B7934A63C}.Release|x86.Build.0 = Release|Any CPU
+		{DE038FA1-6471-43BA-8877-659BBA7416DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE038FA1-6471-43BA-8877-659BBA7416DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE038FA1-6471-43BA-8877-659BBA7416DD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DE038FA1-6471-43BA-8877-659BBA7416DD}.Debug|x64.Build.0 = Debug|Any CPU
+		{DE038FA1-6471-43BA-8877-659BBA7416DD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DE038FA1-6471-43BA-8877-659BBA7416DD}.Debug|x86.Build.0 = Debug|Any CPU
+		{DE038FA1-6471-43BA-8877-659BBA7416DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE038FA1-6471-43BA-8877-659BBA7416DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE038FA1-6471-43BA-8877-659BBA7416DD}.Release|x64.ActiveCfg = Release|Any CPU
+		{DE038FA1-6471-43BA-8877-659BBA7416DD}.Release|x64.Build.0 = Release|Any CPU
+		{DE038FA1-6471-43BA-8877-659BBA7416DD}.Release|x86.ActiveCfg = Release|Any CPU
+		{DE038FA1-6471-43BA-8877-659BBA7416DD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -606,5 +620,6 @@ Global
 		{C1EC6868-50C6-41A0-A849-C0F8E4351EB2} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
 		{83B5D0A4-4AA5-4956-B1FF-9F06B9EB9357} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
 		{C91DB082-5666-4D10-AA1F-154B7934A63C} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
+		{DE038FA1-6471-43BA-8877-659BBA7416DD} = {D2AE1DE5-22CC-4CA0-AD06-E5B85E93F6E9}
 	EndGlobalSection
 EndGlobal
