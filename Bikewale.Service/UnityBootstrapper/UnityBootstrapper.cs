@@ -77,6 +77,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Microsoft.Practices.Unity;
 using System;
+using Bikewale.BAL.CMS;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -200,6 +201,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ISplashScreen, SplashScreen>();
             container.RegisterType<ISplashScreenRepository, SplashScreenRepository>();
             container.RegisterType<ISplashScreenCacheRepository, SplashScreenCacheRepository>();
+            container.RegisterType<ICMS, CMS>();
             return container;
         }
     }

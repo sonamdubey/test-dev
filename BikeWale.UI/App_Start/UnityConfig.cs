@@ -63,6 +63,7 @@ using Bikewale.Interfaces.Videos;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
+using Bikewale.BAL.CMS;
 
 namespace Bikewale
 {
@@ -134,6 +135,7 @@ namespace Bikewale
             container.RegisterType<ICustomerRepository<CustomerEntity, uint>, CustomerRepository<CustomerEntity, uint>>();
             container.RegisterType<IPWACMSContentRepository, PWACMSRenderedData>();
             container.RegisterType<IPWACMSCacheRepository, PWACMSCacheRepository>();
+            container.RegisterType<ICMS, CMS>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
