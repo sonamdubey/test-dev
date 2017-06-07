@@ -260,8 +260,12 @@ function CustomerModel(obj) {
     var self = this;
     if (arr != null && arr.length > 0) {
         self.fullName = ko.observable(arr[0]);
-        self.emailId = ko.observable(arr[1]);
-        self.mobileNo = ko.observable(arr[2]);
+        if (arr[2]!="undefined") {
+            self.emailId = ko.observable(arr[2]);
+        } else {
+            self.emailId = ko.observable();
+        }
+        self.mobileNo = ko.observable(arr[1]);
     }
     else {
         self.fullName = ko.observable();
@@ -467,7 +471,7 @@ function CustomerModel(obj) {
     };
 
     function setPQUserCookie() {
-        var val = customerViewModel.fullName() + '&' + customerViewModel.emailId() + '&' + customerViewModel.mobileNo();
+        var val = customerViewModel.fullName() + '&' + customerViewModel.mobileNo() + '&' + customerViewModel.emailId();
         SetCookie("_PQUser", val);
     }
 
@@ -549,8 +553,8 @@ var validateEmail = function () {
         emailVal = emailId.val(),
         reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
     if (emailVal == "") {
-        setError(emailId, 'Please enter email address');
-        isValid = false;
+       
+        isValid = true;
     }
     else if (!reEmail.test(emailVal)) {
         setError(emailId, 'Invalid Email');

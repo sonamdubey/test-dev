@@ -28,12 +28,7 @@
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
-            <div class="input-box form-control-box personal-info-list">
-                <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId" tabindex="2">
-                <label for="getEmailID">Email<sup>*</sup></label>
-                <span class="boundary"></span>
-                <span class="error-text"></span>
-            </div>
+         
             <div class="input-box input-number-box form-control-box personal-info-list">
                 <input type="text" class="get-mobile-no" id="getMobile" maxlength="10" data-bind="textInput: mobileNo" tabindex="3">
                 <label for="getMobile">Mobile number<sup>*</sup></label>
@@ -41,7 +36,12 @@
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
-
+            <div class="input-box form-control-box personal-info-list" data-bind="visible : emailRequired() || !mfgCampaignId()">
+                <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId" tabindex="2">
+                <label for="getEmailID">Email (optional)</label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+            </div>
             <div id="getPincode-input-box" class="input-box form-control-box personal-info-list" data-bind="visible : pinCodeRequired()">
                 <input type="text" id="getPinCode" autocomplete="off" tabindex="4">
                 <label for="getPinCode">Pincode<sup>*</sup></label>
@@ -55,7 +55,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="form-control-box personal-info-list position-rel" data-bind="visible: dealersRequired()">
+            <div class="form-control-box personal-info-list position-rel" data-bind="visible: dealersRequired() ">
                 <div class="select-box select-box-no-input full-width-select text-left">
                     <p class="select-label">Select dealer</p>
                     <select id="ddlMfgDealers" data-title="Select dealer" class="chosen-select margin-bottom10"></select>
@@ -110,8 +110,14 @@
         var self = this;
         if (arr != null && arr.length > 0) {
             self.fullName = ko.observable(arr[0]);
-            self.emailId = ko.observable(arr[1]);
-            self.mobileNo = ko.observable(arr[2]);
+            if (arr[2] != "undefined") {
+                self.emailId = ko.observable(arr[2]);
+            }
+            else {
+                self.emailId = ko.observable();
+
+            }
+            self.mobileNo = ko.observable(arr[1]);
         }
         else {
             self.fullName = ko.observable();
@@ -144,6 +150,7 @@
         self.dealerMessage = ko.observable();
         self.dealerDescription = ko.observable();
         self.pinCodeRequired = ko.observable();
+        self.emailRequired = ko.observable();
         self.dealersRequired = ko.observable();
         self.pincode = ko.observable();
         self.dealerCityName = ko.observable();
@@ -200,6 +207,10 @@
 
                 if (options.pinCodeRequired != null)
                     self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true);
+
+                if (options.emailRequired != null)
+                    self.emailRequired(options.emailRequired != 'true' ? false : true);
+
                 if (options.dealersRequired != null)
                     self.dealersRequired(options.dealersRequired != 'true' ? false : true);
 
@@ -628,7 +639,9 @@
         self.validateUserInfo = function (inputName, inputEmail, inputMobile) {
             var isValid = true;
             isValid = self.validateUserName(inputName);
-            isValid &= self.validateEmailId(inputEmail);
+         
+                isValid &= self.validateEmailId(inputEmail);
+            
             isValid &= self.validateMobileNo(inputMobile);
             if (self.dealersRequired()) {
                 isValid &= self.validateDealer();
@@ -680,9 +693,12 @@
                 emailVal = $(inputEmail).val(),
                 reEmail = /^[A-z0-9._+-]+@@[A-z0-9.-]+\.[A-z]{2,6}$/;
 
-            if (emailVal == "") {
+            if (self.emailRequired() && emailVal == "") {
                 validate.setError($(inputEmail), 'Please enter email id');
                 isValid = false;
+            }
+            else if (emailVal == "") {
+                isValid = true;
             }
             else if (!reEmail.test(emailVal)) {
                 validate.setError($(inputEmail), 'Invalid Email');
@@ -768,7 +784,7 @@
     }
 
     function setPQUserCookie() {
-        var val = dleadvm.fullName() + '&' + dleadvm.emailId() + '&' + dleadvm.mobileNo();
+        var val = dleadvm.fullName() + '&' + dleadvm.mobileNo() + '&' + dleadvm.emailId();
         SetCookie("_PQUser", val);
     }
 

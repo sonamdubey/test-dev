@@ -20,6 +20,7 @@ namespace BikewaleOpr.Entities.ManufacturerCampaign
         public string LeadCapturePopupDescription;
         public string LeadCapturePopupMessage;
         public bool PinCodeRequire;
+        public bool EmailRequire;
     }
 }
 

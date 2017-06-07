@@ -602,7 +602,7 @@ namespace Bikewale.Models
                     {
                         objVM.ManufacturerCampaign = new ManufacturerCampaign()
                         {
-                            Ad = Format.FormatManufacturerAd(bpqOutput.ManufacturerAd, bpqOutput.CampaignId, bpqOutput.ManufacturerName, bpqOutput.MaskingNumber, bpqOutput.ManufacturerId, bpqOutput.Area, ((int)PQSource).ToString(), ((int)PQSource).ToString(), string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(bpqOutput.MaskingNumber) ? "hide" : string.Empty, bpqOutput.LeadCapturePopupHeading, bpqOutput.LeadCapturePopupDescription, bpqOutput.LeadCapturePopupMessage, bpqOutput.PinCodeRequired),
+                            Ad = Format.FormatManufacturerAd(bpqOutput.ManufacturerAd, bpqOutput.CampaignId, bpqOutput.ManufacturerName, bpqOutput.MaskingNumber, bpqOutput.ManufacturerId, bpqOutput.Area, ((int)PQSource).ToString(), ((int)PQSource).ToString(), string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(bpqOutput.MaskingNumber) ? "hide" : string.Empty, bpqOutput.LeadCapturePopupHeading, bpqOutput.LeadCapturePopupDescription, bpqOutput.LeadCapturePopupMessage, bpqOutput.PinCodeRequired, bpqOutput.EmailRequired),
                             Name = bpqOutput.ManufacturerName,
                             Id = bpqOutput.ManufacturerId
                         };

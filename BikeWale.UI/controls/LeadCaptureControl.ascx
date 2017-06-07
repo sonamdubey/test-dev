@@ -99,8 +99,14 @@
         var self = this;
         if (arr != null && arr.length > 0) {
             self.fullName = ko.observable(arr[0]);
-            self.emailId = ko.observable(arr[1]);
-            self.mobileNo = ko.observable(arr[2]);
+            if (arr[2]!="undefined") {
+                self.emailId = ko.observable(arr[2]);
+            }
+            else {
+                self.emailId = ko.observable();
+            }
+
+            self.mobileNo = ko.observable(arr[1]);
         }
         else {
             self.fullName = ko.observable();
@@ -728,7 +734,7 @@
     }
 
     function setPQUserCookie() {
-        var val = dleadvm.fullName() + '&' + dleadvm.emailId() + '&' + dleadvm.mobileNo();
+        var val = dleadvm.fullName() + '&' + dleadvm.mobileNo() + '&' + dleadvm.emailId();
         SetCookie("_PQUser", val);
     }
 

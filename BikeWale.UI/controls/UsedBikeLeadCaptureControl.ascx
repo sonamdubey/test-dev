@@ -510,7 +510,11 @@
         self.setBuyer = function (n, e, m) {
             var buyer = new customerVM();
             buyer.userName(n);
-            buyer.emailId(e);
+            if (e!="undefined") {
+                buyer.emailId(e);
+            } else {
+                buyer.emailId();
+            }
             buyer.mobileNo(m);
             self.buyer(buyer);
         };
@@ -556,7 +560,7 @@
         self.init = function () {
             var arr = self.readTempUserCookie();
             if (arr && arr.length > 1) {
-                self.setBuyer(arr[0], arr[1], arr[2]);
+                self.setBuyer(arr[0], arr[2], arr[1]);
                 getSellerDetailsPopup.userDetails.find(".input-box").addClass("not-empty");
             }
             else

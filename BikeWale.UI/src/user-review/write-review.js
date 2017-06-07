@@ -117,10 +117,10 @@ docReady(function () {
                 else {
                     userNameField.val = userNameField.val();
                 }
-                if (array_cookie[1] != null && userEmailIdField.val() == "") {
+                if (array_cookie[2] != null && userEmailIdField.val() == "") {
                     userEmailIdField.parent('div').addClass("not-empty");
-                    userEmailIdField.val(array_cookie[1]);
-                    vmRateBike.emailId(array_cookie[1]);
+                    userEmailIdField.val(array_cookie[2]);
+                    vmRateBike.emailId(array_cookie[2]);
                 }
                 else {
 

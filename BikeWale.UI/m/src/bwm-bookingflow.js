@@ -289,7 +289,7 @@ var BookingPageViewModel = function () {
     };
 
     self.setUserCookie = function setPQUserCookie() {
-        var val = self.Customer().Name() + '&' + self.Customer().EmailId() + '&' + self.Customer().MobileNo();
+        var val = self.Customer().Name() + '&' + self.Customer().MobileNo() + '&' + self.Customer().EmailId();
         SetCookie("_PQUser", val);
     }
 
