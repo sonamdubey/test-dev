@@ -3919,11 +3919,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy $(ProjectDir)..\libs\grpc_csharp_ext.x64.dll $(ProjectDir)bin\ 
-copy $(ProjectDir)..\libs\grpc_csharp_ext.x86.dll $(ProjectDir)bin\
-<!--if not exist "$(TargetDir)" md "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)packages\ClearScript.V8.5.4.8\tools\native\x86\*.*" "$(TargetDir)"
-if not exist "$(TargetDir)" md "$(TargetDir)"
-xcopy /s /y "$(SolutionDir)packages\ClearScript.V8.5.4.8\tools\native\amd64\*.*" "$(TargetDir)"--></PostBuildEvent>
+    <PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
 </Project>
