@@ -71,7 +71,7 @@ namespace Bikewale.Models.UserReviews
                 objPage.GenericBikeWidgetData = genericBikeModel.GetData();
                 objPage.GenericBikeWidgetData.IsSmallSlug = false;
 
-                objPage.ExpertReviews = new RecentExpertReviews(ExpertReviewsWidgetCount, (uint)objPage.UserReviewDetailsObj.Make.MakeId, _modelId, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName)).GetData();
+                objPage.ExpertReviews = new RecentExpertReviews(ExpertReviewsWidgetCount, (uint)objPage.UserReviewDetailsObj.Make.MakeId, _modelId, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0}", objPage.UserReviewDetailsObj.Model.ModelName)).GetData();
 
                 objPage.SimilarBikeReviewWidget = _bikeModelsCache.GetSimilarBikesUserReviews(_modelId, SimilarBikeReviewWidgetCount);
 
@@ -165,10 +165,10 @@ namespace Bikewale.Models.UserReviews
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache, _userReviewsSearch);
                 if (objUserReviews != null)
                 {
-                    objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostRecent;
+                    objUserReviews.ActiveReviewCateory = FilterBy.MostRecent;
                     objUserReviews.SkipReviewId = _reviewId;
                     objPage.UserReviews = objUserReviews.GetData();
-                    objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0} {1}", objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
+                    objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0}", objPage.UserReviewDetailsObj.Model.ModelName);
                     objPage.UserReviews.IsPagerNeeded = false;
 
                 }

@@ -4,11 +4,11 @@
     Model.IsHeaderFix = false;
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/user-review/listing.css' />";
     Model.Page_JS_Path = "/src/user-review/listing.js";
-    Layout = "~/Views/Shared/_Layout.cshtml";
     Model.AdTags.AdPath = "/1017752/Bikewale_Desktop_UserReviews";
     Model.AdTags.AdId = "1493795506249";
     Model.AdTags.Ad_970x90 = true;
     Model.AdTags.Ad_970x90BTF = true;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @if (Model != null && Model.UserReviewDetailsObj != null && Model.UserReviewDetailsObj.Model != null && Model.UserReviewDetailsObj.Make != null)
 {
@@ -560,7 +560,7 @@ if (Model.SimilarBikeReviewWidget != null && Model.SimilarBikeReviewWidget.Count
                                 <h2 class="h2-heading">Reviews of similar bikes</h2>
                             </div>
                             <div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="/user-reviews/" title="@string.Format("{0} {1} user reviews", Model.UserReviewDetailsObj.Make.MakeName, Model.UserReviewDetailsObj.Model.ModelName)" class="btn view-all-target-btn">View all</a>
+                                <a href="/user-reviews/" title="@string.Format("{0} {1} User Reviews", Model.UserReviewDetailsObj.Make.MakeName, Model.UserReviewDetailsObj.Model.ModelName)" class="btn view-all-target-btn">View all</a>
                             </div>
                         </div>
                         @Html.Partial("~/views/UserReview/_SimilarBikeUserReview.cshtml", Model.SimilarBikeReviewWidget)

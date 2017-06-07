@@ -26,12 +26,12 @@
     <div class="container content-box-shadow card-bottom-margin">
         <h1 class="font20 padding-15-20 content-box-shadow">@Model.BikeName user reviews</h1>
         <div class="padding-15-20">
-            <a href="/m@(Bikewale.Utility.UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName Reviews" class="left-grid-image inline-block">
+            <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName Reviews" class="left-grid-image inline-block">
                 <img src="@Image.GetPathToShowImages(Model.RatingsInfo.OriginalImagePath,Model.RatingsInfo.HostUrl,ImageSize._110x61,QualityFactor._65)" alt="@Model.BikeName Reviews" />
             </a>
             <div class="right-grid-details inline-block">
                 <h2 class="margin-bottom5 font12">
-                    <a href="/m@(Bikewale.Utility.UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName" class="text-black">@Model.BikeName</a>
+                    <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName" class="text-black">@Model.BikeName</a>
                 </h2>
                 <p class="font11 text-light-grey">@(Model.ReviewsInfo.IsDiscontinued ? "Last known ": "") Ex-showroom, @BWConfiguration.Instance.DefaultName</p>
                 <span class="bwmsprite inr-xsm-icon"></span>
@@ -54,11 +54,11 @@
                     <div class="font12 text-slate-grey border-light-top padding-top10">
                         @if(Model.IsRatingsAvailable)
                         {
-                            <p class="margin-bottom5">@Model.RatingsInfo.TotalRatings @(Model.RatingsInfo.TotalRatings > 0 ? "ratings" : "rating")</p>
+                            <p class="margin-bottom5">@Model.RatingsInfo.TotalRatings @(Model.RatingsInfo.TotalRatings > 1 ? "ratings" : "rating")</p>
                         }
                         @if (Model.IsReviewsAvailable)
                         {
-                            <p>@Model.RatingsInfo.TotalReviews @(Model.RatingsInfo.TotalReviews > 0 ? "reviews" : "review")</p>
+                            <p>@Model.RatingsInfo.TotalReviews @(Model.RatingsInfo.TotalReviews > 1 ? "reviews" : "review")</p>
                         }
 
                     </div>

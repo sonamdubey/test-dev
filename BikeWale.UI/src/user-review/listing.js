@@ -126,6 +126,20 @@ docReady(function() {
         window.location.href = "/rate-your-bike/" + modelid + "/?q=" + q;
     });
 
+    $('#bike-rating-box1').find('.answer-star-list input[type=radio]').change(function () {
+        var button = $(this),
+           buttonValue = Number(button.val());
+        var q = $('#share-rate-' + buttonValue).attr('data-querystring');
+        window.location.href = "/rate-your-bike/" + modelid + "/?q=" + q;
+    });
+
+    $('#bike-rating-box2').find('.answer-star-list input[type=radio]').change(function () {
+        var button = $(this),
+           buttonValue = Number(button.val());
+        var q = $('#rate-bikestar-' + buttonValue).attr('data-querystring');
+        window.location.href = "/rate-your-bike/" + modelid + "/?q=" + q;
+    });
+
     var modelUserReviews = function () {
         var self = this;
         
@@ -236,4 +250,12 @@ docReady(function() {
     var checkedStar = $('input[name=rate-bike]:checked').val();
     if (checkedStar)
         document.getElementById('rate-star-' + parseInt(checkedStar)).checked = false;
+
+    var chkRating1 = $('input[name=share-rate]:checked').val();
+    if (chkRating1)
+        document.getElementById('share-rate-' + parseInt(chkRating1)).checked = false;
+
+    var chkRating2 = $('input[name=rate-bikestar]:checked').val();
+    if (chkRating2)
+        document.getElementById('rate-bikestar-' + parseInt(chkRating2)).checked = false;
 });

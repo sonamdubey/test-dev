@@ -367,13 +367,42 @@ namespace Bikewale.Controllers
             }
         }
 
-        [Route("user-reviews/model")]
-        public ActionResult ListReviews()
+        /// <summary>
+        /// Created by : Aditi Srivastava on 7 June 2017
+        /// summary    : User review list page for desktop
+        /// </summary>
+        [Filters.DeviceDetection()]
+        [Route("{makeMasking}-bikes/{modelMasking}/reviews/")]
+        public ActionResult ListReviews(string makeMasking, string modelMasking, uint? pageNo)
         {
-            ModelBase m = new ModelBase();
-            return View(m);
+            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch);
+            if (objData != null && objData.Status.Equals(StatusCodes.ContentFound))
+            {
+                objData.PageNumber = pageNo;
+                UserReviewListingVM objVM = objData.GetData();
+                if (objData.Status.Equals(StatusCodes.ContentNotFound))
+                {
+                    return Redirect("/pagenotfound.aspx");
+                }
+                else
+                {
+                    return View(objVM);
+                }
+            }
+            else if (objData.Status.Equals(StatusCodes.RedirectPermanent))
+            {
+                return RedirectPermanent(objData.RedirectUrl);
+            }
+            else
+            {
+                return Redirect("/pagenotfound.aspx");
+            }
         }
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 7 June 2017
+        /// summary    : User review details page for desktop
+        /// </summary>
+        [Filters.DeviceDetection()]
         [Route("user-reviews/details/{reviewId}")]
         public ActionResult ReviewDetails(uint reviewId, string makeMaskingName, string modelMaskingName)
         {
