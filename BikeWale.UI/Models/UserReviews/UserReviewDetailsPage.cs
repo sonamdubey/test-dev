@@ -9,6 +9,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Utility;
 using System;
 using System.Collections.ObjectModel;
@@ -26,6 +27,7 @@ namespace Bikewale.Models.UserReviews
         private readonly ICityCacheRepository _cityCache = null;
         private readonly ICMSCacheContent _objArticles = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _bikeModelsCache = null;
+        private readonly IUserReviewsSearch _userReviewsSearch = null;
 
         private uint _reviewId;
         private uint _modelId;
@@ -36,7 +38,7 @@ namespace Bikewale.Models.UserReviews
         public uint ExpertReviewsWidgetCount { get; set; }
         public uint SimilarBikeReviewWidgetCount { get; set; }
 
-        public UserReviewDetailsPage(uint reviewId, IUserReviewsCache userReviewsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, ICMSCacheContent objArticles, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, string makeMaskingName, string modelMaskingName)
+        public UserReviewDetailsPage(uint reviewId, IUserReviewsCache userReviewsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, ICMSCacheContent objArticles, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, string makeMaskingName, string modelMaskingName, IUserReviewsSearch userReviewsSearch)
         {
             _reviewId = reviewId;
             _userReviewsCache = userReviewsCache;
@@ -46,6 +48,7 @@ namespace Bikewale.Models.UserReviews
             _bikeModelsCache = bikeModelsCache;
             _makeMaskingName = makeMaskingName;
             _modelMaskingName = modelMaskingName;
+            _userReviewsSearch = userReviewsSearch;
         }
 
         public UserReviewDetailsVM GetData()
@@ -158,7 +161,7 @@ namespace Bikewale.Models.UserReviews
                     SkipReviewId = _reviewId                  
                 };
 
-                var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache);
+                var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache, _userReviewsSearch);
                 if (objUserReviews != null)
                 {
                     objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostRecent;

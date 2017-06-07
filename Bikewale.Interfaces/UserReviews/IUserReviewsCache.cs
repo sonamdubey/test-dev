@@ -17,14 +17,14 @@ namespace Bikewale.Interfaces.UserReviews
     {
         ReviewListBase GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter);
         UserReviewsData GetUserReviewsData();
-        ReviewListBase GetUserReviews();
-        SearchResult GetUserReviewsList(InputFilters inputFilters);
+        ReviewListBase GetUserReviews();       
         UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId);
         BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId);
         BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId);
         Hashtable GetUserReviewsIdMapping();
         IEnumerable<UserReviewSummary> GetUserReviewSummaryList(IEnumerable<uint> reviewIdList);
         BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);
+        SearchResult GetUserReviewsList(InputFilters inputFilters, string searchQuery);
 
     }
 }

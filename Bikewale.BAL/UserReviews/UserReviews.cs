@@ -1,5 +1,7 @@
 ﻿using Bikewale.Entities.Customer;
+using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models.UserReviews;
@@ -156,7 +158,7 @@ namespace Bikewale.BAL.UserReviews
 
                 if (!objRating.IsFake)
                 {
-                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, reviewId,returnUrl,platformId, sourceId);
+                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, reviewId, returnUrl, platformId, sourceId);
                     objRating.CustomerId = objCust.CustomerId;
                 }
                 else
@@ -341,7 +343,7 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="reviewTitle"></param>
         /// <returns></returns>
         public WriteReviewPageSubmitResponse SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName)
-        {
+        {            
             WriteReviewPageSubmitResponse objResponse = null;
             try
             {
@@ -486,5 +488,6 @@ namespace Bikewale.BAL.UserReviews
                     return m => (m.Liked);
             }
         }
+        
     }   // Class
 }   // Namespace

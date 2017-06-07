@@ -19,19 +19,17 @@ namespace Bikewale.Cache.UserReviews
     public class UserReviewsCacheRepository : IUserReviewsCache
     {
         private readonly ICacheManager _cache;
-        private readonly IUserReviewsRepository _objUserReviews;
-        private readonly IUserReviewsSearch _objUserReviewSearch;
+        private readonly IUserReviewsRepository _objUserReviews;      
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="objUserReviews"></param>
-        public UserReviewsCacheRepository(ICacheManager cache, IUserReviewsRepository objUserReviews, IUserReviewsSearch objUserReviewSearch)
+        public UserReviewsCacheRepository(ICacheManager cache, IUserReviewsRepository objUserReviews)
         {
             _cache = cache;
-            _objUserReviews = objUserReviews;
-            _objUserReviewSearch = objUserReviewSearch;
+            _objUserReviews = objUserReviews;          
         }
 
         /// <summary>
@@ -107,7 +105,7 @@ namespace Bikewale.Cache.UserReviews
         /// </summary>
         /// <param name="inputFilters"></param>
         /// <returns></returns>
-        public SearchResult GetUserReviewsList(InputFilters inputFilters)
+        public SearchResult GetUserReviewsList(InputFilters inputFilters, string searchQuery)
         {
             SearchResult reviews = null;
             if (inputFilters != null && (!String.IsNullOrEmpty(inputFilters.Model) || !String.IsNullOrEmpty(inputFilters.Make)))
@@ -130,7 +128,7 @@ namespace Bikewale.Cache.UserReviews
                         key += "_PN_1_PS_24";
                     }
 
-                    reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan((skipDataLimit ? 1 : 24), 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
+                    reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan((skipDataLimit ? 1 : 24), 0, 0), () => _objUserReviews.GetUserReviewsList(searchQuery));
 
 
                     if (reviews != null && reviews.Result != null && !skipDataLimit)
@@ -241,7 +239,7 @@ namespace Bikewale.Cache.UserReviews
             BikeReviewIdListByCategory objReviewIdList = null;
             try
             {
-                string key = "BW_ReviewIdList";
+                string key = "BW_ReviewIdList_" + modelId;
                 objReviewIdList = _cache.GetFromCache<BikeReviewIdListByCategory>(key, new TimeSpan(6, 0, 0), () => _objUserReviews.GetReviewsIdListByModel(modelId));
             }
             catch

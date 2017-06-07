@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.NewBikeSearch;
+using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
@@ -7,6 +8,8 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.BAL.UserReviews.Search
 {
@@ -20,8 +23,8 @@ namespace Bikewale.BAL.UserReviews.Search
         private string whereClause = string.Empty;
         private uint _maxRecords = 24;
 
-        private readonly IPager _pager = null;
-        private readonly IUserReviewsRepository _objUserReviewrRepo = null;
+        private readonly IPager _pager = null;       
+        private readonly IUserReviewsCache _userReviewsCache = null;
 
         /// <summary>
         /// Pass all dependencies from constructor
@@ -29,12 +32,95 @@ namespace Bikewale.BAL.UserReviews.Search
         /// <param name="searchQuery"></param>
         /// <param name="searchFilters"></param>
         /// <param name="searchRepo"></param>
-        public UserReviewsSearch(IPager pager, IUserReviewsRepository objUserReviewrRepo)
+        public UserReviewsSearch(IUserReviewsCache userReviewsCache, IPager pager)
         {
-            _pager = pager;
-            _objUserReviewrRepo = objUserReviewrRepo;
+            _userReviewsCache = userReviewsCache;
+            _pager = pager;            
         }
 
+        public SearchResult GetUserReviewsListDesktop(InputFilters inputFilters)
+        {
+            SearchResult objResult = null;
+            try
+            {
+                objResult = new SearchResult();
+
+                IEnumerable<uint> reviewIdList = null;
+
+                ushort SortOrder = inputFilters.SO;
+
+                uint modelId;
+                uint.TryParse(inputFilters.Model, out modelId);
+
+                BikeReviewIdListByCategory reviewIdLists = _userReviewsCache.GetReviewsIdListByModel(modelId);
+
+                switch (SortOrder)
+                {
+                    case 1:
+                        {
+                            reviewIdList = reviewIdLists.RecentReviews;
+                            break;
+                        }
+                    case 2:
+                        {
+                            reviewIdList = reviewIdLists.HelpfulReviews;
+                            break;
+                        }
+                    case 5:
+                        {
+                            reviewIdList = reviewIdLists.PositiveReviews;
+                            break;
+                        }
+                    case 6:
+                        {
+                            reviewIdList = reviewIdLists.NegativeReviews;
+                            break;
+                        }
+                    case 7:
+                        {
+                            reviewIdList = reviewIdLists.NeutralReviews;
+                            break;
+                        }
+                    default:
+                        reviewIdList = reviewIdLists.RecentReviews;
+                        break;
+                }
+
+                if (inputFilters.SkipReviewId > 0)
+                {
+                    reviewIdList = reviewIdList.Where(x => x != inputFilters.SkipReviewId);
+                }
+
+                int startingIndex = (inputFilters.PN - 1) * (inputFilters.PS) + 1;
+                int endingIndex = (inputFilters.PN) * (inputFilters.PS) < reviewIdList.Count() ? (inputFilters.PN + 1) * (inputFilters.PS) : reviewIdList.Count();
+                int numberOfResults = endingIndex - startingIndex + 1;
+
+                reviewIdList = reviewIdList.Skip(startingIndex).Take(numberOfResults);
+
+                IEnumerable<UserReviewSummary> objReviewSummaryList = _userReviewsCache.GetUserReviewSummaryList(reviewIdList);
+
+                objReviewSummaryList = objReviewSummaryList.OrderBy(d => reviewIdList.ToList().FindIndex(m => m == d.ReviewId));
+
+                objResult.PageUrl = GetPrevNextUrl(inputFilters, objResult.TotalCount);
+                objResult.CurrentPageNo = inputFilters.PN;
+                if (!String.IsNullOrEmpty(objResult.PageUrl.PrevPageUrl))
+                {
+                    objResult.PageUrl.PrevPageUrl = objResult.PageUrl.PrevPageUrl.Replace("+", "%2b");
+                }
+                if (!String.IsNullOrEmpty(objResult.PageUrl.NextPageUrl))
+                {
+                    objResult.PageUrl.NextPageUrl = objResult.PageUrl.NextPageUrl.Replace("+", "%2b");
+                }
+
+                objResult.ResultDesktop = objReviewSummaryList;               
+                objResult.TotalCount = numberOfResults;
+            }
+            catch
+            {
+
+            }
+            return objResult;
+        }
 
         public SearchResult GetUserReviewsList(InputFilters inputFilters)
         {
@@ -46,8 +132,8 @@ namespace Bikewale.BAL.UserReviews.Search
                 string searchQuery = GetSearchResultQuery(inputFilters);
 
                 // Get search result from database
-                objResult = _objUserReviewrRepo.GetUserReviewsList(searchQuery);
-
+                objResult = _userReviewsCache.GetUserReviewsList(inputFilters, searchQuery);
+                 
                 if (objResult != null)
                 {
                     SetpaginationProperties(objResult, inputFilters);
