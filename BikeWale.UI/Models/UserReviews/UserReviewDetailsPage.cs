@@ -79,6 +79,7 @@ namespace Bikewale.Models.UserReviews
                 BindUserReviewSWidget(objPage);
 
                 objPage.PageUrl = string.Format("/{0}-bikes/{1}/reviews/{2}/", objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName, _reviewId);
+                objPage.ReviewAge = FormatDate.GetTimeSpan(objPage.UserReviewDetailsObj.EntryDate);
             }
             catch (Exception ex)
             {
