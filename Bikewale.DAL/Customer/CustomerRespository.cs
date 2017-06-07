@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.Customer;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -68,7 +69,35 @@ namespace Bikewale.DAL.Customer
         #region Update All details of customer
         public bool Update(T t)
         {
-            throw new NotImplementedException();
+            bool returnVal = false;
+            try
+            {
+
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatecustomerdetails_07062017"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, t.CustomerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 100, t.CustomerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, t.CustomerEmail));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 50, t.CustomerMobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, t.cityDetails != null ? t.cityDetails.CityId : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Byte, 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_receivenewsletters", DbType.Int32, 1));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phone1", DbType.String, 50, Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_address", DbType.String, 100, Convert.DBNull));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    returnVal = true;
+                }
+            }
+            catch (SqlException err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("CustomerRepository.Update({0})", Newtonsoft.Json.JsonConvert.SerializeObject(t)));
+                returnVal = false;
+            }
+            return returnVal;
         }
         #endregion
 
@@ -479,6 +508,56 @@ namespace Bikewale.DAL.Customer
             }
 
             return isFake;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 07 Jun 2017
+        /// Description :   Returns customer details by email or mobile
+        /// </summary>
+        /// <param name="emailId"></param>
+        /// <param name="mobile"></param>
+        /// <returns></returns>
+        public T GetByEmailMobile(string emailId, string mobile)
+        {
+            T t = default(T);
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "fetchcustomerdetailsbyemailmobile";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 100, emailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 20, mobile));
+                    t = new T();
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            t.IsExist = true;
+                            t.CustomerEmail = Convert.ToString(dr["email"]);
+                            t.CustomerId = SqlReaderConvertor.ToUInt64(dr["customerid"]);
+                            t.CustomerName = Convert.ToString(dr["name"]);
+                            t.CustomerMobile = Convert.ToString(dr["mobile"]);
+                            t.cityDetails.CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]);
+                            t.cityDetails.CityName = Convert.ToString(dr["cityname"]);
+                            t.stateDetails.StateId = SqlReaderConvertor.ToUInt32(dr["stateid"]);
+                            t.stateDetails.StateName = Convert.ToString(dr["statename"]);
+                            t.Password = Convert.ToString(dr["password"]);
+                            t.PasswordSalt = Convert.ToString(dr["passwordsalt"]);
+                            t.PasswordHash = Convert.ToString(dr["passwordhash"]);
+                            t.IsVerified = SqlReaderConvertor.ToBoolean(dr["isverified"]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetByEmailMobile({0},{1})", emailId, mobile));
+            }
+
+            return t;
         }
     }   // class
 }   // namespace
