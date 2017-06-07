@@ -2192,7 +2192,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getalternativebikeswithreviewcount";
+                    cmd.CommandText = "getalternativebikeswithreviewcount_17062017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -2214,6 +2214,7 @@ namespace Bikewale.DAL.BikeData
                                 bikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
                                 bikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
                                 bikeInfo.NumberOfRating = SqlReaderConvertor.ToUInt32(dr["numberOfRatings"]);
+                                bikeInfo.NumberOfReviews = SqlReaderConvertor.ToUInt32(dr["numberOfReviews"]);
                                 SimilarBikeInfoList.Add(bikeInfo);
 
                             }

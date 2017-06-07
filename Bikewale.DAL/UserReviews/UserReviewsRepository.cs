@@ -1225,7 +1225,7 @@ namespace Bikewale.DAL.UserReviews
             BikeReviewsInfo objBikeReviewInfo = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikereviewsinfo"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikereviewsinfo_17062017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.UInt32, modelId));
@@ -1258,6 +1258,7 @@ namespace Bikewale.DAL.UserReviews
                                 PostiveReviews = SqlReaderConvertor.ToUInt32(dr["postivereviews"]),
                                 NegativeReviews = SqlReaderConvertor.ToUInt32(dr["negativereviews"]),
                                 NeutralReviews = SqlReaderConvertor.ToUInt32(dr["neutralreviews"]),
+                                TotalRatings=SqlReaderConvertor.ToUInt32(dr["totalratings"])
                             };
                         }
 
