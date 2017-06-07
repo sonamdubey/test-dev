@@ -4,7 +4,7 @@
     <div class="swiper-wrapper">
         @foreach (var bike in Model)
         {
-            var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName)
+            var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
             <div class="swiper-slide">
                 <div class="swiper-card">
                     <a href= @string.Format("/m/{0}-bikes/{1}/reviews/", @bike.Make.MaskingName, @bike.Model.MaskingName) title="@bikeName user review" class="block">

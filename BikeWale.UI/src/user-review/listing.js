@@ -1,4 +1,4 @@
-﻿var vmUserReviews, modelReviewsSection;
+﻿var vmUserReviews, modelReviewsSection, modelid;
 
 var helpfulReviews = [];
 
@@ -12,11 +12,119 @@ var reviewCategory = {
 
 var $window, overallSpecsTabsContainer, overallSpecsTab, specsFooter, topNavBarHeight;
 
-var listItemHeight = 230; // min item height + pagination height
+var appendState, listItemHeight = 230; // min item height + pagination height
+
+function abuseClick() {
+    reportAbusePopup.open();
+    appendState('reportPopup');
+}
+
+function upVoteReview() {
+    bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "1" });
+    $('#upvoteBtn').addClass('active');
+    $('#upvoteTxt').text("Liked");
+    $('#downvoteBtn').attr('disabled', 'disabled');
+    $('#upvoteCount').text(parseInt($('#upvoteCount').text()) + 1);
+    voteUserReview(1);
+}
+
+
+function downVoteReview() {
+    bwcache.set("ReviewDetailPage_reviewVote_" + reviewId, { "vote": "0" });
+    $('#downvoteBtn').addClass('active');
+    $('#downvoteTxt').text("Disliked");
+    $('#upvoteBtn').attr('disabled', 'disabled');
+    $('#downvoteCount').text(parseInt($('#downvoteCount').text()) + 1);
+    voteUserReview(0);
+}
+
+
+function voteUserReview(vote) {
+    $.ajax({
+        type: "POST",
+        url: "/api/user-reviews/voteUserReview/?reviewId=" + reviewId + "&vote=" + vote,
+        success: function (response) {
+        }
+    });
+}
+
+function reportAbuse() {
+    var isError = false;
+
+    if ($("#txtAbuseComments").val().trim() == "") {
+        $("#spnAbuseComments").html("Comments are required");
+        isError = true;
+    } else {
+        $("#spnAbuseComments").html("");
+    }
+
+    if (!isError) {
+        var commentsForAbuse = $("#txtAbuseComments").val().trim();
+
+        $.ajax({
+            type: "POST",
+            url: "/api/user-reviews/abuseUserReview/?reviewId=" + reviewId + "&comments=" + commentsForAbuse,
+            success: function (response) {
+                reportAbusePopup.close();
+                document.getElementById("divReportAbuse").innerHTML = "Your request has been sent to the administrator.";
+            }
+        });
+    }
+}
+
+var reportAbusePopup = {
+    popupElement: $('#report-abuse'),
+
+    bgContainer: $('#report-background'),
+
+    open: function () {
+        reportAbusePopup.popupElement.show();
+        popup.lock();
+        $(".blackOut-window").hide();
+        reportAbusePopup.bgContainer.show();
+    },
+    close: function () {
+        reportAbusePopup.popupElement.hide();
+        popup.unlock();
+        reportAbusePopup.bgContainer.hide();
+    }
+};
 
 docReady(function() {
 
+
     modelReviewsSection = $("#modelReviewsListing");
+    bwcache.setOptions({ 'EnableEncryption': true });
+    
+    bwcache.removeAll(true);
+
+    reviewId = $('#divReportAbuse').attr('data-reviewId');
+
+   var vote = bwcache.get("ReviewDetailPage_reviewVote_" + reviewId);
+
+    if (vote != null && vote.vote) {
+        if (vote.vote == "0") {
+            $('#downvoteBtn').addClass('active');
+            $('#downvoteTxt').text("Downvoted");
+            $('#upvoteBtn').attr('disabled', 'disabled');
+        }
+        else {
+            $('#upvoteBtn').addClass('active');
+            $('#upvoteTxt').text("Upvoted");
+            $('#downvoteBtn').attr('disabled', 'disabled');
+        }
+    }
+
+    if ($('#hdnModelId').length > 0)
+        modelid = $('#hdnModelId').val();
+
+
+    $('#bike-rating-box').find('.answer-star-list input[type=radio]').change(function () {
+        var button = $(this),
+           buttonValue = Number(button.val());
+        var q = $('#rate-star-' + buttonValue).attr('data-querystring');
+        window.location.href = "/rate-your-bike/" + modelid + "/?q=" + q;
+    });
 
     var modelUserReviews = function () {
         var self = this;
@@ -121,22 +229,11 @@ docReady(function() {
         }
     });
 
-    var reportAbusePopup = {
-        popupElement: $('#report-abuse'),
-        
-        bgContainer: $('#report-background'),
-
-        open: function () {
-            reportAbusePopup.popupElement.show();
-            popup.lock();
-            $(".blackOut-window").hide();
-            reportAbusePopup.bgContainer.show();
-        },
-        close: function () {
-            reportAbusePopup.popupElement.hide();
-            popup.unlock();
-            reportAbusePopup.bgContainer.hide();
-        }
+    appendState = function (state) {
+        window.history.pushState(state, '', '');
     };
 
+    var checkedStar = $('input[name=rate-bike]:checked').val();
+    if (checkedStar)
+        document.getElementById('rate-star-' + parseInt(checkedStar)).checked = false;
 });

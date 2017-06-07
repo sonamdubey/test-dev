@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<Bikewale.Entities.SimilarBikeUserReview>
-                <div class="jcarousel-wrapper inner-content-carousel user-reviews-type-carousel">
+ <div class="jcarousel-wrapper inner-content-carousel user-reviews-type-carousel">
                     <div class="jcarousel">
                         <ul>
-                            @foreach (var bike in Model){
-                                        var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
+                            @foreach (var bike in Model) {
+                                var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
                             <li>
                                 <a href="" class="jcarousel-card">
                                     <div class="model-jcarousel-image-preview">
@@ -13,7 +13,10 @@
                                         <h3 class="font15 text-black margin-bottom10">@bikeName</h3>
                                         <span class="rating-badge" data-rate-bg="@Math.Round(bike.OverAllRating)"><span class="bwsprite star-white"></span>@bike.OverAllRating.ToString("0.0").TrimEnd('0', '.')</span>
                                         <span class="font14 text-light-grey inline-block">@string.Format("{0} rating{1}", bike.NumberOfRating, (bike.NumberOfRating > 1 ? "s" : ""))</span>
-                                        <span class="font14 text-light-grey inline-block divider-left">23 reviews</span>
+                                        @if (bike.NumberOfReviews > 0)
+                                        {
+                                        <span class="font14 text-light-grey inline-block divider-left">@string.Format("{0} review{1}", bike.NumberOfReviews, (bike.NumberOfReviews > 1 ? "s" : ""))</span>
+                                        }
                                     </div>
                                 </a>
                             </li>
