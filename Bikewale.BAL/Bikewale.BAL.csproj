@@ -144,6 +144,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -169,9 +170,11 @@
     <Compile Include="BikeData\BikeVersions.cs" />
     <Compile Include="BikeData\NewLaunched\NewBikeLaunchesBL.cs" />
     <Compile Include="BikeData\Upcoming.cs" />
+    <Compile Include="CMS\CMS.cs" />
     <Compile Include="CMS\CMSData.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CMS\CMSShareUrl.cs" />
     <Compile Include="Compare\BikeComparison.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerAuthentication.cs" />
@@ -215,6 +218,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Automappers\Bikewale.Automappers.csproj">
+      <Project>{de038fa1-6471-43ba-8877-659bba7416dd}</Project>
+      <Name>Bikewale.Automappers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
       <Project>{038bc901-9d7f-4a95-8ca6-117db3aa48cc}</Project>
       <Name>Bikewale.Cache.Core</Name>
