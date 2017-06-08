@@ -1,10 +1,9 @@
-
 docReady(function () {
     showPage(1);
     $('.survey-checkbox').click(function () {
         var questionContainer = $(this).closest(".question-box"),
             qNum = $(questionContainer).attr('data-qNumber') * 1;
-        
+
         if ($(this).attr('checked')) {
             if (qNum == 1) {
                 $(questionContainer).find("select").prop('selectedIndex', 0);
@@ -22,7 +21,7 @@ docReady(function () {
     });
     $(".survey-q2-select").chosen();
     $(".survey-select").on('change', function () {
-        var qContainer = $(this).closest(".question-box"), 
+        var qContainer = $(this).closest(".question-box"),
             errElem = $(qContainer).find(".error-text");
         $(qContainer).find("input[type = checkbox]").attr('checked', false);
         $(qContainer).attr('data-attempt', true);
@@ -34,7 +33,7 @@ docReady(function () {
     $(".survey-page2__btn").on('click', function () {
         pageTwoValidation();
     });
-    $("input[name=IsLongerFormat]").click(function () {
+    $("input[name=SeenThisAd]").click(function () {
         var conditionalQ = $(".conditional-question")
         if ($(this).val() == "Yes") {
             $(conditionalQ).show();
@@ -45,7 +44,6 @@ docReady(function () {
     $(".survey-select-conditional").on('change', function () {
         $(this).closest(".conditional-question").attr('data-attempt', true);
     });
-
 });
 
 function pageOneValidation() {
@@ -54,7 +52,7 @@ function pageOneValidation() {
         q1ErrorElem = $(".error-text-q1"),
         q2ErrorElem = $(".error-text-q2");
 
-    if (q1 && q2 ) {
+    if (q1 && q2) {
         showPage(2);
     } else if (q2) {
         showError(q1ErrorElem);
@@ -77,7 +75,7 @@ function pageTwoValidation() {
         q3 = true;
         hideError(q3ErrorElem);
     }
-    if ($('input[name=IsLongerFormat]:checked').val() == "Yes") {
+    if ($('input[name=SeenThisAd]:checked').val() == "Yes") {
         if (q3 && conditionalQ4a && conditionalQ4b) {
             showPage(3);
         } else if (conditionalQ4a && conditionalQ4b) {
@@ -86,7 +84,7 @@ function pageTwoValidation() {
         else {
             showError(q4ErrorElem);
         }
-    } else if ($('input[name=IsLongerFormat]:checked').val() == "No") {
+    } else if ($('input[name=SeenThisAd]:checked').val() == "No") {
         if (q3) {
             showPage(3);
         } else {
@@ -107,8 +105,5 @@ function showPage(id) {
     $("#page" + id).show();
 }
 
-
 docReady(function () {
-
-    
 });
