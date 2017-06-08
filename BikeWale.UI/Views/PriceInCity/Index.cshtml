@@ -136,12 +136,12 @@
                                                 <!-- ko if: insurancePrice().length > 0 -->
                                                 <tr>
                                                     <td align="left" valign="top" width="70%" class="padding-bottom15 text-slate-grey">Insurance (Comprehensive)<br><a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold position-rel" c="Price_in_City_Page" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey text-unbold font10">&nbsp;Ad</span></a></td>
-                                                    <td align="right" valign="top" width="30%" class="padding-bottom10 text-bold"><span class="bwsprite inr-sm"></span><span data-bind="text: insurancePrice()"></span></td>
+                                                    <td align="right" valign="top" width="30%" class="padding-bottom10 text-bold">@Html.Raw("<span class='text-bold'>&#x20B9;</span>")<span data-bind="text: insurancePrice()"></span></td>
                                                 </tr>
                                                 <!-- /ko -->
                                                 <tr>
                                                     <td align="left" valign="top" width="70%" class="padding-top15 border-solid-top">@Model.BikeModel.ModelName  on-road price in @Model.CityEntity.CityName</td>
-                                                    <td align="right" valign="top" width="30%" class="padding-top15 border-solid-top font16 text-bold"><span class="bwsprite inr-md"></span><span data-bind="text: onRoadPrice()"></span></td>
+                                                    <td align="right" valign="top" width="30%" class="padding-top15 border-solid-top font16 text-bold">@Html.Raw("<span class='text-bold'>&#x20B9;</span>")<span data-bind="text: onRoadPrice()"></span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -315,7 +315,7 @@
                                             <div class="emi-slider-box">
                                                 <p class="text-slate-grey leftfloat">Down payment</p>
                                                 <p class="rightfloat margin-right15">
-                                                    <span class="bwsprite inr-sm"></span>
+                                                    @Html.Raw("<span class='text-bold'>&#x20B9;</span>")
                                                     <span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span>
                                                 </p>
                                                 <div class="clear"></div>
@@ -331,7 +331,7 @@
                                             <div class="emi-slider-box">
                                                 <p class="text-slate-grey leftfloat">Loan Amount</p>
                                                 <p class="rightfloat margin-right15">
-                                                    <span class="bwsprite inr-sm"></span>
+                                                    @Html.Raw("<span class='text-bold'>&#x20B9;</span>")
                                                     <span id="loanAmount" class="text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span>
                                                 </p>
                                                 <div class="clear"></div>

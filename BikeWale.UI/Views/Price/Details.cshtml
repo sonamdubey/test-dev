@@ -272,7 +272,7 @@
                                 <div class="emi-slider-box">
                                     <p class="text-slate-grey leftfloat">Down payment</p>
                                     <p class="rightfloat margin-right15">
-                                        <span class="bwsprite inr-sm"></span>
+                                        @Html.Raw("<span class='text-bold'>&#x20B9;</span>")
                                         <span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span>
                                     </p>
                                     <div class="clear"></div>
@@ -288,7 +288,7 @@
                                 <div class="emi-slider-box">
                                     <p class="text-slate-grey leftfloat">Loan Amount</p>
                                     <p class="rightfloat margin-right15">
-                                        <span class="bwsprite inr-sm"></span>
+                                        @Html.Raw("<span class='text-bold'>&#x20B9;</span>")
                                         <span id="loanAmount" class="text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span>
                                     </p>
                                     <div class="clear"></div>
