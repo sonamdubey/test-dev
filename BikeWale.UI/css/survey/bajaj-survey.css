@@ -5,17 +5,38 @@
     height: 198px;
     padding-top: 1px;
 }
+.header-text{
+    position: relative;
+    top: 35px;
+}
 .header-container{
     border-bottom: 1px solid #cccccc;
     margin: 0 50px;
 }
-.container-padding10{ padding: 25px 10px; }
-.container-margin10{ margin: 10px; }
-.font15{font-size: 15px;}
-.visibility-on{visibility: visible;}
-.visibility-off{visibility: hidden;}
-.x-transform{left: 50%; transform: translateX(-50%); -ms-transform: translateX(-50%); -moz-transform: translateX(-50%); -o-otransform: translateX(-50%); -ms-transform: translateX(-50%);}
+.container-padding10{ 
+    padding: 25px 10px; 
+}
+.container-margin10{ 
+    margin: 10px; 
+}
+.font15{
+    font-size: 15px;
 
+}
+.visibility-on{
+    visibility: visible;
+}
+.visibility-off{
+    visibility: hidden;
+}
+.x-transform{
+    left: 50%; 
+    transform: translateX(-50%); 
+    -ms-transform: translateX(-50%); 
+    -moz-transform: translateX(-50%); 
+    -o-otransform: translateX(-50%); 
+    -ms-transform: translateX(-50%);
+}
 .radio-container{
     margin-top: 20px;
     margin-bottom: 20px;
@@ -40,7 +61,7 @@
     appearance: none;
     border: none;
     border-bottom: 1px solid #969a9e;
-    background: url(../../../images/side-arrow.png) 98% / 4% no-repeat;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png) 98% / 4% no-repeat;
     padding: 10px 10px 5px 5px;
     width: 300px;
     font-size: 16px;
@@ -52,7 +73,9 @@
 .survey-select ::-ms-expand, survey-select-conditional ::after -ms-expand { 
     display: none; /* remove default arrow on ie10 and ie11 */
 }
-.checkbox-container{margin-top: 15px;}
+.checkbox-container{
+    margin-top: 15px;
+}
 .question-status-container{
     margin-top: 20px;
 }
@@ -89,7 +112,6 @@
     margin-top: 20px;
     font-size: 16px;
 }
-
 /* target Internet Explorer 9 to undo the custom arrow */
 @media screen and (min-width:0\0) {
     .survey-select  {
@@ -97,7 +119,6 @@
         padding: 5px\9;
     } 
 }
-
 /* @group Multi Chosen */
 .question-box .chosen-container .chosen-drop{
     box-shadow: 0 -1px 4px rgba(0,0,0,.15);
@@ -172,16 +193,16 @@
 }
 .chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
   position: absolute;
-  top: 4px;
-  right: 3px;
+  top: 6px;
+  right: 4px;
   display: block;
-  width: 12px;
-  height: 12px;
-  background: url('chosen-sprite.png') -42px 1px no-repeat;
+  width: 8px;
+  height: 8px;
+  background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v3.png?v28Apr2017') -86px -241px no-repeat;
   font-size: 1px;
 }
 .chosen-container-multi .chosen-choices li.search-choice .search-choice-close:hover {
-  background-position: -42px -10px;
+  background-position: -86px -241px;
 }
 .chosen-container-multi .chosen-choices li.search-choice-disabled {
   padding-right: 5px;
@@ -208,4 +229,51 @@
   display: list-item;
   color: #ccc;
   cursor: default;
+}
+.thankyou-page{
+    border: 1px solid #e2e2e2;
+    margin: 10px;
+    padding: 100px 10px 40px;
+}
+#page4.survey-page{
+    width: 100%;
+}
+
+@media screen and (max-width:768px) and (min-width: 320px){
+    .qNum {
+        position: relative;
+        top: 2px;
+        left: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #fff;
+    }
+    .q-line{
+        width: 70px;
+    }
+    .q-circle{
+        width: 25px;
+        height: 25px;
+    }
+    .survey-page{
+        width: 80%;
+    }
+    .survey-select, .survey-select-conditional{
+        width: 100%;
+        margin-left: 0px;
+    }
+    .bajaj-survey-banner{
+        background: url(../../../images/banner-m.png) no-repeat center bottom;
+        height: 140px;
+        padding-top: 1px;
+    }
+    .header-container{
+        border-bottom: 1px solid #cccccc;
+        margin: 0 10px;
+    }
+    .thankyou-page{
+        border: 1px solid #e2e2e2;
+        margin: 10px;
+        padding: 60px 10px 40px;
+    }
 }
