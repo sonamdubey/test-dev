@@ -39,6 +39,7 @@ docReady(function () {
     $(".survey-page2__btn").on('click', function () {
         pageTwoValidation();
     });
+
     $("input[name=SeenThisAd]").click(function () {
         var conditionalQ = $(".conditional-question")
         if ($(this).val() == "Yes") {
@@ -102,6 +103,38 @@ function pageTwoValidation() {
     } else {
         showError(q4ErrorElem);
     }
+}
+
+function Validate() {
+    var q5ErrorElem = $(".error-text-q5"), q6ErrorElem = $(".error-text-q6"), q7ErrorElem = $(".error-text-q7"),q5 =false,q6=false,q7=false;
+    if ($(".survey-q5-input").val().length === 0) {
+        showError(q5ErrorElem);
+        q5 = false;
+    } else {
+        q5 = true;
+        hideError(q5ErrorElem);
+    }
+
+    if ($(".survey-q6-input").val().length === 0) {
+        showError(q6ErrorElem);
+        q6 = false;
+    } else {
+        q6 = true;
+        hideError(q6ErrorElem);
+    }
+
+    if ($(".survey-q7-input").val().length === 0) {
+        showError(q7ErrorElem);
+        q7 = false;
+    } else {
+        q7 = true;
+        hideError(q7ErrorElem);
+    }
+    if (q5 && q6 && q7) 
+        return true;
+    else 
+        return false;
+    
 }
 function showError(elem) {
     $(elem).removeClass("visibility-off").addClass("visibility-on");

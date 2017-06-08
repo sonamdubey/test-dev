@@ -16,7 +16,7 @@ namespace Bikewale.DAL
 {
     /// <summary>
     /// Created by :Sangram Nandkhile on 07 Jun 2017
-    /// Summary:
+    /// Summary: DAL layer for Survey
     /// </summary>
     public class SurveyRepository : ISurveyRepository
     {
