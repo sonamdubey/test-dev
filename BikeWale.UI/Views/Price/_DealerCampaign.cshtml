@@ -148,7 +148,7 @@
                     <div class="grid-8 alpha border-light-right padding-bottom5 margin-bottom10">
                         <div class="emi-slider-box">
                             <p class="text-light-grey leftfloat">Down payment</p>
-                            <p class="rightfloat margin-right15"><span class="bwsprite inr-sm"></span>&nbsp;<span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span></p>
+                            <p class="rightfloat margin-right15">@Html.Raw("<span class='text-bold'>&#x20B9;</span>")&nbsp;<span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span></p>
                             <div class="clear"></div>
 
                             <div id="downPaymentSlider"
@@ -161,7 +161,7 @@
 
                         <div class="emi-slider-box">
                             <p class="text-light-grey leftfloat">Loan Amount</p>
-                            <p class="rightfloat margin-right15"><span class="bwsprite inr-sm"></span>&nbsp;<span id="loanAmount" class="text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span></p>
+                            <p class="rightfloat margin-right15">@Html.Raw("<span class='text-bold'>&#x20B9;</span>")&nbsp;<span id="loanAmount" class="text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span></p>
                             <div class="clear"></div>
 
                             <div id="loanAmountSlider"
@@ -289,7 +289,7 @@
             <div class="content-inner-block-20 font14">
                 <p class="text-bold margin-bottom15">Book your bike from this dealer</p>
                 <div class="grid-8 alpha">
-                    <p class="margin-bottom10">Pay @Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Model.PrimaryDealer.BookingAmount.ToString()) to book online and balance amount of <span class="bwsprite inr-sm-dark"></span>@Bikewale.Utility.Format.FormatPrice((Model.PrimaryDealer.TotalPrice - Model.PrimaryDealer.BookingAmount).ToString()) at the dealership</p>
+                    <p class="margin-bottom10">Pay @Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Model.PrimaryDealer.BookingAmount.ToString()) to book online and balance amount of @Html.Raw("<span class='text-bold'>&#x20B9;</span>")@Bikewale.Utility.Format.FormatPrice((Model.PrimaryDealer.TotalPrice - Model.PrimaryDealer.BookingAmount).ToString()) at the dealership</p>
                     <ul id="booking-benefits-list">
                         <li>Save on dealer visits</li>
                         <li>Secure online payments</li>

@@ -73,7 +73,7 @@
         <div class="padding-top20 padding-bottom20 border-light-top font14">
             <p class="text-bold margin-bottom15">Book your bike from this dealer</p>
             <div class="grid-8 alpha">
-                <p class="margin-bottom20">Pay @Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Model.DetailedDealer.PrimaryDealer.BookingAmount.ToString()) to book online and balance amount of <span class="bwsprite inr-sm-dark"></span>@Bikewale.Utility.Format.FormatPrice((Model.BikePrice - Model.DetailedDealer.PrimaryDealer.BookingAmount).ToString()) at the dealership</p>
+                <p class="margin-bottom20">Pay @Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Model.DetailedDealer.PrimaryDealer.BookingAmount.ToString()) to book online and balance amount of @Html.Raw("<span class='text-bold'>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice((Model.BikePrice - Model.DetailedDealer.PrimaryDealer.BookingAmount).ToString()) at the dealership</p>
                 <ul id="booking-benefits-list">
                     <li>Save on dealer visits</li>
                     <li>Secure online payments</li>
