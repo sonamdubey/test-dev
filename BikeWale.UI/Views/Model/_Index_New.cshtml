@@ -1,6 +1,4 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
-@using Bikewale.Common;
-@using Bikewale.BikeBooking;
 @using Bikewale.Utility;
 
 <section>
@@ -84,7 +82,7 @@
                             }
                         </div>
                         <div class="clear"></div>
-                        @if (Model.IsDealerDetailsExists != null && Model.IsPremiumDealer)
+                        @if (Model.IsDealerDetailsExists && Model.IsPremiumDealer)
                         {
                             @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard.cshtml", Model)
                         }
@@ -108,7 +106,7 @@
                 </div>
                 <div class="clear"></div>
             }
-
+         
             @if (Model.IsModelDescriptionAvailable)
             {
                 <div class="grid-12">
@@ -116,13 +114,13 @@
                 </div>
                 <div class="clear"></div>
             }
-
+           
         </div>
 
         @Html.Partial("~/Views/Model/_Index_DetailsCard.cshtml", Model)
     </div>
 </section>
-
+ 
 @if (Model.LeadCapture != null && Model.IsLocationSelected)
 {
   

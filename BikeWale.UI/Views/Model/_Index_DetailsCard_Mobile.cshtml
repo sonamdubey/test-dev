@@ -12,7 +12,12 @@
         @Html.Partial("~/Views/Model/_Index_ModelColors_Mobile.cshtml", Model)
 
     }
-
+     if (Model.AdTags.Ad_320x400_Middle)
+    {
+        <section>
+            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x400_Middle.cshtml", new { AdId = "1495092203328" });}
+        </section>
+    }
     if (Model.IsSimilarBikesAvailable)
     {
         <div id="similarContent" class="bw-model-tabs-data padding-top15 padding-bottom15 content-box-shadow card-bottom-margin content-details-wrapper">
