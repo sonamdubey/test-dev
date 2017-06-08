@@ -26,8 +26,11 @@ namespace Bikewale.Models.Survey
 
         private void FormatOutPut(BajajSurveyVM _response)
         {
-            if (_response.MultipleModel.Count > 0)
-                _response.BikeToPurchase = string.Join(",", _response.MultipleModel);
+            if (_response != null)
+            {
+                if (_response.MultipleModel != null && _response.MultipleModel.Count > 0)
+                    _response.BikeToPurchase = string.Join(",", _response.MultipleModel);
+            }
         }
     }
 }
