@@ -91,11 +91,13 @@ namespace Bikewale.BAL.UserReviews.Search
                     reviewIdList = reviewIdList.Where(x => x != inputFilters.SkipReviewId);
                 }
 
+                objResult.TotalCount = reviewIdList.Count();
+
                 int startingIndex = (inputFilters.PN - 1) * (inputFilters.PS) + 1;
-                int endingIndex = (inputFilters.PN) * (inputFilters.PS) < reviewIdList.Count() ? (inputFilters.PN + 1) * (inputFilters.PS) : reviewIdList.Count();
+                int endingIndex = (inputFilters.PN) * (inputFilters.PS) < reviewIdList.Count() ? (inputFilters.PN ) * (inputFilters.PS) : reviewIdList.Count();
                 int numberOfResults = endingIndex - startingIndex + 1;
 
-                reviewIdList = reviewIdList.Skip(startingIndex).Take(numberOfResults);
+                reviewIdList = reviewIdList.Skip(startingIndex-1).Take(numberOfResults);
 
                 IEnumerable<UserReviewSummary> objReviewSummaryList = _userReviewsCache.GetUserReviewSummaryList(reviewIdList);
 
@@ -112,8 +114,8 @@ namespace Bikewale.BAL.UserReviews.Search
                     objResult.PageUrl.NextPageUrl = objResult.PageUrl.NextPageUrl.Replace("+", "%2b");
                 }
 
-                objResult.ResultDesktop = objReviewSummaryList;               
-                objResult.TotalCount = numberOfResults;
+                objResult.ResultDesktop = objReviewSummaryList;
+                
             }
             catch
             {

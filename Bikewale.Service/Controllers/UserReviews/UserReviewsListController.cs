@@ -112,6 +112,36 @@ namespace Bikewale.Service.Controllers.UserReviews
         }   // Get 
         #endregion
 
+        [Route("api/user-reviews/d/search/")]
+        public IHttpActionResult GetUserReviewList([FromUri]Bikewale.Entities.UserReviews.Search.InputFilters filters)
+        {
+            Bikewale.Entities.UserReviews.Search.SearchResult objUserReviews = null;
+            Bikewale.DTO.UserReviews.Search.SearchResult objDTOUserReview = null;
+            try
+            {
+                if (filters != null && (!String.IsNullOrEmpty(filters.Model) || !String.IsNullOrEmpty(filters.Make)))
+                {
+                    objUserReviews = _userReviewsSearch.GetUserReviewsListDesktop(filters);
+                    if (objUserReviews != null)
+                    {
+                        objDTOUserReview = UserReviewsMapper.Convert(objUserReviews);
+                        return Ok(objDTOUserReview);
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                
+                return InternalServerError();
+            }
+
+            return NotFound();
+        }
 
         #region Get Most Reviewed Bike List
         /// <summary>

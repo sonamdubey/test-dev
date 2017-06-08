@@ -18,11 +18,17 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("heading"), DataMember]
         public string Heading { get; set; }
 
+        [JsonProperty("minHeading"), DataMember]
+        public string MinHeading { get; set; }
+
         [JsonProperty("description"), DataMember]
-        public string Description { get; set; }
+        public string Description { get; set; }       
 
         [JsonProperty("selectedRatingId"), DataMember]
         public uint SelectedRatingId { get; set; }
+
+        [JsonProperty("selectedRatingText"), DataMember]
+        public string SelectedRatingText { get; set; }
 
         [JsonProperty("displayType"), DataMember]
         public UserReviewQuestionDisplayType DisplayType { get; set; }

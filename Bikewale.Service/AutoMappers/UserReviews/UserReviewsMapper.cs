@@ -95,6 +95,10 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             Mapper.CreateMap<ReviewRatingEntityBase, Bikewale.DTO.UserReviews.v2.ReviewRatingBase>();
             Mapper.CreateMap<PagingUrl, Bikewale.DTO.BikeBooking.PagingUrl>();
             Mapper.CreateMap<ReviewEntityBase, ReviewBase>();
+            Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
+            Mapper.CreateMap<UserReviewSummary, UserReviewSummaryDto>();
+            Mapper.CreateMap<UserReviewQuestion, UserReviewQuestionDto>();
+            Mapper.CreateMap<UserReviewOverallRating, UserReviewOverallRatingDto>();           
             Mapper.CreateMap<Entities.UserReviews.Search.SearchResult, Bikewale.DTO.UserReviews.Search.SearchResult>();
             return Mapper.Map<Entities.UserReviews.Search.SearchResult, Bikewale.DTO.UserReviews.Search.SearchResult>(objUserReviews);
         }
