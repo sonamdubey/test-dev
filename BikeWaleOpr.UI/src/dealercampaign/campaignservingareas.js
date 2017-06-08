@@ -43,7 +43,7 @@ var ddlMappedAdditionalCity = $("#ddlMappedAdditionalCity");
         click: function () {
             var objCity = $("#autocomplete-addMulCity");
             var objSelectedCity = objCity.getSelectedItemData();
-            $("#autocomplete-addMulCity-data").append('<div class="chip" data-cityId=' + objSelectedCity.payload.cityId + '>' + objSelectedCity.payload.cityName + '<i class="close material-icons">close</i></div>');
+            $("#autocomplete-addMulCity-data").append('<div class="chip" data-cityId=' + objSelectedCity.payload.cityId + '>' + objSelectedCity.text + '<i class="close material-icons">close</i></div>');
             objCity.val("");
         }
     });

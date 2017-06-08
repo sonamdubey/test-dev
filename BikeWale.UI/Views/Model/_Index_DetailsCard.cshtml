@@ -12,6 +12,12 @@
         @Html.Partial("~/Views/Model/_Index_ModelColors.cshtml", Model)
     }
 
+    @if (Model.AdTags.Ad_976x400_Middle)
+    {
+        <section>
+            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Middle.cshtml", new { AdId = "1495092203328"});}
+        </section>
+    }
 
     @if (Model.IsSimilarBikesAvailable)
     {
