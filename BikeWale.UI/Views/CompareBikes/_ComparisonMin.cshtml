@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="sidebar-image-label inline-block text-default">
                                     <h3 class="text-black text-bold margin-bottom5">@bike.Bike1</h3>
-                                    <span class="bwsprite inr-sm-dark"></span>&nbsp;@string.Format("{0}{1}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1)), bike.Price1 > 0 ? " onwards" : string.Empty)
+                                    @Html.Raw("&#x20B9;")&nbsp;@string.Format("{0}{1}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1)), bike.Price1 > 0 ? " onwards" : string.Empty)
                                 </div>
                             </div>
                             <div class="grid-6 compare-bike-box">
@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="sidebar-image-label inline-block text-default">
                                     <h3 class="text-black text-bold margin-bottom5">@bike.Bike2</h3>
-                                    <span class="bwsprite inr-sm-dark"></span>&nbsp;@string.Format("{0}{1}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price2)), bike.Price2 > 0 ? " onwards" : string.Empty)
+                                    @Html.Raw("&#x20B9;")&nbsp;@string.Format("{0}{1}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price2)), bike.Price2 > 0 ? " onwards" : string.Empty)
                                 </div>
                             </div>
                             <div class="clear"></div>

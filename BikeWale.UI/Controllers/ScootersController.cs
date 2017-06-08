@@ -64,7 +64,7 @@ namespace Bikewale.Controllers
                 _objMakeRepo, _models, _newLaunches, _upcoming, _compareScooters);
             model.BrandTopCount = 10;
             model.PqSource = PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price;
-            model.CompareSource = CompareSources.Desktop_Scooter_Landing_Compare;
+            model.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
             return View(model.GetData());
         }
 
@@ -82,7 +82,7 @@ namespace Bikewale.Controllers
                 _objMakeRepo, _models, _newLaunches, _upcoming, _compareScooters);
             model.BrandTopCount = 6;
             model.PqSource = PQSourceEnum.Mobile_Scooters_Landing_Check_on_road_price;
-            model.CompareSource = CompareSources.Mobile_Scooter_Landing_Compare;
+            model.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             return View(model.GetData());
         }
         /// <summary>

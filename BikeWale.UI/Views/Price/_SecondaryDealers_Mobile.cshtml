@@ -21,7 +21,7 @@
                                 <div class="margin-top15">
                                     <div class="grid-4 alpha omega @(dealer.DealerPackageType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard && dealer.OfferCount > 0 ?  "border-solid-right" : "") ">
                                         <p class="font12 text-light-grey margin-bottom5">On-road price</p>
-                                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(dealer.SelectedVersionPrice.ToString()) </span>
+                                        @Html.Raw("<span class='font16 text-default text-bold'> &#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(dealer.SelectedVersionPrice.ToString()) </span>
                                     </div>
                                     @if (dealer.DealerPackageType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard && dealer.OfferCount > 0)
                                     {

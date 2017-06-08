@@ -379,14 +379,14 @@
                                             <div class="border-light-bottom padding-bottom20 margin-bottom20">
                                                 <p class="text-light-grey margin-bottom5">Total amount (Principal + Interest)</p>
                                                 <div>
-                                                    <span class="bwsprite inr-lg"></span>&nbsp;
+                                                    @Html.Raw("<span class='font18 text-bold'>&#x20B9;</span>")&nbsp;
                                                     <span class="font18 text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>
                                                 </div>
                                             </div>
                                             <div>
                                                 <p class="text-light-grey margin-bottom5">Indicative EMI</p>
                                                 <div>
-                                                    <span class="bwsprite inr-lg"></span>&nbsp;
+                                                    @Html.Raw("<span class='font18 text-bold'>&#x20B9;</span>")&nbsp;
                                                     <span class="font18 text-bold">
                                                         <span id="emiAmount" data-bind="text: formatPrice(monthlyEMI())"></span>&nbsp;per month
                                                     </span>
@@ -428,7 +428,7 @@
                                                     {
                                                         <tr>
                                                             <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@string.Format("{0} {1}", Model.BikeName, bikeversion.VersionName)</td>
-                                                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwsprite inr-sm-dark"></span>@Format.FormatPrice(Convert.ToString(bikeversion.OnRoadPrice))</td>
+                                                            <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold">@Html.Raw("&#x20B9;") @Format.FormatPrice(Convert.ToString(bikeversion.OnRoadPrice))</td>
                                                         </tr>
                                                     }
                                                     <tr>

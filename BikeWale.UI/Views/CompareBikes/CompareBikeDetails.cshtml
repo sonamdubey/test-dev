@@ -95,7 +95,7 @@
                                     <span class="error-text"></span>
                                     <p class="font-12 text-light-grey margin-bottom2">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
                                     <div class="margin-bottom5">
-                                        <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 font-bold" data-bind="text: price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
+                                        @Html.Raw("<span class='font18 font-bold'>&#x20B9;</span>")&nbsp;<span class="font18 font-bold" data-bind="text: price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
                                     </div>
                                     @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.FeaturedBike))
                                     {
@@ -343,7 +343,7 @@
                                         {
                                             <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" )" title="Used @bike.Make @bike.Model">@string.Format("{0} Used {1} {2}", bike.UsedBikeCount.BikeCount, bike.Make, bike.Model)</a><br />
                                             <span>
-                                                Starting at&nbsp;<span class="bwsprite inr-sm-dark"></span>@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
+                                                Starting at&nbsp;@Html.Raw("&#x20B9;") @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.UsedBikeCount.StartingPrice))
                                             </span>}
                                         else
                                         {
@@ -370,7 +370,7 @@
                 <div class="content-box-shadow content-inner-block-20">
                     <p class="h2-heading text-bold text-black margin-bottom20">Bike Comparison - @Model.templateSummaryTitle</p>
                     <div class="font14 text-slate-grey collapsible-content">
-                        <p class="main-content">@Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 300)</p><p class="more-content">@Model.compareSummaryText.Substring(300)</p>
+                        <p class="main-content">@Html.Raw(Bikewale.Utility.StringExtention.StringHelper.Truncate(Model.compareSummaryText, 300))</p><p class="more-content">@Html.Raw(Model.compareSummaryText.Substring(300))</p>
                         <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                     </div>
                 </div>

@@ -26,7 +26,7 @@
                         @String.Format("{0}, {1} {2} {3}", Convert.ToString(bike.MakeYear), bike.MakeName, bike.ModelName, bike.VersionName)
                     </a>
                     <p class="margin-top10">
-                        <span class="bwsprite inr-sm-dark"></span>
+                        @Html.Raw("&#x20B9;")
                         <span>@Format.FormatPrice(Convert.ToString(bike.BikePrice))</span>
                     </p>
                 </li>

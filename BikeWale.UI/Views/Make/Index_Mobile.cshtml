@@ -62,7 +62,14 @@
                                         </div>
                                         <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</div>
                                         <div class="margin-bottom5">
-                                            <span class="bwmsprite inr-sm-icon" style="@string.Format("{0}", bike.VersionPrice > 0  ? "display:inline-block;" : "display:none;")"></span>
+                                            @if (bike.VersionPrice > 0) {
+                                                @Html.Raw("<span class='font18 text-bold' style='display: inline - block;'> &#x20B9;</span>")}
+
+                                            else {
+                                                @Html.Raw("<span class='font18 text-bold' style='display: none;'> &#x20B9;</span>")
+                                            }
+                                            
+
                                             <span class="text-bold font18">@Html.Raw(string.Format("{0}", bike.VersionPrice > 0 ? string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(bike.VersionPrice.ToString())) : "Price unavailable"))</span>
                                         </div>
                                         @if (bike.VersionPrice > 0)
