@@ -9,22 +9,29 @@
     border-bottom: 1px solid #cccccc;
     margin: 0 50px;
 }
-.container-padding10{ padding: 10px; }
+.container-padding10{ padding: 25px 10px; }
 .container-margin10{ margin: 10px; }
+.font15{font-size: 15px;}
 .visibility-on{visibility: visible;}
 .visibility-off{visibility: hidden;}
 .x-transform{left: 50%; transform: translateX(-50%); -ms-transform: translateX(-50%); -moz-transform: translateX(-50%); -o-otransform: translateX(-50%); -ms-transform: translateX(-50%);}
 
+.radio-container{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#IsLongerFormat2 {
+    margin-left: 40px;
+    margin-right: 4px;
+}
 .survey-page{
     position: relative;
     display: inline-block;
     width: 600px;
 }
-
 .question-box{
     margin: 40px 0;
 }
-
 .survey-select, .survey-select-conditional {
     border: 1px solid #111;
     background: transparent;
@@ -45,50 +52,76 @@
 .survey-select ::-ms-expand, survey-select-conditional ::after -ms-expand { 
     display: none; /* remove default arrow on ie10 and ie11 */
 }
-
 .checkbox-container{margin-top: 15px;}
-
+.question-status-container{
+    margin-top: 20px;
+}
+.q-circle{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #eeeeee;
+    display: inline-block;
+    vertical-align: middle;
+}
+.q-circle.active, .q-line.active{
+    background-color: #d42c2c;
+}
+.q-line{
+    width: 100px;
+    height: 2px;
+    background-color: #eeeeee;
+    display: inline-block;
+    vertical-align: middle;
+}
+.qNum{
+    position: relative;
+    top: 7px;
+    left: 13px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+}
 .survey-input{
     border: none;
     border-bottom: 1px solid #aaa;
     width: 80%;
     margin-top: 20px;
+    font-size: 16px;
 }
 
 /* target Internet Explorer 9 to undo the custom arrow */
 @media screen and (min-width:0\0) {
-    .survey-page1__select  {
+    .survey-select  {
         background:none\9;
         padding: 5px\9;
     } 
 }
 
-@media only screen and (max-width:1024px) {
-    
-}
-
 /* @group Multi Chosen */
-
+.question-box .chosen-container .chosen-drop{
+    box-shadow: 0 -1px 4px rgba(0,0,0,.15);
+}
 .question-box .chosen-container-active .chosen-choices {
     border: none;
     box-shadow: none;
 }
-
 .question-box .chosen-container {
     padding: 0px;
     border: none;
+    border-bottom: 1px solid #aaa;
     user-select: none;
 }
 .chosen-container-multi .chosen-choices {
   position: relative;
   overflow: hidden;
   margin: 0;
-  padding: 10px 5px;
+  padding: 10px 5px 5px;
   width: 100%;
   height: auto;
-  border-bottom: 1px solid #aaa;
   background-color: #fff;
   cursor: text;
+  font-size: 15px;
 }
 .chosen-container-multi .chosen-choices li {
   float: left;
@@ -108,7 +141,7 @@
   background: transparent !important;
   box-shadow: none;
   color: #999;
-  font-size: 100%;
+  font-size: 16px;
   font-family: sans-serif;
   line-height: normal;
   border-radius: 0;

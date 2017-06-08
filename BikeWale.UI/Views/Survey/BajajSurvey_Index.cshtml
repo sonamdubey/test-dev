@@ -8,15 +8,23 @@
 
 <header class="bajaj-survey-banner"></header>
 
-<div class="container content-box-shadow">
+<div class="container content-box-shadow margin-bottom50">
 
-   <div class="header-container text-center container-padding10">
+   <div class="header-container text-center container-padding10 font15">
         <p class="survey-heading">BikeWale is conducting a survey on two wheeler popularity. Here is your chance to participate and win Paytm cash amount. </p>
         <p class="survey-heading">There are a few simple questions that you need to answer and it will take maximum 2 minutes of your time.</p>
    </div>
+    <div class="question-status-container x-transform position-rel leftfloat">
+        <div class="q1-circle q-circle active"><span class="qNum">1</span></div>
+        <div class="q2-line q-line"></div>
+        <div class="q2-circle q-circle"><span class="qNum">2</span></div>
+        <div class="q3-line q-line"></div>
+        <div class="q3-circle q-circle"><span class="qNum">3</span></div>
+    </div>
+    <div class="clear"></div>
     <form action="/survey/bajaj/SubmitReview/" method="post">
 
-        <div id="page1" class="survey-page survey-page1 x-transform">
+        <div id="page1" class="survey-page survey-page1 x-transform font16">
 
             <div class="question1 question-box" data-qNumber="1">
                 <p class="text-bold">1) Which 2-wheeler do you currently ride?</p>
@@ -42,10 +50,7 @@
                 <div class="error-text error-text-q2 visibility-off">Please attempt this question</div>
             </div>
 
-            <div class="">
-                <div class="btn btn-orange btn-sm survey-page1__btn font14">Next</div>
-            </div>
-
+            <div class="btn btn-orange btn-sm survey-page1__btn font14 x-transform position-rel margin-bottom15">Next</div>
         </div>
 
         <div id="page2" class="survey-page survey-page2 x-transform font16 hide">
@@ -57,12 +62,12 @@
             </div>
             <div class="question-4 question-box">
                 <p class="text-bold">4. Do you remember watching this video Ad before?</p>
-                <div class="radio-container container-margin10">
+                <div class="radio-container">
                     <input id="IsLongerFormat1" name="IsLongerFormat" type="radio" value="Yes" /> <label for="IsLongerFormat1">Yes</label>
                     <input id="IsLongerFormat2" name="IsLongerFormat" type="radio" value="No" /><label for="IsLongerFormat2">No</label>
                 </div>
                 <iframe width="320" height="200" src="https://www.youtube.com/embed/XGSy3_Czz8k"></iframe>
-                <div id="adnumberofviews" class="conditional-question hide">
+                <div id="adnumberofviews" class="conditional-question margin-top20 hide">
                     <p class="text-bold">a. Approximately how many times have you seen the above commercial?</p>
 
                     <select id="viewscount" name="viewscount" class="survey-q4a-select survey-select-conditional container-margin10">
@@ -72,7 +77,7 @@
                         <option value="More than 5 Times">More than 5 Times:</option>
                     </select>
                 </div>
-                <div id="admedium" class="conditional-question hide">
+                <div id="admedium" class="conditional-question margin-top20 hide">
                     <p class="text-bold">b. On which media platforms, do you remember watching this commercial?</p>
                     <select id="InternetOptions" name="InternetOptions" class="survey-q4b-select survey-select-conditional container-margin10">
                         <option value="" disabled selected> Select </option>
@@ -84,9 +89,7 @@
                 </div>
                 <div class="error-text error-text-q4 visibility-off">Please attempt this question</div>
             </div>
-            <div class="">
-                <a href="javascript:void(0);" class="btn btn-orange btn-sm survey-page2__btn font14" rel="nofollow">Next</a>
-            </div>
+            <div class="btn btn-orange btn-sm survey-page2__btn font14 x-transform position-rel margin-bottom20">Next</div>
         </div>
 
         <div id="page3" class="survey-page survey-page3 x-transform font16" style="display: none;">
@@ -108,7 +111,7 @@
                 <p>7. Paytm Number</p>
                 @Html.TextBoxFor(m => m.Handset)
             </div>*@
-            <div><p><input type="submit" value="Submit" class="btn btn-orange btn-sm survey-page3__btn font14" /></p></div>
+            <div><p><input type="submit" value="Submit" class="btn btn-orange btn-sm survey-page3__btn font14 margin-bottom20 x-transform position-rel" /></p></div>
         </div>
         
     </form>

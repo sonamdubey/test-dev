@@ -20,9 +20,15 @@ docReady(function () {
             }
         }
     });
-    $(".survey-q2-select").chosen();
-    $(".survey-select").on('change', function () {
-        var qContainer = $(this).closest(".question-box"), 
+    $(".survey-q2-select").chosen().change(function () {
+        var qContainer = $(this).closest(".question-box"),
+            errElem = $(qContainer).find(".error-text");
+        $(qContainer).find("input[type = checkbox]").attr('checked', false);
+        $(qContainer).attr('data-attempt', true);
+        hideError(errElem);
+    });
+    $(".survey-select").change(function () {
+        var qContainer = $(this).closest(".question-box"),
             errElem = $(qContainer).find(".error-text");
         $(qContainer).find("input[type = checkbox]").attr('checked', false);
         $(qContainer).attr('data-attempt', true);
@@ -56,6 +62,7 @@ function pageOneValidation() {
 
     if (q1 && q2 ) {
         showPage(2);
+        $(".q2-circle, .q2-line").addClass("active");
     } else if (q2) {
         showError(q1ErrorElem);
     } else if (q1) {
@@ -80,6 +87,7 @@ function pageTwoValidation() {
     if ($('input[name=IsLongerFormat]:checked').val() == "Yes") {
         if (q3 && conditionalQ4a && conditionalQ4b) {
             showPage(3);
+            $(".q3-circle, .q3-line").addClass("active");
         } else if (conditionalQ4a && conditionalQ4b) {
             hideError(q4ErrorElem);
         }
@@ -89,6 +97,7 @@ function pageTwoValidation() {
     } else if ($('input[name=IsLongerFormat]:checked').val() == "No") {
         if (q3) {
             showPage(3);
+            $(".q3-circle, .q3-line").addClass("active");
         } else {
             hideError(q4ErrorElem);
         }
