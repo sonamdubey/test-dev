@@ -226,7 +226,7 @@ namespace Bikewale.Models
                         string price = Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bike.Price));
                         int colorCount = colors.bikes[i].bikeColors.Count;
                         bikeNames += bikName + (i < count - 1 ? ", " : " and ");
-                        bikePrice += string.Format(" {0} is Rs. {1} {2}", bikName, price, (i < count - 1 ? ", " : " and "));
+                        bikePrice += string.Format(" {0} is   &#x20B9; {1} {2}", bikName, price, (i < count - 1 ? ", " : " and "));
                         variants += string.Format(" {0} is available in {1} {4} and {2} {5}{3}", bikName, colorCount, versionCount, (i < count - 1 ? ", " : " and "), colorCount > 1 ? "colours" : "colour", versionCount > 1 ? "variants" : "variant");
                         i++;
                     }
@@ -234,7 +234,7 @@ namespace Bikewale.Models
                 bikeNames = bikeNames.Remove(bikeNames.Length - 5);
                 bikePrice = bikePrice.Remove(bikePrice.Length - 6);
                 variants = variants.Remove(variants.Length - 5);
-                obj.compareSummaryText = string.Format("BikeWale brings you comparison of {0}. The ex-showroom price of{1}.{2}. Apart from prices, you can also find comparison of these bikes based on displacement, mileage, performance, and many more parameters. Comparison between these bikes have been carried out to help users make correct buying decison between {0}.", bikeNames, bikePrice, variants);
+                obj.compareSummaryText = string.Format("BikeWale brings you comparison of {0}. The ex-showroom price of{1}.{2}. Apart from prices, you can also find comparison of these bikes based on displacement, mileage, performance, and many more paramete  &#x20B9; Comparison between these bikes have been carried out to help users make correct buying decison between {0}.", bikeNames, bikePrice, variants);
 
             }
             catch (Exception ex)

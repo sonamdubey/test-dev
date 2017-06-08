@@ -110,7 +110,7 @@
                                 <div class="grid-3 padding-left20 padding-right20">
                                     <p class="font14 text-grey margin-bottom5">Ex-showroom price, @bike.PriceInCity </p>
                                     <div class="margin-bottom10">
-                                        <span class="bwsprite inr-lg"></span> <span class="font18 text-bold">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) </span>
+                                        @Html.Raw("<span class='font18 text-bold'>&#x20B9;</span>") <span class="font18 text-bold">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) </span>
                                     </div>
                                     @if(bike.Price > 0) {
                                         <a href="javascript:void(0)" data-pagecatid="0"

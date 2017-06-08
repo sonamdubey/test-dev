@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="sidebar-image-label inline-block text-default">
                                     <h3 class="text-black text-bold margin-bottom5">@Bikedetails[i].Bike1</h3>
-                                    <span class="bwsprite inr-sm-dark"></span>&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bikedetails[i].Price1)) onwards
+                                    @Html.Raw("&#x20B9;")&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bikedetails[i].Price1)) onwards
                                 </div>
                             </div>
                             <div class="grid-6 compare-bike-box">
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="sidebar-image-label inline-block text-default">
                                     <h3 class="text-black text-bold margin-bottom5">@Bikedetails[i].Bike2</h3>
-                                    <span class="bwsprite inr-sm-dark"></span>&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bikedetails[i].Price2)) onwards
+                                    @Html.Raw("&#x20B9;")&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bikedetails[i].Price2)) onwards
                                 </div>
                             </div>
                             <div class="clear"></div>
