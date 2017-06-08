@@ -153,11 +153,11 @@ namespace Bikewale.Utility
             else if (timeSpan.Days < 7)
                 interval = string.Format("{0} day{1}", timeSpan.Days, (timeSpan.Days > 1 ? "s" : ""));
             else if (timeSpan.Days < 30)
-                interval = string.Format("{0} week{1}", (timeSpan.Days % 7), ((timeSpan.Days % 7) > 1 ? "s" : ""));
-            else if (timeSpan.TotalDays < 365)
-                interval = string.Format("{0} month{1}", (timeSpan.Days % 30), ((timeSpan.Days % 30) > 1 ? "s" : ""));
+                interval = string.Format("{0} week{1}", (timeSpan.Days / 7), ((timeSpan.Days / 7) > 1 ? "s" : ""));
+            else if (timeSpan.Days < 365)
+                interval = string.Format("{0} month{1}", (timeSpan.Days / 30), ((timeSpan.Days / 30) > 1 ? "s" : ""));
             else
-                interval = string.Format("{0} year{1}", (timeSpan.Days % 365), ((timeSpan.Days % 365) > 1 ? "s" : ""));
+                interval = string.Format("{0} year{1}", (timeSpan.Days / 365), ((timeSpan.Days / 365) > 1 ? "s" : ""));
             return interval;
         }
 
