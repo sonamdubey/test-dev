@@ -550,7 +550,7 @@
         self.init = function () {
             var arr = self.readTempUserCookie();
             if (arr && arr.length > 1) {
-                self.setBuyer(arr[0], arr[2], arr[1]);
+                self.setBuyer(arr[0], arr[1], arr[2]);
                 getSellerDetailsPopup.userDetails.find(".input-box").addClass("not-empty");
             }
             else

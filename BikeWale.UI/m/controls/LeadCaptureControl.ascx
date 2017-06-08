@@ -115,8 +115,8 @@
         var self = this;
         if (arr != null && arr.length > 0) {
             self.fullName = ko.observable(arr[0]);
-            self.emailId = ko.observable(arr[2]);
-            self.mobileNo = ko.observable(arr[1]);
+            self.emailId = ko.observable(arr[1]);
+            self.mobileNo = ko.observable(arr[2]);
         }
         else {
             self.fullName = ko.observable();
@@ -895,7 +895,7 @@
     }
 
     function setPQUserCookie() {
-        var val = dleadvm.fullName() + '&' + dleadvm.mobileNo() + '&' + dleadvm.emailId();
+        var val = dleadvm.fullName() + '&' + dleadvm.emailId() + '&' + dleadvm.mobileNo();
         SetCookie("_PQUser", val);
     }
 
