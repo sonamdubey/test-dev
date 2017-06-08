@@ -1,16 +1,12 @@
 ﻿using Consumer;
+using MySql.CoreDAL;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Reflection;
-using Bikewale.CoreDAL;
-
 using System.Text.RegularExpressions;
-using MySql.CoreDAL;
 namespace CityAutoSuggest
 {
     public class GetCityList
@@ -21,14 +17,10 @@ namespace CityAutoSuggest
             Regex r = new Regex(@"\[([A-z0-9\s\S]+)?(\-)?([A-z0-9\s\S]+)?\]");
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcitiespq"))
                 {
-                    cmd.CommandText = "GetCitiesCS";                                          //----New SP-----
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, 7));
-                       // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -36,11 +28,11 @@ namespace CityAutoSuggest
                             while (dr.Read())
                                 objCity.Add(new CityTempList()
                                 {
-                                    CityId = Convert.ToInt32(dr["Value"]),                          //  Add CityId into Payload
-                                    CityName = dr["Text"].ToString(),                               //  Add CityName into Payload
-                                    MaskingName = dr["MaskingName"].ToString(),                     //  Add Masking Name into Payload
-                                    Wt = Convert.ToInt32(dr["Count"]),                          //Add PQ for that city
-                                    StateName = dr["StateName"].ToString()                      //Add StateName
+                                    CityId = Convert.ToInt32(dr["id"]),                          //  Add CityId into Payload
+                                    CityName = Convert.ToString(dr["name"]),                               //  Add CityName into Payload
+                                    MaskingName = Convert.ToString(dr["citymaskingname"]),                     //  Add Masking Name into Payload
+                                    Wt = Convert.ToInt32(dr["cnt"]),                          //Add PQ for that city
+                                    StateName = Convert.ToString(dr["StateName"])                      //Add StateName
                                 });
                         }
                     }
@@ -78,11 +70,11 @@ namespace CityAutoSuggest
                 ht.Add("Pune", "Poona"); ht.Add("Navi Mumbai", "New Bombay"); ht.Add("Nuh", "Mewat");
                 ht.Add("Bengaluru", "Bangalore");
 
-                
+
                 Hashtable htd = new Hashtable();                                                //For Removing Text After Bracket
                 htd.Add("Aurangabad (Bihar)", "Aurangabad"); htd.Add("Dindori - MH", "Dindori"); htd.Add("Mewat", "Nuh");
                 htd.Add("Una (Gujarat)", "Una"); htd.Add("Una (HP)", "Una"); htd.Add("Gurgaon", "Gurugram");
-                htd.Add("Bangalore", "Bengaluru");             
+                htd.Add("Bangalore", "Bengaluru");
                 Hashtable htf = new Hashtable();                                                //HashTable for Duplicate       
 
                 Dictionary<string, decimal> City_Count = new Dictionary<string, decimal>();     //Create Dictionary
