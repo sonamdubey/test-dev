@@ -161,5 +161,27 @@ namespace Bikewale.BAL.Customer
             customerRepository.DeactivatePasswordRecoveryToken(customerId);
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 06 Jun 2017
+        /// Description :   Checks whether customer is already registered or not
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="mobile"></param>
+        /// <returns></returns>
+        public bool IsRegisteredUser(string email, string mobile)
+        {
+            bool isRegistered = false;
+            CustomerEntity objCustEntity = null;
+            //Email or Mobile number is mandatory to check customer registration
+            if (!String.IsNullOrEmpty(email) || !(String.IsNullOrEmpty(mobile)))
+            {
+                objCustEntity = customerRepository.GetByEmailMobile(email, mobile);
+                if (objCustEntity != null)
+                    isRegistered = objCustEntity.IsExist;
+
+
+            }
+            return isRegistered;
+        }
     }
 }
