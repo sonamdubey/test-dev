@@ -140,6 +140,7 @@
     <Compile Include="Shared\Pager.cs" />
     <Compile Include="Shared\PopularScootersList.cs" />
     <Compile Include="Shared\Showrooms.cs" />
+    <Compile Include="Survey\BajajSurveyVM.cs" />
     <Compile Include="Upcoming\UpcomingBikesWidgetVM.cs" />
     <Compile Include="Upcoming\UpcomingPageVM.cs" />
     <Compile Include="UserReviews\UserReviewListingVM.cs" />

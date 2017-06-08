@@ -166,6 +166,7 @@
     <Compile Include="Security\ISecurity.cs" />
     <Compile Include="ServiceCenter\IServiceCenterCacheRepository.cs" />
     <Compile Include="ServiceCenter\IServiceCenterRepository.cs" />
+    <Compile Include="Survey\ISurveyRepository.cs" />
     <Compile Include="Used\ISearchFilters.cs" />
     <Compile Include="Used\ISearch.cs" />
     <Compile Include="Used\ISearchQuery.cs" />

@@ -999,6 +999,7 @@
     <Compile Include="Models\ServiceCenters\ServiceCenterDetailsPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterLandingPage.cs" />
     <Compile Include="Models\Survey\BajajSurveyModel.cs" />
+    <Compile Include="Models\Survey\SurveyBajajModel.cs" />
     <Compile Include="Models\Upcoming\UpcomingByMakePageModel.cs" />
     <Compile Include="Models\Upcoming\UpcomingPageModel.cs" />
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
@@ -3726,6 +3727,7 @@
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage_Mobile.cshtml" />
     <Content Include="Views\Survey\BajajSurvey_Index.cshtml" />
+    <Content Include="Views\Survey\BajajSurvey_Index_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

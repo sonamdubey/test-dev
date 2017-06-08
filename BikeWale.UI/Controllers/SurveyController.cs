@@ -1,4 +1,5 @@
-﻿using Bikewale.Models.Survey;
+﻿using Bikewale.Interfaces;
+using Bikewale.Models.Survey;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +10,49 @@ namespace Bikewale.Controllers
 {
     public class SurveyController : Controller
     {
+        private readonly ISurvey _survey;
+
+        public SurveyController(ISurvey Survey)
+        {
+            _survey = Survey;
+        }
+
         // GET: Survey
         [Route("survey/bajaj/")]
         public ActionResult BajajSurvey_Index()
         {
-            BajajSurveyModel model = new BajajSurveyModel();
+            BajajSurveyVM model = new BajajSurveyVM();
             return View(model);
         }
 
         [HttpPost]
         [Route("survey/bajaj/SubmitReview/")]
-        public ActionResult SubmitBajajReview(BajajSurveyModel model)
+        public ActionResult SubmitBajajReview(BajajSurveyVM model)
         {
-            return View();
+            model.IsSubmitted = true;
+            SurveyBajajModel objModel = new SurveyBajajModel(model, _survey);
+            objModel.GetData();
+
+            return View("~/views/Survey/BajajSurvey_Index.cshtml", model);
+        }
+
+        [Route("m/survey/bajaj/")]
+        public ActionResult BajajSurvey_Index_Mobile()
+        {
+            BajajSurveyVM model = new BajajSurveyVM();
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("m/survey/bajaj/SubmitReview/")]
+        public ActionResult SubmitBajajReview_Mobile(BajajSurveyVM model)
+        {
+            model.IsSubmitted = true;
+            model.IsMobile = true;
+            SurveyBajajModel objModel = new SurveyBajajModel(model, _survey);
+            objModel.GetData();
+
+            return View("~/views/Survey/BajajSurvey_Index.cshtml", model);
         }
     }
 }
