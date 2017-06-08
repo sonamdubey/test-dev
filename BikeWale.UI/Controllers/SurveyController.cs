@@ -42,17 +42,5 @@ namespace Bikewale.Controllers
             BajajSurveyVM model = new BajajSurveyVM();
             return View(model);
         }
-
-        [HttpPost]
-        [Route("m/survey/bajaj/SubmitReview/")]
-        public ActionResult SubmitBajajReview_Mobile(BajajSurveyVM model)
-        {
-            model.IsSubmitted = true;
-            model.IsMobile = true;
-            SurveyBajajModel objModel = new SurveyBajajModel(model, _survey);
-            objModel.GetData();
-
-            return View("~/views/Survey/BajajSurvey_Index.cshtml", model);
-        }
     }
 }
