@@ -13,7 +13,7 @@
 <div class="container content-box-shadow margin-bottom50">
 
    <div class="header-container text-center container-padding10 font15">
-        <p class="survey-heading">BikeWale is conducting a survey on two wheeler popularity. Here is your chance to participate and win Paytm cash amount. </p>
+        <p class="survey-heading">BikeWale is conducting a survey on two wheeler popularity.</p>
         <p class="survey-heading">There are a few simple questions that you need to answer and it will take maximum 2 minutes of your time.</p>
    </div>
     <div class="question-status-container x-transform position-rel leftfloat">
@@ -29,24 +29,31 @@
         <div id="page1" class="survey-page survey-page1 x-transform font16">
 
             <div class="question1 question-box" data-qNumber="1">
-                <p class="text-bold">1) Which 2-wheeler do you currently ride?</p>
-                <select id="ModelName" name="ModelName" class="survey-q1-select survey-select container-margin10">
-                    <option value="" disabled selected style="color: #aaa;"> Select </option>
-                    <option value="Activa 4G">Activa 4G</option>
-                    <option value="RTR 200">RTR 200</option>
-                    <option value="KTM Duke 200">KTM Duke 200</option>
-                </select>
+                <p class="text-bold margin-bottom10">1) Which 2-wheeler do you currently ride?</p>
+                <div class="select-box margin-left15">
+                    <p class="select-label">Select</p>
+                    <select id="ModelName" name="ModelName" class="survey-q1-select survey-select container-margin10 chosen-select">
+                        <option value=""></option>
+                        <option value="Activa 4G">Activa 4G</option>
+                        <option value="RTR 200">RTR 200</option>
+                        <option value="KTM Duke 200">KTM Duke 200</option>
+                    </select>
+                    <span class="boundary"></span>
+                </div>
                 <div class="checkbox-container"> <input type="checkbox" name="vehicle" value="Bike" id="question1_checkbox" class="survey-q1__checkbox survey-checkbox"> <label for="question1_checkbox">No, I don't ride a two wheeler</label> </div>
                 <div class="error-text error-text-q1 visibility-off">Please attempt this question</div>
             </div>
-
+            
             <div class="question2 question-box" data-qNumber="2">
-                <p class="text-bold">2) Which two wheeler do you plan to purchase in the next 3 months?</p>
-                <select id="MultipleModel" multiple="multiple" name="MultipleModel" class="survey-q2-select chosen-select" style="width: 500px;">
-                    <option value="Activa 4G">1 Activa 4G</option>
-                    <option value="RTR 200">1 RTR 200</option>
-                    <option value="KTM Duke 200">1 KTM Duke 200</option>
-                </select>
+                <p class="text-bold margin-bottom10">2) Which two wheeler do you plan to purchase in the next 3 months?</p>
+                <div class="margin-left15">
+                    <select id="MultipleModel" multiple="multiple" name="MultipleModel" class="survey-q2-select container-margin10 chosen-select">
+                        <option value="Activa 4G">Activa 4G</option>
+                        <option value="RTR 200">RTR 200</option>
+                        <option value="KTM Duke 200">KTM Duke 200</option>
+                    </select>
+                    <span class="boundary"></span>
+                </div>
                 <div class="checkbox-container"> <input type="checkbox" name="vehicle" value="Bike" id="question2_checkbox" class="survey-q2__checkbox survey-checkbox"> <label for="question2_checkbox">No, I don't ride a two wheeler</label> </div>
                 <div class="error-text error-text-q2 visibility-off">Please attempt this question</div>
             </div>
@@ -58,7 +65,7 @@
             <div class="question3 question-box">
                 <p class="text-bold">3. Which are the recent bike commercial that you remember? </p>
                 @*@Html.TextBoxFor(m => m.OtherBike)*@
-                <input class="survey-q3-input survey-input" type="text" />
+                <input class="survey-q3-input survey-input" placeholder="Type here" type="text" />
                 <div class="error-text error-text-q3 visibility-off">Please attempt this question</div>
             </div>
             <div class="question-4 question-box">
@@ -68,25 +75,32 @@
                     <input id="IsLongerFormat2" name="IsLongerFormat" type="radio" value="No" /><label for="IsLongerFormat2">No</label>
                 </div>
                 <iframe width="320" height="200" src="https://www.youtube.com/embed/XGSy3_Czz8k"></iframe>
+                    
                 <div id="adnumberofviews" class="conditional-question margin-top20 hide">
                     <p class="text-bold">a. Approximately how many times have you seen the above commercial?</p>
-
-                    <select id="viewscount" name="viewscount" class="survey-q4a-select survey-select-conditional container-margin10">
-                        <option value="" disabled selected> Select </option>
-                        <option value="1-2 Times">1-2 Times:</option>
-                        <option value="3-5 Times">3-5 Times:</option>
-                        <option value="More than 5 Times">More than 5 Times:</option>
-                    </select>
+                    <div class="select-box margin-left15 margin-top15">
+                        <p class="select-label">Select</p>
+                        <select id="viewscount" name="viewscount" class="survey-q4a-select survey-select-conditional container-margin10">
+                            <option value="" disabled selected>  </option>
+                            <option value="1-2 Times">1-2 Times:</option>
+                            <option value="3-5 Times">3-5 Times:</option>
+                            <option value="More than 5 Times">More than 5 Times:</option>
+                        </select>
+                        <span class="boundary"></span>
+                    </div>
                 </div>
+
                 <div id="admedium" class="conditional-question margin-top20 hide">
                     <p class="text-bold">b. On which media platforms, do you remember watching this commercial?</p>
-                    <select id="InternetOptions" name="InternetOptions" class="survey-q4b-select survey-select-conditional container-margin10">
-                        <option value="" disabled selected> Select </option>
-                        <option value="YouTube:">YouTube</option>
-                        <option value="Facebook:">Facebook</option>
-                        <option value="Hotstar:">Hotstar</option>
-                        <option value="Sony Live:">Sony Live</option>
-                    </select>
+                    <div class="margin-left15 margin-top15">
+                        <select id="InternetOptions" multiple="multiple" name="InternetOptions" class="survey-q4b-select survey-select-conditional container-margin10">
+                            <option value="YouTube:">YouTube</option>
+                            <option value="Facebook:">Facebook</option>
+                            <option value="Hotstar:">Hotstar</option>
+                            <option value="Sony Live:">Sony Live</option>
+                        </select>
+                        <span class="boundary"></span>
+                    </div>
                 </div>
                 <div class="error-text error-text-q4 visibility-off">Please attempt this question</div>
             </div>

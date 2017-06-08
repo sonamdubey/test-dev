@@ -6,11 +6,7 @@ docReady(function () {
             qNum = $(questionContainer).attr('data-qNumber') * 1;
         
         if ($(this).attr('checked')) {
-            if (qNum == 1) {
-                $(questionContainer).find("select").prop('selectedIndex', 0);
-            } else {
-                $(questionContainer).find("select").val(null).trigger("chosen:updated");
-            }
+            $(questionContainer).find("select").val(null).trigger("chosen:updated");
             $(questionContainer).attr('data-attempt', "true");
             var errElem = $(questionContainer).find(".error-text");
             hideError(errElem);
@@ -27,7 +23,7 @@ docReady(function () {
         $(qContainer).attr('data-attempt', true);
         hideError(errElem);
     });
-    $(".survey-select").change(function () {
+    $(".survey-select").chosen().change(function () {
         var qContainer = $(this).closest(".question-box"),
             errElem = $(qContainer).find(".error-text");
         $(qContainer).find("input[type = checkbox]").attr('checked', false);
@@ -48,10 +44,10 @@ docReady(function () {
             $(conditionalQ).hide();
         }
     });
-    $(".survey-select-conditional").on('change', function () {
+    $(".survey-select-conditional").chosen().change(function () {
         $(this).closest(".conditional-question").attr('data-attempt', true);
     });
-
+    $(".chosen-container-multi, .chosen-container-multi input, .chosen-container-single").css("width", "350px");
 });
 
 function pageOneValidation() {

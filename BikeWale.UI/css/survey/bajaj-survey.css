@@ -54,8 +54,6 @@
     margin: 40px 0;
 }
 .survey-select, .survey-select-conditional {
-    border: 1px solid #111;
-    background: transparent;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -74,7 +72,7 @@
     display: none; /* remove default arrow on ie10 and ie11 */
 }
 .checkbox-container{
-    margin-top: 15px;
+    margin : 15px 0 0 12px;
 }
 .question-status-container{
     margin-top: 20px;
@@ -109,8 +107,12 @@
     border: none;
     border-bottom: 1px solid #aaa;
     width: 80%;
-    margin-top: 20px;
+    padding-top: 20px;
     font-size: 16px;
+}
+input, input::-webkit-input-placeholder{
+    font-size: 16px;
+    line-height: 1.8;
 }
 /* target Internet Explorer 9 to undo the custom arrow */
 @media screen and (min-width:0\0) {
@@ -119,58 +121,57 @@
         padding: 5px\9;
     } 
 }
+
+.question-box .select-box .chosen-container, .question-box .select-box{
+    height: 25px;
+}
+
 /* @group Multi Chosen */
-.question-box .chosen-container .chosen-drop{
-    box-shadow: 0 -1px 4px rgba(0,0,0,.15);
-}
-.question-box .chosen-container-active .chosen-choices {
-    border: none;
-    box-shadow: none;
-}
-.question-box .chosen-container {
+.question-box .chosen-container-multi{
     padding: 0px;
+    width: 500px;
     border: none;
-    border-bottom: 1px solid #aaa;
-    user-select: none;
+    font-size: 16px;
 }
-.chosen-container-multi .chosen-choices {
-  position: relative;
-  overflow: hidden;
-  margin: 0;
-  padding: 10px 5px 5px;
-  width: 100%;
-  height: auto;
-  background-color: #fff;
-  cursor: text;
-  font-size: 15px;
+.question-box .chosen-container-multi .chosen-choices {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    border: none;
+    border-bottom: 1px solid #82888b;
+    box-shadow: none;
+    background-color: #fff;
+    cursor: text;
 }
-.chosen-container-multi .chosen-choices li {
+.question-box .chosen-container-multi .chosen-choices li {
   float: left;
   list-style: none;
 }
-.chosen-container-multi .chosen-choices li.search-field {
+.question-box .chosen-container-multi .chosen-choices li.search-field {
   margin: 0;
   padding: 0;
   white-space: nowrap;
 }
-.chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+.question-box .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
   margin: 1px 0;
   padding: 0;
-  height: 25px;
   outline: 0;
   border: 0 !important;
   background: transparent !important;
   box-shadow: none;
   color: #999;
-  font-size: 16px;
+  font-size: 100%;
   font-family: sans-serif;
   line-height: normal;
   border-radius: 0;
 }
-.chosen-container-multi .chosen-choices li.search-choice {
+.question-box .chosen-container-multi .chosen-choices li.search-choice {
   position: relative;
-  margin: 3px 5px 3px 0;
-  padding: 3px 20px 3px 5px;
+  margin: 0px 5px 3px 0;
+  padding: 5px 20px 3px 5px;
   border: 1px solid #aaa;
   max-width: 100%;
   border-radius: 3px;
@@ -188,12 +189,12 @@
   line-height: 13px;
   cursor: default;
 }
-.chosen-container-multi .chosen-choices li.search-choice span {
+.question-box .chosen-container-multi .chosen-choices li.search-choice span {
   word-wrap: break-word;
 }
-.chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
+.question-box .chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
   position: absolute;
-  top: 6px;
+  top: 7px;
   right: 4px;
   display: block;
   width: 8px;
@@ -201,10 +202,10 @@
   background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v3.png?v28Apr2017') -86px -241px no-repeat;
   font-size: 1px;
 }
-.chosen-container-multi .chosen-choices li.search-choice .search-choice-close:hover {
+.question-box .chosen-container-multi .chosen-choices li.search-choice .search-choice-close:hover {
   background-position: -86px -241px;
 }
-.chosen-container-multi .chosen-choices li.search-choice-disabled {
+.question-box .chosen-container-multi .chosen-choices li.search-choice-disabled {
   padding-right: 5px;
   border: 1px solid #ccc;
   background-color: #e4e4e4;
@@ -215,29 +216,24 @@
   background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
   color: #666;
 }
-.chosen-container-multi .chosen-choices li.search-choice-focus {
+.question-box .chosen-container-multi .chosen-choices li.search-choice-focus {
   background: #d4d4d4;
 }
-.chosen-container-multi .chosen-choices li.search-choice-focus .search-choice-close {
+.question-box .chosen-container-multi .chosen-choices li.search-choice-focus .search-choice-close {
   background-position: -42px -10px;
 }
-.chosen-container-multi .chosen-results {
+.question-box .chosen-container-multi .chosen-results {
   margin: 0;
   padding: 0;
 }
-.chosen-container-multi .chosen-drop .result-selected {
+.question-box .chosen-container-multi .chosen-drop .result-selected {
   display: list-item;
   color: #ccc;
   cursor: default;
 }
-.thankyou-page{
-    border: 1px solid #e2e2e2;
-    margin: 10px;
-    padding: 100px 10px 40px;
-}
-#page4.survey-page{
-    width: 100%;
-}
+
+/* @end */
+
 
 @media screen and (max-width:768px) and (min-width: 320px){
     .qNum {
