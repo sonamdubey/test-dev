@@ -1,4 +1,4 @@
-﻿@model Bikewale.Models.Survey.BajajSurveyModel
+﻿@model Bikewale.Models.Survey.BajajSurveyVM
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/survey/bajaj-survey.css' />";
@@ -6,7 +6,9 @@
 }
 
 
-<header class="bajaj-survey-banner"></header>
+<header class="bajaj-survey-banner">
+    <div class="header-text font22 text-black text-bold text-center">BikeWale Two Wheeler Popularity Survey</div>
+</header>
 
 <div class="container content-box-shadow margin-bottom50">
 
@@ -29,7 +31,7 @@
             <div class="question1 question-box" data-qNumber="1">
                 <p class="text-bold">1) Which 2-wheeler do you currently ride?</p>
                 <select id="ModelName" name="ModelName" class="survey-q1-select survey-select container-margin10">
-                    <option value="" disabled selected> Select </option>
+                    <option value="" disabled selected style="color: #aaa;"> Select </option>
                     <option value="Activa 4G">Activa 4G</option>
                     <option value="RTR 200">RTR 200</option>
                     <option value="KTM Duke 200">KTM Duke 200</option>
@@ -41,7 +43,6 @@
             <div class="question2 question-box" data-qNumber="2">
                 <p class="text-bold">2) Which two wheeler do you plan to purchase in the next 3 months?</p>
                 <select id="MultipleModel" multiple="multiple" name="MultipleModel" class="survey-q2-select chosen-select" style="width: 500px;">
-                    <option value=""> </option>
                     <option value="Activa 4G">1 Activa 4G</option>
                     <option value="RTR 200">1 RTR 200</option>
                     <option value="KTM Duke 200">1 KTM Duke 200</option>
@@ -116,5 +117,13 @@
         
     </form>
 
+    <div id="page4" class="text-center survey-page">
+        <div class="thankyou-page text-black">
+            <img src="../../../images/like.png" class="margin-bottom10" />
+            <div class="font24 text-bold margin-bottom10">Thank you</div>
+            <div class="margin-bottom30">Thank you for participating in the survey. This will help us to enhance your experience</div>
+            <img src="../../../images/facebook.png" />
+        </div>
+    </div>
 </div>
 

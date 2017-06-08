@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Models.Survey
 {
-    public class BajajSurveyVM
+    public class BajajSurveyVM :ModelBase
     {
         public string CurrentBike { get; set; }
         public string BikeToPurchase { get; set; }
