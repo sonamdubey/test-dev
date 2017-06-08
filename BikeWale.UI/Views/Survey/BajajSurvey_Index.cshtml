@@ -1,72 +1,76 @@
-﻿@model Bikewale.Models.Survey.BajajSurveyModel
+﻿@model Bikewale.Models.Survey.BajajSurveyVM
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+//Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form action="/survey/bajaj/SubmitReview/" method="post">
-    <div>
-        <p>Which bike do you ride</p>
-        <p>
-            Select bike
-        </p>
-        <select id="ModelName" name="ModelName">
-            <option value="">-- Select Status --</option>
-            <option value="Activa 4G">Activa 4G</option>
-            <option value="RTR 200">RTR 200</option>
-            <option value="KTM Duke 200">KTM Duke 200</option>
+@if (Model.IsSubmitted)
+{
+    <h1>Thank you</h1>
+}
+else
+{
+    <form action="/survey/bajaj/SubmitReview/" method="post">
+        <div>
+            <p>Which bike do you ride</p>
+            <p>
+                Select bike
+            </p>
+            <select id="ModelName" name="ModelName">
+                <option value="">-- Select Status --</option>
+                <option value="Activa 4G">Activa 4G</option>
+                <option value="RTR 200">RTR 200</option>
+                <option value="KTM Duke 200">KTM Duke 200</option>
+            </select>
+        </div>
+        <div>2. Do you plan to  purchase any any 2-wheeler in the next 3 months?</div>
+        <select id="MultipleModel" multiple="multiple" name="MultipleModel">
+            <option value="Activa 4G">1 Activa 4G</option>
+            <option value="RTR 200">1 RTR 200</option>
+            <option value="KTM Duke 200">1 KTM Duke 200</option>
         </select>
-    </div>
-    <div>2. Do you plan to  purchase any any 2-wheeler in the next 3 months?</div>
-    <select id="MultipleModel" multiple="multiple" name="MultipleModel">
-        <option value="Activa 4G">1 Activa 4G</option>
-        <option value="RTR 200">1 RTR 200</option>
-        <option value="KTM Duke 200">1 KTM Duke 200</option>
-    </select>
-    <div>
-        <p>3. Which 2-wheeler TV Ad have u seen? </p>
-        @Html.TextBoxFor(m => m.OtherBike)
-    </div>
-    <div>
-        <p>4. We would like to show you ad.</p>
-        <!-- Youtube vidso-->
-        <p>Have you seen this or longer format?</p>
-        Yes:<input id="IsLongerFormat" name="IsLongerFormat" type="radio" value="Yes" />
-        No: <input id="IsLongerFormat" name="IsLongerFormat" type="radio" value="No" />
-    </div>
-    <div id="adnumberofviews">
-        <p>a. Approx, how many times have you seen?</p>
-        1-2 Times:<input id="viewscount" name="viewscount" type="radio" value="1-2 Times" />
-        3-5 Times: <input id="viewscount" name="viewscount" type="radio" value="3-5 Times" />
-        More than 5 Times: <input id="viewscount" name="viewscount" type="radio" value="More than 5 Times" />
-    </div>
-    <div id="admedium">
-        <p>b. On which medium, did you see this?</p>
-        Internet:<input id="mediumtypes" name="mediumtypes" type="radio" value="Internet" />
-        Television: <input id="mediumtypes" name="mediumtypes" type="radio" value="Television" />
-        Movie Theatre: <input id="mediumtypes" name="mediumtypes" type="radio" value="Movie Theatre" />
-    </div>
-    <div id="internetmediums">
-        <select id="InternetOptions" multiple="multiple" name="InternetOptions">
-            <option value="YouTube">YouTube</option>
-            <option value="Facebook">Facebook</option>
-            <option value="Hotstar">Hotstar</option>
-            <option value="Sony Liv">Sony Liv</option>
-        </select>
-    </div>
-    <div>
-        <p>5. Your age </p>
-        @Html.TextBoxFor(m => m.Age)
-    </div>
-    <div>
-        <p>6.Mobile handset </p>
-        @Html.TextBoxFor(m => m.Handset)
-    </div>
-    <div><p>7. Select City </p>
-        <input type="text" class="ui-autocomplete-input" name="globalCityPopUp" placeholder="Type to select city" id="globalCityPopUp" autocomplete="off"></div>
-    <div>
-        <p>7. Paytm Number</p>
-        @Html.TextBoxFor(m => m.Handset)
-    </div>
-    <div><p><input type="submit" value="Submit" /></p></div>
-</form>
-
+        <div>
+            <p>3. Which 2-wheeler TV Ad have u seen? </p>
+            @Html.TextBoxFor(m => m.OtherBike)
+        </div>
+        <div>
+            <p>4. We would like to show you ad.</p>
+            <!-- Youtube vidso-->
+            <p>Have you seen this or longer format?</p>
+            Yes:<input id="IsLongerFormat" name="IsLongerFormat" type="radio" value="Yes" />
+            No: <input id="IsLongerFormat" name="IsLongerFormat" type="radio" value="No" />
+        </div>
+        <div id="adnumberofviews">
+            <p>a. Approx, how many times have you seen?</p>
+            1-2 Times:<input id="viewscount" name="viewscount" type="radio" value="1-2 Times" />
+            3-5 Times: <input id="viewscount" name="viewscount" type="radio" value="3-5 Times" />
+            More than 5 Times: <input id="viewscount" name="viewscount" type="radio" value="More than 5 Times" />
+        </div>
+        <div id="admedium">
+            <p>b. On which medium, did you see this?</p>
+            Internet:<input id="mediumtypes" name="mediumtypes" type="radio" value="Internet" />
+            Television: <input id="mediumtypes" name="mediumtypes" type="radio" value="Television" />
+            Movie Theatre: <input id="mediumtypes" name="mediumtypes" type="radio" value="Movie Theatre" />
+        </div>
+        <div id="internetmediums">
+            <select id="InternetOptions" multiple="multiple" name="InternetOptions">
+                <option value="YouTube">YouTube</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Hotstar">Hotstar</option>
+                <option value="Sony Liv">Sony Liv</option>
+            </select>
+        </div>
+        <div>
+            <p>5. Your age </p>
+            @Html.TextBoxFor(m => m.Age)
+        </div>
+        <div>
+            <p>6.Mobile handset </p>
+            @Html.TextBoxFor(m => m.Handset)
+        </div>
+        <div>
+            <p>7. Select City </p>
+            <input type="text" class="ui-autocomplete-input" name="globalCityPopUp" placeholder="Type to select city" id="globalCityPopUp" autocomplete="off">
+        </div>
+        <div><p><input type="submit" value="Submit" /></p></div>
+    </form>
+}
