@@ -80,11 +80,11 @@
                                                         }
                                                     }
                                                 </ul>
-                                                <!-- ko if : !$root.IsPageLoad() && $data && $data.questions && $data.questions.length > 0  -->
-                                                <ul class="rating-circle-list"  data-bind="custombinding: { onlyIf: !$root.IsPageLoad()}">
+                                                <!-- ko if : $data && $data.questions && $data.questions.length > 0  -->
+                                                <ul class="rating-circle-list ko-list">
                                                     <!-- ko foreach: $data.questions -->
                                                     <!-- ko if : $data.qtype == 2 -->
-                                                    <li data-bind="custombinding: { onlyIf: !$root.IsPageLoad()}">
+                                                    <li>
                                                         <div data-bind="css: 'rating-circle circle-rate-' +  $data.selectedRatingId, visible: $root.IsInitialized()">
                                                             <p class="circle-label" data-bind="text: $data.selectedRatingId"></p>
                                                             <span class="rating-progress">

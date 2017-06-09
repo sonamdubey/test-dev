@@ -260,11 +260,16 @@ docReady(function() {
         window.location.href = "/rate-your-bike/" + modelid + "/?q=" + q;
     });
 
+    for (var i = 0; i < 10; i++) {
+        if ($('.ko-list')[0])
+            $('.ko-list')[0].remove();
+    }
+
     var modelUserReviews = function () {
         var self = this;
         var reviewCount = $('#overallSpecsTab .active')[0].getAttribute("data-count");
         self.IsInitialized = ko.observable(false);
-        self.IsPageLoad = ko.observable(true);
+        self.IsApiData = ko.observable(false);
         self.PagesListHtml = ko.observable("");
         self.activeReviewList = ko.observableArray([]);
         self.activeReviewCategory = ko.observable(0);
@@ -319,8 +324,7 @@ docReady(function() {
             }           
         };
 
-        self.toggleReviewList = function (event) {
-            self.IsPageLoad(false);
+        self.toggleReviewList = function (event) {            
             self.tabEvents.toggleTab($(event.currentTarget));
             self.tabEvents.getReviews($(event.currentTarget));
         };
@@ -442,6 +446,7 @@ docReady(function() {
                 $.getJSON(apiUrl)
                 .done(function (response) {
                     if (response && response.resultDesktop) {
+                        self.IsApiData(true);
                         self.activeReviewList(response.resultDesktop);
                         self.TotalReviews(response.totalCount);
                         self.noReviews(false);                        
@@ -506,9 +511,7 @@ docReady(function() {
             vmUserReviews.init(e);
             return false;
         }
-    });
-
-    $(".read-more-target").click(function () { vmUserReviews.IsPageLoad(false); });
+    });   
 
     $window = $(window);
     overallSpecsTabsContainer = $('#overallTabsWrapper');

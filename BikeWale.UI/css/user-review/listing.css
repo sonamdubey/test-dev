@@ -256,6 +256,9 @@
 .collapsible-content.active ~ .report-abuse-label {
   display: inline; }
 
+.list-item strong {
+   font-weight:normal; }
+
 .border-light-top {
   border-top: 1px solid #f5f5f5; }
 

@@ -117,9 +117,9 @@ namespace Bikewale.BAL.UserReviews.Search
                 objResult.ResultDesktop = objReviewSummaryList;
                 
             }
-            catch
+            catch (Exception ex)
             {
-
+                ErrorClass objErr=new ErrorClass(ex, "GetUserReviewsListDesktop");
             }
             return objResult;
         }

@@ -260,7 +260,7 @@ namespace Bikewale.Cache.UserReviews
                 int i = 0;
                 foreach(var id in reviewIdList)
                 {
-                    keys[i++] = string.Format("BW_UserReviewDetails_{0}", id);
+                    keys[i++] = string.Format("BW_UserReviewDetailsV1_{0}", id);
                 }
 
                 string reviewCSV = String.Join(",", reviewIdList.ToArray());

@@ -1383,6 +1383,7 @@ namespace Bikewale.DAL.UserReviews
                                 DownVotes = SqlReaderConvertor.ToUInt16(dr["DownVotes"]),
                                 Views = SqlReaderConvertor.ToUInt16(dr["Views"]),
                                 EntryDate = SqlReaderConvertor.ToDateTime(dr["EntryDate"]),
+                                ReviewAge = FormatDate.GetTimeSpan(SqlReaderConvertor.ToDateTime(dr["EntryDate"])),
                                 OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),
                                 OverallRating = new UserReviewOverallRating()
                                 {
