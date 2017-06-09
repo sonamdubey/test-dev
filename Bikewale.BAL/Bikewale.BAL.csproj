@@ -201,6 +201,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PWA\CMS\PWACMSData.cs" />
     <Compile Include="Security\SecurityBL.cs" />
+    <Compile Include="Survey\Survey.cs" />
     <Compile Include="UsedBikes\SellBikes.cs" />
     <Compile Include="ServiceCenter\ServiceCenter.cs" />
     <Compile Include="UsedBikes\UsedBikeSeller.cs" />

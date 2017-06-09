@@ -142,6 +142,7 @@
     <Compile Include="NewBikeSearch\SearchResult.cs" />
     <Compile Include="PriceQuote\PriceQuoteRespository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Survey\Surveys.cs" />
     <Compile Include="Used\SellBikesRepository.cs" />
     <Compile Include="ServiceCenter\ServiceCenterRepository.cs" />
     <Compile Include="Used\UsedBikesRepository.cs" />
@@ -165,6 +166,10 @@
     <ProjectReference Include="..\Bikewale.Interfaces\Bikewale.Interfaces.csproj">
       <Project>{12b0edcd-aa9e-41bb-bdc9-cef75952fd49}</Project>
       <Name>Bikewale.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Models\Bikewale.Models.csproj">
+      <Project>{EA7198A6-5347-4F8F-A25E-92B1E1CEB086}</Project>
+      <Name>Bikewale.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>

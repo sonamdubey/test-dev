@@ -324,6 +324,15 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .navUL li .nestedUL li a:hover, .navUL li .nestedUL li a.open { border-left: 4px solid red; font-weight:bold; background:#fff; }
 .navUL li a span.nav-drop { position: absolute; right: 10px; top: 20px; }
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
+.new-flag {
+	width: 34px;
+	height: 16px;
+	background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/new-flag.png') no-repeat;
+	display: inline-block;
+    position: relative;
+    top: 2px;
+	margin-left: 5px;
+}
 
 /* sprite classes */
 .gplay-icon { background-position: 0 -339px; width: 114px; height: 40px; }
