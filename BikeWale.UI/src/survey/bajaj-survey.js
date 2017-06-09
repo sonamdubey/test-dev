@@ -1,12 +1,14 @@
 var partiallyFilled = false;
 var formsubmitted = false;
+var numberBulletList;
 docReady(function () {
     window.onbeforeunload = function () {
         if (partiallyFilled && !formsubmitted)
             return false;
     }
 
-    showPage(1);
+	numberBulletList = $("#question-number-list");
+
     $('.survey-checkbox').click(function () {
         var questionContainer = $(this).closest(".question-box"),
             qNum = $(questionContainer).attr('data-qNumber') * 1;
@@ -32,7 +34,7 @@ docReady(function () {
         hideError(errElem);
     });
     $(".survey-page1__btn").on('click', function () {
-        pageOneValidation();
+        pageOneValidation()
     });
     $(".survey-page2__btn").on('click', function () {
         pageTwoValidation();
@@ -61,7 +63,6 @@ function pageOneValidation() {
 
     if (q1 && q2) {
         showPage(2);
-        partiallyFilled = true;
         $(".q2-circle, .q2-line").addClass("active");
     } else if (q2) {
         showError(q1ErrorElem);
@@ -147,4 +148,14 @@ function hideError(elem) {
 function showPage(id) {
     $(".survey-page").css({ "display": "none" });
     $("#page" + id).show();
+	focusForm(numberBulletList);
+}
+
+function focusForm(element) {
+	try {
+		$('body').animate({ scrollTop: $(element).offset().top }, 500);
+	}
+	catch (e) {
+		console.warn(e.message);
+	}
 }

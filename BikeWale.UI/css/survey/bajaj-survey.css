@@ -47,8 +47,13 @@
 }
 .survey-page{
     position: relative;
-    display: inline-block;
+    display: block;
     width: 600px;
+	margin: 0 auto;
+}
+.survey-page.hide,
+.thankyou-page-container.hide {
+	display: none;
 }
 .question-box{
     margin: 40px 0;
@@ -72,14 +77,17 @@
     display: none; /* remove default arrow on ie10 and ie11 */
 }
 .checkbox-container{
-    margin : 15px 0 0 12px;
+    margin-top: 15px;
 }
 .question-status-container{
-    margin-top: 20px;
+    margin: 20px auto 0;
+	display: block;
+	text-align: center;
 }
 .q-circle{
     width: 35px;
     height: 35px;
+	line-height: 35px;
     border-radius: 50%;
     background-color: #eeeeee;
     display: inline-block;
@@ -96,9 +104,6 @@
     vertical-align: middle;
 }
 .qNum{
-    position: relative;
-    top: 7px;
-    left: 13px;
     font-size: 15px;
     font-weight: 600;
     color: #fff;
@@ -107,19 +112,33 @@
     border: none;
     border-bottom: 1px solid #aaa;
     width: 80%;
-    padding-top: 20px;
+    margin-top: 20px;
     font-size: 16px;
+}
+input[type="text"].survey-input:focus,
+input[type="number"].survey-input:focus {
+	box-shadow: none;
+	border: 0;
+	border-bottom: 1px solid #3799a7;
 }
 input, input::-webkit-input-placeholder{
     font-size: 16px;
     line-height: 1.8;
 }
-/* target Internet Explorer 9 to undo the custom arrow */
-@media screen and (min-width:0\0) {
-    .survey-select  {
-        background:none\9;
-        padding: 5px\9;
-    } 
+
+.video-wrapper {
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 25px;
+	height: 0;
+}
+
+.video-wrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .question-box .select-box .chosen-container, .question-box .select-box{
@@ -176,7 +195,6 @@ input, input::-webkit-input-placeholder{
   max-width: 100%;
   border-radius: 3px;
   background-color: #eeeeee;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee));
   background-image: -webkit-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
   background-image: -moz-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
   background-image: -o-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
@@ -209,7 +227,6 @@ input, input::-webkit-input-placeholder{
   padding-right: 5px;
   border: 1px solid #ccc;
   background-color: #e4e4e4;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee));
   background-image: -webkit-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
   background-image: -moz-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
   background-image: -o-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
@@ -236,20 +253,13 @@ input, input::-webkit-input-placeholder{
 
 
 @media screen and (max-width:768px) and (min-width: 320px){
-    .qNum {
-        position: relative;
-        top: 2px;
-        left: 8px;
-        font-size: 15px;
-        font-weight: 600;
-        color: #fff;
-    }
     .q-line{
         width: 70px;
     }
     .q-circle{
         width: 25px;
         height: 25px;
+		line-height: 25px;
     }
     .survey-page{
         width: 80%;
