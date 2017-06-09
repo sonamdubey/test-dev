@@ -48,7 +48,8 @@ namespace Bikewale.Models.UserReviews
             _userReviewsSearch = userReviewsSearch;
             ParseQueryString(makeMasking, modelMasking);
         }
-
+        public uint ExpertReviewsWidgetCount { get; set; }
+        public uint SimilarBikeReviewWidgetCount { get; set; }
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
         /// Description : Function to get list review page data
@@ -143,9 +144,9 @@ namespace Bikewale.Models.UserReviews
 
                         objData.UserReviews.WidgetHeading = string.Format("Reviews on {0}", objData.RatingsInfo.Model.ModelName);
                     }
-                    objData.ExpertReviews = new RecentExpertReviews(9, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0}", objData.ReviewsInfo.Model.ModelName)).GetData();
+                    objData.ExpertReviews = new RecentExpertReviews(ExpertReviewsWidgetCount, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0}", objData.ReviewsInfo.Model.ModelName)).GetData();
 
-                    objData.SimilarBikeReviewWidget = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, 9);
+                    objData.SimilarBikeReviewWidget = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, SimilarBikeReviewWidgetCount);
 
                 }
             }

@@ -65,6 +65,8 @@ namespace Bikewale.Controllers
             if (objData != null && objData.Status.Equals(StatusCodes.ContentFound))
             {
                 objData.PageNumber = pageNo;
+                objData.ExpertReviewsWidgetCount = 9;
+                objData.SimilarBikeReviewWidgetCount = 9;
                 UserReviewListingVM objVM = objData.GetData();
                 if (objData.Status.Equals(StatusCodes.ContentNotFound))
                 {
@@ -380,6 +382,8 @@ namespace Bikewale.Controllers
             {
                 objData.IsDesktop = true;
                 objData.PageNumber = pageNo;
+                objData.ExpertReviewsWidgetCount = 3;
+                objData.SimilarBikeReviewWidgetCount = 9;
                 UserReviewListingVM objVM = objData.GetData();
                 if (objData.Status.Equals(StatusCodes.ContentNotFound))
                 {
