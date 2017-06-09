@@ -168,6 +168,41 @@ namespace BikewaleOpr.DALs
             return isPriceSaved;
         }
 
+
+        /// <summary>
+        /// Written By : sajal gupta on 25-05-2017
+        /// Method to get all versions and dealer prices in a city
+        /// </summary>
+        /// <param name="dt">DataTable</param>
+        /// <returns></returns>
+        public string AddRulesOnPriceUpdation(string modelList, uint dealerId, uint makeId, uint updatedBy)
+        {
+            string modelNamesList = string.Empty;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("addrulesonpriceupdation"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.UpdatedRowSource = UpdateRowSource.None;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, 8, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeId", DbType.Int32, 8, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelList", DbType.String, modelList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int16, 11, updatedBy));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedModelList", DbType.String, ParameterDirection.Output));
+                    //run the command
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                    modelNamesList = Convert.ToString(cmd.Parameters["par_updatedModelList"].Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "DealerPriceQuoteRepository.AddRulesOnPriceUpdation");
+            }
+
+            return modelNamesList;
+        }
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Nov 2014
         /// Method to get all versions and dealer prices in a city

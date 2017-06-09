@@ -1,12 +1,16 @@
-﻿using Bikewale.DAL.Compare;
+﻿using Bikewale.Cache.Compare;
+using Bikewale.Cache.Core;
+using Bikewale.DAL.Compare;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
 using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
 
@@ -17,22 +21,32 @@ namespace Bikewale.BAL.Compare
     /// Description : Added methods for featured bike and sponsored bike comparisions
     /// Modified By : Sushil Kumar on 2nd Feb 2017
     /// Description : Added methods for comparisions bikes binding using transpose methodology
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added cache call for comparison carousel for further processing in element order
     /// </summary>
     public class BikeComparison : IBikeCompare
     {
         private readonly IBikeCompare _objCompare = null;
+        private readonly IBikeCompareCacheRepository _objCache = null;
 
         static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(BikeComparison));
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
 
-
+        /// <summary>
+        /// Modified by : Aditi Srivastava on 5 June 2017
+        /// Summary     : Resolution for cache layer functions
+        /// </summary>
         public BikeComparison()
         {
             using (IUnityContainer objPQCont = new UnityContainer())
             {
                 objPQCont.RegisterType<IBikeCompare, BikeCompareRepository>();
+                objPQCont.RegisterType<ICacheManager, MemcacheManager>();
+                objPQCont.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
                 _objCompare = objPQCont.Resolve<IBikeCompare>();
+                _objCache = objPQCont.Resolve<IBikeCompareCacheRepository>();
+
             }
         }
 
@@ -51,7 +65,7 @@ namespace Bikewale.BAL.Compare
 
             try
             {
-           
+
                 //sets the base URI for HTTP requests
                 string _apiUrl = String.Format("/webapi/SponsoredCarVersion/GetSponsoredCarVersion/?vids={0}&categoryId=1&platformId=2", versions);
 
@@ -905,7 +919,9 @@ namespace Bikewale.BAL.Compare
 
         /// <summary>
         /// Created By : Sushil Kumar on 2nd Dec 2016
-        /// Description : BAL layer to similar cache comaprisions bikes                  
+        /// Description : BAL layer to similar cache comaprisions bikes   
+        /// Modified by : Aditi Srivastava on 5 June 2017
+        /// Summary     : Added cache call instead of DAL
         /// </summary>
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>
@@ -913,7 +929,7 @@ namespace Bikewale.BAL.Compare
         /// <returns></returns>
         public ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, ushort topCount, int cityid)
         {
-            return _objCompare.GetSimilarCompareBikes(versionList, topCount, cityid);
+            return _objCache.GetSimilarCompareBikes(versionList, topCount, cityid);
         }
 
 
@@ -970,11 +986,54 @@ namespace Bikewale.BAL.Compare
 
         /// <summary>
         /// Created by : Aditi Srivastava on 25 Apr 2017
-        /// Summary    : Populate compare bikes list
+        /// Summary    : Populate compare bikes list 
+        /// Modified by: Aditi Srivastava 5 June 2017
+        /// Summary    : randomize order of sponsored comparison first
         /// </summary>
         public IEnumerable<SimilarCompareBikeEntity> GetPopularCompareList(uint cityId)
         {
-            return _objCompare.GetPopularCompareList(cityId);
+            IEnumerable<SimilarCompareBikeEntity> compareBikes = null;
+            try
+            {
+                compareBikes = (List<SimilarCompareBikeEntity>)_objCache.GetPopularCompareList(cityId);
+                if (compareBikes != null && compareBikes.Count() > 0)
+                {
+                    Random rnd = new Random();
+                    compareBikes = compareBikes.Where(x => x.IsSponsored && x.SponsoredEndDate>=DateTime.Now && x.SponsoredStartDate<=DateTime.Now).OrderBy(x => rnd.Next())
+                                   .Union(compareBikes.Where(x => !x.IsSponsored).OrderBy(x => x.DisplayPriority));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.GetPopularCompareList - CityId: {0}", cityId));
+            }
+            return compareBikes;
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 5 Apr 2017
+        /// Summary    : Populate compare scooters list 
+        /// Modified by: Aditi Srivastava 5 June 2017
+        /// Summary    : randomize order of sponsored comparison first
+        /// </summary>
+        public IEnumerable<SimilarCompareBikeEntity> GetScooterCompareList(uint cityId)
+        {
+            IEnumerable<SimilarCompareBikeEntity> compareScooters = null;
+            try
+            {
+                compareScooters = (List<SimilarCompareBikeEntity>)_objCache.GetScooterCompareList(cityId);
+                if (compareScooters != null && compareScooters.Count() > 0)
+                {
+                    Random rnd = new Random();
+                    compareScooters = compareScooters.Where(x => x.IsSponsored && x.SponsoredEndDate >= DateTime.Now && x.SponsoredStartDate <= DateTime.Now).OrderBy(x => rnd.Next())
+                                   .Union(compareScooters.Where(x => !x.IsSponsored).OrderBy(x => x.DisplayPriority));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.GetScooterCompareList - CityId: {0}", cityId));
+            }
+            return compareScooters;
         }
     }
 }

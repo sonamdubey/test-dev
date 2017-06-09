@@ -10,20 +10,23 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by : Aditi Srivastava on 25 Apr 2017
     /// Summary    : To get list of popular comparisons
+    /// Modified by : Aditi Srivastava on 2 June 2017
+    /// Summary     : Added BL instance instead of cache
     /// </summary>
     public class ComparePopularBikes
     {
         #region Private variables
-        private readonly IBikeCompareCacheRepository _objCompare=null;
+        private readonly IBikeCompare _objCompare=null;
         #endregion
 
         #region Public properties
         public uint TopCount { get; set; }
         public uint CityId { get; set; }
+        public bool IsScooter { get; set; }
         #endregion
 
         #region Contructor
-        public ComparePopularBikes(IBikeCompareCacheRepository objCompare)
+        public ComparePopularBikes(IBikeCompare objCompare)
         {
             _objCompare = objCompare;
         }
@@ -33,6 +36,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 25 Apr 2017
         /// Summary    : To get list of popular comparisons
+        /// Modified by : Aditi Srivastava on 2 June 2017
+        /// Summary     : Added conditional call for scooters and bikes for comparison carousel
         /// </summary>
         public PopularComparisonsVM GetData()
         {
@@ -41,7 +46,10 @@ namespace Bikewale.Models
             {
                 if (TopCount == 0)
                     TopCount = 9;
-                objComparison.CompareBikes = _objCompare.GetPopularCompareList(CityId);
+                if (IsScooter)
+                    objComparison.CompareBikes = _objCompare.GetScooterCompareList(CityId);
+                else
+                    objComparison.CompareBikes = _objCompare.GetPopularCompareList(CityId);
                 if (objComparison.CompareBikes != null && objComparison.CompareBikes.Count() > 0)
                 {
                     objComparison.IsDataAvailable = true;

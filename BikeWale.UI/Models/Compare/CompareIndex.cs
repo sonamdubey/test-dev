@@ -1,6 +1,4 @@
-﻿
-
-using Bikewale.Entities.Location;
+﻿using Bikewale.Entities.Location;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Models.Compare;
@@ -11,16 +9,18 @@ namespace Bikewale.Models
     /// <summary>
     /// Created By :- Subodh Jain 09 May 2017
     /// Summary :- Model for Comparison Landing Page
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance for comparison list
     /// </summary>
     public class CompareIndex
     {
-        private readonly IBikeCompareCacheRepository _cachedCompare = null;
+        private readonly IBikeCompare _compare = null;
         private readonly ICMSCacheContent _compareTest = null;
 
         private uint _cityId;
-        public CompareIndex(IBikeCompareCacheRepository cachedCompare, ICMSCacheContent compareTest)
+        public CompareIndex(IBikeCompare compare, ICMSCacheContent compareTest)
         {
-            _cachedCompare = cachedCompare;
+            _compare = compare;
             _compareTest = compareTest;
 
         }
@@ -89,7 +89,7 @@ namespace Bikewale.Models
         /// <returns></returns>
         public void BindCompareBike(CompareVM objVM)
         {
-            CompareWidget objCompare = new CompareWidget(_cachedCompare);
+            CompareWidget objCompare = new CompareWidget(_compare);
             try
             {
                 objCompare.topCount = 9;

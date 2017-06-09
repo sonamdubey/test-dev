@@ -113,7 +113,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                         _objPriceQuote.UpdatePriceQuote(input.PQId, pqParam);
                     }
-                    if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail))
+                    if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail, input.CustomerMobile))
                     {
                         objCust = new CustomerEntity() { CustomerName = input.CustomerName, CustomerEmail = input.CustomerEmail, CustomerMobile = input.CustomerMobile, ClientIP = input.ClientIP };
                         UInt32 CustomerId = _objCustomer.Add(objCust);

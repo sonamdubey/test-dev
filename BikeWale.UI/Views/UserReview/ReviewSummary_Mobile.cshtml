@@ -39,15 +39,19 @@
                 }
             </div>
             <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
-                <div id="bike-rating-box" class="margin-bottom20">
-                    <div class="circle-placeholder">
-                        <span class="bwmsprite @string.Format("feedback-{0}",Model.Summary.OverallRating.Value)"></span>
-                    </div>
-                    <div class="rating-placeholder">
-                        <p class="font20 font-bold">@Model.Summary.OverallRating.Heading</p>
-                        <p class="margin-top5">@Model.Summary.OverallRating.Description</p>
+                <div id="bike-rating-box" class="margin-bottom15 border-light border-radius-10">
+					<div class="rating-box-top">
+						<div class="table-middle">
+							<span class="rating-feedback @string.Format("feedback-{0}",Model.Summary.OverallRating.Value)"></span>
 
-                        <ul class="margin-top15 item-rating-list opacity-active">
+							<div class="feedback-grid inline-block">
+								<p class="font16 font-bold">@Model.Summary.OverallRating.Heading</p>
+								<p class="margin-top5 font12 text-slate-grey">@Model.Summary.OverallRating.Description</p>
+							</div>
+						</div>
+					</div>
+					<div class="rating-placeholder">
+                        <ul class="margin-top10 item-rating-list text-center rating-start">
                             @for (int i = 0; i < 5; i++)
                             {
                                 if (i < Model.Summary.OverallRating.Value)
@@ -96,7 +100,7 @@
                 {
                 <div class="margin-bottom20 border-solid-bottom"></div>
                 <h3 class="font15 text-black margin-bottom20">You also rated</h3>
-                <ul class="user-rated-list padding-bottom5 opacity-active">
+                <ul class="user-rated-list padding-bottom5">
                     @foreach (var question in Model.Summary.Questions)
                         {
                         
@@ -105,7 +109,7 @@
                             {
                         <li class="list-item">
                             <p class="category-label leftfloat">@question.Heading</p>
-                            <ul class="category-rating rightfloat">
+                            <ul class="category-rating rightfloat rating-start">
                                 @for (int i = 0; i < 5; i++)
                                         {
                                             if (i < ratingValue)
@@ -148,7 +152,7 @@
                 {
                 <div class="margin-bottom20 border-solid-bottom"></div>
                 <h3 class="font15 text-black margin-bottom15">Tell us more about your experience!</h3>
-                <p class="padding-bottom20 text-light-grey">Share your experience of owning/riding @string.Format("{0} {1}",Model.Summary.Make.MakeName,Model.Summary.Model.ModelName). Your review will be very useful to people planning to buy the same motorcycle.</p>
+                <p class="padding-bottom20 text-light-grey">Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth Rs. 1,000.</p>
                 }
             </div>
         </div>

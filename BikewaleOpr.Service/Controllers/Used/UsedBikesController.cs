@@ -31,12 +31,12 @@ namespace BikewaleOpr.Service.Controllers.Used
         /// <param name="approvedBy"></param>
         /// <returns></returns>
         [HttpPost, Route("api/used/sell/pendinginquiries/{inquiryId}/")]
-        public IHttpActionResult SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy, string profileId, string bikeName)
+        public IHttpActionResult SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy, string profileId, string bikeName, uint modelId)
         {
             bool isSuccess = false;
             try
             {
-                isSuccess = _objSellBikes.SaveEditedInquiry(inquiryId, isApproved, approvedBy, profileId, bikeName);
+                isSuccess = _objSellBikes.SaveEditedInquiry(inquiryId, isApproved, approvedBy, profileId, bikeName, modelId);
             }
             catch (Exception ex)
             {

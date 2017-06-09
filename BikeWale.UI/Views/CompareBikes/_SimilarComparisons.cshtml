@@ -1,51 +1,45 @@
 ﻿@model Bikewale.Models.PopularComparisonsVM
+
 @if (Model != null && Model.IsDataAvailable)
 {
-   <div id="comparisonCarousel" class="jcarousel-wrapper inner-content-carousel margin-bottom15 comparison-type-carousel">
-                    <div class="jcarousel">
-                        <ul class="model-comparison-list">
-                            @foreach (var bikedetails in Model.CompareBikes)
-                            {
-                                string bike1 = string.Format("{0} {1}", bikedetails.Make1, bikedetails.Model1);
-                                string bike2 = string.Format("{0} {1}", bikedetails.Make2, bikedetails.Model2);
-                                <li>
-                             <a href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(bikedetails.MakeMasking1, bikedetails.ModelMasking1, bikedetails.MakeMasking2, bikedetails.ModelMasking2, Convert.ToString(bikedetails.VersionId1), Convert.ToString(bikedetails.VersionId2),bikedetails.ModelId1,bikedetails.ModelId2, Model.CompareSource)" title="@string.Format("{0} {1} vs {2} {3}",bikedetails.Make1,bikedetails.Model1,bikedetails.Make2,bikedetails.Model2)">
-                                        <h3 class="text-black text-center margin-bottom10">@string.Format("{0} vs {1}", bikedetails.Model1, bikedetails.Model2)</h3>
-                                        <div class="grid-6 alpha omega border-light-right padding-bottom20">
-                                            <div class="imageWrapper margin-bottom10">
-                                                <div class="comparison-image">
-                                                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath1, bikedetails.HostUrl1, Bikewale.Utility.ImageSize._174x98,Bikewale.Utility.QualityFactor._70)" alt="@bike1" title="@bike1">
-                                                </div>
-                                            </div>
-                                            @if (!string.IsNullOrEmpty(bikedetails.City1))
-                                            {<p class="text-light-grey block text-truncate">Ex-showroom, @bikedetails.City1</p> }
-                                            else
-                                            {<p class="text-light-grey block text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p> }
-
-                                            <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font20 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price1))</span>
-                                        </div>
-                                        <div class="grid-6 padding-left30 omega">
-                                            <div class="imageWrapper margin-bottom10">
-                                                <div class="comparison-image">
-                                                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath2, bikedetails.HostUrl2, Bikewale.Utility.ImageSize._174x98, Bikewale.Utility.QualityFactor._70)" alt="@bike2" title="@bike2">
-                                                </div>
-                                            </div>
-                                            @if (!string.IsNullOrEmpty(bikedetails.City2))
-                                            {<p class="text-light-grey block text-truncate">Ex-showroom, @bikedetails.City2</p> }
-                                            else
-                                            {<p class="text-light-grey block text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p> }
-                                            <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font20 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price2))</span>
-                                        </div>
-                                        <div class="clear"></div>
-                                        <div class="margin-top10 text-center">
-                                            <span class="btn btn-white btn-size-1">Compare now</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                </div>
+    <div class="jcarousel-wrapper inner-content-carousel comparison-type-carousel padding-bottom20">
+        <div class="jcarousel">
+            <ul>
+                @foreach (var bike in Model.CompareBikes)
+                {
+                    <li>
+                        <a href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl( bike.MakeMasking1, bike.ModelMasking1, bike.MakeMasking2, bike.ModelMasking2, bike.VersionId1, bike.VersionId2, bike.ModelId1, bike.ModelId2, Model.CompareSource)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2)" class="card-target position-rel">
+                            <span class="text-light-grey position-abt pos-top5 pos-right5 font11">@(bike.IsSponsored ? "Sponsored" : "")</span>
+                            <div class="grid-6">
+                                <div class="model-img-content">
+                                    <img class="lazy" alt="@bike.Bike1" title="@bike.Bike1" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath1, bike.HostUrl1, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._70)" src="" />
+                                </div>
+                                <h3 class="font15 text-black margin-bottom10 text-truncate">@bike.Bike1</h3>
+                                <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, @bike.City1</p>
+                                @Html.Raw("<span class='font18 text-default text-bold'> &#x20B9;</span>")&nbsp;<span class="font18 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1))</span>
+                            </div>
+                            <div class="grid-6">
+                                <div class="model-img-content">
+                                    <img class="lazy" alt="@bike.Bike2" title="@bike.Bike2" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath2, bike.HostUrl2, Bikewale.Utility.ImageSize._210x118, Bikewale.Utility.QualityFactor._70)" src="" />
+                                </div>
+                                <h3 class="font15 text-black margin-bottom10 text-truncate">@bike.Bike2</h3>
+                                <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom, @bike.City2</p>
+                                @Html.Raw("<span class='font18 text-default text-bold'> &#x20B9;</span>")&nbsp;<span class="font18 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price2))</span>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="margin-top20 text-center">
+                                <span class="btn btn-white btn-160-36">Compare now</span>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <span class="jcarousel-control-left">
+            <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+        </span>
+        <span class="jcarousel-control-right">
+            <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+        </span>
+    </div>
 }

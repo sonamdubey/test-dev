@@ -128,6 +128,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Moved Model color logic to BAL to process multitone colors with linq
         /// Modified By : Lucky Rathore on 18th Apr 2016
         /// Description : validation modelPage.ModelDetails and modelPage.ModelDesc added. 
+        /// Modified by : Aditi Srivastava on 31 May 2017
+        /// Summary     : Moved GetModelColors function outside ModelVersions condition
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -159,10 +161,9 @@ namespace Bikewale.DAL.BikeData
                     if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                     {
                         modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
-                        modelPage.ModelColors = GetModelColor(modelId);
                         modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
                     }
-
+                    modelPage.ModelColors = GetModelColor(modelId);
                     modelPage.colorPhotos = GetModelColorPhotos(modelId);
                 }
             }

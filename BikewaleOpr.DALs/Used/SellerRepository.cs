@@ -69,11 +69,9 @@ namespace BikewaleOpr.Used
             IList<SellBikeAd> sellerListing = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getclassifiedpendinginquiries"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getclassifiedpendinginquiries_30052017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
-
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         sellerListing = new List<SellBikeAd>();
@@ -85,6 +83,8 @@ namespace BikewaleOpr.Used
                                 ad.Version = new Bikewale.Entities.BikeData.BikeVersionEntityBase();
                                 ad.InquiryId = SqlReaderConvertor.ToUInt32(dr["InquiryId"]);
                                 ad.ProfileId = Convert.ToString(dr["ProfileId"]);
+                                ad.Model = new Bikewale.Entities.BikeData.BikeModelEntityBase();
+                                ad.Model.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
                                 ad.Version = new Bikewale.Entities.BikeData.BikeVersionEntityBase();
                                 ad.Version.VersionName = Convert.ToString(dr["LiveBikeName"]);
                                 ad.NewVersion = new Bikewale.Entities.BikeData.BikeVersionEntityBase();
@@ -141,6 +141,52 @@ namespace BikewaleOpr.Used
                 objErr.SendMail();
             }
             return isSuccess;
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 26 May 2017 
+        /// Summary    : Get seller and bike details based on inquiryId
+        /// </summary>
+        public UsedBikeProfileDetails GetUsedBikeSellerDetails(int inquiryId, bool isDealer)
+        {
+            UsedBikeProfileDetails sellerProfile = null;
+            try
+            {
+                if (!isDealer)
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand("classified_getsellerdetails_26052017"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                        {
+                            if (dr != null && dr.Read())
+                            {
+                                sellerProfile = new UsedBikeProfileDetails();
+                                sellerProfile.SellerDetails = new CustomerEntityBase();
+                                sellerProfile.SellerDetails.CustomerId = SqlReaderConvertor.ToUInt64(dr["SellerId"]);
+                                sellerProfile.SellerDetails.CustomerName = Convert.ToString(dr["SellerName"]);
+                                sellerProfile.SellerDetails.CustomerMobile = Convert.ToString(dr["contact"]) ;
+                                sellerProfile.SellerDetails.CustomerEmail = Convert.ToString(dr["selleremail"]);
+                                sellerProfile.MakeYear = SqlReaderConvertor.ToDateTime(dr["makeyear"]);
+                                sellerProfile.Owner = SqlReaderConvertor.ToUInt16(dr["owner"]);
+                                sellerProfile.RideDistance = Convert.ToString(dr["distance"]);
+                                sellerProfile.ModelId = SqlReaderConvertor.ToUInt32(dr["modelid"]);
+                                sellerProfile.City = Convert.ToString(dr["city"]);
+                                sellerProfile.HostUrl = Convert.ToString(dr["hosturl"]);
+                                sellerProfile.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
+                                dr.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "GetUsedBikeSellerDetails" + inquiryId);
+            }
+            return sellerProfile;
         }
 
     }

@@ -269,7 +269,7 @@ namespace Bikewale.Models
                         var locationCookie = GlobalCityArea.GetGlobalCityArea();
 
                         objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
-                        BuildPageMetas(objVM.PageMetaTags);
+                        BuildPageMetas(objVM);
 
                     }
                     else
@@ -503,14 +503,14 @@ namespace Bikewale.Models
 
                 if (firstVersion != null)
                 {
-                    string newBikeDescription = string.Format("{0} {1} on-road price in {2} - Rs. {3} onwards. It is available in {4} version{5}{6}", firstVersion.MakeName, firstVersion.ModelName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+                    string newBikeDescription = string.Format("{0} {1} on-road price in {2} -   &#x20B9; {3} onwards. It is available in {4} version{5}{6}", firstVersion.MakeName, firstVersion.ModelName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
 
                     if (dealerCount > 0)
                         newBikeDescription = string.Format("{0} {1} is sold by {2} dealership{3} in {4}.", newBikeDescription, firstVersion.ModelName, dealerCount, multiDealer, firstVersion.City);
 
                     newBikeDescription = string.Format("{0} All the colour options and versions of {1} might not be available at all the dealerships in {2}.", newBikeDescription, firstVersion.ModelName, firstVersion.City);
 
-                    string discontinuedDescription = string.Format("The last known ex-showroom price of {0} {1} in {2} was Rs. {3} onwards. This bike has now been discontinued. It was available in {4} version{5}{6} Click on a {1} version name to know the last known ex-showroom price in {2}.", firstVersion.MakeName, firstVersion.ModelName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+                    string discontinuedDescription = string.Format("The last known ex-showroom price of {0} {1} in {2} was   &#x20B9; {3} onwards. This bike has now been discontinued. It was available in {4} version{5}{6} Click on a {1} version name to know the last known ex-showroom price in {2}.", firstVersion.MakeName, firstVersion.ModelName, firstVersion.City, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
 
                     if (isNew)
                         pageDescription = newBikeDescription;
@@ -529,22 +529,28 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 28 mar 2017
         /// Description :   Binds the page metas
+        /// Modified By :- Subodh Jain 2 june 2017
+        /// Added target city and model
         /// </summary>
         /// <param name="metas"></param>
-        private void BuildPageMetas(PageMetaTags metas)
+        private void BuildPageMetas(PriceInCityPageVM objVM)
         {
             try
             {
                 string bikeName = String.Format("{0} {1}", firstVersion.MakeName, firstVersion.ModelName);
-                metas.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
-                metas.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
-                metas.Title = string.Format("{0} price in {1} - Check On Road Price & Dealer Info. - BikeWale", bikeName, firstVersion.City);
+                objVM.PageMetaTags.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
+                objVM.PageMetaTags.CanonicalUrl = string.Format("{0}/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName);
+                objVM.PageMetaTags.Title = string.Format("{0} price in {1} - Check On Road Price & Dealer Info. - BikeWale", bikeName, firstVersion.City);
 
                 if (firstVersion != null && !isNew)
-                    metas.Description = string.Format("{0} price in {1} - Rs. {2} (On road price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, firstVersion.City, firstVersion.OnRoadPrice);
+                    objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (On road price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, firstVersion.City, firstVersion.OnRoadPrice);
                 else if (firstVersion != null)
-                    metas.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom). Get prices for all the versions of and check out the nearest {0} Dealer in {1}", bikeName, firstVersion.City, firstVersion.ExShowroomPrice);
-                metas.Keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, firstVersion.City, firstVersion.ModelName);
+                    objVM.PageMetaTags.Description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom). Get prices for all the versions of and check out the nearest {0} Dealer in {1}", bikeName, firstVersion.City, firstVersion.ExShowroomPrice);
+                objVM.PageMetaTags.Keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, firstVersion.City, firstVersion.ModelName);
+
+                objVM.AdTags.TargetedCity = firstVersion.City;
+                objVM.AdTags.TargetedModel = firstVersion.ModelName;
+
             }
             catch (Exception ex)
             {
@@ -596,7 +602,7 @@ namespace Bikewale.Models
                     {
                         objVM.ManufacturerCampaign = new ManufacturerCampaign()
                         {
-                            Ad = Format.FormatManufacturerAd(bpqOutput.ManufacturerAd, bpqOutput.CampaignId, bpqOutput.ManufacturerName, bpqOutput.MaskingNumber, bpqOutput.ManufacturerId, bpqOutput.Area, ((int)PQSource).ToString(), ((int)PQSource).ToString(), string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(bpqOutput.MaskingNumber) ? "hide" : string.Empty, bpqOutput.LeadCapturePopupHeading, bpqOutput.LeadCapturePopupDescription, bpqOutput.LeadCapturePopupMessage, bpqOutput.PinCodeRequired),
+                            Ad = Format.FormatManufacturerAd(bpqOutput.ManufacturerAd, bpqOutput.CampaignId, bpqOutput.ManufacturerName, bpqOutput.MaskingNumber, bpqOutput.ManufacturerId, bpqOutput.Area, ((int)PQSource).ToString(), ((int)PQSource).ToString(), string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(bpqOutput.MaskingNumber) ? "hide" : string.Empty, bpqOutput.LeadCapturePopupHeading, bpqOutput.LeadCapturePopupDescription, bpqOutput.LeadCapturePopupMessage, bpqOutput.PinCodeRequired, bpqOutput.EmailRequired),
                             Name = bpqOutput.ManufacturerName,
                             Id = bpqOutput.ManufacturerId
                         };

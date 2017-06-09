@@ -10,33 +10,34 @@
     <div class="swiper-slide">
         <div class="swiper-card">
             <a href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl( bike.MakeMasking1, bike.ModelMasking1, bike.MakeMasking2, bike.ModelMasking2, bike.VersionId1, bike.VersionId2, bike.ModelId1, bike.ModelId2, Bikewale.Entities.Compare.CompareSources.Desktop_Comparison_Landing)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2)" class="card-target">
-                <div class="grid-6 padding-left5">
-                    <div class="model-img-content">
-                        <img class="swiper-lazy" alt="@bike.Bike1" title="@bike.Bike1" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath1, bike.HostUrl1, Bikewale.Utility.ImageSize._144x81, Bikewale.Utility.QualityFactor._70)" src="" />
-                        <span class="swiper-lazy-preloader"></span>
+                <span class="text-light-grey pos-overlap position-abt pos-top0 pos-right0 font10">@(bike.IsSponsored?"Sponsored":"")</span>
+                    <div class="grid-6 padding-left5">
+                        <div class="model-img-content">
+                            <img class="swiper-lazy" alt="@bike.Bike1" title="@bike.Bike1" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath1, bike.HostUrl1, Bikewale.Utility.ImageSize._144x81, Bikewale.Utility.QualityFactor._70)" src="" />
+                            <span class="swiper-lazy-preloader"></span>
+                        </div>
+                        <div class="padding-left10 padding-right5">
+                            <h3 class="font12 text-black margin-bottom5 text-truncate">@bike.Bike1</h3>
+                            <p class="font11 text-light-grey text-truncate">Ex-showroom, @bike.City1</p>
+                            @Html.Raw("<span class='text-bold text-default font16' >&#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1))</span>
+                        </div>
                     </div>
-                    <div class="padding-left10 padding-right5">
-                        <h3 class="font12 text-black margin-bottom5 text-truncate">@bike.Bike1</h3>
-                        <p class="font11 text-light-grey text-truncate">Ex-showroom, @bike.City1</p>
-                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1))</span>
+                    <div class="grid-6 padding-left5">
+                        <div class="model-img-content">
+                            <img class="swiper-lazy" alt="@bike.Bike2" title="@bike.Bike2" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath2, bike.HostUrl2, Bikewale.Utility.ImageSize._144x81, Bikewale.Utility.QualityFactor._70)" src="" />
+                            <span class="swiper-lazy-preloader"></span>
+                        </div>
+                        <div class="padding-left10 padding-right5">
+                            <h3 class="font12 text-black margin-bottom5 text-truncate">@bike.Bike2</h3>
+                            <p class="font11 text-light-grey text-truncate">Ex-showroom, @bike.City2</p>
+                            @Html.Raw("<span class='text-bold text-default font16' >&#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price2))</span>
+                        </div>
                     </div>
-                </div>
-                <div class="grid-6 padding-left5">
-                    <div class="model-img-content">
-                        <img class="swiper-lazy" alt="@bike.Bike2" title="@bike.Bike2" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath2, bike.HostUrl2, Bikewale.Utility.ImageSize._144x81, Bikewale.Utility.QualityFactor._70)" src="" />
-                        <span class="swiper-lazy-preloader"></span>
+                    <div class="clear"></div>
+                    <div class="margin-top20 text-center">
+                        <span class="btn btn-white btn-140-32">Compare now</span>
                     </div>
-                    <div class="padding-left10 padding-right5">
-                        <h3 class="font12 text-black margin-bottom5 text-truncate">@bike.Bike2</h3>
-                        <p class="font11 text-light-grey text-truncate">Ex-showroom, @bike.City2</p>
-                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price2))</span>
-                    </div>
-                </div>
-                <div class="clear"></div>
-                <div class="margin-top20 text-center">
-                    <span class="btn btn-white btn-140-32">Compare now</span>
-                </div>
-            </a>
+</a>
         </div>
     </div>
 }

@@ -1,18 +1,21 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Compare;
-using Bikewale.Models;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
+using System.Linq;
 namespace Bikewale.Models
 {
     /// <summary>
     /// Created by  :   Sumit Kate on 30 Mar 2017
     /// Description :   ScootersIndexPage Model
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance instead of cache for comparison carousel
     /// </summary>
     public class ScootersIndexPageModel
     {
@@ -20,8 +23,8 @@ namespace Bikewale.Models
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IUpcoming _upcoming = null;
-        private readonly IBikeCompareCacheRepository _compareScooters = null;
-
+        private readonly IBikeCompare _compareScooters = null;
+        
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
         /// Description :   Constructor to initialize the member variables
@@ -35,7 +38,7 @@ namespace Bikewale.Models
             IBikeModels<BikeModelEntity, int> bikeModels,
             INewBikeLaunchesBL newLaunches,
             IUpcoming upcoming,
-            IBikeCompareCacheRepository compareScooters
+            IBikeCompare compareScooters
             )
         {
             _bikeMakes = bikeMakes;
@@ -48,6 +51,7 @@ namespace Bikewale.Models
         public uint CityId { get { return GlobalCityArea.GetGlobalCityArea().CityId; } }
         public ushort BrandTopCount { get; set; }
         public PQSourceEnum PqSource { get; set; }
+        public CompareSources CompareSource { get; set; }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
@@ -96,22 +100,25 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Created by  :   Sumit Kate on 30 Mar 2017
-        /// Description :   Binds Comparison
+        /// Created by : Aditi Srivastava on 2 June 2017
+        /// Summary : Bind popular scooter comparisons
         /// </summary>
-        /// <param name="objVM"></param>
         private void BindComparison(ScootersIndexPageVM objVM)
         {
-            try
-            {
-                var compare = new CompareBikes.ComparisonMinWidget(_compareScooters, 4, true, EnumBikeType.Scooters);
-                objVM.Comparison = compare.GetData();
+            try {
+                ComparePopularBikes objCompare = new ComparePopularBikes(_compareScooters);
+                objCompare.TopCount = 9;
+                objCompare.CityId = CityId;
+                objCompare.IsScooter = true;
+                objVM.ComparePopularScooters = objCompare.GetData();
+                objVM.HasComparison = (objVM.ComparePopularScooters != null && objVM.ComparePopularScooters.CompareBikes != null && objVM.ComparePopularScooters.CompareBikes.Count() > 0);
+                objVM.ComparePopularScooters.CompareSource = CompareSource;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindComparison()");
+                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindComparison");
             }
-        }
+       }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017

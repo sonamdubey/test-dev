@@ -510,7 +510,11 @@
         self.setBuyer = function (n, e, m) {
             var buyer = new customerVM();
             buyer.userName(n);
-            buyer.emailId(e);
+            if (e!="undefined") {
+                buyer.emailId(e);
+            } else {
+                buyer.emailId();
+            }
             buyer.mobileNo(m);
             self.buyer(buyer);
         };

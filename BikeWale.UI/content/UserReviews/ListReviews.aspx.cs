@@ -264,7 +264,7 @@ namespace Bikewale.Content
 
                 GoogleKeywords();
                 BindControls();
-                returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/user-reviews/", MakeMaskingName, ModelMaskingName));
+                returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/user-reviews/&sourceid={2}", MakeMaskingName, ModelMaskingName, (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_UserReview_Listing));
                 CreatMetas();
             }
         }//pageload

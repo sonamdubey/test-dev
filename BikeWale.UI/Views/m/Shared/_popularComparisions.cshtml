@@ -10,7 +10,7 @@
             </div>
             <h3 class="font14 text-black margin-bottom5">@Model.First().Bike1</h3>
             <div class="text-default text-bold">
-                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.First().Price1))</span>
+                @Html.Raw("<span class='text-bold font16'> &#x20B9;</span>")&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.First().Price1))</span>
                 <span class="font12">onwards</span>
             </div>
             <p class="text-light-grey margin-bottom5 font12">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
@@ -21,7 +21,7 @@
             </div>
             <h3 class="font14 text-black margin-bottom5">@Model.First().Bike2</h3>
             <div class="text-default text-bold">
-                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.First().Price2))</span>
+                @Html.Raw("<span class='text-bold font16'> &#x20B9;</span>")&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.First().Price2))</span>
                 <span class="font12">onwards</span>
             </div>
             <p class="text-light-grey margin-bottom5 font12">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>

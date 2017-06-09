@@ -186,7 +186,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NReco.PdfGenerator">
       <HintPath>..\Libs\NReco.PdfGenerator.dll</HintPath>
@@ -3752,6 +3752,11 @@
     <Content Include="Views\UserReview\WriteReviewContest_Mobile.cshtml" />
     <Content Include="Views\Survey\BajajSurvey_Index.cshtml" />
     <Content Include="Views\Survey\BajajSurvey_Index_Mobile.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile.cshtml" />
+    <Content Include="Views\UserReview\WriteReviewContest_Mobile.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Ad976x400_Middle.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x400_Middle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3927,6 +3932,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
-</PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

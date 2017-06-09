@@ -43,13 +43,6 @@
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
                     </div>
-                    <div class="input-box form-control-box margin-bottom15">
-                        <input type="email" id="getEmailID" data-bind="textInput: emailId">
-                        <label for="getEmailID">Email<sup>*</sup></label>
-                        <span class="boundary"></span>
-                        <span class="error-text hide"></span>
-                    </div>
-
                     <div class="input-box input-number-box form-control-box margin-bottom15">
                         <input type="tel" maxlength="10" id="getMobile" data-bind="textInput: mobileNo">
                         <label for="getMobile">Mobile number<sup>*</sup></label>
@@ -57,6 +50,14 @@
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
                     </div>
+                    <div class="input-box form-control-box margin-bottom15" data-bind="visible : emailRequired() || !mfgCampaignId()">
+                        <input type="email" id="getEmailID" data-bind="textInput: emailId">
+                        <label for="getEmailID">Email (optional)</label>
+                        <span class="boundary"></span>
+                        <span class="error-text hide"></span>
+                    </div>
+
+               
 
                     <div id="getPinCode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
                         <input type="text" id="getPinCode" autocomplete="off">
@@ -126,7 +127,12 @@
             var self = this;
             if (arr != null && arr.length > 0) {
                 self.fullName = ko.observable(arr[0]);
-                self.emailId = ko.observable(arr[1]);
+                if (arr[1]!="undefined") {
+                    self.emailId = ko.observable(arr[1]);
+                } else {
+                    self.emailId = ko.observable();
+                }
+
                 self.mobileNo = ko.observable(arr[2]);
             }
             else {
@@ -161,6 +167,7 @@
             self.dealerMessage = ko.observable();
             self.dealerDescription = ko.observable();
             self.pinCodeRequired = ko.observable();
+            self.emailRequired = ko.observable();
             self.dealersRequired = ko.observable();
             self.dealerCityName = ko.observable();
             self.dealerAreaName = ko.observable();
@@ -219,6 +226,10 @@
 
                     if (options.pinCodeRequired != null)
                         self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true);
+
+                    if (options.emailRequired != null)
+                        self.emailRequired(options.emailRequired != 'true' ? false : true);
+
                     if (options.dealersRequired != null)
                         self.dealersRequired(options.dealersRequired != 'true' ? false : true);
                     
@@ -444,7 +455,9 @@
                 var isValid = true;
 
                 isValid = self.validateUserName();
-                isValid &= self.validateEmailId();
+             
+                    isValid &= self.validateEmailId();
+             
                 isValid &= self.validateMobileNo();
                 if (self.pinCodeRequired()) {
                     isValid &= self.validatePinCode();
@@ -503,9 +516,13 @@
                 var isValid = true,
                     emailVal = leadEmailId.val(),
                     reEmail = /^[A-z0-9._+-]+@@[A-z0-9.-]+\.[A-z]{2,6}$/;
-                if (emailVal == "") {
+                if (self.emailRequired() && emailVal == "") {
                     validate.setError(leadEmailId, 'Please enter email id');
                     isValid = false;
+                }
+                else if (emailVal == "")
+                {
+                    isValid = true;
                 }
                 else if (!reEmail.test(emailVal)) {
                     validate.setError(leadEmailId, 'Invalid Email');

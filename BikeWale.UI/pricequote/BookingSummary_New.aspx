@@ -464,8 +464,11 @@
             var arr = setuserDetails();
             if (arr != null && arr.length > 0) {
                 viewModel.Customer().Name(arr[0]);
-                viewModel.Customer().EmailId(arr[1]);
-                viewModel.Customer().MobileNo(arr[2]);
+                if(arr[2]!="undefined")
+                    viewModel.Customer().EmailId(arr[2]);
+                else
+                    viewModel.Customer().EmailId();
+                viewModel.Customer().MobileNo(arr[1]);
             }
             <% } %>                    
             var getCityArea = GetGlobalCityArea();
