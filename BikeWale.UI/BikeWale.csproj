@@ -508,6 +508,7 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NewLaunchesController.cs" />
     <Compile Include="Controllers\ScootersController.cs" />
+    <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\UpcomingController.cs" />
     <Compile Include="Controllers\UserReviewController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
@@ -997,6 +998,8 @@
     <Compile Include="Models\ServiceCenters\ServiceCenterCityPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterDetailsPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterLandingPage.cs" />
+    <Compile Include="Models\Survey\BajajSurveyModel.cs" />
+    <Compile Include="Models\Survey\SurveyBajajModel.cs" />
     <Compile Include="Models\Upcoming\UpcomingByMakePageModel.cs" />
     <Compile Include="Models\Upcoming\UpcomingPageModel.cs" />
     <Compile Include="Models\Used\UsedBikeModelsWidgetModel.cs" />
@@ -2272,6 +2275,7 @@
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
+    <Content Include="css\survey\bajaj-survey.css" />
     <Content Include="m\css\content\app.css" />
     <Content Include="css\content\details.css" />
     <Content Include="css\components\sidebar-bike-list.css" />
@@ -3198,6 +3202,7 @@
     <!--     <Content Include="src\Research\photogallery\image-gallery.js" />
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\survey\bajaj-survey.js" />
     <Content Include="src\swiper-3.1.7.js" />
     <Content Include="src\used-landing.js" />
     <Content Include="src\sell-bike.js" />
@@ -3745,6 +3750,8 @@
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage_Mobile.cshtml" />
     <Content Include="Views\UserReview\WriteReviewContest_Mobile.cshtml" />
+    <Content Include="Views\Survey\BajajSurvey_Index.cshtml" />
+    <Content Include="Views\Survey\BajajSurvey_Index_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
