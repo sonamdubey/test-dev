@@ -32,7 +32,7 @@ namespace Bikewale.Models.Survey
         {
             if (_response != null)
             {
-                if (!string.IsNullOrEmpty(_response.CurrentBike))
+                if (string.IsNullOrEmpty(_response.CurrentBike))
                 {
                     _response.CurrentBike = "No, I don't ride a two wheeler";
                 }
