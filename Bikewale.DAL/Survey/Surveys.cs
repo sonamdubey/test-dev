@@ -33,11 +33,11 @@ namespace Bikewale.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_adbikemodel", DbType.String, 100, surveryResponse.RecentBikeCommercial));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hasuserseenad", DbType.String, 5, surveryResponse.SeenThisAd));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_adviews", DbType.String, 100, surveryResponse.viewscount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_admedium", DbType.String, 100, surveryResponse.AdMedium));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_admedium", DbType.String, 100, surveryResponse.AllMedium));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_age", DbType.String, 100, surveryResponse.Age));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_handset", DbType.String, 100, surveryResponse.Handset));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_city", DbType.String, 100, surveryResponse.City));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_source", DbType.String, 10, surveryResponse.IsMobile ? "Mobile" : "Desktop"));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_source", DbType.String, 10, surveryResponse.Source));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }

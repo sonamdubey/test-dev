@@ -18,7 +18,7 @@ namespace Bikewale.Models.Survey
             _response = Response;
         }
 
-        public void GetData()
+        public void SaveResponse()
         {
             FormatOutPut(_response);
             _survey.InsertBajajSurveyResponse(_response);
@@ -30,6 +30,8 @@ namespace Bikewale.Models.Survey
             {
                 if (_response.MultipleModel != null && _response.MultipleModel.Count > 0)
                     _response.BikeToPurchase = string.Join(",", _response.MultipleModel);
+                if (_response.AdMedium != null && _response.AdMedium.Count > 0)
+                    _response.AllMedium = string.Join(",", _response.AdMedium);
             }
         }
     }

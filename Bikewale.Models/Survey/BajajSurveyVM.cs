@@ -13,7 +13,7 @@ namespace Bikewale.Models.Survey
         public string RecentBikeCommercial { get; set; }
         public string SeenThisAd { get; set; }
         public string viewscount { get; set; }
-        public string AdMedium { get; set; }
+        public string AllMedium { get; set; }
 
         //public List<string> InternetOptions { get; set; }
 
@@ -23,7 +23,9 @@ namespace Bikewale.Models.Survey
 
         public bool IsSubmitted { get; set; }
         public bool IsMobile { get; set; }
+        public string Source { get; set; }
 
         public List<string> MultipleModel { get; set; }
+        public List<string> AdMedium { get; set; }
     }
 }

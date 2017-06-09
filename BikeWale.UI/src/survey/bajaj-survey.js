@@ -5,7 +5,6 @@ docReady(function () {
         if (partiallyFilled && !formsubmitted)
             return false;
     }
-
     showPage(1);
     $('.survey-checkbox').click(function () {
         var questionContainer = $(this).closest(".question-box"),
@@ -51,6 +50,19 @@ docReady(function () {
         $(this).closest(".conditional-question").attr('data-attempt', true);
     });
     $(".chosen-container-multi, .chosen-container-multi input, .chosen-container-single").css("width", "350px");
+
+    $("#txtCity").bw_autocomplete({
+        inputField: $("#txtCity"),
+        source: 3,
+        click: function (event, ui, orgTxt) {
+            if (ui && ui.item && ui.item.label) {
+                $("#txtCity").val(ui.item.label.split(",")[0]);
+                console.log(ui.item.label.split(",")[0]);
+            }
+            else
+                $("#txtCity").val('');
+        }
+    });
 });
 
 function pageOneValidation() {
