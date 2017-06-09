@@ -7,7 +7,6 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Bikewale.Utility.LinqHelpers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -156,7 +155,7 @@ namespace Bikewale.BAL.UserReviews
 
                 if (!objRating.IsFake)
                 {
-                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, reviewId,returnUrl,platformId, sourceId);
+                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, reviewId, returnUrl, platformId, sourceId);
                     objRating.CustomerId = objCust.CustomerId;
                 }
                 else
@@ -302,7 +301,7 @@ namespace Bikewale.BAL.UserReviews
             try
             {
                 //Check if Customer exists
-                objCust = _objCustomer.GetByEmail(customer.CustomerEmail);
+                objCust = _objCustomer.GetByEmailMobile(customer.CustomerEmail, customer.CustomerMobile);
                 if (objCust != null && objCust.CustomerId > 0)
                 {
                     //If exists update the mobile number and name

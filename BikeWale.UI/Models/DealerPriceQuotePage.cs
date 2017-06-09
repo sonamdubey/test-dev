@@ -331,7 +331,7 @@ namespace Bikewale.Models
                         {
                             objData.ManufacturerCampaign = new ManufacturerCampaign()
                             {
-                                Ad = Format.FormatManufacturerAd(objData.Quotation.ManufacturerAd, objData.Quotation.CampaignId, objData.Quotation.ManufacturerName, objData.Quotation.MaskingNumber, objData.Quotation.ManufacturerId, objData.Quotation.Area, objData.PQLeadSource.ToString(), objData.PQSourcePage.ToString(), string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objData.Quotation.MaskingNumber) ? "hide" : string.Empty, objData.Quotation.LeadCapturePopupHeading, objData.Quotation.LeadCapturePopupDescription, objData.Quotation.LeadCapturePopupMessage, objData.Quotation.PinCodeRequired),
+                                Ad = Format.FormatManufacturerAd(objData.Quotation.ManufacturerAd, objData.Quotation.CampaignId, objData.Quotation.ManufacturerName, objData.Quotation.MaskingNumber, objData.Quotation.ManufacturerId, objData.Quotation.Area, objData.PQLeadSource.ToString(), objData.PQSourcePage.ToString(), string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objData.Quotation.MaskingNumber) ? "hide" : string.Empty, objData.Quotation.LeadCapturePopupHeading, objData.Quotation.LeadCapturePopupDescription, objData.Quotation.LeadCapturePopupMessage, objData.Quotation.PinCodeRequired, objData.Quotation.EmailRequired),
                                 Name = objData.Quotation.ManufacturerName,
                                 Id = objData.Quotation.ManufacturerId
                             };
