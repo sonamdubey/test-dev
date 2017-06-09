@@ -50,15 +50,7 @@
                                 </div>
 
                                 <div class="margin-bottom10">
-                                    <div class="grid-4 alpha padding-right5">
-                                        <span class="bwmsprite calender-grey-sm-icon"></span>
-                                        &nbsp;<span class="article-stats-content" data-bind="text: activeReviewList()[@i].reviewShortDate">@Bikewale.Utility.FormatDate.GetFormatDate(review.ReviewDate.ToString(), "dd MMM yyyy") </span>
-                                    </div>
-                                    <div class="grid-8 alpha omega">
-                                        <span class="bwmsprite author-grey-sm-icon"></span>
-                                        &nbsp;<span class="article-stats-content" data-bind="text: activeReviewList()[@i].writtenBy">@review.WrittenBy</span>
-                                    </div>
-                                    <div class="clear"></div>
+                                        <span class="font12 text-light-grey" data-bind="text: activeReviewList()[@i].reviewShortDate + ' ago by ' + activeReviewList()[@i].writtenBy">@Bikewale.Utility.FormatDate.GetFormatDate(review.ReviewDate.ToString(), "dd MMM yyyy") ago by @review.WrittenBy</span>
                                 </div>
 
                                 <div class="font14 text-slate-grey margin-bottom10">
@@ -80,8 +72,7 @@
                                 <div class="grid-5 omega text-right" style="display: @(review.Viewed > 0 ? "block" : "none")" data-bind="visible: activeReviewList()[@i].viewed >
                                     0">
                                     <div class="item-views-grid">
-                                        <span class="bwmsprite views-sm"></span>
-                                        &nbsp;<span data-bind="CurrencyText: activeReviewList()[@i].viewed">@Format.FormatNumeric(review.Viewed.ToString())</span><span>&nbsp;Views</span>
+                                        <span data-bind="CurrencyText: activeReviewList()[@i].viewed">@Format.FormatNumeric(review.Viewed.ToString())</span><span>&nbsp;views</span>
                                     </div>
                                 </div>
                                 <div class="clear"></div>

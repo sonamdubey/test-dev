@@ -15,28 +15,41 @@
 {
     <section id="section-review-details" data-modelid="@Model.UserReviewDetailsObj.Model.ModelId">
         <div class="container content-box-shadow card-bottom-margin">
-            <div class="content-inner-block-20 content-box-shadow">
-                <p class="font15 font-bold text-black margin-bottom10">@Bikewale.Utility.FormatDescription.TruncateDescription(Model.UserReviewDetailsObj.Title, 85)</p>
+			<div class="model-card-details content-box-shadow padding-10-20">
+				<div class="left-grid-image inline-block">
+					<img src="https://imgd.aeplcdn.com//110x61//bw/models/honda-shine.jpg?20173103132015&q=65" alt="">
+				</div>
+				<div class="right-grid-details inline-block">
+					<h1 class="font-bold">
+						<a href="" class="font16 text-black">Honda CB Shine</a>
+					</h1>
+					<div class="model-overall-rating">
+						<span class="rate-count-5">
+							<span class="bwmsprite star-icon"></span>
+							<span class="font14 text-bold">0.0</span>			
+						</span>
+						<span class="font12 text-slate-grey review-left-divider">00 ratings</span>
+						<span class="font12 text-slate-grey review-left-divider">00 reviews</span>
+					</div>
+				</div>
+			</div>
+            <div class="user-review-list content-inner-block-20 content-box-shadow margin-top3">
+				<div class="margin-bottom10">
+					<span class="rating-badge bg-rate-@Model.UserReviewDetailsObj.OverallRating.Value">
+						<span class="bwmsprite star-white"></span>
+						<span>@Model.UserReviewDetailsObj.OverallRating.Value</span>
+					</span>
+					<div class="grid-10-inline font15 text-black text-bold">
+						<span class="review-title position-rel">@Bikewale.Utility.FormatDescription.TruncateDescription(Model.UserReviewDetailsObj.Title, 85)</span>
+					</div>
+				</div>
 
-                <span class="rating-badge bg-rate-@Model.UserReviewDetailsObj.OverallRating.Value no-margin leftfloat margin-right15">
-                    <span class="bwmsprite star-white"></span>
-                    <span>&nbsp;@Model.UserReviewDetailsObj.OverallRating.Value</span>
-                </span>
-                <div class="grid-5 alpha padding-right5">
-                    <span class="bwmsprite author-grey-sm-icon"></span>
-                    &nbsp;<span class="article-stats-content" data-bind="text: author">@Model.UserReviewDetailsObj.CustomerName</span>
-                </div>
-                <div class="grid-4 alpha omega">
-                    <span class="bwmsprite calender-grey-sm-icon"></span>
-                    &nbsp;<span class="article-stats-content" data-bind="text: submittedOn">@Model.UserReviewDetailsObj.EntryDate.ToString("dd MMM yyyy")</span>
-                </div>
-                <div class="clear"></div>
+                <span class="font12 text-light-grey" data-bind="text: submittedOn + ' ago by ' + author">@Model.UserReviewDetailsObj.EntryDate.ToString("dd MMM yyyy") ago by @Model.UserReviewDetailsObj.CustomerName</span>
             </div>
 
             @if (Model.RatingQuestions != null && Model.RatingQuestions.Count > 0)
             {
                 <div class="bg-light position-rel top3">
-                    <p class="font-bold font14 padding-top15 padding-left20">About the reviewer</p>
                     <ul class="about-reviewer-list item-count-@Model.RatingQuestionCount">
                         @foreach (var q in Model.RatingQuestions)
                         {
@@ -51,7 +64,7 @@
             }
 
             <div class="content-inner-block-20">
-                <h1 class="font14 margin-bottom10">Full review of @Model.UserReviewDetailsObj.Make.MakeName @Model.UserReviewDetailsObj.Model.ModelName</h1>
+                <h2 class="font14 margin-bottom10">Full review of @Model.UserReviewDetailsObj.Make.MakeName @Model.UserReviewDetailsObj.Model.ModelName</h2>
                 @if (Model.ReviewQuestions != null && Model.ReviewQuestions.Count > 0)
                 {
                     <ul class="horizontal-rating-graph user-review-graph">
@@ -139,11 +152,10 @@
 
     if (Model.GenericBikeWidgetData != null)
     {
-        <section class="bg-white section-bottom-margin margin-bottom10">
+        <section class="content-box-shadow section-bottom-margin">
             @Html.Partial("~/views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.GenericBikeWidgetData)
         </section>
     }
-
     
 
     if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Count() > 0)
