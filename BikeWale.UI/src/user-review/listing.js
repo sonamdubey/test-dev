@@ -232,12 +232,26 @@ docReady(function() {
         }
     };
 
+    $('#bike-rating-box1').find('.answer-star-list input[type=radio]').change(function () {
+        var button = $(this),
+           buttonValue = Number(button.val());
+        var q = $('#share-rate-' + buttonValue).attr('data-querystring');
+        window.location.href = "/rate-your-bike/" + modelid + "/?q=" + q;
+    });
+
+    $('#bike-rating-box2').find('.answer-star-list input[type=radio]').change(function () {
+        var button = $(this),
+           buttonValue = Number(button.val());
+        var q = $('#rate-bikestar-' + buttonValue).attr('data-querystring');
+        window.location.href = "/rate-your-bike/" + modelid + "/?q=" + q;
+    });
+
     var modelUserReviews = function () {
         var self = this;
         var reviewCount = $('#overallSpecsTab .active')[0].getAttribute("data-count");
         self.IsInitialized = ko.observable(false);
         self.PagesListHtml = ko.observable("");
-        self.activeReviewList = ko.observableArray(helpfulReviews);
+        self.activeReviewList = ko.observableArray([]);
         self.activeReviewCategory = ko.observable(0);
         self.reviewsAvailable = ko.observable(true);
         self.PrevPageHtml = ko.observable("");
@@ -285,12 +299,6 @@ docReady(function() {
                 else {
                     self.getUserReviews();
                 }
-
-                $(document).on("click", "#pagination-list-content ul li,.pagination-control-prev a,.pagination-control-next a", function (e) {                                       
-                    if (self.IsInitialized()) {
-                        self.ChangePageNumber(e);
-                    }
-                });
 
                 self.IsInitialized(true);
             }           
@@ -413,23 +421,18 @@ docReady(function() {
             var qs = self.QueryString();
 
             if (self.PreviousQS() != qs) {
-                self.IsLoading(true);
-                //var cacheKey = "UserReviews_mo_" + modelid + "_cat_" + self.Filters()["so"] + "_pn_" + self.Filters()["pn"] + "_ps_" + self.Filters()["ps"], skipreviewid = self.Filters()["skipreviewid"];
-
-                //if (skipreviewid && skipreviewid > 0) {
-                 //   cacheKey += "_skiprid_" + skipreviewid;
-                //}
-
-                //var userreviewsData = bwcache.get(cacheKey);
-                //if (!userreviewsData) {
+                self.IsLoading(true);                
                 var apiUrl = "/api/user-reviews/d/search/?reviews=true&" + qs;
                 $.getJSON(apiUrl)
                 .done(function (response) {
-                    if (response && response.resultDesktop) {                       
+                    if (response && response.resultDesktop) {
                         self.activeReviewList(response.resultDesktop);
                         self.TotalReviews(response.totalCount);
-                        self.noReviews(false);
-                        //bwcache.set({ 'key': cacheKey, 'value': response, 'expiryTime': 30 });
+                        self.noReviews(false);                      
+                        var listItem = $('.user-review-list .list-item');
+                        for (var i = listItem.length; i >= response.resultDesktop.length; i--) {
+                            $(listItem[i]).remove();
+                        }
                     }
 
                 })
@@ -442,18 +445,7 @@ docReady(function() {
                     self.IsLoading(false);
                     $('html, body').scrollTop(modelReviewsSection.offset().top);
                 });
-                self.ApplyPagination();
-            //}
-            //else {
-            //    self.activeReviewList(userreviewsData.result);
-            //    self.TotalReviews(userreviewsData.totalCount);
-            //    self.noReviews(false);
-            //    self.ApplyPagination();
-            //    //window.location.hash = qs;
-            //    self.IsLoading(false);
-            //    $('html, body').scrollTop(modelReviewsSection.offset().top);
-            //}
-
+                self.ApplyPagination();            
             }
             self.PreviousQS(qs);
         };
@@ -480,9 +472,15 @@ docReady(function() {
     };
 
     
+    $(document).on("click", "#pagination-list-content ul li, .pagination-control-prev a, .pagination-control-next a", function (e) {
+        e.preventDefault();
+        if (!vmUserReviews.IsInitialized()) {
+            vmUserReviews.init(e);
+        }
+        vmUserReviews.ChangePageNumber(e);
+    });
 
-    vmUserReviews = new modelUserReviews();
-    //ko.applyBindings(vmUserReviews, modelReviewsSection[0]);
+    vmUserReviews = new modelUserReviews();   
 
     $("#overallSpecsTab div a, #pagination-list-content ul li").click(function (e) {
         if (vmUserReviews && !vmUserReviews.IsInitialized()) {
@@ -557,4 +555,12 @@ docReady(function() {
     var checkedStar = $('input[name=rate-bike]:checked').val();
     if (checkedStar)
         document.getElementById('rate-star-' + parseInt(checkedStar)).checked = false;
+
+    var chkRating1 = $('input[name=share-rate]:checked').val();
+    if (chkRating1)
+        document.getElementById('share-rate-' + parseInt(chkRating1)).checked = false;
+
+    var chkRating2 = $('input[name=rate-bikestar]:checked').val();
+    if (chkRating2)
+        document.getElementById('rate-bikestar-' + parseInt(chkRating2)).checked = false;
 });

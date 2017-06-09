@@ -20,6 +20,7 @@ namespace Bikewale.Models.UserReviews
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
         public uint? PageNumber { get; set; }
+        public bool IsDesktop { get; set; }
 
         private readonly IUserReviewsSearch _objUserReviewSearch;
         private readonly IUserReviewsCache _objUserReviewCache;
@@ -88,21 +89,37 @@ namespace Bikewale.Models.UserReviews
         private void BindWidgets(UserReviewListingVM objData)
         {
             try
-            {
-                InputFilters filters = new InputFilters()
-                   {
-                       Model = _modelId.ToString(),
-                       SO = 2,
-                       PN = (int)(PageNumber.HasValue ? PageNumber.Value : 1),
-                       PS = 8,
-                       Reviews = true
-                   };
+            {                
+
+                InputFilters filters = null;
+                if (!IsDesktop)
+                {
+                    filters = new InputFilters()
+                    {
+                        Model = _modelId.ToString(),
+                        SO = 2,
+                        PN = (int)(PageNumber.HasValue ? PageNumber.Value : 1),
+                        PS = 8,
+                        Reviews = true
+                    };
+                }
+                else
+                {
+                    filters = new InputFilters()
+                    {
+                        Model = _modelId.ToString(),
+                        SO = 2,
+                        PN = (int)(PageNumber.HasValue ? PageNumber.Value : 1),
+                        PS = 10,
+                        Reviews = true
+                    };
+                }
 
 
                 if (objData.RatingsInfo != null)
                 {
                     var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _objUserReviewCache, _userReviewsSearch);
-
+                    objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostHelpful;
                     if (objUserReviews != null)
                     {
                         objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostHelpful;
@@ -116,10 +133,10 @@ namespace Bikewale.Models.UserReviews
                         }
 
 
-                        objData.UserReviews = objUserReviews.GetData();
-                        objData.UserReviews.WidgetHeading = string.Format("Reviews on {0}", objData.BikeName);
+                        objData.UserReviews = objUserReviews.GetDataDesktop();
+                        objData.UserReviews.WidgetHeading = string.Format("Reviews on {0}", objData.RatingsInfo.Model.ModelName);
                     }
-                    objData.ExpertReviews = new RecentExpertReviews(9, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0} {1}", objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Model.ModelName)).GetData();
+                    objData.ExpertReviews = new RecentExpertReviews(9, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0}", objData.ReviewsInfo.Model.ModelName)).GetData();
 
                     objData.SimilarBikeReviewWidget = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, 9);
 
