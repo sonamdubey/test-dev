@@ -2,7 +2,7 @@
 
 <!-- #Include file="/includes/headerNew.aspx" -->
  <style>
-    #comparision-bike-selection{position: fixed; right: 20px;}
+    #comparision-bike-selection{position: absolute; right: 20px;}
      .model-img-content {
     width: 110px;
     height: 61px;
@@ -242,6 +242,11 @@
         if (ddlVersion1.val()>=0 && ddlVersion1.val() == ddlVersion2.val()) {
             $("#spnbtnErr").text("Select Different Versions");
             isValid =  false;
+        }
+
+        if ($('#chkIsSponsored').attr("checked") && ($('#txtFromDate').val() == "" || $('#txtToDate').val() == "")) {            
+            $("#spnbtnErr").text("Please select date for comparison");
+            isValid = false;
         }
 
         return isValid;
