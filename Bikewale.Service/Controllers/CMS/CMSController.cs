@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Net.Http;
 
 namespace Bikewale.Service.Controllers.CMS
 {
@@ -28,7 +29,7 @@ namespace Bikewale.Service.Controllers.CMS
     /// </summary>
     public class CMSController : CompressionApiController//ApiController
     {
-
+        private readonly ICMS _cms = null;
         private readonly IPager _pager = null;
         private readonly ICMSCacheContent _CMSCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModelEntity = null;
@@ -37,8 +38,13 @@ namespace Bikewale.Service.Controllers.CMS
         /// 
         /// </summary>
         /// <param name="pager"></param>
-        public CMSController(IPager pager, ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> objModelCache, IBikeModels<BikeModelEntity, int> bikeModelEntity)
+        /// <param name="cms"></param>
+        /// <param name="cmsCache"></param>
+        /// <param name="objModelCache"></param>
+        /// <param name="bikeModelEntity"></param>
+        public CMSController(IPager pager, ICMS cms, ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> objModelCache, IBikeModels<BikeModelEntity, int> bikeModelEntity)
         {
+            _cms = cms;
             _pager = pager;
             _CMSCache = cmsCache;
             _bikeModelEntity = bikeModelEntity;
@@ -151,88 +157,45 @@ namespace Bikewale.Service.Controllers.CMS
         /// Summary : API to get details of article. This is api is used for the articles having multiple pages. e.g. Road Tests, Expert Reviews, Features.
         /// Modified By : Sangram Nandkhile on 04 Mar 2016
         /// Summary : Utility function to fetch shareurl is used
+        /// Modified By : Ashish G. Kamble on 2 June 2017
+        /// Modified : Removed all business logic from controller to the BAL
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>Article Details</returns>
         [ResponseType(typeof(CMSArticlePageDetails)), Route("api/cms/id/{basicId}/pages/")]
-        public IHttpActionResult Get(string basicId)
-        {
-            ArticlePageDetails objFeaturedArticles = null;
+        public HttpResponseMessage Get(string basicId)
+        {            
             uint _basicId = default(uint);
+            string articleDetailsJson = string.Empty;
+
             try
             {
                 if (!string.IsNullOrEmpty(basicId) && uint.TryParse(basicId, out _basicId))
                 {
-                    objFeaturedArticles = _CMSCache.GetArticlesDetails(_basicId);
+                    articleDetailsJson = _cms.GetArticleDetailsPages(_basicId);
 
-
-                    if (objFeaturedArticles != null)
+                    if (string.IsNullOrEmpty(articleDetailsJson))
                     {
-                        CMSArticlePageDetails objCMSFArticles = new CMSArticlePageDetails();
-                        objCMSFArticles = CMSMapper.Convert(objFeaturedArticles);
-
-                        if (objFeaturedArticles != null)
-                        {
-                            if (objFeaturedArticles.PageList != null)
-                            {
-                                objFeaturedArticles.PageList.Clear();
-                                objFeaturedArticles.PageList = null;
-                            }
-
-                            if (objFeaturedArticles.TagsList != null)
-                            {
-                                objFeaturedArticles.TagsList.Clear();
-                                objFeaturedArticles.TagsList = null;
-                            }
-
-                            if (objFeaturedArticles.VehiclTagsList != null)
-                            {
-                                objFeaturedArticles.VehiclTagsList.Clear();
-                                objFeaturedArticles.VehiclTagsList = null;
-                            }
-                        }
-
-                        objCMSFArticles.FormattedDisplayDate = objFeaturedArticles.DisplayDate.ToString("dd MMMM yyyy, hh:mm tt");
-
-                        // If android, IOS client sanitize the article content 
-                        string platformId = string.Empty;
-
-                        if (Request.Headers.Contains("platformId"))
-                        {
-                            platformId = Request.Headers.GetValues("platformId").First().ToString();
-                        }
-
-                        if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
-                        {
-                            foreach (var page in objCMSFArticles.PageList)
-                            {
-                                Bikewale.Entities.CMS.Articles.HtmlContent objContent = Bikewale.Utility.SanitizeHtmlContent.GetFormattedContent(page.Content);
-
-                                if (objContent.HtmlItems != null && objContent.HtmlItems.Count > 0)
-                                {
-                                    DTO.CMS.Articles.HtmlContent htmlContent = new DTO.CMS.Articles.HtmlContent();
-                                    htmlContent.HtmlItems = objContent.HtmlItems.Select(item => new DTO.CMS.Articles.HtmlItem() { Content = item.Content, ContentList = item.ContentList, SetMargin = item.SetMargin, Type = item.Type }).ToList();
-
-                                    page.htmlContent = htmlContent;
-                                    page.Content = "";
-
-                                    objContent.HtmlItems.Clear();
-                                    objContent.HtmlItems = null;
-                                }
-                            }
-                        }
-                        objCMSFArticles.ShareUrl = new CMSShareUrl().ReturnShareUrl(objCMSFArticles);
-                        return Ok(objCMSFArticles);
+                        return new HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
                     }
+                    else
+                    {
+                        return new System.Net.Http.HttpResponseMessage()
+                        {
+                            Content = new System.Net.Http.StringContent(articleDetailsJson, System.Text.Encoding.UTF8, "application/json")
+                        };
+                    }                    
+                }
+                else
+                {
+                    return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
-                return InternalServerError();
-            }
-            return NotFound();
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");                
+                return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError);
+            }            
         }  //get article content          
 
         #endregion
@@ -244,86 +207,47 @@ namespace Bikewale.Service.Controllers.CMS
         /// Summary : API to get details of article. This is api is used for the articles single page. e.g. News.
         /// Modified By : Sangram Nandkhile on 04 Mar 2016
         /// Summary : Utility function to fetch shareurl is used
+        /// Modified By : Ashish G. Kamble on 2 June 2017
+        /// Modified : Removed all business logic from controller to the BAL
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>News Details</returns>
-        [ResponseType(typeof(CMSArticleDetails)), Route("api/cms/id/{basicId}/page/")]
-        public IHttpActionResult GetArticleDetailsPage(string basicId)
+        [HttpGet,ResponseType(typeof(CMSArticleDetails)), Route("api/cms/id/{basicId}/page/")]
+        //public IHttpActionResult GetArticleDetailsPage(string basicId)
+        public HttpResponseMessage ArticlePages(string basicId)
         {
-            uint _basicId = default(uint);
-            DTO.CMS.Articles.HtmlContent htmlContent = null;
-            CMSArticleDetails objCMSFArticles = null;
+            uint _basicId = default(uint);            
+            string articleDetailsJson = string.Empty;
+
             try
             {
                 if (!String.IsNullOrEmpty(basicId) && uint.TryParse(basicId, out _basicId))
                 {
+                    // Get data from BAL (returns json from cache)
+                    articleDetailsJson = _cms.GetArticleDetailsPage(_basicId);
 
-                    ArticleDetails objNews = _CMSCache.GetNewsDetails(_basicId);
-
-                    if (objNews != null)
+                    if (String.IsNullOrEmpty(articleDetailsJson))
                     {
-                        objCMSFArticles = new CMSArticleDetails();
-                        objCMSFArticles = CMSMapper.Convert(objNews);
-
-                        if (objNews.TagsList != null)
-                        {
-                            objNews.TagsList.Clear();
-                            objNews.TagsList = null;
-                        }
-
-                        if (objNews.VehiclTagsList != null)
-                        {
-                            objNews.VehiclTagsList.Clear();
-                            objNews.VehiclTagsList = null;
-                        }
-
-                        objCMSFArticles.FormattedDisplayDate = objNews.DisplayDate.ToString("dd MMMM yyyy, hh:mm tt");
-
-                        // If android, IOS client execute this code
-                        string platformId = string.Empty;
-
-                        if (Request.Headers.Contains("platformId"))
-                        {
-                            platformId = Request.Headers.GetValues("platformId").First().ToString();
-                        }
-
-                        if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
-                        {
-                            Bikewale.Entities.CMS.Articles.HtmlContent objContent = Bikewale.Utility.SanitizeHtmlContent.GetFormattedContent(objNews.Content);
-
-                            if (objContent.HtmlItems != null && objContent.HtmlItems.Count > 0)
-                            {
-                                htmlContent = new DTO.CMS.Articles.HtmlContent();
-                                htmlContent.HtmlItems = objContent.HtmlItems.Select(item => new DTO.CMS.Articles.HtmlItem() { Content = item.Content, ContentList = item.ContentList, SetMargin = item.SetMargin, Type = item.Type }).ToList();
-
-                                if (objContent.HtmlItems != null)
-                                {
-                                    objContent.HtmlItems.Clear();
-                                    objContent.HtmlItems = null;
-                                }
-
-                                objCMSFArticles.htmlContent = htmlContent;
-                                objCMSFArticles.Content = "";
-                            }
-                        }
-                        {
-                            objCMSFArticles.ShareUrl = new CMSShareUrl().ReturnShareUrl(objCMSFArticles);
-                        }
-                        return Ok(objCMSFArticles);
+                        return new HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
                     }
+                    else
+                    {
+                        return new System.Net.Http.HttpResponseMessage()
+                        {
+                            Content = new System.Net.Http.StringContent(articleDetailsJson, System.Text.Encoding.UTF8, "application/json")
+                        };
+                    }                    
                 }
                 else
                 {
-                    BadRequest();
+                    return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
-                return InternalServerError();
-            }
-            return NotFound();
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");                
+                return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError);
+            }            
         }  //get News Details
 
         #endregion

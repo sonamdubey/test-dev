@@ -68,7 +68,7 @@
                             </ul>
                             <div class="grid-6 alpha padding-right20">
                                 <p class="key-size-13 text-truncate margin-bottom5">Ex-showroom,<span data-bind="text : selectedCityId() > 0 ? selectedCityName() : 'Mumbai'">@( bike.City != null && !string.IsNullOrEmpty(bike.City.CityName) ? bike.City.CityName : "Mumbai")</span></p>
-                                <span class="bwsprite inr-lg"></span> <span class="value-size-18" data-bind="CurrencyText : models()[@i].price ">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString())</span>
+                                @Html.Raw("<span class='font18'>&#x20B9;</span>") <span class="value-size-18" data-bind="CurrencyText : models()[@i].price ">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString())</span>
                             </div>
                             <div class="grid-6 padding-left20 omega border-light-left" data-bind="visible : models()[@i].launchedOn && models()[@i].launchedOn !=''">
                                 <p class="key-size-13 text-truncate margin-bottom5">Launched on</p>

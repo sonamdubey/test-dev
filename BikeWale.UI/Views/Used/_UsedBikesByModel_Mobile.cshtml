@@ -19,7 +19,7 @@
                                 @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.AvailableBikes)) Used bikes available
                             </p>
                             <div class="margin-bottom5 text-default">
-                                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;
+                                @Html.Raw("<span class='text-bold font16'> &#x20B9;</span>")&nbsp;
                                 <span class="font16 text-bold">
                                     @Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.BikePrice))
                                 </span>&nbsp;

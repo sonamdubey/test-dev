@@ -6,6 +6,8 @@ namespace Bikewale.Entities.Compare
     /// Description :   Compare Sources
     /// Modified By :- Subodh Jain 14 March 2017
     /// Summary :- Added Desktop_Scooter_Listing_Compare,Mobile_Scooter_Listing_Compare,Desktop_Scooter_Landing_Compare,Mobile_Scooter_Landing_Compare
+    /// Modified by : Aditi Srivastava on 6 June 2017
+    /// Summary     : Added comparison source Desktop_Home_MostPopular_Compare_Widget,Desktop_NewBikes_MostPopular_Compare_Widget
     /// </summary>
     public enum CompareSources
     {
@@ -28,7 +30,8 @@ namespace Bikewale.Entities.Compare
         Mobile_Home_MostPopular_Compare_Widget = 17,
         Mobile_NewBikes_MostPopular_Compare_Widget = 18,
         Desktop_Comparison_Landing = 19,
-        Mobile_Comparison_Landing = 20
-
+        Mobile_Comparison_Landing = 20,
+        Desktop_Home_MostPopular_Compare_Widget=21,
+        Desktop_NewBikes_MostPopular_Compare_Widget=22
     }
 }

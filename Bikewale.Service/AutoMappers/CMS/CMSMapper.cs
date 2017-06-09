@@ -11,6 +11,10 @@ using System.Collections.Generic;
 
 namespace Bikewale.Service.AutoMappers.CMS
 {
+    /// <summary>
+    /// Created By : Ashish G. Kamble
+    /// Summary : class to map the cms entities to the DTOs.
+    /// </summary>
     public class CMSMapper
     {
         internal static List<DTO.CMS.Photos.CMSModelImageBase> Convert(IEnumerable<Entities.CMS.Photos.ModelImage> objImageList)

@@ -3744,7 +3744,11 @@
     <Content Include="Views\GenericBestBikes\Index_Mobile.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage.cshtml" />
     <Content Include="Views\GenericBestBikes\_BestBikesGenericPage_Mobile.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons.cshtml" />
+    <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile.cshtml" />
     <Content Include="Views\UserReview\WriteReviewContest_Mobile.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Ad976x400_Middle.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x400_Middle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

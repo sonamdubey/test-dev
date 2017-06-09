@@ -84,7 +84,7 @@
                     @if ((!string.IsNullOrEmpty(Model.Summary.Tips) || (Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0)) && string.IsNullOrEmpty(Model.Summary.Description))
                     {
                         <p class="font15 text-bold text-black margin-bottom10">Tell us more about your experience!</p>
-                        <p class="text-slate-grey margin-bottom15">Share your experience of owning/riding @Model.Summary.Make.MakeName @Model.Summary.Model.ModelName. Your review will be very useful to people planning to buy the same bike.</p>
+                        <p class="text-slate-grey margin-bottom15">Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth Rs. 1,000.</p>
                         <a href="@Model.WriteReviewLink" class="btn btn-white btn-220-40">Write a review</a>
                         <a href="@Model.Summary.ReturnUrl" class="btn btn-orange btn-220-40 margin-left15">Done</a>
 
@@ -152,7 +152,7 @@
                     @if (string.IsNullOrEmpty(Model.Summary.Tips) && !(Model.Summary.Questions != null && Model.Summary.Questions.Count() > 0) && string.IsNullOrEmpty(Model.Summary.Description))
                     {
                         <p class="font15 text-bold text-black margin-bottom10">Tell us more about your experience!</p>
-                        <p class="text-slate-grey margin-bottom15">Share your experience of owning/riding @Model.Summary.Make.MakeName @Model.Summary.Model.ModelName. Your review will be very useful to people planning to buy the same bike.</p>
+                        <p class="text-slate-grey margin-bottom15">Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth Rs. 1,000.</p>
                         <a href="@Model.WriteReviewLink" class="btn btn-white btn-220-40">Write a review</a>
 
                     }

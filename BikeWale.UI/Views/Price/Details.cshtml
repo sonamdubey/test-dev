@@ -272,7 +272,7 @@
                                 <div class="emi-slider-box">
                                     <p class="text-slate-grey leftfloat">Down payment</p>
                                     <p class="rightfloat margin-right15">
-                                        <span class="bwsprite inr-sm"></span>
+                                        @Html.Raw("<span class='text-bold'>&#x20B9;</span>")
                                         <span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span>
                                     </p>
                                     <div class="clear"></div>
@@ -288,7 +288,7 @@
                                 <div class="emi-slider-box">
                                     <p class="text-slate-grey leftfloat">Loan Amount</p>
                                     <p class="rightfloat margin-right15">
-                                        <span class="bwsprite inr-sm"></span>
+                                        @Html.Raw("<span class='text-bold'>&#x20B9;</span>")
                                         <span id="loanAmount" class="text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span>
                                     </p>
                                     <div class="clear"></div>
@@ -336,14 +336,14 @@
                                 <div class="border-light-bottom padding-bottom20 margin-bottom20">
                                     <p class="text-light-grey margin-bottom5">Total amount (Principal + Interest)</p>
                                     <div>
-                                        <span class="bwsprite inr-lg"></span>&nbsp;
+                                        @Html.Raw("<span class='font18 text-bold'>&#x20B9;</span>")&nbsp;
                                         <span class="font18 text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>
                                     </div>
                                 </div>
                                 <div>
                                     <p class="text-light-grey margin-bottom5">Indicative EMI</p>
                                     <div>
-                                        <span class="bwsprite inr-lg"></span>&nbsp;
+                                        @Html.Raw("<span class='font18 text-bold'>&#x20B9;</span>")&nbsp;
                                         <span class="font18 text-bold">
                                             <span id="emiAmount" data-bind="text: formatPrice(monthlyEMI())"></span>&nbsp;per month
                                         </span>
