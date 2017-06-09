@@ -18,17 +18,16 @@
             <p class="survey-heading">BikeWale is conducting a survey on two wheeler popularity.</p>
             <p class="survey-heading">There are a few simple questions that you need to answer and it will take maximum 2 minutes of your time.</p>
         </div>
-        <div class="question-status-container x-transform position-rel leftfloat">
+        <div id="question-number-list" class="question-status-container position-rel">
             <div class="q1-circle q-circle active"><span class="qNum">1</span></div>
             <div class="q2-line q-line"></div>
             <div class="q2-circle q-circle"><span class="qNum">2</span></div>
             <div class="q3-line q-line"></div>
             <div class="q3-circle q-circle"><span class="qNum">3</span></div>
         </div>
-        <div class="clear"></div>
         <form action="/survey/bajaj/SubmitReview/" method="post" onsubmit="return Validate()">
 
-            <div id="page1" class="survey-page survey-page1 x-transform font16">
+            <div id="page1" class="survey-page survey-page1 font16">
                 <div class="question1 question-box" data-qNumber="1">
                     <p class="text-bold margin-bottom10">1) Which 2-wheeler do you currently ride?</p>
                     <div class="select-box margin-left15">
@@ -116,15 +115,15 @@
                     </div>
                     <div class="checkbox-container">
                         <input type="checkbox" name="vehicle" value="Bike" id="question2_checkbox" class="survey-q2__checkbox survey-checkbox">
-                        <label for="question2_checkbox">No, I don't wish to purchase a two wheeler</label>
+                        <label for="question2_checkbox">No, I don't plan to buy a two-wheeler anytime soon</label>
                     </div>
                     <div class="error-text error-text-q2 visibility-off">Please attempt this question</div>
                 </div>
 
-                <div class="btn btn-orange btn-sm survey-page1__btn font14 x-transform position-rel margin-bottom15">Next</div>
+                <div class="btn btn-orange survey-page1__btn font14 position-rel margin-bottom15">Next</div>
             </div>
 
-            <div id="page2" class="survey-page survey-page2 x-transform font16 hide">
+            <div id="page2" class="survey-page survey-page2 font16 hide">
                 <div class="question3 question-box">
                     <p class="text-bold">3. Which are the recent bike commercial that you remember? </p>
                     <input name="RecentBikeCommercial" class="survey-q3-input survey-input" placeholder="Type here" type="text" maxlength="50" />
@@ -136,7 +135,9 @@
                         <input id="SeenThisAd1" name="SeenThisAd" type="radio" value="Yes" /> <label for="SeenThisAd1">Yes</label>
                         <input id="SeenThisAd2" name="SeenThisAd" type="radio" value="No" /><label for="SeenThisAd2">No</label>
                     </div>
-                    <iframe width="320" height="200" src="https://www.youtube.com/embed/1lhZpRv1wJk"></iframe>
+                    <div class="video-wrapper">
+                        <iframe width="360" height="203" src="https://www.youtube.com/embed/1lhZpRv1wJk" frameborder="0" allowfullscreen></iframe>
+                    </div>
 
                     <div id="adnumberofviews" class="conditional-question margin-top20 hide">
                         <p class="text-bold">a. Approximately how many times have you seen the above commercial?</p>
@@ -170,10 +171,10 @@
                     </div>
                     <div class="error-text error-text-q4 visibility-off">Please attempt this question</div>
                 </div>
-                <div class="btn btn-orange btn-sm survey-page2__btn font14 x-transform position-rel margin-bottom20">Next</div>
+                <div class="btn btn-orange survey-page2__btn font14 position-rel margin-bottom20">Next</div>
             </div>
 
-            <div id="page3" class="survey-page survey-page3 x-transform font16" style="display: none;">
+            <div id="page3" class="survey-page survey-page3 font16" style="display: none;">
                 <div class="question5 question-box">
                     <p class="text-bold">5. Your age </p>
                     <input name="Age" class="survey-q5-input survey-input" type="number" maxlength="3" min="1" max="100" />
@@ -189,17 +190,17 @@
                     <input type="text" class="survey-q7-input survey-input" name="City" id="txtCity" autocomplete="off" data-reload="false" maxlength="100" placeholder="Type to select city">
                     <div class="error-text error-text-q7 visibility-off">Please attempt this question</div>
                 </div>
-                @Html.Hidden("Source", "Desktop");
-                <div><p><input type="submit" value="Submit" class="btn btn-orange btn-sm survey-page3__btn font14 margin-bottom20 x-transform position-rel" /></p></div>
+                <div><p><input type="submit" value="Submit" class="btn btn-orange survey-page3__btn font14 margin-bottom20 position-rel" /></p></div>
+                @Html.Hidden("Source", "Desktop")
             </div>
         </form>
     }
     else
     {
-        <div id="page4" class="text-center">
+        <div id="page4" class="text-center thankyou-page-container">
             <div class="thankyou-page text-black">
                 <img src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/like.png" class="margin-bottom10" />
-                <div class="font24 text-bold margin-bottom10">thank you</div>
+                <div class="font24 text-bold margin-bottom10">Thank you</div>
                 <div class="margin-bottom30">Thank you for participating in the survey. This will help us to enhance your experience</div>
                 <img src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/facebook.png" />
             </div>

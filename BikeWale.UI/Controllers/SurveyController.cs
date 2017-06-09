@@ -32,7 +32,7 @@ namespace Bikewale.Controllers
         {
             model.IsSubmitted = true;
             SurveyBajajModel objModel = new SurveyBajajModel(model, _survey);
-            objModel.SaveResponse();
+            objModel.SaveBajajResponse();
             model.IsSubmitted = true;
             if (model.Source == "Mobile")
             {
