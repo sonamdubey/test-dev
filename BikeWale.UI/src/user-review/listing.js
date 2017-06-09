@@ -78,6 +78,28 @@ function reportReview(e) {
     reportAbusePopup.open();
 }
 
+function applyLikeDislikes() {
+    $(".upvoteListButton").each(function () {
+        var locReviewId = this.getAttribute("data-reviewid");
+        var listVote = bwcache.get("ReviewDetailPage_reviewVote_" + locReviewId);
+
+        if (listVote != null && listVote.vote) {
+            if (listVote.vote == "0") {
+                $('#downvoteBtn' + "-" + locReviewId).addClass('active');
+                $('#upvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+            }
+            else {
+                $('#upvoteBtn' + "-" + locReviewId).addClass('active');
+                $('#downvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+            }
+        }
+        else {
+            $('#upvoteBtn' + "-" + locReviewId).removeClass('active');
+            $('#downvoteBtn' + "-" + locReviewId).prop('disabled', false);
+        }
+    });
+}
+
 function reportAbuse() {
     var isError = false;
 
@@ -197,21 +219,7 @@ docReady(function() {
         }
     }
 
-    $(".upvoteListButton").each(function () {
-        var locReviewId = this.getAttribute("data-reviewid");
-        var listVote = bwcache.get("ReviewDetailPage_reviewVote_" + locReviewId);
-
-        if (listVote != null && listVote.vote) {
-            if (listVote.vote == "0") {                
-                $('#downvoteBtn' + "-" + locReviewId).addClass('active');
-                $('#upvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
-            }
-            else {
-                $('#upvoteBtn' + "-" + locReviewId).addClass('active');
-                $('#downvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
-            }
-        }
-    }); 
+    applyLikeDislikes();
 
     if ($('#hdnModelId').length > 0)
         modelid = $('#hdnModelId').val();
@@ -432,6 +440,7 @@ docReady(function() {
                         var listItem = $('.user-review-list .list-item');
                         for (var i = listItem.length; i >= response.resultDesktop.length; i--) {
                             $(listItem[i]).remove();
+                            applyLikeDislikes();
                         }
                     }
 

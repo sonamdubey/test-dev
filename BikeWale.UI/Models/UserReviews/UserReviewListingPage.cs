@@ -132,8 +132,11 @@ namespace Bikewale.Models.UserReviews
                             objUserReviews.ReviewsInfo = objData.ReviewsInfo;
                         }
 
+                        if(IsDesktop)
+                            objData.UserReviews = objUserReviews.GetDataDesktop();
+                        else
+                            objData.UserReviews = objUserReviews.GetData();
 
-                        objData.UserReviews = objUserReviews.GetDataDesktop();
                         objData.UserReviews.WidgetHeading = string.Format("Reviews on {0}", objData.RatingsInfo.Model.ModelName);
                     }
                     objData.ExpertReviews = new RecentExpertReviews(9, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0}", objData.ReviewsInfo.Model.ModelName)).GetData();
