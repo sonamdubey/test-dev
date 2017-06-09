@@ -167,14 +167,17 @@
                 <div class="question5 question-box">
                     <p class="text-bold">5. Your age </p>
                     <input name="Age" class="survey-q5-input survey-input" type="number" maxlength="3" min="1" max="100" />
+                    <div class="error-text error-text-q5 visibility-off">Please attempt this question</div>
                 </div>
                 <div class="question6 question-box">
                     <p class="text-bold">6. Which mobile phone are you using currently?</p>
                     <input name="Handset" class="survey-q6-input survey-input" type="text" maxlength="50" placeholder="e.g. Apple iPhone 6S" />
+                    <div class="error-text error-text-q6 visibility-off">Please attempt this question</div>
                 </div>
                 <div class="question7 question-box">
                     <p class="text-bold">7. City </p>
-                    <input name="City" type="text" class="survey-q7-input ui-autocomplete-input survey-input" id="txtCity" autocomplete="off" maxlength="100" placeholder="Type to select city">
+                    <input name="City" type="text" class="survey-q7-input ui-autocomplete-input survey-input" id="txtCity" autocomplete="off" maxlength="100">
+                    <div class="error-text error-text-q7 visibility-off">Please attempt this question</div>
                 </div>
                 @Html.Hidden("Source", "Mobile")
                 <div><p><input type="submit" value="Submit" class="btn btn-orange survey-page3__btn font14 margin-bottom20 position-rel" /></p></div>
