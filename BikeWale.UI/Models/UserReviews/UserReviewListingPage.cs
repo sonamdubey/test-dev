@@ -63,7 +63,11 @@ namespace Bikewale.Models.UserReviews
                 {
                     objData.ModelId = _modelId;
                     objData.RatingReviewData = _objUserReviewCache.GetBikeRatingsReviewsInfo(_modelId);
-                    if (objData.RatingReviewData != null && objData.RatingsInfo != null && objData.RatingsInfo.Make != null && objData.RatingsInfo.Model != null)
+                    if (objData.RatingReviewData == null)
+                    {
+                        Status = StatusCodes.ContentNotFound;
+                    }
+                    else if (objData.RatingReviewData != null && objData.RatingsInfo != null && objData.RatingsInfo.Make != null && objData.RatingsInfo.Model != null)
                     {
                         objData.BikeName = string.Format("{0} {1}", objData.RatingsInfo.Make.MakeName, objData.RatingsInfo.Model.ModelName);
                         objData.PageUrl = string.Format("/{0}-bikes/{1}/reviews/", objData.RatingsInfo.Make.MaskingName, objData.RatingsInfo.Model.MaskingName);
