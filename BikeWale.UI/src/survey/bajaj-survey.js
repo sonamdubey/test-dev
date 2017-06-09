@@ -11,6 +11,7 @@ docReady(function () {
         var questionContainer = $(this).closest(".question-box"),
             qNum = $(questionContainer).attr('data-qNumber') * 1;
 
+        $(questionContainer).find(".select-label").show();
         if ($(this).attr('checked')) {
             $(questionContainer).find("select").val(null).trigger("chosen:updated");
             $(questionContainer).attr('data-attempt', "true");
@@ -22,16 +23,10 @@ docReady(function () {
             }
         }
     });
-    $(".survey-q2-select").chosen().change(function () {
-        var qContainer = $(this).closest(".question-box"),
-            errElem = $(qContainer).find(".error-text");
-        $(qContainer).find("input[type = checkbox]").attr('checked', false);
-        $(qContainer).attr('data-attempt', true);
-        hideError(errElem);
-    });
     $(".survey-select").chosen().change(function () {
         var qContainer = $(this).closest(".question-box"),
             errElem = $(qContainer).find(".error-text");
+        $(qContainer).find(".select-label").hide();
         $(qContainer).find("input[type = checkbox]").attr('checked', false);
         $(qContainer).attr('data-attempt', true);
         hideError(errElem);
@@ -52,6 +47,7 @@ docReady(function () {
         }
     });
     $(".survey-select-conditional").chosen().change(function () {
+        $(this).closest(".conditional-question").find(".select-label").hide();
         $(this).closest(".conditional-question").attr('data-attempt', true);
     });
     $(".chosen-container-multi, .chosen-container-multi input, .chosen-container-single").css("width", "350px");
