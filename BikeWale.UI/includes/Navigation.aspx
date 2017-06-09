@@ -85,6 +85,7 @@
             <a href="/two-wheeler-survey/">
                 <span class="bwsprite reviews-icon"></span>
                 <span class="navbarTitle">Two Wheeler Survey</span>
+                <span class="new-flag"></span>
             </a>
         </li>
     </ul>
