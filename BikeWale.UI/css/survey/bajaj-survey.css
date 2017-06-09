@@ -141,6 +141,14 @@ input, input::-webkit-input-placeholder{
 	height: 100%;
 }
 
+.thankyou-page-container{
+    padding: 10px;
+}
+.thankyou-page{
+    border: 1px solid #e5e5e5;
+    padding:50px 0;
+}
+
 .question-box .select-box .chosen-container, .question-box .select-box{
     height: 25px;
 }
