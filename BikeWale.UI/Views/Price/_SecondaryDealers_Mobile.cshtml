@@ -14,7 +14,7 @@
                         <a href="javascript:void(0)" onclick="secondarydealer_Click(@dealer.DealerId)" class="secondary-dealer bw-ga text-default" dealerid="@dealer.DealerId">
                             <div class="margin-bottom15">
                                 <span class="grid-9 alpha omega font14 text-default text-bold">@dealer.Name</span>
-                                <span class="grid-3 omega text-light-grey text-right">@Math.Truncate(dealer.Distance)  kms</span>
+                                <span class="grid-3 omega text-light-grey text-right @(dealer.Distance > 0 ? "" : "hide") ">@Math.Truncate(dealer.Distance)  kms</span>
                                 <div class="clear"></div>
                                 <span class="bwmsprite dealership-loc-icon vertical-top"></span>
                                 <span class="font12 text-light-grey">@dealer.Area</span>
