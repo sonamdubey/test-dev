@@ -41,8 +41,8 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
-#IsLongerFormat2 {
-    margin-left: 40px;
+#SeenThisAd2 {
+    margin-left: 50px;
     margin-right: 4px;
 }
 .survey-page{
@@ -56,7 +56,7 @@
 	display: none;
 }
 .question-box{
-    margin: 40px 0;
+    margin: 12px 0;
 }
 .survey-select, .survey-select-conditional {
     -webkit-appearance: none;
@@ -76,11 +76,11 @@
 .survey-select ::-ms-expand, survey-select-conditional ::after -ms-expand { 
     display: none; /* remove default arrow on ie10 and ie11 */
 }
-.checkbox-container{
-    margin-top: 15px;
+.checkbox-container {
+    margin: 15px 0 0 15px;
 }
 .question-status-container{
-    margin: 20px auto 0;
+    margin: 20px auto 50px;
 	display: block;
 	text-align: center;
 }
@@ -112,8 +112,10 @@
     border: none;
     border-bottom: 1px solid #aaa;
     width: 80%;
-    margin-top: 20px;
+    padding-top: 10px;
     font-size: 16px;
+    margin-left: 11px;
+    margin-bottom: 15px;
 }
 input[type="text"].survey-input:focus,
 input[type="number"].survey-input:focus {
@@ -128,18 +130,12 @@ input, input::-webkit-input-placeholder{
 
 .video-wrapper {
 	position: relative;
-	padding-bottom: 56.25%;
-	padding-top: 25px;
+	padding-bottom: 35.25%;
+	padding-top: 15px;
 	height: 0;
 }
 
-.video-wrapper iframe {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
+
 
 .thankyou-page-container{
     padding: 10px;
@@ -256,6 +252,10 @@ input, input::-webkit-input-placeholder{
   color: #ccc;
   cursor: default;
 }
+.survey-page .btn{
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
 
 /* @end */
 
@@ -292,5 +292,18 @@ input, input::-webkit-input-placeholder{
     }
     .question-box .select-box .chosen-container, .question-box .select-box{
         height: auto;
+    }
+    .checkbox-container{
+        margin: 15px 0 0 0;
+    }
+    .question-status-container{
+        margin: 20px auto 50px;
+    }
+    .video-wrapper iframe {
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
     }
 }
