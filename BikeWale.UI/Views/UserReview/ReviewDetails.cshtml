@@ -150,7 +150,7 @@
         </section>
     }
 
-    if (Model.UserReviews != null && Model.UserReviews.UserReviews.TotalCount > 0)
+    if (Model.UserReviews != null && Model.UserReviews.UserReviews != null && Model.UserReviews.UserReviews.ResultDesktop != null && Model.UserReviews.UserReviews.ResultDesktop.Count() > 0)
     {
         @Html.Partial("~/views/UserReview/_UserReviewsSearch.cshtml", Model.UserReviews)
     }    

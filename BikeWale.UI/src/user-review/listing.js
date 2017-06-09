@@ -132,6 +132,12 @@ function reportAbuse() {
     }
 }
 
+function resetCollapsibleContent() {
+    var activeCollapsible = $('.user-review-list').find('.collapsible-content.active');
+    activeCollapsible.removeClass('active');
+    activeCollapsible.find('.read-more-target').text('...Read more');
+}
+
 var reportAbusePopup = {
     popupElement: $('#report-abuse'),
 
@@ -258,6 +264,7 @@ docReady(function() {
         var self = this;
         var reviewCount = $('#overallSpecsTab .active')[0].getAttribute("data-count");
         self.IsInitialized = ko.observable(false);
+        self.IsPageLoad = ko.observable(true);
         self.PagesListHtml = ko.observable("");
         self.activeReviewList = ko.observableArray([]);
         self.activeReviewCategory = ko.observable(0);
@@ -313,6 +320,7 @@ docReady(function() {
         };
 
         self.toggleReviewList = function (event) {
+            self.IsPageLoad(false);
             self.tabEvents.toggleTab($(event.currentTarget));
             self.tabEvents.getReviews($(event.currentTarget));
         };
@@ -436,12 +444,13 @@ docReady(function() {
                     if (response && response.resultDesktop) {
                         self.activeReviewList(response.resultDesktop);
                         self.TotalReviews(response.totalCount);
-                        self.noReviews(false);                      
+                        self.noReviews(false);                        
                         var listItem = $('.user-review-list .list-item');
                         for (var i = listItem.length; i >= response.resultDesktop.length; i--) {
                             $(listItem[i]).remove();
                             applyLikeDislikes();
                         }
+                        resetCollapsibleContent();
                     }
 
                 })
@@ -489,8 +498,7 @@ docReady(function() {
         vmUserReviews.ChangePageNumber(e);
     });
 
-    vmUserReviews = new modelUserReviews();   
-
+    vmUserReviews = new modelUserReviews();
     $("#overallSpecsTab div a, #pagination-list-content ul li").click(function (e) {
         if (vmUserReviews && !vmUserReviews.IsInitialized()) {
             vmUserReviews.IsLoading(true);
@@ -500,6 +508,7 @@ docReady(function() {
         }
     });
 
+    $(".read-more-target").click(function () { vmUserReviews.IsPageLoad(false); });
 
     $window = $(window);
     overallSpecsTabsContainer = $('#overallTabsWrapper');
@@ -534,12 +543,7 @@ docReady(function() {
 
         resetCollapsibleContent();
     });
-
-    function resetCollapsibleContent() {
-        var activeCollapsible = $('.user-review-list').find('.collapsible-content.active');
-        activeCollapsible.removeClass('active');
-        activeCollapsible.find('.read-more-target').text('...Read more');
-    }
+    
 
     $('#btnReportClick').on('click', function() {
         reportAbusePopup.open();

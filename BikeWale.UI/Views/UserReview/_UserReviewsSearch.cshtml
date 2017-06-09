@@ -55,15 +55,14 @@
                                             <a href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'title' : $data.title,'href' : '/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/'}, text: $data.title" class="list-item-title inline-block margin-right5"> @review.Title</a>
                                             <span class="font12 inline-block text-light-grey" data-bind="text: $data.reviewAge + ' ago by ' + $data.customerName">@review.ReviewAge ago by @review.CustomerName</span>
                                         </div>
-                                        <div class="collapsible-content toggle-off main-content-off margin-bottom10 font14 text-slate-grey">
+                                        <div class="collapsible-content toggle-off main-content-off margin-bottom10 font14 text-slate-grey">                                            
                                             <div class="main-content" data-bind="html: $data.shortDescription">
                                                 @Html.Raw((review.Description.TruncateHtml(200)))
-                                            </div>
+                                            </div>                                            
                                             <div class="more-content">
                                                 <span data-bind="html: $data.description">
                                                     @Html.Raw(review.Description)
-                                                </span>
-
+                                                </span>                                                
                                                 <ul class="rating-circle-list" data-bind="visible: !$root.IsInitialized()">
 
                                                     @foreach (UserReviewQuestion ques in review.Questions)
@@ -81,13 +80,12 @@
                                                         }
                                                     }
                                                 </ul>
-
-                                                <!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
-                                                <ul class="rating-circle-list">
+                                                <!-- ko if : !$root.IsPageLoad() && $data && $data.questions && $data.questions.length > 0  -->
+                                                <ul class="rating-circle-list"  data-bind="custombinding: { onlyIf: !$root.IsPageLoad()}">
                                                     <!-- ko foreach: $data.questions -->
                                                     <!-- ko if : $data.qtype == 2 -->
-                                                    <li>
-                                                        <div data-bind="css: 'rating-circle circle-rate-' +  $data.selectedRatingId">
+                                                    <li data-bind="custombinding: { onlyIf: !$root.IsPageLoad()}">
+                                                        <div data-bind="css: 'rating-circle circle-rate-' +  $data.selectedRatingId, visible: $root.IsInitialized()">
                                                             <p class="circle-label" data-bind="text: $data.selectedRatingId"></p>
                                                             <span class="rating-progress">
                                                             </span>
@@ -96,7 +94,7 @@
                                                     </li>
                                                     <!-- /ko -->
                                                     <!-- /ko -->
-                                                </ul>
+                                                </ul>                                                
                                                 <!-- /ko -->
 
 
@@ -142,8 +140,8 @@
                                         <ul>
                                             <!-- ko foreach: $data.questions -->
                                             <!-- ko if : $data.qtype == 1 -->
-                                            <li class="margin-bottom10">
-                                                <span data-bind="css: 'bwsprite questionId-' +  $data.id"></span>
+                                            <li class="margin-bottom10">                                                
+                                                <span data-bind="css: 'bwsprite questionId-' +  $data.qId "></span>
                                                 <div class="inline-block">
                                                     <p class="font10 text-xt-light" data-bind="text: $data.minHeading"></p>
                                                     <p class="font14 text-slate-grey" data-bind="text: $data.selectedRatingText"></p>
