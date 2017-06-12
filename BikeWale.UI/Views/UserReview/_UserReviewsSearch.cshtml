@@ -31,7 +31,7 @@
                         <span class="bwsprite info-sm margin-right5"></span>
                         <span class="font13 text-light-grey inline-block">Reviews are sorted on the basis of helpfulness</span>
                     </p>
-                    <!-- ko if: activeReviewList() && activeReviewList().length > 0 -->
+                    <!-- ko if: ((activeReviewList() && activeReviewList().length > 0) || IsLoading()) -->
                     <div></div>
                     <div class="position-rel" style="display: @(Model.Pager != null && Model.Pager.TotalResults > 0 ? "block" : "none")" data-bind="visible: reviewsAvailable()">
                         <ul class="user-review-list" data-bind="visible : (!noReviews() && TotalReviews() !== 0), css: IsLoading() ? 'loader-active' : ''">
@@ -63,7 +63,9 @@
                                                     <span data-bind="html: $data.description">
                                                         @Html.Raw(review.Description)
                                                     </span>
-                                                    <ul class="rating-circle-list" data-bind="visible: !$root.IsInitialized()">
+
+
+                                                    <ul class="rating-circle-list page-load-list" data-bind="visible: !$root.IsInitialized()">
 
                                                         @foreach (UserReviewQuestion ques in review.Questions)
                                                         {
@@ -81,7 +83,7 @@
                                                         }
                                                     </ul>
                                                     <!-- ko if : $data && $data.questions && $data.questions.length > 0  -->
-                                                    <ul class="rating-circle-list ko-list">
+                                                    <ul class="rating-circle-list ko-list hide" data-bind="css: $data ? 'show' : 'hide'">
                                                         <!-- ko foreach: $data.questions -->
                                                         <!-- ko if : $data.qtype == 2 -->
                                                         <li>
@@ -119,7 +121,7 @@
 
                                         </div>
                                     <div class="grid-3 omega padding-left20">
-                                        <ul data-bind="visible: !$root.IsInitialized()">
+                                        <ul class="page-load-list" data-bind="visible: !$root.IsInitialized()">
                                             @foreach (UserReviewQuestion ques in review.Questions)
                                             {
                                                 if (ques.Type == UserReviewQuestionType.Rating)
@@ -136,7 +138,7 @@
                                         </ul>
                                         
                                         <!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
-                                        <ul>
+                                        <ul class="hide" data-bind="css: $data ? 'show' : 'hide'">
                                             <!-- ko foreach: $data.questions -->
                                             <!-- ko if : $data.qtype == 1 -->
                                             <li class="margin-bottom10">                                                

@@ -270,12 +270,7 @@ docReady(function() {
            buttonValue = Number(button.val());
         var q = $('#rate-bikestar-' + buttonValue).attr('data-querystring');
         window.location.href = "/rate-your-bike/" + modelid + "/?q=" + q;
-    });
-
-    for (var i = 0; i < 10; i++) {
-        if ($('.ko-list')[0])
-            $('.ko-list')[0].remove();
-    }
+    });    
 
     var modelUserReviews = function () {
         var self = this;
@@ -283,7 +278,7 @@ docReady(function() {
         self.IsInitialized = ko.observable(false);
         self.IsApiData = ko.observable(false);
         self.PagesListHtml = ko.observable("");
-        self.activeReviewList = ko.observableArray([]);
+        self.activeReviewList = ko.observableArray([]);        
         self.activeReviewCategory = ko.observable(0);
         self.reviewsAvailable = ko.observable(true);
         self.PrevPageHtml = ko.observable("");
@@ -461,12 +456,8 @@ docReady(function() {
                         self.IsApiData(true);
                         self.activeReviewList(response.resultDesktop);
                         self.TotalReviews(response.totalCount);
-                        self.noReviews(false);                        
-                        var listItem = $('.user-review-list .list-item');
-                        for (var i = listItem.length; i >= response.resultDesktop.length; i--) {
-                            $(listItem[i]).remove();
-                            applyLikeDislikes();
-                        }
+                        self.noReviews(false);                                                
+                        applyLikeDislikes();
                         resetCollapsibleContent();
                     }
 
