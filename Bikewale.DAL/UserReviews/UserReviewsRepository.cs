@@ -1226,7 +1226,7 @@ namespace Bikewale.DAL.UserReviews
             BikeReviewsInfo objBikeReviewInfo = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikereviewsinfo_17062017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikereviewsinfo"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.UInt32, modelId));
@@ -1258,8 +1258,7 @@ namespace Bikewale.DAL.UserReviews
                                 MostRecentReviews = SqlReaderConvertor.ToUInt32(dr["totalreviews"]),
                                 PostiveReviews = SqlReaderConvertor.ToUInt32(dr["postivereviews"]),
                                 NegativeReviews = SqlReaderConvertor.ToUInt32(dr["negativereviews"]),
-                                NeutralReviews = SqlReaderConvertor.ToUInt32(dr["neutralreviews"]),
-                                TotalRatings=SqlReaderConvertor.ToUInt32(dr["totalratings"])
+                                NeutralReviews = SqlReaderConvertor.ToUInt32(dr["neutralreviews"])
                             };
                         }
 
@@ -1363,7 +1362,7 @@ namespace Bikewale.DAL.UserReviews
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummaryWithRating_05052017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummaryWithRating_12062017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.UInt32, reviewId));
@@ -1406,7 +1405,9 @@ namespace Bikewale.DAL.UserReviews
                                     ModelName = Convert.ToString(dr["modelName"])
                                 },
                                 OriginalImagePath = Convert.ToString(dr["OriginalImgPath"]),
-                                HostUrl = Convert.ToString(dr["hostUrl"])
+                                HostUrl = Convert.ToString(dr["hostUrl"]),
+                                TotalReviews = SqlReaderConvertor.ToUInt32(dr["TotalReviews"]),
+                                TotalRatings = SqlReaderConvertor.ToUInt32(dr["TotalRatings"]),
                             };
                         }
 
