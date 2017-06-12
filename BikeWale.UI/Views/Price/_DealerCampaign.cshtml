@@ -202,7 +202,7 @@
                         <div class="margin-left10 margin-bottom15">
                             <p class="font14 text-light-grey margin-bottom5">Total amount (Principal + Interest)</p>
                             <div>
-                                <span class="bwsprite inr-md"></span>
+                                @Html.Raw("<span class='font16 text-bold'>&#x20B9;</span>")
                                 <span class="font16 text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>
                             </div>
                         </div>

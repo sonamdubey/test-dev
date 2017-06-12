@@ -149,7 +149,7 @@
                                     @if (Model.IsDiscontinued)
                                     {
                                         <div class="font14 text-default text-bold padding-top15">
-                                            <span>Last known Ex-showroom price</span><span class="margin-left15"><span class="bwsprite inr-md margin-right5"></span><span class="text-bold font16" data-bind="text: exshowroomPrice()">@Model.FirstVersion.ExShowroomPrice</span></span>
+                                            <span>Last known Ex-showroom price</span><span class="margin-left15">@Html.Raw("<span class='margin-right5 text-bold font16'>&#x20B9;</span>")<span class="text-bold font16" data-bind="text: exshowroomPrice()">@Model.FirstVersion.ExShowroomPrice</span></span>
                                         </div>
                                         <div class="margin-top15 font14">
                                             <p class="text-slate-grey line-height16">@String.Format("{0} has discontinued the {1} and the bike is out of production.", Model.Make.MakeName, Model.BikeModel.ModelName)</p>

@@ -1239,7 +1239,6 @@ docReady(function () {
             if ($('li.ui-state-focus a:visible').text() != "") {
                 focusedCity = new Object();
                 focusedCity = objCity.result[$('li.ui-state-focus').index()];
-
             }
         },
         afterfetch: function (result, searchtext) {

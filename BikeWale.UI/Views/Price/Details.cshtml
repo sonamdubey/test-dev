@@ -110,7 +110,7 @@
                                                     @item.CategoryName
                                                 </td>
                                                 <td width="170" align="right">
-                                                    <span class="bwsprite inr-md"></span>&nbsp;<span id="exShowroomPrice" class="font16 text-bold">@CommonOpn.FormatPrice(item.Price.ToString())</span>
+                                                    @Html.Raw("<span >&#x20B9;</span>")&nbsp;<span id="exShowroomPrice" class="font16 text-bold">@CommonOpn.FormatPrice(item.Price.ToString())</span>
                                                 </td>
                                             </tr>
                                         }
@@ -125,7 +125,7 @@
                                                 <p class="font14 text-bold">On-road price in @Html.Raw(Model.Location)</p>
                                             </td>
                                             <td align="right">
-                                                <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold">@CommonOpn.FormatPrice(Model.TotalPrice.ToString())</span>
+                                                @Html.Raw("<span class='font22 text-bold'>&#x20B9;</span>")&nbsp;<span class="font22 text-bold">@CommonOpn.FormatPrice(Model.TotalPrice.ToString())</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -165,13 +165,13 @@
                                                 Ex-Showroom (@Model.Quotation.City)
                                             </td>
                                             <td width="170" align="right">
-                                                <span class="bwsprite inr-md"></span>&nbsp;<span id="exShowroomPrice" class="font16 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.ExShowroomPrice.ToString())</span>
+                                                @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span id="exShowroomPrice" class="font16 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.ExShowroomPrice.ToString())</span>
                                             </td>
                                         </tr>
                                         <tr class="row-with-padding">
                                             <td class="font14">RTO</td>
                                             <td align="right">
-                                                <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.RTO.ToString())</span>
+                                                @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="font16 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.RTO.ToString())</span>
                                             </td>
                                         </tr>
                                         <tr class="row-with-padding">
@@ -182,7 +182,7 @@
                                                 }
                                             </td>
                                             <td align="right">
-                                                <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-bold">@CommonOpn.FormatNumeric(@Model.Quotation.Insurance.ToString())</span>
+                                                @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="font16 text-bold">@CommonOpn.FormatNumeric(@Model.Quotation.Insurance.ToString())</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -195,7 +195,7 @@
                                                 <p class="font14 text-bold">On-road price in @Html.Raw(Model.Location)</p>
                                             </td>
                                             <td align="right">
-                                                <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.OnRoadPrice.ToString())</span>
+                                                @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="font22 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.OnRoadPrice.ToString())</span>
                                             </td>
                                         </tr>
                                         <tr></tr>

@@ -18,10 +18,10 @@ namespace BikewaleOpr.manufacturecampaign
     /// </summary>
     public class ManageDealer : System.Web.UI.Page
     {
-        protected bool isEdit = true, pinCodeRequired;
+        protected bool isEdit = true, pinCodeRequired, emailIdRequired;
         protected Button btnUpdate;
         protected TextBox campaignDescription, txtMaskingNumber, textBox1, textBox2, textBox3, textBox4, LeadCapturePopup_Heading, LeadCapturePopup_Description, LeadCapturePopup_Message;
-        protected CheckBox isActive, CheckBox1, CheckBox2, CheckBox3, CheckBox4, CheckBox5, CheckBox6, CheckBox7, CheckBox8;
+        protected CheckBox isActive, CheckBox1, CheckBox2, CheckBox3, CheckBox4, CheckBox5, CheckBox6, CheckBox7, CheckBox8, CheckBox9;
         protected HiddenField Hiddenfield1, Hiddenfield2, Hiddenfield3, Hiddenfield4, hdnOldMaskingNumber, hdnmaskingnumber;
         protected int dealerId, userId;
         protected int campaignId = 0;
@@ -130,6 +130,8 @@ namespace BikewaleOpr.manufacturecampaign
                                 }
                                 if (campaignDetails.PinCodeRequire)
                                     CheckBox8.Checked = true;
+                                if (campaignDetails.EmailRequire)
+                                    CheckBox9.Checked = true;
                                 if (campaignDetails.IsActive == 1)
                                 {
                                     isActive.Checked = true;
@@ -294,12 +296,14 @@ namespace BikewaleOpr.manufacturecampaign
                         {
                             pinCodeRequired = true;
                         }
+                        if (CheckBox9.Checked)
+                            emailIdRequired = true;
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml1, TemplateId = templateId1 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml2, TemplateId = templateId2 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml3, TemplateId = templateId3 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml4, TemplateId = templateId4 });
 
-                        if (objMfgCampaign.SaveManufacturerCampaignTemplate(objList, userId, campaignId, LeadCapturePopupMessage, LeadCapturePopupDescription, LeadCapturePopupHeading, dealerId, pinCodeRequired))
+                        if (objMfgCampaign.SaveManufacturerCampaignTemplate(objList, userId, campaignId, LeadCapturePopupMessage, LeadCapturePopupDescription, LeadCapturePopupHeading, dealerId, pinCodeRequired,emailIdRequired))
                         {
                             lblGreenMessage.Text = "Campaign added successfully";
                             Response.Redirect("/manufacturecampaign/ManufacturerManageDealer.aspx?campaignid=" + campaignId + "&dealerid=" + dealerId + "&manufactureName=" + manufacturerName, false);
@@ -371,12 +375,14 @@ namespace BikewaleOpr.manufacturecampaign
                         {
                             pinCodeRequired = true;
                         }
+                        if (CheckBox9.Checked)
+                            emailIdRequired = true;
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml1, TemplateId = templateId1 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml2, TemplateId = templateId2 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml3, TemplateId = templateId3 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml4, TemplateId = templateId4 });
 
-                        if (objMfgCampaign.UpdateBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), hdnOldMaskingNumber.Value, dealerId, userId, campaignId, objList, LeadCapturePopupMessage, LeadCapturePopupDescription, LeadCapturePopupHeading, pinCodeRequired))
+                        if (objMfgCampaign.UpdateBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), hdnOldMaskingNumber.Value, dealerId, userId, campaignId, objList, LeadCapturePopupMessage, LeadCapturePopupDescription, LeadCapturePopupHeading, pinCodeRequired, emailIdRequired))
                         {
                             ShowData(campaignId);
                             lblGreenMessage.Text = "Campaign updated succesfully";

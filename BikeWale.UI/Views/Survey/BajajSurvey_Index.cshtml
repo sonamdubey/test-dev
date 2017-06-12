@@ -1,0 +1,208 @@
+﻿@model Bikewale.Models.Survey.BajajSurveyVM
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/survey/bajaj-survey.css' />";
+    Model.Page_JS_Path = "/src/survey/bajaj-survey.js";
+    Model.PageMetaTags.Title = "Two Wheeler Survey - BikeWale";
+    Model.PageMetaTags.Description = "Take the two wheeler popularity survey to help us understand the consumer buying preferences.";
+}
+
+<header class="bajaj-survey-banner">
+    <div class="header-text font22 text-black text-bold text-center">BikeWale Two Wheeler Popularity Survey</div>
+</header>
+
+<div class="container content-box-shadow margin-bottom50">
+    @if (!Model.IsSubmitted)
+    {
+        <div class="header-container text-center container-padding10 font15">
+            <p class="survey-heading">BikeWale is conducting a survey on two wheeler popularity.</p>
+            <p class="survey-heading">There are a few simple questions that you need to answer and it will take maximum 2 minutes of your time.</p>
+        </div>
+        <div id="question-number-list" class="question-status-container position-rel">
+            <div class="q1-circle q-circle active"><span class="qNum">1</span></div>
+            <div class="q2-line q-line"></div>
+            <div class="q2-circle q-circle"><span class="qNum">2</span></div>
+            <div class="q3-line q-line"></div>
+            <div class="q3-circle q-circle"><span class="qNum">3</span></div>
+        </div>
+        <form action="/survey/bajaj/SubmitReview/" method="post" onsubmit="return Validate()">
+
+            <div id="page1" class="survey-page survey-page1 font16">
+                <div class="question1 question-box" data-qNumber="1">
+                    <p class="text-bold margin-bottom15">1) Which 2-wheeler do you currently ride?</p>
+                    <div class="select-box margin-left15">
+                        <p class="select-label">Select</p>
+                        <select id="CurrentBike" name="CurrentBike" class="survey-q1-select survey-select container-margin10 chosen-select">
+                            <option value=""></option>
+                            <option value='Pulsar 135'>Pulsar 135</option>
+                            <option value='Pulsar 150'>Pulsar 150</option>
+                            <option value='Pulsar 180'>Pulsar 180</option>
+                            <option value='Pulsar NS200'>Pulsar NS200</option>
+                            <option value='Pulsar RS 200'>Pulsar RS 200</option>
+                            <option value='Pulsar 220'>Pulsar 220</option>
+                            <option value='Bajaj V 150'>Bajaj V 150</option>
+                            <option value='Bajaj V 125'>Bajaj V 125</option>
+                            <option value='Avenger 150'>Avenger 150</option>
+                            <option value='Avenger 220 Street'>Avenger 220 Street</option>
+                            <option value='Avenger 220 Cruise'>Avenger 220 Cruise</option>
+                            <option value='Dominar 400'>Dominar 400</option>
+                            <option value='TVS Victor'>TVS Victor</option>
+                            <option value='TVS Apache 160'>TVS Apache 160</option>
+                            <option value='TVS Apache 180'>TVS Apache 180</option>
+                            <option value='TVS Apache RTR 200'>TVS Apache RTR 200</option>
+                            <option value='Royal Enfield Classic'>Royal Enfield Classic</option>
+                            <option value='Royal Enfield Bullet'>Royal Enfield Bullet</option>
+                            <option value='Royal Enfield Thunderbird'>Royal Enfield Thunderbird</option>
+                            <option value='Honda Shine'>Honda Shine</option>
+                            <option value='Honda Unicorn'>Honda Unicorn</option>
+                            <option value='Honda CB Hornet'>Honda CB Hornet</option>
+                            <option value='Hero Glamour'>Hero Glamour</option>
+                            <option value='Hero Achiever'>Hero Achiever</option>
+                            <option value='Yamaha FZ/Fazer'>Yamaha FZ/Fazer</option>
+                            <option value='Yamaha R15'>Yamaha R15</option>
+                            <option value='KTM Duke 390'>KTM Duke 390</option>
+                            <option value='KTM RC 390'>KTM RC 390</option>
+                            <option value='Hero Xtreme'>Hero Xtreme</option>
+                            <option value='KTM Duke 200'>KTM Duke 200</option>
+                            <option value='KTM RC 200'>KTM RC 200</option>
+                            <option value='Other'>Other</option>
+                        </select>
+                        <span class="boundary"></span>
+                    </div>
+                    <div class="checkbox-container"> <input type="checkbox" name="vehicle" value="Bike" id="question1_checkbox" class="survey-q1__checkbox survey-checkbox"> <label class="margin-left5" for="question1_checkbox">No, I don't ride a two wheeler</label> </div>
+                    <div class="error-text error-text-q1 visibility-off">Please attempt this question</div>
+                </div>
+
+                <div class="question2 question-box" data-qNumber="2">
+                    <p class="text-bold margin-bottom15">2) Which two wheeler do you plan to purchase in the next 3 months?</p>
+                    <div class="margin-left15">
+
+                        <select id="MultipleModel" multiple="multiple" name="MultipleModel" data-placeholder="You can select multiple bikes" class="survey-q2-select survey-select chosen-select">
+                            <option value='Pulsar 135'>Pulsar 135</option>
+                            <option value='Pulsar 150'>Pulsar 150</option>
+                            <option value='Pulsar 180'>Pulsar 180</option>
+                            <option value='Pulsar NS200'>Pulsar NS200</option>
+                            <option value='Pulsar RS 200'>Pulsar RS 200</option>
+                            <option value='Pulsar 220'>Pulsar 220</option>
+                            <option value='Bajaj V 150'>Bajaj V 150</option>
+                            <option value='Bajaj V 125'>Bajaj V 125</option>
+                            <option value='Avenger 150'>Avenger 150</option>
+                            <option value='Avenger 220 Street'>Avenger 220 Street</option>
+                            <option value='Avenger 220 Cruise'>Avenger 220 Cruise</option>
+                            <option value='Dominar 400'>Dominar 400</option>
+                            <option value='TVS Victor'>TVS Victor</option>
+                            <option value='TVS Apache 160'>TVS Apache 160</option>
+                            <option value='TVS Apache 180'>TVS Apache 180</option>
+                            <option value='TVS Apache RTR 200'>TVS Apache RTR 200</option>
+                            <option value='Royal Enfield Classic'>Royal Enfield Classic</option>
+                            <option value='Royal Enfield Bullet'>Royal Enfield Bullet</option>
+                            <option value='Royal Enfield Thunderbird'>Royal Enfield Thunderbird</option>
+                            <option value='Honda Shine'>Honda Shine</option>
+                            <option value='Honda Unicorn'>Honda Unicorn</option>
+                            <option value='Honda CB Hornet'>Honda CB Hornet</option>
+                            <option value='Hero Glamour'>Hero Glamour</option>
+                            <option value='Hero Achiever'>Hero Achiever</option>
+                            <option value='Yamaha FZ/Fazer'>Yamaha FZ/Fazer</option>
+                            <option value='Yamaha R15'>Yamaha R15</option>
+                            <option value='KTM Duke 390'>KTM Duke 390</option>
+                            <option value='KTM RC 390'>KTM RC 390</option>
+                            <option value='Hero Xtreme'>Hero Xtreme</option>
+                            <option value='KTM Duke 200'>KTM Duke 200</option>
+                            <option value='KTM RC 200'>KTM RC 200</option>
+                            <option value='Other'>Other</option>
+                        </select>
+                        <span class="boundary"></span>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" name="vehicle" value="Bike" id="question2_checkbox" class="survey-q2__checkbox survey-checkbox">
+                        <label class="margin-left5" for="question2_checkbox">No, I don't plan to buy a two-wheeler anytime soon</label>
+                    </div>
+                    <div class="error-text error-text-q2 visibility-off">Please attempt this question</div>
+                </div>
+
+                <div class="btn btn-orange survey-page1__btn font14 position-rel margin-bottom15">Next</div>
+            </div>
+
+            <div id="page2" class="survey-page survey-page2 font16 hide">
+                <div class="question3 question-box">
+                    <p class="text-bold">3. Which are the recent bike commercial that you remember? </p>
+                    <input name="RecentBikeCommercial" class="survey-q3-input survey-input" placeholder="Type here" type="text" maxlength="50" />
+                    <div class="error-text error-text-q3 visibility-off">Please attempt this question</div>
+                </div>
+                <div class="question-4 question-box">
+                    <p class="text-bold">4. Do you remember watching this video Ad before?</p>
+                    <div class="radio-container">
+                        <input id="SeenThisAd1" name="SeenThisAd" type="radio" value="Yes" /> <label class="margin-left5" for="SeenThisAd1">Yes</label>
+                        <input id="SeenThisAd2" name="SeenThisAd" type="radio" value="No" /><label class="margin-left5" for="SeenThisAd2">No</label>
+                    </div>
+                    <div class="video-wrapper">
+                        <iframe width="360" height="203" src="https://www.youtube.com/embed/1lhZpRv1wJk" frameborder="0" allowfullscreen></iframe>
+                    </div>
+
+                    <div id="adnumberofviews" class="conditional-question margin-top20 hide">
+                        <p class="text-bold">a. Approximately how many times have you seen the above commercial?</p>
+                        <div class="select-box margin-left15 margin-top15">
+                            <p class="select-label">Select</p>
+                            <select id="viewscount" name="viewscount" class="survey-q4a-select survey-select-conditional container-margin10">
+                                <option value="" disabled selected>  </option>
+                                <option value="1-2 Times">1-2 times</option>
+                                <option value="3-5 Times">3-5 times</option>
+                                <option value="More than 5 Times">more than 5 times</option>
+                            </select>
+                            <span class="boundary"></span>
+                        </div>
+                    </div>
+
+                    <div id="admedium" class="conditional-question margin-top20 hide">
+                        <p class="text-bold">b. On which media platforms, do you remember watching this commercial?</p>
+                        <div class="margin-left15 margin-top15">
+
+                            <select id="AdMedium" multiple="multiple" name="AdMedium" class="survey-q4b-select survey-select-conditional container-margin10">
+                                <option value="TV">TV</option>
+                                <option value="Movie Theatre">Movie Theatre</option>
+                                <option value="YouTube">YouTube</option>
+                                <option value="Facebook">Facebook</option>
+                                <option value="Hotstar">Hotstar</option>
+                                <option value="Sony Liv">Sony Liv</option>
+                                <option value="Other Internet Site">Other Internet Site</option>
+                            </select>
+                            <span class="boundary"></span>
+                        </div>
+                    </div>
+                    <div class="error-text error-text-q4 visibility-off">Please attempt this question</div>
+                </div>
+                <div class="btn btn-orange survey-page2__btn font14 position-rel margin-bottom20">Next</div>
+            </div>
+
+            <div id="page3" class="survey-page survey-page3 font16" style="display: none;">
+                <div class="question5 question-box">
+                    <p class="text-bold">5. Your age </p>
+                    <input name="Age" class="survey-q5-input survey-input" type="number" maxlength="3" min="1" max="100" />
+                    <div class="error-text error-text-q5 visibility-off">Please attempt this question</div>
+                </div>
+                <div class="question6 question-box">
+                    <p class="text-bold">6. Which mobile phone are you using currently?</p>
+                    <input name="Handset" class="survey-q6-input survey-input" type="text" placeholder="e.g. Apple iPhone 6S" />
+                    <div class="error-text error-text-q6 visibility-off">Please attempt this question</div>
+                </div>
+                <div class="question7 question-box">
+                    <p class="text-bold">7. City </p>
+                    <input type="text" class="survey-q7-input survey-input" name="City" id="txtCity" autocomplete="off" data-reload="false" maxlength="100">
+                    <div class="error-text error-text-q7 visibility-off">Please attempt this question</div>
+                </div>
+                <div><p><input type="submit" value="Submit" class="btn btn-orange survey-page3__btn font14 margin-bottom20 position-rel" /></p></div>
+                @Html.Hidden("Source", "Desktop")
+            </div>
+        </form>
+    }
+    else
+    {
+        <div id="page4" class="text-center thankyou-page-container">
+            <div class="thankyou-page text-black">
+                <img src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/like.png" class="margin-bottom10" />
+                <div class="font24 text-bold margin-bottom10">Thank you</div>
+                <div class="margin-bottom30">Thank you for participating in the survey. This will help us to enhance your experience</div>
+            </div>
+        </div>
+    }
+</div>

@@ -74,14 +74,14 @@ namespace Bikewale.Service.Controllers.Insurance
             try
             {
                 //Register User
-                if (!_objAuthCustomer.IsRegisteredUser(insuranceLead.Email))
+                if (!_objAuthCustomer.IsRegisteredUser(insuranceLead.Email, insuranceLead.Mobile))
                 {
                     objCust = new CustomerEntity() { CustomerName = detail.Name, CustomerEmail = detail.Email, CustomerMobile = detail.Mobile, ClientIP = insuranceLead.ClientIP, SourceId = insuranceLead.LeadSourceId };
                     insuranceLead.CustomerId = _objCustomer.Add(objCust);
                 }
                 else
                 {
-                    insuranceLead.CustomerId = _objCustomer.GetByEmail(insuranceLead.Email).CustomerId;
+                    insuranceLead.CustomerId = _objCustomer.GetByEmailMobile(insuranceLead.Email, insuranceLead.Mobile).CustomerId;
                 }
 
                 //else 

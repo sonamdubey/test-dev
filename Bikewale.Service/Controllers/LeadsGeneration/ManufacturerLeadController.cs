@@ -55,7 +55,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
             {
                 if (objLead != null)
                 {
-                    if (objLead.CityId > 0 && objLead.VersionId > 0 && objLead.PQId > 0 && !String.IsNullOrEmpty(objLead.Name) && !String.IsNullOrEmpty(objLead.Email) && !String.IsNullOrEmpty(objLead.Mobile) && objLead.DealerId > 0)
+                    if (objLead.CityId > 0 && objLead.VersionId > 0 && objLead.PQId > 0 && !String.IsNullOrEmpty(objLead.Name) && !String.IsNullOrEmpty(objLead.Mobile) && objLead.DealerId > 0)
                     {
                         //Push inquiry Id to AutoBiz
                         DPQ_SaveEntity entity = new DPQ_SaveEntity()
