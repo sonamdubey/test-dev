@@ -124,13 +124,13 @@
                                                 <!-- ko if: exshowroomPrice().length > 0 -->
                                                 <tr>
                                                     <td align="left" valign="top" width="70%" class="padding-bottom10 text-slate-grey">Ex-showroom</td>
-                                                    <td align="right" valign="top" width="30%" class="padding-bottom10 text-bold"><span class="bwsprite inr-sm"></span><span data-bind="text: exshowroomPrice()"></span></td>
+                                                    <td align="right" valign="top" width="30%" class="padding-bottom10 text-bold">@Html.Raw("<span class='text-bold'>&#x20B9;</span>")<span data-bind="text: exshowroomPrice()"></span></td>
                                                 </tr>
                                                 <!-- /ko -->
                                                 <!-- ko if: rtoPrice().length > 0 -->
                                                 <tr>
                                                     <td align="left" valign="top" width="70%" class="padding-bottom10 text-slate-grey">RTO</td>
-                                                    <td align="right" valign="top" width="30%" class="padding-bottom10 text-bold"><span class="bwsprite inr-sm"></span><span data-bind="text: rtoPrice()"></span></td>
+                                                    <td align="right" valign="top" width="30%" class="padding-bottom10 text-bold">@Html.Raw("<span class='text-bold'>&#x20B9;</span>")<span data-bind="text: rtoPrice()"></span></td>
                                                 </tr>
                                                 <!-- /ko -->
                                                 <!-- ko if: insurancePrice().length > 0 -->
