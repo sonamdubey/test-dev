@@ -1181,6 +1181,7 @@ namespace Bikewale.DAL.UserReviews
                                 objUserReview.Disliked = SqlReaderConvertor.ToUInt16(dr["Disliked"]);
                                 objUserReview.Viewed = SqlReaderConvertor.ToUInt32(dr["Viewed"]);
                                 objUserReview.ReviewDate = Utility.SqlReaderConvertor.ToDateTime(dr["ReviewDate"]);
+                                objUserReview.ReviewAge = FormatDate.GetTimeSpan(SqlReaderConvertor.ToDateTime(dr["ReviewDate"]));
                                 objUserReview.OverAllRating = new ReviewRatingEntityBase()
                                 {
                                     OverAllRating = SqlReaderConvertor.ToUInt16(dr["overallrating"])
@@ -1456,6 +1457,9 @@ namespace Bikewale.DAL.UserReviews
                     {
                         var objRating = objUserReviewrating.Where(q => q.QuestionId == question.Id && question.SelectedRatingId.ToString() == q.Value).ToList();
                         question.Rating = objRating;
+
+                        if(!objUserReviewSummary.IsRatingQuestion && question.Type == UserReviewQuestionType.Rating)
+                            objUserReviewSummary.IsRatingQuestion = true;
                     }
                 }
             }
@@ -1604,6 +1608,12 @@ namespace Bikewale.DAL.UserReviews
             return objIdList;
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 8-06-2017
+        /// Description : thios gets review summary list from db
+        /// </summary>
+        /// <param name="reviewIdList"></param>
+        /// <returns></returns>
         public IEnumerable<UserReviewSummary> GetUserReviewSummaryList(string reviewIdList)
         {
             ICollection<UserReviewSummary> objSummaryList = null;
@@ -1712,7 +1722,7 @@ namespace Bikewale.DAL.UserReviews
 
             catch (Exception ex)
             {
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "UserReviewsRepository.GetUserReviewSummaryList");
             }
 
             return objSummaryList;

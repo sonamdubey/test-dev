@@ -110,7 +110,7 @@ namespace Bikewale.Cache.UserReviews
             SearchResult reviews = null;
             if (inputFilters != null && (!String.IsNullOrEmpty(inputFilters.Model) || !String.IsNullOrEmpty(inputFilters.Make)))
             {
-                string key = "BW_UserReviews_MO_" + inputFilters.Model;
+                string key = "BW_UserReviews_MO_V1_" + inputFilters.Model;
                 bool skipDataLimit = (inputFilters.PN * inputFilters.PS) > 24;
                 try
                 {                    
@@ -202,10 +202,10 @@ namespace Bikewale.Cache.UserReviews
         public UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId)
         {
             UserReviewSummary objUserReviewSummary = null;
-            string key = string.Format("BW_UserReviewDetails_{0}", reviewId);
+            string key = string.Format("BW_UserReviewDetails_V1_{0}", reviewId);
             try
             {
-                objUserReviewSummary = _cache.GetFromCache<UserReviewSummary>(key, new TimeSpan(12, 0, 0), () => _objUserReviews.GetUserReviewSummaryWithRating(reviewId));
+                objUserReviewSummary = _cache.GetFromCache<UserReviewSummary>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetUserReviewSummaryWithRating(reviewId));
             }
             catch (Exception ex)
             {
@@ -234,6 +234,12 @@ namespace Bikewale.Cache.UserReviews
             return htResult;
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 12-06-2017
+        /// Description : this gets all review id list for particular model from dal
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         public BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId)
         {
             BikeReviewIdListByCategory objReviewIdList = null;
@@ -242,13 +248,19 @@ namespace Bikewale.Cache.UserReviews
                 string key = "BW_ReviewIdList_" + modelId;
                 objReviewIdList = _cache.GetFromCache<BikeReviewIdListByCategory>(key, new TimeSpan(6, 0, 0), () => _objUserReviews.GetReviewsIdListByModel(modelId));
             }
-            catch
+            catch(Exception ex)
             {
-
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeMakesCacheRepository.GetReviewsIdListByModel {0}", modelId));
             }
             return objReviewIdList;
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 12-06-2017
+        /// Description : this gets all review id summary list from dal
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         public IEnumerable<UserReviewSummary> GetUserReviewSummaryList(IEnumerable<uint> reviewIdList)
         {
             IEnumerable<UserReviewSummary> objSummaryList = null;
@@ -260,7 +272,7 @@ namespace Bikewale.Cache.UserReviews
                 int i = 0;
                 foreach(var id in reviewIdList)
                 {
-                    keys[i++] = string.Format("BW_UserReviewDetailsV1_{0}", id);
+                    keys[i++] = string.Format("BW_UserReviewDetails_V1_{0}", id);
                 }
 
                 string reviewCSV = String.Join(",", reviewIdList.ToArray());
@@ -272,12 +284,11 @@ namespace Bikewale.Cache.UserReviews
                     fnCallback);
                 
             }
-            catch
+            catch(Exception ex)
             {
-
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewSummaryList");
             }
             return objSummaryList;
-
         }
     }
 }
