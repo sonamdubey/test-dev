@@ -1,0 +1,42 @@
+﻿.overall-tabs
+    height: 45px
+
+.overall-specs-tabs-container
+    width: 976px
+    height: 43px
+    background: #fff
+    overflow-y: hidden
+    overflow-x: auto
+    position: absolute
+    top: 0
+    @include box-shadow(0, 2px, 2px, 0, #e2e2e2)
+
+    &.fixed-tab-nav
+        position: fixed
+        top: 0
+        margin: 0 auto
+        z-index: 5
+
+.overall-specs-tabs-wrapper
+    display: table
+    background: #fff
+
+    a
+        padding: 10px 14px
+        display: table-cell
+        text-align: center
+        font-size: 14px
+        color: $text-light
+        white-space: nowrap
+
+        &.active
+            border-bottom: 3px solid #ef3f30
+            font-weight: 600
+            color: $text-primary
+
+        &:first-child
+            padding-left: 20px
+
+        &:hover
+            text-decoration: none
+            color: $text-primary

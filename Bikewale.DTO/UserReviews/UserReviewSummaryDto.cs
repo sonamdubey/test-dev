@@ -2,8 +2,10 @@
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 namespace Bikewale.DTO.UserReviews
 {
     public class UserReviewSummaryDto
@@ -26,6 +28,9 @@ namespace Bikewale.DTO.UserReviews
         [JsonProperty("description"), DataMember]
         public string Description { get; set; }
 
+        [JsonProperty("shortDescription"), DataMember]
+        public string ShortDescription { get { return  Description.TruncateHtml(200); } }
+
         [JsonProperty("title"), DataMember]
         public string Title { get; set; }
 
@@ -43,5 +48,23 @@ namespace Bikewale.DTO.UserReviews
 
         [JsonProperty("customerEmail"), DataMember]
         public string CustomerEmail { get; set; }
+
+        [JsonProperty("upVotes"), DataMember]
+        public uint UpVotes { get; set; }
+
+        [JsonProperty("downVotes"), DataMember]
+        public uint DownVotes { get; set; }
+
+        [JsonProperty("views"), DataMember]
+        public uint Views { get; set; }
+
+        [JsonProperty("reviewId"), DataMember]
+        public uint ReviewId { get; set; }
+
+        [JsonProperty("reviewAge"), DataMember]
+        public string ReviewAge { get; set; }
+
+        [JsonProperty("isRatingQuestion"), DataMember]
+        public bool IsRatingQuestion { get; set; }
     }
 }

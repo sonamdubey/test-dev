@@ -30,5 +30,7 @@ namespace Bikewale.Entities.UserReviews
         public ReviewTaggedBikeEntity TaggedBike { get; set; }
         [DataMember]
         public uint NewReviewId { get; set; }
+        [DataMember]
+        public string ReviewAge { get; set; }
     }
 }

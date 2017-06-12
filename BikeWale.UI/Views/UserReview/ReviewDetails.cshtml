@@ -1,0 +1,252 @@
+﻿@model Bikewale.Models.UserReviewDetailsVM
+@using Bikewale.Entities.UserReviews;
+@{
+    Model.IsHeaderFix = false;
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/user-review/listing.css' />";
+    Model.Page_JS_Path = "/src/user-review/listing.js";
+    Model.AdTags.AdPath = "/1017752/Bikewale_UserReviews_";
+    Model.AdTags.AdId = "1496833829224";
+    Model.AdTags.Ad_970x90 = true;
+    Model.AdTags.Ad_970x90BTF = true;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Model != null && Model.UserReviewDetailsObj != null && Model.UserReviewDetailsObj.Model != null && Model.UserReviewDetailsObj.Make != null)
+{
+    <input type="hidden" value="@Model.UserReviewDetailsObj.Model.ModelId" id="hdnModelId" />
+    <section class="padding-top10" id="breadcrumb">
+        <div class="container">
+            <div class="grid-12">
+                <div class="breadcrumb margin-bottom15">
+                    <ul>
+                        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a href="/" itemprop="url">
+                                <span itemprop="title">Home</span>
+                            </a>
+                        </li>
+                        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <span class="bwsprite fa-angle-right margin-right10"></span>
+                            <a href="/@Model.UserReviewDetailsObj.Make.MaskingName-bikes/" itemprop="url">
+                                <span itemprop="title">@Model.UserReviewDetailsObj.Make.MakeName Bikes</span>
+                            </a>
+                        </li>
+                        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <span class="bwsprite fa-angle-right margin-right10"></span>
+                            <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(Model.UserReviewDetailsObj.Make.MaskingName, Model.UserReviewDetailsObj.Model.MaskingName)" itemprop="url">
+                                <span itemprop="title">@Model.UserReviews.BikeName</span>
+                            </a>
+                        </li>
+                        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <span class="bwsprite fa-angle-right margin-right10"></span>
+                            <a href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.UserReviewDetailsObj.Make.MaskingName, Model.UserReviewDetailsObj.Model.MaskingName)" itemprop="url">
+                                <span itemprop="title">User Reviews</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="bwsprite fa-angle-right margin-right10"></span>
+                            <span>@Bikewale.Utility.FormatDescription.TruncateDescription(Model.UserReviewDetailsObj.Title, 45)</span>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container card-bottom-margin">
+            <div class="grid-12">
+                <div class="content-box-shadow">
+                    <div class="content-box-shadow padding-15-20">
+                        <h1 class="inline-block margin-right20">@Model.UserReviews.BikeName user reviews</h1>
+                        <div class="inline-block">
+                            <span class="inline-block">Overall rating:</span>
+                            <span class="inline-block rate-count-@Model.UserReviewDetailsObj.OverallRating.Value">
+                                <span class="bwsprite star-icon star-size-16"></span>
+                                <span class="font14 text-bold inline-block">@Model.UserReviewDetailsObj.OverallRating.Value</span>
+                                <span class="font11 text-xt-light inline-block">&nbsp;/&nbsp;5</span>
+                            </span>
+                            <span class="font14 text-xt-light review-left-divider inline-block">@string.Format("{0} rating{1}", Model.UserReviews.ReviewsInfo.TotalRatings, (Model.UserReviews.ReviewsInfo.TotalRatings > 1 ? "s" : ""))</span>
+                        </div>
+                    </div>
+                    <div class="content-inner-block-20">
+                        <div class="grid-9 alpha padding-right20 border-light-right">
+                            <div class="margin-bottom15">
+                                <span class="rating-badge" data-rate-bg="@Model.UserReviewDetailsObj.OverallRating.Value"><span class="bwsprite star-white"></span>@Model.UserReviewDetailsObj.OverallRating.Value</span>
+                                <p class="font18 text-black text-bold inline-block margin-right5">@Bikewale.Utility.FormatDescription.TruncateDescription(Model.UserReviewDetailsObj.Title, 45)</p>
+                                <span class="font12 inline-block text-light-grey">@Model.ReviewAge ago by @Model.UserReviewDetailsObj.CustomerName</span>
+                                <span class="bwsprite video-views-icon margin-left10 margin-right5 font14"></span><span class="text-light-grey margin-right5">@string.Format("{0} view{1}", Bikewale.Utility.Format.FormatNumeric(Model.UserReviewDetailsObj.Views.ToString()), Model.UserReviewDetailsObj.Views > 1 ? "s" : "")</span>
+                            </div>
+                            <div class="margin-bottom10 font14 text-slate-grey">
+                                @if (!string.IsNullOrEmpty(Model.UserReviewDetailsObj.Description))
+                                {
+                                    <p>@Html.Raw(Model.UserReviewDetailsObj.Description)</p>
+                                }
+                                @if (Model.UserReviewDetailsObj.Tips.Length > 0)
+                                {
+                                    <p class="font14 font-bold text-black margin-top20 margin-bottom10">Tips for @Model.UserReviewDetailsObj.Make.MakeName @Model.UserReviewDetailsObj.Model.ModelName</p>
+                                    <p class="margin-bottom15">@Model.UserReviewDetailsObj.Tips</p>
+                                }
+                                @if (Model.ReviewQuestions != null && Model.ReviewQuestions.Count > 0)
+                                {
+                                    <ul class="rating-circle-list">
+                                        @foreach (var q in Model.ReviewQuestions)
+                                        {
+                                            if (q.SelectedRatingId > 0)
+                                            {
+                                                <li>
+                                                    <div class="rating-circle circle-rate-@q.SelectedRatingId">
+                                                        <p class="circle-label">@q.SelectedRatingId</p>
+                                                        <span class="rating-progress">
+                                                        </span>
+                                                    </div>
+                                                    <p class="list-item-label">@q.Heading</p>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                }
+                            </div>
+
+                            <button id="upvoteBtn" type="button" onclick="upVoteReview()" class="btn btn-inv-teal-group margin-right10">
+                                <span class="btn-label-grid">
+                                    <span class="bwsprite like-sm"></span>
+                                    <span id="upvoteTxt" class="btn-label">Likes</span>
+                                </span><span id="upvoteCount" class="btn-count">@Model.UserReviewDetailsObj.UpVotes</span>
+                            </button>
+
+                            <button id="downvoteBtn" type="button" onclick="downVoteReview()" class="btn btn-inv-teal-group">
+                                <span class="btn-label-grid">
+                                    <span class="bwsprite dislike-sm"></span>
+                                    <span id="downvoteTxt" class="btn-label">Dislikes</span>
+                                </span><span id="downvoteCount" class="btn-count">@Model.UserReviewDetailsObj.DownVotes</span>
+                            </button>
+
+                            <p class="text-light-grey rightfloat line-height26" id="divReportAbuse" data-reviewid="@Model.ReviewId">Inappropriate review? <a href="javascript:void(0)" onclick="abuseClick()" id="btnReportClick" rel="nofollow">Report Abuse</a></p>
+                            <div class="clear"></div>
+
+                        </div>
+                        @if (Model.RatingQuestions != null && Model.RatingQuestions.Count > 0)
+                        {
+                            <div class="grid-3 omega padding-left20">
+                                <ul>
+                                    @foreach (var q in Model.RatingQuestions)
+                                    {
+                                        <li class="margin-bottom10">
+                                            <span class="bwsprite questionId-@q.Id"></span>
+                                            <div class="inline-block">
+                                                <p class="font10 text-xt-light">@q.MinHeading</p>
+                                                <p class="font14 text-slate-grey">@q.Rating.FirstOrDefault().Text</p>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    if (Model.UserReviews != null && Model.UserReviews.UserReviews != null && Model.UserReviews.UserReviews.ResultDesktop != null && Model.UserReviews.UserReviews.ResultDesktop.Count() > 0)
+    {
+        @Html.Partial("~/views/UserReview/_UserReviewsSearch.cshtml", Model.UserReviews)
+    }
+    if (Model.GenericBikeWidgetData != null)
+    {
+        <section>
+            @Html.Partial("~/views/BikeModels/_BikeInfoCard.cshtml", Model.GenericBikeWidgetData)
+        </section>
+    }    
+    <section>
+        <div class="container card-bottom-margin">
+            <div class="grid-12">
+                <div id="bike-rating-box" class="content-box-shadow rate-bike-slug content-inner-block-20">
+                    <div class="leftfloat">
+                        <div class="circle-placeholder-60 inline-block">
+                            <span class="bwsprite star-1 margin-top15"></span>
+                        </div>
+                        <p class="font18 text-black text-bold inline-block margin-left20 margin-right15">Rate your bike</p>
+                        <p class="font14 text-slate-grey inline-block">Share your experience about this bike</p>
+                    </div>
+                    <div class="rightfloat padding-top15 answer-star-list hover-effect">
+                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-5" name="rate-bike" value="5">
+                        <label class="bwsprite star-0" for="rate-star-5" data-value="5"></label>
+                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=4&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-4" name="rate-bike" value="4">
+                        <label class="bwsprite star-0" for="rate-star-4" data-value="4"></label>
+                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=3&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-3" name="rate-bike" value="3">
+                        <label class="bwsprite star-0" for="rate-star-3" data-value="3"></label>
+                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=2&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-2" name="rate-bike" value="2">
+                        <label class="bwsprite star-0" for="rate-star-2" data-value="2"></label>
+                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=1&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-1" name="rate-bike" value="1">
+                        <label class="bwsprite star-0" for="rate-star-1" data-value="1"></label>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Count() > 0)
+    {
+        <section>
+            <div class="container card-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 article-list font14">
+                        <h2 class="h2-heading margin-bottom20 margin-left10">@Model.ExpertReviews.Title</h2>
+                        @Html.Partial("~/views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                        <div class="padding-left10 more-article-target view-all-btn-container">
+                            <a href="@Model.ExpertReviews.MoreExpertReviewUrl" title="@string.Format("{0} {1} Expert Reviews", Model.UserReviewDetailsObj.Make.MakeName, Model.UserReviewDetailsObj.Model.ModelName)" class="btn view-all-target-btn">
+                                Read all expert reviews<span class="bwsprite teal-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
+
+    if (Model.SimilarBikeReviewWidget != null && Model.SimilarBikeReviewWidget.Count() > 0)
+    {
+        <section>
+            <div class="container card-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-bottom20">
+                        <div class="carousel-heading-content padding-top20">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2 class="h2-heading">Reviews of similar bikes</h2>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/user-reviews/" title="@string.Format("{0} {1} User Reviews", Model.UserReviewDetailsObj.Make.MakeName, Model.UserReviewDetailsObj.Model.ModelName)" class="btn view-all-target-btn">View all</a>
+                            </div>
+                        </div>
+                        @Html.Partial("~/views/UserReview/_SimilarBikeUserReview.cshtml", Model.SimilarBikeReviewWidget)
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
+
+
+    <div id="report-abuse">
+        <p class="font20 text-bold text-center margin-bottom20">Why do you want to report it abuse?</p>
+
+        <div class="report-abuse-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+
+        <p class="margin-bottom10 font14">Comment</p>
+
+        <textarea id="txtAbuseComments"></textarea>
+        <span id="spnAbuseComments" class="error font12 text-red"></span>
+
+        <div class="text-center margin-top10">
+            <a id="btnReportReviewAbuse" onclick="reportAbuse()" class="btn btn-orange" rel="nofollow">Report</a>
+        </div>
+    </div>
+<div id="report-background"></div>
+}

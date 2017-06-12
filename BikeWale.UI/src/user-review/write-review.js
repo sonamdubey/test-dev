@@ -56,7 +56,7 @@ docReady(function () {
             value ? $(element).show() : $(element).fadeOut(200);
         }
     };
-
+    
     ko.bindingHandlers.hoverRating = {
         update: function (element, valueAccessor) {
             var value = ko.utils.unwrapObservable(valueAccessor());
@@ -330,6 +330,10 @@ docReady(function () {
         triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue);
 
     });
+    var selRating = $("#bike-rating-box").attr("data-selectedrating");
+    if (selRating > 0) {
+        ratingBox.find('.answer-star-list input[type=radio][value="' + selRating + '"]').trigger("click");
+    }
 
     $('#rate-bike-questions').find('.question-type-text input[type=radio]').change(function () {
         var questionField = $(this).closest('.question-type-text'),

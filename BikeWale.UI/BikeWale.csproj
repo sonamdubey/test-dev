@@ -2272,6 +2272,7 @@
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\components\select-box.css" />
+    <Content Include="css\user-review\listing.css" />
     <Content Include="m\css\content\app.css" />
     <Content Include="css\content\details.css" />
     <Content Include="css\components\sidebar-bike-list.css" />
@@ -2332,7 +2333,7 @@
     <Content Include="css\used\bikes-in-city.css" />
     <Content Include="css\used\landing.css" />
     <Content Include="css\used\details.css" />
-    <Content Include="css\user-review\listing.css" />
+    <Content Include="css\user-review\listing-old.css" />
     <Content Include="css\video\detail.css" />
     <Content Include="css\video\landing.css" />
     <Content Include="css\video\videos-by-make.css" />
@@ -3060,6 +3061,11 @@
     <Content Include="sass\user-review\write-review.sass" />
     <Content Include="sass\user-review\_write-review-style.sass" />
     <Content Include="m\sass\upcoming-bikes\upcoming-bikes.sass" />
+    <Content Include="sass\user-review\listing.sass" />
+    <Content Include="sass\user-review\_listing-style.sass" />
+    <Content Include="sass\modules\_overall-floating-tabs.sass" />
+    <Content Include="sass\modules\_rating-circle.sass" />
+    <Content Include="sass\modules\_report-abuse-popup.sass" />
     <Content Include="m\sass\upcoming-bikes\_media-query.sass" />
     <Content Include="m\sass\upcoming-bikes\_upcoming-bikes-style.sass" />
     <Content Include="m\sass\user-review\write-review.sass" />
@@ -3204,6 +3210,7 @@
     <Content Include="src\used-details.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
+    <Content Include="src\user-review\listing.js" />
     <Content Include="src\user-review\write-review.js" />
     <Content Include="src\Videos\detail.js" />
     <Content Include="src\Videos\videoByCategory.js" />
@@ -3748,6 +3755,10 @@
     <Content Include="Views\CompareBikes\_SimilarComparisons_Mobile.cshtml" />
     <Content Include="Views\UserReview\WriteReviewContest_Mobile.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad976x400_Middle.cshtml" />
+    <Content Include="Views\UserReview\ListReviews.cshtml" />
+    <Content Include="Views\UserReview\ReviewDetails.cshtml" />
+    <Content Include="Views\UserReview\_SimilarBikeUserReview.cshtml" />
+    <Content Include="Views\UserReview\_UserReviewsSearch.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x400_Middle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
