@@ -244,6 +244,7 @@ $grid-base-size: 8.33333333
 .user-review-list
 	padding-right: 20px
 	padding-left: 20px
+	min-height: 190px
 
 	.list-item
 		padding-top: 20px
@@ -262,8 +263,12 @@ $grid-base-size: 8.33333333
 		&:hover
 			text-decoration: none
 
+	.star-white
+		margin-right: 0
+
 .list-item
-	strong
+	strong,
+	b
 		font-weight: 400
 
 // rating-circle-list
@@ -353,7 +358,9 @@ $grid-base-size: 8.33333333
 // rating badges
 .rating-badge
     min-width: 40px
-    height: 20px
+    height: 20px	
+    padding-right: 5px
+    padding-left: 5px
     font-size: 14px
     font-weight: 600
     color: #fff
@@ -499,6 +506,20 @@ $grid-base-size: 8.33333333
 
 .star-1
 	background-position: 0 -757px
+
+// spinner-full-width
+.spinner-full-width
+	width: 100%
+	height: 100%
+	background: rgba(255, 255, 255, 0.8)
+	position: absolute
+	top: 0
+	left: 0
+
+	.spinner-content
+		position: absolute
+		top: 7%
+		left: 0
 
 @media only screen and (max-width: 1024px)
 	.overall-rating-box

@@ -33,7 +33,7 @@
                     </p>
                     <!-- ko if: activeReviewList() && activeReviewList().length > 0 -->
                     <div></div>
-                    <div style="display: @(Model.Pager != null && Model.Pager.TotalResults > 0 ? "block" : "none")" data-bind="visible: reviewsAvailable()">
+                    <div class="position-rel" style="display: @(Model.Pager != null && Model.Pager.TotalResults > 0 ? "block" : "none")" data-bind="visible: reviewsAvailable()">
                         <ul class="user-review-list" data-bind="visible : (!noReviews() && TotalReviews() !== 0), css: IsLoading() ? 'loader-active' : ''">
                             @{ushort i = 0;}
                             @foreach (UserReviewSummary review in Model.UserReviews.ResultDesktop)
@@ -181,6 +181,15 @@
                                 </div>
                             </div>
                         }
+						
+						<div class="spinner-full-width" style="display: none">
+							<div class="spinner-content">
+								<svg class="bw-spinner" width="50px" height="50px" viewBox="0 0 50 50">
+									<circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+								</svg>
+							</div>
+						</div>
+
                     </div>
                     <!-- /ko -->
                     <!-- ko ifnot :  activeReviewList() && activeReviewList().length > 0 -->
@@ -192,6 +201,7 @@
                     </div>
                     <!-- /ko -->
                     <div id="listingFooter"></div>
+					
                 </div>
             </div>
             <div class="clear"></div>
