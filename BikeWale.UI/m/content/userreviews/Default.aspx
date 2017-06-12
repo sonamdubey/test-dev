@@ -12,6 +12,15 @@
 <!-- #include file="/includes/headermobile.aspx" -->
 <link rel="stylesheet" type="text/css" href="/m/css/user-review/landing.css" />
 <script type="text/javascript" src="https://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
+
+<section>
+	<a href="/m/bike-review-contest/" class="contest-slug-sm slug-teal-target">
+		<span class="trophy-white"></span>
+		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;1000</p>
+		<span class="bwmsprite arrow-white-right"></span>
+	</a>
+</section>
+
 <div class="padding5">
     <div id="br-cr">
         <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
