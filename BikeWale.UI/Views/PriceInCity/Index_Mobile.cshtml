@@ -100,7 +100,7 @@
                         {
                             <div class="margin-top15 font14">
                                 <p class="font-bold margin-bottom10">Quick facts about @Model.BikeModel.ModelName</p>
-                                <p class="text-slate-grey line-height16">@Model.PageDescription</p>
+                                <p class="text-slate-grey line-height16">@Html.Raw(Model.PageDescription)</p>
                             </div>
                         }
                         @if (Model.IsDiscontinued)
