@@ -258,6 +258,19 @@ docReady(function() {
             }
     };
 
+    ko.bindingHandlers.truncatedText = {
+        update: function (element, valueAccessor, allBindingsAccessor) {
+            if (ko.utils.unwrapObservable(valueAccessor())) {
+                var originalText = ko.utils.unwrapObservable(valueAccessor()),
+                    length = ko.utils.unwrapObservable(allBindingsAccessor().maxTextLength) || 65,
+                    truncatedText = originalText.length > length ? originalText.substring(0, length) + "..." : originalText;
+                ko.bindingHandlers.text.update(element, function () {
+                    return truncatedText;
+                });
+            }
+        }
+    };
+
     $('#bike-rating-box1').find('.answer-star-list input[type=radio]').change(function () {
         var button = $(this),
            buttonValue = Number(button.val());
@@ -457,7 +470,11 @@ docReady(function() {
                         self.activeReviewList(response.resultDesktop);
                         self.TotalReviews(response.totalCount);
                         self.noReviews(false);                                                
-                        applyLikeDislikes();
+                        var listItem = $('.user-review-list .list-item');
+                        for (var i = listItem.length; i >= response.resultDesktop.length; i--) {
+                            $(listItem[i]).remove();
+                            applyLikeDislikes();
+                        }
                         resetCollapsibleContent();
                     }
 
