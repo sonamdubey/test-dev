@@ -37,5 +37,7 @@ namespace Bikewale.Entities.UserReviews
         public string HostUrl { get; set; }
         public bool IsDiscontinued { get; set; }
         public bool IsUpcoming { get; set; }
+
+        public bool IsRatingQuestion { get; set; }        
     }
 }

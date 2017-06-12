@@ -53,6 +53,7 @@ namespace Bikewale.Entities.UserReviews
         public uint SubQuestionId { get; set; }
 
         public uint ReviewId { get; set; }
+       
     }
 
     [Serializable]

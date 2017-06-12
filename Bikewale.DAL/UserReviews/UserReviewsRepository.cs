@@ -1695,8 +1695,17 @@ namespace Bikewale.DAL.UserReviews
                     var groups = objQuestionList.GroupBy(x => x.ReviewId);
 
                     foreach (var group in groups)
-                    {
+                    {                       
                         objSummaryList.Where(s => s.ReviewId == group.Key).FirstOrDefault().Questions = group.ToList();
+
+                        foreach(var ele in group)
+                        {
+                            if(ele.Type == UserReviewQuestionType.Rating)
+                            {
+                                objSummaryList.Where(s => s.ReviewId == group.Key).FirstOrDefault().IsRatingQuestion = true;
+                                break;
+                            }
+                        }
                     }                    
                 }
             }

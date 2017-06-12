@@ -63,5 +63,8 @@ namespace Bikewale.DTO.UserReviews
 
         [JsonProperty("reviewAge"), DataMember]
         public string ReviewAge { get; set; }
+
+        [JsonProperty("isRatingQuestion"), DataMember]
+        public bool IsRatingQuestion { get; set; }
     }
 }

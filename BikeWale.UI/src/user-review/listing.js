@@ -215,12 +215,12 @@ docReady(function() {
     if (vote != null && vote.vote) {
         if (vote.vote == "0") {
             $('#downvoteBtn').addClass('active');
-            $('#downvoteTxt').text("Downvoted");
+            $('#downvoteTxt').text("Disliked");
             $('#upvoteBtn').attr('disabled', 'disabled');
         }
         else {
             $('#upvoteBtn').addClass('active');
-            $('#upvoteTxt').text("Upvoted");
+            $('#upvoteTxt').text("Liked");
             $('#downvoteBtn').attr('disabled', 'disabled');
         }
     }
@@ -244,6 +244,18 @@ docReady(function() {
             var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
             $(element).text(formattedAmount);
         }
+    };
+   
+    ko.bindingHandlers.trimText = {
+        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {           
+            if (ko.utils.unwrapObservable(valueAccessor())) {
+                var untrimmedText = ko.utils.unwrapObservable(valueAccessor());
+                var defaultMaxLength = 20;
+                var maxLength = ko.utils.unwrapObservable(allBindingsAccessor().trimTextLength) || defaultMaxLength;
+                var formattedAmount = untrimmedText.length > maxLength ? untrimmedText.substring(0, maxLength - 1) + '...' : untrimmedText;
+                $(element).text(formattedAmount);
+            }
+            }
     };
 
     $('#bike-rating-box1').find('.answer-star-list input[type=radio]').change(function () {

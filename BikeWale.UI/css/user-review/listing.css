@@ -256,6 +256,17 @@
 .collapsible-content.active ~ .report-abuse-label {
   display: inline; }
 
+.rating-question-present .item-grid.grid-12,
+.rating-question-present .item-grid.grid-9 {
+    width: 75%;
+    border-right: 1px solid #f5f5f5;
+}
+
+.rating-question-absent .item-grid.grid-12,
+.rating-question-absent .item-grid.grid-9 {
+    width: 100%
+}
+
 .list-item strong {
    font-weight:normal; }
 
