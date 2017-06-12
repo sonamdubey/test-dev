@@ -89,14 +89,15 @@
                             <p class="font14 text-light-grey margin-bottom5" title="Last known Ex-showroom price">Last known Ex-showroom price</p>
                             <div class="margin-bottom10">
                                 @Html.Raw("<span class='font18 text-bold'>&#x20B9;</span>")
+                                <span class="font18 text-bold version-price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
                             </div>
                         }
                         else if (Model.IsUpcoming)
                         {
                             <p class="font14 text-light-grey margin-bottom5" title="Expected price">Expected price</p>
                             <div class="margin-bottom10">
-                                <span class="font18 text-bold version-price">&#x20b9; @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMin))  - @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMax)) </span>
                                 @Html.Raw("<span class='font18 text-bold'>&#x20B9;</span>")
+                                <span class="font18 text-bold version-price">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMin))  - @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMax)) </span>
                             </div>
                         }
                         else
@@ -106,6 +107,7 @@
                                 <p class="font14 text-light-grey margin-bottom5" title="@String.Format(" On-road price, {0}", Model.CityDetails.CityName)">@String.Format("On-road price, {0}", Model.CityDetails.CityName)</p>
                                 <div class="margin-bottom10">
                                     @Html.Raw("<span class='font18 text-bold'>&#x20B9;</span>")
+                                    <span class="font18 text-bold version-price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.BikeInfo.PriceInCity)) </span>
                                 </div>
                             }
                             else
@@ -113,6 +115,7 @@
                                 <p class="font14 text-light-grey margin-bottom5" title="@String.Format(" Ex-showroom, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName)">@String.Format("Ex-showroom, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName)</p>
                                 <div class="margin-bottom10">
                                     @Html.Raw("<span class='font18 text-bold'>&#x20B9;</span>")
+                                    <span class="font18 text-bold version-price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice)) </span>
                                 </div>
                             }
                         }
