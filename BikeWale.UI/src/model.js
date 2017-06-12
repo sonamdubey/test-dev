@@ -197,6 +197,7 @@ docReady(function () {
             "dealerDescription": ele.attr('data-item-description'),
             "pinCodeRequired": ele.attr("data-ispincodrequired"),
             "dealersRequired": ele.attr("data-dealersRequired"),
+            "emailRequired": ele.attr("data-isemailrequired"),
             "eventcategory" : ele.attr("c"),
             "gaobject": {
                 cat: ele.attr("c"),

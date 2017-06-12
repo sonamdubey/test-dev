@@ -357,12 +357,12 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <param name="templateId3"></param>
         /// <param name="templateHtml4"></param>
         /// <param name="templateId4"></param>
-        public bool UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, List<ManuCamEntityForTemplate> objList, string LeadCapturePopupMessage, string LeadCapturePopupDescription, string LeadCapturePopupHeading, bool pinCodeRequired)
+        public bool UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, List<ManuCamEntityForTemplate> objList, string LeadCapturePopupMessage, string LeadCapturePopupDescription, string LeadCapturePopupHeading, bool pinCodeRequired,bool emailIdRequired)
         {
             bool isSuccess = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("updatemanufacturercampaign_07032017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatemanufacturercampaign_06062017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 45, description));
@@ -383,6 +383,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupDescription", DbType.String, LeadCapturePopupDescription));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupHeading", DbType.String, LeadCapturePopupHeading));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_pinCodeRequired", DbType.Boolean, pinCodeRequired));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailidrequired", DbType.Boolean, emailIdRequired));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     isSuccess = true;
                 }
@@ -410,12 +411,12 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <param name="templateId4"></param>
         /// <param name="userId"></param>
         /// <param name="campaignId"></param>
-        public bool SaveManufacturerCampaignTemplate(List<ManuCamEntityForTemplate> objList, int userId, int campaignId, string LeadCapturePopupMessage, string LeadCapturePopupDescription, string LeadCapturePopupHeading, int dealerId, bool pinCodeRequired)
+        public bool SaveManufacturerCampaignTemplate(List<ManuCamEntityForTemplate> objList, int userId, int campaignId, string LeadCapturePopupMessage, string LeadCapturePopupDescription, string LeadCapturePopupHeading, int dealerId, bool pinCodeRequired,bool emailIdRequired)
         {
             bool isSuccess = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturecampaigntemplate_07032017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturecampaigntemplate_06062017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml1", DbType.String, objList[0].TemplateHtml));
@@ -433,6 +434,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupDescription", DbType.String, LeadCapturePopupDescription));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupHeading", DbType.String, LeadCapturePopupHeading));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_pinCodeRequired", DbType.Boolean, pinCodeRequired));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailidrequired", DbType.Boolean, emailIdRequired));
                     isSuccess = Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
                 }
             }
@@ -457,7 +459,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             List<BikewaleOpr.Entities.ManufacturerCampaign.ManufacturerCampaignEntity> objManufacturerCampaignDetails = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("fetchcampaigndetails_28022017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("fetchcampaigndetails_06062017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));
@@ -480,7 +482,8 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                                     LeadCapturePopupHeading = Convert.ToString(dr["LeadCapturePopupHeading"]),
                                     LeadCapturePopupDescription = Convert.ToString(dr["LeadCapturePopupDescription"]),
                                     LeadCapturePopupMessage = Convert.ToString(dr["LeadCapturePopupMessage"]),
-                                    PinCodeRequire = SqlReaderConvertor.ToBoolean(dr["PinCodeRequired"])
+                                    PinCodeRequire = SqlReaderConvertor.ToBoolean(dr["PinCodeRequired"]),
+                                    EmailRequire = SqlReaderConvertor.ToBoolean(dr["EmailIDRequired"])
                                 });
                             }
                         }

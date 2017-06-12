@@ -45,7 +45,7 @@ namespace Bikewale.DAL.BikeBooking
 
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "savebikedealerquotations_15052017";
+                    cmd.CommandText = "savebikedealerquotations_07062017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, entity.DealerId));
@@ -69,7 +69,6 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "SaveCustomerDetail ex : " + ex.Message);
-                objErr.SendMail();
                 isSuccess = false;
             }
 

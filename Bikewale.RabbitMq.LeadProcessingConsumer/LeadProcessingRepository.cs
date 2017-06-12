@@ -134,7 +134,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             bool status = false;
             try
             {
-                if (pqId > 0 && !String.IsNullOrEmpty(custEmail) && !String.IsNullOrEmpty(mobile))
+                if (pqId > 0 && !String.IsNullOrEmpty(mobile))
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {

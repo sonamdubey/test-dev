@@ -150,6 +150,13 @@
                 </td>
                
             </tr>
+               <tr>
+                <th>EmailId</th>
+                <td>
+                    <asp:checkbox class="LeadCaptureCheckbox"  runat="server" id="CheckBox9"  text="IsEmailIDCompulsory" onclick="enableDisableTextbox(this.checked, 'txtEmailID')" />
+                </td>
+               
+            </tr>
             <tr>
                 <td colspan="2">
                     <asp:button id="btnUpdate" onclientclick="return ValidateForm();" runat="server" cssclass="padding10" />

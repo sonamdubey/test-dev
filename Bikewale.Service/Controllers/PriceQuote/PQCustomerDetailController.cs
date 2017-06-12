@@ -3,7 +3,6 @@ using Bikewale.DTO.PriceQuote.BikeBooking;
 using Bikewale.DTO.PriceQuote.CustomerDetails;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Customer;
-using Bikewale.Entities.MobileVerification;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Customer;
@@ -110,7 +109,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             sbyte noOfAttempts = 0;
             try
             {
-                if (input != null && !String.IsNullOrEmpty(input.CustomerEmail) && !String.IsNullOrEmpty(input.CustomerMobile) && input.PQId > 0 && input.DealerId > 0)
+                if (input != null && !String.IsNullOrEmpty(input.CustomerMobile) && input.PQId > 0 && input.DealerId > 0)
                 {
                     if (input != null && ((input.PQId > 0) && (Convert.ToUInt32(input.VersionId) > 0)))
                     {
@@ -119,10 +118,22 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                         _objPriceQuote.UpdatePriceQuote(input.PQId, pqParam);
                     }
-                    if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail))
+                    if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail, input.CustomerMobile))
                     {
                         objCust = new CustomerEntity() { CustomerName = input.CustomerName, CustomerEmail = input.CustomerEmail, CustomerMobile = input.CustomerMobile, ClientIP = input.ClientIP };
                         UInt32 CustomerId = _objCustomer.Add(objCust);
+                    }
+                    else
+                    {
+                        var objCustomer = _objCustomer.GetByEmailMobile(input.CustomerEmail, input.CustomerMobile);
+                        objCust = new CustomerEntity()
+                        {
+                            CustomerId = objCustomer.CustomerId,
+                            CustomerName = input.CustomerName,
+                            CustomerEmail = input.CustomerEmail = !String.IsNullOrEmpty(input.CustomerEmail) ? input.CustomerEmail : objCustomer.CustomerEmail,
+                            CustomerMobile = input.CustomerMobile
+                        };
+                        _objCustomer.Update(objCust);
                     }
 
 
@@ -352,10 +363,22 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     objPQEntity.DealerId = input.DealerId;
                     pqId = _objPriceQuote.RegisterPriceQuote(objPQEntity);
 
-                    if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail))
+                    if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail, input.CustomerMobile))
                     {
                         objCust = new CustomerEntity() { CustomerName = input.CustomerName, CustomerEmail = input.CustomerEmail, CustomerMobile = input.CustomerMobile, ClientIP = input.ClientIP };
                         UInt32 CustomerId = _objCustomer.Add(objCust);
+                    }
+                    else
+                    {
+                        var objCustomer = _objCustomer.GetByEmailMobile(input.CustomerEmail, input.CustomerMobile);
+                        objCust = new CustomerEntity()
+                        {
+                            CustomerId = objCustomer.CustomerId,
+                            CustomerName = input.CustomerName,
+                            CustomerEmail = input.CustomerEmail = !String.IsNullOrEmpty(input.CustomerEmail) ? input.CustomerEmail : objCustomer.CustomerEmail,
+                            CustomerMobile = input.CustomerMobile
+                        };
+                        _objCustomer.Update(objCust);
                     }
 
                     DPQ_SaveEntity entity = new DPQ_SaveEntity()
