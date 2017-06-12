@@ -306,16 +306,18 @@ h1,
 .padding-10-20 {
   padding: 10px 20px; }
 
-.model-overall-rating span {
-  display: inline-block;
-  vertical-align: middle; }
-
-.model-overall-rating .star-icon {
-  margin-right: -4px;
-  -webkit-transform: scale(0.55);
-  -moz-transform: scale(0.55);
-  -o-transform: scale(0.55);
-  transform: scale(0.55); }
+.model-overall-rating {
+  position: relative;
+  left: -5px; }
+  .model-overall-rating span {
+    display: inline-block;
+    vertical-align: middle; }
+  .model-overall-rating .star-icon {
+    margin-right: -4px;
+    -webkit-transform: scale(0.55);
+    -moz-transform: scale(0.55);
+    -o-transform: scale(0.55);
+    transform: scale(0.55); }
 
 .review-left-divider {
   position: relative;

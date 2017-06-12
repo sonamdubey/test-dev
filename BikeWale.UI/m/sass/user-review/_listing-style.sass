@@ -323,13 +323,16 @@ $graph-bg: #eee
 	padding: 10px 20px
 
 .model-overall-rating
-    span
-        display: inline-block
-        vertical-align: middle
+	position: relative
+	left: -5px
+	
+	span
+		display: inline-block
+		vertical-align: middle
 
-    .star-icon
-        margin-right: -4px
-        @include transform(scale(0.55))
+	.star-icon
+		margin-right: -4px
+		@include transform(scale(0.55))
 
 .review-left-divider
 	position: relative
