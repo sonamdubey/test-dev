@@ -1,5 +1,6 @@
 ﻿@model Bikewale.Models.UserReviewDetailsVM
 @using Bikewale.Entities.UserReviews;
+@using Bikewale.Utility;
 @{    
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/listing.css' />";
     Model.Page_JS_Path = "/m/src/user-review/listing.js";
@@ -17,17 +18,17 @@
         <div class="container content-box-shadow card-bottom-margin">
 			<div class="model-card-details content-box-shadow padding-10-20">
 				<div class="left-grid-image inline-block">
-					<img src="https://imgd.aeplcdn.com//110x61//bw/models/honda-shine.jpg?20173103132015&q=65" alt="Honda CB Shine">
+					<img src="@Image.GetPathToShowImages(Model.UserReviewDetailsObj.OriginalImagePath,Model.UserReviewDetailsObj.HostUrl,ImageSize._110x61,QualityFactor._65)" alt="@Model.UserReviews.BikeName">
 				</div>
 				<div class="right-grid-details inline-block">
-					<h1 class="font16 font-bold">Honda CB Shine</h1>
+					<h1 class="font16 font-bold">@Model.UserReviews.BikeName</h1>
 					<div class="model-overall-rating">
-						<span class="rate-count-5">
+						<span class="rate-count-@Model.UserReviewDetailsObj.OverallRating.Value">
 							<span class="bwmsprite star-icon"></span>
-							<span class="font14 text-bold">0.0</span>			
+							<span class="font14 text-bold">@Model.UserReviewDetailsObj.OverallRating.Value</span>			
 						</span>
-						<span class="font12 text-slate-grey review-left-divider">00 ratings</span>
-						<span class="font12 text-slate-grey review-left-divider">00 reviews</span>
+						<span class="font12 text-slate-grey review-left-divider">@string.Format("{0} rating{1}", Model.UserReviews.ReviewsInfo.TotalRatings, (Model.UserReviews.ReviewsInfo.TotalRatings > 1 ? "s" : ""))</span>
+						<span class="font12 text-slate-grey review-left-divider">@string.Format("{0} review{1}", Model.UserReviews.ReviewsInfo.TotalReviews, (Model.UserReviews.ReviewsInfo.TotalReviews > 1 ? "s" : ""))</span>
 					</div>
 				</div>
 			</div>
@@ -38,11 +39,11 @@
 						<span>@Model.UserReviewDetailsObj.OverallRating.Value</span>
 					</span>
 					<div class="grid-10-inline font15 text-black text-bold">
-						<span class="review-title position-rel">@Bikewale.Utility.FormatDescription.TruncateDescription(Model.UserReviewDetailsObj.Title, 85)</span>
+						<span class="review-title position-rel">@FormatDescription.TruncateDescription(Model.UserReviewDetailsObj.Title, 85)</span>
 					</div>
 				</div>
 
-                <span class="font12 text-light-grey" data-bind="text: submittedOn + ' ago by ' + author">@Model.UserReviewDetailsObj.EntryDate.ToString("dd MMM yyyy") ago by @Model.UserReviewDetailsObj.CustomerName</span>
+                <span class="font12 text-light-grey" data-bind="text: submittedOn + ' ago by ' + author">@Model.UserReviewDetailsObj.ReviewAge ago by @Model.UserReviewDetailsObj.CustomerName</span>
             </div>
 
             @if (Model.RatingQuestions != null && Model.RatingQuestions.Count > 0)
@@ -111,7 +112,7 @@
 
                 <div class="inline-block margin-bottom10">
                     <span class="bwmsprite views-sm"></span>
-                    <span class="font12 text-light-grey inline-block">&nbsp;@string.Format("{0} view{1}", Bikewale.Utility.Format.FormatNumeric(Model.UserReviewDetailsObj.Views.ToString()), Model.UserReviewDetailsObj.Views > 1 ? "s" : "")</span>
+                    <span class="font12 text-light-grey inline-block">&nbsp;@string.Format("{0} view{1}", Format.FormatNumeric(Model.UserReviewDetailsObj.Views.ToString()), Model.UserReviewDetailsObj.Views > 1 ? "s" : "")</span>
                 </div>
 
                 <div class="border-solid-top margin-top10 margin-bottom10"></div>
