@@ -29,7 +29,7 @@ namespace Bikewale.DTO.UserReviews
         public string Description { get; set; }
 
         [JsonProperty("shortDescription"), DataMember]
-        public string ShortDescription { get { return  Description.TruncateHtml(200); } }
+        public string ShortDescription { get { return  Description.TruncateHtml(270); } }
 
         [JsonProperty("title"), DataMember]
         public string Title { get; set; }
