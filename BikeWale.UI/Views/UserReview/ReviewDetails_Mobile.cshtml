@@ -27,8 +27,8 @@
 							<span class="bwmsprite star-icon"></span>
 							<span class="font14 text-bold">@Model.UserReviewDetailsObj.OverallRating.Value</span>			
 						</span>
-						<span class="font12 text-slate-grey review-left-divider">@string.Format("{0} rating{1}", Model.UserReviews.ReviewsInfo.TotalRatings, (Model.UserReviews.ReviewsInfo.TotalRatings > 1 ? "s" : ""))</span>
-						<span class="font12 text-slate-grey review-left-divider">@string.Format("{0} review{1}", Model.UserReviews.ReviewsInfo.TotalReviews, (Model.UserReviews.ReviewsInfo.TotalReviews > 1 ? "s" : ""))</span>
+						<span class="font12 text-slate-grey review-left-divider">@string.Format("{0} rating{1}", Model.UserReviewDetailsObj.TotalRatings, (Model.UserReviewDetailsObj.TotalRatings > 1 ? "s" : ""))</span>
+						<span class="font12 text-slate-grey review-left-divider">@string.Format("{0} review{1}", Model.UserReviewDetailsObj.TotalReviews, (Model.UserReviewDetailsObj.TotalReviews > 1 ? "s" : ""))</span>
 					</div>
 				</div>
 			</div>

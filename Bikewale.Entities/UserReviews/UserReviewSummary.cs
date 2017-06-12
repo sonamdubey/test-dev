@@ -9,6 +9,8 @@ namespace Bikewale.Entities.UserReviews
     /// <summary>
     /// Modified by Sajal Gupta on 05-05-2017
     /// Descruioption : Added UpVotes, DownVotes, Views, EntryDate
+    /// Modified by : Aditi Srivastava on 12 June 2017
+    /// Summary     : Added totalreviews and totalratings
     /// </summary>
     {
         public uint ReviewId { get; set; }
@@ -37,7 +39,8 @@ namespace Bikewale.Entities.UserReviews
         public string HostUrl { get; set; }
         public bool IsDiscontinued { get; set; }
         public bool IsUpcoming { get; set; }
-
-        public bool IsRatingQuestion { get; set; }        
+        public bool IsRatingQuestion { get; set; }
+        public uint TotalRatings { get; set; }
+        public uint TotalReviews { get; set; }
     }
 }
