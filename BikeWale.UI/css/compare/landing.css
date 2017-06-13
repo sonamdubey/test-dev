@@ -214,9 +214,11 @@ select {
   font-size: 12px;
   top: -20px; }
 
-.comparison-type-carousel.inner-content-carousel .jcarousel li {
-  width: 453px;
-  min-height: 295px; }
+.comparison-type-carousel.inner-content-carousel .jcarousel {
+  left: 17px !important; }
+  .comparison-type-carousel.inner-content-carousel .jcarousel li {
+    width: 453px;
+    min-height: 295px; }
 
 .comparison-type-carousel .card-target {
   padding: 20px 10px;
