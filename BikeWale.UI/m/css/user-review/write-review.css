@@ -26,6 +26,30 @@ h1,
 .font15 {
   font-size: 15px; }
 
+.padding-10-20 {
+  padding: 10px 20px; }
+
+.contest-slug-sm {
+  font-size: 12px;
+  color: #4d5057;
+  padding: 5px 10px; }
+
+.slug-grey-info {
+  background: #efefef; }
+
+.contest-slug__label {
+  width: 92%;
+  padding-left: 8px;
+  display: inline-block;
+  vertical-align: middle; }
+
+.trophy-grey {
+  width: 14px;
+  height: 16px;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/trophy-grey-14.png) no-repeat;
+  display: inline-block;
+  vertical-align: middle; }
+
 .model-ribbon {
   position: absolute;
   top: -10px;

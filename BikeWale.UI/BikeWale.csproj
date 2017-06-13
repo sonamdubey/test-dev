@@ -3084,6 +3084,7 @@
     <Content Include="m\sass\modules\_swiper-3d.sass" />
     <Content Include="m\sass\user-review\_review-swiper-3d.sass" />
     <Content Include="m\sass\modules\_rating-badge.sass" />
+    <Content Include="m\sass\modules\_review-contest-slug.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />

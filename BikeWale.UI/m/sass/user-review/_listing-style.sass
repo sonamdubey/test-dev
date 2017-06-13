@@ -216,6 +216,16 @@ $graph-bg: #eee
 			~ label
 				background-position: 0 -278px
 
+// review contest slug
+@include contest-card()
+
+.contest-card
+	.answer-star-list
+		width: 60%
+
+.line-height25
+	line-height: 25px
+
 // overallSpecsTopContent
 #overallSpecsTopContent
     height: 44px
@@ -586,3 +596,11 @@ $graph-bg: #eee
 	left: 0
 	background: rgba(245, 245, 245, 0.95)
 	z-index: 4
+
+@media only screen and (max-width: 320px)
+	.contest-slug__label
+		width: 78%
+
+	.contest-card
+		.answer-star-list
+			width: 52%
