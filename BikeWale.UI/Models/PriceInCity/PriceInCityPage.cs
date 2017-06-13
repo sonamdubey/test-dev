@@ -231,9 +231,9 @@ namespace Bikewale.Models
                     objVM = new PriceInCityPageVM();
                     //Get Bike version Prices
                     objVM.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(modelId, cityId, out hasAreaAvailable);
-                    if (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Where(x => x.IsVersionNew).Count() > 0)
+                    if (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Count() > 0)
                     {
-                        firstVersion = objVM.BikeVersionPrices.First();
+                        firstVersion = objVM.BikeVersionPrices.OrderByDescending(m => m.IsVersionNew).OrderBy(v => v.ExShowroomPrice).First();
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
                         if (objVM.IsNew)
                         {

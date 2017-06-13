@@ -118,7 +118,7 @@
                     if (ds.buyer && ds.buyer.customerName && ds.buyer.customerEmail && ds.buyer.customerMobile) {
                         if (ds.buyer.customerName.length > 0)
                             requesterName.val(ds.buyer.customerName).closest(".input-box").addClass("not-empty"); //Prefill buyer information
-                        if (ds.buyer.customerEmail.length > 0)
+                        if (ds.buyer.customerEmail.length > 0 && ds.buyer.customerEmail !="undefined")
                             requesterEmail.val(ds.buyer.customerEmail).closest(".input-box").addClass("not-empty");
                         if (ds.buyer.customerMobile.length > 0)
                             requesterMobile.val(ds.buyer.customerMobile).closest(".input-box").addClass("not-empty");                        
