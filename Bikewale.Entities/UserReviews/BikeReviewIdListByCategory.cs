@@ -10,6 +10,7 @@ namespace Bikewale.Entities.UserReviews
     /// Created by Sajal Gupta on 06-06-2017
     /// desc: reviews id list
     /// </summary>
+    [Serializable]
     public class BikeReviewIdListByCategory
     {
         public IEnumerable<uint> RecentReviews { get; set; }

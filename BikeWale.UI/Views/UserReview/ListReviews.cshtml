@@ -8,7 +8,7 @@
     Model.AdTags.AdPath = "/1017752/Bikewale_UserReviews_";
     Model.AdTags.AdId = "1496833829224";
     Model.AdTags.Ad_970x90 = true;
-    Model.AdTags.Ad_970x90BTF = true;
+    Model.AdTags.Ad_970x90Bottom = true;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @if (Model != null && Model.RatingsInfo != null)
@@ -29,19 +29,19 @@
             <div class="breadcrumb margin-bottom15">
                 <ul>
                     <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                        <a href="/" itemprop="url">
+                        <a href="/" itemprop="url" title="Home">
                             <span itemprop="title">Home</span>
                         </a>
                     </li>
                     <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                         <span class="bwsprite fa-angle-right margin-right10"></span>
-                        <a href="/@Model.RatingsInfo.Make.MaskingName-bikes/" itemprop="url">
+                        <a href="/@Model.RatingsInfo.Make.MaskingName-bikes/" itemprop="url" title="@Model.RatingsInfo.Make.MakeName Bikes">
                             <span itemprop="title">@Model.RatingsInfo.Make.MakeName Bikes</span>
                         </a>
                     </li>
                     <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                         <span class="bwsprite fa-angle-right margin-right10"></span>
-                        <a href="@UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" itemprop="url">
+                        <a href="@UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName, Model.RatingsInfo.Model.MaskingName)" itemprop="url" title="@Model.BikeName">
                             <span itemprop="title">@Model.BikeName</span>
                         </a>
                     </li>

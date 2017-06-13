@@ -139,12 +139,12 @@ docReady(function () {
     if (vote != null && vote.vote) {
         if (vote.vote == "0") {
             $('#downvoteButton').addClass('active');
-            $('#downvoteText').text("Downvoted");
+            $('#downvoteText').text("Disliked");
             $('#upvoteButton').attr('disabled', 'disabled');
         }
         else {
             $('#upvoteButton').addClass('active');
-            $('#upvoteText').text("Upvoted");
+            $('#upvoteText').text("Liked");
             $('#downvoteButton').attr('disabled', 'disabled');
         }
     }

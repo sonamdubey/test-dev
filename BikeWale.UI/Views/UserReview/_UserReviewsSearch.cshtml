@@ -102,7 +102,7 @@
 
                                                 </div>
                                                 <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description" rel="nofollow">...Read more</a>
-                                            </div>
+                                              </div>
 
                                             <button id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" type="button" onclick="upVoteListReview(event)" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" class="btn btn-inv-teal-group margin-right10 upvoteListButton ">
                                                 <span class="btn-label-grid">
@@ -185,7 +185,7 @@
                         else if (!Model.IsPagerNeeded)
                         {
                             <div class="view-all-btn-container margin-left20 padding-bottom20">
-                                <a title="Read more reviews" class="bw-ga btn view-all-target-btn" href="@string.Format("/{0}-bikes/{1}/reviews/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName)">Read more reviews<span class="bwmsprite teal-right"></span></a>
+                                <a title="Read more reviews" class="bw-ga btn view-all-target-btn" href="@string.Format("/{0}-bikes/{1}/reviews/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName)">Read more reviews<span class="bwsprite teal-right"></span></a>
                             </div>
                         }
 
