@@ -287,7 +287,8 @@ docReady(function() {
 
     var modelUserReviews = function () {
         var self = this;
-        var reviewCount = $('#overallSpecsTab .active')[0].getAttribute("data-count");
+        if ($('#overallSpecsTab .active')[0])
+            var reviewCount = $('#overallSpecsTab .active')[0].getAttribute("data-count");
         self.IsInitialized = ko.observable(false);
         self.IsApiData = ko.observable(false);
         self.PagesListHtml = ko.observable("");
