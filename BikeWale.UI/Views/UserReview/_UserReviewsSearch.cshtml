@@ -48,8 +48,8 @@
                                             <div class="margin-bottom10">
                                                 <!-- ko with: $data.overallRating -->
                                                 <span class="rating-badge" data-rate-bg="@review.OverallRating.Value" data-bind="attr: {'data-rate-bg': id }">
-                                                    <span class="bwsprite star-white">&nbsp;</span>
-                                                    <span data-bind="text: value">@review.OverallRating.Value</span>
+                                                    <span class="bwsprite star-white"></span>
+                                                    &nbsp;<span data-bind="text: value">@review.OverallRating.Value</span>
                                                 </span>
                                                 <!-- /ko -->
                                                 <a href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'title' : $data.title,'href' : '/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/'}, truncatedText: $data.title" class="list-item-title inline-block margin-right5">@FormatDescription.TruncateDescription(review.Title, 65)</a>
