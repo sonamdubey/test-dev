@@ -52,7 +52,12 @@
                     </div>
                     <div class="input-box form-control-box margin-bottom15" data-bind="visible : emailRequired() || !mfgCampaignId()">
                         <input type="email" id="getEmailID" data-bind="textInput: emailId">
-                        <label for="getEmailID">Email (optional)</label>
+                        <div data-bind="visible : emailRequired()">
+                            <label for="getEmailID">Email<sup>*</sup></label>
+                        </div>
+                        <div data-bind="visible : !emailRequired()">
+                            <label for="getEmailID">Email (optional)</label>
+                        </div>
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
                     </div>
