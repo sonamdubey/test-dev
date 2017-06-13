@@ -14,7 +14,7 @@
             <div class="item-details-block vertical-top">
                 <p class="font14 text-bold text-black margin-bottom5">@Bike.Make.MakeName @Bike.Model.ModelName</p>
                 <p class="font11 text-light-grey">Ex-showroom, @Bike.PriceInCity</p>
-                @Html.Raw("<span class='font16 text-default text-bold'>&#x20B9;</span>")<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
+                @Html.Raw("<span class='font16 text-default'>&#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price))</span>
             </div>
         </a>
     </li>

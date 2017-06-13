@@ -108,9 +108,9 @@
                             </table>
                             <div class="padding-top10 margin-bottom10">
                                 <p class="font13 text-grey">Ex-showroom price, @bike.PriceInCity </p>
-                                <div class="margin-bottom10">
-                                    @Html.Raw("<span class='font16 text-bold'> &#x20B9;</span>")
-                                    <span class="font16 text-bold">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) </span>
+                                <div class="margin-bottom10 font16">
+                                    @Html.Raw("<span> &#x20B9;</span>")
+                                    <span class="text-bold">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) </span>
                                 </div>
                                 @if (bike.Price > 0)
                                 {
@@ -369,7 +369,7 @@
                                         <span class="bwmsprite budget-one"></span>
                                     </div>
                                     <span class="key-size-14">Upto</span><br />
-                                    @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")<span class="value-size-15">50K</span>
+                                    @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">50K</span>
                                 </div>
                             </a>
                         </li>
@@ -380,8 +380,8 @@
                                         <span class="bwmsprite budget-two"></span>
                                     </div>
                                     <span class="key-size-14">Between</span><br />
-                                    @Html.Raw("<span class='value-size-15'> &#x20B9;</span>") <span class="value-size-15">50K</span> -
-                                    @Html.Raw("<span class='value-size-15'> &#x20B9;</span>") <span class="value-size-15">70K</span>
+                                    @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">50K</span> -
+                                    @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">70K</span>
                                 </div>
                             </a>
                         </li>
@@ -392,7 +392,7 @@
                                         <span class="bwmsprite budget-three"></span>
                                     </div>
                                     <span class="key-size-14">Above</span><br />
-                                    @Html.Raw("<span class='value-size-15'> &#x20B9;</span>") <span class="value-size-15">70K</span>
+                                    @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">70K</span>
                                 </div>
                             </a>
                         </li>

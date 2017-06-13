@@ -34,7 +34,7 @@
                     <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName" class="text-black">@Model.BikeName</a>
                 </h2>
                 <p class="font11 text-light-grey">@(Model.ReviewsInfo.IsDiscontinued ? "Last known ": "") Ex-showroom, @BWConfiguration.Instance.DefaultName</p>
-               @Html.Raw("<span class='text-bold font16'> &#x20B9;</span>")<span class='text-bold font16'>@Format.FormatPrice(Model.RatingReviewData.Price.ToString())</span>
+               @Html.Raw("<span class='font16'> &#x20B9;</span>")<span class='text-bold font16'>&nbsp;@Format.FormatPrice(Model.RatingReviewData.Price.ToString())</span>
             </div>
         </div>
     </div>

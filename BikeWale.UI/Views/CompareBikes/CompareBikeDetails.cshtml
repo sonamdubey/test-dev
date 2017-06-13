@@ -94,8 +94,8 @@
                                     }
                                     <span class="error-text"></span>
                                     <p class="font-12 text-light-grey margin-bottom2">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
-                                    <div class="margin-bottom5">
-                                        @Html.Raw("<span class='font18 font-bold'>&#x20B9;</span>")&nbsp;<span class="font18 font-bold" data-bind="text: price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
+                                    <div class="margin-bottom5 font18 ">
+                                        @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="font-bold" data-bind="text: price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))</span>
                                     </div>
                                     @if ((bike.VersionId != Model.sponsoredVersionId) || string.IsNullOrEmpty(Model.FeaturedBike))
                                     {

@@ -40,24 +40,24 @@
             @if (Model.IsDiscontinued)
             {
                 <p class="font12 text-light-grey margin-bottom5 text-truncate" title="Last known Ex-showroom price">Last known Ex-showroom price</p>
-                @Html.Raw("<span class='font16 text-bold'> &#x20B9;</span>")<span class="font16 text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
+                @Html.Raw("<span class='font16'>&#x20B9;</span>")<span class="font16 text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
             }
             else if (Model.IsUpcoming)
             {
                 <p class="font12 text-light-grey margin-bottom5 text-truncate" title="Expected price">Expected price</p>
-                @Html.Raw("<span class='font16 text-bold'> &#x20B9;</span>")<span class="font16 text-bold">@String.Format("{0} - {1}", Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMin)), Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMax)))</span>
+                @Html.Raw("<span class='font16'>&#x20B9;</span>")<span class="font16 text-bold">&nbsp;@String.Format("{0} - {1}", Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMin)), Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMax)))</span>
             }
             else
             {
                 if (Model.BikeInfo.PriceInCity > 0 && Model.CityDetails != null)
                 {
                     <p class="font12 text-light-grey margin-bottom5 text-truncate" title="@String.Format("Ex-showroom, {0}",Model.CityDetails.CityName)">@String.Format("Ex-showroom, {0}", Model.CityDetails.CityName)</p>
-                    @Html.Raw("<span class='font16 text-bold'> &#x20B9;</span>")<span class="font16 text-bold">@Format.FormatPrice(Convert.ToString(Model.BikeInfo.PriceInCity))</span>
+                    @Html.Raw("<span class='font16'>&#x20B9;</span>")<span class="font16 text-bold">&nbsp;@Format.FormatPrice(Convert.ToString(Model.BikeInfo.PriceInCity))</span>
                 }
                 else
                 {
                     <p class="font12 text-light-grey margin-bottom5 text-truncate" title="@String.Format("Ex-showroom, {0}",BWConfiguration.Instance.DefaultName)">@String.Format("Ex-showroom, {0}", BWConfiguration.Instance.DefaultName)</p>
-           @Html.Raw("<span class='font16 text-bold'> &#x20B9;</span>")<span class="font16 text-bold">@Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
+           @Html.Raw("<span class='font16'>&#x20B9;</span>")<span class="font16 text-bold">&nbsp;@Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
                 }
             }
         </div>
