@@ -229,6 +229,13 @@
   .user-review-list .star-white {
     margin-right: 0; }
 
+.rating-question-present .item-grid.grid-12, .rating-question-present .item-grid.grid-9 {
+  width: 75%;
+  border-right: 1px solid #f5f5f5; }
+
+.rating-question-absent .item-grid.grid-12, .rating-question-absent .item-grid.grid-9 {
+  width: 100%; }
+
 .list-item strong,
 .list-item b {
   font-weight: 400; }
@@ -265,17 +272,6 @@
 
 .collapsible-content.main-content-off.active .main-content {
   display: none; }
-.rating-question-present .item-grid.grid-12,
-.rating-question-present .item-grid.grid-9 {
-    width: 75%;
-    border-right: 1px solid #f5f5f5;
-}
-
-.rating-question-absent .item-grid.grid-12,
-.rating-question-absent .item-grid.grid-9 {
-    width: 100%
-}
-
 
 .border-light-top {
   border-top: 1px solid #f5f5f5; }
@@ -422,6 +418,7 @@
   margin-left: 10px; }
 
 .btn-inv-teal-group {
+  font-family: "Open Sans", sans-serif, Arial;
   font-size: 14px;
   color: #82888b;
   padding: 0;
