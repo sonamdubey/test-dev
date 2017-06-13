@@ -30,14 +30,14 @@
             </div>
          
             <div class="input-box input-number-box form-control-box personal-info-list">
-                <input type="text" class="get-mobile-no" id="getMobile" maxlength="10" data-bind="textInput: mobileNo" tabindex="3">
+                <input type="text" class="get-mobile-no" id="getMobile" maxlength="10" data-bind="textInput: mobileNo" tabindex="2">
                 <label for="getMobile">Mobile number<sup>*</sup></label>
                 <span class="input-number-prefix">+91</span>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
             <div class="input-box form-control-box personal-info-list" data-bind="visible : emailRequired() || !mfgCampaignId()">
-                <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId" tabindex="2">
+                <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId" tabindex="3">
                 <div data-bind="visible : emailRequired()">
                     <label for="getEmailID">Email<sup>*</sup></label>
                 </div>
