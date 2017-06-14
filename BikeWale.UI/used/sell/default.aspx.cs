@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.Customer;
 using Bikewale.BAL.MobileVerification;
+using Bikewale.BAL.Pager;
 using Bikewale.BAL.UsedBikes;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -23,6 +24,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.MobileVerification;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.Used;
 using Microsoft.Practices.Unity;
 using System;
@@ -179,6 +181,9 @@ namespace Bikewale.Used.Sell
                     container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
                     container.RegisterType<ISellBikesRepository<SellBikeAd, int>, SellBikesRepository<SellBikeAd, int>>();
                     container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();
+                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+                    container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+                    container.RegisterType<IPager, Pager>().RegisterType<ICacheManager, MemcacheManager>(); ;
                     container.RegisterType<ISellBikes, SellBikes>();
                     obj = container.Resolve<ISellBikes>();
                     if (obj != null)

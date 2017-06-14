@@ -9,8 +9,8 @@
                     <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.TopComparisonRecord.VersionImgUrl1, Model.TopComparisonRecord.HostUrl1, Bikewale.Utility.ImageSize._144x81, Bikewale.Utility.QualityFactor._70)" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
                 </div>
                 <h3 class="font14 text-black margin-bottom5">@Model.TopComparisonRecord.Bike1</h3>
-                <div class="text-default text-bold">
-                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(@Model.TopComparisonRecord.Price1))</span>
+                <div class="text-default font16">
+                    @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(@Model.TopComparisonRecord.Price1))</span>
                     @if(@Model.TopComparisonRecord.Price1 > 0) {
                     <span class="font12">&nbsp;onwards</span>
                     }
@@ -22,8 +22,8 @@
                     <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.TopComparisonRecord.VersionImgUrl2, Model.TopComparisonRecord.HostUrl2, Bikewale.Utility.ImageSize._144x81, Bikewale.Utility.QualityFactor._70)" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
                 </div>
                 <h3 class="font14 text-black margin-bottom5">@Model.TopComparisonRecord.Bike2</h3>
-                <div class="text-default text-bold">
-                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(@Model.TopComparisonRecord.Price2))</span>
+                <div class="text-default font16">
+                    @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(@Model.TopComparisonRecord.Price2))</span>
                     @if (@Model.TopComparisonRecord.Price2 > 0)
                     {
                         <span class="font12">&nbsp;onwards</span>

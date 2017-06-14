@@ -128,6 +128,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Moved Model color logic to BAL to process multitone colors with linq
         /// Modified By : Lucky Rathore on 18th Apr 2016
         /// Description : validation modelPage.ModelDetails and modelPage.ModelDesc added. 
+        /// Modified by : Aditi Srivastava on 31 May 2017
+        /// Summary     : Moved GetModelColors function outside ModelVersions condition
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -159,10 +161,9 @@ namespace Bikewale.DAL.BikeData
                     if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                     {
                         modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
-                        modelPage.ModelColors = GetModelColor(modelId);
                         modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
                     }
-
+                    modelPage.ModelColors = GetModelColor(modelId);
                     modelPage.colorPhotos = GetModelColorPhotos(modelId);
                 }
             }
@@ -2191,7 +2192,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getalternativebikeswithreviewcount";
+                    cmd.CommandText = "getalternativebikeswithreviewcount_17062017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -2213,6 +2214,7 @@ namespace Bikewale.DAL.BikeData
                                 bikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
                                 bikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
                                 bikeInfo.NumberOfRating = SqlReaderConvertor.ToUInt32(dr["numberOfRatings"]);
+                                bikeInfo.NumberOfReviews = SqlReaderConvertor.ToUInt32(dr["numberOfReviews"]);
                                 SimilarBikeInfoList.Add(bikeInfo);
 
                             }

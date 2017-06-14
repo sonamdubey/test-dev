@@ -162,7 +162,11 @@ function CustomerModel() {
     if (arr != null && arr.length > 0) {
         self.firstName = ko.observable(arr[0]);
         self.lastName = ko.observable(arr[1]);
-        self.emailId = ko.observable(arr[2]);
+        if (arr[2]!="undefined") {
+            self.emailId = ko.observable(arr[2]);
+        } else {
+            self.emailId = ko.observable();
+        }
         self.mobileNo = ko.observable(arr[3]);
     }
     else {
@@ -975,7 +979,7 @@ $('#btnMakePayment').on('click', function (e) {
 
 function setPQUserCookie() {
 
-    var val = firstname.val() + '&' + lastname.val() + '&' + emailid.val() + '&' + mobile.val();
+    var val = firstname.val() + '&' + lastname.val() + '&' + emailid.val()+ '&' + mobile.val() ;
     SetCookie("_PQUser", val);
 }
 

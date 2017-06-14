@@ -25,7 +25,7 @@ namespace Bikewale.Interfaces.UserReviews
         bool UpdateReviewUseful(uint reviewId, bool isHelpful);
 
         UserReviewsData GetUserReviewsData();
-        uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId);
+        uint SaveUserReviewRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint customerId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId,ushort? sourceId);
         bool SaveUserReviews(uint reviewId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns);
         UserReviewSummary GetUserReviewSummary(uint reviewId);
         bool IsUserVerified(uint reviewId, ulong customerId);
@@ -35,5 +35,9 @@ namespace Bikewale.Interfaces.UserReviews
         BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId);
         BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId);
         Hashtable GetUserReviewsIdMapping();
+
+        IEnumerable<UserReviewSummary> GetUserReviewSummaryList(string reviewIdList);
+
+        BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);
     }   // class
 }   // namespace

@@ -6,8 +6,15 @@
 }
 
 <section>
+	<div class="contest-slug-sm slug-grey-info">
+		<span class="bwmsprite trophy-grey"></span>
+		<p class="contest-slug__label">Rate and write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20B9;1000</p>
+	</div>
+</section>
+
+<section>
     <div id="rate-bike-form" class="container content-box-shadow card-bottom-margin font14">
-        <div class="padding-15-20 content-box-shadow">
+        <div class="padding-10-20 content-box-shadow">
             <div class="model-image-grid inline-block position-rel">
                 @*<p class="model-ribbon discontinued-ribbon">Discontinued</p>*@
                 <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.objModelEntity.OriginalImagePath, Model.objModelEntity.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._70)" alt="@Model.objModelEntity.MakeBase.MakeName @Model.objModelEntity.ModelName" />
@@ -15,30 +22,37 @@
             <h1 class="model-details-grid inline-block">@Model.objModelEntity.MakeBase.MakeName @Model.objModelEntity.ModelName</h1>
         </div>
         <form action="/user-reviews/ratings/save/" method="post">
-            <div class="padding-15-20">
-                <div class="margin-bottom20">
-                    <h2 class="margin-bottom10">How much do you like this bike?</h2>
-                    <p class="text-slate-grey">Consider looks & styling, performance, servicing experience, mileage etc. before you rate.</p>
-
-                    <div id="bike-rating-box" data-selectedrating="@Model.SelectedRating"  data-make-model="@string.Format("{0}_{1}_",Model.objModelEntity.MakeBase.MakeName, Model.objModelEntity.ModelName)">
-                        <div class="circle-placeholder">
-                            <span class="bwmsprite" data-bind="css: ratingCount() > 0 ? 'feedback-' + ratingCount() : 'star-one'"></span>
-                        </div>
-                        <div class="rating-placeholder">
-                            <h3 class="font20 font-bold" data-bind="text: feedbackTitle">Rate your bike</h3>
-                            <p class="margin-top5" data-bind="text: feedbackSubtitle"></p>
-
-                            <p class="error-text" data-bind="visible: validateRatingCountFlag() && ratingCount() == 0, text: ratingErrorText"></p>
-
-                            <div class="answer-star-list" data-bind="foreach: overallRating.slice(0).reverse()">
-                                <input type="radio" name="rate-box" data-bind="attr: {id: 'rate-' + ($root.overallRating().length - $index()), value: ($root.overallRating().length - $index())}" />
-                                <label class="bwmsprite star-zero" data-bind="attr: {for: 'rate-' + ($root.overallRating().length - $index()), 'data-value': ($root.overallRating().length - $index())}"></label>
-                            </div>
-                        </div>
-                    </div>
+            <div class="content-inner-block-20">
+                <div id="bike-rating-box" data-selectedrating="@Model.SelectedRating"  data-make-model="@string.Format("{0}_{1}_",Model.objModelEntity.MakeBase.MakeName, Model.objModelEntity.ModelName)" class="margin-bottom15 border-light border-radius-10">					
+					<div class="rating-box-top">
+						<div class="table-middle">
+							<!-- ko if: ratingCount() == 0 -->
+							<div class="circle-placeholder inline-block">
+								<span class="bwmsprite share-rating"></span>
+							</div>
+							<!-- /ko -->
+							<!-- ko if: ratingCount() > 0 -->
+							<span class="rating-feedback" data-bind="css: 'feedback-' + ratingCount()"></span>
+							<!-- /ko -->
+							<div class="feedback-grid inline-block">
+								<h2 class="font-bold text-default" data-bind="text: feedbackTitle">Share your rating</h2>
+								<!-- ko if: ratingCount() == 0 -->
+								<p class="margin-top5 font12 text-slate-grey">Consider looks &amp; styling, performance, experience, mileage etc. before you rate.</p>
+								<!-- /ko -->
+								<p class="margin-top5 font12 text-slate-grey" data-bind="text: feedbackSubtitle"></p>
+							</div>
+							<p class="error-text text-center" data-bind="visible: validateRatingCountFlag() && ratingCount() == 0, text: ratingErrorText"></p>
+						</div>
+					</div>
+					<div class="rating-placeholder">
+						<div class="answer-star-list" data-bind="foreach: overallRating.slice(0).reverse()">
+							<input type="radio" name="rate-box" data-bind="attr: {id: 'rate-' + ($root.overallRating().length - $index()), value: ($root.overallRating().length - $index())}" />
+							<label class="bwmsprite star-zero" data-bind="attr: {for: 'rate-' + ($root.overallRating().length - $index()), 'data-value': ($root.overallRating().length - $index())}"></label>
+						</div>
+					</div>
                 </div>
 
-                <div id="rate-bike-questions" data-bind="foreach: ratingQuestions">
+                <div id="rate-bike-questions" class="margin-bottom10 border-solid-bottom" data-bind="foreach: ratingQuestions">
                     <!-- ko if: displayType == 2 -->
                     <div class="question-field question-type-text" data-bind="visible: visibility, attr:{id: 'question-' + qId, 'data-sub-question': subQuestionId, 'data-required': isRequired}">
                         <h3 class="question-item" data-bind="text: heading"></h3>
@@ -82,6 +96,7 @@
                 <input type="hidden" name="priceRangeId" value="@Model.PriceRangeId" />                
                 <input type="hidden" name="reviewId" value="@Model.ReviewId" />
                 <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                <input type="hidden" name="sourceId" value="@Model.SourceId" />
                 <input type="hidden" name="platformId" value="2" />
                 <input type="submit" class="btn btn-orange" value="Submit rating" data-bind="click: submitRating" />                          
             </div>

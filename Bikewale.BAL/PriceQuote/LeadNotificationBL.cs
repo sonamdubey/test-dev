@@ -94,7 +94,7 @@ namespace Bikewale.BAL.PriceQuote
                             SendEmailSMSToDealerCustomer.SendSMSToCustomer(pqId, requestUrl, objDPQSmsEntity, DPQTypes.SubscriptionModel);
                     }
                     //If lead is submitted while Booking a bike online don't sent SMS to customer
-                    if (leadSourceId != 16 && leadSourceId != 22)
+                    if (leadSourceId != 16 && leadSourceId != 22 && !String.IsNullOrEmpty(customerEmail))
                     {
                         SendEmailSMSToDealerCustomer.SendEmailToCustomer(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, address, customerName, customerEmail, priceList, offerList, pinCode, stateName, cityName, totalPrice,
                             versionName, dealerLat, dealerLong, workingHours);

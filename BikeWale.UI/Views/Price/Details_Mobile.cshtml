@@ -65,7 +65,7 @@
                 </tr>
                 <tr>
                     <td align="left" class="font16 padding-bottom5">On-road price</td>
-                    <td align="right" class="font18 text-bold padding-bottom5"><span class="bwmsprite inr-sm-icon"></span>&nbsp;@Bikewale.Utility.Format.FormatPrice(Model.TotalPrice.ToString())</td>
+                    <td align="right" class="font18 text-bold padding-bottom5">@Html.Raw("<span > &#x20B9;</span>")&nbsp;@Bikewale.Utility.Format.FormatPrice(Model.TotalPrice.ToString())</td>
                 </tr>
                 <tr>
                     <td colspan="2" align="right" class="text-light-grey padding-bottom15">
@@ -101,7 +101,7 @@
                 <tr>
                     <td class="font16" align="left">On-road price</td>
                     <td class="font18 text-bold" align="right">
-                        <span class="bwmsprite inr-sm-icon"></span>&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())
+                        @Html.Raw("<span> &#x20B9;</span>")&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())
                     </td>
                 </tr>
                 <tr class="padding-bottom10">
@@ -231,7 +231,7 @@
 
                 <p class="grid-5 text-default alpha position-rel pos-top2">Indicative EMI</p>
                 <div class="text-right grid-7 omega font16 text-bold">
-                    <span class="bwmsprite inr-sm-icon margin-right5"></span><span data-bind="text: formatPrice(monthlyEMI())"></span>/month
+                    @Html.Raw("<span> &#x20B9;</span>")&nbsp;<span data-bind="text: formatPrice(monthlyEMI())"></span>/month
                 </div>
                 <div class="clear"></div>
 

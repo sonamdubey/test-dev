@@ -143,8 +143,8 @@
                                     <span class="font14 text-light-grey"> On-road Price,@Model.CityDetails.CityName</span>
                                 </div>
                                 <div class="text-default">
-                                    <span class="bwmsprite inr-sm-icon"></span>
-                                    <span class="font18 text-bold">@Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bike.VersionPrice))</span>
+                                    @Html.Raw("<span class='font18'> &#x20B9;</span>")
+                                    &nbsp;<span class="font18 text-bold">@Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bike.VersionPrice))</span>
                                 </div>
                                 @if (Model.DealerDetails.DealerDetails.Area != null && Model.DealerDetails.DealerDetails.Area.AreaId > 0)
                                 {

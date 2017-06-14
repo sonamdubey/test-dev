@@ -26,8 +26,8 @@
                                 else
                                 {<p class="font14 text-light-grey margin-bottom5">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p> }
                                 
-                                <div class="text-default text-bold">
-                                    <span class="bwsprite inr-lg"></span> <span class="font18">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.MinPrice))</span><span class="font14"> onwards</span>
+                                <div class="text-default font18">
+                                    @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.MinPrice))</span><span class="font14"> onwards</span>
                                 </div>
                             </div>
                         </a>

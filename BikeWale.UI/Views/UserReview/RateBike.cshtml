@@ -18,7 +18,7 @@
                                 <h2 class="font18 margin-bottom10">How much do you like this bike?</h2>
                                 <p class="text-slate-grey">Consider looks & styling, performance, servicing experience, mileage etc. before you rate.</p>
 
-                                <div id="bike-rating-box" data-make-model="@string.Format("{0}_{1}_",Model.objModelEntity.MakeBase.MakeName, Model.objModelEntity.ModelName)">
+                                <div id="bike-rating-box" data-make-model="@string.Format("{0}_{1}_",Model.objModelEntity.MakeBase.MakeName, Model.objModelEntity.ModelName)" data-selectedrating="@Model.SelectedRating">
                                     <div class="circle-placeholder">
                                         <span class="bwsprite" data-bind="css: ratingCount() > 0 ? 'feedback-' + ratingCount() : 'star-one'"></span>
                                     </div>
@@ -87,6 +87,7 @@
                                     <input type="hidden" name="isDesktop" value="true" />
                                     <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
                                     <input type="hidden" name="platformId" value="1" />
+                                    <input type="hidden" name="sourceId" value="@Model.SourceId"/>
                                     <input type="submit" class="btn btn-orange btn-220-40" value="Submit rating" data-bind="click: submitRating" />
                                 </div>
                             </div>

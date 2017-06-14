@@ -1,6 +1,14 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 
 <section>
+	<a href="/m/bike-review-contest/" class="contest-slug-sm slug-teal-target">
+		<span class="trophy-white"></span>
+		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;1000</p>
+		<span class="bwmsprite arrow-white-right"></span>
+	</a>
+</section>
+
+<section>
     <div class="contaniner clearfix">
         <span itemprop="name" class="hide">@Model.BikeName</span>
         <div class="padding-top10 padding-left20 padding-right20 bg-white">
@@ -28,9 +36,9 @@
                                     <meta itemprop="lowPrice" content="@Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin">
                                     <meta itemprop="highPrice" content="@Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax">
                                     <span class="font24 text-bold">
-                                        <span class="bwmsprite inr-lg-icon"></span>
+                                        @Html.Raw("<span >&#x20B9;</span>")
                                         @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin)) -
-                                        &nbsp;<span class="bwmsprite inr-lg-icon margin-right5"></span>@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax))
+                                        &nbsp;@Html.Raw("<span>&#x20B9;</span>")&nbsp;@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax))
                                     </span>
                                 </div>
                             }

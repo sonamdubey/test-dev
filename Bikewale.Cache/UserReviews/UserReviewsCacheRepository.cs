@@ -6,6 +6,7 @@ using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Notifications;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bikewale.Cache.UserReviews
@@ -18,19 +19,17 @@ namespace Bikewale.Cache.UserReviews
     public class UserReviewsCacheRepository : IUserReviewsCache
     {
         private readonly ICacheManager _cache;
-        private readonly IUserReviewsRepository _objUserReviews;
-        private readonly IUserReviewsSearch _objUserReviewSearch;
+        private readonly IUserReviewsRepository _objUserReviews;      
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="objUserReviews"></param>
-        public UserReviewsCacheRepository(ICacheManager cache, IUserReviewsRepository objUserReviews, IUserReviewsSearch objUserReviewSearch)
+        public UserReviewsCacheRepository(ICacheManager cache, IUserReviewsRepository objUserReviews)
         {
             _cache = cache;
-            _objUserReviews = objUserReviews;
-            _objUserReviewSearch = objUserReviewSearch;
+            _objUserReviews = objUserReviews;          
         }
 
         /// <summary>
@@ -106,15 +105,15 @@ namespace Bikewale.Cache.UserReviews
         /// </summary>
         /// <param name="inputFilters"></param>
         /// <returns></returns>
-        public SearchResult GetUserReviewsList(InputFilters inputFilters)
+        public SearchResult GetUserReviewsList(InputFilters inputFilters, string searchQuery)
         {
             SearchResult reviews = null;
             if (inputFilters != null && (!String.IsNullOrEmpty(inputFilters.Model) || !String.IsNullOrEmpty(inputFilters.Make)))
             {
-                string key = "BW_UserReviews_MO_" + inputFilters.Model;
+                string key = "BW_UserReviews_MO_V1_" + inputFilters.Model;
                 bool skipDataLimit = (inputFilters.PN * inputFilters.PS) > 24;
                 try
-                {
+                {                    
                     if (inputFilters.SO > 0)
                     {
                         key = string.Format("{0}_CAT_{1}", key, inputFilters.SO);
@@ -129,7 +128,7 @@ namespace Bikewale.Cache.UserReviews
                         key += "_PN_1_PS_24";
                     }
 
-                    reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan((skipDataLimit ? 1 : 24), 0, 0), () => _objUserReviewSearch.GetUserReviewsList(inputFilters));
+                    reviews = _cache.GetFromCache<SearchResult>(key, new TimeSpan((skipDataLimit ? 1 : 24), 0, 0), () => _objUserReviews.GetUserReviewsList(searchQuery));
 
 
                     if (reviews != null && reviews.Result != null && !skipDataLimit)
@@ -203,10 +202,10 @@ namespace Bikewale.Cache.UserReviews
         public UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId)
         {
             UserReviewSummary objUserReviewSummary = null;
-            string key = string.Format("BW_UserReviewDetails_{0}", reviewId);
+            string key = string.Format("BW_UserReviewDetails_V1_{0}", reviewId);
             try
             {
-                objUserReviewSummary = _cache.GetFromCache<UserReviewSummary>(key, new TimeSpan(12, 0, 0), () => _objUserReviews.GetUserReviewSummaryWithRating(reviewId));
+                objUserReviewSummary = _cache.GetFromCache<UserReviewSummary>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetUserReviewSummaryWithRating(reviewId));
             }
             catch (Exception ex)
             {
@@ -233,6 +232,63 @@ namespace Bikewale.Cache.UserReviews
                 ErrorClass objError = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewsIdMapping");
             }
             return htResult;
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 12-06-2017
+        /// Description : this gets all review id list for particular model from dal
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId)
+        {
+            BikeReviewIdListByCategory objReviewIdList = null;
+            try
+            {
+                string key = "BW_ReviewIdList_" + modelId;
+                objReviewIdList = _cache.GetFromCache<BikeReviewIdListByCategory>(key, new TimeSpan(6, 0, 0), () => _objUserReviews.GetReviewsIdListByModel(modelId));
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeMakesCacheRepository.GetReviewsIdListByModel {0}", modelId));
+            }
+            return objReviewIdList;
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 12-06-2017
+        /// Description : this gets all review id summary list from dal
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<UserReviewSummary> GetUserReviewSummaryList(IEnumerable<uint> reviewIdList)
+        {
+            IEnumerable<UserReviewSummary> objSummaryList = null;
+            try
+            {
+                string[] keys;
+                keys = new string[reviewIdList.Count()];
+
+                int i = 0;
+                foreach(var id in reviewIdList)
+                {
+                    keys[i++] = string.Format("BW_UserReviewDetails_V1_{0}", id);
+                }
+
+                string reviewCSV = String.Join(",", reviewIdList.ToArray());
+                Func<string, IEnumerable<UserReviewSummary>> fnCallback =_objUserReviews.GetUserReviewSummaryList;                
+
+                objSummaryList = _cache.GetListFromCache<UserReviewSummary>(reviewIdList.Select(p => p.ToString()).ToArray(),
+                    keys,
+                    new TimeSpan(1, 0, 0),
+                    fnCallback);
+                
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetUserReviewSummaryList");
+            }
+            return objSummaryList;
         }
     }
 }

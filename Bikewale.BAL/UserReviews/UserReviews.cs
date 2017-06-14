@@ -1,5 +1,7 @@
 ﻿using Bikewale.Entities.Customer;
+using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Models.UserReviews;
@@ -7,7 +9,6 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Bikewale.Utility.LinqHelpers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -139,7 +140,7 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="userName"></param>
         /// <param name="emailId"></param>
         /// <returns></returns>        
-        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint reviewId,string returnUrl, ushort platformId)
+        public UserReviewRatingObject SaveUserRatings(string overAllrating, string ratingQuestionAns, string userName, string emailId, uint makeId, uint modelId, uint reviewId, string returnUrl, ushort platformId, ushort? sourceId)
         {
 
             UserReviewRatingObject objRating = null;
@@ -156,7 +157,7 @@ namespace Bikewale.BAL.UserReviews
 
                 if (!objRating.IsFake)
                 {
-                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, reviewId,returnUrl,platformId);
+                    objRating.ReviewId = _userReviewsRepo.SaveUserReviewRatings(overAllrating, ratingQuestionAns, userName, emailId, (uint)objCust.CustomerId, makeId, modelId, reviewId, returnUrl, platformId, sourceId);
                     objRating.CustomerId = objCust.CustomerId;
                 }
                 else
@@ -302,7 +303,7 @@ namespace Bikewale.BAL.UserReviews
             try
             {
                 //Check if Customer exists
-                objCust = _objCustomer.GetByEmail(customer.CustomerEmail);
+                objCust = _objCustomer.GetByEmailMobile(customer.CustomerEmail, customer.CustomerMobile);
                 if (objCust != null && objCust.CustomerId > 0)
                 {
                     //If exists update the mobile number and name
@@ -341,7 +342,7 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="reviewTitle"></param>
         /// <returns></returns>
         public WriteReviewPageSubmitResponse SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName)
-        {
+        {            
             WriteReviewPageSubmitResponse objResponse = null;
             try
             {
@@ -486,5 +487,6 @@ namespace Bikewale.BAL.UserReviews
                     return m => (m.Liked);
             }
         }
+        
     }   // Class
 }   // Namespace

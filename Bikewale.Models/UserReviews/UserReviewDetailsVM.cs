@@ -21,5 +21,6 @@ namespace Bikewale.Models
         public uint ReviewId { get; set; }
         public UserReviewsSearchVM UserReviews { get; set; }
         public string PageUrl { get; set; }
+        public string ReviewAge { get; set; }
     }
 }

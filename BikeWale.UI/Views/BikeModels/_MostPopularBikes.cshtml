@@ -24,8 +24,8 @@
                                 @if (bike.VersionPrice > 0)
                                 {
                                     <p class="font14 text-light-grey margin-bottom5">Ex-showroom, @(!String.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.GetDefaultCityName)</p>
-                                    <p class="text-bold text-default">
-                                        <span class="bwsprite inr-lg"></span> <span class="font18">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span><span class="font14"> onwards</span>
+                                    <p class="font18 text-default">
+                                        @Html.Raw("<span>&#x20B9;</span>")<span class="text-bold">&nbsp;@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span><span class="font14"> onwards</span>
                                     </p>
                                 }
                                 else

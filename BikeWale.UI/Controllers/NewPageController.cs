@@ -21,6 +21,8 @@ namespace Bikewale.Controllers
     /// <author>
     /// Created by: Sangram Nandkhile on 31-Mar-2017
     /// Summary: Controller which holds actions for New page
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance for comparison list
     /// </author>
     public class NewPageController : Controller
     {
@@ -30,14 +32,14 @@ namespace Bikewale.Controllers
         private readonly ICityCacheRepository _usedBikeCities = null;
         private readonly IHomePageBannerCacheRepository _cachedBanner = null;
         private readonly IBikeModelsCacheRepository<int> _cachedModels = null;
-        private readonly IBikeCompareCacheRepository _cachedCompare = null;
+        private readonly IBikeCompare _compare = null;
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private readonly ICMSCacheContent _expertReviews = null;
 
         NewPageVM objData = null;
 
-        public NewPageController(IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCities, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompareCacheRepository cachedCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
+        public NewPageController(IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCities, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare compare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews)
         {
             _bikeMakes = bikeMakes;
             _bikeModels = bikeModels;
@@ -45,17 +47,22 @@ namespace Bikewale.Controllers
             _usedBikeCities = usedBikeCities;
             _cachedBanner = cachedBanner;
             _cachedModels = cachedModels;
-            _cachedCompare = cachedCompare;
+            _compare = compare;
             _videos = videos;
             _articles = articles;
             _expertReviews = expertReviews;
         }
         // GET: HomePage
+        /// <summary>
+        /// Modified by : Aditi Srivastava on 6 June 2017
+        /// Summary     : Added compare source
+        /// </summary>
         [Route("newpage/")]
         [DeviceDetection]
         public ActionResult Index()
         {
-            NewPageModel obj = new NewPageModel(10, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedModels, _cachedCompare, _videos, _articles, _expertReviews);
+            NewPageModel obj = new NewPageModel(10, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedModels, _compare, _videos, _articles, _expertReviews);
+            obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
             objData = obj.GetData();
             return View(objData);
         }
@@ -64,9 +71,9 @@ namespace Bikewale.Controllers
         [Route("m/newpage/")]
         public ActionResult Index_Mobile()
         {
-            NewPageModel obj = new NewPageModel(6, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedModels, _cachedCompare, _videos, _articles, _expertReviews);
+            NewPageModel obj = new NewPageModel(6, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedModels, _compare, _videos, _articles, _expertReviews);
             obj.IsMobile = true;
-            obj.CompareSource = CompareSources.Mobile_NewBikes_MostPopular_Compare_Widget;
+            obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             objData = obj.GetData();
             return View(objData);
         }

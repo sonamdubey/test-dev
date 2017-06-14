@@ -74,24 +74,24 @@
                                     <!--  ko if: exshowroomPrice().length > 0 -->
                                     <tr>
                                         <td align="left" valign="top" width="70%" class="padding-bottom15 text-slate-grey">Ex-showroom</td>
-                                        <td align="right" valign="top" width="30%" class="padding-bottom15 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon"></span><span data-bind="text: exshowroomPrice()"></span></td>
+                                        <td align="right" valign="top" width="30%" class="padding-bottom15">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold" data-bind="text: exshowroomPrice()"></span></td>
                                     </tr>
                                     <!-- /ko -->
                                     <!--  ko if: rtoPrice().length > 0 -->
                                     <tr>
                                         <td align="left" valign="top" class="padding-bottom15 text-slate-grey">RTO</td>
-                                        <td align="right" valign="top" class="padding-bottom15 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon"></span><span data-bind="text: rtoPrice()"></span></td>
+                                        <td align="right" valign="top" class="padding-bottom15">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold" data-bind="text: rtoPrice()"></span></td>
                                     </tr>
                                     <!-- /ko -->
                                     <!--  ko if: insurancePrice().length > 0 -->
                                     <tr>
                                         <td align="left" valign="top" class="padding-bottom15 text-slate-grey">Insurance (Comprehensive)<br><p class='position-rel'><a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Price_in_City_Page" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName);" rel="nofollow">Buy Policy Now<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a></p></td>
-                                        <td align="right" valign="top" class="padding-bottom10 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon"></span><span data-bind="text: insurancePrice()"></span></td>
+                                        <td align="right" valign="top" class="padding-bottom10">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold" data-bind="text: insurancePrice()"></span></td>
                                     </tr>
                                     <!-- /ko -->
                                     <tr>
                                         <td align="left" valign="top" class="padding-top15 padding-bottom15 border-solid-top border-solid-bottom text-default">@Model.BikeModel.ModelName on-road price in @Model.CityEntity.CityName</td>
-                                        <td align="right" valign="top" class="padding-top15 padding-bottom15 border-solid-top border-solid-bottom font16 text-bold"><span class="bwmsprite inr-xsm-icon"></span><span data-bind="text: onRoadPrice()"></span></td>
+                                        <td align="right" valign="top" class="padding-top15 padding-bottom15 border-solid-top border-solid-bottom font16">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold" data-bind="text: onRoadPrice()"></span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -100,13 +100,13 @@
                         {
                             <div class="margin-top15 font14">
                                 <p class="font-bold margin-bottom10">Quick facts about @Model.BikeModel.ModelName</p>
-                                <p class="text-slate-grey line-height16">@Model.PageDescription</p>
+                                <p class="text-slate-grey line-height16">@Html.Raw(Model.PageDescription)</p>
                             </div>
                         }
                         @if (Model.IsDiscontinued)
                         {
                             <div class="font14 text-default text-bold">
-                                <span>Last known Ex-showroom price</span><span class="rightfloat"><span class="bwmsprite inr-xsm-icon margin-right5"></span><span class="text-bold font16" data-bind="text: exshowroomPrice()">@Model.FirstVersion.ExShowroomPrice</span></span>
+                                <span>Last known Ex-showroom price</span><span class="rightfloat">@Html.Raw("<span class='font16 text-bold'> &#x20B9;</span>")<span class="text-bold font16" data-bind="text: exshowroomPrice()">@Model.FirstVersion.ExShowroomPrice</span></span>
                             </div>
                             <div class="margin-top15 font14">
                                 <p class="text-slate-grey line-height16">@String.Format("{0} has discontinued the {1} and the bike is out of production.", Model.Make.MakeName, Model.BikeModel.ModelName)</p>
@@ -312,7 +312,7 @@
 
                             <p class="grid-5 text-default alpha position-rel pos-top2">Indicative EMI</p>
                             <div class="text-right grid-7 omega font16 text-bold">
-                                <span class="bwmsprite inr-sm-icon margin-right5"></span><span data-bind="text: formatPrice(monthlyEMI())"></span>/month
+                                @Html.Raw("<span> &#x20B9;</span>")&nbsp;<span data-bind="text: formatPrice(monthlyEMI())"></span>/month
                             </div>
                             <div class="clear"></div>
 
@@ -345,7 +345,7 @@
                                             {
                                                 <tr>
                                                     <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-slate-grey">@String.Format("{0} {1}", Model.BikeName, version.VersionName)</td>
-                                                    <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold"><span class="bwmsprite inr-dark-grey-xsm-icon margin-right5"></span>@Bikewale.Utility.Format.FormatPrice(Convert.ToString(version.OnRoadPrice))</td>
+                                                    <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(version.OnRoadPrice))</span></td>
                                                 </tr>
                                             }
                                             <tr>

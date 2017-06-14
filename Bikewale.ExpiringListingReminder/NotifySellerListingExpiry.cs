@@ -1,7 +1,9 @@
 ﻿
+using Bikewale.Entities;
 using Bikewale.Entities.UrlShortner;
 using Bikewale.Notifications;
 using Bikewale.Notifications.MailTemplates.UsedBikes;
+using Bikewale.Utility;
 using Consumer;
 using System;
 
@@ -10,6 +12,8 @@ namespace Bikewale.ExpiringListingReminder
     /// <summary>
     /// Created By Sajal Gupta on 23-11-2016.
     /// Desc : Send sms and email to seller about expiry listing.
+    /// Modified by : Aditi Srivastava on 30 May 2017
+    /// Summary     : added email heading in function
     /// </summary>
     public class NotifySellerListingExpiry
     {
@@ -21,8 +25,10 @@ namespace Bikewale.ExpiringListingReminder
         private readonly string _repostUrl = "{0}/used/inquiry/{1}/repost/";
         private readonly string _removeUrl = "{0}/used/inquiry/{1}/remove/";
 
-        private readonly string _emailSubjectOneDay = "Your Ad on BikeWale expires in 24 hours.Repost it for Free!";
-        private readonly string _emailSubjectSevenDay = "Your Ad on BikeWale expires in 7 days.Repost it for Free!";
+        private readonly string _emailSubjectOneDay = "Your Ad on BikeWale expires in 24 hours. Repost it for Free!";
+        private readonly string _emailSubjectSevenDay = "Your Ad on BikeWale expires in 7 days. Repost it for Free!";
+        private readonly string _emailHeadingOneDay = "Your Ad on BikeWale expires in 24 hours";
+        private readonly string _emailHeadingSevenDay = "Your Ad on BikeWale expires in 7 days";
 
         private readonly string _messageOneDay = "Your Ad on BikeWale will expire in next 24 hours. If you have already sold your {0} {1} bike, visit {2} to remove your ad. If not sold yet, visit {3} to re-post it. Team BikeWale";
         private readonly string _messageSevenDay = "Your Ad on BikeWale will expire in next 7 days. If you have already sold your {0} {1} bike, visit {2} to remove your ad. If not sold yet, visit {3} to re-post it. Team BikeWale";
@@ -140,16 +146,36 @@ namespace Bikewale.ExpiringListingReminder
 
                 if (shortRepostUrl != null)
                     repostUrl = shortRepostUrl.ShortUrl;
-
+                string qEncoded = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
                 if (EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller.Equals(dayRemaining))
                 {
-                    ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, seller.makeName, seller.modelName, EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller, repostUrl);
+                    ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, 
+                        seller.makeName, 
+                        seller.modelName, 
+                        EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller, 
+                        repostUrl,
+                        _emailHeadingOneDay, 
+                        Image.GetPathToShowImages(seller.OriginalImagePath, seller.HostUrl, ImageSize._110x61), 
+                        Format.FormatNumeric(seller.RideDistance),
+                        qEncoded, 
+                        BWConfiguration.Instance.BwHostUrl,
+                        seller.ModelId);
                     objEmail.Send(seller.sellerEmail, _emailSubjectOneDay);
                     Logs.WriteInfoLog("One day remaining Email sent to inquiryId " + seller.inquiryId);
                 }
                 else
                 {
-                    ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, seller.makeName, seller.modelName, EnumSMSServiceType.BikeListingExpirySevenDaySMSToSeller, repostUrl);
+                    ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName,
+                        seller.makeName, 
+                        seller.modelName, 
+                        EnumSMSServiceType.BikeListingExpirySevenDaySMSToSeller, 
+                        repostUrl,
+                        _emailHeadingSevenDay,
+                        Image.GetPathToShowImages(seller.OriginalImagePath, seller.HostUrl, ImageSize._110x61),
+                        Format.FormatNumeric(seller.RideDistance),
+                        qEncoded,
+                        BWConfiguration.Instance.BwHostUrl,
+                        seller.ModelId);
                     objEmail.Send(seller.sellerEmail, _emailSubjectSevenDay);
                     Logs.WriteInfoLog("Seven day remaining Email sent to inquiryId " + seller.inquiryId);
                 }

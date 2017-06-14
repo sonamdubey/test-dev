@@ -154,7 +154,7 @@ namespace Bikewale.DAL.PriceQuote
                 objQuotation = new BikeQuotationEntity();
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getpricequote_new_12052017";
+                    cmd.CommandText = "getpricequote_new_06062017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, pqId));
@@ -185,6 +185,7 @@ namespace Bikewale.DAL.PriceQuote
                             objQuotation.LeadCapturePopupHeading = Convert.ToString(dr["LeadCapturePopupHeading"]);
                             objQuotation.LeadCapturePopupMessage = Convert.ToString(dr["LeadCapturePopupMessage"]);
                             objQuotation.PinCodeRequired = SqlReaderConvertor.ToBoolean(dr["PinCodeRequired"]);
+                            objQuotation.EmailRequired = SqlReaderConvertor.ToBoolean(dr["EmailIDRequired"]);
                             objQuotation.DealersRequired = SqlReaderConvertor.ToBoolean(dr["DealersRequired"]);
                             objQuotation.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
                         }
@@ -212,7 +213,6 @@ namespace Bikewale.DAL.PriceQuote
             ulong pqId = RegisterPriceQuote(pqParams);
 
             BikeQuotationEntity objQuotation = GetPriceQuoteById(pqId);
-
             return objQuotation;
         }
 
@@ -515,6 +515,8 @@ namespace Bikewale.DAL.PriceQuote
         /// Description : Added makeId property to get makeId for dealers card widget 
         /// Modified By : Sushil Kumar on 8th June 2016
         /// Description : Added ismodelnew and isversion new data 
+        /// Modified By :   Sumit Kate on 15 May 2017
+        /// Description :   New sp version getversionpricesbymodelid
         /// </summary>
         /// <param name="modelId">Model Id</param>
         /// <param name="cityId">City Id </param>
@@ -530,7 +532,7 @@ namespace Bikewale.DAL.PriceQuote
 
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getversionpricesbymodelid";
+                    cmd.CommandText = "getversionpricesbymodelid_15052017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));

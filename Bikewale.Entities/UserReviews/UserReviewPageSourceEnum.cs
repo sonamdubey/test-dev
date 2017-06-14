@@ -11,6 +11,6 @@
         Mobile_UserReview_Landing = 7,
         Mobile_UserReview_Details = 8,
         UsedBikes_Email= 9,
-        Mobile_UserReviewContestPage = 10,
+        Mobile_UserReviewContestPage = 10
     }
 }

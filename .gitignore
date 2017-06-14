@@ -10,3 +10,4 @@ Bikewale.Service/App_Data/*.XML
 BikeWale.UI/build/
 BikeWale.UI/min/
 node_modules/
+.vs

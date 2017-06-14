@@ -7,6 +7,8 @@ namespace BikewaleOpr.Entity.ContractCampaign
     /// <summary>
     /// Created by  :   Sumit Kate on 18 Jan 2017
     /// Description :   Dealer Campaign Details Entity
+    /// Modified by :   Sumit Kate on 12 May 2017
+    /// Description :   Add campaignServingStatus property
     /// </summary>
     public class DealerCampaignDetailsEntity : DealerCampaignEntity
     {
@@ -33,5 +35,9 @@ namespace BikewaleOpr.Entity.ContractCampaign
         public uint DealerId { get; set; }
         [JsonProperty("DailyLeads")]
         public uint DailyLeads { get; set; }
+        [JsonProperty("CampaignServingStatus")]
+        public string CampaignServingStatus { get; set; }
+        [JsonProperty("DealerName")]
+        public string DealerName { get; set; }
     }
 }

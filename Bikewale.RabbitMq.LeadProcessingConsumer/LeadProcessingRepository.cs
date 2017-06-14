@@ -134,7 +134,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             bool status = false;
             try
             {
-                if (pqId > 0 && !String.IsNullOrEmpty(custEmail) && !String.IsNullOrEmpty(mobile))
+                if (pqId > 0 && !String.IsNullOrEmpty(mobile))
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
@@ -323,6 +323,39 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
 
             return islimitexceeds;
 
+        }
+
+        /// <summary>
+        /// Created By : Sangram Nandkhile on 1st June 2017
+        /// Description : To check if lead exists for particular lead campaign and dealer
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
+        public bool IsLeadExists(uint dealerId, string mobile)
+        {
+            bool IsLeadExists = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "Checkifleadexists";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, mobile));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    string IsLeadExistsAlready = MySqlDatabase.ExecuteScalar(cmd, ConnectionType.MasterDatabase);
+                    if (!string.IsNullOrEmpty(IsLeadExistsAlready))
+                        IsLeadExists = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(String.Format("Error in IsLeadExists() : DealerId : {0}, Mobile : {1}, ErrorMessage: {2} ", dealerId, mobile, ex.Message));
+            }
+            return IsLeadExists;
         }
 
         /// <summary>

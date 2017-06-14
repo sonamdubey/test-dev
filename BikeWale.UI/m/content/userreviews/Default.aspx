@@ -12,6 +12,15 @@
 <!-- #include file="/includes/headermobile.aspx" -->
 <link rel="stylesheet" type="text/css" href="/m/css/user-review/landing.css" />
 <script type="text/javascript" src="https://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
+
+<section>
+	<a href="/m/bike-review-contest/" class="contest-slug-sm slug-teal-target">
+		<span class="trophy-white"></span>
+		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;1000</p>
+		<span class="bwmsprite arrow-white-right"></span>
+	</a>
+</section>
+
 <div class="padding5">
     <div id="br-cr">
         <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -215,6 +224,6 @@
 </div>
 <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : ""%>/m/src/user-review/landing.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
-    var returnUrl = '<%=Utils.Utils.EncryptTripleDES("returnUrl=/user-reviews/") %>';
+    var returnUrl = '<%=Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/user-reviews/&sourceid={0}",(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Landing))%>';
 </script>
 <!-- #include file="/includes/footermobile.aspx" -->

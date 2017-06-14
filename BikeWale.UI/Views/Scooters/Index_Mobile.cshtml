@@ -42,7 +42,7 @@
                                             <span class="bwmsprite budget-one"></span>
                                         </div>
                                         <span class="key-size-14">Upto</span><br />
-                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">50K</span>
+                                        @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">50K</span>
                                     </div>
                                 </a>
                             </li>
@@ -53,8 +53,8 @@
                                             <span class="bwmsprite budget-two"></span>
                                         </div>
                                         <span class="key-size-14">Between</span><br />
-                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">50K</span> -
-                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">70K</span>
+                                        @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">50K</span> -
+                                        @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">70K</span>
                                     </div>
                                 </a>
                             </li>
@@ -65,7 +65,7 @@
                                             <span class="bwmsprite budget-three"></span>
                                         </div>
                                         <span class="key-size-14">Above</span><br />
-                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">70K</span>
+                                        @Html.Raw("<span class='value-size-15'> &#x20B9;</span>")&nbsp;<span class="value-size-15">70K</span>
                                     </div>
                                 </a>
                             </li>
@@ -163,9 +163,13 @@
 @if (Model.HasComparison)
 {
     <section>
-        <h2 class="section-heading">Compare scooters</h2>
-        @Html.Partial("~/Views/CompareBikes/_ComparisonMin_Mobile.cshtml", Model.Comparison)
-        <div class="clear"></div>
+        <h2 class="font18 margin-bottom20 margin-top20 text-center">Compare Scooters</h2>
+        <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
+            @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.ComparePopularScooters)
+            <div class="view-all-btn-container margin-top10 text-center">
+                <a href="/m/comparebikes/" title="New Bike Comparisons in India" class="btn view-all-target-btn">View all comparisons<span class="bwmsprite teal-right"></span></a>
+            </div>
+        </div>
     </section>
 }
 @if (Model.AdTags.Ad320x150_Bottom) 

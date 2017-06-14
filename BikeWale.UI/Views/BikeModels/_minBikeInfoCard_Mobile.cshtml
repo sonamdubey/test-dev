@@ -24,7 +24,7 @@
                     {
                     <p class="price-label-size-12 text-truncate">Last known Ex-showroom price</p>
                     <div>
-                        <span class="bwmsprite inr-sm-icon margin-right5"></span>
+                        @Html.Raw("<span> &#x20B9;</span>")&nbsp;
                         <span class="price-value-size-18">@Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
                     </div>
                     }
@@ -32,7 +32,7 @@
                     {
                     <p class="price-label-size-12">Expected price</p>
                     <div>
-                        <span class="bwmsprite inr-sm-icon margin-right5"></span>
+                        @Html.Raw("<span> &#x20B9;</span>")&nbsp;
                         <span class="price-value-size-18">
                             @String.Format("{0} - {1}", Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMin)), Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMax)))
                         </span>
@@ -44,7 +44,7 @@
                         {
                     <p class="price-label-size-12 text-truncate">@String.Format("Ex-showroom, {0}", Model.CityDetails.CityName)</p>
                     <div>
-                        <span class="bwmsprite inr-sm-icon margin-right5"></span>
+                        @Html.Raw("<span> &#x20B9;</span>")&nbsp;
                         <span class="price-value-size-18">@Format.FormatPrice(Convert.ToString(Model.BikeInfo.PriceInCity))</span>
                     </div>
                         }
@@ -52,7 +52,7 @@
                         {
                     <p class="price-label-size-12 text-truncate">@String.Format("Ex-showroom, {0}", BWConfiguration.Instance.DefaultName)</p>
                     <div>
-                        <span class="bwmsprite inr-sm-icon margin-right5"></span>
+                        @Html.Raw("<span> &#x20B9;</span>")&nbsp;
                         <span class="price-value-size-18">@Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
                     </div>
                         }

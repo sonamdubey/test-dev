@@ -13,7 +13,10 @@
                             <div class="grid-10 alpha margin-bottom5">
                                 <h3 class="text-black text-truncate">@dealer.Name</h3>
                             </div>
+                            @if (dealer.Distance > 0)
+                            {
                             <div class="grid-2 dealer-distance alpha omega font12 text-light-grey text-right pos-top2">@Math.Truncate(dealer.Distance) kms</div>
+                            }
                             <div class="clear"></div>
 
                             <div class="margin-bottom5">
@@ -23,7 +26,7 @@
                             <div class="margin-top10">
                                 <div class="grid-5 alpha omega">
                                     <p class="font12 text-light-grey margin-bottom2">On-road price</p>
-                                    <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(dealer.SelectedVersionPrice.ToString())</span>
+                                    @Html.Raw("<span class='font16 text-default'>&#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(dealer.SelectedVersionPrice.ToString())</span>
                                 </div>
                                 @if (dealer.DealerPackageType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard && dealer.OfferCount > 0)
                                 {

@@ -112,14 +112,14 @@
                     <a href="javascript:void(0)" onclick="secondarydealer_Click(@dealer.DealerId)">
                         <div>
                             <span class="grid-9 alpha omega font14 text-default text-bold">@dealer.Name</span>
-                            <span class="grid-3 omega text-light-grey text-right">@Math.Truncate(dealer.Distance) kms</span>
+                            <span class="grid-3 omega text-light-grey text-right @(dealer.Distance > 0 ? "" : "hide") ">@Math.Truncate(dealer.Distance) kms</span>
                             <div class="clear"></div>
                             <span class="bwmsprite dealership-loc-icon vertical-top"></span>
                             <span class="font12 text-light-grey">@dealer.Area</span>
                             <div class="margin-top15">
                                 <div class="grid-4 alpha omega">
                                     <p class="font12 text-light-grey margin-bottom5">On-road price</p>
-                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(dealer.SelectedVersionPrice.ToString())</span>
+                                    @Html.Raw("<span class='font16 text-default'> &#x20B9;</span>")&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(dealer.SelectedVersionPrice.ToString())</span>
                                 </div>
                                 @if (dealer.DealerPackageType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard && dealer.OfferCount > 0)
                                 {

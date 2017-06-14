@@ -20,13 +20,15 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by: Sangram Nandkhile on 31-Mar-2017
     /// Model for scooters make page
+    /// Modified by : Aditi Srivastava on 5 June 2017
+    /// Summary     : Added BL instance instead of cache for comparison carousel
     /// </summary>
     public class ScootersMakePageModel
     {
         private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IUpcoming _upcoming = null;
-        private readonly IBikeCompareCacheRepository _compareScooters = null;
+        private readonly IBikeCompare _compareScooters = null;
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IServiceCenter _objService = null;
@@ -47,7 +49,7 @@ namespace Bikewale.Models
             IBikeMakes<BikeMakeEntity, int> bikeMakes,
             IBikeModels<BikeModelEntity, int> bikeModels,
             IUpcoming upcoming,
-            IBikeCompareCacheRepository compareScooters,
+            IBikeCompare compareScooters,
             IBikeMakesCacheRepository<int> objMakeCache,
             IDealerCacheRepository objDealerCache,
             IServiceCenter objServices

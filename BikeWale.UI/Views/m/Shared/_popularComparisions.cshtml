@@ -9,8 +9,8 @@
                 <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.First().VersionImgUrl1, Model.First().HostUrl1, Bikewale.Utility.ImageSize._210x118)" alt="@Model.First().Bike1" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
             </div>
             <h3 class="font14 text-black margin-bottom5">@Model.First().Bike1</h3>
-            <div class="text-default text-bold">
-                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.First().Price1))</span>
+            <div class="text-default font16 ">
+                @Html.Raw("<span> &#x20B9;</span>")&nbsp;<span class="text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.First().Price1))</span>
                 <span class="font12">onwards</span>
             </div>
             <p class="text-light-grey margin-bottom5 font12">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
@@ -20,8 +20,8 @@
                 <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.First().VersionImgUrl2, Model.First().HostUrl2, Bikewale.Utility.ImageSize._210x118)" alt="@Model.First().Bike2" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
             </div>
             <h3 class="font14 text-black margin-bottom5">@Model.First().Bike2</h3>
-            <div class="text-default text-bold">
-                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.First().Price2))</span>
+            <div class="text-default font16">
+                @Html.Raw("<span'> &#x20B9;</span>")&nbsp;<span class="text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.First().Price2))</span>
                 <span class="font12">onwards</span>
             </div>
             <p class="text-light-grey margin-bottom5 font12">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>

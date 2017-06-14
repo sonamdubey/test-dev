@@ -1,4 +1,47 @@
-﻿.cover-window-popup {
+﻿/* review contest slug */
+.contest-slug-sm {
+	font-size: 12px;
+	padding: 8px 10px;
+}
+
+.slug-teal-target {
+	display: block;
+	color: #fff;
+	background: #6cc7d1;
+	position: relative;
+}
+
+.slug-teal-target:hover {
+	text-decoration: none;
+}
+
+.contest-slug__label {
+	width: 92%;
+	color: #fff;
+	font-weight: 400;
+	padding-left: 8px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.trophy-white {
+    width: 15px;
+    height: 16px;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/trophy-white-14.png) no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.arrow-white-right {
+	width: 7px;
+	height: 11px;
+	background-position: -203px -48px;
+	position: absolute;
+	top: 33%;
+	right: 10px;
+}
+
+.cover-window-popup {
     display: none;
     width: 100%;
     position: fixed;

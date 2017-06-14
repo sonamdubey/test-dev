@@ -69,7 +69,7 @@ namespace BikewaleOpr.CommuteDistance
         /// </summary>
         /// <param name="dealerId">e.g. 4</param>
         /// <returns>List of Area</returns>
-        public IEnumerable<GeoLocationEntity> GetAreaByDealer(UInt16 dealerId, UInt16 leadServingDistance, out GeoLocationEntity dealerLocation)
+        public IEnumerable<GeoLocationEntity> GetAreaByDealer(uint dealerId, ushort leadServingDistance, out GeoLocationEntity dealerLocation)
         {
             GeoLocationEntity location = null;
             IList<GeoLocationEntity> areas = null;
@@ -137,7 +137,7 @@ namespace BikewaleOpr.CommuteDistance
         /// Description : To update distance.
         /// </summary>
         /// <param name="dealerId">e.g. 4</param>
-        /// <param name="areaDistance">e.g. '18890:51,18249:89,17768:79' (areaId:CityId comma seprated pair)</param>
+        /// <param name="areaDistance">e.g. '18890:51,18249:89,17768:79' (areaId:Distance comma seprated pair)</param>
         /// <returns></returns>
         public bool UpdateArea(UInt32 dealerId, string areaDistance)
         {

@@ -26,8 +26,7 @@
                                 @if (bike.EstimatedPriceMin > 0)
                                 {
                                     <p class="font14 text-light-grey margin-bottom5">Expected price</p>
-                                    <span class="bwsprite inr-lg"></span>
-                                    <span class="font18 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.EstimatedPriceMin)) onwards</span>
+                                    @Html.Raw("<span class='font18 text-default'>&#x20B9;</span>")<span class="font18 text-default text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.EstimatedPriceMin)) onwards</span>
                                 }
                                 else
                                 {

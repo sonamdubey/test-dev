@@ -25,8 +25,8 @@
                 {                                        
                     <tr>
                         <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.ModelName, version.VersionName)</td>
-                        <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14 text-bold">
-                            <span class="bwsprite inr-sm-dark"></span>@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())
+                        <td valign="top" class="padding-top10 padding-bottom10 divider-bottom font14">
+                            @Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(version.Price.ToString())</span>
                         </td>
                     </tr>
                 }
