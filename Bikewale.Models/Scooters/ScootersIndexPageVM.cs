@@ -14,9 +14,16 @@ namespace Bikewale.Models
         public NewLaunchedWidgetVM NewLaunches { get; set; }
         public UpcomingBikesWidgetVM Upcoming { get; set; }
         public PopularComparisonsVM ComparePopularScooters { get; set; }
+        public RecentNewsVM News { get; set; }
+        public RecentExpertReviewsVM ExpertReviews { get; set; }
+        public RecentVideosVM Videos { get; set; }
         public bool HasPopularBikes { get { return (PopularBikes != null && PopularBikes.Bikes != null && PopularBikes.Bikes.Count() > 0); } }
         public bool HasNewLaunches { get { return (NewLaunches != null && NewLaunches.Bikes != null && NewLaunches.Bikes.Count() > 0); } }
         public bool HasUpcoming { get { return (Upcoming != null && Upcoming.UpcomingBikes != null && Upcoming.UpcomingBikes.Count() > 0); } }
         public bool HasComparison { get; set; }
+        public uint TabCount = 0;
+        public bool IsNewsActive { get; set; }
+        public bool IsExpertReviewActive { get; set; }
+        public bool IsVideoActive { get; set; }
     }
 }

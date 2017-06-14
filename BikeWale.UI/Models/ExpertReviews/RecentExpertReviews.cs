@@ -55,7 +55,7 @@ namespace Bikewale.Models
             Title = title;
         }
         #endregion
-
+        public bool IsScooter { get; set; }
         #region Functions to get data
         /// <summary>
         /// Created by : Aditi Srivastava on 23 Mar 2017
@@ -70,7 +70,12 @@ namespace Bikewale.Models
                 categorList.Add(EnumCMSContentType.RoadTest);
                 categorList.Add(EnumCMSContentType.ComparisonTests);
                 string _contentType = CommonApiOpn.GetContentTypesString(categorList);
-
+                if (IsScooter)
+                {
+                    string bodyStyleId = "5";
+                    recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, bodyStyleId, _makeId, _modelId);
+                }
+                else
                 recentReviews.ArticlesList = _articles.GetMostRecentArticlesByIdList(_contentType, _totalRecords, _makeId, _modelId);
                 if (recentReviews.ArticlesList != null)
                 {

@@ -4,7 +4,9 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
+using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
@@ -24,7 +26,9 @@ namespace Bikewale.Models
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompare _compareScooters = null;
-        
+        private readonly ICMSCacheContent _articles = null;
+        private readonly IVideos _videos = null;
+
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
         /// Description :   Constructor to initialize the member variables
@@ -38,7 +42,9 @@ namespace Bikewale.Models
             IBikeModels<BikeModelEntity, int> bikeModels,
             INewBikeLaunchesBL newLaunches,
             IUpcoming upcoming,
-            IBikeCompare compareScooters
+            IBikeCompare compareScooters,
+            ICMSCacheContent articles,
+            IVideos videos
             )
         {
             _bikeMakes = bikeMakes;
@@ -46,6 +52,8 @@ namespace Bikewale.Models
             _newLaunches = newLaunches;
             _upcoming = upcoming;
             _compareScooters = compareScooters;
+            _articles = articles;
+            _videos = videos;
         }
 
         public uint CityId { get { return GlobalCityArea.GetGlobalCityArea().CityId; } }
@@ -70,6 +78,7 @@ namespace Bikewale.Models
                 BindNewLaunches(objVM);
                 BindUpcoming(objVM);
                 BindComparison(objVM);
+                BindEditorialWidget(objVM);
             }
             catch (Exception ex)
             {
@@ -176,6 +185,59 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindPopularBikes()");
+            }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 14 June 2017
+        /// Summary    : Bind Scooter related editorial content
+        /// </summary>
+        private void BindEditorialWidget(ScootersIndexPageVM objVM)
+        {
+            try
+            {
+                RecentNews objNews = new RecentNews(3, _articles);
+                objNews.IsScooter = true;
+                objVM.News = objNews.GetData();
+                
+                RecentExpertReviews objReviews = new RecentExpertReviews(3, _articles);
+                objReviews.IsScooter = true;
+                objVM.ExpertReviews = objReviews.GetData();
+
+                RecentVideos objVideos = new RecentVideos(1, 3, _videos);
+                objVideos.IsScooter = true;
+                objVM.Videos = objVideos.GetData();
+
+                objVM.TabCount = 0;
+                objVM.IsNewsActive = false;
+                objVM.IsExpertReviewActive = false;
+                objVM.IsVideoActive = false;
+
+                if (objVM.News!=null && objVM.News.FetchedCount > 0)
+                {
+                    objVM.TabCount++;
+                    objVM.IsNewsActive = true;
+                    objVM.News.HideViewAll = true;
+                }
+                if (objVM.ExpertReviews.FetchedCount > 0)
+                {
+                    objVM.TabCount++;
+                    if (!objVM.IsNewsActive)
+                    {
+                        objVM.IsExpertReviewActive = true;
+                    }
+                }
+                if (objVM.Videos.FetchedCount > 0)
+                {
+                    objVM.TabCount++;
+                    if (!objVM.IsExpertReviewActive && !objVM.IsNewsActive)
+                    {
+                        objVM.IsVideoActive = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindEditorialWidget()");
             }
         }
 

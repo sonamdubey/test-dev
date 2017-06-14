@@ -16,5 +16,6 @@ namespace Bikewale.Models
         public string MakeMasking { get; set; }
         public string ModelMasking { get; set; }
         public int FetchedCount { get; set; }
+        public bool HideViewAll { get; set; }
     }
 }
