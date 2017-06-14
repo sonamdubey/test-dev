@@ -181,7 +181,7 @@ namespace Bikewale.Cache.UserReviews
         public BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId)
         {
             BikeRatingsReviewsInfo reviews = null;
-            string key = "BW_BikeRatingsReviewsInfo_MO_" + modelId;
+            string key = "BW_BikeRatingsReviewsInfo_MO_V1_" + modelId;
             try
             {
                 reviews = _cache.GetFromCache<BikeRatingsReviewsInfo>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetBikeRatingsReviewsInfo(modelId));
@@ -202,7 +202,7 @@ namespace Bikewale.Cache.UserReviews
         public UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId)
         {
             UserReviewSummary objUserReviewSummary = null;
-            string key = string.Format("BW_UserReviewDetails_V1_{0}", reviewId);
+            string key = string.Format("BW_UserReviewDetails_V2_{0}", reviewId);
             try
             {
                 objUserReviewSummary = _cache.GetFromCache<UserReviewSummary>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetUserReviewSummaryWithRating(reviewId));
@@ -245,7 +245,7 @@ namespace Bikewale.Cache.UserReviews
             BikeReviewIdListByCategory objReviewIdList = null;
             try
             {
-                string key = "BW_ReviewIdList_" + modelId;
+                string key = "BW_ReviewIdList_V1_" + modelId;
                 objReviewIdList = _cache.GetFromCache<BikeReviewIdListByCategory>(key, new TimeSpan(6, 0, 0), () => _objUserReviews.GetReviewsIdListByModel(modelId));
             }
             catch(Exception ex)
@@ -264,25 +264,21 @@ namespace Bikewale.Cache.UserReviews
         public IEnumerable<UserReviewSummary> GetUserReviewSummaryList(IEnumerable<uint> reviewIdList)
         {
             IEnumerable<UserReviewSummary> objSummaryList = null;
+            Dictionary<string, string> dictIdKeys = null;
             try
             {
                 string[] keys;
                 keys = new string[reviewIdList.Count()];
-
-                int i = 0;
+                dictIdKeys = new Dictionary<string, string>();
                 foreach(var id in reviewIdList)
                 {
-                    keys[i++] = string.Format("BW_UserReviewDetails_V1_{0}", id);
-                }
+                    dictIdKeys.Add(id.ToString(), string.Format("BW_UserReviewDetails_V2_{0}", id));
+                }                
+                Func<string, IEnumerable<UserReviewSummary>> fnCallback =_objUserReviews.GetUserReviewSummaryList;
 
-                string reviewCSV = String.Join(",", reviewIdList.ToArray());
-                Func<string, IEnumerable<UserReviewSummary>> fnCallback =_objUserReviews.GetUserReviewSummaryList;                
-
-                objSummaryList = _cache.GetListFromCache<UserReviewSummary>(reviewIdList.Select(p => p.ToString()).ToArray(),
-                    keys,
+                objSummaryList = _cache.GetListFromCache<UserReviewSummary>(dictIdKeys,
                     new TimeSpan(1, 0, 0),
-                    fnCallback);
-                
+                    fnCallback);                
             }
             catch(Exception ex)
             {

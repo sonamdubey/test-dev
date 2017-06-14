@@ -23,7 +23,7 @@ namespace Bikewale.BAL.UserReviews.Search
         private string whereClause = string.Empty;
         private uint _maxRecords = 24;
 
-        private readonly IPager _pager = null;       
+        private readonly IPager _pager = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Bikewale.BAL.UserReviews.Search
         public UserReviewsSearch(IUserReviewsCache userReviewsCache, IPager pager)
         {
             _userReviewsCache = userReviewsCache;
-            _pager = pager;            
+            _pager = pager;
         }
 
         public SearchResult GetUserReviewsListDesktop(InputFilters inputFilters)
@@ -54,72 +54,77 @@ namespace Bikewale.BAL.UserReviews.Search
 
                 BikeReviewIdListByCategory reviewIdLists = _userReviewsCache.GetReviewsIdListByModel(modelId);
 
-                switch (SortOrder)
+                if (reviewIdLists != null)
                 {
-                    case 1:
-                        {
+                    switch (SortOrder)
+                    {
+                        case 1:
+                            {
+                                reviewIdList = reviewIdLists.RecentReviews;
+                                break;
+                            }
+                        case 2:
+                            {
+                                reviewIdList = reviewIdLists.HelpfulReviews;
+                                break;
+                            }
+                        case 5:
+                            {
+                                reviewIdList = reviewIdLists.PositiveReviews;
+                                break;
+                            }
+                        case 6:
+                            {
+                                reviewIdList = reviewIdLists.NegativeReviews;
+                                break;
+                            }
+                        case 7:
+                            {
+                                reviewIdList = reviewIdLists.NeutralReviews;
+                                break;
+                            }
+                        default:
                             reviewIdList = reviewIdLists.RecentReviews;
                             break;
-                        }
-                    case 2:
+                    }
+
+                    if (reviewIdList != null)
+                    {
+                        if (inputFilters.SkipReviewId > 0)
                         {
-                            reviewIdList = reviewIdLists.HelpfulReviews;
-                            break;
+                            reviewIdList = reviewIdList.Where(x => x != inputFilters.SkipReviewId);
                         }
-                    case 5:
-                        {
-                            reviewIdList = reviewIdLists.PositiveReviews;
-                            break;
-                        }
-                    case 6:
-                        {
-                            reviewIdList = reviewIdLists.NegativeReviews;
-                            break;
-                        }
-                    case 7:
-                        {
-                            reviewIdList = reviewIdLists.NeutralReviews;
-                            break;
-                        }
-                    default:
-                        reviewIdList = reviewIdLists.RecentReviews;
-                        break;
+
+                        objResult.TotalCount = reviewIdList.Count();
+
+                        int startingIndex = (inputFilters.PN - 1) * (inputFilters.PS) + 1;
+                        int endingIndex = (inputFilters.PN) * (inputFilters.PS) < reviewIdList.Count() ? (inputFilters.PN) * (inputFilters.PS) : reviewIdList.Count();
+                        int numberOfResults = endingIndex - startingIndex + 1;
+
+                        reviewIdList = reviewIdList.Skip(startingIndex - 1).Take(numberOfResults);
+                    }
+
+                    IEnumerable<UserReviewSummary> objReviewSummaryList = _userReviewsCache.GetUserReviewSummaryList(reviewIdList);
+
+                    objReviewSummaryList = objReviewSummaryList.OrderBy(d => reviewIdList.ToList().FindIndex(m => m == d.ReviewId));
+
+                    objResult.PageUrl = GetPrevNextUrl(inputFilters, objResult.TotalCount);
+                    objResult.CurrentPageNo = inputFilters.PN;
+                    if (!String.IsNullOrEmpty(objResult.PageUrl.PrevPageUrl))
+                    {
+                        objResult.PageUrl.PrevPageUrl = objResult.PageUrl.PrevPageUrl.Replace("+", "%2b");
+                    }
+                    if (!String.IsNullOrEmpty(objResult.PageUrl.NextPageUrl))
+                    {
+                        objResult.PageUrl.NextPageUrl = objResult.PageUrl.NextPageUrl.Replace("+", "%2b");
+                    }
+
+                    objResult.ResultDesktop = objReviewSummaryList;
                 }
-
-                if (inputFilters.SkipReviewId > 0)
-                {
-                    reviewIdList = reviewIdList.Where(x => x != inputFilters.SkipReviewId);
-                }
-
-                objResult.TotalCount = reviewIdList.Count();
-
-                int startingIndex = (inputFilters.PN - 1) * (inputFilters.PS) + 1;
-                int endingIndex = (inputFilters.PN) * (inputFilters.PS) < reviewIdList.Count() ? (inputFilters.PN ) * (inputFilters.PS) : reviewIdList.Count();
-                int numberOfResults = endingIndex - startingIndex + 1;
-
-                reviewIdList = reviewIdList.Skip(startingIndex-1).Take(numberOfResults);
-
-                IEnumerable<UserReviewSummary> objReviewSummaryList = _userReviewsCache.GetUserReviewSummaryList(reviewIdList);
-
-                objReviewSummaryList = objReviewSummaryList.OrderBy(d => reviewIdList.ToList().FindIndex(m => m == d.ReviewId));
-
-                objResult.PageUrl = GetPrevNextUrl(inputFilters, objResult.TotalCount);
-                objResult.CurrentPageNo = inputFilters.PN;
-                if (!String.IsNullOrEmpty(objResult.PageUrl.PrevPageUrl))
-                {
-                    objResult.PageUrl.PrevPageUrl = objResult.PageUrl.PrevPageUrl.Replace("+", "%2b");
-                }
-                if (!String.IsNullOrEmpty(objResult.PageUrl.NextPageUrl))
-                {
-                    objResult.PageUrl.NextPageUrl = objResult.PageUrl.NextPageUrl.Replace("+", "%2b");
-                }
-
-                objResult.ResultDesktop = objReviewSummaryList;
-                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr=new ErrorClass(ex, "GetUserReviewsListDesktop");
+                ErrorClass objErr = new ErrorClass(ex, "GetUserReviewsListDesktop");
             }
             return objResult;
         }
@@ -135,7 +140,7 @@ namespace Bikewale.BAL.UserReviews.Search
 
                 // Get search result from database
                 objResult = _userReviewsCache.GetUserReviewsList(inputFilters, searchQuery);
-                 
+
                 if (objResult != null)
                 {
                     SetpaginationProperties(objResult, inputFilters);
