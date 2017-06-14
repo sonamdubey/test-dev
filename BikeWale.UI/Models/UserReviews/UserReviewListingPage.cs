@@ -20,11 +20,13 @@ namespace Bikewale.Models.UserReviews
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
         public uint? PageNumber { get; set; }
+        public bool IsDesktop { get; set; }
 
         private readonly IUserReviewsSearch _objUserReviewSearch;
         private readonly IUserReviewsCache _objUserReviewCache;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelMaskingCache;
         private readonly ICMSCacheContent _objArticles = null;
+        private readonly IUserReviewsSearch _userReviewsSearch = null;
         private uint _modelId = 0;
 
         /// <summary>
@@ -37,15 +39,17 @@ namespace Bikewale.Models.UserReviews
         /// <param name="userReviewCache"></param>
         /// <param name="objUserReviewSearch"></param>
         /// <param name="objArticles"></param>
-        public UserReviewListingPage(string makeMasking, string modelMasking, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IUserReviewsCache userReviewCache, IUserReviewsSearch objUserReviewSearch, ICMSCacheContent objArticles)
+        public UserReviewListingPage(string makeMasking, string modelMasking, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IUserReviewsCache userReviewCache, IUserReviewsSearch objUserReviewSearch, ICMSCacheContent objArticles, IUserReviewsSearch userReviewsSearch)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objUserReviewCache = userReviewCache;
             _objUserReviewSearch = objUserReviewSearch;
             _objArticles = objArticles;
+            _userReviewsSearch = userReviewsSearch;
             ParseQueryString(makeMasking, modelMasking);
         }
-
+        public uint ExpertReviewsWidgetCount { get; set; }
+        public uint SimilarBikeReviewWidgetCount { get; set; }
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
         /// Description : Function to get list review page data
@@ -60,10 +64,16 @@ namespace Bikewale.Models.UserReviews
                 {
                     objData.ModelId = _modelId;
                     objData.RatingReviewData = _objUserReviewCache.GetBikeRatingsReviewsInfo(_modelId);
-                    if (objData.RatingReviewData != null && objData.RatingsInfo != null && objData.RatingsInfo.Make != null && objData.RatingsInfo.Model != null)
+                    if (objData.RatingReviewData == null)
+                    {
+                        Status = StatusCodes.ContentNotFound;
+                    }
+                    else if (objData.RatingReviewData != null && objData.RatingsInfo != null && objData.RatingsInfo.Make != null && objData.RatingsInfo.Model != null)
                     {
                         objData.BikeName = string.Format("{0} {1}", objData.RatingsInfo.Make.MakeName, objData.RatingsInfo.Model.ModelName);
                         objData.PageUrl = string.Format("/{0}-bikes/{1}/reviews/", objData.RatingsInfo.Make.MaskingName, objData.RatingsInfo.Model.MaskingName);
+                        objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/", objData.RatingsInfo.Make.MaskingName, objData.RatingsInfo.Model.MaskingName);
+                        objData.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/reviews/", objData.RatingsInfo.Make.MaskingName, objData.RatingsInfo.Model.MaskingName);
                     }
 
                     BindWidgets(objData);
@@ -86,21 +96,37 @@ namespace Bikewale.Models.UserReviews
         private void BindWidgets(UserReviewListingVM objData)
         {
             try
-            {
-                InputFilters filters = new InputFilters()
-                   {
-                       Model = _modelId.ToString(),
-                       SO = 2,
-                       PN = (int)(PageNumber.HasValue ? PageNumber.Value : 1),
-                       PS = 8,
-                       Reviews = true
-                   };
+            {                
+
+                InputFilters filters = null;
+                if (!IsDesktop)
+                {
+                    filters = new InputFilters()
+                    {
+                        Model = _modelId.ToString(),
+                        SO = 2,
+                        PN = (int)(PageNumber.HasValue ? PageNumber.Value : 1),
+                        PS = 8,
+                        Reviews = true
+                    };
+                }
+                else
+                {
+                    filters = new InputFilters()
+                    {
+                        Model = _modelId.ToString(),
+                        SO = 2,
+                        PN = (int)(PageNumber.HasValue ? PageNumber.Value : 1),
+                        PS = 10,
+                        Reviews = true
+                    };
+                }
 
 
                 if (objData.RatingsInfo != null)
                 {
-                    var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _objUserReviewCache);
-
+                    var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _objUserReviewCache, _userReviewsSearch);
+                    objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostHelpful;
                     if (objUserReviews != null)
                     {
                         objUserReviews.ActiveReviewCateory = Entities.UserReviews.FilterBy.MostHelpful;
@@ -113,13 +139,16 @@ namespace Bikewale.Models.UserReviews
                             objUserReviews.ReviewsInfo = objData.ReviewsInfo;
                         }
 
+                        if(IsDesktop)
+                            objData.UserReviews = objUserReviews.GetDataDesktop();
+                        else
+                            objData.UserReviews = objUserReviews.GetData();
 
-                        objData.UserReviews = objUserReviews.GetData();
-                        objData.UserReviews.WidgetHeading = string.Format("Reviews on {0}", objData.BikeName);
+                        objData.UserReviews.WidgetHeading = string.Format("Reviews on {0}", objData.RatingsInfo.Model.ModelName);
                     }
-                    objData.ExpertReviews = new RecentExpertReviews(9, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0} {1}", objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Model.ModelName)).GetData();
+                    objData.ExpertReviews = new RecentExpertReviews(ExpertReviewsWidgetCount, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0}", objData.ReviewsInfo.Model.ModelName)).GetData();
 
-                    objData.SimilarBikeReviewWidget = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, 9);
+                    objData.SimilarBikeReviewWidget = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, SimilarBikeReviewWidgetCount);
 
                 }
             }

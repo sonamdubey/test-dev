@@ -1239,7 +1239,6 @@ docReady(function () {
             if ($('li.ui-state-focus a:visible').text() != "") {
                 focusedCity = new Object();
                 focusedCity = objCity.result[$('li.ui-state-focus').index()];
-
             }
         },
         afterfetch: function (result, searchtext) {
@@ -1513,7 +1512,7 @@ docReady(function () {
     });
 
 // read more - collapse
-$('.read-more-target').on('click', function () {
+$(document).on('click', '.read-more-target', function () {
     var element = $(this),
         parentElemtent = element.closest('.collapsible-content');
 
@@ -1526,6 +1525,8 @@ $('.read-more-target').on('click', function () {
         element.text('...Read more');
     }
 });
+
+
     $(".modelurl").click(function () {
         var array = $(this).attr('href').split('/');
         if (array.length > 2) {

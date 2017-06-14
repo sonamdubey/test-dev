@@ -322,8 +322,7 @@ function validateEMail() {
         emailVal = assistGetEmail.val(),
         reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
     if (emailVal == "") {
-        validate.setError(assistGetEmail, 'Please enter email id');
-        isValid = false;
+        isValid = true;
     }
     else if (!reEmail.test(emailVal)) {
         validate.setError(assistGetEmail, 'Invalid Email');

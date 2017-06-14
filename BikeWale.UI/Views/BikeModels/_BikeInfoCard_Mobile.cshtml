@@ -45,18 +45,16 @@
                         {
                             <p class="price-label-size-12 text-truncate">Last known Ex-showroom price</p>
                             <div>
-                                @Html.Raw("<span class='margin-right5'> &#x20B9;</span>")
-                                <span class="price-value-size-18 version-price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) </span>
+                                @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) </span>
                             </div>
                         }
                         else if (Model.IsUpcoming)
                         {
                             <p class="price-label-size-12">Expected price</p>
                             <div>
-                                @Html.Raw("<span class='margin-right5'> &#x20B9;</span>")<span class="price-value-size-18 version-price">
-    @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin))  - @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMax))
-</span>
-                            </div>
+                                @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price">
+                                    @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) - @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMax))</span>
+</div>
                         }
                         else
                         {
@@ -64,14 +62,14 @@
                             {
                                 <p class="price-label-size-12 text-truncate">@String.Format("On-road price, {0}", cityDetails.CityName)</p>
                                 <div>
-                                    @Html.Raw("<span class='margin-right5'> &#x20B9;</span>")<span class="price-value-size-18 version-price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.PriceInCity)) </span>
+                                    @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.PriceInCity)) </span>
                                 </div>
                             }
                             else
                             {
                                 <p class="price-label-size-12 text-truncate">@String.Format("Ex-showroom, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName)</p>
                                 <div>
-                                    @Html.Raw("<span class='margin-right5'> &#x20B9;</span>")<span class="price-value-size-18 version-price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) </span>
+                                    @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) </span>
                                 </div>
                             }
                         }
@@ -101,8 +99,8 @@
                     <div class="border-solid-bottom margin-top5 margin-bottom10"></div>
                     <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName, (cityDetails != null) ? cityDetails.CityMaskingName : "india"))" title="Used @Model.BikeName" class="block text-default hover-no-underline">
                         <span class="used-target-label inline-block">
-                            <span class="font14 text-bold">@bikeInfo.UsedBikeCount  Used @bikeInfo.Model.ModelName  bikes</span><br />
-                            <span class="font12 text-light-grey">starting at <span class="bwmsprite inr-12-grey margin-right5"></span>@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.UsedBikeMinPrice))</span>
+                            <span class="font14 text-bold">@bikeInfo.UsedBikeCount Used @bikeInfo.Model.ModelName bikes</span><br />
+                            <span class="font12 text-light-grey">starting at &#x20b9; @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.UsedBikeMinPrice))</span>
                         </span>
                         <span class="bwmsprite next-grey-icon"></span>
                     </a>

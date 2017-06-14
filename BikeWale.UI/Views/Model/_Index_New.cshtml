@@ -33,7 +33,7 @@
                                 {
                                     <div class="model-price-content padding-top5" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                         <span itemprop="priceCurrency" content="INR">
-                                            <span class="bwsprite inr-md-lg margin-right5"></span>
+                                            @Html.Raw("<span class='font22'>&#x20B9;</span>")
                                         </span>
                                         <span id="new-bike-price" class="font22 font-bold" itemprop="price" content="@Model.BikePrice">@Format.FormatPrice(Model.BikePrice.ToString())</span>
                                         @if ((Model.City != null && Model.IsLocationSelected && !Model.ShowOnRoadButton) && Model.BikePrice > 0 && Model.IsNewBike)
@@ -46,7 +46,7 @@
                                     if (Model.EMIDetails != null)
                                     {
                                         <div class="font12 margin-top5 position-rel">
-                                            <span class="text-light-grey">EMI starting at</span>&nbsp;<span class="text-default"><span class="bwsprite inr-12-default"></span>@Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
+                                            <span class="text-light-grey">EMI starting at</span>&nbsp;<span class="text-default">@Html.Raw("<span>&#x20B9;</span>") @Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
 
                                             <span class="bwsprite emi-info">
                                                 <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">EMI is calculated based on @Model.EMIDetails.RateOfInterest% for a tenure of @Model.EMIDetails.Tenure months</span></span>

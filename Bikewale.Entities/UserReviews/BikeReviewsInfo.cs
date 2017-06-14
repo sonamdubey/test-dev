@@ -19,5 +19,6 @@ namespace Bikewale.Entities.UserReviews
         public uint PostiveReviews { get; set; }
         public uint NegativeReviews { get; set; }
         public uint NeutralReviews { get; set; }
+       
     }
 }

@@ -23,11 +23,32 @@ h1,
 .text-bold {
   font-weight: 600 !important; }
 
-.text-slate-grey {
-  color: #787878; }
-
 .font15 {
   font-size: 15px; }
+
+.padding-10-20 {
+  padding: 10px 20px; }
+
+.contest-slug-sm {
+  font-size: 12px;
+  color: #4d5057;
+  padding: 5px 10px; }
+
+.slug-grey-info {
+  background: #efefef; }
+
+.contest-slug__label {
+  width: 92%;
+  padding-left: 8px;
+  display: inline-block;
+  vertical-align: middle; }
+
+.trophy-grey {
+  width: 14px;
+  height: 16px;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/trophy-grey-14.png) no-repeat;
+  display: inline-block;
+  vertical-align: middle; }
 
 .model-ribbon {
   position: absolute;
@@ -60,30 +81,48 @@ h1,
   .discontinued-ribbon:after {
     border-bottom-color: #b5b5b5; }
 
-#bike-rating-box {
+.border-light {
+  border: 1px solid #eee; }
+
+.border-radius-10 {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px; }
+
+.margin-top5 {
+  margin-top: 5px; }
+
+.rating-box-top {
   width: 100%;
-  min-height: 146px;
-  margin-top: 50px;
-  padding-bottom: 15px;
-  background: #F5F5F5;
-  text-align: center; }
-  #bike-rating-box .rating-placeholder {
-    position: relative;
-    top: -10px; }
+  height: 87px;
+  display: table;
+  border-bottom: 1px solid #f5f5f5;
+  padding: 10px 10px 10px 15px; }
+
+.table-middle {
+  display: table-cell;
+  vertical-align: middle; }
+
+.feedback-grid {
+  width: 83%;
+  padding-left: 15px; }
+
+#bike-rating-box {
+  min-height: 140px;
+  padding-bottom: 10px; }
   #bike-rating-box .item-rating-list li {
     margin-right: 10px;
     margin-left: 10px;
     cursor: pointer; }
 
 .circle-placeholder {
-  width: 61px;
-  height: 61px;
-  margin: 0 auto;
-  padding-top: 15px;
+  width: 42px;
+  height: 42px;
+  padding-top: 10px;
   border: 1px solid #e2e2e2;
   background: #fff;
-  position: relative;
-  top: -31px;
+  text-align: center;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -119,24 +158,28 @@ h1,
   .answer-star-list > input:checked ~ label {
     background-position: 0 -278px; }
 
+.rating-start > input + label {
+  background-position: 0 -308px; }
+
+.rating-start li.star-zero {
+  background-position: 0 -308px; }
+
 .rating-placeholder .answer-star-list {
   width: 230px;
   height: 25px;
-  margin: 15px auto 0; }
+  margin: 10px auto 0; }
   .rating-placeholder .answer-star-list > input + label {
     margin-right: 25px; }
   .rating-placeholder .answer-star-list > input:first-child + label {
     margin-right: 0; }
 
 .question-field {
-  padding-bottom: 10px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #eee; }
+  padding-bottom: 10px; }
   .question-field .error-text {
     top: -6px; }
 
 .question-item {
-  margin-bottom: 10px; }
+  margin-bottom: 5px; }
 
 .answer-list li {
   float: left !important;
@@ -240,8 +283,6 @@ body {
 
 #review-summary-card {
   margin-bottom: 45px; }
-  #review-summary-card #bike-rating-box {
-    margin-top: 35px; }
 
 #summary-review-box p {
   margin-bottom: 10px; }
@@ -290,39 +331,44 @@ body {
   vertical-align: middle; }
 
 .star-zero {
-  background-position: 0 -308px; }
+  background-position: -144px -668px; }
 
 .star-one,
 .star-one-active .star-zero {
   background-position: 0 -278px; }
+
+.share-rating {
+  width: 21px;
+  height: 21px;
+  background-position: -183px -571px; }
+
+.rating-feedback {
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/rating-feedback.png") no-repeat;
+  display: inline-block; }
 
 .feedback-1,
 .feedback-2,
 .feedback-3,
 .feedback-4,
 .feedback-5 {
-  width: 26px;
-  height: 25px; }
+  width: 42px;
+  height: 42px;
+  vertical-align: middle; }
 
-.feedback-3,
-.feedback-4,
-.feedback-5 {
-  background-position: -183px -569px; }
+.feedback-1 {
+  background-position: 0 0; }
+
+.feedback-2 {
+  background-position: -52px 0; }
 
 .feedback-3 {
-  opacity: 0.4; }
+  background-position: -104px 0; }
 
 .feedback-4 {
-  opacity: 0.6; }
+  background-position: -156px 0; }
 
-.feedback-1,
-.feedback-2 {
-  background-position: -171px -610px;
-  position: relative;
-  top: 3px; }
-
-.feedback-2 {
-  opacity: 0.6; }
+.feedback-5 {
+  background-position: -208px 0; }
 
 #back-to-top {
   display: none !important; }
@@ -334,4 +380,6 @@ body {
   .model-details-grid {
     width: 68%; }
   .category-label {
-    width: 45%; } }
+    width: 45%; }
+  .feedback-grid {
+    width: 80%; } }

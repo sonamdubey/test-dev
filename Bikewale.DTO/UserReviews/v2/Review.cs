@@ -27,5 +27,7 @@ namespace Bikewale.DTO.UserReviews.v2
         public string ModelMaskingName { get; set; }
         [JsonProperty("overAllRating")]
         public ReviewRatingBase OverAllRating { get; set; }
+        [JsonProperty("reviewAge")]
+        public string ReviewAge { get; set; }
     }
 }

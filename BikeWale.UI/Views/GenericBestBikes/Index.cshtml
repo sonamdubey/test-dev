@@ -109,8 +109,8 @@
                                 </div>
                                 <div class="grid-3 padding-left20 padding-right20">
                                     <p class="font14 text-grey margin-bottom5">Ex-showroom price, @bike.PriceInCity </p>
-                                    <div class="margin-bottom10">
-                                        @Html.Raw("<span class='font18 text-bold'>&#x20B9;</span>") <span class="font18 text-bold">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) </span>
+                                    <div class="margin-bottom10 font18">
+                                        @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) </span>
                                     </div>
                                     @if(bike.Price > 0) {
                                         <a href="javascript:void(0)" data-pagecatid="0"
@@ -382,7 +382,7 @@
                                             <span class="bwsprite budget-one"></span>
                                         </div>
                                         <span class="key-size-14">Upto</span><br />
-                                        <span class="bwsprite inr-md"></span> <span class="value-size-16">50,000</span>
+                                        @Html.Raw("<span class='value-size-16'>&#x20B9;</span>")&nbsp;<span class="value-size-16">50,000</span>
                                     </div>
                                 </a>
                             </li>
@@ -393,8 +393,8 @@
                                             <span class="bwsprite budget-two"></span>
                                         </div>
                                         <span class="key-size-14">Between</span><br />
-                                        <span class="bwsprite inr-md"></span> <span class="value-size-16">50,000 -</span>
-                                        &nbsp;<span class="bwsprite inr-md"></span> <span class="value-size-16">70,000</span>
+                                        @Html.Raw("<span class='value-size-16'>&#x20B9;</span>")&nbsp;<span class="value-size-16">50,000 -</span>
+                                        &nbsp;@Html.Raw("<span class='value-size-16'>&#x20B9;</span>")&nbsp;<span class="value-size-16">70,000</span>
                                     </div>
                                 </a>
                             </li>
@@ -405,7 +405,7 @@
                                             <span class="bwsprite budget-three"></span>
                                         </div>
                                         <span class="key-size-14">Above</span><br />
-                                        <span class="bwsprite inr-md"></span> <span class="value-size-16">70,000</span>
+                                        @Html.Raw("<span class='value-size-16'>&#x20B9;</span>")&nbsp;<span class="value-size-16">70,000</span>
                                     </div>
                                 </a>
                             </li>

@@ -192,7 +192,7 @@ $graph-bg: #eee
         color: #82888b
 
     .graph-bar-label
-        width: 125px
+        width: 120px
 
     &.user-review-graph
         .graph-bar-bg
@@ -216,6 +216,16 @@ $graph-bg: #eee
 			~ label
 				background-position: 0 -278px
 
+// review contest slug
+@include contest-card()
+
+.contest-card
+	.answer-star-list
+		width: 60%
+
+.line-height25
+	line-height: 25px
+
 // overallSpecsTopContent
 #overallSpecsTopContent
     height: 44px
@@ -226,7 +236,7 @@ $graph-bg: #eee
     padding-left: 20px
 
     li
-        border-top: 1px solid #e2e2e2
+        border-top: 1px solid #eee
 
         &:first-child
             border-top: 0
@@ -242,10 +252,6 @@ $graph-bg: #eee
     .grid-10-inline
         &.text-truncate
             width: 83.33333%
-
-    .review-title
-        padding-right: 7px
-        padding-left: 7px
 
     .star-white
         margin-right: 0
@@ -321,16 +327,39 @@ $graph-bg: #eee
             height: 46px
         
     .right-grid-details
-        width: 66%
+        width: 70%
+
+.padding-10-20
+	padding: 10px 20px
 
 .model-overall-rating
-    span
-        display: inline-block
-        vertical-align: middle
+	position: relative
+	left: -5px
+	
+	span
+		display: inline-block
+		vertical-align: middle
 
-    .star-icon
-        margin-right: -4px
-        @include transform(scale(0.55))
+	.star-icon
+		margin-right: -4px
+		@include transform(scale(0.55))
+
+.review-left-divider
+	position: relative
+	margin-left: 10px
+	padding-left: 10px
+
+	&:before
+		content: ''
+		position: absolute
+		top: 2px
+		left: 0
+		width: 1px
+		height: 14px
+		border-left: 1px solid #e2e2e2
+
+.margin-top3
+	margin-top: 3px
 
 .no-margin
     .star-white
@@ -541,19 +570,23 @@ $graph-bg: #eee
     -khtml-opacity: 0.6
 
 @media only screen and (max-width: 320px)
-    // user review list
-    .horizontal-rating-graph
-        .graph-bar-bg
-            width: 55%
+	// user review list
+	.horizontal-rating-graph
+		.graph-bar-bg
+			width: 55%
+			
+	.answer-star-list
+		> input
+			+ label
+				margin-right: -4px
 
-    .answer-star-list
-        > input
-            + label
-                margin-right: -4px
+	// user review details
+	.btn-inv-teal-group
+		margin-bottom: 15px
 
-    // user review details
-    .btn-inv-teal-group
-        margin-bottom: 15px
+	.model-card-details
+		.right-grid-details
+			width: 67%
 
 #sort-filters-loader
 	width: 100%
@@ -563,3 +596,11 @@ $graph-bg: #eee
 	left: 0
 	background: rgba(245, 245, 245, 0.95)
 	z-index: 4
+
+@media only screen and (max-width: 320px)
+	.contest-slug__label
+		width: 78%
+
+	.contest-card
+		.answer-star-list
+			width: 52%

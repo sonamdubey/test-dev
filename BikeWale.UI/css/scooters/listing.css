@@ -30,6 +30,9 @@
 .collapsible-content.active .more-content {
   display: inline; }
 
+.collapsible-content.toggle-off.active .read-more-target {
+  display: none; }
+
 .padding-15-20 {
   padding: 15px 20px; }
 
@@ -145,15 +148,40 @@
   top: 5px;
   background-position: -73px -444px; }
 
-.inr-md-lg {
-  width: 12px;
-  height: 17px;
-  background-position: -64px -515px;
-  position: relative;
-  top: 1px; }
+.comparison-type-carousel.inner-content-carousel .jcarousel {
+  left: 17px !important; }
+  .comparison-type-carousel.inner-content-carousel .jcarousel li {
+    width: 453px;
+    min-height: 295px; }
 
-.border-light-right {
-  border-right: 1px solid #f1f1f1; }
+.comparison-type-carousel .card-target {
+  padding: 20px 10px;
+  display: block; }
+
+.comparison-type-carousel .model-img-content {
+  width: 189px;
+  height: 106px;
+  margin-bottom: 10px; }
+  .comparison-type-carousel .model-img-content img {
+    height: 106px; }
+
+.comparison-type-carousel .card-target .grid-6:first-of-type:after {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/vs-icon-32.png) no-repeat;
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  transform: scale(0.7);
+  top: 40%;
+  right: 0; }
+
+.btn-160-36 {
+  width: 160px;
+  font-size: 14px;
+  padding: 7px; }
 
 .brand-type-carousel .brand-logo-image {
   width: 100%;
@@ -381,40 +409,3 @@
 @media only screen and (max-width: 1024px) {
   .card {
     width: 280px; } }
-	
-/*Compare carousel*/
-.inner-content-carousel.comparison-type-carousel .jcarousel {
-    left: 17px !important;
-}
-.comparison-type-carousel.inner-content-carousel .jcarousel li {
-  width: 453px;
-  min-height: 295px; }
-
-.comparison-type-carousel .card-target {
-  padding: 20px 10px;
-  display: block; }
-
-.comparison-type-carousel .model-img-content {
-  width: 189px;
-  height: 106px;
-  margin-bottom: 10px; }
-  .comparison-type-carousel .model-img-content img {
-    height: 106px; }
-
-.comparison-type-carousel .card-target .grid-6:first-of-type:after {
-  content: '';
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/vs-icon-32.png) no-repeat;
-  -webkit-transform: scale(0.7);
-  -moz-transform: scale(0.7);
-  -o-transform: scale(0.7);
-  transform: scale(0.7);
-  top: 40%;
-  right: 0; }
-
-.btn-160-36 {
-  width: 160px;
-  font-size: 14px;
-  padding: 7px; }	

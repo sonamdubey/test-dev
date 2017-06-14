@@ -65,14 +65,15 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                     if (inputs.ModelId > 0 && inputs.ReviewStatus != null)
                     {
                         //remove cache objects for reviews related to model
-                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_{0}_CAT_1_PN_1_PS_24", inputs.ModelId));
-                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_{0}_CAT_2_PN_1_PS_24", inputs.ModelId));
-                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_{0}_CAT_5_PN_1_PS_24", inputs.ModelId));
-                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_{0}_CAT_6_PN_1_PS_24", inputs.ModelId));
-                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_{0}_CAT_7_PN_1_PS_24", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_V1_{0}_CAT_1_PN_1_PS_24", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_V1_{0}_CAT_2_PN_1_PS_24", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_V1_{0}_CAT_5_PN_1_PS_24", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_V1_{0}_CAT_6_PN_1_PS_24", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_V1_{0}_CAT_7_PN_1_PS_24", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_BikeReviewsInfo_MO_{0}", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_BikeRatingsReviewsInfo_MO_{0}", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ModelDetail_v1_{0}", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_ReviewIdList_{0}", inputs.ModelId));
                     }
 
                 }
