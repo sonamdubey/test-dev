@@ -14,7 +14,7 @@
                         <div class="swiper-details-block font12">
                             <h3 class="font12 text-black margin-bottom5">@city.CityName</h3>
                             <div class="text-default">
-                                <span class="bwmsprite inr-xxsm-icon"></span><span>@Format.FormatPrice(Convert.ToString(city.OnRoadPrice)) onwards</span>
+                                @Html.Raw("&#x20B9;")&nbsp;<span>@Format.FormatPrice(Convert.ToString(city.OnRoadPrice)) onwards</span>
                             </div>
                         </div>
                     </a>

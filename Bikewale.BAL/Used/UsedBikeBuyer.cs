@@ -232,7 +232,7 @@ namespace Bikewale.BAL.Used
             try
             {
                 //Check if Customer exists
-                objCust = _objCustomer.GetByEmail(buyer.CustomerEmail);
+                objCust = _objCustomer.GetByEmailMobile(buyer.CustomerEmail, buyer.CustomerMobile);
                 if (objCust != null && objCust.CustomerId > 0)
                 {
                     //If exists update the mobile number and name

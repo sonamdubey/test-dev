@@ -4,15 +4,16 @@
     <div class="swiper-wrapper">
         @foreach (var bike in Model)
         {
+            var bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
             <div class="swiper-slide">
                 <div class="swiper-card">
-                    <a href= @string.Format("/m/{0}-bikes/{1}/reviews/", @bike.Make.MaskingName, @bike.Model.MaskingName) title="@bike.Make.MakeName @bike.Model.ModelName user review" class="block">
+                    <a href= @string.Format("/m/{0}-bikes/{1}/reviews/", @bike.Make.MaskingName, @bike.Model.MaskingName) title="@bikeName user review" class="block">
                         <div class="swiper-image-preview">
-                            <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" alt="" src="" />
+                            <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" alt="@bikeName" src="" />
                             <span class="swiper-lazy-preloader"></span>
                         </div>
                         <div class="swiper-details-block">
-                            <h3 class="font12 text-black margin-bottom5 text-truncate">@bike.Make.MakeName @bike.Model.ModelName</h3>
+                            <h3 class="font12 text-black margin-bottom5 text-truncate">@bikeName</h3>
                             <span class="rating-badge" data-rate-bg="@Math.Round(bike.OverAllRating)">
                                 <span class="bwmsprite star-white"></span>@bike.OverAllRating.ToString("0.0").TrimEnd('0', '.')
                             </span>

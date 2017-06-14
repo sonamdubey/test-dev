@@ -453,9 +453,14 @@ select {
 .collapsible-content.active .more-content {
   display: inline; }
 
-.comparison-type-carousel.inner-content-carousel .jcarousel li {
-  width: 453px;
-  min-height: 295px; }
+.collapsible-content.toggle-off.active .read-more-target {
+  display: none; }
+
+.comparison-type-carousel.inner-content-carousel .jcarousel {
+  left: 17px !important; }
+  .comparison-type-carousel.inner-content-carousel .jcarousel li {
+    width: 453px;
+    min-height: 295px; }
 
 .comparison-type-carousel .card-target {
   padding: 20px 10px;

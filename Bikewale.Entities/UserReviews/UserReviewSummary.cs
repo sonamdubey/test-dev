@@ -9,10 +9,14 @@ namespace Bikewale.Entities.UserReviews
     /// <summary>
     /// Modified by Sajal Gupta on 05-05-2017
     /// Descruioption : Added UpVotes, DownVotes, Views, EntryDate
+    /// Modified by : Aditi Srivastava on 12 June 2017
+    /// Summary     : Added totalreviews and totalratings
     /// </summary>
     {
+        public uint ReviewId { get; set; }
         public UserReviewOverallRating OverallRating { get; set; }
         public string Description { get; set; }
+        public string ShortDescription { get; set; }
         public string Title { get; set; }
         public string TipsDescriptionSmall { get; set; }
         public string Tips { get; set; }
@@ -26,6 +30,7 @@ namespace Bikewale.Entities.UserReviews
         public uint DownVotes { get; set; }
         public uint Views { get; set; }
         public DateTime EntryDate { get; set; }
+        public string ReviewAge { get; set; }
         public uint OldReviewId { get; set; }
 
         public BikeMakeEntityBase Make { get; set; }
@@ -34,5 +39,8 @@ namespace Bikewale.Entities.UserReviews
         public string HostUrl { get; set; }
         public bool IsDiscontinued { get; set; }
         public bool IsUpcoming { get; set; }
+        public bool IsRatingQuestion { get; set; }
+        public uint TotalRatings { get; set; }
+        public uint TotalReviews { get; set; }
     }
 }

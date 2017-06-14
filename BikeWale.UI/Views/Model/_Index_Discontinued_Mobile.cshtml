@@ -1,6 +1,14 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 
 <section>
+	<a href="/m/bike-review-contest/" class="contest-slug-sm slug-teal-target">
+		<span class="trophy-white"></span>
+		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;1000</p>
+		<span class="bwmsprite arrow-white-right"></span>
+	</a>
+</section>
+
+<section>
     <div class="contaniner clearfix">
         <span itemprop="name" class="hide">@Model.BikeName</span>
         <div class="padding-top10 padding-left20 padding-right20 bg-white">
@@ -30,8 +38,8 @@
                                 <span itemprop="priceCurrency" content="INR">
                                     @if (Model.BikePrice != 0)
                                     {
-                                        @Html.Raw("<span class='font24 margin-right5'>&#x20B9;</span>")
-                                        <span class="font24 text-bold padding-right5" itemprop="price" content="@Model.BikePrice">@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
+                                        @Html.Raw("<span class='font24'>&#x20B9;</span>")
+                                        <span class="font24 text-bold padding-right5" itemprop="price" content="@Model.BikePrice">&nbsp;@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
                                     }
                                     else
                                     {

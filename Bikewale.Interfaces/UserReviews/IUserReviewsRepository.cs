@@ -35,5 +35,9 @@ namespace Bikewale.Interfaces.UserReviews
         BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId);
         BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId);
         Hashtable GetUserReviewsIdMapping();
+
+        IEnumerable<UserReviewSummary> GetUserReviewSummaryList(string reviewIdList);
+
+        BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);
     }   // class
 }   // namespace

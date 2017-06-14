@@ -1,6 +1,7 @@
 ﻿using Bikewale.Interfaces.Cache.Core;
 using System;
 using System.Web;
+using System.Collections.Generic;
 
 namespace Bikewale.Cache.Core
 {
@@ -65,6 +66,11 @@ namespace Bikewale.Cache.Core
 
 
         public T GetFromCache<T>(string key, TimeSpan cacheDuration, Func<T> dbCallback, out bool isDataFromCache)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<T> GetListFromCache<T>(string[] reviewIds, string[] keys, TimeSpan cacheDuration, Func<string, IEnumerable<T>> doCallback)
         {
             throw new NotImplementedException();
         }

@@ -8,11 +8,18 @@
 
 @if (Model != null && Model.Make != null && Model.Model != null && Model.Rating != null)
 {
+	<section>
+		<div class="contest-slug-sm slug-grey-info">
+			<span class="bwmsprite trophy-grey"></span>
+			<p class="contest-slug__label">Great! A detailed review can win you Amazon voucher worth &#x20B9;1000</p>
+		</div>
+	</section>
+
     <form action="/user-reviews/save/" method="post">
         <section>
             <div id="write-review-form">
                 <div class="container content-box-shadow card-bottom-margin font14">
-                    <div class="padding-15-20 content-box-shadow">
+                    <div class="padding-10-20 content-box-shadow">
                         <div class="model-image-grid inline-block">
                             <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.OriginalImagePath, Model.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._75)" alt="" />
                         </div>

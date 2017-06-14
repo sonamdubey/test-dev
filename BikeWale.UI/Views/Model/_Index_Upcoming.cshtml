@@ -31,8 +31,8 @@
                                                 <meta itemprop="highPrice" content="@Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax">
                                                 <p class="font14 default-showroom-text text-light-grey">Expected Price</p>
                                                 <div class="modelExpectedPrice margin-bottom15">
-                                                    <span class="bwsprite inr-md-lg"></span>
-                                                    <span id="bike-price" class="font22 text-bold">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin)) - <span class="bwsprite inr-md-lg margin-right5"></span>@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax))</span>
+                                                    @Html.Raw("<span class='font22'>&#x20B9;</span>")
+                                                    &nbsp;<span id="bike-price" class="font22">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin)) - @Html.Raw("<span>&#x20B9;</span>")&nbsp;@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax))</span>
                                                 </div>
                                             </div>
                                         </div>

@@ -26,16 +26,15 @@
     <div class="container content-box-shadow card-bottom-margin">
         <h1 class="font20 padding-15-20 content-box-shadow">@Model.BikeName user reviews</h1>
         <div class="padding-15-20">
-            <a href="/m@(Bikewale.Utility.UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName Reviews" class="left-grid-image inline-block">
+            <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName Reviews" class="left-grid-image inline-block">
                 <img src="@Image.GetPathToShowImages(Model.RatingsInfo.OriginalImagePath,Model.RatingsInfo.HostUrl,ImageSize._110x61,QualityFactor._65)" alt="@Model.BikeName Reviews" />
             </a>
             <div class="right-grid-details inline-block">
                 <h2 class="margin-bottom5 font12">
-                    <a href="/m@(Bikewale.Utility.UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName" class="text-black">@Model.BikeName</a>
+                    <a href="/m@(UrlFormatter.BikePageUrl(Model.RatingsInfo.Make.MaskingName,Model.RatingsInfo.Model.MaskingName))" title="@Model.BikeName" class="text-black">@Model.BikeName</a>
                 </h2>
                 <p class="font11 text-light-grey">@(Model.ReviewsInfo.IsDiscontinued ? "Last known ": "") Ex-showroom, @BWConfiguration.Instance.DefaultName</p>
-               @Html.Raw("<span class='text-bold font16'> &#x20B9;</span>")
-                <span class="font16 text-bold">@Format.FormatNumeric(Model.RatingReviewData.Price.ToString())</span>
+               @Html.Raw("<span class='font16'> &#x20B9;</span>")<span class='text-bold font16'>&nbsp;@Format.FormatPrice(Model.RatingReviewData.Price.ToString())</span>
             </div>
         </div>
     </div>
@@ -54,11 +53,11 @@
                     <div class="font12 text-slate-grey border-light-top padding-top10">
                         @if(Model.IsRatingsAvailable)
                         {
-                            <p class="margin-bottom5">@Model.RatingsInfo.TotalRatings @(Model.RatingsInfo.TotalRatings > 0 ? "ratings" : "rating")</p>
+                            <p class="margin-bottom5">@Model.RatingsInfo.TotalRatings @(Model.RatingsInfo.TotalRatings > 1 ? "ratings" : "rating")</p>
                         }
                         @if (Model.IsReviewsAvailable)
                         {
-                            <p>@Model.RatingsInfo.TotalReviews @(Model.RatingsInfo.TotalReviews > 0 ? "reviews" : "review")</p>
+                            <p>@Model.RatingsInfo.TotalReviews @(Model.RatingsInfo.TotalReviews > 1 ? "reviews" : "review")</p>
                         }
 
                     </div>
@@ -114,9 +113,15 @@
 </section>
 
 <section>
-    <div id="bike-rating-box" class="container content-box-shadow card-bottom-margin content-inner-block-20">
-        <p class="font16 text-black text-bold inline-block margin-right15">Rate this bike now</p>
-        <div class="answer-star-list inline-block">
+    <div id="bike-rating-box" class="container content-box-shadow card-bottom-margin content-inner-block-20 contest-card">
+		<h2 class="margin-bottom10">Bike Review Contest</h2>
+		<div class="border-solid-bottom padding-bottom15 margin-bottom15">
+			<div class="trophy-icon-wrapper">
+			<span class="trophy-white-26"></span>
+		</div><p class="contest-slug__label">Write a review and stand a chance to win Amazon vouchers worth &#x20B9;1000</p>
+		</div>
+        <p class="font14 text-black inline-block line-height25">Rate this bike now</p>
+        <div class="answer-star-list inline-block text-right">
             <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-5" name="rate-bike" value="5">
             <label class="bwmsprite star-0" for="rate-star-5" data-value="5"></label>
             <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=4&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Listing))" type="radio" id="rate-star-4" name="rate-bike" value="4">

@@ -25,6 +25,7 @@ using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
 using Bikewale.Cache.UserReviews;
 using Bikewale.Cache.Videos;
+using Bikewale.DAL;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Compare;
 using Bikewale.DAL.Customer;
@@ -39,6 +40,7 @@ using Bikewale.DAL.Videos;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.service;
+using Bikewale.Interfaces;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
@@ -136,6 +138,8 @@ namespace Bikewale
             container.RegisterType<IPWACMSContentRepository, PWACMSRenderedData>();
             container.RegisterType<IPWACMSCacheRepository, PWACMSCacheRepository>();
             container.RegisterType<ICMS, CMS>();
+            container.RegisterType<ISurveyRepository, SurveyRepository>();
+            container.RegisterType<ISurvey, BAL.Survey>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

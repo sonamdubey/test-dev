@@ -133,6 +133,33 @@ namespace Bikewale.Utility
             culture = CultureInfo.CreateSpecificCulture("en-US");
             return DateTime.TryParse(date, culture, styles, out ouput) ? ouput.ToString(format) : "";
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 6 June 2017
+        /// Summary    : Get time interval from present day in hours, days, weeks etc.
+        /// </summary>
+        public static string GetTimeSpan(DateTime date)
+        {
+            string interval = string.Empty;
+            TimeSpan timeSpan = DateTime.Now.Subtract(date);
+            if (timeSpan.Days < 1)
+            {
+                if (timeSpan.Hours > 0)
+                    interval = string.Format("{0} hour{1}", timeSpan.Hours, (timeSpan.Hours > 1 ? "s" : ""));
+                else if (timeSpan.Minutes > 0)
+                    interval = string.Format("{0} minute{1}", timeSpan.Minutes, (timeSpan.Minutes > 1 ? "s" : ""));
+                else if (timeSpan.Seconds > 0)
+                    interval = string.Format("{0} second{1}", timeSpan.Seconds, (timeSpan.Seconds > 1 ? "s" : ""));
+            }
+            else if (timeSpan.Days < 7)
+                interval = string.Format("{0} day{1}", timeSpan.Days, (timeSpan.Days > 1 ? "s" : ""));
+            else if (timeSpan.Days < 30)
+                interval = string.Format("{0} week{1}", (timeSpan.Days / 7), ((timeSpan.Days / 7) > 1 ? "s" : ""));
+            else if (timeSpan.Days < 365)
+                interval = string.Format("{0} month{1}", (timeSpan.Days / 30), ((timeSpan.Days / 30) > 1 ? "s" : ""));
+            else
+                interval = string.Format("{0} year{1}", (timeSpan.Days / 365), ((timeSpan.Days / 365) > 1 ? "s" : ""));
+            return interval;
+        }
 
     }
 }

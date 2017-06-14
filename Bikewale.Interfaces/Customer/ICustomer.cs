@@ -16,5 +16,6 @@ namespace Bikewale.Interfaces.Customer
     public interface ICustomer<T,U> : IRepository<T,U> 
     {
         T GetByEmail(string emailId);
+        T GetByEmailMobile(string emailId, string mobile);
     }   
 }

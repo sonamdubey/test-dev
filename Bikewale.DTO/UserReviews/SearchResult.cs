@@ -9,6 +9,10 @@ namespace Bikewale.DTO.UserReviews.Search
     {
         [JsonProperty("result")]
         public IEnumerable<Review> Result { get; set; }
+
+        [JsonProperty("resultDesktop")]
+        public IEnumerable<UserReviewSummaryDto> ResultDesktop { get; set; }
+
         [JsonProperty("pageUrl")]
         public PagingUrl PageUrl { get; set; }
         [JsonProperty("totalCount")]

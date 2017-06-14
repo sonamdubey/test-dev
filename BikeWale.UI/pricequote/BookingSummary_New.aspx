@@ -464,7 +464,10 @@
             var arr = setuserDetails();
             if (arr != null && arr.length > 0) {
                 viewModel.Customer().Name(arr[0]);
-                viewModel.Customer().EmailId(arr[1]);
+                if(arr[1]!="undefined")
+                    viewModel.Customer().EmailId(arr[1]);
+                else
+                    viewModel.Customer().EmailId();
                 viewModel.Customer().MobileNo(arr[2]);
             }
             <% } %>                    

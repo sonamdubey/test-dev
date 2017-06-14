@@ -510,7 +510,11 @@
         self.setBuyer = function (n, e, m) {
             var buyer = new customerVM();
             buyer.userName(n);
-            buyer.emailId(e);
+            if (e!="undefined") {
+                buyer.emailId(e);
+            } else {
+                buyer.emailId();
+            }
             buyer.mobileNo(m);
             self.buyer(buyer);
         };
@@ -557,7 +561,13 @@
             var arr = self.readTempUserCookie();
             if (arr && arr.length > 1) {
                 self.setBuyer(arr[0], arr[1], arr[2]);
-                getSellerDetailsPopup.userDetails.find(".input-box").addClass("not-empty");
+                var obj = getSellerDetailsPopup.userDetails.find(".input-box");
+                if (arr[0] != "undefined")
+                    $(obj[0]).addClass("not-empty");
+                if (arr[1] != "undefined")
+                    $(obj[1]).addClass("not-empty");
+                if (arr[2] != "undefined")
+                    $(obj[2]).addClass("not-empty");
             }
             else
                 self.setBuyer();
