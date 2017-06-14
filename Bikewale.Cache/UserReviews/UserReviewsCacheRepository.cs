@@ -202,7 +202,7 @@ namespace Bikewale.Cache.UserReviews
         public UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId)
         {
             UserReviewSummary objUserReviewSummary = null;
-            string key = string.Format("BW_UserReviewDetails_V1_{0}", reviewId);
+            string key = string.Format("BW_UserReviewDetails_V2_{0}", reviewId);
             try
             {
                 objUserReviewSummary = _cache.GetFromCache<UserReviewSummary>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetUserReviewSummaryWithRating(reviewId));
@@ -272,7 +272,7 @@ namespace Bikewale.Cache.UserReviews
                 int i = 0;
                 foreach(var id in reviewIdList)
                 {
-                    keys[i++] = string.Format("BW_UserReviewDetails_V1_{0}", id);
+                    keys[i++] = string.Format("BW_UserReviewDetails_V2_{0}", id);
                 }
 
                 string reviewCSV = String.Join(",", reviewIdList.ToArray());

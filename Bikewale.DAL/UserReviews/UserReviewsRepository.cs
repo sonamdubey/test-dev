@@ -1362,7 +1362,7 @@ namespace Bikewale.DAL.UserReviews
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummaryWithRating_12062017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getUserReviewSummaryWithRating_14062017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewId", DbType.UInt32, reviewId));
@@ -1408,6 +1408,7 @@ namespace Bikewale.DAL.UserReviews
                                 HostUrl = Convert.ToString(dr["hostUrl"]),
                                 TotalReviews = SqlReaderConvertor.ToUInt32(dr["TotalReviews"]),
                                 TotalRatings = SqlReaderConvertor.ToUInt32(dr["TotalRatings"]),
+                                OverAllModelRating = SqlReaderConvertor.ToFloat(dr["OverallModelRating"])
                             };
                         }
 
