@@ -13,10 +13,10 @@ namespace Bikewale.Entities.UserReviews
     [Serializable]
     public class BikeReviewIdListByCategory
     {
-        public IEnumerable<uint> RecentReviews { get; set; }
-        public IEnumerable<uint> HelpfulReviews { get; set; }
-        public IEnumerable<uint> PositiveReviews { get; set; }
-        public IEnumerable<uint> NegativeReviews { get; set; }
-        public IEnumerable<uint> NeutralReviews { get; set; }
+        public List<uint> RecentReviews { get; set; }
+        public List<uint> HelpfulReviews { get; set; }
+        public List<uint> PositiveReviews { get; set; }
+        public List<uint> NegativeReviews { get; set; }
+        public List<uint> NeutralReviews { get; set; }
     }
 }
