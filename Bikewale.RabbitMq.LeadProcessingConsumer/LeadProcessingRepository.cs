@@ -129,20 +129,26 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             return objQuotation;
         }
 
-        public bool UpdateManufacturerLead(uint pqId, string custEmail, string mobile, string response)
+        /// <summary>
+        /// Updated: Sangram Nandkhile on 14 Jun 2017
+        /// Summary: Removed email id and mobile number param
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <param name="custEmail"></param>
+        /// <param name="mobile"></param>
+        /// <param name="response"></param>
+        /// <returns></returns>
+        public bool UpdateManufacturerLead(uint pqId, string response)
         {
             bool status = false;
             try
             {
-                if (pqId > 0 && !String.IsNullOrEmpty(mobile))
+                if (pqId > 0)
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "updatemanufacturerlead";
-
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 150, custEmail));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 10, mobile));
+                        cmd.CommandText = "updatemanufacturerlead_14062017";
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_response", DbType.String, 250, response));
                         if (MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) > 0)
@@ -395,5 +401,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
 
             return objDealerData;
         }
+
     }
 }
