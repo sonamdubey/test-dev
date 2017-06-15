@@ -160,8 +160,8 @@ var UserReviews = function () {
                 "CustomerName" : summary.customerName,
                 "CustomerEmail" : summary.customerEmail,
                 "BikeName" : summary.make.makeName + " " + summary.model.modelName,
-                "MakeMaskingName" : summary.model.maskingName,
-                "ModelMaskingName": summary.make.maskingName,
+                "MakeMaskingName" : summary.make.maskingName,
+                "ModelMaskingName": summary.model.maskingName,
                 "ModelId": summary.model.modelId,
                 "IsShortListed": self.shortListCheckBox()
             };           
@@ -208,8 +208,8 @@ var UserReviews = function () {
                 "CustomerName": summary.customerName,
                 "CustomerEmail": summary.customerEmail,
                 "BikeName": summary.make.makeName + " " + summary.model.modelName,
-                "MakeMaskingName": summary.model.maskingName,
-                "ModelMaskingName": summary.make.maskingName,
+                "MakeMaskingName": summary.make.maskingName,
+                "ModelMaskingName": summary.model.maskingName,
                 "ModelId" : summary.model.modelId
 
             };

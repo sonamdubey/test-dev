@@ -62,9 +62,9 @@
                         <h1 class="inline-block margin-right20">@bikeName user reviews</h1>
                         <div class="inline-block">
                             <span class="inline-block">Overall rating:</span>
-                            <span class="inline-block rate-count-@Model.UserReviewDetailsObj.OverallRating.Value">
+                            <span class="inline-block rate-count-@Math.Round(Model.UserReviewDetailsObj.OverAllModelRating)">
                                 <span class="bwsprite star-icon star-size-16"></span>
-                                <span class="font14 text-bold inline-block">@Model.UserReviewDetailsObj.OverallRating.Value</span>
+                                <span class="font14 text-bold inline-block">@Model.UserReviewDetailsObj.OverAllModelRating.ToString("0.0").TrimEnd('0', '.')</span>
                                 <span class="font11 text-xt-light inline-block">&nbsp;/&nbsp;5</span>
                             </span>
                             <span class="font14 text-xt-light review-left-divider inline-block">@string.Format("{0} rating{1}", Model.UserReviewDetailsObj.TotalRatings, (Model.UserReviewDetailsObj.TotalRatings > 1 ? "s" : ""))</span>
@@ -137,7 +137,7 @@
                                             <span class="bwsprite questionId-@q.Id"></span>
                                             <div class="inline-block">
                                                 <p class="font10 text-xt-light">@q.MinHeading</p>
-                                                <p class="font14 text-slate-grey">@q.Rating.FirstOrDefault().Text</p>
+                                                <p class="font14 text-slate-grey">@q.SelectedRatingText</p>
                                             </div>
                                         </li>
                                     }

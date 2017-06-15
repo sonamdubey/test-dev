@@ -11,6 +11,8 @@ namespace Bikewale.Entities.UserReviews
     /// Descruioption : Added UpVotes, DownVotes, Views, EntryDate
     /// Modified by : Aditi Srivastava on 12 June 2017
     /// Summary     : Added totalreviews and totalratings
+    /// Modified by : Aditi Srivastava on 14 June 2017
+    /// Summary     : Added OverallModelRating
     /// </summary>
     {
         public uint ReviewId { get; set; }
@@ -42,5 +44,6 @@ namespace Bikewale.Entities.UserReviews
         public bool IsRatingQuestion { get; set; }
         public uint TotalRatings { get; set; }
         public uint TotalReviews { get; set; }
+        public float OverAllModelRating { get; set; }
     }
 }
