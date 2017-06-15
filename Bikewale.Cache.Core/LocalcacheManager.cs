@@ -70,7 +70,7 @@ namespace Bikewale.Cache.Core
             throw new NotImplementedException();
         }
 
-        public IEnumerable<T> GetListFromCache<T>(string[] reviewIds, string[] keys, TimeSpan cacheDuration, Func<string, IEnumerable<T>> doCallback)
+        public IEnumerable<T> GetListFromCache<T>(IDictionary<string, string> keyValuePair, TimeSpan cacheDuration, Func<string, IEnumerable<T>> doCallback)
         {
             throw new NotImplementedException();
         }

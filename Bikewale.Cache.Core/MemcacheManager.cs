@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Configuration;
 using System.Collections.Generic;
+using Bikewale.Notifications;
 
 namespace Bikewale.Cache.Core
 {
@@ -21,97 +22,41 @@ namespace Bikewale.Cache.Core
             {
                 mc = new MemcachedClient("memcached");
             }
-        }
+        }        
 
-        public IEnumerable<T> GetListFromCache<T>(string[] reviewIds, string[] keys, TimeSpan cacheDuration, Func<string,IEnumerable<T>> doCallback)
-        {
-            List<T> t = default(List<T>);
-            List<T> miss = default(List<T>);
-            ICollection<string> missKeys = new List<string>();
-            try
-            {
-                t = new List<T>();
-                if (_useMemcached) //  Check if memcache need to hit or not based on key in config file
-                {
-                    for (int i = 0; i < reviewIds.Count(); i++)
-                    {
-                        var val = (T)mc.Get(keys[i]);
-                        if (val == null) //Cache Miss
-                        {
-                            missKeys.Add(reviewIds[i]);
-                        }
-                        else
-                        {
-                            t.Add(val);
-                        }
-                    }
-                    if(missKeys!=null && missKeys.Count > 0)
-                    {
-                        IList<T> list = GetFromDb(keys, cacheDuration, doCallback,  missKeys);
-                        if (list !=null && list.Count > 0)
-                        {                            
-                            t.AddRange(list); 
-                        }
-                    }
-                }
-                else
-                {
-                    missKeys = reviewIds;   
-                    IList<T> list = GetFromDb(keys, cacheDuration, doCallback,  missKeys);
-                    t = list != null ? list.ToList() : null;
-                }
-            }
-            catch (Exception ex)
-            {
-                //ErrorClass objErr = new ErrorClass(ex, "MemcacheManager.GetFromCache");
-                //objErr.SendMail();
-            }
-            finally
-            {
-                if (t.Count == 0)
-                {
-                    missKeys = reviewIds;   
-                    IList<T> list = GetFromDb(keys, cacheDuration, doCallback,  missKeys);
-                    t = list != null ? list.ToList() : null;
-                }
-            }
-
-            return t;
-        }
-
-        private IList<T> GetFromDb<T>(string[] keys, TimeSpan cacheDuration, Func<string, IEnumerable<T>> doCallback, ICollection<string> missKeys)
+        private IList<T> GetFromDb<T>(IDictionary<string, string> keyValuePair, TimeSpan cacheDuration, Func<string, IEnumerable<T>> doCallback)
         {
             IList<T> list = null;
             try
             {
-                var dataList = doCallback(String.Join(",", missKeys.ToArray()));
+                var dataList = doCallback(String.Join(",", keyValuePair.Keys.ToArray()));
 
-                if (dataList!= null && dataList.Count() > 0)
+                if (dataList != null && dataList.Count() > 0)
                 {
                     list = dataList.ToList();
-                    if (_useMemcached)
+                    if (_useMemcached && list.Count > 0 && keyValuePair.Count == list.Count)
                     {
-                        for (int i = 0; i < missKeys.Count; i++)
+                        int i = 0;
+                        foreach (var item in keyValuePair)
                         {
-                            if (mc.Store(StoreMode.Add, keys[i] + "_lock", "lock", DateTime.Now.AddSeconds(60)))
+                            if (mc.Store(StoreMode.Add, item.Value + "_lock", "lock", DateTime.Now.AddSeconds(60)))
                             {
-                                var data = list[i];
+                                var data = list[i++];
                                 if (data != null)
                                 {
-                                    mc.Store(StoreMode.Add, keys[i], data, DateTime.Now.Add(cacheDuration));                                    
+                                    mc.Store(StoreMode.Add, item.Value, data, DateTime.Now.Add(cacheDuration));
                                 }
-                                mc.Remove(keys[i] + "_lock");
+                                mc.Remove(item.Value + "_lock");
                             }
-                        } 
+                        }
                     }
                 }
             }
-            catch (Exception){}
+            catch (Exception) { }
 
             return list;
         }
-
-
+        
         public T GetFromCache<T>(string key, TimeSpan cacheDuration, Func<T> dbCallback)
         {
             T t = default(T);
@@ -224,6 +169,57 @@ namespace Bikewale.Cache.Core
         public void RefreshCache(string key)
         {
             mc.Remove(key);
+        }
+
+        public IEnumerable<T> GetListFromCache<T>(IDictionary<string, string> keyValuePair, TimeSpan cacheDuration, Func<string, IEnumerable<T>> doCallback)
+        {
+            List<T> t = default(List<T>);
+            IDictionary<string, string> kv = new Dictionary<string, string>();
+            try
+            {
+                t = new List<T>();
+                if (_useMemcached) //  Check if memcache need to hit or not based on key in config file
+                {
+                    foreach (var item in keyValuePair)
+                    {
+                        var val = (T)mc.Get(item.Value);
+                        if (val == null) //Cache Miss
+                        {
+                            kv.Add(item);
+                        }
+                        else
+                        {
+                            t.Add(val);
+                        }
+                    }
+                    if (kv != null && kv.Count > 0)
+                    {
+                        IList<T> list = GetFromDb(kv, cacheDuration, doCallback);
+                        if (list != null && list.Count > 0)
+                        {
+                            t.AddRange(list);
+                        }
+                    }
+                }
+                else
+                {
+                    IList<T> list = GetFromDb(keyValuePair, cacheDuration, doCallback);
+                    t = list != null ? list.ToList() : null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "MemcacheManager.GetFromCache");                
+            }
+            finally
+            {
+                if (t.Count == 0)
+                {
+                    IList<T> list = GetFromDb(keyValuePair, cacheDuration, doCallback);
+                    t = list != null ? list.ToList() : null;
+                }
+            }
+            return t;
         }
     }
 }
