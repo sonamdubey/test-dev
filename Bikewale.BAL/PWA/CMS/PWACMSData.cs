@@ -94,14 +94,22 @@ namespace Bikewale.BAL.PWA.CMS
             Stopwatch sw = null;
             if (_logPWAStats)
                 sw = Stopwatch.StartNew();
-            
-            var renderedHtml = React(componentName, new
-            {
-                Url = url,
-                ArticleListData = reducer.ArticleListData,
-                NewBikesListData = reducer.NewBikesListData
 
-            }, containerId:containerId);
+            IHtmlString renderedHtml=null;
+            try
+            {
+                renderedHtml = React(componentName, new
+                {
+                    Url = url,
+                    ArticleListData = reducer.ArticleListData,
+                    NewBikesListData = reducer.NewBikesListData
+
+                }, containerId: containerId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+            }
 
             if (_logPWAStats)
             {
