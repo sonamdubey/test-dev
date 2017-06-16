@@ -116,6 +116,7 @@
     <Compile Include="AutoBizServiceRef.cs" />
     <Compile Include="BajajFinanceLeadEntity.cs" />
     <Compile Include="BikeQuotationEntity.cs" />
+    <Compile Include="BWConfiguration.cs" />
     <Compile Include="LeadProcessingRepository.cs" />
     <Compile Include="LeadProcessor.cs" />
     <Compile Include="LeadTypes.cs" />
@@ -130,6 +131,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="RoyalEnfieldDealer.cs" />
+    <Compile Include="TataCapitalInputEntity.cs" />
     <Compile Include="Web References\RoyalEnfieldWebAPI\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
