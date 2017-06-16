@@ -158,7 +158,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog(String.Format("Error in FetchPriceQuoteDetailsById({0}) : Msg : {1}", pqId, ex.Message));
+                Logs.WriteErrorLog(String.Format("Error in UpdateManufacturerLead({0}) : Msg : {1}", pqId, ex.Message));
             }
 
             return status;
@@ -290,7 +290,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog(String.Format("Error in GetPriceQuoteById({0}) : Msg : {1}", 0, ex.Message));
+                Logs.WriteErrorLog(String.Format("Error in GetBajajFinanceBikeMappingInfo() : Msg : {0}", ex.Message));
             }
 
             return objQuotation;
@@ -400,6 +400,39 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
 
             return objDealerData;
+        }
+
+        /// <summary>
+        /// Created by :Sangram Nandkhile on 16 June 2017
+        /// SUmmary: Fetch Tata capital city data by BW CityId
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public string GetTataCapitalByCityId(uint cityId)
+        {
+            string tataCapitalCityId = string.Empty;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "gettatacitybycityid";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            tataCapitalCityId = Convert.ToString(dr["cityid"]);                           
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(String.Format("Error in GetTataCapitalByCityId({0}) : Msg : {1}", cityId, ex.Message));
+            }
+            return tataCapitalCityId;
         }
 
     }

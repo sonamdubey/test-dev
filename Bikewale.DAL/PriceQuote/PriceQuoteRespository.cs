@@ -639,7 +639,10 @@ namespace Bikewale.DAL.PriceQuote
             }
             return objVersionInfo;
         }
-
+        /// <summary>
+        /// Summary; To Fetch manufacturer Dealers
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<ManufactureDealer> GetManufacturerDealers()
         {
             List<ManufactureDealer> dealers = null;

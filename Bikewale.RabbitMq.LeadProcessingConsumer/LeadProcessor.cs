@@ -29,7 +29,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         private QueueingBasicConsumer consumer;
         private NameValueCollection nvc = new NameValueCollection();
         private string _queueName, _hostName;
-        private uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId;
+        private uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId, _TataCapitalId;
         public LeadConsumer()
         {
             try
@@ -43,6 +43,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 UInt32.TryParse(ConfigurationManager.AppSettings["HondaGaddiId"], out _hondaGaddiId);
                 UInt32.TryParse(ConfigurationManager.AppSettings["BajajFinanceId"], out _bajajFinanceId);
                 UInt32.TryParse(ConfigurationManager.AppSettings["RoyalEnfieldId"], out _RoyalEnfieldId);
+                UInt32.TryParse(ConfigurationManager.AppSettings["TataCapitalId"], out _TataCapitalId);
+                
                 InitConsumer();
                 _leadProcessor = new LeadProcessor();
                 _repository = new LeadProcessingRepository();
@@ -251,6 +253,12 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                                 Logs.WriteInfoLog(String.Format("Royal Enfield: Duplicate lead submitted. PQId --> {0}", pqId));
                             }
                         }
+                        else if (priceQuote.DealerId == _TataCapitalId)
+                        {
+                            Logs.WriteInfoLog(String.Format("Tata Capital Lead started processing. PQId --> {0}", pqId));
+                            _leadProcessor.PushLeadToTataCapital(priceQuote, pqId);
+                            Logs.WriteInfoLog(String.Format("Tata Capital Lead started processing. PQId --> {0}", pqId));
+                        }
                     }
                     Logs.WriteInfoLog(String.Format("Manufacturer Lead submitted."));
                 }
@@ -350,7 +358,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         private readonly LeadProcessingRepository _repository = null;
         private readonly TCApi_Inquiry _inquiryAPI = null;
         private HttpClient _httpClient;
-        private string _hondaGaddiAPIUrl, _bajajFinanceAPIUrl;
+        private string _hondaGaddiAPIUrl, _bajajFinanceAPIUrl, _tataCapitalAPIUrl;
 
 
         /// <summary>
@@ -364,6 +372,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             _httpClient = new HttpClient();
             _hondaGaddiAPIUrl = ConfigurationManager.AppSettings["HondaGaddiAPIUrl"];
             _bajajFinanceAPIUrl = ConfigurationManager.AppSettings["BajajFinanceAPIUrl"];
+            _tataCapitalAPIUrl = ConfigurationManager.AppSettings["TataCapitalAPIUrl"];
         }
 
         public bool PushLeadToAutoBiz(uint pqId, uint dealerId, uint campaignId, string inquiryJson, UInt16 retryAttempt)
@@ -447,6 +456,77 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             return isSuccess;
         }
 
+        /// <summary>
+        /// created by: Sangram Nandkhile on 15 Jun 2017
+        /// To push tata capital leads
+        /// </summary>
+        /// <param name="priceQuote"></param>
+        /// <param name="pqId"></param>
+        /// <returns></returns>
+        internal bool PushLeadToTataCapital(PriceQuoteParametersEntity priceQuote, uint pqId)
+        {
+            bool isSuccess = false;
+            TataCapitalInputEntity tataLeadInput = null;
+            try
+            {
+                string firstName = string.Empty, lastName = string.Empty;
+                if(priceQuote.CustomerName.Contains(" "))
+                {
+                    string[] strName = priceQuote.CustomerName.Split(' ');
+                    firstName = strName[0];
+                    lastName = strName[1];
+                }
+                else
+                {
+                    firstName = priceQuote.CustomerName;
+                    lastName = priceQuote.CustomerName;
+                }
+
+               string tataCapitalCityId = _repository.GetTataCapitalByCityId(priceQuote.CityId);
+                if (string.IsNullOrEmpty(tataCapitalCityId))
+                {
+                    Logs.WriteInfoLog(String.Format("Tata Capital: City Not found in DB Params Logged PQId {0}",pqId));
+                }
+                tataLeadInput = new TataCapitalInputEntity()
+                {
+                    fname = firstName,
+                    lname = lastName,
+                    resEmailId = priceQuote.CustomerEmail,
+                    resMobNo = priceQuote.CustomerMobile,
+                    rescity = tataCapitalCityId,
+                    source = "",
+                    password = ""
+                };
+                Logs.WriteInfoLog(String.Format("Tata Capital: Params Logged PQId {0},  PriceQuote --> {1}", pqId, Newtonsoft.Json.JsonConvert.SerializeObject(priceQuote)));
+                Logs.WriteInfoLog(String.Format("Tata Capital: Params Logged for API Input --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(tataLeadInput)));
+                if (_httpClient != null)
+                {
+                    string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(tataLeadInput);
+                    string response = string.Empty;
+                    HttpContent httpContent = new StringContent(jsonString);
+                    using (HttpResponseMessage _response = _httpClient.PostAsync(_tataCapitalAPIUrl, httpContent).Result)
+                    {
+                        if (_response.IsSuccessStatusCode)
+                        {
+                            if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                            {
+                                response = _response.Content.ReadAsStringAsync().Result;
+                                _repository.UpdateManufacturerLead(pqId, response);
+                                _response.Content.Dispose();
+                                _response.Content = null;
+                                isSuccess = true;
+                            }
+                        }
+                    }
+                    Logs.WriteInfoLog(String.Format("Tata Capital:  Request : {0} \n Response : {1}", jsonString, response));
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(String.Format("Failed to push Tata Capital lead : {0}", ex.Message));
+            }
+            return isSuccess;
+        }
         internal bool PushLeadToBajajFinance(PriceQuoteParametersEntity priceQuote, uint pqId, uint pincodeId)
         {
             bool isSuccess = false;
@@ -455,7 +535,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 BajajFinanceLeadEntity bikeMappingInfo = _repository.GetBajajFinanceBikeMappingInfo(priceQuote.VersionId, pincodeId);
                 if (bikeMappingInfo != null && !string.IsNullOrEmpty(bikeMappingInfo.Model) && !string.IsNullOrEmpty(bikeMappingInfo.City))
                 {
-
                     if (!string.IsNullOrEmpty(priceQuote.CustomerName))
                     {
                         priceQuote.CustomerName = priceQuote.CustomerName.Trim();
@@ -535,6 +614,11 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 string token = ConfigurationManager.AppSettings["RoyalEnfieldToken"];
                 if(quotation != null)
                     Logs.WriteInfoLog(String.Format("Royal Enfield: Params Logged --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(quotation)));
+                if (dealer != null)
+                    Logs.WriteInfoLog(String.Format("Royal Enfield: Params Logged for dealer --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(dealer)));
+                if(priceQuote!= null)
+                    Logs.WriteInfoLog(String.Format("Royal Enfield: Params Logged for Pricequote --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(priceQuote)));
+
                 string response = service.Organic(priceQuote.CustomerName, priceQuote.CustomerMobile, "India", dealer.DealerState,
                     dealer.DealerCity, priceQuote.CustomerEmail, quotation.ModelName, dealer.DealerName, "", "https://www.bikewale.com", token, "bikewale");
                 // service.affiliates((priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, dealer.DealerState, dealer.DealerCity, dealer.DealerName, quotation.ModelName, "https://www.bikewale.com", token, "bikewale");
