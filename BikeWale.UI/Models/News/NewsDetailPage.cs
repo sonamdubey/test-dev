@@ -198,6 +198,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 29 Mar 2017
         /// Summary    : Set news details page metas
+        /// Modified by :- Subodh Jain 19 june 2017
+        /// Summary :- Added TargetModels and Target Make
         /// </summary>
         private void SetPageMetas(NewsDetailPageVM objData)
         {
@@ -205,6 +207,10 @@ namespace Bikewale.Models
             {
                 objData.BaseUrl = IsMobile ? "/m" : "";
                 objData.PageMetaTags.Title = string.Format("{0} - BikeWale News", objData.ArticleDetails.Title);
+                if (objData.Make != null)
+                    objData.AdTags.TargetedMakes = objData.Make.MakeName;
+                if (objData.Model != null)
+                    objData.AdTags.TargetedModel = objData.Model.ModelName;
                 objData.PageMetaTags.ShareImage = Image.GetPathToShowImages(objData.ArticleDetails.OriginalImgUrl, objData.ArticleDetails.HostUrl, ImageSize._640x348);
                 objData.PageMetaTags.Description = string.Format("BikeWale coverage on {0}. Get the latest reviews and photos for {0} on BikeWale coverage.", objData.ArticleDetails.Title);
                 objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/news/{0}-{1}.html", objData.ArticleDetails.BasicId, objData.ArticleDetails.ArticleUrl);

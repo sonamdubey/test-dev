@@ -131,6 +131,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Set expert reviews details page metas
+        /// Modified by :- Subodh Jain 19 june 2017
+        /// Summary :- Added TargetModels and Target Make
         /// </summary>
         private void SetPageMetas(ExpertReviewsDetailPageVM objData)
         {
@@ -140,6 +142,10 @@ namespace Bikewale.Models
                 objData.PageMetaTags.AmpUrl = string.Format("{0}/m/expert-reviews/{1}-{2}/amp/", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/expert-reviews/{0}-{1}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 objData.PageMetaTags.Title = string.Format("{0}- BikeWale.", objData.ArticleDetails.Title);
+                if(objData.Make!=null)
+                objData.AdTags.TargetedMakes = objData.Make.MakeName;
+                if (objData.Model != null)
+                    objData.AdTags.TargetedModel = objData.Model.ModelName;
                 objData.PageMetaTags.Keywords = string.Format("{0},road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives", (objData.Model!= null) ? objData.Model.ModelName : "");
                 if (IsMobile)
                     objData.PageMetaTags.Description = string.Format("BikeWale tests {0}, Read the complete road test report to know how it performed.", (objData.Model!=null)?objData.Model.ModelName:"");

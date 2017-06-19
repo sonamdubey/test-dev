@@ -539,6 +539,8 @@ namespace Bikewale.Models.BikeModels
         /// <summary>
         /// Created By :-Subodh Jain 07 oct 2016
         /// Desc:- Metas description according to discountinue,upcoming,continue bikes
+        /// Modified by :- Subodh Jain 19 june 2017
+        /// Summary :- Added TargetModels and Target Make
         /// </summary>
         private void CreateMetas()
         {
