@@ -72,6 +72,7 @@ namespace Bikewale.Controllers
             model.BrandTopCount = 10;
             model.PqSource = PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price;
             model.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
+            model.EditorialTopCount = 3;
             return View(model.GetData());
         }
 
@@ -90,6 +91,7 @@ namespace Bikewale.Controllers
             model.BrandTopCount = 6;
             model.PqSource = PQSourceEnum.Mobile_Scooters_Landing_Check_on_road_price;
             model.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
+            model.EditorialTopCount = 3;
             return View(model.GetData());
         }
         /// <summary>
@@ -122,6 +124,7 @@ namespace Bikewale.Controllers
         {
             ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter,_articles,_videos);
             obj.CompareSource = CompareSources.Desktop_Scooter_Listing_Compare;
+            obj.EditorialTopCount = 2;
             ScootersMakePageVM objData = new ScootersMakePageVM();
             if (obj != null)
             {
@@ -160,6 +163,7 @@ namespace Bikewale.Controllers
         {
             ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter, _articles, _videos);
             obj.CompareSource = CompareSources.Mobile_Scooter_Listing_Compare;
+            obj.EditorialTopCount = 2;
             ScootersMakePageVM objData = new ScootersMakePageVM();
             if (obj != null)
             {

@@ -60,6 +60,7 @@ namespace Bikewale.Models
         public ushort BrandTopCount { get; set; }
         public PQSourceEnum PqSource { get; set; }
         public CompareSources CompareSource { get; set; }
+        public uint EditorialTopCount { get; set; }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
@@ -195,15 +196,15 @@ namespace Bikewale.Models
         {
             try
             {
-                RecentNews objNews = new RecentNews(3, _articles);
+                RecentNews objNews = new RecentNews(EditorialTopCount, _articles);
                 objNews.IsScooter = true;
                 objVM.News = objNews.GetData();
                 
-                RecentExpertReviews objReviews = new RecentExpertReviews(3, _articles);
+                RecentExpertReviews objReviews = new RecentExpertReviews(EditorialTopCount, _articles);
                 objReviews.IsScooter = true;
                 objVM.ExpertReviews = objReviews.GetData();
 
-                RecentVideos objVideos = new RecentVideos(1, 3, _videos);
+                RecentVideos objVideos = new RecentVideos(1,(ushort)EditorialTopCount, _videos);
                 objVideos.IsScooter = true;
                 objVM.Videos = objVideos.GetData();
 

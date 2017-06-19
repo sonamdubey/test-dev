@@ -77,6 +77,7 @@ namespace Bikewale.Models
         public ushort BrandTopCount { get; set; }
         public PQSourceEnum PqSource { get; set; }
         public CompareSources CompareSource { get; set; }
+        public uint EditorialTopCount { get; set; }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
@@ -120,7 +121,7 @@ namespace Bikewale.Models
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, "ScootersIndexPageModel.GetData()");
+                Notifications.ErrorClass er = new Notifications.ErrorClass(ex, "ScootersIndexPageModel.GetData()");
             }
             return objViewModel;
         }
@@ -285,15 +286,15 @@ namespace Bikewale.Models
         /// </summary>
         private void BindEditorialWidget(ScootersMakePageVM objData)
         {
-            RecentNews objNews = new RecentNews(2, _makeId, _makeName, _makeMaskingName, string.Format("News about {0} Scooters", _makeName), _articles);
+            RecentNews objNews = new RecentNews(EditorialTopCount, _makeId, _makeName, _makeMaskingName, string.Format("News about {0} Scooters", _makeName), _articles);
             objNews.IsScooter = true;
             objData.News = objNews.GetData();
            
-            RecentExpertReviews objReviews = new RecentExpertReviews(2, _makeId, _makeName, _makeMaskingName, _articles, string.Format("{0} Reviews", _makeName));
+            RecentExpertReviews objReviews = new RecentExpertReviews(EditorialTopCount, _makeId, _makeName, _makeMaskingName, _articles, string.Format("{0} Reviews", _makeName));
             objReviews.IsScooter = true;
             objData.ExpertReviews = objReviews.GetData();
 
-            RecentVideos objVideos = new RecentVideos(1, 2, _makeId, _makeName, _makeMaskingName, _videos);
+            RecentVideos objVideos = new RecentVideos(1, (ushort)EditorialTopCount, _makeId, _makeName, _makeMaskingName, _videos);
             objVideos.IsScooter = true;
             objData.Videos = objVideos.GetData();
         }
