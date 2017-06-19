@@ -144,19 +144,17 @@ namespace Bikewale.Controllers
                     ThreadContext.Properties["PageName"] = "NewsController - List";
                     _logger.Error(sw.ElapsedMilliseconds);
                 }
-
-                if (_disablePWA)
-                    return View("~/Views/News/Index_Mobile.cshtml", objData);
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pagenotfound.aspx");
                 else
-                {                    
-                    if (obj.status == Entities.StatusCodes.ContentNotFound)
-                        return Redirect("/m/pagenotfound.aspx");
+                {
+                    if (_disablePWA)
+                        return View("~/Views/News/Index_Mobile.cshtml", objData);
                     else
-                        return View(objData);
+                    {
+                      return View(objData);
+                    }
                 }
-
-             
-
             }
         }
 
@@ -219,17 +217,18 @@ namespace Bikewale.Controllers
                     ThreadContext.Properties["PageName"] = "NewsController - Detail";
                     _logger.Error(sw.ElapsedMilliseconds);
                 }
-
-                if (_disablePWA)
-                {
-                    return View("~/Views/News/Detail_Mobile_nopwa.cshtml", objData);
-                }
+                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                    return Redirect("/m/pagenotfound.aspx");
                 else
                 {
-                    if (obj.status == Entities.StatusCodes.ContentNotFound)
-                        return Redirect("/m/pagenotfound.aspx");
+                    if (_disablePWA)
+                    {
+                      return View("~/Views/News/Detail_Mobile_nopwa.cshtml", objData);
+                    }
                     else
-                        return View(objData);
+                    {
+                       return View(objData);
+                    }
                 }
             }
         }
