@@ -83,7 +83,7 @@
                                { %>
 
                             <div class="padding-top5 padding-bottom5">
-                                <a href="<%= featuredBike  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike %>" c="Comparison_Page" a="Sponsored_Comparison" l="<%= bikeName %>" target="_blank" class="font14 bw-ga">Know more <span class="bwmsprite know-more-icon"></span></a>
+                                <a href="<%= featuredBike  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike %>" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= bikeName %>_Top Card" target="_blank" class="font14 bw-ga">Know more <span class="bwmsprite know-more-icon"></span></a>
                             </div>
                             <% } %>
                         </div>
@@ -110,7 +110,7 @@
                                { %>
 
                             <div class="padding-top5 padding-bottom5">
-                                <a href="<%= featuredBike  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison" l="<%= String.Format("{0} {1}",bike.Make, bike.Model) %>" target="_blank" class="font14 bw-ga">Know more <span class="bwmsprite know-more-icon"></span></a>
+                                <a href="<%= featuredBike  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0} {1}_Floating",bike.Make, bike.Model) %>" target="_blank" class="font14 bw-ga">Know more <span class="bwmsprite know-more-icon"></span></a>
                             </div>
                             <% } %>
                         </div>

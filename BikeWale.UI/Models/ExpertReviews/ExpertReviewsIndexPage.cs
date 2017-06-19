@@ -218,6 +218,7 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Keywords = string.Format("{0} {1} expert reviews, {0} {1} road tests, {0} {1} comparison tests, {0} {1} reviews, {0}{1} bike comparison", objMake.MakeName, objModel.ModelName);
                 objData.PageH1 = string.Format("{0} {1} Expert Reviews", objMake.MakeName, objModel.ModelName);
                 objData.AdTags.TargetedModel = objModel.ModelName;
+                objData.AdTags.TargetedMakes = objMake.MakeName;
             }
             else if (MakeId > 0)
             {
