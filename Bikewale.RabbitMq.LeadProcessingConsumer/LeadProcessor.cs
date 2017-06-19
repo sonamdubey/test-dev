@@ -494,8 +494,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     resEmailId = priceQuote.CustomerEmail,
                     resMobNo = priceQuote.CustomerMobile,
                     rescity = tataCapitalCityId,
-                    source = "",
-                    password = ""
+                    source = ConfigurationManager.AppSettings["TataCapitalSource"],
+                    password = ConfigurationManager.AppSettings["TataCapitalPassword"]
                 };
                 Logs.WriteInfoLog(String.Format("Tata Capital: Params Logged PQId {0},  PriceQuote --> {1}", pqId, Newtonsoft.Json.JsonConvert.SerializeObject(priceQuote)));
                 Logs.WriteInfoLog(String.Format("Tata Capital: Params Logged for API Input --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(tataLeadInput)));
