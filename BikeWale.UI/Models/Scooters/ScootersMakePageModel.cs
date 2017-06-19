@@ -285,7 +285,7 @@ namespace Bikewale.Models
         /// </summary>
         private void BindEditorialWidget(ScootersMakePageVM objData)
         {
-            RecentNews objNews = new RecentNews(2, _makeId, _makeName, _makeMaskingName, string.Format("{0} News", _makeName), _articles);
+            RecentNews objNews = new RecentNews(2, _makeId, _makeName, _makeMaskingName, string.Format("News about {0} Scooters", _makeName), _articles);
             objNews.IsScooter = true;
             objData.News = objNews.GetData();
            

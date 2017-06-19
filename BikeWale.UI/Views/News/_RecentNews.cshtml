@@ -2,12 +2,8 @@
 @using Bikewale.Utility
 @if (Model != null && Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
 {
-        if (!string.IsNullOrEmpty(Model.Title))
-        {
-            <h3 class="font-bold padding-left10 margin-bottom20">@Model.Title</h3>
-        }
-        <ul>
-        @foreach (var news in Model.ArticlesList)
+<ul>
+       @foreach (var news in Model.ArticlesList)
         {
             <li class="margin-bottom20">
                 <article>

@@ -127,6 +127,7 @@
             {
             <!-- News widget starts -->
                 <div id="modelNewsContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 font14">
+                    <h3 class="font-bold margin-bottom20">@Model.News.Title</h3>
                     @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
                     <div class="more-article-target view-all-btn-container">
                         <a href="@Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking)" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : (!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Bikes News"))"
