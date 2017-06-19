@@ -64,7 +64,8 @@
                                                         @Html.Raw(review.Description)
                                                     </span>
 
-
+                                                    @if (review.Questions != null)
+                                                    {
                                                     <ul class="rating-circle-list page-load-list" data-bind="visible: !$root.IsInitialized()">
 
                                                         @foreach (UserReviewQuestion ques in review.Questions)
@@ -82,6 +83,7 @@
                                                             }
                                                         }
                                                     </ul>
+                                                    }
                                                     <!-- ko if : $data && $data.questions && $data.questions.length > 0  -->
                                                     <ul class="rating-circle-list ko-list hide" data-bind="css: $data ? 'show' : 'hide'">
                                                         <!-- ko foreach: $data.questions -->
@@ -121,6 +123,8 @@
 
                                         </div>
                                     <div class="grid-3 omega padding-left20">
+                                        @if (review.Questions != null)
+                                        {
                                         <ul class="page-load-list" data-bind="visible: !$root.IsInitialized()">
                                             @foreach (UserReviewQuestion ques in review.Questions)
                                             {
@@ -136,7 +140,8 @@
                                                 }
                                             }
                                         </ul>
-                                        
+                                        }
+
                                         <!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
                                         <ul class="hide" data-bind="css: $data ? 'show' : 'hide'">
                                             <!-- ko foreach: $data.questions -->

@@ -131,13 +131,18 @@ namespace Bikewale.Models.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, string.Format("UserReviewDetailsPage.UpdateViewCount() - ReviewId :{0}", _reviewId));
             }
         }
-
+        /// <summary>
+        /// Modified :- Subodh Jain 19 june 2017
+        /// summary :- added targetmodel and make
+        /// </summary>
         public void BindPageMetas(UserReviewDetailsVM objPage)
         {
             try
             {
                 if (objPage != null && objPage.PageMetaTags != null && objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.Make != null && objPage.UserReviewDetailsObj.Model != null)
                 {
+                    objPage.AdTags.TargetedMakes = objPage.UserReviewDetailsObj.Make.MakeName;
+                    objPage.AdTags.TargetedModel = objPage.UserReviewDetailsObj.Model.ModelName;
                     objPage.PageMetaTags.Title = string.Format("{0} | User Review on {1} {2} - BikeWale", objPage.UserReviewDetailsObj.Title, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName);
                     objPage.PageMetaTags.Description = string.Format("Read review by {0} on {1} {2}. {0} says {3}. View detailed review on BikeWale.", objPage.UserReviewDetailsObj.CustomerName, objPage.UserReviewDetailsObj.Make.MakeName, objPage.UserReviewDetailsObj.Model.ModelName, objPage.UserReviewDetailsObj.Title);
                     objPage.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/{2}/", objPage.UserReviewDetailsObj.Make.MaskingName, objPage.UserReviewDetailsObj.Model.MaskingName, _reviewId);

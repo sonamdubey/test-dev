@@ -204,6 +204,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :  Aditi Srivasava on 28 Mar 2017
         /// Summary     :  Set page metas and headings
+        /// Modified by :- Subodh Jain 19 june 2017
+        /// Summary :- Added TargetModels and Target Make
         /// </summary>
         private void SetPageMetas(ExpertReviewsIndexPageVM objData)
         {
@@ -215,6 +217,7 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Description = string.Format("Latest expert reviews on {0} {1} in India. Read {0} {1} comparison tests and road tests exclusively on BikeWale", objMake.MakeName, objModel.ModelName);
                 objData.PageMetaTags.Keywords = string.Format("{0} {1} expert reviews, {0} {1} road tests, {0} {1} comparison tests, {0} {1} reviews, {0}{1} bike comparison", objMake.MakeName, objModel.ModelName);
                 objData.PageH1 = string.Format("{0} {1} Expert Reviews", objMake.MakeName, objModel.ModelName);
+                objData.AdTags.TargetedModel = objModel.ModelName;
             }
             else if (MakeId > 0)
             {
@@ -222,6 +225,7 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Description = string.Format("Latest expert reviews on upcoming and new {0} bikes in India. Read {0} bike comparison tests and road tests exclusively on BikeWale", objMake.MakeName);
                 objData.PageMetaTags.Keywords = string.Format("{0} bike expert reviews, {0} bike road tests, {0} bike comparison tests, {0} bike reviews, {0} road tests, {0} expert reviews, {0} bike comparison, {0} comparison tests.", objMake.MakeName);
                 objData.PageH1 = string.Format("{0} Bikes Expert Reviews", objMake.MakeName);
+                objData.AdTags.TargetedMakes = objMake.MakeName;
             }
             else
             {
