@@ -200,95 +200,104 @@
                             </div>
                     }
                         <!-- news control starts here -->
-                        @if (Model.IsNewsAvailable){
-                            @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
-                    }
-                        <!-- news control ends here -->
-                        @if (Model.IsExpertReviewsAvailable){
-                            <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
-                                <h2 class="padding-left10 padding-right10">@Model.MakeName Reviews</h2>
-                                <h3 class="model-section-subtitle padding-right10 padding-left10">Expert Reviews</h3>
-                                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
-                                <div class="padding-left10 more-article-target view-all-btn-container">
-                                    <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="btn view-all-target-btn">Read all reviews<span class="bwsprite teal-right"></span></a>
-                                </div>
-                            </div>
-                    }
-                        @if (Model.IsVideosAvailable)
-                    {
-                            <div id="makeVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
-                                <h2 class="padding-right10 padding-left10">@Model.MakeName Videos</h2>
-                                @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
-                                <div class="padding-left10 more-article-target view-all-btn-container">
-                                    <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">View all videos<span class="bwsprite teal-right"></span></a>
-                                </div>
-                            </div>
-                    }
-                        @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
-                    {
-                            <div id="dealerAndServiceContent" class="bw-model-tabs-data">
-                                @if (Model.IsDealerAvailable)
+                        @if (Model.IsNewsAvailable)
                         {
-                                    <div id="makeDealersContent" class="padding-bottom20 padding-top15 font14">
-                                        <div class="carousel-heading-content">
-                                            <div class="swiper-heading-left-grid inline-block">
-                                                <h2>@Model.MakeName showrooms in @Model.Location</h2>
-                                            </div>
-                                            <div class="swiper-heading-right-grid inline-block text-right">
-                                                <a href="/@Model.MakeMaskingName-dealer-showrooms-in-@Model.LocationMasking/" title="@Model.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
-                                            </div>
-                                            <div class="clear"></div>
+                            <div id="modelNewsContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom font14">
+                                @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+                                <div class="more-article-target view-all-btn-container">
+                                    <a href="@Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking)" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : (!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Bikes News"))"
+                                       class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
+                                </div>
+                                </div>
+                                }
+                                <!-- news control ends here -->
+                                @if (Model.IsExpertReviewsAvailable)
+                                {
+                                    <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                                        <h2 class="padding-left10 padding-right10">@Model.MakeName Reviews</h2>
+                                        <h3 class="model-section-subtitle padding-right10 padding-left10">Expert Reviews</h3>
+                                        @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                                        <div class="padding-left10 more-article-target view-all-btn-container">
+                                            <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="btn view-all-target-btn">Read all reviews<span class="bwsprite teal-right"></span></a>
                                         </div>
-                                        @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.Dealers)
                                     </div>
-                        }
-                                @if (Model.IsServiceDataAvailable) {
+                                }
+                                @if (Model.IsVideosAvailable)
+                    {
+                                    <div id="makeVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                                        <h2 class="padding-right10 padding-left10">@Model.MakeName Videos</h2>
+                                        @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
+                                        <div class="padding-left10 more-article-target view-all-btn-container">
+                                            <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">View all videos<span class="bwsprite teal-right"></span></a>
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
+                    {
+                                    <div id="dealerAndServiceContent" class="bw-model-tabs-data">
+                                        @if (Model.IsDealerAvailable)
+                        {
+                                            <div id="makeDealersContent" class="padding-bottom20 padding-top15 font14">
+                                                <div class="carousel-heading-content">
+                                                    <div class="swiper-heading-left-grid inline-block">
+                                                        <h2>@Model.MakeName showrooms in @Model.Location</h2>
+                                                    </div>
+                                                    <div class="swiper-heading-right-grid inline-block text-right">
+                                                        <a href="/@Model.MakeMaskingName-dealer-showrooms-in-@Model.LocationMasking/" title="@Model.MakeName showrooms in @Model.Location" class="btn view-all-target-btn">View all</a>
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                </div>
+                                                @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.Dealers)
+                                            </div>
+                                        }
+                                        @if (Model.IsServiceDataAvailable)
+                                        {
+                                            <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                                            <div>
+                                                <div class="carousel-heading-content padding-top20">
+                                                    <div class="swiper-heading-left-grid inline-block">
+                                                        <h2>@string.Format("{0} service centers in {1}", Model.MakeName, Model.Location)</h2>
+                                                    </div><div class="swiper-heading-right-grid inline-block text-right">
+                                                        <a href="@string.Format("/{0}-service-center-in-{1}/", Model.MakeMaskingName, Model.LocationMasking)" title="@string.Format("{0} Service Centers in {1}", Model.MakeName, Model.Location)" class="btn view-all-target-btn">View all</a>
+                                                    </div>
+                                                </div>
+                                                <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
+                                                    <div class="swiper-wrapper">
+                                                        @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.ServiceCenters)
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                </div>
+                                            </div>
+                                        }
+                                        else if (Model.IsDealerServiceDataInIndiaAvailable)
+                                        {
+                                            <div id="makeDealersContent" class="padding-top20 padding-bottom20 font14">
+                                                <h2 class="padding-left20 padding-right20"> @string.Format("{0} {1}", Model.MakeName, Model.DealerServiceTitle.Replace("Dealers", "Showrooms"))</h2>
+                                                @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
+                                            </div>
+                                        }
+
+                                    </div>
                                     <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-                                    <div>
+                                }
+                                @if (Model.IsUsedModelsBikeAvailable)
+                    {
+                                    <div id="makeUsedBikeContent" class="bw-model-tabs-data">
                                         <div class="carousel-heading-content padding-top20">
                                             <div class="swiper-heading-left-grid inline-block">
-                                                <h2>@string.Format("{0} service centers in {1}", Model.MakeName, Model.Location)</h2>
+                                                <h2>Used @Model.MakeName bikes in @Model.Location</h2>
                                             </div><div class="swiper-heading-right-grid inline-block text-right">
-                                                <a href="@string.Format("/{0}-service-center-in-{1}/", Model.MakeMaskingName, Model.LocationMasking)" title="@string.Format("{0} Service Centers in {1}", Model.MakeName, Model.Location)" class="btn view-all-target-btn">View all</a>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
-                                            <div class="swiper-wrapper">
-                                                @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.ServiceCenters)
+                                                <a href="/used/@Model.MakeMaskingName-bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all</a>
                                             </div>
                                             <div class="clear"></div>
                                         </div>
+                                        <div class="padding-bottom20">
+                                            @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedModels)
+                                        </div>
                                     </div>
-                        }
-                        else if (Model.IsDealerServiceDataInIndiaAvailable)
-                        {
-                            <div id="makeDealersContent" class="padding-top20 padding-bottom20 font14">
-                                <h2 class="padding-left20 padding-right20"> @string.Format("{0} {1}", Model.MakeName, Model.DealerServiceTitle.Replace("Dealers", "Showrooms"))</h2>
-                                @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
+                                }
+                                <div id="overallMakeDetailsFooter"></div>
                             </div>
-                        }
-
-                            </div>
-                            <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-                    }
-                        @if (Model.IsUsedModelsBikeAvailable)
-                    {
-                            <div id="makeUsedBikeContent" class="bw-model-tabs-data">
-                                <div class="carousel-heading-content padding-top20">
-                                    <div class="swiper-heading-left-grid inline-block">
-                                        <h2>Used @Model.MakeName bikes in @Model.Location</h2>
-                                    </div><div class="swiper-heading-right-grid inline-block text-right">
-                                        <a href="/used/@Model.MakeMaskingName-bikes-in-@Model.LocationMasking/" title="Second Hand Bikes in @Model.Location" class="btn view-all-target-btn">View all</a>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="padding-bottom20">
-                                    @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedModels)
-                                </div>
-                            </div>
-                    }
-                        <div id="overallMakeDetailsFooter"></div>
-                    </div>
                 </div>
                 <div class="clear"></div>
             </section>

@@ -354,3 +354,31 @@
 .india-icon {
   width: 61px;
   background-position: -834px 0; }
+
+.review-image-wrapper {
+  width: 120px;
+  height: 70px;
+  border: 1px solid #e2e2e2;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 10px; }
+  .review-image-wrapper a {
+    width: 100%;
+    height: 70px;
+    display: block;
+    line-height: 0; }
+  .review-image-wrapper img {
+    width: 100%;
+    height: 68px;
+    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center; }
+
+.review-heading-wrapper {
+  width: 55%;
+  display: inline-block;
+  vertical-align: top; }
+  .review-heading-wrapper .target-link {
+    margin-bottom: 7px; }
+
+@media only screen and (max-width: 320px) {
+  .review-heading-wrapper {
+    width: 50%; } }

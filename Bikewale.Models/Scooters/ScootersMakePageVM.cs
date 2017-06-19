@@ -11,6 +11,8 @@ namespace Bikewale.Models
     /// Summary:  View Model for 
     /// Modified by : Aditi Srivastava on 27 Apr 2017
     /// Summary  : Added new viewModel for similar comparisons
+    /// Modified by : Aditi Srivastava on 15 June 2017
+    /// Summary     : Added editorial widgets (news, expert reviews, videos)
     /// </author>
     public class ScootersMakePageVM : ModelBase
     {
@@ -23,6 +25,9 @@ namespace Bikewale.Models
         public ServiceCenterDetailsWidgetVM ServiceCenters { get; set; }
         public DealerCardVM Dealers { get; set; }
         public IEnumerable<BikeMakeEntityBase> OtherBrands { get; set; }
+        public RecentNewsVM News { get; set; }
+        public RecentExpertReviewsVM ExpertReviews { get; set; }
+        public RecentVideosVM Videos { get; set; }
         public string DealerServiceTitle { get; set; }
         public string LocationMasking { get; set; }
         public string Location { get; set; }
@@ -30,6 +35,9 @@ namespace Bikewale.Models
         public bool IsScooterDataAvailable { get; set; }
         public bool IsCompareDataAvailable { get; set; }
         public bool IsUpComingBikesAvailable { get; set; }
+        public bool IsNewsAvailable { get; set; }
+        public bool IsExpertReviewsAvailable { get; set; }
+        public bool IsVideosAvailable { get; set; }
         public bool IsDealerServiceDataInIndiaAvailable { get; set; }
         public bool IsDealerServiceDataAvailable { get; set; }
         public bool IsDealerAvailable { get; set; }

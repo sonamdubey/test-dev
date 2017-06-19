@@ -255,19 +255,19 @@ namespace Bikewale.BAL.Videos
                 GrpcVideosList _objVideoList;
 
                 int startIndex, endIndex;
-                Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
+                Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
 
 
                 if (makeId > 0 || modelId.HasValue && modelId.Value > 0)
                 {
                     if (modelId.HasValue && modelId.Value > 0)
-                        _objVideoList = GrpcMethods.GetVideosByModelId((int)modelId.Value, (uint)startIndex, (uint)endIndex);
+                        _objVideoList = GrpcMethods.GetVideosByModelId((int)modelId.Value, (uint)startIndex, (uint)endIndex, bodyStyleId);
                     else
-                        _objVideoList = GrpcMethods.GetVideosByMakeId((int)makeId, (uint)startIndex, (uint)endIndex);
+                        _objVideoList = GrpcMethods.GetVideosByMakeId((int)makeId, (uint)startIndex, (uint)endIndex, bodyStyleId);
                 }
                 else
                 {
-                    _objVideoList = GrpcMethods.GetVideosBySubCategory((int)EnumVideosCategory.JustLatest, (uint)startIndex, (uint)endIndex);
+                    _objVideoList = GrpcMethods.GetVideosBySubCategory((int)EnumVideosCategory.JustLatest, (uint)startIndex, (uint)endIndex, bodyStyleId);
                 }
 
                 if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)

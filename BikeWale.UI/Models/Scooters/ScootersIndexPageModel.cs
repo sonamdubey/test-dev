@@ -216,7 +216,6 @@ namespace Bikewale.Models
                 {
                     objVM.TabCount++;
                     objVM.IsNewsActive = true;
-                    objVM.News.HideViewAll = true;
                 }
                 if (objVM.ExpertReviews.FetchedCount > 0)
                 {

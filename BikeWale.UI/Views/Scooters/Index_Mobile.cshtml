@@ -179,3 +179,56 @@
 </section>
 }
 <div class="margin-bottom10"></div>
+@if (Model.TabCount > 0)
+{
+    <section class="container">
+        <div class="container">
+            <div class="grid-12 alpha omega margin-bottom20">
+                <h2 class="font18 text-center margin-top20 margin-bottom10">Latest updates</h2>
+                <div class="content-box-shadow">
+                    <div class="bw-tabs-panel article-control padding-bottom20">
+                        <div class="bw-tabs">
+                            <div class="@string.Format("text-center {0}", Model.TabCount > 2 ? string.Empty : Model.TabCount > 1 ? "margin-top30 margin-bottom30" : "margin-top10")">
+                                <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", Model.TabCount > 2 ? "bw-tabs-flex" : Model.TabCount > 1 ? "home-tabs" : "hide")">
+                                    <ul>
+                                        @if (Model.News.FetchedCount > 0)
+                                        {
+                                            <li data-tabs="ctrlNews" class="@string.Format("{0}", Model.IsNewsActive ? "active" : "hide")">News</li>
+                                        }
+                                        @if (Model.ExpertReviews.FetchedCount > 0)
+                                        {
+                                            <li data-tabs="ctrlExpertReviews" class="@string.Format("{0}", Model.IsExpertReviewActive ? "active" : "hide")">Expert Reviews</li>
+                                        }
+                                        @if (Model.Videos.FetchedCount > 0)
+                                        {
+                                            <li data-tabs="ctrlVideos" class="@string.Format("{0}", Model.IsVideoActive ? "active" : "hide")">Videos</li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bw-tabs-data margin-right20 margin-left20" id="ctrlNews">
+                            @if (Model.News.FetchedCount > 0)
+                            {
+                                @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                            }
+                        </div>
+                        <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlExpertReviews">
+                            @if (Model.ExpertReviews.FetchedCount > 0)
+                            {
+                                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+                            }
+                        </div>
+                        <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlVideos">
+                            @if (Model.Videos.FetchedCount > 0)
+                            {
+                                @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}

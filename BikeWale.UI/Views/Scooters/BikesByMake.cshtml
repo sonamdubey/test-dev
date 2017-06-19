@@ -140,6 +140,18 @@
                                 {
                                     <a href="#makeAboutContent" rel="nofollow" class="active">About</a>
                                 }
+                                @if (Model.IsNewsAvailable)
+                                {
+                                    <a href="#modelNewsContent" rel="nofollow">News</a>
+                                }
+                                @if (Model.IsExpertReviewsAvailable)
+                                {
+                                    <a href="#makeReviewsContent" rel="nofollow">Reviews</a>
+                                }
+                                @if (Model.IsVideosAvailable)
+                                {
+                                    <a href="#makeVideosContent" rel="nofollow">Videos</a>
+                                }
                                 @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
                                 {
                                     <a href="#dealerAndServiceContent" rel="nofollow">@Model.DealerServiceTitle</a>
@@ -170,6 +182,27 @@
                             </div>
                             <div class="clear"></div>
                         </div>
+                    }
+                   @if (Model.IsNewsAvailable)
+                   {
+                    <div class="border-solid-bottom padding-top20 margin-right10 margin-left10">
+                        @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+                    </div>
+                   }
+                    @if (Model.IsExpertReviewsAvailable)
+                    {
+                        <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                            <h2 class="padding-left10 padding-right10">@Model.Make.MakeName Reviews</h2>
+                            <h3 class="model-section-subtitle padding-right10 padding-left10">Expert Reviews</h3>
+                            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                          </div>
+                    }
+                    @if (Model.IsVideosAvailable)
+                    {
+                        <div id="makeVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                            <h2 class="padding-right10 padding-left10">@Model.Make.MakeName Videos</h2>
+                            @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
+                          </div>
                     }
                     @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
                     {
