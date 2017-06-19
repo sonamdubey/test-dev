@@ -372,7 +372,7 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Description = String.Format("Read the latest news about {0} {1} bikes exclusively on BikeWale. Know more about {1}.", objMake.MakeName, objModel.ModelName);
                 objData.PageH1 = string.Format("{0} {1} Bikes News", objMake.MakeName, objModel.ModelName);
                 objData.PageH2 = string.Format("Latest {0} {1} Bikes News and Views", objMake.MakeName, objModel.ModelName);
-               
+                objData.AdTags.TargetedMakes = objMake.MakeName;
                 objData.AdTags.TargetedModel = objModel.ModelName;
             }
             else if (MakeId > 0)
