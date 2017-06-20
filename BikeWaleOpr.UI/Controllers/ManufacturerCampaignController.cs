@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BikewaleOpr.Models;
+using BikeWaleOpr.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,9 +13,16 @@ namespace BikewaleOpr.Controllers
         // GET: ManufacturerCampaign
         public ActionResult SearchManufacturerCampaign()
         {
-
-
-            return View();
+            SearchCampaign objSearch = new SearchCampaign();
+            if (objSearch != null)
+            {
+                objSearch.GetData();
+                return View();
+            }
+            else
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }   
         }
     }
 }
