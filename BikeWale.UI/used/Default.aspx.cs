@@ -82,7 +82,7 @@ namespace Bikewale.Used
             }
             if (ctrlusedBikeInCities != null)
             {
-                ctrlusedBikeInCities.WidgetHref = "/used/bikes-in-india/";
+                ctrlusedBikeInCities.WidgetHref = "/used/browse-bikes-by-cities/";
                 ctrlusedBikeInCities.WidgetTitle = "Second Hand Bikes in India";
 
             }

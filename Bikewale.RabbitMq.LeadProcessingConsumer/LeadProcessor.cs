@@ -247,6 +247,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             }
                             else
                             {
+                                _repository.UpdateManufacturerLead(pqId, "BW Response: Duplicate lead not pushed in API");
                                 Logs.WriteInfoLog(String.Format("Royal Enfield: Duplicate lead submitted. PQId --> {0}", pqId));
                             }
                         }
@@ -258,7 +259,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             {
                 Logs.WriteInfoLog(String.Format("PushManufacturerLead(pqId={0}) : {1}", pqId, ex.Message));
             }
-
             return isSuccess;
         }
 
@@ -431,7 +431,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
                             {
                                 response = _response.Content.ReadAsStringAsync().Result;
-                                _repository.UpdateManufacturerLead(leadEntity.PQId, leadEntity.Email, leadEntity.Mobile, response);
+                                _repository.UpdateManufacturerLead(leadEntity.PQId, response);
                                 _response.Content.Dispose();
                                 _response.Content = null;
                                 isSuccess = true;
@@ -491,7 +491,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                                 if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
                                 {
                                     response = _response.Content.ReadAsStringAsync().Result;
-                                    _repository.UpdateManufacturerLead(pqId, priceQuote.CustomerEmail, priceQuote.CustomerMobile, response);
+                                    _repository.UpdateManufacturerLead(pqId, response);
                                     _response.Content.Dispose();
                                     _response.Content = null;
                                     isSuccess = true;
@@ -540,7 +540,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 // service.affiliates((priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, dealer.DealerState, dealer.DealerCity, dealer.DealerName, quotation.ModelName, "https://www.bikewale.com", token, "bikewale");
                 if (!string.IsNullOrEmpty(response))
                 {
-                    _repository.UpdateManufacturerLead(pqId, priceQuote.CustomerEmail, priceQuote.CustomerMobile, response);
+                    _repository.UpdateManufacturerLead(pqId, response);
                     return true;
                 }
                 else

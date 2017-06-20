@@ -112,7 +112,7 @@ namespace Bikewale.Models
                     objData.MakeMaskingName = makeBase.MaskingName;
                     objData.MakeName = _makeName = makeBase.MakeName;
                 }
-                BindPageMetaTags(objData.PageMetaTags, objData.Bikes, _makeName);
+                BindPageMetaTags(objData, objData.Bikes, _makeName);
                 BindUpcomingBikes(objData);
                 BindCompareBikes(objData, CompareSource, cityId);
                 BindDealerServiceData(objData, cityId, makeBase, cityBase);
@@ -254,16 +254,18 @@ namespace Bikewale.Models
                 }
             }
         }
-
-        private void BindPageMetaTags(PageMetaTags pageMetaTags, IEnumerable<MostPopularBikesBase> objModelList, string makeName)
+        /// Modified by :- Subodh Jain 19 june 2017
+        /// Summary :- Added Target Make
+        private void BindPageMetaTags(MakePageVM objData, IEnumerable<MostPopularBikesBase> objModelList, string makeName)
         {
             long minPrice = objModelList.Min(bike => bike.VersionPrice);
             long MaxPrice = objModelList.Max(bike => bike.VersionPrice);
-            pageMetaTags.Title = string.Format("{0} Bikes Prices, Reviews, Mileage & Images - BikeWale", makeName);
-            pageMetaTags.Description = string.Format("{0} Price in India - Rs. {1} - Rs. {2}. Check out {0} on road price, reviews, mileage, versions, news & images at Bikewale.", makeName, Bikewale.Utility.Format.FormatPrice(minPrice.ToString()), Bikewale.Utility.Format.FormatPrice(MaxPrice.ToString()));
-            pageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/", _makeMaskingName);
-            pageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/", _makeMaskingName);
-            pageMetaTags.Keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, {0} Images, new {0} Bikes", makeName);
+            objData.PageMetaTags.Title = string.Format("{0} Bikes Prices, Reviews, Mileage & Images - BikeWale", makeName);
+            objData.PageMetaTags.Description = string.Format("{0} Price in India - Rs. {1} - Rs. {2}. Check out {0} on road price, reviews, mileage, versions, news & images at Bikewale.", makeName, Bikewale.Utility.Format.FormatPrice(minPrice.ToString()), Bikewale.Utility.Format.FormatPrice(MaxPrice.ToString()));
+            objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/", _makeMaskingName);
+            objData.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/", _makeMaskingName);
+            objData.PageMetaTags.Keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, {0} Images, new {0} Bikes", makeName);
+            objData.AdTags.TargetedMakes = makeName;
         }
 
         /// <summary>

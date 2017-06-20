@@ -90,6 +90,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Sushil Kumar on 23rd March 2017
         /// Description  : To set Page Meta tags
+        /// Modified by :- Subodh Jain 19 june 2017
+        /// Summary :- Added TargetModels and Target Make
         /// </summary>
         /// <param name="objData"></param>
         private void SetPageMetas(DealerPriceQuotePageVM objData)
@@ -101,6 +103,8 @@ namespace Bikewale.Models
                     objData.PageMetaTags.Title = String.Format("{0} {1} {2} Price Quote", objData.SelectedVersion.MakeBase.MakeName, objData.SelectedVersion.ModelBase.ModelName, objData.SelectedVersion.VersionName);
                     objData.PageMetaTags.ShareImage = Image.GetPathToShowImages(objData.SelectedVersion.OriginalImagePath, objData.SelectedVersion.HostUrl, Bikewale.Utility.ImageSize._360x202);
                     objData.PageMetaTags.Description = String.Format("{0} {1} {2} price quote", objData.SelectedVersion.MakeBase.MakeName, objData.SelectedVersion.ModelBase.ModelName, objData.SelectedVersion.VersionName);
+                    objData.AdTags.TargetedMakes = objData.SelectedVersion.MakeBase.MakeName;
+                    objData.AdTags.TargetedModel = objData.SelectedVersion.ModelBase.ModelName;
                 }
 
             }
