@@ -47,5 +47,15 @@ namespace BikewaleOpr.Controllers
 
         }   // End of Index method
 
+        public ActionResult ManageRatings(ReviewsInputFilters filters)
+        {
+            ManageUserReviewsRatingsPage objPageModel = new ManageUserReviewsRatingsPage(_reviewsRepo);
+
+            ManageUserReviewsPageVM pageVM = objPageModel.GetData();
+
+            return View(pageVM);
+        }
+
+
     }   // Class
 }   // namespace
