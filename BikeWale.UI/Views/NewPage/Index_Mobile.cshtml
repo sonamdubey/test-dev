@@ -364,6 +364,11 @@
                             @if (Model.News.FetchedCount > 0)
                             {
                                 @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                                <div class="view-all-btn-container">
+                                    <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking,Model.News.ModelMasking))" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName):!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News",Model.News.MakeName):"Bikes News")" class="btn view-all-target-btn">Read all news<span class="bwmsprite teal-right"></span></a>
+                                </div>
+                                <div class="bw-tabs-data" id="ctrlNews">
+                                </div>
                             }
                         </div>
                         <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlExpertReviews">
@@ -379,6 +384,9 @@
                             @if (Model.Videos.FetchedCount > 0)
                             {
                                 @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+                                <div class="view-all-btn-container">
+                                    <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>
+                                </div>
                             }
                         </div>
 
