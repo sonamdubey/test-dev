@@ -8,6 +8,10 @@ using System.Web;
 
 namespace BikewaleOpr.Models.UserReviews
 {
+    /// <summary>
+    /// Created By Sajal Gupta on 20-06-2017
+    /// Descriptiopn : This is model for manage rating page.
+    /// </summary>
     public class ManageUserReviewsRatingsPage
     {
         private readonly IUserReviewsRepository _reviewsRepo = null;        
