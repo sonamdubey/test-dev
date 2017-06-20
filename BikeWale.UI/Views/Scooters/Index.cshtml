@@ -4,11 +4,11 @@
     Model.AdTags.Ad_976x400Second = true;
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/BikeWale_CompareBikes_";
-    Model.IsTransparentHeader = true;    
+    Model.IsTransparentHeader = true;
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/scooters/landing.css' />";
     Model.Page_JS_Path = "/src/scooters.js";
     Model.IsPageTypeLanding = true;
-    Layout = "~/Views/Shared/_Layout.cshtml";    
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <header class="scooters-banner">
@@ -38,7 +38,7 @@
                     </ul>
                     <div class="clear"></div>
                 </div>
-                @{ Html.RenderPartial("~/views/make/_Brands.cshtml",Model.Brands); }
+                @{ Html.RenderPartial("~/views/make/_Brands.cshtml", Model.Brands); }
                 <div id="discoverBudget" class="bw-tabs-data padding-bottom15 hide">
                     <ul class="elevated-card-list">
                         <li>
@@ -204,4 +204,57 @@
         @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Second.cshtml", new { AdId = Model.AdTags.AdId });}
     </section>
 }
-
+@if (Model.TabCount > 0) { 
+<section>
+    <div class="container">
+        <div class="grid-12">
+            <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest scooter updates</h2>
+            <div class="bw-tabs-panel margin-bottom30 padding-bottom20 content-box-shadow article-control">
+                <div class="@string.Format("text-center {0}", Model.TabCount > 2 ? string.Empty : Model.TabCount > 1 ? "margin-top30 margin-bottom30" : "margin-top10")">
+                    <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", Model.TabCount > 2 ? "bw-tabs-flex" : Model.TabCount > 1 ? "home-tabs" : "hide")">
+                        <ul>
+                            @if (Model.News.FetchedCount > 0)
+                            {
+                                <li class="@string.Format("{0}", Model.IsNewsActive ? "active" : "hide")" data-tabs="ctrlNews">
+                                    <h3>News</h3>
+                                </li>
+                            }
+                            @if (Model.ExpertReviews.FetchedCount > 0)
+                            {
+                                <li class="@string.Format("{0}", Model.IsExpertReviewActive ? "active" : "hide")" data-tabs="ctrlExpertReviews">
+                                    <h3>Expert Reviews</h3>
+                                </li>
+                            }
+                            @if (Model.Videos.FetchedCount > 0)
+                            {
+                                <li class="@string.Format("{0}", Model.IsVideoActive ? "active" : "hide")" data-tabs="ctrlVideos">
+                                    <h3>Videos</h3>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="bw-tabs-data padding-left10 padding-right10" id="ctrlNews">
+                    @if (Model.News.FetchedCount > 0)
+                    {
+                        @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+                    }
+                </div>
+                <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlExpertReviews">
+                    @if (Model.ExpertReviews.FetchedCount > 0)
+                    {
+                        @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                    }
+                </div>
+                <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlVideos">
+                    @if (Model.Videos.FetchedCount > 0)
+                    {
+                        @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+}

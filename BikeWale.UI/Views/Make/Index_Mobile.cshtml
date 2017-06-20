@@ -189,6 +189,11 @@
                 <div id="makeNewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
                     <h2 class="text-bold">@Model.MakeName News</h2>
                     @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                    <div class="view-all-btn-container">
+                        <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking,Model.News.ModelMasking))" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName):!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News",Model.News.MakeName):"Bikes News")" class="btn view-all-target-btn">Read all news<span class="bwmsprite teal-right"></span></a>
+                    </div>
+                    <div class="bw-tabs-data" id="ctrlNews">
+                    </div>
                 </div>
             }
             @if (Model.IsExpertReviewsAvailable)
@@ -207,6 +212,9 @@
                 <div id="makeVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
                     <h2 class="text-bold">@Model.MakeName Videos</h2>
                     @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+                    <div class="view-all-btn-container">
+                        <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>
+                    </div>
                 </div>
             }
             @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)

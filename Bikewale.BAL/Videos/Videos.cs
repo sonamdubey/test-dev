@@ -234,7 +234,54 @@ namespace Bikewale.BAL.Videos
 
             return videoDTOList;
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 14 June 2017
+        /// Summary    : get videos by bodystyleid
+        /// </summary>
+        public IEnumerable<BikeVideoEntity> GetVideosByMakeModel(ushort pageNo, ushort pageSize, string bodyStyleId, uint makeId, uint? modelId = null)
+        {
+            return GetVideosByMakeModelViaGrpc(pageNo, pageSize, bodyStyleId, makeId, modelId);
+        }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava on 14 June 2017
+        /// Summary    : get videos by bodystyleid
+        /// </summary>
+        private IEnumerable<BikeVideoEntity> GetVideosByMakeModelViaGrpc(ushort pageNo, ushort pageSize, string bodyStyleId, uint makeId, uint? modelId = null)
+        {
+            IEnumerable<BikeVideoEntity> videoDTOList = null;
+            try
+            {
+                GrpcVideosList _objVideoList;
+
+                int startIndex, endIndex;
+                Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
+
+
+                if (makeId > 0 || modelId.HasValue && modelId.Value > 0)
+                {
+                    if (modelId.HasValue && modelId.Value > 0)
+                        _objVideoList = GrpcMethods.GetVideosByModelId((int)modelId.Value, (uint)startIndex, (uint)endIndex, bodyStyleId);
+                    else
+                        _objVideoList = GrpcMethods.GetVideosByMakeId((int)makeId, (uint)startIndex, (uint)endIndex, bodyStyleId);
+                }
+                else
+                {
+                    _objVideoList = GrpcMethods.GetVideosBySubCategory((int)EnumVideosCategory.JustLatest, (uint)startIndex, (uint)endIndex, bodyStyleId);
+                }
+
+                if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
+                {
+                    videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList.LstGrpcVideos);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+            }
+
+            return videoDTOList;
+        }
 
         /// <summary>
         /// Created by: Sangram Nandkhile on 28 Feb 2017

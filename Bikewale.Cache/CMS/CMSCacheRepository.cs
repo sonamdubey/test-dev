@@ -80,6 +80,26 @@ namespace Bikewale.Cache.CMS
             }
             return _objArticlesList;
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 14 June 2017
+        /// Summary    : To get list of articles by bosystyle
+        /// </summary>
+        public IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string contentTypeIds, uint totalRecords, string bodyStyleId, uint makeId, uint modelId)
+        {
+            IEnumerable<ArticleSummary> _objArticlesList = null;
+
+            try
+            {
+                if (_objArticles != null)
+                    _objArticlesList = _objArticles.GetMostRecentArticlesByIdList(contentTypeIds, totalRecords,bodyStyleId, makeId, modelId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetMostRecentArticlesByIdList");
+                objErr.SendMail();
+            }
+            return _objArticlesList;
+        }
         #endregion
 
         #region Articles By category

@@ -52,17 +52,23 @@ namespace Bikewale.Models
             _videos = videos;
         }
         #endregion
-
+        public bool IsScooter { get; set; }
         #region Functions to get data
         /// <summary>
         /// Created by : Aditi Srivastava on 23 Mar 2017
-        /// Summary    : To get list of news articles
+        /// Summary    : To get list of videos
         /// </summary>
         public RecentVideosVM GetData()
         {
             RecentVideosVM recentVideos = new RecentVideosVM();
             try
             {
+                if (IsScooter)
+                {
+                    string bodyStyleId = "5";
+                    recentVideos.VideosList = _videos.GetVideosByMakeModel(_pageNo, _pageSize, bodyStyleId,_makeId, _modelId);
+                }
+                else
                 recentVideos.VideosList = _videos.GetVideosByMakeModel(_pageNo, _pageSize, _makeId, _modelId);
                 if (recentVideos.VideosList != null)
                 {

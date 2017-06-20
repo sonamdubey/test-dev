@@ -113,6 +113,11 @@
         {
             <h3 class="text-bold">News</h3>
             @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+            <div class="view-all-btn-container">
+                <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking,Model.News.ModelMasking))" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName):!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News",Model.News.MakeName):"Bikes News")" class="btn view-all-target-btn">Read all news<span class="bwmsprite teal-right"></span></a>
+            </div>
+            <div class="bw-tabs-data" id="ctrlNews">
+            </div>
         }
     </div>
 }
@@ -124,6 +129,9 @@
     <div id="videosContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
         <h2>@Model.BikeName Videos</h2>
         @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+        <div class="view-all-btn-container">
+            <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="View_all_videos_link_cliked" v="@Model.BikeName">View all videos<span class="bwmsprite teal-right"></span></a>
+        </div>
     </div>
 }
 

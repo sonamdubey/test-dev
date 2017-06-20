@@ -88,6 +88,18 @@
                         {
                             <li class="active" data-tabs="#makeAboutContent">About</li>
                         }
+                        @if (Model.IsNewsAvailable)
+                        {
+                            <li data-tabs="#makeNewsContent">News</li>
+                        }
+                        @if (Model.IsExpertReviewsAvailable)
+                        {
+                            <li data-tabs="#makeReviewsContent">Reviews</li>
+                        }
+                        @if (Model.IsVideosAvailable)
+                        {
+                            <li data-tabs="#makeVideosContent">Videos</li>
+                        }
                         @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
                         {
                             <li data-tabs="#dealerAndServiceContent">@Model.DealerServiceTitle </li>
@@ -111,6 +123,28 @@
                     </div>
                 </div>
                 <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+            }
+            @if (Model.IsNewsAvailable)
+            {
+                <div id="makeNewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
+                    <h2 class="text-bold">News about @Model.Make.MakeName Scooters</h2>
+                    @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                </div>
+            }
+            @if (Model.IsExpertReviewsAvailable)
+            {
+                <div id="makeReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
+                    <h2 class="text-bold">Reviews about @Model.Make.MakeName Scooters</h2>
+                    <h3 class="model-section-subtitle">Expert Reviews</h3>
+                    @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+                  </div>
+            }
+            @if (Model.IsVideosAvailable)
+            {
+                <div id="makeVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
+                    <h2 class="text-bold">Videos of @Model.Make.MakeName Scooters</h2>
+                    @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+                </div>
             }
             @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
             {
