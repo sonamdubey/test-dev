@@ -169,7 +169,7 @@ namespace Bikewale.Models
                 objData.IsServiceDataAvailable = objData.ServiceCenters != null && objData.ServiceCenters.ServiceCentersList != null && objData.ServiceCenters.ServiceCentersList.Count() > 0;
                 objData.IsDealerServiceDataAvailable = cityId > 0 && (objData.IsDealerAvailable || objData.IsServiceDataAvailable);
                 objData.IsDealerServiceDataInIndiaAvailable = cityId == 0 && objData.DealersServiceCenter != null && objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails.Count() > 0;
-                objData.DealerServiceTitle = cityId == 0 ? "Dealers & Service Centers" : String.Format("{0}{1}", objData.IsDealerAvailable ? "Dealers" : "", objData.IsServiceDataAvailable ? " & Service Centers" : "");
+                objData.DealerServiceTitle = (cityId == 0 ? "Dealers & Service Centers" : (((objData.IsDealerAvailable && objData.IsServiceDataAvailable) ? "Dealers & Service Centers" : (objData.IsDealerAvailable ? "Dealers" : (objData.IsServiceDataAvailable ? "Service Centers" : "")))));
                 objData.IsNewsAvailable = objData.News != null && objData.News.ArticlesList != null && objData.News.ArticlesList.Count() > 0;
                 objData.IsExpertReviewsAvailable = objData.News != null && objData.ExpertReviews.ArticlesList != null && objData.ExpertReviews.ArticlesList.Count() > 0;
                 objData.IsVideosAvailable = objData.Videos != null && objData.Videos.VideosList != null && objData.Videos.VideosList.Count() > 0;
