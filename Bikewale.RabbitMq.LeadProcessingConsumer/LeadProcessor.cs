@@ -9,6 +9,7 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.Serialization.Formatters.Binary;
 namespace Bikewale.RabbitMq.LeadProcessingConsumer
 {
@@ -469,17 +470,18 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             TataCapitalInputEntity tataLeadInput = null;
             try
             {
+                string fullName = priceQuote.CustomerName;
                 string firstName = string.Empty, lastName = string.Empty;
-                if(priceQuote.CustomerName.Contains(" "))
+                if(fullName.Contains(" "))
                 {
-                    string[] strName = priceQuote.CustomerName.Split(' ');
-                    firstName = strName[0];
-                    lastName = strName[1];
+                    int spaceStart = fullName.IndexOf(' ');
+                    firstName = fullName.Substring(0, spaceStart);
+                    lastName = fullName.Substring(spaceStart + 1);
                 }
                 else
                 {
-                    firstName = priceQuote.CustomerName;
-                    lastName = priceQuote.CustomerName;
+                    firstName = fullName;
+                    lastName = fullName;
                 }
 
                string tataCapitalCityId = _repository.GetTataCapitalByCityId(priceQuote.CityId);
@@ -493,7 +495,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     lname = lastName,
                     resEmailId = priceQuote.CustomerEmail,
                     resMobNo = priceQuote.CustomerMobile,
-                    rescity = tataCapitalCityId,
+                    resCity = tataCapitalCityId,
                     source = ConfigurationManager.AppSettings["TataCapitalSource"],
                     password = ConfigurationManager.AppSettings["TataCapitalPassword"]
                 };
@@ -501,9 +503,11 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 Logs.WriteInfoLog(String.Format("Tata Capital: Params Logged for API Input --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(tataLeadInput)));
                 if (_httpClient != null)
                 {
+                    
                     string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(tataLeadInput);
                     string response = string.Empty;
                     HttpContent httpContent = new StringContent(jsonString);
+                    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                     using (HttpResponseMessage _response = _httpClient.PostAsync(_tataCapitalAPIUrl, httpContent).Result)
                     {
                         if (_response.IsSuccessStatusCode)

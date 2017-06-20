@@ -423,7 +423,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     {
                         if (dr != null && dr.Read())
                         {
-                            tataCapitalCityId = Convert.ToString(dr["cityid"]);                           
+                            tataCapitalCityId = Convert.ToString(dr["city"]);                           
                         }
                     }
                 }
