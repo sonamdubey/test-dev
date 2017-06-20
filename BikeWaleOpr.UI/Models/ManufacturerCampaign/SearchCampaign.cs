@@ -7,6 +7,12 @@ namespace BikewaleOpr.Models
 {
     public class SearchCampaign
     {
+        public SearchCampaign()
+        {
+
+
+        }
+
 
         public void GetData()
         {
@@ -15,7 +21,7 @@ namespace BikewaleOpr.Models
         }
         private void GetManufacturersList()
         {
-
+            
         }
 
 
