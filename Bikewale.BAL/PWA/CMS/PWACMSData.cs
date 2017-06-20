@@ -39,7 +39,7 @@ namespace Bikewale.BAL.PWA.CMS
             {
                 try
                 {
-                    return AssemblyRegistration.Container.Resolve<IReactEnvironment>();
+                    return ReactEnvironment.Current;
                 }
                 catch (TinyIoCResolutionException ex)
                 {
