@@ -45,7 +45,7 @@ namespace BikewaleOpr.DALs.UserReviews
                     param.Add("par_modelid", filter.ModelId > 0 ? filter.ModelId : (uint?)null);
                     param.Add("par_reviewdate", filter.ReviewDate != null && filter.ReviewDate != default(DateTime) ? filter.ReviewDate : (DateTime?)null);
 
-                    objReviews = connection.Query<ReviewBase>("GetUserReviewsList", param: param, commandType: CommandType.StoredProcedure);
+                    objReviews = connection.Query<ReviewBase>("GetUserReviewsListHavingReview", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -58,6 +58,37 @@ namespace BikewaleOpr.DALs.UserReviews
 
             return objReviews;
         }   // End of GetReviewsList
+
+        /// <summary>
+        /// Created by Sajal Gupta on 16/06/2017
+        /// Summary : Function to get the user reviews ratings list.
+        /// </summary>       
+        /// <returns></returns>
+        public IEnumerable<ReviewBase> GetRatingsList()
+        {
+            IEnumerable<ReviewBase> objReviews = null;
+
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();                    
+
+                    objReviews = connection.Query<ReviewBase>("GetUserReviewsListNotHavingReview", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetRatingsList");
+            }
+
+            return objReviews;
+        }
 
 
         /// <summary>
@@ -256,5 +287,82 @@ namespace BikewaleOpr.DALs.UserReviews
 
             return objUserReviewSummary;
         }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 19-06-2017
+        /// Description : Gets details from database for user review ids
+        /// </summary>
+        /// <param name="reviewIds"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeRatingApproveEntity> GetUserReviewDetails(string reviewIds)
+        {
+            List<BikeRatingApproveEntity> objDetailsList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getuserreviewdetails"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewids", DbType.String, reviewIds));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        objDetailsList = new List<BikeRatingApproveEntity>();                       
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                objDetailsList.Add(new BikeRatingApproveEntity()
+                                {
+                                    CustomerEmail = Convert.ToString(dr["customeremail"]),
+                                    CustomerName = Convert.ToString(dr["customername"]),
+                                    ReviewId = SqlReaderConvertor.ToUInt32(dr["reviewid"]),
+                                    ModelId = SqlReaderConvertor.ToUInt32(dr["modelid"]),
+                                    ModelMaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                    MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                    BikeName = Convert.ToString(dr["bikename"])
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.GetUserReviewDetails");
+            }
+            return objDetailsList;
+        }
+
+        public bool UpdateUserReviewRatingsStatus(string reviewIds, ReviewsStatus reviewStatus, uint moderatorId, ushort disapprovalReasonId)
+        {            
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    var param = new DynamicParameters();
+
+                    param.Add("par_reviewIds", reviewIds);
+                    param.Add("par_moderatorId", moderatorId);
+                    param.Add("par_status", (ushort)reviewStatus);
+                    param.Add("par_disapproveId", disapprovalReasonId > 0 ? disapprovalReasonId : (ushort?)null);                                        
+
+                    connection.Open();
+
+                    connection.Query("updateuserreviewratingsstatus", param: param, commandType: CommandType.StoredProcedure);                    
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.UserReviews.UpdateUserReviewRatingsStatus");
+                return false;
+            }
+            return true;
+        }
+
     }   // class
 }   // namespace

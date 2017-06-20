@@ -281,3 +281,8 @@ input[type=text].invalid + label.active:after {
     background: none repeat scroll 0 0 #ebebeb;
     cursor: pointer;
 }
+
+.inline-block {
+    display:inline-block;
+    vertical-align:middle;
+}

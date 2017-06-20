@@ -9,6 +9,7 @@ namespace BikewaleOpr.Entity.UserReviews
     /// <summary>
     /// Created By : Ashish G. Kamble on 15 Apr 2017
     /// Summary : Class should be used to hold basic values of user review
+    /// Modified by Sajal Gupta . Added OverallRating
     /// </summary>
     public class ReviewBase
     {
@@ -21,5 +22,6 @@ namespace BikewaleOpr.Entity.UserReviews
         public string CustomerEmail { get; set; }
         public string EntryDate { get; set; }
         public ushort ReviewStatus { get; set; }
+        public ushort OverallRating { get; set; }        
     }
 }

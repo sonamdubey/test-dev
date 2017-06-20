@@ -456,6 +456,7 @@
     </Compile>
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsPageModel.cs" />
+    <Compile Include="Models\UserReviews\ManageUserReviewsRatingsPage.cs" />
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
       <DependentUpon>DealerDetailedPriceQuote.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1926,6 +1927,7 @@
     <Content Include="src\knockout.js" />
     <Content Include="src\modelImagesByColor.js" />
     <Content Include="src\PopUpDiv.js" />
+    <Content Include="src\userreviews\manageuserratings.js" />
     <Content Include="src\userreviews\manageuserreviews.js" />
     <Content Include="users\Login.aspx" />
   </ItemGroup>
@@ -1968,6 +1970,7 @@
     <Content Include="Views\Models\UsedModelImageUpload.cshtml" />
     <Content Include="Views\UserReviews\Index.cshtml" />
     <Content Include="Views\DealerCampaign\CampaignServingAreas.cshtml" />
+    <Content Include="Views\UserReviews\ManageRatings.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
