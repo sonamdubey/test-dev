@@ -1,5 +1,6 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Utility;
+using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
@@ -358,6 +359,12 @@ namespace BikeWaleOpr.Common
                 CompareBike compBike = new CompareBike();
                 compBike.DeleteCompareBike(deleteId);
 
+                //remove memcache keys for all cities
+                for (int i = 0; i < 1500; i++)
+                {
+                    MemCachedUtil.Remove("BW_PopularSimilarBikes_CityId_v2_" + i);
+                    MemCachedUtil.Remove("BW_PopularScootersComparison_CityId_v2_" + i);
+                }
             }
             catch (Exception err)
             {
