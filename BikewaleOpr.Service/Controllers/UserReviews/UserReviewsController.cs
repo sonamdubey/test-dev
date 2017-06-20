@@ -8,6 +8,7 @@ using BikewaleOpr.Entity.UserReviews;
 using BikewaleOpr.Interface.UserReviews;
 using BikewaleOpr.Service.AutoMappers.UserReviews;
 using System;
+using System.Collections.Generic;
 using System.Web.Http;
 
 namespace BikewaleOpr.Service.Controllers.UserReviews
@@ -126,6 +127,47 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
             return NotFound();
         }   // Get review details
         #endregion
+
+        /// <summary>
+        /// Created by Sajal Gupta on 19-06-2017
+        /// Descrioption : Approve given comma separated review ids
+        /// </summary>
+        /// <param name="reviewIds"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/userreviews/ids/{reviewIds}/update/{status}")]
+        public IHttpActionResult UpdateRatingStatus(string reviewIds, ReviewsStatus status, uint moderatedId)
+        {
+            bool updateStatus = false;
+            try
+            {
+                //dispproval id- 6 means fake emailId/name
+                updateStatus = _userReviewsRepo.UpdateUserReviewRatingsStatus(reviewIds, status, moderatedId, 6);
+
+                if (status.Equals(ReviewsStatus.Approved))
+                {
+                    IEnumerable<BikeRatingApproveEntity> objReviewDetails = _userReviewsRepo.GetUserReviewDetails(reviewIds);
+
+                    foreach(var obj in objReviewDetails)
+                    {
+                        string reviewUrl = string.Format("{0}/{1}-bikes/{2}/reviews/{3}/", BWConfiguration.Instance.BwHostUrl, obj.MakeMaskingName, obj.ModelMaskingName, obj.ReviewId);
+
+                        ComposeEmailBase objBase = new ReviewApprovalEmail(obj.CustomerName, reviewUrl, obj.BikeName);
+                        objBase.Send(obj.CustomerEmail, "Congratulations! Your review has been published");
+                        
+                        MemCachedUtil.Remove(string.Format("BW_BikeReviewsInfo_MO_{0}", obj.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_BikeRatingsReviewsInfo_MO_V1_{0}", obj.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_v1_{0}", obj.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", obj.ModelId));
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.UserReviews.UpdateRatingStatus");
+                return InternalServerError();
+            }
+            return Ok(updateStatus);
+        }
 
 
     }   // class
