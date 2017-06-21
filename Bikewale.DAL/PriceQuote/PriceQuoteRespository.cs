@@ -640,16 +640,16 @@ namespace Bikewale.DAL.PriceQuote
             return objVersionInfo;
         }
 
-        public IEnumerable<ManufactureDealer> GetManufacturerDealers()
+        public IEnumerable<ManufacturerDealer> GetManufacturerDealers()
         {
-            List<ManufactureDealer> dealers = null;
+            List<ManufacturerDealer> dealers = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getmanufacturerdealers";
-                    dealers = new List<ManufactureDealer>();
+                    dealers = new List<ManufacturerDealer>();
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
@@ -657,13 +657,14 @@ namespace Bikewale.DAL.PriceQuote
                         {
                             while (dr.Read())
                             {
-                                dealers.Add(new ManufactureDealer
+                                dealers.Add(new ManufacturerDealer
                                 {
                                     Id = Convert.ToString(dr["id"]),
                                     DealerName = Convert.ToString(dr["bwdealername"]),
                                     City = Convert.ToString(dr["city"]),
                                     CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
                                     DealerArea = Convert.ToString(dr["dealerarea"]),
+                                    DealerId = SqlReaderConvertor.ToUInt32(Convert.ToString(dr["dealerid"]))
                                 });
                             }
                             dr.Close();
