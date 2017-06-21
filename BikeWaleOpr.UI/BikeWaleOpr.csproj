@@ -1380,6 +1380,7 @@
     <Content Include="css\chosen.min.css" />
     <Content Include="css\common-new.css" />
     <Content Include="css\Common.css" />
+    <Content Include="css\materialize-stepper.css" />
     <Content Include="css\materialize.css" />
     <Content Include="css\userreviews.css" />
     <Content Include="Default.aspx" />
@@ -1926,6 +1927,7 @@
     <Content Include="src\imageUpload.js" />
     <Content Include="src\jquery-1.6.min.js" />
     <Content Include="src\knockout.js" />
+    <Content Include="src\ManufactureCampaign\ConfigureCampign.js" />
     <Content Include="src\modelImagesByColor.js" />
     <Content Include="src\PopUpDiv.js" />
     <Content Include="src\userreviews\manageuserreviews.js" />
@@ -1972,6 +1974,10 @@
     <Content Include="Views\DealerCampaign\CampaignServingAreas.cshtml" />
     <Content Include="Views\ManufacturerCampaign\SearchManufacturerCampaign.cshtml" />
     <Content Include="Views\ManufacturerCampaign\ManufacturerCampaignRules.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\ConfigureCampaign.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\_NavigationBreadcrumbs.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\ConfigureCampaignProperties.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\ConfigureCampaignPopup.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

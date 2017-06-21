@@ -24,5 +24,23 @@ namespace BikewaleOpr.Controllers
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }   
         }
+
+        [Route("manufacturercampaign/information/")]
+        public ActionResult ConfigureCampaign()
+        {
+            return View();
+        }
+
+        [Route("manufacturercampaign/properties/")]
+        public ActionResult ConfigureCampaignProperties()
+        {
+            return View();
+        }
+
+        [Route("manufacturercampaign/popup/")]
+        public ActionResult ConfigureCampaignPopup()
+        {
+            return View();
+        }
     }
 }
