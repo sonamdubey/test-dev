@@ -648,7 +648,7 @@ namespace Bikewale.DAL.PriceQuote
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmanufacturerdealers";
+                    cmd.CommandText = "getmanufacturerdealers_21062017";
                     dealers = new List<ManufacturerDealer>();
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
