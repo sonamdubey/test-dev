@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "Configure Campaign Properties";
+    ViewBag.PageTitle = "Configure Campaign Properties for Dealer";
+}
+
+@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", 2)
+
+
+<div class="col">
+    <div class="row">
+        <div class="col offset-s4">
+            <input type="checkbox" class="filled-in" id="chkConfigureEmi" />
+            <label for="chkConfigureEmi"></label>
+        </div>
+        <div class="col s5">
+            <span class="flow-text">Configure Emi Property</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s3 offset-s4">
+            <input id="txtEmiButtonMobile" type="text" maxlength="100" disabled="disabled">
+            <label for="txtEmiButtonMobile">Button Text Mobile Site</label>
+        </div>
+
+        <div class="col">
+            <input type="checkbox" class="filled-in default-chk" id="chkEmiButtonMobile" checked="checked" disabled="disabled" />
+            <label for="chkEmiButtonMobile">Use Default</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s3 offset-s4">
+            <input id="txtEmiPropertyMobile" type="text" class="validate" maxlength="100" disabled="disabled">
+            <label for="txtEmiPropertyMobile">Property Text Mobile Site</label>
+        </div>
+
+        <div class="col">
+            <input type="checkbox" class="filled-in default-chk" id="chkEmiPropertyMobile" checked="checked" disabled="disabled"/>
+            <label for="chkEmiPropertyMobile">Use Default</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s3 offset-s4">
+            <input id="txtEmiButtonDesktop" type="text" class="validate" maxlength="100" disabled="disabled">
+            <label for="txtEmiButtonDesktop">Button Text Desktop Site</label>
+        </div>
+
+        <div class="col">
+            <input type="checkbox" class="filled-in default-chk" id="chkEmiButtonDesktop" checked="checked" disabled="disabled" />
+            <label for="chkEmiButtonDesktop">Use Default</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s3 offset-s4">
+            <input id="txtEmiPropertyDesktop" type="text" class="validate" maxlength="100" disabled="disabled">
+            <label for="txtEmiPropertyDesktop">Property Text Desktop Site</label>
+        </div>
+
+        <div class="col">
+            <input type="checkbox" class="filled-in default-chk" id="chkEmiPropertyDesktop" checked="checked" disabled="disabled" />
+            <label for="chkEmiPropertyDesktop">Use Default</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s2 offset-s4">
+            <select id="selPropertyPriority" disabled>
+                <option value="" disabled selected>Property Priority</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col offset-s4">
+            <input type="checkbox" class="filled-in" id="chkConfigureLeads"  />
+            <label for="chkConfigureLeads"></label>
+        </div>
+        <div class="col s5">
+            <span class="flow-text">Configure Leads Property</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s3 offset-s4">
+            <input id="txtLeadsButtonMobile" type="text" class="validate" maxlength="100" disabled="disabled">
+            <label for="txtLeadsButtonMobile">Button Text Mobile Site</label>
+        </div>
+
+        <div class="col">
+            <input type="checkbox" class="filled-in default-chk" id="chkLeadsButtonMobile" checked="checked" disabled="disabled" />
+            <label for="chkLeadsButtonMobile">Use Default</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s3 offset-s4">
+            <input id="txtLeadsPropertyMobile" type="text" class="validate" maxlength="100" disabled="disabled">
+            <label for="txtLeadsPropertyMobile">Property Text Mobile Site</label>
+        </div>
+
+        <div class="col">
+            <input type="checkbox" class="filled-in default-chk" id="chkLeadsPropertyMobile" checked="checked" disabled="disabled" />
+            <label for="chkLeadsPropertyMobile">Use Default</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s3 offset-s4">
+            <input id="txtLeadsButtonDesktop" type="text" class="validate" maxlength="100" disabled="disabled">
+            <label for="txtLeadsButtonDesktop">Button Text Desktop Site</label>
+        </div>
+
+        <div class="col">
+            <input type="checkbox" class="filled-in default-chk" id="chkLeadsButtonDesktop" checked="checked" disabled="disabled" />
+            <label for="chkLeadsButtonDesktop">Use Default</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s3 offset-s4">
+            <input id="txtLeadsPropertyDesktop" type="text" class="validate" maxlength="100" disabled="disabled">
+            <label for="txtLeadsPropertyDesktop">Property Text Desktop Site</label>
+        </div>
+
+        <div class="col">
+            <input type="checkbox" class="filled-in default-chk" id="chkLeadsPropertyDesktop" checked="checked" disabled="disabled" />
+            <label for="chkLeadsPropertyDesktop">Use Default</label>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="input-field col s3 offset-s4">
+            <input id="txtLeadsMobileTemplate" type="text" class="validate" maxlength="100" disabled="disabled">
+            <label for="txtLeadsMobileTemplate">Mobile Site HTML Template</label>
+        </div>
+
+        <div class="col">
+            <input type="checkbox" class="filled-in default-chk" id="chkLeadsMobileTemplate" checked="checked" disabled="disabled" />
+            <label for="chkLeadsMobileTemplate">Use Default</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s3 offset-s4">
+            <input id="txtLeadsDesktopTemplate" type="text" class="validate" maxlength="100" disabled="disabled">
+            <label for="txtLeadsDesktopTemplate">Desktop Site HTML Template</label>
+        </div>
+
+        <div class="col">
+            <input type="checkbox" class="filled-in default-chk" id="chkLeadsDesktopTemplate" checked="checked" disabled="disabled" />
+            <label for="chkLeadsDesktopTemplate">Use Default</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s2 offset-s4">
+            <select id="selLeadPropertyPriority" disabled>
+                <option value="" disabled selected>Property Priority</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col offset-s4">
+            <button id="btnConfigureCampaign" class="btn waves-effect waves-light" type="submit" name="action">
+                Configure Campaign
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<script src="/src/ManufactureCampaign/ConfigureCampign.js"></script>

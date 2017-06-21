@@ -1,0 +1,35 @@
+﻿@model int
+
+
+<link href="~/css/materialize-stepper.css" rel="stylesheet" />
+
+<ul class="stepper horizontal focused">
+    @if (@Model == 1)
+    {
+        <li class="step active"><a href="/manufacturercampaign/information/"><div class="step-title waves-effect waves-dark" data-step-label="Step 1">Configure Campaign</div></a></li>
+        <li class="step"><a href="/manufacturercampaign/properties/"><div class="step-title waves-effect waves-dark" data-step-label="Step 2">Configure Properties</div></a></li>
+        <li class="step"><a href="/manufacturercampaign/popup/"><div class="step-title waves-effect waves-dark" data-step-label="Step 3">Configure Popup</div></a></li>
+        <li class="step"><a href="/"><div class="step-title waves-effect waves-dark" data-step-label="Step 4">Configure Rules</div></a></li>
+    }
+    else if (@Model == 2)
+    {
+        <li class="step"><a href="/manufacturercampaign/information/"><div class="step-title waves-effect waves-dark" data-step-label="Step 1">Configure Campaign</div></a></li>
+        <li class="step active"><a href="/manufacturercampaign/properties/"><div class="step-title waves-effect waves-dark" data-step-label="Step 2">Configure Properties</div></a></li>
+        <li class="step"><a href="/manufacturercampaign/popup/"><div class="step-title waves-effect waves-dark" data-step-label="Step 3">Configure Popup</div></a></li>
+        <li class="step"><a href="/"><div class="step-title waves-effect waves-dark" data-step-label="Step 4">Configure Rules</div></a></li>
+    }
+    else if (@Model == 3)
+    {
+        <li class="step"><a href="/manufacturercampaign/information/"><div class="step-title waves-effect waves-dark" data-step-label="Step 1">Configure Campaign</div></a></li>
+        <li class="step"><a href="/manufacturercampaign/properties/"><div class="step-title waves-effect waves-dark" data-step-label="Step 2">Configure Properties</div></a></li>
+        <li class="step active"><a href="/manufacturercampaign/popup/"><div class="step-title waves-effect waves-dark" data-step-label="Step 3">Configure Popup</div></a></li>
+        <li class="step"><a href="/"><div class="step-title waves-effect waves-dark" data-step-label="Step 4">Configure Rules</div></a></li>
+    }
+    else if (@Model == 4)
+    {
+        <li class="step"><a href="/manufacturercampaign/information/"><div class="step-title waves-effect waves-dark" data-step-label="Step 1">Configure Campaign</div></a></li>
+        <li class="step"><a href="/manufacturercampaign/properties/"><div class="step-title waves-effect waves-dark" data-step-label="Step 2">Configure Properties</div></a></li>
+        <li class="step"><a href="/manufacturercampaign/popup/"><div class="step-title waves-effect waves-dark" data-step-label="Step 3">Configure Popup</div></a></li>
+        <li class="step active"><a href="/"><div class="step-title waves-effect waves-dark" data-step-label="Step 4">Configure Rules</div></a></li>
+    }
+</ul>
