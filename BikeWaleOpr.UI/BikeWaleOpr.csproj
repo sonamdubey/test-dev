@@ -1971,6 +1971,7 @@
     <Content Include="Views\UserReviews\Index.cshtml" />
     <Content Include="Views\DealerCampaign\CampaignServingAreas.cshtml" />
     <Content Include="Views\ManufacturerCampaign\SearchManufacturerCampaign.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\ManufacturerCampaignRules.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
