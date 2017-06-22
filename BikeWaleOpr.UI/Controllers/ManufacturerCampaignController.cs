@@ -1,4 +1,5 @@
 ﻿using BikewaleOpr.Models;
+using BikewaleOpr.Models.ManufacturerCampaign;
 using BikeWaleOpr.Common;
 using System;
 using System.Collections.Generic;
@@ -30,11 +31,17 @@ namespace BikewaleOpr.Controllers
         {
             return View();
         }
-
+        
         [Route("manufacturercampaign/properties/")]
         public ActionResult ConfigureCampaignProperties()
         {
             return View();
+        }
+        [HttpPost]
+        [Route("manufacturercampaign/saveproperties/")]
+        public ActionResult SaveConfiguredProperties(CampaignPropertiesVM model)
+        {
+            return RedirectToAction("ConfigureCampaignProperties");
         }
 
         [Route("manufacturercampaign/popup/")]
