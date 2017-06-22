@@ -11,6 +11,8 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.RegularExpressions;
+
 namespace Bikewale.RabbitMq.LeadProcessingConsumer
 {
     /// <summary>
@@ -470,9 +472,10 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             TataCapitalInputEntity tataLeadInput = null;
             try
             {
-                string fullName = priceQuote.CustomerName;
+                string fullName = priceQuote.CustomerName.Trim();
+                fullName = Regex.Replace(fullName, @"[^a-zA-Z\s]", string.Empty);
                 string firstName = string.Empty, lastName = string.Empty;
-                if(fullName.Contains(" "))
+                if (fullName.Contains(" "))
                 {
                     int spaceStart = fullName.IndexOf(' ');
                     firstName = fullName.Substring(0, spaceStart);
