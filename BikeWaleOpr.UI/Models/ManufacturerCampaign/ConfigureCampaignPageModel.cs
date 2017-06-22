@@ -25,7 +25,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
             try
             {
                 objData = new ManufacturerCampaignInformationModel();
-                objData.CampaignInformation = _manufacurerCampaignRepo.getManufacturerCampaign(_dealerId, _campaignId);
+                objData.CampaignInformation = _manufacurerCampaignRepo.GetManufacturerCampaign(_dealerId, _campaignId);
                 objData.CampaignInformation.DealerDetails.Id = _dealerId;
                 objData.CampaignId = _campaignId;
             }

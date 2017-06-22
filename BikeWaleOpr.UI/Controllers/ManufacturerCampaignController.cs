@@ -50,8 +50,8 @@ namespace BikewaleOpr.Controllers
             return View();
         }
         [HttpPost]
-        [Route("manufacturercampaign/saveproperties/")]
-        public ActionResult SaveConfiguredProperties(CampaignPropertiesVM model)
+        [Route("manufacturercampaign/saveproperties/{campaignId}/")]
+        public ActionResult SaveConfiguredProperties(CampaignPropertiesVM model,uint campaignId)
         {
             return RedirectToAction("ConfigureCampaignProperties");
         }

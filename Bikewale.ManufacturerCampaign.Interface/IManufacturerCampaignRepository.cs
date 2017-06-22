@@ -9,6 +9,7 @@ namespace Bikewale.ManufacturerCampaign.Interface
 {
     public interface IManufacturerCampaignRepository 
     {
-        ConfigureCampaignEntity getManufacturerCampaign(uint dealerId, uint campaignId);
+        ConfigureCampaignEntity GetManufacturerCampaign(uint dealerId, uint campaignId);
+        CampaignPropertyEntity GetManufacturerCampaignProperties(uint campaignId);
     }
 }

@@ -14,7 +14,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
 {
     public class ManufacturerCampaignRepository : IManufacturerCampaignRepository
     {
-        public ConfigureCampaignEntity getManufacturerCampaign(uint dealerId, uint campaignId)
+        public ConfigureCampaignEntity GetManufacturerCampaign(uint dealerId, uint campaignId)
         {
             ConfigureCampaignEntity objEntity = null;
             try
@@ -45,6 +45,38 @@ namespace Bikewale.ManufacturerCampaign.DAL
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign");
             }
             return objEntity;
+        }
+
+        public CampaignPropertyEntity GetManufacturerCampaignProperties (uint campaignId)
+        {
+            CampaignPropertyEntity campaign = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_campaignid", campaignId);
+                    campaign = new CampaignPropertyEntity();
+
+                    using (var results = connection.QueryMultiple("getmanufacturercampaignproperties", param: param, commandType: CommandType.StoredProcedure))
+                    {
+                        campaign.EMI = results.Read<CampaignEMIPropertyEntity>().SingleOrDefault();
+                        campaign.EMIPriority = results.Read<PriorityEntity>();
+                        campaign.Lead = results.Read<CampaignLeadPropertyEntity>().SingleOrDefault();
+                        campaign.LeadPriority = results.Read<PriorityEntity>();
+                    }
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign. CampaignId {0}", campaignId));
+            }
+
+            return campaign;
         }
 
     }
