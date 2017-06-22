@@ -62,3 +62,7 @@ $(".default-chk").change(function () {
         $(this).parent().prev().find("input[type='text']").prop('disabled', false);
     }
 });
+
+$(document).ready(function () {
+   
+});
