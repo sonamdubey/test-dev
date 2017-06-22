@@ -1,4 +1,6 @@
-﻿using BikewaleOpr.Models;
+﻿using Bikewale.ManufacturerCampaign.Entities.Models;
+using Bikewale.ManufacturerCampaign.Interface;
+using BikewaleOpr.Models;
 using BikeWaleOpr.Common;
 using System;
 using System.Collections.Generic;
@@ -10,14 +12,23 @@ namespace BikewaleOpr.Controllers
 {
     public class ManufacturerCampaignController : Controller
     {
+        private readonly IManufacturerCampaign _objManufacturer = null;
+
+        public ManufacturerCampaignController(IManufacturerCampaign objManufacturer)
+        {
+
+            _objManufacturer = objManufacturer;
+        }
         // GET: ManufacturerCampaign
+        [Route("manu/Index/")]
         public ActionResult SearchManufacturerCampaign()
         {
-            SearchCampaign objSearch = new SearchCampaign();
+            SearchCampaign objSearch = new SearchCampaign(_objManufacturer);
             if (objSearch != null)
             {
-                objSearch.GetData();
-                return View();
+                SearchManufacturerCampaignVM objVM = new SearchManufacturerCampaignVM();
+                objVM=objSearch.GetData();
+                return View(objVM);
             }
             else
             {
