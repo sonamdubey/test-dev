@@ -20,7 +20,7 @@ namespace BikewaleOpr.Controllers
             _objManufacturer = objManufacturer;
         }
         // GET: ManufacturerCampaign
-        [Route("manu/Index/")]
+        [Route("manufacturercampaign/search/index/")]
         public ActionResult SearchManufacturerCampaign()
         {
             SearchCampaign objSearch = new SearchCampaign(_objManufacturer);
