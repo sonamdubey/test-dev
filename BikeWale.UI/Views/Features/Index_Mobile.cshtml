@@ -14,37 +14,39 @@
         <h1 class="box-shadow padding-15-20">Latest Bike Features</h1>
         @if (Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
                 {
-        <div id="divListing" class="article-list">
+        <ul id="divListing" class="article-list">
            @foreach (var article in Model.ArticlesList)
-                        {
-            <a href='@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId),Convert.ToString(article.ArticleUrl),(Bikewale.Entities.CMS.EnumCMSContentType.Features).ToString()))' title="@article.Title">
+		   {
+			<li>
+				<a href='@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId),Convert.ToString(article.ArticleUrl),(Bikewale.Entities.CMS.EnumCMSContentType.Features).ToString()))' title="@article.Title">
 
-                <div class='article-item-content @Convert.ToString(article.AuthorName).ToLower().Contains("sponsored") ? "sponsored-content" : ""'>
+					<div class='article-item-content @Convert.ToString(article.AuthorName).ToLower().Contains("sponsored") ? "sponsored-content" : ""'>
 
-                    @string.Format("{0}",System.Text.RegularExpressions.Regex.Match(Convert.ToString(article.AuthorName), @"\b(sponsored)\b",System.Text.RegularExpressions.RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "")
+						@string.Format("{0}",System.Text.RegularExpressions.Regex.Match(Convert.ToString(article.AuthorName), @"\b(sponsored)\b",System.Text.RegularExpressions.RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "")
 
-                    <div class="article-wrapper">
-                        <div class="article-image-wrapper">
-                            <img class="lazy" alt='@article.Title' title="@article.Title" data-original='@Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._110x61,QualityFactor._70)' width="100%" border="0" src="">
-                        </div>
-                        <div class="padding-left10 article-desc-wrapper">
-                            <h2 class="font14">@article.Title</h2>
-                        </div>
-                    </div>
+						<div class="article-wrapper">
+							<div class="article-image-wrapper">
+								<img class="lazy" alt='@article.Title' title="@article.Title" data-original='@Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._110x61,QualityFactor._70)' width="100%" border="0" src="">
+							</div>
+							<div class="padding-left10 article-desc-wrapper">
+								<h2 class="font14">@article.Title</h2>
+							</div>
+						</div>
 
-                    <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-                        <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block">@FormatDate.GetFormatDate(article.DisplayDate.ToString(), "dd MMMM yyyy")</span>
-                    </div>
-                    <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-                        <span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block">@article.AuthorName</span>
-                    </div>
-                    <div class="clear"></div>
+						<div class="article-stats-wrapper font12 leftfloat text-light-grey">
+							<span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block">@FormatDate.GetFormatDate(article.DisplayDate.ToString(), "dd MMMM yyyy")</span>
+						</div>
+						<div class="article-stats-wrapper font12 leftfloat text-light-grey">
+							<span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block">@article.AuthorName</span>
+						</div>
+						<div class="clear"></div>
 
-                </div>
+					</div>
 
-            </a>
+				</a>
+			</li>
             } 
-        </div>
+        </ul>
         }
         <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
             <div class="grid-5 omega text-light-grey font13">
