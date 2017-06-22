@@ -114,9 +114,12 @@
         <td><a href="/manufacturercampaign/rules/campaignId/id/" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign Rules" target="_blank"><i class="material-icons icon-blue">mode_edit</i></a></td>
         <td>
             <span data-bind="text: status"></span>
-            <a href="javascriptvoid(0)" class="margin-left20" data-bind="event: { click: function (data, event) { $parent.changeStatus(data, event); } },visible : (status=='Paused'||status=='Unstarted')?true:false" data-status="2" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Start Campaign"><i class="material-icons icon-green">play_circle_filled</i></a>
-            <a href="javascriptvoid(0)" class="margin-left20" data-bind="event: { click: function (data, event) { $parent.changeStatus(data, event); } },visible : status=='Active'?true:false" class="tooltipped" data-status="4" data-position="bottom" data-delay="50" data-tooltip="Pause Campaign"><i class="material-icons icon-blue">pause_circle_filled</i></a>
-            <a href="javascriptvoid(0)"  data-bind="event: { click: function (data, event) { $parent.changeStatus(data, event); } },visible : (status=='Active'||status=='Paused')?true:false" data-status="6" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Abort Campaign" title="Abort Campaign"><i class="material-icons icon-red">cancel</i></a>
+            <p>
+                <a href="javascriptvoid(0)" data-bind="event: { click: function (data, event) { $parent.changeStatus(data, event); } },visible : (status=='Paused'||status=='Unstarted')?true:false" data-status="2" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Start Campaign"><i class="material-icons icon-green">play_circle_filled</i></a>
+
+                <a href="javascriptvoid(0)" data-bind="event: { click: function (data, event) { $parent.changeStatus(data, event); } },visible : status=='Active'?true:false" class="tooltipped" data-status="4" data-position="bottom" data-delay="50" data-tooltip="Pause Campaign"><i class="material-icons icon-blue">pause_circle_filled</i></a>
+                <a href="javascriptvoid(0)" data-bind="event: { click: function (data, event) { $parent.changeStatus(data, event); } },visible : (status=='Active'||status=='Paused')?true:false" data-status="6" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Abort Campaign" title="Abort Campaign"><i class="material-icons icon-red">cancel</i></a>
+            </p>
         </td>
     </tr>
 </script>
