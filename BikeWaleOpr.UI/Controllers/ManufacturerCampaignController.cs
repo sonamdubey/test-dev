@@ -1,4 +1,7 @@
-﻿using BikewaleOpr.Models;
+﻿
+using Bikewale.ManufacturerCampaign.Interface;
+using BikewaleOpr.Models;
+using BikewaleOpr.Models.ManufacturerCampaign;
 using BikeWaleOpr.Common;
 using System;
 using System.Collections.Generic;
@@ -8,8 +11,16 @@ using System.Web.Mvc;
 
 namespace BikewaleOpr.Controllers
 {
+    [Authorize]
     public class ManufacturerCampaignController : Controller
     {
+        private IManufacturerCampaignRepository _manufacurerCampaignRepo;
+
+        public ManufacturerCampaignController (IManufacturerCampaignRepository manufacurerCampaignRepo)
+        {
+            _manufacurerCampaignRepo = manufacurerCampaignRepo;
+        }
+
         // GET: ManufacturerCampaign
         public ActionResult SearchManufacturerCampaign()
         {
@@ -25,10 +36,12 @@ namespace BikewaleOpr.Controllers
             }   
         }
 
-        [Route("manufacturercampaign/information/")]
-        public ActionResult ConfigureCampaign()
+        [Route("manufacturercampaign/information/{dealerId}")]
+        public ActionResult ConfigureCampaign(uint dealerId, uint? campaignId)
         {
-            return View();
+            ConfigureCampaignPageModel objModel = new ConfigureCampaignPageModel(dealerId, (campaignId.HasValue ? campaignId.Value : 0), _manufacurerCampaignRepo);
+            ManufacturerCampaignInformationModel objData = objModel.getData();
+            return View(objData);
         }
 
         [Route("manufacturercampaign/properties/")]

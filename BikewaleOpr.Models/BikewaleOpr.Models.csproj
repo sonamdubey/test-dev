@@ -76,11 +76,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DealerCampaign\CampaignServingAreasVM.cs" />
+    <Compile Include="ManufacturerCampaign\ManufacturerCampaignInformationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserReviews\ManageUserReviewsPageVM.cs" />
     <Compile Include="Users\LoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
+      <Project>{ea73dda4-317e-4b79-bb03-f48125c2501b}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.DTO\BikewaleOpr.DTO.csproj">
       <Project>{d2e7fef3-ca0c-4739-b995-c226af7cc41d}</Project>
       <Name>BikewaleOpr.DTO</Name>

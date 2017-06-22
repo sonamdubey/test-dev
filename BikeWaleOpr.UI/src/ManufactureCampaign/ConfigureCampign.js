@@ -50,9 +50,6 @@ $("#chkConfigureLeads").change(function () {
     }
 });
 
-
-
-
 $(".default-chk").change(function () {
     if ($(this).prop('checked')) {
         $(this).parent().prev().find("input[type='text']").prop('disabled', true);
@@ -60,4 +57,8 @@ $(".default-chk").change(function () {
     else {
         $(this).parent().prev().find("input[type='text']").prop('disabled', false);
     }
+});
+
+$(document).ready(function () {
+   
 });
