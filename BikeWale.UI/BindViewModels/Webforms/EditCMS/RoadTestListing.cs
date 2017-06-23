@@ -32,7 +32,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     public class RoadTestListing
     {
         public int startIndex = 0, endIndex = 0, totalrecords;
-        private int totalPages = 0;
         private const int _pageSize = 10, _pagerSlotSize = 5;
         public string prevPageUrl = String.Empty, nextPageUrl = String.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
         public uint MakeId, ModelId;
