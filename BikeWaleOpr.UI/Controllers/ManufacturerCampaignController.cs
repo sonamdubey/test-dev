@@ -1,6 +1,5 @@
 
 ﻿
-using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Entity.ManufacturerCampaign;
@@ -9,14 +8,10 @@ using BikewaleOpr.Models;
 using BikewaleOpr.Models.ManufacturerCampaign;
 
 ﻿using Bikewale.ManufacturerCampaign.Entities.Models;
-using Bikewale.ManufacturerCampaign.Interface;
-using BikewaleOpr.Models;
+
 
 using BikeWaleOpr.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 
@@ -35,20 +30,11 @@ namespace BikewaleOpr.Controllers
             _contractCampaign = contractCampaign;
         }
 
-
-        private readonly IManufacturerCampaign _objManufacturer = null;
-
-        public ManufacturerCampaignController(IManufacturerCampaign objManufacturer)
-        {
-
-            _objManufacturer = objManufacturer;
-        }
-
         // GET: ManufacturerCampaign
         [Route("manufacturercampaign/search/index/")]
         public ActionResult SearchManufacturerCampaign()
         {
-            SearchCampaign objSearch = new SearchCampaign(_objManufacturer);
+            SearchCampaign objSearch = new SearchCampaign(_manufacurerCampaignRepo);
             if (objSearch != null)
             {
                 SearchManufacturerCampaignVM objVM = new SearchManufacturerCampaignVM();

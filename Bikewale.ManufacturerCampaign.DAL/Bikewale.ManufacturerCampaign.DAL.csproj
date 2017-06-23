@@ -68,10 +68,7 @@
       <Project>{ea73dda4-317e-4b79-bb03-f48125c2501b}</Project>
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
-
-      <Project>{D5229109-3B85-48E7-9FF8-5385BDB54C87}</Project>
-      <Name>Bikewale.DAL.CoreDAL</Name>
-    </ProjectReference>
+   
 
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Interface\Bikewale.ManufacturerCampaign.Interface.csproj">
       <Project>{fd9b192f-137e-40cf-8ac8-623ab79c6c53}</Project>

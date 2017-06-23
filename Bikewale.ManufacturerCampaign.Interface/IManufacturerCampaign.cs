@@ -9,6 +9,6 @@ namespace Bikewale.ManufacturerCampaign.Interface
 {
    public interface IManufacturerCampaign
     {
-        IEnumerable<ManufacturerEntity> GetManufacturersList();
+       
     }
 }

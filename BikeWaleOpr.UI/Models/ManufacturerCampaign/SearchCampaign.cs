@@ -10,9 +10,9 @@ namespace BikewaleOpr.Models
 {
     public class SearchCampaign
     {
-        private readonly IManufacturerCampaign _objManufacturer=null;
+        private readonly IManufacturerCampaignRepository _objManufacturer =null;
 
-        public SearchCampaign(IManufacturerCampaign objManufacturer)
+        public SearchCampaign(IManufacturerCampaignRepository objManufacturer)
         {
 
             _objManufacturer = objManufacturer;
