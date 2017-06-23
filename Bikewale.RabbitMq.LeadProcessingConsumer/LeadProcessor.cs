@@ -217,7 +217,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         Name = priceQuote.CustomerName,
                         DealerId = priceQuote.DealerId,
                         PinCodeId = pincodeId,
-                        LeadSourceId = leadSourceId
+                        LeadSourceId = leadSourceId,
+                        ManufacturerDealerId = manufacturerDealerId
                     };
 
                     if (_leadProcessor.SaveManufacturerLead(leadEntity))

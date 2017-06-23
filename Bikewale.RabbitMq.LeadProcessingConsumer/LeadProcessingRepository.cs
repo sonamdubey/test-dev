@@ -230,7 +230,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "savemanufacturerlead_03032017";
+                        cmd.CommandText = "savemanufacturerlead_22062017";
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, objLead.Name));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 150, objLead.Email));
@@ -238,8 +238,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, objLead.PQId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Int16, objLead.LeadSourceId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbType.String, objLead.PinCodeId));
-
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int64, objLead.DealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_manufacturerdealerid", DbType.String,20, objLead.ManufacturerDealerId));
 
                         status = SqlReaderConvertor.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
                     }
