@@ -22,5 +22,6 @@ namespace Bikewale.ManufacturerCampaign.Entities
 
         public bool ShowCampaignOnExshowroom { get; set; }
         public string DealerName { get; set; }
+        public string MobileNo { get; set; }
     }
 }

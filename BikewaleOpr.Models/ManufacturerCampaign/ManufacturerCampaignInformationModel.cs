@@ -12,6 +12,6 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
     {
         public ConfigureCampaignEntity CampaignInformation {get; set;}
         public uint CampaignId { get; set; }
-        public IEnumerable<MaskingNumber> MaskingNumbers { get; set; }
+        public IEnumerable<MaskingNumber> MaskingNumbers { get; set; }       
     }
 }

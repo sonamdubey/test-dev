@@ -1,4 +1,5 @@
 ﻿using Bikewale.ManufacturerCampaign.Interface;
+using BikewaleOpr.Entities.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
                 objData.CampaignInformation = _manufacurerCampaignRepo.getManufacturerCampaign(_dealerId, _campaignId);
                 objData.CampaignInformation.DealerDetails.Id = _dealerId;
                 objData.CampaignId = _campaignId;
-                objData.MaskingNumbers = _contractCampaign.GetAllMaskingNumbers(_dealerId);
+                objData.MaskingNumbers = _contractCampaign.GetAllMaskingNumbers(_dealerId);                
             }
             catch(Exception ex)
             {
