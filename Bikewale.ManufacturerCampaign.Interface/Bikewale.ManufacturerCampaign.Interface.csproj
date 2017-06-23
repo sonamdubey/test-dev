@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IManufacturerCampaign.cs" />
+    <Compile Include="IManufacturerCampaignRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -49,7 +50,11 @@
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
+
+      <Project>{CAF758ED-4954-4BE3-BE15-345DBC891970}</Project>
+
       <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
+
       <Name>BikewaleOpr.Entity</Name>
     </ProjectReference>
   </ItemGroup>

@@ -456,6 +456,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
+    <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPageModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\SearchCampaign.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsPageModel.cs" />
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
@@ -1380,6 +1381,7 @@
     <Content Include="css\chosen.min.css" />
     <Content Include="css\common-new.css" />
     <Content Include="css\Common.css" />
+    <Content Include="css\materialize-stepper.css" />
     <Content Include="css\materialize.css" />
     <Content Include="css\userreviews.css" />
     <Content Include="Default.aspx" />
@@ -1926,7 +1928,11 @@
     <Content Include="src\imageUpload.js" />
     <Content Include="src\jquery-1.6.min.js" />
     <Content Include="src\knockout.js" />
+
+    <Content Include="src\ManufactureCampaign\ConfigureCampign.js" />
+
     <Content Include="src\ManufacturerCampaign\SearchManufacture.js" />
+
     <Content Include="src\modelImagesByColor.js" />
     <Content Include="src\PopUpDiv.js" />
     <Content Include="src\userreviews\manageuserreviews.js" />
@@ -1972,6 +1978,10 @@
     <Content Include="Views\UserReviews\Index.cshtml" />
     <Content Include="Views\DealerCampaign\CampaignServingAreas.cshtml" />
     <Content Include="Views\ManufacturerCampaign\SearchManufacturerCampaign.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\ConfigureCampaign.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\_NavigationBreadcrumbs.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\ConfigureCampaignProperties.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\ConfigureCampaignPopup.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -1992,11 +2002,19 @@
       <Name>Bikewale.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.DAL\Bikewale.ManufacturerCampaign.DAL.csproj">
+
+      <Project>{f3148a79-9fec-4a19-9977-0fa6163c9e77}</Project>
+      <Name>Bikewale.ManufacturerCampaign.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
+      <Project>{ea73dda4-317e-4b79-bb03-f48125c2501b}</Project>
+
       <Project>{F3148A79-9FEC-4A19-9977-0FA6163C9E77}</Project>
       <Name>Bikewale.ManufacturerCampaign.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
       <Project>{EA73DDA4-317E-4B79-BB03-F48125C2501B}</Project>
+
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Interface\Bikewale.ManufacturerCampaign.Interface.csproj">

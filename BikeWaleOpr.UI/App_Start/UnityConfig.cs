@@ -14,8 +14,13 @@ using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.CommuteDistance;
 using BikewaleOpr.Interface.Location;
 using BikewaleOpr.DALs.Location;
+
+using Bikewale.ManufacturerCampaign.DAL;
+using BikewaleOpr.BAL.ContractCampaign;
+
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.ManufacturerCampaign.DAL;
+
 
 namespace BikewaleOpr
 {
@@ -26,7 +31,7 @@ namespace BikewaleOpr
     /// </summary>
     public static class UnityConfig
     {
-        public static void RegisterComponents()
+        public static void RegisterComponents() 
         {
             var container = new UnityContainer();
 
@@ -44,9 +49,15 @@ namespace BikewaleOpr
                 .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IDealerCampaignRepository, DealerCampaignRepository>()
                 .RegisterType<ICommuteDistance, CommuteDistanceBL>()
+
+                .RegisterType<ILocation, LocationRepository>()
+                .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>()
+                .RegisterType<IContractCampaign, ContractCampaign>();
+
                 .RegisterType<ILocation, LocationRepository>();
 
             container.RegisterType<IManufacturerCampaign, ManufacturerCampaignRepository>();
+
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
