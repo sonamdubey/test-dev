@@ -19,7 +19,7 @@ namespace Bikewale.PWA.Utils
 
         public static PwaArticleSummary MapArticleSummaryToPwaArticleSummary(ArticleSummary inpSum)
         {
-            PwaArticleSummary outSummary =null;
+            PwaArticleSummary outSummary = null;
             if (inpSum != null && inpSum.BasicId > 0)
             {
                 outSummary = new PwaArticleSummary();
@@ -59,15 +59,15 @@ namespace Bikewale.PWA.Utils
                 outDetails.NextArticle = MapArticleSummaryToPwaArticleSummary((ArticleSummary)inpDet.NextArticle);
                 outDetails.CategoryId = inpDet.CategoryId;
                 outDetails.CategoryName = GetContentCategory(inpDet.CategoryId);
-                outDetails.ShareUrl = ReturnShareUrl(outDetails);
                 outDetails.LargePicUrl = inpDet.LargePicUrl;
                 outDetails.SmallPicUrl = inpDet.SmallPicUrl;
                 outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", inpDet.BasicId);
+                outDetails.ShareUrl = ReturnShareUrl(inpDet);
             }
             return outDetails;
         }
 
-        private static string ReturnShareUrl(PwaArticleSummary articleSummary)
+        private static string ReturnShareUrl(ArticleDetails articleSummary)
         {
             string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
             EnumCMSContentType contentType = (EnumCMSContentType)articleSummary.CategoryId;
@@ -88,7 +88,6 @@ namespace Bikewale.PWA.Utils
                     shareUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
                     break;
                 default:
-                    shareUrl = articleSummary.ShareUrl;
                     break;
             }
             return shareUrl;
@@ -122,7 +121,7 @@ namespace Bikewale.PWA.Utils
             return _category;
         }
 
-        private static string GetArticleUrl(int contentType,string url, int basicid)
+        private static string GetArticleUrl(int contentType, string url, int basicid)
         {
             string articleUrl = string.Empty;
             EnumCMSContentType _contentType = (EnumCMSContentType)contentType;
@@ -135,7 +134,7 @@ namespace Bikewale.PWA.Utils
                     break;
                 case EnumCMSContentType.Features:
                 case EnumCMSContentType.SpecialFeature:
-                    articleUrl = string.Format("/m/features/{0}-{1}/",url, basicid);
+                    articleUrl = string.Format("/m/features/{0}-{1}/", url, basicid);
                     break;
                 case EnumCMSContentType.ComparisonTests:
                 case EnumCMSContentType.RoadTest:
@@ -193,7 +192,7 @@ namespace Bikewale.PWA.Utils
                     DetailPageUrl = "/m" + UrlFormatter.BikePageUrl(item.MakeBase.MaskingName, item.ModelBase.MaskingName),
                     ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostUrl, ImageSize._174x98, QualityFactor._70),
                     Price = item.EstimatedPriceMin > 0 ? Format.FormatPrice(item.EstimatedPriceMin.ToString()) : string.Empty,
-                    PriceDescription = item.EstimatedPriceMin > 0 ? "Expected price"  : string.Empty,
+                    PriceDescription = item.EstimatedPriceMin > 0 ? "Expected price" : string.Empty,
                     PriceSuffix = item.EstimatedPriceMin > 0 ? "onwards" : "Price not available"
                 }
                 );
@@ -310,7 +309,7 @@ namespace Bikewale.PWA.Utils
                     upcomingBikes.CompleteListUrlAlternateLabel = orgUpcomingBikes.WidgetLinkTitle;
                     upcomingBikes.CompleteListUrlLabel = "View all";
                     upcomingBikes.Heading = orgUpcomingBikes.WidgetHeading;
-                    if(upcomingBikes.BikesList.Count>0)
+                    if (upcomingBikes.BikesList.Count > 0)
                         outData.Add(upcomingBikes);
                 }
             }
@@ -322,7 +321,7 @@ namespace Bikewale.PWA.Utils
         {
             PwaBikeInfo outBikeInfo = null;
 
-            if (objData != null && objData.BikeInfo!=null)
+            if (objData != null && objData.BikeInfo != null)
             {
                 var orgBikeInfo = objData.BikeInfo;
                 bool isUpComing = objData.IsUpcoming;
