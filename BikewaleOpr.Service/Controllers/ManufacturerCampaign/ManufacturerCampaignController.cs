@@ -1,8 +1,12 @@
-﻿using Bikewale.Notifications;
+﻿using Bikewale.ManufacturerCampaign.Entities;
+using Bikewale.ManufacturerCampaign.Interface;
+using Bikewale.Notifications;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.Entities.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
+using BikewaleOpr.Service.AutoMappers.BikeData;
+using BikewaleOpr.Service.AutoMappers.Location;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -19,11 +23,12 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
     {
         private readonly IManufacturerCampaignRepository _objManufacturerCampaign = null;
         private readonly IManufacturerReleaseMaskingNumber _objManufacturerReleaseMaskingNumber = null;
-
-        public ManufacturerCampaignController(IManufacturerCampaignRepository objManufacturerCampaign, IManufacturerReleaseMaskingNumber objManufacturerReleaseMaskingNumber)
+        private readonly IManufacturerCampaign _objMfgCampaign = null;
+        public ManufacturerCampaignController(IManufacturerCampaignRepository objManufacturerCampaign, IManufacturerReleaseMaskingNumber objManufacturerReleaseMaskingNumber, IManufacturerCampaign objMfgCampaign)
         {
             _objManufacturerCampaign = objManufacturerCampaign;
             _objManufacturerReleaseMaskingNumber = objManufacturerReleaseMaskingNumber;
+            _objMfgCampaign = objMfgCampaign;
         }
 
         /// <summary>
@@ -138,5 +143,94 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             }
             return Ok(isSuccess);
         }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 June 2017
+        /// Summary    : Get models of a make
+        /// </summary>
+        [HttpGet, Route("api/campaigns/manufacturer/models/makeId/{makeId}")]
+        public IHttpActionResult GetBikeModels(uint makeId)
+        {
+            IEnumerable<BikeModelEntity> _models = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    _models = _objMfgCampaign.GetBikeModels(makeId);
+                    if (_models != null && _models.Count() > 0)
+                    {
+                        IEnumerable<BikeModelDTO> objModelsDTO = BikeModelsMapper.ConvertV2(_models);
+                        return Ok(objModelsDTO);
+                    }
+                    else
+                    {
+                        return Ok();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignController.GetBikeModels. MakeId : {0}", makeId));
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 June 2017
+        /// Summary    : Get cities of a state
+        /// </summary>
+        [HttpGet, Route("api/campaigns/manufacturer/cities/stateId/{stateId}")]
+        public IHttpActionResult GetCitiesByState(uint stateId)
+        {
+            IEnumerable<CityEntity> _cities = null;
+            try
+            {
+                if (stateId > 0)
+                {
+                    _cities = _objMfgCampaign.GetCitiesByState(stateId);
+
+                    if (_cities != null && _cities.Count() > 0)
+                    {
+                        IEnumerable<CityDTO> objCitiesDTO = CityMapper.Convert(_cities);
+                        return Ok(objCitiesDTO);
+                    }
+                    else
+                    {
+                        return Ok();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignController.GetCitiesByState. StateId:{0}", stateId));
+                return InternalServerError();
+            }
+        }
+
+        [HttpPost, Route("api/campaigns/manufacturer/deleterule/")]
+        public IHttpActionResult DeleteRule([FromBody]ManufacturerRuleEntityDTO ruleEntity)
+        {
+            bool isSuccess = false;
+            try
+            {
+                if (ruleEntity != null)
+                    isSuccess = _objMfgCampaign.DeleteManufacturerCampaignRules(ruleEntity.CampaignId, ruleEntity.ModelId, ruleEntity.StateId, ruleEntity.CityId, ruleEntity.UserId, ruleEntity.IsAllIndia);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaignController.DeleteRule");
+                return InternalServerError();
+            }
+            return Ok(isSuccess);
+        }
+
     }
 }

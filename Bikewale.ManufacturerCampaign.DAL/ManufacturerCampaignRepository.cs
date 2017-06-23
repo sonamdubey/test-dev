@@ -1,5 +1,7 @@
 ﻿using Bikewale.ManufacturerCampaign.Entities;
+using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -7,12 +9,10 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.ManufacturerCampaign.DAL
 {
-    public class ManufacturerCampaignRepository
+    public class ManufacturerCampaignRepository : IManufacturerCampaign
     {
         public IEnumerable<BikeMakeEntity> GetBikeMakes()
         {
@@ -33,7 +33,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                             {
                                 bikeMakes.Add(new BikeMakeEntity()
                                 {
-                                    MakeId = Convert.ToUInt32(dr["MakeId"]),
+                                    MakeId = SqlReaderConvertor.ToUInt32(dr["MakeId"]),
                                     MakeName = Convert.ToString(dr["MakeName"])
                                 });
                             }
@@ -68,7 +68,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                             {
                                 bikeModels.Add(new BikeModelEntity()
                                 {
-                                    ModelId = Convert.ToUInt32(dr["ModelId"]),
+                                    ModelId = SqlReaderConvertor.ToUInt32(dr["ModelId"]),
                                     ModelName = Convert.ToString(dr["ModelName"])
                                 });
                             }
@@ -103,7 +103,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                             {
                                 states.Add(new StateEntity()
                                 {
-                                    StateId = Convert.ToUInt32(dr["StateId"]),
+                                    StateId = SqlReaderConvertor.ToUInt32(dr["StateId"]),
                                     StateName = Convert.ToString(dr["StateName"])
                                 });
                             }
@@ -137,7 +137,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                             {
                                 cities.Add(new CityEntity()
                                 {
-                                    CityId = Convert.ToUInt32(dr["CityId"]),
+                                    CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
                                     CityName = Convert.ToString(dr["CityName"])
                                 });
                             }
@@ -153,9 +153,52 @@ namespace Bikewale.ManufacturerCampaign.DAL
             return cities;
         }
 
+        public IEnumerable<MfgRuleEntity> GetManufacturerCampaignRules(uint campaignId)
+        {
+            ICollection<MfgRuleEntity> mfgRules = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmanufacturercampaignrules"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            mfgRules = new Collection<MfgRuleEntity>();
+                            while (dr.Read())
+                            {
+                                mfgRules.Add(
+                                    new MfgRuleEntity
+                                    {
+                                        MakeId = SqlReaderConvertor.ToUInt32(dr["MakeId"]),
+                                        MakeName = Convert.ToString(dr["MakeName"]),
+                                        ModelId = SqlReaderConvertor.ToUInt32(dr["ModelId"]),
+                                        ModelName = Convert.ToString(dr["ModelName"]),
+                                        StateId = SqlReaderConvertor.ToUInt32(dr["StateId"]),
+                                        StateName = Convert.ToString(dr["StateName"]),
+                                        CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
+                                        CityName = Convert.ToString(dr["CityName"])
+                                    }
+                                    );
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.GetManufacturerCampaignRules. CampaignId : {0}", campaignId));
+            }
+            return mfgRules;
+        }
+
         public bool SaveManufacturerCampaignRules(uint campaignId, string modelIds, string stateIds, string cityIds, bool isAllIndia, uint userId)
         {
-            bool isSuccess=false;
+            bool isSuccess = false;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturercampaignrules_20062017"))
@@ -172,14 +215,14 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     isSuccess = true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.SaveManufacturerCampaignRules. CampaignId : {0}, ModelIds : {1},StateIds : {2}, CityIds : {3}, IsAllIndia : {4}, UserId : {5}", campaignId, modelIds, stateIds, cityIds, isAllIndia, userId));
             }
             return isSuccess;
         }
 
-        public bool DeleteManufacturerCampaignRules(uint campaignId, uint modelId, uint stateId, uint cityId, uint userId)
+        public bool DeleteManufacturerCampaignRules(uint campaignId, uint modelId, uint stateId, uint cityId, uint userId, bool isAllIndia)
         {
             bool isSuccess = false;
             try
@@ -193,6 +236,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, stateId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_enteredby", DbType.Int32, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isAllIndia", DbType.Boolean, isAllIndia));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                     isSuccess = true;
                 }

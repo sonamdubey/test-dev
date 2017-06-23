@@ -39,6 +39,9 @@
     <Reference Include="log4net">
       <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="MySqlDatabaseLibrary">
+      <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -56,9 +59,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
+      <Project>{EA73DDA4-317E-4B79-BB03-F48125C2501B}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Interface\Bikewale.ManufacturerCampaign.Interface.csproj">
       <Project>{fd9b192f-137e-40cf-8ac8-623ab79c6c53}</Project>
       <Name>Bikewale.ManufacturerCampaign.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
+      <Project>{DB695E13-ED0E-4349-A32E-A6D03D06C597}</Project>
+      <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
+      <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
+      <Name>Bikewale.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
