@@ -167,7 +167,7 @@ namespace Bikewale.Models.BikeModels
                     {
                         if (objData.ModelPageEntity.ModelVersions.Count() > 1)
                         {
-                            versionDescirption += "- ";
+                            versionDescirption += " - ";
                             foreach (var version in objData.ModelPageEntity.ModelVersions)
                             {
                                 index++;
@@ -182,7 +182,7 @@ namespace Bikewale.Models.BikeModels
                             versionDescirption = string.Format("{0} and {1}", versionDescirption, objData.ModelPageEntity.ModelVersions.Last().VersionName); 
                         }
                         else if (objData.ModelPageEntity.ModelVersions.Count() == 1)
-                            versionDescirption = string.Format("{0}", objData.ModelPageEntity.ModelVersions.First().VersionName);
+                            versionDescirption += string.Format(" - {0}", objData.ModelPageEntity.ModelVersions.First().VersionName);
                     }
                     
 

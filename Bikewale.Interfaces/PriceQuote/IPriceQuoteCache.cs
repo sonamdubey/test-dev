@@ -15,6 +15,6 @@ namespace Bikewale.Interfaces.PriceQuote
         IEnumerable<PriceQuoteOfTopCities> FetchPriceQuoteOfTopCitiesCache(uint modelId, uint topCount);
         IEnumerable<PriceQuoteOfTopCities> GetModelPriceInNearestCities(uint modelId, uint cityId, ushort topCount);
         IEnumerable<OtherVersionInfoEntity> GetOtherVersionsPrices(uint modelId, uint cityId);
-        IEnumerable<ManufactureDealer> GetManufacturerDealers(uint cityId);
+        IEnumerable<ManufacturerDealer> GetManufacturerDealers(uint cityId, uint dealerId);
     }
 }

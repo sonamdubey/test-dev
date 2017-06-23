@@ -173,7 +173,7 @@ function getPriceQuoteOnRoad() {
 }
 
 function gtmCodeAppender(pageId, action, label) {
-    var categoty = '';
+    var category = '';
     if (pageId != null) {
         switch (pageId) {
             case "1":
