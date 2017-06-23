@@ -1,4 +1,5 @@
 ﻿using Bikewale.ManufacturerCampaign.Entities;
+using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ManufacturerCampaign;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,6 @@ namespace Bikewale.ManufacturerCampaign.Interface
     {
         ConfigureCampaignEntity getManufacturerCampaign(uint dealerId, uint campaignId);
         uint saveManufacturerCampaign(ConfigureCampaignSave objCampaign);
+        IEnumerable<ManufacturerEntity> GetManufacturersList();
     }
 }
