@@ -137,15 +137,15 @@ docReady(function () {
             }          
         };
         if (leadOptions.dealersRequired) {
-            generateDealerDropdown();
+            generateDealerDropdown(leadOptions.dealerid);
         }
         dleadvm.setOptions(leadOptions);
     });
     
-    function generateDealerDropdown() {
+    function generateDealerDropdown(dealerid) {
         $.ajax({
             type: "GET",
-            url: "/api/ManufacturerCampaign/?city="+ cityId,
+            url: "/api/ManufacturerCampaign/city/" + cityId + "/dealer/" + dealerId + "/",
             contentType: "application/json",
             dataType: 'json',
             success: function (response) {

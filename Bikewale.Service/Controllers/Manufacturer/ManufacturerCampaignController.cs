@@ -28,7 +28,8 @@ namespace Bikewale.Service.Controllers.Manufacturer
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="objDealer"></param>
+        /// <param name="objIPQ"></param>
+        /// <param name="objPQCache"></param>
         public ManufacturerCampaignController(IPriceQuote objIPQ, IPriceQuoteCache objPQCache)
         {
             _objIPQ = objIPQ;
@@ -38,14 +39,14 @@ namespace Bikewale.Service.Controllers.Manufacturer
         /// Returns the list of Dealer
         /// </summary>
         /// <returns></returns>
-        [ResponseType(typeof(IEnumerable<ManufactureDealerDTO>))]
-        public IHttpActionResult Get(uint city)
+        [ResponseType(typeof(IEnumerable<ManufactureDealerDTO>)), Route("api/ManufacturerCampaign/city/{city}/dealer/{dealerId}/")]
+        public IHttpActionResult Get(uint city, uint dealerId)
         {
-            IEnumerable<ManufactureDealer> objDealers = null;
+            IEnumerable<ManufacturerDealer> objDealers = null;
             IEnumerable<ManufactureDealerDTO> dealersData = null;
             try
             {
-                objDealers = _objPQCache.GetManufacturerDealers(city);
+                objDealers = _objPQCache.GetManufacturerDealers(city, dealerId);
                 if (objDealers != null && objDealers.Count() > 0)
                 {
                     dealersData = ManufacturingCampaign.Convert(objDealers);
