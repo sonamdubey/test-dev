@@ -32,7 +32,7 @@ namespace BikeWaleOpr.Content
         private IBikeMakes _objMakesRepo = null;
         private IBikeModelsRepository _objModelsRepo = null;
         private IBikeVersions _objVersionsRepo = null;
-        private ushort compareId; private bool isDataSaved;
+        protected ushort compareId; private bool isDataSaved;
 
         /// <summary>
         /// 
@@ -159,6 +159,11 @@ namespace BikeWaleOpr.Content
                 FillMakes();
                 ShowBikeComparision();
                 LoadBikeComparision(Request.QueryString["id"]);
+
+                if (Request.QueryString["id"] != null)
+                {
+                    compareId = UInt16.Parse(Request.QueryString["id"]);
+                }
 
             }
             else
@@ -349,12 +354,7 @@ namespace BikeWaleOpr.Content
 
 
             try
-            {
-                if (Request.QueryString["id"] != null)
-                {
-                    compareId = UInt16.Parse(Request.QueryString["id"]);
-                }
-
+            {                
                 if (_objCompBikesRepo != null)
                 {                    
                     DateTime dtFromTime = DateTime.Parse(txtFromTime.Text, System.Globalization.CultureInfo.CurrentCulture);
@@ -379,6 +379,13 @@ namespace BikeWaleOpr.Content
                     if (compareId > 0)
                     {
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Data successfully updated');", true);
+                    }
+
+                    //remove memcache keys for all cities
+                    for (int i=0; i<1500; i++)
+                    {
+                        MemCachedUtil.Remove("BW_PopularSimilarBikes_CityId_v2_" + i);
+                        MemCachedUtil.Remove("BW_PopularScootersComparison_CityId_v2_" + i);
                     }
 
                     // Removed memcached key which shows data on home page and new page
