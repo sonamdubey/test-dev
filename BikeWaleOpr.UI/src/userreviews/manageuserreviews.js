@@ -163,7 +163,8 @@ var UserReviews = function () {
                 "MakeMaskingName" : summary.make.maskingName,
                 "ModelMaskingName": summary.model.maskingName,
                 "ModelId": summary.model.modelId,
-                "IsShortListed": self.shortListCheckBox()
+                "IsShortListed": self.shortListCheckBox(),
+                "ReviewTips": self.reviewTips()
             };           
             $.ajax({
                 type: "POST",
