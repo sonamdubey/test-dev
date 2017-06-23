@@ -112,6 +112,10 @@
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
+      <Project>{EA73DDA4-317E-4B79-BB03-F48125C2501B}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
       <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
       <Name>BikewaleOpr.Entity</Name>

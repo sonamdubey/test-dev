@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F3148A79-9FEC-4A19-9977-0FA6163C9E77}</ProjectGuid>
+    <ProjectGuid>{C30A7A1D-B81E-4B76-BDF4-408079173CBA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bikewale.ManufacturerCampaign.DAL</RootNamespace>
-    <AssemblyName>Bikewale.ManufacturerCampaign.DAL</AssemblyName>
+    <RootNamespace>Bikewale.ManufacturerCampaign.DTO</RootNamespace>
+    <AssemblyName>Bikewale.ManufacturerCampaign.DTO</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,18 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper">
-      <HintPath>..\Libs\Dapper.dll</HintPath>
-    </Reference>
-    <Reference Include="DapperWrapper">
-      <HintPath>..\Libs\DapperWrapper.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\Libs\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="MySqlDatabaseLibrary">
-      <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -55,43 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ManufacturerCampaignRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Bikewale.DAL.CoreDAL\Bikewale.DAL.CoreDAL.csproj">
-
-      <Project>{d5229109-3b85-48e7-9ff8-5385bdb54c87}</Project>
-      <Name>Bikewale.DAL.CoreDAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
-      <Project>{ea73dda4-317e-4b79-bb03-f48125c2501b}</Project>
-      <Name>Bikewale.ManufacturerCampaign.Entities</Name>
-    </ProjectReference>
-
-      <Project>{D5229109-3B85-48E7-9FF8-5385BDB54C87}</Project>
-      <Name>Bikewale.DAL.CoreDAL</Name>
-    </ProjectReference>
-
-    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Interface\Bikewale.ManufacturerCampaign.Interface.csproj">
-      <Project>{fd9b192f-137e-40cf-8ac8-623ab79c6c53}</Project>
-      <Name>Bikewale.ManufacturerCampaign.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
-      <Project>{DB695E13-ED0E-4349-A32E-A6D03D06C597}</Project>
-      <Name>Bikewale.Notifications</Name>
-    </ProjectReference>
-
-
-    <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
-      <Project>{EA0864E7-7715-4D93-80BE-3300BB542E42}</Project>
-      <Name>Bikewale.Utility</Name>
-    </ProjectReference>
-
-    <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
-      <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
-      <Name>BikewaleOpr.Entity</Name>
-    </ProjectReference>
+    <Compile Include="SearchCampaign\ManufacturerCampaignDetailsDTO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -40,10 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+
     <Compile Include="ConfigureCampaignEntity.cs" />
     <Compile Include="ManufacturerCampaignDetails.cs" />
     <Compile Include="ManufacturerCampaignPages.cs" />
+
+    <Compile Include="Models\SearchManufacturerCampaignVM.cs" />
+
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchCampaign\ManufacturerCampaignDetailsList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
+      <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
+      <Name>BikewaleOpr.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

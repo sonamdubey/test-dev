@@ -1,9 +1,12 @@
-﻿using Bikewale.Notifications;
+﻿using Bikewale.DAL.CoreDAL;
+using Bikewale.ManufacturerCampaign.Entities.SearchCampaign;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entities.ContractCampaign;
 using BikewaleOpr.Entities.ManufacturerCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
+using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -13,13 +16,39 @@ using System.Data.Common;
 namespace BikewaleOpr.DALs.ManufactureCampaign
 {
     /// <summary>
-    /// Created by Subodh Jain 29 aug 2016
+    /// Created by Subodh Jain 22 jun 2017
     /// Description :For Manufacturer Campaign
     /// </summary>
     /// <param name="dealerId"></param>
     /// <returns></returns>
     public class ManufacturerCampaign : IManufacturerCampaignRepository
     {
+        public IEnumerable<ManufacturerCampaignDetailsList> GetManufactureCampaigns(uint dealerId,uint allActiveCampaign)
+        {
+
+            IEnumerable<ManufacturerCampaignDetailsList> dtManufactureCampaigns = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_dealerid", dealerId);
+                    param.Add("par_allactivecampaign", allActiveCampaign);
+                    dtManufactureCampaigns = connection.Query<ManufacturerCampaignDetailsList>("getmanufacturecampaignsdetails", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.ManufactureCampaign.GetManufactureCampaigns dealerId: {0} allActiveCampaign: {1}", dealerId, allActiveCampaign));
+            }
+            return dtManufactureCampaigns;
+        }
         /// <summary>
         /// Created by Subodh Jain 29 aug 2016
         /// Description : Return all the campaigns for given manufacturer id
@@ -80,7 +109,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         public bool UpdateCampaignStatus(uint id, bool isactive)
         {
             bool isSuccess = false;
-
+          
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("statuschangeCampaigns"))
@@ -96,6 +125,39 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                 ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaign.statuschangeCampaigns");
             }
             return isSuccess;
+        }
+        /// <summary>
+        /// Created by Subodh Jain 22 jun 2017
+        /// Description : Change Status of the campaign
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        public bool UpdateCampaignStatus(uint campaignId, uint status)
+        {
+            int isSuccess = 0;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_campaignid", campaignId);
+                    param.Add("par_status", status);
+
+                    isSuccess= connection.Execute("updatemanufacturercampaignstatus", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.ManufactureCampaign.UpdateCampaignStatus campaignid: {0} status : {1}", campaignId, status));
+            }
+            return isSuccess > 0;
         }
         /// <summary>
         /// Created by Subodh Jain 29 aug 2016

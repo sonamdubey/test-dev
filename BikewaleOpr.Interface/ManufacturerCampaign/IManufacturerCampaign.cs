@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Entities;
+﻿using Bikewale.ManufacturerCampaign.Entities.SearchCampaign;
+using BikewaleOpr.Entities;
 using BikewaleOpr.Entities.ContractCampaign;
 using BikewaleOpr.Entities.ManufacturerCampaign;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace BikewaleOpr.Interface.ManufacturerCampaign
     public interface IManufacturerCampaignRepository
     {
         bool UpdateCampaignStatus(uint id, bool isactive);
+        bool UpdateCampaignStatus(uint id, uint isactive);
         IEnumerable<ManufacturerEntity> GetManufacturersList();
         IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerid);
         IEnumerable<MfgCityEntity> GetManufacturerCities();
@@ -25,5 +27,7 @@ namespace BikewaleOpr.Interface.ManufacturerCampaign
         bool SaveManufacturerCampaignTemplate(List<ManuCamEntityForTemplate> objList, int userId, int campaignId, string LeadCapturePopupMessage, string LeadCapturePopupDescription, string LeadCapturePopupHeading, int dealerId, bool pinCodeRequired,bool emailIdRequired);
         List<BikewaleOpr.Entities.ManufacturerCampaign.ManufacturerCampaignEntity> FetchCampaignDetails(int campaignId);
         bool ReleaseCampaignMaskingNumber(int campaignId);
+        IEnumerable<ManufacturerCampaignDetailsList> GetManufactureCampaigns(uint dealerid,uint allActiveCampaign);
+        
     }
 }
