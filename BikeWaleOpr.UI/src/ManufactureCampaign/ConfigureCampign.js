@@ -79,22 +79,36 @@ var ConfigureCampaign = function () {
         var campaignId = $('#inputCampaignId').val().trim();
 
     self.configureCampaign = function () {        
-        if (!self.description() || self.description() == "" || !self.startDate() || self.startDate() == "")
+        if (!self.description() || self.description() == "")
         {
+            $('#modal-p').text("Campaign Description is Mandatory. Please fill it. ");
             $("#alertModal").modal('open');
             return false;
         }
         
+        if (!self.startDate() || self.startDate() == "") {
+            $('#modal-p').text("Campagin Start Date is Mandatory. Please fill it. ");
+            $("#alertModal").modal('open');
+            return false;
+        }
+
         if (($('#txtDailyLeadLimit').val() && ($('#txtDailyLeadLimit').val() < 0)) || ($('#txtTotalLeadLimit').val() && ($('#txtTotalLeadLimit').val() < 0)))
         {
             $('#modal-p').text("Lead Limits should be positive");
             $("#alertModal").modal('open');
             return false;
-        }
+        }       
 
         var selectedPages = '';
         
         var selectedOptions = $('#select-pages').find("option:selected");
+       
+        if (selectedOptions.length == 1)
+        {
+            $('#modal-p').text("Please select atleast one page.");
+            $("#alertModal").modal('open');
+            return false;
+        }
 
         for(var i = 1; i <selectedOptions.length; i++)
         {

@@ -72,7 +72,7 @@
             <div class="row">
                 <div class="col s3 offset-s3">
                     <select multiple id="select-pages">
-                        <option value="" disabled selected>Campaign Pages</option>
+                        <option value="" disabled selected>Campaign Pages *</option>
                         @foreach (var page in Model.CampaignInformation.CampaignPages)
                         {
                             <option value="@page.PageId" @(page.IsSelected ? "selected" : "")>@page.PageName</option>
@@ -142,7 +142,7 @@
 
     <div id="alertModal" class="modal" style="height:170px;width:350px">
         <div class="modal-content">
-            <p id="modal-p">Campaign Description and Campagin Start Date are Mandatory. Please fill it. </p>
+            <p id="modal-p"></p>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
