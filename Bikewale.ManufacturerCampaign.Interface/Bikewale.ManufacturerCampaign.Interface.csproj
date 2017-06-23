@@ -49,6 +49,10 @@
       <Project>{ea73dda4-317e-4b79-bb03-f48125c2501b}</Project>
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
+      <Project>{CAF758ED-4954-4BE3-BE15-345DBC891970}</Project>
+      <Name>BikewaleOpr.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

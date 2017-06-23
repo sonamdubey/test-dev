@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BikewaleOpr.Entity.ManufacturerCampaign;
 
 namespace Bikewale.ManufacturerCampaign.DAL
 {
@@ -45,6 +46,44 @@ namespace Bikewale.ManufacturerCampaign.DAL
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign");
             }
             return objEntity;
+        }
+
+        public uint saveManufacturerCampaign(ConfigureCampaignSave objCampaign)
+        {
+            uint campaignId = 0;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_userid", objCampaign.UserId);
+                    param.Add("par_dealerid", objCampaign.DealerId);
+                    param.Add("par_description", objCampaign.Description);
+                    param.Add("par_maskingnumber", objCampaign.MaskingNumber);
+                    param.Add("par_dailyleadlimit", objCampaign.DailyLeadLimit);
+                    param.Add("par_totalleadlimit", objCampaign.TotalLeadLimit);
+                    param.Add("par_campaignpages", objCampaign.CampaignPages);
+                    param.Add("par_startDate", objCampaign.StartDate);
+                    param.Add("par_endDate", objCampaign.EndDate);
+                    param.Add("par_showonexshowroomprice", objCampaign.ShowOnExShowroomPrice);                    
+                    param.Add("par_campaignid", objCampaign.CampaignId, dbType: DbType.Int32, direction: ParameterDirection.InputOutput);
+
+                    connection.Query<dynamic>("savemanufacturercampaign_21062017", param: param, commandType: CommandType.StoredProcedure);
+
+                    campaignId = (uint)param.Get<int>("par_campaignid");
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }                
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign");
+            }
+            return campaignId;
         }
 
     }

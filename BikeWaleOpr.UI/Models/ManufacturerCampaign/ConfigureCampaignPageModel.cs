@@ -1,4 +1,5 @@
 ﻿using Bikewale.ManufacturerCampaign.Interface;
+using BikewaleOpr.Interface.ContractCampaign;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,13 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
     public class ConfigureCampaignPageModel
     {
         private IManufacturerCampaignRepository _manufacurerCampaignRepo;
+        private IContractCampaign _contractCampaign;
         private uint _dealerId, _campaignId;
 
-        public ConfigureCampaignPageModel(uint dealerId, uint campaignId, IManufacturerCampaignRepository manufacurerCampaignRepo)
+        public ConfigureCampaignPageModel(uint dealerId, uint campaignId, IManufacturerCampaignRepository manufacurerCampaignRepo, IContractCampaign contractCampaign)
         {
             _manufacurerCampaignRepo = manufacurerCampaignRepo;
+            _contractCampaign = contractCampaign;
             _dealerId = dealerId;
             _campaignId = campaignId;
         }
@@ -28,6 +31,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
                 objData.CampaignInformation = _manufacurerCampaignRepo.getManufacturerCampaign(_dealerId, _campaignId);
                 objData.CampaignInformation.DealerDetails.Id = _dealerId;
                 objData.CampaignId = _campaignId;
+                objData.MaskingNumbers = _contractCampaign.GetAllMaskingNumbers(_dealerId);
             }
             catch(Exception ex)
             {
@@ -35,5 +39,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
             }
             return objData;
         }
+
+
     }
 }

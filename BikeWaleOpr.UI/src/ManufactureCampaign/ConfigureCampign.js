@@ -59,6 +59,101 @@ $(".default-chk").change(function () {
     }
 });
 
-$(document).ready(function () {
-   
+$("#selMaskingNumber").change(function () {
+    vmConfigureCampaign.maskingNumber($('#selMaskingNumber').find("option:selected").val());
+    $('#labelMaskingNumber').addClass('active');   
 });
+
+var configureCampaignPage = $('#ConfigureCampaign');
+
+var ConfigureCampaign = function () {
+    var self = this;
+    self.description = ko.observable($('#txtCampaignDescription').attr('data-value'));
+    self.startDate = ko.observable($('#startDateEle').attr('data-value'));
+    self.maskingNumber = ko.observable($('#txtMaskingNumber').attr('data-value'));
+
+    self.configureCampaign = function () {        
+        if (!self.description() || self.description() == "" || !self.startDate() || self.startDate() == "")
+        {
+            $("#alertModal").modal('open');
+            return false;
+        }
+
+        var selectedPages = '';
+        
+        var selectedOptions = $('#select-pages').find("option:selected");
+
+        for(var i = 1; i <selectedOptions.length; i++)
+        {
+            selectedPages = selectedPages + ',' + selectedOptions[i].value;
+        }
+
+        $('#CampaignPages').val(selectedPages);
+
+        $('#StartDate').val($('#startDateEle').val() + ' ' + $('#startTimeEle').val());
+
+        if ($('#endDateEle').val() != "")
+            $('#EndDate').val($('#endDateEle').val() + ' ' + $('#endTimeEle').val());              
+
+        var oldMaskingNumber = $("#olMaskingNumber").val().trim();        
+        if (self.maskingNumber() != "" && oldMaskingNumber != "" && oldMaskingNumber != self.maskingNumber()) {
+            var r = confirm("You are mapping " + nos + " dealer numbers to 1 masking number. Are you sure you want to continue?");
+            if (!r) {
+                isValid = false;
+                alert("Please ensure that there is only one number for this dealer in DCRM. Campaign has not been saved.");
+            }
+
+        }
+
+        return true;
+    };
+
+    self.releaseMaskingNumber = function () {
+        vmConfigureCampaign.maskingNumber("");
+        var maskingNumber = $("#txtMaskingNumber").val().trim();
+        if (maskingNumber.length > 0) {
+            releaseMaskingNumber(maskingNumber);
+        }
+        $('#labelMaskingNumber').removeClass('active');
+        return false;
+    }
+
+    var dealerId = $('#inputDealerId').val().trim();
+    var campaignId = $('#inputCampaignId').val().trim();
+
+    function releaseMaskingNumber(maskingNumber) {
+        try {
+            if (confirm("Do you want to release the number?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+                    data: '{"dealerId":"' + dealerId + '","campaignId":"' + campaignId + '", "maskingNumber":"' + self.maskingNumber() + '"}',
+                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ReleaseNumber"); },
+                    success: function (response) {
+                        if (JSON.parse(response).value) {
+                            $("#txtMaskingNumber").val('');
+                            alert("Masking Number is released successful.");
+                            location.reload();
+                        }
+                        else {
+                            alert("There was error while releasing masking number. Please contact System Administrator for more details.");
+                        }
+                    }
+
+                });
+            }
+        } catch (e) {
+            alert("An error occured. Please contact System Administrator for more details.");
+        }
+    }
+
+}
+
+$(document).ready(function () {
+    
+});
+
+var vmConfigureCampaign = new ConfigureCampaign;
+if (configureCampaignPage) {
+    ko.applyBindings(vmConfigureCampaign, configureCampaignPage[0]);
+}
