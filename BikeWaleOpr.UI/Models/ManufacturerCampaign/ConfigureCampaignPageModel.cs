@@ -1,4 +1,6 @@
-﻿using Bikewale.ManufacturerCampaign.Interface;
+﻿using Bikewale.ManufacturerCampaign.Entities;
+using Bikewale.ManufacturerCampaign.Interface;
+using Bikewale.Notifications;
 using BikewaleOpr.Entities.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
 using System;
@@ -8,6 +10,9 @@ using System.Web;
 
 namespace BikewaleOpr.Models.ManufacturerCampaign
 {
+    /// <summary>
+    /// Creeated by Sajal Gupta on 23-06-2017 To populate manufacturer campaign information page - Screen 1
+    /// </summary>
     public class ConfigureCampaignPageModel
     {
         private IManufacturerCampaignRepository _manufacurerCampaignRepo;
@@ -32,11 +37,15 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
                 objData.CampaignInformation = _manufacurerCampaignRepo.getManufacturerCampaign(_dealerId, _campaignId);
                 objData.CampaignInformation.DealerDetails.Id = _dealerId;
                 objData.CampaignId = _campaignId;
-                objData.MaskingNumbers = _contractCampaign.GetAllMaskingNumbers(_dealerId);                
+                objData.MaskingNumbers = _contractCampaign.GetAllMaskingNumbers(_dealerId);
+                objData.NavigationWidget = new NavigationWidgetEntity();
+                objData.NavigationWidget.ActivePage = 1;
+                objData.NavigationWidget.DealerId = _dealerId;
+                objData.NavigationWidget.CampaignId = _campaignId;
             }
             catch(Exception ex)
             {
-
+                ErrorClass objErr = new ErrorClass(ex, "ConfigureCampaignPageModel.GetData");
             }
             return objData;
         }

@@ -5,7 +5,7 @@
     ViewBag.PageTitle = "Configure Campaign for " + Model.CampaignInformation.DealerDetails.DealerName;
 }
 
-@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", 1)
+@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", Model.NavigationWidget)
 
 @if (Model != null && Model.CampaignInformation != null && Model.CampaignInformation.DealerDetails != null)
 {
