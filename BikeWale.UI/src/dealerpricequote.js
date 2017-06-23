@@ -142,7 +142,7 @@ docReady(function () {
         dleadvm.setOptions(leadOptions);
     });
     
-    function generateDealerDropdown(dealerid) {
+    function generateDealerDropdown(dealerId) {
         $.ajax({
             type: "GET",
             url: "/api/ManufacturerCampaign/city/" + cityId + "/dealer/" + dealerId + "/",
