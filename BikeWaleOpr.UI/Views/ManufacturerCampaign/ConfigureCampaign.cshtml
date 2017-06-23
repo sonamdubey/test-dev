@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="input-field col s6 offset-s3">
                     <input id="txtCampaignDescription" type="text" class="validate" maxlength="100" name="Description" data-bind="textInput : $root.description" data-value="@Model.CampaignInformation.DealerDetails.Description" value="@Model.CampaignInformation.DealerDetails.Description">
-                    <label for="txtCampaignDescription">Campaign Description</label>
+                    <label for="txtCampaignDescription">Campaign Description *</label>
                 </div>
             </div>
 
@@ -86,7 +86,7 @@
                     <div class="input-field">
                         <i class="material-icons prefix margin-top15">date_range</i>
                         <input type="date" id="startDateEle" class="datepicker margin-left5" data-bind="textInput : $root.startDate"  data-value="@(Model.CampaignInformation.DealerDetails.CampaignStartDate != DateTime.MinValue ? Model.CampaignInformation.DealerDetails.CampaignStartDate.ToString("yyyy-MM-dd"): "")" />
-                        <label for="startDateEle">Campaign Start Date</label>
+                        <label for="startDateEle">Campaign Start Date *</label>
                     </div>
                 </div>
 
@@ -142,7 +142,7 @@
 
     <div id="alertModal" class="modal" style="height:170px;width:350px">
         <div class="modal-content">
-            <p>Campaign Description and Campagin Start Date are Mandatory. Please fill it. </p>
+            <p id="modal-p">Campaign Description and Campagin Start Date are Mandatory. Please fill it. </p>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>

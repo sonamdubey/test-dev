@@ -84,6 +84,13 @@ var ConfigureCampaign = function () {
             $("#alertModal").modal('open');
             return false;
         }
+        
+        if (($('#txtDailyLeadLimit').val() && ($('#txtDailyLeadLimit').val() < 0)) || ($('#txtTotalLeadLimit').val() && ($('#txtTotalLeadLimit').val() < 0)))
+        {
+            $('#modal-p').text("Lead Limits should be positive");
+            $("#alertModal").modal('open');
+            return false;
+        }
 
         var selectedPages = '';
         
