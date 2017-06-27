@@ -353,6 +353,7 @@ namespace Bikewale.DAL.NewBikeSearch
                 objError.SendMail();
             }
         }
+
         /// <summary>
         /// Modified By :- Subodh Jain 14 March 2017
         /// Summary :- Added displacement 110-125
@@ -378,7 +379,7 @@ namespace Bikewale.DAL.NewBikeSearch
                     clause = " sd.displacement between 150 and 200 ";
                     break;
                 case "4":
-                    clause = " sd.displacement between 200 and 500 ";
+                    clause = " sd.displacement between 200 and 250 ";
                     break;
                 case "5":
                     clause = " sd.displacement between 250 and 500 ";

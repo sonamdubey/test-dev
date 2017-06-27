@@ -38,6 +38,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         public uint LeadSourceId { get; set; }
 
         public uint PinCodeId { get; set; }
+
+        public uint ManufacturerDealerId { get; set; }
     }
 
     /// <summary>
