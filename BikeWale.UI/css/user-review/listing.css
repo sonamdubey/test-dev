@@ -829,3 +829,12 @@
   opacity: 0.6;
   filter: alpha(opacity=60);
   -moz-opacity: 0.6; }
+
+.report-abuse-close-btn {
+  width: 16px;
+  height: 16px;
+  background-position: -36px -226px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer; }
