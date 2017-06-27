@@ -402,5 +402,66 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             return objDealerData;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 27 Jun 2017
+        /// Description :   To check manufacturer daily limit count exceeds or not for campaign
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
+        public bool IsManufacturerLeadLimitExceed(uint campaignId)
+        {
+            bool islimitexceeds = false;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "ismanufacturercampaignleadlimitreached";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_islimitexceed", DbType.Boolean, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    islimitexceeds = SqlReaderConvertor.ToBoolean(cmd.Parameters["par_islimitexceed"].Value);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(String.Format("Error in IsManufacturerLeadLimitExceed({0}) : Msg : {1}", campaignId, ex.Message));
+            }
+            return islimitexceeds;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 27 Jun 2017
+        /// Description : To update manufacturer daily limit count
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="abInquiryId"></param>
+        public bool UpdateManufacturerDailyLeadCount(uint campaignId, uint abInquiryId)
+        {
+            bool isUpdateDealerCount = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "updatemanufacturercampaignleadcount";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_abinquiryid", DbType.Int32, abInquiryId));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isUpdateDealerCount = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(String.Format("Error in UpdateManufacturerDailyLeadCount({0},{1}) : Msg : {2}", campaignId, abInquiryId, ex.Message));
+            }
+            return isUpdateDealerCount;
+        }
     }
 }
