@@ -6,7 +6,6 @@
 
 @Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", Model.NavigationWidget)
 <input type="hidden" id="CampaignId" value="@Model.CampaignId" />
-<input type="hidden" id="UserId" value="6" />
 <div class="row" style="margin-top:5px;">
     <div class="col m9">
         <ul class="collapsible" data-collapsible="accordion">
@@ -17,7 +16,7 @@
                         <blockquote>
                             <div class="chip">
                                 @rule.Make.MakeName @rule.Model.ModelName
-                                <i class="close material-icons" data-modelId="@rule.Model.ModelId">close</i>
+                                <i class="close material-icons" data-element="model" data-modelId="@rule.Model.ModelId">close</i>
                             </div>
                         </blockquote>
                     </div>
@@ -30,7 +29,7 @@
                                     <blockquote>
                                         <div class="chip">
                                             @s.StateName
-                                            <i class="close material-icons" data-modelId="@rule.Model.ModelId" data-stateid="@s.StateId">close</i>
+                                            <i class="close material-icons" data-element="state" data-modelId="@rule.Model.ModelId" data-stateid="@s.StateId">close</i>
                                         </div>
                                     </blockquote>
                                 }
@@ -40,7 +39,7 @@
                                         <div class="chip">
                                             @c.CityName
                                             <input type="hidden" id="CityId" value="@c.CityId" />
-                                            <i class="close material-icons" data-modelId="@rule.Model.ModelId" data-cityId="@c.CityId" data-allindia="@(c.CityId==0?true:false)">close</i>
+                                            <i class="close material-icons" data-element="city" data-modelId="@rule.Model.ModelId" data-cityId="@c.CityId" data-allindia="@(c.CityId==0?true:false)">close</i>
                                         </div>
                                     }
                                 </div>
@@ -136,7 +135,7 @@
             <input type="hidden" value="" name="stateIds" id="hdnStateIdList" />
             <input type="hidden" value="" name="cityIds" id="hdnCityIdList" />
             <input type="hidden" value="" name="isAllIndia" id="hdnIsAllIndia" />
-            <input type="hidden" value="6" name="userId" id="hdnUserId" />
+            <input type="hidden" value="@BikeWaleOpr.Common.CurrentUser.Id" name="userId" id="hdnUserId" />
             <button id="btnAddRules" class="btn waves-effect waves-light" type="submit" name="action" formaction="/manufacturercampaign/rules/campaignid/@Model.CampaignId/add/">
                 Add Rules
             </button>
@@ -145,5 +144,6 @@
 </div>
 <script type="text/javascript">
     var bwHostUrl = '@Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs';
+    var msg = '@Convert.ToString(TempData["msg"])';
 </script>
 <script src="~/src/ManufactureCampaign/rules.js"></script>
