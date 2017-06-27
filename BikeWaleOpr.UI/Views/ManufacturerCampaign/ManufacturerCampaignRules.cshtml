@@ -1,0 +1,149 @@
+﻿@model Bikewale.ManufacturerCampaign.Entities.ManufacturerCampaignRulesVM
+@{
+    ViewBag.Title = "Manufacturer Campaign Rules";
+    ViewBag.PageTitle = "Configure Rules for Manufacturer Campaign";
+}
+
+@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", 4)
+<input type="hidden" id="CampaignId" value="@Model.CampaignId" />
+<input type="hidden" id="UserId" value="6" />
+<div class="row" style="margin-top:5px;">
+    <div class="col m9">
+        <ul class="collapsible" data-collapsible="accordion">
+            @foreach (var rule in Model.Rules)
+            {
+                <li>
+                    <div class="collapsible-header">
+                        <blockquote>
+                            <div class="chip">
+                                @rule.Make.MakeName @rule.Model.ModelName
+                                <i class="close material-icons" data-modelId="@rule.Model.ModelId">close</i>
+                            </div>
+                        </blockquote>
+                    </div>
+                    <div class="collapsible-body">
+                        <div class="margin-left30 margin-bottom10">
+                            @foreach (var s in rule.State)
+                            {
+                                if (s.StateId > 0)
+                                {
+                                    <blockquote>
+                                        <div class="chip">
+                                            @s.StateName
+                                            <i class="close material-icons" data-modelId="@rule.Model.ModelId" data-stateid="@s.StateId">close</i>
+                                        </div>
+                                    </blockquote>
+                                }
+                                <div class="inline-block margin-top10">
+                                    @foreach (var c in s.Cities)
+                                    {
+                                        <div class="chip">
+                                            @c.CityName
+                                            <input type="hidden" id="CityId" value="@c.CityId" />
+                                            <i class="close material-icons" data-modelId="@rule.Model.ModelId" data-cityId="@c.CityId" data-allindia="@(c.CityId==0?true:false)">close</i>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </li>
+            }
+
+    </div>
+
+
+    <div class="col m3" id="configRules">
+        <form method="post">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header"><strong>Configure Bike Models (Step 1)</strong></div>
+                    <div class="collapsible-body">
+                        <div class="container">
+                            <div class="toggle-field-content select-auto-width padding-left35 margin-top10">
+                                @if (Model.Makes != null && Model.Makes.Count() > 0)
+                                {
+                                    <select id="ddlMakes" name="makeIdList" data-bind="event:{change: selectMake}">
+                                        <option>Select Make</option>
+                                        @foreach (var make in Model.Makes)
+                                        {
+                                            <option value="@make.MakeId">@make.MakeName</option>
+                                        }
+                                    </select>
+                                }
+                                else
+                                {
+                                    <span>Problem in retrieving makes</span>
+                                }
+                            </div>
+                            <div class="toggle-field-content select-auto-width padding-left35 margin-top10">
+                                <select data-placeholder="Select Models" id="ddlModels" data-bind="options: listModels(), optionsText: 'modelName', optionsValue: 'modelId', optionsCaption: 'Select Models'" multiple></select>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><strong>Configure Locations (Step 2)</strong></div>
+                    <div class="collapsible-body">
+                        <div class="container">
+                            <div class="margin-top10">
+                                <input type="checkbox" id="chkAllIndia" data-bind="checked : isAllIndia" />
+                                <label for="chkAllIndia">All India</label>
+                            </div>
+                            <div class="list-type-radio" id="configLoc" data-bind="visible: !isAllIndia()">
+                                <div class="input-field row s12 toggle-field-parent">
+
+                                    <input type="radio" id="rdoLocation1" value="1" name="location" />
+                                    <label for="rdoLocation1">I have a list of City Ids</label>
+                                    <div class="toggle-field-content padding-left35 margin-alpha margin-omega hide">
+                                        <div class="input-field input-validate">
+                                            <input id="txtCities" type="text" class="validate" name="txtCities" length="6000" maxlength="6000">
+                                            <label for="txtCities" data-error="Please add cities">City Ids (Comma separated only)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-field row s12 toggle-field-parent">
+                                    <input type="radio" id="rdoLocation2" value="2" name="location" />
+                                    <label for="rdoLocation2">Choose cities/states from list</label>
+                                    <div class="toggle-field-content select-auto-width padding-left35 margin-top10 hide">
+                                        @if (Model.States != null && Model.States.Count() > 0)
+                                        {
+                                            <select id="ddlStates" name="stateIdList" data-bind="event:{change: selectState}" multiple>
+                                                <option disabled>Select State</option>
+                                                @foreach (var state in Model.States)
+                                                {
+                                                    <option value="@state.StateId">@state.StateName</option>
+                                                }
+                                            </select>
+                                        }
+                                        else
+                                        {
+                                            <span>Problem in retrieving states</span>
+                                        } 
+                                        <div data-bind="visible : showCities">
+                                            <select data-placeholder="Select City" id="ddlCities" data-bind="options: listCities(), optionsText: 'cityName', optionsValue: 'cityId', optionsCaption:'Select All'" multiple></select>
+                                        </div>
+                                        </div>
+                                 </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <input type="hidden" value="@Model.CampaignId" name="campaignId" id="hdnCampaignId" />
+            <input type="hidden" value="" name="modelIds" id="hdnModelIdList" />
+            <input type="hidden" value="" name="stateIds" id="hdnStateIdList" />
+            <input type="hidden" value="" name="cityIds" id="hdnCityIdList" />
+            <input type="hidden" value="" name="isAllIndia" id="hdnIsAllIndia" />
+            <input type="hidden" value="6" name="userId" id="hdnUserId" />
+            <button id="btnAddRules" class="btn waves-effect waves-light" type="submit" name="action" formaction="/manufacturercampaign/rules/campaignid/@Model.CampaignId/add/">
+                Add Rules
+            </button>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var bwHostUrl = '@Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs';
+</script>
+<script src="~/src/ManufactureCampaign/rules.js"></script>

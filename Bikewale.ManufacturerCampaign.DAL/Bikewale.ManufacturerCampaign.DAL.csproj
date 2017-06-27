@@ -59,6 +59,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
+      <Project>{EA73DDA4-317E-4B79-BB03-F48125C2501B}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.DAL.CoreDAL\Bikewale.DAL.CoreDAL.csproj">
 
       <Project>{d5229109-3b85-48e7-9ff8-5385bdb54c87}</Project>
