@@ -75,52 +75,203 @@
     </div>
 }
 
-
-@if (Model.IsReviewsAvailable || Model.IsNewsAvailable || Model.IsUserReviewsAvailable)
+@if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable)
 {
-    <div id="reviewsContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
-        <h2>@Model.BikeName Reviews & News</h2>
-        @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
-        {
-            <h3 class="model-section-subtitle">Expert Reviews</h3>
-            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
-            <div class="view-all-btn-container">
-                <a title="@String.Format("{0} Expert Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
-            </div>
-            if (Model.IsUserReviewsAvailable || Model.IsNewsAvailable)
-            {
-                <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
-            }
-        }
+    <div id="reviewsContent" class="bw-model-tabs-data">
+		
+		<div class="padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+			<h2 class="heading-bottom-margin">@Model.BikeName User Reviews</h2>
+			<div class="model-overall-rating">
+				<div class="overall-rating-alignment">
+					<span class="rate-count-4">
+						<span class="bwmsprite star-icon"></span>
+						<span class="font18 text-bold">3.6</span>			
+					</span>
+					<span class="font14 text-xt-light review-left-divider">38 ratings</span>
+					<span class="font14 text-xt-light review-left-divider">25 reviews</span>
+				</div>
+			</div>
+			<ul class="rating-circle-list">
+				<li>
+					<div class="rating-circle circle-rate-5">
+						<p class="circle-label">5</p>
+						<span class="rating-progress"></span>
+					</div>
+					<p class="list-item-label">Visual Appeal</p>
+				</li>
+				<li>
+					<div class="rating-circle circle-rate-4">
+						<p class="circle-label">4</p>
+						<span class="rating-progress"></span>
+					</div>
+					<p class="list-item-label">Handling</p>
+				</li>
+				<li>
+					<div class="rating-circle circle-rate-1">
+						<p class="circle-label">1</p>
+						<span class="rating-progress"></span>
+					</div>
+					<p class="list-item-label">Service cost</p>
+				</li>
+				<li>
+					<div class="rating-circle circle-rate-3">
+						<p class="circle-label">3</p>
+						<span class="rating-progress"></span>
+					</div>
+					<p class="list-item-label">Ride quality</p>
+				</li>
+				<li>
+					<div class="rating-circle circle-rate-2">
+						<p class="circle-label">2</p>
+						<span class="rating-progress"></span>
+					</div>
+					<p class="list-item-label">Value for money</p>
+				</li>
+			</ul>
+			<ul class="user-review-list">
+				<li>
+					<a href="" title="" class="item-target">
+						<div class="margin-bottom10">
+							<span class="rating-badge" data-rate-bg="4">
+								<span class="bwmsprite star-white"></span>
+								<span>4</span>
+							</span>
+							<div class="grid-10-inline font15 text-black text-bold text-truncate">
+								<span class="review-title position-rel">Value for money...worth !</span>
+							</div>
+						</div>
 
-        @if (Model.IsUserReviewsAvailable)
-        {
+						<div class="margin-bottom10">
+							<span class="font12 text-light-grey">3 years ago by Chetan</span>
+						</div>
 
-            <div class="user-review-subContent">
-                <h3 class="model-section-subtitle">User reviews</h3>
-                @Html.Partial("~/Views/UserReviews/_UserReviewsList_Mobile.cshtml", Model.UserReviews)
-                <div class="view-all-btn-container">
-                    <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
-                </div>
-            </div>
-            if (Model.IsNewsAvailable)
-            {
-                <div class="padding-top20 margin-bottom15 border-solid-bottom"></div>
-            }
-        }
+						<div class="font14 text-slate-grey margin-bottom10">
+							<p class="inline">Style Very good style as compare to Unicorn People turns heads to view it in traffic its personal choice but Attractive colors White is best Sporty look Engine Perfo</p>
+							<span class="inline">...<span class="text-link">Read more</span></span>
+						</div>
 
-        @if (Model.IsNewsAvailable)
-        {
-            <h3 class="text-bold">News</h3>
-            @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
-            <div class="view-all-btn-container">
-                <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking,Model.News.ModelMasking))" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName):!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News",Model.News.MakeName):"Bikes News")" class="btn view-all-target-btn">Read all news<span class="bwmsprite teal-right"></span></a>
-            </div>
-            <div class="bw-tabs-data" id="ctrlNews">
-            </div>
-        }
+						<div class="grid-7 alpha">
+							<div class="item-stats-grid">
+								<span class="bwmsprite like-sm"></span>
+								<span>362</span>
+							</div>
+							<div class="item-stats-grid">
+								<span class="bwmsprite dislike-sm"></span>
+								<span>83</span>
+							</div>
+						</div>
+						<div class="grid-5 item-stats-grid omega text-right">
+							<span>38,395</span><span>&nbsp;views</span>
+						</div>
+						<div class="clear"></div>
+					</a>
+				</li>
+				<li>
+					<a href="" title="" class="item-target">
+						<div class="margin-bottom10">
+							<span class="rating-badge" data-rate-bg="5">
+								<span class="bwmsprite star-white"></span>
+								<span>5</span>
+							</span>
+							<div class="grid-10-inline font15 text-black text-bold text-truncate">
+								<span class="review-title position-rel">Value for money...worth !</span>
+							</div>
+						</div>
+
+						<div class="margin-bottom10">
+							<span class="font12 text-light-grey">3 years ago by Chetan</span>
+						</div>
+
+						<div class="font14 text-slate-grey margin-bottom10">
+							<p class="inline">Style Very good style as compare to Unicorn People turns heads to view it in traffic its personal choice but Attractive colors White is best Sporty look Engine Perfo</p>
+							<span class="inline">...<span class="text-link">Read more</span></span>
+						</div>
+
+						<div class="grid-7 alpha">
+							<div class="item-stats-grid">
+								<span class="bwmsprite like-sm"></span>
+								<span>362</span>
+							</div>
+							<div class="item-stats-grid">
+								<span class="bwmsprite dislike-sm"></span>
+								<span>83</span>
+							</div>
+						</div>
+						<div class="grid-5 item-stats-grid omega text-right">
+							<span>38,395</span><span>&nbsp;views</span>
+						</div>
+						<div class="clear"></div>
+					</a>
+				</li>
+				<li>
+					<a href="" title="" class="item-target">
+						<div class="margin-bottom10">
+							<span class="rating-badge" data-rate-bg="1">
+								<span class="bwmsprite star-white"></span>
+								<span>1</span>
+							</span>
+							<div class="grid-10-inline font15 text-black text-bold text-truncate">
+								<span class="review-title position-rel">Value for money...worth !</span>
+							</div>
+						</div>
+
+						<div class="margin-bottom10">
+							<span class="font12 text-light-grey">3 years ago by Chetan</span>
+						</div>
+
+						<div class="font14 text-slate-grey margin-bottom10">
+							<p class="inline">Style Very good style as compare to Unicorn People turns heads to view it in traffic its personal choice but Attractive colors White is best Sporty look Engine Perfo</p>
+							<span class="inline">...<span class="text-link">Read more</span></span>
+						</div>
+
+						<div class="grid-7 alpha">
+							<div class="item-stats-grid">
+								<span class="bwmsprite like-sm"></span>
+								<span>362</span>
+							</div>
+							<div class="item-stats-grid">
+								<span class="bwmsprite dislike-sm"></span>
+								<span>83</span>
+							</div>
+						</div>
+						<div class="grid-5 item-stats-grid omega text-right">
+							<span>38,395</span><span>&nbsp;views</span>
+						</div>
+						<div class="clear"></div>
+					</a>
+				</li>
+			</ul>
+			<div class="view-all-btn-container">
+				<a href="" title="" class="btn view-all-target-btn">Read all user reviews<span class="bwmsprite teal-right"></span></a>
+			</div>
+		</div>
+
+		@if(Model.IsReviewsAvailable) {
+			<div class="padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+				<h2>@Model.BikeName Expert Reviews</h2>
+				@if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
+				{
+					@Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+					<div class="view-all-btn-container">
+						<a title="@String.Format("{0} Expert Reviews", Model.BikeName)" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
+					</div>
+				}
+			</div>
+		}
     </div>
 }
+
+@if (Model.IsNewsAvailable)
+{
+<div id="newsContent" class="bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+	<h2>@Model.BikeName News</h2>
+	@Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+	<div class="view-all-btn-container">
+		<a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking,Model.News.ModelMasking))" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName):!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News",Model.News.MakeName):"Bikes News")" class="btn view-all-target-btn">Read all news<span class="bwmsprite teal-right"></span></a>
+	</div>
+</div>
+}
+
 <div class="margin-bottom20 text-center">
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100BTF.cshtml", new { AdId = Model.AdTags.AdId });}
 </div>

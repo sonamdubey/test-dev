@@ -786,5 +786,35 @@ docReady(function () {
     $('#scroll-to-top').click(function (event) {
         $('html, body').stop().animate({ scrollTop: 0 });
         event.preventDefault();
+    });    
+
+    $('#report-background, .report-abuse-close-btn').on('click', function() {
+        reportAbusePopup.close();
     });
+
+    $(document).keydown(function (event) {
+        if(event.keyCode == 27) {
+            if(reportAbusePopup.popupElement.is(':visible')) {
+                reportAbusePopup.close();
+            }
+        }
+    });
+
+	var reportAbusePopup = {
+		popupElement: $('#report-abuse'),
+
+		bgContainer: $('#report-background'),
+
+		open: function () {
+			reportAbusePopup.popupElement.show();
+			popup.lock();
+			$(".blackOut-window").hide();
+			reportAbusePopup.bgContainer.show();
+		},
+		close: function () {
+			reportAbusePopup.popupElement.hide();
+			popup.unlock();
+			reportAbusePopup.bgContainer.hide();
+		}
+	};
 });

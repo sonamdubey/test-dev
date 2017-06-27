@@ -71,45 +71,256 @@
         </div>
     }
 
-    @if (Model.IsReviewsAvailable || Model.IsNewsAvailable || Model.IsUserReviewsAvailable)
+    @if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable)
     {
-        <div id="modelReviewsContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
+        <div id="modelReviewsContent" class="bw-model-tabs-data font14">
 
-            @if ((Model.IsReviewsAvailable || Model.IsUserReviewsAvailable) && Model.IsNewsAvailable)
-            {
-                <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Reviews & News</h2>
-            }
-            else
-            {
-                if (!Model.IsNewsAvailable)
-                {
-                    <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Reviews</h2>
-                }
-                else
-                {
-                    <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName News</h2>
-                }
-            }
+			@if (Model.IsUserReviewsAvailable) {
+				<div class="content-box-shadow card-bottom-margin content-inner-block-20">
+					<h2 class="h2-heading inline-block margin-right10">@Model.BikeName User Reviews</h2>
+					<div class="model-overall-rating inline-block">
+						<span class="rate-count-4">
+							<span class="bwsprite star-icon star-size-18"></span>
+							<span class="font18 text-bold">4</span>
+						</span>
+						<span class="font14 text-xt-light review-left-divider">23 ratings</span>
+						<span class="font14 text-xt-light review-left-divider">23 reviews</span>
+					</div>
 
+					<ul class="rating-circle-list overall-circle-list">
+						<li>
+							<div class="rating-circle circle-rate-4">
+								<p class="circle-label">4</p>
+								<span class="rating-progress">
+								</span>
+							</div>
+							<p class="list-item-label">Visual Appeal</p>
+						</li>
+						<li>
+							<div class="rating-circle circle-rate-2">
+								<p class="circle-label">2</p>
+								<span class="rating-progress">
+								</span>
+							</div>
+							<p class="list-item-label">Handling</p>
+						</li>
+						<li>
+							<div class="rating-circle circle-rate-5">
+								<p class="circle-label">5</p>
+								<span class="rating-progress">
+								</span>
+							</div>
+							<p class="list-item-label">Ride quality</p>
+						</li>
+					</ul>
+					<ul class="user-review-list">
+						<li class="list-item">
+							<div class="item-grid alpha padding-right20 grid-9 border-light-right">
+								<div class="margin-bottom10">
+									<span class="rating-badge" data-rate-bg="4">
+										<span class="bwsprite star-white"></span>
+										&nbsp;<span data-bind="text: value">4</span>
+									</span>
+									
+									<a href="" class="list-item-title inline-block margin-right5">Value for money...worth !</a>
+									<span class="font12 inline-block text-light-grey">3 years ago by Chetan</span>
+								</div>
+								<div class="collapsible-content toggle-off main-content-off margin-bottom10 font14 text-slate-grey">
+									<div class="main-content">
+										<p>Style Very good style as compare to Unicorn People turns heads to view it in traffic its personal choice but Attractive colors White is best Sporty look Engine Perfo</p>
+									</div>
+									<div class="more-content">
+										<div>
+											<p>Style Very good style as compare to Unicorn People turns heads to view it in traffic its personal choice but Attractive colors White is best Sporty look Engine Perfo</p>
+										</div>
 
+										<ul class="rating-circle-list">
+											<li>
+												<div class="rating-circle circle-rate-4">
+													<p class="circle-label">4</p>
+													<span class="rating-progress">
+													</span>
+												</div>
+												<p class="list-item-label">Visual Appeal</p>
+											</li>
+										</ul>
+									</div>
+									<a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+								</div>
 
-            @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
-            {
-            <!-- expert review starts-->
-                <h3 class="font-bold padding-left10 margin-bottom20">Expert Reviews</h3>
-                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+								<button type="button" class="btn btn-inv-teal-group margin-right10 upvoteListButton">
+									<span class="btn-label-grid">
+										<span class="bwsprite like-sm"></span>
+									</span><span class="btn-count">362</span>
+								</button>
 
-                <div class="padding-left10 more-article-target view-all-btn-container">
-                    <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
-                </div>
-            <!-- expert review ends-->
+								<button type="button" class="btn btn-inv-teal-group downvoteListButton">
+									<span class="btn-label-grid">
+										<span class="bwsprite dislike-sm"></span>
+									</span><span class="btn-count">83</span>
+								</button>
 
-                if (Model.IsUserReviewsAvailable || Model.IsNewsAvailable)
-                {
-                    <div class="margin-top20 margin-right10 margin-bottom20 margin-left10 border-solid-top"></div>
-                }
-            }
+								<p class="report-abuse-label rightfloat line-height26">Inappropriate review? <a href="javascript:void(0)" rel="nofollow">Report Abuse</a></p>
+								<div class="clear"></div>
+							</div>
+							<div class="grid-3 omega padding-left20">
+								<ul>
+									<li class="margin-bottom10">
+										<span class="bwsprite questionId-1"></span>
+										<div class="inline-block">
+											<p class="font10 text-xt-light">Used it for</p>
+											<p class="font14 text-slate-grey">Daily Commute</p>
+										</div>
+									</li>
+									<li class="margin-bottom10">
+										<span class="bwsprite questionId-2"></span>
+										<div class="inline-block">
+											<p class="font10 text-xt-light">Owned for</p>
+											<p class="font14 text-slate-grey">3-6 months</p>
+										</div>
+									</li>
+									<li class="margin-bottom10">
+										<span class="bwsprite questionId-3"></span>
+										<div class="inline-block">
+											<p class="font10 text-xt-light">Ridden for</p>
+											<p class="font14 text-slate-grey">< 5000 kms</p>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div class="clear"></div>
+						</li>
+						<li class="list-item">
+							<div class="item-grid alpha padding-right20 grid-9 border-light-right">
+								<div class="margin-bottom10">
+									<span class="rating-badge" data-rate-bg="4">
+										<span class="bwsprite star-white"></span>
+										&nbsp;<span data-bind="text: value">4</span>
+									</span>
+									
+									<a href="" class="list-item-title inline-block margin-right5">Value for money...worth !</a>
+									<span class="font12 inline-block text-light-grey">3 years ago by Chetan</span>
+								</div>
+								<div class="collapsible-content toggle-off main-content-off margin-bottom10 font14 text-slate-grey">
+									<div class="main-content">Style Very good style as compare to Unicorn People turns heads to view it in traffic its personal choice but Attractive colors White is best Sporty look Engine Perfo. Style Very good style as compare to Unicorn People turns heads to view it in traffic its personal choice but Attractive colors White is best Sporty look Engine Perfo
+									</div>
+									<div class="more-content">
+										<div>
+											<p>Style Very good style as compare to Unicorn People turns heads to view it in traffic its personal choice but Attractive colors White is best Sporty look Engine Perfo</p>
+										</div>
 
+										<ul class="rating-circle-list">
+											<li>
+												<div class="rating-circle circle-rate-4">
+													<p class="circle-label">4</p>
+													<span class="rating-progress">
+													</span>
+												</div>
+												<p class="list-item-label">Visual Appeal</p>
+											</li>
+											<li>
+												<div class="rating-circle circle-rate-2">
+													<p class="circle-label">2</p>
+													<span class="rating-progress">
+													</span>
+												</div>
+												<p class="list-item-label">Handling</p>
+											</li>
+											<li>
+												<div class="rating-circle circle-rate-5">
+													<p class="circle-label">5</p>
+													<span class="rating-progress">
+													</span>
+												</div>
+												<p class="list-item-label">Ride quality</p>
+											</li>
+										</ul>
+									</div>
+									<a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+								</div>
+
+								<button type="button" class="btn btn-inv-teal-group margin-right10 upvoteListButton">
+									<span class="btn-label-grid">
+										<span class="bwsprite like-sm"></span>
+									</span><span class="btn-count">362</span>
+								</button>
+
+								<button type="button" class="btn btn-inv-teal-group downvoteListButton">
+									<span class="btn-label-grid">
+										<span class="bwsprite dislike-sm"></span>
+									</span><span class="btn-count">83</span>
+								</button>
+
+								<p class="report-abuse-label rightfloat line-height26">Inappropriate review? <a href="javascript:void(0)" rel="nofollow">Report Abuse</a></p>
+								<div class="clear"></div>
+							</div>
+							<div class="grid-3 omega padding-left20">
+								<ul>
+									<li class="margin-bottom10">
+										<span class="bwsprite questionId-1"></span>
+										<div class="inline-block">
+											<p class="font10 text-xt-light">Used it for</p>
+											<p class="font14 text-slate-grey">Daily Commute</p>
+										</div>
+									</li>
+									<li class="margin-bottom10">
+										<span class="bwsprite questionId-2"></span>
+										<div class="inline-block">
+											<p class="font10 text-xt-light">Owned for</p>
+											<p class="font14 text-slate-grey">3-6 months</p>
+										</div>
+									</li>
+									<li class="margin-bottom10">
+										<span class="bwsprite questionId-3"></span>
+										<div class="inline-block">
+											<p class="font10 text-xt-light">Ridden for</p>
+											<p class="font14 text-slate-grey">< 5000 kms</p>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div class="clear"></div>
+						</li>
+					</ul>
+					<div class="more-article-target view-all-btn-container">
+						<a title="" href="" class="btn view-all-target-btn">Read all user reviews<span class="bwsprite teal-right"></span></a>
+					</div>
+				</div>
+
+				<div id="report-abuse">
+					<p class="font20 text-bold text-center margin-bottom20">Why do you want to report it abuse?</p>
+
+					<div class="bwsprite report-abuse-close-btn"></div>
+
+					<p class="margin-bottom10 font14">Comment</p>
+
+					<textarea id="txtAbuseComments"></textarea>
+					<span id="spnAbuseComments" class="error font12 text-red"></span>
+
+					<div class="text-center margin-top10">
+						<a id="btnReportReviewAbuse" onclick="reportAbuse()" class="btn btn-orange" rel="nofollow">Report</a>
+					</div>
+				</div>
+				<div id="report-background"></div>
+			}
+
+			@if (Model.IsReviewsAvailable) {
+				<div class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin">
+					@if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
+					{
+					<!-- expert review starts-->
+						<h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Expert Reviews</h2>
+						@Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+
+						<div class="padding-left10 more-article-target view-all-btn-container">
+							<a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
+						</div>
+					<!-- expert review ends-->
+					}
+				</div>
+			}
+
+			@*
             @if (Model.IsUserReviewsAvailable)
             {
                 <h3 class="font-bold padding-left10 margin-bottom20">User reviews</h3>
@@ -117,27 +328,24 @@
                 <div class="padding-left10 view-all-btn-container">
                     <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
                 </div>
-                if (Model.IsNewsAvailable)
-                {
-                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
-                }
             }
+			*@
+    	</div>
+    }
 
-            @if (Model.IsNewsAvailable)
-            {
-            <!-- News widget starts -->
-                <div id="modelNewsContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 font14">
-                    <h3 class="font-bold margin-bottom20">@Model.News.Title</h3>
-                    @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
-                    <div class="more-article-target view-all-btn-container">
-                        <a href="@Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking)" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : (!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Bikes News"))"
-                           class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
-                    </div>
-                    </div>
-                    <!-- News widget ends -->
-                    }
-                </div>
-            }
+	@if (Model.IsNewsAvailable)
+	{
+	<!-- News widget starts -->
+		<div id="modelNewsContent" class="bw-model-tabs-data content-box-shadow content-inner-block-20 card-bottom-margin font14">
+			<h2 class="h2-heading margin-bottom20">@Model.BikeName News</h2>
+			@Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+			<div class="more-article-target view-all-btn-container">
+				<a href="@Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking)" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : (!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Bikes News"))"
+					class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
+			</div>
+		</div>
+	<!-- News widget ends -->
+	}
 
     @if (Model.IsVideosAvailable)
     {

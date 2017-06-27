@@ -24,17 +24,13 @@
 {
     <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;About" href="#modelAboutContent" rel="nofollow">About</a>
 }
-@if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable && Model.IsNewsAvailable)
-{
-    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Reviews & News" href="#modelReviewsContent" rel="nofollow">Reviews & News</a>
-}
-@if ((Model.IsReviewsAvailable || Model.IsUserReviewsAvailable) && !Model.IsNewsAvailable)
+@if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable)
 {
     <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;Reviews" href="#modelReviewsContent" rel="nofollow">Reviews</a>
 }
-@if (!(Model.IsReviewsAvailable || Model.IsUserReviewsAvailable) && Model.IsNewsAvailable)
+@if (Model.IsNewsAvailable)
 {
-    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;News" href="#modelReviewsContent" rel="nofollow">News</a>
+    <a class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@bikeName&#95;News" href="#modelNewsContent" rel="nofollow">News</a>
 }
 @if (Model.IsVideosAvailable)
 {

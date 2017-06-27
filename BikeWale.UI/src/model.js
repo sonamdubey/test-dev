@@ -447,11 +447,13 @@ docReady(function () {
                     bottom = top + $(this).outerHeight();
                     
                 if (windowScrollTop >= top && windowScrollTop <= bottom) {
-                    topNavBar.find('a').removeClass('active');
-                    $('#modelDetailsContainer .bw-model-tabs-data').removeClass('active');
+					if(!$(this).hasClass('active')) {
+						topNavBar.find('a').removeClass('active');
+						$('#modelDetailsContainer .bw-model-tabs-data').removeClass('active');
 
-                    $(this).addClass('active');
-                    topNavBar.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+						$(this).addClass('active');
+						topNavBar.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+					}
                 }
             });
         } catch (e) {
@@ -476,13 +478,9 @@ docReady(function () {
     }
 
     // remove tabs highlight class for combined sections
-    var newsContent = $('#modelNewsContent'),
-        alternativeContent = $('#modelAlternateBikeContent'),
+    var alternativeContent = $('#modelAlternateBikeContent'),
         makeDealersContent = $('#makeDealersContent');
 
-    if (newsContent.length != 0) { // check if news content is present
-        newsContent.removeClass('bw-model-tabs-data').addClass('model-news-content');
-    }
     if (alternativeContent.length != 0) {
         alternativeContent.removeClass('bw-model-tabs-data');
     }

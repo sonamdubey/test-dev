@@ -60,9 +60,9 @@
                                                     @Html.Raw((review.Description.TruncateHtml(270)))
                                                 </div>
                                                 <div class="more-content">
-                                                    <span data-bind="html: $data.description">
+                                                    <div data-bind="html: $data.description">
                                                         @Html.Raw(review.Description)
-                                                    </span>
+                                                    </div>
 
                                                     @if (review.Questions != null)
                                                     {

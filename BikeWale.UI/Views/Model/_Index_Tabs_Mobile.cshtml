@@ -25,9 +25,9 @@
     {
         <li data-tabs="#reviewsContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;Reviews">Reviews</li>
     }
-    @if (!(Model.IsReviewsAvailable || Model.IsUserReviewsAvailable) && Model.IsNewsAvailable)
+    @if (Model.IsNewsAvailable)
     {
-        <li data-tabs="#reviewsContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;News">News</li>
+        <li data-tabs="#newsContent" class="bw-ga" c="Model_Page" a="Floating_Navigation_Clicked" l="@Model.BikeName&#95;News">News</li>
     }
     @if (Model.IsVideosAvailable)
     {
