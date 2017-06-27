@@ -24,7 +24,8 @@
                         <div class="margin-left30 margin-bottom10">
                             @foreach (var s in rule.State)
                             {
-                                if (s.StateId > 0)
+                                <div class="state">
+                                @if (s.StateId > 0)
                                 {
                                     <blockquote>
                                         <div class="chip">
@@ -42,6 +43,7 @@
                                             <i class="close material-icons" data-element="city" data-modelId="@rule.Model.ModelId" data-cityId="@c.CityId" data-allindia="@(c.CityId==0?true:false)">close</i>
                                         </div>
                                     }
+                                </div>
                                 </div>
                             }
                         </div>
@@ -76,7 +78,7 @@
                                 }
                             </div>
                             <div class="toggle-field-content select-auto-width padding-left35 margin-top10">
-                                <select data-placeholder="Select Models" id="ddlModels" data-bind="options: listModels(), optionsText: 'modelName', optionsValue: 'modelId', optionsCaption: 'Select Models'" multiple></select>
+                                <select data-placeholder="Select Models" id="ddlModels" data-bind="options: listModels(), optionsText: 'modelName', optionsValue: 'modelId', optionsCaption: 'Select All'" multiple></select>
                             </div>
                         </div>
                     </div>
@@ -85,7 +87,7 @@
                     <div class="collapsible-header"><strong>Configure Locations (Step 2)</strong></div>
                     <div class="collapsible-body">
                         <div class="container">
-                            <div class="margin-top10">
+                            <div class="margin-top10 margin-bottom10">
                                 <input type="checkbox" id="chkAllIndia" data-bind="checked : isAllIndia" />
                                 <label for="chkAllIndia">All India</label>
                             </div>
@@ -145,5 +147,6 @@
 <script type="text/javascript">
     var bwHostUrl = '@Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs';
     var msg = '@Convert.ToString(TempData["msg"])';
+    var onExShowroom=@Convert.ToString(Model.ShowOnExShowroom).ToLower();
 </script>
 <script src="~/src/ManufactureCampaign/rules.js"></script>

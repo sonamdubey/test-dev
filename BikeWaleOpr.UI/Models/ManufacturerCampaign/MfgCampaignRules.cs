@@ -13,6 +13,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
         #region Public variables
         public uint CampaignId { get; set; }
         public uint DealerId { get; set; }
+        public bool ShowOnExShowroom {get;set;}
         #endregion
 
         #region Constructor
@@ -32,6 +33,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
             objData.NavigationWidget.ActivePage = 4;
            objData.NavigationWidget.CampaignId = CampaignId;
             objData.NavigationWidget.DealerId = DealerId;
+            objData.ShowOnExShowroom = ShowOnExShowroom;
             IEnumerable<MfgRuleEntity> rules = _mfgCampaign.GetManufacturerCampaignRules(CampaignId);
             IList<ManufacturerCampaignRulesEntity> tempRules = new List<ManufacturerCampaignRulesEntity>();
             objData.Rules = rules.GroupBy(x => new { x.ModelId, x.ModelName, x.MakeId, x.MakeName }).Select(
@@ -58,7 +60,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
                            CityName = r.CityName
                        })
                    })
-                });
+                }).OrderBy(x=>x.Make.MakeId);
             
             objData.Makes = _mfgCampaign.GetBikeMakes();
             objData.States = _mfgCampaign.GetStates();

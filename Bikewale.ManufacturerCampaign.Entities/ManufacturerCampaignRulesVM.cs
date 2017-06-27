@@ -13,5 +13,6 @@ namespace Bikewale.ManufacturerCampaign.Entities
         public IEnumerable<BikeMakeEntity> Makes { get; set; }
         public IEnumerable<StateEntity> States { get; set; }
         public NavigationWidgetEntity NavigationWidget { get; set; }
+        public bool ShowOnExShowroom { get; set; }
     }
 }
