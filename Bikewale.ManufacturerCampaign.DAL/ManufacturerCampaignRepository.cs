@@ -10,6 +10,7 @@ using BikewaleOpr.Entities;
 using System.Linq;
 using BikewaleOpr.Entity.ManufacturerCampaign;
 using Bikewale.DAL.CoreDAL;
+using Bikewaleopr.ManufacturerCampaign.Entities;
 
 namespace Bikewale.ManufacturerCampaign.DAL
 {
@@ -97,7 +98,29 @@ namespace Bikewale.ManufacturerCampaign.DAL
             return objEntity;
         }
 
-
+        public ManufacturerCampaignPopup getManufacturerCampaignPopup( uint campaignId)
+        {
+            ManufacturerCampaignPopup objEntity = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_campaignId", campaignId);
+                    objEntity = new ManufacturerCampaignPopup();
+                    objEntity = connection.Query<ManufacturerCampaignPopup>("getmanufacturercampaignpopup", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                 
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign");
+            }
+            return objEntity;
+        }
         public IEnumerable<BikeModelEntity> GetBikeModels(uint makeId)
         {
             IEnumerable<BikeModelEntity> bikeModels = null;
@@ -205,7 +228,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_totalleadlimit", objCampaign.TotalLeadLimit);
                     param.Add("par_campaignpages", objCampaign.CampaignPages);
                     param.Add("par_startDate", objCampaign.StartDate);
-                    param.Add("par_endDate", objCampaign.EndDate);
+                    param.Add("par_endDate", objCampaign.EndDate??null);
                     param.Add("par_showonexshowroomprice", objCampaign.ShowOnExShowroomPrice);
                     param.Add("par_campaignid", objCampaign.CampaignId, dbType: DbType.Int32, direction: ParameterDirection.InputOutput);
                     connection.Query<dynamic>("savemanufacturercampaign_21062017", param: param, commandType: CommandType.StoredProcedure);
@@ -216,9 +239,38 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.saveManufacturerCampaign");
             }
             return campaignId;
+        }
+        public void saveManufacturerCampaignPopup(ManufacturerCampaignPopup objCampaign)
+        {
+            
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_campaignid",objCampaign.CampaignId);
+                    param.Add("par_PopupHeading", objCampaign.PopupHeading);
+                    param.Add("par_PopupDescription", objCampaign.PopupDescription);
+                    param.Add("par_PopupSuccessMessage", objCampaign.PopupSuccessMessage);
+                    param.Add("par_EmailRequired", objCampaign.EmailRequired);
+                    param.Add("par_PincodeRequired", objCampaign.DealerRequired);
+                    param.Add("par_DealerRequired", objCampaign.PinCodeRequired);
+                    
+                    connection.Query<dynamic>("savemanufacturercampaignpopup", param: param, commandType: CommandType.StoredProcedure);
+                    
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.saveManufacturerCampaignPopup");
+            }
+            
         }
 
 

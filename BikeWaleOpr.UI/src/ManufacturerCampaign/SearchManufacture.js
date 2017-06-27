@@ -1,9 +1,9 @@
 ﻿var ddlManufacturers = $("#ddlManufacturers");
-var BwOprHostUrl, msgBox;
+var BwOprHostUrl, msg;
  $(document).ready(function () {
      BwOprHostUrl = document.getElementById("tblCampaigns").getAttribute("data-BwOprHostUrl");
      $('#tblCampaigns').hide();
-      msgBox = $("#msgBox");
+     
  });
  if (msg != "") { Materialize.toast(msg, 5000); }
 var mfgCamp = function () {

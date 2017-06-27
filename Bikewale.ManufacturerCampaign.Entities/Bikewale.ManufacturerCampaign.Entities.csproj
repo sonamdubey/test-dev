@@ -46,6 +46,8 @@
     <Compile Include="ConfigureCampaignEntity.cs" />
     <Compile Include="ManufacturerCampaignDetails.cs" />
     <Compile Include="ManufacturerCampaignPages.cs" />
+    <Compile Include="ManufacturerCampaignPopup.cs" />
+    <Compile Include="ManufacturerCampaignPopupVM.cs" />
     <Compile Include="Models\SearchManufacturerCampaignVM.cs" />
     <Compile Include="NavigationWidgetEntity.cs" />
     <Compile Include="BikeMakeEntity.cs" />

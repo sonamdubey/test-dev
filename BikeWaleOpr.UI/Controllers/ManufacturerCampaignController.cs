@@ -1,5 +1,5 @@
 using Bikewale.ManufacturerCampaign.Entities;
-﻿
+
 using Bikewale.ManufacturerCampaign.Interface;
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Entities.ContractCampaign;
@@ -8,15 +8,15 @@ using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Models;
 using BikewaleOpr.Models.ManufacturerCampaign;
 
-﻿using Bikewale.ManufacturerCampaign.Entities.Models;
+using Bikewale.ManufacturerCampaign.Entities.Models;
 
 
 using BikeWaleOpr.Common;
 using System;
 using System.Web.Mvc;
+using Bikewaleopr.ManufacturerCampaign.Entities;
 using BikewaleOpr.Models.ManufacturerCampaign;
 using Bikewale.ManufacturerCampaign.Interface;
-
 
 namespace BikewaleOpr.Controllers
 {
@@ -83,7 +83,7 @@ namespace BikewaleOpr.Controllers
                 CWWebservice.AddCampaignContractData(ccInputs);
             }
                                     
-            return Redirect("/manufacturercampaign/properties/?campaignId=" + campaignId);
+            return Redirect("/manufacturercampaign/properties/dealerId/"+ objData .DealerId+"? campaignId=" + campaignId);
         }
 
         [Route("manufacturercampaign/properties/")]
@@ -92,10 +92,29 @@ namespace BikewaleOpr.Controllers
             return View();
         }
 
-        [Route("manufacturercampaign/popup/")]
-        public ActionResult ConfigureCampaignPopup()
+        [Route("manufacturercampaign/popup/{dealerId}")]
+        public ActionResult ConfigureCampaignPopup(uint dealerId, uint? campaignId)
         {
-            return View();
+            ConfigureCampaignPopup objPopup = new ConfigureCampaignPopup(_manufacurerCampaignRepo);
+            ManufacturerCampaignPopupVM objVM = null;
+            if (objPopup!=null)
+            {
+                objVM= objPopup.GetData(dealerId,campaignId ?? 0);
+                
+            }
+            return View(objVM);
+        }
+
+        [HttpPost, Route("manufacturercampaign/save/popup/")]
+        public ActionResult saveCampaignPopup([System.Web.Http.FromBody] ManufacturerCampaignPopup objData)
+        {
+            if (objData != null)
+            {
+                _manufacurerCampaignRepo.saveManufacturerCampaignPopup(objData);
+            }
+
+            return Redirect("/manufacturercampaign/rules/campaignId/" + objData.CampaignId+"?dealerId="+objData.DealerId);
+
         }
 
         [Route("manufacturercampaign/rules/campaignId/{campaignId}")]
