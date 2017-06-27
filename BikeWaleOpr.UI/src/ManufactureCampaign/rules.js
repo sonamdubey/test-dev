@@ -39,10 +39,10 @@ var manufacturerRulesViewModel = function () {
         if (self.listStates().length > 1)
         {
             self.isMultipleStates(true);
-
+            stateIds = "";
             ko.utils.arrayForEach(self.listStates(), function (state) {
                  if(state)
-                stateIds = stateIds + state + ",";
+                     stateIds = stateIds + "," + state;
             });
                 
         }
@@ -147,7 +147,7 @@ $(document).ready(function () {
             cityIds = null;
             stateIds = null;
         }
-        
+
         $('#hdnModelIdList').val(modelIds);
         $('#hdnCityIdList').val(cityIds);
         $('#hdnStateIdList').val(stateIds);
