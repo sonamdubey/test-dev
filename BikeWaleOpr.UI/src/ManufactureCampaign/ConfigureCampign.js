@@ -61,7 +61,7 @@ $(".default-chk").change(function () {
 
 $("#selMaskingNumber").change(function () {
     vmConfigureCampaign.maskingNumber($('#selMaskingNumber').find("option:selected").val());
-    $('#labelMaskingNumber').addClass('active');   
+    $('#labelMaskingNumber').addClass('active');    
 });
 
 var configureCampaignPage = $('#ConfigureCampaign');
@@ -72,16 +72,43 @@ var ConfigureCampaign = function () {
     self.startDate = ko.observable($('#startDateEle').attr('data-value'));
     self.maskingNumber = ko.observable($('#txtMaskingNumber').attr('data-value'));
 
+    if ($('#inputDealerId') && $('#inputDealerId').val())
+        var dealerId = $('#inputDealerId').val().trim();
+
+    if ($('#inputCampaignId') && $('#inputCampaignId').val())
+        var campaignId = $('#inputCampaignId').val().trim();
+
     self.configureCampaign = function () {        
-        if (!self.description() || self.description() == "" || !self.startDate() || self.startDate() == "")
+        if (!self.description() || self.description() == "")
         {
+            $('#modal-p').text("Campaign Description is Mandatory. Please fill it. ");
+            $("#alertModal").modal('open');
+            return false;
+        }
+        
+        if (!self.startDate() || self.startDate() == "") {
+            $('#modal-p').text("Campagin Start Date is Mandatory. Please fill it. ");
             $("#alertModal").modal('open');
             return false;
         }
 
+        if (($('#txtDailyLeadLimit').val() && ($('#txtDailyLeadLimit').val() < 0)) || ($('#txtTotalLeadLimit').val() && ($('#txtTotalLeadLimit').val() < 0)))
+        {
+            $('#modal-p').text("Lead Limits should be positive");
+            $("#alertModal").modal('open');
+            return false;
+        }       
+
         var selectedPages = '';
         
         var selectedOptions = $('#select-pages').find("option:selected");
+       
+        if (selectedOptions.length == 1)
+        {
+            $('#modal-p').text("Please select atleast one page.");
+            $("#alertModal").modal('open');
+            return false;
+        }
 
         for(var i = 1; i <selectedOptions.length; i++)
         {
@@ -109,39 +136,56 @@ var ConfigureCampaign = function () {
     };
 
     self.releaseMaskingNumber = function () {
-        vmConfigureCampaign.maskingNumber("");
-        var maskingNumber = $("#txtMaskingNumber").val().trim();
-        if (maskingNumber.length > 0) {
-            releaseMaskingNumber(maskingNumber);
+        try
+        {                    
+            var maskingNumber = $("#txtMaskingNumber").val().trim();
+            $('#labelMaskingNumber').removeClass('active');
+            if (self.maskingNumber().length > 0) {
+                if (confirm("Do you want to release the number?")) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+                        data: '{"dealerId":"' + dealerId + '","campaignId":"' + campaignId + '", "maskingNumber":"' + self.maskingNumber() + '"}',
+                        beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ReleaseNumber"); },
+                        success: function (response) {
+                            if (JSON.parse(response).value) {
+                                $("#txtMaskingNumber").val('');
+                                alert("Masking Number is released successful.");                               
+                            }
+                            else {
+                                alert("There was error while releasing masking number. Please contact System Administrator for more details.");
+                            }
+                        }
+
+                    });
+                }
+            }
+            self.maskingNumber("");
+            return false;
+        } catch (e) {
+            alert("An error occured. Please contact System Administrator for more details.");
         }
-        $('#labelMaskingNumber').removeClass('active');
-        return false;
     }
 
-    var dealerId = $('#inputDealerId').val().trim();
-    var campaignId = $('#inputCampaignId').val().trim();
-
-    function releaseMaskingNumber(maskingNumber) {
+    self.bindMaskingNumber = function () {
         try {
-            if (confirm("Do you want to release the number?")) {
-                $.ajax({
-                    type: "POST",
-                    url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                    data: '{"dealerId":"' + dealerId + '","campaignId":"' + campaignId + '", "maskingNumber":"' + self.maskingNumber() + '"}',
-                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ReleaseNumber"); },
-                    success: function (response) {
-                        if (JSON.parse(response).value) {
-                            $("#txtMaskingNumber").val('');
-                            alert("Masking Number is released successful.");
-                            location.reload();
-                        }
-                        else {
-                            alert("There was error while releasing masking number. Please contact System Administrator for more details.");
-                        }
-                    }
 
-                });
-            }
+            $.ajax({
+                type: "POST",
+                url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+                data: '{"dealerId":"' + dealerId + '"}',
+                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetDealerMaskingNumbers"); },
+                success: function (response) {
+                    var res = JSON.parse(response);
+                    if (res) {
+                        $('#ddlMaskingNumber').empty();
+                        $.each(res.value, function (index, value) {
+                            ('#ddlMaskingNumber').append($('<option>').text(value.Number).attr('value', value.IsAssigned));
+                        });
+                    }
+                }
+
+            });
         } catch (e) {
             alert("An error occured. Please contact System Administrator for more details.");
         }

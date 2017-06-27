@@ -20,5 +20,6 @@ namespace BikewaleOpr.Entity.ManufacturerCampaign
         public DateTime EndDate { get; set; }
         public string UserId { get; set; }
         public string OldMaskingNumber { get; set; }
+        public string MobileNumber { get; set; }
     }
 }
