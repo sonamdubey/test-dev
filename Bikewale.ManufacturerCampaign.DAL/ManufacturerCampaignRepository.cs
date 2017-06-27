@@ -23,6 +23,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BikewaleOpr.Entity.ManufacturerCampaign;
 using Bikewale.DAL.CoreDAL;
+using Bikewaleopr.ManufacturerCampaign.Entities;
 
 namespace Bikewale.ManufacturerCampaign.DAL
 {
@@ -88,6 +89,31 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             return objEntity;
         }
+
+        public ManufacturerCampaignPopup getManufacturerCampaignPopup( uint campaignId)
+        {
+            ManufacturerCampaignPopup objEntity = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_campaignId", campaignId);
+                    objEntity = new ManufacturerCampaignPopup();
+                    objEntity = connection.Query<ManufacturerCampaignPopup>("getmanufacturercampaignpopup", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                 
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign");
+            }
+            return objEntity;
+        }
+
         public uint saveManufacturerCampaign(ConfigureCampaignSave objCampaign)
         {
             uint campaignId = 0;
@@ -116,9 +142,37 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.getManufacturerCampaign");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.saveManufacturerCampaign");
             }
             return campaignId;
+        }
+        public void saveManufacturerCampaignPopup(ManufacturerCampaignPopup objCampaign)
+        {
+            
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_userid", objCampaign.PopupHeading);
+                    param.Add("par_userid", objCampaign.PopupDescription);
+                    param.Add("par_userid", objCampaign.PopupSuccessMessage);
+                    param.Add("par_userid", objCampaign.EmailRequired);
+                    param.Add("par_userid", objCampaign.DealerRequired);
+                    param.Add("par_userid", objCampaign.PinCodeRequired);
+                    
+                    connection.Query<dynamic>("savemanufacturercampaignpopup", param: param, commandType: CommandType.StoredProcedure);
+                    
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.saveManufacturerCampaignPopup");
+            }
+            
         }
     }
 }

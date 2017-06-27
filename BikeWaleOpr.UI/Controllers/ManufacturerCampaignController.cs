@@ -1,5 +1,5 @@
 
-﻿
+
 using Bikewale.ManufacturerCampaign.Interface;
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Entity.ManufacturerCampaign;
@@ -7,13 +7,13 @@ using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Models;
 using BikewaleOpr.Models.ManufacturerCampaign;
 
-﻿using Bikewale.ManufacturerCampaign.Entities.Models;
+using Bikewale.ManufacturerCampaign.Entities.Models;
 
 
 using BikeWaleOpr.Common;
 using System;
 using System.Web.Mvc;
-
+using Bikewaleopr.ManufacturerCampaign.Entities;
 
 namespace BikewaleOpr.Controllers
 {
@@ -73,10 +73,28 @@ namespace BikewaleOpr.Controllers
             return View();
         }
 
-        [Route("manufacturercampaign/popup/")]
-        public ActionResult ConfigureCampaignPopup()
+        [Route("manufacturercampaign/popup/{dealerId}/")]
+        public ActionResult ConfigureCampaignPopup(uint dealerId,uint? campaignId)
         {
-            return View();
+            ConfigureCampaignPopup objPopup = new ConfigureCampaignPopup(_manufacurerCampaignRepo);
+            ManufacturerCampaignPopup objVM = null;
+            if (objPopup!=null)
+            {
+                objVM= objPopup.GetData(campaignId??0);
+                
+            }
+            return View(objVM);
+        }
+
+        [HttpPost, Route("manufacturercampaign/save/popup/")]
+        public void saveCampaignPopup([System.Web.Http.FromBody] ManufacturerCampaignPopup objData)
+        {
+            if (objData != null)
+            {
+                _manufacurerCampaignRepo.saveManufacturerCampaignPopup(objData);
+            }
+
+          
         }
     }
 }
