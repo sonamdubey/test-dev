@@ -44,7 +44,9 @@
     <Compile Include="ManufacturerCampaignDetails.cs" />
     <Compile Include="ManufacturerCampaignPages.cs" />
     <Compile Include="ManufacturerCampaignPopup.cs" />
+    <Compile Include="ManufacturerCampaignPopupVM.cs" />
     <Compile Include="Models\SearchManufacturerCampaignVM.cs" />
+    <Compile Include="NavigationWidgetEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchCampaign\ManufacturerCampaignDetailsList.cs" />
   </ItemGroup>

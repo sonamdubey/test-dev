@@ -131,7 +131,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_totalleadlimit", objCampaign.TotalLeadLimit);
                     param.Add("par_campaignpages", objCampaign.CampaignPages);
                     param.Add("par_startDate", objCampaign.StartDate);
-                    param.Add("par_endDate", objCampaign.EndDate);
+                    param.Add("par_endDate", objCampaign.EndDate??null);
                     param.Add("par_showonexshowroomprice", objCampaign.ShowOnExShowroomPrice);
                     param.Add("par_campaignid", objCampaign.CampaignId, dbType: DbType.Int32, direction: ParameterDirection.InputOutput);
                     connection.Query<dynamic>("savemanufacturercampaign_21062017", param: param, commandType: CommandType.StoredProcedure);
@@ -155,12 +155,13 @@ namespace Bikewale.ManufacturerCampaign.DAL
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_userid", objCampaign.PopupHeading);
-                    param.Add("par_userid", objCampaign.PopupDescription);
-                    param.Add("par_userid", objCampaign.PopupSuccessMessage);
-                    param.Add("par_userid", objCampaign.EmailRequired);
-                    param.Add("par_userid", objCampaign.DealerRequired);
-                    param.Add("par_userid", objCampaign.PinCodeRequired);
+                    param.Add("par_campaignid",objCampaign.CampaignId);
+                    param.Add("par_PopupHeading", objCampaign.PopupHeading);
+                    param.Add("par_PopupDescription", objCampaign.PopupDescription);
+                    param.Add("par_PopupSuccessMessage", objCampaign.PopupSuccessMessage);
+                    param.Add("par_EmailRequired", objCampaign.EmailRequired);
+                    param.Add("par_PincodeRequired", objCampaign.DealerRequired);
+                    param.Add("par_DealerRequired", objCampaign.PinCodeRequired);
                     
                     connection.Query<dynamic>("savemanufacturercampaignpopup", param: param, commandType: CommandType.StoredProcedure);
                     

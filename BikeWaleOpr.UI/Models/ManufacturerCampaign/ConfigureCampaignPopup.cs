@@ -1,4 +1,6 @@
-﻿using Bikewale.ManufacturerCampaign.Interface;
+﻿using Bikewale.ManufacturerCampaign.Entities;
+using Bikewale.ManufacturerCampaign.Entities.Models;
+using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using Bikewaleopr.ManufacturerCampaign.Entities;
 using System;
@@ -17,13 +19,19 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
             _manufacurerCampaignRepo = manufacurerCampaignRepo;
         }
 
-        public ManufacturerCampaignPopup GetData(uint campaignId)
+        public ManufacturerCampaignPopupVM GetData(uint dealerId,uint campaignId)
         {
-            ManufacturerCampaignPopup obj = new ManufacturerCampaignPopup();
+            ManufacturerCampaignPopupVM obj = new ManufacturerCampaignPopupVM();
             try
             {
-                obj = _manufacurerCampaignRepo.getManufacturerCampaignPopup(campaignId);
-                obj.CampaignId = campaignId;
+               
+              
+                obj.objPopup = _manufacurerCampaignRepo.getManufacturerCampaignPopup(campaignId);
+                obj.objPopup.CampaignId = campaignId;
+                obj.NavigationWidget = new NavigationWidgetEntity();
+                obj.NavigationWidget.ActivePage = 3;
+                obj.NavigationWidget.DealerId = dealerId;
+                obj.NavigationWidget.CampaignId = campaignId;
             }
             catch (Exception ex)
             {

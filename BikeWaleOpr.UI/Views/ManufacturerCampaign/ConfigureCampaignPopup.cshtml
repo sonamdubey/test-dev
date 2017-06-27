@@ -1,45 +1,45 @@
-﻿@model Bikewaleopr.ManufacturerCampaign.Entities.ManufacturerCampaignPopup
+﻿@model  Bikewale.ManufacturerCampaign.Entities.Models.ManufacturerCampaignPopupVM
 @{
     ViewBag.Title = "Configure Campaign Popup";
     ViewBag.PageTitle = "Configure Campaign Popup for Dealer";
 }
 
-@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", 3)
+@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", Model.NavigationWidget)
 
-@if (Model != null)
+@if (Model != null && Model.objPopup != null)
 {
     <form action="/manufacturercampaign/save/popup/" method="post">
         <div class="row">
             <div class="input-field col s3 offset-s4">
-                <input id="txtPopupHeading" type="text" class="validate" maxlength="100" name="PopupHeading" value="@Model.PopupHeading">
+                <input id="txtPopupHeading" type="text" class="validate" maxlength="100" name="PopupHeading" value="@Model.objPopup.PopupHeading">
                 <label for="txtPopupHeading">Popup Heading</label>
             </div>
         </div>
 
         <div class="row">
             <div class="input-field col s3 offset-s4">
-                <input id="txtPopupDescription" type="text" class="validate" maxlength="100" name="PopupDescription" value="@Model.PopupDescription">
+                <input id="txtPopupDescription" type="text" class="validate" maxlength="100" name="PopupDescription" value="@Model.objPopup.PopupDescription">
                 <label for="txtPopupDescription">Popup Description</label>
             </div>
         </div>
 
         <div class="row">
             <div class="input-field col s3 offset-s4">
-                <input id="txtpopupMessage" type="text" class="validate" maxlength="100" name="PopupSuccessMessage" value="@Model.PopupSuccessMessage">
+                <input id="txtpopupMessage" type="text" class="validate" maxlength="100" name="PopupSuccessMessage" value="@Model.objPopup.PopupSuccessMessage">
                 <label for="txtpopupMessage">Popup Success Message</label>
             </div>
         </div>
 
         <div class="row">
             <div class="col offset-s4">
-                <input type="checkbox" class="filled-in" id="chkEmail" name="EmailRequired" @(Model.EmailRequired>0?"checked value=true":"") />
+                <input type="checkbox" class="filled-in" id="chkEmail" name="EmailRequired" @(Model.objPopup.EmailRequired>0?"checked value=true":"") />
                 <label for="chkEmail">Email Required</label>
             </div>
         </div>
 
         <div class="row">
             <div class="col s2 offset-s4">
-                <input type="checkbox" class="filled-in" id="chkPincode" name="PinCodeRequired" @(Model.PinCodeRequired>0 ? "checked value=true":"") />
+                <input type="checkbox" class="filled-in" id="chkPincode" name="PinCodeRequired" @(Model.objPopup.PinCodeRequired>0 ? "checked value=true":"") />
                 <label for="chkPincode">Pincode Required</label>
             </div>
             <div class="col">
@@ -49,7 +49,7 @@
 
         <div class="row">
             <div class="col s2 offset-s4">
-                <input type="checkbox" class="filled-in" id="chkDealer" name="DealerRequired" @(Model.DealerRequired >0? "checked value=true":"") />
+                <input type="checkbox" class="filled-in" id="chkDealer" name="DealerRequired" @(Model.objPopup.DealerRequired >0? "checked value=true":"") />
                 <label for="chkDealer">Dealer Required</label>
             </div>
             <div class="col">
@@ -64,5 +64,8 @@
                 </button>
             </div>
         </div>
+        <input type="hidden" name="CampaignId" id="inputCampaignId" value="@Model.objPopup.CampaignId" />
+        <input type="hidden" name="DealerId" id="inputCampaignId" value="@Model.NavigationWidget.DealerId" />
+
     </form>
 }

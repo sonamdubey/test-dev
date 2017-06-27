@@ -17,8 +17,9 @@ namespace BikewaleOpr.Entity.ManufacturerCampaign
         public uint DealerId { get; set; }
         public string CampaignPages { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string UserId { get; set; }
         public string OldMaskingNumber { get; set; }
+        public string MobileNumber { get; set; }
     }
 }

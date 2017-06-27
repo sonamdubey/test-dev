@@ -5,7 +5,7 @@
     ViewBag.PageTitle = "Configure Campaign for " + Model.CampaignInformation.DealerDetails.DealerName;
 }
 
-@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", 1)
+@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", Model.NavigationWidget)
 
 @if (Model != null && Model.CampaignInformation != null && Model.CampaignInformation.DealerDetails != null)
 {
@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="input-field col s6 offset-s3">
                     <input id="txtCampaignDescription" type="text" class="validate" maxlength="100" name="Description" data-bind="textInput : $root.description" data-value="@Model.CampaignInformation.DealerDetails.Description" value="@Model.CampaignInformation.DealerDetails.Description">
-                    <label for="txtCampaignDescription">Campaign Description</label>
+                    <label for="txtCampaignDescription">Campaign Description *</label>
                 </div>
             </div>
 
@@ -72,7 +72,7 @@
             <div class="row">
                 <div class="col s3 offset-s3">
                     <select multiple id="select-pages">
-                        <option value="" disabled selected>Campaign Pages</option>
+                        <option value="" disabled selected>Campaign Pages *</option>
                         @foreach (var page in Model.CampaignInformation.CampaignPages)
                         {
                             <option value="@page.PageId" @(page.IsSelected ? "selected" : "")>@page.PageName</option>
@@ -86,7 +86,7 @@
                     <div class="input-field">
                         <i class="material-icons prefix margin-top15">date_range</i>
                         <input type="date" id="startDateEle" class="datepicker margin-left5" data-bind="textInput : $root.startDate"  data-value="@(Model.CampaignInformation.DealerDetails.CampaignStartDate != DateTime.MinValue ? Model.CampaignInformation.DealerDetails.CampaignStartDate.ToString("yyyy-MM-dd"): "")" />
-                        <label for="startDateEle">Campaign Start Date</label>
+                        <label for="startDateEle">Campaign Start Date *</label>
                     </div>
                 </div>
 
@@ -127,6 +127,7 @@
             <input type="hidden" id="maskingNumber" name="MaskingNumber" data-bind="textInput : $root.maskingNumber()" />
             <input type="hidden" name="userId" id="userId" value="@BikeWaleOpr.Common.CurrentUser.Id" />
             <input type="hidden" id="olMaskingNumber" name="OldMaskingNumber" value="@Model.CampaignInformation.DealerDetails.MaskingNumber" />
+            <input type="hidden" name="MobileNumber" value="@Model.CampaignInformation.DealerDetails.MobileNo" />
 
             <div class="row">
                 <div class="col offset-s3">
@@ -141,7 +142,7 @@
 
     <div id="alertModal" class="modal" style="height:170px;width:350px">
         <div class="modal-content">
-            <p>Campaign Description and Campagin Start Date are Mandatory. Please fill it. </p>
+            <p id="modal-p"></p>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
