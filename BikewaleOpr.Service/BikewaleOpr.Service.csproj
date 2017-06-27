@@ -137,6 +137,7 @@
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="AutoMappers\ManufacturerCampaign\SearchMapper.cs" />
+    <Compile Include="AutoMappers\Location\CityMapper.cs" />
     <Compile Include="AutoMappers\UserReviews\UserReviewsMapper.cs" />
     <Compile Include="Controllers\BikeColorImages\ColorImagesBikesController.cs" />
     <Compile Include="Controllers\Content\MakesController.cs" />

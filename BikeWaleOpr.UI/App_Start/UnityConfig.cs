@@ -14,7 +14,7 @@ using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.CommuteDistance;
 using BikewaleOpr.Interface.Location;
 using BikewaleOpr.DALs.Location;
-
+using Bikewale.ManufacturerCampaign.Interface;
 using BikewaleOpr.BAL.ContractCampaign;
 
 using Bikewale.ManufacturerCampaign.Interface;
@@ -50,9 +50,8 @@ namespace BikewaleOpr
 
                 .RegisterType<ILocation, LocationRepository>()
                 .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>()
-                .RegisterType<IContractCampaign, ContractCampaign>()
+                .RegisterType<IContractCampaign, ContractCampaign>();
 
-                .RegisterType<ILocation, LocationRepository>();
 
 
 

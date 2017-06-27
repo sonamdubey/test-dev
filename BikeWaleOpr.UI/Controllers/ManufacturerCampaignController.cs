@@ -1,4 +1,4 @@
-
+using Bikewale.ManufacturerCampaign.Entities;
 
 using Bikewale.ManufacturerCampaign.Interface;
 using BikewaleOpr.common.ContractCampaignAPI;
@@ -15,6 +15,8 @@ using BikeWaleOpr.Common;
 using System;
 using System.Web.Mvc;
 using Bikewaleopr.ManufacturerCampaign.Entities;
+using BikewaleOpr.Models.ManufacturerCampaign;
+using Bikewale.ManufacturerCampaign.Interface;
 
 namespace BikewaleOpr.Controllers
 {
@@ -112,6 +114,30 @@ namespace BikewaleOpr.Controllers
             }
 
             return Redirect("/manufacturercampaign/rules/campaignId/" + objData.CampaignId+"?dealerId="+objData.DealerId);
+
+        }
+
+        [Route("manufacturercampaign/rules/campaignId/{campaignId}")]
+        public ActionResult ManufacturerCampaignRules(uint campaignId, uint? dealerId)
+        {
+            MfgCampaignRules obj = new MfgCampaignRules(_manufacurerCampaignRepo);
+            if(dealerId.HasValue)
+            obj.DealerId = dealerId.Value;
+            obj.CampaignId = campaignId;
+            ManufacturerCampaignRulesVM objData = obj.GetData();
+            return View(objData);
+        }
+
+        [Route("manufacturercampaign/rules/campaignid/{campaignId}/add/"), HttpPost]
+        public ActionResult AddManufacturerCampaignRules(uint campaignId, string modelIds, string stateIds, string cityIds, bool isAllIndia, uint userId)
+        {
+            bool isSuccess = false;
+            isSuccess = _manufacurerCampaignRepo.SaveManufacturerCampaignRules(campaignId, modelIds, stateIds, cityIds, isAllIndia, userId);
+            if(isSuccess)
+                TempData["msg"] = "Rules added successfully!";
+            else
+                TempData["msg"] = "Could not add rules";
+            return RedirectToAction("ManufacturerCampaignRules", routeValues: new { campaignId = campaignId });
         }
     }
 }
