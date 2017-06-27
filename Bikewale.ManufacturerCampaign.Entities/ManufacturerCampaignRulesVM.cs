@@ -12,5 +12,6 @@ namespace Bikewale.ManufacturerCampaign.Entities
         public IEnumerable<ManufacturerCampaignRulesEntity> Rules { get; set; }
         public IEnumerable<BikeMakeEntity> Makes { get; set; }
         public IEnumerable<StateEntity> States { get; set; }
-     }
+        public NavigationWidgetEntity NavigationWidget { get; set; }
+    }
 }

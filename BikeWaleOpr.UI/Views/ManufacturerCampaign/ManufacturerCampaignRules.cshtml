@@ -4,7 +4,7 @@
     ViewBag.PageTitle = "Configure Rules for Manufacturer Campaign";
 }
 
-@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", 4)
+@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", Model.NavigationWidget)
 <input type="hidden" id="CampaignId" value="@Model.CampaignId" />
 <input type="hidden" id="UserId" value="6" />
 <div class="row" style="margin-top:5px;">

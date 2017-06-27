@@ -101,7 +101,7 @@ namespace BikewaleOpr.Controllers
         [Route("manufacturercampaign/rules/campaignId/{campaignId}")]
         public ActionResult ManufacturerCampaignRules(uint campaignId)
         {
-            MfgCampaignRules obj = new MfgCampaignRules(_mfgCampaign);
+            MfgCampaignRules obj = new MfgCampaignRules(_manufacurerCampaignRepo);
             obj.CampaignId = campaignId;
             ManufacturerCampaignRulesVM objData = obj.GetData();
             return View(objData);
@@ -111,7 +111,7 @@ namespace BikewaleOpr.Controllers
         public ActionResult AddManufacturerCampaignRules(uint campaignId, string modelIds, string stateIds, string cityIds, bool isAllIndia, uint userId)
         {
             bool isSuccess = false;
-            isSuccess = _mfgCampaign.SaveManufacturerCampaignRules(campaignId, modelIds, stateIds, cityIds, isAllIndia, userId);
+            isSuccess = _manufacurerCampaignRepo.SaveManufacturerCampaignRules(campaignId, modelIds, stateIds, cityIds, isAllIndia, userId);
             if(isSuccess)
                 TempData["msg"] = "Rules added successfully!";
             else

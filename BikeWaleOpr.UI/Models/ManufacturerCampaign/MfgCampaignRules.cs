@@ -7,7 +7,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
     public class MfgCampaignRules
     {
         #region Variables for dependency injection
-        private readonly IManufacturerCampaign _mfgCampaign = null;
+        private readonly IManufacturerCampaignRepository _mfgCampaign = null;
         #endregion
 
         #region Public variables
@@ -15,7 +15,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
         #endregion
 
         #region Constructor
-        public MfgCampaignRules(IManufacturerCampaign mfgCampaign)
+        public MfgCampaignRules(IManufacturerCampaignRepository mfgCampaign)
         {
             _mfgCampaign = mfgCampaign;
         }
@@ -24,8 +24,12 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
         #region Functions        
         public ManufacturerCampaignRulesVM GetData()
         {
+
             ManufacturerCampaignRulesVM objData = new ManufacturerCampaignRulesVM();
             objData.CampaignId = CampaignId;
+            objData.NavigationWidget = new NavigationWidgetEntity();
+            objData.NavigationWidget.ActivePage = 4;
+           objData.NavigationWidget.CampaignId = CampaignId;
             IEnumerable<MfgRuleEntity> rules = _mfgCampaign.GetManufacturerCampaignRules(CampaignId);
             IList<ManufacturerCampaignRulesEntity> tempRules = new List<ManufacturerCampaignRulesEntity>();
             objData.Rules = rules.GroupBy(x => new { x.ModelId, x.ModelName, x.MakeId, x.MakeName }).Select(

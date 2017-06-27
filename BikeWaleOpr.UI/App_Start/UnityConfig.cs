@@ -50,7 +50,7 @@ namespace BikewaleOpr
 
                 .RegisterType<ILocation, LocationRepository>()
                 .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>()
-                .RegisterType<IContractCampaign, ContractCampaign>()
+                .RegisterType<IContractCampaign, ContractCampaign>();
 
 
 
