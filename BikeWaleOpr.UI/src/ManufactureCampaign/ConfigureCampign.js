@@ -7,53 +7,70 @@ var $dateInput = $('.datepicker').pickadate({
     onSet: function (ele) { if (ele.select) { this.close(); } }
 });
 
-function Validate() {
-    console.log('yeh');
-    return true;
-}
+//function Validate() {
+//    console.log('yeh');
+//    return true;
+//}
 $("#HasEmiProperties").change(function () {
     if ($("#HasEmiProperties").prop('checked')) {
-        $('#chkEmiButtonMobile').removeAttr("disabled");
-        $('#chkEmiPropertyMobile').removeAttr("disabled");
-        $('#chkEmiButtonDesktop').removeAttr("disabled");
-        $('#chkEmiPropertyDesktop').removeAttr("disabled");
-        $('#EmiPriority').prop('disabled', false);
-        $('#EmiPriority').material_select();
+        HasEMISelected();
     }
     else {
-        $('#chkEmiButtonMobile').attr("disabled", true);
-        $('#chkEmiPropertyMobile').attr("disabled", true);
-        $('#chkEmiButtonDesktop').attr("disabled", true);
-        $('#chkEmiPropertyDesktop').attr("disabled", true);
-        $('#EmiPriority').prop('disabled', true);
-        $('#EmiPriority').material_select();
+        HasEMINotSelected();
     }
 });
 
 $("#HasLeadProperties").change(function () {
     if ($("#HasLeadProperties").prop('checked')) {
-        $('#chkLeadsButtonMobile').removeAttr("disabled");
-        $('#chkLeadsPropertyMobile').removeAttr("disabled");
-        $('#chkLeadsButtonDesktop').removeAttr("disabled");
-        $('#chkLeadsPropertyDesktop').removeAttr("disabled");
-        $('#chkLeadsMobileTemplate').removeAttr("disabled");
-        $('#chkLeadsDesktopTemplate').removeAttr("disabled");
-        $('#LeadPriority').prop('disabled', false);
-        $('#LeadPriority').material_select();
+        HasLeadSelected();
     }
     else {
-        $('#chkLeadsButtonMobile').attr("disabled", true);
-        $('#chkLeadsPropertyMobile').attr("disabled", true);
-        $('#chkLeadsButtonDesktop').attr("disabled", true);
-        $('#chkLeadsPropertyDesktop').attr("disabled", true);
-        $('#chkLeadsMobileTemplate').attr("disabled", true);
-        $('#chkLeadsDesktopTemplate').attr("disabled", true);
-        $('#LeadPriority').attr("disabled", true);
-        $('#LeadPriority').prop('disabled', true);
-        $('#LeadPriority').material_select();
+        HasLeadNotSelected();
     }
 });
 
+
+function HasEMISelected() {
+    $('#emiproperties input[type="checkbox"]').each(function () {
+            $(this).prop("disabled", false);
+    });
+    $('#emiproperties input[type="text"]').each(function () {
+        if ($(this).val().length > 0) {
+            $(this).prop("disabled", false);
+        }
+    });
+    $('#EmiPriority').prop('disabled', false);
+    $('#EmiPriority').material_select();
+}
+function HasEMINotSelected() {
+    $('#emiproperties input[type="checkbox"],input[type=text]').each(function () {
+        $(this).prop("disabled", true);
+    });
+    $('#EmiPriority').prop('disabled', true);
+    $('#EmiPriority').material_select();
+}
+
+function HasLeadSelected() {
+    $('#leadproperties input[type="checkbox"]').each(function () {
+        $(this).prop("disabled", false);
+    });
+    $('#leadproperties input[type="text"]').each(function () {
+        if ($(this).val().length > 0) {
+            $(this).prop("disabled", false);
+        }
+    });
+    $('#LeadPriority').prop('disabled', false);
+    $('#LeadPriority').material_select();
+}
+
+function HasLeadNotSelected() {
+    $('#leadproperties input[type="checkbox"],input[type=text]').each(function () {
+        $(this).prop("disabled", true);
+    });
+    $('#LeadPriority').attr("disabled", true);
+    $('#LeadPriority').prop('disabled', true);
+    $('#LeadPriority').material_select();
+}
 $(".default-chk").change(function () {
     if ($(this).prop('checked')) {
         $(this).parent().prev().find("input[type='text']").prop('disabled', true);
@@ -64,5 +81,44 @@ $(".default-chk").change(function () {
 });
 
 $(document).ready(function () {
-   
+    debugger;
+    // All checkboxes are selected by default
+    $('form input[type="text"]').each(function () {
+        if ($(this).val().length > 0) {
+            $(this).prop("disabled", true);
+            $(this).parent().nextAll().has(":checkbox").first().find(":checkbox").prop("checked", false);
+        }
+    });
+
+    if ($("#HasEmiProperties").prop('checked')) {
+        HasEMISelected();
+        //$('#emiproperties input[type="checkbox"]').each(function () {
+        //    $(this).prop("disabled", false);
+        //});
+        //$('#emiproperties input[type="text"]').each(function () {
+        //    if ($(this).val().length > 0) {
+        //        $(this).prop("disabled", false);
+        //    }
+        //});
+    }
+    else {
+        HasEMINotSelected();
+    }
+    if ($("#HasLeadProperties").prop('checked')) {
+        HasLeadSelected();
+        //$('#leadproperties input[type="checkbox"]').each(function () {
+        //    $(this).prop("disabled", false);
+        //});
+        //$('#leadproperties input[type="text"]').each(function () {
+        //    if ($(this).val().length > 0) {
+        //        $(this).prop("disabled", false);
+        //    }
+        //});
+    }
+    else {
+        HasLeadNotSelected();
+        //$('#leadproperties input').each(function () {
+        //    $(this).prop("disabled", true);
+        //});
+    }
 });

@@ -1,5 +1,6 @@
 ﻿using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +16,24 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
     {
 
         private IManufacturerCampaignRepository _manufacurerCampaignRepo;
-        private uint _dealerId, _campaignId;
+        private CampaignPropertiesVM _objModel;
+        private uint _campaignId;
 
-        public ConfigurePropertiesModel(uint dealerId, uint campaignId, IManufacturerCampaignRepository manufacurerCampaignRepo)
+        public ConfigurePropertiesModel(uint campaignId, IManufacturerCampaignRepository manufacurerCampaignRepo)
         {
             _manufacurerCampaignRepo = manufacurerCampaignRepo;
             _campaignId = campaignId;
         }
 
+        public ConfigurePropertiesModel(uint campaignId, CampaignPropertiesVM objModel, IManufacturerCampaignRepository manufacurerCampaignRepo)
+        {
+            _manufacurerCampaignRepo = manufacurerCampaignRepo;
+            _campaignId = campaignId;
+            _objModel = objModel;
+        }
 
-        public CampaignPropertyEntity getData()
+
+        public CampaignPropertyEntity GetData()
         {
             CampaignPropertyEntity objData = null;
             try
@@ -34,9 +43,14 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
             }
             catch (Exception ex)
             {
-
+                ErrorClass er = new ErrorClass(ex, "BikewaleOpr.Models.ManufacturerCampaign.ConfigurePropertiesModel.GetData()");
             }
             return objData;
+        }
+
+        public void SaveData(CampaignPropertiesVM objModel)
+        {
+
         }
 
     }

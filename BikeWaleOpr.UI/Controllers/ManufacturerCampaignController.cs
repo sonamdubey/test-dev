@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
 using BikewaleOpr.Models;
 using BikewaleOpr.Models.ManufacturerCampaign;
@@ -45,14 +46,22 @@ namespace BikewaleOpr.Controllers
         }
         
         [Route("manufacturercampaign/properties/")]
-        public ActionResult ConfigureCampaignProperties()
+        public ActionResult ConfigureCampaignProperties(uint ? campaignId)
         {
-            return View();
+            CampaignPropertyEntity retData = new CampaignPropertyEntity();
+            if (campaignId.HasValue)
+            {
+                ConfigurePropertiesModel objvm = new ConfigurePropertiesModel(Convert.ToUInt32(campaignId), _manufacurerCampaignRepo);
+                retData = objvm.GetData();
+            }
+            return View(retData);
         }
         [HttpPost]
         [Route("manufacturercampaign/saveproperties/{campaignId}/")]
-        public ActionResult SaveConfiguredProperties(CampaignPropertiesVM model,uint campaignId)
+        public ActionResult SaveConfiguredProperties(CampaignPropertiesVM model, uint campaignId)
         {
+            ConfigurePropertiesModel objvm = new ConfigurePropertiesModel(campaignId, model, _manufacurerCampaignRepo);
+            objvm.GetData();
             return RedirectToAction("ConfigureCampaignProperties");
         }
 
