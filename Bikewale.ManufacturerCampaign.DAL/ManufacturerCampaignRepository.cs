@@ -206,9 +206,9 @@ namespace Bikewale.ManufacturerCampaign.DAL
         /// Created by : Aditi Srivastava on 22 Jun 2017
         /// Summary    : Get manufacturer campaign rules by campaignId
         /// </summary>
-        public IEnumerable<ManufacturerRuleEntity> GetManufacturerCampaignRules(uint campaignId)
+        public ManufacturerCampaignRulesWrapper GetManufacturerCampaignRules(uint campaignId)
         {
-            IEnumerable<ManufacturerRuleEntity> mfgRules = null;
+            ManufacturerCampaignRulesWrapper mfgRules = null;
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -216,8 +216,12 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_campaignid", campaignId);
-                    mfgRules = connection.Query<ManufacturerRuleEntity>("getmanufacturercampaignrules", param: param, commandType: CommandType.StoredProcedure);
-
+                    mfgRules = new ManufacturerCampaignRulesWrapper();
+                    using (var results = connection.QueryMultiple("getmanufacturercampaignrules", param: param, commandType: CommandType.StoredProcedure))
+                    {
+                        mfgRules.ManufacturerCampaignRules = results.Read<ManufacturerRuleEntity>();
+                        mfgRules.ShowOnExShowroom = results.Read<bool>().SingleOrDefault();
+                    }
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
                 }

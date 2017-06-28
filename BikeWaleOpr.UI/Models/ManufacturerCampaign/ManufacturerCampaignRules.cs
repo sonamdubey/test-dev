@@ -17,7 +17,6 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
         #region Public variables
         public uint CampaignId { get; set; }
         public uint DealerId { get; set; }
-        public bool ShowOnExShowroom { get; set; }
         #endregion
 
         #region Constructor
@@ -34,42 +33,46 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
         /// </summary>
         public ManufacturerCampaignRulesVM GetData()
         {
-
             ManufacturerCampaignRulesVM objData = new ManufacturerCampaignRulesVM();
             objData.CampaignId = CampaignId;
             objData.NavigationWidget = new NavigationWidgetEntity();
             objData.NavigationWidget.ActivePage = 4;
             objData.NavigationWidget.CampaignId = CampaignId;
             objData.NavigationWidget.DealerId = DealerId;
-            objData.ShowOnExShowroom = ShowOnExShowroom;
-            IEnumerable<ManufacturerRuleEntity> rules = _mfgCampaign.GetManufacturerCampaignRules(CampaignId);
-
-            objData.Rules = rules.GroupBy(x => new { x.ModelId, x.ModelName, x.MakeId, x.MakeName }).Select(
-                y => new ManufacturerCampaignRulesEntity
-                {
-                    Make = new BikeMakeEntity
+            
+            ManufacturerCampaignRulesWrapper rules = _mfgCampaign.GetManufacturerCampaignRules(CampaignId);
+            if (rules != null)
+              {
+                if(rules.ManufacturerCampaignRules != null && rules.ManufacturerCampaignRules.Count() > 0)
+                objData.Rules = rules.ManufacturerCampaignRules.GroupBy(x => new { x.ModelId, x.ModelName, x.MakeId, x.MakeName }).Select(
+                    y => new ManufacturerCampaignRulesEntity
                     {
-                        MakeId = y.Key.MakeId,
-                        MakeName = y.Key.MakeName
-                    },
-                    Model = new BikeModelEntity
-                    {
-                        ModelId = y.Key.ModelId,
-                        ModelName = y.Key.ModelName
-                    },
-                    State = y.GroupBy(n => new { n.StateId, n.StateName }).Select(
-                   p => new StateEntity
-                   {
-                       StateId = p.Key.StateId,
-                       StateName = p.Key.StateName,
-                       Cities = p.Select(r => new CityEntity
+                        Make = new BikeMakeEntity
+                        {
+                            MakeId = y.Key.MakeId,
+                            MakeName = y.Key.MakeName
+                        },
+                        Model = new BikeModelEntity
+                        {
+                            ModelId = y.Key.ModelId,
+                            ModelName = y.Key.ModelName
+                        },
+                        State = y.GroupBy(n => new { n.StateId, n.StateName }).Select(
+                       p => new StateEntity
                        {
-                           CityId = r.CityId,
-                           CityName = r.CityName
+                           StateId = p.Key.StateId,
+                           StateName = p.Key.StateName,
+                           Cities = p.Select(r => new CityEntity
+                           {
+                               CityId = r.CityId,
+                               CityName = r.CityName
+                           })
                        })
-                   })
-                }).OrderBy(x => x.Make.MakeId);
+                    }).OrderBy(x => x.Make.MakeId);
 
+                objData.ShowOnExShowroom = rules.ShowOnExShowroom;
+            }
+            
             objData.Makes = _mfgCampaign.GetBikeMakes();
             objData.States = _mfgCampaign.GetStates();
             return objData;

@@ -122,13 +122,12 @@ namespace BikewaleOpr.Controllers
         /// Summary    : Action method for manufacturer campaign rules page
         /// </summary>
         [Route("manufacturercampaign/rules/campaignId/{campaignId}")]
-        public ActionResult ManufacturerCampaignRules(uint campaignId, uint? dealerId, bool onExShowroom=false)
+        public ActionResult ManufacturerCampaignRules(uint campaignId, uint? dealerId)
         {
             ManufacturerCampaignRules obj = new ManufacturerCampaignRules(_manufacurerCampaignRepo);
             if(dealerId.HasValue)
             obj.DealerId = dealerId.Value;
             obj.CampaignId = campaignId;
-            obj.ShowOnExShowroom = onExShowroom;
             ManufacturerCampaignRulesVM objData = obj.GetData();
             return View(objData);
         }
