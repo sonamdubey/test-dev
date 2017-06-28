@@ -256,9 +256,9 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_PopupHeading", objCampaign.PopupHeading);
                     param.Add("par_PopupDescription", objCampaign.PopupDescription);
                     param.Add("par_PopupSuccessMessage", objCampaign.PopupSuccessMessage);
-                    param.Add("par_EmailRequired", objCampaign.EmailRequired);
-                    param.Add("par_PincodeRequired", objCampaign.DealerRequired);
-                    param.Add("par_DealerRequired", objCampaign.PinCodeRequired);
+                    param.Add("par_EmailRequired", objCampaign.EmailRequired?1:0);
+                    param.Add("par_PincodeRequired", objCampaign.PinCodeRequired ? 1 : 0);
+                    param.Add("par_DealerRequired", objCampaign.DealerRequired ? 1 : 0);
                     
                     connection.Query<dynamic>("savemanufacturercampaignpopup", param: param, commandType: CommandType.StoredProcedure);
                     
