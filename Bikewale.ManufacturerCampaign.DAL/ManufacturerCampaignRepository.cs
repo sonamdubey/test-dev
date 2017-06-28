@@ -16,7 +16,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
 {
     public class ManufacturerCampaignRepository : IManufacturerCampaignRepository
     {
-
         public IEnumerable<ManufacturerEntity> GetManufacturersList()
         {
             IEnumerable<ManufacturerEntity> manufacturers = null;
@@ -46,6 +45,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
 
         }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Get all bike makes
+        /// </summary>
         public IEnumerable<BikeMakeEntity> GetBikeMakes()
         {
             IEnumerable<BikeMakeEntity> bikeMakes = null;
@@ -121,6 +124,11 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             return objEntity;
         }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Get all bike models by make Id
+        /// </summary>
         public IEnumerable<BikeModelEntity> GetBikeModels(uint makeId)
         {
             IEnumerable<BikeModelEntity> bikeModels = null;
@@ -143,7 +151,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             return bikeModels;
         }
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Get all states
+        /// </summary>
         public IEnumerable<StateEntity> GetStates()
         {
             IEnumerable<StateEntity> states = null;
@@ -165,6 +176,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             return states;
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Get all cities by state Id
+        /// </summary>
         public IEnumerable<CityEntity> GetCitiesByState(uint stateId)
         {
             IEnumerable<CityEntity> cities = null;
@@ -187,10 +202,13 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             return cities;
         }
-
-        public IEnumerable<MfgRuleEntity> GetManufacturerCampaignRules(uint campaignId)
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Get manufacturer campaign rules by campaignId
+        /// </summary>
+        public IEnumerable<ManufacturerRuleEntity> GetManufacturerCampaignRules(uint campaignId)
         {
-            IEnumerable<MfgRuleEntity> mfgRules = null;
+            IEnumerable<ManufacturerRuleEntity> mfgRules = null;
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -198,7 +216,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_campaignid", campaignId);
-                    mfgRules = connection.Query<MfgRuleEntity>("getmanufacturercampaignrules", param: param, commandType: CommandType.StoredProcedure);
+                    mfgRules = connection.Query<ManufacturerRuleEntity>("getmanufacturercampaignrules", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -273,7 +291,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
             
         }
 
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Save manufacturer campaign rules
+        /// </summary>
         public bool SaveManufacturerCampaignRules(uint campaignId, string modelIds, string stateIds, string cityIds, bool isAllIndia, uint userId)
         {
             bool isSuccess = false;
@@ -303,6 +324,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
             return isSuccess;
         }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Delete manufacturer campaign rules 
+        /// </summary>
         public bool DeleteManufacturerCampaignRules(uint campaignId, uint modelId, uint stateId, uint cityId, uint userId, bool isAllIndia)
         {
             bool isSuccess = false;

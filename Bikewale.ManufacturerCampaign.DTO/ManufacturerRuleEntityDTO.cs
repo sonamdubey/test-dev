@@ -1,12 +1,11 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.ManufacturerCampaign.Entities
 {
+    /// <summary>
+    /// Created by : Aditi Srivastava on 22 Jun 2017
+    /// Summary    : DTO for Manufacturer Camapign Rules
+    /// </summary>
     public class ManufacturerRuleEntityDTO
     {
         [JsonProperty("campaignId")]

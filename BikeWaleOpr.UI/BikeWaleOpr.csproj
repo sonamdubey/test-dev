@@ -458,7 +458,7 @@
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPageModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPopup.cs" />
-    <Compile Include="Models\ManufacturerCampaign\MfgCampaignRules.cs" />
+    <Compile Include="Models\ManufacturerCampaign\ManufacturerCampaignRules.cs" />
     <Compile Include="Models\ManufacturerCampaign\SearchCampaign.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsPageModel.cs" />
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">

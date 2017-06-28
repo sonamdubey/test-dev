@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 namespace BikewaleOpr.Models.ManufacturerCampaign
 {
-    public class MfgCampaignRules
+    /// <summary>
+    /// Created by : Aditi Srivastava on 23 Jun 2017
+    /// Summary    : Page model for manufacturer campaign rules
+    /// </summary>
+    public class ManufacturerCampaignRules
     {
         #region Variables for dependency injection
         private readonly IManufacturerCampaignRepository _mfgCampaign = null;
@@ -13,17 +17,21 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
         #region Public variables
         public uint CampaignId { get; set; }
         public uint DealerId { get; set; }
-        public bool ShowOnExShowroom {get;set;}
+        public bool ShowOnExShowroom { get; set; }
         #endregion
 
         #region Constructor
-        public MfgCampaignRules(IManufacturerCampaignRepository mfgCampaign)
+        public ManufacturerCampaignRules(IManufacturerCampaignRepository mfgCampaign)
         {
             _mfgCampaign = mfgCampaign;
         }
         #endregion
 
         #region Functions        
+        /// <summary>
+        /// Created by : Aditi Srivastava on 23 Jun 2017
+        /// Summary    : Function to populate manufacturer campaign rules view model
+        /// </summary>
         public ManufacturerCampaignRulesVM GetData()
         {
 
@@ -31,11 +39,11 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
             objData.CampaignId = CampaignId;
             objData.NavigationWidget = new NavigationWidgetEntity();
             objData.NavigationWidget.ActivePage = 4;
-           objData.NavigationWidget.CampaignId = CampaignId;
+            objData.NavigationWidget.CampaignId = CampaignId;
             objData.NavigationWidget.DealerId = DealerId;
             objData.ShowOnExShowroom = ShowOnExShowroom;
-            IEnumerable<MfgRuleEntity> rules = _mfgCampaign.GetManufacturerCampaignRules(CampaignId);
-            IList<ManufacturerCampaignRulesEntity> tempRules = new List<ManufacturerCampaignRulesEntity>();
+            IEnumerable<ManufacturerRuleEntity> rules = _mfgCampaign.GetManufacturerCampaignRules(CampaignId);
+
             objData.Rules = rules.GroupBy(x => new { x.ModelId, x.ModelName, x.MakeId, x.MakeName }).Select(
                 y => new ManufacturerCampaignRulesEntity
                 {
@@ -60,8 +68,8 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
                            CityName = r.CityName
                        })
                    })
-                }).OrderBy(x=>x.Make.MakeId);
-            
+                }).OrderBy(x => x.Make.MakeId);
+
             objData.Makes = _mfgCampaign.GetBikeMakes();
             objData.States = _mfgCampaign.GetStates();
             return objData;

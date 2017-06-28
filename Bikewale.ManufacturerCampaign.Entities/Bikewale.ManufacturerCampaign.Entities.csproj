@@ -51,14 +51,11 @@
     <Compile Include="Models\SearchManufacturerCampaignVM.cs" />
     <Compile Include="NavigationWidgetEntity.cs" />
     <Compile Include="BikeMakeEntity.cs" />
-    <Compile Include="BikeModelDTO.cs" />
     <Compile Include="BikeModelEntity.cs" />
-    <Compile Include="CityDTO.cs" />
     <Compile Include="CityEntity.cs" />
     <Compile Include="ManufacturerCampaignRulesEntity.cs" />
     <Compile Include="ManufacturerCampaignRulesVM.cs" />
-    <Compile Include="ManufacturerRuleEntityDTO.cs" />
-    <Compile Include="MfgRuleEntity.cs" />
+    <Compile Include="ManufacturerRuleEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchCampaign\ManufacturerCampaignDetailsList.cs" />
     <Compile Include="StateEntity.cs" />
