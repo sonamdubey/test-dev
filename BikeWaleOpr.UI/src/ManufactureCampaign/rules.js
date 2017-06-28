@@ -5,6 +5,7 @@ var cityIds = "", stateIds = "", modelIds = "";
 var getCitiesFromDropDown, setRulesData, validateInput;
 var manufacturerRulesViewModel = function () {
     var self = this;
+    self.onExShowroom = onExShowroom;
     self.isAllIndia = ko.observable(false);
     self.selectedMake = ko.observable();
     self.listModels = ko.observableArray([]);
@@ -68,11 +69,14 @@ var manufacturerRulesViewModel = function () {
             }
         }
     };
-
-
+    
     self.showCities = ko.computed(function () {
         return (self.listStates() != null && self.listStates().length === 1);
     });
+
+    if (self.onExShowroom)
+        self.isAllIndia(true);
+
 };
 
 $(document).ready(function () {
@@ -83,7 +87,7 @@ $(document).ready(function () {
         var clicked = $(this);
         var el = clicked.attr('data-element');
         if (el == "state")
-            clicked.parentsUntil(clicked, 'div.collapsible-body').hide();
+            clicked.parents('div.state').hide();
         if (el == "model")
             clicked.parents('li').hide();
         var modelId = clicked.attr('data-modelid');
@@ -106,10 +110,20 @@ $(document).ready(function () {
             data: obj,
             datatype: "json",
             complete: function (xhr) {
-                location.reload();
             }
         });
 
+    });
+
+    $('#ddlModels').on('change', function () {
+        var option = $(this).find(':selected').val();
+        if (option == "") {
+            $('#ddlModels option').each(function () {
+                $(this).prop('selected', true);
+            });
+            $('#ddlModels option').first().prop('selected', false);
+        }
+        $(this).material_select();
     });
 
     getCitiesFromDropDown = function () {
@@ -169,5 +183,17 @@ $(document).ready(function () {
         $('#hdnStateIdList').val(stateIds);
         $('#hdnIsAllIndia').val(mfgVM.isAllIndia());
     };
+
+    $('.m9 .collapsible .collapsible-header').on('click', function (event) {
+        var target = $(this);
+        setTimeout(function () {
+            if (target.length) {
+                event.preventDefault();
+                $('html, body').animate({
+                    scrollTop: target.offset().top
+                }, 500);
+            }
+        }, 300);
+    });
 
 });

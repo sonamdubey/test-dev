@@ -28,7 +28,6 @@ namespace Bikewale.Models.DealerShowroom
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
         private readonly IServiceCenter _objSC = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private GlobalCityAreaEntity globalCityArea;
         public MakeMaskingResponse objResponse;
         public uint cityId, makeId, TopCount;
         public StatusCodes status;

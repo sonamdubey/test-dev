@@ -341,7 +341,7 @@ docReady(function () {
                 }
             };
             if (leadOptions.dealersRequired) {
-                generateDealerDropdown();
+                generateDealerDropdown(leadOptions.dealerid);
             }
             dleadvm.setOptions(leadOptions);
         } catch (e) {
@@ -349,10 +349,11 @@ docReady(function () {
         }
 
     });
-    function generateDealerDropdown() {
+    function generateDealerDropdown(dealerId) {
+        var cityId = $("#priceincity").data("cityid") || 0;
         $.ajax({
             type: "GET",
-            url: "/api/ManufacturerCampaign/?city=" + $("#priceincity").data("cityid") || 0,
+            url: "/api/ManufacturerCampaign/city/" + cityId + "/dealer/" + dealerId + "/",
             contentType: "application/json",
             dataType: 'json',
             success: function (response) {

@@ -17,7 +17,6 @@ namespace Bikewale.Models
     {
         #region Private variables
         private IUpcoming _upcoming = null;
-        private EnumUpcomingBikesFilter filter = EnumUpcomingBikesFilter.Default;
         #endregion
 
         #region Constructor

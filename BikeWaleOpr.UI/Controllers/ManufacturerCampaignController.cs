@@ -117,17 +117,26 @@ namespace BikewaleOpr.Controllers
 
         }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava 23 Jun 2017
+        /// Summary    : Action method for manufacturer campaign rules page
+        /// </summary>
         [Route("manufacturercampaign/rules/campaignId/{campaignId}")]
-        public ActionResult ManufacturerCampaignRules(uint campaignId, uint? dealerId)
+        public ActionResult ManufacturerCampaignRules(uint campaignId, uint? dealerId, bool onExShowroom=false)
         {
-            MfgCampaignRules obj = new MfgCampaignRules(_manufacurerCampaignRepo);
+            ManufacturerCampaignRules obj = new ManufacturerCampaignRules(_manufacurerCampaignRepo);
             if(dealerId.HasValue)
             obj.DealerId = dealerId.Value;
             obj.CampaignId = campaignId;
+            obj.ShowOnExShowroom = onExShowroom;
             ManufacturerCampaignRulesVM objData = obj.GetData();
             return View(objData);
         }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava 23 Jun 2017
+        /// Summary    : Action method to save new manufacturer campaign rules
+        /// </summary>
         [Route("manufacturercampaign/rules/campaignid/{campaignId}/add/"), HttpPost]
         public ActionResult AddManufacturerCampaignRules(uint campaignId, string modelIds, string stateIds, string cityIds, bool isAllIndia, uint userId)
         {

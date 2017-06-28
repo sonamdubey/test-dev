@@ -120,21 +120,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             UInt32.TryParse(nvc["LeadSourceId"], out leadSourceId);
                             UInt32.TryParse(nvc["manufacturerDealerId"], out manufacturerDealerId);
 
-                            PriceQuoteParametersEntity priceQuote = new PriceQuoteParametersEntity()
-                            {
-                                CustomerName = nvc["customerName"],
-                                CustomerEmail = nvc["customerEmail"],
-                                CustomerMobile = nvc["customerMobile"],
-                                VersionId = versionId,
-                                DealerId = dealerId,
-                                CityId = cityId,
-                                CampaignId = 0
-                            };
-
-                            if (!leadType.Equals(LeadTypes.Manufacturer))
-                            {
-                                priceQuote = _leadProcessor.GetPriceQuoteDetails(pqId);
-                            }
+                            var priceQuote = _leadProcessor.GetPriceQuoteDetails(pqId);
 
 
                             if (priceQuote != null)
@@ -217,12 +203,13 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         Name = priceQuote.CustomerName,
                         DealerId = priceQuote.DealerId,
                         PinCodeId = pincodeId,
-                        LeadSourceId = leadSourceId
+                        LeadSourceId = leadSourceId,
+                        ManufacturerDealerId = manufacturerDealerId
                     };
 
                     if (_leadProcessor.SaveManufacturerLead(leadEntity))
                     {
-                        isSuccess = _leadProcessor.PushLeadToAutoBiz(pqId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration);
+                        isSuccess = _leadProcessor.PushLeadToAutoBiz(pqId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration, LeadTypes.Manufacturer);
 
                         if (priceQuote.DealerId == _hondaGaddiId)
                         {
@@ -271,7 +258,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, priceQuote.VersionId, priceQuote.CityId, priceQuote.CampaignId);
                     Logs.WriteInfoLog(String.Format("Dealer Lead : CampaignId = {0}", priceQuote.CampaignId));
 
-                    return (_leadProcessor.PushLeadToAutoBiz(pqId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration));
+                    return (_leadProcessor.PushLeadToAutoBiz(pqId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration, LeadTypes.Dealer));
 
                 }
             }
@@ -366,7 +353,18 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             _bajajFinanceAPIUrl = ConfigurationManager.AppSettings["BajajFinanceAPIUrl"];
         }
 
-        public bool PushLeadToAutoBiz(uint pqId, uint dealerId, uint campaignId, string inquiryJson, UInt16 retryAttempt)
+        /// <summary>
+        /// Modified by :   Sumit Kate on 27 Jun 2017
+        /// Description :   Added LeadTypes parameter
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <param name="dealerId"></param>
+        /// <param name="campaignId"></param>
+        /// <param name="inquiryJson"></param>
+        /// <param name="retryAttempt"></param>
+        /// <param name="leadType"></param>
+        /// <returns></returns>
+        public bool PushLeadToAutoBiz(uint pqId, uint dealerId, uint campaignId, string inquiryJson, UInt16 retryAttempt, LeadTypes leadType)
         {
             bool isSuccess = false;
             string abInquiryId = string.Empty;
@@ -381,8 +379,16 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     Logs.WriteInfoLog("Update Lead Limit.");
                     if (campaignId > 0)
                     {
-                        isSuccess = _repository.IsDealerDailyLeadLimitExceeds(campaignId);
-                        isSuccess = _repository.UpdateDealerDailyLeadCount(campaignId, abInqId);
+                        if (leadType == LeadTypes.Dealer)
+                        {
+                            isSuccess = _repository.IsDealerDailyLeadLimitExceeds(campaignId);
+                            isSuccess = _repository.UpdateDealerDailyLeadCount(campaignId, abInqId);
+                        }
+                        else if (leadType == LeadTypes.Manufacturer)
+                        {
+                            isSuccess = _repository.IsManufacturerLeadLimitExceed(campaignId);
+                            isSuccess = _repository.UpdateManufacturerDailyLeadCount(campaignId, abInqId);
+                        }
                     }
 
                     isSuccess = _repository.PushedToAB(pqId, abInqId, retryAttempt);
@@ -533,7 +539,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 RoyalEnfieldDealer dealer = _repository.GetRoyalEnfieldDealerById(manufacturerDealerId);
                 RoyalEnfieldWebAPI.Service service = new RoyalEnfieldWebAPI.Service();
                 string token = ConfigurationManager.AppSettings["RoyalEnfieldToken"];
-                if(quotation != null)
+                if (quotation != null)
                     Logs.WriteInfoLog(String.Format("Royal Enfield: Params Logged --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(quotation)));
                 string response = service.Organic(priceQuote.CustomerName, priceQuote.CustomerMobile, "India", dealer.DealerState,
                     dealer.DealerCity, priceQuote.CustomerEmail, quotation.ModelName, dealer.DealerName, "", "https://www.bikewale.com", token, "bikewale");

@@ -14,7 +14,7 @@ namespace Bikewale.ManufacturerCampaign.Interface
         IEnumerable<BikeModelEntity> GetBikeModels(uint makeId);
         IEnumerable<StateEntity> GetStates();
         IEnumerable<CityEntity> GetCitiesByState(uint stateId);
-        IEnumerable<MfgRuleEntity> GetManufacturerCampaignRules(uint campaignId);
+        IEnumerable<ManufacturerRuleEntity> GetManufacturerCampaignRules(uint campaignId);
         bool SaveManufacturerCampaignRules(uint campaignId, string modelIds, string stateIds, string cityIds, bool isAllIndia, uint userId);
         bool DeleteManufacturerCampaignRules(uint campaignId, uint modelId, uint stateId, uint cityId, uint userId, bool isAllIndia);
     }

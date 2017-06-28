@@ -28,15 +28,12 @@
         }
         <div class="clear"></div>
         <div class="grid-8 alpha margin-top10">
-
             <table id="model-key-highlights" cellspacing="0" cellpadding="0" width="100%" border="0" class="font14 text-left">
-                @*<thead>
+                <thead>
                         <tr>
-                            <th colspan="2"><h2 class="h2-heading padding-bottom5">@Model.BikeName Summary</h2></th>
-
+                            <th colspan="2" class="text-bold padding-bottom5">@Model.ModelPageEntity.ModelDetails.ModelName key highlights</th>
                         </tr>
-
-                    </thead>*@
+               </thead>
                 <tbody>
                     @if (Model.ModelPageEntity.ModelDetails.MinPrice > 0)
                     {

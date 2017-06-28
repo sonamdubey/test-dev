@@ -94,16 +94,16 @@ namespace Bikewale.Cache.PriceQuote
         /// <returns>
         /// Created by : Sangram Nandkhile on 10-May-2017 
         /// </returns>
-        public IEnumerable<ManufactureDealer> GetManufacturerDealers(uint cityId)
+        public IEnumerable<ManufacturerDealer> GetManufacturerDealers(uint cityId, uint dealerId)
         {
-            IEnumerable<ManufactureDealer> dealers = null;
+            IEnumerable<ManufacturerDealer> dealers = null;
             string key = "BW_Manufacturer_Dealers_All";
             try
             {
-                dealers = _cache.GetFromCache<IEnumerable<ManufactureDealer>>(key, new TimeSpan(24, 0, 0), () => _obPriceQuote.GetManufacturerDealers());
+                dealers = _cache.GetFromCache<IEnumerable<ManufacturerDealer>>(key, new TimeSpan(24, 0, 0), () => _obPriceQuote.GetManufacturerDealers());
                 if (dealers != null && dealers.Count() > 0)
                 {
-                    dealers = (from d in dealers where d.CityId == cityId select d).ToList();
+                    dealers = (from d in dealers where d.CityId == cityId && d.DealerId == dealerId select d).ToList();
                 }
             }
             catch (Exception ex)
