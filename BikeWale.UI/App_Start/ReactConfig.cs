@@ -1,13 +1,21 @@
+using JavaScriptEngineSwitcher.Core;
+using JavaScriptEngineSwitcher.V8;
 using React;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Bikewale.ReactConfig), "Configure")]
 
 namespace Bikewale
 {
-	public static class ReactConfig
-	{
-		public static void Configure()
-		{
+    public static class ReactConfig
+    {
+        public static void Configure()
+        {
+            if (!Bikewale.Utility.BWConfiguration.Instance.DisablePWA)
+            {
+                JsEngineSwitcher.Instance.EngineFactories.AddV8();
+                IJsEngine engine = JsEngineSwitcher.Instance.CreateEngine(V8JsEngine.EngineName);
+            }
+
             ReactSiteConfiguration.Configuration
               .SetLoadBabel(false)
               .SetUseDebugReact(false)
@@ -17,7 +25,7 @@ namespace Bikewale
               .SetReuseJavaScriptEngines(true)
               //.SetAllowMsieEngine(false);
               ;
-            
+
         }
-	}
+    }
 }

@@ -5,9 +5,12 @@
     Model.EMI.HasEmiProperties = true;
     Model.Lead.HasLeadProperties = true;
     Model.EMI.PropertyTextMobile = "";
+    Model.NavigationWidget = new Bikewale.ManufacturerCampaign.Entities.NavigationWidgetEntity();
+    Model.NavigationWidget.ActivePage = 2;
+    Model.NavigationWidget.CampaignId = Model.CampaignId;
 }
 
-@*@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", 2)*@
+@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", Model.NavigationWidget)
 
 <form action="/manufacturercampaign/saveproperties/@Model.CampaignId/" method="post" onsubmit="return Validate()">
     <div id="properties" class="row">
@@ -169,7 +172,6 @@
                 <div class="row">
                     <div class="input-field col s4 offset-s3">
                         <select id="LeadPriority" name="LeadPriority" disabled>
-                            @*<option value="" disabled selected>Property Priority</option>*@
                             @foreach (var leadPriority in Model.LeadPriority)
                             {
                              <option @(leadPriority.IsSelected ? "selected" : string.Empty ) value="@leadPriority.Id">@leadPriority.Status</option>

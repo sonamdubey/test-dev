@@ -206,16 +206,17 @@ docReady(function () {
             }
 
         };
+        debugger;
         if (leadOptions.dealersRequired) {
-            generateDealerDropdown();
+            generateDealerDropdown(leadOptions.dealerid);
         }
         gaLabel = getBikeVersionLocation();
         dleadvm.setOptions(leadOptions);
     });
-    function generateDealerDropdown() {
+    function generateDealerDropdown(dealerId) {
         $.ajax({
             type: "GET",
-            url: "/api/ManufacturerCampaign/?city=" + cityId,
+            url: "/api/ManufacturerCampaign/city/" + cityId + "/dealer/" + dealerId + "/",
             contentType: "application/json",
             dataType: 'json',
             success: function (response) {

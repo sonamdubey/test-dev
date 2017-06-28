@@ -26,6 +26,7 @@ namespace Bikewale.ManufacturerCampaign.Entities
         public CampaignEMIPropertyEntity EMI { get; set; }
         public IEnumerable<PriorityEntity> EMIPriority { get; set; }
         public IEnumerable<PriorityEntity> LeadPriority { get; set; }
+        public NavigationWidgetEntity NavigationWidget { get; set; }
 
     }
     public class CampaignEMIPropertyEntity

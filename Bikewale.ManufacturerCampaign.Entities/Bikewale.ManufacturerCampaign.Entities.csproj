@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,7 +46,26 @@
     <Compile Include="ConfigureCampaignEntity.cs" />
     <Compile Include="ManufacturerCampaignDetails.cs" />
     <Compile Include="ManufacturerCampaignPages.cs" />
+    <Compile Include="ManufacturerCampaignPopup.cs" />
+    <Compile Include="ManufacturerCampaignPopupVM.cs" />
+    <Compile Include="ManufacturerCampaignRulesWrapper.cs" />
+    <Compile Include="Models\SearchManufacturerCampaignVM.cs" />
+    <Compile Include="NavigationWidgetEntity.cs" />
+    <Compile Include="BikeMakeEntity.cs" />
+    <Compile Include="BikeModelEntity.cs" />
+    <Compile Include="CityEntity.cs" />
+    <Compile Include="ManufacturerCampaignRulesEntity.cs" />
+    <Compile Include="ManufacturerCampaignRulesVM.cs" />
+    <Compile Include="ManufacturerRuleEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchCampaign\ManufacturerCampaignDetailsList.cs" />
+    <Compile Include="StateEntity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
+      <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
+      <Name>BikewaleOpr.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

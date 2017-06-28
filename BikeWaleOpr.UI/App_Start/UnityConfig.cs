@@ -14,6 +14,7 @@ using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.CommuteDistance;
 using BikewaleOpr.Interface.Location;
 using BikewaleOpr.DALs.Location;
+using BikewaleOpr.BAL.ContractCampaign;
 using Bikewale.ManufacturerCampaign.DAL;
 
 namespace BikewaleOpr
@@ -43,10 +44,16 @@ namespace BikewaleOpr
                 .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IDealerCampaignRepository, DealerCampaignRepository>()
                 .RegisterType<ICommuteDistance, CommuteDistanceBL>()
+
                 .RegisterType<ILocation, LocationRepository>()
-                .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>();
+                .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>()
+                .RegisterType<IContractCampaign, ContractCampaign>();
+
+
+
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+
         }
     }
 }

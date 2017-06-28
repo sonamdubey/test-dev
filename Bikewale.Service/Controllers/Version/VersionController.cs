@@ -125,8 +125,8 @@ namespace Bikewale.Service.Controllers.Version
         /// <summary>
         ///  To Get Version's Specifications  and Features 
         /// </summary>
-        /// <param name="requestType"></param>
-        /// <param name="makeId"></param>
+        /// <param name="versionId"></param>
+        /// <param name="specs"></param>
         /// <returns></returns>
         [ResponseType(typeof(VersionSpecifications))]
         public IHttpActionResult Get(uint versionId, bool? specs)
