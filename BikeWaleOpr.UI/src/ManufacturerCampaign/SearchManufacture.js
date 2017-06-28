@@ -1,8 +1,11 @@
-﻿var ddlManufacturers = $("#ddlManufacturers");
+﻿var ddlManufacturers;
+var ddlAddManufacturers;
 var BwOprHostUrl, msg;
  $(document).ready(function () {
      BwOprHostUrl = document.getElementById("tblCampaigns").getAttribute("data-BwOprHostUrl");
      $('#tblCampaigns').hide();
+     ddlManufacturers = $("#ddlManufacturers");
+     ddlAddManufacturers = $("#ddlAddManufacturers");
      
  });
  if (msg != "") { Materialize.toast(msg, 5000); }
@@ -13,7 +16,7 @@ var mfgCamp = function () {
     self.ManufacturersCampaign = ko.observableArray([]);
 
     self.redirect = function () {
-        dealerId = ddlManufacturers.val();
+        dealerId = ddlAddManufacturers.val();
         if (!isNaN(dealerId) && dealerId > 0) {
             var url = BwOprHostUrl + '/manufacturercampaign/information/' + dealerId;
             window.location.href = url;
