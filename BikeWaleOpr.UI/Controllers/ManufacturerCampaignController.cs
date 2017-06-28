@@ -137,7 +137,7 @@ namespace BikewaleOpr.Controllers
         /// Summary    : Action method to save new manufacturer campaign rules
         /// </summary>
         [Route("manufacturercampaign/rules/campaignid/{campaignId}/add/"), HttpPost]
-        public ActionResult AddManufacturerCampaignRules(uint campaignId, string modelIds, string stateIds, string cityIds, bool isAllIndia, uint userId)
+        public ActionResult AddManufacturerCampaignRules(uint campaignId, string modelIds, string stateIds, string cityIds, bool isAllIndia, uint userId, uint? dealerId)
         {
             bool isSuccess = false;
             isSuccess = _manufacurerCampaignRepo.SaveManufacturerCampaignRules(campaignId, modelIds, stateIds, cityIds, isAllIndia, userId);
@@ -145,7 +145,7 @@ namespace BikewaleOpr.Controllers
                 TempData["msg"] = "Rules added successfully!";
             else
                 TempData["msg"] = "Could not add rules";
-            return RedirectToAction("ManufacturerCampaignRules", routeValues: new { campaignId = campaignId });
+            return RedirectToAction("ManufacturerCampaignRules", routeValues: new { campaignId = campaignId , dealerId= dealerId });
         }
     }
 }

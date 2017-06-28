@@ -35,6 +35,7 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
         {
             ManufacturerCampaignRulesVM objData = new ManufacturerCampaignRulesVM();
             objData.CampaignId = CampaignId;
+            objData.DealerId = DealerId;
             objData.NavigationWidget = new NavigationWidgetEntity();
             objData.NavigationWidget.ActivePage = 4;
             objData.NavigationWidget.CampaignId = CampaignId;
