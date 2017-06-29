@@ -157,7 +157,7 @@
                                         </tr>
                                     </table>
                                     <span>
-                                        <span>@string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "Price in accordance with GST rates" : "Indicative price as final dealership pricing in unavailable")</span>
+                                        <span>@string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "Price in accordance with GST rates" : "Indicative price as final dealership pricing is unavailable")</span>
                                     </span>
                                 }
                                 else if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)

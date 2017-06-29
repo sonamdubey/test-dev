@@ -878,12 +878,15 @@ namespace Bikewale.Models.BikeModels
                                 if (selectedVariant.PriceList != null)
                                 {
                                     totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
+                                    objData.IsGstPrice = pqOnRoad.DPQOutput.PriceList.FirstOrDefault().IsGstPrice;
                                 }
 
                                 if (pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
                                 {
                                     objData.BikePrice = (objData.BikePrice - totalDiscountedPrice);
+                                   
                                 }
+                                
                             }
                             else // Show dealer properties and Bikewale priceQuote when dealer has pricing for any of the bike
                             // Added on 13 Feb 2017 Pivotal Id:138698777

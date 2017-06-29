@@ -96,7 +96,7 @@
                                 </tbody>
                             </table>
                             <span>
-                                <span>@string.Format("{0}", Model.FirstVersion.IsGstPrice ? "Price in accordance with GST rates" : "Indicative price as final dealership pricing in unavailable")</span>
+                                <span>@string.Format("{0}", Model.FirstVersion.IsGstPrice ? "Price in accordance with GST rates" : "Price is inclusive of GST taxes.It is an indicative price only.Prices at dealership may vary.")</span>
                             </span>
                         }
                         @if (Model.IsNew)
