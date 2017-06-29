@@ -456,6 +456,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
+    <Compile Include="Models\ManufacturerCampaign\CampaignPropertiesModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPageModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPopup.cs" />
     <Compile Include="Models\ManufacturerCampaign\ManufacturerCampaignRules.cs" />
@@ -1930,7 +1931,7 @@
     <Content Include="src\imageUpload.js" />
     <Content Include="src\jquery-1.6.min.js" />
     <Content Include="src\knockout.js" />
-    <Content Include="src\ManufactureCampaign\ConfigureCampign.js" />
+    <Content Include="src\ManufactureCampaign\ConfigureCampaign.js" />
     <Content Include="src\ManufactureCampaign\rules.js" />
     <Content Include="src\ManufacturerCampaign\SearchManufacture.js" />
     <Content Include="src\modelImagesByColor.js" />
