@@ -414,6 +414,12 @@
     <Compile Include="Videos\EnumVideosCategory.cs" />
     <Compile Include="Videos\VideosSortOrder.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
+      <Project>{EA73DDA4-317E-4B79-BB03-F48125C2501B}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

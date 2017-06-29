@@ -196,7 +196,7 @@ docReady(function () {
             "dealerMessage": ele.attr('data-item-message'),
             "dealerDescription": ele.attr('data-item-description'),
             "pinCodeRequired": ele.attr("data-ispincodrequired"),
-            "dealersRequired": ele.attr("data-dealersRequired"),
+            "dealersRequired": ele.attr("data-dealersrequired"),
             "emailRequired": ele.attr("data-isemailrequired"),
             "eventcategory" : ele.attr("c"),
             "gaobject": {
@@ -205,8 +205,7 @@ docReady(function () {
                 lab: bikeVersionLocation
             }
 
-        };
-        debugger;
+        };        
         if (leadOptions.dealersRequired) {
             generateDealerDropdown(leadOptions.dealerid);
         }

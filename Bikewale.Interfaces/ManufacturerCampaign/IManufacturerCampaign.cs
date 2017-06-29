@@ -1,6 +1,6 @@
 ﻿using Bikewale.ManufacturerCampaign.Entities;
 
-namespace Bikewale.ManufacturerCampaign.Interface
+namespace Bikewale.Interfaces
 {
     /// <summary>
     /// Created by  :   Sumit Kate on 29 Jun 2017

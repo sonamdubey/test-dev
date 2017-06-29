@@ -45,9 +45,13 @@
   <ItemGroup>
     <Compile Include="ConfigureCampaignEntity.cs" />
     <Compile Include="ManufacturerCampaignDetails.cs" />
+    <Compile Include="ManufacturerCampaignEMIConfiguration.cs" />
+    <Compile Include="ManufacturerCampaignEntity.cs" />
+    <Compile Include="ManufacturerCampaignLeadConfiguration.cs" />
     <Compile Include="ManufacturerCampaignPages.cs" />
     <Compile Include="ManufacturerCampaignPopup.cs" />
     <Compile Include="ManufacturerCampaignPopupVM.cs" />
+    <Compile Include="ManufacturerCampaignServingPages.cs" />
     <Compile Include="Models\SearchManufacturerCampaignVM.cs" />
     <Compile Include="NavigationWidgetEntity.cs" />
     <Compile Include="BikeMakeEntity.cs" />

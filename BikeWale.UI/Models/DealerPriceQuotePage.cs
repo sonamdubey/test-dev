@@ -2,12 +2,14 @@
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Models.Price;
 using Bikewale.Utility;
 using System;
@@ -30,11 +32,12 @@ namespace Bikewale.Models
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IPriceQuote _objPQ = null;
-
+        private readonly Interfaces.IManufacturerCampaign _objManufacturerCampaign = null;
         public string RedirectUrl { get; set; }
         public uint OtherTopCount { get; set; }
         public StatusCodes Status { get; set; }
         public LeadSourceEnum LeadSource { get; set; }
+        public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         private uint _modelId, _versionId, _cityId, _areaId, _pqId, _dealerId, _makeId;
         private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty;
 
@@ -44,7 +47,7 @@ namespace Bikewale.Models
         /// Created By : Sushil Kumar on 23rd March 2017
         /// Description  : Resolve unity containers
         /// </summary>
-        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache)
+        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, Interfaces.IManufacturerCampaign objManufacturerCampaign)
         {
             _objDealerPQDetails = objDealerPQDetails;
             _objDealerPQ = objDealerPQ;
@@ -53,7 +56,7 @@ namespace Bikewale.Models
             _objCityCache = objCityCache;
             _objPQ = objPQ;
             _objDealerCache = objDealerCache;
-
+            _objManufacturerCampaign = objManufacturerCampaign;
             ProcessQueryString();
         }
 
@@ -75,6 +78,21 @@ namespace Bikewale.Models
                     SetModelVariables(objData);
                     BindPageWidgets(objData);
                     SetPageMetas(objData);
+                    GetManufacturerCampaign(objData);
+                    if (objData.SelectedVersion.New)
+                    {
+                        objData.LeadCapture = new LeadCaptureEntity()
+                        {
+                            ModelId = _modelId,
+                            CityId = _cityId,
+                            AreaId = _areaId,
+                            Area = currentArea,
+                            City = currentCity,
+                            Location = objData.Location,
+                            BikeName = objData.BikeName
+
+                        };
+                    }
                 }
 
 
@@ -157,19 +175,6 @@ namespace Bikewale.Models
                     DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, _cityId, _makeId);
                     objDealer.TopCount = OtherTopCount;
                     objData.OtherDealers = objDealer.GetData();
-
-
-                    objData.LeadCapture = new LeadCaptureEntity()
-                    {
-                        ModelId = _modelId,
-                        CityId = _cityId,
-                        AreaId = _areaId,
-                        Area = currentArea,
-                        City = currentCity,
-                        Location = objData.Location,
-                        BikeName = objData.BikeName
-
-                    };
 
                     var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, _versionId, PQSourceEnum.Desktop_DPQ_Alternative);
                     if (objSimilarBikes != null)
@@ -328,20 +333,7 @@ namespace Bikewale.Models
                         {
                             objData.TotalPrice = (uint)objData.Quotation.OnRoadPrice;
                         }
-                        #endregion
-                        #region Set manufacturer campaign details
-
-                        if (objData.Quotation.ManufacturerId > 0 && (detailedDealer.PrimaryDealer == null || detailedDealer.PrimaryDealer.DealerDetails == null))
-                        {
-                            objData.ManufacturerCampaign = new ManufacturerCampaign()
-                            {
-                                Ad = Format.FormatManufacturerAd(objData.Quotation.ManufacturerAd, objData.Quotation.CampaignId, objData.Quotation.ManufacturerName, objData.Quotation.MaskingNumber, objData.Quotation.ManufacturerId, objData.Quotation.Area, objData.PQLeadSource.ToString(), objData.PQSourcePage.ToString(), string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objData.Quotation.MaskingNumber) ? "hide" : string.Empty, objData.Quotation.LeadCapturePopupHeading, objData.Quotation.LeadCapturePopupDescription, objData.Quotation.LeadCapturePopupMessage, objData.Quotation.PinCodeRequired, objData.Quotation.EmailRequired),
-                                Name = objData.Quotation.ManufacturerName,
-                                Id = objData.Quotation.ManufacturerId
-                            };
-                            objData.ManufacturerCampaign.ShowAd = detailedDealer.PrimaryDealer.DealerDetails == null;
-                        }
-                        #endregion
+                        #endregion                        
                     }
                 }
                 else
@@ -490,6 +482,75 @@ namespace Bikewale.Models
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.ParseQueryString() versionid {0}, CityId {1}, PQId {2}", _versionId, _cityId, _pqId));
                 Status = StatusCodes.ContentNotFound;
+            }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 29 Jun 2017
+        /// Description :   Fetches Manufacturer Campaigns
+        /// </summary>
+        private void GetManufacturerCampaign(DealerPriceQuotePageVM objData)
+        {
+            try
+            {
+                if (_objManufacturerCampaign != null && !(objData.IsPrimaryDealerAvailable))
+                {
+                    ManufacturerCampaignEntity campaigns = _objManufacturerCampaign.GetCampaigns(_modelId, _cityId, ManufacturerCampaignPageId);
+                    if (campaigns.LeadCampaign != null)
+                    {
+                        objData.LeadCampaign = new ManufactureCampaignLeadEntity()
+                        {
+                            Area = GlobalCityArea.GetGlobalCityArea().Area,
+                            CampaignId = campaigns.LeadCampaign.CampaignId,
+                            DealerId = campaigns.LeadCampaign.DealerId,
+                            DealerRequired = campaigns.LeadCampaign.DealerRequired,
+                            EmailRequired = campaigns.LeadCampaign.EmailRequired,
+                            LeadsButtonTextDesktop = campaigns.LeadCampaign.LeadsButtonTextDesktop,
+                            LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
+                            LeadSourceId = (int)LeadSource,
+                            PqSourceId = (int)objData.PQSourcePage,
+                            LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
+                            LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
+                            LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
+                            LeadsPropertyTextMobile = campaigns.LeadCampaign.LeadsPropertyTextMobile,
+                            MakeName = objData.SelectedVersion.MakeBase.MakeName,
+                            MaskingNumber = campaigns.LeadCampaign.MaskingNumber,
+                            PincodeRequired = campaigns.LeadCampaign.PincodeRequired,
+                            PopupDescription = campaigns.LeadCampaign.PopupDescription,
+                            PopupHeading = campaigns.LeadCampaign.PopupHeading,
+                            PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage
+                        };
+                        objData.IsManufacturerLeadAdShown = true;
+                    }
+                    if (campaigns.EMICampaign != null)
+                    {
+                        objData.EMICampaign = new ManufactureCampaignEMIEntity()
+                        {
+                            Area = GlobalCityArea.GetGlobalCityArea().Area,
+                            CampaignId = campaigns.EMICampaign.CampaignId,
+                            DealerId = campaigns.EMICampaign.DealerId,
+                            DealerRequired = campaigns.EMICampaign.DealerRequired,
+                            EmailRequired = campaigns.EMICampaign.EmailRequired,
+                            EMIButtonTextDesktop = campaigns.EMICampaign.EMIButtonTextDesktop,
+                            EMIButtonTextMobile = campaigns.EMICampaign.EMIButtonTextMobile,
+                            LeadSourceId = (int)LeadSource,
+                            PqSourceId = (int)objData.PQSourcePage,
+                            EMIPropertyTextDesktop = campaigns.EMICampaign.EMIPropertyTextDesktop,
+                            EMIPropertyTextMobile = campaigns.EMICampaign.EMIPropertyTextMobile,
+                            MakeName = objData.SelectedVersion.MakeBase.MakeName,
+                            MaskingNumber = campaigns.EMICampaign.MaskingNumber,
+                            PincodeRequired = campaigns.EMICampaign.PincodeRequired,
+                            PopupDescription = campaigns.EMICampaign.PopupDescription,
+                            PopupHeading = campaigns.EMICampaign.PopupHeading,
+                            PopupSuccessMessage = campaigns.EMICampaign.PopupSuccessMessage
+                        };
+                        objData.IsManufacturerEMIAdShown = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", _modelId, _cityId, ManufacturerCampaignPageId));
             }
         }
     }

@@ -1,5 +1,7 @@
 ﻿
+using Bikewale.Entities.manufacturecampaign;
 using RabbitMqPublishing.Common;
+using RazorEngine;
 using System;
 using System.Text.RegularExpressions;
 namespace Bikewale.Utility
@@ -232,7 +234,7 @@ namespace Bikewale.Utility
             string PqSourceId,
             string action,
             string category,
-            string label, string hide, string LeadCapturePopupHeading, string LeadCapturePopupDescription, string LeadCapturePopupMessage, bool PinCodeRequired,bool EmailRequired)
+            string label, string hide, string LeadCapturePopupHeading, string LeadCapturePopupDescription, string LeadCapturePopupMessage, bool PinCodeRequired, bool EmailRequired)
         {
             string retVal = string.Empty;
             try
@@ -275,6 +277,35 @@ namespace Bikewale.Utility
 
             }
             return RankText;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 29 Jun 2017
+        /// Description :   Returns the Render engine raw output
+        /// </summary>
+        /// <param name="templateName"></param>
+        /// <param name="template"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static string GetRendredContent(string templateName, string template, ManufactureCampaignLeadEntity model)
+        {
+            try
+            {
+                // loading a template might be expensive, so be careful to cache content
+                if (Razor.Resolve(templateName) == null)
+                {
+                    // we've never seen this template before, so compile it and stick it in cache.
+                    Razor.Compile(template, typeof(ManufactureCampaignLeadEntity), templateName);
+                }
+
+                // by now, we know we've got a the template cached and ready to run; this is fast
+                var renderedContent = Razor.Run(templateName, model);
+                return renderedContent;
+            }
+            catch (Exception)
+            {
+                return "";
+            }
         }
     }
 }

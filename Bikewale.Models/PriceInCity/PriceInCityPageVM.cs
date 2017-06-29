@@ -1,5 +1,5 @@
-﻿using Bikewale.Entities.DealerLocator;
-using Bikewale.Entities.Location;
+﻿using Bikewale.Entities.Location;
+using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Models.ServiceCenters;
@@ -21,7 +21,6 @@ namespace Bikewale.Models
         public SimilarBikesWidgetVM AlternateBikes { get; set; }
         public ServiceCenterDetailsWidgetVM ServiceCenters { get; set; }
         public uint ServiceCenterCount { get; set; }
-        public ManufacturerCampaign ManufacturerCampaign { get; set; }
         public PriceInTopCitiesWidgetVM PriceInTopCities { get; set; }
         public uint ServiceCentersCount { get; set; }
 
@@ -68,9 +67,12 @@ namespace Bikewale.Models
         public string MPQString { get; set; }
         public string MinSpecsHtml { get; set; }
         public string GABikeName { get { return string.Format("{0}_{1}", Make.MakeName, BikeModel.ModelName); } }
-        public bool ManufacturerAdShown { get { return ManufacturerCampaign != null && ManufacturerCampaign.ShowAd; } }
         public LeadCaptureEntity LeadCapture { get; set; }
         public ulong PQId { get; set; }
+        public ManufactureCampaignLeadEntity LeadCampaign { get; set; }
+        public bool IsManufacturerLeadAdShown { get; set; }
+        public ManufactureCampaignEMIEntity EMICampaign { get; set; }
+        public bool IsManufacturerEMIAdShown { get; set; }
     }
 
 }

@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.ManufacturerCampaign.Entities;
+using Bikewale.ManufacturerCampaign.Interface;
 
 namespace Bikewale.ManufacturerCampaign.BAL
 {
-    public class ManufacturerCampaign
+    public class ManufacturerCampaign : IManufacturerCampaign
     {
+        private readonly Interface.IManufacturerCampaignRepository _repo = null;
+        public ManufacturerCampaign(Interface.IManufacturerCampaignRepository repo)
+        {
+            _repo = repo;
+        }
+        public ManufacturerCampaignEntity GetCampaigns(uint modelId, uint cityId, ManufacturerCampaignServingPages pageId)
+        {
+            return _repo.GetCampaigns(modelId, cityId, pageId);
+        }
     }
 }

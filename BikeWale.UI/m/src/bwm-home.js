@@ -221,9 +221,7 @@ function checkCookies() {
 
 docReady(function () {
 
-    onRoadcity = $('#ddlCitiesOnRoad'), onRoadArea = $('#ddlAreaOnRoad'), onRoadMakeModel = $('#getFinalPrice');
-
-	$('#back-to-top').remove();
+    onRoadcity = $('#ddlCitiesOnRoad'), onRoadArea = $('#ddlAreaOnRoad'), onRoadMakeModel = $('#getFinalPrice');	
 
     // knockout OnRoadData binding
     viewModelOnRoad = {

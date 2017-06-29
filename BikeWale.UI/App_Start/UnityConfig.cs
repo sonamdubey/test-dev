@@ -2,6 +2,7 @@ using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.BikeData.NewLaunched;
 using Bikewale.BAL.BikeData.UpComingBike;
+using Bikewale.BAL.CMS;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
@@ -65,12 +66,13 @@ using Bikewale.Interfaces.Videos;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
-using Bikewale.BAL.CMS;
 
 namespace Bikewale
 {
     /// <summary>
     /// Created by : Ashish G. Kamble on 6 Jan 2017
+    /// Modified by :   Sumit Kate on 29 Jun 2017
+    /// Description :   Register Manufacturer campaign interfaces
     /// </summary>
     public static class UnityConfig
     {
@@ -140,7 +142,8 @@ namespace Bikewale
             container.RegisterType<ICMS, CMS>();
             container.RegisterType<ISurveyRepository, SurveyRepository>();
             container.RegisterType<ISurvey, BAL.Survey>();
-
+            container.RegisterType<Interfaces.IManufacturerCampaign, Bikewale.BAL.ManufacturerCampaign.ManufacturerCampaign>();
+            container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

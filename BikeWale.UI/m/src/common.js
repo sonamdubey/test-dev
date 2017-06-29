@@ -832,14 +832,28 @@ docReady(function () {
     }
 
     //Scroll To Top function
+    var scrollToTop = document.querySelectorAll('.back-to-top')[0];
 
-    $(window).scroll(function () {
+    if (scrollToTop) {
+        attachListener('scroll', window, toggleScrollToTopBtn);
+    }
+
+    function attachListener(event, element, functionName) {
+        if (element.addEventListener) {
+            element.addEventListener(event, functionName, false);
+        }
+        else if (element.attachEvent) {
+            element.attachEvent('on' + event, functionName);
+        }
+    };
+
+    function toggleScrollToTopBtn() {
         if ($(this).scrollTop() > 180) {
             $('.back-to-top').fadeIn(500);
         } else {
             $('.back-to-top').fadeOut(500);
         }
-    });
+    };
 
     $('.back-to-top').click(function (event) {
         $('html, body').stop().animate({ scrollTop: 0 }, 600);

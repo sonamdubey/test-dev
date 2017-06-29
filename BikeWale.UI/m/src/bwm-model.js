@@ -142,8 +142,7 @@ docReady(function () {
     $("#viewprimarydealer, #dealername").on("click", function () {
         var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
         window.location.href = "/m/pricequote/dealer/?MPQ=" + Base64.encode(rediurl);
-    });
-    $('#back-to-top').remove();
+    });    
     backToTopBtn = $('#scroll-to-top');
     overViewContentHeight = $('#overviewContent').height();
     halfBodyHeight = $('body').height() / 2;
