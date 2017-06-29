@@ -4,6 +4,7 @@ using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 
 namespace BikewaleOpr.Models.ManufacturerCampaign
@@ -17,12 +18,13 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
 
         private IManufacturerCampaignRepository _manufacurerCampaignRepo;
         private CampaignPropertiesVM _objModel;
-        private uint _campaignId;
+        private uint _campaignId, _dealerId;
 
-        public ConfigurePropertiesModel(uint campaignId, IManufacturerCampaignRepository manufacurerCampaignRepo)
+        public ConfigurePropertiesModel(uint campaignId, uint dealerId, IManufacturerCampaignRepository manufacurerCampaignRepo)
         {
             _manufacurerCampaignRepo = manufacurerCampaignRepo;
             _campaignId = campaignId;
+            _dealerId = dealerId;
         }
 
         public ConfigurePropertiesModel(uint campaignId, CampaignPropertiesVM objModel, IManufacturerCampaignRepository manufacurerCampaignRepo)
@@ -40,6 +42,11 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
             {
                 objData = new CampaignPropertyEntity();
                 objData = _manufacurerCampaignRepo.GetManufacturerCampaignProperties(_campaignId);
+                objData.CampaignId = _campaignId;
+                objData.NavigationWidget = new Bikewale.ManufacturerCampaign.Entities.NavigationWidgetEntity();
+                objData.NavigationWidget.ActivePage = 2;
+                objData.NavigationWidget.CampaignId = _campaignId;
+                objData.NavigationWidget.DealerId = _dealerId;
             }
             catch (Exception ex)
             {
@@ -48,11 +55,27 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
             return objData;
         }
 
-        public void SaveData(CampaignPropertiesVM objModel)
+        public bool SaveData(CampaignPropertiesVM objModel)
         {
-
+            //FormaModelData(objModel);
+            bool isSaved = false;
+            try
+            {
+                _manufacurerCampaignRepo.SaveManufacturerCampaignProperties(objModel);
+                isSaved = true;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass er = new ErrorClass(ex, "BikewaleOpr.Models.ManufacturerCampaign.ConfigurePropertiesModel.SaveData()");
+            }
+            return isSaved;
         }
 
+        private void FormaModelData(CampaignPropertiesVM objModel)
+        {
+            objModel.LeadHtmlDesktop = WebUtility.HtmlEncode(objModel.LeadHtmlDesktop);
+            objModel.LeadHtmlMobile = WebUtility.HtmlEncode(objModel.LeadHtmlMobile);
+        }
     }
    
 }

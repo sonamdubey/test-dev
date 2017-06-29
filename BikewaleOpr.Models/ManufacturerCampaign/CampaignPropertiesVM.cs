@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace BikewaleOpr.Models.ManufacturerCampaign
 {
@@ -25,7 +26,9 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
         public string LeadPropertyTextMobile { get; set; }
         public string LeadButtonTextDesktop { get; set; }
         public string LeadPropertyTextDesktop { get; set; }
+        [AllowHtml]
         public string LeadHtmlMobile { get; set; }
+        [AllowHtml]
         public string LeadHtmlDesktop { get; set; }
         public string LeadPriority { get; set; }
     }

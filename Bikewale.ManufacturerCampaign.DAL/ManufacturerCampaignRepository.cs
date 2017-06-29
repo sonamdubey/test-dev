@@ -11,6 +11,7 @@ using System.Linq;
 using BikewaleOpr.Entity.ManufacturerCampaign;
 using Bikewale.DAL.CoreDAL;
 using Bikewaleopr.ManufacturerCampaign.Entities;
+using BikewaleOpr.Models.ManufacturerCampaign;
 
 namespace Bikewale.ManufacturerCampaign.DAL
 {
@@ -124,7 +125,12 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             return objEntity;
         }
-
+        /// <summary>
+        /// Created by Sangram Nandkhile on 22 Jun 2017
+        /// Summary: Fetch campaign properties
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
         public CampaignPropertyEntity GetManufacturerCampaignProperties (uint campaignId)
         {
             CampaignPropertyEntity campaign = null;
@@ -140,8 +146,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     using (var results = connection.QueryMultiple("getmanufacturercampaignproperties", param: param, commandType: CommandType.StoredProcedure))
                     {
                         campaign.EMI = results.Read<CampaignEMIPropertyEntity>().SingleOrDefault();
+                        if(campaign.EMI == null) { campaign.EMI = new CampaignEMIPropertyEntity(); }
                         campaign.EMIPriority = results.Read<PriorityEntity>();
                         campaign.Lead = results.Read<CampaignLeadPropertyEntity>().SingleOrDefault();
+                        if (campaign.Lead == null) { campaign.Lead = new CampaignLeadPropertyEntity(); }
                         campaign.LeadPriority = results.Read<PriorityEntity>();
                     }
 
@@ -157,6 +165,47 @@ namespace Bikewale.ManufacturerCampaign.DAL
             return campaign;
         }
 
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 28 Jun 2017
+        /// Summary    : Save manufacturer campaign rules
+        /// </summary>
+        public bool SaveManufacturerCampaignProperties(CampaignPropertiesVM objCampaign)
+        {
+            bool isSaved = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_campaignId", objCampaign.CampaignId);
+                    param.Add("par_hasEmiProperties", objCampaign.HasEmiProperties);
+                    param.Add("par_emiButtonTextMobile", objCampaign.EmiButtonTextMobile);
+                    param.Add("par_emiPropertyTextMobile", objCampaign.EmiPropertyTextMobile);
+                    param.Add("par_emiButtonTextDesktop", objCampaign.EmiButtonTextDesktop);
+                    param.Add("par_emiPropertyTextDesktop", objCampaign.EmiPropertyTextDesktop);
+                    param.Add("par_emiPriority", objCampaign.EmiPriority);
+                    param.Add("par_hasLeadProperties", objCampaign.HasLeadProperties);
+                    param.Add("par_leadButtonTextMobile", objCampaign.LeadButtonTextMobile);
+                    param.Add("par_leadPropertyTextMobile", objCampaign.LeadPropertyTextMobile);
+                    param.Add("par_leadButtonTextDesktop", objCampaign.LeadButtonTextDesktop);
+                    param.Add("par_leadPropertyTextDesktop", objCampaign.LeadPropertyTextDesktop);
+                    param.Add("par_leadPriority", objCampaign.LeadPriority);
+                    param.Add("par_leadHtmlMobile", objCampaign.LeadHtmlMobile);
+                    param.Add("par_leadHtmlDesktop", objCampaign.LeadHtmlDesktop);
+                    connection.Query<dynamic>("savemanufacturercampaignproperties", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                    isSaved = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.SaveManufacturerCampaignProperties");
+            }
+            return isSaved;
+        }
         /// <summary>
         /// Created by : Aditi Srivastava on 22 Jun 2017
         /// Summary    : Get all bike models by make Id
@@ -297,6 +346,8 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             return campaignId;
         }
+
+        
         public void saveManufacturerCampaignPopup(ManufacturerCampaignPopup objCampaign)
         {
             

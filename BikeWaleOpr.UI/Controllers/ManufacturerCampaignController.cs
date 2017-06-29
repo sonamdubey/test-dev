@@ -1,6 +1,4 @@
 using Bikewale.ManufacturerCampaign.Entities;
-
-using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Entities.ContractCampaign;
@@ -8,16 +6,11 @@ using BikewaleOpr.Entity.ManufacturerCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Models;
 using BikewaleOpr.Models.ManufacturerCampaign;
-
 using Bikewale.ManufacturerCampaign.Entities.Models;
-
-
 using BikeWaleOpr.Common;
 using System;
 using System.Web.Mvc;
 using Bikewaleopr.ManufacturerCampaign.Entities;
-using BikewaleOpr.Models.ManufacturerCampaign;
-using Bikewale.ManufacturerCampaign.Interface;
 
 namespace BikewaleOpr.Controllers
 {
@@ -84,27 +77,24 @@ namespace BikewaleOpr.Controllers
                 CWWebservice.AddCampaignContractData(ccInputs);
             }
                                     
-            return Redirect("/manufacturercampaign/properties/dealerId/"+ objData .DealerId+"? campaignId=" + campaignId);
+            return Redirect("/manufacturercampaign/properties/?campaignId="+ campaignId +"&dealerid="+ objData.DealerId);
         }
 
-        [Route("manufacturercampaign/properties/")]
-        public ActionResult ConfigureCampaignProperties(uint ? campaignId)
+        [Route("manufacturercampaign/properties/{dealerid}/")]
+        public ActionResult ConfigureCampaignProperties(uint campaignId, uint dealerId)
         {
-            CampaignPropertyEntity retData = new CampaignPropertyEntity();
-            if (campaignId.HasValue)
-            {
-                ConfigurePropertiesModel objvm = new ConfigurePropertiesModel(Convert.ToUInt32(campaignId), _manufacurerCampaignRepo);
-                retData = objvm.GetData();
-            }
+            ConfigurePropertiesModel objvm = new ConfigurePropertiesModel(campaignId, dealerId, _manufacurerCampaignRepo);
+            CampaignPropertyEntity retData = objvm.GetData();
+            retData.DealerId = dealerId;
             return View(retData);
         }
         [HttpPost]
-        [Route("manufacturercampaign/saveproperties/{campaignId}/")]
-        public ActionResult SaveConfiguredProperties(CampaignPropertiesVM model, uint campaignId)
+        [Route("manufacturercampaign/saveproperties/{dealerid}/")]
+        public ActionResult SaveConfiguredProperties(CampaignPropertiesVM model, uint campaignId, uint dealerId)
         {
             ConfigurePropertiesModel objvm = new ConfigurePropertiesModel(campaignId, model, _manufacurerCampaignRepo);
-            objvm.GetData();
-            return RedirectToAction("ConfigureCampaignProperties");
+            objvm.SaveData(model);
+            return Redirect("/manufacturercampaign/popup/"+ dealerId + "/?campaignId=" + campaignId);
         }
 
         [Route("manufacturercampaign/popup/{dealerId}")]
@@ -114,8 +104,7 @@ namespace BikewaleOpr.Controllers
             ManufacturerCampaignPopupVM objVM = null;
             if (objPopup!=null)
             {
-                objVM= objPopup.GetData(dealerId,campaignId ?? 0);
-                
+                objVM = objPopup.GetData(dealerId,campaignId ?? 0);
             }
             return View(objVM);
         }
@@ -127,9 +116,7 @@ namespace BikewaleOpr.Controllers
             {
                 _manufacurerCampaignRepo.saveManufacturerCampaignPopup(objData);
             }
-
             return Redirect("/manufacturercampaign/rules/campaignId/" + objData.CampaignId+"?dealerId="+objData.DealerId);
-
         }
 
         /// <summary>

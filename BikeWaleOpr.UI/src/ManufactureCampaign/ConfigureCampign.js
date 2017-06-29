@@ -21,6 +21,7 @@ $("#HasEmiProperties").change(function () {
 });
 
 $("#HasLeadProperties").change(function () {
+    debugger;
     if ($("#HasLeadProperties").prop('checked')) {
         HasLeadSelected();
     }
@@ -43,7 +44,7 @@ function HasEMISelected() {
     $('#EmiPriority').material_select();
 }
 function HasEMINotSelected() {
-    $('#emiproperties input[type="checkbox"],input[type=text]').each(function () {
+    $('#emiproperties input[type="checkbox"], #emiproperties input[type=text]').each(function () {
         $(this).prop("disabled", true);
     });
     $('#EmiPriority').prop('disabled', true);
@@ -64,7 +65,7 @@ function HasLeadSelected() {
 }
 
 function HasLeadNotSelected() {
-    $('#leadproperties input[type="checkbox"],input[type=text]').each(function () {
+    $('#leadproperties input[type="checkbox"], #leadproperties input[type=text]').each(function () {
         $(this).prop("disabled", true);
     });
     $('#LeadPriority').attr("disabled", true);

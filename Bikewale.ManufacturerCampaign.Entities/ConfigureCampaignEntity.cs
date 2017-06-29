@@ -22,12 +22,12 @@ namespace Bikewale.ManufacturerCampaign.Entities
     public class CampaignPropertyEntity
     {
         public uint CampaignId { get; set; }
+        public uint DealerId { get; set; }
         public CampaignLeadPropertyEntity Lead { get; set; }
         public CampaignEMIPropertyEntity EMI { get; set; }
         public IEnumerable<PriorityEntity> EMIPriority { get; set; }
         public IEnumerable<PriorityEntity> LeadPriority { get; set; }
         public NavigationWidgetEntity NavigationWidget { get; set; }
-
     }
     public class CampaignEMIPropertyEntity
     {
