@@ -141,7 +141,7 @@
 
                 <div class="row">
                     <div class="input-field col s4 offset-s3">
-                        <input id="LeadHtmlMobile" name="LeadHtmlMobile" type="text" class="validate" maxlength="100" disabled="disabled" value="@(Model.Lead.HtmlMobile!= null? Model.Lead.HtmlMobile : string.Empty)">
+                        <input id="LeadHtmlMobile" name="LeadHtmlMobile" type="text" class="validate" maxlength="10000" disabled="disabled" value="@(Model.Lead.HtmlMobile!= null? WebUtility.HtmlDecode(Model.Lead.HtmlMobile) : string.Empty)">
                         <label for="LeadHtmlMobile">Mobile Site HTML Template</label>
                     </div>
 
@@ -153,7 +153,7 @@
 
                 <div class="row">
                     <div class="input-field col s4 offset-s3">
-                        <input id="LeadHtmlDesktop" name="LeadHtmlDesktop" type="text" class="validate" maxlength="100" disabled="disabled" value="@(Model.Lead.HtmlDesktop!= null? Model.Lead.HtmlDesktop : string.Empty)">
+                        <input id="LeadHtmlDesktop" name="LeadHtmlDesktop" type="text" class="validate" maxlength="10000" disabled="disabled" value="@(Model.Lead.HtmlDesktop!= null? WebUtility.HtmlDecode(Model.Lead.HtmlDesktop) : string.Empty)">
                         <label for="LeadHtmlDesktop">Desktop Site HTML Template</label>
                     </div>
 
@@ -186,4 +186,4 @@
         </div>
     </div>
 </form>
-<script src="/src/ManufactureCampaign/ConfigureCampign.js"></script>
+<script src="/src/ManufactureCampaign/ConfigureCampaign.js"></script>

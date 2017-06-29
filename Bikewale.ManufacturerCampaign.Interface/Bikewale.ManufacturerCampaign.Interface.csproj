@@ -50,12 +50,13 @@
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
-
       <Project>{CAF758ED-4954-4BE3-BE15-345DBC891970}</Project>
-
       <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
-
       <Name>BikewaleOpr.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Models\BikewaleOpr.Models.csproj">
+      <Project>{D41DA250-C329-4956-ABAC-17B9B1E53880}</Project>
+      <Name>BikewaleOpr.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

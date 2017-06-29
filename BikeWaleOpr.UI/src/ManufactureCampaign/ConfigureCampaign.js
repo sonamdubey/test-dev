@@ -7,10 +7,13 @@ var $dateInput = $('.datepicker').pickadate({
     onSet: function (ele) { if (ele.select) { this.close(); } }
 });
 
-//function Validate() {
-//    console.log('yeh');
-//    return true;
-//}
+function Validate() {
+    var el = $("<section></section>");
+    var htmlMobile = el.html($('#LeadHtmlMobile').val());
+    $(htmlMobile).find('span[name="mfg_maskingNumber"]').text('@Model.MaskingNumber ');
+    $(htmlMobile).find('span[name="mfg_makename"]').text('@Model.MakeName');
+    return true;
+}
 $("#HasEmiProperties").change(function () {
     if ($("#HasEmiProperties").prop('checked')) {
         HasEMISelected();
@@ -21,7 +24,6 @@ $("#HasEmiProperties").change(function () {
 });
 
 $("#HasLeadProperties").change(function () {
-    debugger;
     if ($("#HasLeadProperties").prop('checked')) {
         HasLeadSelected();
     }
@@ -216,8 +218,6 @@ var ConfigureCampaign = function () {
 }
 
 $(document).ready(function () {
-    debugger;
-    // All checkboxes are selected by default
     $('form input[type="text"]').each(function () {
         if ($(this).val().length > 0) {
             $(this).prop("disabled", true);
@@ -227,34 +227,15 @@ $(document).ready(function () {
     
     if ($("#HasEmiProperties").prop('checked')) {
         HasEMISelected();
-        //$('#emiproperties input[type="checkbox"]').each(function () {
-        //    $(this).prop("disabled", false);
-        //});
-        //$('#emiproperties input[type="text"]').each(function () {
-        //    if ($(this).val().length > 0) {
-        //        $(this).prop("disabled", false);
-        //    }
-        //});
     }
     else {
         HasEMINotSelected();
     }
     if ($("#HasLeadProperties").prop('checked')) {
         HasLeadSelected();
-        //$('#leadproperties input[type="checkbox"]').each(function () {
-        //    $(this).prop("disabled", false);
-        //});
-        //$('#leadproperties input[type="text"]').each(function () {
-        //    if ($(this).val().length > 0) {
-        //        $(this).prop("disabled", false);
-        //    }
-        //});
     }
     else {
         HasLeadNotSelected();
-        //$('#leadproperties input').each(function () {
-        //    $(this).prop("disabled", true);
-        //});
     }
 });
 
