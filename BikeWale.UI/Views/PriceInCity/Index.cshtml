@@ -145,6 +145,9 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <span>
+                                            <span>@string.Format("{0}", Model.FirstVersion.IsGstPrice ? "Price in accordance with GST rates" : "Indicative price as final dealership pricing in unavailable")</span>
+                                        </span>
                                     }
                                     @if (Model.IsDiscontinued)
                                     {

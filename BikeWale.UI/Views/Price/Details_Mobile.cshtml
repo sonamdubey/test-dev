@@ -99,7 +99,7 @@
                     <td height="1" colspan="2" class="break-line padding-bottom10"></td>
                 </tr>
                 <tr>
-                    <td class="font16" align="left">On-road price</td>
+                    <td class="font16" align="left">GST On-road @string.Format("{0}", Model.Quotation.IsGstPrice ? "" : "(estimated)") price</td>
                     <td class="font18 text-bold" align="right">
                         @Html.Raw("<span> &#x20B9;</span>")&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())
                     </td>
@@ -114,6 +114,9 @@
                     </td>
                 </tr>
             </table>
+            <span>
+                <span>@string.Format("{0}", Model.Quotation.IsGstPrice ? "Price in accordance with GST rates" : "Indicative price as final dealership pricing in unavailable")</span>
+            </span>
         <!-- Bikewale PQ ends -->
         }
         else

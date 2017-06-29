@@ -944,6 +944,7 @@ namespace Bikewale.Models.BikeModels
                     objData.BikePrice = objData.IsLocationSelected && !objData.ShowOnRoadButton ? Convert.ToUInt32(objSelectedVariant.OnRoadPrice) : Convert.ToUInt32(objSelectedVariant.Price);
 
                 objData.IsBPQAvailable = true;
+                objData.IsGstPrice = pqOnRoad.BPQOutput.IsGstPrice;
             }
         }
 
