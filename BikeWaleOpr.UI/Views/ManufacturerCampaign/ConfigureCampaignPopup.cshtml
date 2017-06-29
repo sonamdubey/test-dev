@@ -1,32 +1,44 @@
 ﻿@model  Bikewale.ManufacturerCampaign.Entities.Models.ManufacturerCampaignPopupVM
 @{
     ViewBag.Title = "Configure Campaign Popup";
-    ViewBag.PageTitle = "Configure Campaign Popup for Dealer";
+    ViewBag.PageTitle = "Configure Popup for Manufacturer Campaign";
 }
 
 @Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", Model.NavigationWidget)
 
 @if (Model != null && Model.objPopup != null)
 {
-    <form action="/manufacturercampaign/save/popup/" method="post">
+    <form action="/manufacturercampaign/save/popup/" method="post" id="configPopUp">
         <div class="row">
             <div class="input-field col s3 offset-s4">
-                <input id="txtPopupHeading" type="text" class="validate" maxlength="100" name="PopupHeading" value="@Model.objPopup.PopupHeading">
+                <input id="txtPopupHeading" type="text" class="validate" maxlength="100" name="PopupHeading" value="@Model.objPopup.PopupHeading" data-bind="disable : isDefaultHeading">
                 <label for="txtPopupHeading">Popup Heading</label>
+                </div>
+            <div class="input-field col m3 offset-s4">
+                <input id="chkDefaultHeading" type="checkbox" class="filled-in" data-bind="checked : isDefaultHeading">
+                <label for="chkDefaultHeading" class="black-text">Use Default</label>
             </div>
         </div>
 
         <div class="row">
             <div class="input-field col s3 offset-s4">
-                <input id="txtPopupDescription" type="text" class="validate" maxlength="100" name="PopupDescription" value="@Model.objPopup.PopupDescription">
+                <input id="txtPopupDescription" type="text" class="validate" maxlength="100" name="PopupDescription" value="@Model.objPopup.PopupDescription" data-bind="disable : isDefaultDesc">
                 <label for="txtPopupDescription">Popup Description</label>
             </div>
+            <div class="input-field col m3 offset-s4">
+                <input id="chkDefaultDescription" type="checkbox" class="filled-in" data-bind="checked : isDefaultDesc">
+                <label for="chkDefaultDescription" class="black-text">Use Default</label>
+            </div>
         </div>
 
         <div class="row">
             <div class="input-field col s3 offset-s4">
-                <input id="txtpopupMessage" type="text" class="validate" maxlength="100" name="PopupSuccessMessage" value="@Model.objPopup.PopupSuccessMessage">
+                <input id="txtpopupMessage" type="text" class="validate" maxlength="100" name="PopupSuccessMessage" value="@Model.objPopup.PopupSuccessMessage" data-bind="disable : isDefaultMsg">
                 <label for="txtpopupMessage">Popup Success Message</label>
+            </div>
+            <div class="input-field col m3 offset-s4">
+                <input id="chkDefaultMessage" type="checkbox" class="filled-in" data-bind="checked : isDefaultMsg">
+                <label for="chkDefaultMessage" class="black-text">Use Default</label>
             </div>
         </div>
 
@@ -69,3 +81,21 @@
 
     </form>
 }
+<script type="text/javascript">
+    var popUpViewModel = function () {
+        var self = this;
+        self.isDefaultHeading = ko.observable(false);
+        self.isDefaultDesc = ko.observable(false);
+        self.isDefaultMsg = ko.observable(false);
+
+    };
+
+    $(document).ready(function () {
+        popUpVM = new popUpViewModel;
+        ko.applyBindings(popUpVM, $('#configPopUp')[0]);
+
+        $('#btnConfigurePopup').click(function () {
+
+        });
+    });
+</script>
