@@ -287,6 +287,10 @@ input[type=text].invalid + label.active:after {
     vertical-align:middle;
 }
 
+.no-margin {
+    margin:0px !important;
+}
+
 .ul.stepper.horizontal {
     margin-top: 0;
 }

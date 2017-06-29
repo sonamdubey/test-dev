@@ -144,7 +144,7 @@ namespace BikewaleOpr.Controllers
             if(isSuccess)
                 TempData["msg"] = "Rules added successfully!";
             else
-                TempData["msg"] = "Could not add rules";
+                TempData["msg"] = "Could not add rules.";
             return RedirectToAction("ManufacturerCampaignRules", routeValues: new { campaignId = campaignId , dealerId= dealerId });
         }
     }

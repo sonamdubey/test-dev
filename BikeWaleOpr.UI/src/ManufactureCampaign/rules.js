@@ -2,7 +2,7 @@
 var ddlModels = $('#ddlModels');
 var ddlCities = $('#ddlCities');
 var cityIds = "", stateIds = "", modelIds = "";
-var getCitiesFromDropDown, setRulesData, validateInput, showAllIndiaAlert;
+var getCitiesFromDropDown, setRulesData, validateInput, showAllIndiaAlert, showDeleteAlert;
 var manufacturerRulesViewModel = function () {
     var self = this;
     self.onExShowroom = onExShowroom;
@@ -54,8 +54,8 @@ var manufacturerRulesViewModel = function () {
             array.push($(this).val());
         });
         self.listStates(array)
+        stateIds = "";
         if (self.listStates().length > 0) {
-            stateIds = "";
             ko.utils.arrayForEach(self.listStates(), function (state) {
                 if (state)
                     stateIds = stateIds + "," + state;
@@ -107,27 +107,18 @@ $(document).ready(function () {
         }
     });
 
-    $('.chip .close').on('click', function () {
+    $('.chip .close').on('click', function (e) {
         var clicked = $(this);
-        var el = clicked.attr('data-element');
-        if (el == "state") {
-            clicked.parents('div.state').hide();
-            var childs = $("[class^=state]");
-            childs.click(function () {
-                $(this).hide();
-                if (!childs.filter(':visible').length) {
-                    clicked.parents('li').hide();
-                }
-            });
-        }
-        if (el == "model")
-            clicked.parents('li').hide();
-        var modelId = clicked.attr('data-modelid');
-        var stateId = clicked.attr('data-stateid');
-        var cityId = clicked.attr('data-cityid');
-        var campaignId = $('#CampaignId').val();
-        var userId = $('#UserId').val();
-        var isAllIndia = clicked.attr('data-allindia');
+        var modelId, stateId, cityId, campaignId, userId, isAllIndia, el, elementName;
+        el = clicked.attr('data-element');
+        elementName = clicked.attr('data-name');
+        modelId = clicked.attr('data-modelid');
+        stateId = clicked.attr('data-stateid');
+        cityId = clicked.attr('data-cityid');
+        campaignId = $('#CampaignId').val();
+        userId = $('#UserId').val();
+        isAllIndia = clicked.attr('data-allindia');
+        
         var obj = {
             'campaignId': campaignId,
             'modelId': modelId,
@@ -136,14 +127,33 @@ $(document).ready(function () {
             'userId': userId,
             'isAllIndia': isAllIndia
         }
-        $.ajax({
-            type: "POST",
-            url: bwHostUrl + "/api/campaigns/manufacturer/deleterule/",
-            data: obj,
-            datatype: "json",
-            complete: function (xhr) {
+        var confirmDel = showDeleteAlert(elementName);
+        if (confirmDel) {
+            $.ajax({
+                type: "POST",
+                url: bwHostUrl + "/api/campaigns/manufacturer/deleterule/",
+                data: obj,
+                datatype: "json",
+                complete: function (xhr) {
+                }
+            });
+            if (el == "state") {
+                clicked.parents('div.state').hide();
+                var childs = $("[class^=state]");
+                childs.click(function () {
+                    $(this).hide();
+                    if (!childs.filter(':visible').length) {
+                        clicked.parents('li').hide();
+                    }
+                });
             }
-        });
+            if (el == "model" || cityId == 0) {
+                clicked.parents('li').hide();
+            }
+        }
+        else {
+            e.stopPropagation();
+        }
 
     });
 
@@ -158,17 +168,30 @@ $(document).ready(function () {
         $(this).material_select();
     });
 
+    $('#ddlCities').on('change', function () {
+        var option = $(this).find(':selected').val();
+        if (option == "" && $('#ddlCities option:selected').length > 1) {
+            $('#ddlCities option').first().prop('selected', false);           
+        }
+        $(this).material_select();
+    });
 
     showAllIndiaAlert = function () {
-        alert("This campaign is configured on ex-Showroom prices. You can run it for all India only.");
+        Materialize.toast("This campaign is configured on ex-Showroom prices. You can run it for all India only!", 5000);
+    };
+
+    showDeleteAlert = function (element) {
+        return confirm("Are you sure you want to delete all rules for " + element + "?");
     };
 
     getCitiesFromDropDown = function () {
+        cityIds = "";
         $('#ddlCities :selected').each(function () {
-            if ($(this).val())
+            if ($(this).val()) {
                 cityIds = cityIds + $(this).val() + ',';
-        });
-        if (cityIds == "")
+            }
+            });
+        if ((cityIds == "" || cityIds==undefined) && mfgVM.selectedState()>0)
             stateIds = mfgVM.selectedState();
     };
 
@@ -192,7 +215,7 @@ $(document).ready(function () {
                 getCitiesFromDropDown();
                 break;
             case "4":
-                cityIds = $("#txtCities").val();
+                cityIds = $("#txtCities").val().trim();
                 var pat = /^[\d\s,]*$/;
                 if (!pat.test(cityIds)) {
                     validate.inputField.showError($("#txtCities"));
@@ -200,7 +223,7 @@ $(document).ready(function () {
                 }
                 break;
         }
-        if (cityIds == "" && stateIds == "") {
+        if ((cityIds == "" || cityIds == null) && (stateIds == "" || stateIds == null)) {
             isValid = false;
             Materialize.toast("Please select location", 6000);
         }
@@ -225,7 +248,7 @@ $(document).ready(function () {
         $('#hdnIsAllIndia').val(mfgVM.isAllIndia());
     };
 
-    $('.m10 .collapsible .collapsible-header').on('click', function (event) {
+    $('.m9 .collapsible .collapsible-header').on('click', function (event) {
         var target = $(this);
         setTimeout(function () {
             if (target.length) {
