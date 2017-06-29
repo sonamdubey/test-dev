@@ -6,7 +6,7 @@
 <input type="hidden" id="CampaignId" value="@Model.CampaignId" />
 @Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", Model.NavigationWidget)
 <div class="row">
-    <div class="col m9">
+    <div class="col m9 margin-bottom30">
        @if (Model != null && Model.Rules != null && Model.Rules.Count() > 0)
        {
          <ul class="collapsible" data-collapsible="accordion">
@@ -62,8 +62,8 @@
                     <div class="collapsible-header"><strong>Configure Bike Models (Step 1)</strong></div>
                     <div class="collapsible-body">
                         <div class="container">
-                            <div class="toggle-field-content select-auto-width padding-left35 margin-top10">
-                                @if (Model.Makes != null && Model.Makes.Count() > 0)
+                            <div class="input-field row">
+                              @if (Model.Makes != null && Model.Makes.Count() > 0)
                                 {
                                     <select id="ddlMakes" name="makeIdList" data-bind="event:{change: selectMake}">
                                         <option>Select Make</option>
@@ -77,57 +77,82 @@
                                 {
                                     <span>Problem in retrieving makes</span>
                                 }
-                            </div>
-                            <div class="toggle-field-content select-auto-width padding-left35 margin-top10">
-                                <select data-placeholder="Select Models" id="ddlModels" data-bind="options: listModels(), optionsText: 'modelName', optionsValue: 'modelId', optionsCaption: 'Select All'" multiple></select>
-                            </div>
+                             </div>
+                            <div class="input-field row">
+                                <select data-placeholder="Select Models" id="ddlModels" data-bind="options: listModels(), optionsText: 'modelName', optionsValue: 'modelId', optionsCaption: 'Select All', enable : listModels().length>0" multiple></select>
+                             </div>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="collapsible-header"><strong>Configure Locations (Step 2)</strong></div>
                     <div class="collapsible-body">
-                        <div class="margin-left20 margin-top15 margin-bottom5">
-                            <input type="checkbox" class="filled-in" id="chkAllIndia" data-bind="checked : isAllIndia" />
-                            <label for="chkAllIndia" class="blue-grey-text">All India</label>
-                        </div>
+                        
                         <div class="container">                            
-                            <div class="list-type-radio" id="configLoc" data-bind="visible: !isAllIndia()">
-                                <div class="input-field row s12 toggle-field-parent">
+                            <div class="list-type-radio" id="configLoc">
+                                <div class="input-field row s12">
+                                  <input type="radio" id="rdoLocation1" value="1" name="location" data-bind="checked : isAllIndia.ForSubmit"/>
+                                   <label for="rdoLocation1">All India</label>
+                                 </div>
 
-                                    <input type="radio" id="rdoLocation1" value="1" name="location" />
-                                    <label for="rdoLocation1">I have a list of City Ids</label>
-                                    <div class="toggle-field-content padding-left35 margin-alpha margin-omega hide">
-                                        <div class="input-field input-validate">
-                                            <input id="txtCities" type="text" class="validate" name="txtCities" length="6000" maxlength="6000">
-                                            <label for="txtCities" data-error="Please add cities">City Ids (Comma separated only)</label>
+                                    <div class="input-field row s12 toggle-field-parent">
+                                        <input type="radio" id="rdoLocation2" value="2" name="location" />
+                                        <label for="rdoLocation2">Map States</label>
+                                        <div class="toggle-field-content select-auto-width padding-left35 margin-top10 hide">
+                                            @if (Model.States != null && Model.States.Count() > 0)
+                                            {
+                                                <select id="ddlStatesOnly" name="stateIdList" data-bind="event:{change: selectStates}" multiple>
+                                                    <option disabled>Select States</option>
+                                                    @foreach (var state in Model.States)
+                                                    {
+                                                        <option value="@state.StateId">@state.StateName</option>
+                                                    }
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <span>Problem in retrieving states</span>
+                                            }
                                         </div>
                                     </div>
+
+
+                                    <div class="input-field row s12 toggle-field-parent">
+                                        <input type="radio" id="rdoLocation3" value="3" name="location" />
+                                        <label for="rdoLocation3">Map Cities</label>
+                                        <div class="toggle-field-content select-auto-width padding-left35 margin-top10 hide">
+                                            @if (Model.States != null && Model.States.Count() > 0)
+                                            {
+                                                <select id="ddlStates" name="stateIdList" data-bind="event:{change: selectState}">
+                                                    <option>Select State</option>
+                                                    @foreach (var state in Model.States)
+                                                    {
+                                                        <option value="@state.StateId">@state.StateName</option>
+                                                    }
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <span>Problem in retrieving states</span>
+                                            }
+                                           <select data-placeholder="Select City" id="ddlCities" data-bind="options: listCities(), optionsText: 'cityName', optionsValue: 'cityId', optionsCaption:'Select All', enable : listCities().length>0" multiple></select>
+                                           </div>
+                                    </div>
+
+
+                                    <div class="input-field row s12 toggle-field-parent">
+                                        <input type="radio" id="rdoLocation4" value="4" name="location" />
+                                        <label for="rdoLocation4">Enter list of City Ids</label>
+                                        <div class="toggle-field-content padding-left35 margin-alpha margin-omega hide">
+                                            <div class="input-field input-validate">
+                                                <input id="txtCities" type="text" class="validate margin-bottom10 margin-top10"  name="txtCities" length="6000" maxlength="6000">
+                                                <label for="txtCities" data-error="City ids should be comma separated only">City Ids (Comma separated)</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
-                                <div class="input-field row s12 toggle-field-parent">
-                                    <input type="radio" id="rdoLocation2" value="2" name="location" />
-                                    <label for="rdoLocation2">Choose cities/states from list</label>
-                                    <div class="toggle-field-content select-auto-width padding-left35 margin-top10 hide">
-                                        @if (Model.States != null && Model.States.Count() > 0)
-                                        {
-                                            <select id="ddlStates" name="stateIdList" data-bind="event:{change: selectState}" multiple>
-                                                <option disabled>Select State</option>
-                                                @foreach (var state in Model.States)
-                                                {
-                                                    <option value="@state.StateId">@state.StateName</option>
-                                                }
-                                            </select>
-                                        }
-                                        else
-                                        {
-                                            <span>Problem in retrieving states</span>
-                                        } 
-                                        <div data-bind="visible : showCities">
-                                            <select data-placeholder="Select City" id="ddlCities" data-bind="options: listCities(), optionsText: 'cityName', optionsValue: 'cityId', optionsCaption:'Select All'" multiple></select>
-                                        </div>
-                                        </div>
-                                 </div>
-                            </div>
                             
                         </div>
                     </div>

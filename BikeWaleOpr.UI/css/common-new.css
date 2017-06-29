@@ -286,3 +286,7 @@ input[type=text].invalid + label.active:after {
     display:inline-block;
     vertical-align:middle;
 }
+
+.ul.stepper.horizontal {
+    margin-top: 0;
+}
