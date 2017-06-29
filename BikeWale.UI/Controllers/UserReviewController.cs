@@ -444,5 +444,13 @@ namespace Bikewale.Controllers
             return View(objVM);
         }
 
+        [Route("user-reviews/contest/")]
+        public ActionResult WriteReviewContest()
+        {
+            WriteReviewContest objData = new WriteReviewContest(_makesRepository);
+            WriteReviewContestVM objVM = objData.GetData();
+            return View(objVM);
+        }
+
     }
 }

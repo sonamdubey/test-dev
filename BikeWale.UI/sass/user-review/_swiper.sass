@@ -1,0 +1,142 @@
+﻿.swiper-container
+	margin: 0 auto
+	position: relative
+	overflow: hidden
+	/* Fix of Webkit flickering */
+	z-index: 1
+
+.swiper-container-no-flexbox
+	.swiper-slide
+		float: left
+
+.swiper-wrapper
+	position: relative
+	width: 100%
+	height: 100%
+	z-index: 1
+	display: -webkit-box
+	display: -moz-box
+	display: -ms-flexbox
+	display: -webkit-flex
+	display: flex
+	-webkit-transition-property: -webkit-transform
+	-moz-transition-property: -moz-transform
+	-o-transition-property: -o-transform
+	-ms-transition-property: -ms-transform
+	transition-property: transform
+	-webkit-box-sizing: content-box
+	-moz-box-sizing: content-box
+	box-sizing: content-box
+
+.swiper-container-android .swiper-slide,
+.swiper-wrapper
+	-webkit-transform: translate3d(0px, 0, 0)
+	-moz-transform: translate3d(0px, 0, 0)
+	-o-transform: translate(0px, 0px)
+	-ms-transform: translate3d(0px, 0, 0)
+	transform: translate3d(0px, 0, 0)
+
+.swiper-slide
+	-webkit-flex-shrink: 0
+	-ms-flex: 0 0 auto
+	flex-shrink: 0
+	width: 100%
+	height: 100%
+	position: relative
+
+/* a11y */
+.swiper-container
+	.swiper-notification
+		position: absolute
+		left: 0
+		top: 0
+		pointer-events: none
+		opacity: 0
+		z-index: -1000
+
+/* Arrows */
+.swiper-button-prev,
+.swiper-button-next
+	position: absolute
+	top: 50%
+	width: 33px
+	height: 60px
+	margin-top: -22px
+	z-index: 10
+	opacity: 0.25
+	cursor: pointer
+	background-position: center
+	background-repeat: no-repeat
+
+.swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled
+	opacity: 0.05
+	cursor: auto
+	pointer-events: none
+
+.swiper-button-prev
+	background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/arrow-left-white-33.png")
+	left: 10px
+	right: auto
+
+.swiper-button-next
+	background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/arrow-right-white-33.png")
+	right: 10px
+	left: auto
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover
+	opacity: 0.75
+
+/* Pagination Styles */
+.swiper-pagination
+	position: absolute
+	text-align: center
+	z-index: 10
+	
+	&.swiper-pagination-hidden
+		opacity: 0
+
+.swiper-pagination-bullet
+	width: 10px
+	height: 10px
+	display: inline-block
+	border-radius: 100%
+	background: #000
+	opacity: 0.2
+
+.swiper-pagination-clickable
+	.swiper-pagination-bullet
+		cursor: pointer
+
+.swiper-pagination-bullet-active
+	opacity: 1
+	background: #007aff
+
+.swiper-container-horizontal > .swiper-pagination
+	bottom: 10px
+	left: 0
+	width: 100%
+
+.swiper-container-horizontal > .swiper-pagination .swiper-pagination-bullet
+	margin: 0 5px
+
+/* 3D Container
+
+.swiper-container-3d
+	-webkit-perspective: 1200px
+	-moz-perspective: 1200px
+	-o-perspective: 1200px
+	perspective: 1200px
+
+	.swiper-wrapper,
+	.swiper-slide
+		-webkit-transform-style: preserve-3d
+		-moz-transform-style: preserve-3d
+		-ms-transform-style: preserve-3d
+		transform-style: preserve-3d
+
+/* Coverflow */
+.swiper-container-coverflow
+	.swiper-wrapper
+		/* Windows 8 IE 10 fix */
+		-ms-perspective: 1200px
