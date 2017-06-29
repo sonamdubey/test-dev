@@ -156,9 +156,10 @@
                                             <td colspan="3"></td>
                                         </tr>
                                     </table>
-                                    <span>
-                                        <span>@string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "Price in accordance with GST rates" : "Indicative price as final dealership pricing is unavailable")</span>
-                                    </span>
+                                    <div class="margin-top5">
+										<span class="bwsprite info-grey-14"></span>
+                                        <span class="text-light-grey">@string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "Price in accordance with GST rates" : "Indicative price as final dealership pricing is unavailable")</span>
+                                    </div>
                                 }
                                 else if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
                                 {
@@ -217,15 +218,14 @@
                                             </tr>
                                         }
                                     </table>
-                                    <span>
-                                        <span>@string.Format("{0}", Model.Quotation.IsGstPrice ? "Price in accordance with GST rates" : "Indicative price as final dealership pricing in unavailable")</span>
-                                    </span>
+                                    <div class="margin-top5">
+										<span class="bwsprite info-grey-14"></span>
+                                        <span class="text-light-grey">@string.Format("{0}", Model.Quotation.IsGstPrice ? "Price in accordance with GST rates" : "Indicative price as final dealership pricing in unavailable")</span>
+                                    </div>
                                 }
                                 else
                                 {
-                                    <div>
-                                        <p class="font16 text-bold">Price for this bike is not available in this city.</p>
-                                    </div>
+                                    <p class="font16 text-bold">Price for this bike is not available in this city.</p>
                                 }
                             </div>
                         </div>

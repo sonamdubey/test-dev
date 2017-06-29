@@ -104,19 +104,19 @@
                         @Html.Raw("<span> &#x20B9;</span>")&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())
                     </td>
                 </tr>
+				@if (Model.IsPrimaryDealerAvailable)
+				{
                 <tr class="padding-bottom10">
                     <td colspan="2" align="right" class="text-bold padding-bottom10">
-                        @if (Model.IsPrimaryDealerAvailable)
-                        {
-                            <a id='getMoreDetails' class="get-offer-link bw-ga leadcapturebtn" data-item-registerpq="false" data-leadsourceid="23" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a>
-                        }
-                       
+						<a id="getMoreDetails" class="get-offer-link bw-ga leadcapturebtn" data-item-registerpq="false" data-leadsourceid="23" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a>
                     </td>
                 </tr>
+				}
             </table>
-            <span>
-                <span>@string.Format("{0}", Model.Quotation.IsGstPrice ? "Price in accordance with GST rates" : "Indicative price as final dealership pricing is unavailable")</span>
-            </span>
+            <div class="margin-top5 padding-bottom5">
+                <span class="bwmsprite info-grey-14"></span>
+				<span class="text-light-grey">@string.Format("{0}", Model.Quotation.IsGstPrice ? "Price in accordance with GST rates" : "Indicative price as final dealership pricing is unavailable")</span>
+            </div>
         <!-- Bikewale PQ ends -->
         }
         else

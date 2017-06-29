@@ -90,14 +90,15 @@
                                     </tr>
                                     <!-- /ko -->
                                     <tr>
-                                        <td align="left" valign="top" class="padding-top15 padding-bottom15 border-solid-top border-solid-bottom text-default">@Model.BikeModel.ModelName on-road price in @Model.CityEntity.CityName</td>
-                                        <td align="right" valign="top" class="padding-top15 padding-bottom15 border-solid-top border-solid-bottom font16">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold" data-bind="text: onRoadPrice()"></span></td>
+                                        <td align="left" valign="top" class="padding-top15 padding-bottom5 border-solid-top text-default">@Model.BikeModel.ModelName on-road price in @Model.CityEntity.CityName</td>
+                                        <td align="right" valign="top" class="padding-top15 padding-bottom5 border-solid-top  font16">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold" data-bind="text: onRoadPrice()"></span></td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <span>
-                                <span>@string.Format("{0}", Model.FirstVersion.IsGstPrice ? "Price in accordance with GST rates" : "Price is inclusive of GST taxes.It is an indicative price only.Prices at dealership may vary.")</span>
-                            </span>
+                            <div class="border-solid-bottom padding-bottom15">
+								<span class="bwmsprite info-grey-14"></span>
+                                <span class="text-light-grey">@string.Format("{0}", Model.FirstVersion.IsGstPrice ? "Price in accordance with GST rates" : "Price is inclusive of GST taxes. It is an indicative price only. Prices at dealership may vary.")</span>
+                            </div>
                         }
                         @if (Model.IsNew)
                         {

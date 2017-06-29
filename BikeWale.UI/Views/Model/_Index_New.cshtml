@@ -28,7 +28,7 @@
 
                             <div id="modelPriceContainer">
                                 <p class="font14 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? string.Format("Gst On-road {0}", Model.IsGstPrice ? "" : "(estimated)") : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? string.Format("Gst On-road {0}", Model.IsGstPrice ? "" : "(estimated)") : string.Format("Gst Ex-showroom {0}", Model.IsGstPrice ? "" : "(estimated)"))) price in @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))
-                                    <span class="bwsprite emi-info">
+                                    <span class="bwsprite info-grey-14 tooltip-icon-target">
                                         <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">@string.Format("{0}", Model.IsGstPrice ? "Price in accordance with GST rates" : "Indicative price as final dealership pricing is unavailable")</span></span>
                                     </span>
                                 </p>
@@ -52,7 +52,7 @@
                                         <div class="font12 margin-top5 position-rel">
                                             <span class="text-light-grey">EMI starting at</span>&nbsp;<span class="text-default">@Html.Raw("<span>&#x20B9;</span>") @Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
 
-                                            <span class="bwsprite emi-info">
+                                            <span class="bwsprite emi-info tooltip-icon-target">
                                                 <span class="bw-tooltip emi-tooltip tooltip-white tooltip-left text-slate-grey font12"><span class="bw-tooltip-text">EMI is calculated based on @Model.EMIDetails.RateOfInterest% for a tenure of @Model.EMIDetails.Tenure months</span></span>
                                             </span>
                                         </div>
