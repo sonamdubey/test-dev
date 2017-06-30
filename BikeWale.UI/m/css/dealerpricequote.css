@@ -380,8 +380,22 @@
 	background-position: -173px -613px;
 	position: relative;
 	top: 2px;
-	margin-right: 5px;
+	margin-right: 2px;
 	cursor: pointer;
+}
+
+.padding-bottom40 {
+	padding-bottom: 40px;
+}
+
+.price--label-position {
+	position: absolute;
+	bottom: -18px;
+	font-size: 13px;
+}
+
+.pos-bottom-40 {
+	bottom: -40px;
 }
 
 .secondary-dealer-card {
