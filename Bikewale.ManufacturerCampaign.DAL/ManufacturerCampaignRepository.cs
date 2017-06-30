@@ -343,7 +343,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             Entities.ManufacturerCampaignEntity config = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
                     connection.Open();
                     var param = new DynamicParameters();
@@ -367,12 +367,47 @@ namespace Bikewale.ManufacturerCampaign.DAL
             return config;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 30 Jun 2017
+        /// Description :   Save Manufacturer Lead to PQ table
+        /// </summary>
+        /// <param name="dealerid"></param>
+        /// <param name="pqId"></param>
+        /// <param name="customerName"></param>
+        /// <param name="customerEmail"></param>
+        /// <param name="customerMobile"></param>
+        /// <param name="colorId"></param>
+        /// <param name="leadSourceId"></param>
+        /// <param name="utma"></param>
+        /// <param name="utmz"></param>
+        /// <param name="deviceId"></param>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
         public bool SaveManufacturerCampaignLead(uint dealerid, uint pqId, string customerName, string customerEmail, string customerMobile, uint colorId, uint leadSourceId, string utma, string utmz, string deviceId, uint campaignId)
         {
             bool isSuccess = false;
             try
             {
-
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_dealerid", dealerid);
+                    param.Add("par_pqid", pqId);
+                    param.Add("par_customername", customerName);
+                    param.Add("par_customeremail", customerEmail);
+                    param.Add("par_customermobile", customerMobile);
+                    param.Add("par_colorid", colorId);
+                    param.Add("par_leadsourceid", leadSourceId);
+                    param.Add("par_utma", utma);
+                    param.Add("par_utmz", utmz);
+                    param.Add("par_deviceid", deviceId);
+                    param.Add("par_campaignId", campaignId);
+                    connection.Query<dynamic>("savemanufacturerpqlead", param: param, commandType: CommandType.StoredProcedure);
+                    isSuccess = true;
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
             }
             catch (Exception ex)
             {
