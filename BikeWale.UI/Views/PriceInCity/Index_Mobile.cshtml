@@ -127,10 +127,17 @@
                         }
                     </div>
 
-                    @if (Model.IsNew && Model.ManufacturerCampaign != null)
+                    @if (Model.IsNew && Model.IsManufacturerLeadAdShown)
                     {
                         <div class="position-rel left-neg10 margin-bottom20">
-                            @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
+                            @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
+                        </div>
+                        <div class="campaign__floating-btn floating-btn clearfix">
+                            <p class="grid-7 alpha btn__left-label">@Model.LeadCampaign.LeadsPropertyTextMobile</p>
+                            <div class="grid-5 alpha omega">
+                                <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@Model.LeadCampaign.PopupSuccessMessage" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.LeadCampaign.MakeName))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" class="btn btn-orange btn-full-32 leadcapturebtn">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+                            </div>
+                            <div class="clear"></div>
                         </div>
                     }
 
@@ -148,7 +155,7 @@
                         @if (Model.HasDealers || Model.HasCampaignDealer)
                         {
                             <div class="content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
-                                @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.ManufacturerAdShown)
+                                @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
                                 {
                                     <div class="padding-right20 padding-bottom20 padding-left20">
                                         <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Showrooms in @Model.CityEntity.CityName</h2>
@@ -165,7 +172,7 @@
                                 }
                                 else
                                 {
-                                    if (Model.HasCampaignDealer && Model.IsNew && !Model.ManufacturerAdShown)
+                                    if (Model.HasCampaignDealer && Model.IsNew && !Model.IsManufacturerLeadAdShown)
                                     {
                                         <div class="padding-right20 padding-bottom20 padding-left20">
                                             <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Dealer near you</h2>
@@ -190,7 +197,7 @@
                                 }
                                 @if (Model.HasDealers)
                                 {
-                                    if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.ManufacturerAdShown)
+                                    if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
                                     {
                                         <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
                                     }
@@ -315,7 +322,7 @@
                                 <div class="clear"></div>
                             </div>
 
-                            <div class="border-solid-top padding-top20 padding-bottom20">
+                            <div class="border-solid-top padding-top20 padding-bottom15">
                                 <p class="grid-9 alpha text-slate-grey omega">Total amount (Principal + Interest)</p>
                                 <div class="emi-slider-box-right-section grid-3 omega alpha">
                                     <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span class="text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>
@@ -328,7 +335,16 @@
                                 @Html.Raw("<span> &#x20B9;</span>")&nbsp;<span data-bind="text: formatPrice(monthlyEMI())"></span>/month
                             </div>
                             <div class="clear"></div>
-
+                            @if (Model.IsManufacturerEMIAdShown)
+                            {
+                                <div class="powered-by-campaign-wrapper margin-top15">
+                                    <a href="javascript:void(0)" type="button" class="btn btn-teal btn-160-32 font14 margin-right10 leadcapturebtn" data-mfgcampid="@Model.EMICampaign.CampaignId" data-item-id="@Model.EMICampaign.DealerId" data-item-area="@Model.EMICampaign.Area" data-leadsourceid="@Model.EMICampaign.LeadSourceId" data-pqsourceid="@Model.EMICampaign.PqSourceId" data-item-message="@Model.EMICampaign.PopupSuccessMessage" data-item-heading="@Model.EMICampaign.PopupHeading" data-item-description="@Model.EMICampaign.PopupDescription" data-ispincodrequired="@Model.EMICampaign.PincodeRequired" data-dealersrequired="@Model.EMICampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.EMICampaign.MakeName))" id="btnManufacturer" data-isemailrequired="@Model.EMICampaign.EmailRequired">@Model.EMICampaign.EMIButtonTextMobile</a>
+                                    <div class="inline-block">
+                                        <p class="campaign__powered-key">@Model.EMICampaign.EMIPropertyTextMobile</p>
+                                        <p class="campaign__powered-value" title="@String.Format("{0} Dealer", Model.EMICampaign.MakeName)">@String.Format("{0} Dealer", Model.EMICampaign.MakeName)</p>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
             <!-- model emi calculator end -->
@@ -470,7 +486,7 @@
                         { Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.CityEntity.CityId, cityName = Model.CityEntity.CityName }); }
                         <div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
                         <div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div>
-                        if (Model.IsNew && Model.ManufacturerAdShown)
+    if (Model.IsNew && (Model.HasCampaignDealer || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
                         {
                             @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
                             }

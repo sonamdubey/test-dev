@@ -75,11 +75,18 @@
                     </div>
 
                 </div>
-                @if (Model.ManufacturerCampaign != null && Model.LocationCookie.CityId > 0)
+                @if (Model.IsManufacturerLeadAdShown)
                 {
-                    @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
+                    @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
+                    <div class="campaign__floating-btn floating-btn clearfix">
+                        <p class="grid-7 alpha btn__left-label">@Model.LeadCampaign.LeadsPropertyTextMobile</p>
+                        <div class="grid-5 alpha omega">
+                            <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@Model.LeadCampaign.PopupSuccessMessage" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.LeadCampaign.MakeName))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" class="btn btn-orange btn-full-32 leadcapturebtn">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
                 }
-                @if (!(Model.ManufacturerCampaign != null && Model.ManufacturerCampaign.ShowAd && Model.IsLocationSelected && !Model.ShowOnRoadButton) && !(Model.IsDealerDetailsExists))
+                @if (!(!Model.IsManufacturerLeadAdShown && Model.IsLocationSelected && !Model.ShowOnRoadButton) && !(Model.IsDealerDetailsExists))
                 {
                   <div class="margin-bottom20 text-center">
                     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}

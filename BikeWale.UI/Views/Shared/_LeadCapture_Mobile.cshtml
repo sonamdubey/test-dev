@@ -62,8 +62,6 @@
                         <span class="error-text hide"></span>
                     </div>
 
-               
-
                     <div id="getPinCode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
                         <input type="text" id="getPinCode" autocomplete="off">
                         <label for="getPinCode">Pincode<sup>*</sup></label>
@@ -77,7 +75,7 @@
                             </li>
                         </ul>
                     </div>
-                   
+
                     <div id="getDealer-select-box" class="form-control-box margin-bottom15 full-width-select text-left" data-bind="visible: dealersRequired()">
                         <div class="dropdown-select-wrapper">
                             <select id="ddlMfgDealers" class="dropdown-select"></select>
@@ -85,10 +83,10 @@
                             <span class="error-text hide"></span>
                         </div>
                     </div>
-                        <div class="clear"></div>
-                        <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                        <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
-                    </div>
+                    <div class="clear"></div>
+                    <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                    <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+                </div>
             </div>
 
             <!-- thank you message starts here -->
@@ -100,8 +98,8 @@
                 </div>
                 <!-- ko if : !dealerMessage() -->
                 <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-                <p class="font16 margin-bottom40" data-bind="visible: !(campaignId() > 0)">Thank you for providing your details. <span data-bind="    text: dealerName()"></span><span data-bind="    visible: dealerArea() && dealerArea().length > 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
-                <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind="    text: dealerName()"></span>Company would get back to you shortly with additional information.</p>
+                <p class="font16 margin-bottom40" data-bind="visible: !(campaignId() > 0)">Thank you for providing your details. <span data-bind=" text dealerName()"></span><span data-bind=" visible dealerArea() && dealerArea().length> 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
+                <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind=" text dealerName()"></span>Company would get back to you shortly with additional information.</p>
                 <!-- /ko -->
                 <!-- ko ifnot : -->
                 <p class="font16 margin-bottom40" data-bind="text: dealerMessage()"></p>
@@ -122,7 +120,7 @@
         var leadBtnBookNow, leadCapturePopup, leadBike;
         var fullName, emailid, mobile, detailsSubmitBtn;
         var prevEmail = "", prevMobile = "", prevPinCode = "";
-        var leadmodelid = '@Model.ModelId', leadcityid = '@Model.CityId', leadareaid = '@Model.AreaId';
+        var leadmodelid = parseInt('@Model.ModelId'), leadcityid = parseInt('@Model.CityId'), leadareaid = parseInt('@Model.AreaId');
         var leadBikeName = '@Model.BikeName', leadLocation = '@Model.Location', CityArea = leadLocation;
         var objPinCodes = new Object(), validate, validateInputSelection;
         var brandSearchBar, dealerSearchBrand, dealerSearchBrandForm;
@@ -132,7 +130,7 @@
             var self = this;
             if (arr != null && arr.length > 0) {
                 self.fullName = ko.observable(arr[0]);
-                if (arr[1]!="undefined") {
+                if (arr[1] != "undefined") {
                     self.emailId = ko.observable(arr[1]);
                 } else {
                     self.emailId = ko.observable();
@@ -147,6 +145,7 @@
 
             }
             self.msg = "";
+            var dummyOption = { id: 0, name: '', isPopular: false, hasAreas: false };
             self.pincode = ko.observable();
             self.IsVerified = ko.observable(false);
             self.pqId = ko.observable(0);
@@ -171,12 +170,15 @@
             self.dealerHeading = ko.observable();
             self.dealerMessage = ko.observable();
             self.dealerDescription = ko.observable();
+            self.cityRequired = ko.observable(leadcityid <= 0);
             self.pinCodeRequired = ko.observable();
             self.emailRequired = ko.observable();
             self.dealersRequired = ko.observable();
             self.dealerCityName = ko.observable();
             self.dealerAreaName = ko.observable();
             self.eventCategory = ko.observable();
+            self.cities = ko.observableArray();
+            self.selectedCity = ko.observable();
             self.setOptions = function (options) {
                 if (options != null) {
                     if (options.eventcategory != null)
@@ -230,14 +232,22 @@
                         self.dealerDescription(options.dealerDescription);
 
                     if (options.pinCodeRequired != null)
-                        self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true);
+                        self.pinCodeRequired(options.pinCodeRequired != 'True' ? false : true);
 
                     if (options.emailRequired != null)
-                        self.emailRequired(options.emailRequired != 'true' ? false : true);
+                        self.emailRequired(options.emailRequired != 'True' ? false : true);
 
-                    if (options.dealersRequired != null)
-                        self.dealersRequired(options.dealersRequired != 'true' ? false : true);
-                    
+                    if (options.dealersRequired != null) {
+                        self.dealersRequired(options.dealersRequired != 'True' ? false : true);
+                        if (self.cityId() && self.dealersRequired()) {
+                            self.getDealersList(self.dealerId());
+                        }
+                    }
+
+                    if (self.cityRequired()) {
+                        self.getModelCities();
+                    }
+
                     if (options.pageurl != null)
                         self.pageUrl = options.pageurl;
 
@@ -251,6 +261,42 @@
                         self.GAObject(options.gaobject);
                 }
             };
+
+            self.getModelCities = function (d, e) {
+                if (self.modelId() > 0 && self.cityRequired()) {
+                    var eleCities = $("#getLeadCity");
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/PQCityList/?modelId=" + self.modelId(),
+                        dataType: 'json',
+                        success: function (response) {
+                            var cities = response.cities;
+                            var citySelected = null;
+                            if (cities) {
+                                cities.splice(0, 0, dummyOption);
+                                self.cities(cities);
+                            }
+                            else {
+                                self.cities([]);
+                            }
+                            eleCities.trigger("chosen:updated");
+                            $(this).parent().removeClass('done');
+                        }
+                    });
+                }
+            };
+
+            self.selectCity = function (d, e) {
+                var ele = $("#getLeadCity");
+                if (self.selectedCity() && self.selectedCity().cityId > 0) {
+                    hideError(ele);
+                    ele.parent().addClass('done');
+                    self.cityId(self.selectedCity().cityId);
+                    self.getDealersList(self.dealerId());
+                    self.isRegisterPQ(true);
+                }
+                else setError($(this));
+            }
 
             self.getDealerBikes = function (data, event) {
 
@@ -296,6 +342,40 @@
                         self.dealerBikes(obj.dealerBikes);
                     }
                 }
+            };
+
+            self.getDealersList = function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/ManufacturerCampaign/city/" + cityId + "/dealer/" + dealerId + "/",
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function (response) {
+                        var obj = ko.toJS(response);
+                        var count = obj.length;
+                        if (count >= 1) {
+                            if (count == 1) {
+                                $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
+                                $("#ddlMfgDealers").val('0');
+                                $("#ddlMfgDealers").closest('.select-box').addClass('done');
+                                dleadvm.dealersRequired(false);
+                            } else {
+                                $("#ddlMfgDealers").html('');
+                                $("#ddlMfgDealers").append("<option value selected>Select dealer</option>");
+                                for (i = 0; i < count; i++) {
+                                    var dt = obj[i];
+                                    var areaName = '';
+                                    if (dt.area != null) {
+                                        areaName = ", " + dt.area;
+                                    }
+                                    $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-id='" + dt.id + "'  >" + dt.dealerName + areaName + "</option>");
+                                }
+                            }
+                        }
+                        $("#getDealer-select-box").find(".dropdown-menu").remove();
+                        dropdown.setMenu($("#ddlMfgDealers"));
+                    },
+                });
             };
 
             self.generatePQ = function (data, event) {
@@ -460,10 +540,13 @@
                 var isValid = true;
 
                 isValid = self.validateUserName();
-             
-                    isValid &= self.validateEmailId();
-             
+
+                isValid &= self.validateEmailId();
+
                 isValid &= self.validateMobileNo();
+
+                isValid &= self.validateCity();
+
                 if (self.pinCodeRequired()) {
                     isValid &= self.validatePinCode();
                     if (isValid)
@@ -525,8 +608,7 @@
                     validate.setError(leadEmailId, 'Please enter email id');
                     isValid = false;
                 }
-                else if (emailVal == "")
-                {
+                else if (emailVal == "") {
                     isValid = true;
                 }
                 else if (!reEmail.test(emailVal)) {
@@ -535,6 +617,29 @@
                 }
                 return isValid;
             };
+
+            self.validateCity = function () {
+                var isValid = true;
+                eleCity = $("#getLeadCity");
+                if (eleCity != null && self.cityId() != null) {
+                    if (self.cityId() > 0) {
+                        hideError(eleCity);
+                        isValid = true;
+                    }
+                    else {
+                        setError(eleCity, 'Select a city');
+                        isValid = false;
+                    }
+                }
+                else {
+                    setError(eleCity, 'Select a city');
+                    isValid = false;
+                }
+
+                return isValid;
+            };
+
+
             self.validatePinCode = function () {
                 leadPinCode = $('#getPinCode');
                 var isValid = true,
@@ -609,6 +714,7 @@
                         "leadSourceId": self.leadSourceId(),
                         "PinCode": self.pincode(),
                         "deviceId": getCookie('BWC'),
+                        "campaignId": self.mfgCampaignId(),
                         "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id')
                     };
                     $.ajax({
@@ -899,8 +1005,8 @@
                     }
                 }
             });
-            
-            $(document).on('click','#templist li', function () {
+
+            $(document).on('click', '#templist li', function () {
                 validate.setError($('#ddlMfgDealers'), '');
             });
             dleadvm = new leadModel();

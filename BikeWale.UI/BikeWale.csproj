@@ -3837,6 +3837,22 @@
       <Project>{12b0edcd-aa9e-41bb-bdc9-cef75952fd49}</Project>
       <Name>Bikewale.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.BAL\Bikewale.ManufacturerCampaign.BAL.csproj">
+      <Project>{5d58150b-55aa-4220-be98-5aca515ced8c}</Project>
+      <Name>Bikewale.ManufacturerCampaign.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.DAL\Bikewale.ManufacturerCampaign.DAL.csproj">
+      <Project>{f3148a79-9fec-4a19-9977-0fa6163c9e77}</Project>
+      <Name>Bikewale.ManufacturerCampaign.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
+      <Project>{ea73dda4-317e-4b79-bb03-f48125c2501b}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Interface\Bikewale.ManufacturerCampaign.Interface.csproj">
+      <Project>{fd9b192f-137e-40cf-8ac8-623ab79c6c53}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Models\Bikewale.Models.csproj">
       <Project>{ea7198a6-5347-4f8f-a25e-92b1e1ceb086}</Project>
       <Name>Bikewale.Models</Name>

@@ -4,6 +4,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
@@ -23,7 +24,6 @@ namespace Bikewale.Models.BikeModels
         public PQOnRoadPrice PriceQuote { get; set; }
         public BikeVersionMinSpecs SelectedVersion { get; set; }
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DetailedDealer { get; set; }
-        public ManufacturerCampaign ManufacturerCampaign { get; set; }
         public LeadCaptureEntity LeadCapture { get; set; }
         public IEnumerable<BestBikeEntityBase> objBestBikesList { get; set; }
         public UpcomingBikesWidgetVM objUpcomingBikes { get; set; }
@@ -112,6 +112,11 @@ public bool IsGstPrice { get; set; }
 
         public bool ShowOnRoadButton { get; set; }
         public string ReturnUrl { get; set; }
+
+        public ManufactureCampaignLeadEntity LeadCampaign { get; set; }
+        public bool IsManufacturerLeadAdShown { get; set; }
+        public ManufactureCampaignEMIEntity EMICampaign { get; set; }
+        public bool IsManufacturerEMIAdShown { get; set; }
     }
 
 }

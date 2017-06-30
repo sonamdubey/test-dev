@@ -171,7 +171,7 @@
                                 <div class="grid-4 padding-left5 omega">
                                     <div class="padding-left10">
 
-                                        @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.ManufacturerAdShown)
+                                        @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
                                         {
                                             <div class="padding-top30">
                                                 <div class="margin-bottom15">
@@ -192,7 +192,7 @@
                                             </div>
                                         }
 
-                                        else if (Model.HasCampaignDealer && Model.IsNew && !Model.ManufacturerAdShown)
+                                        else if (Model.HasCampaignDealer && Model.IsNew && !Model.IsManufacturerLeadAdShown)
                                         {
                                             <div class="padding-top30">
                                                 <div class="margin-bottom15">
@@ -244,10 +244,10 @@
                             }
                         </div>
 
-                        @if (Model.IsNew && Model.ManufacturerAdShown)
+                        @if (Model.IsNew && Model.IsManufacturerLeadAdShown)
                         {
-                            <div class="position-rel left-neg10">
-                                @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
+                            <div class="position-rel">
+                                @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.LeadCampaign)
                             </div>
                         }
                         <!-- model about start (widget)-->
@@ -399,6 +399,17 @@
                                                     </span>
                                                 </div>
                                             </div>
+                                            @if (Model.IsManufacturerEMIAdShown)
+                                            {
+                                                <div class="margin-top10">
+                                                    <a href="javascript:void(0)" class="btn btn-orange btn-160-32 margin-right10 leadcapturebtn bw-ga" rel="nofollow" data-mfgcampid="@Model.EMICampaign.CampaignId" data-item-id="@Model.EMICampaign.DealerId" data-item-area="@Model.EMICampaign.Area" data-leadsourceid="@Model.EMICampaign.LeadSourceId" data-pqsourceid="@Model.EMICampaign.PqSourceId" data-item-message="@Model.EMICampaign.PopupSuccessMessage" data-item-heading="@Model.EMICampaign.PopupHeading" data-item-description="@Model.EMICampaign.PopupDescription" data-ispincodrequired="@Model.EMICampaign.PincodeRequired" data-dealersrequired="@Model.EMICampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.EMICampaign.MakeName))" id="btnManufacturer" data-isemailrequired="@Model.EMICampaign.EmailRequired">@Model.EMICampaign.EMIButtonTextDesktop</a>
+                                                    <div class="inline-block">
+                                                        <p class="font12 text-light-grey">@Model.EMICampaign.EMIPropertyTextDesktop</p>
+                                                        <p class="font13 text-truncate" title="@String.Format("{0} Dealer", Model.EMICampaign.MakeName)">@String.Format("{0} Dealer", Model.EMICampaign.MakeName)</p>
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                </div>
+                                            }
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -568,7 +579,7 @@
     <div class="hide" id="dvVersionPrice" data-isdiscontinued="@Model.IsDiscontinued">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices))</div>
     <div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
     <div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div>
-    if (Model.IsNew && Model.ManufacturerAdShown)
+    if (Model.IsNew && (Model.HasCampaignDealer || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
     {
         @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
     }

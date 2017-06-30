@@ -1,10 +1,8 @@
-﻿@model Bikewale.Entities.PriceQuote.ManufacturerCampaign
-
-@if(Model.ShowAd && Model.IsAdAvailable)
+﻿@model Bikewale.Entities.manufacturecampaign.ManufactureCampaignLeadEntity
+@using Bikewale.Utility
+@if(Model!=null)
 {
     <!-- Manufacturer Campaign Ad section starts -->
-    <section>
-        @Html.Raw(string.Format(Model.Ad))
-    </section>
+        @Html.Raw(Format.GetRendredContent(String.Format("LeadCampaign_{0}",Model.CampaignId), Model.LeadsHtmlDesktop, Model))
      <!-- Manufacturer Campaign Ad section ends -->
 }

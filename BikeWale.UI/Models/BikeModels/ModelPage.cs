@@ -7,6 +7,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeBooking;
@@ -22,6 +23,7 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
+using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Models.Used;
@@ -48,7 +50,7 @@ namespace Bikewale.Models.BikeModels
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IPriceQuote _objPQ = null;
-        private readonly IBikeModels<BikeModelEntity, int> _objModel = null;
+        private readonly IBikeModels<Entities.BikeData.BikeModelEntity, int> _objModel = null;
         private readonly IDealerPriceQuoteDetail _objDealerDetails = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
@@ -61,7 +63,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IUserReviewsCache _userReviewCache;
         private readonly IUsedBikesCache _usedBikesCache;
         private readonly IUpcoming _upcoming = null;
-
+        private readonly Interfaces.IManufacturerCampaign _objManufacturerCampaign = null;
         private ModelPageVM objData = null;
         private uint _modelId, _cityId, _areaId;
         private PQOnRoadPrice pqOnRoad;
@@ -78,8 +80,9 @@ namespace Bikewale.Models.BikeModels
         public PQSourceEnum PQSource { get; set; }
         public LeadSourceEnum LeadSource { get; set; }
         public bool IsMobile { get; set; }
+        public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IBikeModels<BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming)
+        public ModelPage(string makeMasking, string modelMasking, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, Interfaces.IManufacturerCampaign objManufacturerCampaign)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -100,6 +103,7 @@ namespace Bikewale.Models.BikeModels
             _objCompare = objCompare;
             _userReviewCache = userReviewCache;
             _usedBikesCache = usedBikesCache;
+            _objManufacturerCampaign = objManufacturerCampaign;
             ParseQueryString(makeMasking, modelMasking);
         }
 
@@ -128,6 +132,7 @@ namespace Bikewale.Models.BikeModels
                     if (objData.IsModelDetails && objData.ModelPageEntity.ModelDetails.New)
                     {
                         FetchOnRoadPrice(objData.ModelPageEntity);
+                        GetManufacturerCampaign();
                     }
 
                     LoadVariants(objData.ModelPageEntity);
@@ -163,7 +168,7 @@ namespace Bikewale.Models.BikeModels
                     string priceDescription = string.Empty;
                     string versionDescirption = objData.ModelPageEntity.ModelVersions.Count > 1 ? string.Format(" It is available in {0} versions", objData.ModelPageEntity.ModelVersions.Count) : string.Format(" It is available in {0} version", objData.ModelPageEntity.ModelVersions.Count);
                     ushort index = 0;
-                    if (objData.ModelPageEntity.ModelVersions != null )
+                    if (objData.ModelPageEntity.ModelVersions != null)
                     {
                         if (objData.ModelPageEntity.ModelVersions.Count() > 1)
                         {
@@ -179,12 +184,12 @@ namespace Bikewale.Models.BikeModels
 
 
                             }
-                            versionDescirption = string.Format("{0} and {1}", versionDescirption, objData.ModelPageEntity.ModelVersions.Last().VersionName); 
+                            versionDescirption = string.Format("{0} and {1}", versionDescirption, objData.ModelPageEntity.ModelVersions.Last().VersionName);
                         }
                         else if (objData.ModelPageEntity.ModelVersions.Count() == 1)
                             versionDescirption += string.Format(" - {0}", objData.ModelPageEntity.ModelVersions.First().VersionName);
                     }
-                    
+
 
 
                     if (objData.BikePrice > 0 && objData.IsLocationSelected && objData.City != null)
@@ -194,20 +199,20 @@ namespace Bikewale.Models.BikeModels
 
 
                     index = 0;
-                    if (objData.PriceInTopCities != null && objData.PriceInTopCities.PriceQuoteList != null&& objData.PriceInTopCities.PriceQuoteList.Count()>1)
+                    if (objData.PriceInTopCities != null && objData.PriceInTopCities.PriceQuoteList != null && objData.PriceInTopCities.PriceQuoteList.Count() > 1)
                     {
                         cityList = objData.PriceInTopCities.PriceQuoteList != null && objData.PriceInTopCities.PriceQuoteList.Count() > 0 ? string.Format(". See price of {0} in top {1}:", objData.ModelPageEntity.ModelDetails.ModelName, objData.PriceInTopCities.PriceQuoteList.Count() > 1 ? "cities" : "city") : string.Empty;
                         foreach (var city in objData.PriceInTopCities.PriceQuoteList)
                         {
                             index++;
                             cityList = string.Format("{0} {1}", cityList, city.CityName);
-                            if (index >=3 || objData.PriceInTopCities.PriceQuoteList.Count() <= index)
+                            if (index >= 3 || objData.PriceInTopCities.PriceQuoteList.Count() <= index)
                                 break;
                             else if (index >= 1)
                                 cityList += ",";
 
                         }
-                        cityList = string.Format("{0} and {1}", cityList, objData.PriceInTopCities.PriceQuoteList.Last().CityName);                        
+                        cityList = string.Format("{0} and {1}", cityList, objData.PriceInTopCities.PriceQuoteList.Last().CityName);
                     }
 
                     if (objData.PriceInTopCities != null && objData.PriceInTopCities.PriceQuoteList != null && objData.PriceInTopCities.PriceQuoteList.Count() == 1)
@@ -926,13 +931,54 @@ namespace Bikewale.Models.BikeModels
                 {
                     objData.DetailedDealer = _objDealerDetails.GetDealerQuotationV2(_cityId, objData.VersionId, objData.DealerId, _areaId);
                 }
-                if (objData.ManufacturerCampaign != null)
-                {
-                    objData.ManufacturerCampaign.ShowAd = (!(objData.IsPremiumDealer || objData.IsDealerDetailsExists) && objData.ManufacturerCampaign.IsAdAvailable);
-
-                }
             }
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 29 Jun 2017
+        /// Description :   Fetches Manufacturer Campaigns
+        /// </summary>
+        private void GetManufacturerCampaign()
+        {
+            try
+            {
+                if (_objManufacturerCampaign != null && !(objData.IsDealerDetailsExists))
+                {
+                    ManufacturerCampaignEntity campaigns = _objManufacturerCampaign.GetCampaigns(_modelId, _cityId, ManufacturerCampaignPageId);
+                    if (campaigns.LeadCampaign != null)
+                    {
+                        objData.LeadCampaign = new ManufactureCampaignLeadEntity()
+                        {
+                            Area = GlobalCityArea.GetGlobalCityArea().Area,
+                            CampaignId = campaigns.LeadCampaign.CampaignId,
+                            DealerId = campaigns.LeadCampaign.DealerId,
+                            DealerRequired = campaigns.LeadCampaign.DealerRequired,
+                            EmailRequired = campaigns.LeadCampaign.EmailRequired,
+                            LeadsButtonTextDesktop = campaigns.LeadCampaign.LeadsButtonTextDesktop,
+                            LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
+                            LeadSourceId = (int)LeadSource,
+                            PqSourceId = (int)PQSource,
+                            LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
+                            LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
+                            LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
+                            LeadsPropertyTextMobile = campaigns.LeadCampaign.LeadsPropertyTextMobile,
+                            MakeName = objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
+                            MaskingNumber = campaigns.LeadCampaign.MaskingNumber,
+                            PincodeRequired = campaigns.LeadCampaign.PincodeRequired,
+                            PopupDescription = campaigns.LeadCampaign.PopupDescription,
+                            PopupHeading = campaigns.LeadCampaign.PopupHeading,
+                            PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage
+                        };
+                        objData.IsManufacturerLeadAdShown = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", _modelId, _cityId, ManufacturerCampaignPageId));
+            }
+        }
+
         /// <summary>
         /// Created by : Sangram Nandkhile on 14 Feb 2017
         /// Summary: To set price variable with bikewale pricequote
@@ -944,13 +990,6 @@ namespace Bikewale.Models.BikeModels
             {
                 objData.CampaignId = pqOnRoad.BPQOutput.CampaignId;
             }
-
-            objData.ManufacturerCampaign = new ManufacturerCampaign()
-            {
-                Ad = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, pqOnRoad.BPQOutput.ManufacturerId, pqOnRoad.BPQOutput.Area, objData.PQLeadSource.ToString(), objData.PQSourcePage.ToString(), string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty, pqOnRoad.BPQOutput.LeadCapturePopupHeading, pqOnRoad.BPQOutput.LeadCapturePopupDescription, pqOnRoad.BPQOutput.LeadCapturePopupMessage, pqOnRoad.BPQOutput.PinCodeRequired, pqOnRoad.BPQOutput.EmailRequired),
-                Name = pqOnRoad.BPQOutput.ManufacturerName,
-                Id = pqOnRoad.BPQOutput.ManufacturerId
-            };
 
             if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null && objData.VersionId > 0)
             {
