@@ -808,7 +808,7 @@ namespace Bikewale.Models.BikeModels
                         {
                             // Check it versionId passed through url exists in current model's versions
                             objData.VersionId = (uint)objData.SelectedVersion.VersionId;
-                            
+
                         }
 
                         //for all bikes including upcoming bikes as details are mandatory
@@ -901,9 +901,9 @@ namespace Bikewale.Models.BikeModels
                                 if (pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
                                 {
                                     objData.BikePrice = (objData.BikePrice - totalDiscountedPrice);
-                                   
+
                                 }
-                                
+
                             }
                             else // Show dealer properties and Bikewale priceQuote when dealer has pricing for any of the bike
                             // Added on 13 Feb 2017 Pivotal Id:138698777
@@ -963,6 +963,7 @@ namespace Bikewale.Models.BikeModels
                             LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
                             LeadsPropertyTextMobile = campaigns.LeadCampaign.LeadsPropertyTextMobile,
                             MakeName = objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
+                            Organization = campaigns.LeadCampaign.Organization,
                             MaskingNumber = campaigns.LeadCampaign.MaskingNumber,
                             PincodeRequired = campaigns.LeadCampaign.PincodeRequired,
                             PopupDescription = campaigns.LeadCampaign.PopupDescription,
