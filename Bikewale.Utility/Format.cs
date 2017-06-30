@@ -291,15 +291,7 @@ namespace Bikewale.Utility
         {
             try
             {
-                // loading a template might be expensive, so be careful to cache content
-                if (Razor.Resolve(templateName) == null)
-                {
-                    // we've never seen this template before, so compile it and stick it in cache.
-                    Razor.Compile(template, typeof(ManufactureCampaignLeadEntity), templateName);
-                }
-
-                // by now, we know we've got a the template cached and ready to run; this is fast
-                var renderedContent = Razor.Run(templateName, model);
+                var renderedContent = Razor.Parse(template, model, templateName);
                 return renderedContent;
             }
             catch (Exception)
