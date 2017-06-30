@@ -11,10 +11,10 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
     /// </summary>
     public class ManufacturingCampaign
     {
-        internal static IEnumerable<ManufactureDealerDTO> Convert(IEnumerable<ManufactureDealer> objDealers)
+        internal static IEnumerable<ManufactureDealerDTO> Convert(IEnumerable<ManufacturerDealer> objDealers)
         {
-            Mapper.CreateMap<ManufactureDealer, ManufactureDealerDTO>();
-            return Mapper.Map<IEnumerable<ManufactureDealer>, IEnumerable<ManufactureDealerDTO>>(objDealers);
+            Mapper.CreateMap<ManufacturerDealer, ManufactureDealerDTO>();
+            return Mapper.Map<IEnumerable<ManufacturerDealer>, IEnumerable<ManufactureDealerDTO>>(objDealers);
         }
     }
 }

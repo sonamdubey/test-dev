@@ -182,7 +182,7 @@ namespace Bikewale.BAL.PriceQuote
         /// <returns>
         /// Created by : Sangram Nandkhile on 10-May-2017 
         /// </returns>
-        public IEnumerable<Entities.ManufactureDealer> GetManufacturerDealers()
+        public IEnumerable<Entities.ManufacturerDealer> GetManufacturerDealers()
         {
             return objPQ.GetManufacturerDealers();
         }

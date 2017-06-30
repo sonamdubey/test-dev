@@ -46,5 +46,10 @@ namespace Bikewale.Entities.BikeData
         public int VideosCount { get; set; }  //Added by Aditi Srivastava
         [DataMember]
         public uint UsedListingsCnt { get; set; }
+        [DataMember]
+        public bool IsGstPrice { get; set; }
+
+
+
     }
 }

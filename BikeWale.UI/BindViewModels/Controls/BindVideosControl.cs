@@ -20,23 +20,11 @@ namespace Bikewale.BindViewModels.Controls
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
-
-        static string _cwHostUrl;
-        static string _requestType;
-        static string _applicationid;
         uint pageNo = 1;
 
         static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(BindVideosControl));
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
-
-
-        static BindVideosControl()
-        {
-            _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-            _applicationid = ConfigurationManager.AppSettings["applicationId"];
-            _requestType = "application/json";
-        }
 
         /// <summary>
         /// Function to bind the videos with repeater. Function will get the data from CW api and cache it in bikewale.

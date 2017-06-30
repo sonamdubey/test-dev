@@ -39,7 +39,7 @@ namespace Bikewale.BAL.PWA.CMS
             {
                 try
                 {
-                    return AssemblyRegistration.Container.Resolve<IReactEnvironment>();
+                    return ReactEnvironment.Current;
                 }
                 catch (TinyIoCResolutionException ex)
                 {
@@ -94,14 +94,22 @@ namespace Bikewale.BAL.PWA.CMS
             Stopwatch sw = null;
             if (_logPWAStats)
                 sw = Stopwatch.StartNew();
-            
-            var renderedHtml = React(componentName, new
-            {
-                Url = url,
-                ArticleListData = reducer.ArticleListData,
-                NewBikesListData = reducer.NewBikesListData
 
-            }, containerId:containerId);
+            IHtmlString renderedHtml=null;
+            try
+            {
+                renderedHtml = React(componentName, new
+                {
+                    Url = url,
+                    ArticleListData = reducer.ArticleListData,
+                    NewBikesListData = reducer.NewBikesListData
+
+                }, containerId: containerId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+            }
 
             if (_logPWAStats)
             {
@@ -121,14 +129,22 @@ namespace Bikewale.BAL.PWA.CMS
             if (_logPWAStats)
                 sw = Stopwatch.StartNew();
 
-            var renderedHtml = React(componentName, new
+            IHtmlString renderedHtml = null;
+            try
             {
-                Url = url,
-                ArticleDetailData = reducer.ArticleDetailData,
-                RelatedModelObject = reducer.RelatedModelObject,
-                NewBikesListData = reducer.NewBikesListData
+                renderedHtml = React(componentName, new
+                {
+                    Url = url,
+                    ArticleDetailData = reducer.ArticleDetailData,
+                    RelatedModelObject = reducer.RelatedModelObject,
+                    NewBikesListData = reducer.NewBikesListData
 
-            }, containerId:containerId);
+                }, containerId: containerId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+            }
 
             if (_logPWAStats)
             {

@@ -6,85 +6,65 @@
 
     <div class="content-box-shadow content-inner-block-20 card-bottom-margin">
         <h2 class="h2-heading padding-bottom10">@Model.BikeName Summary</h2>
-        <div class="@(Model.BikeRanking != null && Model.BikeRanking.Rank > 0 ? "grid-8 " : "grid-12 omega ") alpha">
-            <!-- add class - grid-12 and omega, if no slug instead of grid-8 -->
+        <div class="grid-8 alpha">
+           
             <p class="font14 text-slate-grey line-height17">@Html.Raw(Model.ModelSummary)</p>
-        </div>
-        @if (Model.BikeRanking != null && Model.BikeRanking.Rank > 0)
-        {
-            <div class="grid-4 omega">
-                <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName in India" class="model-rank-slug">
-                    <div class="inline-block icon-red-bg">
-                        <span class="bwsprite rank-graph"></span>
-                    </div>
-                    <div class="rank-slug-label inline-block text-bold text-default">
-                        <p class="font14">@Html.Raw(Model.BikeRanking.Rank > 1 ? Model.BikeRanking.RankText : "") Most Popular @Model.BikeRanking.BikeType</p>
-                        <p class="font11">Check out the complete list.</p>
-                    </div>
-                    <span class="trend-arrow"></span>
-                    <span class="bwsprite right-arrow"></span>
-                </a>
-            </div>
-        }
-        <div class="clear"></div>
-        <div class="grid-8 alpha margin-top10">
-
-            <table id="model-key-highlights" cellspacing="0" cellpadding="0" width="100%" border="0" class="font14 text-left">
-                @*<thead>
+            <div class="margin-top10">
+                <table id="model-key-highlights" cellspacing="0" cellpadding="0" width="100%" border="0" class="font14 text-left">
+                    <thead>
                         <tr>
-                            <th colspan="2"><h2 class="h2-heading padding-bottom5">@Model.BikeName Summary</h2></th>
-
+                            <th colspan="2" class="text-bold padding-bottom5">@Model.ModelPageEntity.ModelDetails.ModelName key highlights</th>
                         </tr>
-
-                    </thead>*@
-                <tbody>
-                    @if (Model.ModelPageEntity.ModelDetails.MinPrice > 0)
+                    </thead>
+                    <tbody>
+                        @if (Model.ModelPageEntity.ModelDetails.MinPrice > 0)
                     {
-                        <tr>
-                            <td width="36%">Price</td>
-                            <td width="64%">
-                               @Html.Raw("&#x20B9;")
-                                <span class="text-bold">@(Model.BikePrice > 0 && Model.IsLocationSelected ? string.Format("{0}", Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())) : Bikewale.Utility.Format.FormatPrice(Model.ModelPageEntity.ModelDetails.MinPrice.ToString()))</span>&nbsp;<span class="font12 text-light-grey">@(Model.BikePrice > 0 && Model.IsLocationSelected ? string.Format("On-road {0}", Model.City.CityName) : string.Format("Ex-showroom {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName))</span>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td width="36%">Price</td>
+                                <td width="64%">
+                                    @Html.Raw("&#x20B9;")
+                                    <span class="text-bold">@(Model.BikePrice > 0 && Model.IsLocationSelected ? string.Format("{0}", Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())) : Bikewale.Utility.Format.FormatPrice(Model.ModelPageEntity.ModelDetails.MinPrice.ToString()))</span>&nbsp;<span class="font12 text-light-grey">@(Model.BikePrice > 0 && Model.IsLocationSelected ? string.Format("On-road {0}", Model.City.CityName) : string.Format("Ex-showroom {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName))</span>
+                                </td>
+                            </tr>
                     }
-                    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
+                        @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
                     {
-                        <tr>
-                            <td>Top speed</td>
-                            <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.TopSpeed kmph</td>
-                        </tr>
+                            <tr>
+                                <td>Top speed</td>
+                                <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.TopSpeed kmph</td>
+                            </tr>
                     }
-                    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
+                        @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
                     {
-                        <tr>
-                            <td>Mileage</td>
-                            <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall kmpl</td>
-                        </tr>
+                            <tr>
+                                <td>Mileage</td>
+                                <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall kmpl</td>
+                            </tr>
                     }
-                    @if (Model.IsModelColorsAvailable)
+                        @if (Model.IsModelColorsAvailable)
                     {
-                        <tr>
-                            <td valign="top">Colours</td>
-                            <td valign="top" class="text-bold">
-                                <ul class="model-color-list">
-                                    @foreach (var colorName in Model.ModelPageEntity.ModelColors)
+                            <tr>
+                                <td valign="top">Colours</td>
+                                <td valign="top" class="text-bold">
+                                    <ul class="model-color-list">
+                                        @foreach (var colorName in Model.ModelPageEntity.ModelColors)
                                     {
-                                        <li class="leftfloat">@colorName.ColorName</li>
+                                            <li class="leftfloat">@colorName.ColorName</li>
                                     }
-                                </ul>
-                            </td>
-                        </tr>
+                                    </ul>
+                                </td>
+                            </tr>
                     }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <div class="grid-4 omega">
+            <div class="text-left alpha">
+                @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+            </div>
 
-        <div class="grid-4 text-center alpha omega margin-top5">
-            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
-        </div>
- 
-            <div id="adBlocker" class="adBlocker-grid grid-4 text-left alpha omega  hide">
+            <div id="adBlocker" class="adBlocker-grid text-left alpha hide">
                 <a href="https://www.bikewale.com/user-reviews/#selectBike" target="_blank" title="Write a review" style="font-family: 'Open Sans', sans-serif, Arial; font-size: 14px; width: 300px; height: 250px; display: block; padding: 20px; margin: 0 auto; border: 1px solid #e2e2e2; background: #fff; box-sizing: border-box; color: #4d5057; text-decoration: none;">
                     <img src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/write-icon.png" alt="write a review" width="30" height="32" class="inline-block" style="margin-right: 10px" />
                     <span class="inline-block" style="font-weight: bold; text-transform: uppercase;">Do you own a bike?</span>
@@ -97,7 +77,28 @@
                     <button class="user-review-btn user-review-btn-orange btn-160-32">Write a review</button>
                 </a>
             </div>
-            <div class="clear"></div>
-    
+            @if (Model.BikeRanking != null && Model.BikeRanking.Rank > 0)
+            {
+                <div class="margin-top10">
+                    <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle)" title="Best @Model.BikeRanking.StyleName in India" class="model-rank-slug">
+                        <div class="inline-block icon-red-bg">
+                            <span class="bwsprite rank-graph"></span>
+                        </div>
+                        <div class="rank-slug-label inline-block text-bold text-default">
+                            <p class="font14">@Html.Raw(Model.BikeRanking.Rank > 1 ? Model.BikeRanking.RankText : "") Most Popular @Model.BikeRanking.BikeType</p>
+                            <p class="font11">Check out the complete list.</p>
+                        </div>
+                        <span class="trend-arrow"></span>
+                        <span class="bwsprite right-arrow"></span>
+                    </a>
+                </div>
+
+            }
+        </div>
+        <div class="clear"></div>
+
+
+
+
     </div>
-                }
+                    }

@@ -8,5 +8,7 @@ namespace Bikewale.Entities.BikeBooking
         public string CategoryName { get; set; }
         public UInt32 Price { get; set; }
         public UInt32 DealerId { get; set; }
+
+        public bool IsGstPrice { get; set; }
     }
 }

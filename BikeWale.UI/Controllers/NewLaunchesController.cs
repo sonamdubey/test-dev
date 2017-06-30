@@ -16,7 +16,6 @@ namespace Bikewale.Controllers
     {
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
-        private readonly IBikeMakes<BikeMakeEntity, int> _objMakeRepo = null;
         private readonly IUpcoming _upcoming = null;
         private GlobalCityAreaEntity _objLocation = GlobalCityArea.GetGlobalCityArea();
 

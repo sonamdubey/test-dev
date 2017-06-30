@@ -212,7 +212,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         private string CreateCanonicalUrl(IEnumerable<BikeEntityBase> basicInfo)
         {
             string canon = string.Empty;
-            canon = string.Join("-vs-", basicInfo.OrderBy(x => x.ModelId).Select(x => string.Format("{0}-{1}", x.MakeMaskingName, x.ModelMaskingName)));
+            canon = string.Join("-vs-", basicInfo.Where(x => x.VersionId != SponsoredVersionId).OrderBy(x => x.ModelId).Select(x => string.Format("{0}-{1}", x.MakeMaskingName, x.ModelMaskingName)));
             return canon;
         }
 
