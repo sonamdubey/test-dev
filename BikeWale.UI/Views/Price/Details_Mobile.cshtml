@@ -67,7 +67,7 @@
                     <td align="left" class="font16 padding-bottom5 position-rel">GST On-road price @string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "" : "(estimated)")
 						<div class="price--label-position">
 							<span class="bwmsprite info-grey-14"></span>
-							<span class="text-light-grey">@string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "In accordance with GST rates" : "Estimated GST price as dealer price is unavailable.")</span>
+							<span class="text-light-grey">@string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "In accordance with GST rates" : "Final dealer price unavailable.")</span>
 						</div>
 					</td>
                     <td align="right" valign="top" class="font18 text-bold padding-bottom5">@Html.Raw("<span > &#x20B9;</span>")&nbsp;@Bikewale.Utility.Format.FormatPrice(Model.TotalPrice.ToString())</td>
