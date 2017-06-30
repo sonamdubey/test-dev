@@ -33,6 +33,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         private NameValueCollection nvc = new NameValueCollection();
         private string _queueName, _hostName;
         private uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId, _TataCapitalId;
+        private bool _isTataCapitalAPIStarted = false;
         public LeadConsumer()
         {
             try
@@ -47,7 +48,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 UInt32.TryParse(ConfigurationManager.AppSettings["BajajFinanceId"], out _bajajFinanceId);
                 UInt32.TryParse(ConfigurationManager.AppSettings["RoyalEnfieldId"], out _RoyalEnfieldId);
                 UInt32.TryParse(ConfigurationManager.AppSettings["TataCapitalId"], out _TataCapitalId);
-                
+                Boolean.TryParse(ConfigurationManager.AppSettings["IsTataCapitalAPIStarted"], out _isTataCapitalAPIStarted);
+
                 InitConsumer();
                 _leadProcessor = new LeadProcessor();
                 _repository = new LeadProcessingRepository();
@@ -258,9 +260,12 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         }
                         else if (priceQuote.DealerId == _TataCapitalId)
                         {
-                            Logs.WriteInfoLog(String.Format("Tata Capital Lead started processing. PQId --> {0}", pqId));
-                            _leadProcessor.PushLeadToTataCapital(priceQuote, pqId);
-                            Logs.WriteInfoLog(String.Format("Tata Capital Lead started processing. PQId --> {0}", pqId));
+                            if (_isTataCapitalAPIStarted)
+                            {
+                                Logs.WriteInfoLog(String.Format("Tata Capital Lead started processing. PQId --> {0}", pqId));
+                                _leadProcessor.PushLeadToTataCapital(priceQuote, pqId);
+                                Logs.WriteInfoLog(String.Format("Tata Capital Lead started processing. PQId --> {0}", pqId));
+                            }
                         }
                     }
                     Logs.WriteInfoLog(String.Format("Manufacturer Lead submitted."));
