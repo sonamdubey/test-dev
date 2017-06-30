@@ -643,11 +643,13 @@ namespace Bikewale.Models.BikeModels
                                         objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
                                         objData.VersionId = (uint)objData.SelectedVersion.VersionId;
                                         objData.BikePrice = objData.CityId == 0 ? (uint)objData.SelectedVersion.Price : 0;
+                                        objData.IsGstPrice = objData.SelectedVersion.IsGstPrice;
                                     }
                                     else
                                     {
                                         objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
                                         objData.BikePrice = objData.CityId == 0 ? (uint)modelPg.ModelVersions.FirstOrDefault().Price : 0;
+                                        objData.IsGstPrice = modelPg.ModelVersions.FirstOrDefault().IsGstPrice;
                                     }
                                 }
                             }
@@ -663,11 +665,14 @@ namespace Bikewale.Models.BikeModels
                                     objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
                                     objData.VersionId = (uint)objData.SelectedVersion.VersionId;
                                     objData.BikePrice = objData.ShowOnRoadButton ? (uint)objData.SelectedVersion.Price : (objData.CityId == 0 ? (uint)objData.SelectedVersion.Price : 0);
+                                    objData.IsGstPrice = objData.SelectedVersion.IsGstPrice;
                                 }
                                 else
                                 {
                                     objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
                                     objData.BikePrice = objData.ShowOnRoadButton ? (uint)objData.SelectedVersion.Price : (objData.CityId == 0 ? (uint)objData.SelectedVersion.Price : 0);
+                                    objData.IsGstPrice = modelPg.ModelVersions.FirstOrDefault().IsGstPrice;
+
                                 }
                             }
                             else if (objData.IsDiscontinuedBike && objData.VersionId == 0)
@@ -777,15 +782,18 @@ namespace Bikewale.Models.BikeModels
                         {
                             if (objData.VersionId > 0)
                                 objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(v => v.VersionId == objData.VersionId);
+                            objData.IsGstPrice = modelPg.ModelDetails != null ? modelPg.ModelDetails.IsGstPrice : false;
                         }
 
                         if (objData.VersionId > 0 && objData.SelectedVersion != null)
                         {
                             objData.BikePrice = objData.CityId == 0 ? Convert.ToUInt32(objData.SelectedVersion.Price) : 0;
+                            objData.IsGstPrice = modelPg.ModelDetails != null ? modelPg.ModelDetails.IsGstPrice : false;
                         }
                         else if (modelPg.ModelDetails != null)
                         {
                             objData.BikePrice = objData.CityId == 0 ? Convert.ToUInt32(modelPg.ModelDetails.MinPrice) : 0;
+                            objData.IsGstPrice = modelPg.ModelDetails != null ? modelPg.ModelDetails.IsGstPrice : false;
                         }
 
                         // for new bike
@@ -793,6 +801,7 @@ namespace Bikewale.Models.BikeModels
                         {
                             // Check it versionId passed through url exists in current model's versions
                             objData.VersionId = (uint)objData.SelectedVersion.VersionId;
+                            
                         }
 
                         //for all bikes including upcoming bikes as details are mandatory
@@ -805,6 +814,7 @@ namespace Bikewale.Models.BikeModels
                         if (modelPg.ModelDetails != null && !modelPg.ModelDetails.New && modelPg.ModelVersions != null && modelPg.ModelVersions.Count > 1 && objData.SelectedVersion != null)
                         {
                             objData.BikePrice = (uint)objData.SelectedVersion.Price;
+                            objData.IsGstPrice = modelPg.ModelVersions.FirstOrDefault().IsGstPrice;
                         }
 
                         if (modelPg.ModelDetails != null && modelPg.ModelDetails.PhotosCount > 0 && modelPg.ModelColors != null && modelPg.ModelColors.Count() > 0)
