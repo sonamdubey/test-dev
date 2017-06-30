@@ -40,6 +40,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         public uint PinCodeId { get; set; }
 
         public uint ManufacturerDealerId { get; set; }
+
+        public uint LeadId { get; set; }
     }
 
     /// <summary>
@@ -63,6 +65,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         [JsonProperty("model")]
         public string Model { get; set; }
         [JsonProperty("sub_source")]
-        public string Source { get; set; }
+        public string Source { get { return "bikewale"; } }
     }
 }

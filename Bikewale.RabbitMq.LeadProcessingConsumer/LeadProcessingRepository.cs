@@ -138,18 +138,18 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="mobile"></param>
         /// <param name="response"></param>
         /// <returns></returns>
-        public bool UpdateManufacturerLead(uint pqId, string response)
+        public bool UpdateManufacturerLead(uint pqId, string response, uint leadId)
         {
             bool status = false;
             try
             {
-                if (pqId > 0)
+                if (leadId > 0)
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "updatemanufacturerlead_14062017";
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                        cmd.CommandText = "updatemanufacturerlead_04072017";
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadId", DbType.Int64, leadId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_response", DbType.String, 250, response));
                         if (MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) > 0)
                             status = true;
@@ -217,6 +217,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// Created By : Sushil Kumar
         /// Created On : 21th October 2015
         /// Summary : To capture maufacturer lead for bikewale pricequotes 
+        /// Modified by :   Sumit Kate on 04 Jul 2017
+        /// Description :   New sp call to save lead id to manufacturer lead table
         /// </summary>
         /// <param name="objLead"></param>
         /// <returns>Lead submission status</returns>
@@ -230,7 +232,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "savemanufacturerlead_22062017";
+                        cmd.CommandText = "savemanufacturerlead_04072017";
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, objLead.Name));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 150, objLead.Email));
@@ -240,7 +242,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbType.String, objLead.PinCodeId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int64, objLead.DealerId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_manufacturerdealerid", DbType.String, 20, objLead.ManufacturerDealerId));
-
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadId", DbType.Int32, objLead.LeadId));
                         status = SqlReaderConvertor.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
                     }
                 }
