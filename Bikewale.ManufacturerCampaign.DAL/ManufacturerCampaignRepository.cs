@@ -1,17 +1,16 @@
 
-using Dapper;
 using Bikewale.DAL.CoreDAL;
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Notifications;
 using Bikewaleopr.ManufacturerCampaign.Entities;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ManufacturerCampaign;
+using BikewaleOpr.Models.ManufacturerCampaign;
 using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using BikewaleOpr.Models.ManufacturerCampaign;
 
 namespace Bikewale.ManufacturerCampaign.DAL
 {
@@ -131,7 +130,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
         /// </summary>
         /// <param name="campaignId"></param>
         /// <returns></returns>
-        public CampaignPropertyEntity GetManufacturerCampaignProperties (uint campaignId)
+        public CampaignPropertyEntity GetManufacturerCampaignProperties(uint campaignId)
         {
             CampaignPropertyEntity campaign = null;
             try
@@ -146,7 +145,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     using (var results = connection.QueryMultiple("getmanufacturercampaignproperties", param: param, commandType: CommandType.StoredProcedure))
                     {
                         campaign.EMI = results.Read<CampaignEMIPropertyEntity>().SingleOrDefault();
-                        if(campaign.EMI == null) { campaign.EMI = new CampaignEMIPropertyEntity(); }
+                        if (campaign.EMI == null) { campaign.EMI = new CampaignEMIPropertyEntity(); }
                         campaign.EMIPriority = results.Read<PriorityEntity>();
                         campaign.Lead = results.Read<CampaignLeadPropertyEntity>().SingleOrDefault();
                         if (campaign.Lead == null) { campaign.Lead = new CampaignLeadPropertyEntity(); }
@@ -347,7 +346,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             return campaignId;
         }
 
-        
+
         public void saveManufacturerCampaignPopup(ManufacturerCampaignPopup objCampaign)
         {
 
@@ -361,7 +360,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_PopupHeading", objCampaign.PopupHeading);
                     param.Add("par_PopupDescription", objCampaign.PopupDescription);
                     param.Add("par_PopupSuccessMessage", objCampaign.PopupSuccessMessage);
-                    param.Add("par_EmailRequired", objCampaign.EmailRequired?1:0);
+                    param.Add("par_EmailRequired", objCampaign.EmailRequired ? 1 : 0);
                     param.Add("par_PincodeRequired", objCampaign.PinCodeRequired ? 1 : 0);
                     param.Add("par_DealerRequired", objCampaign.DealerRequired ? 1 : 0);
                     connection.Query<dynamic>("savemanufacturercampaignpopup", param: param, commandType: CommandType.StoredProcedure);
@@ -496,9 +495,9 @@ namespace Bikewale.ManufacturerCampaign.DAL
         /// <param name="deviceId"></param>
         /// <param name="campaignId"></param>
         /// <returns></returns>
-        public bool SaveManufacturerCampaignLead(uint dealerid, uint pqId, string customerName, string customerEmail, string customerMobile, uint colorId, uint leadSourceId, string utma, string utmz, string deviceId, uint campaignId)
+        public uint SaveManufacturerCampaignLead(uint dealerid, uint pqId, UInt64 customerId, string customerName, string customerEmail, string customerMobile, uint leadSourceId, string utma, string utmz, string deviceId, uint campaignId, uint leadId)
         {
-            bool isSuccess = false;
+            uint retLeadId = 0;
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -507,27 +506,28 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     var param = new DynamicParameters();
                     param.Add("par_dealerid", dealerid);
                     param.Add("par_pqid", pqId);
+                    param.Add("par_customerid", customerId);
                     param.Add("par_customername", customerName);
                     param.Add("par_customeremail", customerEmail);
                     param.Add("par_customermobile", customerMobile);
-                    param.Add("par_colorid", colorId);
                     param.Add("par_leadsourceid", leadSourceId);
                     param.Add("par_utma", utma);
                     param.Add("par_utmz", utmz);
                     param.Add("par_deviceid", deviceId);
                     param.Add("par_campaignId", campaignId);
+                    param.Add("par_leadId", leadId, direction: ParameterDirection.InputOutput);
                     connection.Query<dynamic>("savemanufacturerpqlead", param: param, commandType: CommandType.StoredProcedure);
-                    isSuccess = true;
+                    retLeadId = param.Get<UInt32>("par_leadId");
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignRepository.SaveManufacturerCampaignLead({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10})", dealerid, pqId, customerName, customerEmail, customerMobile, colorId, leadSourceId, utma, utmz, deviceId, campaignId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignRepository.SaveManufacturerCampaignLead({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10})", dealerid, pqId, customerName, customerEmail, customerMobile, leadSourceId, utma, utmz, deviceId, campaignId, retLeadId));
             }
 
-            return isSuccess;
+            return retLeadId;
         }
     }
 }
