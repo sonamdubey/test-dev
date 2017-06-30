@@ -176,7 +176,7 @@
                                         </tr>
                                         <tr class="row-with-padding">
                                             <td class="font14">
-                                                Insurance (Comprehensive)@if (!Model.IsPrimaryDealerAvailable)
+                                                Insurance (Comprehensive)@if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
                                                 {
                                                     <br><p class="position-rel"><span class="position-abt neg-right15 pos-top0 font8">Ad</span><a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Dealer_PQ" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName)" rel=" nofollow">Buy Policy Now</a></p>
                                                 }
