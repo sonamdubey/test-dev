@@ -37,6 +37,10 @@ namespace Bikewale.Entities.Dealer
         [JsonProperty("leadSourceId")]
         public ushort LeadSourceId { get; set; }
 
+        [JsonProperty("campaignId")]
+        public uint CampaignId { get; set; }
+
+        [JsonProperty("pinCode")]
         public string PinCode { get; set; }
 
         [JsonProperty("manufacturerDealerId")]

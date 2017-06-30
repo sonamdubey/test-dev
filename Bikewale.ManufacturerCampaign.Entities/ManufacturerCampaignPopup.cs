@@ -14,9 +14,9 @@ namespace Bikewaleopr.ManufacturerCampaign.Entities
 
         public string PopupSuccessMessage { get; set; }
 
-        public ushort EmailRequired { get; set; }
-        public ushort PinCodeRequired { get; set; }
-        public ushort DealerRequired { get; set; }
+        public bool EmailRequired { get; set; }
+        public bool PinCodeRequired { get; set; }
+        public bool DealerRequired { get; set; }
         public uint DealerId { get; set; }
         
     }

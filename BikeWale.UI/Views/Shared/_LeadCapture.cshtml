@@ -16,12 +16,20 @@
             <!-- ko if : isDealerBikes() -->
             <div data-bind="visible: isDealerBikes()" class="form-control-box personal-info-list position-rel">
                 <div class="placeholder-loading-text position-abt form-control border-solid" style="display: none; height: 40px; border: 1px solid #e2e2e2;">Loading dealer bikes..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
-                <select id="getLeadBike" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: dealerBikes, optionValue: function (i) { return i.model.modelId; }, optionsText: 'bike', optionsCaption: 'Select a bike'" class="form-control chosen-select margin-bottom10"></select>
+                <select id="getLeadBike" data-placeholder="Choose a bike model" data-bind="value : selectedBike, options : dealerBikes, optionValue : function (i) { return i.model.modelId; }, optionsText : 'bike' , optionsCaption: 'Select a bike'" class="form-control chosen-select margin-bottom10"></select>
                 <span class="bwsprite error-icon errorIcon"></span>
                 <div class="bw-blackbg-tooltip errorText"></div>
                 <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
             </div>
             <!-- /ko -->
+            <div class="form-control-box personal-info-list position-rel" data-bind="visible: cityRequired() ">
+                <div class="select-box full-width-select text-left">
+                    <p class="select-label">Select City</p>
+                    <select id="getLeadCity" data-title="Select City" data-bind="value: selectedCity, options: cities, optionValue: 'cityId', optionsText: 'cityName',event : { change : selectCity } " class="chosen-select margin-bottom10"></select>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
             <div class="input-box form-control-box personal-info-list">
                 <input type="text" class="get-first-name" id="getFullName" data-bind="textInput: fullName" tabindex="1">
                 <label for="getFullName">Name<sup>*</sup></label>
@@ -131,6 +139,7 @@
             self.mobileNo = ko.observable();
         }
         self.msg = "";
+        var dummyOption = { id: 0, name: '', isPopular: false, hasAreas: false };
         self.IsVerified = ko.observable(false);
         self.pqId = ko.observable(0);
         self.dealerId = ko.observable();
@@ -158,12 +167,13 @@
         self.pinCodeRequired = ko.observable();
         self.emailRequired = ko.observable();
         self.dealersRequired = ko.observable();
+        self.cityRequired = ko.observable(leadcityid<=0);
         self.pincode = ko.observable();
         self.dealerCityName = ko.observable();
         self.dealerAreaName = ko.observable();
         self.eventCategory = ko.observable();
-        //self.manufacturerDealer = ko.observable();
-        //self.manufacturerDealerCity = ko.observable();
+        self.cities = ko.observableArray();
+        self.selectedCity = ko.observable();
         self.setOptions = function (options) {
             if (options != null) {
                 if (options.eventcategory != null)
@@ -212,21 +222,32 @@
                     self.dealerDescription(options.dealerDescription);
 
                 if (options.pinCodeRequired != null)
-                    self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true);
+                    self.pinCodeRequired(options.pinCodeRequired != 'True' ? false : true);
 
                 if (options.emailRequired != null)
-                    self.emailRequired(options.emailRequired != 'true' ? false : true);
+                    self.emailRequired(options.emailRequired != 'True' ? false : true);
 
                 if (options.dealersRequired != null)
+                {
                     self.dealersRequired(options.dealersRequired != 'true' ? false : true);
+                    if(self.cityId() && self.dealersRequired())
+                    {
+                        self.getDealersList(self.dealerId());
+                    }
+                }                   
 
                 if (options.isdealerbikes != null) {
                     self.isDealerBikes(options.isdealerbikes);
                     self.getDealerBikes();
                 }
 
+               if (self.cityRequired())
+                {
+                    self.getModelCities();
+                }
+
                 if (options.isleadpopup != null)
-                    self.IsLeadPopup(options.isleadpopup != "false" ? true : false);
+                    self.IsLeadPopup(options.isleadpopup != "False" ? true : false);
                 else self.IsLeadPopup(true);
 
                 if (options.pqid != null)
@@ -242,6 +263,43 @@
                     self.clientIP = options.clientip;
             }
         };
+
+        self.getModelCities = function (d, e) {
+            if (self.modelId() > 0 && self.cityRequired()) {
+                var eleCities = $("#getLeadCity");
+                $.ajax({
+                    type: "GET",
+                    url: "/api/PQCityList/?modelId=" + self.modelId(),
+                    dataType: 'json',
+                    success: function (response) {
+                        var cities = response.cities;
+                        var citySelected = null;
+                        if (cities) {
+                            cities.splice(0, 0, dummyOption);
+                            self.cities(cities);
+                        }
+                        else {
+                            self.cities([]);
+                        }
+                        eleCities.trigger("chosen:updated");
+                        $(this).parent().removeClass('done');
+                    }
+                });
+            }
+        };
+
+        self.selectCity = function(d,e)
+        {
+            var ele = $("#getLeadCity");
+            if (self.selectedCity() && self.selectedCity().cityId > 0) {
+                hideError(ele);
+                ele.parent().addClass('done');
+                self.cityId(self.selectedCity().cityId);
+                self.getDealersList(self.dealerId());
+                self.isRegisterPQ(true);
+            }
+            else setError($(this));
+        }
 
         self.getDealerBikes = function (data, event) {
             if (!isNaN(self.dealerId()) && self.dealerId() > 0 && self.campaignId() > 0) {
@@ -285,6 +343,39 @@
                     self.dealerBikes(obj.dealerBikes);
                 }
             }
+        };
+
+        self.getDealersList = function() {
+            $.ajax({
+                type: "GET",
+                url: "/api/ManufacturerCampaign/city/" + self.cityId() + "/dealer/" + self.dealerId() + "/",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    var obj = ko.toJS(response);
+                    var count = obj.length;
+                    if (count >= 1) {   
+                        if (count == 1) {
+                            $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
+                            $("#ddlMfgDealers").val('0');
+                            $("#ddlMfgDealers").closest('.select-box').addClass('done');
+                            self.dealersRequired(false);
+                        } else {
+                            $("#ddlMfgDealers").html('');
+                            $("#ddlMfgDealers").append("<option value></option>");
+                            for (i = 0; i < count; i++) {
+                                var dt = obj[i];
+                                var areaName = '';
+                                if (dt.area != null) {
+                                    areaName = ", " + dt.area;
+                                }
+                                $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-id='" + dt.id + "' >" + dt.dealerName + areaName + "</option>");
+                            }
+                        }
+                    }
+                    $("#ddlMfgDealers").trigger("chosen:updated");
+                },
+            });
         };
 
         self.generatePQ = function (data, event) {
@@ -420,7 +511,10 @@
             if (isValidCustomer && self.mfgCampaignId() > 0) {
 
                 if (self.isRegisterPQ())
+                {
                     self.generatePQ(data, event);
+                }
+                    
                 $('#processing').show();
                 var objCust = {
                     "dealerId": self.dealerId(),
@@ -431,7 +525,8 @@
                     "versionId": self.versionId(),
                     "cityId": self.cityId(),
                     "leadSourceId": self.leadSourceId(),
-                    "PinCode": self.pincode(),
+                    "pinCode": self.pincode(),
+                    "campaignId": self.mfgCampaignId(),
                     "deviceId": getCookie('BWC'),
                     "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id')
                 };
@@ -648,7 +743,9 @@
          
                 isValid &= self.validateEmailId(inputEmail);
             
-            isValid &= self.validateMobileNo(inputMobile);
+                isValid &= self.validateMobileNo(inputMobile);
+                isValid &= self.validateCity();
+
             if (self.dealersRequired()) {
                 isValid &= self.validateDealer();
             }
@@ -659,6 +756,7 @@
             }
             if (self.isDealerBikes())
                 isValid &= self.validateBike();
+
             return isValid;
         };
 
@@ -755,6 +853,28 @@
 
             return isValid;
         };
+
+        self.validateCity = function () {
+            var isValid = true;
+            eleCity = $("#getLeadCity");
+            if (eleCity != null && self.cityId() != null) {
+                if (self.cityId() > 0) {
+                    hideError(eleCity);
+                    isValid = true;
+                }
+                else {
+                    setError(eleCity, 'Select a city');
+                    isValid = false;
+                }
+            }
+            else {
+                setError(eleCity, 'Select a city');
+                isValid = false;
+            }
+
+            return isValid;
+        };
+
 
         self.setInputValues = function () {
             var inputBoxes = $('.personal-info-form-container .input-box, #buyingAssistance .input-box');
@@ -921,6 +1041,7 @@
                 }
             }
         });
+
         $(document).on("blur", "#getPinCode", function () {
             validate.onBlur($(this));
             var pc = $(this).val().trim();
@@ -930,6 +1051,7 @@
                 validate.setError($("#getPinCode"), 'Invalid pincode');
             }
         });
+
         $(document).on("change", "#getLeadBike", function () {
             if ($(this).val() != null && $(this).val() != "0")
                 hideError($(this));

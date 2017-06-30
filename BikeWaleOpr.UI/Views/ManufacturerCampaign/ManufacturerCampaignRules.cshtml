@@ -3,14 +3,14 @@
     ViewBag.Title = "Manufacturer Campaign Rules";
     ViewBag.PageTitle = "Configure Rules for Manufacturer Campaign";
 }
-
-@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", Model.NavigationWidget)
 <input type="hidden" id="CampaignId" value="@Model.CampaignId" />
-<div class="row" style="margin-top:5px;">
+@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", Model.NavigationWidget)
+<div class="row">
     <div class="col m9">
-        <ul class="collapsible" data-collapsible="accordion">
-            @foreach (var rule in Model.Rules)
-            {
+       @if (Model != null && Model.Rules != null && Model.Rules.Count() > 0)
+       {
+         <ul class="collapsible" data-collapsible="accordion">
+               @foreach (var rule in Model.Rules){
                 <li>
                     <div class="collapsible-header">
                         <blockquote>
@@ -40,7 +40,7 @@
                                         <div class="chip">
                                             @c.CityName
                                             <input type="hidden" id="CityId" value="@c.CityId" />
-                                            <i class="close material-icons" data-element="city" data-modelId="@rule.Model.ModelId" data-cityId="@c.CityId" data-allindia="@(c.CityId==0?true:false)">close</i>
+                                            <i class="close material-icons" data-element="city" data-modelId="@rule.Model.ModelId" data-cityId="@c.CityId" data-allindia="@(c.CityId == 0 ? true : false)">close</i>
                                         </div>
                                     }
                                 </div>
@@ -49,8 +49,9 @@
                         </div>
                     </div>
                 </li>
-            }
-
+                }
+       </ul>
+       }
     </div>
 
 
@@ -86,11 +87,11 @@
                 <li>
                     <div class="collapsible-header"><strong>Configure Locations (Step 2)</strong></div>
                     <div class="collapsible-body">
-                        <div class="container">
-                            <div class="margin-top10 margin-bottom10">
-                                <input type="checkbox" id="chkAllIndia" data-bind="checked : isAllIndia" />
-                                <label for="chkAllIndia">All India</label>
-                            </div>
+                        <div class="margin-left20 margin-top15 margin-bottom5">
+                            <input type="checkbox" class="filled-in" id="chkAllIndia" data-bind="checked : isAllIndia" />
+                            <label for="chkAllIndia" class="blue-grey-text">All India</label>
+                        </div>
+                        <div class="container">                            
                             <div class="list-type-radio" id="configLoc" data-bind="visible: !isAllIndia()">
                                 <div class="input-field row s12 toggle-field-parent">
 
@@ -138,7 +139,7 @@
             <input type="hidden" value="" name="cityIds" id="hdnCityIdList" />
             <input type="hidden" value="" name="isAllIndia" id="hdnIsAllIndia" />
             <input type="hidden" value="@BikeWaleOpr.Common.CurrentUser.Id" name="userId" id="hdnUserId" />
-            <button id="btnAddRules" class="btn waves-effect waves-light" type="submit" name="action" formaction="/manufacturercampaign/rules/campaignid/@Model.CampaignId/add/">
+            <button id="btnAddRules" class="btn waves-effect waves-light" type="submit" name="action" formaction="/manufacturercampaign/rules/campaignid/@Model.CampaignId/add/?dealerId=@Model.DealerId">
                 Add Rules
             </button>
         </form>

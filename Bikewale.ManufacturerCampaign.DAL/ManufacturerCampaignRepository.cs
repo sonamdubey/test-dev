@@ -44,6 +44,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
 
         }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Get all bike makes
+        /// </summary>
         public IEnumerable<BikeMakeEntity> GetBikeMakes()
         {
             IEnumerable<BikeMakeEntity> bikeMakes = null;
@@ -119,6 +123,11 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             return objEntity;
         }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Get all bike models by make Id
+        /// </summary>
         public IEnumerable<BikeModelEntity> GetBikeModels(uint makeId)
         {
             IEnumerable<BikeModelEntity> bikeModels = null;
@@ -141,7 +150,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             return bikeModels;
         }
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Get all states
+        /// </summary>
         public IEnumerable<StateEntity> GetStates()
         {
             IEnumerable<StateEntity> states = null;
@@ -163,6 +175,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             return states;
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Get all cities by state Id
+        /// </summary>
         public IEnumerable<CityEntity> GetCitiesByState(uint stateId)
         {
             IEnumerable<CityEntity> cities = null;
@@ -185,10 +201,13 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             return cities;
         }
-
-        public IEnumerable<MfgRuleEntity> GetManufacturerCampaignRules(uint campaignId)
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Get manufacturer campaign rules by campaignId
+        /// </summary>
+        public ManufacturerCampaignRulesWrapper GetManufacturerCampaignRules(uint campaignId)
         {
-            IEnumerable<MfgRuleEntity> mfgRules = null;
+            ManufacturerCampaignRulesWrapper mfgRules = null;
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -196,8 +215,12 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_campaignid", campaignId);
-                    mfgRules = connection.Query<MfgRuleEntity>("getmanufacturercampaignrules", param: param, commandType: CommandType.StoredProcedure);
-
+                    mfgRules = new ManufacturerCampaignRulesWrapper();
+                    using (var results = connection.QueryMultiple("getmanufacturercampaignrules", param: param, commandType: CommandType.StoredProcedure))
+                    {
+                        mfgRules.ManufacturerCampaignRules = results.Read<ManufacturerRuleEntity>();
+                        mfgRules.ShowOnExShowroom = results.Read<bool>().SingleOrDefault();
+                    }
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
                 }
@@ -254,10 +277,9 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_PopupHeading", objCampaign.PopupHeading);
                     param.Add("par_PopupDescription", objCampaign.PopupDescription);
                     param.Add("par_PopupSuccessMessage", objCampaign.PopupSuccessMessage);
-                    param.Add("par_EmailRequired", objCampaign.EmailRequired);
-                    param.Add("par_PincodeRequired", objCampaign.DealerRequired);
-                    param.Add("par_DealerRequired", objCampaign.PinCodeRequired);
-
+                    param.Add("par_EmailRequired", objCampaign.EmailRequired?1:0);
+                    param.Add("par_PincodeRequired", objCampaign.PinCodeRequired ? 1 : 0);
+                    param.Add("par_DealerRequired", objCampaign.DealerRequired ? 1 : 0);
                     connection.Query<dynamic>("savemanufacturercampaignpopup", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
@@ -271,7 +293,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
 
         }
 
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Save manufacturer campaign rules
+        /// </summary>
         public bool SaveManufacturerCampaignRules(uint campaignId, string modelIds, string stateIds, string cityIds, bool isAllIndia, uint userId)
         {
             bool isSuccess = false;
@@ -301,6 +326,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
             return isSuccess;
         }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Jun 2017
+        /// Summary    : Delete manufacturer campaign rules 
+        /// </summary>
         public bool DeleteManufacturerCampaignRules(uint campaignId, uint modelId, uint stateId, uint cityId, uint userId, bool isAllIndia)
         {
             bool isSuccess = false;

@@ -65,7 +65,7 @@
                 <div class="collapsible-body">
                     <div class="container">
                         <div class="input-field row s12">
-                            <select id="ddlManufacturers" class="form-control chosen-default">
+                            <select id="ddlAddManufacturers" class="form-control chosen-default">
                                 <option value="0">Select a brand</option>
                                 @foreach (var MgfList in Model.ManufacturerList)
                                 {
@@ -111,7 +111,7 @@
         <td>
             <a  data-bind="attr: { href: '/manufacturercampaign/popup/'+dealerId+'?campaignId='+id }" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign popup" target="_blank"><i class="material-icons icon-blue">mode_edit</i></a>
         </td>
-        <td><a data-bind="attr: { href: '/manufacturercampaign/rules/campaignId/'+id+'/?dealerId='+dealerId+'&onExShowroom='+showCampaignOnExshowroom }" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign Rules" target="_blank"><i class="material-icons icon-blue">mode_edit</i></a></td>
+        <td><a data-bind="attr: { href: '/manufacturercampaign/rules/campaignId/'+id+'/?dealerId='+dealerId}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign Rules" target="_blank"><i class="material-icons icon-blue">mode_edit</i></a></td>
         <td>
             <span data-bind="text: status"></span>
             <p>

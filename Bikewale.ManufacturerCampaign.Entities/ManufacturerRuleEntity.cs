@@ -1,6 +1,10 @@
 ﻿namespace Bikewale.ManufacturerCampaign.Entities
 {
-    public class MfgRuleEntity
+    /// <summary>
+    /// Created by : Aditi Srivastava on 23 Jun 2017
+    /// Summary    : Entity for individual rules 
+    /// </summary>
+    public class ManufacturerRuleEntity
     {
         public uint ModelId { get; set; }
         public uint MakeId { get; set; }

@@ -9,6 +9,7 @@ namespace Bikewale.ManufacturerCampaign.Entities
     public class ManufacturerCampaignRulesVM
     {
         public uint CampaignId { get; set; }
+        public uint DealerId { get; set; }
         public IEnumerable<ManufacturerCampaignRulesEntity> Rules { get; set; }
         public IEnumerable<BikeMakeEntity> Makes { get; set; }
         public IEnumerable<StateEntity> States { get; set; }

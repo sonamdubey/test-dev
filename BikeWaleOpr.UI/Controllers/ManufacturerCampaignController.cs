@@ -117,20 +117,27 @@ namespace BikewaleOpr.Controllers
 
         }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava 23 Jun 2017
+        /// Summary    : Action method for manufacturer campaign rules page
+        /// </summary>
         [Route("manufacturercampaign/rules/campaignId/{campaignId}")]
-        public ActionResult ManufacturerCampaignRules(uint campaignId, uint? dealerId, bool onExShowroom=false)
+        public ActionResult ManufacturerCampaignRules(uint campaignId, uint? dealerId)
         {
-            MfgCampaignRules obj = new MfgCampaignRules(_manufacurerCampaignRepo);
+            ManufacturerCampaignRules obj = new ManufacturerCampaignRules(_manufacurerCampaignRepo);
             if(dealerId.HasValue)
             obj.DealerId = dealerId.Value;
             obj.CampaignId = campaignId;
-            obj.ShowOnExShowroom = onExShowroom;
             ManufacturerCampaignRulesVM objData = obj.GetData();
             return View(objData);
         }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava 23 Jun 2017
+        /// Summary    : Action method to save new manufacturer campaign rules
+        /// </summary>
         [Route("manufacturercampaign/rules/campaignid/{campaignId}/add/"), HttpPost]
-        public ActionResult AddManufacturerCampaignRules(uint campaignId, string modelIds, string stateIds, string cityIds, bool isAllIndia, uint userId)
+        public ActionResult AddManufacturerCampaignRules(uint campaignId, string modelIds, string stateIds, string cityIds, bool isAllIndia, uint userId, uint? dealerId)
         {
             bool isSuccess = false;
             isSuccess = _manufacurerCampaignRepo.SaveManufacturerCampaignRules(campaignId, modelIds, stateIds, cityIds, isAllIndia, userId);
@@ -138,7 +145,7 @@ namespace BikewaleOpr.Controllers
                 TempData["msg"] = "Rules added successfully!";
             else
                 TempData["msg"] = "Could not add rules";
-            return RedirectToAction("ManufacturerCampaignRules", routeValues: new { campaignId = campaignId });
+            return RedirectToAction("ManufacturerCampaignRules", routeValues: new { campaignId = campaignId , dealerId= dealerId });
         }
     }
 }
