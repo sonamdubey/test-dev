@@ -266,7 +266,7 @@ namespace Bikewale.DAL.BikeData
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getversions"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_28062017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -284,6 +284,7 @@ namespace Bikewale.DAL.BikeData
                                     VersionId = Convert.ToInt32(dr["ID"]),
                                     VersionName = Convert.ToString(dr["Version"]),
                                     ModelName = Convert.ToString(dr["Model"]),
+                                    IsGstPrice=SqlReaderConvertor.ToBoolean(dr["isgstprice"]),
                                     Price = Convert.ToUInt64(dr["VersionPrice"]),
                                     BrakeType = !Convert.IsDBNull(dr["BrakeType"]) ? Convert.ToString(dr["BrakeType"]) : String.Empty,
                                     AlloyWheels = !Convert.IsDBNull(dr["AlloyWheels"]) ? Convert.ToBoolean(dr["AlloyWheels"]) : false,
@@ -330,7 +331,7 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_19052017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_28062017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
@@ -368,6 +369,7 @@ namespace Bikewale.DAL.BikeData
                                 t.PhotosCount = Convert.ToInt32(dr["PhotosCount"]);
                                 t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
                                 t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
+                                t.IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]);
                             }
                             dr.Close();
                         }

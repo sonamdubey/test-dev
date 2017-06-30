@@ -241,6 +241,17 @@
     border-bottom-color: #b5b5b5;
 }
 
+/* info icon */
+.info-grey-14 {
+	width: 14px;
+	height: 14px;
+	background-position: -173px -613px;
+	position: relative;
+	top: 2px;
+	margin-right: 2px;
+	cursor: pointer;
+}
+
 /* floating button */
 .floating-btn {
     position: fixed;

@@ -54,7 +54,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsDiscontinuedBike { get { return (IsModelDetails && !IsNewBike && !IsUpcomingBike); } }
         public bool IsDPQAvailable { get; set; }
         public bool IsBPQAvailable { get; set; }
-
+public bool IsGstPrice { get; set; }
         public bool IsPrimaryDealer { get { return (this.DetailedDealer != null && this.DetailedDealer.PrimaryDealer != null); } }
         public bool IsDealerDetailsExists { get { return (this.IsPrimaryDealer && this.DetailedDealer.PrimaryDealer.DealerDetails != null); } }
         public bool IsPremiumDealer { get { return (IsPrimaryDealer && this.DetailedDealer.PrimaryDealer.IsPremiumDealer); } }

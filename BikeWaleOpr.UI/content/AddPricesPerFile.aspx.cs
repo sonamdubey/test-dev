@@ -104,7 +104,7 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices_09092016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices_28062017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int64, bikeId));
