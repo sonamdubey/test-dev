@@ -1,20 +1,19 @@
 
-using Dapper;
+using Bikewale.DAL.CoreDAL;
 using Bikewale.ManufacturerCampaign.Entities;
-using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
+using Bikewaleopr.ManufacturerCampaign.Entities;
+using BikewaleOpr.Entities;
+using BikewaleOpr.Entity.ManufacturerCampaign;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using BikewaleOpr.Entities;
 using System.Linq;
-using BikewaleOpr.Entity.ManufacturerCampaign;
-using Bikewale.DAL.CoreDAL;
-using Bikewaleopr.ManufacturerCampaign.Entities;
 
 namespace Bikewale.ManufacturerCampaign.DAL
 {
-    public class ManufacturerCampaignRepository : IManufacturerCampaignRepository
+    public class ManufacturerCampaignRepository : Interface.IManufacturerCampaignRepository
     {
         public IEnumerable<ManufacturerEntity> GetManufacturersList()
         {
@@ -101,7 +100,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             return objEntity;
         }
 
-        public ManufacturerCampaignPopup getManufacturerCampaignPopup( uint campaignId)
+        public ManufacturerCampaignPopup getManufacturerCampaignPopup(uint campaignId)
         {
             ManufacturerCampaignPopup objEntity = null;
             try
@@ -113,7 +112,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_campaignId", campaignId);
                     objEntity = new ManufacturerCampaignPopup();
                     objEntity = connection.Query<ManufacturerCampaignPopup>("getmanufacturercampaignpopup", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
-                 
+
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
                 }
@@ -250,7 +249,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_totalleadlimit", objCampaign.TotalLeadLimit);
                     param.Add("par_campaignpages", objCampaign.CampaignPages);
                     param.Add("par_startDate", objCampaign.StartDate);
-                    param.Add("par_endDate", objCampaign.EndDate??null);
+                    param.Add("par_endDate", objCampaign.EndDate ?? null);
                     param.Add("par_showonexshowroomprice", objCampaign.ShowOnExShowroomPrice);
                     param.Add("par_campaignid", objCampaign.CampaignId, dbType: DbType.Int32, direction: ParameterDirection.InputOutput);
                     connection.Query<dynamic>("savemanufacturercampaign_21062017", param: param, commandType: CommandType.StoredProcedure);
@@ -267,23 +266,22 @@ namespace Bikewale.ManufacturerCampaign.DAL
         }
         public void saveManufacturerCampaignPopup(ManufacturerCampaignPopup objCampaign)
         {
-            
+
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_campaignid",objCampaign.CampaignId);
+                    param.Add("par_campaignid", objCampaign.CampaignId);
                     param.Add("par_PopupHeading", objCampaign.PopupHeading);
                     param.Add("par_PopupDescription", objCampaign.PopupDescription);
                     param.Add("par_PopupSuccessMessage", objCampaign.PopupSuccessMessage);
                     param.Add("par_EmailRequired", objCampaign.EmailRequired?1:0);
                     param.Add("par_PincodeRequired", objCampaign.PinCodeRequired ? 1 : 0);
                     param.Add("par_DealerRequired", objCampaign.DealerRequired ? 1 : 0);
-                    
                     connection.Query<dynamic>("savemanufacturercampaignpopup", param: param, commandType: CommandType.StoredProcedure);
-                    
+
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
                 }
@@ -292,7 +290,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.ManufacturerCampaign.DAL.saveManufacturerCampaignPopup");
             }
-            
+
         }
 
         /// <summary>
@@ -308,7 +306,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    param.Add("par_campaignid",campaignId);
+                    param.Add("par_campaignid", campaignId);
                     param.Add("par_modelids", modelIds);
                     param.Add("par_stateids", stateIds);
                     param.Add("par_cityids", cityIds);
@@ -358,6 +356,93 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.ManufacturerCampaign.DAL.DeleteManufacturerCampaignRules. CampaignId : {0}, ModelId : {1},StateId : {2}, CityId : {3}, UserId : {4}", campaignId, modelId, stateId, cityId, userId));
             }
+            return isSuccess;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 29 Jun 2017
+        /// Description :   Returns Lead Campaign and EMI campaign by model,city and page
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="pageId"></param>
+        /// <returns></returns>
+        public Entities.ManufacturerCampaignEntity GetCampaigns(uint modelId, uint cityId, ManufacturerCampaignServingPages pageId)
+        {
+            Entities.ManufacturerCampaignEntity config = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_modelId", modelId);
+                    param.Add("par_cityId", cityId);
+                    param.Add("par_pageId", (int)pageId);
+                    using (var results = connection.QueryMultiple("getmanufacturercampaignbymodelcity", param: param, commandType: CommandType.StoredProcedure))
+                    {
+                        config = new Entities.ManufacturerCampaignEntity();
+                        config.LeadCampaign = results.Read<ManufacturerCampaignLeadConfiguration>().FirstOrDefault();
+                        config.EMICampaign = results.Read<ManufacturerCampaignEMIConfiguration>().FirstOrDefault();
+                    }
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignRepository.GetCampaigns({0},{1},{2})", modelId, cityId, pageId));
+            }
+            return config;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 30 Jun 2017
+        /// Description :   Save Manufacturer Lead to PQ table
+        /// </summary>
+        /// <param name="dealerid"></param>
+        /// <param name="pqId"></param>
+        /// <param name="customerName"></param>
+        /// <param name="customerEmail"></param>
+        /// <param name="customerMobile"></param>
+        /// <param name="colorId"></param>
+        /// <param name="leadSourceId"></param>
+        /// <param name="utma"></param>
+        /// <param name="utmz"></param>
+        /// <param name="deviceId"></param>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
+        public bool SaveManufacturerCampaignLead(uint dealerid, uint pqId, string customerName, string customerEmail, string customerMobile, uint colorId, uint leadSourceId, string utma, string utmz, string deviceId, uint campaignId)
+        {
+            bool isSuccess = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_dealerid", dealerid);
+                    param.Add("par_pqid", pqId);
+                    param.Add("par_customername", customerName);
+                    param.Add("par_customeremail", customerEmail);
+                    param.Add("par_customermobile", customerMobile);
+                    param.Add("par_colorid", colorId);
+                    param.Add("par_leadsourceid", leadSourceId);
+                    param.Add("par_utma", utma);
+                    param.Add("par_utmz", utmz);
+                    param.Add("par_deviceid", deviceId);
+                    param.Add("par_campaignId", campaignId);
+                    connection.Query<dynamic>("savemanufacturerpqlead", param: param, commandType: CommandType.StoredProcedure);
+                    isSuccess = true;
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ManufacturerCampaignRepository.SaveManufacturerCampaignLead({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10})", dealerid, pqId, customerName, customerEmail, customerMobile, colorId, leadSourceId, utma, utmz, deviceId, campaignId));
+            }
+
             return isSuccess;
         }
     }

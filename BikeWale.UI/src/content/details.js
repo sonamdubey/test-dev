@@ -2,13 +2,7 @@
 
 docReady(function () {
     $("body").floatingSocialShare();
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 500) {
-            $('#back-to-top').fadeIn(500);
-        } else {
-            $('#back-to-top').fadeOut(500);
-        }
-    });
+    
     $('#back-to-top').click(function (event) {
         $('html, body').stop().animate({ scrollTop: 0 }, 600);
         event.preventDefault();

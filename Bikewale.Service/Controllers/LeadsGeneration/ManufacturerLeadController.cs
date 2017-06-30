@@ -1,7 +1,7 @@
-﻿using Bikewale.Entities.BikeBooking;
-using Bikewale.Entities.Dealer;
+﻿using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.MobileVerification;
+using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using Bikewale.Service.Utilities;
 using RabbitMqPublishing;
@@ -24,15 +24,19 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
     {
         private readonly IDealerPriceQuote _objIPQ = null;
         private readonly IMobileVerificationCache _mobileVerCacheRepo = null;
+        private readonly IManufacturerCampaignRepository _manufacturerCampaignRepo = null;
+
         /// <summary>
-        /// Constructor 
+        /// Type Initializer
         /// </summary>
         /// <param name="objIPQ"></param>
-        /// <param name="dealer"></param>
-        public ManufacturerLeadController(IDealerPriceQuote objIPQ, IMobileVerificationCache mobileVerCacheRepo)
+        /// <param name="mobileVerCacheRepo"></param>
+        /// <param name="manufacturerCampaignRepo"></param>
+        public ManufacturerLeadController(IDealerPriceQuote objIPQ, IMobileVerificationCache mobileVerCacheRepo, IManufacturerCampaignRepository manufacturerCampaignRepo)
         {
             _objIPQ = objIPQ;
             _mobileVerCacheRepo = mobileVerCacheRepo;
+            _manufacturerCampaignRepo = manufacturerCampaignRepo;
         }
 
 
@@ -57,22 +61,19 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                 {
                     if (objLead.CityId > 0 && objLead.VersionId > 0 && objLead.PQId > 0 && !String.IsNullOrEmpty(objLead.Name) && !String.IsNullOrEmpty(objLead.Mobile) && objLead.DealerId > 0)
                     {
-                        //Push inquiry Id to AutoBiz
-                        DPQ_SaveEntity entity = new DPQ_SaveEntity()
-                        {
-                            DealerId = objLead.DealerId,
-                            PQId = objLead.PQId,
-                            CustomerName = objLead.Name,
-                            CustomerEmail = objLead.Email,
-                            CustomerMobile = objLead.Mobile,
-                            ColorId = null,
-                            UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty,
-                            UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty,
-                            DeviceId = objLead.DeviceId,
-                            LeadSourceId = objLead.LeadSourceId
-                        };
-
-                        if (_objIPQ.SaveCustomerDetail(entity))
+                        if (_manufacturerCampaignRepo.SaveManufacturerCampaignLead(
+                            objLead.DealerId,
+                            objLead.PQId,
+                            objLead.Name,
+                            objLead.Email,
+                            objLead.Mobile,
+                           0,
+                           objLead.LeadSourceId,
+                           Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty,
+                           Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty,
+                           objLead.DeviceId,
+                           objLead.CampaignId
+                            ))
                         {
                             var numberList = _mobileVerCacheRepo.GetBlockedNumbers();
 

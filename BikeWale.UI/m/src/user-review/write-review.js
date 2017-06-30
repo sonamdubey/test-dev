@@ -14,9 +14,7 @@ var bikeRating = {
 var ratingQuestion = [];
 var ratingError = false, questionError = false, userNameError = false, emailError = false;
 docReady(function () {
-
-	$('#back-to-top').remove();
-
+    
     bwcache.setScope('ReviewPage');
     if (page == "writeReview") {
         setTimeout(function () { appendHash("writeReview"); }, 1000);

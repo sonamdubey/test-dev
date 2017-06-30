@@ -147,6 +147,7 @@
     <Compile Include="Location\ICityMaskingCacheRepository.cs" />
     <Compile Include="Location\IState.cs" />
     <Compile Include="Location\IStateCacheRepository.cs" />
+    <Compile Include="ManufacturerCampaign\IManufacturerCampaign.cs" />
     <Compile Include="MobileAppAlert\IMobileAppAlert.cs" />
     <Compile Include="MobileAppAlert\IMobileAppAlertRepository.cs" />
     <Compile Include="MobileVerification\IMobileVerification.cs" />
@@ -204,6 +205,10 @@
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
+      <Project>{EA73DDA4-317E-4B79-BB03-F48125C2501B}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Models\Bikewale.Models.csproj">
       <Project>{ea7198a6-5347-4f8f-a25e-92b1e1ceb086}</Project>
