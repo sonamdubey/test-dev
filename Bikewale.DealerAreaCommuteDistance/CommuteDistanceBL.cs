@@ -83,7 +83,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                     Logs.WriteInfoLog(String.Format("Failed to get area for dealerId : {0}", area.Id));
                 }
             }
-            catch (Exception ex)
+            catch
             {
 
                 return false;
