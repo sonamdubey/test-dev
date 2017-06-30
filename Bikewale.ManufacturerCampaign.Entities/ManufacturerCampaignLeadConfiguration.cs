@@ -20,7 +20,7 @@
         public string LeadsPropertyTextDesktop { get; set; }
         public string LeadsHtmlMobile { get; set; }
         public string LeadsHtmlDesktop { get; set; }
-
+        public bool ShowOnExshowroom { get; set; }
         public bool PincodeRequired { get; set; }
         public bool DealerRequired { get; set; }
         public bool EmailRequired { get; set; }

@@ -968,9 +968,12 @@ namespace Bikewale.Models.BikeModels
                             PincodeRequired = campaigns.LeadCampaign.PincodeRequired,
                             PopupDescription = campaigns.LeadCampaign.PopupDescription,
                             PopupHeading = campaigns.LeadCampaign.PopupHeading,
-                            PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage
+                            PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage,
+                            ShowOnExshowroom = campaigns.LeadCampaign.ShowOnExshowroom
                         };
-                        objData.IsManufacturerLeadAdShown = true;
+
+                        objData.IsManufacturerTopLeadAdShown = !objData.ShowOnRoadButton;
+                        objData.IsManufacturerLeadAdShown = (objData.LeadCampaign.ShowOnExshowroom || (objData.IsLocationSelected && !objData.LeadCampaign.ShowOnExshowroom));
                     }
                 }
             }
@@ -1114,6 +1117,10 @@ namespace Bikewale.Models.BikeModels
                         objData.IsAreaSelected = selectedCity != null && selectedCity.HasAreas && _areaId > 0;
                         if (!objData.IsAreaSelected) _areaId = 0;
                     }
+                }
+                else
+                {
+                    objData.ShowOnRoadButton = true;
                 }
             }
         }
