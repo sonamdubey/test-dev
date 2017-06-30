@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bikewale.RabbitMq.LeadProcessingConsumer
+﻿namespace Bikewale.RabbitMq.LeadProcessingConsumer
 {
     /// <summary>
     /// Created by : Sangram Nandkhile on 15 Jun 2017
@@ -12,8 +6,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     /// </summary>
     public class TataCapitalInputEntity
     {
-        public string source { get; set; } = "";
-        public string password { get; set; } = "";
+        public string source { get { return "Bikewale"; } }
+        public string password { get { return "Bikewale@123"; } }
         public string fname { get; set; } = "";
         public string lname { get; set; } = "";
         public string resEmailId { get; set; } = "";

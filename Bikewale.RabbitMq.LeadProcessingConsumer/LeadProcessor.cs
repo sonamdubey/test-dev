@@ -265,7 +265,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             {
                                 Logs.WriteInfoLog(String.Format("Tata Capital Lead started processing. PQId --> {0}", pqId));
                                 _leadProcessor.PushLeadToTataCapital(priceQuote, pqId);
-                                Logs.WriteInfoLog(String.Format("Tata Capital Lead started processing. PQId --> {0}", pqId));
+                                Logs.WriteInfoLog(String.Format("Tata Capital Lead submitted. PQId --> {0}", pqId));
                             }
                         }
                     }
@@ -478,6 +478,9 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             TataCapitalInputEntity tataLeadInput = null;
             try
             {
+
+                #region create firstName and Lastname
+
                 string fullName = priceQuote.CustomerName.Trim();
                 fullName = Regex.Replace(fullName, @"[^a-zA-Z\s]", string.Empty);
                 string firstName = string.Empty, lastName = string.Empty;
@@ -492,31 +495,33 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     firstName = fullName;
                     lastName = fullName;
                 }
+                #endregion
 
-               string tataCapitalCityId = _repository.GetTataCapitalByCityId(priceQuote.CityId);
-                if (string.IsNullOrEmpty(tataCapitalCityId))
-                {
-                    Logs.WriteInfoLog(String.Format("Tata Capital: City Not found in DB Params Logged PQId {0}",pqId));
-                }
+                #region Fetch city and log API inputs
+
+                string tataCapitalCityId = _repository.GetTataCapitalByCityId(priceQuote.CityId);
                 tataLeadInput = new TataCapitalInputEntity()
                 {
-                    fname = firstName,
-                    lname = lastName,
+                    fname = firstName.Trim(),
+                    lname = lastName.Trim(),
                     resEmailId = priceQuote.CustomerEmail,
                     resMobNo = priceQuote.CustomerMobile,
-                    resCity = tataCapitalCityId,
-                    source = ConfigurationManager.AppSettings["TataCapitalSource"],
-                    password = ConfigurationManager.AppSettings["TataCapitalPassword"]
+                    resCity = tataCapitalCityId
                 };
                 Logs.WriteInfoLog(String.Format("Tata Capital: Params Logged PQId {0},  PriceQuote --> {1}", pqId, Newtonsoft.Json.JsonConvert.SerializeObject(priceQuote)));
-                Logs.WriteInfoLog(String.Format("Tata Capital: Params Logged for API Input --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(tataLeadInput)));
+
+                #endregion
+
+                #region API call
+
                 if (_httpClient != null)
                 {
-                    
                     string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(tataLeadInput);
                     string response = string.Empty;
+                    Logs.WriteInfoLog(String.Format("Tata Capital: Params Logged for API Input --> {0}", jsonString));
                     HttpContent httpContent = new StringContent(jsonString);
                     httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
                     using (HttpResponseMessage _response = _httpClient.PostAsync(_tataCapitalAPIUrl, httpContent).Result)
                     {
                         if (_response.IsSuccessStatusCode)
@@ -533,6 +538,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     }
                     Logs.WriteInfoLog(String.Format("Tata Capital:  Request : {0} \n Response : {1}", jsonString, response));
                 }
+
+                #endregion
             }
             catch (Exception ex)
             {
@@ -625,11 +632,11 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 RoyalEnfieldDealer dealer = _repository.GetRoyalEnfieldDealerById(manufacturerDealerId);
                 RoyalEnfieldWebAPI.Service service = new RoyalEnfieldWebAPI.Service();
                 string token = ConfigurationManager.AppSettings["RoyalEnfieldToken"];
-                if(quotation != null)
+                if (quotation != null)
                     Logs.WriteInfoLog(String.Format("Royal Enfield: Params Logged --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(quotation)));
                 if (dealer != null)
                     Logs.WriteInfoLog(String.Format("Royal Enfield: Params Logged for dealer --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(dealer)));
-                if(priceQuote!= null)
+                if (priceQuote != null)
                     Logs.WriteInfoLog(String.Format("Royal Enfield: Params Logged for Pricequote --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(priceQuote)));
 
                 string response = service.Organic(priceQuote.CustomerName, priceQuote.CustomerMobile, "India", dealer.DealerState,
