@@ -1,0 +1,110 @@
+﻿@model  Bikewale.ManufacturerCampaign.Entities.Models.ManufacturerCampaignPopupVM
+@{
+    ViewBag.Title = "Configure Campaign Popup";
+    ViewBag.PageTitle = "Configure Popup for Manufacturer Campaign";
+}
+
+@Html.Partial("~/Views/ManufacturerCampaign/_NavigationBreadcrumbs.cshtml", Model.NavigationWidget)
+
+@if (Model != null && Model.objPopup != null)
+{
+    <form action="/manufacturercampaign/save/popup/" method="post" id="configPopUp">
+        <div class="row">
+            <div class="input-field col s3 offset-s4">
+                <input id="txtPopupHeading" type="text" class="validate" maxlength="100" name="PopupHeading" value="@Model.objPopup.PopupHeading" data-bind="disable : isDefaultHeading">
+                <label for="txtPopupHeading">Popup Heading</label>
+                </div>
+            <div class="input-field col m3 offset-s4">
+                <input id="chkDefaultHeading" type="checkbox" class="filled-in" data-bind="checked : isDefaultHeading">
+                <label for="chkDefaultHeading" class="black-text">Use Default</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s3 offset-s4">
+                <input id="txtPopupDescription" type="text" class="validate" maxlength="100" name="PopupDescription" value="@Model.objPopup.PopupDescription" data-bind="disable : isDefaultDesc">
+                <label for="txtPopupDescription">Popup Description</label>
+            </div>
+            <div class="input-field col m3 offset-s4">
+                <input id="chkDefaultDescription" type="checkbox" class="filled-in" data-bind="checked : isDefaultDesc">
+                <label for="chkDefaultDescription" class="black-text">Use Default</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s3 offset-s4">
+                <input id="txtpopupMessage" type="text" class="validate" maxlength="100" name="PopupSuccessMessage" value="@Model.objPopup.PopupSuccessMessage" data-bind="disable : isDefaultMsg">
+                <label for="txtpopupMessage">Popup Success Message</label>
+            </div>
+            <div class="input-field col m3 offset-s4">
+                <input id="chkDefaultMessage" type="checkbox" class="filled-in" data-bind="checked : isDefaultMsg">
+                <label for="chkDefaultMessage" class="black-text">Use Default</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col offset-s4">
+                <input type="checkbox" class="filled-in" id="chkEmail" name="EmailRequired" @(Model.objPopup.EmailRequired?"checked value=true":"") />
+                <label for="chkEmail">Email Required</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s2 offset-s4">
+                <input type="checkbox" class="filled-in" id="chkPincode" name="PinCodeRequired" @(Model.objPopup.PinCodeRequired ? "checked value=true":"") />
+                <label for="chkPincode">Pincode Required</label>
+            </div>
+            @*<div class="col">
+                <a href="">Map Manufacturer Pincodes</a>
+            </div>*@
+        </div>
+
+        <div class="row">
+            <div class="col s2 offset-s4">
+                <input type="checkbox" class="filled-in" id="chkDealer" name="DealerRequired" @(Model.objPopup.DealerRequired ? "checked value=true":"") />
+                <label for="chkDealer">Dealer Required</label>
+            </div>
+            @*<div class="col">
+                <a href="">Map Manufacturer Dealers</a>
+            </div>*@
+        </div>
+
+        <div class="row">
+            <div class="col offset-s4">
+                <button id="btnConfigurePopup" class="btn waves-effect waves-light" type="submit" name="action">
+                    Configure popup
+                </button>
+            </div>
+        </div>
+        <input type="hidden" name="CampaignId" id="inputCampaignId" value="@Model.objPopup.CampaignId" />
+        <input type="hidden" name="DealerId" id="inputCampaignId" value="@Model.NavigationWidget.DealerId" />
+
+    </form>
+}
+<script type="text/javascript">
+    var heading, desc, msg;
+    var popUpViewModel = function () {
+        var self = this;
+        self.isDefaultHeading = ko.observable(false);
+        self.isDefaultDesc = ko.observable(false);
+        self.isDefaultMsg = ko.observable(false);
+
+    };
+
+    $(document).ready(function () {
+        popUpVM = new popUpViewModel;
+        ko.applyBindings(popUpVM, $('#configPopUp')[0]);
+
+        heading = $('#txtPopupHeading').val();
+        desc = $('#txtPopupDescription').val();
+        msg = $('#txtpopupMessage').val;
+        if (heading == "" || heading== undefined)
+            popUpVM.isDefaultHeading(true);
+
+        if (desc == "" || desc==undefined)
+            popUpVM.isDefaultDesc(true);
+
+        if (msg == "" || msg == undefined)
+            popUpVM.isDefaultMsg(true);
+    });
+</script>

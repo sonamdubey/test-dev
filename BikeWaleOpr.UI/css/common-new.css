@@ -286,3 +286,35 @@ input[type=text].invalid + label.active:after {
     display:inline-block;
     vertical-align:middle;
 }
+
+.no-margin {
+    margin:0px !important;
+}
+
+/* stepper-height-60 start */
+.stepper-height-60 .stepper.horizontal {
+    margin-top: 0;
+	margin-bottom: 0;
+}
+
+.stepper-height-60 .stepper.horizontal .step {
+	height: 62px !important;
+}
+
+.stepper-height-60 .stepper.horizontal .step-title {
+	line-height: 45px;
+	height: 58px;
+}
+
+.stepper-height-60 .stepper.horizontal .step .step-title:before {
+	top: 13.5px;
+}
+
+.stepper-height-60 .stepper.horizontal:before {
+	min-height: 60px;
+}
+
+.stepper-height-60 .stepper .step:not(:last-of-type).active {
+	margin-bottom: 0;
+}
+/* stepper-height-60 end */

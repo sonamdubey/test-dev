@@ -59,7 +59,7 @@ docReady(function () {
         var self = this;
 
         self.ratingCount = ko.observable(0);
-        self.feedbackTitle = ko.observable('Share your rating');
+        self.feedbackTitle = ko.observable('Rate this bike');
         self.feedbackSubtitle = ko.observable('');
         self.validateRatingCountFlag = ko.observable(false);
         self.ratingErrorText = ko.observable('');

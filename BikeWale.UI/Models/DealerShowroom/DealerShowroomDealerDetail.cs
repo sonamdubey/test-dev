@@ -145,7 +145,7 @@ namespace Bikewale.Models
             try
             {
                 objPage.Keywords = string.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", objDealerDetails.DealerDetails.DealerDetails.Name, CityDetails.CityName);
-                objPage.Title = string.Format("{0} | {0} showroom in {1} - BikeWale", objMake.MakeName, CityDetails.CityName);
+                objPage.Title = string.Format("{0} showroom in {1} - BikeWale", objDealerDetails.DealerDetails.DealerDetails.Name, CityDetails.CityName);
                 objPage.Description = string.Format("{2} is an authorized {0} showroom in {1}. Get address, contact details direction, EMI quotes etc. of {2} {0} showroom.", objMake.MakeName, CityDetails.CityName, objDealerDetails.DealerDetails.DealerDetails.Name);
 
             }
