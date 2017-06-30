@@ -20,6 +20,8 @@ namespace Bikewale.Entities.BikeData
         public UInt64 Price { get; set; }
         [DataMember]
         public bool IsDealerPriceQuote { get; set; }
+        [DataMember]
+        public bool IsGstPrice { get; set; }
         //  public string MaskingName { get; set; }
 
     }

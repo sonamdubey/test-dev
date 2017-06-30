@@ -32,7 +32,7 @@ namespace Bikewale.DAL.AutoBiz
             IList<PQ_VersionPrice> priceSplits = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerpricequote_08012016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerpricequote_28062016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -59,7 +59,7 @@ namespace Bikewale.DAL.AutoBiz
                         objPriceQuote.PriceList = new List<PQ_Price>();
                         while (dr.Read())
                         {
-                            objPriceQuote.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt32(dr["Price"]), DealerId = Convert.ToUInt32(dr["DealerId"]) });
+                            objPriceQuote.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt32(dr["Price"]), DealerId = Convert.ToUInt32(dr["DealerId"]),IsGstPrice=SqlReaderConvertor.ToBoolean(dr["isgstprice"]) });
                         }
 
                         dr.NextResult();
@@ -758,7 +758,7 @@ namespace Bikewale.DAL.AutoBiz
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_17052017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_28062017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -807,7 +807,9 @@ namespace Bikewale.DAL.AutoBiz
                                         CategoryId = SqlReaderConvertor.ToUInt32(dr["ItemId"]),
                                         CategoryName = Convert.ToString(dr["ItemName"]),
                                         Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
-                                        DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"])
+                                        DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]),
+                                        IsGstPrice=SqlReaderConvertor.ToBoolean(dr["isgstprice"])
+
                                     });
                                 }
                                 dealerQuotation.PriceList = PriceList;

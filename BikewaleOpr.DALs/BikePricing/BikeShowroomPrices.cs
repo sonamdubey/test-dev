@@ -76,7 +76,7 @@ namespace BikewaleOpr.DALs.BikePricing
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveversionprices"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveversionprices_28062017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 

@@ -34,7 +34,7 @@
                         <div class="clear"></div>
 
                         <div class="padding-10-20" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                            <p class="font12 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road" : "Ex-showroom ")) price in @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</p>
+                            <p class="font12 text-light-grey">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? string.Format("Gst On-road {0}", Model.IsGstPrice ? "" : "(estimated)") : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? string.Format("Gst On-road {0}", Model.IsGstPrice ? "" : "(estimated)") : string.Format("Gst Ex-showroom {0}", Model.IsGstPrice ? "" : "(estimated)"))) price in @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName))</p>
                             <div>
                                 <span itemprop="priceCurrency" content="INR">
                                     @if (Model.BikePrice > 0)

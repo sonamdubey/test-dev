@@ -617,6 +617,17 @@
     background-position: 0 -463px;
 }
 
+/* info icon */
+.info-grey-14 {
+	width: 14px;
+	height: 14px;
+	background-position: -176px -768px;
+	position: relative;
+	top: 2px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
 /* tooltip */
 .bw-tooltip {
     padding: 10px 20px 10px 15px;

@@ -229,6 +229,17 @@
     font-size: 14px;
 }
 
+/* info icon */
+.info-grey-14 {
+	width: 14px;
+	height: 14px;
+	background-position: -173px -613px;
+	position: relative;
+	top: 2px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
 /* emi calculator */
 #emiContent .inr-xxsm-icon {
     width: 8px;

@@ -373,6 +373,17 @@
     color: #4caf50;
 }
 
+/* info icon */
+.info-grey-14 {
+	width: 14px;
+	height: 14px;
+	background-position: -173px -613px;
+	position: relative;
+	top: 2px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
 .secondary-dealer-card {
     width: 308px;
     min-height: 102px;

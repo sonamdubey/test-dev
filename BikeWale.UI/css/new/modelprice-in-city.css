@@ -251,6 +251,17 @@
     
 }
 
+/* info icon */
+.info-grey-14 {
+	width: 14px;
+	height: 14px;
+	background-position: -176px -768px;
+	position: relative;
+	top: 2px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
 /* dealer campaign */
 .padding-top30 {
     padding-top: 30px;
