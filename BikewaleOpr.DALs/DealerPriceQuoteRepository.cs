@@ -137,11 +137,10 @@ namespace BikewaleOpr.DALs
         public bool SaveDealerPrice(DataTable dt)
         {
             bool isPriceSaved = false;
-
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealerprices_09092016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealerprices_28062017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.UpdatedRowSource = UpdateRowSource.None;

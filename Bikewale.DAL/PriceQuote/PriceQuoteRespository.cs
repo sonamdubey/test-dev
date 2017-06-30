@@ -154,7 +154,7 @@ namespace Bikewale.DAL.PriceQuote
                 objQuotation = new BikeQuotationEntity();
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getpricequote_new_06062017";
+                    cmd.CommandText = "getpricequote_new_28062017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, pqId));
@@ -188,6 +188,7 @@ namespace Bikewale.DAL.PriceQuote
                             objQuotation.EmailRequired = SqlReaderConvertor.ToBoolean(dr["EmailIDRequired"]);
                             objQuotation.DealersRequired = SqlReaderConvertor.ToBoolean(dr["DealersRequired"]);
                             objQuotation.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
+                            objQuotation.IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]);
                         }
                     }
                 }
@@ -532,7 +533,7 @@ namespace Bikewale.DAL.PriceQuote
 
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getversionpricesbymodelid_15052017";
+                    cmd.CommandText = "getversionpricesbymodelid_28062017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -562,7 +563,8 @@ namespace Bikewale.DAL.PriceQuote
                                 HostUrl = Convert.ToString(dr["HostUrl"]),
                                 MakeId = SqlReaderConvertor.ToUInt32(Convert.ToString(dr["MakeId"])),
                                 IsModelNew = SqlReaderConvertor.ToBoolean(dr["IsModelNew"]),
-                                IsVersionNew = SqlReaderConvertor.ToBoolean(dr["IsVersionNew"])
+                                IsVersionNew = SqlReaderConvertor.ToBoolean(dr["IsVersionNew"]),
+                                IsGstPrice=SqlReaderConvertor.ToBoolean(dr["isgstprice"])
 
                             });
 
@@ -639,8 +641,12 @@ namespace Bikewale.DAL.PriceQuote
             }
             return objVersionInfo;
         }
-
+        /// <summary>
+        /// Summary; To Fetch manufacturer Dealers
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<ManufacturerDealer> GetManufacturerDealers()
+
         {
             List<ManufacturerDealer> dealers = null;
             try

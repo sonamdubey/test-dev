@@ -373,6 +373,31 @@
     color: #4caf50;
 }
 
+/* info icon */
+.info-grey-14 {
+	width: 14px;
+	height: 14px;
+	background-position: -173px -613px;
+	position: relative;
+	top: 2px;
+	margin-right: 2px;
+	cursor: pointer;
+}
+
+.padding-bottom40 {
+	padding-bottom: 40px;
+}
+
+.price--label-position {
+	position: absolute;
+	bottom: -18px;
+	font-size: 13px;
+}
+
+.pos-bottom-40 {
+	bottom: -40px;
+}
+
 .secondary-dealer-card {
     width: 308px;
     min-height: 102px;
