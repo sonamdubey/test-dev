@@ -54,9 +54,6 @@ namespace Bikewale.Entities.Dealer
 
         [JsonProperty("manufacturerDealerState")]
         public string ManufacturerDealerState { get; set; }
-
-        [JsonProperty("campaignId")]
-        public uint CampaignId { get; set; }
     }
 
     /// <summary>
