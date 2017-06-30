@@ -82,6 +82,7 @@
     </form>
 }
 <script type="text/javascript">
+    var heading, desc, msg;
     var popUpViewModel = function () {
         var self = this;
         self.isDefaultHeading = ko.observable(false);
@@ -94,8 +95,16 @@
         popUpVM = new popUpViewModel;
         ko.applyBindings(popUpVM, $('#configPopUp')[0]);
 
-        $('#btnConfigurePopup').click(function () {
+        heading = $('#txtPopupHeading').val();
+        desc = $('#txtPopupDescription').val();
+        msg = $('#txtpopupMessage').val;
+        if (heading == "" || heading== undefined)
+            popUpVM.isDefaultHeading(true);
 
-        });
+        if (desc == "" || desc==undefined)
+            popUpVM.isDefaultDesc(true);
+
+        if (msg == "" || msg == undefined)
+            popUpVM.isDefaultMsg(true);
     });
 </script>
