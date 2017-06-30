@@ -23,6 +23,14 @@ namespace Bikewale.Utility.StringExtention
             var cultureInfo = System.Threading.Thread.CurrentThread.CurrentCulture;
             return cultureInfo.TextInfo.ToTitleCase(str.ToLower());
         }
+
+        public static string ToSentenceCase(string str)
+        {
+            // matches the first sentence of a string, as well as subsequent sentences
+            var r = new Regex(@"(^[a-z])|\.\s+(.)", RegexOptions.ExplicitCapture);
+            // MatchEvaluator delegate defines replacement of setence starts to uppercase
+            return r.Replace(str.ToLower(), s => s.Value.ToUpper());
+        }
         /// <summary>
         /// Created By : Lucky Rathore 
         /// Created on : 23 feb 2016

@@ -9,6 +9,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
+using Bikewale.Utility.StringExtention;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -193,7 +194,7 @@ namespace Bikewale.Controllers
 
 
             UserReviewRatingObject objRating = null;
-
+            userName = StringHelper.ToProperCase(userName);
             objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId, returnUrl, platformId, sourceId);
 
 
@@ -298,6 +299,11 @@ namespace Bikewale.Controllers
         public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, uint reviewId, string encodedString, bool? isDesktop)
         {
             WriteReviewPageSubmitResponse objResponse = null;
+            // to convert strings into sentence case
+            reviewDescription = StringHelper.ToSentenceCase(reviewDescription);
+            reviewTitle = StringHelper.ToSentenceCase(reviewTitle);
+            reviewTips = StringHelper.ToSentenceCase(reviewTips);
+
 
             objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips.Trim(), reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName);
 
