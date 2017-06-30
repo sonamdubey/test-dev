@@ -329,11 +329,11 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     if (objCampaign.DailyLeadLimit > 0)
                         param.Add("par_dailyleadlimit", objCampaign.DailyLeadLimit);
                     else
-                        param.Add("par_dailyleadlimit", DBNull.Value);
+                        param.Add("par_dailyleadlimit", null);
                     if (objCampaign.TotalLeadLimit > 0)
                         param.Add("par_totalleadlimit", objCampaign.TotalLeadLimit);
                     else
-                        param.Add("par_totalleadlimit", DBNull.Value);
+                        param.Add("par_totalleadlimit", null);
                     param.Add("par_campaignpages", objCampaign.CampaignPages);
                     param.Add("par_startDate", objCampaign.StartDate);
                     param.Add("par_endDate", objCampaign.EndDate ?? null);
