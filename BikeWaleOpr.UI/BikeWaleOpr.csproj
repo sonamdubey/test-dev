@@ -1932,6 +1932,7 @@
     <Content Include="src\jquery-1.6.min.js" />
     <Content Include="src\knockout.js" />
     <Content Include="src\ManufactureCampaign\ConfigureCampaign.js" />
+    <Content Include="src\ManufactureCampaign\configureCampaignProperties.js" />
     <Content Include="src\ManufactureCampaign\rules.js" />
     <Content Include="src\ManufacturerCampaign\SearchManufacture.js" />
     <Content Include="src\modelImagesByColor.js" />

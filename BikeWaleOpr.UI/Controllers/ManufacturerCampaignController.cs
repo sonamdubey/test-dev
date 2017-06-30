@@ -77,7 +77,7 @@ namespace BikewaleOpr.Controllers
                 CWWebservice.AddCampaignContractData(ccInputs);
             }
                                     
-            return Redirect("/manufacturercampaign/properties/?campaignId="+ campaignId +"&dealerid="+ objData.DealerId);
+            return Redirect(string.Format("/manufacturercampaign/properties/{0}/?campaignId={1}" , objData.DealerId, campaignId));
         }
 
         [Route("manufacturercampaign/properties/{dealerid}/")]
