@@ -14,7 +14,15 @@ namespace Bikewale.Utility.StringExtention
             if (string.IsNullOrEmpty(str)) return str;
             return str.Length <= length ? str : str.Substring(0, length);
         }
-
+        /// <summary>
+        /// Created By :- Subodh Jain 03 July 2017
+        /// Summary :- Use the current thread's culture info for conversion
+        /// </summary>
+        public static string ToProperCase(string str)
+        {
+            var cultureInfo = System.Threading.Thread.CurrentThread.CurrentCulture;
+            return cultureInfo.TextInfo.ToTitleCase(str.ToLower());
+        }
         /// <summary>
         /// Created By : Lucky Rathore 
         /// Created on : 23 feb 2016
