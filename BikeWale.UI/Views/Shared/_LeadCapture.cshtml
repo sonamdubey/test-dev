@@ -114,7 +114,7 @@
     var fullName,emailid , mobile ;
     var assistanceGetName , assistanceGetEmail, assistanceGetMobile,detailsSubmitBtn ;
     var prevEmail = "",prevMobile = "",prevPinCode = "";
-    var leadmodelid = '@Model.ModelId', leadcityid = '@Model.CityId', leadareaid = '@Model.AreaId';
+    var leadmodelid = parseInt('@Model.ModelId'), leadcityid = parseInt('@Model.CityId'), leadareaid = parseInt('@Model.AreaId');
     var leadBikeName = '@Model.BikeName',leadLocation = '@Model.Location'; 
     var objPinCodes = new Object(), dleadvm, validate;
     
@@ -124,12 +124,11 @@
         var self = this;
         if (arr != null && arr.length > 0) {
             self.fullName = ko.observable(arr[0]);
-            if (arr[1] != "undefined") {
+            if (!arr[1]) {
                 self.emailId = ko.observable(arr[1]);
             }
             else {
                 self.emailId = ko.observable();
-
             }
             self.mobileNo = ko.observable(arr[2]);
         }
@@ -229,7 +228,8 @@
 
                 if (options.dealersRequired != null)
                 {
-                    self.dealersRequired(options.dealersRequired != 'true' ? false : true);
+                    debugger;
+                    self.dealersRequired(options.dealersRequired != 'True' ? false : true);
                     if(self.cityId() && self.dealersRequired())
                     {
                         self.getDealersList(self.dealerId());

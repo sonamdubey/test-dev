@@ -202,6 +202,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ISplashScreenRepository, SplashScreenRepository>();
             container.RegisterType<ISplashScreenCacheRepository, SplashScreenCacheRepository>();
             container.RegisterType<ICMS, CMS>();
+            container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
             return container;
         }
     }

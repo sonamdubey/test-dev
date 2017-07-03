@@ -122,7 +122,7 @@
         var leadBtnBookNow, leadCapturePopup, leadBike;
         var fullName, emailid, mobile, detailsSubmitBtn;
         var prevEmail = "", prevMobile = "", prevPinCode = "";
-        var leadmodelid = '@Model.ModelId', leadcityid = '@Model.CityId', leadareaid = '@Model.AreaId';
+        var leadmodelid = parseInt('@Model.ModelId'), leadcityid = parseInt('@Model.CityId'), leadareaid = parseInt('@Model.AreaId');
         var leadBikeName = '@Model.BikeName', leadLocation = '@Model.Location', CityArea = leadLocation;
         var objPinCodes = new Object(), validate, validateInputSelection;
         var brandSearchBar, dealerSearchBrand, dealerSearchBrandForm;
@@ -237,7 +237,7 @@
 
                     if (options.dealersRequired != null)
                         self.dealersRequired(options.dealersRequired != 'true' ? false : true);
-                    
+
                     if (options.pageurl != null)
                         self.pageUrl = options.pageurl;
 
@@ -460,9 +460,9 @@
                 var isValid = true;
 
                 isValid = self.validateUserName();
-             
+
                     isValid &= self.validateEmailId();
-             
+
                 isValid &= self.validateMobileNo();
                 if (self.pinCodeRequired()) {
                     isValid &= self.validatePinCode();
@@ -899,7 +899,7 @@
                     }
                 }
             });
-            
+
             $(document).on('click','#templist li', function () {
                 validate.setError($('#ddlMfgDealers'), '');
             });
