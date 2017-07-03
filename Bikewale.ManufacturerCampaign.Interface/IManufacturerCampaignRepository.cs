@@ -3,6 +3,7 @@ using Bikewaleopr.ManufacturerCampaign.Entities;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ManufacturerCampaign;
 using BikewaleOpr.Models.ManufacturerCampaign;
+using System;
 using System.Collections.Generic;
 
 
@@ -25,6 +26,6 @@ namespace Bikewale.ManufacturerCampaign.Interface
         bool DeleteManufacturerCampaignRules(uint campaignId, uint modelId, uint stateId, uint cityId, uint userId, bool isAllIndia);
         bool SaveManufacturerCampaignProperties(CampaignPropertiesVM objCampaign);
         Entities.ManufacturerCampaignEntity GetCampaigns(uint modelId, uint cityId, ManufacturerCampaignServingPages pageId);
-        bool SaveManufacturerCampaignLead(uint dealerid, uint pqId, string customerName, string customerEmail, string customerMobile, uint colorId, uint leadSourceId, string utma, string utmz, string deviceId, uint campaignId);
+        uint SaveManufacturerCampaignLead(uint dealerid, uint pqId, UInt64 customerId, string customerName, string customerEmail, string customerMobile, uint leadSourceId, string utma, string utmz, string deviceId, uint campaignId, uint leadId);
     }
 }
