@@ -18,8 +18,8 @@
   box-shadow: 0 0 2px 0 #bbb; }
 
 .card-spacing {
-  padding: 35px 50px;
-  margin-bottom: 40px; }
+  padding: 20px;
+  margin-bottom: 20px; }
 
 .contest-banner {
   height: 390px;
@@ -55,14 +55,14 @@
   font-size: 18px;
   font-weight: 700;
   text-transform: uppercase;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   text-align: center; }
 
 #overviewContent {
-  margin-bottom: 40px; }
+  margin-bottom: 20px; }
 
 .overview__top-card {
-  padding: 35px 50px 20px; }
+  padding: 20px; }
 
 .guideline-list {
   text-align: center;
@@ -99,8 +99,8 @@
   background-position: -100px 0; }
 
 .overview__review-form {
-  padding-top: 25px;
-  padding-bottom: 25px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   text-align: center;
   background: #fbfbfb;
   border: 1px solid #eee; }
@@ -135,16 +135,16 @@
   list-style: disc;
   font-size: 14px; }
   .bullet-list li {
-    margin-top: 15px; }
+    margin-top: 10px; }
     .bullet-list li:first-child {
       margin-top: 0; }
   .bullet-list.more-list-content li:first-child {
-    margin-top: 15px; }
+    margin-top: 10px; }
 
 #winnersContent {
   background: #2e3192;
-  margin-bottom: 40px;
-  padding-top: 35px; }
+  margin-bottom: 20px;
+  padding-top: 20px; }
 
 .text-white {
   color: #fff; }
@@ -392,7 +392,7 @@
 .winner-review-swiper {
   width: 976px;
   padding-top: 75px;
-  padding-bottom: 85px; }
+  padding-bottom: 75px; }
   .winner-review-swiper .swiper-slide {
     width: 304px;
     height: 231px;

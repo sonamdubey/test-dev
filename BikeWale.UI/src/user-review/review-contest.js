@@ -187,6 +187,7 @@ docReady(function () {
 		grabCursor: false,
 		centeredSlides: true,
 		slidesPerView: 'auto',
+		initialSlide: 1,
 		coverflow: {
 			rotate: 50,
 			stretch: 0,

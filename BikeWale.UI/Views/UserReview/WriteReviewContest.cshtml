@@ -37,8 +37,8 @@
 					<div class="overall-specs-tabs-wrapper">
 						<a href="#overviewContent" class="active" rel="nofollow">Overview</a>
 						<a href="#cheatsheetContent" rel="nofollow">Cheatsheet</a>
-						<a href="#winnersContent" rel="nofollow">Winners' reviews</a>
-						<a href="#tncContent" rel="nofollow">T&amp;C</a>
+						<a href="#winnersContent" rel="nofollow">Previous Winners' Reviews</a>
+						<a href="#tncContent" rel="nofollow">Terms &amp; Conditions</a>
 					</div>
 				</div>
 			</div>
@@ -67,7 +67,7 @@
 					<p class="review-form__title">Start writing your review</p>
 
 					<div class="select-box review-form-field">
-						<p class="select-label">Make<sup>*</sup></p>
+						<p class="select-label">Make</p>
 						<select id="reviewSelectMake" class="chosen-select bike-select-field" data-placeholder="Select make">
 							<option value></option>
 							<option value="2">Aprilia</option>
@@ -85,7 +85,7 @@
 					</div>
 
 					<div class="select-box review-form-field">
-						<p class="select-label">Model<sup>*</sup></p>
+						<p class="select-label">Model</p>
 						<select id="reviewSelectModel" class="chosen-select bike-select-field" data-placeholder="Select model" disabled>
 							<option value></option>
 						</select>
@@ -118,7 +118,7 @@
 		</div>
 
 		<div id="winnersContent" class="bw-model-tabs-data card-shadow">
-			<h2 class="h2-heading text-white">Previous Winners' Reviews</h2>
+			<h2 class="h2-heading text-white">Winners' Reviews</h2>
 			<div class="swiper-container winner-review-swiper">
 				<ul class="swiper-wrapper">
 					<li class="swiper-slide">
@@ -128,7 +128,7 @@
 							<span class="bwsprite star-white"></span>3
 						</span>
 						<p class="review-card-subtitle">Royal Enfield Thunderbird 350</p>
-						<p class="review-card-desc">"The buying experience was a bliss.as it's no surprise that at this price range.."</p>
+						<p class="review-card-desc">"The buying experience was a bliss. As it's no surprise that at this price range.."</p>
 						<a href="/royalenfield-bikes/thunderbird/reviews/1933/" class="swiper-card-target text-underline">Read full review</a>
 					</li>
 					<li class="swiper-slide">
@@ -143,13 +143,13 @@
 					</li>
 					<li class="swiper-slide">
 						<span class="review-author john-doe"></span>
-						<p class="card-title">B Lava Kumar</p>
-						<span class="rating-badge" data-rate-bg="1">
-							<span class="bwsprite star-white"></span>1
+						<p class="card-title">Monnappa</p>
+						<span class="rating-badge" data-rate-bg="5">
+							<span class="bwsprite star-white"></span>5
 						</span>
-						<p class="review-card-subtitle">Royal Enfield Classic 350</p>
-						<p class="review-card-desc">"I have been hearing some weird noises from engine since day.."</p>
-						<a href="/royalenfield-bikes/classic/reviews/452/" class="swiper-card-target text-underline">Read full review</a>
+						<p class="review-card-subtitle">KTM 200 Duke</p>
+						<p class="review-card-desc">"1.Looks: amazing looks, resembles a brute. 2.Reliability: very reliable.."</p>
+						<a href="/ktm-bikes/duke-200/reviews/1808/" class="swiper-card-target text-underline">Read full review</a>
 					</li>
 				</ul>
 				<div class="swiper-pagination"></div>
@@ -195,3 +195,10 @@
 </section>
 
 <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/swiper-3.1.7.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion"></script>
+
+<style type="text/css">
+	.winner-review-swiper .swiper-slide {
+		float: left\9;
+		opacity: 1\9;
+	}
+</style>
