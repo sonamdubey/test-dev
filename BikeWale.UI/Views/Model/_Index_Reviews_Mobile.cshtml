@@ -20,7 +20,7 @@
 
                
                 <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="leftfloat margin-right10 padding-left10 font12 ">
-                    <span itemprop="ratingCount">@Model.ModelPageEntity.ModelDetails.ReviewCount</span><span>&nbsp;Review@((Model.ModelPageEntity.ModelDetails.ReviewCount) > 1 ? "s" : "")</span>
+                    <span>@Model.ModelPageEntity.ModelDetails.ReviewCount</span><span>&nbsp;Review@((Model.ModelPageEntity.ModelDetails.ReviewCount) > 1 ? "s" : "")</span>
                 </a>                                                       
             </span>
         }
