@@ -1,5 +1,5 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
-@if (Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewRate) > 0)
+@if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.ReviewRate > 0 && Model.ModelPageEntity.ModelDetails.RatingCount > 0)
 {
     <div class="rating-box inline-block">
         <span class="bwsprite star-one"></span>

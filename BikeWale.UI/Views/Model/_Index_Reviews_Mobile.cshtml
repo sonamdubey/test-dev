@@ -9,7 +9,7 @@
     <span class="border-light-left"></span>
 }
     <div class="inline-block">
-        @if (Model.ModelPageEntity.ModelDetails.ReviewRate > 0)
+        @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.ReviewRate > 0 && Model.ModelPageEntity.ModelDetails.RatingCount > 0)
         {
             <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                 <meta itemprop="ratingCount" content="@Model.ModelPageEntity.ModelDetails.RatingCount">
