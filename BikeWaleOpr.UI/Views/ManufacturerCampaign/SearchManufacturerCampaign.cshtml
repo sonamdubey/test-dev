@@ -9,7 +9,7 @@
         <div id="tblCampaigns" class="hide" data-BwOprHostUrl="@System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]">
             <table class="bordered highlight z-depth-3 centered responsive-table" id="DealerCampaignsList">
                 <tr>
-                    <th>Id</th>
+                    <th>CampaignId</th>
                     <th>Description</th>
                     <th>Masking Number</th>
                     <th>Start Date</th>
@@ -92,7 +92,7 @@
 
 <script type="text/html" id="DealerCampaignList">
     <tr>
-        <td data-bind="text: $index() + 1"></td>
+        <td data-bind="text: id"></td>
         <td data-bind="text: description"></td>
         <td data-bind="text: maskingNumber"></td>
         <td data-bind="text: campaignStartDate"></td>
