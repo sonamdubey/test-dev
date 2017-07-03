@@ -140,7 +140,7 @@ var modelGallery = function () {
     self.galleryFooterActive = ko.observable(true);
     self.photoHeadingActive = ko.observable(true);
     self.fullScreenModeActive = ko.observable(false);
-    self.fullscreenSupport = ko.observable(true);
+    self.fullscreenSupport = ko.observable(true && "orientation" in screen);
 
     // footer screens
     self.screenActive = ko.observable(false);
@@ -308,15 +308,27 @@ var modelGallery = function () {
     };
 
     self.toggleFullScreen = function () {
-        fadeOutFooterTabs();
         self.deactivateAllScreens();
+
         if (!self.fullScreenModeActive()) {
             toggleFullScreen(true);
             self.fullScreenModeActive(true);
+
+			if ("orientation" in screen && screen.orientation.type == 'portrait-primary') {
+				screen.orientation.unlock();
+				screen.orientation.lock('landscape-primary');
+
+				self.hideFooterTabs();
+			}
         }
         else {
             toggleFullScreen(false);
             self.fullScreenModeActive(false);
+
+			if ("orientation" in screen && screen.orientation.type == 'landscape-primary') {
+				screen.orientation.unlock();
+				screen.orientation.lock('portrait-primary');
+			}
         }
     };
 };
@@ -526,13 +538,6 @@ function resizeHandler() {
             $('.main-video-iframe-content').css({ 'padding-bottom': '56.25%' });
         }
     }
-};
-
-function fadeOutFooterTabs() {
-    $('#gallery-footer').hide();
-    setTimeout(function () {
-        $('#gallery-footer').show();
-    }, 500);
 };
 
 function toggleFullScreen(goFullScreen) {

@@ -115,8 +115,7 @@
                         <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
                             <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activePhotoTitle()"></p>
                             <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
-                                <span data-bind="text: activePhotoIndex()"></span>/ 
-                                <span data-bind="text: photoList().length"></span>
+                                <span data-bind="text: activePhotoIndex()"></span>&nbsp;/&nbsp;<span data-bind="text: photoList().length"></span>
                             </div>
                             <div class="clear"></div>
                         </div>
