@@ -12,6 +12,7 @@
         @if (Model.ModelPageEntity.ModelDetails.ReviewRate > 0)
         {
             <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                <meta itemprop="ratingCount" content="@Model.ModelPageEntity.ModelDetails.RatingCount">
                 <meta itemprop="ratingValue" content="@Model.ModelPageEntity.ModelDetails.ReviewRate">
                 <meta itemprop="worstRating" content="1">
                 <meta itemprop="bestRating" content="5">
