@@ -54,7 +54,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsDiscontinuedBike { get { return (IsModelDetails && !IsNewBike && !IsUpcomingBike); } }
         public bool IsDPQAvailable { get; set; }
         public bool IsBPQAvailable { get; set; }
-public bool IsGstPrice { get; set; }
+        public bool IsGstPrice { get; set; }
         public bool IsPrimaryDealer { get { return (this.DetailedDealer != null && this.DetailedDealer.PrimaryDealer != null); } }
         public bool IsDealerDetailsExists { get { return (this.IsPrimaryDealer && this.DetailedDealer.PrimaryDealer.DealerDetails != null); } }
         public bool IsPremiumDealer { get { return (IsPrimaryDealer && this.DetailedDealer.PrimaryDealer.IsPremiumDealer); } }
@@ -66,7 +66,7 @@ public bool IsGstPrice { get; set; }
 
         public string ClientIP { get; set; }
         public string PageUrl { get; set; }
-        public int PQSourcePage { get { return (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_ModelPage; } }
+        public int PQSourcePage { get { return (int)PQSourceEnum.Desktop_ModelPage; } }
         public int PQLeadSource { get { return 32; } }
         public string VersionPriceListSummary { get; set; }
 

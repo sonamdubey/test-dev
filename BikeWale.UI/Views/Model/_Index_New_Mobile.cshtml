@@ -119,7 +119,7 @@
     </section>
 }
 
-@if (Model.LeadCapture != null && Model.IsLocationSelected)
+@if (Model.LeadCapture != null && (Model.IsLocationSelected || Model.IsManufacturerLeadAdShown))
 {
     @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 }

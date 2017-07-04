@@ -175,9 +175,7 @@ docReady(function () {
                     lab: ele.attr("v")
                 }
             };
-            if (leadOptions.dealersRequired) {
-                generateDealerDropdown(leadOptions.dealerid);
-            }
+
             gaLabel = myBikeName + '_' + getCityArea;
             dleadvm.setOptions(leadOptions);
         } catch (e) {

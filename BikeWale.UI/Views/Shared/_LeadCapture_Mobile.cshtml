@@ -1,7 +1,136 @@
 ﻿@model Bikewale.Entities.PriceQuote.LeadCaptureEntity
 @if (Model != null)
 {
+    <style>
+        .slideIn-input-box-content {
+            height: 60px;
+        }
 
+        .slideIn-input-box {
+            padding-bottom: 5px;
+            position: relative;
+            border-bottom: 1px solid #82888b;
+            height: 36px;
+        }
+
+            .slideIn-input-box .slideIn-input-label {
+                font-size: 16px;
+                color: #82888b;
+                position: absolute;
+                top: 4px;
+            }
+
+            .slideIn-input-box .city-box-default {
+                width: 100%;
+                cursor: pointer;
+            }
+
+            .slideIn-input-box .selected-option-box {
+                padding-right: 20px;
+            }
+
+        .selection-done .slideIn-input-label {
+            font-size: 12px;
+            top: -14px;
+        }
+
+        .selected-option-box {
+            font-size: 16px;
+            color: #82888b;
+            height: 36px;
+            padding-top: 7px;
+        }
+
+        .slideIn-drawer-container {
+            display: none;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: #fff;
+            z-index: 2;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+            .slideIn-drawer-container .back-arrow-box {
+                padding: 15px 15px 12px 20px;
+                z-index: 2;
+                cursor: pointer;
+            }
+
+            .slideIn-drawer-container .drawer-top-header .head-label {
+                font-size: 16px;
+                font-weight: 700;
+                color: #000;
+            }
+
+            .slideIn-drawer-container .filter-input-box {
+                padding: 0 20px 12px;
+            }
+
+            .slideIn-drawer-container .filter-list li {
+                padding-right: 20px;
+                padding-left: 20px;
+            }
+
+                .slideIn-drawer-container .filter-list li span {
+                    font-size: 16px;
+                    padding: 10px 20px 10px 0;
+                    display: block;
+                    position: relative;
+                    border-top: 1px solid #f5f5f5;
+                    cursor: pointer;
+                }
+
+                .slideIn-drawer-container .filter-list li:hover {
+                    background-color: #f5f5f5;
+                }
+
+                .slideIn-drawer-container .filter-list li:first-child span {
+                    border-top: 0;
+                }
+
+                .slideIn-drawer-container .filter-list li:hover {
+                    background: #f5f5f5;
+                }
+
+            .slideIn-drawer-container.fix-header-input .filter-list {
+                margin-top: 100px;
+                margin-bottom: 40px;
+            }
+
+            .slideIn-drawer-container.fix-header-input .drawer-top-header {
+                width: 100%;
+                background: #fff;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 2;
+                height:100px;
+            }
+
+            .slideIn-drawer-container.fix-header-input.fix-only-header .drawer-body-content {
+                margin-top: 47px;
+                margin-bottom: 40px;
+            }
+
+            .slideIn-drawer-container.fix-header-input.fix-only-header .filter-list {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+
+            .search-icon-grey {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    z-index: 2;
+    background-position: -34px -275px;
+}
+    </style>
     <!-- Lead Capture pop up start  -->
     <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
         <div class="popup-inner-container text-center">
@@ -12,6 +141,17 @@
 
 
                 <div class="personal-info-form-container">
+
+                    <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: selectedCity() ? 'selection-done' : '',click : openCityList">
+                        <div id="city-select-element" class="slideIn-input-box">
+                            <p class="slideIn-input-label city-box-default text-left" data-bind="visible: (selectedCity() && selectedCity().cityName != ''),css : (selectedCity() && selectedCity().cityName != '') ? 'done' : '' ">City<sup>*</sup></p>
+                            <p id="city-select-p" class="selected-option-box city-box-default text-truncate" data-bind="text: (selectedCity() && selectedCity().cityName != '') ? selectedCity().cityName : 'Select City'"></p>
+                            <span class="boundary"></span>
+                            <span class="error-text hide"></span>
+                            <span class="bwmsprite grey-right-icon"></span>
+                        </div>
+                    </div>
+
                     <!-- ko if : isDealerBikes() -->
                     <div id="getLeadBike" class="form-control-box margin-bottom15">
                         <div class="input-select-box dealer-search-brand form-control-box">
@@ -107,6 +247,32 @@
                 <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
             </div>
             <!-- thank you message ends here -->
+            <!-- city drawer starts here -->
+            <div id="pqcity-slideIn-drawer" class="slideIn-drawer-container">
+                <div class="form-control-box text-left">
+                    <div class="drawer-top-header">
+                        <div>
+                            <span id="close-city-filter" class="back-arrow-box inline-block" data-bind="click : closeCityList">
+                                <span class="bwmsprite back-long-arrow-left"></span>
+                            </span><p class="head-label inline-block">Select city</p>
+                        </div>
+                        <div class="filter-input-box">
+                            <div class="form-control-box">
+                                <input type="text" id="city-search-box" class="form-control padding-right40" placeholder="Type to select city" data-bind="textInput:cityFilter" autocomplete="off">
+                                <span class="bwmsprite search-icon-grey"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="filter-list" id="pqpopupCityList" data-bind="template: { name: 'pqbindCityList-template', foreach: visibleCities }"></ul>
+                    <script type="text/html" id="pqbindCityList-template">
+                        <li data-bind="click: $parent.selectCity , attr: { 'cityId': cityId }">
+                            <span data-bind="text: cityName"></span>
+                        </li>
+                    </script>
+                </div>
+            </div>
+            <!-- city drawer ends here -->
+
         </div>
     </div>
     <div id="ub-ajax-loader">
@@ -123,7 +289,8 @@
         var leadmodelid = parseInt('@Model.ModelId'), leadcityid = parseInt('@Model.CityId'), leadareaid = parseInt('@Model.AreaId');
         var leadBikeName = '@Model.BikeName', leadLocation = '@Model.Location', CityArea = leadLocation;
         var objPinCodes = new Object(), validate, validateInputSelection;
-        var brandSearchBar, dealerSearchBrand, dealerSearchBrandForm;
+        var brandSearchBar, dealerSearchBrand, dealerSearchBrandForm, windowScreen;
+
 
         function leadModel() {
             var arr = setuserDetails();
@@ -145,7 +312,6 @@
 
             }
             self.msg = "";
-            var dummyOption = { id: 0, name: '', isPopular: false, hasAreas: false };
             self.pincode = ko.observable();
             self.IsVerified = ko.observable(false);
             self.pqId = ko.observable(0);
@@ -160,6 +326,7 @@
             self.pqSourceId = ko.observable();
             self.pageUrl = window.location.href;
             self.clientIP = "";
+            self.cityFilter = ko.observable("");
             self.isRegisterPQ = ko.observable(false);
             self.isDealerBikes = ko.observable(false);
             self.dealerBikes = ko.observableArray([]);
@@ -179,6 +346,44 @@
             self.eventCategory = ko.observable();
             self.cities = ko.observableArray();
             self.selectedCity = ko.observable();
+            self.FilterData = function (data, filter) {
+                filterObj = data;
+                if (filter && filter.length > 1) {
+                    var pat = new RegExp(filter, "i");
+                    filterObj = data.filter(function (place) {
+                        if (pat.test(place.cityName)) return place;
+                    });
+
+                }
+                return filterObj;
+            };
+            self.visibleCities = ko.computed(function () {
+                return self.FilterData(self.cities(), self.cityFilter());
+            });
+
+            self.openCityList = function () {
+                var cityListContainer = $('#pqcity-slideIn-drawer');
+                cityListContainer.show('slide', { direction: 'right' }, 500, function () {
+                    cityListContainer.addClass('fix-header-input');
+                });
+
+                if ($(document).height() > $(window).height()) {
+                    var windowScrollTop = windowScreen.htmlElement.scrollTop() ? windowScreen.htmlElement.scrollTop() : windowScreen.bodyElement.scrollTop();
+                    if (windowScrollTop < 0) {
+                        windowScrollTop = 0;
+                    }
+                    windowScreen.htmlElement.addClass('lock-browser-scroll').css('top', -windowScrollTop);
+                }
+            };
+
+            self.closeCityList = function()
+            {
+                var cityListContainer = $('#pqcity-slideIn-drawer');
+                cityListContainer.hide('slide', { direction: 'right' }, 500, function () { });
+                cityListContainer.removeClass('fix-header-input');
+                windowScreen.unlock();
+            }
+
             self.setOptions = function (options) {
                 if (options != null) {
                     if (options.eventcategory != null)
@@ -273,7 +478,6 @@
                             var cities = response.cities;
                             var citySelected = null;
                             if (cities) {
-                                cities.splice(0, 0, dummyOption);
                                 self.cities(cities);
                             }
                             else {
@@ -287,16 +491,20 @@
             };
 
             self.selectCity = function (d, e) {
-                var ele = $("#getLeadCity");
+                self.selectedCity(d);
                 if (self.selectedCity() && self.selectedCity().cityId > 0) {
-                    hideError(ele);
-                    ele.parent().addClass('done');
                     self.cityId(self.selectedCity().cityId);
-                    self.getDealersList(self.dealerId());
+
+                    if (self.dealersRequired())
+                    {
+                        self.getDealersList(self.dealerId());
+                    }
+
                     self.isRegisterPQ(true);
                 }
-                else setError($(this));
-            }
+                //else setError($(this));
+                self.closeCityList();
+            };
 
             self.getDealerBikes = function (data, event) {
 
@@ -347,7 +555,7 @@
             self.getDealersList = function () {
                 $.ajax({
                     type: "GET",
-                    url: "/api/ManufacturerCampaign/city/" + cityId + "/dealer/" + dealerId + "/",
+                    url: "/api/ManufacturerCampaign/city/" + self.cityId() + "/dealer/" + self.dealerId() + "/",
                     contentType: "application/json",
                     dataType: 'json',
                     success: function (response) {
@@ -932,6 +1140,29 @@
                 appendState('leadCapture');
                 lockPopup();
             });
+
+            windowScreen = {
+                htmlElement: $('html'),
+
+                bodyElement: $('body'),
+
+                lock: function () {
+                    if ($(document).height() > $(window).height()) {
+                        var windowScrollTop = windowScreen.htmlElement.scrollTop() ? windowScreen.htmlElement.scrollTop() : windowScreen.bodyElement.scrollTop();
+                        if (windowScrollTop < 0) {
+                            windowScrollTop = 0;
+                        }
+                        windowScreen.htmlElement.addClass('lock-browser-scroll').css('top', -windowScrollTop);
+                    }
+                },
+
+                unlock: function () {
+                    var windowScrollTop = parseInt(windowScreen.htmlElement.css('top'));
+
+                    windowScreen.htmlElement.removeClass('lock-browser-scroll');
+                    $('html, body').scrollTop(-windowScrollTop);
+                }
+            };
 
             $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
                 leadCapturePopup.hide();
