@@ -574,6 +574,7 @@ docReady(function () {
 
     if (writeReviewForm) {
         ko.applyBindings(vmWriteReview, writeReviewForm);
+		descReviewField.focus();
     }
 
     $('#bike-review-questions').find('.question-type-star input[type=radio]').change(function () {
