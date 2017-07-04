@@ -239,7 +239,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Int16, objLead.LeadSourceId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbType.String, objLead.PinCodeId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int64, objLead.DealerId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_manufacturerdealerid", DbType.String,20, objLead.ManufacturerDealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_manufacturerdealerid", DbType.String, 20, objLead.ManufacturerDealerId));
 
                         status = SqlReaderConvertor.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
                     }
@@ -423,7 +423,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     {
                         if (dr != null && dr.Read())
                         {
-                            tataCapitalCityId = Convert.ToString(dr["city"]);                           
+                            tataCapitalCityId = Convert.ToString(dr["city"]);
                         }
                     }
                 }
@@ -493,6 +493,39 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             catch (Exception ex)
             {
                 Logs.WriteErrorLog(String.Format("Error in UpdateManufacturerDailyLeadCount({0},{1}) : Msg : {2}", campaignId, abInquiryId, ex.Message));
+            }
+            return isUpdateDealerCount;
+        }
+
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 03 Jul 2017
+        /// Description :   Update AB Inquiry Id by Lead Id
+        /// </summary>
+        /// <param name="leadId"></param>
+        /// <param name="abInquiryId"></param>
+        /// <param name="retryCount"></param>
+        /// <returns></returns>
+        public bool UpdateManufacturerABInquiry(uint leadId, uint abInquiryId, UInt16 retryCount)
+        {
+            bool isUpdateDealerCount = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "updatemanufacturerabinquiry";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, leadId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_abinquiryid", DbType.Int32, abInquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadPushRetries", DbType.Int16, retryCount));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isUpdateDealerCount = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(String.Format("Error in UpdateManufacturerABInquiry({0},{1}) : Msg : {2}", leadId, abInquiryId, ex.Message));
             }
             return isUpdateDealerCount;
         }

@@ -8,7 +8,7 @@
     {
         public uint CampaignId { get; set; }
         public uint DealerId { get; set; }
-
+        public string Organization { get; set; }
         public string PopupHeading { get; set; }
         public string PopupDescription { get; set; }
         public string PopupSuccessMessage { get; set; }

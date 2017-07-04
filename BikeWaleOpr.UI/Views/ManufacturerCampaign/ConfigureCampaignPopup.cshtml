@@ -71,9 +71,7 @@
 
         <div class="row">
             <div class="col offset-s4">
-                <button id="btnConfigurePopup" class="btn waves-effect waves-light" type="submit" name="action">
-                    Configure popup
-                </button>
+                <input  type="submit" name="submit" id="btnConfigurePopup" data-bind="click: validateProperties" class="btn waves-effect waves-light" value="Configure popup" />
             </div>
         </div>
         <input type="hidden" name="CampaignId" id="inputCampaignId" value="@Model.objPopup.CampaignId" />
@@ -83,21 +81,50 @@
 }
 <script type="text/javascript">
     var heading, desc, msg;
-    var popUpViewModel = function () {
-        var self = this;
-        self.isDefaultHeading = ko.observable(false);
-        self.isDefaultDesc = ko.observable(false);
-        self.isDefaultMsg = ko.observable(false);
 
-    };
 
-    $(document).ready(function () {
-        popUpVM = new popUpViewModel;
-        ko.applyBindings(popUpVM, $('#configPopUp')[0]);
+        var popUpViewModel = function () {
+            var self = this;
+            self.isDefaultHeading = ko.observable(false);
+            self.isDefaultDesc = ko.observable(false);
+            self.isDefaultMsg = ko.observable(false);
+
+
+            self.validateProperties = function () {
+                var validate = true;
+                if (!$('#chkDefaultHeading').is(':checked')) {
+                    if ($('#txtPopupHeading').val()=="") {
+                        validate = false;
+                        Materialize.toast('Please Enter PopupHeading', 5000);
+                    }
+
+                }
+                if (!$('#chkDefaultDescription').is(':checked')) {
+                    if ($('#txtPopupDescription').val() == "") {
+                        validate = false;
+                        Materialize.toast('Please Enter PopupDescription', 5000);
+                    }
+                }
+                if (!$('#chkDefaultMessage').is(':checked')) {
+                    if ($('#txtpopupMessage').val() == "") {
+                        validate = false;
+                        Materialize.toast('Please Enter PopupMessage', 5000);
+                    }
+                }
+                return validate;
+            };
+
+
+        };
+
+        popUpVM = new popUpViewModel();
+
+        $(document).ready(function () {
 
         heading = $('#txtPopupHeading').val();
         desc = $('#txtPopupDescription').val();
-        msg = $('#txtpopupMessage').val;
+        msg = $('#txtpopupMessage').val();
+
         if (heading == "" || heading== undefined)
             popUpVM.isDefaultHeading(true);
 
@@ -106,5 +133,7 @@
 
         if (msg == "" || msg == undefined)
             popUpVM.isDefaultMsg(true);
+
+        ko.applyBindings(popUpVM, $('#configPopUp')[0]);
     });
 </script>
