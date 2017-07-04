@@ -72,7 +72,7 @@ docReady(function () {
 	reviewBikeSubmitBtn.on('click', function () {
 		var isValid = validateBikeSelection();
 		if(isValid) {
-			var returnUrl = '';
+		    var returnUrl = $('#querystring').data('query');
 			window.location = "/rate-your-bike/" + Number(reviewSelectModel.val()) + "/?q=" + returnUrl;
 		}
 	});

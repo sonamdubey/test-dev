@@ -444,6 +444,7 @@ namespace Bikewale.Controllers
             return View(objVM);
         }
 
+        [Filters.DeviceDetection()]
         [Route("user-reviews/contest/")]
         public ActionResult WriteReviewContest()
         {

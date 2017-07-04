@@ -1,5 +1,5 @@
-﻿@{
-    //Model.IsTransparentHeader = true;
+﻿@model Bikewale.Models.WriteReviewContestVM
+    @{
 	Model.IsHeaderFix = false;
 	Model.IsPageTypeLanding = true;
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/user-review/review-contest.css' />";
@@ -70,15 +70,11 @@
 						<p class="select-label">Make</p>
 						<select id="reviewSelectMake" class="chosen-select bike-select-field" data-placeholder="Select make">
 							<option value></option>
-							<option value="2">Aprilia</option>
-							<option value="1">Bajaj</option>
-							<option value="40">Benelli</option>
-							<option value="3">BMW</option>
-							<option value="4">Ducati</option>
-							<option value="5">Harley Davidson</option>
-							<option value="6">Hero</option>
-							<option value="39">Hero Electric</option>
-							<option value="37">Hero Honda</option>
+                            @foreach (var make in Model.Makes)
+                            {
+							 <option value="@make.MakeId">@make.MakeName</option>
+                            }
+							
 						</select>
 						<span class="boundary"></span>
 						<span class="error-text"></span>
@@ -192,6 +188,7 @@
 
 		<div id="specsFooter"></div>
 	</div>
+    <span id="querystring" data-query="@Model.QueryString" />
 </section>
 
 <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/swiper-3.1.7.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion"></script>
