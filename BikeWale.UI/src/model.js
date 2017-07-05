@@ -212,8 +212,7 @@ docReady(function () {
     $('.chosen-select').on('change', function () {
         var selectField = $(this);
         if (selectField.val() > 0) {
-            selectField.closest('.select-box').addClass('done');
-            validate.setError($(this), '');
+            selectField.closest('.select-box').addClass('done');            
         }
     });
     $('#getEmailID').on("focus", function () {
