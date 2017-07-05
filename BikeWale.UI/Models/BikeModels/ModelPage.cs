@@ -192,7 +192,7 @@ namespace Bikewale.Models.BikeModels
 
 
 
-                    if (objData.BikePrice > 0 && objData.IsLocationSelected && objData.City != null)
+                    if (objData.BikePrice > 0 && objData.IsLocationSelected && objData.City != null && !objData.ShowOnRoadButton)
                         priceDescription = string.Format("Price - &#x20B9; {0} onwards (On-road, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(objData.BikePrice)), objData.City.CityName);
                     else
                         priceDescription = objData.ModelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("Price - &#x20B9; {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(objData.ModelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
@@ -251,7 +251,7 @@ namespace Bikewale.Models.BikeModels
                     string versionDescirption = objData.ModelPageEntity.ModelVersions.Count > 1 ? string.Format(" It is available in {0} versions", objData.ModelPageEntity.ModelVersions.Count) : string.Format(" It is available in {0} version", objData.ModelPageEntity.ModelVersions.Count);
 
                     string priceDescription = string.Empty;
-                    if (objData.BikePrice > 0 && objData.IsLocationSelected && objData.City != null)
+                    if (objData.BikePrice > 0 && objData.IsLocationSelected && objData.City != null && !objData.ShowOnRoadButton)
                         priceDescription = string.Format("Price - &#x20B9; {0} onwards (On-road, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(objData.BikePrice)), objData.City.CityName);
                     else
                         priceDescription = objData.ModelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("Price - &#x20B9; {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(objData.ModelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
