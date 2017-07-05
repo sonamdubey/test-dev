@@ -1206,7 +1206,7 @@
 
     if (Model.CityId <= 0)
     {
-        <link rel="stylesheet" type="text/css" href="~/m/css/leadcapture.css" />
+        <link href="@String.Format("{0}/m/css/leadcapture.css?{1}",(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : ""),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
     }
 
 }
