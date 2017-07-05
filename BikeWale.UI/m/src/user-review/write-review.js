@@ -389,12 +389,25 @@ docReady(function () {
 
             var descArray = vmWriteReview.detailedReview().split('\n');
             var formattedDescArray = "";
-
             for (i = 0; i < descArray.length; i++) {
                 if (descArray[i].trim() != "") {
+                    // sentence case expression
+                    var rg = /(^\w{1}|\.\s*\w{1})/gi;
+                    descArray[i] = descArray[i].replace(rg, function (toReplace) {
+                        return toReplace.toUpperCase();
+                    });
+
                     formattedDescArray += "<p>" + descArray[i] + "</p>";
                 }
             }
+            // sentence case expression title and review
+            var rg = /(^\w{1}|\.\s*\w{1})/gi;
+            $("#getReviewTitle").val($("#getReviewTitle").val().replace(rg, function (toReplace) {
+                return toReplace.toUpperCase();
+            }));
+            $("#reviewTips").val($("#reviewTips").val().replace(rg, function (toReplace) {
+                return toReplace.toUpperCase();
+            }));
 
             if ($('#formattedDescripton'))
                 $('#formattedDescripton').val(formattedDescArray);

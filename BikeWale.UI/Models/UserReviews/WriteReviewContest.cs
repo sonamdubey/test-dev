@@ -40,6 +40,9 @@ namespace Bikewale.Models.UserReviews
             objData.PageMetaTags.Title = "Bike Review Contest | Participate & Win- BikeWale";
             objData.PageMetaTags.Description = "Write a fair review about your bike and help others in making the right choice. Share your experience with other prospective buyers.";
             objData.PageMetaTags.Keywords = "Review contest, bike reviews, bike user reviews, user review contest, bikewale user review, bikewale contest";
+            objData.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/bike-review-contest/";
+            objData.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/bike-review-contest/";
+
         }
     }
 }
