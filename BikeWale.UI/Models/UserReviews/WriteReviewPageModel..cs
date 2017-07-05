@@ -20,6 +20,7 @@ namespace Bikewale.Models.UserReviews
         private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId, _pageSourceID;
         private string _encodedString, _userName, _emailId;
         private ulong _customerId;
+        private int _contestSrc;
 
         public WriteReviewPageSubmitResponse SubmitResponse { get; set; }
         public BikeMakeEntityBase Make { get; set; }
@@ -63,6 +64,7 @@ namespace Bikewale.Models.UserReviews
                 ulong.TryParse(queryCollection["customerid"], out _customerId);
                 uint.TryParse(queryCollection["priceRangeId"], out _priceRangeId);
                 uint.TryParse(queryCollection["sourceid"], out _pageSourceID);
+                int.TryParse(queryCollection["contestsrc"], out _contestSrc);
                 _userName = queryCollection["userName"];
                 _emailId = queryCollection["emailId"];
             }
@@ -107,6 +109,7 @@ namespace Bikewale.Models.UserReviews
                 objPage.ReviewId = _reviewId;
                 objPage.CustomerId = _customerId;
                 objPage.PageSourceId = _pageSourceID;
+                objPage.ContestSrc = _contestSrc;
                 objPage.EncodedWriteUrl = _encodedString;
 
                 GetUserRatings(objPage);
