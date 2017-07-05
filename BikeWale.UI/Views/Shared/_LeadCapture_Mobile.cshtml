@@ -1,136 +1,6 @@
 ﻿@model Bikewale.Entities.PriceQuote.LeadCaptureEntity
 @if (Model != null)
 {
-    <style>
-        .slideIn-input-box-content {
-            height: 60px;
-        }
-
-        .slideIn-input-box {
-            padding-bottom: 5px;
-            position: relative;
-            border-bottom: 1px solid #82888b;
-            height: 36px;
-        }
-
-            .slideIn-input-box .slideIn-input-label {
-                font-size: 16px;
-                color: #82888b;
-                position: absolute;
-                top: 4px;
-            }
-
-            .slideIn-input-box .city-box-default {
-                width: 100%;
-                cursor: pointer;
-            }
-
-            .slideIn-input-box .selected-option-box {
-                padding-right: 20px;
-            }
-
-        .selection-done .slideIn-input-label {
-            font-size: 12px;
-            top: -14px;
-        }
-
-        .selected-option-box {
-            font-size: 16px;
-            color: #82888b;
-            height: 36px;
-            padding-top: 7px;
-        }
-
-        .slideIn-drawer-container {
-            display: none;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: #fff;
-            z-index: 2;
-            overflow-x: hidden;
-            overflow-y: scroll;
-        }
-
-            .slideIn-drawer-container .back-arrow-box {
-                padding: 15px 15px 12px 20px;
-                z-index: 2;
-                cursor: pointer;
-            }
-
-            .slideIn-drawer-container .drawer-top-header .head-label {
-                font-size: 16px;
-                font-weight: 700;
-                color: #000;
-            }
-
-            .slideIn-drawer-container .filter-input-box {
-                padding: 0 20px 12px;
-            }
-
-            .slideIn-drawer-container .filter-list li {
-                padding-right: 20px;
-                padding-left: 20px;
-            }
-
-                .slideIn-drawer-container .filter-list li span {
-                    font-size: 16px;
-                    padding: 10px 20px 10px 0;
-                    display: block;
-                    position: relative;
-                    border-top: 1px solid #f5f5f5;
-                    cursor: pointer;
-                }
-
-                .slideIn-drawer-container .filter-list li:hover {
-                    background-color: #f5f5f5;
-                }
-
-                .slideIn-drawer-container .filter-list li:first-child span {
-                    border-top: 0;
-                }
-
-                .slideIn-drawer-container .filter-list li:hover {
-                    background: #f5f5f5;
-                }
-
-            .slideIn-drawer-container.fix-header-input .filter-list {
-                margin-top: 100px;
-                margin-bottom: 40px;
-            }
-
-            .slideIn-drawer-container.fix-header-input .drawer-top-header {
-                width: 100%;
-                background: #fff;
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 2;
-                height:100px;
-            }
-
-            .slideIn-drawer-container.fix-header-input.fix-only-header .drawer-body-content {
-                margin-top: 47px;
-                margin-bottom: 40px;
-            }
-
-            .slideIn-drawer-container.fix-header-input.fix-only-header .filter-list {
-                margin-top: 0;
-                margin-bottom: 0;
-            }
-
-            .search-icon-grey {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    cursor: pointer;
-    z-index: 2;
-    background-position: -34px -275px;
-}
-    </style>
     <!-- Lead Capture pop up start  -->
     <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
         <div class="popup-inner-container text-center">
@@ -223,6 +93,7 @@
                             <span class="error-text hide"></span>
                         </div>
                     </div>
+
                     <div class="clear"></div>
                     <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
                     <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
@@ -566,7 +437,9 @@
                                 $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
                                 $("#ddlMfgDealers").val('0');
                                 $("#ddlMfgDealers").closest('.select-box').addClass('done');
-                                dleadvm.dealersRequired(false);
+                                if (self.cityRequired() && self.selectedCity()) {
+                                    SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName(), 365);
+                                }
                             } else {
                                 $("#ddlMfgDealers").html('');
                                 $("#ddlMfgDealers").append("<option value selected>Select dealer</option>");
@@ -1330,6 +1203,11 @@
         });
 
     </script>
+
+    @if (Model.CityId <= 0)
+    {
+        <link rel="stylesheet" type="text/css" href="~/m/css/leadcapture.css" />
+    }
 
 }
 

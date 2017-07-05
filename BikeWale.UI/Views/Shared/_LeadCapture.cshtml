@@ -228,7 +228,6 @@
 
                 if (options.dealersRequired != null)
                 {
-                    debugger;
                     self.dealersRequired(options.dealersRequired != 'True' ? false : true);
                     if(self.cityId() && self.dealersRequired())
                     {
@@ -265,7 +264,7 @@
         };
 
         self.getModelCities = function (d, e) {
-            if (self.modelId() > 0 && self.cityRequired()) {
+            if (self.modelId() > 0 && self.cityRequired() && !self.selectedCity()) {
                 var eleCities = $("#getLeadCity");
                 $.ajax({
                     type: "GET",
@@ -273,14 +272,22 @@
                     dataType: 'json',
                     success: function (response) {
                         var cities = response.cities;
-                        var citySelected = null;
-                        if (cities) {
+                        if (cities && cities.length > 0) {
                             cities.splice(0, 0, dummyOption);
                             self.cities(cities);
                         }
                         else {
                             self.cities([]);
+                        }                  
+                       
+                    },
+                    complete : function(xhr)
+                    {
+                        if(xhr.status!=200)
+                        {
+
                         }
+
                         eleCities.trigger("chosen:updated");
                         $(this).parent().removeClass('done');
                     }
@@ -295,8 +302,12 @@
                 hideError(ele);
                 ele.parent().addClass('done');
                 self.cityId(self.selectedCity().cityId);
-                self.getDealersList(self.dealerId());
                 self.isRegisterPQ(true);
+
+                if(self.dealersRequired())
+                {
+                    self.getDealersList(self.dealerId());
+                }
             }
             else setError($(this));
         }
@@ -546,6 +557,9 @@
                         $("#contactDetailsPopup").hide();
                         $("#personalInfo").hide();
                         $("#dealer-lead-msg").fadeIn();
+                        if (self.cityRequired() && self.selectedCity()) {
+                            SetCookieInDays("location", self.selectedCity().cityId + "_"+ self.selectedCity().cityName(), 365);
+                        }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         $("#leadCapturePopup").show();
