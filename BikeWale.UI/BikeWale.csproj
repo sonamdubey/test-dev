@@ -3097,6 +3097,11 @@
     <Content Include="m\sass\user-review\_review-swiper-3d.sass" />
     <Content Include="m\sass\modules\_rating-badge.sass" />
     <Content Include="m\sass\modules\_review-contest-slug.sass" />
+    <Content Include="sass\user-review\review-contest.sass" />
+    <Content Include="sass\user-review\_review-contest-style.sass" />
+    <Content Include="sass\modules\_collapsible-list.sass" />
+    <Content Include="sass\user-review\_review-swiper-3d.sass" />
+    <Content Include="sass\user-review\_swiper.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="Scripts\app.bundle.js" />
@@ -3229,6 +3234,7 @@
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="src\user-review\listing.js" />
+    <Content Include="src\user-review\review-contest.js" />
     <Content Include="src\user-review\write-review.js" />
     <Content Include="src\Videos\detail.js" />
     <Content Include="src\Videos\videoByCategory.js" />
@@ -3776,6 +3782,7 @@
     <Content Include="Views\UserReview\_SimilarBikeUserReview.cshtml" />
     <Content Include="Views\UserReview\_UserReviewsSearch.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x400_Middle.cshtml" />
+    <Content Include="Views\UserReview\WriteReviewContest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
