@@ -775,6 +775,40 @@ docReady(function () {
 
 docReady(function () {
 
+	// review contest slide-in slug
+	var contestSlideInSlug = $('#contestSlideInSlug');
+	
+	if (contestSlideInSlug.length > 0) {
+		attachListener('scroll', window, positionContestSlug);
+		contestSlideInSlug.addClass('slidein-slug--visible');
+	}
+
+	function positionContestSlug() {		
+		if ($(window).scrollTop() > 600) {
+			if(!contestSlideInSlug.hasClass('slug--position-absolute')) {
+				contestSlideInSlug.addClass('slug--position-absolute');
+				contestSlideInSlug.css({
+					'top': $(window).scrollTop() + contestSlideInSlug.offset().top
+				});
+			}
+		}
+		else {
+			if(contestSlideInSlug.hasClass('slug--position-absolute')) {
+				contestSlideInSlug.removeClass('slug--position-absolute');
+				contestSlideInSlug.css({
+					'top': '30%'
+				});
+			}
+		}
+	}
+
+	$('#contestSlideInCloseBtn').on('click', function() {
+		contestSlideInSlug.removeClass('slidein-slug--visible');
+		setTimeout(function () {
+			contestSlideInSlug.remove();
+		}, 500);
+	});
+
     $.fn.hint = bwHint;
 
     $.fn.bw_autocomplete = bwAutoComplete;
