@@ -75,6 +75,12 @@ $(".default-chk").change(function () {
 });
 
 $(document).ready(function () {
+
+    if ($(".stepper"))
+    {
+        $('.stepper').activateStepper();
+    }
+
     $('form input[type="text"]').each(function () {
         if ($(this).val().length > 0) {
             $(this).prop("disabled", true);

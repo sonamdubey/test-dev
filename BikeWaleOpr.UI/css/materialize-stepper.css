@@ -267,7 +267,7 @@ ul.stepper .step.active .step-title {
 ul.stepper .step-content {
    position: relative;
    display: none;
-   height: calc(100% - 132px);
+   /*height: calc(100% - 132px);*/
    width: inherit;
    overflow: visible;
    margin-left: 41px;
@@ -277,7 +277,7 @@ ul.stepper .step-content {
 @media only screen and (min-width: 993px){
    ul.stepper.horizontal .step-content {
       position: absolute;
-      height: calc(100% - 84px);
+      /*height: calc(100% - 84px);*/
       top: 84px;
       left: 0;
       width: 100%;
