@@ -249,7 +249,7 @@ docReady(function () {
         var selectField = $(this);
         if (selectField.val() > 0) {
             selectField.closest('.select-box').addClass('done');
-            validate.setError($(this), '');
+            //validate.setError($(this), '');
         }
     });
     $('#getEmailID').on("focus", function () {
