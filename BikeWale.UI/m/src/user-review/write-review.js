@@ -4,7 +4,7 @@ var userNameField, userEmailIdField;
 var descReviewField, reviewTitleField;
 var value_overallrating, reviewQuestion, reviewOverallRatingId, ratingOverAll, pageSourceID;
 var vmWriteReview, isSubmit = false;
-var makeModelName;
+var makeModelName, ratingErrorFields = "", reviewErrorFields = "";
 var array_rating;
 var bikeRating = {
     ratingCount: 0,
@@ -155,8 +155,17 @@ docReady(function () {
                 triggerGA('Rate_Bike', 'Rating_Submit_Success', makeModelName + pageSourceID);
             }
             else {
-                triggerGA('Rate_Bike', 'Rating_Submit_Error', makeModelName + ratingError + '_' + questionError + '_' + userNameError + '_' + emailError);
-            }
+                ratingErrorFields = "";
+                if (ratingError)
+                    ratingErrorFields = ratingErrorFields + '_' + 'Rating_Field';
+                if (questionError)
+                    ratingErrorFields = ratingErrorFields + '_' + 'Questions_Field';
+                if (userNameError)
+                    ratingErrorFields = ratingErrorFields + '_' + 'Name_Field';
+                if (emailError)
+                    ratingErrorFields = ratingErrorFields + '_' + 'Email_Field';
+                triggerGA('Rate_Bike', 'Rating_Submit_Error', makeModelName + pageSourceID + ratingErrorFields);
+               }
 
             return isValid;
         };
@@ -303,7 +312,7 @@ docReady(function () {
         vmRateBike.feedbackTitle(headingText);
         vmRateBike.feedbackSubtitle(descText);
         vmRateBike.ratingCount(buttonValue);
-        triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue);
+        triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue + '_' + pageSourceID);
 
 		updateStarZeroIcon($(this));
     });
@@ -320,8 +329,7 @@ docReady(function () {
         var questionField = $(this).closest('.question-type-text'),
             subQuestionId = Number(questionField.attr('data-sub-question'));
 
-        triggerGA('Rate_Bike', 'Rate_' + questionField.attr('id')+'_'+ makeModelName + Number($(this).val()));
-        questionField.find('.error-text').hide();
+       questionField.find('.error-text').hide();
 
         if (subQuestionId > 0) {
             var buttonValue = Number($(this).val()),
@@ -407,7 +415,7 @@ docReady(function () {
             else {
                 self.detailedReviewFlag(false);
                 validate.hideError(reviewTitleField);
-                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + self.detailedReviewFlag() + '_' + pageSourceID + '_' + self.detailedReview().trim().length);
+                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSourceID + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
                 return true;
             }
 
@@ -415,15 +423,23 @@ docReady(function () {
         };
 
         self.validateReviewForm = function () {
-            var isValid = false;
-
-            isValid = self.validate.detailedReview();
-            isValid &= self.validate.reviewTitle();
+            var isValidDesc = true;
+            var isValidTitle = true;
+            isValidDesc = self.validate.detailedReview();
+            isValidTitle = self.validate.reviewTitle();
+            var isValid = isValidDesc && isValidTitle;
             if (isValid) {
-                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + !vmWriteReview.detailedReviewFlag() + '_' + pageSourceID + '_' + self.detailedReview().trim().length);
+                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSourceID + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
             }
             else {
-                triggerGA('Write_Review', 'Review_Submit_Error', makeModelName + self.detailedReview().trim().length);
+                reviewErrorFields = "";
+                if (isValidTitle && !isValidDesc)
+                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Description';
+                else if (!isValidTitle && isValidDesc)
+                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Title';
+                else if (!isValidDesc && !isValidTitle)
+                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Title' + '_' + 'Review_Description';
+                triggerGA('Write_Review', 'Review_Submit_Error', makeModelName + pageSourceID + '_' + (self.detailedReview().trim().length>0) + '_' + self.detailedReview().trim().length + reviewErrorFields);
             }
 
             self.focusFormActive(false);
