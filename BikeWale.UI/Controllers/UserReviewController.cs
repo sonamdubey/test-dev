@@ -9,6 +9,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
 using Bikewale.Models.UserReviews;
+using Bikewale.Utility.StringExtention;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -193,7 +194,7 @@ namespace Bikewale.Controllers
 
 
             UserReviewRatingObject objRating = null;
-
+            userName = StringHelper.ToProperCase(userName);
             objRating = _userReviews.SaveUserRatings(overAllrating, ratingQuestionAns, userName, emailId, makeId, modelId, reviewId, returnUrl, platformId, sourceId);
 
 
