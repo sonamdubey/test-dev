@@ -401,7 +401,7 @@ docReady(function () {
                 if (descArray[i].trim() != "") {
                     // sentence case expression
                     var rg = /(^\w{1}|\.\s*\w{1})/gi;
-                    descArray[i] = descArray[i].replace(rg, function (toReplace) {
+                    descArray[i] = descArray[i].toLowerCase().replace(rg, function (toReplace) {
                         return toReplace.toUpperCase();
                     });
 
@@ -411,13 +411,14 @@ docReady(function () {
             // sentence case expression title and review
             if ($("#getReviewTitle").length>0) {
                 var rg = /(^\w{1}|\.\s*\w{1})/gi;
-                $("#getReviewTitle").val($("#getReviewTitle").val().replace(rg, function (toReplace) {
+               
+                $("#getReviewTitle").val($("#getReviewTitle").val().toLowerCase().replace(rg, function (toReplace) {
                     return toReplace.toUpperCase();
                 }));
             }
             if ($("#reviewTips").length>0) {
                 var rg = /(^\w{1}|\.\s*\w{1})/gi;
-                $("#reviewTips").val($("#reviewTips").val().replace(rg, function (toReplace) {
+                $("#reviewTips").val($("#reviewTips").val().toLowerCase().replace(rg, function (toReplace) {
                     return toReplace.toUpperCase();
                 }));
             }
