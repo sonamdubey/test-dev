@@ -401,13 +401,18 @@ docReady(function () {
                 }
             }
             // sentence case expression title and review
-            var rg = /(^\w{1}|\.\s*\w{1})/gi;
-            $("#getReviewTitle").val($("#getReviewTitle").val().replace(rg, function (toReplace) {
-                return toReplace.toUpperCase();
-            }));
-            $("#reviewTips").val($("#reviewTips").val().replace(rg, function (toReplace) {
-                return toReplace.toUpperCase();
-            }));
+            if ($("#getReviewTitle").length>0) {
+                var rg = /(^\w{1}|\.\s*\w{1})/gi;
+                $("#getReviewTitle").val($("#getReviewTitle").val().replace(rg, function (toReplace) {
+                    return toReplace.toUpperCase();
+                }));
+            }
+            if ($("#reviewTips").length>0) {
+                var rg = /(^\w{1}|\.\s*\w{1})/gi;
+                $("#reviewTips").val($("#reviewTips").val().replace(rg, function (toReplace) {
+                    return toReplace.toUpperCase();
+                }));
+            }
 
             if ($('#formattedDescripton'))
                 $('#formattedDescripton').val(formattedDescArray);
