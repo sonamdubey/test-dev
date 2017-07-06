@@ -235,6 +235,12 @@ h1,
 #getReviewTitle {
   font-weight: 600; }
 
+.review-question-mileage {
+  border-bottom: 1px solid #eee; }
+  .review-question-mileage .item-title {
+    font-weight: 600;
+    margin-bottom: 20px; }
+
 .review-question-list .list-item {
   padding-top: 15px;
   padding-bottom: 15px;

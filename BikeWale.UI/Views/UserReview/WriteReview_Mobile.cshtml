@@ -66,7 +66,18 @@
                 </div>
 
                 <div class="container content-box-shadow content-inner-block-20 card-bottom-margin font14">
-                    <h2 class="padding-bottom5">Can you share a little more about this bike?<span class="text-light-grey text-unbold font14">&nbsp;(Optional)</span></h2>
+                    <h2 class="padding-bottom20">Can you share a little more about this bike?<span class="text-light-grey text-unbold font14">&nbsp;(Optional)</span></h2>
+
+					<div class="review-question-mileage">
+						<p class="item-title">What mileage does your bike offer?</p>
+						<div class="input-box form-control-box" data-bind="css: bikeMileage().length > 0 ? 'not-empty' : ''">
+							<input type="number" id="getMileage" data-bind="textInput: bikeMileage">
+							<label for="getMileage">Your mileage (kmpl)</label>
+							<span class="boundary"></span>
+							<span class="error-text"></span>
+						</div>
+					</div>
+
                     <ul id="bike-review-questions" data-make-model="@string.Format("{0}_{1}_", Model.Make.MakeName, Model.Model.ModelName)" class="review-question-list margin-bottom20" data-bind="foreach: reviewQuestions">
                         <!-- ko if: displayType == 1 -->
                         <li class="list-item question-type-star">
