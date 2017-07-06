@@ -115,6 +115,7 @@ namespace Bikewale.Models.BikeModels
 
         public ManufactureCampaignLeadEntity LeadCampaign { get; set; }
         public bool IsManufacturerLeadAdShown { get; set; }
+        public bool IsManufacturerTopLeadAdShown { get; set; }
         public ManufactureCampaignEMIEntity EMICampaign { get; set; }
         public bool IsManufacturerEMIAdShown { get; set; }
     }
