@@ -164,16 +164,21 @@ $(document).ready(function () {
                 $(this).prop('selected', true);
             });
             $('#ddlModels option').first().prop('selected', false);
+            $(this).material_select();
         }
-        $(this).material_select();
-    });
+      });
 
     $('#ddlCities').on('change', function () {
         var option = $(this).find(':selected').val();
-        if (option == "" && $('#ddlCities option:selected').length > 1) {
-            $('#ddlCities option').first().prop('selected', false);           
+        if (option == "") {
+            $('#ddlCities option').each(function () {
+                $(this).prop('selected', false);
+            });
+            $(this).material_select();
         }
-        $(this).material_select();
+       else if ($('#ddlCities option:selected').length > 1) {
+            $('#ddlCities option').first().prop('selected', false);
+       }       
     });
 
     showAllIndiaAlert = function () {
