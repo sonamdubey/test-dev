@@ -1856,7 +1856,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getbikeinfo";
+                    cmd.CommandText = "getbikeinfo_05072017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     genericBikeInfo = PopulateGenericBikeInfoEntity(genericBikeInfo, cmd);
                 }
@@ -1914,6 +1914,9 @@ namespace Bikewale.DAL.BikeData
                             genericBikeInfo.UserReview = SqlReaderConvertor.ToUInt32(dr["ReviewCount"]);
                             genericBikeInfo.DealersCount = SqlReaderConvertor.ToUInt32(dr["dealeravailable"]);
                             genericBikeInfo.PriceInCity = SqlReaderConvertor.ToUInt32(dr["priceincity"]);
+                            genericBikeInfo.Rating = Convert.ToSingle(dr["ReviewRate"]);
+                            genericBikeInfo.RatingCount = SqlReaderConvertor.ToUInt16(dr["RatingsCount"]);
+                            genericBikeInfo.UserReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
                         }
                         dr.Close();
                     }
@@ -1948,7 +1951,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getbikeinfobycity";
+                    cmd.CommandText = "getbikeinfobycity_05072017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     genericBikeInfo = PopulateGenericBikeInfoEntity(genericBikeInfo, cmd);
