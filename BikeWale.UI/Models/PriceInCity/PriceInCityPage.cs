@@ -653,7 +653,8 @@ namespace Bikewale.Models
                             PincodeRequired = campaigns.LeadCampaign.PincodeRequired,
                             PopupDescription = campaigns.LeadCampaign.PopupDescription,
                             PopupHeading = campaigns.LeadCampaign.PopupHeading,
-                            PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage
+                            PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage,
+                            ShowOnExshowroom = campaigns.LeadCampaign.ShowOnExshowroom
                         };
                         objData.IsManufacturerLeadAdShown = true;
                     }
