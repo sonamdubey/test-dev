@@ -14,7 +14,7 @@
 <script type="text/javascript" src="https://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 
 <section>
-	<a href="/m/bike-review-contest/" class="contest-slug-sm slug-teal-target">
+	<a href="/m/bike-review-contest/?csrc=<%=(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Landing %>" class="contest-slug-sm slug-teal-target">
 		<span class="trophy-white"></span>
 		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;1000</p>
 		<span class="bwmsprite arrow-white-right"></span>
