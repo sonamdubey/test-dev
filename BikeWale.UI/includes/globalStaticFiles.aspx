@@ -5,7 +5,7 @@
 <link rel="SHORTCUT ICON" href="<%= staticUrlPath != "" ? "https://img2.aeplcdn.com/bikewaleimg" : "" %>/images/favicon.png?<%= staticFilesVersion%>"  type="image/png"/>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 <link type="text/css" href="/css/style.css?<%= staticFilesVersion%>" rel="stylesheet"/>
-<link type="text/css" href="<%= staticUrlPath != "" ? "https://st1.aeplcdn.com" + staticUrlPath : "" %>/css/960.css?<%= staticFilesVersion%>" rel="stylesheet"/>
+<link type="text/css" href="<%= staticUrlPath %>/css/960.css?<%= staticFilesVersion%>" rel="stylesheet"/>
 <link type="text/css" href="/css/bw-common-style.css?<%= staticFilesVersion%>" rel="stylesheet" />
 
 <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>

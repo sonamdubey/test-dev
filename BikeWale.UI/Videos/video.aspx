@@ -89,6 +89,6 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
     </form>
-    <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>">"></script>
+    <script type="text/javascript" src="<%= staticUrl %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>">"></script>
 </body>
 </html>

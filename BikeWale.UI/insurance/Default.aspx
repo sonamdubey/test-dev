@@ -17,9 +17,9 @@
         isAd300x250BTFShown = false;
          %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/pikaday.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>    
+    <link href="<%= staticUrl  %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl  %>/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl  %>/css/pikaday.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>    
         
     <%  isTransparentHeader = true;   %>
 </head>

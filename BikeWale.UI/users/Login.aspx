@@ -12,7 +12,7 @@
     
 %>
 <!-- #include file="/includes/headscript.aspx" -->
-<link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/login.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
+<link href="<%= staticUrl  %>/css/login.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <form id="form1" runat="server">

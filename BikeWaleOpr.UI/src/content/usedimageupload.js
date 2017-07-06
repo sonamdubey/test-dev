@@ -67,7 +67,7 @@
                             var imgUpldUtil = self.uploadToAWS(curFile, responsePhotoId, modelId, path.toLowerCase(), ext);
                             if (imgUpldUtil && imgUpldUtil.status) {
                                 if (imgUpldUtil.status) {
-                                    var imgPath = 'https://imgd5.aeplcdn.com/' + '144x81/' + imgUpldUtil.response.originalImagePath;
+                                    var imgPath = 'https://imgd.aeplcdn.com/' + '144x81/' + imgUpldUtil.response.originalImagePath;
                                     Materialize.toast(modelName + ' image uploaded succesfull!', 4000);
                                     $(e.currentTarget).closest('tr').find('img').attr('src', imgPath);
                                     $(e.currentTarget).closest('tr').find('a').attr('data-imagepath', imgPath);

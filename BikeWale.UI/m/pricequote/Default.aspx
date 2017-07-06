@@ -84,7 +84,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl  %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
 
     var areaDataSet = [];

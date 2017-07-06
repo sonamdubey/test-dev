@@ -36,7 +36,7 @@
 <% } %>
 
 
-<script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
    var ga_pg_id = '0';    
 </script>
