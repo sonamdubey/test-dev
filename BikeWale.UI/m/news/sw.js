@@ -1,7 +1,7 @@
 (global => {
 
     var jsVersion = '26May2017v1';
-	var baseUrl = 'https://st.aeplcdn.com/staging/bikewale/pwa/build/';
+	var baseUrl = 'https://stb.aeplcdn.com/staging/bikewale/pwa/build/';
 	var OFFLINE_PAGE = 'offline.html?' + jsVersion;
 	var VENDOR_JS = baseUrl + 'vendor.bundle.js?' + jsVersion;
 	var APP_JS = baseUrl + 'app.bundle.js?' + jsVersion;

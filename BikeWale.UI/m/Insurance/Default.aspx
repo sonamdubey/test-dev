@@ -32,7 +32,7 @@
                 <div class="ins-content-box">
                     <span class="tag-txt">Sponsored</span>
                     <span class="sponsored-icon margin-bottom25"></span>
-                    <img src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/policy-boss-logo.png" alt="Policy Boss" width="94">
+                    <img src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/policy-boss-logo.png" alt="Policy Boss" width="94">
                     <p>
                         Save upto 60% on
                         <br />
@@ -223,8 +223,8 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/insurance.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/zebra_datepicker.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/m/src/insurance.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/m/src/zebra_datepicker.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
             <% var serializer = new System.Web.Script.Serialization.JavaScriptSerializer(); %>

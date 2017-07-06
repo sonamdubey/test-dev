@@ -1,5 +1,5 @@
 ﻿.bwsprite {
-    background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?v17Apr2017) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?v17Apr2017) no-repeat;
     display: inline-block;
 }
 .grid-4, .grid-8, .grid-12 { float: left;  position: relative; min-height: 1px; padding-right: 10px; padding-left: 10px; }

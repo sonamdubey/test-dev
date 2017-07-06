@@ -84,39 +84,39 @@
                             <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/01.jpg?wm=2" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/01.jpg?wm=2" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd2.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/02.jpg?wm=2" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/02.jpg?wm=2" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd3.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/03.jpg?wm=2" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/03.jpg?wm=2" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/04.jpg?wm=2" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/04.jpg?wm=2" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd2.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/05.jpg?wm=2" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/05.jpg?wm=2" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd3.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/06.jpg?wm=2" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/06.jpg?wm=2" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/07.jpg?wm=2" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/07.jpg?wm=2" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd2.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/08.jpg?wm=2" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/08.jpg?wm=2" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd3.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/09.jpg?wm=2" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/762x429/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/09.jpg?wm=2" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                 </div>
@@ -129,39 +129,39 @@
                             <div class="swiper-container noSwiper carousel-navigation-photos">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/01.jpg" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/01.jpg" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd2.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/02.jpg" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/02.jpg" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd3.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/03.jpg" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/03.jpg" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/04.jpg" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/04.jpg" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd2.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/05.jpg" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/05.jpg" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd3.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/06.jpg" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/06.jpg" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/07.jpg" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/07.jpg" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd2.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/08.jpg" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/08.jpg" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd3.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/09.jpg" alt="Track Day Gallery" />
+                                        <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/09.jpg" alt="Track Day Gallery" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                 </div>
@@ -190,7 +190,7 @@
                 <h2 class="section-heading">Making of Track Day</h2>
                 <div class="container bg-white box-shadow track-day-collage-content">
                     <div class="bg-loader-placeholder">
-                        <img class="lazy" data-original="https://imgd1.aeplcdn.com/0x0/cw/es/trackday/2016/bwm-trackday/landing-images/making-of-the-event.jpg" alt="Making of Track Day" src="" border="0" />
+                        <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/cw/es/trackday/2016/bwm-trackday/landing-images/making-of-the-event.jpg" alt="Making of Track Day" src="" border="0" />
                     </div>
                 </div>
             </div>

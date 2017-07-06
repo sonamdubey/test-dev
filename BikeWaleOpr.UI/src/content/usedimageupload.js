@@ -18,7 +18,7 @@
                         contentType: 'application/json',
                         dataType: 'json',
                         success: function (data) {                            
-                            $(e.currentTarget).closest('tr').find('#mainImage').attr('src', 'https://imgd3.aeplcdn.com/144x81/bikewaleimg/images/noimage.png');
+                            $(e.currentTarget).closest('tr').find('#mainImage').attr('src', 'https://imgd.aeplcdn.com/144x81/bikewaleimg/images/noimage.png');
                             Materialize.toast(modelName + ' photo deleted!', 4000);
                         },
                         complete: function (xhr) {

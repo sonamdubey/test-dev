@@ -8,10 +8,10 @@
 <link type="text/css" href="<%= staticUrlPath != "" ? "https://st1.aeplcdn.com" + staticUrlPath : "" %>/css/960.css?<%= staticFilesVersion%>" rel="stylesheet"/>
 <link type="text/css" href="/css/bw-common-style.css?<%= staticFilesVersion%>" rel="stylesheet" />
 
-<script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-<script type="text/javascript" src="<%= staticUrlPath != "" ? "https://st2.aeplcdn.com" + staticUrlPath : "" %>/src/BikeWaleCommon.js?v=1.2"></script>
-<script type="text/javascript" src="<%= staticUrlPath != "" ? "https://st.aeplcdn.com" + staticUrlPath : "" %>/src/common/bt.js?v1.1"></script>
-<!--[if IE]><script language="javascript" src="<%= staticUrlPath != "" ? "https://st.aeplcdn.com" + staticUrlPath : "" %>/src/common/excanvas.js?v=1.0"></script><![endif]-->
+<script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrlPath  %>/src/BikeWaleCommon.js?v=1.2"></script>
+<script type="text/javascript" src="<%= staticUrlPath %>/src/common/bt.js?v1.1"></script>
+<!--[if IE]><script language="javascript" src="<%= staticUrlPath  %>/src/common/excanvas.js?v=1.0"></script><![endif]-->
 <!--[if IE 6]>
     <script src="https://st.carwale.com/ie-png-fix.js?v=1.0"></script>
     <script>

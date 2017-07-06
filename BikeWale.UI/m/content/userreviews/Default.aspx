@@ -11,7 +11,7 @@
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
 <link rel="stylesheet" type="text/css" href="/m/css/user-review/landing.css" />
-<script type="text/javascript" src="https://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
+<script type="text/javascript" src="https://stb.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 
 <section>
 	<a href="/m/bike-review-contest/" class="contest-slug-sm slug-teal-target">
@@ -33,7 +33,7 @@
             <asp:dropdownlist id="ddlMake" runat="server" class="textAlignLeft" data-mini="true"><asp:ListItem Text="--Select Make--" Value="0" /></asp:dropdownlist>
         </div>
         <div id="divModel" class="new-line15">
-            <img id="imgLoaderMake" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position: relative; top: 3px; display: none;" />
+            <img id="imgLoaderMake" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position: relative; top: 3px; display: none;" />
             <select data-mini="true" id="ddlModel">
                 <option value="0">--Select Model--</option>
             </select>
@@ -222,7 +222,7 @@
         <a href="#" data-role="button" data-rel="back" data-theme="c" data-mini="true">OK</a>
     </div>
 </div>
-<script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : ""%>/m/src/user-review/landing.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl %>/m/src/user-review/landing.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
     var returnUrl = '<%=Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/user-reviews/&sourceid={0}",(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Landing))%>';
 </script>

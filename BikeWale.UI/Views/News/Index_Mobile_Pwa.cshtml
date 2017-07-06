@@ -12,13 +12,15 @@
         var StaticUrlPWA = Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA;
         var StaticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
 
-        var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/vendor.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion;
-        var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/app.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticAppFileVersion;
-        var FrameworksJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "") + "/src/frameworks.js?"+ Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion;
-        var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? "https://st2.aeplcdn.com" + StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
-        var PluginJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? "https://st.aeplcdn.com" + StaticUrl : "") + "/m/src/Plugins.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion;
-        var CommonJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? "https://st.aeplcdn.com" + StaticUrl : "") + "/m/src/common.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion;
-
+    
+        var VendorJsUrl = @String.Format("{0}/vendor.bundle.js?{1}", StaticUrlPWA, Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion);
+        var AppJsUrl = @String.Format("{0}/app.bundle.js?{1}", StaticUrlPWA, Bikewale.Utility.BWConfiguration.Instance.StaticAppFileVersion);
+        var FrameworksJsUrl = @String.Format("{0}/src/frameworks.js?{1}", StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion);
+        var BwcacheJsUrl = @String.Format("{0}/src/bwcache.js?{1}", StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion);
+        var PluginJsUrl = @String.Format("{0}/m/src/Plugins.js?{1}", StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)
+;
+        var CommonJsUrl = @String.Format("{0}/m/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
+    
     }
 
     @if (Model != null && Model.PageMetaTags != null)
@@ -63,7 +65,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <meta name="theme-color" content="#2a2a2a" />
-    <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
+    <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
 
     <link rel='stylesheet' type='text/css' href='/m/css/content/app.css' />
     <style type='text/css' rel='stylesheet'>@@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}</style>
@@ -123,8 +125,8 @@
     </script>
     <link rel="dns-prefetch" href="https://fonts.googleapis.com/">
     <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
-    <link rel="dns-prefetch" href="https://st.aeplcdn.com/">
-    <link rel="dns-prefetch" href="https://st2.aeplcdn.com/">
+    <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
+
     
     <script type="text/javascript" src="@VendorJsUrl" defer></script>
     <script type="text/javascript" src="@AppJsUrl" defer></script>

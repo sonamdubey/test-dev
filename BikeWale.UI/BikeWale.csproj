@@ -3506,7 +3506,6 @@
     <Content Include="Views\m\Shared\_PopupWidget.cshtml" />
     <Content Include="Views\Pager\PagerControl.cshtml" />
     <Content Include="Views\Location\_ChangeLocation_Mobile.cshtml" />
-    <Content Include="Views\Shared\_Layout_Desktop.cshtml" />
     <Content Include="Views\Shared\_LoginStatus.cshtml" />
     <Content Include="Views\Shared\_PopupWidget.cshtml" />
     <Content Include="Views\Location\_ChangeLocation.cshtml" />
@@ -3578,7 +3577,6 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad320x150_Second.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad300x250.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_Layout_Mobile_old.cshtml" />
     <Content Include="Views\ExpertReviews\Index.cshtml" />
     <Content Include="Views\ExpertReviews\Index_Mobile.cshtml" />
     <Content Include="Views\DealerShowroom\_DealersByBrand.cshtml" />

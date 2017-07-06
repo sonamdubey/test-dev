@@ -61,7 +61,7 @@ h2.section-heading {
 
 .bg-loader-placeholder {
     width: 100%;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center;
     line-height: 0;
 }
 
@@ -253,7 +253,7 @@ h2.section-heading {
 .trackday-logo {
     width: 120px;
     height: 35px;
-    background: url('https://imgd2.aeplcdn.com/0x0/cw/es/trackday/2016/bwm-trackday/landing-images/trackday-logo.png') no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/cw/es/trackday/2016/bwm-trackday/landing-images/trackday-logo.png') no-repeat;
     display: inline-block;
     margin-bottom: 8px;
 }

@@ -139,7 +139,7 @@ width:100%;
     width: 102px;
     height: 57px;
     margin-right: 5px;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) center no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) center no-repeat;
     position: relative;
 }
 .best-bike-list .item-image-block img {
@@ -153,7 +153,7 @@ width:100%;
 .trend-arrow {
     width: 116px;
     height: 72px;
-    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/trend-arrow.png) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/trend-arrow.png) no-repeat;
     position: absolute;
     left: 0;
     bottom: -20px;
@@ -239,7 +239,7 @@ width:100%;
 #notifyAvailabilityContainer .notify-close-btn {z-index:2;}
 #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 
 
-.offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;} 
+.offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;} 
 .bike-details-list-ul { list-style:disc; margin-left:18px; }
 
 .content-details-wrapper .overall-specs-tabs-wrapper li.active h3 { font-weight: bold; }
@@ -322,7 +322,7 @@ h2.text-bold { font-weight: bold; }
     top: 45px;
     width: 22px;
     height: 21px;
-    background: url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png') no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png') no-repeat;
     display: block;
 }
 
@@ -373,7 +373,7 @@ h2.text-bold { font-weight: bold; }
 
 /* dealer carousel */
 .dealer-city-image-preview { height: 75px; display:block; text-align:center; margin-bottom:10px; }
-.city-sprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite.png?26Dec2016) no-repeat; display: inline-block; }
+.city-sprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite.png?26Dec2016) no-repeat; display: inline-block; }
 .mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon, .india-icon { height: 70px; }
 .mumbai-icon { width: 98px; background-position: 0 0; }
 .pune-icon { width: 140px; background-position: -108px 0; }
@@ -400,7 +400,7 @@ h2.text-bold { font-weight: bold; }
     position: fixed;
     bottom: 60px;
     right: 20px;
-    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/top-icon.png) no-repeat scroll center center;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/top-icon.png) no-repeat scroll center center;
     cursor: pointer;
 }
 

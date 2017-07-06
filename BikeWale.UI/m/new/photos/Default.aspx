@@ -121,7 +121,7 @@
                         </div>
                         <div class="swiper-wrapper" data-bind="foreach: photoList">
                             <div class="swiper-slide">
-                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': HostUrl + '/642x361/' + OriginalImgPath }" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': HostUrl + '/642x361/' + OriginalImgPath }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                             </div>
                         </div>
                         <div class="bwmsprite swiper-button-next gallery-type-next"></div>
@@ -139,7 +139,7 @@
                         </div>
                         <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
                             <div class="swiper-slide">
-                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': HostUrl + '/642x361/' + OriginalImgPath }" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': HostUrl + '/642x361/' + OriginalImgPath }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                             </div>
                         </div>
                         <div class="bwmsprite swiper-button-next color-type-next"></div>

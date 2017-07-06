@@ -1,6 +1,6 @@
 ﻿var markerArr = [], map, infowindow, locationMap, filter, mapsInfoWindow, accordion;
 var minZoomLevel = 5;
-var markerIcon = 'https://imgd2.aeplcdn.com/0x0/bw/static/design15/marker-icon.png';
+var markerIcon = 'https://imgd.aeplcdn.com/0x0/bw/static/design15/marker-icon.png';
 var initialLat = 23.2134079,
 	initialLong = 81.3530178,
 	initialZoom = 5,

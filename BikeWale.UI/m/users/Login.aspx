@@ -121,7 +121,7 @@
                 setBackgroundImage();
             });
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/login/login.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/src/login/login.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

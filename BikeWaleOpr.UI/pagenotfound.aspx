@@ -4,7 +4,7 @@
 <style type="text/css">
 	.pagenotfound{ font-size:28px; font-weight:bold; font-family:Verdana, Arial, Helvetica, sans-serif; }    
     .text-highlight {font-weight:bold; font-size:12px; color:#000;}
-    .std-ul-list li{ padding:3px 0 3px 10px; display:block; background-image:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/icon-sprite.png); background-position:0 -111px; background-repeat:no-repeat;color:#666666;}
+    .std-ul-list li{ padding:3px 0 3px 10px; display:block; background-image:url(https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/icon-sprite.png); background-position:0 -111px; background-repeat:no-repeat;color:#666666;}
     .left h3{ background:none!important; padding:10px 0; }
 </style>  
 <div class="left margin-top10 margin-bottom10">

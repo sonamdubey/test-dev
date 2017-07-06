@@ -313,7 +313,7 @@
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #ef3030; height: 3px; }
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -13px; z-index: 2; background-position:3px 3px; }
+.ui-slider .ui-slider-handle { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -13px; z-index: 2; background-position:3px 3px; }
 
 .border-light-right { border-right: 1px solid #eee; }
 .border-light-bottom { border-bottom: 1px solid #eee; }
@@ -369,7 +369,7 @@
 .disclaimer {list-style-type: disc; padding-left:15px;}
 
 /* icons */
-.pq-sprite { background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
+.pq-sprite { background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
 
 .inr-md-lg {
     width: 12px;
@@ -449,7 +449,7 @@
 .inr-sm-grey { background-position:-92px -468px; }
 .inr-lg-grey { width:10px; height:14px; background-position:-91px -490px; }
 
-.offer-benefit-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
+.offer-benefit-sprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
 .pricequote-offers-list,.pricequote-benefits-list { overflow:hidden; }
 .pricequote-offers-list li,.pricequote-benefits-list li { width:205px; padding-right:10px; margin-top:10px; margin-bottom:10px; display:inline-block; vertical-align:middle;}
 .pricequote-offers-list.pricequote-two-benefits li, .pricequote-benefits-list.pricequote-two-benefits li { width:310px; }
@@ -692,7 +692,7 @@
 .campaign-content .campaign-logo {
     width: 80px;
     height: 40px;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg?v06Apr2017) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg?v06Apr2017) no-repeat;
 }
 .campaign-content .campaign-left-col {
     width: 78%;

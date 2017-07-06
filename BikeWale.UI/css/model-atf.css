@@ -821,7 +821,7 @@
 }
 
 /* model sprite classes */
-.model-sprite { background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
+.model-sprite { background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
 .partner-dealer {
     width: 32px;
     height: 34px;
@@ -894,7 +894,7 @@
 
 /* campaign */
 .offer-benefit-sprite {
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat;
     display: inline-block;
 }
 #campaign-offer-list li,
@@ -958,7 +958,7 @@
 .campaign-content .campaign-logo {
     width: 80px;
     height: 40px;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg?v06Apr2017) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg?v06Apr2017) no-repeat;
 }
 .campaign-content .campaign-left-col {
     width: 78%;

@@ -93,7 +93,7 @@
 
 .item-image-content {
   width: 100%;
-  background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;
   display: block;
   position: relative; }
   .item-image-content:hover {
@@ -147,7 +147,7 @@
 
 /* icons */
 .generic-sprite {
-  background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/generic-sprite.jpg) no-repeat;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/generic-sprite.jpg) no-repeat;
   display: inline-block; }
 
 /* key specs */
@@ -237,7 +237,7 @@
   height: 50px; }
 
 .brandlogosprite {
-  background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?17Apr2017) no-repeat;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?17Apr2017) no-repeat;
   display: inline-block; }
 
 .brand-2 {
@@ -391,7 +391,7 @@
   margin-bottom: 10px; }
 
 .styletypesprite {
-  background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/style-type-sprite.png) no-repeat;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/style-type-sprite.png) no-repeat;
   display: inline-block; }
 
 .style-scooters,

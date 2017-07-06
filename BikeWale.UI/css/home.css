@@ -98,7 +98,7 @@
     height: 50px;
 }
 .brandlogosprite {
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?17Apr2017) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?17Apr2017) no-repeat;
     display: inline-block;
 }
 .brand-2 {
@@ -254,7 +254,7 @@
     margin-bottom: 10px;
 }
 .styletypesprite {
-    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/style-type-sprite.png) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/style-type-sprite.png) no-repeat;
     display: inline-block;
 }
 .style-scooters,
@@ -318,7 +318,7 @@
     width: 292px;
     height: 164px;
     display: block;
-    background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center center;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center center;
 }
 .model-preview-image-container a img {
     width: 100%;
@@ -373,7 +373,7 @@
 }
 
 /* city sprite */
-.city-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
+.city-sprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
 .c1-icon, .c12-icon, .c2-icon, .c10-icon, .c176-icon, .c105-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 92px; }
 .c1-icon { width: 130px; background-position: 0 0; }
 .c12-icon { width: 186px; background-position: -140px 0; }

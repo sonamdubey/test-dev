@@ -95,7 +95,7 @@
                         </div>
                         <div id="listing-right-column" class="grid-8 alpha omega">
                             <div class="dealer-map-wrapper">
-                                <div id="dealerMapWrapper" style="width: 661px; height: 530px; background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;">
+                                <div id="dealerMapWrapper" style="width: 661px; height: 530px; background: #fff url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;">
                                     <div id="dealersMap" style="width: 661px; height: 530px;"></div>
                                 </div>
                             </div>
@@ -195,16 +195,16 @@
         </section>
 
         <noscript id="asynced-css">
-            <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" />
+            <link rel="stylesheet" type="text/css" href="<%= staticUrl  %>/css/bw-common-btf.css?<%=staticFileVersion %>" />
             <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         </noscript>
         <!-- #include file="/includes/footerBW.aspx" -->
-        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl %>/src/Plugins.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl %>/src/common.js?<%= staticFileVersion %>"></script>
         <script defer src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
-        <script defer type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/new/markerwithlabel.js"></script>
-        <script defer  type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/service/location.js?<%= staticFileVersion %>"></script>
+        <script defer type="text/javascript" src="<%= staticUrl  %>/src/new/markerwithlabel.js"></script>
+        <script defer  type="text/javascript" src="<%= staticUrl  %>/src/service/location.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

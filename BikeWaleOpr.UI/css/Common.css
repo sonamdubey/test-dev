@@ -94,7 +94,7 @@ select,option,span,div,textarea,input,button,fieldset,legend,label,table,tr,td,h
 .subheader { margin: 0px 0 10px 0; border-bottom: 1px solid #eee; padding: 5px 0 5px 0; background: #A4A4A4; color: #fff; }
 
 /* error class*/
-.bwsprite{background:url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?v1=19Aug2016v02) no-repeat;display:inline-block}
+.bwsprite{background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?v1=19Aug2016v02) no-repeat;display:inline-block}
 .error-icon{background-position:-177px -35px;width:19px;height:19px;position:absolute;right:10px;top:10px;z-index:2}
 .bw-blackbg-tooltip { background:#4d5057; color:#fff; font-size:12px; padding:3px 5px; position:absolute; right:0px; top:37px; z-index: 2;}
 .bw-blackbg-tooltip:before { border-bottom: 5px solid #4d5057; border-left: 5px solid transparent; border-right: 5px solid transparent; content:""; position:absolute; right:14px; top:-5px; z-index:999; }
@@ -110,7 +110,7 @@ select,option,span,div,textarea,input,button,fieldset,legend,label,table,tr,td,h
 }
 .form-control:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); }
-select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
+select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
 
 .clear { clear:both; }
 .hide { display:none; }
@@ -252,7 +252,7 @@ a.selected:link,a.selected:visited,a.selected:hover,a.selected:focus,a.selected:
 .top_info_left {text-transform: capitalize;}
 
 /* select */
-select { border: 1px solid #888; padding:10px; border-radius: 2px; -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0;}
+select { border: 1px solid #888; padding:10px; border-radius: 2px; -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0;}
 .toast{height:17px;position:fixed;right:5%;margin-left:-100px;bottom:10px;background-color:#383838;color:#F0F0F0;padding:10px;text-align:center;border-radius:2px;font-size:13px;font-family:Segoe UI,sans-serif;-webkit-box-shadow:0 0 24px -1px rgba(56,56,56,1);-moz-box-shadow:0 0 24px -1px rgba(56,56,56,1);box-shadow:0 0 24px -1px rgba(56,56,56,1)}
 
 /* -------------------------------------------------------------------------------------------- */

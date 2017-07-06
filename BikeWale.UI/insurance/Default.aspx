@@ -282,9 +282,9 @@
     </section>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/insurance.js?<%= staticFileVersion %>"></script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/pikaday.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl %>/src/home.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl %>/src/insurance.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl %>/src/pikaday.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             var picker = new Pikaday({
                 field: document.getElementById('bikeRegistrationDate')
