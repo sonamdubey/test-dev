@@ -16,8 +16,13 @@
             <!-- ko if : isDealerBikes() -->
             <div data-bind="visible: isDealerBikes()" class="form-control-box personal-info-list position-rel">
                 <div class="placeholder-loading-text position-abt form-control border-solid" style="display: none; height: 40px; border: 1px solid #e2e2e2;">Loading dealer bikes..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
-                <select id="getLeadBike" data-placeholder="Choose a bike model" data-bind="value : selectedBike, options : dealerBikes, optionValue : function (i) { return i.model.modelId; }, optionsText : 'bike' , optionsCaption: 'Select a bike'" class="form-control chosen-select margin-bottom10"></select>
-                <span class="bwsprite error-icon errorIcon"></span>
+<div class="select-box">                    
+                    <select id="getLeadBike" class="chosen-select form-control chosen-select margin-bottom10" data-placeholder="Choose a bike model" data-bind="chosen: { width: '100%' }, value: selectedBike, options: dealerBikes, optionValue: function (i) { return i.model.modelId; }, optionsText: 'bike', optionsCaption: 'Select a bike'"></select>
+                    <span class="error-text"></span>
+                </div>
+                    
+                    <span class="bwsprite error-icon errorIcon"></span>
+               
                 <div class="bw-blackbg-tooltip errorText"></div>
                 <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
             </div>
@@ -335,7 +340,8 @@
                             lscache.set(dealerKey, response, 30);
                             obj = ko.toJS(response);
                             self.dealerBikes([]);
-                            self.dealerBikes(obj.dealerBikes);
+                            self.dealerBikes(obj.dealerBikes);                            
+                            $('#getLeadBike').trigger("chosen:updated");
                         },
                         complete: function (xhr) {
                             self.hideLoader();
@@ -351,7 +357,8 @@
                 else {
                     obj = ko.toJS(dealerInfo);
                     self.dealerBikes([]);
-                    self.dealerBikes(obj.dealerBikes);
+                    self.dealerBikes(obj.dealerBikes);                    
+                    $('#getLeadBike').trigger("chosen:updated");
                 }
             }
         };
@@ -930,11 +937,13 @@
 
     var setError = function (element, msg) {
         element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
-        element.siblings("div.errorText").show().text(msg);
+        element.siblings("div.errorText").show().text(msg);        
+        validate.setError(element, 'Please select a bike');
     };
 
     var hideError = function (element) {
         element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
+        validate.setError(element, '');
     };
 
     function startLoading(ele) {
