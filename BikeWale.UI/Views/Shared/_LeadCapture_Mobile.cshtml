@@ -11,16 +11,19 @@
 
 
                 <div class="personal-info-form-container">
-
-                    <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: selectedCity() ? 'selection-done' : '',click : openCityList">
-                        <div id="city-select-element" class="slideIn-input-box">
-                            <p class="slideIn-input-label city-box-default text-left" data-bind="visible: (selectedCity() && selectedCity().cityName != ''),css : (selectedCity() && selectedCity().cityName != '') ? 'done' : '' ">City<sup>*</sup></p>
-                            <p id="city-select-p" class="selected-option-box city-box-default text-truncate" data-bind="text: (selectedCity() && selectedCity().cityName != '') ? selectedCity().cityName : 'Select City'"></p>
-                            <span class="boundary"></span>
-                            <span class="error-text hide"></span>
-                            <span class="bwmsprite grey-right-icon"></span>
+                    @if (Model.CityId <= 0)
+                    {
+                        <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: selectedCity() ? 'selection-done' : '',click : openCityList">
+                            <div id="city-select-element" class="slideIn-input-box">
+                                <p class="slideIn-input-label city-box-default text-left" data-bind="visible: (selectedCity() && selectedCity().cityName != ''),css : (selectedCity() && selectedCity().cityName != '') ? 'done' : '' ">City<sup>*</sup></p>
+                                <p id="city-select-p" class="selected-option-box city-box-default text-truncate" data-bind="text: (selectedCity() && selectedCity().cityName != '') ? selectedCity().cityName : 'Select City'"></p>
+                                <span class="boundary"></span>
+                                <span class="error-text hide"></span>
+                                <span class="bwmsprite grey-right-icon"></span>
+                            </div>
                         </div>
-                    </div>
+                    }
+
 
                     <!-- ko if : isDealerBikes() -->
                     <div id="getLeadBike" class="form-control-box margin-bottom15">
@@ -118,31 +121,35 @@
                 <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
             </div>
             <!-- thank you message ends here -->
+            @if (Model.CityId <= 0)
+            {
             <!-- city drawer starts here -->
-            <div id="pqcity-slideIn-drawer" class="slideIn-drawer-container">
-                <div class="form-control-box text-left">
-                    <div class="drawer-top-header">
-                        <div>
-                            <span id="close-city-filter" class="back-arrow-box inline-block" data-bind="click : closeCityList">
-                                <span class="bwmsprite back-long-arrow-left"></span>
-                            </span><p class="head-label inline-block">Select city</p>
-                        </div>
-                        <div class="filter-input-box">
-                            <div class="form-control-box">
-                                <input type="text" id="city-search-box" class="form-control padding-right40" placeholder="Type to select city" data-bind="textInput:cityFilter" autocomplete="off">
-                                <span class="bwmsprite search-icon-grey"></span>
+                <div id="pqcity-slideIn-drawer" class="slideIn-drawer-container">
+                    <div class="form-control-box text-left">
+                        <div class="drawer-top-header">
+                            <div>
+                                <span id="close-city-filter" class="back-arrow-box inline-block" data-bind="click : closeCityList">
+                                    <span class="bwmsprite back-long-arrow-left"></span>
+                                </span><p class="head-label inline-block">Select city</p>
+                            </div>
+                            <div class="filter-input-box">
+                                <div class="form-control-box">
+                                    <input type="text" id="city-search-box" class="form-control padding-right40" placeholder="Type to select city" data-bind="textInput:cityFilter" autocomplete="off">
+                                    <span class="bwmsprite search-icon-grey"></span>
+                                </div>
                             </div>
                         </div>
+                        <ul class="filter-list" id="pqpopupCityList" data-bind="template: { name: 'pqbindCityList-template', foreach: visibleCities }"></ul>
+                        <script type="text/html" id="pqbindCityList-template">
+                            <li data-bind="click: $parent.selectCity , attr: { 'cityId': cityId }">
+                                <span data-bind="text: cityName"></span>
+                            </li>
+                        </script>
                     </div>
-                    <ul class="filter-list" id="pqpopupCityList" data-bind="template: { name: 'pqbindCityList-template', foreach: visibleCities }"></ul>
-                    <script type="text/html" id="pqbindCityList-template">
-                        <li data-bind="click: $parent.selectCity , attr: { 'cityId': cityId }">
-                            <span data-bind="text: cityName"></span>
-                        </li>
-                    </script>
                 </div>
-            </div>
             <!-- city drawer ends here -->
+            }
+
 
         </div>
     </div>
@@ -217,6 +224,10 @@
             self.eventCategory = ko.observable();
             self.cities = ko.observableArray();
             self.selectedCity = ko.observable();
+
+            @if (Model.CityId <= 0)
+                            {
+                    <text>
             self.FilterData = function (data, filter) {
                 filterObj = data;
                 if (filter && filter.length > 1) {
@@ -228,6 +239,7 @@
                 }
                 return filterObj;
             };
+
             self.visibleCities = ko.computed(function () {
                 return self.FilterData(self.cities(), self.cityFilter());
             });
@@ -247,13 +259,51 @@
                 }
             };
 
-            self.closeCityList = function()
-            {
+            self.closeCityList = function () {
                 var cityListContainer = $('#pqcity-slideIn-drawer');
                 cityListContainer.hide('slide', { direction: 'right' }, 500, function () { });
                 cityListContainer.removeClass('fix-header-input');
                 windowScreen.unlock();
             }
+
+            self.getModelCities = function (d, e) {
+                if (self.modelId() > 0 && self.cityRequired()) {
+                    var eleCities = $("#getLeadCity");
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/PQCityList/?modelId=" + self.modelId(),
+                        dataType: 'json',
+                        success: function (response) {
+                            var cities = response.cities;
+                            var citySelected = null;
+                            if (cities) {
+                                self.cities(cities);
+                            }
+                            else {
+                                self.cities([]);
+                            }
+                            eleCities.trigger("chosen:updated");
+                            $(this).parent().removeClass('done');
+                        }
+                    });
+                }
+            };
+
+            self.selectCity = function (d, e) {
+                self.selectedCity(d);
+                if (self.selectedCity() && self.selectedCity().cityId > 0) {
+                    self.cityId(self.selectedCity().cityId);
+
+                    if (self.dealersRequired()) {
+                        self.getDealersList(self.dealerId());
+                    }
+
+                    self.isRegisterPQ(true);
+                }
+                self.closeCityList();
+            };
+            </text>
+                            }
 
             self.setOptions = function (options) {
                 if (options != null) {
@@ -330,51 +380,12 @@
                     if (options.clientip != null)
                         self.clientIP = options.clientip;
 
-                    if (options.pqid != null)
+                    if (options.pqid != null && options.pqid)
                         self.pqId(options.pqid);
 
                     if (options.gaobject != null)
                         self.GAObject(options.gaobject);
                 }
-            };
-
-            self.getModelCities = function (d, e) {
-                if (self.modelId() > 0 && self.cityRequired()) {
-                    var eleCities = $("#getLeadCity");
-                    $.ajax({
-                        type: "GET",
-                        url: "/api/PQCityList/?modelId=" + self.modelId(),
-                        dataType: 'json',
-                        success: function (response) {
-                            var cities = response.cities;
-                            var citySelected = null;
-                            if (cities) {
-                                self.cities(cities);
-                            }
-                            else {
-                                self.cities([]);
-                            }
-                            eleCities.trigger("chosen:updated");
-                            $(this).parent().removeClass('done');
-                        }
-                    });
-                }
-            };
-
-            self.selectCity = function (d, e) {
-                self.selectedCity(d);
-                if (self.selectedCity() && self.selectedCity().cityId > 0) {
-                    self.cityId(self.selectedCity().cityId);
-
-                    if (self.dealersRequired())
-                    {
-                        self.getDealersList(self.dealerId());
-                    }
-
-                    self.isRegisterPQ(true);
-                }
-                //else setError($(this));
-                self.closeCityList();
             };
 
             self.getDealerBikes = function (data, event) {
@@ -437,9 +448,6 @@
                                 $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
                                 $("#ddlMfgDealers").val('0');
                                 $("#ddlMfgDealers").closest('.select-box').addClass('done');
-                                if (self.cityRequired() && self.selectedCity()) {
-                                    SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName(), 365);
-                                }
                             } else {
                                 $("#ddlMfgDealers").html('');
                                 $("#ddlMfgDealers").append("<option value selected>Select dealer</option>");
@@ -780,7 +788,7 @@
 
                 if (isValidCustomer && self.mfgCampaignId() > 0) {
 
-                    if (self.isRegisterPQ())
+                    if (self.pqId())
                         self.generatePQ(data, event);
 
                     $('#processing').show();
@@ -817,6 +825,9 @@
                             $("#contactDetailsPopup").hide();
                             $('#notify-response .notify-leadUser').text(self.fullName());
                             $('#notify-response').show();
+                            if (self.cityRequired() && self.selectedCity()) {
+                                SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
+                            }
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             $('#processing').hide();
@@ -937,7 +948,7 @@
                 var inputBoxes = $('.personal-info-form-container .input-box');
                 for (var i = 0; i < inputBoxes.length; i++) {
                     var item = $(inputBoxes[i]),
-                        inputValue = item.find('input').val();
+                    inputValue = item.find('input').val();
 
                     if (inputValue.length > 0) {
                         item.addClass('not-empty');
