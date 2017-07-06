@@ -937,13 +937,15 @@
 
     var setError = function (element, msg) {
         element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
-        element.siblings("div.errorText").show().text(msg);        
+        element.siblings("div.errorText").show().text(msg);
+        //$('#getLeadBike').siblings('span.error-text').text('Please select a bike');
         validate.setError(element, 'Please select a bike');
     };
 
     var hideError = function (element) {
         element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
-        validate.setError(element, '');
+       validate.setError(element, '');
+        //$('#getLeadBike').siblings('span.error-text').text('');
     };
 
     function startLoading(ele) {
@@ -972,12 +974,14 @@
         /* form validation */
         validate = {
             setError: function (element, message) {
-                var elementLength = element.val().length,
-                    errorTag = element.siblings('span.error-text');
-
+                if (element.val()){
+                    var elementLength = element.val().length;
+            }
+                   var errorTag = element.siblings('span.error-text');                
                 errorTag.text(message);
                 if (!elementLength) {
                     element.closest('.input-box').removeClass('not-empty').addClass('invalid');
+                
                 }
                 else {
                     element.closest('.input-box').addClass('not-empty invalid');
@@ -1075,10 +1079,10 @@
             }
         });
 
-        $(document).on("change", "#getLeadBike", function () {
-            if ($(this).val() != null && $(this).val() != "0")
-                hideError($(this));
-            else setError($(this));
+        $(document).on("change", "#getLeadBike", function () {                     
+                if ($(this).val() != null && $(this).val() != "0")
+                    hideError($(this));
+                else setError($(this));           
         });
 
         $("#getEmailID, #assistGetEmail").on("blur", function () {
