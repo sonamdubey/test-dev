@@ -87,6 +87,12 @@ $(document).ready(function () {
 
         Dropzone.autoDiscover = false;
 
+        var obj = GetGlobalLocationObject();
+        if (obj != null) {
+            vmSellBike.bikeDetails().cityId(obj.CityId);
+            vmSellBike.bikeDetails().city(obj.CityName);
+        }
+
         var inquiryDetails = JSON.parse(inquiryDetailsJSON);
 
         if (isEdit == "True") {
@@ -114,7 +120,7 @@ $(document).ready(function () {
             bdetails.prevColorId(bdetails.colorId());
 
             bdetails.cityId(inquiryDetails.cityId);
-            bdetails.city(findCityName(bdetails.cityId()));
+            bdetails.city(findCityName(bdetails.cityId()));          
             bdetails.registeredCity(inquiryDetails.registrationPlace);
 
             bdetails.kmsRidden(inquiryDetails.kiloMeters);
@@ -180,7 +186,7 @@ $(document).ready(function () {
             $("#expectedPrice").val('');
             $("#manufacturingDate").val('');
             $("#div-owner").removeClass('done');
-            if (cookieCityId) {
+            if (cookieCityId && cookieCityName) {
                 vmSellBike.bikeDetails().cityId(cookieCityId);
                 vmSellBike.bikeDetails().city(cookieCityName);
             }
@@ -191,12 +197,7 @@ $(document).ready(function () {
     } catch (e) {
         console.warn(e);
     }
-    sellLoader.close();
-    var obj = GetGlobalLocationObject();
-    if (obj != null) {
-        vmSellBike.bikeDetails().cityId(obj.CityId);
-        vmSellBike.bikeDetails().city(obj.CityName);
-    }
+    sellLoader.close();   
 });
 
 

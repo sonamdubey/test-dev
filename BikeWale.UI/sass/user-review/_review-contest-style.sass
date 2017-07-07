@@ -1,0 +1,220 @@
+﻿$font-oxygen: 'Oxygen', sans-serif
+
+.font-oxygen
+	font-family: $font-oxygen
+
+	.btn
+		font-family: $font-oxygen
+
+.font-light
+	font-weight: 300
+
+.font-bold
+	font-weight: 700
+
+.card-shadow
+	background: #fff
+	@include box-shadow(0, 0, 2px, 0, #bbb)
+
+.card-spacing
+	padding: 20px
+	margin-bottom: 20px
+
+.contest-banner
+	height: 390px
+	background: #2e3192 url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/review-contest-banner.png) no-repeat left bottom
+	background-size: cover
+	padding-top: 1px
+
+.contest__welcome-box
+	margin-top: 135px
+	margin-left: 470px
+
+.contest__box-heading
+	font-size: 18px
+	font-weight: normal
+	color: #fff
+	margin-bottom: 10px
+
+.btn-190-40
+	width: 190px
+	padding: 8px
+
+// rewards-banner
+.rewards-banner
+	margin: 10px
+	height: 92px
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/rewards-banner.png) repeat-x
+	text-align: center
+	padding-top: 20px
+	color: #16645f
+	font-size: 18px
+
+.h2-heading
+	color: #000
+	font-size: 18px
+	font-weight: 700
+	text-transform: uppercase
+	margin-bottom: 20px
+	text-align: center
+
+// overviewContent
+#overviewContent
+	margin-bottom: 20px
+
+.overview__top-card
+	padding: 20px
+
+// guidelines list
+.guideline-list
+	text-align: center
+	margin-top: 10px
+	margin-bottom: 15px
+
+	li
+		width: 18%
+		display: inline-block
+		vertical-align: top
+		text-align: center
+		margin-right: -4px
+
+	.guideline-item-title
+		font-weight: 300
+		color: #868585
+
+.guideline-sprite
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/guideline-sprite.png) no-repeat
+	display: inline-block
+
+.truth-icon,
+.details-icon,
+.original-icon
+	width: 40px
+	height: 40px
+	margin-bottom: 5px
+
+.truth-icon
+	background-position: 0 0
+
+.details-icon
+	background-position: -50px 0
+
+.original-icon
+	background-position: -100px 0
+
+// write review form
+.overview__review-form
+	padding-top: 20px
+	padding-bottom: 20px
+	text-align: center
+	background: #fbfbfb
+	border: 1px solid #eee
+
+.review-form__title
+	font-size: 18px
+	color: #000
+	margin-bottom: 25px
+
+.review-form-field
+	width: 230px
+	margin-right: 20px
+	display: inline-block
+	vertical-align: top
+
+	&.select-box
+		.chosen-container
+			height: 34px
+
+			.chosen-drop
+				width: 100%
+
+			.chosen-single
+				position: relative
+				top: 2px
+	.error-text
+		display: block
+		text-align: left
+
+.btn-215-34
+	width: 215px
+	padding: 5px
+
+// cheatsheet
+.bullet-list
+	margin-left: 17px
+	list-style: disc
+	font-size: 14px
+
+	li
+		margin-top: 10px
+
+		&:first-child
+			margin-top: 0
+
+	&.more-list-content
+		li
+			&:first-child
+				margin-top: 10px
+
+// winnersContent
+#winnersContent
+	background: #2e3192
+	margin-bottom: 20px
+	padding-top: 20px
+
+.text-white
+	color: #fff
+
+// review author icon
+.review-author
+	position: absolute
+	top: -75px
+	left: 0
+	right: 0
+	margin: 0 auto
+
+.john-doe
+	width: 73px
+	height: 101px
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/john-doe.png) no-repeat
+	display: inline-block
+
+// rating badges
+.rating-badge
+    min-width: 40px
+    height: 20px	
+    padding-right: 5px
+    padding-left: 5px
+    font-size: 14px
+    font-weight: 600
+    color: #fff
+    display: inline-block
+    vertical-align: middle
+    margin-right: 8px
+    text-align: center
+    @include border-radius(2px)
+
+.star-white
+    width: 12px
+    height: 12px
+    background-position: -218px -103px
+    position: relative
+    top: 1px
+    margin-right: 4px
+
+// rating colors
+$rating-colors: (1: #EF3F30, 2: #FD971C, 3: #EFD700, 4: #13B65D, 5: #198D55)
+
+@mixin rating-background($count)
+    @if map-has-key($rating-colors, $count)
+        .rating-badge[data-rate-bg="#{$count}"]
+            background-color: map-get($rating-colors, $count)
+
+    @else
+        @warn "Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined."
+
+@include rating-background(5)
+@include rating-background(4)
+@include rating-background(3)
+@include rating-background(2)
+@include rating-background(1)

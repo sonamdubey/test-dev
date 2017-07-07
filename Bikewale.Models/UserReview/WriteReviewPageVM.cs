@@ -8,6 +8,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by Sajal Gupta on 10-04-2017
     /// Descrioption : This model is for write review page.
+    /// Modified by : Aditi Srivastava on 5 July 2017
+    /// Summary     : Added contest src for user review contest page
     /// </summary>
     public class WriteReviewPageVM : ModelBase
     {
@@ -29,5 +31,6 @@ namespace Bikewale.Models
         public WriteReviewPageSubmitResponse SubmitResponse { get; set; }
         public string JsonReviewSummary { get; set; }
         public uint PageSourceId { get; set; }
+        public int ContestSrc { get; set; }
     }
 }

@@ -719,3 +719,19 @@
     overflow: hidden;
 }
 .select-box .chosen-container .chosen-results {overflow-y: scroll; max-height: 160px; padding-bottom: 20px; }
+/* campaign offer loans */
+.campaign__powered-key {
+    font-size: 12px;
+    color: #a2a2a2;
+}
+
+.campaign__powered-value {
+    font-size: 13px;
+    color: #82888b;
+}
+
+.btn-160-32 {
+    min-width: 160px;
+    padding: 5px;
+    font-size: 14px;    
+}

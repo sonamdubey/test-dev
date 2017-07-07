@@ -40,7 +40,7 @@
                         <td>@m.MakeName @m.ModelName</td>
                         <td>@m.WrittenBy</td>
                         <td>@m.CustomerEmail</td>
-                        <td><i class="material-icons inline-block" style="font-size: 15px">star</i>&nbsp;<span class="inline-block">@m.OverallRating/5</span></td>
+                        <td><i class="yellow-text material-icons inline-block">star</i>&nbsp;<span class="inline-block">@m.OverallRating/5</span></td>
                         <td>@Convert.ToDateTime(m.EntryDate).ToString("dd/MM/yyyy")</td>
                         <td><a id="btnApprove_@m.Id"  href="#!" class="btn waves-effect waves-light" type="button" name="Approve" data-review-id="@m.Id" data-bind="click : function(){ approveReview(@m.Id); }">Approve</a></td>
                         <td><a href="#!" class="btn waves-effect waves-light red lighten-2" type="button" name="Reject" data-review-id="@m.Id" data-bind="click : function(){ discardReview(@m.Id); }">Reject</a></td>

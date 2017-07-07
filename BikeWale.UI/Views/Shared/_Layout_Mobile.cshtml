@@ -289,13 +289,7 @@
             </li>
             @** Render login control here *@
             @Html.Partial("~/Views/m/Shared/_LoginControl.cshtml")
-            <li>
-                <a href="/m/two-wheeler-survey/">
-                    <span class="bwmsprite reviews-icon"></span>
-                    <span class="navbarTitle">Two Wheeler Survey</span>
-                    <span class="new-flag"></span>
-                </a>
-            </li>
+            
         </ul>
 
         <div id="nav-app-content">
@@ -407,8 +401,6 @@
     {
         <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
     }
-
-    <div class="back-to-top" id="back-to-top"></div>
     <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js" defer>
     </script>
     <script type="text/javascript">

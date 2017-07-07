@@ -25,7 +25,7 @@ namespace Bikewale.Controllers
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IPriceQuote _objPQ = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
-
+        private readonly Interfaces.IManufacturerCampaign _objManufacturerCampaign = null;
         /// <summary>
         /// Created By : Sushil Kumar on 23rd March 2017
         /// Resolve unity containers
@@ -37,7 +37,7 @@ namespace Bikewale.Controllers
         /// <param name="objCityCache"></param>
         /// <param name="objPQ"></param>
         /// <param name="objDealerCache"></param>
-        public PriceController(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache)
+        public PriceController(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, Interfaces.IManufacturerCampaign objManufacturerCampaign)
         {
             _objDealerPQDetails = objDealerPQDetails;
             _objDealerPQ = objDealerPQ;
@@ -46,7 +46,7 @@ namespace Bikewale.Controllers
             _objCityCache = objCityCache;
             _objPQ = objPQ;
             _objDealerCache = objDealerCache;
-
+            _objManufacturerCampaign = objManufacturerCampaign;
 
         }
 
@@ -70,8 +70,9 @@ namespace Bikewale.Controllers
         [Route("pricequote/dealer/")]
         public ActionResult Details()
         {
-            DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache);
+            DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objManufacturerCampaign);
             obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Desktop;
+            obj.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Desktop_DealerPriceQuote;
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 obj.OtherTopCount = 3;
@@ -104,8 +105,9 @@ namespace Bikewale.Controllers
         [Route("m/pricequote/dealer/")]
         public ActionResult Details_Mobile()
         {
-            DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache);
+            DealerPriceQuotePage obj = new DealerPriceQuotePage(_objDealerPQDetails, _objDealerPQ, _objVersionCache, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objManufacturerCampaign);
             obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Mobile;
+            obj.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_DealerPriceQuote;
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 obj.OtherTopCount = 9;

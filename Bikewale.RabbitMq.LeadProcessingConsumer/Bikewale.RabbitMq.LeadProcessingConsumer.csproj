@@ -115,12 +115,18 @@
   <ItemGroup>
     <Compile Include="AutoBizServiceRef.cs" />
     <Compile Include="BajajFinanceLeadEntity.cs" />
+    <Compile Include="BajajFinanceLeadHandler.cs" />
     <Compile Include="BikeQuotationEntity.cs" />
     <Compile Include="BWConfiguration.cs" />
+    <Compile Include="DefaultManufacturerLeadHandler.cs" />
+    <Compile Include="HondaManufacturerLeadHandler.cs" />
+    <Compile Include="IManufacturerLeadHandler.cs" />
+    <Compile Include="ManufacturerLeadEntityBase.cs" />
     <Compile Include="LeadProcessingRepository.cs" />
     <Compile Include="LeadProcessor.cs" />
     <Compile Include="LeadTypes.cs" />
     <Compile Include="ManufacturerLeadEntity.cs" />
+    <Compile Include="ManufacturerLeadProcessor.cs" />
     <Compile Include="OtherVersionInfoEntity.cs" />
     <Compile Include="PriceQuoteParametersEntity.cs" />
     <Compile Include="Program.cs" />
@@ -131,7 +137,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="RoyalEnfieldDealer.cs" />
+    <Compile Include="RoyalEnfieldLeadHandler.cs" />
     <Compile Include="TataCapitalInputEntity.cs" />
+    <Compile Include="TataCapitalLeadHandler.cs" />
     <Compile Include="Web References\RoyalEnfieldWebAPI\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
