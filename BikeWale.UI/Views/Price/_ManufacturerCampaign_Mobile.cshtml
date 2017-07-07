@@ -3,6 +3,13 @@
 @if (Model != null)
 {
     <!-- Manufacturer Campaign Ad section starts -->
-    @Html.Raw(Format.GetRendredContent(String.Format("LeadCampaign_Mobile_{0}", Model.CampaignId), Model.LeadsHtmlMobile, Model))
+    try
+    {
+        @Html.Raw(Format.GetRenderedContent(String.Format("LeadCampaign_Mobile_{0}", Model.CampaignId), Model.LeadsHtmlMobile, Model))
+    }
+    catch (Exception ex)
+    {
+        Bikewale.Notifications.ErrorClass err = new Bikewale.Notifications.ErrorClass(ex, String.Format("ManufacturerCampaign.Mobile(CampaignId : {0})", Model.CampaignId));
+    }
      <!-- Manufacturer Campaign Ad section ends -->
 }
