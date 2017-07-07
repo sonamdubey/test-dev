@@ -54,13 +54,13 @@ namespace BikeWaleOpr.MVC.UI.Controllers
                         System.Web.Security.FormsAuthenticationTicket ticket;
                         //now add the id and the role to the ticket, concat the id and role, separated by ',' 
                         //ticket = new FormsAuthenticationTicket(1, oprId, DateTime.Now, DateTime.Now.AddHours(9), false, oprId);
-                        ticket = new System.Web.Security.FormsAuthenticationTicket(1, objBasicInfo.UserId, DateTime.Now, DateTime.Now.AddHours(9), false, objBasicInfo.UserId + ":" + loginId + ":" + objBasicInfo.Name);
-
+                        ticket = new System.Web.Security.FormsAuthenticationTicket(1, objBasicInfo.UserId, DateTime.Now, DateTime.Now.AddHours(12), false, objBasicInfo.UserId + ":" + loginId + ":" + objBasicInfo.Name);                        
 
                         //add the ticket into the cookie
                         HttpCookie objCookie;
                         objCookie = new HttpCookie(System.Web.Security.FormsAuthentication.FormsCookieName);
                         objCookie.Value = System.Web.Security.FormsAuthentication.Encrypt(ticket);
+                        objCookie.Expires = DateTime.Now.AddHours(12);
 
                         ControllerContext.HttpContext.Response.Cookies.Add(objCookie);
                     }
