@@ -206,6 +206,7 @@
                 if (options.mfgCampid != null) {
                     self.mfgCampaignId(options.mfgCampid);
                 }
+
                 if (options.dealerHeading != null && options.dealerHeading != "")
                     self.dealerHeading(options.dealerHeading);
 
@@ -309,7 +310,7 @@
             if (!isNaN(self.dealerId()) && self.dealerId() > 0 && self.campaignId() > 0) {
                 var dealerKey = "dealerDetails_" + self.dealerId() + "_camp_" + self.campaignId();
                 var dealerInfo = lscache.get(dealerKey);
-
+                
                 if (!dealerInfo) {
 
                     startLoading(leadBike.parent());
@@ -653,7 +654,7 @@
                     "dealercityname": ele.attr('data-cityname')
                 };
 
-                if (!iNaN(leadOptions.versionid) && leadOptions.versionid != "0")
+                if (!isNaN(leadOptions.versionid) && leadOptions.versionid != "0")
                 {
                     if (!self.modelId() && ele.attr('data-modelId')) {
                         self.modelId(ele.attr('data-modelId'));
