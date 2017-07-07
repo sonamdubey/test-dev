@@ -324,16 +324,7 @@
     var leadSourceId = "@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DPQ_SecondaryDealers)";
     var bikeName = "@Model.BikeName", bikeVersionPrice = "@Model.TotalPrice";
     var quotationPage = true;
-   
-    var modelQuotaition = "@Model.Quotation";
-
-    if (modelQuotaition) {
-        var cityName = "@Model.Quotation.City";
-        var makeName = "@Model.Quotation.MakeName";
-        var modelName = "@Model.Quotation.ModelName";
-        var versionName = "@Model.Quotation.VersionName";
-        var bwTrackingLab = "make=" + encodeURIComponent(makeName) + "|model=" + encodeURIComponent(modelName) + "|version=" + encodeURIComponent(versionName) + "|city=" + encodeURIComponent(cityName);
-    }
+    var bwTrackingLab = "@Model.BhriguTrackingLabel";
 
     docReady(function () {
         ga_pg_id = "7";

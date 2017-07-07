@@ -171,10 +171,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://115.249.214.177//RoyalEnfield/Service.asmx">
+    <WebReferenceUrl Include="http://crc.cequitycti.com/RoyalEnfield/Service.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\RoyalEnfieldWebAPI\</RelPath>
-      <UpdateFromURL>http://115.249.214.177//RoyalEnfield/Service.asmx</UpdateFromURL>
+      <UpdateFromURL>http://crc.cequitycti.com/RoyalEnfield/Service.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

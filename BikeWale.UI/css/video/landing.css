@@ -199,6 +199,7 @@
 .brand-8,
 .brand-81,
 .brand-9,
+.brand-23,
 .brand-type {
     height: 50px
 }
@@ -224,7 +225,7 @@
     overflow: hidden
 }
 .brandlogosprite {
-    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?v=04Oct2016) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?04July20171499147306874) no-repeat;
     display: inline-block
 }
 .brand-2 {
@@ -334,6 +335,10 @@
 .brand-71 {
     width: 39px;
     background-position: -2616px 0
+}
+.brand-23 {
+    width: 125px;
+    background-position: -3026px 0;
 }
 @media only screen and (max-width: 1024px) {
     .brand-type,

@@ -186,7 +186,7 @@
   text-transform: capitalize; }
 
 .brandlogosprite {
-  background-image: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?17Apr2017);
+  background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?04July20171499147306874);
   background-repeat: no-repeat;
   display: inline-block; }
 
@@ -218,7 +218,8 @@
 .brand-81,
 .brand-71,
 .brand-21,
-.brand-38 {
+.brand-38,
+.brand-23 {
   height: 30px; }
 
 .brand-2 {
@@ -336,6 +337,10 @@
 .brand-38 {
   width: 25px;
   background-position: -1804px 0; }
+
+.brand-23 {
+  width: 70px;
+  background-position: -1839px 0; }
 
 .block-button-list li {
   width: 148px;
