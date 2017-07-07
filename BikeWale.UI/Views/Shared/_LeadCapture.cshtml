@@ -634,28 +634,37 @@
         };
 
         self.HiddenSubmitLead = function (d, e) {
-            ele = $(e.target);
-            var leadOptions = {
-                "dealerid": ele.attr('data-item-id'),
-                "dealername": ele.attr('data-item-name'),
-                "dealerarea": ele.attr('data-item-area'),
-                "versionid": ele.attr('data-versionid'),
-                "leadsourceid": ele.attr('data-leadsourceid'),
-                "pqsourceid": ele.attr('data-pqsourceid'),
-                "isleadpopup": ele.attr('data-isleadpopup'),
-                "mfgCampid": ele.attr('data-mfgcampid'),
-                "pqid": pqId,
-                "isregisterpq": ele.attr('data-isregisterpq'),
-                "pageurl": pageUrl,
-                "clientip": clientIP,
-                "eventcategory": ele.attr('c'),
-                "dealercityname": ele.attr('data-cityname')
-            };
-            if (!self.modelId() && ele.attr('data-modelId')) {
-                self.modelId(ele.attr('data-modelId'));
+            try {
+                ele = $(e.target);
+                var leadOptions = {
+                    "dealerid": ele.attr('data-item-id'),
+                    "dealername": ele.attr('data-item-name'),
+                    "dealerarea": ele.attr('data-item-area'),
+                    "versionid": ele.attr('data-versionid'),
+                    "leadsourceid": ele.attr('data-leadsourceid'),
+                    "pqsourceid": ele.attr('data-pqsourceid'),
+                    "isleadpopup": ele.attr('data-isleadpopup'),
+                    "mfgCampid": ele.attr('data-mfgcampid'),
+                    "pqid": pqId,
+                    "isregisterpq": ele.attr('data-isregisterpq'),
+                    "pageurl": pageUrl,
+                    "clientip": clientIP,
+                    "eventcategory": ele.attr('c'),
+                    "dealercityname": ele.attr('data-cityname')
+                };
+
+                if (!iNaN(leadOptions.versionid) && leadOptions.versionid != "0")
+                {
+                    if (!self.modelId() && ele.attr('data-modelId')) {
+                        self.modelId(ele.attr('data-modelId'));
+                    }
+                    self.setOptions(leadOptions);
+                    self.submitLead(d, e);
+                }
+
+            } catch (e) {
+
             }
-            self.setOptions(leadOptions);
-            self.submitLead(d, e);
         };
 
         self.setPinCodeSuggestion = function () {
