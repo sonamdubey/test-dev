@@ -87,7 +87,7 @@
                         <div class="clear"></div>
                     </div>
                 }
-                @if (!(!Model.IsManufacturerTopLeadAdShown && Model.IsLocationSelected && !Model.ShowOnRoadButton) && !(Model.IsDealerDetailsExists))
+                @if(!(Model.IsManufacturerLeadAdShown || Model.IsDealerDetailsExists))
                 {
                   <div class="margin-bottom20 text-center">
                     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}

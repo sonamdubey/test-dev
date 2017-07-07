@@ -21,7 +21,7 @@ var pageFooter = {
     container: $('#page-footer'),
 
     setPosition: function () {
-        var flag = pageFooter.bodyElement.height() - window.innerHeight > pageFooter.container.height();
+        var flag = pageFooter.bodyElement.height() + 50 - window.innerHeight > pageFooter.container.height();
 
         if (pageFooter.bodyElement.height() > window.innerHeight && flag) {
             pageFooter.container.addClass('footer-relative');
