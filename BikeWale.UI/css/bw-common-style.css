@@ -1189,6 +1189,11 @@ input[type="number"] {
 .select-box .chosen-single:focus {
   outline: none; }
 
+.select-box .error-text {
+    text-align: left;
+    display: block;
+}
+
 .chosen-disabled.single-version {
   opacity: 1 !important;
   background: none; }

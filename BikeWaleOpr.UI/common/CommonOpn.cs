@@ -1601,33 +1601,33 @@ namespace BikeWaleOpr.Common
                     {
                         if (isImported)
                         {
-                            roadTax = price * 0.16;
+                            roadTax = price * 0.18;
                         }
                         else
                         {
-                            roadTax = price * 0.08;
+                            roadTax = price * 0.10;
                         }
                     }
                     else if (cc > 100 && cc <= 299)
                     {
                         if (isImported)
                         {
-                            roadTax = price * 0.18;
+                            roadTax = price * 0.20;
                         }
                         else
                         {
-                            roadTax = price * 0.09;
+                            roadTax = price * 0.11;
                         }
                     }
                     else
                     {
                         if (isImported)
                         {
-                            roadTax = price * 0.2;
+                            roadTax = price * 0.22;
                         }
                         else
                         {
-                            roadTax = price * 0.1;
+                            roadTax = price * 0.12;
                         }
                     }
 

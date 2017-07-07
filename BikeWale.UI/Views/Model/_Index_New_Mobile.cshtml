@@ -63,7 +63,7 @@
                             @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Mobile.cshtml", Model)
                         }
                         
-                        @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && Model.BikePrice > 0)
+                        @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && Model.BikePrice > 0 && !Model.IsManufacturerTopLeadAdShown)                                   
                         {
                             <div class="floating-btn clearfix">
                                 <div class="grid-12 alpha omega">
@@ -71,13 +71,14 @@
                                 </div>
                             </div>
                         }
-                        
                     </div>
-
                 </div>
                 @if (Model.IsManufacturerLeadAdShown)
                 {
                     @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
+                }
+                @if (Model.IsManufacturerTopLeadAdShown)
+                {
                     <div class="campaign__floating-btn floating-btn clearfix">
                         <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
                         <div class="grid-5 alpha omega">
@@ -86,7 +87,7 @@
                         <div class="clear"></div>
                     </div>
                 }
-                @if (!(!Model.IsManufacturerLeadAdShown && Model.IsLocationSelected && !Model.ShowOnRoadButton) && !(Model.IsDealerDetailsExists))
+                @if(!(Model.IsManufacturerLeadAdShown || Model.IsDealerDetailsExists))
                 {
                   <div class="margin-bottom20 text-center">
                     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
