@@ -424,16 +424,16 @@
   </wsdl:binding>
   <wsdl:service name="Service">
     <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
-      <soap:address location="http://115.249.214.177/RoyalEnfield/Service.asmx" />
+      <soap:address location="http://crc.cequitycti.com/RoyalEnfield/Service.asmx" />
     </wsdl:port>
     <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
-      <soap12:address location="http://115.249.214.177/RoyalEnfield/Service.asmx" />
+      <soap12:address location="http://crc.cequitycti.com/RoyalEnfield/Service.asmx" />
     </wsdl:port>
     <wsdl:port name="ServiceHttpGet" binding="tns:ServiceHttpGet">
-      <http:address location="http://115.249.214.177/RoyalEnfield/Service.asmx" />
+      <http:address location="http://crc.cequitycti.com/RoyalEnfield/Service.asmx" />
     </wsdl:port>
     <wsdl:port name="ServiceHttpPost" binding="tns:ServiceHttpPost">
-      <http:address location="http://115.249.214.177/RoyalEnfield/Service.asmx" />
+      <http:address location="http://crc.cequitycti.com/RoyalEnfield/Service.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
