@@ -205,6 +205,9 @@ h1,
   .numeric-list li {
     margin-bottom: 5px; }
 
+.write-review-padding {
+  padding: 15px 20px 5px; }
+
 .textarea-box {
   position: relative; }
   .textarea-box textarea {

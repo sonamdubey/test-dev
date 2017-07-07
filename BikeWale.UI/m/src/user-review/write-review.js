@@ -582,6 +582,7 @@ docReady(function () {
     descReviewField.on('focus', function () {
         vmWriteReview.detailedReviewFlag(false);
         triggerGA('Write_Review', 'Write_a_Review', makeModelName + ratingOverAll + '_' + pageSrc);
+        answer.focusForm($('#guidelineList'));
     });
 
     reviewTitleField.on("focus", function () {
@@ -593,10 +594,10 @@ docReady(function () {
         validate.onBlur($(this));
     });
 
-    if ($("#reviewDesc") && $("#reviewDesc").data("validate") && $("#reviewDesc").data("validate").length)
+    if (descReviewField && descReviewField.data("validate") && descReviewField.data("validate").length)
         vmWriteReview.validate.detailedReview();
 
-    if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length)
+    if (reviewTitleField && reviewTitleField.data("validate") && reviewTitleField.data("validate").length)
         vmWriteReview.validate.reviewTitle();
 
     vmWriteReview.GetFromBwCache();
