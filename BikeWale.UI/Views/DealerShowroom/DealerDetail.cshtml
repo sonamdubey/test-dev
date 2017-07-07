@@ -177,7 +177,7 @@
                                 <option value="">Select a bike</option>
                                 @foreach (var bike in Model.DealerDetails.Models)
                                 { 
-                                <option value="@bike.objVersion.VersionId">@bike.BikeName</option>
+                                <option modelId="@bike.objModel.ModelId" value="@bike.objVersion.VersionId">@bike.BikeName</option>
                                 }
                             </select>
                             <span class="boundary"></span>
