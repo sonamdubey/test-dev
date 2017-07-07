@@ -287,16 +287,16 @@ namespace Bikewale.Utility
         /// <param name="template"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static string GetRendredContent(string templateName, string template, ManufactureCampaignLeadEntity model)
+        public static string GetRenderedContent(string templateName, string template, ManufactureCampaignLeadEntity model)
         {
             try
             {
                 var renderedContent = Razor.Parse(template, model, templateName);
                 return renderedContent;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return "";
+                throw ex;
             }
         }
     }
