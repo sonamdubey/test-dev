@@ -73,8 +73,8 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
 
         private void FormaModelData(CampaignPropertiesVM objModel)
         {
-            objModel.LeadHtmlDesktop = WebUtility.HtmlEncode(objModel.LeadHtmlDesktop);
-            objModel.LeadHtmlMobile = WebUtility.HtmlEncode(objModel.LeadHtmlMobile);
+            objModel.FormattedHtmlMobile = WebUtility.HtmlEncode(objModel.FormattedHtmlMobile);
+            objModel.FormattedHtmlDesktop = WebUtility.HtmlEncode(objModel.FormattedHtmlDesktop);
         }
     }
    
