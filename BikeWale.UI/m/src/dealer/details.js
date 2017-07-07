@@ -126,7 +126,11 @@ function savePosition(position) {
 }
 
 function setUserLocation(position) {
-    $("#anchorGetDir").attr("href", "https://maps.google.com/?saddr=" + position.lat() + "," + position.lng() + "&daddr=" + dealerLat + "," + dealerLong + '');
+    try {
+        $("#anchorGetDir").attr("href", "https://maps.google.com/?saddr=" + position.lat() + "," + position.lng() + "&daddr=" + dealerLat + "," + dealerLong + '');
+    } catch (e) {
+
+    }
 }
 
 

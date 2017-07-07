@@ -514,7 +514,11 @@ function savePosition(position) {
 }
 
 function setUserLocation(position) {
-    $("#anchorGetDir").attr("href", "https://maps.google.com/?saddr=" + position.coords.latitude + "," + position.coords.longitude + "&daddr=" + dealerLat + "," + dealerLong + '');
+    try {
+        $("#anchorGetDir").attr("href", "https://maps.google.com/?saddr=" + position.coords.latitude + "," + position.coords.longitude + "&daddr=" + dealerLat + "," + dealerLong + '');
+    } catch (e) {
+
+    }
 }
 $("#assistanceBrandInput").on("keyup", function () {
     locationFilter($(this));
