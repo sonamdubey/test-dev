@@ -16,6 +16,7 @@ namespace BikewaleOpr.Controllers
     /// Created By : Ashish G. Kamble on 10 May 2017
     /// Summary : Controller have all methods related to dealer campaigns
     /// </summary>
+    [Authorize]
     public class DealerCampaignController : Controller
     {        
         private readonly CampaignServingAreasModel objModel = null;        

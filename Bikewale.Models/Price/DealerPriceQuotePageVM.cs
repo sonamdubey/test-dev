@@ -8,7 +8,8 @@ using System.Linq;
 namespace Bikewale.Models.Price
 {
     /// <summary>
-    /// 
+    /// Modified by Sajal Gupat on 07-07-2017
+    /// Description : Added BhriguTrackingLabel
     /// </summary>
     public class DealerPriceQuotePageVM : ModelBase
     {
@@ -53,5 +54,6 @@ namespace Bikewale.Models.Price
         public bool IsManufacturerLeadAdShown { get; set; }
         public ManufactureCampaignEMIEntity EMICampaign { get; set; }
         public bool IsManufacturerEMIAdShown { get; set; }
+        public string BhriguTrackingLabel { get; set; }
     }
 }
