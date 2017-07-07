@@ -13,10 +13,12 @@ namespace Bikewale.Models.UserReviews
     /// </summary>
     public class WriteReviewContest
     {
+        private bool _isMobile = false;
         private readonly IBikeMakesCacheRepository<int> _makeRepository = null;
-        public WriteReviewContest(IBikeMakesCacheRepository<int> makeRepository)
+        public WriteReviewContest(bool IsMobile, IBikeMakesCacheRepository<int> makeRepository)
         {
             _makeRepository = makeRepository;
+            _isMobile = IsMobile;
         }
 
         public int csrc { get; set; }
@@ -28,7 +30,7 @@ namespace Bikewale.Models.UserReviews
         {
             WriteReviewContestVM viewModel = new WriteReviewContestVM();
             viewModel.Makes = _makeRepository.GetMakesByType(Entities.BikeData.EnumBikeType.UserReviews);
-            viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}&contestsrc={1}", (int)UserReviewPageSourceEnum.Mobile_UserReviewContestPage, csrc));
+            viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}&contestsrc={1}", _isMobile? (int)UserReviewPageSourceEnum.Mobile_UserReviewContestPage: (int)UserReviewPageSourceEnum.Desktop_UserReviewContestPage, csrc));
             BindPageMetas(viewModel);
             return viewModel;
         }
