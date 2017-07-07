@@ -424,9 +424,9 @@ docReady(function () {
                     return toReplace.toUpperCase();
                 }));
             }
-            if ($("#reviewTips").length>0) {
+            if ($("#getReviewTip").length > 0) {
                 var rg = /(^\w{1}|\.\s*\w{1})/gi;
-                $("#reviewTips").val($("#reviewTips").val().toLowerCase().replace(rg, function (toReplace) {
+                $("#getReviewTip").val($("#getReviewTip").val().toLowerCase().replace(rg, function (toReplace) {
                     return toReplace.toUpperCase();
                 }));
             }
