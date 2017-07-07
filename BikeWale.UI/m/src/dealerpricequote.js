@@ -542,7 +542,13 @@ docReady(function () {
         return num;
     };
 
-    var EMIviewModel = new BikeEMI;
-    ko.applyBindings(EMIviewModel, $("#emiContent")[0]);
+    var EMIviewModel;
+
+    try {
+        EMIviewModel = new BikeEMI;
+        ko.applyBindings(EMIviewModel, $("#emiContent")[0]);
+    } catch (e) {
+        console.log(e.message);
+    }
 
 });
