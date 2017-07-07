@@ -679,3 +679,19 @@
 .full-width-select .dropdown-menu .dropdown-selected-item {
     max-width: 100%;
 }
+/* campaign offer loans */
+.campaign__powered-key {
+    font-size: 12px;
+    color: #a2a2a2;
+}
+
+.campaign__powered-value {
+    font-size: 13px;
+    color: #82888b;
+}
+
+.btn-160-32 {
+    min-width: 160px;
+    padding: 5px;
+    font-size: 14px;    
+}

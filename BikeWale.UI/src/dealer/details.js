@@ -3,22 +3,28 @@ var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress
 var customerViewModel, dealerDetailsViewModel;
 var dealerLat;
 var googleMapAPIKey;
-var dealerLong, dropdown, assistGetModel, currentCityName, pqId, pageUrl, clientIP, cityArea;
+var dealerLong, dropdown, assistGetModel, currentCityName, pqId, pageUrl, clientIP, cityArea,dealerbikesListEle;
 
 docReady(function () {
     pageUrl = window.location.href;
-    assistGetModel = $('#getLeadBike');
+    assistGetModel = $('#getLeadBike'), dealerbikesListEle =$("#dealer-assist-btn") ;
     dealerLong = document.getElementById("locationSearch").getAttribute("data-long");
     dealerLat = document.getElementById("locationSearch").getAttribute("data-lat");
     googleMapAPIKey = document.getElementById("locationSearch").getAttribute("data-Map");
     clientIP = document.getElementById("locationSearch").getAttribute("data-clietIp");
     initializeMap();
     dropdown.setDropdown();
-    $("#getLeadBike").change(function () {
-        var val = $(this).val();
-        if (val && val != "" && val != "0") {
-            versionId = val;
+
+    assistGetModel.change(function () {
+        var ele = assistGetModel.find("option:selected");
+        if (ele && ele.val() && ele.val()!="0") {
+            versionId = ele.val();
+            if (dealerbikesListEle)
+            {
+                dealerbikesListEle.attr("data-versionid", ele.val()).attr("data-modelid", ele.attr("modelid"));
+            }
         }
+       
     });
     $(".dealerDetails").click(function () {
         var btnDpq = $(this);

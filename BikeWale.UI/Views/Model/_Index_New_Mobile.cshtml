@@ -3,7 +3,7 @@
 @using Bikewale.BikeBooking;
 
 <section>
-	<a href="/m/bike-review-contest/" class="contest-slug-sm slug-teal-target">
+	<a href="/m/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage)" class="contest-slug-sm slug-teal-target">
 		<span class="trophy-white"></span>
 		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;1000</p>
 		<span class="bwmsprite arrow-white-right"></span>
@@ -63,7 +63,7 @@
                             @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Mobile.cshtml", Model)
                         }
                         
-                        @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && Model.BikePrice > 0)
+                        @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && Model.BikePrice > 0 && !Model.IsManufacturerTopLeadAdShown)                                   
                         {
                             <div class="floating-btn clearfix">
                                 <div class="grid-12 alpha omega">
@@ -71,15 +71,23 @@
                                 </div>
                             </div>
                         }
-                        
                     </div>
-
                 </div>
-                @if (Model.ManufacturerCampaign != null && Model.LocationCookie.CityId > 0)
+                @if (Model.IsManufacturerLeadAdShown)
                 {
-                    @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
+                    @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
                 }
-                @if (!(Model.ManufacturerCampaign != null && Model.ManufacturerCampaign.ShowAd && Model.IsLocationSelected && !Model.ShowOnRoadButton) && !(Model.IsDealerDetailsExists))
+                @if (Model.IsManufacturerTopLeadAdShown)
+                {
+                    <div class="campaign__floating-btn floating-btn clearfix">
+                        <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
+                        <div class="grid-5 alpha omega">
+                            <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@(String.Format(Model.LeadCampaign.PopupSuccessMessage,Model.LeadCampaign.Organization))" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" class="btn btn-orange btn-full-32 leadcapturebtn">@String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization)</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                }
+                @if(!(Model.IsManufacturerLeadAdShown || Model.IsDealerDetailsExists))
                 {
                   <div class="margin-bottom20 text-center">
                     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
@@ -112,7 +120,7 @@
     </section>
 }
 
-@if (Model.LeadCapture != null && Model.IsLocationSelected)
+@if (Model.LeadCapture != null && (Model.IsLocationSelected || Model.IsManufacturerLeadAdShown))
 {
     @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 }

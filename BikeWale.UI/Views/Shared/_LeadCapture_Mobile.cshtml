@@ -1,7 +1,6 @@
 ﻿@model Bikewale.Entities.PriceQuote.LeadCaptureEntity
 @if (Model != null)
 {
-
     <!-- Lead Capture pop up start  -->
     <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
         <div class="popup-inner-container text-center">
@@ -12,6 +11,20 @@
 
 
                 <div class="personal-info-form-container">
+                    @if (Model.CityId <= 0)
+                    {
+                        <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: selectedCity() ? 'selection-done' : '',click : openCityList">
+                            <div id="city-select-element" class="slideIn-input-box">
+                                <p class="slideIn-input-label city-box-default text-left" data-bind="visible: (selectedCity() && selectedCity().cityName != ''),css : (selectedCity() && selectedCity().cityName != '') ? 'done' : '' ">City<sup>*</sup></p>
+                                <p id="city-select-p" class="selected-option-box city-box-default text-truncate" data-bind="text: (selectedCity() && selectedCity().cityName != '') ? selectedCity().cityName : 'Select City'"></p>
+                                <span class="boundary"></span>
+                                <span class="error-text hide"></span>
+                                <span class="bwmsprite grey-right-icon"></span>
+                            </div>
+                        </div>
+                    }
+
+
                     <!-- ko if : isDealerBikes() -->
                     <div id="getLeadBike" class="form-control-box margin-bottom15">
                         <div class="input-select-box dealer-search-brand form-control-box">
@@ -62,8 +75,6 @@
                         <span class="error-text hide"></span>
                     </div>
 
-               
-
                     <div id="getPinCode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
                         <input type="text" id="getPinCode" autocomplete="off">
                         <label for="getPinCode">Pincode<sup>*</sup></label>
@@ -77,7 +88,7 @@
                             </li>
                         </ul>
                     </div>
-                   
+
                     <div id="getDealer-select-box" class="form-control-box margin-bottom15 full-width-select text-left" data-bind="visible: dealersRequired()">
                         <div class="dropdown-select-wrapper">
                             <select id="ddlMfgDealers" class="dropdown-select"></select>
@@ -85,10 +96,11 @@
                             <span class="error-text hide"></span>
                         </div>
                     </div>
-                        <div class="clear"></div>
-                        <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                        <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
-                    </div>
+
+                    <div class="clear"></div>
+                    <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                    <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+                </div>
             </div>
 
             <!-- thank you message starts here -->
@@ -100,15 +112,45 @@
                 </div>
                 <!-- ko if : !dealerMessage() -->
                 <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-                <p class="font16 margin-bottom40" data-bind="visible: !(campaignId() > 0)">Thank you for providing your details. <span data-bind="    text: dealerName()"></span><span data-bind="    visible: dealerArea() && dealerArea().length > 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
-                <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind="    text: dealerName()"></span>Company would get back to you shortly with additional information.</p>
+                <p class="font16 margin-bottom40" data-bind="visible: !(campaignId() > 0)">Thank you for providing your details. <span data-bind=" text dealerName()"></span><span data-bind="visible dealerArea() && dealerArea().length> 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
+                <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind=" text dealerName()"></span>Company would get back to you shortly with additional information.</p>
                 <!-- /ko -->
-                <!-- ko ifnot : -->
+                <!-- ko ifnot : !dealerMessage() -->
                 <p class="font16 margin-bottom40" data-bind="text: dealerMessage()"></p>
                 <!-- /ko -->
                 <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
             </div>
             <!-- thank you message ends here -->
+            @if (Model.CityId <= 0)
+            {
+            <!-- city drawer starts here -->
+                <div id="pqcity-slideIn-drawer" class="slideIn-drawer-container">
+                    <div class="form-control-box text-left">
+                        <div class="drawer-top-header">
+                            <div>
+                                <span id="close-city-filter" class="back-arrow-box inline-block" data-bind="click : closeCityList">
+                                    <span class="bwmsprite back-long-arrow-left"></span>
+                                </span><p class="head-label inline-block">Select city</p>
+                            </div>
+                            <div class="filter-input-box">
+                                <div class="form-control-box">
+                                    <input type="text" id="city-search-box" class="form-control padding-right40" placeholder="Type to select city" data-bind="textInput:cityFilter" autocomplete="off">
+                                    <span class="bwmsprite search-icon-grey"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="filter-list" id="pqpopupCityList" data-bind="template: { name: 'pqbindCityList-template', foreach: visibleCities }"></ul>
+                        <script type="text/html" id="pqbindCityList-template">
+                            <li data-bind="click: $parent.selectCity , attr: { 'cityId': cityId }">
+                                <span data-bind="text: cityName"></span>
+                            </li>
+                        </script>
+                    </div>
+                </div>
+            <!-- city drawer ends here -->
+            }
+
+
         </div>
     </div>
     <div id="ub-ajax-loader">
@@ -122,17 +164,18 @@
         var leadBtnBookNow, leadCapturePopup, leadBike;
         var fullName, emailid, mobile, detailsSubmitBtn;
         var prevEmail = "", prevMobile = "", prevPinCode = "";
-        var leadmodelid = '@Model.ModelId', leadcityid = '@Model.CityId', leadareaid = '@Model.AreaId';
+        var leadmodelid = parseInt('@Model.ModelId'), leadcityid = parseInt('@Model.CityId'), leadareaid = parseInt('@Model.AreaId');
         var leadBikeName = '@Model.BikeName', leadLocation = '@Model.Location', CityArea = leadLocation;
         var objPinCodes = new Object(), validate, validateInputSelection;
-        var brandSearchBar, dealerSearchBrand, dealerSearchBrandForm;
+        var brandSearchBar, dealerSearchBrand, dealerSearchBrandForm, windowScreen;
+
 
         function leadModel() {
             var arr = setuserDetails();
             var self = this;
             if (arr != null && arr.length > 0) {
                 self.fullName = ko.observable(arr[0]);
-                if (arr[1]!="undefined") {
+                if (arr[1] != "undefined") {
                     self.emailId = ko.observable(arr[1]);
                 } else {
                     self.emailId = ko.observable();
@@ -161,6 +204,7 @@
             self.pqSourceId = ko.observable();
             self.pageUrl = window.location.href;
             self.clientIP = "";
+            self.cityFilter = ko.observable("");
             self.isRegisterPQ = ko.observable(false);
             self.isDealerBikes = ko.observable(false);
             self.dealerBikes = ko.observableArray([]);
@@ -171,155 +215,280 @@
             self.dealerHeading = ko.observable();
             self.dealerMessage = ko.observable();
             self.dealerDescription = ko.observable();
+            self.cityRequired = ko.observable(leadcityid <= 0);
             self.pinCodeRequired = ko.observable();
             self.emailRequired = ko.observable();
             self.dealersRequired = ko.observable();
             self.dealerCityName = ko.observable();
             self.dealerAreaName = ko.observable();
             self.eventCategory = ko.observable();
-            self.setOptions = function (options) {
-                if (options != null) {
-                    if (options.eventcategory != null)
-                        self.eventCategory(options.eventcategory);
+            self.cities = ko.observableArray();
+            self.selectedCity = ko.observable();
 
-                    if (options.dealercityname != null)
-                        self.dealerCityName(options.dealercityname);
+                @if (Model.CityId <= 0)
+                    {
+                        <text>
+                        self.FilterData = function(data, filter) {
+                            filterObj = data;
+                            if (filter && filter.length > 1) {
+                                var pat = new RegExp(filter, "i");
+                                filterObj = data.filter(function(place) {
+                                    if (pat.test(place.cityName)) return place;
+                                });
 
-                    if (options.dealerareaname != null)
-                        self.dealerAreaName(options.dealerareaname);
+                            }
+                            return filterObj;
+                        };
 
-                    if (options.dealerid != null)
-                        self.dealerId(options.dealerid);
+                        self.visibleCities = ko.computed(function() {
+                            return self.FilterData(self.cities(), self.cityFilter());
+                        });
 
-                    if (options.dealername != null)
-                        self.dealerName(options.dealername);
+                        self.openCityList = function() {
+                            var cityListContainer = $('#pqcity-slideIn-drawer');
+                            cityListContainer.show('slide', { direction: 'right' }, 500, function() {
+                                cityListContainer.addClass('fix-header-input');
+                            });
 
-                    if (options.dealerarea != null)
-                        self.dealerArea(options.dealerarea);
+                            if ($(document).height() > $(window).height()) {
+                                var windowScrollTop = windowScreen.htmlElement.scrollTop() ? windowScreen.htmlElement.scrollTop() : windowScreen.bodyElement.scrollTop();
+                                if (windowScrollTop < 0) {
+                                    windowScrollTop = 0;
+                                }
+                                windowScreen.htmlElement.addClass('lock-browser-scroll').css('top', -windowScrollTop);
+                            }
+                        };
 
-                    if (options.versionid != null)
-                        self.versionId(options.versionid);
+                        self.closeCityList = function () {
+                            var cityListContainer = $('#pqcity-slideIn-drawer');
+                            cityListContainer.hide('slide', { direction: 'right' }, 500, function () { });
+                            cityListContainer.removeClass('fix-header-input');
+                            windowScreen.unlock();
+                        };
 
-                    if (options.leadsourceid != null)
-                        self.leadSourceId(options.leadsourceid);
+                        self.getModelCities = function(d, e) {
+                            if (self.modelId() > 0 && self.cityRequired()) {
+                                var eleCities = $("#getLeadCity");
+                             $.ajax({
+                                    type: "GET",
+                                    url: "/api/PQCityList/?modelId=" + self.modelId(),
+                                    dataType: 'json',
+                                    success: function(response) {
+                                    var cities = response.cities;
+                                    var citySelected = null;
+                                    if (cities) {
+                                        self.cities(cities);
+                                    }
+                                    else {
+                                        self.cities([]);
+                                    }
+                                    eleCities.trigger("chosen:updated");
+                                        $(this).parent().removeClass('done');
+                                    }
+                                });
+                            }
+                        };
 
-                    if (options.pqsourceid != null)
-                        self.pqSourceId(options.pqsourceid);
+                        self.selectCity = function(d, e) {
+                            self.selectedCity(d);
+                            if (self.selectedCity() && self.selectedCity().cityId > 0) {
+                                self.cityId(self.selectedCity().cityId);
 
-                    if (options.isregisterpq != null)
-                        self.isRegisterPQ(options.isregisterpq);
+                                if (self.dealersRequired()) {
+                                    self.getDealersList(self.dealerId());
+                                }
 
-                    if (options.campid != null)
-                        self.campaignId(options.campid);
-
-                    if (options.mfgCampid != null) {
-                        self.mfgCampaignId(options.mfgCampid);
+                                self.isRegisterPQ(true);
+                            }
+                            self.closeCityList();
+                        };
+                        </text>
                     }
 
-                    if (options.isdealerbikes != null && options.isdealerbikes) {
-                        self.isDealerBikes(options.isdealerbikes);
-                        self.getDealerBikes();
-                    }
-                    if (options.dealerHeading != null && options.dealerHeading != "")
-                        self.dealerHeading(options.dealerHeading);
+                            self.setOptions = function (options) {
+                                if (options != null) {
+                                    if (options.eventcategory != null)
+                                        self.eventCategory(options.eventcategory);
 
-                    if (options.dealerMessage != null && options.dealerMessage != "")
-                        self.dealerMessage(options.dealerMessage);
+                                    if (options.dealercityname != null)
+                                        self.dealerCityName(options.dealercityname);
 
-                    if (options.dealerDescription != null && options.dealerDescription != "")
-                        self.dealerDescription(options.dealerDescription);
+                                    if (options.dealerareaname != null)
+                                        self.dealerAreaName(options.dealerareaname);
 
-                    if (options.pinCodeRequired != null)
-                        self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true);
+                                    if (options.dealerid != null)
+                                        self.dealerId(options.dealerid);
 
-                    if (options.emailRequired != null)
-                        self.emailRequired(options.emailRequired != 'true' ? false : true);
+                                    if (options.dealername != null)
+                                        self.dealerName(options.dealername);
 
-                    if (options.dealersRequired != null)
-                        self.dealersRequired(options.dealersRequired != 'true' ? false : true);
-                    
-                    if (options.pageurl != null)
-                        self.pageUrl = options.pageurl;
+                                    if (options.dealerarea != null)
+                                        self.dealerArea(options.dealerarea);
 
-                    if (options.clientip != null)
-                        self.clientIP = options.clientip;
+                                    if (options.versionid != null)
+                                        self.versionId(options.versionid);
 
-                    if (options.pqid != null)
-                        self.pqId(options.pqid);
+                                    if (options.leadsourceid != null)
+                                        self.leadSourceId(options.leadsourceid);
 
-                    if (options.gaobject != null)
-                        self.GAObject(options.gaobject);
-                }
-            };
+                                    if (options.pqsourceid != null)
+                                        self.pqSourceId(options.pqsourceid);
 
-            self.getDealerBikes = function (data, event) {
+                                    if (options.isregisterpq != null)
+                                        self.isRegisterPQ(options.isregisterpq);
 
-                if (!isNaN(self.dealerId()) && self.dealerId() > 0 && self.campaignId() > 0) {
-                    var dealerKey = "dealerDetails_" + self.dealerId() + "_camp_" + self.campaignId();
-                    var dealerInfo = lscache.get(dealerKey);
+                                    if (options.campid != null)
+                                        self.campaignId(options.campid);
 
-                    if (!dealerInfo) {
+                                    if (options.mfgCampid != null) {
+                                        self.mfgCampaignId(options.mfgCampid);
+                                    }
 
-                        startLoading(leadBike);
-                        leadBike.find(".btnSpinner").show();
+                                    if (options.isdealerbikes != null && options.isdealerbikes) {
+                                        self.isDealerBikes(options.isdealerbikes);
+                                        self.getDealerBikes();
+                                    }
+                                    if (options.dealerHeading != null && options.dealerHeading != "")
+                                        self.dealerHeading(options.dealerHeading);
+
+                                    if (options.dealerMessage != null && options.dealerMessage != "")
+                                        self.dealerMessage(options.dealerMessage);
+
+                                    if (options.dealerDescription != null && options.dealerDescription != "")
+                                        self.dealerDescription(options.dealerDescription);
+
+                                    if (options.pinCodeRequired != null)
+                                        self.pinCodeRequired(options.pinCodeRequired != 'True' ? false : true);
+
+                                    if (options.emailRequired != null)
+                                        self.emailRequired(options.emailRequired != 'True' ? false : true);
+
+                                    if (options.dealersRequired != null) {
+                                        self.dealersRequired(options.dealersRequired != 'True' ? false : true);
+                                        if (self.cityId() && self.dealersRequired()) {
+                                            self.getDealersList(self.dealerId());
+                                        }
+                                    }
+
+                                    if (self.cityRequired()) {
+                                        self.getModelCities();
+                                    }
+
+                                    if (options.pageurl != null)
+                                        self.pageUrl = options.pageurl;
+
+                                    if (options.clientip != null)
+                                        self.clientIP = options.clientip;
+
+                                    if (options.pqid != null && options.pqid)
+                                        self.pqId(options.pqid);
+
+                                    if (options.gaobject != null)
+                                        self.GAObject(options.gaobject);
+                                }
+                            };
+
+                            self.getDealerBikes = function (data, event) {
+
+                            if (!isNaN(self.dealerId()) && self.dealerId() > 0 && self.campaignId() > 0) {
+                                var dealerKey = "dealerDetails_" + self.dealerId() + "_camp_" + self.campaignId();
+                                var dealerInfo = lscache.get(dealerKey);
+
+                                if (!dealerInfo) {
+
+                                    startLoading(leadBike);
+                                    leadBike.find(".btnSpinner").show();
 
                         $.ajax({
-                            type: "GET",
+                                        type: "GET",
                             url: "/api/DealerBikes/?dealerId=" + self.dealerId() + "&campaignId=" + self.campaignId(),
                             contentType: "application/json",
                             dataType: 'json',
                             beforeSend: function (xhr) {
-                                self.showLoader();
-                                xhr.setRequestHeader('utma', getCookie('__utma'));
-                                xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
-                            },
+                                            self.showLoader();
+                                            xhr.setRequestHeader('utma', getCookie('__utma'));
+                                            xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+                                        },
                             success: function (response) {
-                                lscache.set(dealerKey, response, 30);
-                                obj = ko.toJS(response);
-                                self.dealerBikes([]);
-                                self.dealerBikes(obj.dealerBikes);
-                            },
+                                            lscache.set(dealerKey, response, 30);
+                                            obj = ko.toJS(response);
+                                            self.dealerBikes([]);
+                                            self.dealerBikes(obj.dealerBikes);
+                                        },
                             complete: function (xhr) {
-                                self.hideLoader();
-                                if (xhr.status == 204 || xhr.status == 404) {
-                                    lscache.set(dealerKey, null, 30);
+                                            self.hideLoader();
+                                            if (xhr.status == 204 || xhr.status == 404) {
+                                                lscache.set(dealerKey, null, 30);
+                                            }
+
+                                            stopLoading(leadBike);
+                                            leadBike.find(".btnSpinner").hide();
+                                        }
+                                    });
                                 }
-
-                                stopLoading(leadBike);
-                                leadBike.find(".btnSpinner").hide();
+                                else {
+                                    obj = ko.toJS(dealerInfo);
+                                    self.dealerBikes([]);
+                                    self.dealerBikes(obj.dealerBikes);
+                                }
                             }
-                        });
-                    }
-                    else {
-                        obj = ko.toJS(dealerInfo);
-                        self.dealerBikes([]);
-                        self.dealerBikes(obj.dealerBikes);
-                    }
-                }
-            };
+                        };
 
-            self.generatePQ = function (data, event) {
+                        self.getDealersList = function () {
+                $.ajax({
+                                type: "GET",
+                    url: "/api/ManufacturerCampaign/city/" + self.cityId() + "/dealer/" + self.dealerId() + "/",
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function (response) {
+                                    var obj = ko.toJS(response);
+                                    var count = obj.length;
+                                    if (count >= 1) {
+                                        if (count == 1) {
+                                $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
+                                $("#ddlMfgDealers").val('0');
+                                $("#ddlMfgDealers").closest('.select-box').addClass('done');
+                                        } else {
+                                $("#ddlMfgDealers").html('');
+                                $("#ddlMfgDealers").append("<option value selected>Select dealer</option>");
+                                            for (i = 0; i < count; i++) {
+                                                var dt = obj[i];
+                                                var areaName = '';
+                                                if (dt.area != null) {
+                                                    areaName = ", " + dt.area;
+                                                }
+                                    $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-id='" + dt.id + "'  >" + dt.dealerName + areaName + "</option>");
+                                            }
+                                        }
+                                    }
+                        $("#getDealer-select-box").find(".dropdown-menu").remove();
+                                    dropdown.setMenu($("#ddlMfgDealers"));
+                                },
+                });
+                        };
 
-                isSuccess = false;
-                isValidDetails = false;
+                        self.generatePQ = function (data, event) {
 
-                isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
+                            isSuccess = false;
+                            isValidDetails = false;
 
-                if (self.isDealerBikes()) {
-                    var bike = self.selectedBike();
-                    if (bike && bike.version && bike.model) {
-                        self.versionId(bike.version.versionId);
-                        self.modelId(bike.model.modelId);
-                    }
-                    else {
-                        self.versionId(0);
-                        self.modelId(0);
-                    }
-                }
+                            isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
 
-                if (isValidDetails && self.modelId() && self.versionId()) {
+                            if (self.isDealerBikes()) {
+                                var bike = self.selectedBike();
+                                if (bike && bike.version && bike.model) {
+                                    self.versionId(bike.version.versionId);
+                                    self.modelId(bike.model.modelId);
+                                }
+                                else {
+                                    self.versionId(0);
+                                    self.modelId(0);
+                                }
+                            }
 
-                    var objData = {
+                            if (isValidDetails && self.modelId() && self.versionId()) {
+
+                                var objData = {
                         "dealerId": self.dealerId(),
                         "modelId": self.modelId(),
                         "versionId": self.versionId(),
@@ -330,64 +499,64 @@
                         "sourceType": 2,
                         "pQLeadId": self.pqSourceId(),
                         "deviceId": getCookie('BWC')
-                    };
-                    return self.registerPQ(objData);
+                                };
+                            return self.registerPQ(objData);
 
-                }
+                        }
                 return isSuccess;
 
-            };
+                        };
 
             self.registerPQ = function (objPQData) {
-                var isSuccess = false;
-                if (objPQData) {
-                    var url = '/api/RegisterPQ/';
+                            var isSuccess = false;
+                            if (objPQData) {
+                                var url = '/api/RegisterPQ/';
                     $.ajax({
-                        type: "POST",
+                                    type: "POST",
                         url: url,
                         async: false,
                         data: ko.toJSON(objPQData),
                         contentType: "application/json",
                         dataType: 'json',
                         beforeSend: function (xhr) {
-                            self.showLoader();
-                        },
+                                        self.showLoader();
+                                    },
                         success: function (response) {
-                            self.pqId(response.quoteId);
-                            isSuccess = true;
-                        },
+                                        self.pqId(response.quoteId);
+                                        isSuccess = true;
+                                    },
                         complete: function (xhr) {
-                            self.hideLoader();
-                            if (xhr.status != 200) {
-                                self.IsVerified(false);
-                                isSuccess = false;
-                                stopLoading($("#user-details-submit-btn").parent());
+                                        self.hideLoader();
+                                        if (xhr.status != 200) {
+                                            self.IsVerified(false);
+                                            isSuccess = false;
+                                            stopLoading($("#user-details-submit-btn").parent());
+                                        }
+
+                                    }
+                                });
                             }
 
-                        }
-                    });
-                }
+                            return isSuccess;
+                        };
 
-                return isSuccess;
-            };
+                        self.pushToGA = function (data, event) {
 
-            self.pushToGA = function (data, event) {
+                            if (data != null && data.act != null) {
+                                if (data.lab == "lead_label") {
+                                    data.lab = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_' + CityArea;
+                                }
+                                triggerGA(data.cat, data.act, data.lab)
+                            }
+                        };
 
-                if (data != null && data.act != null) {
-                    if (data.lab == "lead_label") {
-                        data.lab = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_' + CityArea;
-                    }
-                    triggerGA(data.cat, data.act, data.lab)
-                }
-            };
+                        self.verifyCustomer = function (data, event) {
 
-            self.verifyCustomer = function (data, event) {
-
-                if (self.isRegisterPQ())
-                    self.generatePQ(data, event);
+                            if (self.isRegisterPQ())
+                                self.generatePQ(data, event);
 
                 if (self.pqId() && self.dealerId()) {
-                    var objCust = {
+                            var objCust = {
                         "dealerId": self.dealerId(),
                         "pqId": self.pqId(),
                         "versionId": self.versionId(),
@@ -401,132 +570,134 @@
                         "deviceId": getCookie('BWC')
                     };
                     $.ajax({
-                        type: "POST",
+                            type: "POST",
                         url: "/api/PQCustomerDetail/",
                         data: ko.toJSON(objCust),
                         beforeSend: function (xhr) {
-                            self.showLoader();
-                            xhr.setRequestHeader('utma', getCookie('__utma'));
-                            xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
-                        },
+                                self.showLoader();
+                                xhr.setRequestHeader('utma', getCookie('__utma'));
+                                xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+                            },
                         async: false,
                         contentType: "application/json",
                         dataType: 'json',
                         success: function (response) {
-                            var obj = ko.toJS(response);
-                            self.IsVerified(obj.isSuccess);
-                        },
+                                var obj = ko.toJS(response);
+                                self.IsVerified(obj.isSuccess);
+                            },
                         complete: function (xhr, ajaxOptions, thrownError) {
-                            self.hideLoader();
-                            if (xhr.status != 200)
-                                self.IsVerified(false);
+                                self.hideLoader();
+                                if (xhr.status != 200)
+                                    self.IsVerified(false);
+                            }
+                        });
                         }
-                    });
-                }
-            };
+                    };
 
-            self.submitLead = function (data, event) {
-                if (self.selectedBike() != null)
-                    gaLabel = gaLabel = self.selectedBike().bike + "_" + self.dealerCityName() + ((self.dealerAreaName() != null) ? ("_" + self.dealerAreaName()) : "");
+                    self.submitLead = function (data, event) {
+                        if (self.selectedBike() != null)
+                            gaLabel = gaLabel = self.selectedBike().bike + "_" + self.dealerCityName() + ((self.dealerAreaName() != null) ? ("_" + self.dealerAreaName()) : "");
 
-                if (self.mfgCampaignId() > 0) {
-                    self.submitCampaignLead(data, event);
-                }
-                else {
+                        if (self.mfgCampaignId() > 0) {
+                            self.submitCampaignLead(data, event);
+                        }
+                        else {
 
-                    self.IsVerified(false);
+                            self.IsVerified(false);
 
-                    isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
-                    if (self.dealerId() && isValidDetails) {
-                        self.verifyCustomer();
-                        if (self.IsVerified()) {
+                            isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
+                            if (self.dealerId() && isValidDetails) {
+                                self.verifyCustomer();
+                                if (self.IsVerified()) {
 
                             $("#contactDetailsPopup").hide();
                             $("#personalInfo").hide();
                             $("#notify-response").fadeIn();
-                            triggerGA(self.eventCategory(), eventAction, gaLabel);
-                        }
-                        else {
+                                    triggerGA(self.eventCategory(), eventAction, gaLabel);
+                                }
+                                else {
                             $("#leadCapturePopup").show();
                             $('body').addClass('lock-browser-scroll');
                             $(".blackOut-window").show();
+                                }
+                                setPQUserCookie();
+                            }
                         }
-                        setPQUserCookie();
-                    }
-                }
-            };
+                    };
 
-            self.validateUserInfo = function () {
-                var isValid = true;
+                    self.validateUserInfo = function () {
+                        var isValid = true;
 
-                isValid = self.validateUserName();
-             
-                    isValid &= self.validateEmailId();
-             
-                isValid &= self.validateMobileNo();
-                if (self.pinCodeRequired()) {
-                    isValid &= self.validatePinCode();
-                    if (isValid)
-                        isValid &= self.checkPinCode(self.pincode());
-                }
-                if (self.dealersRequired()) {
-                    isValid &= self.validateDealer();
-                }
-                if (self.isDealerBikes())
-                    isValid &= self.validateBike();
-                return isValid;
-            };
+                        isValid = self.validateUserName();
 
-            self.validateDealer = function (inputName) {
-                var isValid = false;
-                if ($('#ddlMfgDealers').val() == "") {
-                    validate.setError($('#ddlMfgDealers'), 'Please select dealer');
-                }
+                        isValid &= self.validateEmailId();
+
+                        isValid &= self.validateMobileNo();
+
+                        isValid &= self.validateCity();
+
+                        if (self.pinCodeRequired()) {
+                            isValid &= self.validatePinCode();
+                            if (isValid)
+                                isValid &= self.checkPinCode(self.pincode());
+                        }
+                        if (self.dealersRequired()) {
+                            isValid &= self.validateDealer();
+                        }
+                        if (self.isDealerBikes())
+                            isValid &= self.validateBike();
+                        return isValid;
+                    };
+
+                    self.validateDealer = function (inputName) {
+                        var isValid = false;
+                        if ($('#ddlMfgDealers').val() == "") {
+                            validate.setError($('#ddlMfgDealers'), 'Please select dealer');
+                        }
                 else {
-                    isValid = true;
-                    validate.setError($('#ddlMfgDealers'), '');
-                }
-                return isValid;
-            };
+                            isValid = true;
+                            validate.setError($('#ddlMfgDealers'), '');
+                        }
+                        return isValid;
+                    };
 
-            self.validateUserName = function () {
-                leadUsername = fullName;
-                var isValid = false;
-                if (self.fullName() != null && self.fullName().trim() != "") {
-                    nameLength = self.fullName().length;
+                    self.validateUserName = function () {
+                        leadUsername = fullName;
+                        var isValid = false;
+                        if (self.fullName() != null && self.fullName().trim() != "") {
+                            nameLength = self.fullName().length;
 
-                    if (self.fullName().indexOf('&') != -1) {
-                        validate.setError(leadUsername, 'Invalid name');
-                        isValid = false;
-                    }
-                    else if (nameLength == 0) {
-                        validate.setError(leadUsername, 'Please enter your name');
-                        isValid = false;
-                    }
-                    else if (nameLength >= 1) {
-                        validate.hideError(leadUsername);
-                        isValid = true;
-                    }
-                }
-                else {
-                    validate.setError(leadUsername, 'Please enter your name');
-                    isValid = false;
-                }
-                return isValid;
-            };
+                            if (self.fullName().indexOf('&') != -1) {
+                                validate.setError(leadUsername, 'Invalid name');
+                                isValid = false;
+                            }
+                            else if (nameLength == 0) {
+                                validate.setError(leadUsername, 'Please enter your name');
+                                isValid = false;
+                            }
+                            else if (nameLength >= 1) {
+                                validate.hideError(leadUsername);
+                                isValid = true;
+                            }
+                        }
+                        else {
+                            validate.setError(leadUsername, 'Please enter your name');
+                            isValid = false;
+                        }
+                        return isValid;
+                    };
 
-            self.validateEmailId = function () {
-                leadEmailId = emailid;
+                    self.validateEmailId = function () {
+                        leadEmailId = emailid;
 
-                var isValid = true,
-                    emailVal = leadEmailId.val(),
-                    reEmail = /^[A-z0-9._+-]+@@[A-z0-9.-]+\.[A-z]{2,6}$/;
+                        var isValid = true,
+                            emailVal = leadEmailId.val(),
+                            reEmail = /^[A-z0-9._+-]+@@[A-z0-9.-]+\.[A-z]{2,6}$/;
                 if (self.emailRequired() && emailVal == "") {
                     validate.setError(leadEmailId, 'Please enter email id');
                     isValid = false;
                 }
-                else if (emailVal == "")
-                {
+                else if (emailVal == "") {
                     isValid = true;
                 }
                 else if (!reEmail.test(emailVal)) {
@@ -535,70 +706,93 @@
                 }
                 return isValid;
             };
-            self.validatePinCode = function () {
-                leadPinCode = $('#getPinCode');
-                var isValid = true,
-                    pinCodeValue = leadPinCode.val().trim(),
-                    rePinCode = /^[1-9][0-9]{5}$/;
 
-                if (pinCodeValue.indexOf(',') > 0)
-                    pinCodeValue = pinCodeValue.substring(0, 6);
+            self.validateCity = function () {
+                    var isValid = true;
+                    eleCity = $("#getLeadCity");
+                    if (eleCity != null && self.cityId() != null) {
+                        if (self.cityId() > 0) {
+                            hideError(eleCity);
+                            isValid = true;
+                        }
+                        else {
+                            setError(eleCity, 'Select a city');
+                            isValid = false;
+                        }
+                    }
+                    else {
+                        setError(eleCity, 'Select a city');
+                        isValid = false;
+                    }
 
-                if (pinCodeValue == "") {
-                    validate.setError(leadPinCode, 'Please enter pincode');
-                    isValid = false;
-                }
-                else if (!rePinCode.test(pinCodeValue)) {
-                    validate.setError(leadPinCode, 'Invalid pincode');
-                    isValid = false;
-                }
-                return isValid;
-            };
-            self.validateMobileNo = function () {
-                leadMobileNo = mobile;
-                var mobileVal = leadMobileNo.val();
-                if (!validateMobileNo(mobileVal, self)) {
-                    validate.setError(leadMobileNo, self.msg);
-                    return false;
-                }
-                else {
-                    validate.hideError(leadMobileNo);
-                    return true;
-                }
-            };
+                    return isValid;
+                };
 
-            self.validateBike = function () {
-                var isValid = true;
-                eleBike = $("#getLeadBike").find(".dealer-search-brand-form");
-                if (eleBike != null && self.selectedBike() != null) {
-                    if (self.selectedBike().model && self.selectedBike().model.modelId > 0) {
-                        validateInputSelection.hideError(eleBike);
-                        isValid = true;
+
+                self.validatePinCode = function () {
+                    leadPinCode = $('#getPinCode');
+                    var isValid = true,
+                        pinCodeValue = leadPinCode.val().trim(),
+                        rePinCode = /^[1-9][0-9]{5}$/;
+
+                    if (pinCodeValue.indexOf(',') > 0)
+                        pinCodeValue = pinCodeValue.substring(0, 6);
+
+                    if (pinCodeValue == "") {
+                        validate.setError(leadPinCode, 'Please enter pincode');
+                        isValid = false;
+                    }
+                    else if (!rePinCode.test(pinCodeValue)) {
+                        validate.setError(leadPinCode, 'Invalid pincode');
+                        isValid = false;
+                    }
+                    return isValid;
+                };
+                self.validateMobileNo = function () {
+                    leadMobileNo = mobile;
+                    var mobileVal = leadMobileNo.val();
+                    if (!validateMobileNo(mobileVal, self)) {
+                        validate.setError(leadMobileNo, self.msg);
+                        return false;
+                    }
+                    else {
+                        validate.hideError(leadMobileNo);
+                        return true;
+                    }
+                };
+
+                self.validateBike = function () {
+                    var isValid = true;
+                    eleBike = $("#getLeadBike").find(".dealer-search-brand-form");
+                    if (eleBike != null && self.selectedBike() != null) {
+                        if (self.selectedBike().model && self.selectedBike().model.modelId > 0) {
+                            validateInputSelection.hideError(eleBike);
+                            isValid = true;
+                        }
+                        else {
+                            validateInputSelection.setError(eleBike, 'Select a bike');
+                            isValid = false;
+                        }
                     }
                     else {
                         validateInputSelection.setError(eleBike, 'Select a bike');
                         isValid = false;
                     }
-                }
-                else {
-                    validateInputSelection.setError(eleBike, 'Select a bike');
-                    isValid = false;
-                }
 
-                return isValid;
-            };
+                    return isValid;
+                };
 
-            self.submitCampaignLead = function (data, event) {
-                self.pincode($("#getPinCode").val().trim());
-                var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
+                self.submitCampaignLead = function (data, event) {
+                    self.pincode($("#getPinCode").val().trim());
+                    var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
 
-                if (isValidCustomer && self.mfgCampaignId() > 0) {
+                    if (isValidCustomer && self.mfgCampaignId() > 0) {
 
-                    if (self.isRegisterPQ())
-                        self.generatePQ(data, event);
+                        if (self.pqId())
+                            self.generatePQ(data, event);
 
                     $('#processing').show();
-                    var objCust = {
+                        var objCust = {
                         "dealerId": self.dealerId(),
                         "pqId": self.pqId(),
                         "name": self.fullName(),
@@ -609,8 +803,9 @@
                         "leadSourceId": self.leadSourceId(),
                         "PinCode": self.pincode(),
                         "deviceId": getCookie('BWC'),
+                        "campaignId": self.mfgCampaignId(),
                         "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id')
-                    };
+                        };
                     $.ajax({
                         type: "POST",
                         url: "/api/ManufacturerLead/",
@@ -630,6 +825,9 @@
                             $("#contactDetailsPopup").hide();
                             $('#notify-response .notify-leadUser').text(self.fullName());
                             $('#notify-response').show();
+                            if (self.cityRequired() && self.selectedCity()) {
+                                SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
+                            }
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             $('#processing').hide();
@@ -650,122 +848,122 @@
                 $.fn.bw_autocomplete = bwAutoComplete;
 
                 $("#getPinCode").bw_autocomplete({
-                    source: 4,
+                        source: 4,
                     recordCount: 3,
                     minLength: 2,
                     onClear: function () {
-                        objPinCodes = new Object();
-                    },
+                            objPinCodes = new Object();
+                        },
                     click: function (event, ui, orgTxt) {
-                        if (self.selectedBike() && self.selectedBike().make && self.selectedBike().model) {
-                            var keywrd = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_pinCode_' + $('#getPinCode').val();
-                            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'LeadCapture_Popup', 'act': 'PinCode_Selected', 'lab': keywrd });
-                        }
-                        if (ui && ui.item) {
-                            self.pincode(ui.item.payload.pinCode);
-                        }
-                        else {
-                            self.pincode(0);
-                        }
-
-                    },
-                    open: function (result) {
-                        objPinCodes.result = result;
-                    },
-                    focusout: function () {
-                        if ($('#getPinCode').find('li.ui-state-focus a:visible').text() != "") {
-                            $('#errPinCodeSearch').hide();
-                            focusedMakeModel = new Object();
-                            focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
-                        }
-                        else {
-                            $('#errPinCodeSearch').hide();
-                        }
-                    },
-                    afterfetch: function (result, searchtext) {
-                        if (result != undefined && result.length > 0 && searchtext.trim() != "") {
-                            $('#errPinCodeSearch').hide();
-                        }
-                        else {
-                            focusedMakeModel = null;
-                            if (searchtext.trim() != "") {
-                                $('#errPinCodeSearch').show();
+                            if (self.selectedBike() && self.selectedBike().make && self.selectedBike().model) {
+                                var keywrd = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_pinCode_' + $('#getPinCode').val();
+                                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'LeadCapture_Popup', 'act': 'PinCode_Selected', 'lab': keywrd });
+                            }
+                            if (ui && ui.item) {
+                                self.pincode(ui.item.payload.pinCode);
+                            }
+                            else {
                                 self.pincode(0);
                             }
-                        }
-                    },
-                    keyup: function () {
-                        if ($('#getPinCode').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
-                            focusedMakeModel = new Object();
-                            focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
-                            $('#errPinCodeSearch').hide();
-                        } else {
-                            if ($('#getPinCode').val().trim() == '') {
-                                $('#errPinCodeSearch').hide();
-                            }
-                        }
 
-                        if ($('#getPinCode').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
-                            if (focusedMakeModel == null || focusedMakeModel == undefined) {
-                                if ($('#getPinCode').val().trim() != '') {
-                                    $('#errPinCodeSearch').show();
+                        },
+                    open: function (result) {
+                            objPinCodes.result = result;
+                        },
+                    focusout: function () {
+                            if ($('#getPinCode').find('li.ui-state-focus a:visible').text() != "") {
+                            $('#errPinCodeSearch').hide();
+                                focusedMakeModel = new Object();
+                                focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                            }
+                        else {
+                            $('#errPinCodeSearch').hide();
+                            }
+                        },
+                    afterfetch: function (result, searchtext) {
+                            if (result != undefined && result.length > 0 && searchtext.trim() != "") {
+                            $('#errPinCodeSearch').hide();
+                            }
+                            else {
+                                focusedMakeModel = null;
+                                if (searchtext.trim() != "") {
+                                $('#errPinCodeSearch').show();
                                     self.pincode(0);
                                 }
                             }
-                            else {
+                        },
+                    keyup: function () {
+                            if ($('#getPinCode').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
+                                focusedMakeModel = new Object();
+                                focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                            $('#errPinCodeSearch').hide();
+                            } else {
+                                if ($('#getPinCode').val().trim() == '') {
                                 $('#errPinCodeSearch').hide();
+                                }
                             }
 
-                        }
-                    }
-                }).autocomplete({ appendTo: $("#getPinCode").closest(".input-box") }).autocomplete("widget").addClass("pincode-autocomplete");
-            };
+                            if ($('#getPinCode').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                                if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                                    if ($('#getPinCode').val().trim() != '') {
+                                    $('#errPinCodeSearch').show();
+                                        self.pincode(0);
+                                    }
+                                }
+                                else {
+                                $('#errPinCodeSearch').hide();
+                                }
 
-            self.checkPinCode = function () {
-                isValid = false;
+                            }
+                        }
+                    }).autocomplete({ appendTo: $("#getPinCode").closest(".input-box") }).autocomplete("widget").addClass("pincode-autocomplete");
+                };
+
+                self.checkPinCode = function () {
+                    isValid = false;
                 $.ajax({
-                    async: false,
+                        async: false,
                     type: "GET",
                     url: "/api/autosuggest/?source=4&inputText=" + self.pincode() + "&noofrecords=5",
                     contentType: "application/json",
                     dataType: "json",
                     success: function (data) {
-                        if (data && data.suggestionList.length > 0) {
+                            if (data && data.suggestionList.length > 0) {
                             $('#getPinCode').val(data.suggestionList[0].text);
-                            self.pincode(data.suggestionList[0].payload.pinCodeId);
-                            isValid = true;
+                                self.pincode(data.suggestionList[0].payload.pinCodeId);
+                                isValid = true;
+                            }
+                            else {
+                                validate.setError($('#getPinCode'), 'Invalid pincode');
+                                self.pincode(0);
+                                isValid = false;
+                            }
                         }
-                        else {
-                            validate.setError($('#getPinCode'), 'Invalid pincode');
-                            self.pincode(0);
-                            isValid = false;
-                        }
-                    }
-                });
+                    });
 
-                return isValid;
-            };
+                    return isValid;
+                };
 
-            self.setInputValues = function () {
-                var inputBoxes = $('.personal-info-form-container .input-box');
-                for (var i = 0; i < inputBoxes.length; i++) {
-                    var item = $(inputBoxes[i]),
+                self.setInputValues = function () {
+                    var inputBoxes = $('.personal-info-form-container .input-box');
+                    for (var i = 0; i < inputBoxes.length; i++) {
+                        var item = $(inputBoxes[i]),
                         inputValue = item.find('input').val();
 
-                    if (inputValue.length > 0) {
-                        item.addClass('not-empty');
+                        if (inputValue.length > 0) {
+                            item.addClass('not-empty');
+                        }
+
                     }
+                };
 
-                }
-            };
-
-            self.showLoader = function () {
+                self.showLoader = function () {
                 $('#ub-ajax-loader').show();
-            };
+                };
 
-            self.hideLoader = function () {
+                self.hideLoader = function () {
                 $('#ub-ajax-loader').hide();
-            };
+                };
         }
 
         function setuserDetails() {
@@ -826,6 +1024,29 @@
                 appendState('leadCapture');
                 lockPopup();
             });
+
+            windowScreen = {
+                htmlElement: $('html'),
+
+                bodyElement: $('body'),
+
+                lock: function () {
+                    if ($(document).height() > $(window).height()) {
+                        var windowScrollTop = windowScreen.htmlElement.scrollTop() ? windowScreen.htmlElement.scrollTop() : windowScreen.bodyElement.scrollTop();
+                        if (windowScrollTop < 0) {
+                            windowScrollTop = 0;
+                        }
+                        windowScreen.htmlElement.addClass('lock-browser-scroll').css('top', -windowScrollTop);
+                    }
+                },
+
+                unlock: function () {
+                    var windowScrollTop = parseInt(windowScreen.htmlElement.css('top'));
+
+                    windowScreen.htmlElement.removeClass('lock-browser-scroll');
+                    $('html, body').scrollTop(-windowScrollTop);
+                }
+            };
 
             $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
                 leadCapturePopup.hide();
@@ -899,8 +1120,8 @@
                     }
                 }
             });
-            
-            $(document).on('click','#templist li', function () {
+
+            $(document).on('click', '#templist li', function () {
                 validate.setError($('#ddlMfgDealers'), '');
             });
             dleadvm = new leadModel();
@@ -993,6 +1214,11 @@
         });
 
     </script>
+
+    if (Model.CityId <= 0)
+    {
+        <link href="@String.Format("{0}/m/css/leadcapture.css?{1}",(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : ""),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
+    }
 
 }
 

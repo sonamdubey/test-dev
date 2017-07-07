@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.BAL;
+﻿using Bikewale.ManufacturerCampaign.DAL;
+using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.Images;
 using BikewaleOpr.BAL.Security;
@@ -54,6 +55,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IImageRepository, ImageRepository>();
             container.RegisterType<ISecurity, SecurityBL>();
             container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
+            container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
 
             return container;
         }

@@ -2,7 +2,7 @@
 var userNameField, userEmailIdField, vmWriteReview;
 var detailedReviewField, reviewTitleField, reviewQuestion, ratingOverAll, pageSourceID;
 var writeReview, isSubmit = false;
-var makeModelName;
+var makeModelName, ratingErrorFields="", reviewErrorFields="";
 var bikeRating = {
     ratingCount: 0,
     overallRating: []
@@ -99,7 +99,7 @@ docReady(function () {
         userEmailIdField = $('#txtEmailID');
         if (document.getElementById("rate-bike-form") != null && document.getElementById("rate-bike-form").getAttribute("data-value")) {
             validate.setError(userEmailIdField, 'Please enter an authorised email ID to continue.');
-        }
+          }
 
         self.init = function () {
             $('#rate-bike-questions .question-type-text input[type=radio][data-checked="true"]').each(function () {
@@ -180,7 +180,16 @@ docReady(function () {
             }
             else
             {
-                triggerGA('Rate_Bike', 'Rating_Submit_Error', makeModelName+ratingError+'_'+questionError+'_'+userNameError+'_'+emailError);
+                ratingErrorFields = "";
+                if (ratingError)
+                    ratingErrorFields = ratingErrorFields + '_' + 'Rating_Field';
+                if (questionError)
+                    ratingErrorFields = ratingErrorFields + '_' + 'Questions_Field';
+                if (userNameError)
+                    ratingErrorFields = ratingErrorFields + '_' + 'Name_Field';
+                if (emailError)
+                    ratingErrorFields = ratingErrorFields + '_' + 'Email_Field';
+                triggerGA('Rate_Bike', 'Rating_Submit_Error', makeModelName + pageSourceID + ratingErrorFields);
             }
             self.focusFormActive(false);
             return isValid;
@@ -234,7 +243,7 @@ docReady(function () {
                     isValid = true;
                     questionError = false;
                 }
-
+             
                 return isValid;
             }
         };
@@ -252,7 +261,7 @@ docReady(function () {
 
             isValid = self.validateUserName();
             isValid &= self.validateEmailId();
-
+                        
             return isValid;
         };
 
@@ -280,7 +289,7 @@ docReady(function () {
                 validate.setError(userNameField, 'Please enter your name');
                 userNameError = true;
             }
-
+           
             return isValid;
         };
 
@@ -302,7 +311,7 @@ docReady(function () {
                 isValid = true;
                 emailError = false;
             }
-
+            
             return isValid;
         };
     };
@@ -327,7 +336,7 @@ docReady(function () {
         vmRateBike.ratingCount(buttonValue);
         vmRateBike.clickEventRatingCount(buttonValue);
 
-        triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue);
+        triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue + '_' + pageSourceID);
 
     });
     var selRating = $("#bike-rating-box").attr("data-selectedrating");
@@ -340,7 +349,7 @@ docReady(function () {
             subQuestionId = Number(questionField.attr('data-sub-question'));
 
         questionField.find('.error-text').slideUp();
-        triggerGA('Rate_Bike', 'Rate_' + questionField.attr('id') + '_' + makeModelName + Number($(this).val()));
+      
         if (subQuestionId > 0) {
             var buttonValue = Number($(this).val()),
                 subQuestionField = $('#question-' + subQuestionId);
@@ -437,9 +446,32 @@ docReady(function () {
 
             for (i = 0; i < descArray.length; i++) {
                 if (descArray[i].trim() != "") {
+                    // sentence case expression
+                    var rg = /(^\w{1}|\.\s*\w{1})/gi;
+                    descArray[i] = descArray[i].toLowerCase().replace(rg, function (toReplace) {
+                        return toReplace.toUpperCase();
+                    });
+
                     formattedDescArray += "<p>" + descArray[i] + "</p>";
                 }
             }
+
+            // sentence case expression title and review
+            if ($("#getReviewTitle").length > 0) {
+                var rg = /(^\w{1}|\.\s*\w{1})/gi;
+
+                $("#getReviewTitle").val($("#getReviewTitle").val().toLowerCase().replace(rg, function (toReplace) {
+                    return toReplace.toUpperCase();
+                }));
+            }
+            if ($("#reviewTips").length > 0) {
+                var rg = /(^\w{1}|\.\s*\w{1})/gi;
+                $("#reviewTips").val($("#reviewTips").val().toLowerCase().replace(rg, function (toReplace) {
+                    return toReplace.toUpperCase();
+                }));
+            }
+           
+            
 
             if ($('#formattedDescripton'))
                 $('#formattedDescripton').val(formattedDescArray);
@@ -452,22 +484,30 @@ docReady(function () {
             else {
                 self.detailedReviewFlag(false);
                 validate.hideError(reviewTitleField);
-                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + self.detailedReviewFlag() + '_' + pageSourceID + '_' + self.detailedReview().trim().length);
+                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSourceID + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
                 return true;
             }
 
         };
 
         self.validateReviewForm = function () {
-            var isValid = false;
-
-            isValid = self.validate.detailedReview();
-            isValid &= self.validate.reviewTitle();
+            var isValidDesc = true;
+            var isValidTitle=true;
+            isValidDesc = self.validate.detailedReview();
+            isValidTitle = self.validate.reviewTitle();
+            var isValid = isValidDesc && isValidTitle;
             if (isValid) {
-                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + !vmWriteReview.detailedReviewFlag() + '_' + pageSourceID + '_' + self.detailedReview().trim().length);
+                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSourceID + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
             }
             else {
-                triggerGA('Write_Review', 'Review_Submit_Error', makeModelName + self.detailedReview().trim().length);
+                reviewErrorFields = "";
+                if (isValidTitle && !isValidDesc)
+                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Description';
+                else if (!isValidTitle && isValidDesc)
+                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Title';
+                else if (!isValidDesc && !isValidTitle)
+                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Title' + '_' + 'Review_Description';
+                triggerGA('Write_Review', 'Review_Submit_Error', makeModelName + pageSourceID + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length + reviewErrorFields);
             }
 
 
@@ -644,8 +684,11 @@ docReady(function () {
     if ($("#reviewDesc") && $("#reviewDesc").data("validate") && $("#reviewDesc").data("validate").length)
         vmWriteReview.validate.detailedReview();
 
-    if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length)
+    if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length) {
+
         vmWriteReview.validate.reviewTitle();
+    }
+     
 
     vmWriteReview.GetFromBwCache();
     vmWriteReview.FillReviewData();

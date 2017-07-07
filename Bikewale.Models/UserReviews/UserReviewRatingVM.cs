@@ -6,6 +6,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Modified by : Aditi Srivastava on 30 May 2017
         /// Summary     : Added sourceId parameter
+        /// Modified by : Aditi Srivastava on 5 July 2017
+        /// Summary     : Added contest src for user review contest page
         /// </summary>
         public BikeModelEntity objModelEntity { get; set; }
         public string OverAllRatingText { get; set; }
@@ -20,5 +22,6 @@ namespace Bikewale.Models
         public uint SelectedRating { get; set; }
         public string ReturnUrl { get; set; }
         public ushort SourceId { get; set; }
+        public int ContestSrc { get; set; }
     }
 }

@@ -9,9 +9,7 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text.RegularExpressions;
 
 namespace Bikewale.RabbitMq.LeadProcessingConsumer
 {
@@ -32,8 +30,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         private QueueingBasicConsumer consumer;
         private NameValueCollection nvc = new NameValueCollection();
         private string _queueName, _hostName;
-        private uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId, _TataCapitalId;
-        private bool _isTataCapitalAPIStarted = false;
         public LeadConsumer()
         {
             try
@@ -44,12 +40,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 SendMail.APPLICATION = _applicationName = Convert.ToString(ConfigurationManager.AppSettings["ConsumerName"]);
                 _retryCount = ConfigurationManager.AppSettings["RetryCount"];
                 _RabbitMsgTTL = ConfigurationManager.AppSettings["RabbitMsgTTL"];
-                UInt32.TryParse(ConfigurationManager.AppSettings["HondaGaddiId"], out _hondaGaddiId);
-                UInt32.TryParse(ConfigurationManager.AppSettings["BajajFinanceId"], out _bajajFinanceId);
-                UInt32.TryParse(ConfigurationManager.AppSettings["RoyalEnfieldId"], out _RoyalEnfieldId);
-                UInt32.TryParse(ConfigurationManager.AppSettings["TataCapitalId"], out _TataCapitalId);
-                Boolean.TryParse(ConfigurationManager.AppSettings["IsTataCapitalAPIStarted"], out _isTataCapitalAPIStarted);
-
                 InitConsumer();
                 _leadProcessor = new LeadProcessor();
                 _repository = new LeadProcessingRepository();
@@ -110,7 +100,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     try
                     {
                         nvc = ByteArrayToObject(arg.Body);
-                        uint pqId, dealerId, pincodeId, leadSourceId, versionId, cityId, manufacturerDealerId;
+                        uint pqId, dealerId, pincodeId, leadSourceId, versionId, cityId, manufacturerDealerId, manufacturerLeadId;
                         LeadTypes leadType = default(LeadTypes);
                         if (nvc != null
                             && nvc.HasKeys()
@@ -126,22 +116,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             UInt32.TryParse(nvc["pincodeId"], out pincodeId);
                             UInt32.TryParse(nvc["LeadSourceId"], out leadSourceId);
                             UInt32.TryParse(nvc["manufacturerDealerId"], out manufacturerDealerId);
-
-                            PriceQuoteParametersEntity priceQuote = new PriceQuoteParametersEntity()
-                            {
-                                CustomerName = nvc["customerName"],
-                                CustomerEmail = nvc["customerEmail"],
-                                CustomerMobile = nvc["customerMobile"],
-                                VersionId = versionId,
-                                DealerId = dealerId,
-                                CityId = cityId,
-                                CampaignId = 0
-                            };
-
-                            if (!leadType.Equals(LeadTypes.Manufacturer))
-                            {
-                                priceQuote = _leadProcessor.GetPriceQuoteDetails(pqId);
-                            }
+                            UInt32.TryParse(nvc["manufacturerLeadId"], out manufacturerLeadId);
+                            var priceQuote = _leadProcessor.GetPriceQuoteDetails(pqId);
 
 
                             if (priceQuote != null)
@@ -162,7 +138,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                                         success = PushDealerLead(priceQuote, pqId, iteration);
                                         break;
                                     case LeadTypes.Manufacturer:
-                                        success = PushManufacturerLead(priceQuote, pqId, pincodeId, leadSourceId, iteration, manufacturerDealerId);
+                                        success = PushManufacturerLead(priceQuote, pqId, pincodeId, leadSourceId, iteration, manufacturerDealerId, manufacturerLeadId);
                                         break;
                                     default:
                                         success = PushDealerLead(priceQuote, pqId, iteration);
@@ -207,7 +183,19 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
         }
 
-        private bool PushManufacturerLead(PriceQuoteParametersEntity priceQuote, uint pqId, uint pincodeId, uint leadSourceId, ushort iteration, uint manufacturerDealerId)
+        /// <summary>
+        /// Created by  :   Sumit Kate on 05 Jul 2017
+        /// Description :   Process Manufacturer Lead
+        /// </summary>
+        /// <param name="priceQuote"></param>
+        /// <param name="pqId"></param>
+        /// <param name="pincodeId"></param>
+        /// <param name="leadSourceId"></param>
+        /// <param name="iteration"></param>
+        /// <param name="manufacturerDealerId"></param>
+        /// <param name="manufacturerLeadId"></param>
+        /// <returns></returns>
+        private bool PushManufacturerLead(PriceQuoteParametersEntity priceQuote, uint pqId, uint pincodeId, uint leadSourceId, ushort iteration, uint manufacturerDealerId, uint manufacturerLeadId)
         {
             bool isSuccess = false;
             try
@@ -225,56 +213,45 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         DealerId = priceQuote.DealerId,
                         PinCodeId = pincodeId,
                         LeadSourceId = leadSourceId,
-                        ManufacturerDealerId = manufacturerDealerId
+                        ManufacturerDealerId = manufacturerDealerId,
+                        LeadId = manufacturerLeadId
+
                     };
 
                     if (_leadProcessor.SaveManufacturerLead(leadEntity))
                     {
-                        isSuccess = _leadProcessor.PushLeadToAutoBiz(pqId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration);
+                        ManufacturerLeadEntityBase lead = new ManufacturerLeadEntityBase()
+                        {
+                            CampaignId = (uint)priceQuote.CampaignId,
+                            CityId = priceQuote.CityId,
+                            CustomerEmail = priceQuote.CustomerEmail,
+                            CustomerMobile = priceQuote.CustomerMobile,
+                            CustomerName = priceQuote.CustomerName,
+                            DealerId = priceQuote.DealerId,
+                            InquiryJSON = jsonInquiryDetails,
+                            LeadId = manufacturerLeadId,
+                            PinCodeId = pincodeId,
+                            PQId = pqId,
+                            RetryAttempt = iteration,
+                            VersionId = priceQuote.VersionId,
+                            ManufacturerDealerId = manufacturerDealerId
+                        };
 
-                        if (priceQuote.DealerId == _hondaGaddiId)
-                        {
-                            Logs.WriteInfoLog(String.Format("Honda gaadi.com  Lead started processing."));
-                            isSuccess = _leadProcessor.PushLeadToGaadi(leadEntity);
-                            Logs.WriteInfoLog(String.Format("Honda gaadi.com  Lead submitted."));
-                        }
-                        else if (priceQuote.DealerId == _bajajFinanceId)
-                        {
-                            Logs.WriteInfoLog(String.Format("Bajaj Finance Lead started processing."));
-                            isSuccess = _leadProcessor.PushLeadToBajajFinance(priceQuote, pqId, pincodeId);
-                            Logs.WriteInfoLog(String.Format("Bajaj Finance Lead submitted."));
-                        }
-                        else if (priceQuote.DealerId == _RoyalEnfieldId)
-                        {
-                            // Check if lead is duplicate (already pushed), don't hit the RE API
-                            if (!_repository.IsLeadExists(_RoyalEnfieldId, priceQuote.CustomerMobile))
-                            {
-                                Logs.WriteInfoLog(String.Format("Royal Enfield Lead started processing. PQId --> {0}", pqId));
-                                isSuccess = _leadProcessor.PushLeadToRoyalEnfield(priceQuote, pqId, manufacturerDealerId);
-                                Logs.WriteInfoLog(String.Format("Royal Enfield Lead submitted. PQId --> {0}", pqId));
-                            }
-                            else
-                            {
-                                _repository.UpdateManufacturerLead(pqId, "BW Response: Duplicate lead not pushed in API");
-                                Logs.WriteInfoLog(String.Format("Royal Enfield: Duplicate lead submitted. PQId --> {0}", pqId));
-                            }
-                        }
-                        else if (priceQuote.DealerId == _TataCapitalId)
-                        {
-                            if (_isTataCapitalAPIStarted)
-                            {
-                                Logs.WriteInfoLog(String.Format("Tata Capital Lead started processing. PQId --> {0}", pqId));
-                                _leadProcessor.PushLeadToTataCapital(priceQuote, pqId);
-                                Logs.WriteInfoLog(String.Format("Tata Capital Lead submitted. PQId --> {0}", pqId));
-                            }
-                        }
+                        isSuccess = _leadProcessor.ProcessManufacturerLead(lead);
+                        if (isSuccess)
+                            Logs.WriteInfoLog(String.Format("Lead ID : {0} - submitted successfully", manufacturerLeadId));
+                        else
+                            Logs.WriteInfoLog(String.Format("Lead ID : {0} - process manufacturer failed", manufacturerLeadId));
                     }
-                    Logs.WriteInfoLog(String.Format("Manufacturer Lead submitted."));
+                    else
+                    {
+                        Logs.WriteInfoLog(String.Format("Lead ID : {0} - save manufacturer failed", manufacturerLeadId));
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Logs.WriteInfoLog(String.Format("PushManufacturerLead(pqId={0}) : {1}", pqId, ex.Message));
+                Logs.WriteInfoLog(String.Format("PushManufacturerLead(Lead Id = {0}) : {1}", manufacturerLeadId, ex.Message));
             }
             return isSuccess;
         }
@@ -288,7 +265,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, priceQuote.VersionId, priceQuote.CityId, priceQuote.CampaignId);
                     Logs.WriteInfoLog(String.Format("Dealer Lead : CampaignId = {0}", priceQuote.CampaignId));
 
-                    return (_leadProcessor.PushLeadToAutoBiz(pqId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration));
+                    return (_leadProcessor.PushLeadToAutoBiz(pqId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration, LeadTypes.Dealer, 0));
 
                 }
             }
@@ -299,7 +276,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
 
             return false;
         }
-
 
         private void consumer_ConsumerCancelled(object sender, RabbitMQ.Client.Events.ConsumerEventArgs args)
         {
@@ -368,7 +344,9 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         private readonly TCApi_Inquiry _inquiryAPI = null;
         private HttpClient _httpClient;
         private string _hondaGaddiAPIUrl, _bajajFinanceAPIUrl, _tataCapitalAPIUrl;
-
+        private uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId, _TataCapitalId;
+        private bool _isTataCapitalAPIStarted = false;
+        private IDictionary<uint, IManufacturerLeadHandler> handlers;
 
         /// <summary>
         /// Created by  :   Sumit Kate on 24 Feb 2017
@@ -382,9 +360,37 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             _hondaGaddiAPIUrl = ConfigurationManager.AppSettings["HondaGaddiAPIUrl"];
             _bajajFinanceAPIUrl = ConfigurationManager.AppSettings["BajajFinanceAPIUrl"];
             _tataCapitalAPIUrl = ConfigurationManager.AppSettings["TataCapitalAPIUrl"];
+
+            UInt32.TryParse(ConfigurationManager.AppSettings["HondaGaddiId"], out _hondaGaddiId);
+            UInt32.TryParse(ConfigurationManager.AppSettings["BajajFinanceId"], out _bajajFinanceId);
+            UInt32.TryParse(ConfigurationManager.AppSettings["RoyalEnfieldId"], out _RoyalEnfieldId);
+            UInt32.TryParse(ConfigurationManager.AppSettings["TataCapitalId"], out _TataCapitalId);
+            Boolean.TryParse(ConfigurationManager.AppSettings["IsTataCapitalAPIStarted"], out _isTataCapitalAPIStarted);
+            #region Manufacturer Lead Handlers. Please do not change this 
+            handlers = new Dictionary<uint, IManufacturerLeadHandler>();
+            //This handler processes all manufacturer lead if no specific handler is defined
+            //Please do not remove this handler
+            handlers.Add(0, new DefaultManufacturerLeadHandler(0, "", false));
+            //Please add new manufacturer lead handler in this section
+            handlers.Add(_hondaGaddiId, new HondaManufacturerLeadHandler(_hondaGaddiId, _hondaGaddiAPIUrl, true));
+            handlers.Add(_bajajFinanceId, new BajajFinanceLeadHandler(_bajajFinanceId, _bajajFinanceAPIUrl, true));
+            handlers.Add(_RoyalEnfieldId, new RoyalEnfieldLeadHandler(_RoyalEnfieldId, "", true, false));
+            handlers.Add(_TataCapitalId, new TataCapitalLeadHandler(_TataCapitalId, _tataCapitalAPIUrl, _isTataCapitalAPIStarted));
+            #endregion
         }
 
-        public bool PushLeadToAutoBiz(uint pqId, uint dealerId, uint campaignId, string inquiryJson, UInt16 retryAttempt)
+        /// <summary>
+        /// Modified by :   Sumit Kate on 27 Jun 2017
+        /// Description :   Added LeadTypes parameter
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <param name="dealerId"></param>
+        /// <param name="campaignId"></param>
+        /// <param name="inquiryJson"></param>
+        /// <param name="retryAttempt"></param>
+        /// <param name="leadType"></param>
+        /// <returns></returns>
+        public bool PushLeadToAutoBiz(uint pqId, uint dealerId, uint campaignId, string inquiryJson, UInt16 retryAttempt, LeadTypes leadType, uint leadId)
         {
             bool isSuccess = false;
             string abInquiryId = string.Empty;
@@ -399,11 +405,11 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     Logs.WriteInfoLog("Update Lead Limit.");
                     if (campaignId > 0)
                     {
+
+                        isSuccess = _repository.PushedToAB(pqId, abInqId, retryAttempt);
                         isSuccess = _repository.IsDealerDailyLeadLimitExceeds(campaignId);
                         isSuccess = _repository.UpdateDealerDailyLeadCount(campaignId, abInqId);
                     }
-
-                    isSuccess = _repository.PushedToAB(pqId, abInqId, retryAttempt);
                     Logs.WriteInfoLog("Saved AB InquiryId");
                 }
             }
@@ -414,249 +420,55 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             return isSuccess;
         }
 
-        public bool PushLeadToGaadi(ManufacturerLeadEntity leadEntity)
-        {
-            string leadURL = string.Empty;
-            string response = string.Empty;
-            bool isSuccess = false;
-            try
-            {
-
-                BikeQuotationEntity quotation = _repository.GetPriceQuoteById(leadEntity.PQId);
-
-                GaadiLeadEntity gaadiLead = new GaadiLeadEntity()
-                {
-                    City = quotation.City,
-                    Email = leadEntity.Email,
-                    Make = quotation.MakeName,
-                    Mobile = leadEntity.Mobile,
-                    Model = quotation.ModelName,
-                    Name = leadEntity.Name,
-                    Source = "bikewale",
-                    State = quotation.State
-                };
-
-                if (_httpClient != null)
-                {
-                    string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(gaadiLead);
-                    byte[] toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(jsonString);
-                    leadURL = String.Format("{0}{1}", _hondaGaddiAPIUrl, System.Convert.ToBase64String(toEncodeAsBytes));
-                    Logs.WriteInfoLog(String.Format("PushLeadToGaadi : {0}", leadURL));
-                    using (HttpResponseMessage _response = _httpClient.GetAsync(leadURL).Result)
-                    {
-                        if (_response.IsSuccessStatusCode)
-                        {
-                            if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
-                            {
-                                response = _response.Content.ReadAsStringAsync().Result;
-                                _repository.UpdateManufacturerLead(leadEntity.PQId, response);
-                                _response.Content.Dispose();
-                                _response.Content = null;
-                                isSuccess = true;
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logs.WriteErrorLog(String.Format("PushLeadToGaadi : {0}", ex.Message));
-            }
-            return isSuccess;
-        }
-
         /// <summary>
-        /// created by: Sangram Nandkhile on 15 Jun 2017
-        /// To push tata capital leads
+        /// Created by  :   Sumit Kate on 05 Jul 2017
+        /// Description :   Process Manufacturer Lead
         /// </summary>
-        /// <param name="priceQuote"></param>
-        /// <param name="pqId"></param>
+        /// <param name="leadEntity"></param>
         /// <returns></returns>
-        internal bool PushLeadToTataCapital(PriceQuoteParametersEntity priceQuote, uint pqId)
+        internal bool ProcessManufacturerLead(ManufacturerLeadEntityBase leadEntity)
         {
-            bool isSuccess = false;
-            TataCapitalInputEntity tataLeadInput = null;
+            bool leadProcessed = false;
             try
             {
-
-                #region create firstName and Lastname
-
-                string fullName = priceQuote.CustomerName.Trim();
-                fullName = Regex.Replace(fullName, @"[^a-zA-Z\s]", string.Empty);
-                string firstName = string.Empty, lastName = string.Empty;
-                if (fullName.Contains(" "))
+                if (handlers != null && handlers.Count > 0)
                 {
-                    int spaceStart = fullName.IndexOf(' ');
-                    firstName = fullName.Substring(0, spaceStart);
-                    lastName = fullName.Substring(spaceStart + 1);
-                }
-                else
-                {
-                    firstName = fullName;
-                    lastName = fullName;
-                }
-                #endregion
-
-                #region Fetch city and log API inputs
-
-                string tataCapitalCityId = _repository.GetTataCapitalByCityId(priceQuote.CityId);
-                tataLeadInput = new TataCapitalInputEntity()
-                {
-                    fname = firstName.Trim(),
-                    lname = lastName.Trim(),
-                    resEmailId = priceQuote.CustomerEmail,
-                    resMobNo = priceQuote.CustomerMobile,
-                    resCity = tataCapitalCityId
-                };
-                Logs.WriteInfoLog(String.Format("Tata Capital: Params Logged PQId {0},  PriceQuote --> {1}", pqId, Newtonsoft.Json.JsonConvert.SerializeObject(priceQuote)));
-
-                #endregion
-
-                #region API call
-
-                if (_httpClient != null)
-                {
-                    string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(tataLeadInput);
-                    string response = string.Empty;
-                    Logs.WriteInfoLog(String.Format("Tata Capital: Params Logged for API Input --> {0}", jsonString));
-                    HttpContent httpContent = new StringContent(jsonString);
-                    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                    using (HttpResponseMessage _response = _httpClient.PostAsync(_tataCapitalAPIUrl, httpContent).Result)
+                    IManufacturerLeadHandler handler = null;
+                    //Find the specific lead handler
+                    if (!handlers.TryGetValue(leadEntity.DealerId, out handler))
                     {
-                        if (_response.IsSuccessStatusCode)
+                        //If no handler is present submit lead to default handler
+                        if (handler == null)
                         {
-                            if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
-                            {
-                                response = _response.Content.ReadAsStringAsync().Result;
-                                _repository.UpdateManufacturerLead(pqId, response);
-                                _response.Content.Dispose();
-                                _response.Content = null;
-                                isSuccess = true;
-                            }
+                            handler = handlers[0];
                         }
                     }
-                    Logs.WriteInfoLog(String.Format("Tata Capital:  Request : {0} \n Response : {1}", jsonString, response));
-                }
-
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                Logs.WriteErrorLog(String.Format("Failed to push Tata Capital lead : {0}", ex.Message));
-            }
-            return isSuccess;
-        }
-        internal bool PushLeadToBajajFinance(PriceQuoteParametersEntity priceQuote, uint pqId, uint pincodeId)
-        {
-            bool isSuccess = false;
-            try
-            {
-                BajajFinanceLeadEntity bikeMappingInfo = _repository.GetBajajFinanceBikeMappingInfo(priceQuote.VersionId, pincodeId);
-                if (bikeMappingInfo != null && !string.IsNullOrEmpty(bikeMappingInfo.Model) && !string.IsNullOrEmpty(bikeMappingInfo.City))
-                {
-                    if (!string.IsNullOrEmpty(priceQuote.CustomerName))
+                    //Make sure handler is present
+                    if (handler != null)
                     {
-                        priceQuote.CustomerName = priceQuote.CustomerName.Trim();
-                        int spaceIndex = priceQuote.CustomerName.IndexOf(" ");
-                        if (spaceIndex > 0)
+                        //Process the lead
+                        leadProcessed = handler.Process(leadEntity);
+
+                        if (!leadProcessed)
                         {
-                            bikeMappingInfo.FirstName = priceQuote.CustomerName.Substring(0, spaceIndex);
-                            bikeMappingInfo.LastName = priceQuote.CustomerName.Substring(spaceIndex + 1);
+                            Logs.WriteInfoLog(String.Format("Lead not processed : {0}", Newtonsoft.Json.JsonConvert.SerializeObject(leadEntity)));
                         }
                         else
                         {
-                            bikeMappingInfo.FirstName = priceQuote.CustomerName;
+                            Logs.WriteInfoLog(String.Format("Lead processed successfully : Lead Id - {0}", leadEntity.LeadId));
                         }
                     }
-
-                    bikeMappingInfo.MobileNo = priceQuote.CustomerMobile;
-                    bikeMappingInfo.EmailID = priceQuote.CustomerEmail;
-
-                    BajajFinanceLeadInput bajajLeadInput = new BajajFinanceLeadInput()
+                    else
                     {
-                        leadData = new List<BajajFinanceLeadEntity>() { bikeMappingInfo }
-                    };
-
-                    if (_httpClient != null)
-                    {
-                        string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(bajajLeadInput);
-                        string response = string.Empty;
-                        HttpContent httpContent = new StringContent(jsonString);
-                        using (HttpResponseMessage _response = _httpClient.PostAsync(_bajajFinanceAPIUrl, httpContent).Result)
-                        {
-                            if (_response.IsSuccessStatusCode)
-                            {
-                                if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
-                                {
-                                    response = _response.Content.ReadAsStringAsync().Result;
-                                    _repository.UpdateManufacturerLead(pqId, response);
-                                    _response.Content.Dispose();
-                                    _response.Content = null;
-                                    isSuccess = true;
-                                }
-                            }
-                        }
-
-                        Logs.WriteInfoLog(String.Format("Bajaj Finance -  Request : {0} \n Response : {1}", jsonString, response));
+                        Logs.WriteInfoLog(String.Format("No Lead Handler is present : {0}", Newtonsoft.Json.JsonConvert.SerializeObject(leadEntity)));
                     }
-                }
-                else
-                {
-                    Logs.WriteInfoLog(String.Format("Failed to push Bajaj Finance Lead - {0} Input", Newtonsoft.Json.JsonConvert.SerializeObject(bikeMappingInfo)));
                 }
             }
             catch (Exception ex)
             {
-                Logs.WriteInfoLog(String.Format("PushLeadToBajajFinance : {0}", ex.Message));
+                Logs.WriteErrorLog(String.Format("Exception : ProcessManufacturerLead : {0}, Msg : {1}", Newtonsoft.Json.JsonConvert.SerializeObject(leadEntity), ex.Message));
             }
-            return isSuccess;
-        }
-
-        /// <summary>
-        /// Pushes the lead to royal enfield.
-        /// </summary>
-        /// <param name="priceQuote">The price quote.</param>
-        /// <param name="pqId">The pq identifier.</param>
-        /// <param name="manufacturerDealerId">The manufacturer dealer identifier.</param>
-        /// <returns>
-        /// Created by : Sangram Nandkhile on 12-May-2017
-        /// Updated by : Sangram Nandkhile on 31-May-2017
-        /// Summary : Parameters logged
-        /// </returns>
-        internal bool PushLeadToRoyalEnfield(PriceQuoteParametersEntity priceQuote, uint pqId, uint manufacturerDealerId)
-        {
-            try
-            {
-                BikeQuotationEntity quotation = _repository.GetPriceQuoteById(pqId);
-                RoyalEnfieldDealer dealer = _repository.GetRoyalEnfieldDealerById(manufacturerDealerId);
-                RoyalEnfieldWebAPI.Service service = new RoyalEnfieldWebAPI.Service();
-                string token = ConfigurationManager.AppSettings["RoyalEnfieldToken"];
-                if (quotation != null)
-                    Logs.WriteInfoLog(String.Format("Royal Enfield: Params Logged --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(quotation)));
-                if (dealer != null)
-                    Logs.WriteInfoLog(String.Format("Royal Enfield: Params Logged for dealer --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(dealer)));
-                if (priceQuote != null)
-                    Logs.WriteInfoLog(String.Format("Royal Enfield: Params Logged for Pricequote --> {0}", Newtonsoft.Json.JsonConvert.SerializeObject(priceQuote)));
-
-                string response = service.Organic(priceQuote.CustomerName, priceQuote.CustomerMobile, "India", dealer.DealerState,
-                    dealer.DealerCity, priceQuote.CustomerEmail, quotation.ModelName, dealer.DealerName, "", "https://www.bikewale.com", token, "bikewale");
-                // service.affiliates((priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, dealer.DealerState, dealer.DealerCity, dealer.DealerName, quotation.ModelName, "https://www.bikewale.com", token, "bikewale");
-                if (!string.IsNullOrEmpty(response))
-                {
-                    _repository.UpdateManufacturerLead(pqId, response);
-                    return true;
-                }
-                else
-                {
-                    Logs.WriteErrorLog(string.Format("PushLeadToRoyalEnfield : Null response recieved from Royal Enfield API. PQId ==>{0} ", pqId));
-                }
-            }
-            catch (Exception ex)
-            {
-                Logs.WriteErrorLog(String.Format("PushLeadToRoyalEnfield : PQId :{0}, ErrorMessage: {1}", pqId, ex.Message));
-            }
-            return false;
+            return leadProcessed;
         }
 
         internal PriceQuoteParametersEntity GetPriceQuoteDetails(uint pqId)

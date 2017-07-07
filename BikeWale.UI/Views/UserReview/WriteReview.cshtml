@@ -60,20 +60,7 @@
 
                                 <h2 class="font18 padding-bottom5">Can you share a little more about this bike?<span class="text-light-grey text-unbold font14">&nbsp;(Optional)</span></h2>
 
-                                <ul id="bike-review-questions" data-make-model="@string.Format("{0}_{1}_", Model.Make.MakeName, Model.Model.ModelName)" class="review-question-list margin-bottom20" data-bind="foreach: reviewQuestions">
-                                    <!-- ko if: displayType == 1 -->
-                                    <li class="list-item question-type-star">
-                                        <p class="item-title" data-bind="text: heading"></p>
-                                        <p class="item-subtitle" data-bind="text: description"></p>
-
-                                        <div class="answer-star-list inline-block hover-effect" data-bind="foreach: rating.slice(0).reverse()">
-                                            <input type="radio" data-bind="attr: {ratingId : 'review-' + $parent.qId + '-' + (5 - $index()), questiontId : $parent.qId, id: 'review-' + $parentContext.$index() + '-' + (5 - $index()), name: 'review-q-' + $parentContext.$index(), value: (5 - $index())}" data-type="star" />
-                                            <label class="bwsprite star-zero" data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + (5 - $index()), 'data-value': (5 - $index())}"></label>
-                                        </div>
-                                        <p class="feedback-text inline-block"></p>
-                                    </li>
-                                    <!-- /ko -->
-                                    <!-- ko if: displayType == 2 -->
+                                <ul id="bike-review-questions" data-make-model="@string.Format("{0}_{1}_", Model.Make.MakeName, Model.Model.ModelName)" class="review-question-list margin-bottom20" data-bind="foreach: reviewQuestions">                                   
                                     <li class="list-item question-type-text">
                                         <p class="item-title" data-bind="text: heading"></p>
                                         <p class="item-subtitle" data-bind="text: description"></p>
@@ -83,9 +70,9 @@
                                             <label data-bind="attr: {for: 'review-' + $parentContext.$index() + '-' + ($index() + 1), name: 'review-q-' + $parentContext.$index(), 'data-value': $index() + 1}, text: ratingText"></label>
                                         </div>
                                         <div class="clear"></div>
-                                    </li>
-                                    <!-- /ko -->
+                                    </li>                                   
                                 </ul>
+
                                 <div class="clear"></div>
 
                                 <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
@@ -101,15 +88,16 @@
                                 <input type="hidden" name="isDesktop" value="true" />
                                 <input type="hidden" id="overAllRatings" value="@Model.Rating.Value" />
                                 <input type="hidden" id="pageSourceId" value="@Model.PageSourceId" />
-
-                                <h3 class="font15 margin-bottom10">Tips for other riders</h3>
+                                <input type="hidden" id="contestSrc" value="@Model.ContestSrc" />
+                                 <h3 class="font15 margin-bottom10">Maintenance tips for other riders</h3>
                                 <p class="text-light-grey margin-bottom20">Share key tips which you think were useful while owning/riding this bike.</p>
 
                                 <div class="input-box form-control-box" data-bind="css: reviewTips().length > 0 ? 'not-empty' : ''">
                                     <input name="reviewTips" type="text" id="getReviewTip" maxlength="1000" data-bind="textInput: reviewTips" />
-                                    <label for="getReviewTip">Your tip</label>
+                                    <label for="getReviewTip">Eg. Change oil after 3,000 kms, Use tubeless tyres etc</label>
                                     <span class="boundary"></span>
                                 </div>
+                               
                                 @Html.AntiForgeryToken()
                                 <input id="submitReviewBtn" type="submit" class="btn btn-orange btn-220-40" value="Submit review" data-bind="click: submitReview" />
 

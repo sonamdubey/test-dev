@@ -418,6 +418,7 @@
     <Compile Include="Controllers\DealerCampaignController.cs" />
     <Compile Include="Controllers\MakesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
     <Compile Include="Controllers\UserReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -455,6 +456,11 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
+    <Compile Include="Models\ManufacturerCampaign\CampaignPropertiesModel.cs" />
+    <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPageModel.cs" />
+    <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPopup.cs" />
+    <Compile Include="Models\ManufacturerCampaign\ManufacturerCampaignRules.cs" />
+    <Compile Include="Models\ManufacturerCampaign\SearchCampaign.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsPageModel.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsRatingsPage.cs" />
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
@@ -1379,6 +1385,7 @@
     <Content Include="css\chosen.min.css" />
     <Content Include="css\common-new.css" />
     <Content Include="css\Common.css" />
+    <Content Include="css\materialize-stepper.css" />
     <Content Include="css\materialize.css" />
     <Content Include="css\userreviews.css" />
     <Content Include="Default.aspx" />
@@ -1925,6 +1932,10 @@
     <Content Include="src\imageUpload.js" />
     <Content Include="src\jquery-1.6.min.js" />
     <Content Include="src\knockout.js" />
+    <Content Include="src\ManufactureCampaign\ConfigureCampaign.js" />
+    <Content Include="src\ManufactureCampaign\configureCampaignProperties.js" />
+    <Content Include="src\ManufactureCampaign\rules.js" />
+    <Content Include="src\ManufacturerCampaign\SearchManufacture.js" />
     <Content Include="src\modelImagesByColor.js" />
     <Content Include="src\PopUpDiv.js" />
     <Content Include="src\userreviews\manageuserratings.js" />
@@ -1970,7 +1981,13 @@
     <Content Include="Views\Models\UsedModelImageUpload.cshtml" />
     <Content Include="Views\UserReviews\Index.cshtml" />
     <Content Include="Views\DealerCampaign\CampaignServingAreas.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\SearchManufacturerCampaign.cshtml" />
     <Content Include="Views\UserReviews\ManageRatings.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\ManufacturerCampaignRules.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\ConfigureCampaign.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\_NavigationBreadcrumbs.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\ConfigureCampaignProperties.cshtml" />
+    <Content Include="Views\ManufacturerCampaign\ConfigureCampaignPopup.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -1989,6 +2006,18 @@
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.DAL\Bikewale.ManufacturerCampaign.DAL.csproj">
+      <Project>{f3148a79-9fec-4a19-9977-0fa6163c9e77}</Project>
+      <Name>Bikewale.ManufacturerCampaign.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
+      <Project>{ea73dda4-317e-4b79-bb03-f48125c2501b}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Interface\Bikewale.ManufacturerCampaign.Interface.csproj">
+      <Project>{FD9B192F-137E-40CF-8AC8-623AB79C6C53}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>

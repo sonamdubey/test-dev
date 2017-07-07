@@ -4,6 +4,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
@@ -23,7 +24,6 @@ namespace Bikewale.Models.BikeModels
         public PQOnRoadPrice PriceQuote { get; set; }
         public BikeVersionMinSpecs SelectedVersion { get; set; }
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DetailedDealer { get; set; }
-        public ManufacturerCampaign ManufacturerCampaign { get; set; }
         public LeadCaptureEntity LeadCapture { get; set; }
         public IEnumerable<BestBikeEntityBase> objBestBikesList { get; set; }
         public UpcomingBikesWidgetVM objUpcomingBikes { get; set; }
@@ -54,7 +54,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsDiscontinuedBike { get { return (IsModelDetails && !IsNewBike && !IsUpcomingBike); } }
         public bool IsDPQAvailable { get; set; }
         public bool IsBPQAvailable { get; set; }
-public bool IsGstPrice { get; set; }
+        public bool IsGstPrice { get; set; }
         public bool IsPrimaryDealer { get { return (this.DetailedDealer != null && this.DetailedDealer.PrimaryDealer != null); } }
         public bool IsDealerDetailsExists { get { return (this.IsPrimaryDealer && this.DetailedDealer.PrimaryDealer.DealerDetails != null); } }
         public bool IsPremiumDealer { get { return (IsPrimaryDealer && this.DetailedDealer.PrimaryDealer.IsPremiumDealer); } }
@@ -66,7 +66,7 @@ public bool IsGstPrice { get; set; }
 
         public string ClientIP { get; set; }
         public string PageUrl { get; set; }
-        public int PQSourcePage { get { return (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_ModelPage; } }
+        public int PQSourcePage { get { return (int)PQSourceEnum.Desktop_ModelPage; } }
         public int PQLeadSource { get { return 32; } }
         public string VersionPriceListSummary { get; set; }
 
@@ -112,6 +112,12 @@ public bool IsGstPrice { get; set; }
 
         public bool ShowOnRoadButton { get; set; }
         public string ReturnUrl { get; set; }
+
+        public ManufactureCampaignLeadEntity LeadCampaign { get; set; }
+        public bool IsManufacturerLeadAdShown { get; set; }
+        public bool IsManufacturerTopLeadAdShown { get; set; }
+        public ManufactureCampaignEMIEntity EMICampaign { get; set; }
+        public bool IsManufacturerEMIAdShown { get; set; }
     }
 
 }

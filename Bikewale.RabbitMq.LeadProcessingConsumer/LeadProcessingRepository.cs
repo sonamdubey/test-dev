@@ -138,18 +138,18 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="mobile"></param>
         /// <param name="response"></param>
         /// <returns></returns>
-        public bool UpdateManufacturerLead(uint pqId, string response)
+        public bool UpdateManufacturerLead(uint pqId, string response, uint leadId)
         {
             bool status = false;
             try
             {
-                if (pqId > 0)
+                if (leadId > 0)
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "updatemanufacturerlead_14062017";
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                        cmd.CommandText = "updatemanufacturerlead_04072017";
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadId", DbType.Int64, leadId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_response", DbType.String, 250, response));
                         if (MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) > 0)
                             status = true;
@@ -217,6 +217,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// Created By : Sushil Kumar
         /// Created On : 21th October 2015
         /// Summary : To capture maufacturer lead for bikewale pricequotes 
+        /// Modified by :   Sumit Kate on 04 Jul 2017
+        /// Description :   New sp call to save lead id to manufacturer lead table
         /// </summary>
         /// <param name="objLead"></param>
         /// <returns>Lead submission status</returns>
@@ -230,7 +232,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "savemanufacturerlead_22062017";
+                        cmd.CommandText = "savemanufacturerlead_04072017";
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, objLead.Name));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 150, objLead.Email));
@@ -239,8 +241,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Int16, objLead.LeadSourceId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbType.String, objLead.PinCodeId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int64, objLead.DealerId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_manufacturerdealerid", DbType.String,20, objLead.ManufacturerDealerId));
-
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_manufacturerdealerid", DbType.String, 20, objLead.ManufacturerDealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadId", DbType.Int32, objLead.LeadId));
                         status = SqlReaderConvertor.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
                     }
                 }
@@ -423,7 +425,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     {
                         if (dr != null && dr.Read())
                         {
-                            tataCapitalCityId = Convert.ToString(dr["city"]);                           
+                            tataCapitalCityId = Convert.ToString(dr["city"]);
                         }
                     }
                 }
@@ -435,5 +437,99 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             return tataCapitalCityId;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 27 Jun 2017
+        /// Description :   To check manufacturer daily limit count exceeds or not for campaign
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
+        public bool IsManufacturerLeadLimitExceed(uint campaignId)
+        {
+            bool islimitexceeds = false;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "ismanufacturercampaignleadlimitreached";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_islimitexceed", DbType.Boolean, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    islimitexceeds = SqlReaderConvertor.ToBoolean(cmd.Parameters["par_islimitexceed"].Value);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(String.Format("Error in IsManufacturerLeadLimitExceed({0}) : Msg : {1}", campaignId, ex.Message));
+            }
+            return islimitexceeds;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 27 Jun 2017
+        /// Description : To update manufacturer daily limit count
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="abInquiryId"></param>
+        public bool UpdateManufacturerDailyLeadCount(uint campaignId, uint abInquiryId)
+        {
+            bool isUpdateDealerCount = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "updatemanufacturercampaignleadcount";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_abinquiryid", DbType.Int32, abInquiryId));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isUpdateDealerCount = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(String.Format("Error in UpdateManufacturerDailyLeadCount({0},{1}) : Msg : {2}", campaignId, abInquiryId, ex.Message));
+            }
+            return isUpdateDealerCount;
+        }
+
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 03 Jul 2017
+        /// Description :   Update AB Inquiry Id by Lead Id
+        /// </summary>
+        /// <param name="leadId"></param>
+        /// <param name="abInquiryId"></param>
+        /// <param name="retryCount"></param>
+        /// <returns></returns>
+        public bool UpdateManufacturerABInquiry(uint leadId, uint abInquiryId, UInt16 retryCount)
+        {
+            bool isUpdateDealerCount = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "updatemanufacturerabinquiry";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, leadId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_abinquiryid", DbType.Int32, abInquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadPushRetries", DbType.Int16, retryCount));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isUpdateDealerCount = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(String.Format("Error in UpdateManufacturerABInquiry({0},{1}) : Msg : {2}", leadId, abInquiryId, ex.Message));
+            }
+            return isUpdateDealerCount;
+        }
     }
 }

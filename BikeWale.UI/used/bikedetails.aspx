@@ -267,7 +267,9 @@
                 <div class="grid-12 margin-bottom20">
                     <div class="content-box-shadow content-inner-block-20">
                         <span class="used-sprite sold-icon"></span>
-                        <div class="bike-sold-msg text-grey">The <%= bikeName %> bike you are looking for has been sold. You might want to consider other used bikes shown below.</div>
+                       
+                        <div class="bike-sold-msg text-grey"> <h1><%= bikeName %></h1>
+                            The <%= bikeName %> bike you are looking for has been sold. You might want to consider other used bikes shown below.</div>
                     </div>
                 </div>
                 <div class="clear"></div>

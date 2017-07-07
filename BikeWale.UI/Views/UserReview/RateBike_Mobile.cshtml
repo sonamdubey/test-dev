@@ -3,6 +3,7 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/user-review/write-review.css' />";
     Model.Page_JS_Path = "/m/src/user-review/write-review.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    string gaLabel = string.Format("{0}_{1}_{2}", Model.objModelEntity.MakeBase.MakeName, Model.objModelEntity.ModelName, Model.SourceId);
 }
 
 <section>
@@ -35,7 +36,7 @@
 							<span class="rating-feedback" data-bind="css: 'feedback-' + ratingCount()"></span>
 							<!-- /ko -->
 							<div class="feedback-grid inline-block">
-								<h2 class="font-bold text-default" data-bind="text: feedbackTitle">Share your rating</h2>
+								<h2 class="font-bold text-default" data-bind="text: feedbackTitle">Rate this bike</h2>
 								<!-- ko if: ratingCount() == 0 -->
 								<p class="margin-top5 font12 text-slate-grey">Consider looks &amp; styling, performance, experience, mileage etc. before you rate.</p>
 								<!-- /ko -->
@@ -72,14 +73,14 @@
                     <p class="text-slate-grey">We wish to credit this rating to you. We will never spam your inbox.</p>
                 </div>
 
-                <div class="input-box form-control-box margin-bottom15  bw-ga" c="Rate_Bike" a="Name_Field_Focus" l="" data-bind="css: userName().length > 0 ? 'not-empty' : ''">
+                <div class="input-box form-control-box margin-bottom15  bw-ga" c="Rate_Bike" a="Name_Field_Focus" l="@gaLabel" data-bind="css: userName().length > 0 ? 'not-empty' : ''">
                     <input type="text" id="txtUserName" name="userName" data-bind="textInput: userName" value="@(string.IsNullOrEmpty(Model.CustomerName) ? "" : Model.CustomerName)" />
                     <label for="getUserName">Name<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text"></span>
                 </div>
 
-                <div class="input-box form-control-box margin-bottom15   bw-ga" c="Rate_Bike" a="Email_Field_Focus" l="" data-bind="css: emailId().length > 0 ? 'not-empty' : ''">
+                <div class="input-box form-control-box margin-bottom15   bw-ga" c="Rate_Bike" a="Email_Field_Focus" l="@gaLabel" data-bind="css: emailId().length > 0 ? 'not-empty' : ''">
                     <input type="email" id="txtEmailID" name="emailId" data-bind="textInput: emailId" value="@(string.IsNullOrEmpty(Model.CustomerEmail) ? "" : Model.CustomerEmail)" />
                     <label for="getEmailID">Email ID<sup>*</sup></label>
                     <span class="boundary"></span>
@@ -96,7 +97,8 @@
                 <input type="hidden" name="priceRangeId" value="@Model.PriceRangeId" />                
                 <input type="hidden" name="reviewId" value="@Model.ReviewId" />
                 <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
-                <input type="hidden" name="sourceId" value="@Model.SourceId" />
+                <input type="hidden" name="sourceId" id="pageSourceId" value="@Model.SourceId" />
+                <input type="hidden" name="contestSrc" id="contestSrc" value="@Model.ContestSrc" />
                 <input type="hidden" name="platformId" value="2" />
                 <input type="submit" class="btn btn-orange" value="Submit rating" data-bind="click: submitRating" />                          
             </div>

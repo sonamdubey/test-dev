@@ -193,6 +193,12 @@
   .card {
     width: 280px; } }
 
+.text-truncate, .select-box .chosen-container .chosen-single {
+  width: 100%;
+  text-align: left;
+  text-overflow: ellipisis;
+  white-space: nowrap; }
+
 .select-box {
   height: 60px;
   position: relative; }

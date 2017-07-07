@@ -18,6 +18,8 @@ namespace Bikewale.Models.UserReviews
         {
             _makeRepository = makeRepository;
         }
+
+        public int csrc { get; set; }
         /// <summary>
         /// Summary: To Create Write review contest GET data
         /// </summary>
@@ -26,7 +28,7 @@ namespace Bikewale.Models.UserReviews
         {
             WriteReviewContestVM viewModel = new WriteReviewContestVM();
             viewModel.Makes = _makeRepository.GetMakesByType(Entities.BikeData.EnumBikeType.UserReviews);
-            viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", (int)UserReviewPageSourceEnum.Mobile_UserReviewContestPage));
+            viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}&contestsrc={1}", (int)UserReviewPageSourceEnum.Mobile_UserReviewContestPage, csrc));
             BindPageMetas(viewModel);
             return viewModel;
         }
@@ -40,6 +42,9 @@ namespace Bikewale.Models.UserReviews
             objData.PageMetaTags.Title = "Bike Review Contest | Participate & Win- BikeWale";
             objData.PageMetaTags.Description = "Write a fair review about your bike and help others in making the right choice. Share your experience with other prospective buyers.";
             objData.PageMetaTags.Keywords = "Review contest, bike reviews, bike user reviews, user review contest, bikewale user review, bikewale contest";
+            objData.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/bike-review-contest/";
+            objData.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/bike-review-contest/";
+
         }
     }
 }
