@@ -460,13 +460,13 @@ docReady(function () {
             if ($("#getReviewTitle").length > 0) {
                 var rg = /(^\w{1}|\.\s*\w{1})/gi;
 
-                $("#getReviewTitle").val($("#getReviewTitle").val().toLowerCase().replace(rg, function (toReplace) {
+                $("#getReviewTitle").val($("#getReviewTitle").val().toLowerCase().replace(/[\/\\#,_@^+()$~%'":*?<>{}]/g, '').replace(rg, function (toReplace) {
                     return toReplace.toUpperCase();
                 }));
             }
             if ($("#getReviewTip").length > 0) {
                 var rg = /(^\w{1}|\.\s*\w{1})/gi;
-                $("#getReviewTip").val($("#getReviewTip").val().toLowerCase().replace(rg, function (toReplace) {
+                $("#getReviewTip").val($("#getReviewTip").val().toLowerCase().replace(/[\/\\#,_@^+()$~%'":*?<>{}]/g, '').replace(rg, function (toReplace) {
                     return toReplace.toUpperCase();
                 }));
             }
