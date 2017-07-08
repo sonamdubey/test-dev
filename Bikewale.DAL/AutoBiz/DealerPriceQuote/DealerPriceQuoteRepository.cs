@@ -569,8 +569,8 @@ namespace Bikewale.DAL.AutoBiz
                                     {
                                         AreaId = SqlReaderConvertor.ToUInt32(dr["AreaId"]),
                                         AreaName = Convert.ToString(dr["AreaName"]),
-                                        Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]),
-                                        Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
+                                        Latitude = SqlReaderConvertor.ToDouble(dr["Lattitude"]),
+                                        Longitude = SqlReaderConvertor.ToDouble(dr["Longitude"]),
                                         PinCode = Convert.ToString(dr["Pincode"])
                                     };
                                     primaryDealer.objCity = new CityEntityBase() { CityName = Convert.ToString(dr["CityName"]) };
@@ -834,8 +834,8 @@ namespace Bikewale.DAL.AutoBiz
                                     {
                                         AreaId = SqlReaderConvertor.ToUInt32(dr["AreaId"]),
                                         AreaName = Convert.ToString(dr["AreaName"]),
-                                        Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]),
-                                        Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
+                                        Latitude = SqlReaderConvertor.ToDouble(dr["Lattitude"]),
+                                        Longitude = SqlReaderConvertor.ToDouble(dr["Longitude"]),
                                         PinCode = Convert.ToString(dr["Pincode"])
                                     };
                                     primaryDealer.objCity = new CityEntityBase() { CityName = Convert.ToString(dr["CityName"]) };
@@ -979,7 +979,7 @@ namespace Bikewale.DAL.AutoBiz
                                             Name = Convert.ToString(dr["Organization"]),
                                             MaskingNumber = Convert.ToString(dr["MaskingNumber"]),
                                             DealerPackageType = (Enum.TryParse((Convert.ToString(dr["DealerPackageType"])), out s)) ? s : DealerPackageTypes.Invalid,
-                                            Distance = SqlReaderConvertor.ParseToDouble(dr["distance"]),
+                                            Distance = SqlReaderConvertor.ToDouble(dr["distance"]),
                                             OfferCount = SqlReaderConvertor.ToUInt16(dr["offerCount"]),
                                             DisplayTextLarge = Convert.ToString(dr["DisplayTextLarge"]),
                                             DisplayTextSmall = Convert.ToString(dr["DisplayTextSmall"]),
