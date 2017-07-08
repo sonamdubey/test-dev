@@ -1552,12 +1552,12 @@ namespace Bikewale.DAL.BikeData
                             {
                                 objUserreview.Add(new BikeUserReviewRating()
                                 {
-                                    OverAllRating = SqlReaderConvertor.ToDouble(dr["ReviewRate"]),
+                                    OverAllRating = SqlReaderConvertor.ParseToDouble(dr["ReviewRate"]),
                                     ModelMaskingName = Convert.ToString(dr["modelmaskingname"]),
                                     MakeMaksingName = Convert.ToString(dr["makemaskingname"]),
                                     OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
                                     HostUrl = Convert.ToString(dr["hosturl"]),
-                                    ReviewCounting = SqlReaderConvertor.ToDouble(dr["ReviewCount"]),
+                                    ReviewCounting = SqlReaderConvertor.ParseToDouble(dr["ReviewCount"]),
                                     ModelName = Convert.ToString(dr["modelname"]),
                                     MakeName = Convert.ToString(dr["makename"])
                                 });
@@ -2210,7 +2210,7 @@ namespace Bikewale.DAL.BikeData
                                 bikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
                                 bikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
                                 bikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
-                                bikeInfo.OverAllRating = SqlReaderConvertor.ToDouble(dr["overallrating"]);
+                                bikeInfo.OverAllRating = SqlReaderConvertor.ParseToDouble(dr["overallrating"]);
                                 bikeInfo.Make.MakeName = Convert.ToString(dr["makename"]);
                                 bikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
                                 bikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
@@ -2286,7 +2286,7 @@ namespace Bikewale.DAL.BikeData
                                         HostUrl = Convert.ToString(dr["hosturl"]),
                                         OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                         ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
-                                        ReviewRate = SqlReaderConvertor.ToDouble(dr["reviewrate"]),
+                                        ReviewRate = SqlReaderConvertor.ParseToDouble(dr["reviewrate"]),
                                         MinPrice = SqlReaderConvertor.ToUInt32(dr["minprice"]),
                                         MaxPrice = SqlReaderConvertor.ToUInt32(dr["maxprice"]),
                                         LaunchedOn = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]),
@@ -2363,7 +2363,7 @@ namespace Bikewale.DAL.BikeData
                                         HostUrl = Convert.ToString(dr["hosturl"]),
                                         OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                         ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
-                                        ReviewRate = SqlReaderConvertor.ToDouble(dr["reviewrate"]),
+                                        ReviewRate = SqlReaderConvertor.ParseToDouble(dr["reviewrate"]),
                                         MinPrice = SqlReaderConvertor.ToUInt32(dr["minprice"]),
                                         MaxPrice = SqlReaderConvertor.ToUInt32(dr["maxprice"]),
                                         LaunchedOn = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]),

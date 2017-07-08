@@ -114,7 +114,7 @@ namespace Bikewale.Utility
         /// </summary>
         /// <param name="reader"></param>
         /// <returns></returns>
-        public static double ToDouble(object reader)
+        public static double ParseToDouble(object reader)
         {
             double retVal = default(double);
             if (DBNull.Value != reader)

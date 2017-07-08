@@ -439,8 +439,8 @@ namespace Bikewale.DAL.Dealer
                                 dealerdetail.CampaignId = SqlReaderConvertor.ParseToUInt32(dr["CampaignId"]);
                                 dealerdetail.objArea = new AreaEntityBase();
                                 dealerdetail.objArea.AreaName = Convert.ToString(dr["Area"]);
-                                dealerdetail.objArea.Longitude = SqlReaderConvertor.ToDouble(dr["Longitude"]);
-                                dealerdetail.objArea.Latitude = SqlReaderConvertor.ToDouble(dr["Lattitude"]);
+                                dealerdetail.objArea.Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]);
+                                dealerdetail.objArea.Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]);
                                 dealerdetail.objArea.PinCode = Convert.ToString(dr["dealerpincode"]);
                                 dealerdetail.DisplayTextLarge = Convert.ToString(dr["CtaLongText"]);
                                 dealerdetail.DisplayTextSmall = Convert.ToString(dr["CtaSmallText"]);
@@ -506,8 +506,8 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.Area = new AreaEntityBase
                                 {
                                     AreaName = Convert.ToString(dr["Area"]),
-                                    Longitude = SqlReaderConvertor.ToDouble(dr["Longitude"]),
-                                    Latitude = SqlReaderConvertor.ToDouble(dr["Lattitude"])
+                                    Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
+                                    Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"])
 
                                 };
                                 dealers.DealerDetails.City = Convert.ToString(dr["City"]);
@@ -615,8 +615,8 @@ namespace Bikewale.DAL.Dealer
                                 {
                                     AreaId = SqlReaderConvertor.ParseToUInt32(dr["areaid"]),
                                     AreaName = Convert.ToString(dr["Area"]),
-                                    Longitude = SqlReaderConvertor.ToDouble(dr["Longitude"]),
-                                    Latitude = SqlReaderConvertor.ToDouble(dr["Lattitude"])
+                                    Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
+                                    Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"])
 
                                 };
                                 dealers.DealerDetails.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
@@ -925,8 +925,8 @@ namespace Bikewale.DAL.Dealer
                                     CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
                                     CityName = Convert.ToString(dr["name"]),
                                     CityMaskingName = Convert.ToString(dr["citymaskingname"]),
-                                    Lattitude = SqlReaderConvertor.ToDouble(dr["Lattitude"]),
-                                    Longitude = SqlReaderConvertor.ToDouble(dr["Longitude"]),
+                                    Lattitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]),
+                                    Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
                                     GoogleMapImg = Convert.ToString(dr["googlemapimgurl"])
                                 });
                             }

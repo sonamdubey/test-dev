@@ -103,7 +103,7 @@
                                     }
                                     else
                                     {
-                                        <div onclick="@String.Format("javascript : return (window.location = '{0}'",Model.FeaturedBike)" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@string.Format("{0}_TopCard", bikeName)" target="_blank" class="text-link bw-ga font14 know-more-target">Know more<span class="bwsprite know-more-icon"></span></div>
+                                        <a href="@Model.FeaturedBike" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@string.Format("{0}_TopCard", bikeName)" target ="_blank" class="bw-ga font14 know-more-target">Know more<span class="bwsprite know-more-icon"></span></a>
                                     }
 
                                 </div>
@@ -160,8 +160,7 @@
                                         }
                                         else
                                         {
-                                            <div onclick="@String.Format("javascript : return (window.location = '{0}'",Model.FeaturedBike)" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@string.Format("{0}_Floating", bikeName)" class="bw-ga know-more-target">
-                                                Know more<span class="text-link bwsprite know-more-icon"></span></div>
+                                            <a href="@Model.FeaturedBike" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="@string.Format("{0}_Floating", bikeName)" class="bw-ga know-more-target">Know more<span class="bwsprite know-more-icon"></span></a>
                                         }
 
                                     </div>

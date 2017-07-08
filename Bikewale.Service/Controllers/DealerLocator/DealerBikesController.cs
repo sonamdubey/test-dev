@@ -115,45 +115,6 @@ namespace Bikewale.Service.Controllers.DealerLocator
             }
         }
 
-        /// <summary>
-        /// Created By :  Sushil Kumar on 8th Julty 2017
-        /// Description : To get Detail of Bikes for specific Dealer by make .
-        /// </summary>
-        /// <param name="dealerId"></param>
-        /// <param name="makeId"></param>
-        /// <returns></returns>
-        [ResponseType(typeof(DTO.DealerLocator.DealerBikes)), Route("api/v3/DealerBikes/")]
-        public IHttpActionResult GetV3(uint dealerId, ushort makeId)
-        {
-            try
-            {
-                if (dealerId > 0 && makeId > 0)
-                {
-                    DealerBikesEntity dealerBikes = _cache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, (int)makeId);
-                    Bikewale.DTO.DealerLocator.DealerBikes bikes;
-                    if (dealerBikes != null)
-                    {
-                        bikes = DealerBikesEntityMapper.Convert(dealerBikes);
-                        return Ok(bikes);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.DealerLocator.DealerBikesController.Get");
-                objErr.SendMail();
-                return InternalServerError();
-            }
-        }
-
 
     }
 }
