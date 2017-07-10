@@ -18,6 +18,8 @@
                 <a href="<%= bikeUrl%>" title="<%=bikeName%>" class="leftfloat margin-bottom15 text-default">
                     <h2><%=bikeName%></h2>
                 </a>     
+                <%if (RatingCount > 0)
+                        { %>
                 <div id="reviewRatingsDiv" class="inline-block">            
                         <span class="rate-count-<%=Math.Round(Rating) %>">
                             <span class="bwsprite star-icon star-size-16"></span>
@@ -28,7 +30,8 @@
                         {  %>
                             <a class='text-xt-light review-left-divider inline-block' href="<%=string.Format("{0}reviews/", bikeUrl)%>" title="<%=bikeName%> user reviews"><%=string.Format("{0} {1}", UserReviewCount, UserReviewCount > 1 ? "reviews" : "review") %></a>
                        <%  } %>   
-                    </div>                
+                    </div> 
+                <%} %>               
                 <div class="clear"></div>
                 <div class="grid-8 alpha padding-right20 border-solid-right">
                     <a href="<%= bikeUrl%>" title="<%=bikeName%>" class="model-image-target vertical-top">
