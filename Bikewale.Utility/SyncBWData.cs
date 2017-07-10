@@ -12,6 +12,8 @@ namespace Bikewale.Utility
     {
         /// <summary>
         /// To push Make Model version related info into the RabbitMQ
+        /// Modified By : Sushil Kumar on 9th July 2017
+        /// Description : Added new value for carwale master database
         /// </summary>
         /// <param name="spName">Name of the stored Procedure to be executed</param>
         /// <param name="dbName">Database name</param>
@@ -30,6 +32,9 @@ namespace Bikewale.Utility
                     case DataBaseName.CW:
                         dbName = "CW";
                         break;
+                    case DataBaseName.CWMD:
+                        dbName = "CWMD";
+                        break;
                 }
                 nvc.Add("DBNAME", dbName);
                 nvc.Add("SPNAME", spName);
@@ -44,9 +49,14 @@ namespace Bikewale.Utility
         }
     }
 
+    /// <summary>
+    /// Modified By : Sushil Kumar on 9th July 2017
+    /// Description : Added new value for carwale master database
+    /// </summary>
     public enum DataBaseName
     {
         CW = 1,
-        BW = 2
+        BW = 2,
+        CWMD = 3,
     }
 }
