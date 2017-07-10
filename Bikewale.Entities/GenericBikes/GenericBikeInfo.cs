@@ -45,6 +45,10 @@ namespace Bikewale.Entities.GenericBikes
         public string HostUrl { get; set; }
         public bool IsDiscontinued { get; set; }
         public bool IsUpcoming { get; set; }
+
+        public float Rating { get; set; }
+        public UInt16 RatingCount { get; set; }
+        public UInt16 UserReviewCount { get; set; }
     }
     /// Created  By :- subodh Jain 10 Feb 2017
     /// Summary :- BikeInfo Slug details GetBikeInfo
