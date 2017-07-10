@@ -315,7 +315,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .footer-social-icons .fa-gp:hover { background: #db4c3f; }
 
 /* sprite classes */
-.bwsprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?v26May2017) no-repeat; display: inline-block; }
+.bwsprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?05July20171499235738247) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
 .bw-logo { background-position: -34px 0; width: 93px; height: 27px; }
@@ -1188,6 +1188,11 @@ input[type="number"] {
 
 .select-box .chosen-single:focus {
   outline: none; }
+
+.select-box .error-text {
+    text-align: left;
+    display: block;
+}
 
 .chosen-disabled.single-version {
   opacity: 1 !important;

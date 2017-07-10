@@ -1,32 +1,35 @@
 ﻿
+using Bikewale.ManufacturerCampaign.Entities;
+
 namespace Bikewale.Entities.manufacturecampaign
 {
     /// <summary>
-    /// Created by subodh Jain 29 Aug 2016
-    /// Description For manufacture Campaign 
+    /// Created by  :   Sumit Kate on 29 Jun 2017
+    /// Description :   Manufacture Campaign LeadEntity
     /// </summary>
-    class ManufactureCampaignInput
+    public class ManufactureCampaignLeadEntity : ManufacturerCampaignLeadConfiguration
     {
-        public int CampaignId { get; set; }
-
-        public string ManufacturerName { get; set; }
-
-        public string MaskingNumber { get; set; }
-
-        public int DealerId { get; set; }
-
-        public string DealerArea { get; set; }
-
-        public int LeadsourceId { get; set; }
-
-        public int LeadpqsourceId { get; set; }
-
+        public int LeadSourceId { get; set; }
+        public int PqSourceId { get; set; }
+        public string MakeName { get; set; }
+        public string Area { get; set; }
         public string GAAction { get; set; }
-
         public string GACategory { get; set; }
-
         public string GALabel { get; set; }
+    }
 
-        public bool IsMaskingNumner { get; set; }
+    /// <summary>
+    /// Created by  :   Sumit Kate on 29 Jun 2017
+    /// Description :   Manufacture Campaign EMI Entity
+    /// </summary>
+    public class ManufactureCampaignEMIEntity : ManufacturerCampaignEMIConfiguration
+    {
+        public int LeadSourceId { get; set; }
+        public int PqSourceId { get; set; }
+        public string MakeName { get; set; }
+        public string Area { get; set; }
+        public string GAAction { get; set; }
+        public string GACategory { get; set; }
+        public string GALabel { get; set; }
     }
 }

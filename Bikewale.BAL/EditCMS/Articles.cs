@@ -130,6 +130,41 @@ namespace Bikewale.BAL.EditCMS
 
             return _objArticleList;
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 14 June 2017
+        /// Summary    : To get recent articles based on a body style
+        /// </summary>
+        public IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords,string bodyStyleId, uint makeId, uint modelId)
+        {
+            FetchedRecordsCount = 0;
+            IEnumerable<ArticleSummary> _objArticleList = null;
+
+            try
+            {
+                switch (categoryIdList)
+                {
+                    case "8": //EnumCMSContentType.RoadTest
+                        categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
+                        break;
+
+                    case "1": //EnumCMSContentType.News
+                        categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
+                        break;
+                    default:
+                        break;
+                }
+
+                _objArticleList = GetMostRecentArticlesViaGrpc(categoryIdList, totalRecords,bodyStyleId, makeId, modelId);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return _objArticleList;
+        }
 
         /// <summary>
         /// Created By : Sushil Kumar on 21st July 2016
@@ -149,6 +184,28 @@ namespace Bikewale.BAL.EditCMS
                 int intModelId = Convert.ToInt32(modelId);
 
                 var _objGrpcArticleSummaryList = GrpcMethods.MostRecentList(categoryIdList, (int)totalRecords, intMakeId, intModelId);
+
+                if (_objGrpcArticleSummaryList != null && _objGrpcArticleSummaryList.LstGrpcArticleSummary.Count > 0)
+                {
+                    return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticleSummaryList);
+                }
+
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+            }
+            return null;
+        }
+
+        private IEnumerable<ArticleSummary> GetMostRecentArticlesViaGrpc(string categoryIdList, uint totalRecords, string bodyStyleId, uint makeId, uint modelId)
+        {
+            try
+            {
+                int intMakeId = Convert.ToInt32(makeId);
+                int intModelId = Convert.ToInt32(modelId);
+
+                var _objGrpcArticleSummaryList = GrpcMethods.MostRecentList(categoryIdList, (int)totalRecords,bodyStyleId, intMakeId, intModelId);
 
                 if (_objGrpcArticleSummaryList != null && _objGrpcArticleSummaryList.LstGrpcArticleSummary.Count > 0)
                 {

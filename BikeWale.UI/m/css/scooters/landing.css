@@ -49,6 +49,30 @@
 .panel-type-scooter.featured-bikes-panel .bw-tabs-flex {
   margin-bottom: 10px; }
 
+.article-control #makeNewsContent {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-bottom: 0; }
+
+.review-image-wrapper {
+  width: 120px;
+  height: 68px;
+  border: 1px solid #e2e2e2;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 10px; }
+  .review-image-wrapper a {
+    width: 100%;
+    display: block; }
+  .review-image-wrapper img {
+    width: 100%;
+    height: 68px; }
+
+.review-heading-wrapper {
+  width: 55%;
+  display: inline-block;
+  vertical-align: top; }
+
 .brand-type-container li {
   display: inline-block;
   vertical-align: top;
@@ -69,7 +93,7 @@
   text-transform: capitalize; }
 
 .brandlogosprite {
-  background-image: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?17Apr2017);
+  background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?04July20171499147306874);
   background-repeat: no-repeat;
   display: inline-block; }
 
@@ -101,7 +125,8 @@
 .brand-81,
 .brand-71,
 .brand-21,
-.brand-38 {
+.brand-38,
+.brand-23 {
   height: 30px; }
 
 .brand-2 {
@@ -219,6 +244,10 @@
 .brand-38 {
   width: 25px;
   background-position: -1804px 0; }
+
+.brand-23 {
+  width: 70px;
+  background-position: -1839px 0; }
 
 .elevated-card-list {
   text-align: center; }

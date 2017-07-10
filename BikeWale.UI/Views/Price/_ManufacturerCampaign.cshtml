@@ -1,10 +1,15 @@
-﻿@model Bikewale.Entities.PriceQuote.ManufacturerCampaign
-
-@if(Model.ShowAd && Model.IsAdAvailable)
+﻿@model Bikewale.Entities.manufacturecampaign.ManufactureCampaignLeadEntity
+@using Bikewale.Utility
+@if(Model!=null)
 {
     <!-- Manufacturer Campaign Ad section starts -->
-    <section>
-        @Html.Raw(string.Format(Model.Ad))
-    </section>
+    try
+    {
+        @Html.Raw(Format.GetRenderedContent(String.Format("LeadCampaign_{0}", Model.CampaignId), Model.LeadsHtmlDesktop, Model))
+    }
+    catch (Exception ex)
+    {
+        Bikewale.Notifications.ErrorClass err = new Bikewale.Notifications.ErrorClass(ex, String.Format("ManufacturerCampaign.Desktop(CampaignId : {0})",Model.CampaignId));
+    }
      <!-- Manufacturer Campaign Ad section ends -->
 }

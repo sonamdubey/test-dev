@@ -2,9 +2,9 @@
 
 var userNameField, userEmailIdField;
 var descReviewField, reviewTitleField;
-var value_overallrating, reviewQuestion, reviewOverallRatingId, ratingOverAll, pageSourceID;
+var value_overallrating, reviewQuestion, reviewOverallRatingId, ratingOverAll, pageSourceID, pageSrc, contestSrc;
 var vmWriteReview, isSubmit = false;
-var makeModelName;
+var makeModelName, ratingErrorFields = "", reviewErrorFields = "";
 var array_rating;
 var bikeRating = {
     ratingCount: 0,
@@ -14,9 +14,7 @@ var bikeRating = {
 var ratingQuestion = [];
 var ratingError = false, questionError = false, userNameError = false, emailError = false;
 docReady(function () {
-
-	$('#back-to-top').remove();
-
+    
     bwcache.setScope('ReviewPage');
     if (page == "writeReview") {
         setTimeout(function () { appendHash("writeReview"); }, 1000);
@@ -47,6 +45,14 @@ docReady(function () {
     if ($('#pageSourceId') && $('#pageSourceId').length)
         pageSourceID = Number($('#pageSourceId').val());
 
+    if ($('#contestSrc') && $('#contestSrc').length)
+        contestSrc = Number($('#contestSrc').val());
+
+    if (contestSrc > 0)
+        pageSrc = 'reviewcontest_' + contestSrc;
+    else
+        pageSrc = pageSourceID;
+
     if (document.getElementById("bike-rating-box") != null && document.getElementById("bike-rating-box").getAttribute("data-make-model")) {
         makeModelName = document.getElementById("bike-rating-box").getAttribute("data-make-model");
     }
@@ -59,7 +65,7 @@ docReady(function () {
         var self = this;
 
         self.ratingCount = ko.observable(0);
-        self.feedbackTitle = ko.observable('Share your rating');
+        self.feedbackTitle = ko.observable('Rate this bike');
         self.feedbackSubtitle = ko.observable('');
         self.validateRatingCountFlag = ko.observable(false);
         self.ratingErrorText = ko.observable('');
@@ -154,11 +160,20 @@ docReady(function () {
             isValid &= self.validate.ratingForm();
             isValid &= self.personalDetails().validateDetails();
             if (isValid) {
-                triggerGA('Rate_Bike', 'Rating_Submit_Success', makeModelName + pageSourceID);
+                triggerGA('Rate_Bike', 'Rating_Submit_Success', makeModelName + pageSrc);
             }
             else {
-                triggerGA('Rate_Bike', 'Rating_Submit_Error', makeModelName + ratingError + '_' + questionError + '_' + userNameError + '_' + emailError);
-            }
+                ratingErrorFields = "";
+                if (ratingError)
+                    ratingErrorFields = ratingErrorFields + '_' + 'Rating_Field';
+                if (questionError)
+                    ratingErrorFields = ratingErrorFields + '_' + 'Questions_Field';
+                if (userNameError)
+                    ratingErrorFields = ratingErrorFields + '_' + 'Name_Field';
+                if (emailError)
+                    ratingErrorFields = ratingErrorFields + '_' + 'Email_Field';
+                triggerGA('Rate_Bike', 'Rating_Submit_Error', makeModelName + pageSrc + ratingErrorFields);
+               }
 
             return isValid;
         };
@@ -305,7 +320,7 @@ docReady(function () {
         vmRateBike.feedbackTitle(headingText);
         vmRateBike.feedbackSubtitle(descText);
         vmRateBike.ratingCount(buttonValue);
-        triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue);
+        triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue + '_' + pageSrc);
 
 		updateStarZeroIcon($(this));
     });
@@ -322,8 +337,7 @@ docReady(function () {
         var questionField = $(this).closest('.question-type-text'),
             subQuestionId = Number(questionField.attr('data-sub-question'));
 
-        triggerGA('Rate_Bike', 'Rate_' + questionField.attr('id')+'_'+ makeModelName + Number($(this).val()));
-        questionField.find('.error-text').hide();
+       questionField.find('.error-text').hide();
 
         if (subQuestionId > 0) {
             var buttonValue = Number($(this).val()),
@@ -391,11 +405,31 @@ docReady(function () {
 
             var descArray = vmWriteReview.detailedReview().split('\n');
             var formattedDescArray = "";
-
             for (i = 0; i < descArray.length; i++) {
                 if (descArray[i].trim() != "") {
+                    // sentence case expression
+                    var rg = /(^\w{1}|\.\s*\w{1})/gi;
+                    descArray[i] = descArray[i].toLowerCase().replace(rg, function (toReplace) {
+                        return toReplace.toUpperCase();
+                    });
+
                     formattedDescArray += "<p>" + descArray[i] + "</p>";
                 }
+            }
+            // sentence case expression title and review
+            // sentence case expression title and review
+            if ($("#getReviewTitle").length > 0) {
+                var rg = /(^\w{1}|\.\s*\w{1})/gi;
+
+                $("#getReviewTitle").val($("#getReviewTitle").val().toLowerCase().replace(/[\/\\#,_@^+()$~%'":*?<>{}]/g, '').replace(rg, function (toReplace) {
+                    return toReplace.toUpperCase();
+                }));
+            }
+            if ($("#getReviewTip").length > 0) {
+                var rg = /(^\w{1}|\.\s*\w{1})/gi;
+                $("#getReviewTip").val($("#getReviewTip").val().toLowerCase().replace(/[\/\\#,_@^+()$~%'":*?<>{}]/g, '').replace(rg, function (toReplace) {
+                    return toReplace.toUpperCase();
+                }));
             }
 
             if ($('#formattedDescripton'))
@@ -409,7 +443,7 @@ docReady(function () {
             else {
                 self.detailedReviewFlag(false);
                 validate.hideError(reviewTitleField);
-                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + self.detailedReviewFlag() + '_' + pageSourceID + '_' + self.detailedReview().trim().length);
+                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSrc + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
                 return true;
             }
 
@@ -417,15 +451,23 @@ docReady(function () {
         };
 
         self.validateReviewForm = function () {
-            var isValid = false;
-
-            isValid = self.validate.detailedReview();
-            isValid &= self.validate.reviewTitle();
+            var isValidDesc = true;
+            var isValidTitle = true;
+            isValidDesc = self.validate.detailedReview();
+            isValidTitle = self.validate.reviewTitle();
+            var isValid = isValidDesc && isValidTitle;
             if (isValid) {
-                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + !vmWriteReview.detailedReviewFlag() + '_' + pageSourceID + '_' + self.detailedReview().trim().length);
+                triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSrc + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
             }
             else {
-                triggerGA('Write_Review', 'Review_Submit_Error', makeModelName + self.detailedReview().trim().length);
+                reviewErrorFields = "";
+                if (isValidTitle && !isValidDesc)
+                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Description';
+                else if (!isValidTitle && isValidDesc)
+                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Title';
+                else if (!isValidDesc && !isValidTitle)
+                    reviewErrorFields = reviewErrorFields + '_' + 'Review_Title' + '_' + 'Review_Description';
+                triggerGA('Write_Review', 'Review_Submit_Error', makeModelName + pageSrc + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length + reviewErrorFields);
             }
 
             self.focusFormActive(false);
@@ -540,22 +582,23 @@ docReady(function () {
 
     descReviewField.on('focus', function () {
         vmWriteReview.detailedReviewFlag(false);
-        triggerGA('Write_Review', 'Write_a_Review', makeModelName + ratingOverAll + '_' + pageSourceID);
+        triggerGA('Write_Review', 'Write_a_Review', makeModelName + ratingOverAll + '_' + pageSrc);
+        answer.focusForm($('#guidelineList'));
     });
 
     reviewTitleField.on("focus", function () {
         validate.onFocus($(this));
-        triggerGA('Write_Review', 'Review_Title', makeModelName + ratingOverAll + '_' + pageSourceID);
+        triggerGA('Write_Review', 'Review_Title', makeModelName + ratingOverAll + '_' + pageSrc);
     });
 
     reviewTitleField.on("blur", function () {
         validate.onBlur($(this));
     });
 
-    if ($("#reviewDesc") && $("#reviewDesc").data("validate") && $("#reviewDesc").data("validate").length)
+    if (descReviewField && descReviewField.data("validate") && descReviewField.data("validate").length)
         vmWriteReview.validate.detailedReview();
 
-    if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length)
+    if (reviewTitleField && reviewTitleField.data("validate") && reviewTitleField.data("validate").length)
         vmWriteReview.validate.reviewTitle();
 
     vmWriteReview.GetFromBwCache();

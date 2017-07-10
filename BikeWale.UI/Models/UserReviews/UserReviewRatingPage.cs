@@ -27,6 +27,7 @@ namespace Bikewale.Models
         private bool _isFake;
         public StatusCodes status;
         private string _returnUrl;
+        private int _contestsrc;
         public ushort PlatFormId { get; set; }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace Bikewale.Models
                 _returnUrl = Convert.ToString(queryCollection["returnUrl"]);
                 uint.TryParse(queryCollection["selectedRating"], out _selectedRating);
                 ushort.TryParse(queryCollection["sourceid"], out _sourceId);
-
+                int.TryParse(queryCollection["contestsrc"], out _contestsrc);
                 if (_reviewId > 0 && !_isFake)
                 {
 
@@ -104,6 +105,7 @@ namespace Bikewale.Models
                 {
                     objUserVM.SourceId = _sourceId;
                     objUserVM.ReturnUrl = _returnUrl;
+                    objUserVM.ContestSrc = _contestsrc;
                     BindMetas(objUserVM);
                 }
             }

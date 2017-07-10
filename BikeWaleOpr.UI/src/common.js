@@ -2,6 +2,7 @@
 $(".buttons").sideNav();
 $('.modal').modal();
 $('.collapsible').collapsible();
+$('.tooltipped').tooltip({ delay: 50 });
 // Do not remove this code. Its written to get values from checkbox to controller
 $("input:checkbox").change(function () { $(this).val($(this).is(':checked')); });
 var select = $('select');
@@ -20,7 +21,7 @@ var pageFooter = {
     container: $('#page-footer'),
 
     setPosition: function () {
-        var flag = pageFooter.bodyElement.height() - window.innerHeight > pageFooter.container.height();
+        var flag = pageFooter.bodyElement.height() + 50 - window.innerHeight > pageFooter.container.height();
 
         if (pageFooter.bodyElement.height() > window.innerHeight && flag) {
             pageFooter.container.addClass('footer-relative');

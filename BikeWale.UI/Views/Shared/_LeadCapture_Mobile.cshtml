@@ -1,7 +1,6 @@
 ﻿@model Bikewale.Entities.PriceQuote.LeadCaptureEntity
 @if (Model != null)
 {
-
     <!-- Lead Capture pop up start  -->
     <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
         <div class="popup-inner-container text-center">
@@ -12,6 +11,20 @@
 
 
                 <div class="personal-info-form-container">
+                    @if (Model.CityId <= 0)
+                    {
+                        <div class="slideIn-input-box-content margin-bottom20" data-bind="css: selectedCity() ? 'selection-done' : '',click : openCityList">
+                            <div id="city-select-element" class="slideIn-input-box">
+                                <p class="slideIn-input-label city-box-default text-left" data-bind="visible: (selectedCity() && selectedCity().cityName != ''),css : (selectedCity() && selectedCity().cityName != '') ? 'done' : '' ">City<sup>*</sup></p>
+                                <p id="city-select-p" class="selected-option-box city-box-default text-truncate" data-bind="text: (selectedCity() && selectedCity().cityName != '') ? selectedCity().cityName : 'Select City'"></p>
+                                <span class="boundary"></span>
+                                <span class="text-left error-text hide"></span>
+                                <span class="bwmsprite grey-right-icon"></span>
+                            </div>
+                        </div>
+                    }
+
+
                     <!-- ko if : isDealerBikes() -->
                     <div id="getLeadBike" class="form-control-box margin-bottom15">
                         <div class="input-select-box dealer-search-brand form-control-box">
@@ -52,17 +65,10 @@
                     </div>
                     <div class="input-box form-control-box margin-bottom15" data-bind="visible : emailRequired() || !mfgCampaignId()">
                         <input type="email" id="getEmailID" data-bind="textInput: emailId">
-                        <div data-bind="visible : emailRequired()">
-                            <label for="getEmailID">Email<sup>*</sup></label>
-                        </div>
-                        <div data-bind="visible : !emailRequired()">
-                            <label for="getEmailID">Email (optional)</label>
-                        </div>
+                        <label for="getEmailID" data-bind="html : !emailRequired() ? 'Email (optional)' :  'Email<sup>*</sup>'"></label>
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
                     </div>
-
-               
 
                     <div id="getPinCode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
                         <input type="text" id="getPinCode" autocomplete="off">
@@ -77,18 +83,19 @@
                             </li>
                         </ul>
                     </div>
-                   
+
                     <div id="getDealer-select-box" class="form-control-box margin-bottom15 full-width-select text-left" data-bind="visible: dealersRequired()">
                         <div class="dropdown-select-wrapper">
-                            <select id="ddlMfgDealers" class="dropdown-select"></select>
+                            <select id="ddlMfgDealers" data-title="Select dealer" class="dropdown-select"></select>
                             <span class="boundary"></span>
                             <span class="error-text hide"></span>
                         </div>
                     </div>
-                        <div class="clear"></div>
-                        <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                        <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
-                    </div>
+
+                    <div class="clear"></div>
+                    <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                    <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+                </div>
             </div>
 
             <!-- thank you message starts here -->
@@ -100,21 +107,51 @@
                 </div>
                 <!-- ko if : !dealerMessage() -->
                 <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-                <p class="font16 margin-bottom40" data-bind="visible: !(campaignId() > 0)">Thank you for providing your details. <span data-bind="    text: dealerName()"></span><span data-bind="    visible: dealerArea() && dealerArea().length > 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
-                <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind="    text: dealerName()"></span>Company would get back to you shortly with additional information.</p>
+                <p class="font16 margin-bottom40">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="visible  : dealerArea() && dealerArea().length> 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>              
                 <!-- /ko -->
-                <!-- ko ifnot : -->
+                <!-- ko ifnot : !dealerMessage() -->
                 <p class="font16 margin-bottom40" data-bind="text: dealerMessage()"></p>
                 <!-- /ko -->
                 <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
             </div>
             <!-- thank you message ends here -->
+            @if (Model.CityId <= 0)
+            {
+            <!-- city drawer starts here -->
+                <div id="pqcity-slideIn-drawer" class="slideIn-drawer-container">
+                    <div class="form-control-box text-left">
+                        <div class="drawer-top-header">
+                            <div>
+                                <span id="close-city-filter" class="back-arrow-box inline-block" data-bind="click : closeCityList">
+                                    <span class="bwmsprite back-long-arrow-left"></span>
+                                </span><p class="head-label inline-block">Select city</p>
+                            </div>
+                            <div class="filter-input-box">
+                                <div class="form-control-box">
+                                    <input type="text" id="city-search-box" class="form-control padding-right40" placeholder="Type to select city" data-bind="textInput:cityFilter" autocomplete="off">
+                                    <span class="bwmsprite search-icon-grey"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="filter-list" id="pqpopupCityList" data-bind="template: { name: 'pqbindCityList-template', foreach: visibleCities }"></ul>
+                        <script type="text/html" id="pqbindCityList-template">
+                            <li data-bind="click: $parent.selectCity , attr: { 'cityId': cityId }">
+                                <span data-bind="text: cityName"></span>
+                            </li>
+                        </script>
+                    </div>
+                </div>
+            <!-- city drawer ends here -->
+            }
+
+
         </div>
     </div>
     <div id="ub-ajax-loader">
         <div id="popup-loader"></div>
     </div>
-    <!-- Lead Capture pop up end  -->
+
+   <!-- Lead Capture pop up end  -->
 
     <script type="text/javascript">
         var gaLabel = "";
@@ -122,29 +159,24 @@
         var leadBtnBookNow, leadCapturePopup, leadBike;
         var fullName, emailid, mobile, detailsSubmitBtn;
         var prevEmail = "", prevMobile = "", prevPinCode = "";
-        var leadmodelid = '@Model.ModelId', leadcityid = '@Model.CityId', leadareaid = '@Model.AreaId';
+        var leadmodelid = parseInt('@Model.ModelId'), leadcityid = parseInt('@Model.CityId'), leadareaid = parseInt('@Model.AreaId');
         var leadBikeName = '@Model.BikeName', leadLocation = '@Model.Location', CityArea = leadLocation;
         var objPinCodes = new Object(), validate, validateInputSelection;
-        var brandSearchBar, dealerSearchBrand, dealerSearchBrandForm;
+        var brandSearchBar, dealerSearchBrand, dealerSearchBrandForm, windowScreen;
+
 
         function leadModel() {
             var arr = setuserDetails();
             var self = this;
             if (arr != null && arr.length > 0) {
-                self.fullName = ko.observable(arr[0]);
-                if (arr[1]!="undefined") {
-                    self.emailId = ko.observable(arr[1]);
-                } else {
-                    self.emailId = ko.observable();
-                }
-
-                self.mobileNo = ko.observable(arr[2]);
+                self.fullName = ko.observable(arr[0] || '');
+                self.emailId = ko.observable((arr[1] && arr[1] != 'undefined') ? arr[1] : '');
+                self.mobileNo = ko.observable(arr[2] || '');
             }
             else {
                 self.fullName = ko.observable();
                 self.emailId = ko.observable();
                 self.mobileNo = ko.observable();
-
             }
             self.msg = "";
             self.pincode = ko.observable();
@@ -161,6 +193,7 @@
             self.pqSourceId = ko.observable();
             self.pageUrl = window.location.href;
             self.clientIP = "";
+            self.cityFilter = ko.observable("");
             self.isRegisterPQ = ko.observable(false);
             self.isDealerBikes = ko.observable(false);
             self.dealerBikes = ko.observableArray([]);
@@ -171,12 +204,97 @@
             self.dealerHeading = ko.observable();
             self.dealerMessage = ko.observable();
             self.dealerDescription = ko.observable();
+            self.cityRequired = ko.observable(leadcityid <= 0);
             self.pinCodeRequired = ko.observable();
             self.emailRequired = ko.observable();
             self.dealersRequired = ko.observable();
             self.dealerCityName = ko.observable();
             self.dealerAreaName = ko.observable();
             self.eventCategory = ko.observable();
+            self.cities = ko.observableArray();
+            self.selectedCity = ko.observable();
+
+            @if (Model.CityId <= 0)
+                    {
+                        <text>
+            self.FilterData = function (data, filter) {
+                filterObj = data;
+                if (filter && filter.length > 1) {
+                    var pat = new RegExp(filter, "i");
+                    filterObj = data.filter(function (place) {
+                        if (pat.test(place.cityName)) return place;
+                    });
+
+                }
+                return filterObj;
+            };
+
+            self.visibleCities = ko.computed(function () {
+                return self.FilterData(self.cities(), self.cityFilter());
+            });
+
+            self.openCityList = function () {
+                var cityListContainer = $('#pqcity-slideIn-drawer');
+                cityListContainer.show('slide', { direction: 'right' }, 500, function () {
+                    cityListContainer.addClass('fix-header-input');
+                });
+
+                if ($(document).height() > $(window).height()) {
+                    var windowScrollTop = windowScreen.htmlElement.scrollTop() ? windowScreen.htmlElement.scrollTop() : windowScreen.bodyElement.scrollTop();
+                    if (windowScrollTop < 0) {
+                        windowScrollTop = 0;
+                    }
+                    windowScreen.htmlElement.addClass('lock-browser-scroll').css('top', -windowScrollTop);
+                }
+            };
+
+            self.closeCityList = function () {
+                var cityListContainer = $('#pqcity-slideIn-drawer');
+                cityListContainer.hide('slide', { direction: 'right' }, 500, function () { });
+                cityListContainer.removeClass('fix-header-input');
+                windowScreen.unlock();
+            };
+
+            self.getModelCities = function (d, e) {
+                if (self.modelId() > 0 && self.cityRequired()) {
+                    var eleCities = $("#getLeadCity");
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/PQCityList/?modelId=" + self.modelId(),
+                        dataType: 'json',
+                        success: function (response) {
+                            var cities = response.cities;
+                            var citySelected = null;
+                            if (cities) {
+                                self.cities(cities);
+                            }
+                            else {
+                                self.cities([]);
+                            }
+                            eleCities.trigger("chosen:updated");
+                            $(this).parent().removeClass('done');
+                        }
+                    });
+                }
+            };
+
+            self.selectCity = function (d, e) {
+                self.selectedCity(d);
+                if (self.selectedCity() && self.selectedCity().cityId > 0) {
+                    self.cityId(self.selectedCity().cityId);
+
+                    if (self.dealersRequired()) {
+                        self.getDealersList(self.dealerId());
+                    }
+
+                    self.isRegisterPQ(true);
+                }
+                self.closeCityList();
+                self.validateCity();
+            };
+            </text>
+                    }
+
             self.setOptions = function (options) {
                 if (options != null) {
                     if (options.eventcategory != null)
@@ -230,21 +348,29 @@
                         self.dealerDescription(options.dealerDescription);
 
                     if (options.pinCodeRequired != null)
-                        self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true);
+                        self.pinCodeRequired(options.pinCodeRequired != 'True' ? false : true);
 
                     if (options.emailRequired != null)
-                        self.emailRequired(options.emailRequired != 'true' ? false : true);
+                        self.emailRequired(options.emailRequired != 'True' ? false : true);
 
-                    if (options.dealersRequired != null)
-                        self.dealersRequired(options.dealersRequired != 'true' ? false : true);
-                    
+                    if (options.dealersRequired != null) {
+                        self.dealersRequired(options.dealersRequired != 'True' ? false : true);
+                        if (self.cityId() && self.dealersRequired()) {
+                            self.getDealersList(self.dealerId());
+                        }
+                    }
+
+                    if (self.cityRequired()) {
+                        self.getModelCities();
+                    }
+
                     if (options.pageurl != null)
                         self.pageUrl = options.pageurl;
 
                     if (options.clientip != null)
                         self.clientIP = options.clientip;
 
-                    if (options.pqid != null)
+                    if (options.pqid != null && options.pqid)
                         self.pqId(options.pqid);
 
                     if (options.gaobject != null)
@@ -296,6 +422,39 @@
                         self.dealerBikes(obj.dealerBikes);
                     }
                 }
+            };
+
+            self.getDealersList = function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/ManufacturerCampaign/city/" + self.cityId() + "/dealer/" + self.dealerId() + "/",
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function (response) {
+                        var obj = ko.toJS(response);
+                        var count = obj.length;
+                        if (count >= 1) {
+                            if (count == 1) {
+                                $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
+                                $("#ddlMfgDealers").val('0');
+                                $("#ddlMfgDealers").closest('.select-box').addClass('done');
+                            } else {
+                                $("#ddlMfgDealers").html('');
+                                $("#ddlMfgDealers").append("<option value selected>Select dealer</option>");
+                                for (i = 0; i < count; i++) {
+                                    var dt = obj[i];
+                                    var areaName = '';
+                                    if (dt.area != null) {
+                                        areaName = ", " + dt.area;
+                                    }
+                                    $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-id='" + dt.id + "'  >" + dt.dealerName + areaName + "</option>");
+                                }
+                            }
+                        }
+                        $("#getDealer-select-box").find(".dropdown-menu").remove();
+                        dropdown.setMenu($("#ddlMfgDealers"));
+                    },
+                });
             };
 
             self.generatePQ = function (data, event) {
@@ -454,16 +613,29 @@
                         setPQUserCookie();
                     }
                 }
+                /* <![CDATA[ */
+                window.google_trackConversion({
+                    google_conversion_id: 998187973,
+                    google_conversion_language: "en",
+                    google_conversion_format: "3",
+                    google_conversion_color: "ffffff",
+                    google_conversion_label: "vUR5CPXFq3EQxcf82wM",
+                    google_remarketing_only: false
+                });
+                //]]>
             };
 
             self.validateUserInfo = function () {
                 var isValid = true;
 
+                isValid &= self.validateCity();
+
                 isValid = self.validateUserName();
-             
-                    isValid &= self.validateEmailId();
-             
+
+                isValid &= self.validateEmailId();
+
                 isValid &= self.validateMobileNo();
+
                 if (self.pinCodeRequired()) {
                     isValid &= self.validatePinCode();
                     if (isValid)
@@ -525,8 +697,7 @@
                     validate.setError(leadEmailId, 'Please enter email id');
                     isValid = false;
                 }
-                else if (emailVal == "")
-                {
+                else if (emailVal == "") {
                     isValid = true;
                 }
                 else if (!reEmail.test(emailVal)) {
@@ -535,6 +706,8 @@
                 }
                 return isValid;
             };
+
+
             self.validatePinCode = function () {
                 leadPinCode = $('#getPinCode');
                 var isValid = true,
@@ -567,6 +740,27 @@
                 }
             };
 
+            self.validateCity = function () {
+                var isValid = true;
+                eleCity = $("#city-select-element").find(".city-box-default");
+                if (eleCity != null && self.cityId() != null) {
+                    if (self.cityId() > 0) {
+                        validateInputSelection.hideError(eleCity);
+                        isValid = true;
+                    }
+                    else {
+                        validateInputSelection.setError(eleCity, 'Select a city');
+                        isValid = false;
+                    }
+                }
+                else {
+                    validateInputSelection.setError(eleCity, 'Select a city');
+                    isValid = false;
+                }
+
+                return isValid;
+            };
+
             self.validateBike = function () {
                 var isValid = true;
                 eleBike = $("#getLeadBike").find(".dealer-search-brand-form");
@@ -594,7 +788,7 @@
 
                 if (isValidCustomer && self.mfgCampaignId() > 0) {
 
-                    if (self.isRegisterPQ())
+                    if (self.pqId())
                         self.generatePQ(data, event);
 
                     $('#processing').show();
@@ -609,6 +803,7 @@
                         "leadSourceId": self.leadSourceId(),
                         "PinCode": self.pincode(),
                         "deviceId": getCookie('BWC'),
+                        "campaignId": self.mfgCampaignId(),
                         "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id')
                     };
                     $.ajax({
@@ -630,6 +825,9 @@
                             $("#contactDetailsPopup").hide();
                             $('#notify-response .notify-leadUser').text(self.fullName());
                             $('#notify-response').show();
+                            if (self.cityRequired() && self.selectedCity()) {
+                                SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
+                            }
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             $('#processing').hide();
@@ -750,7 +948,7 @@
                 var inputBoxes = $('.personal-info-form-container .input-box');
                 for (var i = 0; i < inputBoxes.length; i++) {
                     var item = $(inputBoxes[i]),
-                        inputValue = item.find('input').val();
+                    inputValue = item.find('input').val();
 
                     if (inputValue.length > 0) {
                         item.addClass('not-empty');
@@ -827,6 +1025,29 @@
                 lockPopup();
             });
 
+            windowScreen = {
+                htmlElement: $('html'),
+
+                bodyElement: $('body'),
+
+                lock: function () {
+                    if ($(document).height() > $(window).height()) {
+                        var windowScrollTop = windowScreen.htmlElement.scrollTop() ? windowScreen.htmlElement.scrollTop() : windowScreen.bodyElement.scrollTop();
+                        if (windowScrollTop < 0) {
+                            windowScrollTop = 0;
+                        }
+                        windowScreen.htmlElement.addClass('lock-browser-scroll').css('top', -windowScrollTop);
+                    }
+                },
+
+                unlock: function () {
+                    var windowScrollTop = parseInt(windowScreen.htmlElement.css('top'));
+
+                    windowScreen.htmlElement.removeClass('lock-browser-scroll');
+                    $('html, body').scrollTop(-windowScrollTop);
+                }
+            };
+
             $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
                 leadCapturePopup.hide();
                 $("#notify-response").hide();
@@ -899,8 +1120,8 @@
                     }
                 }
             });
-            
-            $(document).on('click','#templist li', function () {
+
+            $(document).on('click', '#templist li', function () {
                 validate.setError($('#ddlMfgDealers'), '');
             });
             dleadvm = new leadModel();
@@ -977,14 +1198,13 @@
             validateInputSelection = {
                 setError: function (element, message) {
                     var errorTag = element.siblings('span.error-text');
-
-                    element.closest('.input-select-box').addClass('invalid');
-                    errorTag.text(message);
+                    element.closest('.input-select-box,.slideIn-input-box').addClass('invalid');
+                    errorTag.text(message).show();
                 },
 
                 hideError: function (element) {
-                    element.closest('.input-select-box').removeClass('invalid');
-                    element.siblings('span.error-text').text('');
+                    element.closest('.input-select-box,.slideIn-input-box').removeClass('invalid');
+                    element.siblings('span.error-text').text('').hide();
                 }
             };
 
@@ -994,6 +1214,9 @@
 
     </script>
 
+    if (Model.CityId <= 0)
+    {
+        <link href="@String.Format("{0}/m/css/leadcapture.css?{1}",(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : ""),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
+    }
+
 }
-
-

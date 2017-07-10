@@ -359,6 +359,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :  Aditi Srivasava on 28 Mar 2017
         /// Summary     :  Set page metas and headings
+        /// /// Modified by :- Subodh Jain 19 june 2017
+        /// Summary :- Added TargetModels and Target Make
         /// </summary>
         private void SetPageMetas(NewsIndexPageVM objData)
         {
@@ -370,6 +372,8 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Description = String.Format("Read the latest news about {0} {1} bikes exclusively on BikeWale. Know more about {1}.", objMake.MakeName, objModel.ModelName);
                 objData.PageH1 = string.Format("{0} {1} Bikes News", objMake.MakeName, objModel.ModelName);
                 objData.PageH2 = string.Format("Latest {0} {1} Bikes News and Views", objMake.MakeName, objModel.ModelName);
+                objData.AdTags.TargetedMakes = objMake.MakeName;
+                objData.AdTags.TargetedModel = objModel.ModelName;
             }
             else if (MakeId > 0)
             {
@@ -377,6 +381,7 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Description = String.Format("Read the latest news about popular and upcoming {0} bikes exclusively on BikeWale. Know more about {0} bikes.", objMake.MakeName);
                 objData.PageH1 = string.Format("{0} Bikes News", objMake.MakeName);
                 objData.PageH2 = string.Format("Latest {0} Bikes News and Views", objMake.MakeName);
+                objData.AdTags.TargetedMakes = objMake.MakeName;
             }
             else
             {

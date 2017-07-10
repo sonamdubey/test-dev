@@ -47,5 +47,20 @@ namespace BikewaleOpr.Controllers
 
         }   // End of Index method
 
+        /// <summary>
+        /// Created by Sajal Gupta on 19-06-2017
+        /// Descrioption : This method will fetch manage review ratings page.
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ManageRatings()
+        {
+            ManageUserReviewsRatingsPage objPageModel = new ManageUserReviewsRatingsPage(_reviewsRepo);
+
+            ManageUserReviewsPageVM pageVM = objPageModel.GetData();
+
+            return View(pageVM);
+        }
+
+
     }   // Class
 }   // namespace

@@ -65,7 +65,7 @@
                 </tr>
                 <tr>
                     <td align="left" class="font16 padding-bottom5 position-rel">GST On-road price @string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "" : "(estimated)")
-						<div class="price--label-position">
+						<div class="price--label-position pos-bottom-40">
 							<span class="bwmsprite info-grey-14"></span>
 							<span class="text-light-grey font12">@string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "In accordance with GST rates" : "Final dealer price unavailable.")</span>
 						</div>
@@ -96,7 +96,8 @@
                     <td class="padding-bottom15 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatPrice(Model.Quotation.RTO.ToString())</td>
                 </tr>
                 <tr>
-                    <td class="text-light-grey padding-bottom15" align="left">Insurance @if (!Model.IsPrimaryDealerAvailable){<br><p class='position-rel'><a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Dealer_PQ" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Buy Policy Now</a><span class='position-abt pos-left35 pos-top0'>Ad</span></p>}</td>
+                    <td class="text-light-grey padding-bottom15" align="left">Insurance @if (!Model.IsPrimaryDealerAvailable&& !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
+                    {<br><p class='position-rel'><a target="_blank" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" c="Dealer_PQ" a="CoverFox_Link_Clicked" l="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Buy Policy Now</a><span class='position-abt pos-left35 pos-top0'>Ad</span></p>}</td>
                     <td class="padding-bottom10 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatPrice(Model.Quotation.Insurance.ToString())</td>
                 </tr>
 
@@ -146,7 +147,7 @@
 </div>
 
 
-@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && (Model.ManufacturerCampaign == null || !Model.ManufacturerCampaign.ShowAd))
+@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && !(Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
 {
     <section>
         @Html.Partial("~/Views/Price/_SecondaryDealers_Mobile.cshtml", Model.DetailedDealer.SecondaryDealers)
@@ -154,9 +155,16 @@
     </section>
 }
 
-@if (Model.ManufacturerCampaign != null)
+@if (Model.IsManufacturerLeadAdShown)
 {
-    @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.ManufacturerCampaign)
+    @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
+    <div class="campaign__floating-btn floating-btn clearfix">
+        <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
+        <div class="grid-5 alpha omega">
+            <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage,Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsButtonTextMobile,Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" class="btn btn-orange btn-full-32 leadcapturebtn">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+        </div>
+        <div class="clear"></div>
+    </div>
 }
 @if (!(Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null))
 {
@@ -237,7 +245,7 @@
                     <div class="clear"></div>
                 </div>
 
-                <div class="border-solid-top padding-top20 padding-bottom20">
+                <div class="border-solid-top padding-top20 padding-bottom15">
                     <p class="grid-9 alpha text-slate-grey omega">Total amount (Principal + Interest)</p>
                     <div class="emi-slider-box-right-section grid-3 omega alpha">
                         <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span class="text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>
@@ -250,7 +258,16 @@
                     @Html.Raw("<span> &#x20B9;</span>")&nbsp;<span data-bind="text: formatPrice(monthlyEMI())"></span>/month
                 </div>
                 <div class="clear"></div>
-
+                @if (Model.IsManufacturerEMIAdShown)
+                {
+                    <div class="powered-by-campaign-wrapper margin-top15">
+                        <a href="javascript:void(0)" type="button" class="btn btn-teal btn-160-32 font14 margin-right10 leadcapturebtn" data-mfgcampid="@Model.EMICampaign.CampaignId" data-item-id="@Model.EMICampaign.DealerId" data-item-area="@Model.EMICampaign.Area" data-leadsourceid="@Model.EMICampaign.LeadSourceId" data-pqsourceid="@Model.EMICampaign.PqSourceId" data-item-message="@String.Format(Model.EMICampaign.PopupSuccessMessage,Model.EMICampaign.Organization)" data-item-heading="@Model.EMICampaign.PopupHeading" data-item-description="@Model.EMICampaign.PopupDescription" data-ispincodrequired="@Model.EMICampaign.PincodeRequired" data-dealersrequired="@Model.EMICampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.EMICampaign.Organization))" id="btnManufacturer" data-isemailrequired="@Model.EMICampaign.EmailRequired">@Model.EMICampaign.EMIButtonTextMobile</a>
+                        <div class="inline-block">
+                            <p class="campaign__powered-key">Powered by</p>
+                            <p class="campaign__powered-value" title="@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)">@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)</p>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </section>
@@ -307,7 +324,8 @@
     var leadSourceId = "@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DPQ_SecondaryDealers)";
     var bikeName = "@Model.BikeName", bikeVersionPrice = "@Model.TotalPrice";
     var quotationPage = true;
-   
+    var bwTrackingLab = "@Model.BhriguTrackingLabel";
+
     docReady(function () {
         ga_pg_id = "7";
         try {

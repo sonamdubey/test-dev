@@ -1,12 +1,15 @@
 ﻿
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
 using System.Collections.Generic;
 using System.Linq;
+
 namespace Bikewale.Models.Price
 {
     /// <summary>
-    /// 
+    /// Modified by Sajal Gupta on 07-07-2017
+    /// Description : Added BhriguTrackingLabel
     /// </summary>
     public class DealerPriceQuotePageVM : ModelBase
     {
@@ -14,7 +17,6 @@ namespace Bikewale.Models.Price
         public IEnumerable<BikeVersionsListEntity> VersionsList { get; set; }
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DetailedDealer { get; set; }
         public BikeQuotationEntity Quotation { get; set; }
-        public ManufacturerCampaign ManufacturerCampaign { get; set; }
         public LeadCaptureEntity LeadCapture { get; set; }
         public DealerPackageTypes DealerType { get; set; }
         public string MinSpecsHtml { get; set; }
@@ -48,5 +50,10 @@ namespace Bikewale.Models.Price
         public int PQLeadSource { get { return 34; } }
 
         public SimilarBikesWidgetVM SimilarBikesVM { get; set; }
+        public ManufactureCampaignLeadEntity LeadCampaign { get; set; }
+        public bool IsManufacturerLeadAdShown { get; set; }
+        public ManufactureCampaignEMIEntity EMICampaign { get; set; }
+        public bool IsManufacturerEMIAdShown { get; set; }
+        public string BhriguTrackingLabel { get; set; }
     }
 }

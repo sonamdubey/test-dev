@@ -14,6 +14,8 @@ using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
 using System;
 using System.Linq;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Videos;
 
 namespace Bikewale.Models
 {
@@ -32,7 +34,8 @@ namespace Bikewale.Models
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IServiceCenter _objService = null;
-
+        private readonly ICMSCacheContent _articles = null;
+        private readonly IVideos _videos = null;
 
 
         public StatusCodes status;
@@ -52,7 +55,9 @@ namespace Bikewale.Models
             IBikeCompare compareScooters,
             IBikeMakesCacheRepository<int> objMakeCache,
             IDealerCacheRepository objDealerCache,
-            IServiceCenter objServices
+            IServiceCenter objServices,
+            ICMSCacheContent articles,
+            IVideos videos 
             )
         {
             _makeMaskingName = makeMaskingName;
@@ -64,12 +69,15 @@ namespace Bikewale.Models
             _objDealerCache = objDealerCache;
             ProcessQuery(makeMaskingName);
             _objService = objServices;
+            _articles = articles;
+            _videos = videos;
         }
 
         public uint CityId { get { return GlobalCityArea.GetGlobalCityArea().CityId; } }
         public ushort BrandTopCount { get; set; }
         public PQSourceEnum PqSource { get; set; }
         public CompareSources CompareSource { get; set; }
+        public uint EditorialTopCount { get; set; }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
@@ -108,11 +116,12 @@ namespace Bikewale.Models
                 BindDealersServiceCenters(objViewModel, cityEntity);
                 BindOtherScooterBrands(objViewModel, _makeId, 9);
                 BindCompareScootes(objViewModel,CompareSource);
+                BindEditorialWidget(objViewModel);
                 SetFlags(objViewModel, CityId);
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass er = new Bikewale.Notifications.ErrorClass(ex, "ScootersIndexPageModel.GetData()");
+                Notifications.ErrorClass er = new Notifications.ErrorClass(ex, "ScootersIndexPageModel.GetData()");
             }
             return objViewModel;
         }
@@ -144,7 +153,10 @@ namespace Bikewale.Models
             objViewModel.OtherBrands = scooterBrand.Where(x => x.MakeId != _makeId).Take(topCount);
         }
 
-
+        /// <summary>
+        /// Modified by : Aditi Srivastava on 15 June 2017
+        /// Summary     : Added flags for editorial section (News, expert reviews and videos)
+        /// </summary>
         private void SetFlags(ScootersMakePageVM objData, uint cityId)
         {
             if (objData != null)
@@ -157,9 +169,11 @@ namespace Bikewale.Models
                 objData.IsServiceDataAvailable = objData.ServiceCenters != null && objData.ServiceCenters.ServiceCentersList != null && objData.ServiceCenters.ServiceCentersList.Count() > 0;
                 objData.IsDealerServiceDataAvailable = cityId > 0 && (objData.IsDealerAvailable || objData.IsServiceDataAvailable);
                 objData.IsDealerServiceDataInIndiaAvailable = cityId == 0 && objData.DealersServiceCenter != null && objData.DealersServiceCenter.DealerServiceCenters != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails != null && objData.DealersServiceCenter.DealerServiceCenters.DealerDetails.Count() > 0;
-
-                objData.IsMakeTabsDataAvailable = (objData.Description != null && objData.Description.FullDescription.Length > 0 || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable);
-                objData.DealerServiceTitle = cityId == 0 ? "Dealers & Service Centers" : String.Format("{0}{1}", objData.IsDealerAvailable ? "Dealers" : "", objData.IsServiceDataAvailable ? " & Service Centers" : "");
+                objData.DealerServiceTitle = (cityId == 0 ? "Dealers & Service Centers" : (((objData.IsDealerAvailable && objData.IsServiceDataAvailable) ? "Dealers & Service Centers" : (objData.IsDealerAvailable ? "Dealers" : (objData.IsServiceDataAvailable ? "Service Centers" : "")))));
+                objData.IsNewsAvailable = objData.News != null && objData.News.ArticlesList != null && objData.News.ArticlesList.Count() > 0;
+                objData.IsExpertReviewsAvailable = objData.News != null && objData.ExpertReviews.ArticlesList != null && objData.ExpertReviews.ArticlesList.Count() > 0;
+                objData.IsVideosAvailable = objData.Videos != null && objData.Videos.VideosList != null && objData.Videos.VideosList.Count() > 0;
+                objData.IsMakeTabsDataAvailable = (objData.Description != null && objData.Description.FullDescription.Length > 0 || objData.IsDealerServiceDataAvailable || objData.IsDealerServiceDataInIndiaAvailable || objData.IsNewsAvailable || objData.IsExpertReviewsAvailable || objData.IsVideosAvailable);
             }
 
         }
@@ -263,8 +277,26 @@ namespace Bikewale.Models
                 PageNo = 1,
                 BodyStyleId = 5
             };
-            objUpcoming.SortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+            objUpcoming.SortBy = EnumUpcomingBikesFilter.Default;
             objData.UpcomingScooters = objUpcoming.GetData();
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 15 June 2017
+        /// Summary    : Bind make scooter related editorial content
+        /// </summary>
+        private void BindEditorialWidget(ScootersMakePageVM objData)
+        {
+            RecentNews objNews = new RecentNews(EditorialTopCount, _makeId, _makeName, _makeMaskingName, string.Format("News about {0} Scooters", _makeName), _articles);
+            objNews.IsScooter = true;
+            objData.News = objNews.GetData();
+           
+            RecentExpertReviews objReviews = new RecentExpertReviews(EditorialTopCount, _makeId, _makeName, _makeMaskingName, _articles, string.Format("{0} Reviews", _makeName));
+            objReviews.IsScooter = true;
+            objData.ExpertReviews = objReviews.GetData();
+
+            RecentVideos objVideos = new RecentVideos(1, (ushort)EditorialTopCount, _makeId, _makeName, _makeMaskingName, _videos);
+            objVideos.IsScooter = true;
+            objData.Videos = objVideos.GetData();
         }
     }
 }

@@ -72,7 +72,7 @@ namespace Bikewale.Models
         }
 
         #endregion
-
+        public bool IsScooter { get; set; }
         #region Functions to get data
         /// <summary>
         /// Created by : Aditi Srivastava on 23 Mar 2017
@@ -83,7 +83,13 @@ namespace Bikewale.Models
             RecentNewsVM recentNews = new RecentNewsVM();
             try
             {
-                recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, _makeId, _modelId);
+                if (IsScooter)
+                {
+                    string bodyStyleId = "5";
+                    recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords,bodyStyleId, _makeId, _modelId);
+                }
+                else
+                    recentNews.ArticlesList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), _totalRecords, _makeId, _modelId);
                 if (_makeId > 0)
                 {
                     recentNews.MakeName = _makeName;

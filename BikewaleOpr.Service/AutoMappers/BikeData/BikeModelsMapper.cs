@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using Bikewale.ManufacturerCampaign.Entities;
 using System.Collections.Generic;
 using AutoMapper;
 using BikewaleOpr.DTO.BikeData;
@@ -21,6 +21,11 @@ namespace BikewaleOpr.Service.AutoMappers.BikeData
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             return Mapper.Map<IEnumerable<BikeModelEntityBase>, IEnumerable<ModelBase>>(objModels);
+        }
+        internal static IEnumerable<BikeModelDTO> ConvertV2(IEnumerable<BikeModelEntity> objModels)
+        {
+            Mapper.CreateMap<BikeModelEntity, BikeModelDTO >();
+            return Mapper.Map<IEnumerable<BikeModelEntity>, IEnumerable<BikeModelDTO>>(objModels);
         }
     }
 }

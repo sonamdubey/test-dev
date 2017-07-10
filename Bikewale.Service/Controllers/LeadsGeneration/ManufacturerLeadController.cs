@@ -1,7 +1,9 @@
-﻿using Bikewale.Entities.BikeBooking;
+﻿using Bikewale.Entities.Customer;
 using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.MobileVerification;
+using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using Bikewale.Service.Utilities;
 using RabbitMqPublishing;
@@ -24,15 +26,22 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
     {
         private readonly IDealerPriceQuote _objIPQ = null;
         private readonly IMobileVerificationCache _mobileVerCacheRepo = null;
+        private readonly IManufacturerCampaignRepository _manufacturerCampaignRepo = null;
+        private readonly ICustomerAuthentication<CustomerEntity, UInt32> _objAuthCustomer = null;
+        private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
         /// <summary>
-        /// Constructor 
+        /// Type Initializer
         /// </summary>
         /// <param name="objIPQ"></param>
-        /// <param name="dealer"></param>
-        public ManufacturerLeadController(IDealerPriceQuote objIPQ, IMobileVerificationCache mobileVerCacheRepo)
+        /// <param name="mobileVerCacheRepo"></param>
+        /// <param name="manufacturerCampaignRepo"></param>
+        public ManufacturerLeadController(IDealerPriceQuote objIPQ, IMobileVerificationCache mobileVerCacheRepo, IManufacturerCampaignRepository manufacturerCampaignRepo, ICustomerAuthentication<CustomerEntity, UInt32> objAuthCustomer, ICustomer<CustomerEntity, UInt32> objCustomer)
         {
             _objIPQ = objIPQ;
             _mobileVerCacheRepo = mobileVerCacheRepo;
+            _manufacturerCampaignRepo = manufacturerCampaignRepo;
+            _objAuthCustomer = objAuthCustomer;
+            _objCustomer = objCustomer;
         }
 
 
@@ -49,30 +58,47 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
         [ResponseType(typeof(bool))]
         public IHttpActionResult Post([FromBody]ManufacturerLeadEntity objLead)
         {
-            bool status = false;
-
             try
             {
                 if (objLead != null)
                 {
                     if (objLead.CityId > 0 && objLead.VersionId > 0 && objLead.PQId > 0 && !String.IsNullOrEmpty(objLead.Name) && !String.IsNullOrEmpty(objLead.Mobile) && objLead.DealerId > 0)
                     {
-                        //Push inquiry Id to AutoBiz
-                        DPQ_SaveEntity entity = new DPQ_SaveEntity()
+                        CustomerEntity objCust = null;
+                        if (!_objAuthCustomer.IsRegisteredUser(objLead.Email, objLead.Mobile))
                         {
-                            DealerId = objLead.DealerId,
-                            PQId = objLead.PQId,
-                            CustomerName = objLead.Name,
-                            CustomerEmail = objLead.Email,
-                            CustomerMobile = objLead.Mobile,
-                            ColorId = null,
-                            UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty,
-                            UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty,
-                            DeviceId = objLead.DeviceId,
-                            LeadSourceId = objLead.LeadSourceId
-                        };
+                            objCust = new CustomerEntity() { CustomerName = objLead.Name, CustomerEmail = objLead.Email, CustomerMobile = objLead.Mobile, ClientIP = "" };
+                            objCust.CustomerId = _objCustomer.Add(objCust);
 
-                        if (_objIPQ.SaveCustomerDetail(entity))
+                        }
+                        else
+                        {
+                            var objCustomer = _objCustomer.GetByEmailMobile(objLead.Email, objLead.Mobile);
+                            objCust = new CustomerEntity()
+                            {
+                                CustomerId = objCustomer.CustomerId,
+                                CustomerName = objLead.Name,
+                                CustomerEmail = objLead.Email = !String.IsNullOrEmpty(objLead.Email) ? objLead.Email : objCustomer.CustomerEmail,
+                                CustomerMobile = objLead.Mobile
+                            };
+                            _objCustomer.Update(objCust);
+                        }
+
+                        objLead.LeadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(
+                            objLead.DealerId,
+                            objLead.PQId,
+                            objCust.CustomerId,
+                            objLead.Name,
+                            objLead.Email,
+                            objLead.Mobile,
+                           objLead.LeadSourceId,
+                           Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty,
+                           Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty,
+                           objLead.DeviceId,
+                           objLead.CampaignId,
+                           objLead.LeadId
+                            );
+                        if (objLead.LeadId > 0)
                         {
                             var numberList = _mobileVerCacheRepo.GetBlockedNumbers();
 
@@ -89,15 +115,16 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                                 objNVC.Add("cityId", objLead.CityId.ToString());
                                 objNVC.Add("leadType", "2");
                                 objNVC.Add("manufacturerDealerId", Convert.ToString(objLead.ManufacturerDealerId));
-
+                                objNVC.Add("manufacturerLeadId", objLead.LeadId.ToString());
                                 RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                                 objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
                             }
-
-                            status = true;
-
+                            return Ok(objLead.LeadId);
                         }
-                        return Ok(status);
+                        else
+                        {
+                            return NotFound();
+                        }
                     }
                     else
                     {

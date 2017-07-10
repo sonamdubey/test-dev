@@ -30,10 +30,10 @@
                             </div>                            
                         </div>
                     </div>
-                    <div class="padding-top15 padding-right20 padding-bottom5 padding-left20">
+                    <div class="write-review-padding">
                         <h2 class="margin-bottom10">@Model.Rating.ResponseHeading</h2>
                         <p class="text-slate-grey margin-bottom10">Tell us more about it. You may consider writing about:</p>
-                        <ol class="numeric-list margin-bottom15">
+                        <ol id="guidelineList" class="numeric-list margin-bottom15">
                             <li>Buying experience</li>
                             <li>Riding experience</li>
                             <li>Details about looks, performance etc.</li>
@@ -106,11 +106,11 @@
                     <input type="hidden" name="encodedString" value="@Model.EncodedWriteUrl" />  
                     <input type="hidden" id="pageSourceId" value="@Model.PageSourceId" />
                     <input type="hidden" id="overAllRatings" value="@Model.Rating.Value" />                  
-
-                    <h3 class="font15 margin-bottom10">Tips for other riders</h3>
+                    <input type="hidden" id="contestSrc" value="@Model.ContestSrc" />
+                    <h3 class="font15 margin-bottom10">Maintenance tips for other riders</h3>
                     <p class="text-light-grey margin-bottom10">Share key tips which you think were useful while owning/riding this bike.</p>
                     <div class="textarea-box margin-bottom15">
-                    <textarea name="reviewTips" data-bind="textInput: reviewTips" rows="3" cols="42" placeholder="Write your tips here.." maxlength="1000"></textarea>
+                    <textarea name="reviewTips" data-bind="textInput: reviewTips" rows="3" cols="42" placeholder="Eg. Change oil after 3,000 kms, Use tubeless tyres etc" maxlength="1000"></textarea>
                     </div>
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="queryEncoded" value="@Model.EncodedWriteUrl" />

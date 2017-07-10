@@ -361,7 +361,7 @@ h1 {font-weight: 700;}
 .block { width:100%; }
 .border-light-right { border-right:1px solid #e2e2e2; }
 
-.offers-sprite {background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v16may2017) no-repeat; display: inline-block;}
+.offers-sprite {background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v16may2017) no-repeat; display: inline-block;}
 .loc-change-blue-icon { width:16px; height:16px; background-position:-195px -395px; position:relative; top:2px; }
 .loc-change-blue-icon:hover { background-position:-84px -278px; }
 .upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-10px;top:10px;}
@@ -474,12 +474,7 @@ h1 {font-weight: 700;}
 	left: 0;
 	background: #fff;
 	z-index: 1;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-o-border-radius: 2px;
-	-ms-border-radius: 2px;
 	border-radius: 2px;
-	border: 1px solid #e2e2e2\9;
 	-webkit-box-shadow: -3px 3px 15px 1px #ddd;
 	-moz-box-shadow: -3px 3px 15px 1px #ddd;
 	-ms-box-shadow: -3px 3px 15px 1px #ddd;
@@ -499,7 +494,6 @@ h1 {font-weight: 700;}
 .dropdown-menu .dropdown-menu-list li {
 	padding: 5px 10px;
 	cursor: pointer;
-	white-space: nowrap;
 }
 
 .dropdown-menu .dropdown-with-select li:hover {
@@ -765,78 +759,4 @@ a.btn:hover {
     border-right: 10px solid transparent;
     border-bottom: 10px solid #f5f5f5;
     border-left: 10px solid transparent;
-}
-
-/* campaign */
-#campaign-container .tel-sm-icon {
-    top: 0
-}
-#campaign-offer-list li {
-    width: 50%;
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 20px
-}
-#campaign-offer-list li span {
-    display: inline-block;
-    vertical-align: middle
-}
-.campaign-offer-label {
-    width: 80%;
-    font-size: 13px;
-    font-weight: bold;
-    padding-right: 5px
-}
-#campaign-button-container .btn {
-    padding-right: 0;
-    padding-left: 0
-}
-#campaign-button-container .grid-6.hide + .grid-6 {
-    width: 100%;
-    padding-right: 0
-}
-.campaign-offer-1,
-.campaign-offer-2,
-.campaign-offer-3,
-.campaign-offer-4 {
-    width: 22px;
-    height: 22px;
-    margin-right: 5px
-}
-.campaign-offer-1 {
-    background-position: 0 -387px;
-}
-.campaign-offer-2 {
-    background-position: 0 -416px;
-}
-.campaign-offer-3 {
-    background-position: -28px -387px;
-}
-.campaign-offer-4 {
-    background-position: -56px -387px;
-}
-
-/* new campaign */
-.campaign-content .tel-sm-icon {
-    top: 0;
-}
-.campaign-content .campaign-title-content {
-    padding-left: 20px;
-    width: 70%;
-}
-.campaign-content .campaign-logo {
-    width: 80px;
-    height: 40px;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg?v06Apr2017) no-repeat;
-}
-.campaign-disc-list {
-    padding-left: 20px;
-}
-.campaign-disc-list li {
-    list-style: disc;
-    margin-bottom: 10px;
-}
-.campaign-button-content .btn {
-    padding-right: 0;
-    padding-left: 0;
 }

@@ -30,7 +30,14 @@ var UserReviews = function () {
     self.reviewDescription = ko.observable();
     self.reviewTips = ko.observable();
     self.disapprovalId = ko.observable();
-    self.shortListCheckBox = ko.observable(false);
+    self.shortListCheckBox = ko.observable(false);   
+
+    self.descLength = ko.computed(function () {
+        if (self.reviewDescription())
+            return self.reviewDescription().length;
+        else
+            return 0;
+        });
 
     self.changeMake = function (d, e) {
         var makeId = $(e.target).val();
@@ -135,7 +142,7 @@ var UserReviews = function () {
                         self.reviewTitle(response.title);
                         self.reviewDescription(response.description);
                         self.reviewTips(response.tips);
-                        self.shortListCheckBox(response.isShortListed);
+                        self.shortListCheckBox(response.isShortListed);                       
                     }
                 },
                 complete: function (xhr) {
@@ -163,7 +170,8 @@ var UserReviews = function () {
                 "MakeMaskingName" : summary.make.maskingName,
                 "ModelMaskingName": summary.model.maskingName,
                 "ModelId": summary.model.modelId,
-                "IsShortListed": self.shortListCheckBox()
+                "IsShortListed": self.shortListCheckBox(),
+                "ReviewTips": self.reviewTips()
             };           
             $.ajax({
                 type: "POST",

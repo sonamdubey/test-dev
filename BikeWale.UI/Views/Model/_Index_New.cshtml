@@ -67,14 +67,14 @@
                                 }                                
 
 
-                                @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && Model.BikePrice > 0)
+                                @if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && Model.BikePrice > 0 && !Model.IsManufacturerTopLeadAdShown)
                                 {
                                     <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-persistent="true" data-reload="true" data-modelid="@Model.ModelId" class="btn btn-orange margin-top10 getquotation">Check on-road price</a>
                                     <div class="clear"></div>
                                 }
                             </div>
 
-                            @if (Model.IsPrimaryDealer)
+                            @if (Model.IsPrimaryDealer || Model.IsManufacturerLeadAdShown)
                             {
                                 @Html.Partial("~/Views/Model/_Index_DealerDetails_TopCard_Right.cshtml", Model)
                             }
@@ -94,11 +94,14 @@
                 </div>
             </div>
             <div class="clear"></div>
-            @if (Model.ManufacturerCampaign != null && Model.LocationCookie.CityId > 0)
+            @if (Model.IsManufacturerLeadAdShown)
             {
-                @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.ManufacturerCampaign)
+                <div class="grid-12">
+                    @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.LeadCampaign)
+                </div>
+                <div class="clear"></div>
             }
-            @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && (Model.ManufacturerCampaign == null || !Model.ManufacturerCampaign.ShowAd))
+            else if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0)
             {
                 <div class="grid-12 margin-bottom20">
                     <div class="content-box-shadow">
@@ -118,6 +121,8 @@
                 </div>
                 <div class="clear"></div>
             }
+
+			
            
         </div>
 
@@ -125,12 +130,9 @@
     </div>
 </section>
  
-@if (Model.LeadCapture != null && Model.IsLocationSelected)
+@if (Model.LeadCapture != null && (Model.IsLocationSelected || Model.IsManufacturerLeadAdShown))
 {
   
     @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
 }
-
-
-
 

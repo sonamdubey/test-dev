@@ -46,8 +46,9 @@
                                         <li><a href="/content/adddealers.aspx">Add delears</a></li>
                                         <li><a href="/content/editdealers.aspx">Edit delears</a></li>
                                         <li class="collapsible-body-title teal lighten-4">User Reviews</li>
-                                        <li><a href="/content/manageuserreviews.aspx">Manage Reviews</a></li>
-                                        <li><a href="/userreviews/">Manage Reviews<span class="badge white-text blue accent-4" data-badge-caption="New"></span></a></li>
+                                        <li><a href="/content/manageuserreviews.aspx">Manage Reviews (Old)</a></li>
+                                        <li><a href="/userreviews/">Manage Reviews</a></li>
+                                        <li><a href="/userreviews/manageratings/">Manage Ratings</a></li>
                                         <li class="collapsible-body-title teal lighten-4">Mobile Applications</li>
                                         <li><a href="/MobileApp/AppVersioning.aspx">App Versions</a></li>
                                     </ul>
@@ -68,7 +69,7 @@
                                     <ul>
                                         <li><a href="/newbikebooking/default.aspx">Manage Dealers</a></li>
                                         <li><a href="/campaign/SearchDealerCampaigns.aspx">Dealer Campaigns</a></li>
-                                        <li><a href="/manufacturecampaign/SearchManufacturerCampaign.aspx">Manufacturer Campaigns</a></li>
+                                        <li><a href="/manufacturercampaign/search/index/">Manufacturer Campaigns</a></li>
                                         <li><a href="/campaign/ManageDealerPriceCategories.aspx">Dealer Price Categories</a></li>
                                     </ul>
                                 </div>

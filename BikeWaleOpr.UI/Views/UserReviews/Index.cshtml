@@ -133,11 +133,23 @@
                             <div class="input-field col s12">
                                 <textarea id="reviewDescription" class="materialize-textarea" data-bind="textInput : $root.reviewDescription"></textarea>
                                 <label for="reviewDescription" data-bind="css : description ? 'active' : '' ">Description</label>
+                                <div class="col offset-s9 grey-text">
+                                    <span data-bind="text: $root.descLength() + ' characters'"></span>
+                                </div>
                             </div>
-
+                            
                         </div>
 
                         <div class="grid-4 padding-left20 omega">
+
+                            <h3 class="font15 text-black margin-bottom10">Tips for prospective buyers</h3>
+                            <div class="input-field col s12">
+                                <textarea id="reviewTips" class="materialize-textarea" name="Tips" data-bind="textInput : $root.reviewTips"></textarea>
+                                <label for="reviewTips" data-bind="css : tips ? 'active' : '' ">Tips</label>
+                            </div>
+                           
+                            <div class="margin-bottom20 border-solid-bottom"></div>
+                            
                             <h3 class="font15 text-black margin-bottom20">You also rated</h3>
                             <!-- ko if : questions -->
                             <ul class="user-rated-list padding-bottom5 opacity-active" data-bind="foreach : questions">
@@ -146,14 +158,14 @@
 
                                     <ul class="category-rating item-rating-list rating-size-sm rightfloat" data-bind="foreach: rating">
                                         <!-- ko if : $parent.qtype != 1 -->
-                                            <!-- ko  foreach : new Array(5) -->
-                                                <!-- ko if : $index() < $parent.ratingValue -->
-                                                    <li class="bwsprite star-one"></li>
-                                                <!-- /ko -->
-                                                <!-- ko if : $index() >= $parent.ratingValue -->
-                                                    <li class="bwsprite star-zero"></li>
-                                                <!-- /ko -->
-                                            <!-- /ko -->
+                                        <!-- ko  foreach : new Array(5) -->
+                                        <!-- ko if : $index() < $parent.ratingValue -->
+                                        <li class="bwsprite star-one"></li>
+                                        <!-- /ko -->
+                                        <!-- ko if : $index() >= $parent.ratingValue -->
+                                        <li class="bwsprite star-zero"></li>
+                                        <!-- /ko -->
+                                        <!-- /ko -->
                                         <!-- /ko -->
                                         <!-- ko if : $parent.qtype == 1 -->
                                         <li data-bind="text : ratingText && ratingText!='' ? ratingText : 'N/A' "></li>
@@ -161,15 +173,9 @@
                                     </ul>
                                     <div class="clear"></div>
                                 </li>
-                               
+
                             </ul>
                             <!-- /ko -->
-                            <div class="margin-bottom20 border-solid-bottom"></div>
-                            <h3 class="font15 text-black margin-bottom10">Tips for prospective buyers</h3>
-                            <div class="input-field col s12">
-                                <textarea id="reviewTips" class="materialize-textarea" data-bind="textInput : $root.reviewTips"></textarea>
-                                <label for="reviewTips" data-bind="css : tips ? 'active' : '' ">Tips</label>
-                            </div>
 
                         </div>
 

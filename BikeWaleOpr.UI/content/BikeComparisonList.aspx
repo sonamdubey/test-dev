@@ -162,7 +162,8 @@
                    <td><%= bike.SponsoredStartDate == DateTime.MinValue ? "--" :  bike.SponsoredStartDate.ToString() %></td>
                    <td><%= bike.SponsoredEndDate == DateTime.MinValue ? "--" :  bike.SponsoredEndDate.ToString() %></td>
                    <td class="centreAlign"><a class="delete" Id='<%= bike.ComparisionId %>' style="cursor:pointer;" ><img src="https://opr.carwale.com/images/icons/delete.ico" border="0"/></a></td>                              
-              </tr> 
+              <div class="hide versionIds" data-versionId1="<%= bike.VersionId1%>" data-versionId2="<%= bike.VersionId2%>"></div>
+               </tr>             
         <% } %>
         </table>
     </div>
@@ -175,6 +176,7 @@
     var ddlVersion1 = $("#drpVersion1"), ddlVersion2 = $("#drpVersion2");
     var toTimeString = "<%= strToTime%>";
     var fromTimeString = "<%= strFromTime%>";
+    var compareId = "<%=compareId%>";
 
     $(document).ready(function () {
         if (toTimeString)
@@ -247,6 +249,18 @@
         if ($('#chkIsSponsored').attr("checked") && ($('#txtFromDate').val() == "" || $('#txtToDate').val() == "")) {            
             $("#spnbtnErr").text("Please select date for comparison");
             isValid = false;
+        }
+              
+        if (compareId == "0") {
+            for (var i = 0; i < $('.versionIds').length; i++) {
+                var id1 = ($('.versionIds')[i]).getAttribute('data-versionid1');
+                var id2 = ($('.versionIds')[i]).getAttribute('data-versionid2');
+
+                if ((id1 == ddlVersion1.val() && id2 == ddlVersion2.val()) || (id1 == ddlVersion2.val() && id2 == ddlVersion1.val())) {
+                    return confirm("This comparison is already added. Click OK to add this comparison");
+                    break;
+                }
+            }
         }
 
         return isValid;

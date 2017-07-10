@@ -42,8 +42,6 @@ docReady(function () {
 	var makeField = $('#form-make-field'),
 		modelField = $('#form-model-field');
 
-	$('#back-to-top').remove();
-
     var bikePopup = {
 
         container: $('#select-bike-cover-popup'),

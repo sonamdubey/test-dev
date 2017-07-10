@@ -147,18 +147,6 @@ namespace Bikewale.Models
                         Tab = BikeInfoTabType.Specs
                     });
                 }
-                if (_genericBikeInfo.UserReview > 0)
-                {
-                    tabs.Add(new BikeInfoTab()
-                    {
-                        URL = Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
-                        Title = "User Reviews",
-                        TabText = "User Reviews",
-                        IconText = "user-reviews",
-                        Count = _genericBikeInfo.UserReview,
-                        Tab = BikeInfoTabType.UserReview
-                    });
-                }
                 if (_genericBikeInfo.DealersCount > 0)
                 {
                     tabs.Add(new BikeInfoTab()

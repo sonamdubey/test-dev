@@ -30,9 +30,11 @@ h1,
   padding: 10px 20px; }
 
 .contest-slug-sm {
-  font-size: 12px;
-  color: #4d5057;
   padding: 5px 10px; }
+
+.contest-slug__label {
+  font-size: 12px;
+  color: #4d5057; }
 
 .slug-grey-info {
   background: #efefef; }
@@ -204,6 +206,9 @@ h1,
   margin-left: 15px; }
   .numeric-list li {
     margin-bottom: 5px; }
+
+.write-review-padding {
+  padding: 15px 20px 5px; }
 
 .textarea-box {
   position: relative; }

@@ -139,7 +139,7 @@
                             <span class="font18 text-bold">&#x20b9; @Format.FormatNumeric(Model.RatingReviewData.Price.ToString())</span>
                         </div>
                         <div id="bike-rating-box1" class="share-rating-grid border-grey-top margin-top20 padding-top20">
-                            <p class="font16 text-bold text-black leftfloat line-height25">Share your rating</p>
+                            <p class="font16 text-bold text-black leftfloat line-height25">Rate this bike</p>
                             <div class="answer-star-list hover-effect rightfloat">
                                 <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Listing))" type="radio" id="share-rate-5" name="share-rate" value="5">
                                 <label class="bwsprite star-0" for="share-rate-5" data-value="5"></label>
@@ -157,6 +157,22 @@
                     </div>
                     <div class="clear"></div>
                 </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="container card-bottom-margin">
+        <div class="grid-12">
+            <div class="content-box-shadow content-inner-block-20">
+                <div class="leftfloat">
+                    <span class="contest-fullwidth__trophy-circle"></span>
+                    <p class="contest-fullwidth__heading">Bike Review Contest</p>
+                    <p class="contest-fullwidth__subheading">Rate &amp; write a detailed review to win Amazon vouchers worth &#x20B9; 1,000</p>
+                </div>
+                <div class="rightfloat padding-top15">
+                    <a href="/bike-review-contest/" class="btn btn-inv-teal contest-fullwidth__target">Participate &amp; win<span class="bwsprite teal-right"></span></a>
+                </div>
+                <div class="clear"></div>
             </div>
         </div>
         <div class="clear"></div>

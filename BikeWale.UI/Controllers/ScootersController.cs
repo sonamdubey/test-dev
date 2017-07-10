@@ -17,6 +17,9 @@ using Bikewale.Utility;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Videos;
+
 namespace Bikewale.Controllers
 {
     /// <summary>
@@ -36,7 +39,9 @@ namespace Bikewale.Controllers
         private readonly IBikeCompare _compareScooters = null;
         private readonly IDealerCacheRepository _dealerCache = null;
         private readonly IServiceCenter _serviceCenter = null;
-        public ScootersController(IBikeMakes<BikeMakeEntity, int> objMakeRepo, IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompare compareScooters, IDealerCacheRepository dealerCache, IBikeMakesCacheRepository<int> objMakeCache, IBikeModels<BikeModelEntity, int> objBikeModel, IBikeMakes<BikeMakeEntity, int> objMakeRepor, IServiceCenter serviceCenter)
+        private readonly ICMSCacheContent _articles = null;
+        private readonly IVideos _videos = null;
+        public ScootersController(IBikeMakes<BikeMakeEntity, int> objMakeRepo, IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompare compareScooters, IDealerCacheRepository dealerCache, IBikeMakesCacheRepository<int> objMakeCache, IBikeModels<BikeModelEntity, int> objBikeModel, IBikeMakes<BikeMakeEntity, int> objMakeRepor, IServiceCenter serviceCenter, ICMSCacheContent articles, IVideos videos)
         {
             _newLaunches = newLaunches;
             _models = models;
@@ -47,6 +52,8 @@ namespace Bikewale.Controllers
             _dealerCache = dealerCache;
             _serviceCenter = serviceCenter;
             _objMakeRepo = objMakeRepo;
+            _articles = articles;
+            _videos = videos;
         }
 
         /// <summary>
@@ -61,10 +68,11 @@ namespace Bikewale.Controllers
         public ActionResult Index()
         {
             ScootersIndexPageModel model = new ScootersIndexPageModel(
-                _objMakeRepo, _models, _newLaunches, _upcoming, _compareScooters);
+                _objMakeRepo, _models, _newLaunches, _upcoming, _compareScooters,_articles,_videos);
             model.BrandTopCount = 10;
             model.PqSource = PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price;
             model.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
+            model.EditorialTopCount = 3;
             return View(model.GetData());
         }
 
@@ -79,10 +87,11 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile()
         {
             ScootersIndexPageModel model = new ScootersIndexPageModel(
-                _objMakeRepo, _models, _newLaunches, _upcoming, _compareScooters);
+                _objMakeRepo, _models, _newLaunches, _upcoming, _compareScooters, _articles, _videos);
             model.BrandTopCount = 6;
             model.PqSource = PQSourceEnum.Mobile_Scooters_Landing_Check_on_road_price;
             model.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
+            model.EditorialTopCount = 3;
             return View(model.GetData());
         }
         /// <summary>
@@ -113,8 +122,10 @@ namespace Bikewale.Controllers
         [Bikewale.Filters.DeviceDetection]
         public ActionResult BikesByMake(string makeMaskingName)
         {
-            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter);
-            obj.CompareSource = CompareSources.Desktop_Scooter_Listing_Compare;
+            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter,_articles,_videos);
+            obj.EditorialTopCount = 2;
+            obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
+
             ScootersMakePageVM objData = new ScootersMakePageVM();
             if (obj != null)
             {
@@ -151,9 +162,11 @@ namespace Bikewale.Controllers
         [Route("m/scooters/make/{makemaskingname}/")]
         public ActionResult BikesByMake_Mobile(string makeMaskingName)
         {
-            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter);
-            obj.CompareSource = CompareSources.Mobile_Scooter_Listing_Compare;
-            ScootersMakePageVM objData = new ScootersMakePageVM();
+            ScootersMakePageModel obj = new ScootersMakePageModel(makeMaskingName, _objMakeRepo, _objBikeModel, _upcoming, _compareScooters, _objMakeCache, _dealerCache, _serviceCenter, _articles, _videos);
+            obj.EditorialTopCount = 2;
+            obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
+           
+           ScootersMakePageVM objData = new ScootersMakePageVM();
             if (obj != null)
             {
                 if (obj.status == StatusCodes.ContentFound)

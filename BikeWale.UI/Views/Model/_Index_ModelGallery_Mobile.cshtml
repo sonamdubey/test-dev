@@ -49,7 +49,7 @@
     {
         <li>
             <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Images" : "Image")" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="bw-ga" c="Model_Page" a="Image_Tab_Clicked" l="@Model.BikeName">
-                <span class=" bwmsprite photos-sm">
+                <span class="bwmsprite photos-sm">
                 </span>
                 <span class="inline-block">
                     <span class="font12">@Model.ModelPageEntity.ModelDetails.PhotosCount</span>&nbsp;<span class="font11">@string.Format("{0}", Model.ModelPageEntity.ModelDetails.PhotosCount > 1 ? "images" : "image")</span>
