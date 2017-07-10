@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Bikewale.ManufacturerCampaign.Entities
 {
+    /// <summary>
+    /// Created by : Sangram Nandkhile on 26 Jun 2017
+    /// Summary    : Entity for lead, emi property and campaign
+    /// </summary>
+    /// 
     public class ConfigureCampaignEntity
     {
         public ManufacturerCampaignDetails DealerDetails { get; set; }

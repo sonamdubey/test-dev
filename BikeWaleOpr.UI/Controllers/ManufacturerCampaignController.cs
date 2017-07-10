@@ -80,6 +80,10 @@ namespace BikewaleOpr.Controllers
             return Redirect(string.Format("/manufacturercampaign/properties/{0}/?campaignId={1}" , objData.DealerId, campaignId));
         }
 
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 26 Jun 2017
+        /// Summary    : method for fetcthing manufacturer properties
+        /// </summary>
         [Route("manufacturercampaign/properties/{dealerid}/")]
         public ActionResult ConfigureCampaignProperties(uint campaignId, uint dealerId)
         {
@@ -88,6 +92,12 @@ namespace BikewaleOpr.Controllers
             retData.DealerId = dealerId;
             return View(retData);
         }
+
+
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 26 Jun 2017
+        /// Summary    : Post method for saving manufacturer properties
+        /// </summary>
         [HttpPost]
         [Route("manufacturercampaign/saveproperties/{dealerid}/")]
         public ActionResult SaveConfiguredProperties(CampaignPropertiesVM model, uint campaignId, uint dealerId)
