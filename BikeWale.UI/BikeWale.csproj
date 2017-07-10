@@ -3099,6 +3099,7 @@
     <Content Include="m\sass\modules\_rating-badge.sass" />
     <Content Include="m\sass\modules\_review-contest-slug.sass" />
     <Content Include="sass\user-review\review-contest.sass" />
+    <Content Include="sass\modules\_review-contest-slug.sass" />
     <Content Include="sass\user-review\_review-contest-style.sass" />
     <Content Include="sass\modules\_collapsible-list.sass" />
     <Content Include="sass\user-review\_review-swiper-3d.sass" />

@@ -19,7 +19,8 @@
             <div class="bike-details-block vertical-top">
                 <a href="@string.Format("/m{0}",Model.BikeUrl)" class="block text-default margin-bottom5" title="@Model.BikeName">
                     <h3 class="text-truncate">@Model.BikeName</h3>
-                </a>
+                </a>                
+
                 @if (Model.IsDiscontinued)
                     {
                     <p class="price-label-size-12 text-truncate">Last known Ex-showroom price</p>

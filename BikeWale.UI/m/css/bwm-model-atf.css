@@ -474,12 +474,7 @@ h1 {font-weight: 700;}
 	left: 0;
 	background: #fff;
 	z-index: 1;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-o-border-radius: 2px;
-	-ms-border-radius: 2px;
 	border-radius: 2px;
-	border: 1px solid #e2e2e2\9;
 	-webkit-box-shadow: -3px 3px 15px 1px #ddd;
 	-moz-box-shadow: -3px 3px 15px 1px #ddd;
 	-ms-box-shadow: -3px 3px 15px 1px #ddd;
@@ -499,7 +494,6 @@ h1 {font-weight: 700;}
 .dropdown-menu .dropdown-menu-list li {
 	padding: 5px 10px;
 	cursor: pointer;
-	white-space: nowrap;
 }
 
 .dropdown-menu .dropdown-with-select li:hover {
