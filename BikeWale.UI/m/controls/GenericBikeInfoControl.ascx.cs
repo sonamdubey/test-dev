@@ -25,6 +25,9 @@ namespace Bikewale.Mobile.Controls
         protected CityEntityBase cityDetails;
         public uint TabCount { get; set; }
         public bool SmallSlug { get; set; }
+        public float Rating { get; set; }
+        public UInt16 RatingCount { get; set; }
+        public UInt16 UserReviewCount { get; set; }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -56,6 +59,9 @@ namespace Bikewale.Mobile.Controls
                     pqSource = PQSourceEnum.Mobile_GenricBikeInfo_Widget;
                     IsUpcoming = genericBikeInfo.IsUpcoming;
                     IsDiscontinued = genericBikeInfo.IsDiscontinued;
+                    Rating = genericBikeInfo.Rating;
+                    RatingCount = genericBikeInfo.RatingCount;
+                    UserReviewCount = genericBikeInfo.UserReviewCount;
                 };
 
             }
