@@ -18,6 +18,8 @@
     </a>
      <div class="clear"></div>    
     <div class="margin-bottom10">
+        <%if (RatingCount > 0)
+            { %>
         <span class="rate-count-<%=Math.Round(Rating)%>">
             <span class="bwmsprite star-icon star-size-16"></span>
             <span class="font14 text-bold inline-block"><%=Rating.ToString("0.0").TrimEnd('0', '.')%></span>
@@ -31,8 +33,10 @@
             else
             { %>
         <div class="model-more-info-section model-slug-type-news">
-            <%} %>
+            
         </div>
+        <%}
+            }%>
         <div class="margin-bottom10">
             <%if (SmallSlug)
                 {

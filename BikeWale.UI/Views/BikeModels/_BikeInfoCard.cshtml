@@ -18,6 +18,8 @@
                         <a href="@Model.BikeUrl" title="@Model.BikeName" class="margin-right10 inline-block">
                             <h2>@Model.BikeName</h2>
                         </a>
+                        @if (Model.BikeInfo.RatingCount > 0)
+                        {
                         <div id="reviewRatingsDiv" class="inline-block">
                             <span class="rate-count-@Math.Round(Model.BikeInfo.Rating)">
                                 <span class="bwsprite star-icon star-size-16"></span>
@@ -29,6 +31,7 @@
                                 <a class='text-xt-light review-left-divider inline-block' href="@string.Format("{0}reviews/", Model.BikeUrl)" title="@Model.BikeName user reviews">@string.Format("{0} {1}", Model.BikeInfo.UserReviewCount, Model.BikeInfo.UserReviewCount > 1 ? "reviews" : "review")</a>
                             }
                         </div>
+                        }
                     </div>
                     <div class="grid-8 alpha padding-right20 border-solid-right">
                         <a href="@Model.BikeUrl" title="@Model.BikeName" class="model-image-target vertical-top">
