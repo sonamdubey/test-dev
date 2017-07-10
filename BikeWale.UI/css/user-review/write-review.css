@@ -11,6 +11,29 @@ h1,
 .font15 {
   font-size: 15px; }
 
+.contest-slug-sm {
+  padding: 10px 15px; }
+
+.contest-slug__label {
+  font-size: 13px;
+  color: #4d5057; }
+
+.slug-grey-info {
+  background: #f3f3f3; }
+
+.contest-slug__label {
+  width: 95%;
+  padding-left: 10px;
+  display: inline-block;
+  vertical-align: middle; }
+
+.trophy-a2a2a2-14 {
+  width: 14px;
+  height: 16px;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/trophy-a2a2a2-14.png) no-repeat;
+  display: inline-block;
+  vertical-align: middle; }
+
 #bike-rating-box {
   width: 100%;
   min-height: 132px;
