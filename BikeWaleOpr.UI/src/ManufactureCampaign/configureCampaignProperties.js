@@ -26,7 +26,7 @@ function FormatHtml(strHtml) {
             attr('a', '@Model.GAAction').
             attr('c', '@Model.GACategory').
             attr('l', '@Model.GALabel').
-            attr('data-item-message', '@Model.PopupSuccessMessage').
+            attr('data-item-message', '@string.Format(Model.PopupSuccessMessage,Model.Organization)').
             attr('data-item-heading', '@Model.PopupHeading').
             attr('data-item-description', '@Model.PopupDescription').
             attr('data-ispincodrequired', '@Model.PincodeRequired').
