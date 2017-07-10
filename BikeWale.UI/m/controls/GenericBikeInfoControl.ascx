@@ -1,36 +1,49 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.GenericBikeInfoControl" EnableViewState="false" %>
 <% if (bikeInfo != null)
-   { %>
+    { %>
 <%if (!SmallSlug)
-  { %>
+    { %>
 <div class="model-more-info-section">
     <%if (IsUpcoming)
-      { %>
+        { %>
     <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
     <%}
-      else if (IsDiscontinued)
-      { %>
+        else if (IsDiscontinued)
+        { %>
     <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
     <%} %>
     <div class="clear"></div>
     <a href="<%= bikeUrl%>" class="leftfloat text-default margin-bottom15" title="<%= bikeName %>">
         <h2><%= bikeName %></h2>
     </a>
-    <%}
-  else
-  { %>
-    <div class="model-more-info-section model-slug-type-news">
- <%} %>        
+     <div class="clear"></div>    
+    <div>
+        <span class="rate-count-<%=Math.Round(Rating)%>">
+            <span class="bwmsprite star-icon star-size-16"></span>
+            <span class="font14 text-bold inline-block"><%=Rating.ToString("0.0").TrimEnd('0', '.')%></span>
+        </span>
+        &nbsp;<span class='font11 text-xt-light-grey inline-block padding-left3'>(<%=string.Format("{0} {1}", RatingCount, RatingCount > 1 ? "ratings" : "rating") %>)</span>
+        <%if (UserReviewCount > 0)
+            {  %>
+        <a class='text-xt-light review-left-divider inline-block' href="<%=string.Format("/m{0}reviews/", bikeUrl) %>" title="<%=bikeName %> user reviews"><%=string.Format("{0} {1}", UserReviewCount, UserReviewCount > 1 ? "reviews" : "review") %></a>
+        <% }
+            }
+            else
+            { %>
+        <div class="model-more-info-section model-slug-type-news">
+            <%} %>
+        </div>
         <div class="margin-bottom10">
-            <%if (SmallSlug) {
-                if (IsUpcoming)
-                  { %>
-                    <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
-                <%}
+            <%if (SmallSlug)
+                {
+                    if (IsUpcoming)
+                    { %>
+            <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+            <%}
                 else if (IsDiscontinued)
                 { %>
-                    <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
-                <%} %>
+            <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+            <%} %>
             <%} %>
             <div class="clear"></div>
             <a href="<%= bikeUrl%>" class="item-image-content vertical-top" title="<%= bikeName %>">
@@ -38,18 +51,18 @@
             </a>
             <div class="bike-details-block vertical-top">
                 <%if (SmallSlug)
-                  { %><a href="<%= bikeUrl%>" class="block text-default margin-bottom5" title="<%= bikeName %>"><h3 class="text-truncate"><%= bikeName %></h3>
-                </a><%} %>
+                    { %><a href="<%= bikeUrl%>" class="block text-default margin-bottom5" title="<%= bikeName %>"><h3 class="text-truncate"><%= bikeName %></h3>
+                    </a><%} %>
                 <% if (IsDiscontinued)
-                   {%>
+                    {%>
                 <p class="price-label-size-12 text-truncate">Last known Ex-showroom price</p>
                 <div>
                     <span class="bwmsprite inr-sm-icon"></span>
                     <span class="price-value-size-18"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
                 </div>
                 <%}
-                   else if (IsUpcoming)
-                   {%>
+                    else if (IsUpcoming)
+                    {%>
                 <p class="price-label-size-12">Expected price</p>
                 <div>
                     <span class="bwmsprite inr-sm-icon"></span>
@@ -59,33 +72,35 @@
                 </div>
                 <%} %>
                 <%else
-                   {
-                       if (bikeInfo.PriceInCity > 0 && cityDetails != null)
-                       { %>
+                    {
+                        if (bikeInfo.PriceInCity > 0 && cityDetails != null)
+                        { %>
                 <p class="price-label-size-12 text-truncate"><%=String.Format("Ex-showroom, {0}",cityDetails.CityName)%></p>
                 <div>
                     <span class="bwmsprite inr-sm-icon"></span>
                     <span class="price-value-size-18"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.PriceInCity)) %></span>
                 </div>
                 <% }
-                     else
-                     { %>
+                    else
+                    { %>
                 <p class="price-label-size-12 text-truncate"><%=String.Format("Ex-showroom, {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName)%></p>
                 <div>
                     <span class="bwmsprite inr-sm-icon"></span>
                     <span class="price-value-size-18"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
                 </div>
                 <%}
-                  } %>
+                    } %>
             </div>
         </div>
         <%if (!IsDiscontinued && !IsUpcoming && bikeInfo.BikePrice > 0 && !SmallSlug)
-          { %>
+            { %>
         <a href="/m<%=Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName)%>" title="<%=bikeName%>" class="btn btn-white btn-180-34  margin-bottom15">View model details <span class="bwmsprite btn-red-arrow"></span></a>
         <% } %>
-  <%if(bikeInfo!=null) {%>  <ul class="item-more-details-list">
+        <%if (bikeInfo != null)
+            {%>
+        <ul class="item-more-details-list">
             <%foreach (var Tabsdetails in bikeInfo.Tabs)
-              { %>
+                { %>
             <li>
                 <a href="/m<%= Tabsdetails.URL%>" title="<%= String.Format("{0} {1}",bikeName, Tabsdetails.Title)%>">
                     <span class="bwmsprite <%=Tabsdetails.IconText%>-sm"></span>
@@ -93,10 +108,11 @@
                 </a>
             </li>
             <%} %>
-    </ul><%} %>
+        </ul>
+        <%} %>
         <div class="clear"></div>
         <%if (bikeInfo.UsedBikeCount > 0)
-          { %>
+            { %>
         <div class="border-solid-bottom margin-top5 margin-bottom10"></div>
         <a href="/m<%=Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName,(cityDetails!=null)?cityDetails.CityMaskingName:"india") %>" title="Used <%=bikeName%>" class="block text-default hover-no-underline">
             <span class="used-target-label inline-block">
@@ -107,5 +123,5 @@
         </a>
         <%} %>
     </div>
-    </div>
-    <% }  %>
+</div>
+<% }  %>

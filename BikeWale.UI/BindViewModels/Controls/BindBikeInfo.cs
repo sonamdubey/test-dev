@@ -30,6 +30,9 @@ namespace Bikewale.BindViewModels.Controls
         public uint TabCount { get; set; }
         public CityEntityBase cityDetails { get; set; }
         private GenericBikeInfo _genericBikeInfo;
+        public float Rating { get; set; }
+        public UInt16 RatingCount { get; set; }
+        public UInt16 UserReviewCount { get; set; }
         public BindBikeInfo()
         {
             try
@@ -99,6 +102,10 @@ namespace Bikewale.BindViewModels.Controls
             {
                 try
                 {
+                    Rating = _genericBikeInfo.Rating;
+                    RatingCount = _genericBikeInfo.RatingCount;
+                    UserReviewCount = _genericBikeInfo.UserReviewCount;
+
                     _genericBikeInfo.Tabs = new Collection<BikeInfoTab>();
                     if (_genericBikeInfo.ExpertReviewsCount > 0)
                     {
