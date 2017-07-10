@@ -14,21 +14,22 @@
                         <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                     }
                     <div class="clear"></div>
-                    <a href="@Model.BikeUrl" title="@Model.BikeName" class="leftfloat margin-bottom15 text-default">
-                        <h2>@Model.BikeName</h2>
-                    </a>
-                    <div id="reviewRatingsDiv">
-                        <span class="rate-count-@Math.Round(Model.BikeInfo.Rating)">
-                            <span class="bwsprite star-icon star-size-16"></span>
-                            <span class="font14 text-bold inline-block">@Model.BikeInfo.Rating.ToString("0.0").TrimEnd('0', '.')</span>
-                        </span>
-                        <span class='font11 text-xt-light-grey inline-block padding-left3'>(@string.Format("{0} {1}", Model.BikeInfo.RatingCount, Model.BikeInfo.RatingCount > 1 ? "ratings" : "rating"))</span>
-                        @if (Model.BikeInfo.UserReviewCount > 0)
-                        {
-                            <a class='text-xt-light review-left-divider inline-block' href="@string.Format("{0}reviews/", Model.BikeUrl)" title="@Model.BikeName user reviews">@string.Format("{0} {1}", Model.BikeInfo.UserReviewCount, Model.BikeInfo.UserReviewCount > 1 ? "reviews" : "review")</a>
-                        }
+                    <div class="margin-bottom15">
+                        <a href="@Model.BikeUrl" title="@Model.BikeName" class="margin-right10 inline-block">
+                            <h2>@Model.BikeName</h2>
+                        </a>
+                        <div id="reviewRatingsDiv" class="inline-block">
+                            <span class="rate-count-@Math.Round(Model.BikeInfo.Rating)">
+                                <span class="bwsprite star-icon star-size-16"></span>
+                                <span class="font14 text-bold inline-block">@Model.BikeInfo.Rating.ToString("0.0").TrimEnd('0', '.')</span>
+                            </span>
+                            <span class='font11 text-xt-light-grey inline-block padding-left3'>(@string.Format("{0} {1}", Model.BikeInfo.RatingCount, Model.BikeInfo.RatingCount > 1 ? "ratings" : "rating"))</span>
+                            @if (Model.BikeInfo.UserReviewCount > 0)
+                            {
+                                <a class='text-xt-light review-left-divider inline-block' href="@string.Format("{0}reviews/", Model.BikeUrl)" title="@Model.BikeName user reviews">@string.Format("{0} {1}", Model.BikeInfo.UserReviewCount, Model.BikeInfo.UserReviewCount > 1 ? "reviews" : "review")</a>
+                            }
+                        </div>
                     </div>
-                    <div class="clear"></div>
                     <div class="grid-8 alpha padding-right20 border-solid-right">
                         <a href="@Model.BikeUrl" title="@Model.BikeName" class="model-image-target vertical-top">
                             <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath, Model.BikeInfo.HostUrl, Bikewale.Utility.ImageSize._160x89, Bikewale.Utility.QualityFactor._70) " src="" alt="@Model.BikeName" width="157" height="88" />

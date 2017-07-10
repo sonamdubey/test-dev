@@ -13,11 +13,11 @@
     <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
     <%} %>
     <div class="clear"></div>
-    <a href="<%= bikeUrl%>" class="leftfloat text-default margin-bottom15" title="<%= bikeName %>">
+    <a href="<%= bikeUrl%>" class="leftfloat text-default margin-bottom5" title="<%= bikeName %>">
         <h2><%= bikeName %></h2>
     </a>
      <div class="clear"></div>    
-    <div>
+    <div class="margin-bottom10">
         <span class="rate-count-<%=Math.Round(Rating)%>">
             <span class="bwmsprite star-icon star-size-16"></span>
             <span class="font14 text-bold inline-block"><%=Rating.ToString("0.0").TrimEnd('0', '.')%></span>
