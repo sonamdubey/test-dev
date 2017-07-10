@@ -27,7 +27,11 @@ namespace BikewaleOpr.Controllers
             _contractCampaign = contractCampaign;
         }
 
-        // GET: ManufacturerCampaign
+        /// <summary>
+        /// Modified by :- Subodh Jain 10 july 2017
+        /// summary :- Get manufacturer list
+        /// </summary>
+        /// <returns></returns>
         [Route("manufacturercampaign/search/index/")]
         public ActionResult SearchManufacturerCampaign()
         {

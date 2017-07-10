@@ -18,7 +18,11 @@ namespace BikewaleOpr.Models
             _objManufacturer = objManufacturer;
         }
 
-
+        /// <summary>
+        /// Modified by :- Subodh Jain 10 july 2017
+        /// summary :- Get manufacturer list
+        /// </summary>
+        /// <returns></returns>
         public SearchManufacturerCampaignVM GetData()
         {
             SearchManufacturerCampaignVM objVM = new SearchManufacturerCampaignVM();
@@ -34,6 +38,11 @@ namespace BikewaleOpr.Models
             return objVM;
 
         }
+        /// <summary>
+        /// Modified by :- Subodh Jain 10 july 2017
+        /// summary :- Get manufacturer list
+        /// </summary>
+        /// <returns></returns>
         private void GetManufacturersList(SearchManufacturerCampaignVM objVM)
         {
             try
