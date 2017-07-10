@@ -28,7 +28,7 @@
                             <span class='font11 text-xt-light-grey inline-block padding-left3'>(@string.Format("{0} {1}", Model.BikeInfo.RatingCount, Model.BikeInfo.RatingCount > 1 ? "ratings" : "rating"))</span>
                             @if (Model.BikeInfo.UserReviewCount > 0)
                             {
-                                <a class='text-xt-light review-left-divider inline-block' href="@string.Format("{0}reviews/", Model.BikeUrl)" title="@Model.BikeName user reviews">@string.Format("{0} {1}", Model.BikeInfo.UserReviewCount, Model.BikeInfo.UserReviewCount > 1 ? "reviews" : "review")</a>
+                                <a class='review-left-divider inline-block' href="@string.Format("{0}reviews/", Model.BikeUrl)" title="@Model.BikeName user reviews">@string.Format("{0} {1}", Model.BikeInfo.UserReviewCount, Model.BikeInfo.UserReviewCount > 1 ? "reviews" : "review")</a>
                             }
                         </div>
                         }
