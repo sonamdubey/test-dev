@@ -200,7 +200,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_leadPropertyTextDesktop", objCampaign.LeadPropertyTextDesktop);
                     param.Add("par_leadPriority", objCampaign.LeadPriority);
                     param.Add("par_leadHtmlMobile", objCampaign.FormattedHtmlMobile);
-                    param.Add("par_leadHtmlDesktop", objCampaign.FormattedHtmlMobile);
+                    param.Add("par_leadHtmlDesktop", objCampaign.FormattedHtmlDesktop);
                     connection.Query<dynamic>("savemanufacturercampaignproperties", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
