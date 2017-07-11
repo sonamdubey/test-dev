@@ -5,6 +5,7 @@
 	var OFFLINE_PAGE = 'offline.html?' + jsVersion;
 	var VENDOR_JS = baseUrl + 'vendor.bundle.js?' + jsVersion;
 	var APP_JS = baseUrl + 'app.bundle.js?' + jsVersion;
+	var APP_BTF_CSS = baseUrl + 'app-btf.css?' + jsVersion;
 	var SW_TOOLBOX_JS = baseUrl + 'sw-toolbox.js?' + jsVersion;
 	var IMAGE_EXPIRATION_TIME = 864000;
 	var IMAGE_CDN_REGEX_PATTERN = /^https:\/\/imgd(\d)?.aeplcdn.com/;
@@ -21,15 +22,16 @@
 		[
 			OFFLINE_PAGE,
 			VENDOR_JS,
-			APP_JS
+			APP_JS,
+            APP_BTF_CSS
 		]
 	);
 
-	global.toolbox.router.get('/api/pwa/*',global.toolbox.networkFirst,
+	global.toolbox.router.get('/api/pwa/*',global.toolbox.cacheFirst,
 								{
 									cache : {	
 										name : 'api',
-										maxAgeSeconds : 864000,
+										maxAgeSeconds : 300,
 										maxEntries : 100
 									}
 								});
@@ -70,7 +72,8 @@
 				return response;
 			}).catch(function(err) {
 				if(request.url === VENDOR_JS ||
-					request.url === APP_JS) {
+					request.url === APP_JS ||
+                    request.url === APP_BTF_CSS) {
 					return global.toolbox.cacheOnly(new Request(request.url));
 				}
 				throw err;
