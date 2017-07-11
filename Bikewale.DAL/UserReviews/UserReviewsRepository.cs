@@ -1525,16 +1525,16 @@ namespace Bikewale.DAL.UserReviews
                             {
                                 objUserReviewSummary = new UserReviewSummary()
                                 {
-                                    ReviewId = SqlReaderConvertor.ToUInt16(dr["ReviewId"]),
-                                    OldReviewId = SqlReaderConvertor.ToUInt16(dr["OldReviewId"]),
+                                    ReviewId = SqlReaderConvertor.ToUInt32(dr["ReviewId"]),
+                                    OldReviewId = SqlReaderConvertor.ToUInt32(dr["OldReviewId"]),
                                     CustomerEmail = Convert.ToString(dr["CustomerEmail"]),
                                     CustomerName = Convert.ToString(dr["CustomerName"]),
                                     Description = Convert.ToString(dr["Comments"]),
                                     Title = Convert.ToString(dr["ReviewTitle"]),
                                     Tips = Convert.ToString(dr["ReviewTips"]),
-                                    UpVotes = SqlReaderConvertor.ToUInt16(dr["UpVotes"]),
-                                    DownVotes = SqlReaderConvertor.ToUInt16(dr["DownVotes"]),
-                                    Views = SqlReaderConvertor.ToUInt16(dr["Views"]),
+                                    UpVotes = SqlReaderConvertor.ToUInt32(dr["UpVotes"]),
+                                    DownVotes = SqlReaderConvertor.ToUInt32(dr["DownVotes"]),
+                                    Views = SqlReaderConvertor.ToUInt32(dr["Views"]),
                                     EntryDate = SqlReaderConvertor.ToDateTime(dr["EntryDate"]),
                                     ReviewAge = FormatDate.GetTimeSpan(SqlReaderConvertor.ToDateTime(dr["EntryDate"])),
                                     OverallRatingId = SqlReaderConvertor.ToUInt16(dr["overallratingId"]),

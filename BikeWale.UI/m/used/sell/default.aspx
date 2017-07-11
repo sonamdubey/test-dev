@@ -83,7 +83,7 @@
                             <span class="error-text" data-bind="validationMessage: kmsRidden"></span>
                         </div>
 
-                        <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: city().length > 0 ? 'selection-done' : ''">
+                        <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: city() && city().length > 0 ? 'selection-done' : ''">
                             <div id="city-select-element" class="slideIn-input-box">
                                 <p class="slideIn-input-label city-box-default">City<sup>*</sup></p>
                                 <p id="city-select-p" class="selected-option-box city-box-default text-truncate" data-bind="text: city, validationElement: city"></p>
