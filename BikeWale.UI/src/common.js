@@ -4,7 +4,15 @@ var objBikes = new Object(), objCity = new Object(),globalCityId = 0,_makeName =
 var IsPriceQuoteLinkClicked = false, _target = 3, popup, recentSearches;
 var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
+var bw_ObjContest=bwcache.get("showContestSlug", true);
+function bw_Contest() {
+    this.visited = [];
+    this.visible=false;
+    this.count=0;
 
+}
+if (!bw_ObjContest)
+bw_ObjContest = new bw_Contest();
 /* landing page header */
 var transparentHeader = document.querySelectorAll('.header-transparent')[0];
 
@@ -12,6 +20,30 @@ if (transparentHeader) {
     attachListener('scroll', window, changeHeaderBackground);
 }
 
+
+// function for bike contest 
+(function () {
+    var obj = bwcache.get("showContestSlug", true);
+    if (obj!=null&&obj.count < 3) {
+        var url = window.location.pathname;
+    if (bw_ObjContest.count < 3 && bw_ObjContest.visited.indexOf(url) == -1) {
+        bw_ObjContest.visited.push(url);
+        bw_ObjContest.count++;
+    }
+    if (bw_ObjContest.count >= 3)
+    {
+        if (!document.getElementsByTagName("BODY")[0].getAttribute("data-contestslug"))
+        {
+            $('#bg-footer').before("<h1>hello</h1>")
+        }
+        
+    }
+    bwcache.set("showContestSlug", bw_ObjContest, true);
+}
+  
+
+
+}());
 //fallback for indexOf for IE7
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt /*, from*/) {
