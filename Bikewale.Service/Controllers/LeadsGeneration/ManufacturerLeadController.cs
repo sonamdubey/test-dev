@@ -111,11 +111,11 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                                 objNVC.Add("customerEmail", objLead.Email);
                                 objNVC.Add("customerMobile", objLead.Mobile);
                                 objNVC.Add("versionId", objLead.VersionId.ToString());
-                                objNVC.Add("pincodeId", objLead.PinCode.ToString());
+                                objNVC.Add("pincodeId", Convert.ToString(objLead.PinCode));
                                 objNVC.Add("cityId", objLead.CityId.ToString());
                                 objNVC.Add("leadType", "2");
                                 objNVC.Add("manufacturerDealerId", Convert.ToString(objLead.ManufacturerDealerId));
-                                objNVC.Add("manufacturerLeadId", objLead.LeadId.ToString());
+                                objNVC.Add("manufacturerLeadId", Convert.ToString(objLead.LeadId));
                                 RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                                 objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
                             }
