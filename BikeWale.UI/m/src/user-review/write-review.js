@@ -382,6 +382,9 @@ docReady(function () {
         self.reviewTitle = ko.observable('');
         self.detailedReview = ko.observable('');
         self.reviewTips = ko.observable('');
+
+		self.bikeMileage = ko.observable('');
+
         self.detailedReviewFlag = ko.observable(false);
         self.detailedReviewError = ko.observable('');
         self.focusFormActive = ko.observable(false);
@@ -447,7 +450,6 @@ docReady(function () {
                 return true;
             }
 
-
         };
 
         self.validateReviewForm = function () {
@@ -456,6 +458,7 @@ docReady(function () {
             isValidDesc = self.validate.detailedReview();
             isValidTitle = self.validate.reviewTitle();
             var isValid = isValidDesc && isValidTitle;
+
             if (isValid) {
                 triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSrc + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
             }
