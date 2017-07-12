@@ -1,6 +1,5 @@
 var imgTitle, imgTotalCount, getOffersClicked = false, popupDiv, gallery;
 var bodHt, footerHt, scrollPosition, selectDropdown;
-var sortByDiv, sortListDiv, sortCriteria, sortByDiv, sortListDiv, sortListLI;
 
 var dealersPopupDiv, dealerOffersDiv, termsConditions;
 var dropdown;
@@ -26,16 +25,6 @@ var viewBreakUpClosePopup = function () {
     $(".blackOut-window").hide();
     $("#contactDetailsPopup").show();
     leadPopupClose();
-};
-
-var sortChangeDown = function (sortByDiv) {
-    sortByDiv.addClass("open");
-    sortListDiv.show();
-};
-
-var sortChangeUp = function (sortByDiv) {
-    sortByDiv.removeClass("open");
-    sortListDiv.slideUp();
 };
 
 function secondarydealer_Click(dealerID) {
@@ -100,14 +89,7 @@ var appendState = function (state) {
     window.history.pushState(state, '', '');
 };
 
-docReady(function () {
-
-    sortByDiv = $(".sort-div"),
-    sortListDiv = $(".sort-selection-div"),
-    sortCriteria = $('#sort'),
-    sortByDiv = $(".sort-div"),
-    sortListDiv = $(".sort-selection-div"),
-    sortListLI = $(".sort-selection-div ul li");
+docReady(function () {    
 
     dealersPopupDiv = $('#more-dealers-popup'),
     dealerOffersDiv = $('#dealer-offers-popup'),
@@ -605,12 +587,6 @@ docReady(function () {
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
     });
 
-    $(document).mouseup(function (e) {
-        if (!$(".variantDropDown, .sort-div, .sort-div #upDownArrow, .sort-by-title").is(e.target)) {
-            sortChangeUp($(".sort-div"));
-        }
-    });
-
     // GA Tags
     $('#btnGetOnRoadPrice').on('click', function (e) {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Check_On_Road_Price_Clicked", "lab": bikeVersionLocation });
@@ -642,28 +618,7 @@ docReady(function () {
             $('.floating-btn').hide();
         else
             $('.floating-btn').show();
-    });
-
-    sortByDiv.click(function () {
-        if (!sortByDiv.hasClass("open"))
-            sortChangeDown(sortByDiv);
-        else
-            sortChangeUp(sortByDiv);
-    });
-
-    $("#photos-tab, #videos-tab").click(function () {
-        firstVideo();
-    });
-
-    $("#videos-tab").click(function () {
-        $('.carousel-navigation-videos .swiper-slide').removeClass('active');
-        $('.carousel-navigation-videos .swiper-slide').first().addClass('active');
-    });
-
-    $(".gallery-close-btn").on('click', function () {
-        gallery.close();
-        history.back();
-    });
+    });   
 
     $(document).on('click', function (event) {
         event.stopPropagation();
@@ -733,21 +688,12 @@ docReady(function () {
         $(this).hide().prev('.more-dealers-link').show();
     });
 
-
     // tooltip
     $('.bw-tooltip').on('click', '.close-bw-tooltip', function () {
         var tooltipParent = $(this).closest('.bw-tooltip');
 
         tooltipParent.slideUp();
-    });
-
-    navigationVideosLI.click(function () {
-        navigationVideosLI.removeClass("active");
-        $(this).addClass("active");
-        var newSrc = $(this).find("img").attr("iframe-data");
-        videoiFrame.setAttribute("src", newSrc);
-        window.dispatchEvent(new Event('resize'));
-    });
+    });    
 
     $('#scroll-to-top').click(function (event) {
         $('html, body').stop().animate({ scrollTop: 0 });
