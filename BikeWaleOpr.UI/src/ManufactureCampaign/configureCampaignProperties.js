@@ -1,8 +1,8 @@
 ﻿function Validate() {
     var mobileHtml = FormatHtml($('#LeadHtmlMobile').val());
     var desktopHtml = FormatHtml($('#LeadHtmlDesktop').val());
-    $('#FormattedHtmlDesktop').val(mobileHtml);
-    $('#FormattedHtmlMobile').val(desktopHtml);
+    $('#FormattedHtmlDesktop').val(desktopHtml);
+    $('#FormattedHtmlMobile').val(mobileHtml);
     return true;
 }
 
