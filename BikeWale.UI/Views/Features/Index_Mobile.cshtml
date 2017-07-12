@@ -15,6 +15,7 @@
         @if (Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
                 {
         <ul id="divListing" class="article-list">
+           @{ushort i = 0;}
            @foreach (var article in Model.ArticlesList)
 		   {
 			<li>
@@ -45,7 +46,24 @@
 
 				</a>
 			</li>
-            } 
+               if (Model.PagerEntity.PageNo == 1 && Model.PagerEntity.PageSize <= 10 && i == 4)
+               {
+                <li class="list-item__slug hide" id="writereviewslug">
+                    <span class="bwmsprite list-slug__close"></span>
+                    <div class="list-slug__wrapper">
+                        <div class="slug-content--top-align">
+                            <img class="list-slug__image lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/review-contest-slug-120.png" alt="Bike Review Contest" src="" />
+                        </div>
+                        <div class="list-slug__details slug-content--top-align">
+                            <p class="list-slug__heading">Bike review contest</p>
+                            <p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;1,000</p>
+                            <a href="/m/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_Features)" title="Participate now" class="list-slug__target">Participate now<span class="bwmsprite target-arrow"></span></a>
+                        </div>
+                    </div>
+                </li>    
+               }
+               i++;
+           } 
         </ul>
         }
         <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
@@ -100,3 +118,18 @@
     </div>
 </section>
 }
+<script type="text/javascript">
+    docReady(function () {
+        if (bwcache.get('showeditcmsreviewslug',true) == null) {
+            $('#writereviewslug').show();
+        }
+        $('.list-slug__close').on('click', function () {
+	        bwcache.set('showeditcmsreviewslug', '1', true);
+			var slugItem = $(this).closest('.list-item__slug');
+
+			slugItem.slideUp(500, function() {
+				slugItem.remove();
+			});
+		});
+	});
+</script>

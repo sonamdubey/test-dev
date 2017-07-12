@@ -41,8 +41,8 @@
 							</div>
 						</a>
 					</li>
-					if(@Model.PagerEntity.PageNo == 1 && @i == 4) {
-						<li class="list-item__slug">
+					if(Model.PagerEntity.PageNo == 1 && Model.PagerEntity.PageSize <= 10 && i == 4) {
+						<li class="list-item__slug hide" id="writereviewslug">
 							<span class="bwmsprite list-slug__close"></span>
 							<div class="list-slug__wrapper">
 								<div class="slug-content--top-align">
@@ -51,7 +51,7 @@
 								<div class="list-slug__details slug-content--top-align">
 									<p class="list-slug__heading">Bike review contest</p>
 									<p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;1,000</p>
-									<a href="/m/bike-review-contest/" title="Participate now" class="list-slug__target">Participate now<span class="bwmsprite target-arrow"></span></a>
+									<a href="/m/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ExpertReviews)" title="Participate now" class="list-slug__target">Participate now<span class="bwmsprite target-arrow"></span></a>
 								</div>
 							</div>
 						</li>
@@ -136,9 +136,12 @@ else
 }
 <script type="text/javascript">
     ga_pg_id = "12";
-
-	docReady(function () {
-		$('.list-slug__close').on('click', function () {
+    docReady(function () {
+        if (bwcache.get('showeditcmsreviewslug') == null) {
+            $('#writereviewslug').show();
+        }
+        $('.list-slug__close').on('click', function () {
+	        bwcache.set('showeditcmsreviewslug', '1', true);
 			var slugItem = $(this).closest('.list-item__slug');
 			
 			slugItem.slideUp(500, function() {

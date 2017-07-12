@@ -28,6 +28,7 @@
     <div class="grid-12">
         <div id="content" class="grid-8 alpha">
             <div class="bg-white">
+                @{ushort i = 0;}
                 @if (Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
                 {
                     <h1 class="section-header">Features</h1>
@@ -63,6 +64,11 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
+                            if (Model.PagerEntity.PageNo == 1 && Model.PagerEntity.PageSize <= 10 && i == 4)
+                            {
+                                <div> WRITE REVIEW CONTEST SLUG HERE</div>
+                            }
+                            i++;
                         }
                         <div id="footer-pagination" class="font14 padding-top10">
                             <div class="grid-5 alpha omega text-light-grey">
