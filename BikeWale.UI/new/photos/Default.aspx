@@ -323,18 +323,22 @@
                                     <img src="<%=Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61)%>" alt="<%= bikeName %>" title="<%= bikeName %>">
                                 </a>
                                 <%int count = 0; %>
+                               
                                 <div class="bike-details-block inline-block">                                    
-                                    <h3><a href="<%=bikeUrl %>" class="text-default"><%= bikeName %></a></h3>                                    
+                                    <h3><a href="<%=bikeUrl %>" class="text-default"><%= bikeName %></a></h3>  
+                                     <% if (bikeInfo.RatingCount > 0)
+                                              {%>                                  
                                     <span class="rate-count-<%=Math.Round(bikeInfo.Rating) %> inline-block">
                                         <span class="bwsprite star-icon star-size-16"></span>
                                         <span class="font14 text-bold inline-block"><%= bikeInfo.Rating.ToString("0.0").TrimEnd('0', '.') %></span>
                                     </span>
                                     <span class='font11 text-xt-light-grey inline-block padding-left3'>(<%=string.Format("{0} {1}", bikeInfo.RatingCount, bikeInfo.RatingCount > 1 ? "ratings" : "rating") %>)</span>
                                     <%if (bikeInfo.UserReviewCount > 0)
-                                    {  %>
+                                              {  %>
                                         <a class='text-xt-light review-left-divider inline-block' href="<%=string.Format("{0}reviews/", bikeUrl)%>" title="<%=bikeName%> user reviews"><%=string.Format("{0} {1}", bikeInfo.UserReviewCount, bikeInfo.UserReviewCount > 1 ? "reviews" : "review") %></a>
-                                   <%  } %>                                    
-                                    <ul class="item-more-details-list inline-block">
+                                   <%  } %>  
+                                    <%} %>                                  
+                                    <ul class="item-more-details-list">
                                            <%if (bikeInfo.IsSpecsAvailable && count<3)
                                           {
                                               count++; 
@@ -400,7 +404,7 @@
                                         <%} %>
                                      
                                     </ul>
-                                </div>
+                                </div>                               
                             </div>
 
                             <%if (!IsUpcoming && !IsDiscontinued)

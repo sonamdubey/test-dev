@@ -775,6 +775,7 @@ docReady(function () {
 
 docReady(function () {
 
+
     $.fn.hint = bwHint;
 
     $.fn.bw_autocomplete = bwAutoComplete;

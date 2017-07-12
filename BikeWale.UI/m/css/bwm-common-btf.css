@@ -1318,3 +1318,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     height: 60px;
     text-align: left;
 }
+
+.position--left-neg-5 {
+	left: -5px;
+}

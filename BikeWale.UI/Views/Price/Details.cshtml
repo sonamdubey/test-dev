@@ -442,16 +442,7 @@
             var versionName = "@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")";
             var bikeVerLocation, EMIviewModel, dealerType = '@Model.DealerType', bikeVersionPrice = "@Model.TotalPrice";
             var pageUrl = window.location.href;
-            var modelQuotaition = "@Model.Quotation";
-
-            if(modelQuotaition)
-            {
-                var cityName = "@Model.Quotation.City";
-                var makeName = "@Model.Quotation.MakeName";
-                var modelName = "@Model.Quotation.ModelName";
-                var versionName = "@Model.Quotation.VersionName";
-                var bwTrackingLab = "make=" + encodeURIComponent(makeName) + "|model=" + encodeURIComponent(modelName) + "|version=" + encodeURIComponent(versionName) + "|city=" + encodeURIComponent(cityName);
-            }
+            var bwTrackingLab = "@Model.BhriguTrackingLabel";
             docReady(function () {
                 try {
                     getCityArea = GetGlobalCityArea();

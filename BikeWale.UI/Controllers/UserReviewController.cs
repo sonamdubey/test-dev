@@ -440,7 +440,7 @@ namespace Bikewale.Controllers
         [Route("m/user-reviews/contest/")]
         public ActionResult WriteReviewContest_Mobile(int? csrc)
         {
-            WriteReviewContest objData = new WriteReviewContest(_makesRepository);
+            WriteReviewContest objData = new WriteReviewContest(true,_makesRepository);
             objData.csrc = csrc.HasValue ? csrc.Value : 0;
             WriteReviewContestVM objVM = objData.GetData();
             return View(objVM);
@@ -448,9 +448,10 @@ namespace Bikewale.Controllers
 
         [Filters.DeviceDetection()]
         [Route("user-reviews/contest/")]
-        public ActionResult WriteReviewContest()
+        public ActionResult WriteReviewContest(int? csrc)
         {
-            WriteReviewContest objData = new WriteReviewContest(_makesRepository);
+            WriteReviewContest objData = new WriteReviewContest(false,_makesRepository);
+            objData.csrc = csrc.HasValue ? csrc.Value : 0;
             WriteReviewContestVM objVM = objData.GetData();
             return View(objVM);
         }

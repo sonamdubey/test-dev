@@ -1,9 +1,42 @@
 ﻿function Validate() {
-    var el = $("<section></section>");
-    var htmlMobile = el.html($('#LeadHtmlMobile').val());
-    $(htmlMobile).find('span[name="mfg_maskingNumber"]').text('@Model.MaskingNumber ');
-    $(htmlMobile).find('span[name="mfg_makename"]').text('@Model.MakeName');
+    var mobileHtml = FormatHtml($('#LeadHtmlMobile').val());
+    var desktopHtml = FormatHtml($('#LeadHtmlDesktop').val());
+    $('#FormattedHtmlDesktop').val(mobileHtml);
+    $('#FormattedHtmlMobile').val(desktopHtml);
     return true;
+}
+
+function FormatHtml(strHtml) {
+    try {
+        var el = $("<section></section>");
+        el.html(strHtml.replace('@media', '@@media'));
+        el.find('span[name="mfg_maskingNumber"]').text('@Model.MaskingNumber');
+        el.find('span[name="mfg_organization"]').text('@Model.Organization');
+
+        var maskingNumber = el.find('#btnMaskingNumber');
+        maskingNumber.before('@if(!String.IsNullOrEmpty(Model.MaskingNumber)){')
+        maskingNumber.after('}')
+        maskingNumber.attr("href", "tel:+91@Model.MaskingNumber")
+        var leadCaptureBtn = el.find('a#btnManufacturer');
+        leadCaptureBtn.attr('data-mfgcampid', '@Model.CampaignId').addClass('bw-ga').
+            attr('data-item-id', '@Model.DealerId').
+            attr('data-item-area', '@Model.Area').
+            attr('data-leadsourceid', '@Model.LeadSourceId').
+            attr('data-pqsourceid', '@Model.PqSourceId').
+            attr('a', '@Model.GAAction').
+            attr('c', '@Model.GACategory').
+            attr('l', '@Model.GALabel').
+            attr('data-item-message', '@string.Format(Model.PopupSuccessMessage,Model.Organization)').
+            attr('data-item-heading', '@Model.PopupHeading').
+            attr('data-item-description', '@Model.PopupDescription').
+            attr('data-ispincodrequired', '@Model.PincodeRequired').
+            attr('data-dealersrequired', '@Model.DealerRequired').
+            attr('data-item-name', '@Model.MakeName').
+            attr('data-isemailrequired', '@Model.EmailRequired').
+            attr('data-Organization', '@Model.Organization');
+    }
+    catch(e){}
+    return el.html();
 }
 $("#HasEmiProperties").change(function () {
     if ($("#HasEmiProperties").prop('checked')) {

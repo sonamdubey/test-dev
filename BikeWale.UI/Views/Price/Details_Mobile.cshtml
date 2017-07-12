@@ -65,7 +65,7 @@
                 </tr>
                 <tr>
                     <td align="left" class="font16 padding-bottom5 position-rel">GST On-road price @string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "" : "(estimated)")
-						<div class="price--label-position">
+						<div class="price--label-position pos-bottom-40">
 							<span class="bwmsprite info-grey-14"></span>
 							<span class="text-light-grey font12">@string.Format("{0}", Model.DetailedDealer.PrimaryDealer.PriceList.FirstOrDefault().IsGstPrice ? "In accordance with GST rates" : "Final dealer price unavailable.")</span>
 						</div>
@@ -324,16 +324,7 @@
     var leadSourceId = "@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DPQ_SecondaryDealers)";
     var bikeName = "@Model.BikeName", bikeVersionPrice = "@Model.TotalPrice";
     var quotationPage = true;
-   
-    var modelQuotaition = "@Model.Quotation";
-
-    if (modelQuotaition) {
-        var cityName = "@Model.Quotation.City";
-        var makeName = "@Model.Quotation.MakeName";
-        var modelName = "@Model.Quotation.ModelName";
-        var versionName = "@Model.Quotation.VersionName";
-        var bwTrackingLab = "make=" + encodeURIComponent(makeName) + "|model=" + encodeURIComponent(modelName) + "|version=" + encodeURIComponent(versionName) + "|city=" + encodeURIComponent(cityName);
-    }
+    var bwTrackingLab = "@Model.BhriguTrackingLabel";
 
     docReady(function () {
         ga_pg_id = "7";

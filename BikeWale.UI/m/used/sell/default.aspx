@@ -83,7 +83,7 @@
                             <span class="error-text" data-bind="validationMessage: kmsRidden"></span>
                         </div>
 
-                        <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: city().length > 0 ? 'selection-done' : ''">
+                        <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: city() && city().length > 0 ? 'selection-done' : ''">
                             <div id="city-select-element" class="slideIn-input-box">
                                 <p class="slideIn-input-label city-box-default">City<sup>*</sup></p>
                                 <p id="city-select-p" class="selected-option-box city-box-default text-truncate" data-bind="text: city, validationElement: city"></p>
@@ -93,7 +93,7 @@
                             </div>
                         </div>                    
 
-                        <div id="div-expectedPrice" class="input-box form-control-box row-bottom-margin" data-bind="css: expectedPrice().length > 0 ? 'not-empty' : ''">
+                        <div id="div-expectedPrice" class="input-box form-control-box row-bottom-margin" data-bind="css:expectedPrice() && expectedPrice().length > 0 ? 'not-empty' : ''">
                             <input type="text" id="expectedPrice" data-value="" data-bind="textInput: expectedPrice, validationElement: expectedPrice" />
                             <label for="expectedPrice">Expected price<sup>*</sup></label>
                             <span class="boundary"></span>

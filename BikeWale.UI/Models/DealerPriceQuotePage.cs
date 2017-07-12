@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 namespace Bikewale.Models
 {
     /// <summary>
@@ -150,6 +151,9 @@ namespace Bikewale.Models
                 objData.CiyName = currentCity;
                 objData.MPQQueryString = mpqQueryString;
                 objData.PageUrl = pageUrl;
+
+                if (objData.SelectedVersion != null && objData.SelectedVersion.MakeBase != null && objData.SelectedVersion.ModelBase != null)
+                    objData.BhriguTrackingLabel = string.Format("make={0}|model={1}|version={2}|city={3}", Uri.EscapeDataString(objData.SelectedVersion.MakeBase.MakeName), Uri.EscapeDataString(objData.SelectedVersion.ModelBase.ModelName), Uri.EscapeDataString(objData.SelectedVersion.VersionName), Uri.EscapeDataString(currentCity));
             }
             catch (Exception ex)
             {
@@ -320,7 +324,7 @@ namespace Bikewale.Models
                             objData.Quotation = _objPQ.GetPriceQuoteById(Convert.ToUInt64(_pqId), LeadSource);
                             if (objData.Quotation != null)
                             {
-                                objData.TotalPrice = (uint)objData.Quotation.OnRoadPrice;
+                                objData.TotalPrice = (uint)objData.Quotation.OnRoadPrice;                                
                             }
                             #endregion
                         }

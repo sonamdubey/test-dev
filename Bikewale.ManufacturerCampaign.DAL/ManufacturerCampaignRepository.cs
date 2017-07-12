@@ -16,6 +16,11 @@ namespace Bikewale.ManufacturerCampaign.DAL
 {
     public class ManufacturerCampaignRepository : Interface.IManufacturerCampaignRepository
     {
+        /// <summary>
+        /// Modified by :- Subodh Jain 10 july 2017
+        /// summary :- Get manufacturer list
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<ManufacturerEntity> GetManufacturersList()
         {
             IEnumerable<ManufacturerEntity> manufacturers = null;
@@ -100,7 +105,11 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             return objEntity;
         }
-
+        /// <summary>
+        /// Modified by :- Subodh Jain 10 july 2017
+        /// summary :- Get manufacturer list
+        /// </summary>
+        /// <returns></returns>
         public ManufacturerCampaignPopup getManufacturerCampaignPopup(uint campaignId)
         {
             ManufacturerCampaignPopup objEntity = null;
@@ -190,8 +199,8 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_leadButtonTextDesktop", objCampaign.LeadButtonTextDesktop);
                     param.Add("par_leadPropertyTextDesktop", objCampaign.LeadPropertyTextDesktop);
                     param.Add("par_leadPriority", objCampaign.LeadPriority);
-                    param.Add("par_leadHtmlMobile", objCampaign.LeadHtmlMobile);
-                    param.Add("par_leadHtmlDesktop", objCampaign.LeadHtmlDesktop);
+                    param.Add("par_leadHtmlMobile", objCampaign.FormattedHtmlMobile);
+                    param.Add("par_leadHtmlDesktop", objCampaign.FormattedHtmlMobile);
                     connection.Query<dynamic>("savemanufacturercampaignproperties", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)

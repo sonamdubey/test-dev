@@ -417,16 +417,17 @@ docReady(function () {
                 }
             }
             // sentence case expression title and review
-            if ($("#getReviewTitle").length>0) {
+            // sentence case expression title and review
+            if ($("#getReviewTitle").length > 0) {
                 var rg = /(^\w{1}|\.\s*\w{1})/gi;
-               
-                $("#getReviewTitle").val($("#getReviewTitle").val().toLowerCase().replace(rg, function (toReplace) {
+
+                $("#getReviewTitle").val($("#getReviewTitle").val().toLowerCase().replace(/[\/\\#,_@^+()$~%'":*?<>{}]/g, '').replace(rg, function (toReplace) {
                     return toReplace.toUpperCase();
                 }));
             }
-            if ($("#reviewTips").length>0) {
+            if ($("#getReviewTip").length > 0) {
                 var rg = /(^\w{1}|\.\s*\w{1})/gi;
-                $("#reviewTips").val($("#reviewTips").val().toLowerCase().replace(rg, function (toReplace) {
+                $("#getReviewTip").val($("#getReviewTip").val().toLowerCase().replace(/[\/\\#,_@^+()$~%'":*?<>{}]/g, '').replace(rg, function (toReplace) {
                     return toReplace.toUpperCase();
                 }));
             }
@@ -582,6 +583,7 @@ docReady(function () {
     descReviewField.on('focus', function () {
         vmWriteReview.detailedReviewFlag(false);
         triggerGA('Write_Review', 'Write_a_Review', makeModelName + ratingOverAll + '_' + pageSrc);
+        answer.focusForm($('#guidelineList'));
     });
 
     reviewTitleField.on("focus", function () {
@@ -593,10 +595,10 @@ docReady(function () {
         validate.onBlur($(this));
     });
 
-    if ($("#reviewDesc") && $("#reviewDesc").data("validate") && $("#reviewDesc").data("validate").length)
+    if (descReviewField && descReviewField.data("validate") && descReviewField.data("validate").length)
         vmWriteReview.validate.detailedReview();
 
-    if ($("#getReviewTitle") && $("#getReviewTitle").data("validate") && $("#getReviewTitle").data("validate").length)
+    if (reviewTitleField && reviewTitleField.data("validate") && reviewTitleField.data("validate").length)
         vmWriteReview.validate.reviewTitle();
 
     vmWriteReview.GetFromBwCache();

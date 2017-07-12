@@ -12,7 +12,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,7 +26,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://115.249.214.177/RoyalEnfield/Service.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://crc.cequitycti.com/RoyalEnfield/Service.asmx")]
         public string Bikewale_RabbitMq_LeadProcessingConsumer_RoyalEnfieldWebAPI_Service {
             get {
                 return ((string)(this["Bikewale_RabbitMq_LeadProcessingConsumer_RoyalEnfieldWebAPI_Service"]));

@@ -212,49 +212,13 @@ docReady(function () {
                     lab: ele.attr("v")
                 }
             };
-            if (leadOptions.dealersRequired) {
-                generateDealerDropdown(leadOptions.dealerid);
-            }
+
             dleadvm.setOptions(leadOptions);
         } catch (e) {
             console.warn("Unable to get submit details : " + e.message);
         }
 
     });
-
-    function generateDealerDropdown(dealerId) {
-        $.ajax({
-            type: "GET",
-            url: "/api/ManufacturerCampaign/city/" + cityId + "/dealer/" + dealerId + "/",
-            contentType: "application/json",
-            dataType: 'json',
-            success: function (response) {
-                var obj = ko.toJS(response);
-                var count = obj.length;
-                if (count >= 1) {
-                    if (count == 1) {
-                        $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
-                        $("#ddlMfgDealers").val('0');
-                        $("#ddlMfgDealers").closest('.select-box').addClass('done');
-                        dleadvm.dealersRequired(false);
-                    } else {
-                        $("#ddlMfgDealers").html('');
-                        $("#ddlMfgDealers").append("<option value selected>Select dealer</option>");
-                        for (i = 0; i < count; i++) {
-                            var dt = obj[i];
-                            var areaName = '';
-                            if (dt.area != null) {
-                                areaName = ", " + dt.area;
-                            }
-                            $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-id='" + dt.id + "' >" + dt.dealerName + areaName + "</option>");
-                        }
-                    }
-                }
-                $("#getDealer-select-box").find(".dropdown-menu").remove();
-                dropdown.setMenu($("#ddlMfgDealers"));
-            },
-        });
-    };
 
 
     $("#ddlVersion").on("change", function () {
@@ -542,7 +506,13 @@ docReady(function () {
         return num;
     };
 
-    var EMIviewModel = new BikeEMI;
-    ko.applyBindings(EMIviewModel, $("#emiContent")[0]);
+    var EMIviewModel;
+
+    try {
+        EMIviewModel = new BikeEMI;
+        ko.applyBindings(EMIviewModel, $("#emiContent")[0]);
+    } catch (e) {
+        console.log(e.message);
+    }
 
 });
