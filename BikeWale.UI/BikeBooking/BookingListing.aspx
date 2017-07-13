@@ -21,7 +21,7 @@
         var clientIP = '<%= clientIP %>';
     </script>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey" data-contestslug="true">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <script type="text/javascript">document.getElementById("header").children[1].innerHTML = "";</script>
