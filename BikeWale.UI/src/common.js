@@ -4,15 +4,8 @@ var objBikes = new Object(), objCity = new Object(), globalCityId = 0, _makeName
 var IsPriceQuoteLinkClicked = false, _target = 3, popup, recentSearches;
 var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
-var bw_ObjContest = bwcache.get("showContestSlug", true);
-function bw_Contest() {
-    this.visited = [];
-    this.visible = true;
-    this.count = 0;
+var bw_ObjContest;
 
-}
-if (!bw_ObjContest)
-    bw_ObjContest = new bw_Contest();
 /* landing page header */
 var transparentHeader = document.querySelectorAll('.header-transparent')[0];
 
@@ -21,32 +14,7 @@ if (transparentHeader) {
 }
 
 
-// function for bike contest 
-(function () {
-    try {
-        var url = window.location.pathname;
-        if (bw_ObjContest) {
-            if (bw_ObjContest.count < 3) {
 
-                if (bw_ObjContest.visited.indexOf(url) == -1) {
-                    bw_ObjContest.visited.push(url);
-                    bw_ObjContest.count++;
-                }
-
-                bwcache.set("showContestSlug", bw_ObjContest, true);
-            }
-            if (bw_ObjContest.visible && bw_ObjContest.count >= 3) {
-                if (!document.getElementsByTagName("BODY")[0].getAttribute("data-contestslug")) {
-                    $('#bg-footer').before("<div id='contestSlideInSlug' class='review-contest-slidein-slug'><span id='contestSlideInCloseBtn' class='bwsprite slidein-slug__close-icon'></span><span class='slidein-slug__trophy-icon'></span><a href='/bike-review-contest/?csrc=12' class='slidein-slug__target bw-ga' c='Other' a='Contest_Slug_Clicked_Participate_CTA' l='If a user clicked on participate CTA'><span class='slidein-slug__target-title'>Bike Review Contest</span><span class='btn slidein-slug__target-btn'>Participate<span class='bwsprite slidein-slug__btn-arrow'></span></span></a></div>")
-                }
-                triggerGA("Other", "Contest_Slug_Appeared", "Whenever the slug appears");
-
-            }
-        }
-    } catch (e) {
-
-    }
-}());
 //fallback for indexOf for IE7
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt /*, from*/) {
@@ -809,6 +777,49 @@ docReady(function () {
 });
 
 docReady(function () {
+    bw_ObjContest = bwcache.get("showContestSlug", true);
+
+    if (!bw_ObjContest) {
+        bw_ObjContest = {}
+        bw_ObjContest.visited = [];
+        bw_ObjContest.visible = true;
+        bw_ObjContest.count = 0;
+
+    }
+    var contestSlug = function () {
+        var self = this;
+        // function for bike contest 
+       self.init= function () {
+            try {
+                var url = window.location.pathname;
+                if (bw_ObjContest) {
+                    if (bw_ObjContest.count < 3) {
+
+                        if (bw_ObjContest.visited.indexOf(url) == -1) {
+                            bw_ObjContest.visited.push(url);
+                            bw_ObjContest.count++;
+                        }
+
+                        bwcache.set("showContestSlug", bw_ObjContest, true);
+                    }
+                    if (bw_ObjContest.visible && bw_ObjContest.count >= 3) {
+                        if (!document.getElementsByTagName("BODY")[0].getAttribute("data-contestslug")) {
+                            $('#bg-footer').before("<div id='contestSlideInSlug' class='review-contest-slidein-slug'><span id='contestSlideInCloseBtn' class='bwsprite slidein-slug__close-icon'></span><span class='slidein-slug__trophy-icon'></span><a href='/bike-review-contest/?csrc=12' class='slidein-slug__target bw-ga' c='Other' a='Contest_Slug_Clicked_Participate_CTA' l='If a user clicked on participate CTA'><span class='slidein-slug__target-title'>Bike Review Contest</span><span class='btn slidein-slug__target-btn'>Participate<span class='bwsprite slidein-slug__btn-arrow'></span></span></a></div>")
+                        }
+                        triggerGA("Other", "Contest_Slug_Appeared", "Whenever the slug appears");
+
+                    }
+                }
+            } catch (e) {
+
+            }
+        };
+
+    }
+    var vmContestSlug = new contestSlug();
+
+    (vmContestSlug.init());
+    
     // review contest slide-in slug
     var contestSlideInSlug = $('#contestSlideInSlug');
 
@@ -840,7 +851,7 @@ docReady(function () {
         contestSlideInSlug.removeClass('slidein-slug--visible');
         bw_ObjContest.visible = false;
         bwcache.set("showContestSlug", bw_ObjContest, true);
-        triggerGA(window.location.pathname, "Contest_Slug_Clicked_On_Cross", "If a user clicked on cross")
+        triggerGA("Other", "Contest_Slug_Clicked_On_Cross", "If a user clicked on cross")
         setTimeout(function () {
             contestSlideInSlug.remove();
         }, 500);
