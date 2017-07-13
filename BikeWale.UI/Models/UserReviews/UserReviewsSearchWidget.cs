@@ -17,8 +17,7 @@ namespace Bikewale.Models.UserReviews
         private uint _modelId;
         private readonly IUserReviewsCache _userReviewsCacheRepo = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
-        public BikeReviewsInfo ReviewsInfo { get; set; }
-        public uint? SkipReviewId { get; set; }
+        public BikeReviewsInfo ReviewsInfo { get; set; }        
         public FilterBy ActiveReviewCateory { get; set; }
         public string WriteReviewLink { get; set; }
         public bool IsDesktop { get; set; }
@@ -56,7 +55,7 @@ namespace Bikewale.Models.UserReviews
             {
                 if (objData.ReviewsInfo == null)
                 {
-                    objData.ReviewsInfo = _userReviewsCacheRepo.GetBikeReviewsInfo(objData.ModelId, SkipReviewId);
+                    objData.ReviewsInfo = _userReviewsCacheRepo.GetBikeReviewsInfo(objData.ModelId);
                 }
 
                 if (objData.ReviewsInfo != null && objData.ReviewsInfo.Make != null && objData.ReviewsInfo.Model != null)
@@ -97,7 +96,7 @@ namespace Bikewale.Models.UserReviews
             {
                 if (objData.ReviewsInfo == null)
                 {
-                    objData.ReviewsInfo = _userReviewsCacheRepo.GetBikeReviewsInfo(objData.ModelId, SkipReviewId);
+                    objData.ReviewsInfo = _userReviewsCacheRepo.GetBikeReviewsInfo(objData.ModelId);
                 }
 
                 if (objData.ReviewsInfo != null && objData.ReviewsInfo.Make != null && objData.ReviewsInfo.Model != null)

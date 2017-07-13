@@ -20,7 +20,7 @@ namespace Bikewale.Interfaces.UserReviews
         ReviewListBase GetUserReviews();       
         UserReviewSummary GetUserReviewSummaryWithRating(uint reviewId);
         BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId);
-        BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId);
+        BikeReviewsInfo GetBikeReviewsInfo(uint modelId);
         Hashtable GetUserReviewsIdMapping();
         IEnumerable<UserReviewSummary> GetUserReviewSummaryList(IEnumerable<uint> reviewIdList);
         BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);
