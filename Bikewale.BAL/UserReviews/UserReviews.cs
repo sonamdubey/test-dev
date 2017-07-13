@@ -328,6 +328,8 @@ namespace Bikewale.BAL.UserReviews
         /// <summary>
         /// Created By Sajal Gupta on 19-04-2017
         /// Description : Function to save user reviews with server side validations
+        /// Modified by Sajal Gupta on 13-07*-2017
+        /// Descriptiopn : Added milaeage field.
         /// </summary>
         /// <param name="encodedId"></param>
         /// <param name="tipsnAdvices"></param>

@@ -286,6 +286,8 @@ namespace Bikewale.Controllers
         /// <summary>
         /// Created By : Sushil Kumar on 17th April 2017
         /// Description : Action method to save user reviews
+        /// Modified by Sajal Gupta on 13-07-2017
+        /// Descrfiption : Added mileage field.
         /// </summary>
         /// <param name="reviewDescription"></param>
         /// <param name="reviewTitle"></param>
