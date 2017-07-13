@@ -63,6 +63,7 @@
     <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
 
     <link rel='stylesheet' type='text/css' href='/m/css/content/app.css' />
+
     <style type='text/css' rel='stylesheet'>@@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}@@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;src:url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.ttf) format('ttf');unicode-range:U+0460-052F,U+20B4,U+2DE0-2DFF,U+A640-A69F}</style>
     <script defer type="text/javascript">
         !function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);
@@ -134,7 +135,14 @@
     </script>
 
     <div class="blackOut-window"></div>
-    <link rel='stylesheet' type='text/css' href="@CssBTFUrl" />
+
+    <noscript id="asynced-css">
+        <link href="@CssBTFUrl" rel="stylesheet" type="text/css" />
+    </noscript>
+    <script>
+        var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
+    </script>
+
     <script type="text/javascript">
     if(googletag) {
         googletag.cmd.push(function(){

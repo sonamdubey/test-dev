@@ -140,7 +140,14 @@
     </script>
 
     <div class="blackOut-window"></div>
-    <link rel='stylesheet' type='text/css' href="@CssBTFUrl" />
+    
+    <noscript id="asynced-css">
+        <link href="@CssBTFUrl" rel="stylesheet" type="text/css" />
+    </noscript>
+    <script>
+        var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
+    </script>
+
     <script type="text/javascript">
         if(googletag) {
             googletag.cmd.push(function(){                
