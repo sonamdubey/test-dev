@@ -511,7 +511,7 @@ docReady(function () {
             }
         };
 
-        self.SaveToBwCache = function () {
+        self.SaveToBwCache = function () {            
             var savearray = new Array;
             $(".list-item input[type='radio']:checked").each(function (i) {
                 var r = $(this);
@@ -520,9 +520,10 @@ docReady(function () {
             var pageObj = {
                 reviewTitle: reviewTitleField.val(),
                 detailedReview: self.detailedReview(),
-                reviewTips: self.reviewTips(),
+                reviewTips: $('#getMileage').val(),
+                mileage: self.bikeMileage(),
                 ratingArray: savearray
-            };
+            };           
             bwcache.set(window.location.search.substring(3, window.location.search.length), pageObj, 10);
         };
 
@@ -533,6 +534,7 @@ docReady(function () {
                 reviewTitleField.val(obj.reviewTitle);
                 reviewTitleField.parent('div').addClass('not-empty');
                 self.reviewTips(obj.reviewTips);
+                self.bikeMileage(obj.mileage);                
                 var i;
                 for (i = 0; i < obj.ratingArray.length; ++i) {
                     var quest = obj.ratingArray[i].split(':')[0];
@@ -549,6 +551,7 @@ docReady(function () {
             if ($('#review-page-data').text() != null && $('#review-page-data').text() != "") {
                 var obj = JSON.parse($('#review-page-data').text());
                 if (obj != null) {
+                    self.bikeMileage(obj.Mileage);
                     self.reviewTips(obj.Tips);
                     var i;
 
@@ -602,11 +605,11 @@ docReady(function () {
         vmWriteReview.validate.detailedReview();
 
     if (reviewTitleField && reviewTitleField.data("validate") && reviewTitleField.data("validate").length)
-        vmWriteReview.validate.reviewTitle();
+        vmWriteReview.validate.reviewTitle();   
 
     vmWriteReview.GetFromBwCache();
 
-    vmWriteReview.FillReviewData();
+    vmWriteReview.FillReviewData();    
 
     var selRating = $("#bike-rating-box").attr("data-selectedRating");
     if (selRating > 0) {

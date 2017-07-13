@@ -296,11 +296,11 @@ namespace Bikewale.Controllers
         /// 
         [ValidateInput(false)]
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, uint reviewId, string encodedString, bool? isDesktop)
+        public ActionResult SaveReview(string reviewDescription, string reviewTitle, string reviewQuestion, string reviewTips, string encodedId, string emailId, string userName, string makeName, string modelName, uint reviewId, string encodedString, bool? isDesktop, string mileage)
         {
             WriteReviewPageSubmitResponse objResponse = null;
 
-            objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips.Trim(), reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName);
+            objResponse = _userReviews.SaveUserReviews(encodedId, reviewTips.Trim(), reviewDescription, reviewTitle, reviewQuestion, emailId, userName, makeName, modelName, mileage);
 
             if (objResponse.IsSuccess)
             {

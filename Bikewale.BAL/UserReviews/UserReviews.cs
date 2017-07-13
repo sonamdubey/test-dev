@@ -341,7 +341,7 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="reviewDescription"></param>
         /// <param name="reviewTitle"></param>
         /// <returns></returns>
-        public WriteReviewPageSubmitResponse SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName)
+        public WriteReviewPageSubmitResponse SaveUserReviews(string encodedId, string tipsnAdvices, string comment, string commentTitle, string reviewsQuestionAns, string emailId, string userName, string makeName, string modelName, string mileage)
         {            
             WriteReviewPageSubmitResponse objResponse = null;
             try
@@ -389,6 +389,9 @@ namespace Bikewale.BAL.UserReviews
 
                             if (!string.IsNullOrEmpty(comment))
                                 UserReviewsEmails.SendReviewSubmissionEmail(userName, emailId, makeName, modelName);
+
+                            if (mileage != null && mileage.Length > 0)
+                                _userReviewsRepo.SaveUserReviewMileage(_reviewId, mileage);
                         }
                     }
                     else

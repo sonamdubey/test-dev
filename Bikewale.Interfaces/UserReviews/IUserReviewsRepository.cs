@@ -39,5 +39,7 @@ namespace Bikewale.Interfaces.UserReviews
         IEnumerable<UserReviewSummary> GetUserReviewSummaryList(string reviewIdList);
 
         BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);
+
+        bool SaveUserReviewMileage(uint reviewId, string mileage);
     }   // class
 }   // namespace

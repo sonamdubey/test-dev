@@ -70,8 +70,8 @@
 
 					<div class="review-question-mileage">
 						<p class="item-title">What mileage does your bike offer?</p>
-						<div class="input-box form-control-box" data-bind="css: bikeMileage().length > 0 ? 'not-empty' : ''">
-							<input type="number" id="getMileage" data-bind="textInput: bikeMileage">
+						<div class="input-box form-control-box" data-bind="css: bikeMileage() && bikeMileage().length > 0 ? 'not-empty' : ''">
+							<input name="mileage" type="text" id="getMileage" data-bind="textInput: bikeMileage" maxlength="190">
 							<label for="getMileage">Your mileage (kmpl)</label>
 							<span class="boundary"></span>
 							<span class="error-text"></span>
