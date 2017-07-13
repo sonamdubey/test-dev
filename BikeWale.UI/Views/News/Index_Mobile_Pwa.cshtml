@@ -11,17 +11,10 @@
     @{
         var StaticUrlPWA = Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA;
         var StaticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
-
-    
-        var VendorJsUrl = @String.Format("{0}/vendor.bundle.js?{1}", StaticUrlPWA, Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion);
-        var AppJsUrl = @String.Format("{0}/app.bundle.js?{1}", StaticUrlPWA, Bikewale.Utility.BWConfiguration.Instance.StaticAppFileVersion);
-        var FrameworksJsUrl = @String.Format("{0}/src/frameworks.js?{1}", StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion);
+        var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/vendor.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion;
+        var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/app.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticAppFileVersion;
+        var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? "https://stb.aeplcdn.com" + StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
         var CssBTFUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/m/css/content") + "/app-btf.css?" + Bikewale.Utility.BWConfiguration.Instance.StaticCSSBTFPWAVersion;
-        var BwcacheJsUrl = @String.Format("{0}/src/bwcache.js?{1}", StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion);
-        var PluginJsUrl = @String.Format("{0}/m/src/Plugins.js?{1}", StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)
-;
-        var CommonJsUrl = @String.Format("{0}/m/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
-    
     }
 
     @if (Model != null && Model.PageMetaTags != null)
