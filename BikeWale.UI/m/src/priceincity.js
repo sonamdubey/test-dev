@@ -21,6 +21,35 @@ docReady(function () {
         // activate first tab
         $('.overall-specs-tabs-wrapper li').first().addClass('active');
 
+		//floating button
+		var floatingButton = document.querySelectorAll('.floating-btn')[0];
+
+		if (floatingButton) {
+			attachListener('scroll', window, toggleFloatingBtn);
+		}
+
+		function attachListener(event, element, functionName) {
+			if (element.addEventListener) {
+				element.addEventListener(event, functionName, false);
+			}
+			else if (element.attachEvent) {
+				element.attachEvent('on' + event, functionName);
+			}
+		};
+		
+		var	docWindowHeight = $(window).height();
+
+		function toggleFloatingBtn() {
+			var bodyHeight = $('body').height(),
+				footerHeight = $('footer').height(),
+				scrollPosition = $(window).scrollTop();
+
+			if (scrollPosition + docWindowHeight > (bodyHeight - footerHeight))
+				$(floatingButton).hide();
+			else
+				$(floatingButton).show();
+		}
+
         // dropdown
         dropdown = {
             setDropdown: function () {

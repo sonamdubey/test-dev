@@ -226,7 +226,7 @@
     line-height: 1.5;
 }
 
-.dealership-address {
+.dealership-details-wrapper .dealership-address {
     width:85%;
 }
 
@@ -242,12 +242,6 @@
     width: 14px;
     height: 12px;
     background-position: 1px -436px;
-}
-
-.dealership-loc-icon {
-    width:14px;
-    height:15px;
-    background-position: -38px -435px;
 }
 
 .dropdown-icon {
@@ -489,8 +483,8 @@
 #notifyAvailabilityContainer .notify-close-btn{z-index:2}
 #leadCapturePopup .error-icon,#leadCapturePopup .bw-blackbg-tooltip{display:none}
 #otpPopup{display:none}
-.icon-outer-container{width:72px;height:72px;}
-.icon-inner-container{width:64px;height:64px;margin:3px auto;}
+.bwm-fullscreen-popup .icon-outer-container{width:72px;height:72px;}
+.bwm-fullscreen-popup .icon-inner-container{width:64px;height:64px;margin:3px auto;}
 .user-contact-details-icon{width:29px;height:30px;background-position:-109px -216px}
 .otp-icon { width:29px; height:29px; background-position: -109px -177px; }
 .edit-blue-icon { width:20px; height:20px; background-position: -114px -122px; }
