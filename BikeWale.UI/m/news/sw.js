@@ -1,7 +1,7 @@
 (global => {
 
     var jsVersion = '26May2017v1';
-	var baseUrl = 'https://st.aeplcdn.com/bikewale/pwa/build/';
+	var baseUrl = 'https://stb.aeplcdn.com/staging/bikewale/pwa/build/';
 	var OFFLINE_PAGE = 'offline.html?' + jsVersion;
 	var VENDOR_JS = baseUrl + 'vendor.bundle.js?' + jsVersion;
 	var APP_JS = baseUrl + 'app.bundle.js?' + jsVersion;
@@ -9,7 +9,7 @@
 	var SW_TOOLBOX_JS = baseUrl + 'sw-toolbox.js?' + jsVersion;
 	var IMAGE_EXPIRATION_TIME = 864000;
 	var IMAGE_CDN_REGEX_PATTERN = /^https:\/\/imgd(\d)?.aeplcdn.com/;
-	var ST_CDN_REGEX_PATTERN = /^https:\/\/st(\d)?.aeplcdn.com/;
+	var ST_CDN_REGEX_PATTERN = /^https:\/\/stb.aeplcdn.com/;
 	
 	importScripts(SW_TOOLBOX_JS);
 
