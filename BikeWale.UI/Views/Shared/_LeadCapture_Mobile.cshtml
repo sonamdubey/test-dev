@@ -63,7 +63,7 @@
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
                     </div>
-                    <div class="input-box form-control-box margin-bottom15" data-bind="visible : emailRequired() || !mfgCampaignId()">
+                    <div class="input-box form-control-box margin-bottom15" data-bind="visible : emailRequired() || (mfgCampaignId() > 0)">
                         <input type="email" id="getEmailID" data-bind="textInput: emailId">
                         <label for="getEmailID" data-bind="html : !emailRequired() ? 'Email (optional)' :  'Email<sup>*</sup>'"></label>
                         <span class="boundary"></span>
