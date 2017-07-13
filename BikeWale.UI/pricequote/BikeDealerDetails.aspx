@@ -11,7 +11,7 @@
         isAd970x90Shown = false;  
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl  %>/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
 </head>
 <body class="header-fixed-inner">
@@ -435,7 +435,7 @@
                 </div>
 				<h3>Terms and Conditions</h3>
             <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
             </div>
             <div id="terms" class="breakup-text-container padding-bottom10 font14">
             </div>
@@ -514,7 +514,7 @@
         </div>
         <!-- Terms and condition Popup Ends -->
 
-        <section class="container margin-top30 lazy content-box-shadow booking-how-it-works" data-original="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/howItWorks.png?<%= staticFileVersion %>">
+        <section class="container margin-top30 lazy content-box-shadow booking-how-it-works" data-original="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/howItWorks.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>
         </section>
@@ -606,7 +606,7 @@
             var getCityArea = GetGlobalCityArea();
             var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>
 
 
     </form>

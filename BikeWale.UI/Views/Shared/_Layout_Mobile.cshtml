@@ -49,9 +49,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <meta name="theme-color" content="#2a2a2a" />
-    <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
+    <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
     <link rel='stylesheet' type='text/css' href='/m/css/bwm-common-atf.css' />
-    <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/frameworks.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/src/frameworks.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></script>
     <script defer type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
     @{Bikewale.Utility.BWCookies.SetBWUtmz();}
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -318,7 +318,7 @@
         <div class="clear"></div>
     </div>
 
-    <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st2.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/bwcache.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/src/bwcache.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
     <!-- global-search-popup code starts here -->
     <div id="global-search-popup" class="global-search-popup" style="display:none">
         <div class="form-control-box">
@@ -385,21 +385,21 @@
     </footer> <!-- Ends here -->
 
     <noscript id="asynced-css">
-        <link href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st2.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/css/bwm-common-btf.css?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion" rel="stylesheet" type="text/css" />
+        <link href="@String.Format("{0}/m/css/bwm-common-btf.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
         @if (!String.IsNullOrEmpty(Model.Page_BTF_CSS_Path))
         {
-            <link href="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_BTF_CSS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion" rel="stylesheet" type="text/css" />
+            <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_BTF_CSS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
         }
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     </noscript>
     <script type="text/javascript">
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
     </script>
-    <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
-    <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/m/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/m/src/Plugins.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/m/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
     @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
     {
-        <script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")@Model.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
+        <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
     }
     <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js" defer>
     </script>

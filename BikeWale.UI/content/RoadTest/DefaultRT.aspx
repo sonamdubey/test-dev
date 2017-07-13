@@ -44,7 +44,7 @@
         isAd300x250BTFShown = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl  %>/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -146,7 +146,7 @@
                         </div>
                     </div>
 
-                    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+                    <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
                     <div class="grid-4 omega">
                         <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikes" />
@@ -165,7 +165,7 @@
                         </div>                       
                         <a href="/pricequote/" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">
                             <span class="inline-block">
-                                <img src="https://imgd1.aeplcdn.com/0x0/bw/static/design15/on-road-price.png" alt="Rupee" border="0" />
+                                <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/on-road-price.png" alt="Rupee" border="0" />
                             </span><h2 class="text-default inline-block">Get accurate on-road price for bikes</h2>
                             <span class="bwsprite right-arrow"></span>
                         </a>
@@ -187,7 +187,7 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
         <!-- #include file="/includes/fontBW.aspx" -->
     </form>

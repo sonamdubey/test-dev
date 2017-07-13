@@ -1,4 +1,4 @@
-﻿var redMarkerImage = 'https://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
+﻿var redMarkerImage = 'https://imgd.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
 var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
 var customerViewModel, dealerDetailsViewModel, chosenSelectBox, vmService, bikeschedule;
 
@@ -217,7 +217,7 @@ function SchedulesViewModel() {
             self.imagePath(selbike.HostUrl + "227x128" + selbike.OriginalImagePath);
         }
         else {
-            self.imagePath('https://imgd3.aeplcdn.com/0x0/bikewaleimg/images/noimage.png');
+            self.imagePath('https://imgd.aeplcdn.com/0x0/bikewaleimg/images/noimage.png');
         }        
     });
 

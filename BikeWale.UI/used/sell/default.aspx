@@ -17,9 +17,9 @@
         isAd970x90Shown = false;
 %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/sell-bike/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl %>/css/sell-bike/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl %>/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl %>/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
@@ -576,7 +576,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
             </div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
         <script type="text/javascript"> 
             var userId = '<%= userId%>';    
@@ -590,14 +590,14 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
         </script>
         
         <!-- #include file="/includes/footerBW.aspx" -->
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? ("https://st2.aeplcdn.com" + staticUrl) : "" %>/src/knockout.validation.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? ("https://st2.aeplcdn.com" + staticUrl) : "" %>/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? ("https://st2.aeplcdn.com" + staticUrl) : "" %>/src/imageUpload.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? ("https://st2.aeplcdn.com" + staticUrl) : "" %>/src/dropzone.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/src/knockout.validation.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/src/imageUpload.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/src/dropzone.js?<%=staticFileVersion %>"></script>
         <% if(isAuthorized) { %>
-        <script type="text/javascript" src="<%= staticUrl != "" ? ("https://st2.aeplcdn.com" + staticUrl) : "" %>/src/sell-bike.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/src/sell-bike.js?<%=staticFileVersion %>"></script>
         <%} %>
         <!-- #include file="/includes/fontBW.aspx" -->
         <script type="text/javascript">

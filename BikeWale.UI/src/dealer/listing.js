@@ -1,6 +1,6 @@
 var markerArr = [], dealerArr = [], map, infowindow, readMoreTarget, dealerMoreContent, mapDimension, currentCityName;
-var blackMarkerImage = 'https://imgd2.aeplcdn.com/0x0/bw/static/design15/map-marker-black.png';
-var redMarkerImage = 'https://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
+var blackMarkerImage = 'https://imgd.aeplcdn.com/0x0/bw/static/design15/map-marker-black.png';
+var redMarkerImage = 'https://imgd.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
 var clientip;
 function initializeMap(dealerArr) {
     var i, marker, dealer, markerPosition, content, zIndex;

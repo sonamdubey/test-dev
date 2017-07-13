@@ -67,7 +67,7 @@
         width: 100%;
         height: 100%;
         z-index: 1000;
-        background: rgb(250, 246, 246) url('https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
+        background: rgb(250, 246, 246) url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
     }
 
     /* Style the list */

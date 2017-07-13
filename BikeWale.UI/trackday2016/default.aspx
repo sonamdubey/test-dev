@@ -15,7 +15,7 @@
     %>
 
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/trackday2016/css/track-day.css?<%= staticFileVersion %>" />
+    <link rel="stylesheet" type="text/css" href="<%= staticUrl  %>/trackday2016/css/track-day.css?<%= staticFileVersion %>" />
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -109,63 +109,63 @@
                                         <li>
                                             <div class="gallery-photo-img-container">
                                                 <span>
-                                                    <img class="lazy" data-original="https://imgd1.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/01.jpg?wm=2"  src="" alt="Track Day Gallery">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/01.jpg?wm=2"  src="" alt="Track Day Gallery">
                                                 </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-img-container">
                                                 <span>
-                                                    <img class="lazy" data-original="https://imgd2.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/02.jpg?wm=2"  src="" alt="Track Day Gallery">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/02.jpg?wm=2"  src="" alt="Track Day Gallery">
                                                 </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-img-container">
                                                 <span>
-                                                    <img class="lazy" data-original="https://imgd3.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/03.jpg?wm=2"  src="" alt="Track Day Gallery">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/03.jpg?wm=2"  src="" alt="Track Day Gallery">
                                                 </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-img-container">
                                                 <span>
-                                                    <img class="lazy" data-original="https://imgd1.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/04.jpg?wm=2"  src="" alt="Track Day Gallery">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/04.jpg?wm=2"  src="" alt="Track Day Gallery">
                                                 </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-img-container">
                                                 <span>
-                                                    <img class="lazy" data-original="https://imgd2.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/05.jpg?wm=2"  src="" alt="Track Day Gallery">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/05.jpg?wm=2"  src="" alt="Track Day Gallery">
                                                 </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-img-container">
                                                 <span>
-                                                    <img class="lazy" data-original="https://imgd3.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/06.jpg?wm=2"  src="" alt="Track Day Gallery">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/06.jpg?wm=2"  src="" alt="Track Day Gallery">
                                                 </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-img-container">
                                                 <span>
-                                                    <img class="lazy" data-original="https://imgd1.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/07.jpg?wm=2"  src="" alt="Track Day Gallery">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/07.jpg?wm=2"  src="" alt="Track Day Gallery">
                                                 </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-img-container">
                                                 <span>
-                                                    <img class="lazy" data-original="https://imgd2.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/08.jpg?wm=2"  src="" alt="Track Day Gallery">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/08.jpg?wm=2"  src="" alt="Track Day Gallery">
                                                 </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-img-container">
                                                 <span>
-                                                    <img class="lazy" data-original="https://imgd3.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/09.jpg?wm=2"  src="" alt="Track Day Gallery">
+                                                    <img class="lazy" data-original="https://imgd.aeplcdn.com/1280x720/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/09.jpg?wm=2"  src="" alt="Track Day Gallery">
                                                 </span>
                                             </div>
                                         </li>
@@ -183,63 +183,63 @@
                                         <li>
                                             <div class="gallery-photo-nav-img-container">
                                             <span>
-                                                <img class="lazy" data-original="https://imgd1.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/01.jpg" src="" alt="Track Day Gallery"/>
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/01.jpg" src="" alt="Track Day Gallery"/>
                                             </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-nav-img-container">
                                             <span>
-                                                <img class="lazy" data-original="https://imgd2.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/02.jpg" src="" alt="Track Day Gallery"/>
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/02.jpg" src="" alt="Track Day Gallery"/>
                                             </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-nav-img-container">
                                             <span>
-                                                <img class="lazy" data-original="https://imgd3.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/03.jpg" src="" alt="Track Day Gallery"/>
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/03.jpg" src="" alt="Track Day Gallery"/>
                                             </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-nav-img-container">
                                             <span>
-                                                <img class="lazy" data-original="https://imgd1.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/04.jpg" src="" alt="Track Day Gallery"/>
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/04.jpg" src="" alt="Track Day Gallery"/>
                                             </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-nav-img-container">
                                             <span>
-                                                <img class="lazy" data-original="https://imgd2.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/05.jpg" src="" alt="Track Day Gallery"/>
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/05.jpg" src="" alt="Track Day Gallery"/>
                                             </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-nav-img-container">
                                             <span>
-                                                <img class="lazy" data-original="https://imgd3.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/06.jpg" src="" alt="Track Day Gallery"/>
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/06.jpg" src="" alt="Track Day Gallery"/>
                                             </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-nav-img-container">
                                             <span>
-                                                <img class="lazy" data-original="https://imgd1.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/07.jpg" src="" alt="Track Day Gallery"/>
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/07.jpg" src="" alt="Track Day Gallery"/>
                                             </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-nav-img-container">
                                             <span>
-                                                <img class="lazy" data-original="https://imgd2.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/08.jpg" src="" alt="Track Day Gallery"/>
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/08.jpg" src="" alt="Track Day Gallery"/>
                                             </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="gallery-photo-nav-img-container">
                                             <span>
-                                                <img class="lazy" data-original="https://imgd3.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/09.jpg" src="" alt="Track Day Gallery"/>
+                                                <img class="lazy" data-original="https://imgd.aeplcdn.com/110x61/cw/es/trackday/2016/bwm-trackday/landing-images/gallery/09.jpg" src="" alt="Track Day Gallery"/>
                                             </span>
                                             </div>
                                         </li>
@@ -275,7 +275,7 @@
                     <h2 class="section-header">Making of Track Day</h2>
                     <div class="content-box-shadow track-day-collage-content">
                         <div class="bg-loader-placeholder">
-                            <img class="lazy" data-original="https://imgd1.aeplcdn.com/0x0/cw/es/trackday/2016/bw-trackday/landing-images/making-of-the-event.jpg" alt="Making of Track Day" src="" border="0" />
+                            <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/cw/es/trackday/2016/bw-trackday/landing-images/making-of-the-event.jpg" alt="Making of Track Day" src="" border="0" />
                         </div>
                     </div>
                 </div>
@@ -283,13 +283,13 @@
             </div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
         <!-- #include file="/includes/footerBW.aspx" -->
 
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl  %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/trackday2016/src/track-day.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/trackday2016/src/track-day.js?<%= staticFileVersion %>"></script>
 
         <!-- #include file="/includes/fontBW.aspx" -->
 

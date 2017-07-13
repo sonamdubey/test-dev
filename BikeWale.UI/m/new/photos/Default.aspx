@@ -121,7 +121,7 @@
                         </div>
                         <div class="swiper-wrapper" data-bind="foreach: photoList">
                             <div class="swiper-slide">
-                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': HostUrl + '/642x361/' + OriginalImgPath }" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': HostUrl + '/642x361/' + OriginalImgPath }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                             </div>
                         </div>
                         <div class="bwmsprite swiper-button-next gallery-type-next"></div>
@@ -139,7 +139,7 @@
                         </div>
                         <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
                             <div class="swiper-slide">
-                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': HostUrl + '/642x361/' + OriginalImgPath }" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: modelName + ' ' + ImageTitle, title: modelName + ' ' + ImageTitle, 'data-src': HostUrl + '/642x361/' + OriginalImgPath }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                             </div>
                         </div>
                         <div class="bwmsprite swiper-button-next color-type-next"></div>
@@ -356,9 +356,9 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript">
             try {
@@ -378,7 +378,7 @@
             }
         </script>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : ""%>/m/src/photos.js?<%= staticFileVersion%>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/m/src/photos.js?<%= staticFileVersion%>"></script>
         <script type="text/javascript">            
             $(document).ready(function () {
                 if(returnUrl.length > 0) {

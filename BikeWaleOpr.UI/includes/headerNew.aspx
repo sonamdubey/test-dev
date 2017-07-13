@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <link rel="stylesheet" href="/css/common.css?03102016" type="text/css" />
     <link rel="stylesheet" href="/css/chosen.min.css?03102016" />
-    <script src="https://st1.aeplcdn.com/bikewale/min/src/frameworks.js?09Jan2017v1" type="text/javascript"></script>
+    <script src="https://stb.aeplcdn.com/bikewale/min/src/frameworks.js?09Jan2017v1" type="text/javascript"></script>
     <script src="/src/AjaxFunctions.js?03102016" type="text/javascript"></script>
     <title>BikeWale Operations</title>
     <style type="text/css">

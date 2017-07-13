@@ -1,4 +1,4 @@
-﻿.newbikes-banner-div { background:#161209 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/m/new-bike-banner.jpg) no-repeat left top; background-size: cover; height:130px;}
+﻿.newbikes-banner-div { background:#161209 url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/m/new-bike-banner.jpg) no-repeat left top; background-size: cover; height:130px;}
 .newbikes-banner-div h1 {
     padding-top: 25px;
 }
@@ -48,7 +48,7 @@
 .budget-container ul li a span.budget-title-box , .budget-container ul li a span.budget-amount-box, .mileage-container ul li a span.mileage-title-box , .mileage-container ul li a span.mileage-amount-box { display:block; }
 .budget-container ul li a span.budget-title-box, .mileage-container ul li a span.mileage-title-box { padding-top: 23px; padding-bottom: 5px; }
 
-.styletypesprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/style-type-sprite.png?v=150915) no-repeat; display: inline-block;  }
+.styletypesprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/style-type-sprite.png?v=150915) no-repeat; display: inline-block;  }
 .style-scooters, .style-street, .style-cruiser, .style-sports { width:77px; height:45px; }
 .style-scooters { background-position: 0 0; }
 .style-type-container ul li:hover .style-scooters { background-position: 0 -54px; }
@@ -98,7 +98,7 @@
     top: 55px;
     width: 22px;
     height: 21px;
-    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
     display: block;
 }
 
@@ -180,7 +180,7 @@
     top: 45px;
     width: 22px;
     height: 21px;
-    background: url("https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png") no-repeat;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png") no-repeat;
     display: block; }
 
 .btn-size-1 {

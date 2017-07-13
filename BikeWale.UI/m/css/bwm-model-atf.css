@@ -365,7 +365,7 @@ h1 {font-weight: 700;}
 .loc-change-blue-icon { width:16px; height:16px; background-position:-195px -395px; position:relative; top:2px; }
 .loc-change-blue-icon:hover { background-position:-84px -278px; }
 .upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-10px;top:10px;}
-.upcoming-text-label:after{content: "";background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
+.upcoming-text-label:after{content: "";background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
 .float-button.float-fixed{background: rgba(245,245,245,0.9);}
 .padding-top30 {
     padding-top: 30px;
@@ -440,7 +440,7 @@ h1 {font-weight: 700;}
 .dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item {
 	width: 100%;
 	font-weight: 600;
-	background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;

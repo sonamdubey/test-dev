@@ -94,7 +94,7 @@
         <div class="clear"></div>
     </div>
 </footer><!-- Ends here -->
-<script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/bwcache.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" defer src="<%= staticUrl  %>/src/bwcache.js?<%= staticFileVersion %>"></script>
 <script>
     docReady(function () {
         if (window.innerWidth < 996 && window.innerWidth > 790)

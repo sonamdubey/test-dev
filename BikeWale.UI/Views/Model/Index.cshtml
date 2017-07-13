@@ -105,7 +105,7 @@
         var leadSourceId, getCityArea, bikeModelId = '@Model.ModelId';
 
     </script>
-    <script defer src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/ads.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
+    <script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
 
 
 </div>

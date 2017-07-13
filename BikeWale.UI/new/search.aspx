@@ -26,8 +26,8 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/new/search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl  %>/css/new/search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+        <link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
         <section class="bg-light-grey padding-top10">
             <div class="container">
@@ -318,7 +318,7 @@
                                     <img src="/images/no_result_d.png" />
                                 </div>
                                 <div id="loading" class="hide">
-                                    <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                                    <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                                 </div>
                             </div>
                         </div>
@@ -355,7 +355,7 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/src/new/search.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_NewBikeSearch%>';
         </script>
