@@ -15,7 +15,7 @@
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/cancellation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
     
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey" data-contestslug="">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <header class="booking-cancellation-banner">    	

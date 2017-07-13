@@ -19,7 +19,7 @@
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bookinglanding.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey" data-contestslug="">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <script type="text/javascript">document.getElementById("header").children[1].innerHTML = "";</script>
