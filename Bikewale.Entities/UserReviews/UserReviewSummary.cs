@@ -13,6 +13,7 @@ namespace Bikewale.Entities.UserReviews
     /// Summary     : Added totalreviews and totalratings
     /// Modified by : Aditi Srivastava on 14 June 2017
     /// Summary     : Added OverallModelRating
+    /// Modified by : Sajal Gupta on 12-07-2017. Added Mileage
     /// </summary>
     {
         public uint ReviewId { get; set; }
@@ -45,5 +46,6 @@ namespace Bikewale.Entities.UserReviews
         public uint TotalRatings { get; set; }
         public uint TotalReviews { get; set; }
         public float OverAllModelRating { get; set; }
+        public string Mileage { get; set; }
     }
 }

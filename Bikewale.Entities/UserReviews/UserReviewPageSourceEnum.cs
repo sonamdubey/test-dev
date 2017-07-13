@@ -12,6 +12,8 @@
         Mobile_UserReview_Details = 8,
         UsedBikes_Email= 9,
         Mobile_UserReviewContestPage = 10,
-        Desktop_UserReviewContestPage = 11
+        Desktop_UserReviewContestPage = 11,
+        Desktop_review_popup=12
+
     }
 }

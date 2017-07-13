@@ -40,5 +40,7 @@ namespace Bikewale.Models
             this.PageMetaTags = new PageMetaTags();
             this.AdTags = new AdTags();
         }
+
+        public bool ExcludeContestSlug { get; set; }
     }
 }
