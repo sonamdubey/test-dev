@@ -137,7 +137,7 @@ else
 <script type="text/javascript">
     ga_pg_id = "12";
     docReady(function () {
-        if (bwcache.get('showeditcmsreviewslug') == null) {
+        if (!bwcache.get('showeditcmsreviewslug',true)) {
             $('#writereviewslug').show();
         }
         $('.list-slug__close').on('click', function () {

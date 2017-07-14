@@ -120,16 +120,15 @@
 }
 <script type="text/javascript">
     docReady(function () {
-        if (bwcache.get('showeditcmsreviewslug',true) == null) {
+        if (!bwcache.get('showeditcmsreviewslug', true)) {
             $('#writereviewslug').show();
         }
         $('.list-slug__close').on('click', function () {
-	        bwcache.set('showeditcmsreviewslug', '1', true);
-			var slugItem = $(this).closest('.list-item__slug');
-
-			slugItem.slideUp(500, function() {
-				slugItem.remove();
-			});
-		});
+            bwcache.set('showeditcmsreviewslug', '1', true);
+            var slugItem = $(this).closest('.list-item__slug');
+            slugItem.slideUp(500, function () {
+                slugItem.remove();
+            });
+        });
 	});
 </script>
