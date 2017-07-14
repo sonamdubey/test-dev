@@ -3783,6 +3783,7 @@
     <Content Include="Views\UserReview\_UserReviewsSearch.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x400_Middle.cshtml" />
     <Content Include="Views\UserReview\WriteReviewContest.cshtml" />
+    <Content Include="Views\UserReview\_UserReviewList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
