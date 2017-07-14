@@ -4,7 +4,6 @@
 
 .section-header,
 .section-inner-padding {
-    padding: 15px 20px;
     -webkit-box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
     -moz-box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
     -ms-box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
@@ -12,8 +11,28 @@
     box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
     border: 1px solid #e2e2e2 \9;
 }
-.article-content {padding-top:20px; padding-bottom:20px; border-bottom:1px solid #e2e2e2; }
-#content .article-content:first-of-type { padding-top:0; }
+
+.padding-15-20 {
+	padding: 15px 20px;
+}
+
+/* article-list */
+.article-list .article-content {
+	padding-right:20px;
+	padding-left:20px;
+}
+
+.article-list .article-item-content {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-top: 1px solid #e2e2e2;
+}
+
+.article-list .article-content:last-child .article-item-content {
+	border-bottom: 1px solid #e2e2e2;
+}
+
+
 .article-image-wrapper { width: 206px; margin-right: 20px; float: left; }
 .article-desc-wrapper { width: auto; }
 .sponsored-tag-wrapper { width: 120px;height: 24px;background: #4d5057; color: #fff; font-size: 12px; line-height: 25px; padding: 0 20px; top:-10px; left:-20px; }
@@ -100,6 +119,10 @@
 }
 
 /* pagination */
+.pagination-padding {
+	padding: 15px 20px;
+}
+
 .footer-pagination .grid-5 {
   position: relative;
   top: 4px; }
@@ -170,3 +193,66 @@
 .inactive .next-page-icon {
   opacity: 0.2; }
 
+/* list-item__slug */
+.list-item__slug {
+	position: relative;
+	padding: 20px;
+	background: #f5f5f5;
+}
+
+.list-slug__close {
+	width: 20px;
+	height: 20px;
+	background-position: -59px -242px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+}
+
+.list-slug__wrapper {
+	display: table;
+}
+
+.slug-content--top-align {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.list-slug__details {
+	padding-left: 20px;
+}
+
+.list-slug__image {
+	width: 120px;
+}
+
+.list-slug__heading {
+	color: #2a2a2a;
+	font-size: 12px;
+	font-weight: bold;
+	margin-bottom: 8px;
+	text-transform: uppercase;
+}
+
+.list-slug__subheading {
+	font-size: 12px;
+	margin-bottom: 15px;
+}
+
+.list-slug__wrapper .list-slug__target {
+	font-size: 14px;
+}
+
+.target-arrow {
+	width: 6px;
+	height: 10px;
+	background-position: -58px -437px;
+	position: relative;
+	top: 1px;
+	left: 7px;
+}
+
+.list-item__slug + li .article-item-content {
+	border-top: 0;
+}
