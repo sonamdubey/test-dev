@@ -541,7 +541,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
             var imgEnv = "<%= Bikewale.Utility.BWConfiguration.Instance.AWSEnvironment %>";
         </script>
         
-        <script type="text/javascript" src="<%=  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <link href="<%= staticUrl%>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
