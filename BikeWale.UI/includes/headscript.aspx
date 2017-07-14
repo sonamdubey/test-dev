@@ -1,6 +1,6 @@
 ﻿<script language="c#" runat="server">	
-    private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
-    private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+    private string staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
+    private string staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
     private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "", TargetedCity = ""
         , fbTitle = "", fbImage,
         ogImage = "";

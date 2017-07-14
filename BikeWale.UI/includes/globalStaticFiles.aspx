@@ -1,19 +1,16 @@
-﻿<script runat="server">	
-    string staticUrlPath = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
-    string staticFilesVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
-</script>
-<link rel="SHORTCUT ICON" href="<%= staticUrlPath != "" ? "https://img2.aeplcdn.com/bikewaleimg" : "" %>/images/favicon.png?<%= staticFilesVersion%>"  type="image/png"/>
+﻿
+<link rel="SHORTCUT ICON" href="<%= staticUrl != "" ? "https://img2.aeplcdn.com/bikewaleimg" : "" %>/images/favicon.png"  type="image/png"/>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-<link type="text/css" href="/css/style.css?<%= staticFilesVersion%>" rel="stylesheet"/>
-<link type="text/css" href="<%= staticUrlPath %>/css/960.css?<%= staticFilesVersion%>" rel="stylesheet"/>
-<link type="text/css" href="/css/bw-common-style.css?<%= staticFilesVersion%>" rel="stylesheet" />
+<link type="text/css" href="<%= staticUrl %>/css/style.css?<%= staticFileVersion%>" rel="stylesheet"/>
+<link type="text/css" href="<%= staticUrl %>/css/960.css" rel="stylesheet"/>
+<link type="text/css" href="<%= staticUrl %>/css/bw-common-style.css?<%= staticFileVersion%>" rel="stylesheet" />
 
 <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-<script type="text/javascript" src="<%= staticUrlPath  %>/src/BikeWaleCommon.js?v=1.2"></script>
-<script type="text/javascript" src="<%= staticUrlPath %>/src/common/bt.js?v1.1"></script>
+<script type="text/javascript" src="<%= staticUrl  %>/src/BikeWaleCommon.js?v=1.2"></script>
+<script type="text/javascript" src="<%= staticUrl %>/src/common/bt.js?v1.1"></script>
 <!--[if IE]><script language="javascript" src="<%= staticUrlPath  %>/src/common/excanvas.js?v=1.0"></script><![endif]-->
 <!--[if IE 6]>
-    <script src="https://st.carwale.com/ie-png-fix.js?v=1.0"></script>
+    <script src="https://stc.carwale.com/ie-png-fix.js?v=1.0"></script>
     <script>
         DD_belatedPNG.fix('.bw-logo a');/* fix png transparency problem with IE6 */
     </script>

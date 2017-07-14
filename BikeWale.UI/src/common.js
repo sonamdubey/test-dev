@@ -968,6 +968,7 @@ docReady(function () {
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
             MakeModelRedirection(ui.item);
             isMakeModelRedirected = true;
+
         },
         loaderStatus: function (status) {
             if (!status) {
@@ -1314,6 +1315,7 @@ docReady(function () {
             if (city.cityId) {
                 location.reload();
             }
+            dataLayer.push({ 'GlobalCity' : cityName });
         },
         open: function (result) {
             objCity.result = result;
