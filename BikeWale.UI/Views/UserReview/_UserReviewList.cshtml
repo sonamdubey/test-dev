@@ -61,19 +61,19 @@
                     <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                 </div>
 
-                <button type="button" class="btn btn-inv-teal-group margin-right10 upvoteListButton">
+                <button type="button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)" class="btn btn-inv-teal-group margin-right10 upvoteListButton">
                     <span class="btn-label-grid">
                         <span class="bwsprite like-sm"></span>
-                    </span><span class="btn-count">@review.UpVotes</span>
+                    </span><span class="btn-count" id="upvoteCount-@review.ReviewId">@review.UpVotes</span>
                 </button>
 
-                <button type="button" class="btn btn-inv-teal-group downvoteListButton">
+                <button type="button" id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="downVoteListReview(event)" class="btn btn-inv-teal-group downvoteListButton">
                     <span class="btn-label-grid">
                         <span class="bwsprite dislike-sm"></span>
-                    </span><span class="btn-count">@review.DownVotes</span>
+                    </span><span id="downvoteCount-@review.ReviewId" class="btn-count">@review.DownVotes</span>
                 </button>
 
-                <p class="report-abuse-label rightfloat line-height26">Inappropriate review? <a href="javascript:void(0)" rel="nofollow">Report Abuse</a></p>
+                <p class="report-abuse-label rightfloat line-height26" id="pReport-@review.ReviewId">Inappropriate review? <a href="javascript:void(0)" data-reviewId="@review.ReviewId" onclick="reportReview(event)"  rel="nofollow">Report Abuse</a></p>
                 <div class="clear"></div>
             </div>
             <div class="grid-3 omega padding-left20">
@@ -101,3 +101,18 @@
     }
 
 </ul>
+
+<div id="report-abuse">
+    <p class="font20 text-bold text-center margin-bottom20">Why do you want to report it abuse?</p>
+
+    <span class="bwsprite report-abuse-close-btn"></span>
+
+    <p class="margin-bottom10 font14">Comment</p>
+
+    <textarea id="txtAbuseComments"></textarea>
+    <span id="spnAbuseComments" class="error font12 text-red"></span>
+
+    <div class="text-center margin-top10">
+        <a id="btnReportReviewAbuse" onclick="reportAbuse()" class="btn btn-orange" rel="nofollow">Report</a>
+    </div>
+</div>
