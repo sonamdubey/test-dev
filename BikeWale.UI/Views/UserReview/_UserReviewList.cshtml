@@ -1,32 +1,21 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewsSearchVM
 @using Bikewale.Entities.UserReviews;
 @using Bikewale.Utility;
-<ul class="rating-circle-list overall-circle-list">
-    <li>
-        <div class="rating-circle circle-rate-4">
-            <p class="circle-label">4</p>
-            <span class="rating-progress">
-            </span>
-        </div>
-        <p class="list-item-label">Visual Appeal</p>
-    </li>
-    <li>
-        <div class="rating-circle circle-rate-2">
-            <p class="circle-label">2</p>
-            <span class="rating-progress">
-            </span>
-        </div>
-        <p class="list-item-label">Handling</p>
-    </li>
-    <li>
-        <div class="rating-circle circle-rate-5">
-            <p class="circle-label">5</p>
-            <span class="rating-progress">
-            </span>
-        </div>
-        <p class="list-item-label">Ride quality</p>
-    </li>
-</ul>
+@if (Model != null&&Model.ObjQuestionValue!=null && Model.ObjQuestionValue.QuestionsList!=null)
+{<ul class="rating-circle-list overall-circle-list">
+        @foreach (var obj in Model.ObjQuestionValue.QuestionsList)
+        {
+            <li>
+                <div class="rating-circle circle-rate-@((int)obj.AverageRatingValue)">
+                    <p class="circle-label">@(obj.AverageRatingValue.ToString("0.0"))</p>
+                    <span class="rating-progress">
+                    </span>
+                </div>
+                <p class="list-item-label">@obj.QuestionHeading</p>
+            </li>
+        }
+    </ul> }
+
 <ul class="user-review-list">
     @foreach (UserReviewSummary review in Model.UserReviews.ResultDesktop)
     {
