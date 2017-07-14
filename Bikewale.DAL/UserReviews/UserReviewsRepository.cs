@@ -884,7 +884,7 @@ namespace Bikewale.DAL.UserReviews
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings_04072017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings_13072017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
@@ -940,7 +940,7 @@ namespace Bikewale.DAL.UserReviews
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserreviews_04072017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserreviews_13072017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.UInt32, reviewId));
