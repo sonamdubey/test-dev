@@ -133,7 +133,7 @@
 .dropdown-menu .dropdown-label,
 .dropdown-selected-item {
 	width: 100%;
-	background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat;
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -557,7 +557,7 @@
     top: 45px;
     width: 22px;
     height: 21px;
-    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
     display: block;
 }
 
@@ -568,7 +568,7 @@
  
 /* icons */
 .offers-sprite {
-    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v19Aug2016) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v19Aug2016) no-repeat;
     display: inline-block;
 }
 
@@ -593,7 +593,7 @@
 .grey-bike {
     width: 52px;
     height: 31px;
-    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/grey-bike.png) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/design15/grey-bike.png) no-repeat;
     display: inline-block;
     margin-bottom: 12px;
 }
@@ -651,7 +651,7 @@
     border-top: 0;
 }
 .cover-window-popup .with-arrow li {
-    background: url("https://imgd1.aeplcdn.com/0x0/bw/static/design15/grey-right-arrow.png") no-repeat 94% 50%;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/static/design15/grey-right-arrow.png") no-repeat 94% 50%;
 }
 .cover-window-popup .cover-popup-loader-body {
     display: none;
@@ -659,7 +659,7 @@
 .bike-banner {
     width: 100%;
     height: 110px;
-    background: #fff url(https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/bike-popup-banner.png) repeat-x center bottom;
+    background: #fff url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/m/bike-popup-banner.png) repeat-x center bottom;
 }
 .cover-popup-body-head .head-label {
     font-size: 16px;

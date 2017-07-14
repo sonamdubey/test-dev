@@ -220,7 +220,7 @@
 </div>
 
 
-<script type="text/javascript" src="https://st2.aeplcdn.com/bikewale/src/common/chosen.jquery.min.js?v15416"></script>
+<script type="text/javascript" src="https://stb.aeplcdn.com/bikewale/src/common/chosen.jquery.min.js?v15416"></script>
 <script type="text/javascript">
     var ddlCities = $('#<%=drpCity.ClientID%>');
     var ddlMakes = $('#ddlMakes');

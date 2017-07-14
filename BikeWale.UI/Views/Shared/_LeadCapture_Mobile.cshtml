@@ -63,7 +63,7 @@
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
                     </div>
-                    <div class="input-box form-control-box margin-bottom15" data-bind="visible : emailRequired() || !mfgCampaignId()">
+                    <div class="input-box form-control-box margin-bottom15" data-bind="visible : emailRequired() || (mfgCampaignId() > 0)">
                         <input type="email" id="getEmailID" data-bind="textInput: emailId">
                         <label for="getEmailID" data-bind="html : !emailRequired() ? 'Email (optional)' :  'Email<sup>*</sup>'"></label>
                         <span class="boundary"></span>
@@ -638,8 +638,7 @@
 
                 if (self.pinCodeRequired()) {
                     isValid &= self.validatePinCode();
-                    if (isValid)
-                        isValid &= self.checkPinCode(self.pincode());
+                   
                 }
                 if (self.dealersRequired()) {
                     isValid &= self.validateDealer();
@@ -709,8 +708,7 @@
 
 
             self.validatePinCode = function () {
-                leadPinCode = $('#getPinCode');
-                var isValid = true,
+                var leadPinCode = $('#getPinCode'), isValid = true,
                     pinCodeValue = leadPinCode.val().trim(),
                     rePinCode = /^[1-9][0-9]{5}$/;
 
@@ -725,6 +723,9 @@
                     validate.setError(leadPinCode, 'Invalid pincode');
                     isValid = false;
                 }
+
+                if (isValid) isValid &= self.checkPinCode(pinCodeValue);
+
                 return isValid;
             };
             self.validateMobileNo = function () {
@@ -783,12 +784,12 @@
             };
 
             self.submitCampaignLead = function (data, event) {
-                self.pincode($("#getPinCode").val().trim());
+
                 var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
 
                 if (isValidCustomer && self.mfgCampaignId() > 0) {
 
-                    if (self.pqId())
+                    if (!isNaN(self.pqId()) && self.pqId() && self.pqId() != "0")
                         self.generatePQ(data, event);
 
                     $('#processing').show();
@@ -801,7 +802,7 @@
                         "versionId": self.versionId(),
                         "cityId": self.cityId(),
                         "leadSourceId": self.leadSourceId(),
-                        "PinCode": self.pincode(),
+                        "pinCode": self.pincode() || 0,
                         "deviceId": getCookie('BWC'),
                         "campaignId": self.mfgCampaignId(),
                         "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id')
@@ -919,12 +920,12 @@
                 }).autocomplete({ appendTo: $("#getPinCode").closest(".input-box") }).autocomplete("widget").addClass("pincode-autocomplete");
             };
 
-            self.checkPinCode = function () {
+            self.checkPinCode = function (pinCode) {
                 isValid = false;
                 $.ajax({
                     async: false,
                     type: "GET",
-                    url: "/api/autosuggest/?source=4&inputText=" + self.pincode() + "&noofrecords=5",
+                    url: "/api/autosuggest/?source=4&inputText=" + pinCode + "&noofrecords=5",
                     contentType: "application/json",
                     dataType: "json",
                     success: function (data) {

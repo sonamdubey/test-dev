@@ -10,7 +10,7 @@
         isAd300x250Shown = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl  %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <style>
         .map-box {width: 290px;height: 90px;}
         .inr-sm { width:8px; height:12px; background-position:-110px -468px; }
@@ -283,7 +283,7 @@
                 </div>
                 <h3>Terms and conditions</h3>
                 <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                    <img class="lazy" data-original="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
+                    <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
                 </div>
                 <div id="terms" class="breakup-text-container padding-bottom10 font14">
                 </div>

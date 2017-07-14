@@ -1,9 +1,10 @@
 // JavaScript Document
 var focusedMakeModel = null, focusedCity = null, isMakeModelRedirected = false;
-var objBikes = new Object(), objCity = new Object(),globalCityId = 0,_makeName = '',ga_pg_id = '0',pqSourceId = "37";
+var objBikes = new Object(), objCity = new Object(), globalCityId = 0, _makeName = '', ga_pg_id = '0', pqSourceId = "37";
 var IsPriceQuoteLinkClicked = false, _target = 3, popup, recentSearches;
 var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
+var bw_ObjContest;
 
 /* landing page header */
 var transparentHeader = document.querySelectorAll('.header-transparent')[0];
@@ -11,6 +12,8 @@ var transparentHeader = document.querySelectorAll('.header-transparent')[0];
 if (transparentHeader) {
     attachListener('scroll', window, changeHeaderBackground);
 }
+
+
 
 //fallback for indexOf for IE7
 if (!Array.prototype.indexOf) {
@@ -345,7 +348,7 @@ function SetCookieInDays(cookieName, cookieValue, nDays) {
     else
         document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
 
-   bwcache.remove("userchangedlocation", true);
+    bwcache.remove("userchangedlocation", true);
 }
 
 function getCookie(key) {
@@ -766,14 +769,93 @@ docReady(function () {
         $(this).find("img.lazy").trigger("imgLazyLoad");
         $(this).find("div.lazy").trigger("divLazyLoad");
     });
-   
-        if ($(window).width() < 996 && $(window).width() > 790)
-            $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
-  
+
+    if ($(window).width() < 996 && $(window).width() > 790)
+        $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
+
 
 });
 
 docReady(function () {
+    bw_ObjContest = bwcache.get("showContestSlug", true);
+
+    if (!bw_ObjContest) {
+        bw_ObjContest = {}
+        bw_ObjContest.visited = [];
+        bw_ObjContest.visible = true;
+        bw_ObjContest.count = 0;
+
+    }
+    var contestSlug = function () {
+        var self = this;
+        // function for bike contest 
+       self.init= function () {
+            try {
+                var url = window.location.pathname;
+                if (bw_ObjContest) {
+                    if (bw_ObjContest.count < 3) {
+
+                        if (bw_ObjContest.visited.indexOf(url) == -1) {
+                            bw_ObjContest.visited.push(url);
+                            bw_ObjContest.count++;
+                        }
+
+                        bwcache.set("showContestSlug", bw_ObjContest, true);
+                    }
+                    if (bw_ObjContest.visible && bw_ObjContest.count >= 3) {
+                        if (!document.getElementsByTagName("BODY")[0].getAttribute("data-contestslug")) {
+                            $('#bg-footer').before("<div id='contestSlideInSlug' class='review-contest-slidein-slug'><span id='contestSlideInCloseBtn' class='bwsprite slidein-slug__close-icon'></span><span class='slidein-slug__trophy-icon'></span><a href='/bike-review-contest/?csrc=12' class='slidein-slug__target bw-ga' c='Other' a='Contest_Slug_Clicked_Participate_CTA' l='If a user clicked on participate CTA'><span class='slidein-slug__target-title'>Bike Review Contest</span><span class='btn slidein-slug__target-btn'>Participate<span class='bwsprite slidein-slug__btn-arrow'></span></span></a></div>")
+                        }
+                        triggerGA("Other", "Contest_Slug_Appeared", "Whenever the slug appears");
+
+                    }
+                }
+            } catch (e) {
+
+            }
+        };
+
+    }
+    var vmContestSlug = new contestSlug();
+
+    (vmContestSlug.init());
+    
+    // review contest slide-in slug
+    var contestSlideInSlug = $('#contestSlideInSlug');
+
+    if (contestSlideInSlug.length > 0) {
+        attachListener('scroll', window, positionContestSlug);
+        contestSlideInSlug.addClass('slidein-slug--visible');
+    }
+
+    function positionContestSlug() {
+        if ($(window).scrollTop() > 600) {
+            if (!contestSlideInSlug.hasClass('slug--position-absolute')) {
+                contestSlideInSlug.addClass('slug--position-absolute');
+                contestSlideInSlug.css({
+                    'top': $(window).scrollTop() + contestSlideInSlug.offset().top
+                });
+            }
+        }
+        else {
+            if (contestSlideInSlug.hasClass('slug--position-absolute')) {
+                contestSlideInSlug.removeClass('slug--position-absolute');
+                contestSlideInSlug.css({
+                    'top': '30%'
+                });
+            }
+        }
+    }
+
+    $('#contestSlideInCloseBtn').on('click', function () {
+        contestSlideInSlug.removeClass('slidein-slug--visible');
+        bw_ObjContest.visible = false;
+        bwcache.set("showContestSlug", bw_ObjContest, true);
+        triggerGA("Other", "Contest_Slug_Clicked_On_Cross", "If a user clicked on cross")
+        setTimeout(function () {
+            contestSlideInSlug.remove();
+        }, 500);
+    });
 
 
     $.fn.hint = bwHint;
@@ -883,7 +965,7 @@ docReady(function () {
         click: function (event, ui, orgTxt) {
             var keywrd = ui.item.label + '_' + $('#globalSearch').val();
             var category = GetCatForNav();
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });   
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
             MakeModelRedirection(ui.item);
             isMakeModelRedirected = true;
         },
@@ -967,14 +1049,14 @@ docReady(function () {
         }
     })
         .keydown(function (e) {
-        if (e.keyCode == 13) {
-            if (!isMakeModelRedirected)
-                $('#btnGlobalSearch').click();
-            else
-                isMakeModelRedirected = false;
-        }
+            if (e.keyCode == 13) {
+                if (!isMakeModelRedirected)
+                    $('#btnGlobalSearch').click();
+                else
+                    isMakeModelRedirected = false;
+            }
 
-    });
+        });
     /* bikes search ends autocomplete */
 
     /* recent searches code starts here */
@@ -1512,20 +1594,20 @@ docReady(function () {
         viewMoreBtn.removeClass('active').find('.btn-label').text('View more brands');
     });
 
-// read more - collapse
-$(document).on('click', '.read-more-target', function () {
-    var element = $(this),
-        parentElemtent = element.closest('.collapsible-content');
+    // read more - collapse
+    $(document).on('click', '.read-more-target', function () {
+        var element = $(this),
+            parentElemtent = element.closest('.collapsible-content');
 
-    if (!parentElemtent.hasClass('active')) {
-        parentElemtent.addClass('active');
-        element.text(' Collapse');
-    }
-    else {
-        parentElemtent.removeClass('active');
-        element.text('...Read more');
-    }
-});
+        if (!parentElemtent.hasClass('active')) {
+            parentElemtent.addClass('active');
+            element.text(' Collapse');
+        }
+        else {
+            parentElemtent.removeClass('active');
+            element.text('...Read more');
+        }
+    });
 
 
     $(".modelurl").click(function () {

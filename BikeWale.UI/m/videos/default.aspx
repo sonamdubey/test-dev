@@ -13,7 +13,7 @@
         canonical = "https://www.bikewale.com/bike-videos/";
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-     <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/css/videos/bwm-videos-landing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+     <link href="<%= staticUrl  %>/m/css/videos/bwm-videos-landing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
 </head>
 <body class="bg-light-grey page-type-landing">

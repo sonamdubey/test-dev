@@ -84,7 +84,7 @@ docReady(function () {
 
     var $window = $(window),
         buttonWrapper = $('#pricequote-floating-button-wrapper'),
-        floatingButton = buttonWrapper.find('.float-button'),
+        floatButton = buttonWrapper.find('.float-button'),
         windowHeight,
         body = $('body');
 
@@ -174,15 +174,44 @@ docReady(function () {
             windowHeight = $(this).height() - 63;
 
             if (windowScrollTop + windowHeight > buttonWrapperTop) {
-                floatingButton.removeClass('float-fixed');
+                floatButton.removeClass('float-fixed');
                 body.addClass('floating-btn-inactive');
             }
             else {
-                floatingButton.addClass('float-fixed');
+                floatButton.addClass('float-fixed');
                 body.removeClass('floating-btn-inactive');
             }
         }
     });
+
+	//floating button
+	var floatingButton = document.querySelectorAll('.floating-btn')[0];
+
+	if (floatingButton) {
+		attachListener('scroll', window, toggleFloatingBtn);
+	}
+
+	function attachListener(event, element, functionName) {
+		if (element.addEventListener) {
+			element.addEventListener(event, functionName, false);
+		}
+		else if (element.attachEvent) {
+			element.attachEvent('on' + event, functionName);
+		}
+	};
+	
+	var	docWindowHeight = $(window).height();
+
+	function toggleFloatingBtn() {
+		var bodyHeight = $('body').height(),
+			footerHeight = $('footer').height(),
+			scrollPosition = $(window).scrollTop();
+
+		if (scrollPosition + docWindowHeight > (bodyHeight - footerHeight))
+			$(floatingButton).hide();
+		else
+			$(floatingButton).show();
+	}
 
     $(".leadcapturebtn").click(function (e) {
         ele = $(this);

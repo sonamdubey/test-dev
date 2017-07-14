@@ -1,5 +1,5 @@
 ﻿.trackday-banner {
-    background: #393a3e url(https://imgd2.aeplcdn.com/0x0/cw/es/trackday/2016/bw-trackday/landing-images/trackday-banner.jpg) no-repeat center bottom;
+    background: #393a3e url(https://imgd.aeplcdn.com/0x0/cw/es/trackday/2016/bw-trackday/landing-images/trackday-banner.jpg) no-repeat center bottom;
     height: 400px;
     padding-top: 1px
 }
@@ -75,7 +75,7 @@ h2.section-header {
 
 .bg-loader-placeholder {
     width: 100%;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center;
     line-height: 0;
 }
 
@@ -169,7 +169,7 @@ h2.section-header {
 .trackday-logo {
     width: 120px;
     height: 35px;
-    background: url('https://imgd3.aeplcdn.com/0x0/cw/es/trackday/2016/bwm-trackday/landing-images/trackday-logo.png') no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/cw/es/trackday/2016/bwm-trackday/landing-images/trackday-logo.png') no-repeat;
     display: inline-block;
     margin-bottom: 8px;
 }
@@ -320,7 +320,7 @@ h2.section-header {
 .carousel-stage-media li { float: left; width:976px; min-height:400px; }
 
 .gallery-photo-img-container { width:100%; display:table; text-align:center; }
-.gallery-photo-img-container span { display: table-cell; vertical-align: middle; width: 100%; background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center; }
+.gallery-photo-img-container span { display: table-cell; vertical-align: middle; width: 100%; background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center; }
 .gallery-photo-img-container img { width: 100%; }
 
 .carousel-navigation-media { width: 100%; background: none; padding-left:0; overflow: hidden; position: relative; margin-top: 10px; }
@@ -330,7 +330,7 @@ h2.section-header {
 .carousel-navigation-media img { border:1px solid rgba(34,34,34,0.1); }
 
 .gallery-photo-nav-img-container { display:table; width:130px; height:70px; text-align:center; }
-.gallery-photo-nav-img-container span { display:table-cell; width:130px; vertical-align:middle; background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center; position: relative;  }
+.gallery-photo-nav-img-container span { display:table-cell; width:130px; vertical-align:middle; background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center; position: relative;  }
 
 .carousel-navigation-media .active img { border:1px solid #2a2a2a; }
 

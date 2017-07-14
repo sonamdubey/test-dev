@@ -287,7 +287,7 @@
 
                                         <div style="text-align: center;">
                                             <div id="nobike" style="display: none;"  data-bind="visible : noBikes()">
-                                                <img src="https://imgd3.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">
+                                                <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">
                                             </div>
                                         </div>  
                                    <%-- </div>--%>
@@ -435,10 +435,10 @@
 
         <div id="loader-bg-window"></div>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <BW:UBLeadCapturePopup runat="server" ID="ctrlUBLeadCapturePopup"></BW:UBLeadCapturePopup>
         <!-- #include file="/includes/footerBW.aspx" -->
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl  %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
          <script type="text/javascript">
              var OnInitTotalBikes = <%= totalListing %>; 
@@ -446,7 +446,7 @@
              var selectedCityId = <%= cityId %>;selectedMakeId = "<%= makeId %>",selectedModelId = "<%= modelId %>";
              var usedPageIdentifier="<%=PageIdentifier%>";
         </script>
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty%>/src/used-search.js?<%= staticFileVersion%>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/src/used-search.js?<%= staticFileVersion%>"></script>
         <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>

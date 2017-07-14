@@ -27,7 +27,7 @@
 <%if (!String.IsNullOrEmpty(relPrevPageUrl)){ %> <link rel="prev" href="<%= relPrevPageUrl %>" /><% } %>
 <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %> <link rel="next" href="<%= relNextPageUrl %>" /><% }%>
 
-<link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
+<link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
 
 <link rel="stylesheet" type="text/css" href="/m/css/bwm-common-atf.css" />
 

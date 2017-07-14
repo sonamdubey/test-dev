@@ -147,7 +147,7 @@
                     <td><%= ++index %></td>   
                     <td >
                         <div class="image_wrapper">
-                            <img class="vs-image" src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png" /> 
+                            <img class="vs-image" src="https://imgd.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png" /> 
                             <img class="model-img-content" src="<%= BikeWaleOpr.ImagingOperations.GetPathToShowImages(bike.HostUrl1,"110x61",bike.OriginalImagePath1) %>" /> 
                             <img class="model-img-content"  src="<%= BikeWaleOpr.ImagingOperations.GetPathToShowImages(bike.HostUrl2,"110x61",bike.OriginalImagePath2) %>" /> 
                         </div>

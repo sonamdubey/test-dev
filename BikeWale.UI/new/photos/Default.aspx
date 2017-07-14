@@ -159,7 +159,7 @@
         <BW:SimilarBikeWithPhotos ID="ctrlSimilarBikesWithPhotos" runat="server" />
 
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
         <div id="gallery-root">
             <div class="gallery-container gallery-bg-overlay" style="display: none;" data-bind="visible: isGalleryActive()">
@@ -496,7 +496,7 @@
                                     <li>
                                         <div class="gallery-photo-img-container">
                                             <span>
-                                                <img class="lazy" data-bind="attr: { alt: ImageTitle, 'data-original': HostUrl + '/1056x594/' + OriginalImgPath }" src="https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="" border="0" />
+                                                <img class="lazy" data-bind="attr: { alt: ImageTitle, 'data-original': HostUrl + '/1056x594/' + OriginalImgPath }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="" border="0" />
                                             </span>
                                         </div>
                                     </li>
@@ -558,7 +558,7 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
 
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl  %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
             try{            
@@ -576,8 +576,8 @@
                 console.warn(e);
             }
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/swiper-3.1.7.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/src/swiper-3.1.7.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/src/photos.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript">            
             docReady(function () {
                 if(returnUrl.length > 0)
@@ -592,7 +592,7 @@
             });
         </script>
         <!--[if lt IE 10]>
-            <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/fallback-gallery.js?<%=staticFileVersion%>"></script>
+            <script type="text/javascript" src="<%= staticUrl %>/src/fallback-gallery.js?<%=staticFileVersion%>"></script>
         <![endif]-->
 
         <!-- #include file="/includes/fontBW.aspx" -->

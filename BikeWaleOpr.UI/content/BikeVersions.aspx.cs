@@ -113,6 +113,12 @@ namespace BikeWaleOpr.Content
             BindGrid();
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 9th July 2017
+        /// Description : Change input parametres as per carwale mysql master base conventions
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         string SaveData(string id)
         {
             string currentId = "-1";
@@ -146,12 +152,12 @@ namespace BikeWaleOpr.Content
                     if (currentId != "-1")
                     {
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("versionId", currentId);
-                        nvc.Add("ModelId", Request["cmbmodels"].ToString());
-                        nvc.Add("VersionName", txtVersion.Text.Trim());
-                        nvc.Add("IsNew", Convert.ToInt16(chkNew.Checked).ToString());
-                        nvc.Add("IsUsed", Convert.ToInt16(chkUsed.Checked).ToString());
-                        nvc.Add("Isfuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
+                        nvc.Add("v_versionId", currentId);
+                        nvc.Add("v_ModelId", Request["cmbmodels"].ToString());
+                        nvc.Add("v_VersionName", txtVersion.Text.Trim());
+                        nvc.Add("v_IsNew", Convert.ToInt16(chkNew.Checked).ToString());
+                        nvc.Add("v_IsUsed", Convert.ToInt16(chkUsed.Checked).ToString());
+                        nvc.Add("v_Isfuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
                         SyncBWData.PushToQueue("BW_AddBikeVersions", DataBaseName.CW, nvc);
                     }
                 }
@@ -217,6 +223,12 @@ namespace BikeWaleOpr.Content
             btnSave.Enabled = false;
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 9th July 2017
+        /// Description : Change input parametres as per carwale mysql master base conventions
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
         {
             Page.Validate();
@@ -283,13 +295,13 @@ namespace BikeWaleOpr.Content
             {
                 MySqlDatabase.InsertQuery(sql, param, ConnectionType.MasterDatabase);
                 NameValueCollection nvc = new NameValueCollection();
-                nvc.Add("VersionId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
-                nvc.Add("VersionName", txt.Text.Trim().Replace("'", "''"));
-                nvc.Add("IsNew", Convert.ToInt16(chkNew1.Checked).ToString());
-                nvc.Add("IsUsed", Convert.ToInt16(chkUsed1.Checked).ToString());
-                nvc.Add("IsFuturistic", Convert.ToInt16(chkFuturistic1.Checked).ToString());
-                nvc.Add("ModelId", null);
-                nvc.Add("IsDeleted", null);
+                nvc.Add("v_VersionId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                nvc.Add("v_VersionName", txt.Text.Trim().Replace("'", "''"));
+                nvc.Add("v_IsNew", Convert.ToInt16(chkNew1.Checked).ToString());
+                nvc.Add("v_IsUsed", Convert.ToInt16(chkUsed1.Checked).ToString());
+                nvc.Add("v_IsFuturistic", Convert.ToInt16(chkFuturistic1.Checked).ToString());
+                nvc.Add("v_ModelId", null);
+                nvc.Add("v_IsDeleted", null);
                 SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CW, nvc);
 
                 var makeId = Request.Form["cmbMakes"];
@@ -317,6 +329,12 @@ namespace BikeWaleOpr.Content
             btnSave.Enabled = true;
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 9th July 2017
+        /// Description : Change input parametres as per carwale mysql master base conventions
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void dtgrdMembers_Delete(object sender, DataGridCommandEventArgs e)
         {
             string sql = string.Empty;
@@ -332,13 +350,13 @@ namespace BikeWaleOpr.Content
                 {
                     MySqlDatabase.InsertQuery(sql, ConnectionType.MasterDatabase);
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("VersionId", _versionId.ToString());
-                    nvc.Add("VersionName", null);
-                    nvc.Add("IsNew", null);
-                    nvc.Add("IsUsed", null);
-                    nvc.Add("IsFuturistic", null);
-                    nvc.Add("ModelId", null);
-                    nvc.Add("IsDeleted", "1");
+                    nvc.Add("v_VersionId", _versionId.ToString());
+                    nvc.Add("v_VersionName", null);
+                    nvc.Add("v_IsNew", null);
+                    nvc.Add("v_IsUsed", null);
+                    nvc.Add("v_IsFuturistic", null);
+                    nvc.Add("v_ModelId", null);
+                    nvc.Add("v_IsDeleted", "1");
                     SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CW, nvc);
                 }
 

@@ -13,7 +13,7 @@
         UsedBikes_Email= 9,
         Mobile_UserReviewContestPage = 10,
         Desktop_UserReviewContestPage = 11,
-        UsedBikes_Email_Duplicate= 12,
+        Desktop_review_popup= 12,
         Mobile_News=13,
         Desktop_News = 14,
         Mobile_ExpertReviews = 15,
