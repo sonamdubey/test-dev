@@ -98,7 +98,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsModelColorsAvailable { get { return (this.ModelPageEntity != null && this.ModelPageEntity.ModelColors != null && this.ModelPageEntity.ModelColors.Count() > 0); } }
         public bool IsUsedBikesAvailable { get { return (UsedModels != null && UsedModels.RecentUsedBikesList != null && UsedModels.RecentUsedBikesList.Count() > 0); } }
         public bool IsShowPriceTab { get; set; }
-        public bool IsUserReviewsAvailable { get { return UserReviews != null && UserReviews.UserReviews != null && UserReviews.ReviewsInfo != null && UserReviews.ReviewsInfo.TotalReviews > 0; } }
+        public bool IsUserReviewsAvailable { get { return UserReviews != null &&  UserReviews.UserReviews != null && UserReviews.ReviewsInfo != null && UserReviews.ReviewsInfo.TotalReviews > 0; } }
         public IEnumerable<ColorImageBaseEntity> ColorImages { get { return AreModelPhotosAvailable ? ModelPageEntity.AllPhotos.Where(x => x.ColorId > 0) : null; } }
 
         #endregion

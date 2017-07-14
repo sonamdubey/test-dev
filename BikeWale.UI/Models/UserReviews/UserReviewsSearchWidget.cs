@@ -92,6 +92,7 @@ namespace Bikewale.Models.UserReviews
             objData.ActiveReviewCategory = ActiveReviewCateory;
 
             objData.UserReviews = _userReviewsSearch.GetUserReviewsListDesktop(_filters);
+            objData.ObjQuestionValue = _userReviewsCacheRepo.GetReviewQuestionValuesByModel(_modelId);
 
             if (objData.UserReviews != null)
             {
