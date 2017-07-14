@@ -3,6 +3,8 @@
 @using Bikewale.Utility;
 @if (Model != null && Model.ObjQuestionValue != null && Model.ObjQuestionValue.QuestionsList != null)
 {
+    if (Model.ObjQuestionValue.QuestionsList.Count() > 0)
+    {
 <ul class="rating-circle-list">
   @foreach (var obj in Model.ObjQuestionValue.QuestionsList)
   {
@@ -15,6 +17,7 @@
     </li>
   }
 </ul>
+    }
 }
 <ul class="user-review-list">
 @foreach (UserReviewSummary review in Model.UserReviews.ResultDesktop)
@@ -27,7 +30,7 @@
                     <span>4</span>
                 </span>
                 <div class="grid-10-inline font15 text-black text-bold text-truncate">
-                    <span class="review-title position-rel">@review.OverallRating.Value</span>
+                    <span class="review-title position-rel">@review.Title</span>
                 </div>
             </div>
 
