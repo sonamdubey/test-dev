@@ -12,6 +12,8 @@ namespace Bikewale.Interfaces.UserReviews
     /// Description : Added GetUserReviewSummaryWithRating, GetUserReviewsIdMapping
     /// Modified By : Sushil Kumar on 7th May 2017
     /// Description : Added methods to get bike reviews by search query and bike reviews and ratings info
+    /// Modified by sajal gupta on 14-07-2017
+    /// Description : Added GetReviewQuestionValuesByModel
     /// </summary>
     public interface IUserReviewsCache
     {
@@ -25,6 +27,7 @@ namespace Bikewale.Interfaces.UserReviews
         IEnumerable<UserReviewSummary> GetUserReviewSummaryList(IEnumerable<uint> reviewIdList);
         BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);
         SearchResult GetUserReviewsList(InputFilters inputFilters, string searchQuery);
+        QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId);
 
     }
 }
