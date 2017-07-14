@@ -27,9 +27,6 @@
         </div>
     }
 
-
-   
-
     @if (Model.ModelPageEntity.ModelVersionSpecs != null)
     {
         @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures.cshtml", Model)
@@ -73,148 +70,372 @@
             <div class="clear"></div>
         </div>
                     }
-    <div class="content-box-shadow content-inner-block-20 card-bottom-margin">
-        <div class="leftfloat">
-            <span class="contest-fullwidth__trophy-circle"></span>
-            <p class="contest-fullwidth__heading">Bike Review Contest</p>
-            <p class="contest-fullwidth__subheading">Rate &amp; write a detailed review to win Amazon vouchers worth &#x20B9; 1,000</p>
-        </div>
-        <div class="rightfloat padding-top15">
-            <a href="/bike-review-contest/" class="btn btn-inv-teal contest-fullwidth__target">Participate &amp; win<span class="bwsprite teal-right"></span></a>
-        </div>
-        <div class="clear"></div>
-    </div>
-    @if (Model.IsUserReviewsAvailable)
+
+    @if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable)
     {
-        <div id="modelReviewsContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
-            <h2 class="font-bold padding-left10 margin-bottom20">@Model.BikeName User reviews</h2>
-            @Html.Partial("~/Views/UserReviews/_UserReviewsList.cshtml", Model.UserReviews)
-            <div class="padding-left10 view-all-btn-container">
-                <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
-            </div>
-        </div>
-    }
-    @if (Model.IsReviewsAvailable)
-    {
+        <div id="modelReviewsContent" class="bw-model-tabs-data font14">
 
-        <div id="modelReviewsContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
-
-            <!-- expert review starts-->
-            <h2 class="font-bold padding-left10 margin-bottom20">@Model.BikeName Expert Reviews</h2>
-            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
-
-            <div class="padding-left10 more-article-target view-all-btn-container">
-                <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
-            </div>
-
-        </div>
-    }
-    @if (Model.IsNewsAvailable)
+            @if (Model.IsUserReviewsAvailable)
             {
-        <div id="modelReviewsContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
-
-            <!-- News widget starts -->
-            <div id="modelNewsContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 font14">
-                <h2 class="font-bold margin-bottom20">@Model.BikeName @Model.News.Title</h2>
-                @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
-                <div class="more-article-target view-all-btn-container">
-                    <a href="@Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking)" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : (!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Bikes News"))"
-                       class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
-                </div>
-            </div>
-            <!-- News widget ends -->
-            
-        </div>
-    }
-
-            @if (Model.IsVideosAvailable)
-            {
-                <div id="modelVideosContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
-                    <!-- Video start -->
-                    <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Videos</h2>
-                    @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
-                    <div class="padding-left10 more-article-target view-all-btn-container">
-                        <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="View_all_videos_link_cliked" v="@Model.BikeName">View all videos<span class="bwsprite teal-right"></span></a>
+                <div class="content-box-shadow card-bottom-margin content-inner-block-20">
+                    <h2 class="h2-heading inline-block margin-right10">@Model.BikeName User Reviews</h2>
+                    <div class="model-overall-rating inline-block">
+                        <span class="rate-count-4">
+                            <span class="bwsprite star-icon star-size-18"></span>
+                            <span class="font18 text-bold">4</span>
+                        </span>
+                        <span class="font14 text-xt-light review-left-divider">23 ratings</span>
+                        <span class="font14 text-xt-light review-left-divider">23 reviews</span>
                     </div>
-                    <!-- Video ends -->
-                </div>
-            }
 
-            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_970x90.cshtml", new { AdId = Model.AdTags.AdId });}
-
-            @if (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable || Model.IsDealersServiceCenterAvailable)
-            {
-                <div id="dealerAndServiceContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin padding-top20 carousel-heading-10">
-                    @if (Model.CityId > 0)
-                    {
-                        <h2 class="h2-heading padding-left20 margin-bottom10">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName @((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) ? "Showrooms & Service Centers" : Model.IsOtherDealersAvailable ? "Showrooms" : "Service Centers")</h2>
-
-                        if (Model.IsOtherDealersAvailable)
-                        {
-                            <div id="makeDealersContent" class="font14">
-                                <div class="carousel-heading-content">
-                                    <div class="swiper-heading-left-grid inline-block">
-                                        <h3 class="font-bold">Showrooms in @(Model.OtherDealers != null ? Model.OtherDealers.CityName : "India")</h3>
-                                    </div>
-                                    <div class="swiper-heading-right-grid inline-block text-right">
-                                        <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-dealer-showrooms-in-@Model.OtherDealers.CityMaskingName/" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.OtherDealers.CityName" class="btn view-all-target-btn">View all</a>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.OtherDealers)
+                    <ul class="rating-circle-list overall-circle-list">
+                        <li>
+                            <div class="rating-circle circle-rate-4">
+                                <p class="circle-label">4</p>
+                                <span class="rating-progress">
+                                </span>
                             </div>
-                        }
-
-                        if (Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable && Model.CityId > 0)
-                        {
-                            <div class="margin-right20 margin-left20 border-solid-bottom"></div>
-                        }
-
-                        if (Model.IsServiceCentersAvailable && Model.CityId > 0)
-                        {
-                            <div class="carousel-heading-content padding-top20">
-                                <div class="swiper-heading-left-grid inline-block">
-                                    <h3 class="font-bold">@(string.Format("Service centers in {0}", (!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : "India")))</h3>
-                                </div>
-                                <div class="swiper-heading-right-grid inline-block text-right">
-                                    <a href="@string.Format("/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ServiceCenters.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, (!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : "India"))" class="btn view-all-target-btn">View all</a>
-                                </div>
+                            <p class="list-item-label">Visual Appeal</p>
+                        </li>
+                        <li>
+                            <div class="rating-circle circle-rate-2">
+                                <p class="circle-label">2</p>
+                                <span class="rating-progress">
+                                </span>
                             </div>
-                            <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
-                                <div class="swiper-wrapper">
-                                    @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.ServiceCenters)
+                            <p class="list-item-label">Handling</p>
+                        </li>
+                        <li>
+                            <div class="rating-circle circle-rate-5">
+                                <p class="circle-label">5</p>
+                                <span class="rating-progress">
+                                </span>
+                            </div>
+                            <p class="list-item-label">Ride quality</p>
+                        </li>
+                    </ul>
+                    <ul class="user-review-list">
+                        <li class="list-item">
+                            <div class="item-grid alpha padding-right20 grid-9 border-light-right">
+                                <div class="margin-bottom10">
+                                    <span class="rating-badge" data-rate-bg="4">
+                                        <span class="bwsprite star-white"></span>
+                                        &nbsp;<span data-bind="text: value">4</span>
+                                    </span>
+
+                                    <a href="" class="list-item-title inline-block margin-right5">Value for money...worth !</a>
+                                    <span class="font12 inline-block text-light-grey">3 years ago by Chetan</span>
                                 </div>
+                                <div class="collapsible-content toggle-off main-content-off margin-bottom10 font14 text-slate-grey">
+                                    <div class="main-content">
+                                        <p>Style Very good style as compare to Unicorn People turns heads to view it in traffic its personal choice but Attractive colors White is best Sporty look Engine Perfo</p>
+                                    </div>
+                                    <div class="more-content">
+                                        <div>
+                                            <p>Style Very good style as compare to Unicorn People turns heads to view it in traffic its personal choice but Attractive colors White is best Sporty look Engine Perfo</p>
+                                        </div>
+
+                                        <ul class="rating-circle-list">
+                                            <li>
+                                                <div class="rating-circle circle-rate-4">
+                                                    <p class="circle-label">4</p>
+                                                    <span class="rating-progress">
+                                                    </span>
+                                                </div>
+                                                <p class="list-item-label">Visual Appeal</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                                </div>
+
+                                <button type="button" class="btn btn-inv-teal-group margin-right10 upvoteListButton">
+                                    <span class="btn-label-grid">
+                                        <span class="bwsprite like-sm"></span>
+                                    </span><span class="btn-count">362</span>
+                                </button>
+
+                                <button type="button" class="btn btn-inv-teal-group downvoteListButton">
+                                    <span class="btn-label-grid">
+                                        <span class="bwsprite dislike-sm"></span>
+                                    </span><span class="btn-count">83</span>
+                                </button>
+
+                                <p class="report-abuse-label rightfloat line-height26">Inappropriate review? <a href="javascript:void(0)" rel="nofollow">Report Abuse</a></p>
                                 <div class="clear"></div>
                             </div>
-                        }
-                    }
-                    else
-                    {
-                        if (Model.IsDealersServiceCenterAvailable)
-                        {
-                            <div class="padding-bottom20">
-                                <h2 class="h2-heading padding-left20 margin-bottom20">@String.Format("{0} {1} {2} {3}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0) ? "Showrooms" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "&" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "Service Centers" : ""))</h2>
-                                @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
+                            <div class="grid-3 omega padding-left20">
+                                <ul>
+                                    <li class="margin-bottom10">
+                                        <span class="bwsprite questionId-1"></span>
+                                        <div class="inline-block">
+                                            <p class="font10 text-xt-light">Used it for</p>
+                                            <p class="font14 text-slate-grey">Daily Commute</p>
+                                        </div>
+                                    </li>
+                                    <li class="margin-bottom10">
+                                        <span class="bwsprite questionId-2"></span>
+                                        <div class="inline-block">
+                                            <p class="font10 text-xt-light">Owned for</p>
+                                            <p class="font14 text-slate-grey">3-6 months</p>
+                                        </div>
+                                    </li>
+                                    <li class="margin-bottom10">
+                                        <span class="bwsprite questionId-3"></span>
+                                        <div class="inline-block">
+                                            <p class="font10 text-xt-light">Ridden for</p>
+                                            <p class="font14 text-slate-grey">< 5000 kms</p>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
-                        }
-                    }
-                </div>
-            }
-            <!-- Used bikes widget -->
-            @if (Model.IsUsedBikesAvailable)
-            {
-                <div id="makeUsedBikeContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
-                    <h2 class="h2-heading padding-left10 padding-right10 margin-bottom20">Used @Model.BikeName bikes in @(Model.City != null ? Model.City.CityName : "India")</h2>
-                    @Html.Partial("~/Views/Used/_UsedBikesByModelCity.cshtml", Model.UsedModels)
-                    <div class="clear"></div>
-                    <div class="padding-left10 view-all-btn-container">
-                        <a title="@Model.BikeName Used Bikes in @(Model.City!=null ? Model.City.CityName :"India")" href="@Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Model.CityId, (Model.City!=null ? Model.City.CityMaskingName :"india"), Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
+                            <div class="clear"></div>
+                        </li>
+                        <li class="list-item">
+                            <div class="item-grid alpha padding-right20 grid-9 border-light-right">
+                                <div class="margin-bottom10">
+                                    <span class="rating-badge" data-rate-bg="4">
+                                        <span class="bwsprite star-white"></span>
+                                        &nbsp;<span data-bind="text: value">4</span>
+                                    </span>
+
+                                    <a href="" class="list-item-title inline-block margin-right5">Value for money...worth !</a>
+                                    <span class="font12 inline-block text-light-grey">3 years ago by Chetan</span>
+                                </div>
+                                <div class="collapsible-content toggle-off main-content-off margin-bottom10 font14 text-slate-grey">
+                                    <div class="main-content">
+                                        Style Very good style as compare to Unicorn People turns heads to view it in traffic its personal choice but Attractive colors White is best Sporty look Engine Perfo. Style Very good style as compare to Unicorn People turns heads to view it in traffic its personal choice but Attractive colors White is best Sporty look Engine Perfo
+                                    </div>
+                                    <div class="more-content">
+                                        <div>
+                                            <p>Style Very good style as compare to Unicorn People turns heads to view it in traffic its personal choice but Attractive colors White is best Sporty look Engine Perfo</p>
+                                        </div>
+
+                                        <ul class="rating-circle-list">
+                                            <li>
+                                                <div class="rating-circle circle-rate-4">
+                                                    <p class="circle-label">4</p>
+                                                    <span class="rating-progress">
+                                                    </span>
+                                                </div>
+                                                <p class="list-item-label">Visual Appeal</p>
+                                            </li>
+                                            <li>
+                                                <div class="rating-circle circle-rate-2">
+                                                    <p class="circle-label">2</p>
+                                                    <span class="rating-progress">
+                                                    </span>
+                                                </div>
+                                                <p class="list-item-label">Handling</p>
+                                            </li>
+                                            <li>
+                                                <div class="rating-circle circle-rate-5">
+                                                    <p class="circle-label">5</p>
+                                                    <span class="rating-progress">
+                                                    </span>
+                                                </div>
+                                                <p class="list-item-label">Ride quality</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                                </div>
+
+                                <button type="button" class="btn btn-inv-teal-group margin-right10 upvoteListButton">
+                                    <span class="btn-label-grid">
+                                        <span class="bwsprite like-sm"></span>
+                                    </span><span class="btn-count">362</span>
+                                </button>
+
+                                <button type="button" class="btn btn-inv-teal-group downvoteListButton">
+                                    <span class="btn-label-grid">
+                                        <span class="bwsprite dislike-sm"></span>
+                                    </span><span class="btn-count">83</span>
+                                </button>
+
+                                <p class="report-abuse-label rightfloat line-height26">Inappropriate review? <a href="javascript:void(0)" rel="nofollow">Report Abuse</a></p>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="grid-3 omega padding-left20">
+                                <ul>
+                                    <li class="margin-bottom10">
+                                        <span class="bwsprite questionId-1"></span>
+                                        <div class="inline-block">
+                                            <p class="font10 text-xt-light">Used it for</p>
+                                            <p class="font14 text-slate-grey">Daily Commute</p>
+                                        </div>
+                                    </li>
+                                    <li class="margin-bottom10">
+                                        <span class="bwsprite questionId-2"></span>
+                                        <div class="inline-block">
+                                            <p class="font10 text-xt-light">Owned for</p>
+                                            <p class="font14 text-slate-grey">3-6 months</p>
+                                        </div>
+                                    </li>
+                                    <li class="margin-bottom10">
+                                        <span class="bwsprite questionId-3"></span>
+                                        <div class="inline-block">
+                                            <p class="font10 text-xt-light">Ridden for</p>
+                                            <p class="font14 text-slate-grey">< 5000 kms</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                    </ul>
+                    <div class="more-article-target view-all-btn-container">
+                        <a title="" href="" class="btn view-all-target-btn">Read all user reviews<span class="bwsprite teal-right"></span></a>
                     </div>
                 </div>
 
-            }
-            <div id="overallSpecsDetailsFooter"></div>
+                <div id="report-abuse">
+                    <p class="font20 text-bold text-center margin-bottom20">Why do you want to report it abuse?</p>
+
+                    <span class="bwsprite report-abuse-close-btn"></span>
+
+                    <p class="margin-bottom10 font14">Comment</p>
+
+                    <textarea id="txtAbuseComments"></textarea>
+                    <span id="spnAbuseComments" class="error font12 text-red"></span>
+
+                    <div class="text-center margin-top10">
+                        <a id="btnReportReviewAbuse" onclick="reportAbuse()" class="btn btn-orange" rel="nofollow">Report</a>
+                    </div>
+                </div>
+                <div id="report-background"></div>}
+
+            @if (Model.IsReviewsAvailable)
+            {
+                <div class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin">
+                    @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
+                    {
+					<!-- expert review starts-->
+                        <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Expert Reviews</h2>
+                        @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+
+                        <div class="padding-left10 more-article-target view-all-btn-container">
+                            <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
+                        </div>
+					<!-- expert review ends-->
+                    }
+                </div>}
+
+            @*
+                @if (Model.IsUserReviewsAvailable)
+                {
+                    <h3 class="font-bold padding-left10 margin-bottom20">User reviews</h3>
+                    @Html.Partial("~/Views/UserReviews/_UserReviewsList.cshtml", Model.UserReviews);
+                    <div class="padding-left10 view-all-btn-container">
+                        <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
+                    </div>
+                }
+            *@
         </div>
+    }
+
+    @if (Model.IsNewsAvailable)
+    {
+	<!-- News widget starts -->
+        <div id="modelNewsContent" class="bw-model-tabs-data content-box-shadow content-inner-block-20 card-bottom-margin font14">
+            <h2 class="h2-heading margin-bottom20">@Model.BikeName News</h2>
+            @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+            <div class="more-article-target view-all-btn-container">
+                <a href="@Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking)" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : (!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Bikes News"))"
+                   class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
+            </div>
+        </div>
+	<!-- News widget ends -->
+    }
+
+    @if (Model.IsVideosAvailable)
+    {
+        <div id="modelVideosContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
+            <!-- Video start -->
+            <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Videos</h2>
+            @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
+            <div class="padding-left10 more-article-target view-all-btn-container">
+                <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="View_all_videos_link_cliked" v="@Model.BikeName">View all videos<span class="bwsprite teal-right"></span></a>
+            </div>
+            <!-- Video ends -->
+        </div>
+    }
+
+    @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_970x90.cshtml", new { AdId = Model.AdTags.AdId });}
+
+    @if (Model.IsOtherDealersAvailable || Model.IsServiceCentersAvailable || Model.IsDealersServiceCenterAvailable)
+    {
+        <div id="dealerAndServiceContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin padding-top20 carousel-heading-10">
+            @if (Model.CityId > 0)
+            {
+                <h2 class="h2-heading padding-left20 margin-bottom10">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName @((Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable) ? "Showrooms & Service Centers" : Model.IsOtherDealersAvailable ? "Showrooms" : "Service Centers")</h2>
+
+                if (Model.IsOtherDealersAvailable)
+                {
+                    <div id="makeDealersContent" class="font14">
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h3 class="font-bold">Showrooms in @(Model.OtherDealers != null ? Model.OtherDealers.CityName : "India")</h3>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-dealer-showrooms-in-@Model.OtherDealers.CityMaskingName/" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.OtherDealers.CityName" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.OtherDealers)
+                    </div>
+                }
+
+                if (Model.IsOtherDealersAvailable && Model.IsServiceCentersAvailable && Model.CityId > 0)
+                {
+                    <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+                }
+
+                if (Model.IsServiceCentersAvailable && Model.CityId > 0)
+                {
+                    <div class="carousel-heading-content padding-top20">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h3 class="font-bold">@(string.Format("Service centers in {0}", (!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : "India")))</h3>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="@string.Format("/{0}-service-center-in-{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ServiceCenters.CityMaskingName)" title="@string.Format("{0} Service Centers in {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, (!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : "India"))" class="btn view-all-target-btn">View all</a>
+                        </div>
+                    </div>
+                    <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
+                        <div class="swiper-wrapper">
+                            @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.ServiceCenters)
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                }
+            }
+            else
+            {
+                if (Model.IsDealersServiceCenterAvailable)
+                {
+                    <div class="padding-bottom20">
+                        <h2 class="h2-heading padding-left20 margin-bottom20">@String.Format("{0} {1} {2} {3}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0) ? "Showrooms" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 && Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "&" : ""), ((Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0) ? "Service Centers" : ""))</h2>
+                        @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
+                    </div>
+                }
+            }
+        </div>
+    }
+    <!-- Used bikes widget -->
+    @if (Model.IsUsedBikesAvailable)
+    {
+        <div id="makeUsedBikeContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
+            <h2 class="h2-heading padding-left10 padding-right10 margin-bottom20">Used @Model.BikeName bikes in @(Model.City != null ? Model.City.CityName : "India")</h2>
+            @Html.Partial("~/Views/Used/_UsedBikesByModelCity.cshtml", Model.UsedModels)
+            <div class="clear"></div>
+            <div class="padding-left10 view-all-btn-container">
+                <a title="@Model.BikeName Used Bikes in @(Model.City!=null ? Model.City.CityName :"India")" href="@Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Model.CityId, (Model.City!=null ? Model.City.CityMaskingName :"india"), Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
+            </div>
+        </div>
+
+    }
+    <div id="overallSpecsDetailsFooter"></div>
+</div>
 <div class="clear"></div>
 
 @if (Model.objBestBikesList != null && Model.objBestBikesList.Count() > 0)
@@ -238,12 +459,9 @@
             <div class="clear"></div>
         </div>
     </section>
-
 }
-
 @if (Model.IsUpcomingBike && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)
 {
-
     <section>
         <div class="container">
             <div class="grid-12">
@@ -257,12 +475,10 @@
                         </div>
                     </div>
                     @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.objUpcomingBikes)
-                  
+
                 </div>
             </div>
             <div class="clear"></div>
         </div>
     </section>
 }
-
-
