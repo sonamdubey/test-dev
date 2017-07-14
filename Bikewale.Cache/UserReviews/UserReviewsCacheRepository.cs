@@ -178,6 +178,12 @@ namespace Bikewale.Cache.UserReviews
             return reviews;
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 14-07-2017
+        /// Description : Added caching logic for dal call GetReviewQuestionValuesByModel
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         public QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId)
         {
             QuestionsRatingValueByModel objRatingsList = null;
