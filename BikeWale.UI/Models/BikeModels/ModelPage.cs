@@ -73,12 +73,11 @@ namespace Bikewale.Models.BikeModels
 
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;        
-        private ModelPageVM objData = null;
+       
         private uint _modelId, _cityId, _areaId;
-        private PQOnRoadPrice pqOnRoad;
-        private uint totalUsedBikes = 0;
-        private int colorCount = 0;
-        private StringBuilder colorStr = new StringBuilder();
+       
+   
+       
 
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
@@ -364,7 +363,7 @@ namespace Bikewale.Models.BikeModels
                         GetBikeRankingCategory();
 
 
-                        BindUserReviewsWidget(objData);
+                        BindUserReviewsWidget(_objData);
 
 
                         if (_objData.BikeRanking != null)
