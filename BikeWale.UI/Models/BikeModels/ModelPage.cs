@@ -563,10 +563,10 @@ namespace Bikewale.Models.BikeModels
                     }
                     else
                     {
-                        _objData.PageMetaTags.Description = String.Format("{0} Price in India - Rs. {1}. Find {2} Reviews, Specs, Features, Mileage, On Road Price and Images at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric(_objData.BikePrice.ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
+                        _objData.PageMetaTags.Description = String.Format("{0} Price in India - Rs. {1}. Find {2} Images, Mileage, Reviews, Specs, Features and GST On Road Price at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric(_objData.BikePrice.ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
                     }
 
-                    _objData.PageMetaTags.Title = String.Format("{0} Price, Reviews, Spec, Images, Mileage, Colours | Bikewale", _objData.BikeName);
+                    _objData.PageMetaTags.Title = String.Format("{0} Price (GST Rates), Images, Colours, Mileage | BikeWale", _objData.BikeName);
 
                     _objData.PageMetaTags.CanonicalUrl = String.Format("{0}/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName);
 
