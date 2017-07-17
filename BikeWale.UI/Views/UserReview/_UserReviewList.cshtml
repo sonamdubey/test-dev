@@ -58,7 +58,7 @@
                             </ul>
                         }
                     </div>
-                    <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                    <a href="javascript:void(0)" class="read-more-target" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId">...Read more</a>
                 </div>
 
                 <button type="button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)" class="btn btn-inv-teal-group margin-right10 upvoteListButton">

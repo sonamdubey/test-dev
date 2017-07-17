@@ -792,3 +792,17 @@ var reportAbusePopup = {
         reportAbusePopup.bgContainer.hide();
     }
 };
+
+function updateView(e) {
+    try {
+        var reviewId = e.currentTarget.getAttribute("data-reviewid");
+        $.ajax({
+            type: "POST",
+            url: "/api/user-reviews/updateView/" + reviewId + "/",
+            success: function (response) {               
+            }
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
