@@ -59,9 +59,8 @@
                                             </div>
                                             <div class="collapsible-content toggle-off main-content-off margin-bottom10 font14 text-slate-grey">
                                                 <div class="main-content" data-bind="html: $data.shortDescription">
-                                                    @{ string truncated = (review.Description.TruncateHtml(270)); }
-                                                    @Html.Raw(truncated)
-                                                    <meta itemprop="description" content='@truncated' />
+                                                    @Html.Raw(review.Description.TruncateHtml(270))
+                                                    <meta itemprop="description" content="@Bikewale.Utility.FormatDescription.TruncateDescription(review.Description, 270)" />
                                                 </div>
                                                 <div class="more-content">
                                                     <span data-bind="html: $data.description">
