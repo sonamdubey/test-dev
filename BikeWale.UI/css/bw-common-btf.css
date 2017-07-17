@@ -1532,8 +1532,8 @@ input[type="number"] {
 	min-height: 90px;
 	padding: 10px;
 	background: #82888b;
-	position: absolute;
-	top: 28%;
+	position: fixed;
+	top: 38%;
 	right: -160px;
 	-webkit-transition: right .5s;
     -moz-transition: right .5s;
@@ -1595,5 +1595,9 @@ input[type="number"] {
 	position: relative;
 	top: 1px;
 	transform: scale(0.8);
+}
+
+.slug--position-absolute {
+	position: absolute;
 }
 /* review contest slidein slug end */
