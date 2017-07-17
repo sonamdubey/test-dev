@@ -63,9 +63,9 @@
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
                     </div>
-                    <div class="input-box form-control-box margin-bottom15" data-bind="visible : emailRequired() || !mfgCampaignId()">
+                    <div class="input-box form-control-box margin-bottom15" data-bind="visible : emailRequired() && (mfgCampaignId() > 0)">
                         <input type="email" id="getEmailID" data-bind="textInput: emailId">
-                        <label for="getEmailID" data-bind="html : !emailRequired() ? 'Email (optional)' :  'Email<sup>*</sup>'"></label>
+                        <label for="getEmailID">Email<sup>*</sup></label>
                         <span class="boundary"></span>
                         <span class="error-text hide"></span>
                     </div>
@@ -349,7 +349,7 @@
 
                     if (options.pinCodeRequired != null)
                         self.pinCodeRequired(options.pinCodeRequired != 'True' ? false : true);
-
+                    debugger;
                     if (options.emailRequired != null)
                         self.emailRequired(options.emailRequired != 'True' ? false : true);
 
@@ -1217,7 +1217,7 @@
 
     if (Model.CityId <= 0)
     {
-        <link href="@String.Format("{0}/m/css/leadcapture.css?{1}",(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : ""),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
+        <link href="@String.Format("{0}/m/css/leadcapture.css?{1}",Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
     }
 
 }

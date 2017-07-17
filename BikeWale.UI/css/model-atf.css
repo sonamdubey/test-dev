@@ -368,8 +368,8 @@
     border-bottom-color: #4d5057;
 }
 
-/* bw-group-flex */
-.bw-group-flex li {
+/* tabs-group */
+.tabs-group__list-item {
     font-size: 12px;
     color: #82888b;
     padding: 4px 15px 5px;
@@ -382,11 +382,15 @@
     user-select: none;
 }
 
-.bw-group-flex li:first-child {
+.tabs-group__list-item:first-child {
     border-right: 0;
 }
 
-.bw-group-flex li.active {
+.tabs-group__list-item .label-count {
+	display: none;
+}
+
+.tabs-group__list-item.active {
     color: #4d5057;
     background: #fff;
     font-weight: 600;
@@ -394,20 +398,12 @@
     pointer-events: none;
 }
 
-.toggle-btn-label li.active .label-count {
+.tabs-group__list-item.active .label-count {
     display: inline;
 }
 
-.toggle-btn-label li.active .label-overview {
+.tabs-group__list-item.active .label-overview {
     display: none;
-}
-
-.toggle-btn-label li.inactive .label-count {
-    display: none;
-}
-
-.toggle-btn-label li.inactive .label-overview {
-    display: inline;
 }
 
 /* Connected carousel */

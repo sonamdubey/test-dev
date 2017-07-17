@@ -118,6 +118,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// modified by : Sajal Gupta on 9-1-2017
         /// Description : Refreshed memcache popular bike makes key
+        /// Modified By : Sushil Kumar on 9th July 2017
+        /// Description : Change input parametres as per carwale mysql master base conventions
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="e"></param>
@@ -151,15 +153,15 @@ namespace BikeWaleOpr.Content
                     {
                         // Push Data to Carwale DB
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("modelId", _modelId.ToString());
-                        nvc.Add("MakeId", cmbMakes.SelectedValue);
-                        nvc.Add("ModelName", txtModel.Text.Trim().Replace("'", "''"));
-                        nvc.Add("ModelMaskingName", txtMaskingName.Text.Trim());
-                        nvc.Add("HostUrl", null);
-                        nvc.Add("OriginalImagePath", null);
-                        nvc.Add("New", "1");
-                        nvc.Add("Used", "1");
-                        nvc.Add("Futuristic", "0");
+                        nvc.Add("v_modelId", _modelId.ToString());
+                        nvc.Add("v_MakeId", cmbMakes.SelectedValue);
+                        nvc.Add("v_ModelName", txtModel.Text.Trim().Replace("'", "''"));
+                        nvc.Add("v_ModelMaskingName", txtMaskingName.Text.Trim());
+                        nvc.Add("v_HostUrl", null);
+                        nvc.Add("v_OriginalImagePath", null);
+                        nvc.Add("v_New", "1");
+                        nvc.Add("v_Used", "1");
+                        nvc.Add("v_Futuristic", "0");
 
                         SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
 
@@ -253,6 +255,12 @@ namespace BikeWaleOpr.Content
             btnSave.Enabled = false;
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 9th July 2017
+        /// Description : Change input parametres as per carwale mysql master base conventions
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
         {
             Page.Validate();
@@ -286,16 +294,16 @@ namespace BikeWaleOpr.Content
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("ModelName", txt.Text.Trim().Replace("'", "''"));
-                    nvc.Add("IsUsed", Convert.ToInt16(chkUsed1.Checked).ToString());
-                    nvc.Add("IsNew", Convert.ToInt16(chkNew1.Checked).ToString());
-                    nvc.Add("IsFuturistic", Convert.ToInt16(chkFuturistic1.Checked).ToString());
-                    nvc.Add("ModelId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
-                    nvc.Add("MakeId", null);
-                    nvc.Add("ModelMaskingName", null);
-                    nvc.Add("HostUrl", null);
-                    nvc.Add("OriginalImagePath", null);
-                    nvc.Add("IsDeleted", null);
+                    nvc.Add("v_ModelName", txt.Text.Trim().Replace("'", "''"));
+                    nvc.Add("v_IsUsed", Convert.ToInt16(chkUsed1.Checked).ToString());
+                    nvc.Add("v_IsNew", Convert.ToInt16(chkNew1.Checked).ToString());
+                    nvc.Add("v_IsFuturistic", Convert.ToInt16(chkFuturistic1.Checked).ToString());
+                    nvc.Add("v_ModelId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                    nvc.Add("v_MakeId", null);
+                    nvc.Add("v_ModelMaskingName", null);
+                    nvc.Add("v_HostUrl", null);
+                    nvc.Add("v_OriginalImagePath", null);
+                    nvc.Add("v_IsDeleted", null);
                     SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                 }
 

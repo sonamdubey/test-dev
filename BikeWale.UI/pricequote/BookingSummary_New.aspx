@@ -16,7 +16,7 @@
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl  %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
-<body class="header-fixed-inner">
+<body class="header-fixed-inner" data-contestslug="true">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <script type="text/javascript">$("#header").find(".leftfloat .navbarBtn").hide();$("#header").find(".rightfloat ").hide();</script>
