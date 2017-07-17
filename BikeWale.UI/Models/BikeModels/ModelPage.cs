@@ -72,8 +72,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IUpcoming _upcoming = null;
 
         private readonly IUserReviewsCache _userReviewsCache = null;
-        private readonly IUserReviewsSearch _userReviewsSearch = null;
-        private readonly Interfaces.IManufacturerCampaign _objManufacturerCampaign = null;
+        private readonly IUserReviewsSearch _userReviewsSearch = null;        
         private ModelPageVM objData = null;
         private uint _modelId, _cityId, _areaId;
         private PQOnRoadPrice pqOnRoad;
@@ -84,8 +83,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
 
-        private ModelPageVM _objData = null;
-        private uint _modelId, _cityId, _areaId;
+        private ModelPageVM _objData = null;       
         private PQOnRoadPrice _pqOnRoad;
         private StringBuilder _colorStr = new StringBuilder();
 
