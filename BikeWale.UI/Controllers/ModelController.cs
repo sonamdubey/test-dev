@@ -68,7 +68,14 @@ namespace Bikewale.Controllers
             _userReviewsCache = userReviewsCache;
             _objManufacturerCampaign = objManufacturerCampaign;
         }
-
+        /// <summary>
+        /// Modified by :- Subodh Jain on 17 july 2017
+        /// Summary added _userReviewsSearch, _userReviewsCache
+        /// </summary>
+        /// <param name="makeMasking"></param>
+        /// <param name="modelMasking"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
         // GET: Models
         [Route("model/{makeMasking}-bikes/{modelMasking}/"), Filters.DeviceDetection]
         public ActionResult Index(string makeMasking, string modelMasking, uint? versionId)
@@ -99,7 +106,14 @@ namespace Bikewale.Controllers
                 return Redirect("/pagenotfound.aspx");
             }
         }
-
+        /// <summary>
+        /// Modified by :- Subodh Jain on 17 july 2017
+        /// Summary added _userReviewsSearch, _userReviewsCache
+        /// </summary>
+        /// <param name="makeMasking"></param>
+        /// <param name="modelMasking"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
         [Route("m/model/{makeMasking}-bikes/{modelMasking}/")]
         public ActionResult Index_Mobile(string makeMasking, string modelMasking, uint? versionId)
         {

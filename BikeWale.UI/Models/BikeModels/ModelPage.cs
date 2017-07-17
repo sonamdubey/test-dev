@@ -353,7 +353,7 @@ namespace Bikewale.Models.BikeModels
 
                         GetBikeRankingCategory();
 
-                         BindUserReviewSWidget(objData);
+                        BindUserReviewsWidget(objData);
 
                         if (objData.BikeRanking != null)
                         {
@@ -393,7 +393,15 @@ namespace Bikewale.Models.BikeModels
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindControls");
             }
         }
-        public void BindUserReviewSWidget(ModelPageVM objPage)
+        /// <summary>
+        /// created by :- Subodh Jain on 17 july 2017
+        /// Summary added BindUserReviewSWidget
+        /// </summary>
+        /// <param name="makeMasking"></param>
+        /// <param name="modelMasking"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public void BindUserReviewsWidget(ModelPageVM objPage)
         {
             try
             {
