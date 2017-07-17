@@ -868,6 +868,8 @@ namespace Bikewale.DAL.UserReviews
         /// Summary     : Added sourceId parameter
         /// Modified by : Sajal Gupta on 05-07-2017
         /// Summary     : Changed SP
+        /// Modified by : Sajal Gupta on 17-07-2017
+        /// Summary     : Changed SP
         /// </summary>
         /// <param name="overAllrating"></param>
         /// <param name="ratingQuestionAns"></param>
@@ -925,6 +927,8 @@ namespace Bikewale.DAL.UserReviews
         /// Created By : Sushil Kumar on 16th April 2017
         /// Description : Save user reviews by user with comments and title
         /// Modified by : Sajal Gupta on 05-07-2017
+        /// Summary     : Changed SP
+        /// Modified by : Sajal Gupta on 17-07-2017
         /// Summary     : Changed SP
         /// </summary>
         /// <param name="reviewId"></param>
