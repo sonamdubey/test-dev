@@ -111,7 +111,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.ManufacturerCampai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.ManufacturerCampaign.DTO", "Bikewale.ManufacturerCampaign.DTO\Bikewale.ManufacturerCampaign.DTO.csproj", "{C30A7A1D-B81E-4B76-BDF4-408079173CBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "copyfiles", "..\..\copyfiles\copyfiles\copyfiles.csproj", "{A0B366DC-84E9-4C03-8E85-3CD880CF4B1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.ReleaseManagement", "..\..\copyfiles\copyfiles\Bikewale.ReleaseManagement.csproj", "{A0B366DC-84E9-4C03-8E85-3CD880CF4B1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
