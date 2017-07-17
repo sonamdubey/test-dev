@@ -159,17 +159,14 @@ namespace Bikewale.Cache.UserReviews
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId)
+        public BikeReviewsInfo GetBikeReviewsInfo(uint modelId)
         {
             BikeReviewsInfo reviews = null;
-            string key = "BW_BikeReviewsInfo_MO_" + modelId;
-
-            if (skipReviewId.HasValue)
-                key = key + "_RId" + skipReviewId.Value;
+            string key = "BW_BikeReviewsInfo_MO_" + modelId;            
 
             try
             {
-                reviews = _cache.GetFromCache<BikeReviewsInfo>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetBikeReviewsInfo(modelId, skipReviewId));
+                reviews = _cache.GetFromCache<BikeReviewsInfo>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetBikeReviewsInfo(modelId, 0));
             }
             catch (Exception ex)
             {
