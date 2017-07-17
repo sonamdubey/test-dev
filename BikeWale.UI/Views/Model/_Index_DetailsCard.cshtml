@@ -15,9 +15,9 @@
     @if (Model.AdTags.Ad_976x400_Middle)
     {
         <section>
-            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Middle.cshtml", new { AdId = "1495092203328"});}
+            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Middle.cshtml", new { AdId = "1495092203328" });}
         </section>
-    }
+                }
 
     @if (Model.IsSimilarBikesAvailable)
     {
@@ -26,19 +26,6 @@
             @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
         </div>
     }
-  
-       
-            <div class="content-box-shadow content-inner-block-20 card-bottom-margin">
-                <div class="leftfloat">
-                    <span class="contest-fullwidth__trophy-circle"></span>
-                    <p class="contest-fullwidth__heading">Bike Review Contest</p>
-                    <p class="contest-fullwidth__subheading">Rate &amp; write a detailed review to win Amazon vouchers worth &#x20B9; 1,000</p>
-                </div>
-                <div class="rightfloat padding-top15">
-                    <a href="/bike-review-contest/" class="btn btn-inv-teal contest-fullwidth__target">Participate &amp; win<span class="bwsprite teal-right"></span></a>
-                </div>
-                <div class="clear"></div>
-            </div>
 
     @if (Model.ModelPageEntity.ModelVersionSpecs != null)
     {
@@ -82,75 +69,92 @@
             </div>
             <div class="clear"></div>
         </div>
-    }
+                    }
 
-    @if (Model.IsReviewsAvailable || Model.IsNewsAvailable || Model.IsUserReviewsAvailable)
+    @if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable)
     {
-        <div id="modelReviewsContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
-
-            @if ((Model.IsReviewsAvailable || Model.IsUserReviewsAvailable) && Model.IsNewsAvailable)
-            {
-                <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Reviews & News</h2>
-            }
-            else
-            {
-                if (!Model.IsNewsAvailable)
-                {
-                    <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Reviews</h2>
-                }
-                else
-                {
-                    <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName News</h2>
-                }
-            }
-
-
-
-            @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
-            {
-            <!-- expert review starts-->
-                <h3 class="font-bold padding-left10 margin-bottom20">Expert Reviews</h3>
-                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
-
-                <div class="padding-left10 more-article-target view-all-btn-container">
-                    <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
-                </div>
-            <!-- expert review ends-->
-
-                if (Model.IsUserReviewsAvailable || Model.IsNewsAvailable)
-                {
-                    <div class="margin-top20 margin-right10 margin-bottom20 margin-left10 border-solid-top"></div>
-                }
-            }
+        <div id="modelReviewsContent" class="bw-model-tabs-data font14">
 
             @if (Model.IsUserReviewsAvailable)
             {
-                <h3 class="font-bold padding-left10 margin-bottom20">User reviews</h3>
-                @Html.Partial("~/Views/UserReviews/_UserReviewsList.cshtml", Model.UserReviews);
-                <div class="padding-left10 view-all-btn-container">
-                    <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
-                </div>
-                if (Model.IsNewsAvailable)
-                {
-                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
-                }
-            }
-
-            @if (Model.IsNewsAvailable)
-            {
-            <!-- News widget starts -->
-                <div id="modelNewsContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 font14">
-                    <h3 class="font-bold margin-bottom20">@Model.News.Title</h3>
-                    @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+                <div class="content-box-shadow card-bottom-margin content-inner-block-20">
+                    <h2 class="h2-heading inline-block margin-right10">@Model.BikeName User Reviews</h2>
+                    <div class="model-overall-rating inline-block">
+                        <span class="rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating))">
+                            <span class="bwsprite star-icon star-size-18"></span>
+                            <span class="font18 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span>
+                        </span>
+                        @if (Model.UserReviews.UserReviews.ResultDesktop != null)
+                        {
+                            <span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.ResultDesktop.FirstOrDefault().TotalRatings @string.Format("{0}", Model.UserReviews.UserReviews.ResultDesktop.FirstOrDefault().TotalRatings > 1 ? "ratings" : "rating")</span>
+                        }
+                        
+                        <span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.TotalCount @string.Format("{0}", Model.UserReviews.UserReviews.TotalCount > 1 ? "reviews" : "review")</span>
+                    </div>
+                    @Html.Partial("~/Views/UserReview/_UserReviewList.cshtml", Model.UserReviews)
                     <div class="more-article-target view-all-btn-container">
-                        <a href="@Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking)" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : (!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Bikes News"))"
-                           class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
+                        <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)"  class="btn view-all-target-btn">Read all user reviews<span class="bwsprite teal-right"></span></a>
                     </div>
-                    </div>
-                    <!-- News widget ends -->
-                    }
                 </div>
-            }
+
+                <div id="report-abuse">
+                    <p class="font20 text-bold text-center margin-bottom20">Why do you want to report it abuse?</p>
+
+                    <span class="bwsprite report-abuse-close-btn"></span>
+
+                    <p class="margin-bottom10 font14">Comment</p>
+
+                    <textarea id="txtAbuseComments"></textarea>
+                    <span id="spnAbuseComments" class="error font12 text-red"></span>
+
+                    <div class="text-center margin-top10">
+                        <a id="btnReportReviewAbuse" onclick="reportAbuse()" class="btn btn-orange" rel="nofollow">Report</a>
+                    </div>
+                </div>
+                <div id="report-background"></div>}
+
+            @if (Model.IsReviewsAvailable)
+            {
+                <div class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin">
+                    @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
+                    {
+					<!-- expert review starts-->
+                        <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Expert Reviews</h2>
+                        @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+
+                        <div class="padding-left10 more-article-target view-all-btn-container">
+                            <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="@Model.BikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
+                        </div>
+					<!-- expert review ends-->
+                    }
+                </div>}
+
+            @*
+                @if (Model.IsUserReviewsAvailable)
+                {
+                    <h3 class="font-bold padding-left10 margin-bottom20">User reviews</h3>
+                    @Html.Partial("~/Views/UserReviews/_UserReviewsList.cshtml", Model.UserReviews);
+                    <div class="padding-left10 view-all-btn-container">
+                        <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>
+                    </div>
+                }
+            *@
+        </div>
+    }
+
+    @if (Model.IsNewsAvailable)
+    {
+	<!-- News widget starts -->
+        <div id="modelNewsContent" class="bw-model-tabs-data content-box-shadow content-inner-block-20 card-bottom-margin font14">
+            <h2 class="h2-heading margin-bottom20">@Model.BikeName News</h2>
+            @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+            <div class="more-article-target view-all-btn-container">
+                <a href="@Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking)" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : (!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Bikes News"))"
+                   class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
+            </div>
+        </div>
+	<!-- News widget ends -->
+    }
 
     @if (Model.IsVideosAvailable)
     {
@@ -263,12 +267,9 @@
             <div class="clear"></div>
         </div>
     </section>
-
 }
-
 @if (Model.IsUpcomingBike && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)
 {
-
     <section>
         <div class="container">
             <div class="grid-12">
@@ -282,12 +283,10 @@
                         </div>
                     </div>
                     @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.objUpcomingBikes)
-                  
+
                 </div>
             </div>
             <div class="clear"></div>
         </div>
     </section>
 }
-
-

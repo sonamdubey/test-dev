@@ -178,8 +178,30 @@ namespace Bikewale.Cache.UserReviews
             return reviews;
         }
 
-        public BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId)
+        /// <summary>
+        /// Created by Sajal Gupta on 14-07-2017
+        /// Description : Added caching logic for dal call GetReviewQuestionValuesByModel
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId)
         {
+            QuestionsRatingValueByModel objRatingsList = null;
+            string key = "BW_ReviewQuestionsValue_MO_" + modelId;
+
+            try
+            {
+                objRatingsList = _cache.GetFromCache<QuestionsRatingValueByModel>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetReviewQuestionValuesByModel(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "UserReviewsCacheRepository.GetReviewQuestionValuesByModel");
+            }
+            return objRatingsList;
+        }
+
+        public BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId)
+        {            
             BikeRatingsReviewsInfo reviews = null;
             string key = "BW_BikeRatingsReviewsInfo_MO_V1_" + modelId;
             try

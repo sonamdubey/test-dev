@@ -6,7 +6,7 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.UserReviews;
+using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -81,7 +81,7 @@ namespace Bikewale.Models.BikeModels
         public PriceInCity.PriceInTopCitiesWidgetVM PriceInTopCities { get; set; }
         public System.Collections.Generic.ICollection<SimilarCompareBikeEntity> PopularComparisions { get; set; }
         public UsedBikeByModelCityVM UsedModels { get; set; }
-        public ReviewListBase UserReviews { get; set; }
+        public UserReviewsSearchVM UserReviews { get; set; }
 
         public bool AreModelPhotosAvailable { get { return (this.ModelPageEntity != null && ModelPageEntity.AllPhotos != null && this.ModelPageEntity.AllPhotos.Count() > 0); } }
         public bool IsNewsAvailable { get { return (News != null && News.FetchedCount > 0); } }
@@ -98,7 +98,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsModelColorsAvailable { get { return (this.ModelPageEntity != null && this.ModelPageEntity.ModelColors != null && this.ModelPageEntity.ModelColors.Count() > 0); } }
         public bool IsUsedBikesAvailable { get { return (UsedModels != null && UsedModels.RecentUsedBikesList != null && UsedModels.RecentUsedBikesList.Count() > 0); } }
         public bool IsShowPriceTab { get; set; }
-        public bool IsUserReviewsAvailable { get { return UserReviews != null && UserReviews.ReviewList != null && UserReviews.ReviewList.Count() > 0; } }
+        public bool IsUserReviewsAvailable { get { return UserReviews != null &&  UserReviews.UserReviews != null && UserReviews.ReviewsInfo != null && UserReviews.ReviewsInfo.TotalReviews > 0; } }
         public IEnumerable<ColorImageBaseEntity> ColorImages { get { return AreModelPhotosAvailable ? ModelPageEntity.AllPhotos.Where(x => x.ColorId > 0) : null; } }
 
         #endregion
