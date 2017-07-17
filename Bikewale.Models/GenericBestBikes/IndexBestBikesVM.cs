@@ -9,12 +9,7 @@ namespace Bikewale.Models
     /// </summary>
     public class IndexBestBikesVM : ModelBase
     {
-        public IndexBestBikesVM()
-        {
-            this.BestBikes = new BestBikeWidgetVM();
-        }
-
-        public IEnumerable<BestBikeEntityBase> objBestBikesList { get; set; }
+       public IEnumerable<BestBikeEntityBase> objBestBikesList { get; set; }
         public string PageMaskingName { get; set; }
         public string PageName { get; set; }
         public string Content { get; set; }
