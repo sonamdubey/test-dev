@@ -848,13 +848,10 @@ docReady(function () {
     }
 
     $('#contestSlideInCloseBtn').on('click', function () {
-        contestSlideInSlug.removeClass('slidein-slug--visible');
+        contestSlideInSlug.remove();
         bw_ObjContest.visible = false;
         bwcache.set("showContestSlug", bw_ObjContest, true);
         triggerGA("Other", "Contest_Slug_Clicked_On_Cross", "If a user clicked on cross")
-        setTimeout(function () {
-            contestSlideInSlug.remove();
-        }, 500);
     });
 
 
