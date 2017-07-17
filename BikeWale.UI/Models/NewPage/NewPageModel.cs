@@ -110,7 +110,7 @@ namespace Bikewale.Models
 
             BindCompareBikes(objVM, CompareSource, cityId);
           
-            objVM.BestBikes = new BestBikeWidgetModel(null).GetData();
+            objVM.BestBikes = new BestBikeWidgetModel(null, _cachedModels).GetData();
 
             objVM.News = new RecentNews(3, _articles).GetData();
 
