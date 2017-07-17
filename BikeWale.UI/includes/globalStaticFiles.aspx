@@ -8,7 +8,7 @@
 <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 <script type="text/javascript" src="<%= staticUrl  %>/src/BikeWaleCommon.js?v=1.2"></script>
 <script type="text/javascript" src="<%= staticUrl %>/src/common/bt.js?v1.1"></script>
-<!--[if IE]><script language="javascript" src="<%= staticUrlPath  %>/src/common/excanvas.js?v=1.0"></script><![endif]-->
+<!--[if IE]><script language="javascript" src="<%= staticUrl  %>/src/common/excanvas.js?v=1.0"></script><![endif]-->
 <!--[if IE 6]>
     <script src="https://stc.carwale.com/ie-png-fix.js?v=1.0"></script>
     <script>
