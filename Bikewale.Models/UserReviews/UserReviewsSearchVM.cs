@@ -21,5 +21,7 @@ namespace Bikewale.Models.UserReviews
             set { _IsPagerNeeded = value; }
         }
         public string WidgetHeading { get; set; }
+
+        public QuestionsRatingValueByModel ObjQuestionValue { get; set; }
     }
 }

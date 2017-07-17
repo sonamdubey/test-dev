@@ -203,8 +203,7 @@ namespace Bikewale.Models.UserReviews
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache, _userReviewsSearch);
                 if (objUserReviews != null)
                 {
-                    objUserReviews.ActiveReviewCateory = FilterBy.MostRecent;
-                    objUserReviews.SkipReviewId = _reviewId;
+                    objUserReviews.ActiveReviewCateory = FilterBy.MostRecent;                   
 
                     if (IsDesktop)
                         objPage.UserReviews = objUserReviews.GetDataDesktop();
@@ -215,6 +214,25 @@ namespace Bikewale.Models.UserReviews
                         objPage.UserReviews.WidgetHeading = string.Format("More reviews on {0}", objPage.UserReviewDetailsObj.Model.ModelName);
 
                     objPage.UserReviews.IsPagerNeeded = false;
+
+                    if(objPage.UserReviewDetailsObj != null && objPage.UserReviewDetailsObj.OverallRating != null && objPage.UserReviews != null && objPage.UserReviews.ReviewsInfo != null && objPage.UserReviews.ReviewsInfo.MostRecentReviews > 1)
+                    {
+                        objPage.UserReviews.ReviewsInfo.MostRecentReviews = objPage.UserReviews.ReviewsInfo.MostRecentReviews - 1;
+                        objPage.UserReviews.ReviewsInfo.MostHelpfulReviews = objPage.UserReviews.ReviewsInfo.MostHelpfulReviews - 1;
+
+                        if(objPage.UserReviewDetailsObj.OverallRating.Value == 3)
+                        {
+                            objPage.UserReviews.ReviewsInfo.NeutralReviews = objPage.UserReviews.ReviewsInfo.NeutralReviews - 1;
+                        }
+                        else if(objPage.UserReviewDetailsObj.OverallRating.Value > 3)
+                        {
+                            objPage.UserReviews.ReviewsInfo.PostiveReviews = objPage.UserReviews.ReviewsInfo.PostiveReviews - 1;
+                        }
+                        else
+                        {
+                            objPage.UserReviews.ReviewsInfo.NegativeReviews = objPage.UserReviews.ReviewsInfo.NegativeReviews - 1;
+                        }
+                    }
 
                 }
 

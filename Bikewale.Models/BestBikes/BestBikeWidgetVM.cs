@@ -1,5 +1,7 @@
 ﻿
 using Bikewale.Entities.GenericBikes;
+using System.Collections.Generic;
+
 namespace Bikewale.Models
 {
     /// <author>
@@ -10,5 +12,12 @@ namespace Bikewale.Models
     {
         public string Title { get; set; }
         public EnumBikeBodyStyles? CurrentPage { get; set; }
+        public string objBestBikesList { get; set; }
+        public string objBestScootersList { get; set; }
+        public string objBestSportsBikeList { get; set; }
+        public string objBestCruiserBikesList { get; set; }
+        public string objBestMileageBikesList { get; set; }
+
+
     }
 }

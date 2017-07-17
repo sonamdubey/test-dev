@@ -64,9 +64,9 @@
                                                     <meta itemprop="description" content='@truncated' />
                                                 </div>
                                                 <div class="more-content">
-                                                    <span data-bind="html: $data.description">
+                                                    <div data-bind="html: $data.description">
                                                         @Html.Raw(review.Description)
-                                                    </span>
+                                                    </div>
 
                                                     @if (review.Questions != null)
                                                     {
@@ -107,7 +107,7 @@
 
 
                                                 </div>
-                                                <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description" rel="nofollow">...Read more</a>
+                                                <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId">...Read more</a>
                                             </div>
 
                                             <button id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" type="button" onclick="upVoteListReview(event)" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" class="btn btn-inv-teal-group margin-right10 upvoteListButton ">
@@ -233,7 +233,7 @@
     <div id="report-abuse">
         <p class="font20 text-bold text-center margin-bottom20">Why do you want to report it abuse?</p>
 
-        <div class="report-abuse-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+        <span class="bwsprite report-abuse-close-btn"></span>
 
         <p class="margin-bottom10 font14">Comment</p>
 

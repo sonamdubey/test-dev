@@ -1,0 +1,118 @@
+﻿@model Bikewale.Models.UserReviews.UserReviewsSearchVM
+@using Bikewale.Entities.UserReviews;
+@using Bikewale.Utility;
+@if (Model != null&&Model.ObjQuestionValue!=null && Model.ObjQuestionValue.QuestionsList!=null)
+{<ul class="rating-circle-list overall-circle-list">
+        @foreach (var obj in Model.ObjQuestionValue.QuestionsList)
+        {
+            <li>
+                <div class="rating-circle circle-rate-@((int)obj.AverageRatingValue)">
+                    <p class="circle-label">@(obj.AverageRatingValue.ToString("0.0"))</p>
+                    <span class="rating-progress">
+                    </span>
+                </div>
+                <p class="list-item-label">@obj.QuestionHeading</p>
+            </li>
+        }
+    </ul> }
+
+<ul class="user-review-list">
+    @foreach (UserReviewSummary review in Model.UserReviews.ResultDesktop)
+    {
+        <li class="list-item">
+            <div class="item-grid alpha padding-right20  @(review.IsRatingQuestion ? "grid-9 border-light-right" : "grid-12")">
+                <div class="margin-bottom10">
+                    <span class="rating-badge" data-rate-bg="@review.OverallRating.Value">
+                        <span class="bwsprite star-white"></span>
+                        &nbsp;<span data-bind="text: value">@review.OverallRating.Value</span>
+                    </span>
+
+                    <a href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" class="list-item-title inline-block margin-right5">@FormatDescription.TruncateDescription(review.Title, 65)</a>
+                    <span class="font12 inline-block text-light-grey">@review.ReviewAge ago by @FormatDescription.TruncateDescription(review.CustomerName, 25)</span>
+                </div>
+                <div class="collapsible-content toggle-off main-content-off margin-bottom10 font14 text-slate-grey">
+                    <div class="main-content">
+                        <p>@Html.Raw(System.StrinHtmlHelpers.StripHtml(review.Description).TruncateHtml(270))</p>
+                    </div>
+                    <div class="more-content">
+                        <div>
+                            <p>@Html.Raw(review.Description)</p>
+                        </div>
+                        @if (review.Questions != null)
+                        {
+                            <ul class="rating-circle-list">
+                                @foreach (UserReviewQuestion ques in review.Questions)
+                                {
+                                    if (ques.Type == UserReviewQuestionType.Review)
+                                    {
+                                        <li>
+                                            <div class="rating-circle circle-rate-@ques.SelectedRatingId">
+                                                <p class="circle-label">@ques.SelectedRatingId</p>
+                                                <span class="rating-progress">
+                                                </span>
+                                            </div>
+                                            <p class="list-item-label">@ques.Heading</p>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        }
+                    </div>
+                    <a href="javascript:void(0)" class="read-more-target" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId">...Read more</a>
+                </div>
+
+                <button type="button" id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="upVoteListReview(event)" class="btn btn-inv-teal-group margin-right10 upvoteListButton">
+                    <span class="btn-label-grid">
+                        <span class="bwsprite like-sm"></span>
+                    </span><span class="btn-count" id="upvoteCount-@review.ReviewId">@review.UpVotes</span>
+                </button>
+
+                <button type="button" id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" onclick="downVoteListReview(event)" class="btn btn-inv-teal-group downvoteListButton">
+                    <span class="btn-label-grid">
+                        <span class="bwsprite dislike-sm"></span>
+                    </span><span id="downvoteCount-@review.ReviewId" class="btn-count">@review.DownVotes</span>
+                </button>
+
+                <p class="report-abuse-label rightfloat line-height26" id="pReport-@review.ReviewId">Inappropriate review? <a href="javascript:void(0)" data-reviewId="@review.ReviewId" onclick="reportReview(event)"  rel="nofollow">Report Abuse</a></p>
+                <div class="clear"></div>
+            </div>
+            <div class="grid-3 omega padding-left20">
+                @if (review.Questions != null)
+                {
+                    <ul>
+                        @foreach (UserReviewQuestion ques in review.Questions)
+                        {
+                            if (ques.Type == UserReviewQuestionType.Rating)
+                            {
+                                <li class="margin-bottom10">
+                                    <span class="bwsprite questionId-@ques.Id"></span>
+                                    <div class="inline-block">
+                                        <p class="font10 text-xt-light">@ques.MinHeading</p>
+                                        <p class="font14 text-slate-grey">@ques.SelectedRatingText</p>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                }
+            </div>
+            <div class="clear"></div>
+        </li>
+    }
+
+</ul>
+
+<div id="report-abuse">
+    <p class="font20 text-bold text-center margin-bottom20">Why do you want to report it abuse?</p>
+
+    <span class="bwsprite report-abuse-close-btn"></span>
+
+    <p class="margin-bottom10 font14">Comment</p>
+
+    <textarea id="txtAbuseComments"></textarea>
+    <span id="spnAbuseComments" class="error font12 text-red"></span>
+
+    <div class="text-center margin-top10">
+        <a id="btnReportReviewAbuse" onclick="reportAbuse()" class="btn btn-orange" rel="nofollow">Report</a>
+    </div>
+</div>

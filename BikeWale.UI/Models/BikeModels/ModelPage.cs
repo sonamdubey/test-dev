@@ -10,7 +10,11 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
+
+using Bikewale.Entities.UserReviews.Search;
+
 using Bikewale.Interfaces;
+
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -23,11 +27,13 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Models.Used;
+using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
 using Bikewale.Utility.GenericBikes;
 using System;
@@ -64,10 +70,19 @@ namespace Bikewale.Models.BikeModels
         private readonly IUserReviewsCache _userReviewCache;
         private readonly IUsedBikesCache _usedBikesCache;
         private readonly IUpcoming _upcoming = null;
+
+        private readonly IUserReviewsCache _userReviewsCache = null;
+        private readonly IUserReviewsSearch _userReviewsSearch = null;        
+       
+        private uint _modelId, _cityId, _areaId;
+       
+   
+       
+
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
-        private ModelPageVM _objData = null;
-        private uint _modelId, _cityId, _areaId;
+
+        private ModelPageVM _objData = null;       
         private PQOnRoadPrice _pqOnRoad;
         private StringBuilder _colorStr = new StringBuilder();
 
@@ -82,7 +97,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsMobile { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, Interfaces.IManufacturerCampaign objManufacturerCampaign)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, Interfaces.IManufacturerCampaign objManufacturerCampaign)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -104,6 +119,8 @@ namespace Bikewale.Models.BikeModels
             _userReviewCache = userReviewCache;
             _usedBikesCache = usedBikesCache;
             _objManufacturerCampaign = objManufacturerCampaign;
+            _userReviewsSearch = userReviewsSearch;
+            _userReviewsCache = userReviewsCache;
             ParseQueryString(makeMasking, modelMasking);
         }
 
@@ -345,7 +362,9 @@ namespace Bikewale.Models.BikeModels
 
                         GetBikeRankingCategory();
 
-                        _objData.UserReviews = BindUserReviews();
+
+                        BindUserReviewsWidget(_objData);
+
 
                         if (_objData.BikeRanking != null)
                         {
@@ -386,7 +405,44 @@ namespace Bikewale.Models.BikeModels
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindControls");
             }
         }
+        /// <summary>
+        /// created by :- Subodh Jain on 17 july 2017
+        /// Summary added BindUserReviewSWidget
+        /// </summary>
+        /// <param name="makeMasking"></param>
+        /// <param name="modelMasking"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public void BindUserReviewsWidget(ModelPageVM objPage)
+        {
+            try
+            {
+                InputFilters filters = null;
+               
+                    filters = new InputFilters()
+                    {
+                        Model = _modelId.ToString(),
+                        SO = 1,
+                        PN = 1,
+                        PS = 3,
+                        Reviews = true
+                        
+                    };
+                var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache, _userReviewsSearch);
+                if (objUserReviews != null)
+                {
+                    objUserReviews.ActiveReviewCateory = FilterBy.MostRecent;
+                        objPage.UserReviews = objUserReviews.GetDataDesktop();
 
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Model.BindUserReviewSWidget()"));
+            }
+        }
         /// <summary>
         /// Created By:- Subodh Jain 23 March 2017
         /// Summary:- Binding data for upcoming bike widget

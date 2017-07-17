@@ -76,6 +76,7 @@ namespace Bikewale.Models
                 SetPageContent(obj);
                 SetbannerImagePos(obj);
                 FetchBestBikesList(obj);
+                obj.BestBikes = new BestBikeWidgetModel(null, _objBestBikes).GetData();
                 obj.BestBikes.CurrentPage = BodyStyleType;
                 obj.Brands = new BrandWidgetModel(makeTopCount, _bikeMakes).GetData(BodyStyleType == EnumBikeBodyStyles.Scooter ? Entities.BikeData.EnumBikeType.Scooters : Entities.BikeData.EnumBikeType.New);
             }

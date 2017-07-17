@@ -71,6 +71,7 @@
                                             <span data-bind="CurrencyText: activeReviewList()[@i].disliked">@Format.FormatNumeric(review.Disliked.ToString())</span>
                                         </div>
                                     </div>
+
                                     <div class="grid-5 omega text-right" style="display: @(review.Viewed > 0 ? "block" : "none")" data-bind="visible: activeReviewList()[@i].viewed >
                                     0">
                                         <div class="item-views-grid">
@@ -83,6 +84,7 @@
                                     <meta itemprop="worstRating" content="1" />
                                     <meta itemprop="ratingValue" content="@review.OverAllRating.OverAllRating" />
                                     <meta itemprop="bestRating" content="5" />
+
                                 </div>
                             </div>
                         </li>
