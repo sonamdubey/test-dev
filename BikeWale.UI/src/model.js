@@ -150,11 +150,6 @@ docReady(function () {
         $('#adBlocker').show();
     };
 
-    // bw group flex tabs
-    $('.toggle-btn-label').on('click', 'li', function() {
-        $(this).removeClass('inactive').siblings().addClass('inactive');
-    });
-
     colourCarousel = $('#colourCarousel');
     carouselColorList = $('#model-color-list');
     var colorElements = carouselColorList.find('li');

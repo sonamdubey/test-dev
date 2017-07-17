@@ -25,7 +25,7 @@
     </script>
     
 </head>
-<body class="bg-light-grey header-fixed-inner">
+<body class="bg-light-grey header-fixed-inner" data-contestslug="true">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
 
