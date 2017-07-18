@@ -16,21 +16,21 @@
                         <div class="row">
                             <div class="input-field col m4">
                                 <select id="select-hori-pos-Desktop">
-                                    <option value="0" disabled selected>Horizontal Position</option>
+                                    <option value="0" disabled selected>Select Position</option>
                                     <option value="left">Left</option>
                                     <option value="center">Center</option>
                                     <option value="right">Right</option>
                                 </select>
-                                <label for="select-hori-pos-Desktop">Select Horizontal Position</label>
+                                <label for="select-hori-pos-Desktop">Background Horizontal Position</label>
                             </div>
                             <div class="input-field col m4">
                                 <select id="select-ver-pos-Desktop">
-                                    <option value="0" disabled selected>Vertical Position</option>
+                                    <option value="0" disabled selected>Select Position</option>
                                     <option value="top">Top</option>
                                     <option value="bottom">Bottom</option>
                                     <option value="center">Center</option>
                                 </select>
-                                <label for="select-ver-pos-Desktop">Select Vertical Position</label>
+                                <label for="select-ver-pos-Desktop">Background Vertical Position</label>
                             </div>
                             <div class="input-field col m4">
                                 <input id="txtBackgroundColorDesktop" type="text" class="validate" maxlength="100">
@@ -39,54 +39,36 @@
                         </div>
 
                         <div class="file-field input-field row">
-                            <div class="btn col m1">
-                                <span>File</span>
-                                <input type="file">
+                            <div class="btn col m4">
+                                <span>Select Background Image</span>
+                                <input type="file" />
                             </div>
-                            <div class="file-path-wrapper col m8">
+                            <div class="file-path-wrapper col m6">
                                 <input class="file-path validate" type="text">
                             </div>
                             <div class="btn col m2">
-                                <span>Upload</span>
+                                <span>Upload Image</span>
                             </div>
                         </div>                        
 
                         <div class="row">
-                            <div class="input-field col m6">
+                            <div class="input-field col m8">
                                 <input id="txtBannerTitleDesktop" type="text" class="validate" maxlength="100">
-                                <label for="txtBannerTitleDesktop">Banner Title *</label>
+                                <label for="txtBannerTitleDesktop">Banner Title*</label>
                             </div>
-
-                            <div class="input-field col m6">
+                            <div class="input-field col m4">
                                 <select id="select-button-pos-Desktop">
-                                    <option value="0" disabled selected>Button Position</option>
+                                    <option value="0" disabled selected>Select Position</option>
                                     <option value="left">Left</option>
                                     <option value="right">Right</option>
                                 </select>
-                                <label for="select-button-pos-Desktop">Select Button Position</label>
+                                <label for="select-button-pos-Desktop">Banner Position</label>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="input-field col m6">
-                                <input id="txtButtonDesktop" type="text" class="validate" maxlength="100">
-                                <label for="txtButtonDesktop">Button text *</label>
-                            </div>
-
-                            <div class="input-field col m6">
-                                <select id="select-button-color-Desktop">
-                                    <option value="0" disabled selected>Button Color</option>
-                                    <option value="orange">Orange</option>
-                                    <option value="transparent">Transparent</option>
-                                </select>
-                                <label for="select-button-color-Desktop">Select Button Color</label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col m6">
-                                <span>Button Type :</span>
+                            <div class="col m5 margin-top25">
+                                <label>Button Type :</label>
                                 <span>
                                     <input name="group1" type="radio" id="btnTypeLinkDesktop" />
                                     <label for="btnTypeLinkDesktop">Link</label>
@@ -94,16 +76,34 @@
                                     <label for="btnTypeButtonDesktop">Button</label>
                                 </span>
                             </div>
+                            <div class="input-field col m3">
+                                <select id="select-button-color-Desktop">
+                                    <option value="0" disabled selected>Button Color</option>
+                                    <option value="orange">Orange</option>
+                                    <option value="transparent">Transparent</option>
+                                </select>
+                                <label for="select-button-color-Desktop">Select Button Color</label>
+                            </div>
+                            <div class="input-field col m4">
+                                <input id="txtButtonDesktop" type="text" class="validate" maxlength="100">
+                                <label for="txtButtonDesktop">Button text *</label>
+                            </div>                            
+                        </div>
 
-                            <div class="col m6">
-                                <span>Open In New Page :</span>
+                        <div class="row">
+                            <div class="input-field col m6">
+                                <input id="txtButtonDesktop" type="text" class="validate" maxlength="100">
+                                <label for="txtButtonDesktop">Button Link*</label>
+                            </div>
+                            <div class="col m6 margin-top25">
+                                <label>Open Button Link In New Page :</label>
                                 <span>
                                     <input name="group2" type="radio" id="radioOpenInNewPage" />
                                     <label for="radioOpenInNewPage">Yes</label>
                                     <input name="group2" type="radio" id="radioOpenInSamePage" />
                                     <label for="radioOpenInSamePage">No</label>
                                 </span>
-                            </div>
+                            </div>                            
                         </div>
 
                         <div class="row">
@@ -166,26 +166,25 @@
                 </li>
                 <li class="step">
                     <div class="step-title waves-effect waves-dark">Configure Mobile Home Page Banner</div>
-
                     <div class="step-content">
                         <div class="row">
                             <div class="input-field col m4">
                                 <select id="select-hori-pos-Mobile">
-                                    <option value="0" disabled selected>Horizontal Position</option>
+                                    <option value="0" disabled selected>Select Position</option>
                                     <option value="left">Left</option>
                                     <option value="center">Center</option>
                                     <option value="right">Right</option>
                                 </select>
-                                <label for="select-hori-pos-Mobile">Select Horizontal Position</label>
+                                <label for="select-hori-pos-Mobile">Background Horizontal Position</label>
                             </div>
                             <div class="input-field col m4">
                                 <select id="select-ver-pos-Mobile">
-                                    <option value="0" disabled selected>Horizontal Position</option>
+                                    <option value="0" disabled selected>Select Position</option>
                                     <option value="top">Top</option>
                                     <option value="bottom">Bottom</option>
                                     <option value="center">Center</option>
                                 </select>
-                                <label for="select-ver-pos-Mobile">Select Vertical Position</label>
+                                <label for="select-ver-pos-Mobile">Background Vertical Position</label>
                             </div>
                             <div class="input-field col m4">
                                 <input id="txtBackgroundColorMobile" type="text" class="validate" maxlength="100">
@@ -194,54 +193,36 @@
                         </div>
 
                         <div class="file-field input-field row">
-                            <div class="btn col m1">
-                                <span>File</span>
-                                <input type="file">
+                            <div class="btn col m4">
+                                <span>Select Background Image</span>
+                                <input type="file" />
                             </div>
-                            <div class="file-path-wrapper col m8">
+                            <div class="file-path-wrapper col m6">
                                 <input class="file-path validate" type="text">
                             </div>
                             <div class="btn col m2">
-                                <span>Upload</span>
+                                <span>Upload Image</span>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="input-field col m6">
+                            <div class="input-field col m8">
                                 <input id="txtBannerTitleMobile" type="text" class="validate" maxlength="100">
-                                <label for="txtBannerTitleMobile">Banner Title *</label>
+                                <label for="txtBannerTitleMobile">Banner Title*</label>
                             </div>
-
-                            <div class="input-field col m6">
+                            <div class="input-field col m4">
                                 <select id="select-button-pos-Mobile">
-                                    <option value="0" disabled selected>Button Position</option>
+                                    <option value="0" disabled selected>Select Position</option>
                                     <option value="left">Left</option>
                                     <option value="right">Right</option>
                                 </select>
-                                <label for="select-button-pos-Mobile">Select Button Position</label>
+                                <label for="select-button-pos-Mobile">Banner Position</label>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="input-field col m6">
-                                <input id="txtButtonMobile" type="text" class="validate" maxlength="100">
-                                <label for="txtButtonMobile">Button text *</label>
-                            </div>
-
-                            <div class="input-field col m6">
-                                <select id="select-button-color-Mobile">
-                                    <option value="0" disabled selected>Button Color</option>
-                                    <option value="orange">Orange</option>
-                                    <option value="transparent">Transparent</option>
-                                </select>
-                                <label for="select-button-color-Mobile">Select Button Color</label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col m6">
-                                <span>Button Type :</span>
+                            <div class="col m5 margin-top25">
+                                <label>Button Type :</label>
                                 <span>
                                     <input name="group1" type="radio" id="btnTypeLinkMobile" />
                                     <label for="btnTypeLinkMobile">Link</label>
@@ -249,9 +230,27 @@
                                     <label for="btnTypeButtonMobile">Button</label>
                                 </span>
                             </div>
+                            <div class="input-field col m3">
+                                <select id="select-button-color-Mobile">
+                                    <option value="0" disabled selected>Button Color</option>
+                                    <option value="orange">Orange</option>
+                                    <option value="transparent">Transparent</option>
+                                </select>
+                                <label for="select-button-color-Mobile">Select Button Color</label>
+                            </div>
+                            <div class="input-field col m4">
+                                <input id="txtButtonMobile" type="text" class="validate" maxlength="100">
+                                <label for="txtButtonMobile">Button text *</label>
+                            </div>
+                        </div>
 
-                            <div class="col m6">
-                                <span>Open In New Page :</span>
+                        <div class="row">
+                            <div class="input-field col m6">
+                                <input id="txtButtonMobile" type="text" class="validate" maxlength="100">
+                                <label for="txtButtonMobile">Button Link*</label>
+                            </div>
+                            <div class="col m6 margin-top25">
+                                <label>Open Button Link In New Page :</label>
                                 <span>
                                     <input name="group2" type="radio" id="radioOpenInNewPage" />
                                     <label for="radioOpenInNewPage">Yes</label>
@@ -317,7 +316,7 @@
                             </div>
 
                         </div>
-                    </div>                    
+                    </div>                  
                 </li>
             </ul>
             <button class="btn waves-effect waves-light" type="submit">
