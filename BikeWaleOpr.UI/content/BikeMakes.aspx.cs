@@ -212,7 +212,7 @@ namespace BikeWaleOpr.Content
                     nvc.Add("v_IsFuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
                     nvc.Add("v_MaskingName", null);
                     nvc.Add("v_IsDeleted", null);
-                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CWMD, nvc);
 
                     //Refresh memcache object for bikemake description change
                     MemCachedUtil.Remove(string.Format("BW_MakeDetails_{0}", makeid));

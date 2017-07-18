@@ -259,7 +259,7 @@ namespace BikeWaleOpr.Common
                     nvc.Add("v_IsFuturistic", null);
                     nvc.Add("v_IsDeleted", null);
 
-                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CWMD, nvc);
 
                     if (_mc != null)
                     {
@@ -324,7 +324,7 @@ namespace BikeWaleOpr.Common
                         nvc.Add("v_IsFuturistic", null);
                         nvc.Add("v_IsDeleted", null);
                         nvc.Add("v_ModelId", modelId);
-                        SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
+                        SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CWMD, nvc);
                         isSuccess = true;
                     }
                     if (_mc != null)
@@ -445,7 +445,7 @@ namespace BikeWaleOpr.Common
                     nvc.Add("v_IsUsed", null);
                     nvc.Add("v_IsFuturistic", null);
                     nvc.Add("v_IsDeleted", "1");
-                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CWMD, nvc);
                 }
             }
             catch (SqlException sqlEx)
@@ -491,7 +491,7 @@ namespace BikeWaleOpr.Common
                     nvc.Add("v_IsFuturistic", null);
                     nvc.Add("v_IsDeleted", "1");
                     nvc.Add("v_ModelId", modelId);
-                    SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
+                    SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CWMD, nvc);
                 }
             }
             catch (SqlException sqlEx)

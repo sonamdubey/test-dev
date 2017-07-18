@@ -43,142 +43,131 @@
                                 {
                                 <!-- ko foreach: activeReviewList() -->
                                 }
-
                                 <li class="list-item" data-bind="css: $data.isRatingQuestion ? 'rating-question-present': 'rating-question-absent'">
-                                    <div itemprop="review" itemscope itemtype="http://schema.org/Review">
-                                        <div class="item-grid alpha padding-right20 @(review.IsRatingQuestion ? "grid-9 border-light-right" : "grid-12")">
-                                            <div class="margin-bottom10">
-                                                <!-- ko with: $data.overallRating -->
-                                                <span class="rating-badge" data-rate-bg="@review.OverallRating.Value" data-bind="attr: {'data-rate-bg': id }">
-                                                    <span class="bwsprite star-white"></span>
-                                                    &nbsp;<span data-bind="text: value">@review.OverallRating.Value</span>
-                                                </span>
-                                                <!-- /ko -->
-                                                <a href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'title' : $data.title,'href' : '/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/'}, truncatedText: $data.title" class="list-item-title inline-block margin-right5"><span itemprop="name">@FormatDescription.TruncateDescription(review.Title, 65)</span></a>
-                                                <span itemprop="author" class="font12 inline-block text-light-grey" data-bind="text: $data.reviewAge + ' ago by '"></span>&nbsp;<span class="font12 inline-block text-light-grey" data-bind="trimText : $data.customerName"><meta itemprop="datePublished" content="@review.EntryDate.ToString("yyyy-MM-dd")">@review.ReviewAge ago by <span itemprop="author">@FormatDescription.TruncateDescription(review.CustomerName, 25)</span></span>
-                                            </div>
-                                            <div class="collapsible-content toggle-off main-content-off margin-bottom10 font14 text-slate-grey">
-                                                <div class="main-content" data-bind="html: $data.shortDescription">
-                                                    @{ string truncated = (review.Description.TruncateHtml(270)); }
-                                                    @Html.Raw(truncated)
-                                                    <meta itemprop="description" content='@truncated' />
-                                                </div>
-                                                <div class="more-content">
-                                                    <div data-bind="html: $data.description">
-                                                        @Html.Raw(review.Description)
-                                                    </div>
-
-                                                    @if (review.Questions != null)
-                                                    {
-                                                        <ul class="rating-circle-list page-load-list" data-bind="visible: !$root.IsInitialized()">
-
-                                                            @foreach (UserReviewQuestion ques in review.Questions)
-                                                            {
-                                                                if (ques.Type == UserReviewQuestionType.Review)
-                                                                {
-                                                                    <li>
-                                                                        <div class="rating-circle circle-rate-@ques.SelectedRatingId">
-                                                                            <p class="circle-label">@ques.SelectedRatingId</p>
-                                                                            <span class="rating-progress">
-                                                                            </span>
-                                                                        </div>
-                                                                        <p class="list-item-label">@ques.Heading</p>
-                                                                    </li>
-                                                                }
-                                                            }
-                                                        </ul>
-                                                    }
-                                                    <!-- ko if : $data && $data.questions && $data.questions.length > 0  -->
-                                                    <ul class="rating-circle-list ko-list hide" data-bind="css: $data ? 'show' : 'hide'">
-                                                        <!-- ko foreach: $data.questions -->
-                                                        <!-- ko if : $data.qtype == 2 -->
-                                                        <li>
-                                                            <div data-bind="css: 'rating-circle circle-rate-' +  $data.selectedRatingId, visible: $root.IsInitialized()">
-                                                                <p class="circle-label" data-bind="text: $data.selectedRatingId"></p>
-                                                                <span class="rating-progress">
-                                                                </span>
-                                                            </div>
-                                                            <p class="list-item-label" data-bind="text: $data.heading"></p>
-                                                        </li>
-                                                        <!-- /ko -->
-                                                        <!-- /ko -->
-                                                    </ul>
-                                                    <!-- /ko -->
-
-
-                                                </div>
-                                                <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId">...Read more</a>
-                                            </div>
-
-                                            <button id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" type="button" onclick="upVoteListReview(event)" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" class="btn btn-inv-teal-group margin-right10 upvoteListButton ">
-                                                <span class="btn-label-grid">
-                                                    <span class="bwsprite like-sm"></span>
-                                                </span><span id="upvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'upvoteCount-' + $data.reviewId}, text : $data.upVotes">@review.UpVotes</span>
-                                            </button>
-
-                                            <button id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" type="button" onclick="downVoteListReview(event)" data-bind="attr: { id: 'downvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" class="btn btn-inv-teal-group downvoteListButton">
-                                                <span class="btn-label-grid">
-                                                    <span class="bwsprite dislike-sm"></span>
-                                                </span><span id="downvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'downvoteCount-' + $data.reviewId}, text : $data.downVotes">@review.DownVotes</span>
-                                            </button>
-
-                                            <p class="report-abuse-label rightfloat line-height26" data-bind="attr: { id: 'pReport-' + $data.reviewId}" id="pReport-@review.ReviewId">Inappropriate review? <a href="javascript:void(0)" data-bind="attr: {'data-reviewId': $data.reviewId }, click: function(d, e){ reportReview(e)}" data-reviewId="@review.ReviewId" onclick="reportReview(event)" rel="nofollow">Report Abuse</a></p>
-                                            <div class="clear"></div>
-
-                                        </div>
-                                        <div class="grid-3 omega padding-left20">
-                                            @if (review.Questions != null)
-                                            {
-                                                <ul class="page-load-list" data-bind="visible: !$root.IsInitialized()">
-                                                    @foreach (UserReviewQuestion ques in review.Questions)
-                                                    {
-                                                        if (ques.Type == UserReviewQuestionType.Rating)
-                                                        {
-                                                            <li class="margin-bottom10">
-                                                                <span class="bwsprite questionId-@ques.Id"></span>
-                                                                <div class="inline-block">
-                                                                    <p class="font10 text-xt-light">@ques.MinHeading</p>
-                                                                    <p class="font14 text-slate-grey">@ques.SelectedRatingText</p>
-                                                                </div>
-                                                            </li>
-                                                        }
-                                                    }
-                                                </ul>
-                                            }
-
-                                            <!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
-                                            <ul class="hide" data-bind="css: $data ? 'show' : 'hide'">
-                                                <!-- ko foreach: $data.questions -->
-                                                <!-- ko if : $data.qtype == 1 -->
-                                                <li class="margin-bottom10">
-                                                    <span data-bind="css: 'bwsprite questionId-' +  $data.qId "></span>
-                                                    <div class="inline-block">
-                                                        <p class="font10 text-xt-light" data-bind="text: $data.minHeading"></p>
-                                                        <p class="font14 text-slate-grey" data-bind="text: $data.selectedRatingText"></p>
-                                                    </div>
-                                                </li>
-                                                <!-- /ko -->
-                                                <!-- /ko -->
-                                            </ul>
+                                    <div class="item-grid alpha padding-right20 @(review.IsRatingQuestion ? "grid-9 border-light-right" : "grid-12")">
+                                        <div class="margin-bottom10">
+                                            <!-- ko with: $data.overallRating -->
+                                            <span class="rating-badge" data-rate-bg="@review.OverallRating.Value" data-bind="attr: {'data-rate-bg': id }">
+                                                <span class="bwsprite star-white"></span>
+                                                &nbsp;<span data-bind="text: value">@review.OverallRating.Value</span>
+                                            </span>
                                             <!-- /ko -->
-
+                                            <a href="@string.Format("/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-bind="attr : {'title' : $data.title,'href' : '/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + $data.reviewId + '/'}, truncatedText: $data.title" class="list-item-title inline-block margin-right5">@FormatDescription.TruncateDescription(review.Title, 65)</a>
+                                            <span class="font12 inline-block text-light-grey" data-bind="text: $data.reviewAge + ' ago by '"></span>&nbsp;<span class="font12 inline-block text-light-grey" data-bind="trimText : $data.customerName">@review.ReviewAge ago by @FormatDescription.TruncateDescription(review.CustomerName, 25)</span>
                                         </div>
-                                        <div class="clear"></div>
-                                        <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
-                                            <meta itemprop="worstRating" content="1" />
-                                            <meta itemprop="ratingValue" content="@review.OverallRating.Value" />
-                                            <meta itemprop="bestRating" content="5" />
-                                        </div>
-                                    </div>
-                                </li>
+                                        <div class="collapsible-content toggle-off main-content-off margin-bottom10 font14 text-slate-grey">
+                                            <div class="main-content" data-bind="html: $data.shortDescription">
+                                                @Html.Raw((review.Description.TruncateHtml(270)))
+                                            </div>
+                                            <div class="more-content">
+                                                <span data-bind="html: $data.description">
+                                                    @Html.Raw(review.Description)
+                                                </span>
 
-                                                        if (@i == 0)
+                                                @if (review.Questions != null)
+                                                {
+                                                    <ul class="rating-circle-list page-load-list" data-bind="visible: !$root.IsInitialized()">
+
+                                                        @foreach (UserReviewQuestion ques in review.Questions)
                                                         {
-                                    <!-- /ko -->
+                                                            if (ques.Type == UserReviewQuestionType.Review)
+                                                            {
+                                                                <li>
+                                                                    <div class="rating-circle circle-rate-@ques.SelectedRatingId">
+                                                                        <p class="circle-label">@ques.SelectedRatingId</p>
+                                                                        <span class="rating-progress">
+                                                                        </span>
+                                                                    </div>
+                                                                    <p class="list-item-label">@ques.Heading</p>
+                                                                </li>
                                                             }
-
-                                                            i++;
                                                         }
+                                                    </ul>
+                                                }
+                                                <!-- ko if : $data && $data.questions && $data.questions.length > 0  -->
+                                                <ul class="rating-circle-list ko-list hide" data-bind="css: $data ? 'show' : 'hide'">
+                                                    <!-- ko foreach: $data.questions -->
+                                                    <!-- ko if : $data.qtype == 2 -->
+                                                    <li>
+                                                        <div data-bind="css: 'rating-circle circle-rate-' +  $data.selectedRatingId, visible: $root.IsInitialized()">
+                                                            <p class="circle-label" data-bind="text: $data.selectedRatingId"></p>
+                                                            <span class="rating-progress">
+                                                            </span>
+                                                        </div>
+                                                        <p class="list-item-label" data-bind="text: $data.heading"></p>
+                                                    </li>
+                                                    <!-- /ko -->
+                                                    <!-- /ko -->
+                                                </ul>
+                                                <!-- /ko -->
+
+
+                                            </div>
+                                                <a href="javascript:void(0)" class="read-more-target" data-bind="css: 'read-more-target', visible : $data.description, attr: {'data-reviewId': $data.reviewId }" rel="nofollow" onclick="updateView(event)" data-reviewId="@review.ReviewId">...Read more</a>
+                                        </div>
+
+                                        <button id="upvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" type="button" onclick="upVoteListReview(event)" data-bind="attr: {id: 'upvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" class="btn btn-inv-teal-group margin-right10 upvoteListButton ">
+                                            <span class="btn-label-grid">
+                                                <span class="bwsprite like-sm"></span>
+                                            </span><span id="upvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'upvoteCount-' + $data.reviewId}, text : $data.upVotes">@review.UpVotes</span>
+                                        </button>
+
+                                        <button id="downvoteBtn-@review.ReviewId" data-reviewId="@review.ReviewId" type="button" onclick="downVoteListReview(event)" data-bind="attr: { id: 'downvoteBtn-' + $data.reviewId, 'data-reviewId': $data.reviewId }" class="btn btn-inv-teal-group downvoteListButton">
+                                            <span class="btn-label-grid">
+                                                <span class="bwsprite dislike-sm"></span>
+                                            </span><span id="downvoteCount-@review.ReviewId" class="btn-count" data-bind="attr: { id: 'downvoteCount-' + $data.reviewId}, text : $data.downVotes">@review.DownVotes</span>
+                                        </button>
+
+                                        <p class="report-abuse-label rightfloat line-height26" data-bind="attr: { id: 'pReport-' + $data.reviewId}" id="pReport-@review.ReviewId">Inappropriate review? <a href="javascript:void(0)" data-bind="attr: {'data-reviewId': $data.reviewId }, click: function(d, e){ reportReview(e)}" data-reviewId="@review.ReviewId" onclick="reportReview(event)" rel="nofollow">Report Abuse</a></p>
+                                        <div class="clear"></div>
+
+                                    </div>
+                                    <div class="grid-3 omega padding-left20">
+                                        @if (review.Questions != null)
+                                        {
+                                            <ul class="page-load-list" data-bind="visible: !$root.IsInitialized()">
+                                                @foreach (UserReviewQuestion ques in review.Questions)
+                                                {
+                                                    if (ques.Type == UserReviewQuestionType.Rating)
+                                                    {
+                                                        <li class="margin-bottom10">
+                                                            <span class="bwsprite questionId-@ques.Id"></span>
+                                                            <div class="inline-block">
+                                                                <p class="font10 text-xt-light">@ques.MinHeading</p>
+                                                                <p class="font14 text-slate-grey">@ques.SelectedRatingText</p>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                }
+                                            </ul>
+                                        }
+
+                                        <!-- ko if : $data && $data.questions && $data.questions.length > 0 -->
+                                        <ul class="hide" data-bind="css: $data ? 'show' : 'hide'">
+                                            <!-- ko foreach: $data.questions -->
+                                            <!-- ko if : $data.qtype == 1 -->
+                                            <li class="margin-bottom10">
+                                                <span data-bind="css: 'bwsprite questionId-' +  $data.qId "></span>
+                                                <div class="inline-block">
+                                                    <p class="font10 text-xt-light" data-bind="text: $data.minHeading"></p>
+                                                    <p class="font14 text-slate-grey" data-bind="text: $data.selectedRatingText"></p>
+                                                </div>
+                                            </li>
+                                            <!-- /ko -->
+                                            <!-- /ko -->
+                                        </ul>
+                                        <!-- /ko -->
+
+                                    </div>
+                                    <div class="clear"></div>
+                                </li>
+                                if (@i == 0)
+                                {
+                                <!-- /ko -->
+                                }
+
+                                i++;
+                            }
                         </ul>
 
                         @if (Model.IsPagerNeeded && ((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1) < Model.Pager.TotalResults)
@@ -246,24 +235,25 @@
     </div>
     <div id="report-background"></div>
 
-                                                        }
-                                                        else
-                                                        {
-                                                            <section>
-                                                                <div class="container card-bottom-margin">
-                                                                    <div class="grid-12">
-                                                                        <div class="content-box-shadow">
-                                                                            <h2 class="h2-heading padding-15-20 content-box-shadow">@Model.WidgetHeading</h2>
-                                                                            <div class="content-inner-block-20 text-center">
-                                                                                <div class="circle-placeholder-80">
-                                                                                    <span class="bwsprite write-icon margin-top20"></span>
-                                                                                </div>
-                                                                                <p class="font14 text-light-grey margin-top20 margin-bottom15">There are no reviews for this bike. Be the first one to share your experience.</p>
-                                                                                <a href="/rate-your-bike/@Model.ModelId/?q=@Model.WriteReviewLink" class="btn btn-white btn-auto-32">Write a review</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="clear"></div>
-                                                                </div>
-                                                            </section>
-                                                        }
+                                }
+                                else
+                                {
+                                    <section>
+                                        <div class="container card-bottom-margin">
+                                            <div class="grid-12">
+                                                <div class="content-box-shadow">
+                                                    <h2 class="h2-heading padding-15-20 content-box-shadow">@Model.WidgetHeading</h2>
+                                                    <div class="content-inner-block-20 text-center">
+                                                        <div class="circle-placeholder-80">
+                                                            <span class="bwsprite write-icon margin-top20"></span>
+                                                        </div>
+                                                        <p class="font14 text-light-grey margin-top20 margin-bottom15">There are no reviews for this bike. Be the first one to share your experience.</p>
+                                                        <a href="/rate-your-bike/@Model.ModelId/?q=@Model.WriteReviewLink" class="btn btn-white btn-auto-32">Write a review</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </section>
+                                }
+

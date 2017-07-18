@@ -3785,6 +3785,8 @@
     <Content Include="Views\UserReview\WriteReviewContest.cshtml" />
     <Content Include="Views\UserReview\_UserReviewList.cshtml" />
     <Content Include="Views\UserReview\_UserReviewList_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_UserReviewsSearch_Schema_Mobile.cshtml" />
+    <Content Include="Views\UserReview\_UserReviewsSearch_Schema.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
