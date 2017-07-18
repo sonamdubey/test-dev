@@ -456,6 +456,7 @@
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Models\Banner\Banner.cs" />
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\CampaignPropertiesModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPageModel.cs" />
