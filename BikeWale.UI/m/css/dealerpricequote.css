@@ -70,7 +70,7 @@
 .dropdown-menu .dropdown-label,
 .dropdown-menu .dropdown-selected-item {
     width: 100%;
-    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
     border-bottom: 1px solid #82888b;
 }
 
@@ -127,7 +127,7 @@
 }
 
 .dropdown-effect-light {
-    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
     padding-right: 25px;
 }
 
@@ -226,7 +226,7 @@
     line-height: 1.5;
 }
 
-.dealership-address {
+.dealership-details-wrapper .dealership-address {
     width:85%;
 }
 
@@ -242,12 +242,6 @@
     width: 14px;
     height: 12px;
     background-position: 1px -436px;
-}
-
-.dealership-loc-icon {
-    width:14px;
-    height:15px;
-    background-position: -38px -435px;
 }
 
 .dropdown-icon {
@@ -279,7 +273,7 @@
 }
 
 .offers-sprite {
-    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v16may2017) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v16may2017) no-repeat;
     display: inline-block;
 }
 
@@ -467,7 +461,7 @@
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #ef3030; height: 4px; }
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -12px; z-index: 2; background-position:3px 3px; }
+.ui-slider .ui-slider-handle { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -12px; z-index: 2; background-position:3px 3px; }
 .emi-slider-box-right-section { text-align:right; }
 .pos-top2 { top:2px; }
 .btn.emi-quote-btn { padding:8px 19px; }
@@ -489,8 +483,8 @@
 #notifyAvailabilityContainer .notify-close-btn{z-index:2}
 #leadCapturePopup .error-icon,#leadCapturePopup .bw-blackbg-tooltip{display:none}
 #otpPopup{display:none}
-.icon-outer-container{width:72px;height:72px;}
-.icon-inner-container{width:64px;height:64px;margin:3px auto;}
+.bwm-fullscreen-popup .icon-outer-container{width:72px;height:72px;}
+.bwm-fullscreen-popup .icon-inner-container{width:64px;height:64px;margin:3px auto;}
 .user-contact-details-icon{width:29px;height:30px;background-position:-109px -216px}
 .otp-icon { width:29px; height:29px; background-position: -109px -177px; }
 .edit-blue-icon { width:20px; height:20px; background-position: -114px -122px; }

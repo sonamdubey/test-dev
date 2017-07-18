@@ -26,7 +26,7 @@ namespace Bikewale.Notifications.MailTemplates
            public override string ComposeBody()
             {
                 StringBuilder message = new StringBuilder();
-                message.AppendFormat("<img align=\"right\" src=\"https://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.AppendFormat("<img align=\"right\" src=\"https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 
                 message.AppendFormat("<h4>Dear {0},</h4>", customerName);
 

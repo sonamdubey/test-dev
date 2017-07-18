@@ -32,46 +32,49 @@
         <div class="grid-12">
             <div id="content" class="grid-8 alpha">
                 <div class="bg-white">
-                    <div id="news-header" class="section-header">
+                    <div id="news-header" class="section-header padding-15-20">
                         <h1 class="margin-right5">Bike Care</h1>
                         <h2 class="font14 text-unbold text-light-grey">Maintenance Tips from BikeWale Experts</h2>
                     </div>
                     <div class="section-inner-padding">
+						<ul class="article-list">
                         @foreach (var article in Model.Articles.Articles)
                         {
                             string articleUrl = string.Format("/bike-care/{0}-{1}.html", article.ArticleUrl, article.BasicId);
-                            <div id='post-@article.BasicId' class="article-content">
-
-                                <div class="article-image-wrapper">
-                                    <a href='@articleUrl'>
-                                        <img src='@Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._210x118,QualityFactor._70)' alt='@article.Title' title='@article.Title' width='100%' border='0' /></a>
-                                </div>
-                                <div class="article-desc-wrapper">
-                                    <h2 class="font14 margin-bottom10">
-                                        <a href='@articleUrl' rel="bookmark" class="text-black text-bold" title="@article.Title">
-                                            @article.Title
-                                        </a>
-                                    </h2>
-                                    <div class="font12 text-light-grey margin-bottom25">
-                                        <div class="article-date">
-                                            <span class="bwsprite calender-grey-icon inline-block"></span>
-                                            <span class="inline-block">
-                                                @FormatDate.GetFormatDate(Convert.ToString(article.DisplayDate), "dd MMMM yyyy")
-                                            </span>
-                                        </div>
-                                        <div class="article-author">
-                                            <span class="bwsprite author-grey-icon inline-block"></span>
-                                            <span class="inline-block">
-                                                @article.AuthorName
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="font14 line-height">@Html.Raw(FormatDescription.TruncateDescription(Convert.ToString(article.Description), 250))<a href="@string.Format("/bike-care/{0}-{1}.html",article.ArticleUrl,article.BasicId)" title="@article.Title">Read full story</a></div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
+                            <li id='post-@article.BasicId' class="article-content">
+								<div class="article-item-content">
+									<div class="article-image-wrapper">
+										<a href='@articleUrl'>
+											<img class="lazy" src="" data-original='@Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._210x118,QualityFactor._70)' alt='@article.Title' title='@article.Title' width='100%' border='0' /></a>
+									</div>
+									<div class="article-desc-wrapper">
+										<h2 class="font14 margin-bottom10">
+											<a href='@articleUrl' rel="bookmark" class="text-black text-bold" title="@article.Title">
+												@article.Title
+											</a>
+										</h2>
+										<div class="font12 text-light-grey margin-bottom25">
+											<div class="article-date">
+												<span class="bwsprite calender-grey-icon inline-block"></span>
+												<span class="inline-block">
+													@FormatDate.GetFormatDate(Convert.ToString(article.DisplayDate), "dd MMMM yyyy")
+												</span>
+											</div>
+											<div class="article-author">
+												<span class="bwsprite author-grey-icon inline-block"></span>
+												<span class="inline-block">
+													@article.AuthorName
+												</span>
+											</div>
+										</div>
+										<div class="font14 line-height">@Html.Raw(FormatDescription.TruncateDescription(Convert.ToString(article.Description), 250))<a href="@string.Format("/bike-care/{0}-{1}.html",article.ArticleUrl,article.BasicId)" title="@article.Title">Read full story</a></div>
+									</div>
+									<div class="clear"></div>
+								</div>
+                            </li>
                         }
-                        <div id="footer-pagination" class="font14 padding-top10">
+						</ul>
+                        <div id="footer-pagination" class="font14 pagination-padding">
                             <div class="grid-5 alpha omega text-light-grey">
                                 <p>Showing <span class="text-default text-bold">@string.Format("{0}-{1}", Model.StartIndex, Model.EndIndex)</span> of <span class="text-default text-bold">@Model.Articles.RecordCount</span> articles</p>
                             </div>

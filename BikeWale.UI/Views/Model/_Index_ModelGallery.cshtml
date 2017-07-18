@@ -5,19 +5,19 @@
 <div class="bw-tabs-panel">
     @if (Model.ColorImages != null && Model.ColorImages.Count() > 0)
     {
-        <div class="bw-tabs bw-group-flex toggle-btn-label text-center margin-bottom5">
+        <div class="bw-tabs bw-group-flex text-center margin-bottom5">
             <ul>
-                <li data-tabs="colourCarousel" class="active bw-ga" l="@bikeName" a="Colours_Tab_Clicked" c="Model_Page">
+				<li data-tabs="imageCarousel" class="tabs-group__list-item active bw-ga" l="@bikeName" a="Image_Tab_Clicked" c="Model_Page">
+					<span class="label-count">@Model.ModelPageEntity.AllPhotos.Count() Images</span>
+                    <span class="label-overview">See Images</span>
+                </li>
+                <li data-tabs="colourCarousel" class="tabs-group__list-item bw-ga" l="@bikeName" a="Colours_Tab_Clicked" c="Model_Page">
                     <span class="label-count">@Model.ColorImages.Count() Colour@(Model.ColorImages.Count() != 1 ? "s" : "")</span>
                     <span class="label-overview">See Colour@(Model.ColorImages.Count() != 1 ? "s" : "")</span>
                 </li>
-                <li data-tabs="imageCarousel" class="inactive bw-ga" l="@bikeName" a="Image_Tab_Clicked" c="Model_Page">
-                    <span class="label-overview">See Images</span>
-                    <span class="label-count">@Model.ModelPageEntity.AllPhotos.Count() Images</span>
-                </li>
             </ul>
         </div>        
-        <div class="bw-tabs-data" id="colourCarousel">            
+        <div class="bw-tabs-data hide" id="colourCarousel">            
             <div class="carousel-type-color">
                 <a href="/@Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName-bikes/@Model.ModelPageEntity.ModelDetails.MaskingName/images/?q=@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex=0&retUrl={0}", Model.PageMetaTags.CanonicalUrl))" class="carousel-img-container">
                     <img class="bw-ga" l="@bikeName" a="Main_Image_Clicked" c="Model_Page"  src="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath, Model.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" title="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" border="0">
@@ -57,7 +57,7 @@
     <input hidden id="canonical" value="@Model.PageMetaTags.CanonicalUrl"/>
     <input hidden id="imageUrl" value="@Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" />
 
-    <div class="bw-tabs-data connected-carousels carousel-controls @(Model.ColorImages != null && Model.ColorImages.Count() > 0 ? " hide " : "")" id="imageCarousel">
+    <div class="bw-tabs-data connected-carousels carousel-controls" id="imageCarousel">
 
         <div class="stage">
             <div class="carousel carousel-stage">

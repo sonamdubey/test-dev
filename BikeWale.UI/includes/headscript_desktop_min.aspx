@@ -41,7 +41,7 @@
 <meta property="og:image" content = "<%= string.IsNullOrEmpty(ogImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : ogImage %>" />
 <% } %>
 
-<link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
+<link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
 
 <script type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
 
@@ -53,5 +53,5 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
 
 <!--[if lt IE 9]>
-    <script src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/html5.js?<%= staticFileVersion %>"></script>
+    <script src="<%= staticUrl  %>/src/html5.js?<%= staticFileVersion %>"></script>
 <![endif]-->

@@ -39,7 +39,7 @@
   font-size: 14px; }
 
 .new-launch-banner {
-  background: #89a3b7 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/new-launches-banner.jpg) no-repeat center;
+  background: #89a3b7 url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/new-launches-banner.jpg) no-repeat center;
   background-size: cover;
   height: 268px;
   padding-top: 1px; }
@@ -56,7 +56,7 @@
   font-weight: 600;
   cursor: pointer;
   padding-right: 20px;
-  background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 99%; }
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 99%; }
 
 .new-launch-filter .select-box {
   height: 22px; }

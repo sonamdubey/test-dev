@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" Inherits="BikeWaleOpr.Content.AddDealers" AutoEventWireup="false" Trace="false" Debug="false" EnableEventValidation="false" %>
 
 <!-- #Include file="/includes/headerNew.aspx" -->
-<%--<script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/AjaxFunctions.js"></script>--%>
 <script type="text/javascript" src="/src/AjaxFunctions.js"></script>
     <div class="left">
 	<h3><asp:label id="lbl" runat="server"></asp:label></h3>

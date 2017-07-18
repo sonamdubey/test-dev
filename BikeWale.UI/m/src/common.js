@@ -1085,6 +1085,7 @@ docReady(function () {
             if (city.cityId) {
                 location.reload();
             }
+            dataLayer.push({ 'GlobalCity': cityName });
         },
         open: function (result) {
             objCity.result = result;

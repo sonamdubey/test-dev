@@ -51,9 +51,9 @@
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
-            <div class="input-box form-control-box personal-info-list" data-bind="visible : emailRequired() || !mfgCampaignId()">
+            <div class="input-box form-control-box personal-info-list" data-bind="visible : emailRequired() && (mfgCampaignId() > 0)">
                 <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId" tabindex="3">
-                <label for="getEmailID" data-bind="html : !emailRequired() ? 'Email (optional)' :  'Email<sup>*</sup>'"></label>
+                <label for="getEmailID">Email<sup>*</sup></label>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
@@ -565,7 +565,7 @@
                     }
                 });
                 setPQUserCookie();
-            }
+
             //triggerGA(eventCategory, eventAction, gaLabel)
         };
 

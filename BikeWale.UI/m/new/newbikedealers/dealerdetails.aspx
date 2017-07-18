@@ -131,7 +131,7 @@
                                         <div class="image-content">
                                             <img class="lazy"
                                                 data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>"
-                                                alt="<%# DataBinder.Eval(Container.DataItem, "BikeName") %>" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
+                                                alt="<%# DataBinder.Eval(Container.DataItem, "BikeName") %>" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
                                         </div>
                                     </div>
 
@@ -161,7 +161,7 @@
             </div>
         </section>
         <%} %>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <section class="container bg-white margin-bottom10">
             <div class="box-shadow">
                 <!-- dealer card -->
@@ -200,7 +200,7 @@
         </section>
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript">
              var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>",campaignId = "<%= campaignId %>";                                              
@@ -263,7 +263,7 @@
 
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap" async defer></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealer/details.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/m/src/dealer/details.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
     </form>
 </body>

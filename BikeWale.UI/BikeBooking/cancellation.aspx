@@ -12,10 +12,10 @@
         isAd970x90BottomShown = false;
          %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/cancellation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl  %>/css/cancellation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
     
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey" data-contestslug="true">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <header class="booking-cancellation-banner">    	
@@ -193,7 +193,7 @@
         <asp:HiddenField ID="hdnBwid" Value="" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/cancellation.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/src/cancellation.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

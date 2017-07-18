@@ -187,6 +187,8 @@ namespace BikewaleOpr.Common
         /// Saves the model color with HexCode
         /// Modified By : Sushil Kumar on 17th Nov 2016
         /// Description : Added logic to push bike color to carwale db through datasync
+        /// Modified By : Sushil Kumar on 9th July 2017
+        /// Description : Change input parametres as per carwale mysql master base conventions
         /// </summary>
         /// <param name="modelId">Model id</param>
         /// <param name="colorName">Color Name</param>
@@ -215,11 +217,11 @@ namespace BikewaleOpr.Common
                     if (modelId > 0)
                     {
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("modelId", modelId.ToString());
-                        nvc.Add("colorName", colorName);
-                        nvc.Add("userId", userId.ToString());
-                        nvc.Add("hexCodes", hexCodes);
-                        SyncBWData.PushToQueue("BW_SaveBikeModelColor", DataBaseName.CW, nvc);
+                        nvc.Add("v_modelId", modelId.ToString());
+                        nvc.Add("v_colorName", colorName);
+                        nvc.Add("v_userId", userId.ToString());
+                        nvc.Add("v_hexCodes", hexCodes);
+                        SyncBWData.PushToQueue("BW_SaveBikeModelColor", DataBaseName.CWMD, nvc);
                     }
 
 
@@ -238,6 +240,8 @@ namespace BikewaleOpr.Common
         /// Saves Version Color
         /// Modified By : Sushil Kumar on 17th Nov 2016
         /// Description : Added logic to push bike color to carwale db through datasync
+        /// Modified By : Sushil Kumar on 9th July 2017
+        /// Description : Change input parametres as per carwale mysql master base conventions
         /// </summary>
         /// <param name="versionColor">Version Color Entity</param>
         /// <param name="userId">User Id</param>
@@ -264,11 +268,11 @@ namespace BikewaleOpr.Common
                     if (versionColor.ModelColorID > 0 && versionId > 0)
                     {
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("modelColorId", versionColor.ModelColorID.ToString());
-                        nvc.Add("versionId", versionId.ToString());
-                        nvc.Add("userId", userId.ToString());
-                        nvc.Add("isActive", versionColor.IsActive ? "1" : "0");
-                        SyncBWData.PushToQueue("BW_SaveBikeVersionColor", DataBaseName.CW, nvc);
+                        nvc.Add("v_modelColorId", versionColor.ModelColorID.ToString());
+                        nvc.Add("v_versionId", versionId.ToString());
+                        nvc.Add("v_userId", userId.ToString());
+                        nvc.Add("v_isActive", versionColor.IsActive ? "1" : "0");
+                        SyncBWData.PushToQueue("BW_SaveBikeVersionColor", DataBaseName.CWMD, nvc);
                     }
 
                 }
@@ -286,6 +290,8 @@ namespace BikewaleOpr.Common
         /// Updates the Color hex code
         /// Modified By : Sushil Kumar on 17th Nov 2016
         /// Description : Added logic to push bike color to carwale db through datasync
+        /// Modified By : Sushil Kumar on 9th July 2017
+        /// Description : Change input parametres as per carwale mysql master base conventions
         /// </summary>
         /// <param name="colorId"></param>
         /// <param name="hexCode"></param>
@@ -313,11 +319,11 @@ namespace BikewaleOpr.Common
                     if (colorId > 0)
                     {
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("colorId", colorId.ToString());
-                        nvc.Add("hexCode", hexCode);
-                        nvc.Add("userId", userId.ToString());
-                        nvc.Add("isActive", isActive ? "1" : "0");
-                        SyncBWData.PushToQueue("BW_UpdateBikeModelColor", DataBaseName.CW, nvc);
+                        nvc.Add("v_colorId", colorId.ToString());
+                        nvc.Add("v_hexCode", hexCode);
+                        nvc.Add("v_userId", userId.ToString());
+                        nvc.Add("v_isActive", isActive ? "1" : "0");
+                        SyncBWData.PushToQueue("BW_UpdateBikeModelColor", DataBaseName.CWMD, nvc);
                     }
 
 
@@ -336,6 +342,8 @@ namespace BikewaleOpr.Common
         /// Inserts new HexCode to model color
         /// Modified By : Sushil Kumar on 17th Nov 2016
         /// Description : Added logic to push bike color to carwale db through datasync
+        /// Modified By : Sushil Kumar on 9th July 2017
+        /// Description : Change input parametres as per carwale mysql master base conventions
         /// </summary>
         /// <param name="modelColorId">Model Color Id</param>
         /// <param name="hexCode">Color Hex Color</param>
@@ -364,11 +372,11 @@ namespace BikewaleOpr.Common
                     if (modelColorId > 0)
                     {
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("modelColorId", modelColorId.ToString());
-                        nvc.Add("hexCode", hexCode);
-                        nvc.Add("userId", userId.ToString());
-                        nvc.Add("isActive", isActive ? "1" : "0");
-                        SyncBWData.PushToQueue("BW_AddBikeModelColorHexCode", DataBaseName.CW, nvc);
+                        nvc.Add("v_modelColorId", modelColorId.ToString());
+                        nvc.Add("v_hexCode", hexCode);
+                        nvc.Add("v_userId", userId.ToString());
+                        nvc.Add("v_isActive", isActive ? "1" : "0");
+                        SyncBWData.PushToQueue("BW_AddBikeModelColorHexCode", DataBaseName.CWMD, nvc);
                     }
 
 
@@ -387,6 +395,8 @@ namespace BikewaleOpr.Common
         /// Deletes the Model Color
         /// Modified By : Sushil Kumar on 17th Nov 2016
         /// Description : Added logic to push bike color to carwale db through datasync
+        /// Modified By : Sushil Kumar on 9th July 2017
+        /// Description : Change input parametres as per carwale mysql master base conventions
         /// </summary>
         /// <param name="modelColorId"></param>
         /// <param name="userId"></param>
@@ -412,9 +422,9 @@ namespace BikewaleOpr.Common
                     if (modelColorId > 0)
                     {
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("modelColorId", modelColorId.ToString());
-                        nvc.Add("userId", userId.ToString());
-                        SyncBWData.PushToQueue("BW_DeleteBikeModelColor", DataBaseName.CW, nvc);
+                        nvc.Add("v_modelColorId", modelColorId.ToString());
+                        nvc.Add("v_userId", userId.ToString());
+                        SyncBWData.PushToQueue("BW_DeleteBikeModelColor", DataBaseName.CWMD, nvc);
                     }
 
 

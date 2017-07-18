@@ -11,10 +11,9 @@
     @{
         var StaticUrlPWA = Bikewale.Utility.BWConfiguration.Instance.StaticUrlPWA;
         var StaticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
-
         var VendorJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/vendor.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticVendorFileVersion;
         var AppJsUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/Scripts") + "/app.bundle.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticAppFileVersion;
-        var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? "https://st2.aeplcdn.com" + StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
+        var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? "https://stb.aeplcdn.com" + StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
         var CssBTFUrl = (!String.IsNullOrEmpty(StaticUrlPWA) ? StaticUrlPWA : "/m/css/content") + "/app-btf.css?" + Bikewale.Utility.BWConfiguration.Instance.StaticCSSBTFPWAVersion;
     }
 
@@ -60,7 +59,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <meta name="theme-color" content="#2a2a2a" />
-    <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
+    <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
 
     <link rel='stylesheet' type='text/css' href='/m/css/content/app.css' />
 
@@ -120,8 +119,8 @@
 
     </script>
     <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
-    <link rel="dns-prefetch" href="https://st.aeplcdn.com/">
-    <link rel="dns-prefetch" href="https://st2.aeplcdn.com/">
+    <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
+
     
     <script type="text/javascript" src="@VendorJsUrl" defer></script>
     <script type="text/javascript" src="@AppJsUrl" defer></script>

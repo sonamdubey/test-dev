@@ -10,7 +10,7 @@
         keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl  %>/m/css/bwm-bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -428,7 +428,7 @@
 
 
         <section class="container margin-bottom30 content-box-shadow">
-            <div class="lazy booking-how-it-works" data-original="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/howitworks-mobile.png?<%= staticFileVersion %>"></div>
+            <div class="lazy booking-how-it-works" data-original="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/howitworks-mobile.png?<%= staticFileVersion %>"></div>
             <div class="clear"></div>
         </section>
         <% if (ctrlUsersTestimonials.FetchedCount > 0)
@@ -467,7 +467,7 @@
                             </div>
                             <h3>Terms and Conditions</h3>
                             <div  class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                                <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                                <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                             </div>
                             <div id="terms" class="breakup-text-container padding-bottom10 font14">
                             </div>
@@ -590,7 +590,7 @@
             ga_pg_id = "8";
             var getCityArea = GetGlobalCityArea();
         </script>
-        <script src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-bookingconfig.js?<%= staticFileVersion %>" type="text/javascript"></script>
+        <script src="<%= staticUrl  %>/m/src/bwm-bookingconfig.js?<%= staticFileVersion %>" type="text/javascript"></script>
 
     </form>
 </body>
