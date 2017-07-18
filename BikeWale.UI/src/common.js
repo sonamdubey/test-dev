@@ -821,9 +821,11 @@ docReady(function () {
     (vmContestSlug.init());
     
     // review contest slide-in slug
-    var contestSlideInSlug = $('#contestSlideInSlug');
+    var contestSlideInSlug = $('#contestSlideInSlug'),
+		contestSlugEndPoint;
 
     if (contestSlideInSlug.length > 0) {
+		contestSlugEndPoint = ($(window).height() * 30) / 100; // 30 percent of window height
         attachListener('scroll', window, positionContestSlug);
         contestSlideInSlug.addClass('slidein-slug--visible');
     }
@@ -833,7 +835,7 @@ docReady(function () {
             if (!contestSlideInSlug.hasClass('slug--position-absolute')) {
                 contestSlideInSlug.addClass('slug--position-absolute');
                 contestSlideInSlug.css({
-                    'top': $(window).scrollTop() + contestSlideInSlug.offset().top
+                    'top': 600 + contestSlugEndPoint
                 });
             }
         }
