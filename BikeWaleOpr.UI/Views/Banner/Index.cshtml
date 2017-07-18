@@ -1,0 +1,336 @@
+﻿@{
+    ViewBag.Title = "Banner Configuration";
+    ViewBag.PageTitle = "Bikewale Operations - Banner Configuration";
+}
+
+<link href="/css/materialize-stepper.css" rel="stylesheet">
+
+<script src="~/src/materialize-stepper.min.js"></script>
+<form>
+    <div class="row">
+        <div class="stepper-height-60 col m6 offset-m1">
+            <ul class="stepper vertical">
+                <li class="step">
+                    <div class="step-title waves-effect waves-dark">Configure Desktop Home Page Banner</div>
+                    <div class="step-content">
+                        <div class="row">
+                            <div class="input-field col m4">
+                                <select id="select-hori-pos-Desktop">
+                                    <option value="0" disabled selected>Horizontal Position</option>
+                                    <option value="left">Left</option>
+                                    <option value="center">Center</option>
+                                    <option value="right">Right</option>
+                                </select>
+                                <label for="select-hori-pos-Desktop">Select Horizontal Position</label>
+                            </div>
+                            <div class="input-field col m4">
+                                <select id="select-ver-pos-Desktop">
+                                    <option value="0" disabled selected>Vertical Position</option>
+                                    <option value="top">Top</option>
+                                    <option value="bottom">Bottom</option>
+                                    <option value="center">Center</option>
+                                </select>
+                                <label for="select-ver-pos-Desktop">Select Vertical Position</label>
+                            </div>
+                            <div class="input-field col m4">
+                                <input id="txtBackgroundColorDesktop" type="text" class="validate" maxlength="100">
+                                <label for="txtBackgroundColorDesktop">Background Color *</label>
+                            </div>
+                        </div>
+
+                        <div class="file-field input-field row">
+                            <div class="btn col m1">
+                                <span>File</span>
+                                <input type="file">
+                            </div>
+                            <div class="file-path-wrapper col m8">
+                                <input class="file-path validate" type="text">
+                            </div>
+                            <div class="btn col m2">
+                                <span>Upload</span>
+                            </div>
+                        </div>                        
+
+                        <div class="row">
+                            <div class="input-field col m6">
+                                <input id="txtBannerTitleDesktop" type="text" class="validate" maxlength="100">
+                                <label for="txtBannerTitleDesktop">Banner Title *</label>
+                            </div>
+
+                            <div class="input-field col m6">
+                                <select id="select-button-pos-Desktop">
+                                    <option value="0" disabled selected>Button Position</option>
+                                    <option value="left">Left</option>
+                                    <option value="right">Right</option>
+                                </select>
+                                <label for="select-button-pos-Desktop">Select Button Position</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col m6">
+                                <input id="txtButtonDesktop" type="text" class="validate" maxlength="100">
+                                <label for="txtButtonDesktop">Button text *</label>
+                            </div>
+
+                            <div class="input-field col m6">
+                                <select id="select-button-color-Desktop">
+                                    <option value="0" disabled selected>Button Color</option>
+                                    <option value="orange">Orange</option>
+                                    <option value="transparent">Transparent</option>
+                                </select>
+                                <label for="select-button-color-Desktop">Select Button Color</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col m6">
+                                <span>Button Type :</span>
+                                <span>
+                                    <input name="group1" type="radio" id="btnTypeLinkDesktop" />
+                                    <label for="btnTypeLinkDesktop">Link</label>
+                                    <input name="group1" type="radio" id="btnTypeButtonDesktop" />
+                                    <label for="btnTypeButtonDesktop">Button</label>
+                                </span>
+                            </div>
+
+                            <div class="col m6">
+                                <span>Open In New Page :</span>
+                                <span>
+                                    <input name="group2" type="radio" id="radioOpenInNewPage" />
+                                    <label for="radioOpenInNewPage">Yes</label>
+                                    <input name="group2" type="radio" id="radioOpenInSamePage" />
+                                    <label for="radioOpenInSamePage">No</label>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col m6">
+                                <select id="select-button-color-Mobile">
+                                    <option value="0" disabled selected>Jumbotron Depth</option>
+                                    <option value="140">140px</option>
+                                    <option value="200">200px</option>
+                                </select>
+                                <label for="select-button-color-Mobile">Select Jumbotron Depth</label>
+                            </div>
+                        </div>
+
+                        <div class="input-field row">
+                            <textarea id="textareaHtmlDesktop" class="materialize-textarea"></textarea>
+                            <label for="textareaHtmlDesktop">Html</label>
+                        </div>
+
+                        <div class="input-field row">
+                            <textarea id="textareaCssDesktop" class="materialize-textarea"></textarea>
+                            <label for="textareaCssDesktop">Css</label>
+                        </div>
+
+                        <div class="input-field row">
+                            <textarea id="textareaJsDesktop" class="materialize-textarea"></textarea>
+                            <label for="textareaJsDesktop">Js</label>
+                        </div>
+
+                        <div class="row">
+                            <div class="col m4">
+                                <div class="input-field">
+                                    <i class="material-icons prefix margin-top15">date_range</i>
+                                    <input type="date" id="startDateEleDesktop" class="datepicker margin-left5" />
+                                    <label for="startDateEleDesktop">Campaign Start Date *</label>
+                                </div>
+                            </div>
+
+                            <div class="col m2">
+                                <div class="input-field">
+                                    <input type="time" id="startTimeEleDesktop" />
+                                </div>
+                            </div>
+
+                            <div class="col m4">
+                                <div class="input-field">
+                                    <i class="material-icons prefix margin-top15">date_range</i>
+                                    <input type="date" id="endDateEleDesktop" class="datepicker margin-left5" />
+                                    <label for="endDateEleDesktop">Campaign End Date</label>
+                                </div>
+                            </div>
+
+                            <div class="col m2">
+                                <div class="input-field">
+                                    <input type="time" id="endTimeEleDesktop" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <li class="step">
+                    <div class="step-title waves-effect waves-dark">Configure Mobile Home Page Banner</div>
+
+                    <div class="step-content">
+                        <div class="row">
+                            <div class="input-field col m4">
+                                <select id="select-hori-pos-Mobile">
+                                    <option value="0" disabled selected>Horizontal Position</option>
+                                    <option value="left">Left</option>
+                                    <option value="center">Center</option>
+                                    <option value="right">Right</option>
+                                </select>
+                                <label for="select-hori-pos-Mobile">Select Horizontal Position</label>
+                            </div>
+                            <div class="input-field col m4">
+                                <select id="select-ver-pos-Mobile">
+                                    <option value="0" disabled selected>Horizontal Position</option>
+                                    <option value="top">Top</option>
+                                    <option value="bottom">Bottom</option>
+                                    <option value="center">Center</option>
+                                </select>
+                                <label for="select-ver-pos-Mobile">Select Vertical Position</label>
+                            </div>
+                            <div class="input-field col m4">
+                                <input id="txtBackgroundColorMobile" type="text" class="validate" maxlength="100">
+                                <label for="txtBackgroundColorMobile">Background Color *</label>
+                            </div>
+                        </div>
+
+                        <div class="file-field input-field row">
+                            <div class="btn col m1">
+                                <span>File</span>
+                                <input type="file">
+                            </div>
+                            <div class="file-path-wrapper col m8">
+                                <input class="file-path validate" type="text">
+                            </div>
+                            <div class="btn col m2">
+                                <span>Upload</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col m6">
+                                <input id="txtBannerTitleMobile" type="text" class="validate" maxlength="100">
+                                <label for="txtBannerTitleMobile">Banner Title *</label>
+                            </div>
+
+                            <div class="input-field col m6">
+                                <select id="select-button-pos-Mobile">
+                                    <option value="0" disabled selected>Button Position</option>
+                                    <option value="left">Left</option>
+                                    <option value="right">Right</option>
+                                </select>
+                                <label for="select-button-pos-Mobile">Select Button Position</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col m6">
+                                <input id="txtButtonMobile" type="text" class="validate" maxlength="100">
+                                <label for="txtButtonMobile">Button text *</label>
+                            </div>
+
+                            <div class="input-field col m6">
+                                <select id="select-button-color-Mobile">
+                                    <option value="0" disabled selected>Button Color</option>
+                                    <option value="orange">Orange</option>
+                                    <option value="transparent">Transparent</option>
+                                </select>
+                                <label for="select-button-color-Mobile">Select Button Color</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col m6">
+                                <span>Button Type :</span>
+                                <span>
+                                    <input name="group1" type="radio" id="btnTypeLinkMobile" />
+                                    <label for="btnTypeLinkMobile">Link</label>
+                                    <input name="group1" type="radio" id="btnTypeButtonMobile" />
+                                    <label for="btnTypeButtonMobile">Button</label>
+                                </span>
+                            </div>
+
+                            <div class="col m6">
+                                <span>Open In New Page :</span>
+                                <span>
+                                    <input name="group2" type="radio" id="radioOpenInNewPage" />
+                                    <label for="radioOpenInNewPage">Yes</label>
+                                    <input name="group2" type="radio" id="radioOpenInSamePage" />
+                                    <label for="radioOpenInSamePage">No</label>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col m6">
+                                <select id="select-button-color-Mobile">
+                                    <option value="0" disabled selected>Jumbotron Depth</option>
+                                    <option value="140">140px</option>
+                                    <option value="200">200px</option>
+                                </select>
+                                <label for="select-button-color-Mobile">Select Jumbotron Depth</label>
+                            </div>
+                        </div>
+
+                        <div class="input-field row">
+                            <textarea id="textareaHtmlMobile" class="materialize-textarea"></textarea>
+                            <label for="textareaHtmlMobile">Html</label>
+                        </div>
+
+                        <div class="input-field row">
+                            <textarea id="textareaCssMobile" class="materialize-textarea"></textarea>
+                            <label for="textareaCssMobile">Css</label>
+                        </div>
+
+                        <div class="input-field row">
+                            <textarea id="textareaJsMobile" class="materialize-textarea"></textarea>
+                            <label for="textareaJsMobile">Js</label>
+                        </div>
+
+                        <div class="row">
+                            <div class="col m4">
+                                <div class="input-field">
+                                    <i class="material-icons prefix margin-top15">date_range</i>
+                                    <input type="date" id="startDateEleMobile" class="datepicker margin-left5" />
+                                    <label for="startDateEleMobile">Campaign Start Date *</label>
+                                </div>
+                            </div>
+
+                            <div class="col m2">
+                                <div class="input-field">
+                                    <input type="time" id="startTimeEleMobile" />
+                                </div>
+                            </div>
+
+                            <div class="col m4">
+                                <div class="input-field">
+                                    <i class="material-icons prefix margin-top15">date_range</i>
+                                    <input type="date" id="endDateEleMobile" class="datepicker margin-left5" />
+                                    <label for="endDateEleMobile">Campaign End Date</label>
+                                </div>
+                            </div>
+
+                            <div class="col m2">
+                                <div class="input-field">
+                                    <input type="time" id="endTimeEleMobile" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>                    
+                </li>
+            </ul>
+            <button class="btn waves-effect waves-light" type="submit">
+                Submit
+            </button>
+        </div>
+
+        <div class="col m5">
+            <img class="materialboxed" width="650" src="~/images/homePageBanner.png">
+        </div>
+    </div>
+
+</form>
+
+<script src="/src/Banner.js"></script>
+
