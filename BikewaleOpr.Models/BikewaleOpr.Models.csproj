@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Banner\BannerVM.cs" />
     <Compile Include="DealerCampaign\CampaignServingAreasVM.cs" />
     <Compile Include="ManufacturerCampaign\CampaignPropertiesVM.cs" />
     <Compile Include="ManufacturerCampaign\ManufacturerCampaignInformationModel.cs" />
