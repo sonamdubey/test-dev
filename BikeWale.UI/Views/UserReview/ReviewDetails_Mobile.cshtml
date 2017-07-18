@@ -96,7 +96,7 @@
                     <div class="padding-right20 padding-left20 padding-bottom20">
                         @if (!string.IsNullOrEmpty(Model.UserReviewDetailsObj.Description))
                         {
-                            <div class="padding-bottom10"><p class="font14 text-light-grey"><span itemprop="description">@Html.Raw(Model.UserReviewDetailsObj.Description)</span></p></div>
+                            <div class="padding-bottom10"><span itemprop="description"><p class="font14 text-light-grey">@Html.Raw(Model.UserReviewDetailsObj.Description)</p></span></div>
                         }
                         @if (Model.UserReviewDetailsObj.Tips.Length > 0)
                         {
