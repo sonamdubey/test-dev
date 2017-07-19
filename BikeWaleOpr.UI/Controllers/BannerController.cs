@@ -24,13 +24,14 @@ namespace BikewaleOpr.Controllers
                 objVM=objBanner.GetData();
             }
 
-            return View(objVM);
+            return View();
         }
-        //public ActionResult SaveBanner([System.Web.Http.FromBody] BannerDetails objBanner)
-        //{
+        [HttpPost, Route("submit/")]
+        public ActionResult SaveBanner([System.Web.Http.FromBody] BannerVM objBanner)
+        {
 
 
-
-        //}
+            return Redirect("/Banner/Index");
+        }
     }
 }
