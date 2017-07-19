@@ -1,4 +1,4 @@
-﻿@model BikewaleOpr.Models.BannerVM
+﻿
 @{
     ViewBag.Title = "Banner Configuration";
     ViewBag.PageTitle = "Bikewale Operations - Banner Configuration";
@@ -55,7 +55,7 @@
 
                         <div class="row">
                             <div class="input-field col m8">
-                                <input id="txtBannerTitleDesktop" type="text" class="validate" name="@Model.DesktopBannerDetails.BannerTitle" maxlength="100">
+                                <input id="txtBannerTitleDesktop" type="text" class="validate" maxlength="100">
                                 <label for="txtBannerTitleDesktop">Banner Title*</label>
                             </div>
                             <div class="input-field col m4">
@@ -326,7 +326,7 @@
             </button>
         </div>
 
-        <div class="col m5">
+        <div class="col m5 margin-top10">
             <img class="materialboxed" width="650" src="~/images/homePageBanner.png">
         </div>
     </div>
