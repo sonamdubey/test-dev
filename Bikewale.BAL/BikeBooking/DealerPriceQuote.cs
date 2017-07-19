@@ -303,14 +303,17 @@ namespace Bikewale.BAL.BikeBooking
                         PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
                 }
 
-                if (PQParams.VersionId > 0 && PQParams.AreaId > 0)
+                if (PQParams.VersionId > 0)
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IDealer, Bikewale.BAL.AutoBiz.Dealers>();
                         container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
                         IDealer objDealer = container.Resolve<IDealer>();
-                        objDealerDetail = objDealer.IsSubscribedDealerExistsV3(PQParams.VersionId, PQParams.AreaId);
+                        objDealerDetail = objDealer.GetSubscriptionDealer(
+                            PQParams.ModelId,
+                            PQParams.CityId,
+                            PQParams.AreaId);
                     }
                 }
                 else
@@ -365,14 +368,17 @@ namespace Bikewale.BAL.BikeBooking
                     else
                         defaultVersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
 
-                    if (PQParams.AreaId > 0)
+                    if (PQParams.CityId > 0)
                     {
                         using (IUnityContainer container = new UnityContainer())
                         {
                             container.RegisterType<IDealer, Bikewale.BAL.AutoBiz.Dealers>();
                             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
                             IDealer objDealer = container.Resolve<IDealer>();
-                            objDealerDetail = objDealer.IsSubscribedDealerExistsV3(defaultVersionId, PQParams.AreaId);
+                            objDealerDetail = objDealer.GetSubscriptionDealer(
+                            PQParams.ModelId,
+                            PQParams.CityId,
+                            PQParams.AreaId);
                         }
                     }
                     else
