@@ -63,7 +63,7 @@ namespace System
                     {
                         // pop the tag to close it.. find the matching opening tag
                         // ignore any unclosed tags
-                        while (tags.Pop() != closeTag && tags.Count > 0)
+                        while (tags.Count > 0 && tags.Pop() != closeTag)
                         { }
                     }
                 }
@@ -154,7 +154,7 @@ namespace System
                     {
                         // pop the tag to close it.. find the matching opening tag
                         // ignore any unclosed tags
-                        while (tags.Pop() != closeTag && tags.Count > 0)
+                        while (tags.Count > 0 && tags.Pop() != closeTag)
                         { }
                     }
                 }
