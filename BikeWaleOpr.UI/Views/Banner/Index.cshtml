@@ -1,8 +1,4 @@
 ﻿@model BikewaleOpr.Models.BannerVM
-@{
-    ViewBag.Title = "Banner Configuration";
-    ViewBag.PageTitle = "Bikewale Operations - Banner Configuration";
-}
 
 <link href="/css/materialize-stepper.css" rel="stylesheet">
 
@@ -54,7 +50,7 @@
 
                         <div class="row">
                             <div class="input-field col m8">
-                                <input id="txtBannerTitleDesktop" type="text" class="validate" name="DesktopBannerDetails.BannerTitle" value="@Model.DesktopBannerDetails.BannerTitle" maxlength="100">
+                                <input id="txtBannerTitleDesktop" type="text" class="validate" name="DesktopBannerDetails.BannerTitle" @*value="@Model.DesktopBannerDetails.BannerTitle"*@ maxlength="100">
                                 <label for="txtBannerTitleDesktop">Banner Title*</label>
                             </div>
                             <div class="input-field col m4">

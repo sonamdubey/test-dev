@@ -1,4 +1,5 @@
 ﻿using BikewaleOpr.Entity;
+using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Models;
 using BikewaleOpr.Models.Banner;
 using System;
@@ -12,19 +13,24 @@ namespace BikewaleOpr.Controllers
     [Authorize]
     public class BannerController : Controller
     {
+        private readonly IBannerRepository _objBannerRespository = null;
+        public BannerController(IBannerRepository objBannerRespository)
+        {
+            _objBannerRespository = objBannerRespository;
+        }
 
-
-        public ActionResult Index()
+        public ActionResult Index(uint? bannerId)
         {
 
-            Banner objBanner = new Banner();
+            Banner objBanner = new Banner(_objBannerRespository);
             BannerVM objVM = null;
             if (objBanner != null)
             {
-                objVM=objBanner.GetData();
+                uint id = bannerId ?? 0;
+                objVM=objBanner.GetData(id);
             }
 
-            return View();
+            return View(objVM);
         }
         [HttpPost, Route("submit/")]
         public ActionResult SaveBanner([System.Web.Http.FromBody] BannerVM objBanner)
