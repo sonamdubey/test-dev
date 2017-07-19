@@ -12,9 +12,87 @@
         <div class="stepper-height-60 col m6 offset-m1">
             <ul class="stepper vertical">
                 <li class="step">
+                    <div class="step-title waves-effect waves-dark">Configure Banner</div>
+                    <div class="step-content">
+                        <div class="row">
+                            <div class="input-field row">
+                                <textarea id="textareaBannerDesc" class="materialize-textarea"></textarea>
+                                <label for="textareaBannerDesc">Banner Description*</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col m4">
+                                <div class="input-field">
+                                    <i class="material-icons prefix margin-top15">date_range</i>
+                                    <input type="date" id="startDateEle" class="datepicker margin-left5" />
+                                    <label for="startDateEle">Campaign Start Date*</label>
+                                </div>
+                            </div>
+
+                            <div class="col m2">
+                                <div class="input-field">
+                                    <input type="time" id="startTimeEle" />
+                                </div>
+                            </div>
+
+                            <div class="col m4">
+                                <div class="input-field">
+                                    <i class="material-icons prefix margin-top15">date_range</i>
+                                    <input type="date" id="endDateEle" class="datepicker margin-left5" />
+                                    <label for="endDateEle">Campaign End Date</label>
+                                </div>
+                            </div>
+
+                            <div class="col m2">
+                                <div class="input-field">
+                                    <input type="time" id="endTimeEle" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <button class="btn waves-effect waves-light" type="submit">
+                            Configure
+                        </button>
+                    </div>
+                </li>
+
+                <li class="step">
+                    <div class="step-title waves-effect waves-dark">Upload Image</div>
+                    <div class="step-content">
+                        <div class="file-field input-field row">
+                            <div class="btn col m5">
+                                <span>Select Desktop Background Image</span>
+                                <input type="file" />
+                            </div>
+                            <div class="file-path-wrapper col m5">
+                                <input class="file-path validate" type="text">
+                            </div>
+                            <div class="btn col m2">
+                                <span>Upload Image</span>
+                            </div>
+                        </div>
+
+                        <div class="file-field input-field row">
+                            <div class="btn col m5">
+                                <span>Select Mobile Background Image</span>
+                                <input type="file" />
+                            </div>
+                            <div class="file-path-wrapper col m5">
+                                <input class="file-path validate" type="text">
+                            </div>
+                            <div class="btn col m2">
+                                <span>Upload Image</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="step">
                     <div class="step-title waves-effect waves-dark">Configure Desktop Home Page Banner</div>
                     <div class="step-content">
-                        
+
                         <div class="row">
                             <div class="input-field col m4">
                                 <select id="select-hori-pos-Desktop">
@@ -37,19 +115,6 @@
                             <div class="input-field col m4">
                                 <input id="txtBackgroundColorDesktop" type="text" class="validate" maxlength="100">
                                 <label for="txtBackgroundColorDesktop">Background Color *</label>
-                            </div>
-                        </div>
-
-                        <div class="file-field input-field row">
-                            <div class="btn col m4">
-                                <span>Select Background Image</span>
-                                <input type="file" />
-                            </div>
-                            <div class="file-path-wrapper col m6">
-                                <input class="file-path validate" type="text">
-                            </div>
-                            <div class="btn col m2">
-                                <span>Upload Image</span>
                             </div>
                         </div>                        
 
@@ -89,7 +154,7 @@
                             <div class="input-field col m4">
                                 <input id="txtButtonDesktop" type="text" class="validate" maxlength="100">
                                 <label for="txtButtonDesktop">Button text *</label>
-                            </div>                            
+                            </div>
                         </div>
 
                         <div class="row">
@@ -105,15 +170,15 @@
                                     <input name="group2" type="radio" id="radioOpenInSamePage" />
                                     <label for="radioOpenInSamePage">No</label>
                                 </span>
-                            </div>                            
+                            </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col m6">
                                 <select id="select-button-color-Mobile">
                                     <option value="0" disabled selected>Jumbotron Depth</option>
-                                    <option value="140">140px</option>
-                                    <option value="200">200px</option>
+                                    <option value="120">120px</option>
+                                    <option value="90">90px</option>
                                 </select>
                                 <label for="select-button-color-Mobile">Select Jumbotron Depth</label>
                             </div>
@@ -132,39 +197,12 @@
                         <div class="input-field row">
                             <textarea id="textareaJsDesktop" class="materialize-textarea"></textarea>
                             <label for="textareaJsDesktop">Js</label>
-                        </div>
-
-                        <div class="row">
-                            <div class="col m4">
-                                <div class="input-field">
-                                    <i class="material-icons prefix margin-top15">date_range</i>
-                                    <input type="date" id="startDateEleDesktop" class="datepicker margin-left5" />
-                                    <label for="startDateEleDesktop">Campaign Start Date *</label>
-                                </div>
-                            </div>
-
-                            <div class="col m2">
-                                <div class="input-field">
-                                    <input type="time" id="startTimeEleDesktop" />
-                                </div>
-                            </div>
-
-                            <div class="col m4">
-                                <div class="input-field">
-                                    <i class="material-icons prefix margin-top15">date_range</i>
-                                    <input type="date" id="endDateEleDesktop" class="datepicker margin-left5" />
-                                    <label for="endDateEleDesktop">Campaign End Date</label>
-                                </div>
-                            </div>
-
-                            <div class="col m2">
-                                <div class="input-field">
-                                    <input type="time" id="endTimeEleDesktop" />
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+                        </div>  
+                        
+                        <button class="btn waves-effect waves-light" type="submit">
+                            Save
+                        </button>                      
+                    </div>                   
                 </li>
                 <li class="step">
                     <div class="step-title waves-effect waves-dark">Configure Mobile Home Page Banner</div>
@@ -192,20 +230,7 @@
                                 <input id="txtBackgroundColorMobile" type="text" class="validate" maxlength="100">
                                 <label for="txtBackgroundColorMobile">Background Color *</label>
                             </div>
-                        </div>
-
-                        <div class="file-field input-field row">
-                            <div class="btn col m4">
-                                <span>Select Background Image</span>
-                                <input type="file" />
-                            </div>
-                            <div class="file-path-wrapper col m6">
-                                <input class="file-path validate" type="text">
-                            </div>
-                            <div class="btn col m2">
-                                <span>Upload Image</span>
-                            </div>
-                        </div>
+                        </div>                        
 
                         <div class="row">
                             <div class="input-field col m8">
@@ -266,8 +291,8 @@
                             <div class="input-field col m6">
                                 <select id="select-button-color-Mobile">
                                     <option value="0" disabled selected>Jumbotron Depth</option>
-                                    <option value="140">140px</option>
-                                    <option value="200">200px</option>
+                                    <option value="40">40px</option>
+                                    <option value="15">15px</option>
                                 </select>
                                 <label for="select-button-color-Mobile">Select Jumbotron Depth</label>
                             </div>
@@ -288,42 +313,12 @@
                             <label for="textareaJsMobile">Js</label>
                         </div>
 
-                        <div class="row">
-                            <div class="col m4">
-                                <div class="input-field">
-                                    <i class="material-icons prefix margin-top15">date_range</i>
-                                    <input type="date" id="startDateEleMobile" class="datepicker margin-left5" />
-                                    <label for="startDateEleMobile">Campaign Start Date *</label>
-                                </div>
-                            </div>
-
-                            <div class="col m2">
-                                <div class="input-field">
-                                    <input type="time" id="startTimeEleMobile" />
-                                </div>
-                            </div>
-
-                            <div class="col m4">
-                                <div class="input-field">
-                                    <i class="material-icons prefix margin-top15">date_range</i>
-                                    <input type="date" id="endDateEleMobile" class="datepicker margin-left5" />
-                                    <label for="endDateEleMobile">Campaign End Date</label>
-                                </div>
-                            </div>
-
-                            <div class="col m2">
-                                <div class="input-field">
-                                    <input type="time" id="endTimeEleMobile" />
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>                  
+                        <button class="btn waves-effect waves-light" type="submit">
+                            Save
+                        </button>
+                    </div>                   
                 </li>
-            </ul>
-            <button class="btn waves-effect waves-light" type="submit">
-                Submit
-            </button>
+            </ul>            
         </div>
 
         <div class="col m5 margin-top10">

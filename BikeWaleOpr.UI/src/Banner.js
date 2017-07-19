@@ -8,14 +8,12 @@
 
 $(document).ready(function () {    
 
-    $('#startTimeEleDesktop').val("00:00:00");
-    $('#endTimeEleDesktop').val("00:00:00");
-    $('#startTimeEleMobile').val("00:00:00");
-    $('#endTimeEleMobile').val("00:00:00");
+    $('#startTimeEle').val("00:00:00");
+    $('#endTimeEle').val("00:00:00");    
 
     if ($(".stepper"))
     {
-        $('.stepper').activateStepper();
+        $('.stepper').activateStepper({ autoFocusInput : false});
     }
 
     $("input[type='file']").change(function (e) {
