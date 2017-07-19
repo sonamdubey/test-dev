@@ -1,0 +1,6 @@
+D:\copyfiles\copyfiles\bin\Release\copyfiles.exe.config
+D:\copyfiles\copyfiles\bin\Release\copyfiles.exe
+D:\copyfiles\copyfiles\bin\Release\copyfiles.pdb
+D:\copyfiles\copyfiles\obj\Release\Bikewale.ReleaseManagement.csprojResolveAssemblyReference.cache
+D:\copyfiles\copyfiles\obj\Release\copyfiles.exe
+D:\copyfiles\copyfiles\obj\Release\copyfiles.pdb
