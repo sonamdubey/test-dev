@@ -27,5 +27,7 @@ namespace Bikewale.Interfaces.AutoBiz
         DetailedDealerQuotationEntity GetDealerPriceQuoteByPackage(PQParameterEntity objParams);
         DealerInfo GetCampaignDealersLatLongV3(uint versionId, uint areaId);
         Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerPriceQuoteByPackageV2(PQParameterEntity objParams);
+        DealerInfo GetNearestDealer(uint modelId, uint cityId);
+        DealerInfo GetNearestDealer(uint modelId, uint cityId, uint areaId);
     }
 }

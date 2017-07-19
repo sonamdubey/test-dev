@@ -349,6 +349,7 @@ namespace Bikewale.BAL.PriceQuote
                                     pqOutput.PriceQuote = objDealer.ProcessPQ(pqInput);
                                 }
                             }
+
                         }
                         else // when selected city is not in the list show cities list 
                         {

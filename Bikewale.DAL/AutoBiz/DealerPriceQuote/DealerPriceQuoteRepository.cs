@@ -59,7 +59,7 @@ namespace Bikewale.DAL.AutoBiz
                         objPriceQuote.PriceList = new List<PQ_Price>();
                         while (dr.Read())
                         {
-                            objPriceQuote.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt32(dr["Price"]), DealerId = Convert.ToUInt32(dr["DealerId"]),IsGstPrice=SqlReaderConvertor.ToBoolean(dr["isgstprice"]) });
+                            objPriceQuote.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt32(dr["Price"]), DealerId = Convert.ToUInt32(dr["DealerId"]), IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]) });
                         }
 
                         dr.NextResult();
@@ -808,7 +808,7 @@ namespace Bikewale.DAL.AutoBiz
                                         CategoryName = Convert.ToString(dr["ItemName"]),
                                         Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
                                         DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]),
-                                        IsGstPrice=SqlReaderConvertor.ToBoolean(dr["isgstprice"])
+                                        IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"])
 
                                     });
                                 }
@@ -1092,6 +1092,93 @@ namespace Bikewale.DAL.AutoBiz
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetCampaignDealersLatLongV3");
                 objErr.SendMail();
+            }
+            return objDealersList;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 18 Jul 2017
+        /// Description :   Returns the primary dealer by model and city
+        /// Primary dealer allocation is by random logic. because area is not given
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public DealerInfo GetNearestDealer(uint modelId, uint cityId)
+        {
+            DealerInfo objDealersList = null;
+
+            try
+            {
+                if (modelId > 0 && cityId > 0)
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getnearestdealerbymodelcity"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.Int32, modelId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        {
+                            objDealersList = new DealerInfo();
+
+                            while (dr.Read())
+                            {
+                                objDealersList.DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]);
+                                objDealersList.IsDealerAvailable = SqlReaderConvertor.ToBoolean(dr["IsDealerAvailable"]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetNearestDealer({0},{1})", modelId, cityId));
+            }
+            return objDealersList;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 18 Jul 2017
+        /// Description :   Nearest primary dealer is returned
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public DealerInfo GetNearestDealer(uint modelId, uint cityId, uint areaId)
+        {
+            DealerInfo objDealersList = null;
+
+            try
+            {
+                if (modelId > 0 && cityId > 0 && areaId > 0)
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getnearestdealerbymodelcityarea"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, areaId));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        {
+                            objDealersList = new DealerInfo();
+
+                            while (dr.Read())
+                            {
+                                objDealersList.DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]);
+                                objDealersList.IsDealerAvailable = SqlReaderConvertor.ToBoolean(dr["IsDealerAvailable"]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetNearestDealer({0},{1},{2})", modelId, cityId, areaId));
             }
             return objDealersList;
         }

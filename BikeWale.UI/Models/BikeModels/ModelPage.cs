@@ -72,22 +72,22 @@ namespace Bikewale.Models.BikeModels
         private readonly IUpcoming _upcoming = null;
 
         private readonly IUserReviewsCache _userReviewsCache = null;
-        private readonly IUserReviewsSearch _userReviewsSearch = null;        
-       
+        private readonly IUserReviewsSearch _userReviewsSearch = null;
+
         private uint _modelId, _cityId, _areaId;
-       
-   
-       
+
+
+
 
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
 
-        private ModelPageVM _objData = null;       
+        private ModelPageVM _objData = null;
         private PQOnRoadPrice _pqOnRoad;
         private StringBuilder _colorStr = new StringBuilder();
 
 
-             
+
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
         public uint OtherDealersTopCount { get; set; }
@@ -313,9 +313,9 @@ namespace Bikewale.Models.BikeModels
                     _objData.News = new RecentNews(3, (uint)objMake.MakeId, _objData.ModelId, objMake.MakeName, objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, "News", _objArticles).GetData();
                     _objData.ExpertReviews = new RecentExpertReviews(3, (uint)objMake.MakeId, _objData.ModelId, objMake.MakeName, objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, _objArticles, string.Format("{0} Reviews", _objData.BikeName)).GetData();
                     _objData.Videos = new RecentVideos(1, 3, (uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, _objData.ModelId, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, _objVideos).GetData();
-                     _objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName, (int)(IsMobile?UserReviewPageSourceEnum.Mobile_ModelPage: UserReviewPageSourceEnum.Desktop_ModelPage)));
-               
-                       
+                    _objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName, (int)(IsMobile ? UserReviewPageSourceEnum.Mobile_ModelPage : UserReviewPageSourceEnum.Desktop_ModelPage)));
+
+
 
                     if (!_objData.IsUpcomingBike)
                     {
@@ -418,21 +418,21 @@ namespace Bikewale.Models.BikeModels
             try
             {
                 InputFilters filters = null;
-               
-                    filters = new InputFilters()
-                    {
-                        Model = _modelId.ToString(),
-                        SO = 1,
-                        PN = 1,
-                        PS = 3,
-                        Reviews = true
-                        
-                    };
+
+                filters = new InputFilters()
+                {
+                    Model = _modelId.ToString(),
+                    SO = 1,
+                    PN = 1,
+                    PS = 3,
+                    Reviews = true
+
+                };
                 var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache, _userReviewsSearch);
                 if (objUserReviews != null)
                 {
                     objUserReviews.ActiveReviewCateory = FilterBy.MostRecent;
-                        objPage.UserReviews = objUserReviews.GetDataDesktop();
+                    objPage.UserReviews = objUserReviews.GetDataDesktop();
 
                 }
 
@@ -982,7 +982,7 @@ namespace Bikewale.Models.BikeModels
             }
             finally
             {
-                if (_cityId > 0 && _areaId > 0 && _objData.VersionId > 0)
+                if (_cityId > 0 && _objData.DealerId > 0 && _objData.VersionId > 0)
                 {
                     _objData.DetailedDealer = _objDealerDetails.GetDealerQuotationV2(_cityId, _objData.VersionId, _objData.DealerId, _areaId);
                 }
@@ -1092,7 +1092,6 @@ namespace Bikewale.Models.BikeModels
                 {
                     if (_objData.VersionId == 0)
                         _objData.VersionId = objPQOutput.VersionId;
-                    //objData.VersionId = objPQOutput.DefaultVersionId;
                     _pqOnRoad = new PQOnRoadPrice();
                     _pqOnRoad.PriceQuote = objPQOutput;
                     if (objPQOutput != null && objPQOutput.PQId > 0)
