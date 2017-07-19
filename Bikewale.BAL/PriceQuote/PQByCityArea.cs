@@ -319,13 +319,16 @@ namespace Bikewale.BAL.PriceQuote
                         {
                             if (selectedCity.HasAreas)
                             {
-                                IEnumerable<Bikewale.Entities.Location.AreaEntityBase> areaList = GetAreaForCityAndModel(Convert.ToInt32(pqInput.ModelId), Convert.ToInt32(pqInput.CityId));
+                                IEnumerable<Bikewale.Entities.Location.AreaEntityBase> areaList = null;
 
-                                if (!(pqInput.AreaId > 0 && areaList.FirstOrDefault(m => m.AreaId == pqInput.AreaId) != null))
+                                if (!(pqInput.AreaId > 0))
+                                    areaList = GetAreaForCityAndModel(Convert.ToInt32(pqInput.ModelId), Convert.ToInt32(pqInput.CityId));
+
+
+                                if (pqInput.AreaId > 0)
                                 {
                                     if (!isReload)
                                     {
-                                        // Check if Area wise dealer is present
                                         PQOutputEntity priceQuote = objDealer.ProcessPQ(pqInput);
                                         if (priceQuote != null)
                                         {
@@ -333,13 +336,18 @@ namespace Bikewale.BAL.PriceQuote
                                         }
                                     }
                                 }
-                                pqOutput.PQCitites = cityList;
-                                pqOutput.PQAreas = areaList;
+                                else  //selected area is not in the list
+                                {
+                                    pqOutput.PQCitites = cityList;
+                                    pqOutput.PQAreas = areaList;
+                                }
                             }
-                            else if (!isReload)
+                            else //when city exists and no areas for that city exists show bikewale pricequote (hasareas for that city is false)
                             {
-                                // Check if City wise serving dealer is present 
-                                pqOutput.PriceQuote = objDealer.ProcessPQ(pqInput);
+                                if (!isReload)
+                                {
+                                    pqOutput.PriceQuote = objDealer.ProcessPQ(pqInput);
+                                }
                             }
 
                         }

@@ -251,12 +251,12 @@ namespace Bikewale.BAL.AutoBiz
                     if (areaId > 0)
                     {
                         dealer = _dealerPQRepository.GetNearestDealer(modelId, cityId, areaId);
+                        if (dealer == null || !dealer.IsDealerAvailable)
+                        {
+                            dealer = _dealerPQRepository.GetNearestDealer(modelId, cityId);
+                        }
                     }
                     else
-                    {
-                        dealer = _dealerPQRepository.GetNearestDealer(modelId, cityId);
-                    }
-                    if (dealer == null || !dealer.IsDealerAvailable)
                     {
                         dealer = _dealerPQRepository.GetNearestDealer(modelId, cityId);
                     }
