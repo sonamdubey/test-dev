@@ -206,7 +206,8 @@ namespace Bikewale.BAL.PriceQuote
                 if (cityId > 0)
                 {
                     IEnumerable<CityEntityBase> cityList = FetchCityByModelId(modelID);
-                    pqEntity.IsCityExists = cityList != null && cityList.Any(p => p.CityId == cityId);
+                    var selectedCity = cityList.FirstOrDefault(p => p.CityId == cityId);
+                    pqEntity.IsCityExists = selectedCity != null;
                     if (pqEntity.IsCityExists)
                     {
                         var areaList = GetAreaForCityAndModel(modelID, Convert.ToInt16(cityId));
@@ -224,7 +225,7 @@ namespace Bikewale.BAL.PriceQuote
                             pqEntity.IsExShowroomPrice = pqOnRoad.DPQOutput == null && pqOnRoad.BPQOutput == null;
 
                             // When City has areas and area is not selected then show ex-showrrom price so user can select it
-                            bool isAreaExistAndSelected = pqEntity.IsAreaExists && pqEntity.IsAreaSelected;
+                            bool isAreaExistAndSelected = ((pqEntity.IsAreaExists && pqEntity.IsAreaSelected) || !selectedCity.HasAreas);
                             // when DPQ OR Only city level pricing exists
                             if (isAreaExistAndSelected || (!pqEntity.IsAreaExists))
                             {

@@ -277,7 +277,7 @@ namespace Bikewale.Service.Controllers.Model
             Bikewale.DTO.Model.v3.ModelPage objDTOModelPage = null;
             try
             {
-                if (modelId <= 0 || cityId <= 0 || areaId <= 0)
+                if (modelId <= 0 || cityId <= 0)
                 {
                     return BadRequest();
                 }
@@ -336,7 +336,7 @@ namespace Bikewale.Service.Controllers.Model
             Bikewale.DTO.Model.v4.ModelPage objDTOModelPage = null;
             try
             {
-                if (modelId <= 0 || cityId <= 0 || areaId <= 0)
+                if (modelId <= 0 || cityId <= 0)
                 {
                     return BadRequest();
                 }
