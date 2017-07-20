@@ -3993,7 +3993,7 @@
     <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />
   </Target>
 
-  <Target Name="ExecuteGulpEvent" AfterTargets="BeforeBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
+  <Target Name="ExecuteGulpEvent" AfterTargets="AfterBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running gulp task $(Configuration)" Importance="high" />
     <Exec Command="gulp" WorkingDirectory="$(ProjectDir)" />
   </Target>
@@ -4004,8 +4004,8 @@
 
   <Target Name="CreateReleaseFolder" AfterTargets="BeforeBuild" DependsOnTargets="ExecuteGulpEvent" Condition="'$(Configuration)' == 'Release'">
     <Message Text="Creating Release folder $(Configuration)" Importance="high" />
-    <Exec Command="D:\copyfiles\copyfiles\bin\$(Configuration)\copyfiles.exe $(DaysOld) $(Solution)" WorkingDirectory="$(ProjectDir)" />
-  </Target><!---->
+    <Exec Command="$(ProjectDir)..\Bikewale.ReleaseManagement\copyfiles\bin\$(Configuration)\copyfiles.exe $(DaysOld) $(ProjectDir)" WorkingDirectory="$(ProjectDir)" />
+  </Target>
   
   <PropertyGroup>
     <PreBuildEvent>

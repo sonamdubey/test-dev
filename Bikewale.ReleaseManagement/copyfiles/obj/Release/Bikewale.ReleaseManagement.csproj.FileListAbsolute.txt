@@ -4,3 +4,9 @@ D:\copyfiles\copyfiles\bin\Release\copyfiles.pdb
 D:\copyfiles\copyfiles\obj\Release\Bikewale.ReleaseManagement.csprojResolveAssemblyReference.cache
 D:\copyfiles\copyfiles\obj\Release\copyfiles.exe
 D:\copyfiles\copyfiles\obj\Release\copyfiles.pdb
+D:\work\bikewaleweb\Bikewale.ReleaseManagement\copyfiles\bin\Release\copyfiles.exe.config
+D:\work\bikewaleweb\Bikewale.ReleaseManagement\copyfiles\bin\Release\copyfiles.exe
+D:\work\bikewaleweb\Bikewale.ReleaseManagement\copyfiles\bin\Release\copyfiles.pdb
+D:\work\bikewaleweb\Bikewale.ReleaseManagement\copyfiles\obj\Release\copyfiles.exe
+D:\work\bikewaleweb\Bikewale.ReleaseManagement\copyfiles\obj\Release\copyfiles.pdb
+D:\work\bikewaleweb\Bikewale.ReleaseManagement\copyfiles\obj\Release\Bikewale.ReleaseManagement.csprojResolveAssemblyReference.cache

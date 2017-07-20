@@ -27,11 +27,9 @@ namespace CopyFiles
 
         static void Main(string[] args)
         {
-            //source folder path from where files to take
-            string copyPath = String.Format(@"D:\Bikewale-Releases\{0}\website", DateTime.Now.ToString("ddMMMyyyy"));
             bool isMinify = false;
-            //target folder path where files need to copy
-            string path = string.Empty;
+            string path = string.Empty, copyPath=string.Empty, sourcePath=string.Empty;
+
             DateTime fromDateTime = DateTime.Now.AddDays(-7); //default value for release note is one week
 
             if(args != null && args.Length > 0)
@@ -41,97 +39,72 @@ namespace CopyFiles
                 if (args.Length > 1)
                 {
                     path = args[1];
-                    if(!path.ToUpper().Contains("OPR"))
-                    {
-                        path = @"D:\work\bikewaleweb\BikeWale.UI\";
-                        isMinify = true;
-                    }
-                    else
-                    {
-                        path = @"D:\work\bikewaleweb\BikeWaleOPR.UI\";
-                    }
-                }
-            }          
-                    
+                    path = path.Trim();
 
-            if (buildSolution)
-                BuildSolution();
+                    if(!String.IsNullOrEmpty(path))
+                    {
+                        isMinify = !path.ToUpper().Contains("OPR");
+                        copyPath = String.Format(@"{0}..\..\Bikewale{2}-Releases\{1}\website\",path,DateTime.Now.ToString("dd MMM yyyy - hh-mm"),isMinify ? string.Empty : "OPR");
+                    }                   
+                }
+            }
+
             //calling function to copy files
             CopyAllFiles(path, copyPath,fromDateTime,isMinify);
 
-            MoveBuildFolderContents(path, copyPath);
+            sourcePath = String.Format(@"{0}build\", copyPath);
+            MoveBuildFolderContents(copyPath,sourcePath);
 
-            //create bat file for html minification
-           // CreateHTMLMinifyBat(copyPath);
-
-            //System.Diagnostics.Process.Start(@"D:\WebDevelopment\BikeWale_Releases\copyfiles\minifyHTML.bat");
+            sourcePath = String.Format(@"{0}build\", copyPath.Replace(@"\website\", @"\cdn\"));
+            MoveBuildFolderContents(string.Format(@"{0}..\cdn\", copyPath), sourcePath);
         }
 
-        private static void MoveBuildFolderContents(string path, string copyPath)
-        {
-            //// Use Path class to manipulate file and directory paths.
-            //string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
-            //string destFile = System.IO.Path.Combine(targetPath, fileName);
-
-            //// To copy a folder's contents to a new location:
-            //// Create a new target folder, if necessary.
-            //if (!System.IO.Directory.Exists(targetPath))
-            //{
-            //    System.IO.Directory.CreateDirectory(targetPath);
-            //}
-
-            //// To copy a file to another location and 
-            //// overwrite the destination file if it already exists.
-            //System.IO.File.Copy(sourceFile, destFile, true);
-
-            //// To copy all the files in one directory to another directory.
-            //// Get the files in the source folder. (To recursively iterate through
-            //// all subfolders under the current directory, see
-            //// "How to: Iterate Through a Directory Tree.")
-            //// Note: Check for target path was performed previously
-            ////       in this code example.
-            //if (System.IO.Directory.Exists(sourcePath))
-            //{
-            //    string[] files = System.IO.Directory.GetFiles(sourcePath);
-
-            //    // Copy the files and overwrite destination files if they already exist.
-            //    foreach (string s in files)
-            //    {
-            //        // Use static Path methods to extract only the file name from the path.
-            //        fileName = System.IO.Path.GetFileName(s);
-            //        destFile = System.IO.Path.Combine(targetPath, fileName);
-            //        System.IO.File.Copy(s, destFile, true);
-            //    }
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Source path does not exist!");
-            //}
-
-        }
-
-        private static void BuildSolution()
-        {
-            try
-            {
-                //string projectFileName = ConfigurationManager.AppSettings["solutionPath"].ToString();
-                //ProjectCollection proj = new ProjectCollection();
-                //Dictionary<string, string> GlobalProperty = new Dictionary<string, string>();
-                //GlobalProperty.Add("Configuration", "Release");
-                //GlobalProperty.Add("Platform", "Any CPU");
-
-                //BuildRequestData buildRequest = new BuildRequestData(projectFileName, GlobalProperty, null, new string[] { "Build" }, null);
-
-                //BuildResult buildResult = BuildManager.DefaultBuildManager.Build(new BuildParameters(proj), buildRequest);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception " + ex.Message);
-            }
-        }
-        
         /// <summary>
-        /// Minifies the contents of the given view.
+        /// Created By : Sushil Kumar on 17th July 2017
+        /// Description : MOve build contents to actual folder structure
+        /// </summary>
+        /// <param name="targetPath"></param>
+        private static void MoveBuildFolderContents(string targetPath,string sourcePath)
+        {
+
+            if (!Directory.Exists(targetPath))
+            {
+                Directory.CreateDirectory(targetPath);
+            }
+
+            if (System.IO.Directory.Exists(targetPath))
+            {
+                string[] files = System.IO.Directory.GetFiles(sourcePath);
+                foreach (string s in files)
+                {
+                    System.IO.File.Copy(s, System.IO.Path.Combine(targetPath, System.IO.Path.GetFileName(s)), true);
+                }
+
+                //it will read all folders(directories) inside the folder and then call itself to create sub folders
+                foreach (string directories in Directory.GetDirectories(sourcePath))
+                {
+                    string folderName = directories.Replace(sourcePath, "");
+                    string newCopyPath = targetPath + folderName;
+
+                    if (Convert.ToInt32(Array.IndexOf(ignoreFolders, folderName)) < 0)
+                    {
+                        newCopyPath = newCopyPath + @"\";
+                        MoveBuildFolderContents(newCopyPath, directories);//calling itself
+                    }
+                }
+
+                Directory.Delete(sourcePath, true);
+
+            }
+            else
+            {
+                Console.WriteLine("Source path does not exist!");
+            }
+        }
+
+        /// <summary>
+        /// Modified By : Sushil Kumar on 17th July 2017
+        /// Description : Minifies the contents of the given view.
         /// </summary>
         /// <param name="filePath"> The file path. </param>
         /// <returns>
@@ -149,13 +122,15 @@ namespace CopyFiles
         /// Craeted By : vivek gupta
         /// Date : 24 feb 2016
         /// Desc: this function works recursively to create folders and sub folders and copy files to respective folders
+        /// Modified By : Sushil Kumar 
+        /// Description : Added minification of cshtml,html,aspx,ascx and other files 
+        /// Modified By : Sushil Kumar on 17th July 2017
+        /// Description : Change cdn folder name
         /// </summary>
         /// <param name="path"></param>
         /// <param name="copyPath"></param>
         public static void CopyAllFiles(string path, string targetPath,DateTime fromDateTime,bool isMinify)
         {
-            Console.WriteLine(path);
-            Console.WriteLine(targetPath);
             var features = new Features(null);
 
             path.Replace(@"\\", @"\");
@@ -163,7 +138,6 @@ namespace CopyFiles
             //it will read all files inside the folder
             foreach (string fileName in Directory.GetFiles(path))
             {
-                //Console.WriteLine(fileName);
 
                 //files extension to check ignored file list
                 string fileExtension = Path.GetExtension(fileName);
@@ -185,7 +159,7 @@ namespace CopyFiles
 
                     if (fileExtension.Equals(".js") || fileExtension.Equals(".css"))
                     {
-                        string newTargetPath = targetPath.Replace(@"\website\", @"\css n js\");
+                        string newTargetPath = targetPath.Replace(@"\website\", @"\cdn\");
                         if (!Directory.Exists(newTargetPath))
                         {
                             Directory.CreateDirectory(newTargetPath);
@@ -197,14 +171,12 @@ namespace CopyFiles
 
                     if (isMinify && fileName.IsHtmlFile())
                     {
-                        Console.WriteLine("Beginning Minification");
                         string ntargetPath = targetPath + Path.GetFileName(fileName);
                         // Minify contents
                         string minifiedContents = MinifyHtml(ntargetPath, features);
 
                         // Write to the same file
                         File.WriteAllText(ntargetPath, minifiedContents, Encoding.UTF8);
-                        Console.WriteLine("Minified file : " + ntargetPath);
                     }
 
                 }
