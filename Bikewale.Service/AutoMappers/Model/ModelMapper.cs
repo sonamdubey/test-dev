@@ -294,7 +294,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
-        internal static DTO.Model.v4.ModelPage ConvertV4(BikeModelPageEntity objModelPage, Entities.PriceQuote.PQByCityAreaEntity pqEntity, DetailedDealerQuotationEntity dealers)
+        internal static DTO.Model.v4.ModelPage ConvertV4(BikeModelPageEntity objModelPage, Entities.PriceQuote.PQByCityAreaEntity pqEntity, Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers)
         {
             Bikewale.DTO.Model.v4.ModelPage objDTOModelPage = null;
             try
