@@ -78,7 +78,7 @@
                             <li data-item-type="@Details.DealerType" data-item-id="@Details.DealerId" data-item-inquired="false" data-item-number="@Details.MaskingNumber" data-lat="@Details.objArea.Latitude" data-log="@Details.objArea.Longitude" data-address="@Details.Address" data-campid="@Details.CampaignId" data-item-url="@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)">
                                 <a href="/@Model.Make.MaskingName-dealer-showrooms-in-@Model.CityDetails.CityMaskingName/@Details.DealerId-@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)/" title="@Details.Name" class="dealer-card-target font14">
                                     <div class="margin-bottom5">
-                                        <div class="@string.Format("{0}",Details.DealerType==3||Details.DealerType==2?"":"hide")">
+                                        <div class="@string.Format("{0}",Details.DealerType == 4|| Details.DealerType == 3 || Details.DealerType == 2? string.Empty : "hide" )">
                                             <span class="featured-tag margin-bottom5"><span class="bwsprite star-white"></span>Featured</span>
                                         </div>
                                         <h3 class="dealer-name text-black text-bold">@Details.Name</h3>
