@@ -39,10 +39,8 @@
         </div>
         @if (Model.Banner != null)
         {
-            @*@Html.Raw(Model.Banner.DesktopCss);*@
-            <style type="text/css">.home-top-banner{background:#5a5957 url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/harley-davidson-street-glide-banner.jpg) left bottom no-repeat;background-size:cover;height:490px;position:relative}.top-campaign-banner-container .welcome-box{margin-top:90px}.top-campaign-banner-container .welcome-box h1{margin-bottom:5px}.top-campaign-banner-container .margin-top60{margin-top:25px}.campaign-banner__wrapper{width:996px;margin:0 auto;position:absolute;bottom:20px;left:0;right:0}.campaign-banner__wrapper:after{content:'';display:block;clear:both}.campaign-banner__text-box{width:280px;float:right}.campaign__title{font-size:14px;text-align:left;color:#fff;margin-bottom:5px}.campaign__target-btn{font-size:14px;padding:5px 8px;background:transparent;color:#fff;border:1px solid #fff}.campaign__target-btn:hover{color:#222;background:#fff}.arrow-white{width:6px;height:10px;background-position:-222px -14px;margin-left:5px}.campaign__target-btn:hover .arrow-white{background-position:-222px -28px}</style>
-            <div class="campaign-banner__wrapper"><div class="campaign-banner__text-box"><p class="campaign__title">2017 Harley Davidson Street Glide Special First Ride Review</p> <a href="/expert-reviews/2017-harley-davidson-street-glide-special-first-ride-review-28723.html" class="btn campaign__target-btn bw-ga" c="HP" a="WallPaper_Link_Clicked" l="2017_Harley_Davidson_Street_Glide_Special_First_Ride_Review">Read detailed review<span class="bwsprite arrow-white"></span></a></div></div>
-            @*@Html.Raw(Model.Banner.DesktopHtml);*@
+            @Html.Raw(Model.Banner.DesktopCss);
+            @Html.Raw(Model.Banner.DesktopHtml);
             @Html.Raw(Model.Banner.DesktopJS);
         }
     </header>

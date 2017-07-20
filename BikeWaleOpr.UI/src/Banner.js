@@ -6,7 +6,12 @@
     onSet: function (ele) { if (ele.select) { this.close(); } }
 });
 
-$(document).ready(function () {
+$(document).ready(function () {    
+
+    $('#startTimeEleDesktop').val("00:00:00");
+    $('#endTimeEleDesktop').val("00:00:00");
+    $('#startTimeEleMobile').val("00:00:00");
+    $('#endTimeEleMobile').val("00:00:00");
 
     if ($(".stepper"))
     {

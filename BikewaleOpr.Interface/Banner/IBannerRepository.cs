@@ -10,5 +10,6 @@ namespace BikewaleOpr.Interface.Banner
     public interface IBannerRepository
     {
         BannerVM GetBannerDetails(uint bannerId);
+        bool SaveBanner(BannerVM objbanner);
     }
 }

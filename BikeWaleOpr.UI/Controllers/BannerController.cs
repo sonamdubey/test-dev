@@ -27,7 +27,8 @@ namespace BikewaleOpr.Controllers
             if (objBanner != null)
             {
                 uint id = bannerId ?? 0;
-                objVM=objBanner.GetData(id);
+                objVM = new BannerVM();
+                objVM =objBanner.GetData(id);
             }
 
             return View(objVM);
@@ -35,6 +36,7 @@ namespace BikewaleOpr.Controllers
         [HttpPost, Route("submit/")]
         public ActionResult SaveBanner([System.Web.Http.FromBody] BannerVM objBanner)
         {
+            _objBannerRespository.savebanner(objBanner);
 
 
             return Redirect("/Banner/Index");

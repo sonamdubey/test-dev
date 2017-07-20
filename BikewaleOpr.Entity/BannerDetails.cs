@@ -12,7 +12,9 @@ namespace BikewaleOpr.Entity
         public string VerticalPosition { get; set; }
         public string BackgroundColor { get; set; }
 
-        public string ImageHref { get; set; }
+        public string HostUrl { get; set; }
+
+        public string OriginalImagePath { get; set; }
 
         public string BannerTitle { get; set; }
 
@@ -24,7 +26,9 @@ namespace BikewaleOpr.Entity
 
         public ushort ButtonType { get; set; }
 
-        public ushort TargetHref { get; set; }
+        public ushort Target { get; set; }
+
+        public string TargetHref { get; set; }
 
         public string JumbotronDepth { get; set; }
 
