@@ -78,8 +78,8 @@
 @if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable)
 {
     <div id="reviewsContent" class="bw-model-tabs-data">
-
-        <div class="padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
+        @if (Model.IsUserReviewsAvailable)
+        {<div class="padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
             <h2 class="heading-bottom-margin">@Model.BikeName User Reviews</h2>
             <div class="model-overall-rating">
                 <div class="overall-rating-alignment">
@@ -91,14 +91,15 @@
                     {
                         <span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.ResultDesktop.FirstOrDefault().TotalRatings @string.Format("{0}", Model.UserReviews.UserReviews.ResultDesktop.FirstOrDefault().TotalRatings > 1 ? "ratings" : "rating") </span>
                     }
-                    <span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.TotalCount @string.Format("{0}",Model.UserReviews.UserReviews.TotalCount>1?"reviews":"review")</span>
+                    <span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.TotalCount @string.Format("{0}", Model.UserReviews.UserReviews.TotalCount > 1 ? "reviews" : "review")</span>
                 </div>
             </div>
             @Html.Partial("~/Views/UserReview/_UserReviewList_Mobile.cshtml", Model.UserReviews)
             <div class="view-all-btn-container">
                 <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="btn view-all-target-btn">Read all user reviews<span class="bwmsprite teal-right"></span></a>
             </div>
-        </div>
+        </div> }
+        
 
         @if (Model.IsReviewsAvailable)
         {

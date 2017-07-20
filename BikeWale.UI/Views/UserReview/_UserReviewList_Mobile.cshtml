@@ -9,7 +9,7 @@
   @foreach (var obj in Model.ObjQuestionValue.QuestionsList)
   {
       <li>
-        <div class="rating-circle circle-rate-@((int)obj.AverageRatingValue)">
+        <div class="rating-circle circle-rate-@(obj.AverageRatingValue.ToString("0"))">
             <p class="circle-label">@(obj.AverageRatingValue.ToString("0.0"))</p>
             <span class="rating-progress"></span>
         </div>
@@ -27,7 +27,7 @@
             <div class="margin-bottom10">
                 <span class="rating-badge" data-rate-bg="@review.OverallRating.Value">
                     <span class="bwmsprite star-white"></span>
-                    <span>4</span>
+                    <span>@review.OverallRating.Value</span>
                 </span>
                 <div class="grid-10-inline font15 text-black text-bold text-truncate">
                     <span class="review-title position-rel">@review.Title</span>
