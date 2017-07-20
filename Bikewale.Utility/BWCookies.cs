@@ -45,7 +45,7 @@ namespace Bikewale.Utility
 
                 if (request.UrlReferrer != null)
                 {
-                    httpReffer = request.UrlReferrer.OriginalString; //e.g. www.google.com, www.carwale.com
+                    httpReffer = request.UrlReferrer.Host; //e.g. www.google.com, www.carwale.com
                 }
 
 
@@ -80,7 +80,7 @@ namespace Bikewale.Utility
                         if (match.Groups.Count >= 0)
                         {
                             utmcsr = match.Groups[0].Value;
-                            Regex serachEngNames = new Regex("google|yahoo|bing|ask|yandex|baidu|aol");
+                            Regex serachEngNames = new Regex("google|yahoo|bing|ask|yandex|baidu|aol|duckduckgo");
                             if ((match = serachEngNames.Match(utmcsr)) != null && match.Success)
                             {
                                 utmcsr = match.Groups[0].Value;
