@@ -36,7 +36,7 @@ namespace BikewaleOpr.Controllers
         [HttpPost, Route("submit/")]
         public ActionResult SaveBanner([System.Web.Http.FromBody] BannerVM objBanner)
         {
-            _objBannerRespository.savebanner(objBanner);
+            _objBannerRespository.SaveBanner(objBanner);
 
 
             return Redirect("/Banner/Index");
