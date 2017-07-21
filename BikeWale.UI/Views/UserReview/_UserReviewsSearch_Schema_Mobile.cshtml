@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="grid-5 omega text-right" style="display: @(review.Viewed > 0 ? "block" : "none")" data-bind="visible: activeReviewList()[@i].viewed >
                                     0">
-                                        <div class="item-views-grid">
+                                        <div class="item-views-grid text-light-grey">
                                             <span data-bind="CurrencyText: activeReviewList()[@i].viewed">@Format.FormatNumeric(review.Viewed.ToString())</span><span>&nbsp;views</span>
                                         </div>
                                     </div>

@@ -1905,6 +1905,7 @@ input[type="number"] {
     -o-transition: right .5s;
 	transition: right .5s;
 	text-align: center;
+	z-index: 1;
 }
 
 .slidein-slug--visible.review-contest-slidein-slug {

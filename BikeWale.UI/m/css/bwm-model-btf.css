@@ -313,11 +313,10 @@ h2.text-bold { font-weight: bold; }
 .model-overall-rating .star-icon {
     width: 26px;
     height: 25px;
-	margin-right: 4px;
-    -webkit-transform: scale(0.68);
-    -moz-transform: scale(0.68);
-    -o-transform: scale(0.68);
-    transform: scale(0.68);
+    -webkit-transform: scale(0.6);
+    -moz-transform: scale(0.6);
+    -o-transform: scale(0.6);
+    transform: scale(0.6);
 }
 .rate-count-1 .star-icon {
     background-position: 0 -667px;
@@ -348,7 +347,7 @@ h2.text-bold { font-weight: bold; }
 }
 .rating-circle-list li {
     float: left;
-    margin-right: 10px;
+    margin-right: 7px;
     margin-top: 7px;
     margin-bottom: 7px;
 }
@@ -356,7 +355,7 @@ h2.text-bold { font-weight: bold; }
     margin-right: 0;
 }
 .rating-circle-list .list-item-label {
-    font-size: 14px;
+    font-size: 13px;
     color: #787878;
     padding-left: 5px;
     display: inline-block;
@@ -379,7 +378,7 @@ h2.text-bold { font-weight: bold; }
 .circle-label {
     width: 24px;
     height: 24px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: #787878;
     position: absolute;

@@ -43,7 +43,7 @@
   font-size: 15px; }
 
 .compare-banner {
-  background: #89a3b7 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/new-launches-banner.jpg) no-repeat center;
+  background: #89a3b7 url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/new-launches-banner.jpg) no-repeat center;
   background-size: cover;
   height: 268px;
   padding-top: 1px; }
@@ -64,7 +64,7 @@
     width: 292px;
     height: 164px;
     display: block;
-    background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center no-repeat; }
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center no-repeat; }
     .model-preview-image-container a img {
       height: 164px; }
 
