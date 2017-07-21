@@ -388,7 +388,7 @@ namespace Bikewale.Service.Controllers.Model
                                     }
                                 }
                                 objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity,
-                                    _dealers.GetDealerQuotationV2(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId, Convert.ToUInt32(areaId)));
+                                    _dealers.GetDealerQuotationV2(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId, Convert.ToUInt32(areaId.HasValue ? areaId.Value : 0)));
                             }
                             else
                             {
