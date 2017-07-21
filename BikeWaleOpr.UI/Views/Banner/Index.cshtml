@@ -69,7 +69,7 @@
                             <div class="file-path-wrapper col m5">
                                 <input class="file-path" type="text">
                             </div>
-                            <input type="button" class="btn waves-effect waves-light uploadImage col m2" onclick="uploadPhoto(event, 1)" value="Upload">
+                            <input type="button" class="btn waves-effect waves-light uploadImage col m2" onclick="uploadPhoto(event, 1)" value="Upload"/>
                         </div>
 
                         <div class="file-field input-field row">
@@ -80,7 +80,7 @@
                             <div class="file-path-wrapper col m5">
                                 <input class="file-path validate" type="text">
                             </div>
-                            <input type="button" class="btn waves-effect waves-light uploadImage col m2" onclick="uploadPhoto(event, 2)" value="Upload">
+                            <input type="button" class="btn waves-effect waves-light uploadImage col m2" onclick="uploadPhoto(event, 2)" value="Upload" />
                         </div>
                     </div>
                 </li>
@@ -155,8 +155,8 @@
 
                         <div class="row">
                             <div class="input-field col m6">
-                                <input id="txtButtonDesktop" type="text" class="validate" maxlength="100">
-                                <label for="txtButtonDesktop">Button Link*</label>
+                                <input id="txtButtonlinkDesktop" type="text" class="validate" maxlength="100">
+                                <label for="txtButtonlinkDesktop">Button Link*</label>
                             </div>
                             <div class="col m6 margin-top25">
                                 <label>Open Button Link In New Page :</label>
@@ -284,8 +284,8 @@
 
                         <div class="row">
                             <div class="input-field col m6">
-                                <input id="txtButtonMobile" type="text" class="validate" maxlength="100">
-                                <label for="txtButtonMobile">Button Link*</label>
+                                <input id="txtButtonlinkMobile" type="text" class="validate" maxlength="100">
+                                <label for="txtButtonlinkMobile">Button Link*</label>
                             </div>
                             <div class="col m6 margin-top25">
                                 <label>Open Button Link In New Page :</label>
@@ -361,3 +361,7 @@
 <input id="userid" value="@BikeWaleOpr.Common.CurrentUser.Id" type="text" hidden />
 <input id="bwOprHostUrl" value="@Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs" type="text" hidden />
 <input id="bannerId" type="text" hidden />
+<input id="ModifiedCssDesktop" type="text" hidden />
+<input id="ModifiedCssMobile" type="text" hidden />
+<input id="ModifiedHtmlDesktop" type="text" hidden />
+<input id="ModifiedHtmlMobile" type="text" hidden />
