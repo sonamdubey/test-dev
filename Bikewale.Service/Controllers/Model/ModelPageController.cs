@@ -361,7 +361,7 @@ namespace Bikewale.Service.Controllers.Model
                                 pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
                             }
 
-                            if (areaId != null && !objModelPage.ModelDetails.Futuristic)
+                            if (cityId != null && cityId.Value > 0 && !objModelPage.ModelDetails.Futuristic)
                             {
                                 int versionId = 0;
                                 if (pqEntity != null && pqEntity.VersionList != null && pqEntity.VersionList.Count() > 0)
