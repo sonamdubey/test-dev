@@ -221,7 +221,8 @@ namespace Bikewale.BAL.PriceQuote
                         {
                             pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
                         }
-                        pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        if ((selectedCity.HasAreas && pqEntity.IsAreaSelected) || pqEntity.IsCityExists)
+                            pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
                         if (pqOnRoad != null)
                         {
                             pqEntity.PqId = pqOnRoad.PriceQuote.PQId;
@@ -458,8 +459,8 @@ namespace Bikewale.BAL.PriceQuote
                         {
                             pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
                         }
-
-                        pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        if ((selectedCity.HasAreas && pqEntity.IsAreaSelected) || pqEntity.IsCityExists)
+                            pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
                         if (pqOnRoad != null)
                         {
                             pqEntity.PqId = pqOnRoad.PriceQuote.PQId;
