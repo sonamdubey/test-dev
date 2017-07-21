@@ -41,6 +41,7 @@ namespace BikewaleOpr.DALs.Banner
             return objBannerVM;
 
         }
+            //        objBannerVM.MobileBannerDetails=obj.Read<BannerDetails>().FirstOrDefault();
 
 
 

@@ -19,19 +19,19 @@ namespace BikewaleOpr.Service.Controllers
         {
             _objBannerRespository = objBannerRespository;
         }
-        [HttpPost, Route("api/bannerbaisc/submit/{bannerDescription}/{startDate}/{endDate}/")]
+        [HttpPost, Route("api/bannerbaisc/{bannerDescription}/{startDate}/{endDate}/")]
         public IHttpActionResult SaveBannerBasicDetails( DateTime startDate, DateTime endDate, string bannerDescription,uint? id=null)
         {
             uint campaignid = 0;
             campaignid= _objBannerRespository.SaveBannerBasicDetails(startDate, endDate, bannerDescription,id??0);
             return Ok(campaignid);
         }
-        [HttpPost, Route("api/bannerproperties/")]
-        public IHttpActionResult SaveBanner([FromBody] BannerVM objBanner ,uint? platformId=1)
+        [HttpPost, Route("api/bannerproperties/save/{platformId}/")]
+        public IHttpActionResult SaveBanner([FromBody] BannerVM objBanner ,uint platformId)
         {
-            uint id = platformId ?? 0;
-            BannerDetails objBannerDetails =( id == 1) ? objBanner.DesktopBannerDetails : objBanner.MobileBannerDetails; 
-           bool success= _objBannerRespository.SaveBannerProperties(objBannerDetails, id,objBanner.CampaignId);
+           
+            BannerDetails objBannerDetails =(platformId == 1) ? objBanner.DesktopBannerDetails : objBanner.MobileBannerDetails; 
+           bool success= _objBannerRespository.SaveBannerProperties(objBannerDetails, platformId, objBanner.CampaignId);
             return Ok(success);
         }
     }

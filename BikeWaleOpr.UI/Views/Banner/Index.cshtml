@@ -59,38 +59,34 @@
                 </li>
 
                 <li class="step">
-                    <div class="step-title waves-effect waves-dark">Upload Image</div>
+                    <div class="step-title waves-effect waves-dark validate-step">Upload Image</div>
                     <div class="step-content">
                         <div class="file-field input-field row">
                             <div class="btn col m5">
                                 <span>Select Desktop Background Image</span>
-                                <input type="file" />
+                                <input id="file-desktop" type="file" />
                             </div>
                             <div class="file-path-wrapper col m5">
-                                <input class="file-path validate" type="text">
+                                <input class="file-path" type="text">
                             </div>
-                            <div class="btn col m2">
-                                <span>Upload Image</span>
-                            </div>
+                            <input type="button" class="btn waves-effect waves-light uploadImage col m2" onclick="uploadPhoto(event, 1)" value="Upload">
                         </div>
 
                         <div class="file-field input-field row">
                             <div class="btn col m5">
                                 <span>Select Mobile Background Image</span>
-                                <input type="file" />
+                                <input id="file-mobile" type="file" />
                             </div>
                             <div class="file-path-wrapper col m5">
                                 <input class="file-path validate" type="text">
                             </div>
-                            <div class="btn col m2">
-                                <span>Upload Image</span>
-                            </div>
+                            <input type="button" class="btn waves-effect waves-light uploadImage col m2" onclick="uploadPhoto(event, 2)" value="Upload">
                         </div>
                     </div>
                 </li>
 
                 <li class="step">
-                    <div class="step-title waves-effect waves-dark">Configure Desktop Home Page Banner</div>
+                    <div class="step-title waves-effect waves-dark validate-step">Configure Desktop Home Page Banner</div>
                     <div class="step-content">
 
                         <div class="row">
@@ -114,9 +110,9 @@
                             </div>
                             <div class="input-field col m4">
                                 <input id="txtBackgroundColorDesktop" name="DesktopBannerDetails.BackgroundColor" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.BackgroundColor:"")" type="text" class="validate" maxlength="100">
-                                <label for="txtBackgroundColorDesktop">Background Color *</label>
+                                <label for="txtBackgroundColorDesktop">Background Color*</label>
                             </div>
-                        </div>                        
+                        </div>
 
                         <div class="row">
                             <div class="input-field col m8">
@@ -124,12 +120,12 @@
                                 <label for="txtBannerTitleDesktop">Banner Title*</label>
                             </div>
                             <div class="input-field col m4">
-                                <select id="select-button-pos-Desktop">
+                                <select id="select-banner-pos-Desktop">
                                     <option value="0" disabled selected>Select Position</option>
                                     <option value="left" @(Model.DesktopBannerDetails!=null&&Model.DesktopBannerDetails.ButtonPosition=="left"?"selected":"")>Left</option>
                                     <option value="right"@(Model.DesktopBannerDetails!=null&&Model.DesktopBannerDetails.ButtonPosition=="right"?"selected":"")>Right</option>
                                 </select>
-                                <label for="select-button-pos-Desktop">Banner Position</label>
+                                <label for="select-banner-pos-Desktop">Banner Position</label>
                             </div>
                         </div>
 
@@ -153,7 +149,7 @@
                             </div>
                             <div class="input-field col m4">
                                 <input id="txtButtonDesktop" name="DesktopBannerDetails.ButtonText" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.ButtonText:"")" type="text" class="validate" maxlength="100">
-                                <label for="txtButtonDesktop">Button text *</label>
+                                <label for="txtButtonDesktop">Button text*</label>
                             </div>
                         </div>
 
@@ -164,12 +160,27 @@
                             </div>
                             <div class="col m6 margin-top25">
                                 <label>Open Button Link In New Page :</label>
-                                <span>
-                                    <input name="group2" type="radio" id="radioOpenInNewPage"  @(Model.DesktopBannerDetails!=null && Model.DesktopBannerDetails.Target==1?"checked":"")/>
-                                    <label for="radioOpenInNewPage">Yes</label>
-                                    <input name="group2" type="radio" id="radioOpenInSamePage" @(Model.DesktopBannerDetails!=null && Model.DesktopBannerDetails.Target==2?"checked":"")/>
-                                    <label for="radioOpenInSamePage">No</label>
+                                <span>                                   
+                                    <input name="group2" type="radio" id="radioOpenInNewPageDesktop"  @(Model.DesktopBannerDetails!=null && Model.DesktopBannerDetails.Target==1?"checked":"")/>
+                                    <label for="radioOpenInNewPageDesktop">Yes</label>
+                                    <input name="group2" type="radio" id="radioOpenInSamePageDesktop" @(Model.DesktopBannerDetails!=null && Model.DesktopBannerDetails.Target==2?"checked":"")/>
+                                    <label for="radioOpenInSamePageDesktop">No</label>
                                 </span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col m4">
+                                <input id="txtCategoryDesktop" type="text" maxlength="200">
+                                <label for="txtCategoryDesktop">Category*</label>
+                            </div>
+                            <div class="input-field col m4">
+                                <input id="txtActionDesktop" type="text" maxlength="200">
+                                <label for="txtActionDesktop">Action*</label>
+                            </div>
+                            <div class="input-field col m4">
+                                <input id="txtLabelDesktop" type="text" maxlength="200">
+                                <label for="txtLabelDesktop">Label*</label>
                             </div>
                         </div>
 
@@ -180,7 +191,7 @@
                                     <option value="120"@(Model.DesktopBannerDetails!=null&&Model.DesktopBannerDetails.JumbotronDepth=="120"? "selected" : "")>120px</option>
                                     <option value="90" @(Model.DesktopBannerDetails!=null&&Model.DesktopBannerDetails.JumbotronDepth== "90" ? "selected":"")>90px</option>
                                 </select>
-                                <label for="select-button-color-Mobile">Select Jumbotron Depth</label>
+                                <label for="select-jumbotron-depth-Desktop">Select Jumbotron Depth</label>
                             </div>
                         </div>
 
@@ -198,15 +209,15 @@
                         <div class="input-field row">
                             <textarea id="textareaJsDesktop" class="materialize-textarea">@(Model.DesktopBannerDetails != null ? Model.DesktopBannerDetails.JS : "")</textarea>
                             <label for="textareaJsDesktop">Js</label>
-                        </div>  
-                        
+                        </div>
+
                         <input class="btn waves-effect waves-light" data-bind="click:saveDesktop" type="submit" value="Save"/>
                             
                                            
-                    </div>                   
+                    </div>
                 </li>
                 <li class="step">
-                    <div class="step-title waves-effect waves-dark">Configure Mobile Home Page Banner</div>
+                    <div class="step-title waves-effect waves-dark validate-step">Configure Mobile Home Page Banner</div>
                     <div class="step-content">
                         <div class="row">
                             <div class="input-field col m4">
@@ -231,7 +242,7 @@
                                 <input id="txtBackgroundColorMobile" value="@(Model.MobileBannerDetails!=null?Model.MobileBannerDetails.BackgroundColor:"")" type="text" class="validate" maxlength="100">
                                 <label for="txtBackgroundColorMobile">Background Color *</label>
                             </div>
-                        </div>                        
+                        </div>
 
                         <div class="row">
                             <div class="input-field col m8">
@@ -239,12 +250,12 @@
                                 <label for="txtBannerTitleMobile">Banner Title*</label>
                             </div>
                             <div class="input-field col m4">
-                                <select id="select-button-pos-Mobile">
+                                <select id="select-banner-pos-Mobile">
                                     <option value="0" disabled selected>Select Position</option>
                                     <option value="left" @(Model.MobileBannerDetails != null && Model.MobileBannerDetails.ButtonPosition == "left" ? "selected" : "")>Left</option>
                                     <option value="right"@(Model.MobileBannerDetails != null && Model.MobileBannerDetails.ButtonPosition == "right" ? "selected" : "")>Right</option>
                                 </select>
-                                <label for="select-button-pos-Mobile">Banner Position</label>
+                                <label for="select-banner-pos-Mobile">Banner Position</label>
                             </div>
                         </div>
 
@@ -289,6 +300,21 @@
                         </div>
 
                         <div class="row">
+                            <div class="input-field col m4">
+                                <input id="txtCategoryMobile" type="text" maxlength="200">
+                                <label for="txtCategoryMobile">Category*</label>
+                            </div>
+                            <div class="input-field col m4">
+                                <input id="txtActionMobile" type="text" maxlength="200">
+                                <label for="txtActionMobile">Action*</label>
+                            </div>
+                            <div class="input-field col m4">
+                                <input id="txtLabelMobile" type="text" maxlength="200">
+                                <label for="txtLabelMobile">Label*</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="input-field col m6">
                                 <select id="select-button-jmbdepth-Mobile">
                                     <option value="0" disabled selected>Jumbotron Depth</option>
@@ -316,11 +342,11 @@
 
                         <input class="btn waves-effect waves-light" data-bind="click:saveMobile" type="submit" value="Save"/>
                         
-                    </div>                   
+                    </div>
                 </li>
-            </ul>            
+            </ul>
         </div>
-        <input type="hidden" name="CampaignId" id="campaingid"/>
+       
         <input type="hidden" name="DesktopBannerDetails.HTML" id="desktopHTML"/>
         <input type="hidden" name="DesktopBannerDetails.JS" id="desktopJS" />
         <input type="hidden" name="DesktopBannerDetails.CSS" id="desktopCSS" />
@@ -337,8 +363,10 @@
 
 </form>
 
+<script src="/src/imageUpload.js"></script>
 <script src="/src/Banner.js"></script>
 
 <input id="environment" value="@Bikewale.Utility.BWOprConfiguration.Instance.AWSEnvironment" type="text" hidden />
 <input id="userid" value="@BikeWaleOpr.Common.CurrentUser.Id" type="text" hidden />
 <input id="bwOprHostUrl" value="@Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs" type="text" hidden />
+<input id="bannerId" type="hidden" hidden />
