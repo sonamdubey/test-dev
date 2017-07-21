@@ -6,19 +6,123 @@
     onSet: function (ele) { if (ele.select) { this.close(); } }
 });
 
-$(document).ready(function () {    
+$(document).ready(function () {
 
     $('#startTimeEle').val("00:00:00");
-    $('#endTimeEle').val("00:00:00");    
+    $('#endTimeEle').val("00:00:00");
 
-    if ($(".stepper"))
-    {
-        $('.stepper').activateStepper({ autoFocusInput : false});
+    if ($(".stepper")) {
+        $('.stepper').activateStepper({ autoFocusInput: false });
     }
 
     $("input[type='file']").change(function (e) {
         currentFile = e.target.files[0];
     });
+
+    var configureBanner = function () {
+        var self = this;
+
+        self.Configure = function () {
+            var substring = $('#textareaBannerDesc').val() + "/" + $('#startDateEle').val() + "/" + $('#endDateEle').val();
+            if (window.location.search != "")
+                substring += "/" + window.location.search;
+            $.ajax({
+                type: "POST",
+                url: "/api/banner/submit/" + substring,
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+
+                    $('#campaingid').val(response);
+                }
+
+            });
+
+        };
+
+        self.saveDesktop = function () {
+
+
+            var desktopDetails = {
+                "DesktopBannerDetails":
+                    {
+                        "html": $('#textareaHtmlDesktop').val(),
+                        "css": $('#textareaCssDesktop').val(),
+                        "js": $('#textareaJsDesktop').val(),
+                        "backgroundcolor": $('#txtBackgroundColorDesktop').val(),
+                        "bannertitle": $('#txtBannerTitleDesktop').val(),
+                        "buttontext": $('#txtButtonDesktop').val(),
+                        "targethref": $('#linkButtonDesktop').val(),
+                        "horizontalposition": $('#select-hori-pos-Desktop').val(),
+                        "verticalposition": $("#select-ver-pos-Desktop").val(),
+                        "buttonposition": $("#select-button-pos-Desktop").val(),
+                        "buttoncolor": $("#select-button-color-Desktop").val(),
+                        "target": $('#radioOpenInNewPage').is(':checked') ? 1 : 2,
+                        "buttontype": $('#btnTypeLinkDesktop').is(':checked') ? 1 : 2,
+                        "jumbotrondepth": $("#select-button-jmbdepth-Desktop").val()
+                    },
+                "CampaignId":$('#campaingid').val()
+
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/api/desktop/submit/?platformId=1",
+                contentType: "application/json",
+                data: ko.toJSON(desktopDetails),
+                success: function (response) {
+
+
+                }
+
+            });
+
+        };
+
+        self.saveMobile = function () {
+
+
+            var mobileDetails = {
+                "MobileBannerDetails":
+                    {
+                        "html": $('#textareaHtmlMobile').val(),
+                        "css": $('#textareaCssMobile').val(),
+                        "js": $('#textareaJsMobile').val(),
+                        "backgroundcolor": $('#txtBackgroundColorMobile').val(),
+                        "bannertitle": $('#txtBannerTitleMobile').val(),
+                        "buttontext": $('#txtButtonMobile').val(),
+                        "targethref": $('#linkButtonMobile').val(),
+                        "horizontalposition": $('#select-hori-pos-Mobile').val(),
+                        "verticalposition": $("#select-ver-pos-Mobile").val(),
+                        "buttonposition": $("#select-button-pos-Mobile").val(),
+                        "buttoncolor": $("#select-button-color-Mobile").val(),
+                        "target": $('#radioOpenInNewPageMobile').is(':checked') ? 1 : 2,
+                        "buttontype": $('#btnTypeLinkMobile').is(':checked') ? 1 : 2,
+                        "jumbotrondepth": $("#select-button-jmbdepth-Mobile").val()
+                    },
+                "CampaignId": $('#campaingid').val()
+
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/api/desktop/submit/?platformId=2",
+                contentType: "application/json",
+                data: ko.toJSON(mobileDetails),
+                success: function (response) {
+
+
+                }
+
+            });
+
+        };
+
+    }
+    configureBannerForm = document.getElementById('configureBanner');
+
+    var vmconfigureBanner = new configureBanner();
+    ko.applyBindings(vmconfigureBanner, configureBannerForm);
 
 });
 
@@ -33,7 +137,7 @@ uploadUsedPhoto = function (d, e) {
                 Materialize.toast('Invalid extension!', 4000);
                 return false;
             }
-           
+
             var path = 'n/bw/' + $('#environment').val() + 'homepagebanner' + ext;
 
             $.ajax({

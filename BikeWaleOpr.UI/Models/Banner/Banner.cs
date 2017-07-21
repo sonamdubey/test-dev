@@ -16,7 +16,7 @@ namespace BikewaleOpr.Models.Banner
         public BannerVM GetData(uint bannerId)
         {
             BannerVM objBannerVM = null;
-            objBannerVM= _objBannerRespository.GetBannerDetails(bannerId);
+            objBannerVM = _objBannerRespository.GetBannerDetails(bannerId);
             return objBannerVM;
         }
     }
