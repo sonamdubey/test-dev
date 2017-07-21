@@ -221,8 +221,15 @@ namespace Bikewale.BAL.PriceQuote
                         {
                             pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
                         }
-                        if ((selectedCity.HasAreas && pqEntity.IsAreaSelected) || pqEntity.IsCityExists)
+                        if (selectedCity.HasAreas)
+                        {
+                            if (pqEntity.IsAreaSelected)
+                                pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        }
+                        else
+                        {
                             pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        }
                         if (pqOnRoad != null)
                         {
                             pqEntity.PqId = pqOnRoad.PriceQuote.PQId;
@@ -272,6 +279,10 @@ namespace Bikewale.BAL.PriceQuote
                             {
                                 pqEntity.IsExShowroomPrice = true;
                             }
+                        }
+                        else
+                        {
+                            pqEntity.IsExShowroomPrice = true;
                         }
                     }
                     else // Show mumbai Ex showroom price
@@ -459,8 +470,15 @@ namespace Bikewale.BAL.PriceQuote
                         {
                             pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
                         }
-                        if ((selectedCity.HasAreas && pqEntity.IsAreaSelected) || pqEntity.IsCityExists)
+                        if (selectedCity.HasAreas)
+                        {
+                            if (pqEntity.IsAreaSelected)
+                                pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        }
+                        else
+                        {
                             pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        }
                         if (pqOnRoad != null)
                         {
                             pqEntity.PqId = pqOnRoad.PriceQuote.PQId;
@@ -512,6 +530,10 @@ namespace Bikewale.BAL.PriceQuote
                                 pqEntity.IsExShowroomPrice = true;
                             }
                         }
+                        else
+                        {
+                            pqEntity.IsExShowroomPrice = true;
+                        }
                     }
                     else // Show mumbai Ex showroom price
                     {
@@ -540,7 +562,7 @@ namespace Bikewale.BAL.PriceQuote
                         versionID = objDealer.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
                 }
 
-                if (cityId > 0 && versionID > 0)
+                if (cityId > 0 && versionID > 0 && pqOnRoad != null)
                 {
                     DetailedDealerQuotationEntity detailedDealer = null;
 
