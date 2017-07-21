@@ -28,7 +28,7 @@ $(document).ready(function () {
                 substring += "/" + window.location.search;
             $.ajax({
                 type: "POST",
-                url: "/api/banner/submit/" + substring,
+                url: "/api/bannerbaisc/submit/" + substring,
                 contentType: "application/json",
                 dataType: "json",
                 success: function (response) {
@@ -67,7 +67,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: "/api/desktop/submit/?platformId=1",
+                url: "/api/bannerproperties/?platformId=1",
                 contentType: "application/json",
                 data: ko.toJSON(desktopDetails),
                 success: function (response) {
@@ -106,7 +106,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: "/api/desktop/submit/?platformId=2",
+                url: "/api/bannerproperties/?platformId=2",
                 contentType: "application/json",
                 data: ko.toJSON(mobileDetails),
                 success: function (response) {

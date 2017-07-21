@@ -19,14 +19,14 @@ namespace BikewaleOpr.Service.Controllers
         {
             _objBannerRespository = objBannerRespository;
         }
-        [HttpPost, Route("api/banner/submit/{bannerDescription}/{startDate}/{endDate}/")]
+        [HttpPost, Route("api/bannerbaisc/submit/{bannerDescription}/{startDate}/{endDate}/")]
         public IHttpActionResult SaveBannerBasicDetails( DateTime startDate, DateTime endDate, string bannerDescription,uint? id=null)
         {
             uint campaignid = 0;
             campaignid= _objBannerRespository.SaveBannerBasicDetails(startDate, endDate, bannerDescription,id??0);
             return Ok(campaignid);
         }
-        [HttpPost, Route("api/desktop/submit/")]
+        [HttpPost, Route("api/bannerproperties/")]
         public IHttpActionResult SaveBanner([FromBody] BannerVM objBanner ,uint? platformId=1)
         {
             uint id = platformId ?? 0;
