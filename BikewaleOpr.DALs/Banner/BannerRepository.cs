@@ -16,27 +16,27 @@ namespace BikewaleOpr.DALs.Banner
         public BannerVM GetBannerDetails(uint bannerId)
         {
             BannerVM objBannerVM = null;
-            try
-            {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
-                {
-                    connection.Open();
+            //try
+            //{
+            //    using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+            //    {
+            //        connection.Open();
 
-                    var param = new DynamicParameters();
-                    param.Add("par_id", bannerId);
-                    objBannerVM = new BannerVM();
-                    var obj= connection.QueryMultiple("gethomepagebanner", param: param, commandType: CommandType.StoredProcedure);
-                    objBannerVM.DesktopBannerDetails = obj.Read<BannerDetails>().FirstOrDefault();
-                    objBannerVM.MobileBannerDetails=obj.Read<BannerDetails>().FirstOrDefault();
+            //        var param = new DynamicParameters();
+            //        param.Add("par_id", bannerId);
+            //        objBannerVM = new BannerVM();
+            //        var obj= connection.QueryMultiple("gethomepagebanner", param: param, commandType: CommandType.StoredProcedure);
+            //        objBannerVM.DesktopBannerDetails = obj.Read<BannerDetails>().FirstOrDefault();
+            //        objBannerVM.MobileBannerDetails=obj.Read<BannerDetails>().FirstOrDefault();
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBannerDetails bannerId: {0}", bannerId));
-            }
+            //        if (connection.State == ConnectionState.Open)
+            //            connection.Close();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBannerDetails bannerId: {0}", bannerId));
+            //}
 
             return objBannerVM;
 
