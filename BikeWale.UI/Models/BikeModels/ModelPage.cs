@@ -982,7 +982,7 @@ namespace Bikewale.Models.BikeModels
             }
             finally
             {
-                if (_cityId > 0 && _objData.DealerId > 0 && _objData.VersionId > 0)
+                if (_pqOnRoad != null && _pqOnRoad.PriceQuote != null && _pqOnRoad.PriceQuote.IsDealerAvailable && _cityId > 0 && _objData.VersionId > 0)
                 {
                     _objData.DetailedDealer = _objDealerDetails.GetDealerQuotationV2(_cityId, _objData.VersionId, _objData.DealerId, _areaId);
                 }
