@@ -86,7 +86,7 @@
                         </span>
                         @if (Model.UserReviews.UserReviews.ResultDesktop != null)
                         {
-                            <span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.ResultDesktop.FirstOrDefault().TotalRatings @string.Format("{0}", Model.UserReviews.UserReviews.ResultDesktop.FirstOrDefault().TotalRatings > 1 ? "ratings" : "rating")</span>
+                            <span class="font14 text-xt-light padding-left5">(@Model.UserReviews.UserReviews.ResultDesktop.FirstOrDefault().TotalRatings @string.Format("{0}", Model.UserReviews.UserReviews.ResultDesktop.FirstOrDefault().TotalRatings > 1 ? "ratings" : "rating"))</span>
                         }
                         
                         <span class="font14 text-xt-light review-left-divider">@Model.UserReviews.UserReviews.TotalCount @string.Format("{0}", Model.UserReviews.UserReviews.TotalCount > 1 ? "reviews" : "review")</span>

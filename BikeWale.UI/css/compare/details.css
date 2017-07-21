@@ -241,7 +241,7 @@ body[data-equivalent="0"] .equivalent-data {
     width: 292px;
     height: 164px;
     display: block;
-    background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center no-repeat; }
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center no-repeat; }
     .model-preview-image-container a img {
       height: 164px; }
 
@@ -253,7 +253,7 @@ body[data-equivalent="0"] .equivalent-data {
   line-height: 1.7; }
 
 .model-sprite {
-  background: url("https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?;\a 	v=5Dec2016") no-repeat;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016") no-repeat;
   display: inline-block; }
 
 .specs-2-sm,
