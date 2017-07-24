@@ -36,6 +36,15 @@ namespace BikewaleOpr.DALs.Banner
                     var obj = connection.QueryMultiple("gethomepagebanner_20072017", param: param, commandType: CommandType.StoredProcedure);
                     objBannerVM.DesktopBannerDetails = obj.Read<BannerDetails>().FirstOrDefault();
                     objBannerVM.MobileBannerDetails = obj.Read<BannerDetails>().FirstOrDefault();
+                    var objvm = obj.Read<dynamic>().FirstOrDefault();
+                    if (objvm != null)
+                    {
+                        objBannerVM.StartDate = objvm.StartDate;
+                        objBannerVM.EndDate = objvm.EndDate;
+
+                        objBannerVM.BannerDescription = objvm.BannerDescription;
+
+                    }
                     if (bannerId > 0)
                         objBannerVM.CampaignId = bannerId;
                     if (connection.State == ConnectionState.Open)
@@ -57,7 +66,7 @@ namespace BikewaleOpr.DALs.Banner
         /// Summary :- Save Descri,start date and end date of banner
         /// </summary>
 
-        public uint SaveBannerBasicDetails(DateTime startDate, DateTime endDate, string bannerDescription, uint id)
+        public uint SaveBannerBasicDetails(BannerVM BannerVM)
         {
             uint campaignid = 0;
             try
@@ -67,10 +76,10 @@ namespace BikewaleOpr.DALs.Banner
                     connection.Open();
 
                     var param = new DynamicParameters();
-                    param.Add("par_id", id);
-                    param.Add("par_startdate", startDate);
-                    param.Add("par_enddate", endDate);
-                    param.Add("par_bannerdescription", bannerDescription);
+                    param.Add("par_id", BannerVM.CampaignId);
+                    param.Add("par_startdate", BannerVM.StartDate);
+                    param.Add("par_enddate", BannerVM.EndDate);
+                    param.Add("par_bannerdescription", BannerVM.BannerDescription);
                     campaignid = connection.Query<uint>("savebannerbasicdetails", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
                 }
             }

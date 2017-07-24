@@ -24,13 +24,13 @@ namespace BikewaleOpr.Service.Controllers
         /// Created By :- Subodh Jain on 24 july 2017
         /// Summary :- Banner SaveBannerBasicDetails
         /// </summary>
-        [HttpPost, Route("api/bannerbaisc/{bannerDescription}/{startDate}/{endDate}/")]
-        public IHttpActionResult SaveBannerBasicDetails( DateTime startDate, DateTime endDate, string bannerDescription,uint? id=null)
+        [HttpPost, Route("api/bannerbasic/save/")]
+        public IHttpActionResult SaveBannerBasicDetails([FromBody] BannerVM objBanner)
         {
             uint campaignid = 0;
             try
             {
-                campaignid = _objBannerRespository.SaveBannerBasicDetails(startDate, endDate, bannerDescription, id ?? 0);
+                campaignid = _objBannerRespository.SaveBannerBasicDetails(objBanner);
                 return Ok(campaignid);
             }
             catch (Exception ex)
