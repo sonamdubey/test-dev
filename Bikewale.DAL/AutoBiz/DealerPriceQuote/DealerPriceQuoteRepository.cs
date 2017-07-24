@@ -879,50 +879,6 @@ namespace Bikewale.DAL.AutoBiz
         }
 
         /// <summary>
-        /// Author : Vivek Gupta
-        /// Date : 28-04-2016
-        /// Desc : to check dealer exists for areaId and version id and isSecondaryDealers availble
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <param name="areaId"></param>
-        /// <returns></returns>
-        public DealerInfo GetCampaignDealersLatLongV3(uint versionId, uint areaId)
-        {
-            DealerInfo objDealersList = null;
-
-            try
-            {
-                if (versionId > 0 && areaId > 0)
-                {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerslatlong_15052017"))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, areaId));
-
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                        {
-                            objDealersList = new DealerInfo();
-
-                            while (dr.Read())
-                            {
-                                objDealersList.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
-                                objDealersList.IsDealerAvailable = !Convert.IsDBNull(dr["IsDealerAvailable"]) ? Convert.ToBoolean(dr["IsDealerAvailable"]) : default(bool);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "GetCampaignDealersLatLongV3");
-                objErr.SendMail();
-            }
-            return objDealersList;
-        }
-
-        /// <summary>
         /// Created by  :   Sumit Kate on 18 Jul 2017
         /// Description :   Returns the primary dealer by model and city
         /// Primary dealer allocation is by random logic. because area is not given

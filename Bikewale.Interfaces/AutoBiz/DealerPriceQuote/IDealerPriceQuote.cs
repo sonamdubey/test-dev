@@ -15,13 +15,12 @@ namespace Bikewale.Interfaces.AutoBiz
     /// </summary>
     public interface IDealerPriceQuote
     {
-        PQ_QuotationEntity GetDealerPriceQuote(PQParameterEntity objParams);        
+        PQ_QuotationEntity GetDealerPriceQuote(PQParameterEntity objParams);
         List<CityEntityBase> GetBikeBookingCities(uint? modelId);
         List<BikeMakeEntityBase> GetBikeMakesInCity(uint cityId);
         OfferHtmlEntity GetOfferTerms(string offerMaskingName, int? offerId);
         DealerPriceQuoteEntity GetPriceQuoteForAllDealer(uint versionId, uint cityId, string dealerIds);
         DetailedDealerQuotationEntity GetDealerPriceQuoteByPackage(PQParameterEntity objParams);
-        DealerInfo GetCampaignDealersLatLongV3(uint versionId, uint areaId);
         Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerPriceQuoteByPackageV2(PQParameterEntity objParams);
         DealerInfo GetNearestDealer(uint modelId, uint cityId);
         DealerInfo GetNearestDealer(uint modelId, uint cityId, uint areaId);
