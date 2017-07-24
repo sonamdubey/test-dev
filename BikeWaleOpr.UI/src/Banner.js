@@ -19,6 +19,9 @@ $(document).ready(function () {
     $("#file-mobile").change(function (e) {
         currentFileMobile = e.target.files[0];
     });
+
+   
+
     var configureBanner = function () {
         var self = this;
         self.Configure = function () {
@@ -36,70 +39,198 @@ $(document).ready(function () {
                 }
             });
         };
+
+        self.backgroundColorMobileMsg = ko.observable("");
+        self.bannerTitleMobileMsg = ko.observable("");
+        self.buttonTextMobileMsg = ko.observable("");
+        self.buttonLinkMobileMsg = ko.observable("");
+        self.categoryMobileMsg = ko.observable("");
+        self.actionMobileMsg = ko.observable("");
+        self.labelMobileMsg = ko.observable("");
+
+        self.backgroundColorDesktopMsg = ko.observable("");
+        self.bannerTitleDesktopMsg = ko.observable("");
+        self.buttonTextDesktopMsg = ko.observable("");
+        self.buttonLinkDesktopMsg = ko.observable("");
+        self.categoryDesktopMsg = ko.observable("");
+        self.actionDesktopMsg = ko.observable("");
+        self.labelDesktopMsg = ko.observable("");
+
+
+        self.validateDesktop = function () {
+            var isValid = true;
+            self.backgroundColorDesktopMsg('');
+            self.bannerTitleDesktopMsg('');
+            self.buttonTextDesktopMsg('');
+            self.buttonLinkDesktopMsg('');
+            self.categoryDesktopMsg('');
+            self.actionDesktopMsg('');
+            self.labelDesktopMsg('');
+
+
+            if ($('#txtBackgroundColorDesktop').text() == '') {
+                self.backgroundColorDesktopMsg('Please enter back ground color');
+                isValid = false;
+            }
+
+            if ($('#txtBannerTitleDesktop').text() == '') {
+                self.bannerTitleDesktopMsg('Please enter banner title');
+                isValid = false;
+            }
+
+            if ($('#txtButtonDesktop').text() == '') {
+                self.buttonTextDesktopMsg('Please enter button text');
+                isValid = false;
+            }
+
+            if ($('#txtButtonlinkDesktop').text() == '') {
+                self.buttonLinkDesktopMsg('Please enter button link');
+                isValid = false;
+            }
+
+            if ($('#txtCategoryDesktop').text() == '') {
+                self.categoryDesktopMsg('Required');
+                isValid = false;
+            }
+
+            if ($('#txtActionDesktop').text() == '') {
+                self.actionDesktopMsg('Required');
+                isValid = false;
+            }
+
+            if ($('#txtLabelDesktop').text() == '') {
+                self.labelDesktopMsg('Required');
+                isValid = false;
+            }
+
+            return isValid;
+        };
+
         self.saveDesktop = function () {
 
-            $('#ModifiedCssDesktop').val(processCss(1));
-            $('#ModifiedHtmlDesktop').val(processButtonHtml(1));
+            if (self.validateDesktop()) {
 
-            var desktopDetails = {
-                "DesktopBannerDetails":
-                    {
-                        "html": $('#textareaHtmlDesktop').val(),
-                        "css": $('#textareaCssDesktop').val(),
-                        "js": $('#textareaJsDesktop').val(),
-                        "backgroundcolor": $('#txtBackgroundColorDesktop').val(),
-                        "bannertitle": $('#txtBannerTitleDesktop').val(),
-                        "buttontext": $('#txtButtonDesktop').val(),
-                        "targethref": $('#linkButtonDesktop').val(),
-                        "horizontalposition": $('#select-hori-pos-Desktop').val(),
-                        "verticalposition": $("#select-ver-pos-Desktop").val(),
-                        "buttonposition": $("#select-button-pos-Desktop").val(),
-                        "buttoncolor": $("#select-button-color-Desktop").val(),
-                        "target": $('#radioOpenInNewPage').is(':checked') ? 1 : 2,
-                        "buttontype": $('#btnTypeLinkDesktop').is(':checked') ? 1 : 2,
-                        "jumbotrondepth": $("#select-button-jmbdepth-Desktop").val()
-                    },
-                "CampaignId": $('#bannerId').val()
-            }
-            $.ajax({
-                type: "POST",
-                url: "/api/bannerproperties/save/1",
-                contentType: "application/json",
-                data: ko.toJSON(desktopDetails),
-                success: function (response) {
+                $('#ModifiedCssDesktop').val(processCss(1));
+                $('#ModifiedHtmlDesktop').val(processButtonHtml(1));
+
+                var desktopDetails = {
+                    "DesktopBannerDetails":
+                        {
+                            "html": $('#textareaHtmlDesktop').val(),
+                            "css": $('#textareaCssDesktop').val(),
+                            "js": $('#textareaJsDesktop').val(),
+                            "backgroundcolor": $('#txtBackgroundColorDesktop').val(),
+                            "bannertitle": $('#txtBannerTitleDesktop').val(),
+                            "buttontext": $('#txtButtonDesktop').val(),
+                            "targethref": $('#linkButtonDesktop').val(),
+                            "horizontalposition": $('#select-hori-pos-Desktop').val(),
+                            "verticalposition": $("#select-ver-pos-Desktop").val(),
+                            "buttonposition": $("#select-button-pos-Desktop").val(),
+                            "buttoncolor": $("#select-button-color-Desktop").val(),
+                            "target": $('#radioOpenInNewPage').is(':checked') ? 1 : 2,
+                            "buttontype": $('#btnTypeLinkDesktop').is(':checked') ? 1 : 2,
+                            "jumbotrondepth": $("#select-button-jmbdepth-Desktop").val()
+                        },
+                    "CampaignId": $('#bannerId').val()
                 }
-            });
+                $.ajax({
+                    type: "POST",
+                    url: "/api/bannerproperties/save/1",
+                    contentType: "application/json",
+                    data: ko.toJSON(desktopDetails),
+                    success: function (response) {
+                    }
+                });
+            }
         };
+
+        self.validateMobile = function () {
+
+            var isValid = true;
+            self.backgroundColorMobileMsg('');
+            self.bannerTitleMobileMsg('');
+            self.buttonTextMobileMsg('');
+            self.buttonLinkMobileMsg('');
+            self.categoryMobileMsg('');
+            self.actionMobileMsg('');
+            self.labelMobileMsg('');
+
+
+            if ($('#txtBackgroundColorMobile').text() == '') {
+                self.backgroundColorMobileMsg('Please enter back ground color');
+                isValid = false;
+            }
+
+            if ($('#txtBannerTitleMobile').text() == '') {
+                self.bannerTitleMobileMsg('Please enter banner title');
+                isValid = false;
+            }
+
+            if ($('#txtButtonMobile').text() == '') {
+                self.buttonTextMobileMsg('Please enter button text');
+                isValid = false;
+            }
+
+            if ($('#txtButtonlinkMobile').text() == '') {
+                self.buttonLinkMobileMsg('Please enter button link');
+                isValid = false;
+            }
+
+            if ($('#txtCategoryMobile').text() == '') {
+                self.categoryMobileMsg('Required');
+                isValid = false;
+            }
+
+            if ($('#txtActionMobile').text() == '') {
+                self.actionMobileMsg('Required');
+                isValid = false;
+            }
+
+            if ($('#txtLabelMobile').text() == '') {
+                self.labelMobileMsg('Required');
+                isValid = false;
+            }
+
+            return isValid;
+        };
+
         self.saveMobile = function () {
-            var mobileDetails = {
-                "MobileBannerDetails":
-                    {
-                        "html": $('#textareaHtmlMobile').val(),
-                        "css": $('#textareaCssMobile').val(),
-                        "js": $('#textareaJsMobile').val(),
-                        "backgroundcolor": $('#txtBackgroundColorMobile').val(),
-                        "bannertitle": $('#txtBannerTitleMobile').val(),
-                        "buttontext": $('#txtButtonMobile').val(),
-                        "targethref": $('#linkButtonMobile').val(),
-                        "horizontalposition": $('#select-hori-pos-Mobile').val(),
-                        "verticalposition": $("#select-ver-pos-Mobile").val(),
-                        "buttonposition": $("#select-button-pos-Mobile").val(),
-                        "buttoncolor": $("#select-button-color-Mobile").val(),
-                        "target": $('#radioOpenInNewPageMobile').is(':checked') ? 1 : 2,
-                        "buttontype": $('#btnTypeLinkMobile').is(':checked') ? 1 : 2,
-                        "jumbotrondepth": $("#select-button-jmbdepth-Mobile").val()
-                    },
-                "CampaignId": $('#bannerId').val()
-            }
-            $.ajax({
-                type: "POST",
-                url: "/api/bannerproperties/save/2",
-                contentType: "application/json",
-                data: ko.toJSON(mobileDetails),
-                success: function (response) {
+
+            if (self.validateMobile()) {
+
+                $('#ModifiedCssMobile').val(processCss(2));
+                $('#ModifiedHtmlMobile').val(processButtonHtml(2));
+
+                var mobileDetails = {
+                    "MobileBannerDetails":
+                        {
+                            "html": $('#textareaHtmlMobile').val(),
+                            "css": $('#textareaCssMobile').val(),
+                            "js": $('#textareaJsMobile').val(),
+                            "backgroundcolor": $('#txtBackgroundColorMobile').val(),
+                            "bannertitle": $('#txtBannerTitleMobile').val(),
+                            "buttontext": $('#txtButtonMobile').val(),
+                            "targethref": $('#linkButtonMobile').val(),
+                            "horizontalposition": $('#select-hori-pos-Mobile').val(),
+                            "verticalposition": $("#select-ver-pos-Mobile").val(),
+                            "buttonposition": $("#select-button-pos-Mobile").val(),
+                            "buttoncolor": $("#select-button-color-Mobile").val(),
+                            "target": $('#radioOpenInNewPageMobile').is(':checked') ? 1 : 2,
+                            "buttontype": $('#btnTypeLinkMobile').is(':checked') ? 1 : 2,
+                            "jumbotrondepth": $("#select-button-jmbdepth-Mobile").val()
+                        },
+                    "CampaignId": $('#bannerId').val()
                 }
-            });
-        };
+                $.ajax({
+                    type: "POST",
+                    url: "/api/bannerproperties/save/2",
+                    contentType: "application/json",
+                    data: ko.toJSON(mobileDetails),
+                    success: function (response) {
+                    }
+                });
+            }
+        }
     }
     configureBannerForm = document.getElementById('configureBanner');
     var vmconfigureBanner = new configureBanner();
@@ -115,12 +246,11 @@ var $dateInput = $('.datepicker').pickadate({
     });
 
 $('.validate-step').click(function (event) {
-    if(!(bannerId && bannerId > 0))
-    {        
+    if (!(bannerId && bannerId > 0)) {
         event.preventDefault();
+        $('#bannerSelectionMsgModal').modal('open');
         return false;
     }
-
 });
 
 var uploadPhoto = function (e, platformid) {   
