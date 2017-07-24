@@ -36,6 +36,7 @@ $(document).ready(function () {
                 success: function (response) {
                     $('#bannerId').val(response);
                     bannerId = response;
+                    $('.stepper').nextStep();
                 }
             });
         };
