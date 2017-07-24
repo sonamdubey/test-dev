@@ -13,9 +13,12 @@
             <meta itemprop="worstRating" content="1">
             <meta itemprop="bestRating" content="5">
             <meta itemprop="itemreviewed" content="@Model.BikeName" />
-            <a href="@Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="review-count-target left-divider">
-                <span>@Model.ModelPageEntity.ModelDetails.ReviewCount</span> Reviews
-            </a>
+            @if (@Model.ModelPageEntity.ModelDetails.ReviewCount > 0)
+            {
+                <a href="@Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="review-count-target left-divider">
+                    <span>@Model.ModelPageEntity.ModelDetails.ReviewCount</span> Reviews
+                </a>
+            }
         </span>
         <a href="@string.Format("/rate-your-bike/{0}/?q={1}", Model.ModelId,Model.ReturnUrl)" class="left-divider">Rate this bike</a>
     </div>
