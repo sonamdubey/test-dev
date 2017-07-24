@@ -11,5 +11,7 @@ public class BannerVM
     {
         public BannerDetails DesktopBannerDetails { get; set; }
         public BannerDetails MobileBannerDetails { get; set; }
+
+        public uint CampaignId { get; set; }
     }
 }
