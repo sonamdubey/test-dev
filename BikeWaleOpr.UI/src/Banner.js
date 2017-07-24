@@ -140,6 +140,7 @@ $(document).ready(function () {
                     contentType: "application/json",
                     data: ko.toJSON(desktopDetails),
                     success: function (response) {
+                        $('.stepper').nextStep();
                     }
                 });
             }
@@ -228,6 +229,7 @@ $(document).ready(function () {
                     contentType: "application/json",
                     data: ko.toJSON(mobileDetails),
                     success: function (response) {
+                        $('.stepper').nextStep();
                     }
                 });
             }

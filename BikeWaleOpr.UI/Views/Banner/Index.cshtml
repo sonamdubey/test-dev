@@ -109,14 +109,14 @@
                                 <label for="select-ver-pos-Desktop">Background Vertical Position</label>
                             </div>
                             <div class="input-field col m4">
-                                <input id="txtBackgroundColorDesktop" name="DesktopBannerDetails.BackgroundColor" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.BackgroundColor:"")" data-bind="css:backgroundColorDesktopMsg()!=''?'invalid':'' " type="text" class="validate" maxlength="100">
+                                <input id="txtBackgroundColorDesktop" name="DesktopBannerDetails.BackgroundColor" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.BackgroundColor:"")" data-bind="css:backgroundColorDesktopMsg()!=''?'invalid':'' " type="text" maxlength="100">
                                 <label for="txtBackgroundColorDesktop" data-error="" data-bind="attr:{'data-error':backgroundColorDesktopMsg},css:backgroundColorDesktopMsg()!=''?'active':''">Background Color*</label>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col m8">
-                                <input id="txtBannerTitleDesktop" name="DesktopBannerDetails.BannerTitle" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.BannerTitle:"")" type="text" class="validate" data-bind="css:bannerTitleDesktopMsg()!=''?'invalid':'' " maxlength="100">
+                                <input id="txtBannerTitleDesktop" name="DesktopBannerDetails.BannerTitle" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.BannerTitle:"")" type="text" data-bind="css:bannerTitleDesktopMsg()!=''?'invalid':'' " maxlength="100">
                                 <label for="txtBannerTitleDesktop" data-error="" data-bind="attr:{'data-error':bannerTitleDesktopMsg},css:bannerTitleDesktopMsg()!=''?'active':''">Banner Title*</label>
                             </div>
                             <div class="input-field col m4">
@@ -148,14 +148,14 @@
                                 <label for="select-button-color-Desktop">Select Button Color</label>
                             </div>
                             <div class="input-field col m4">
-                                <input id="txtButtonDesktop" name="DesktopBannerDetails.ButtonText" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.ButtonText:"")" type="text" class="validate" data-bind="css:buttonTextDesktopMsg()!=''?'invalid':'' " maxlength="100">
+                                <input id="txtButtonDesktop" name="DesktopBannerDetails.ButtonText" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.ButtonText:"")" type="text"  data-bind="css:buttonTextDesktopMsg()!=''?'invalid':'' " maxlength="100">
                                 <label for="txtButtonDesktop" data-error="" data-bind="attr:{'data-error':buttonTextDesktopMsg},css:buttonTextDesktopMsg()!=''?'active':''">Button text*</label>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col m6">
-                                <input id="txtButtonlinkDesktop" name="DesktopBannerDetails.TargetHref" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.TargetHref:"")" type="text" data-bind="css:buttonLinkDesktopMsg()!=''?'invalid':'' " class="validate" maxlength="100">
+                                <input id="txtButtonlinkDesktop" name="DesktopBannerDetails.TargetHref" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.TargetHref:"")" type="text" data-bind="css:buttonLinkDesktopMsg()!=''?'invalid':'' " maxlength="100">
                                 <label for="txtButtonlinkDesktop" data-error="" data-bind="attr:{'data-error':buttonLinkDesktopMsg},css:buttonLinkDesktopMsg()!=''?'active':''">Button Link*</label>
                             </div>
                             <div class="col m6 margin-top25">
@@ -238,14 +238,14 @@
                                 <label for="select-ver-pos-Mobile">Background Vertical Position</label>
                             </div>
                             <div class="input-field col m4">
-                                <input id="txtBackgroundColorMobile" value="@(Model.MobileBannerDetails!=null?Model.MobileBannerDetails.BackgroundColor:"")" type="text" class="validate" data-bind="css:backgroundColorMobileMsg()!=''?'invalid':'' "  maxlength="100">
+                                <input id="txtBackgroundColorMobile" value="@(Model.MobileBannerDetails!=null?Model.MobileBannerDetails.BackgroundColor:"")" type="text" data-bind="css:backgroundColorMobileMsg()!=''?'invalid':'' "  maxlength="100">
                                 <label for="txtBackgroundColorMobile" data-error="" data-bind="attr:{'data-error':backgroundColorMobileMsg},css:backgroundColorMobileMsg()!=''?'active':''">Background Color *</label>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col m8">
-                                <input id="txtBannerTitleMobile" value="@(Model.MobileBannerDetails!=null?Model.MobileBannerDetails.BannerTitle:"")" data-bind="css:bannerTitleMobileMsg()!=''?'invalid':'' " type="text" class="validate" maxlength="100">
+                                <input id="txtBannerTitleMobile" value="@(Model.MobileBannerDetails!=null?Model.MobileBannerDetails.BannerTitle:"")" data-bind="css:bannerTitleMobileMsg()!=''?'invalid':'' " type="text" maxlength="100">
                                 <label for="txtBannerTitleMobile" data-error="" data-bind="attr:{'data-error':bannerTitleMobileMsg},css:bannerTitleMobileMsg()!=''?'active':''">Banner Title*</label>
                             </div>
                             <div class="input-field col m4">
@@ -277,14 +277,14 @@
                                 <label for="select-button-color-Mobile">Select Button Color</label>
                             </div>
                             <div class="input-field col m4">
-                                <input id="txtButtonMobile" type="text" value="@(Model.MobileBannerDetails!=null?Model.MobileBannerDetails.ButtonText:"")" data-bind="css:buttonTextMobileMsg()!=''?'invalid':'' " class="validate" maxlength="100">
+                                <input id="txtButtonMobile" type="text" value="@(Model.MobileBannerDetails!=null?Model.MobileBannerDetails.ButtonText:"")" data-bind="css:buttonTextMobileMsg()!=''?'invalid':'' " maxlength="100">
                                 <label for="txtButtonMobile" data-error="" data-bind="attr:{'data-error':buttonTextMobileMsg},css:buttonTextMobileMsg()!=''?'active':''">Button text *</label>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col m6">
-                                <input id="txtButtonlinkMobile" type="text" class="validate" data-bind="css:buttonLinkMobileMsg()!=''?'invalid':'' " maxlength="100">
+                                <input id="txtButtonlinkMobile" type="text" data-bind="css:buttonLinkMobileMsg()!=''?'invalid':'' " maxlength="100">
                                 <label for="txtButtonlinkMobile" data-error="" data-bind="attr:{'data-error':buttonLinkMobileMsg},css:buttonLinkMobileMsg()!=''?'active':''">Button Link*</label>
                             </div>
                             <div class="col m6 margin-top25">
