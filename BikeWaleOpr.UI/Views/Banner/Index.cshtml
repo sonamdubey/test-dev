@@ -52,7 +52,7 @@
 
                         </div>
 
-                        <input  class="btn waves-effect waves-light" value="Configure" data-bind="click:Configure" type="submit" />
+                        <button  class="btn waves-effect waves-light" value="Configure" data-bind="click:Configure" type="button" >Configure</button>
                             
                       
                     </div>
@@ -211,7 +211,9 @@
                             <label for="textareaJsDesktop">Js</label>
                         </div>
 
-                        <input class="btn waves-effect waves-light" data-bind="click:saveDesktop" type="submit" value="Save"/>
+                        <button class="btn waves-effect waves-light" data-bind="click:saveDesktop" type="button" >
+                        Save   
+                         </button>
                             
                                            
                     </div>
@@ -340,7 +342,7 @@
                             <label for="textareaJsMobile">Js</label>
                         </div>
 
-                        <input class="btn waves-effect waves-light" data-bind="click:saveMobile" type="submit" value="Save"/>
+                        <button class="btn waves-effect waves-light" data-bind="click:saveMobile" type="button" >Save</button>
                         
                     </div>
                 </li>
@@ -369,4 +371,4 @@
 <input id="environment" value="@Bikewale.Utility.BWOprConfiguration.Instance.AWSEnvironment" type="text" hidden />
 <input id="userid" value="@BikeWaleOpr.Common.CurrentUser.Id" type="text" hidden />
 <input id="bwOprHostUrl" value="@Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs" type="text" hidden />
-<input id="bannerId" type="hidden" hidden />
+<input id="bannerId" value="@(Model.CampaignId)"type="hidden" hidden />

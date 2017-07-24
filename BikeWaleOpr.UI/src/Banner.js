@@ -13,7 +13,7 @@ var buttonColorDesktop = { transparent : '.campaign__target-btn{background:trans
 var buttonColorMobile = { transparent: '.campaign__target-btn{background:transparent;color:#fff;border:1px solid #fff}', orange: '.campaign__target-btn{background:#f04031;color:#fff;border:1px solid transparent}' };
 
 $(document).ready(function () {
-
+    bannerId = $('#bannerId').val();
     $('#startTimeEle').val("00:00:00");
     $('#endTimeEle').val("00:00:00");
 

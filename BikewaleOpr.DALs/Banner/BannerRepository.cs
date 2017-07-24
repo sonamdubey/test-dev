@@ -11,8 +11,16 @@ using System.Linq;
 
 namespace BikewaleOpr.DALs.Banner
 {
+    /// <summary>
+    /// Created By :- Subodh Jain on 24 july 2017
+    /// Summary :- Banner Repository
+    /// </summary>
     public class BannerRepository : IBannerRepository
     {
+        /// <summary>
+        /// Created By :- Subodh Jain on 24 july 2017
+        /// Summary :- Get Banner Details
+        /// </summary>
         public BannerVM GetBannerDetails(uint bannerId)
         {
             BannerVM objBannerVM = null;
@@ -28,7 +36,8 @@ namespace BikewaleOpr.DALs.Banner
                     var obj = connection.QueryMultiple("gethomepagebanner_20072017", param: param, commandType: CommandType.StoredProcedure);
                     objBannerVM.DesktopBannerDetails = obj.Read<BannerDetails>().FirstOrDefault();
                     objBannerVM.MobileBannerDetails = obj.Read<BannerDetails>().FirstOrDefault();
-
+                    if (bannerId > 0)
+                        objBannerVM.CampaignId = bannerId;
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
                 }
@@ -41,9 +50,12 @@ namespace BikewaleOpr.DALs.Banner
             return objBannerVM;
 
         }
-            //        objBannerVM.MobileBannerDetails=obj.Read<BannerDetails>().FirstOrDefault();
 
 
+        /// <summary>
+        /// Created By :- Subodh Jain on 24 july 2017
+        /// Summary :- Save Descri,start date and end date of banner
+        /// </summary>
 
         public uint SaveBannerBasicDetails(DateTime startDate, DateTime endDate, string bannerDescription, uint id)
         {
@@ -69,7 +81,10 @@ namespace BikewaleOpr.DALs.Banner
             return campaignid;
 
         }
-
+        /// <summary>
+        /// Created By :- Subodh Jain on 24 july 2017
+        /// Summary :- =Save all the properties of banner desktop and mobile
+        /// </summary>
         public bool SaveBannerProperties(BannerDetails objBanner, uint platformId,uint campaignId)
         {
             int success = 0;
