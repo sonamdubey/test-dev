@@ -1,16 +1,16 @@
-﻿using BikewaleOpr.Entity;
+﻿using Bikewale.Notifications;
+using BikewaleOpr.Entity;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BikewaleOpr.Service.Controllers
 {
-    
+    /// <summary>
+    /// Created By :- Subodh Jain on 24 july 2017
+    /// Summary :- Banner Comtroller
+    /// </summary>
     public class BannerController : ApiController
     {
         private readonly IBannerRepository _objBannerRespository = null;
@@ -19,20 +19,55 @@ namespace BikewaleOpr.Service.Controllers
         {
             _objBannerRespository = objBannerRespository;
         }
-        [HttpPost, Route("api/bannerbaisc/{bannerDescription}/{startDate}/{endDate}/")]
-        public IHttpActionResult SaveBannerBasicDetails( DateTime startDate, DateTime endDate, string bannerDescription,uint? id=null)
+
+        /// <summary>
+        /// Created By :- Subodh Jain on 24 july 2017
+        /// Summary :- Banner SaveBannerBasicDetails
+        /// </summary>
+        [HttpPost, Route("api/bannerbasic/save/")]
+        public IHttpActionResult SaveBannerBasicDetails([FromBody] BannerVM objBanner)
         {
             uint campaignid = 0;
-            campaignid= _objBannerRespository.SaveBannerBasicDetails(startDate, endDate, bannerDescription,id??0);
-            return Ok(campaignid);
+            try
+            {
+                campaignid = _objBannerRespository.SaveBannerBasicDetails(objBanner);
+                return Ok(campaignid);
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.SaveBannerBasicDetails");
+
+                return InternalServerError();
+            }
         }
+        /// <summary>
+        /// Created By :- Subodh Jain on 24 july 2017
+        /// Summary :- Banner SaveBanner properties (desktop and mobile)
+        /// </summary>
         [HttpPost, Route("api/bannerproperties/save/{platformId}/")]
         public IHttpActionResult SaveBanner([FromBody] BannerVM objBanner ,uint platformId)
         {
-           
-            BannerDetails objBannerDetails =(platformId == 1) ? objBanner.DesktopBannerDetails : objBanner.MobileBannerDetails; 
-           bool success= _objBannerRespository.SaveBannerProperties(objBannerDetails, platformId, objBanner.CampaignId);
-            return Ok(success);
+
+            if (platformId > 0)
+            {
+                try
+                {
+                    BannerDetails objBannerDetails = (platformId == 1) ? objBanner.DesktopBannerDetails : objBanner.MobileBannerDetails;
+                    bool success = _objBannerRespository.SaveBannerProperties(objBannerDetails, platformId, objBanner.CampaignId);
+                    return Ok(success);
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.SaveBanner");
+
+                    return InternalServerError();
+                }
+            }
+            else
+            {
+                return BadRequest("Invalid inputs");
+            }
         }
     }
 }

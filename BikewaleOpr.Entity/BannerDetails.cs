@@ -9,7 +9,7 @@ namespace BikewaleOpr.Entity
 {
   public  class BannerDetails
     {
-        public string BannerDescription { get; set; }
+        
         [JsonProperty("horizontalposition")]
         public string HorizontalPosition { get; set; }
         [JsonProperty("verticalposition")]
@@ -49,8 +49,12 @@ namespace BikewaleOpr.Entity
         [JsonProperty("css")]
         public string CSS { get; set; }
 
-        public DateTime StartDate { get; set; }
+        [JsonProperty("category")]
+        public string Category { get; set; }
+        [JsonProperty("action")]
+        public string Action { get; set; }
+        [JsonProperty("label")]
+        public string Label { get; set; }
 
-        public DateTime EndDate { get; set; }
     }
 }

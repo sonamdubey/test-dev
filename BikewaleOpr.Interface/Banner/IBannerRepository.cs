@@ -12,7 +12,7 @@ namespace BikewaleOpr.Interface.Banner
     {
         BannerVM GetBannerDetails(uint bannerId);
 
-        uint SaveBannerBasicDetails(DateTime startDate, DateTime endDate, string bannerDescription,uint id);
+        uint SaveBannerBasicDetails(BannerVM objBanner);
 
         bool SaveBannerProperties(BannerDetails objBanner, uint paltformId,uint campaignId);
     }

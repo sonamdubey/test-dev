@@ -16,7 +16,7 @@
                     <div  class="step-content">
                         <div class="row">
                             <div class="input-field row">
-                                <textarea id="textareaBannerDesc" class="materialize-textarea">@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.BannerDescription:"")</textarea>
+                                <textarea id="textareaBannerDesc" class="materialize-textarea">@(Model!=null?Model.BannerDescription:"")</textarea>
                                 <label for="textareaBannerDesc">Banner Description*</label>
                             </div>
                         </div>
@@ -25,34 +25,34 @@
                             <div class="col m4">
                                 <div class="input-field">
                                     <i class="material-icons prefix margin-top15">date_range</i>
-                                    <input type="date" id="startDateEle" name="StartDate" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.StartDate.ToString("yyyy-MM-dd"):"")" class="datepicker margin-left5" />
+                                    <input type="date" id="startDateEle" name="StartDate" value="@(Model!=null?Model.StartDate.ToString("yyyy-MM-dd"):"")" class="datepicker margin-left5" />
                                     <label for="startDateEle">Campaign Start Date*</label>
                                 </div>
                             </div>
 
                             <div class="col m2">
                                 <div class="input-field">
-                                    <input type="time" id="startTimeEle" />
+                                    <input type="time" id="startTimeEle" value="@(Model!=null?Model.StartDate.ToString("HH:MM"):"")"/>
                                 </div>
                             </div>
 
                             <div class="col m4">
                                 <div class="input-field">
                                     <i class="material-icons prefix margin-top15">date_range</i>
-                                    <input type="date" id="endDateEle" name="EndDate" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.EndDate.ToString("yyyy-MM-dd"):"")" class="datepicker margin-left5" />
+                                    <input type="date" id="endDateEle" name="EndDate" value="@(Model!=null?Model.EndDate.ToString("yyyy-MM-dd"):"")" class="datepicker margin-left5" />
                                     <label for="endDateEle">Campaign End Date</label>
                                 </div>
                             </div>
 
                             <div class="col m2">
                                 <div class="input-field">
-                                    <input type="time" id="endTimeEle" />
+                                    <input type="time" id="endTimeEle" value="@(Model!=null?Model.EndDate.ToString("HH:MM"):"")" />
                                 </div>
                             </div>
 
                         </div>
 
-                        <input  class="btn waves-effect waves-light" value="Configure" data-bind="click:Configure" type="submit" />
+                        <button  class="btn waves-effect waves-light" value="Configure" data-bind="click:Configure" type="button" >Configure</button>
                             
                       
                     </div>
@@ -171,15 +171,18 @@
 
                         <div class="row">
                             <div class="input-field col m4">
-                                <input id="txtCategoryDesktop" type="text" data-bind="css:categoryDesktopMsg()!=''?'invalid':'' " maxlength="200">
+
+                                <input id="txtCategoryDesktop" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.Category:"")" type="text" data-bind="css:categoryDesktopMsg()!=''?'invalid':'' " maxlength="200">
                                 <label for="txtCategoryDesktop" data-error="" data-bind="attr:{'data-error':categoryDesktopMsg},css:categoryDesktopMsg()!=''?'active':''">Category*</label>
                             </div>
                             <div class="input-field col m4">
-                                <input id="txtActionDesktop" data-bind="css:actionDesktopMsg()!=''?'invalid':'' " type="text" maxlength="200">
+                               
+                                <input id="txtActionDesktop"  value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.Action:"")" data-bind="css:actionDesktopMsg()!=''?'invalid':'' " type="text" maxlength="200">
                                 <label for="txtActionDesktop" data-error="" data-bind="attr:{'data-error':actionDesktopMsg},css:actionDesktopMsg()!=''?'active':''">Action*</label>
                             </div>
                             <div class="input-field col m4">
-                                <input id="txtLabelDesktop" data-bind="css:labelDesktopMsg()!=''?'invalid':'' " type="text" maxlength="200">
+                                
+                                <input id="txtLabelDesktop" value="@(Model.DesktopBannerDetails!=null?Model.DesktopBannerDetails.Label:"")" data-bind="css:labelDesktopMsg()!=''?'invalid':'' " type="text" maxlength="200">
                                 <label for="txtLabelDesktop" data-error="" data-bind="attr:{'data-error':labelDesktopMsg},css:labelDesktopMsg()!=''?'active':''">Label*</label>
                             </div>
                         </div>
@@ -210,7 +213,9 @@
                             <label for="textareaJsDesktop">Js</label>
                         </div>
 
-                        <input class="btn waves-effect waves-light" data-bind="click:saveDesktop" type="submit" value="Save"/>
+                        <button class="btn waves-effect waves-light" data-bind="click:saveDesktop" type="button" >
+                        Save   
+                         </button>
                             
                                            
                     </div>
@@ -264,7 +269,7 @@
                                 <span>
                                     <input name="group1" type="radio" id="btnTypeLinkMobile"  @(Model.MobileBannerDetails != null && Model.MobileBannerDetails.ButtonType==1?"checked":"")/>
                                     <label for="btnTypeLinkMobile">Link</label>
-                                    <input name="group1" type="radio" id="btnTypeButtonMobile"@(Model.MobileBannerDetails != null && Model.MobileBannerDetails.ButtonType==2?"checked":"") />
+                                    <input name="group1" type="radio" id="btnTypeButtonMobile" @(Model.MobileBannerDetails != null && Model.MobileBannerDetails.ButtonType==2?"checked":"") />
                                     <label for="btnTypeButtonMobile">Button</label>
                                 </span>
                             </div>
@@ -300,15 +305,15 @@
 
                         <div class="row">
                             <div class="input-field col m4">
-                                <input id="txtCategoryMobile" type="text" data-bind="css:categoryMobileMsg()!=''?'invalid':'' " maxlength="200">
+                                <input id="txtCategoryMobile" value="@(Model.MobileBannerDetails!=null?Model.MobileBannerDetails.Category:"")" type="text" data-bind="css:categoryMobileMsg()!=''?'invalid':'' " maxlength="200">
                                 <label for="txtCategoryMobile" data-error="" data-bind="attr:{'data-error':categoryMobileMsg},css:categoryMobileMsg()!=''?'active':''">Category*</label>
                             </div>
                             <div class="input-field col m4">
-                                <input id="txtActionMobile" type="text" data-bind="css:actionMobileMsg()!=''?'invalid':'' " maxlength="200">
+                                <input id="txtActionMobile" value="@(Model.MobileBannerDetails!=null?Model.MobileBannerDetails.Action:"")" type="text" data-bind="css:actionMobileMsg()!=''?'invalid':'' " maxlength="200">
                                 <label for="txtActionMobile" data-error="" data-bind="attr:{'data-error':actionMobileMsg},css:actionMobileMsg()!=''?'active':''">Action*</label>
                             </div>
                             <div class="input-field col m4">
-                                <input id="txtLabelMobile" type="text" data-bind="css:labelMobileMsg()!=''?'invalid':'' " maxlength="200">
+                                <input id="txtLabelMobile" value="@(Model.MobileBannerDetails!=null?Model.MobileBannerDetails.Label:"")" type="text" data-bind="css:labelMobileMsg()!=''?'invalid':'' " maxlength="200">
                                 <label for="txtLabelMobile" data-error="" data-bind="attr:{'data-error':labelMobileMsg},css:labelMobileMsg()!=''?'active':''">Label*</label>
                             </div>
                         </div>
@@ -339,21 +344,12 @@
                             <label for="textareaJsMobile">Js</label>
                         </div>
 
-                        <input class="btn waves-effect waves-light" data-bind="click:saveMobile" type="submit" value="Save"/>
+                        <button class="btn waves-effect waves-light" data-bind="click:saveMobile" type="button" >Save</button>
                         
                     </div>
                 </li>
             </ul>
         </div>
-       
-        <input type="hidden" name="DesktopBannerDetails.HTML" id="desktopHTML"/>
-        <input type="hidden" name="DesktopBannerDetails.JS" id="desktopJS" />
-        <input type="hidden" name="DesktopBannerDetails.CSS" id="desktopCSS" />
-        <input type="hidden" name="MobileBannerDetails.HTML" id="mobileHTML" />
-        <input type="hidden" name="MobileBannerDetails.JS" id="mobileJS" />
-        <input type="hidden" name="MobileBannerDetails.CSS" id="mobileCSS" />
-        
-
 
         <div class="col m5 margin-top10">
             <img class="materialboxed" width="650" src="~/images/homePageBanner.png">
@@ -368,7 +364,7 @@
 <input id="environment" value="@Bikewale.Utility.BWOprConfiguration.Instance.AWSEnvironment" type="text" hidden />
 <input id="userid" value="@BikeWaleOpr.Common.CurrentUser.Id" type="text" hidden />
 <input id="bwOprHostUrl" value="@Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs" type="text" hidden />
-<input id="bannerId" type="hidden" hidden />
+<input id="bannerId" value="@(Model.CampaignId)"type="hidden" hidden />
 <input id="ModifiedCssDesktop" type="text" hidden />
 <input id="ModifiedCssMobile" type="text" hidden />
 <input id="ModifiedHtmlDesktop" type="text" hidden />
