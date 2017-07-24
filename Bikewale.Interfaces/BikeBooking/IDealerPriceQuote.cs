@@ -1,6 +1,5 @@
 ﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
 using System.Collections.Generic;
 
@@ -41,7 +40,6 @@ namespace Bikewale.Interfaces.BikeBooking
         PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams);
         PQOutputEntity ProcessPQV2(PriceQuoteParametersEntity PQParams);
         BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId);
-        DealerInfo IsDealerExists(uint versionId, uint areaId);
         bool UpdateDealerDailyLeadCount(uint campaignId, uint abInquiryId);
         bool IsDealerDailyLeadLimitExceeds(uint campaignId);
     }
