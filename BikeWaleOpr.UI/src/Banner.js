@@ -67,39 +67,39 @@ $(document).ready(function () {
             self.categoryDesktopMsg('');
             self.actionDesktopMsg('');
             self.labelDesktopMsg('');
+            Materialize.updateTextFields();
 
-
-            if ($('#txtBackgroundColorDesktop').text() == '') {
+            if ($('#txtBackgroundColorDesktop').val() == '') {
                 self.backgroundColorDesktopMsg('Please enter back ground color');
                 isValid = false;
             }
 
-            if ($('#txtBannerTitleDesktop').text() == '') {
+            if ($('#txtBannerTitleDesktop').val() == '') {
                 self.bannerTitleDesktopMsg('Please enter banner title');
                 isValid = false;
             }
 
-            if ($('#txtButtonDesktop').text() == '') {
+            if ($('#txtButtonDesktop').val() == '') {
                 self.buttonTextDesktopMsg('Please enter button text');
                 isValid = false;
             }
 
-            if ($('#txtButtonlinkDesktop').text() == '') {
+            if ($('#txtButtonlinkDesktop').val() == '') {
                 self.buttonLinkDesktopMsg('Please enter button link');
                 isValid = false;
             }
 
-            if ($('#txtCategoryDesktop').text() == '') {
+            if ($('#txtCategoryDesktop').val() == '') {
                 self.categoryDesktopMsg('Required');
                 isValid = false;
             }
 
-            if ($('#txtActionDesktop').text() == '') {
+            if ($('#txtActionDesktop').val() == '') {
                 self.actionDesktopMsg('Required');
                 isValid = false;
             }
 
-            if ($('#txtLabelDesktop').text() == '') {
+            if ($('#txtLabelDesktop').val() == '') {
                 self.labelDesktopMsg('Required');
                 isValid = false;
             }
@@ -155,39 +155,39 @@ $(document).ready(function () {
             self.categoryMobileMsg('');
             self.actionMobileMsg('');
             self.labelMobileMsg('');
+            Materialize.updateTextFields();
 
-
-            if ($('#txtBackgroundColorMobile').text() == '') {
+            if ($('#txtBackgroundColorMobile').val() == '') {
                 self.backgroundColorMobileMsg('Please enter back ground color');
                 isValid = false;
             }
 
-            if ($('#txtBannerTitleMobile').text() == '') {
+            if ($('#txtBannerTitleMobile').val() == '') {
                 self.bannerTitleMobileMsg('Please enter banner title');
                 isValid = false;
             }
 
-            if ($('#txtButtonMobile').text() == '') {
+            if ($('#txtButtonMobile').val() == '') {
                 self.buttonTextMobileMsg('Please enter button text');
                 isValid = false;
             }
 
-            if ($('#txtButtonlinkMobile').text() == '') {
+            if ($('#txtButtonlinkMobile').val() == '') {
                 self.buttonLinkMobileMsg('Please enter button link');
                 isValid = false;
             }
 
-            if ($('#txtCategoryMobile').text() == '') {
+            if ($('#txtCategoryMobile').val() == '') {
                 self.categoryMobileMsg('Required');
                 isValid = false;
             }
 
-            if ($('#txtActionMobile').text() == '') {
+            if ($('#txtActionMobile').val() == '') {
                 self.actionMobileMsg('Required');
                 isValid = false;
             }
 
-            if ($('#txtLabelMobile').text() == '') {
+            if ($('#txtLabelMobile').val() == '') {
                 self.labelMobileMsg('Required');
                 isValid = false;
             }
@@ -500,8 +500,8 @@ var processButtonHtml = function (platformId) {
 
             if ($('#txtButtonlinkMobile').val() != "")
                 button.attr('href', $('#txtButtonlinkMobile').val());
-        }
-
-        return el.html();
+        }        
     }
+
+    return el.html();
 };
