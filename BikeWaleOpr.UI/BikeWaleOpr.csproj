@@ -1923,6 +1923,7 @@
     <Content Include="research\urlmapping\map_models.txt" />
     <Content Include="src\AjaxFunctions.js" />
     <Content Include="src\Banner.js" />
+    <Content Include="src\BannerList.js" />
     <Content Include="src\bt.js" />
     <Content Include="src\calender.js" />
     <Content Include="src\chains.js" />

@@ -32,9 +32,9 @@ namespace BikewaleOpr.Controllers
             return View(objVM);
         }
 
-        public ActionResult BannersList()
+        public ActionResult BannersList(uint? bannerStatus)
         {
-            BannersListPage objPageModel = new BannersListPage(_objBannerRespository);
+            BannersListPage objPageModel = new BannersListPage(_objBannerRespository, bannerStatus);
             BannerListVM objVm = null;
 
             if (objPageModel != null)

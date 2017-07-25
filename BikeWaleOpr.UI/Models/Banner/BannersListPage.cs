@@ -10,9 +10,12 @@ namespace BikewaleOpr.Models.Banner
     public class BannersListPage
     {
         private readonly IBannerRepository _objBannerRespository = null;
-        public BannersListPage(IBannerRepository objBannerRespository)
+        private uint _bannerStatus = 0;
+        public BannersListPage(IBannerRepository objBannerRespository, uint? bannerStatus)
         {
             _objBannerRespository = objBannerRespository;
+            if (bannerStatus.HasValue)
+                _bannerStatus = bannerStatus.Value;
         }
         public BannerListVM GetData()
         {
@@ -20,7 +23,7 @@ namespace BikewaleOpr.Models.Banner
             try
             {
                 objPage = new BannerListVM();
-                objPage.BannerList = _objBannerRespository.GetBanners();               
+                objPage.BannerList = _objBannerRespository.GetBanners(_bannerStatus);               
             }
             catch (Exception ex)
             {

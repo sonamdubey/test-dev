@@ -41,6 +41,24 @@ namespace BikewaleOpr.Service.Controllers
                 return InternalServerError();
             }
         }
+
+        [HttpPost, Route("api/banner/stop/{reviewId}")]
+        public IHttpActionResult StopBanner(uint reviewId)
+        {
+            bool status = false;
+            try
+            {
+                status = _objBannerRespository.StopBanner(reviewId);
+                return Ok(status);
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Service.Controllers.StopBanner");
+                return InternalServerError();
+            }           
+        }
+
         /// <summary>
         /// Created By :- Subodh Jain on 24 july 2017
         /// Summary :- Banner SaveBanner properties (desktop and mobile)

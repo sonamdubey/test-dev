@@ -61,7 +61,12 @@ namespace BikewaleOpr.DALs.Banner
 
         }
 
-        public IEnumerable<BannerProperty> GetBanners()
+        /// <summary>
+        /// created by Sajal gupta on 25-07-2017
+        /// Desc : Function to get banners
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BannerProperty> GetBanners(uint bannerStatus)
         {
             IEnumerable<BannerProperty> objBannerList = null;
             try
@@ -71,6 +76,7 @@ namespace BikewaleOpr.DALs.Banner
                     connection.Open();
 
                     var param = new DynamicParameters();
+                    param.Add("par_status", bannerStatus);
                     objBannerList = connection.Query<BannerProperty>("getHomePageBanners", param: param, commandType: CommandType.StoredProcedure);
                 }
             }
@@ -79,6 +85,28 @@ namespace BikewaleOpr.DALs.Banner
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBanners"));
             }
             return objBannerList;
+        }
+
+        public bool StopBanner(uint bannerId)
+        {
+            bool status = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+                    param.Add("par_reviewId", bannerId);
+                    connection.Execute("stopbanner", param: param, commandType: CommandType.StoredProcedure);
+                    status = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.StopBanner"));
+            }
+            return status;
         }
 
         /// <summary>

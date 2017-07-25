@@ -1,6 +1,11 @@
 ﻿@model BikewaleOpr.Models.Banner.BannerListVM
 
-<div  class="row" style="margin-top:5px;">
+@{
+    ViewBag.Title = "Home Page Banners";
+    ViewBag.PageTitle = "Bikewale Operations - Home Page Banners";
+}
+
+<div  class="row" style="margin-top:10px;">
     <div class="col m10">
 
         <div id="tblBanners" data-BwOprHostUrl="@System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]">
@@ -10,8 +15,9 @@
                     <th>Banner Description</th>                   
                     <th>Start Date</th>
                     <th>End Date</th>                   
-                    <th>IsActive</th>
-                    <th>Edit</th>                   
+                    <th>Status</th>
+                    <th>Edit</th>
+                    <th>Stop</th>                   
                 </tr>
                @foreach (var m in Model.BannerList)
                {
@@ -21,16 +27,45 @@
                     <td>@m.StartDate</td>
                     <td>@m.EndDate</td>
                     <td>@(m.IsActive == 1 ? "Active" : "InActive")</td>
-                    <td><a class="btn waves-effect waves-light" href="/banner/index/?id=@m.BannerId" value="Edit" type="button">Edit</a></td>
-                </tr>
+                    <td><a href="/banner/index/?id=@m.BannerId" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                    @if (m.IsActive == 1)
+                    {
+                        <td><a class="tooltipped" id="btnAbort_@m.BannerId" data-position="bottom" data-delay="50" data-tooltip="Abort Campaign" title="Abort Campaign" data-bannerId="@m.BannerId" onclick="stopBanner(event)"><i class="material-icons icon-red">cancel</i></a></td>
+                    }
+                 </tr>
                }
             </table>
         </div>
     </div>
 
-    <div class="col m2" style="margin-top:10px;">
-        <a class="btn waves-effect waves-light" href="/banner/index" type="button">Add new Banner</a>
-    </div>
+    <div class="col s2 m2" >
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header"><strong>Filter Banners</strong></div>
+                <div class="collapsible-body">
+                    <div class="container">                        
+                        <div class="input-field row s12">
+                            <input name="group1" type="radio" id="chkActive" value="1" class="with-gap" />
+                            <label for="chkActive">Show Active</label>
+                            <input name="group1" type="radio" id="chkInactive" value="2"  class="with-gap"/>
+                            <label for="chkInactive">Show Inactive</label>                            
+                            <input name="group1" type="radio" id="chkAll" value="3" class="with-gap" />
+                            <label for="chkAll">Show All</label>
+                        </div>
 
+                        <div style="margin-bottom:5px;">
+                            <a class="btn waves-effect waves-light" onclick="filterData()" >Show Banners</a>
+                        </div>
+                    </div>
+                </div>
+            </li>           
+        </ul>
+
+        <div style="margin-top:10px;">
+            <a class="btn waves-effect waves-light" href="/banner/index" type="button">Add new Banner</a>
+        </div>
+    </div>
         
 </div>
+
+<script src="/src/BannerList.js"></script>

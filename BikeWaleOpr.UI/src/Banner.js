@@ -27,10 +27,12 @@ bannerId = $('#bannerId').val();
         var self = this;
         self.Configure = function () {
             var queries = {};
-            $.each(document.location.search.substr(1).split('&'), function (c, q) {
-                var i = q.split('=');
-                queries[i[0].toString()] = i[1].toString();
-            });
+            if (document.location.search != "") {
+                $.each(document.location.search.substr(1).split('&'), function (c, q) {
+                    var i = q.split('=');
+                    queries[i[0].toString()] = i[1].toString();
+                });
+            }
            
             var basicDetails = {
                 "startdate": $('#startDateEle').val() + ' ' + $('#startTimeEle').val(),
