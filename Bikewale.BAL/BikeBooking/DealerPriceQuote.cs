@@ -1,7 +1,6 @@
 ﻿using Bikewale.DAL.AutoBiz;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Interfaces.PriceQuote;
@@ -175,21 +174,6 @@ namespace Bikewale.BAL.BikeBooking
 
             return isSuccess;
         }
-
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 10 Dec 2014
-        /// Summary : To get customer selected bike color by pqid
-        /// </summary>
-        /// <param name="pqId"></param>
-        /// <returns></returns>
-        //public VersionColor GetPQBikeColor(uint pqId)
-        //{
-        //    VersionColor objColor = null;
-
-        //    objColor = dealerPQRepository.GetPQBikeColor(pqId);
-
-        //    return objColor;
-        //}   //End of GetPQBikeColor
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 17 Dec 2014
@@ -421,51 +405,6 @@ namespace Bikewale.BAL.BikeBooking
             }
             return objPQOutput;
         }   //End of ProcessPQV2
-
-        /// <summary>
-        /// Created By : Lucky Rathore
-        /// Description : To get dealer ID if primary dealer exist for mention Input.
-        /// Modified By  : Sushil Kumar on 8th August 2016
-        /// Description : Changed paramters order for IsSubscribedDealerExistsV3(versionId, areaId)
-        /// Modified By  : Sushil Kumar on 9th August 2016
-        /// Description : Added null checks for objDealerDetail
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <param name="areaId"></param>
-        /// <returns></returns>
-        public DealerInfo IsDealerExists(uint versionId, uint areaId)
-        {
-            DealerInfo objDealerDetail = null;
-            BikeWale.Entities.AutoBiz.DealerInfo objDealerInfo = null;
-            try
-            {
-                objDealerDetail = new DealerInfo();
-                if (versionId > 0 && areaId > 0)
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IDealer, Bikewale.BAL.AutoBiz.Dealers>();
-                        container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
-                        IDealer objDealer = container.Resolve<IDealer>();
-                        objDealerInfo = objDealer.IsSubscribedDealerExistsV3(versionId, areaId);
-
-                        if (objDealerInfo != null)
-                        {
-                            objDealerDetail.DealerId = objDealerInfo.DealerId;
-                            objDealerDetail.IsDealerAvailable = objDealerInfo.IsDealerAvailable;
-                        }
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-
-                ErrorClass objErr = new ErrorClass(ex, "ProcessPQ ex : " + ex.Message);
-                objErr.SendMail();
-            }
-            return objDealerDetail;
-        }
 
         public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
         {

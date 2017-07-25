@@ -923,7 +923,7 @@ namespace Bikewale.Models.BikeModels
             var errorParams = string.Empty;
             try
             {
-                if (_cityId > 0 && _objData.City != null)
+                if (_cityId > 0 && _objData.City != null && ((_objData.City.HasAreas && _areaId > 0) || !_objData.City.HasAreas))
                 {
                     _pqOnRoad = GetOnRoadPrice();
                     // Set Pricequote Cookie
@@ -982,7 +982,7 @@ namespace Bikewale.Models.BikeModels
             }
             finally
             {
-                if (_cityId > 0 && _objData.DealerId > 0 && _objData.VersionId > 0)
+                if (_pqOnRoad != null && _pqOnRoad.PriceQuote != null && _pqOnRoad.PriceQuote.IsDealerAvailable && _cityId > 0 && _objData.VersionId > 0)
                 {
                     _objData.DetailedDealer = _objDealerDetails.GetDealerQuotationV2(_cityId, _objData.VersionId, _objData.DealerId, _areaId);
                 }
@@ -1105,6 +1105,8 @@ namespace Bikewale.Models.BikeModels
                         }
                         if (objPQOutput.DealerId != 0)
                         {
+                            _objData.ShowOnRoadButton = false;
+                            _objData.IsAreaSelected = true;
                             PQ_QuotationEntity oblDealerPQ = null;
                             AutoBizCommon dealerPq = new AutoBizCommon();
                             try
@@ -1166,10 +1168,13 @@ namespace Bikewale.Models.BikeModels
                     {
                         var selectedCity = cities.FirstOrDefault(m => m.CityId == _cityId);
 
-                        _objData.City = selectedCity;
-                        _objData.ShowOnRoadButton = selectedCity != null && selectedCity.HasAreas && _areaId <= 0;
-                        _objData.IsAreaSelected = selectedCity != null && selectedCity.HasAreas && _areaId > 0;
-                        if (!_objData.IsAreaSelected) _areaId = 0;
+                        if (selectedCity != null)
+                        {
+                            _objData.City = selectedCity;
+                            _objData.ShowOnRoadButton = selectedCity.HasAreas && _areaId <= 0;
+                            _objData.IsAreaSelected = selectedCity.HasAreas && _areaId > 0;
+                            if (!_objData.IsAreaSelected) _areaId = 0;
+                        }
                     }
                 }
                 else

@@ -99,10 +99,10 @@ docReady(function () {
     navigationVideosLI = $(".carousel-navigation-videos .swiper-slide");
 
     $window = $(window),
-        overallSpecsTabsContainer = $('.overall-specs-tabs-container'),
-        modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper'),
-        modelSpecsFooter = $('#modelSpecsFooter'),
-        topNavBarHeight = overallSpecsTabsContainer.height();
+	overallSpecsTabsContainer = $('.overall-specs-tabs-container'),
+	modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper'),
+	modelSpecsFooter = $('#modelSpecsFooter'),
+	topNavBarHeight = $('#modelOverallSpecsTopContent').height();
 
     var tabsLength = $('.overall-specs-tabs-wrapper li').length - 1;
     if (tabsLength < 2) {
@@ -216,11 +216,11 @@ docReady(function () {
         }
 
         $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').each(function () {
-            var top = $(this).offset().top - overallSpecsTabsContainer.height(),
+            var top = $(this).offset().top - topNavBarHeight,
                 bottom = top + $(this).outerHeight();
             if (windowScrollTop >= top && windowScrollTop <= bottom) {
                 overallSpecsTabsContainer.find('li').removeClass('active');
-                $('#modelSpecsTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
+                $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').removeClass('active');
 
                 $(this).addClass('active');
 
@@ -278,7 +278,7 @@ docReady(function () {
 
     $('.overall-specs-tabs-wrapper li').click(function () {
         var target = $(this).attr('data-tabs');
-        $('html, body').animate({ scrollTop: $(target).offset().top - overallSpecsTabsContainer.height() }, 1000);
+        $('html, body').animate({ scrollTop: $(target).offset().top - topNavBarHeight }, 1000);
         centerItVariableWidth($(this), '.overall-specs-tabs-container');
         return false;
     });

@@ -43,7 +43,7 @@ namespace Bikewale.Models.BikeModels
         public GlobalCityAreaEntity LocationCookie { get; set; }
         public bool IsAreaSelected { get; set; }
         public bool IsLocationSelected { get { return (this.City != null && this.City.CityId > 0); } }
-        public string Location { get { return (this.IsAreaSelected ? string.Format("{0}, {1}", LocationCookie.Area, LocationCookie.City) : (this.IsLocationSelected ? LocationCookie.City : "Mumbai")); } }
+        public string Location { get { return (this.IsAreaSelected ? (string.IsNullOrEmpty(LocationCookie.Area) ? LocationCookie.City : string.Format("{0}, {1}", LocationCookie.Area, LocationCookie.City)) : (this.IsLocationSelected ? LocationCookie.City : "Mumbai")); } }
         public string LeadBtnLongText { get { return "Get offers from dealer"; } }
         public string LeadBtnShortText { get { return "Get offers"; } }
 
@@ -98,7 +98,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsModelColorsAvailable { get { return (this.ModelPageEntity != null && this.ModelPageEntity.ModelColors != null && this.ModelPageEntity.ModelColors.Count() > 0); } }
         public bool IsUsedBikesAvailable { get { return (UsedModels != null && UsedModels.RecentUsedBikesList != null && UsedModels.RecentUsedBikesList.Count() > 0); } }
         public bool IsShowPriceTab { get; set; }
-        public bool IsUserReviewsAvailable { get { return UserReviews != null &&  UserReviews.UserReviews != null && UserReviews.ReviewsInfo != null && UserReviews.ReviewsInfo.TotalReviews > 0; } }
+        public bool IsUserReviewsAvailable { get { return UserReviews != null && UserReviews.UserReviews != null && UserReviews.ReviewsInfo != null && UserReviews.ReviewsInfo.TotalReviews > 0; } }
         public IEnumerable<ColorImageBaseEntity> ColorImages { get { return AreModelPhotosAvailable ? ModelPageEntity.AllPhotos.Where(x => x.ColorId > 0) : null; } }
 
         #endregion

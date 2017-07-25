@@ -45,7 +45,6 @@ namespace Bikewale.Models
         private readonly Interfaces.IManufacturerCampaign _objManufacturerCampaign = null;
         private uint cityId, modelId, versionCount, colorCount, dealerCount, areaId;
         private string modelMaskingName, cityMaskingName, pageDescription, area, city;
-
         private BikeQuotationEntity firstVersion;
         private uint primaryDealerId;
         private bool isNew, isAreaSelected, hasAreaAvailable;
@@ -169,7 +168,6 @@ namespace Bikewale.Models
                     if (objCityResponse.StatusCode == 200 && objModelResponse.StatusCode == 200)
                     {
                         Status = StatusCodes.ContentFound;
-                        CheckCityCookie();
                     }
                     RedirectUrl = rawUrl;
                 }
@@ -187,7 +185,7 @@ namespace Bikewale.Models
         /// Modified By : Sushil Kumar on 26th August 2016
         /// Description : Replaced location name from location cookie to selected location objects for city and area respectively.
         /// </summary>
-        private void CheckCityCookie()
+        private void CheckCityCookie(PriceInCityPageVM objVM)
         {
             try
             {
@@ -200,6 +198,7 @@ namespace Bikewale.Models
                         if (cities != null)
                         {
                             var selectedCity = cities.FirstOrDefault(m => m.CityId == cityId);
+                            objVM.CookieCityEntity = selectedCity;
                             if (selectedCity != null && selectedCity.HasAreas && areaId > 0)
                             {
                                 var areas = _objAreaCache.GetAreaList(modelId, cityId);
@@ -235,6 +234,7 @@ namespace Bikewale.Models
                 if (Status == StatusCodes.ContentFound)
                 {
                     objVM = new PriceInCityPageVM();
+                    CheckCityCookie(objVM);
                     //Get Bike version Prices
                     objVM.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(modelId, cityId, out hasAreaAvailable);
                     if (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Count() > 0)
@@ -260,7 +260,17 @@ namespace Bikewale.Models
                         {
                             BindPriceInNearestCities(objVM);
                             BindPriceInTopCities(objVM);
-                            GetDealerPriceQuote(objVM);
+                            if ((objVM.CookieCityEntity.HasAreas && areaId > 0) || !objVM.CookieCityEntity.HasAreas)
+                            {
+                                GetDealerPriceQuote(objVM);
+                            }
+                            else
+                            {
+                                if (objVM.CookieCityEntity.HasAreas && areaId == 0)
+                                {
+                                    objVM.IsAreaAvailable = true;
+                                }
+                            }
                             GetManufacturerCampaign(objVM);
                             objVM.LeadCapture = new LeadCaptureEntity()
                             {
