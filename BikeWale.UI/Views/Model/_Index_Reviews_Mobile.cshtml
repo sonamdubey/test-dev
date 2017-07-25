@@ -2,10 +2,12 @@
 <div class="rating-review-content">
 @if (Model.ModelPageEntity.ModelDetails.ReviewRate > 0)
 {
-       <div class="inline-block margin-right10">
-        <span class="star-span star-one-icon"></span>
-        <span class="font14 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span><span class="font12 text-light-grey">/5</span>
-            </div>
+    <div class="inline-block margin-right10">
+        <span class="rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating))">
+            <span class="bwmsprite star-icon"></span>
+            <span class="font14 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span>
+        </span>
+ </div>
     <span class="border-light-left"></span>
 }
     <div class="inline-block">
