@@ -15,5 +15,7 @@ namespace BikewaleOpr.Interface.Banner
         uint SaveBannerBasicDetails(BannerVM objBanner);
 
         bool SaveBannerProperties(BannerDetails objBanner, uint paltformId,uint campaignId);
+
+        IEnumerable<BannerProperty> GetBanners();
     }
 }

@@ -1,0 +1,36 @@
+﻿@model BikewaleOpr.Models.Banner.BannerListVM
+
+<div  class="row" style="margin-top:5px;">
+    <div class="col m10">
+
+        <div id="tblBanners" data-BwOprHostUrl="@System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]">
+            <table class="bordered highlight z-depth-3 centered responsive-table">
+                <tr>
+                    <th>BannerId</th>
+                    <th>Banner Description</th>                   
+                    <th>Start Date</th>
+                    <th>End Date</th>                   
+                    <th>IsActive</th>
+                    <th>Edit</th>                   
+                </tr>
+               @foreach (var m in Model.BannerList)
+               {
+                <tr >
+                    <td>@m.BannerId</td>                    
+                    <td>@m.BannerDescription</td>                   
+                    <td>@m.StartDate</td>
+                    <td>@m.EndDate</td>
+                    <td>@(m.IsActive == 1 ? "Active" : "InActive")</td>
+                    <td><a class="btn waves-effect waves-light" href="/banner/index/?id=@m.BannerId" value="Edit" type="button">Edit</a></td>
+                </tr>
+               }
+            </table>
+        </div>
+    </div>
+
+    <div class="col m2" style="margin-top:10px;">
+        <a class="btn waves-effect waves-light" href="/banner/index" type="button">Add new Banner</a>
+    </div>
+
+        
+</div>

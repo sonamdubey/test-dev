@@ -31,9 +31,20 @@ namespace BikewaleOpr.Controllers
 
             return View(objVM);
         }
-     
+
+        public ActionResult BannersList()
+        {
+            BannersListPage objPageModel = new BannersListPage(_objBannerRespository);
+            BannerListVM objVm = null;
+
+            if (objPageModel != null)
+            {
+                objVm = objPageModel.GetData();
+            }
+
+            return View(objVm);            
+        }
 
 
-     
     }
 }

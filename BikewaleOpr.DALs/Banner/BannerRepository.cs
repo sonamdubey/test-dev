@@ -5,6 +5,7 @@ using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Models;
 using Dapper;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -60,6 +61,25 @@ namespace BikewaleOpr.DALs.Banner
 
         }
 
+        public IEnumerable<BannerProperty> GetBanners()
+        {
+            IEnumerable<BannerProperty> objBannerList = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+                    objBannerList = connection.Query<BannerProperty>("getHomePageBanners", param: param, commandType: CommandType.StoredProcedure);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BannerRepository.GetBanners"));
+            }
+            return objBannerList;
+        }
 
         /// <summary>
         /// Created By :- Subodh Jain on 24 july 2017

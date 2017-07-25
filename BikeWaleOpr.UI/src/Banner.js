@@ -250,6 +250,69 @@ bannerId = $('#bannerId').val();
                 });
             }
         }
+
+        self.uploadToAWS = function (file, photoId, itemId, path, ext, categoryId) {
+            var imgUpldUtil = new ImageUploadUtility();
+            imgUpldUtil.request = { "originalPath": path, "categoryId": categoryId, "itemId": itemId, "isWaterMark": 0, "isMaster": 0, "isMain": 0, "extension": ext };
+            imgUpldUtil.photoId = photoId;
+            imgUpldUtil.baseURL = $('#bwOprHostUrl').val();
+            file.type = "image/" + ext;
+            imgUpldUtil.upload(file);
+            $(file._removeLink).attr("photoId", (imgUpldUtil.photoId ? imgUpldUtil.photoId : ''));
+            return imgUpldUtil;
+        };
+
+         self.uploadPhoto = function (e, platformid) {
+            try {
+
+                if ($(e.currentTarget).parent().parent().find('.file-path').val() != '') {
+
+                    var path, categoryId, curFile, ext;
+
+                    if (platformid == 1) //desktop
+                    {
+                        categoryId = 4;
+                        curFile = currentFileDesktop;
+                        if (curFile)
+                            ext = curFile.name.split('.').pop().toLowerCase();
+                        path = 'bw/' + $('#environment').val() + 'd/banners/homepagebanner-' + bannerId + '-' + (new Date()).getTime() + '.' + ext;
+                    }
+                    else {
+                        categoryId = 5;
+                        curFile = currentFileMobile;
+                        if (curFile)
+                            ext = curFile.name.split('.').pop().toLowerCase();
+                        path = 'bw/' + $('#environment').val() + 'm/banners/homepagebanner-' + bannerId + '-' + (new Date()).getTime() + '.' + ext;
+                    }
+
+                    if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1 && (bannerId > 0)) {
+                        Materialize.toast('Invalid extension!', 4000);
+                        return false;
+                    }
+
+                    var imgUpldUtil = self.uploadToAWS(curFile, bannerId, bannerId, path.toLowerCase(), ext, categoryId);
+                    if (imgUpldUtil && imgUpldUtil.status) {
+                        if (imgUpldUtil.status) {
+
+                            if (platformid == 1)
+                                imgPathDesktop = 'https://imgd.aeplcdn.com/' + '0x0/' + imgUpldUtil.response.originalImagePath;
+                            else
+                                imgPathMobile = 'https://imgd.aeplcdn.com/' + '0x0/' + imgUpldUtil.response.originalImagePath;
+
+                            Materialize.toast('Image uploaded succesfull!', 4000);
+                        }
+                    }
+
+                }
+                else {
+                    Materialize.toast('Please upload image first', 4000);
+                    return false;
+                }
+            }
+            catch (e) {
+                console.log(e);
+            }
+        };
     }
     configureBannerForm = document.getElementById('configureBanner');
     var vmconfigureBanner = new configureBanner();
@@ -272,68 +335,7 @@ $('.validate-step').click(function (event) {
     }
 });
 
-var uploadPhoto = function (e, platformid) {   
-    try {
 
-        if ($(e.currentTarget).parent().parent().find('.file-path').val() != '') {
-
-            var path, categoryId, curFile, ext;
-
-            if (platformid == 1) //desktop
-            {
-                categoryId = 4;
-                curFile = currentFileDesktop;
-                if (curFile)
-                    ext = curFile.name.split('.').pop().toLowerCase();
-                path = 'bw/' + $('#environment').val() + 'd/banners/homepagebanner-' + bannerId + '-' + (new Date()).getTime() + '.' + ext;
-            }
-            else {
-                categoryId = 5;
-                curFile = currentFileMobile;
-                if (curFile)
-                    ext = curFile.name.split('.').pop().toLowerCase();
-                path = 'bw/' + $('#environment').val() + 'm/banners/homepagebanner-' + bannerId + '-' + (new Date()).getTime() + '.' + ext;
-            }
-
-            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-                Materialize.toast('Invalid extension!', 4000);
-                return false;
-            }
-
-            var imgUpldUtil = uploadToAWS(curFile, bannerId, bannerId, path.toLowerCase(), ext, categoryId);
-            if (imgUpldUtil && imgUpldUtil.status) {
-                if (imgUpldUtil.status) {
-
-                    if (platformid == 1)
-                        imgPathDesktop = 'https://imgd.aeplcdn.com/' + '0x0/' + imgUpldUtil.response.originalImagePath;
-                    else
-                        imgPathMobile = 'https://imgd.aeplcdn.com/' + '0x0/' + imgUpldUtil.response.originalImagePath;
-
-                    Materialize.toast('Image uploaded succesfull!', 4000);
-                }
-            }
-
-        }
-        else {
-            Materialize.toast('Please upload image first', 4000);
-            return false;
-        }
-    }
-    catch (e) {
-        console.log(e);
-    }
-};
-
-var uploadToAWS = function (file, photoId, itemId, path, ext, categoryId) {
-    var imgUpldUtil = new ImageUploadUtility();
-    imgUpldUtil.request = { "originalPath": path, "categoryId": categoryId, "itemId": itemId, "isWaterMark": 0, "isMaster": 0, "isMain": 0, "extension": ext };
-    imgUpldUtil.photoId = photoId;
-    imgUpldUtil.baseURL = $('#bwOprHostUrl').val();
-    file.type = "image/" + ext;
-    imgUpldUtil.upload(file);
-    $(file._removeLink).attr("photoId", (imgUpldUtil.photoId ? imgUpldUtil.photoId : ''));
-    return imgUpldUtil;
-};
 
 var processCss = function (platformId) {
     if (platformId == 1) {
