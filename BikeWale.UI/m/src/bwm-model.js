@@ -99,10 +99,10 @@ docReady(function () {
     navigationVideosLI = $(".carousel-navigation-videos .swiper-slide");
 
     $window = $(window),
-        overallSpecsTabsContainer = $('.overall-specs-tabs-container'),
-        modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper'),
-        modelSpecsFooter = $('#modelSpecsFooter'),
-        topNavBarHeight = overallSpecsTabsContainer.height();
+	overallSpecsTabsContainer = $('.overall-specs-tabs-container'),
+	modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper'),
+	modelSpecsFooter = $('#modelSpecsFooter'),
+	topNavBarHeight = $('#modelOverallSpecsTopContent').height();
 
     var tabsLength = $('.overall-specs-tabs-wrapper li').length - 1;
     if (tabsLength < 2) {
@@ -216,11 +216,11 @@ docReady(function () {
         }
 
         $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').each(function () {
-            var top = $(this).offset().top - overallSpecsTabsContainer.height(),
+            var top = $(this).offset().top - topNavBarHeight,
                 bottom = top + $(this).outerHeight();
             if (windowScrollTop >= top && windowScrollTop <= bottom) {
                 overallSpecsTabsContainer.find('li').removeClass('active');
-                $('#modelSpecsTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
+                $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').removeClass('active');
 
                 $(this).addClass('active');
 
@@ -278,7 +278,7 @@ docReady(function () {
 
     $('.overall-specs-tabs-wrapper li').click(function () {
         var target = $(this).attr('data-tabs');
-        $('html, body').animate({ scrollTop: $(target).offset().top - overallSpecsTabsContainer.height() }, 1000);
+        $('html, body').animate({ scrollTop: $(target).offset().top - topNavBarHeight }, 1000);
         centerItVariableWidth($(this), '.overall-specs-tabs-container');
         return false;
     });
@@ -698,5 +698,35 @@ docReady(function () {
     $('#scroll-to-top').click(function (event) {
         $('html, body').stop().animate({ scrollTop: 0 });
         event.preventDefault();
+    });    
+
+    $('#report-background, .report-abuse-close-btn').on('click', function() {
+        reportAbusePopup.close();
     });
+
+    $(document).keydown(function (event) {
+        if(event.keyCode == 27) {
+            if(reportAbusePopup.popupElement.is(':visible')) {
+                reportAbusePopup.close();
+            }
+        }
+    });
+
+	var reportAbusePopup = {
+		popupElement: $('#report-abuse'),
+
+		bgContainer: $('#report-background'),
+
+		open: function () {
+			reportAbusePopup.popupElement.show();
+			popup.lock();
+			$(".blackOut-window").hide();
+			reportAbusePopup.bgContainer.show();
+		},
+		close: function () {
+			reportAbusePopup.popupElement.hide();
+			popup.unlock();
+			reportAbusePopup.bgContainer.hide();
+		}
+	};
 });

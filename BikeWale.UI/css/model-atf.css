@@ -41,36 +41,21 @@
     top: -2px;
 }
 
-.review-box .review-count-target,
-.no-rating {
-    position: relative;
-    padding-right: 14px;
-    margin-right: 12px;
-}
-
-.review-box .review-count-target {
+.left-divider {
+	position: relative;
     padding-left: 14px;
     margin-left: 12px;
 }
 
-.review-box .review-count-target:before,
-.review-box .review-count-target:after,
-.review-box .no-rating:after {
-    content: '';
+.left-divider:before {
+	content: '';
     width: 1px;
     height: 15px;
     display: block;
     position: absolute;
-    top: 3px;
-    border-right: 1px solid #eee;
-}
-
-.review-box .review-count-target:before {
-    left: 0;
-}
-
-.review-box .review-count-target:after, .no-rating:after {
-    right: 0;
+	top: 2px;
+	left: 0;
+    border-left: 1px solid #eee;
 }
 
 /* floating tabs */
@@ -106,7 +91,7 @@
 }
 
 .overall-specs-tabs-wrapper a {
-    padding: 10px 14px;
+    padding: 10px 12px;
     display: table-cell;
     text-align: center;
     font-size: 14px;

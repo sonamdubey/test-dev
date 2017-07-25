@@ -18,10 +18,12 @@
                 <meta itemprop="bestRating" content="5">
                 <meta itemprop="itemreviewed" content="@Model.BikeName" />
 
-               
-                <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="leftfloat margin-right10 padding-left10 font12 ">
+               @if (@Model.ModelPageEntity.ModelDetails.ReviewCount > 0)
+               {
+                <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="leftfloat margin-right10 padding-left10 font12 ">
                     <span>@Model.ModelPageEntity.ModelDetails.ReviewCount</span><span>&nbsp;Review@((Model.ModelPageEntity.ModelDetails.ReviewCount) > 1 ? "s" : "")</span>
-                </a>                                                       
+                </a> 
+               }
             </span>
         }
         else

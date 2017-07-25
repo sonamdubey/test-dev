@@ -159,17 +159,14 @@ namespace Bikewale.Cache.UserReviews
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public BikeReviewsInfo GetBikeReviewsInfo(uint modelId, uint? skipReviewId)
+        public BikeReviewsInfo GetBikeReviewsInfo(uint modelId)
         {
             BikeReviewsInfo reviews = null;
-            string key = "BW_BikeReviewsInfo_MO_" + modelId;
-
-            if (skipReviewId.HasValue)
-                key = key + "_RId" + skipReviewId.Value;
+            string key = "BW_BikeReviewsInfo_MO_" + modelId;            
 
             try
             {
-                reviews = _cache.GetFromCache<BikeReviewsInfo>(key, new TimeSpan(24, 0, 0), () => _objUserReviews.GetBikeReviewsInfo(modelId, skipReviewId));
+                reviews = _cache.GetFromCache<BikeReviewsInfo>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetBikeReviewsInfo(modelId, 0));
             }
             catch (Exception ex)
             {
@@ -178,8 +175,30 @@ namespace Bikewale.Cache.UserReviews
             return reviews;
         }
 
-        public BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId)
+        /// <summary>
+        /// Created by Sajal Gupta on 14-07-2017
+        /// Description : Added caching logic for dal call GetReviewQuestionValuesByModel
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId)
         {
+            QuestionsRatingValueByModel objRatingsList = null;
+            string key = "BW_ReviewQuestionsValue_MO_" + modelId;
+
+            try
+            {
+                objRatingsList = _cache.GetFromCache<QuestionsRatingValueByModel>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetReviewQuestionValuesByModel(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "UserReviewsCacheRepository.GetReviewQuestionValuesByModel");
+            }
+            return objRatingsList;
+        }
+
+        public BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId)
+        {            
             BikeRatingsReviewsInfo reviews = null;
             string key = "BW_BikeRatingsReviewsInfo_MO_V1_" + modelId;
             try

@@ -1,0 +1,63 @@
+﻿@model Bikewale.Models.UserReviews.UserReviewsSearchVM
+@using Bikewale.Entities.UserReviews;
+@using Bikewale.Utility;
+@if (Model != null && Model.ObjQuestionValue != null && Model.ObjQuestionValue.QuestionsList != null)
+{
+    if (Model.ObjQuestionValue.QuestionsList.Count() > 0)
+    {
+<ul class="rating-circle-list">
+  @foreach (var obj in Model.ObjQuestionValue.QuestionsList)
+  {
+      <li>
+        <div class="rating-circle circle-rate-@(obj.AverageRatingValue.ToString("0"))">
+            <p class="circle-label">@(obj.AverageRatingValue.ToString("0.0"))</p>
+            <span class="rating-progress"></span>
+        </div>
+        <p class="list-item-label">@obj.QuestionHeading</p>
+    </li>
+  }
+</ul>
+    }
+}
+<ul class="user-review-list">
+@foreach (UserReviewSummary review in Model.UserReviews.ResultDesktop)
+{
+    <li>
+        <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" title="@review.Title" class="item-target">
+            <div class="margin-bottom10">
+                <span class="rating-badge" data-rate-bg="@review.OverallRating.Value">
+                    <span class="bwmsprite star-white"></span>
+                    <span>@review.OverallRating.Value</span>
+                </span>
+                <div class="grid-10-inline font15 text-black text-bold text-truncate">
+                    <span class="review-title position-rel">@review.Title</span>
+                </div>
+            </div>
+
+            <div class="margin-bottom10">
+                <span class="font12 text-light-grey">@review.ReviewAge ago by @FormatDescription.TruncateDescription(review.CustomerName, 25)</span>
+            </div>
+
+            <div class="font14 text-slate-grey margin-bottom10">
+                <p class="inline">@Bikewale.Utility.FormatDescription.TruncateDescription(review.Description, 175)</p>
+                <span class="inline">...<span class="text-link">Read more</span></span>
+            </div>
+
+            <div class="grid-7 alpha">
+                <div class="item-stats-grid">
+                    <span class="bwmsprite like-sm"></span>
+                    <span>@review.UpVotes</span>
+                </div>
+                <div class="item-stats-grid">
+                    <span class="bwmsprite dislike-sm"></span>
+                    <span>@review.DownVotes</span>
+                </div>
+            </div>
+            <div class="grid-5 item-stats-grid omega text-right">
+                <span>@review.Views</span><span>&nbsp;views</span>
+            </div>
+            <div class="clear"></div>
+        </a>
+    </li>
+}
+</ul>

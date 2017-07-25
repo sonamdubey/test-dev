@@ -294,7 +294,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
-        internal static DTO.Model.v4.ModelPage ConvertV4(BikeModelPageEntity objModelPage, Entities.PriceQuote.PQByCityAreaEntity pqEntity, DetailedDealerQuotationEntity dealers)
+        internal static DTO.Model.v4.ModelPage ConvertV4(BikeModelPageEntity objModelPage, Entities.PriceQuote.PQByCityAreaEntity pqEntity, Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers)
         {
             Bikewale.DTO.Model.v4.ModelPage objDTOModelPage = null;
             try
@@ -393,10 +393,7 @@ namespace Bikewale.Service.AutoMappers.Model
                         }
 
                     }
-                    if ((pqEntity.IsAreaExists && pqEntity.IsAreaSelected) || !pqEntity.IsAreaExists)
-                    {
-                        objDTOModelPage.SecondaryDealerCount = (ushort)dealers.SecondaryDealerCount;
-                    }
+                    objDTOModelPage.SecondaryDealerCount = (ushort)dealers.SecondaryDealerCount;
                 }
             }
             catch (System.Exception)
