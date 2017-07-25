@@ -25,7 +25,7 @@ namespace BikewaleOpr.Controllers
             if (objBanner != null)
             {
                 uint bannerId =  id?? 0;
-                objVM = new BannerVM();
+              
                 objVM =objBanner.GetData(bannerId);
             }
 

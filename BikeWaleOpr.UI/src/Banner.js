@@ -26,7 +26,9 @@ bannerId = $('#bannerId').val();
     var configureBanner = function () {
         var self = this;
         self.Configure = function () {
+
             var queries = {};
+            if (document.location.search!="")
             $.each(document.location.search.substr(1).split('&'), function (c, q) {
                 var i = q.split('=');
                 queries[i[0].toString()] = i[1].toString();

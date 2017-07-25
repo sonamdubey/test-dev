@@ -16,7 +16,7 @@
                     <div  class="step-content">
                         <div class="row">
                             <div class="input-field row">
-                                <textarea id="textareaBannerDesc" class="materialize-textarea">@(Model!=null?Model.BannerDescription:"")</textarea>
+                                <textarea id="textareaBannerDesc" class="materialize-textarea">@(Model.BannerDescription)</textarea>
                                 <label for="textareaBannerDesc">Banner Description*</label>
                             </div>
                         </div>
@@ -25,28 +25,28 @@
                             <div class="col m4">
                                 <div class="input-field">
                                     <i class="material-icons prefix margin-top15">date_range</i>
-                                    <input type="date" id="startDateEle" name="StartDate" value="@(Model!=null?Model.StartDate.ToString("yyyy-MM-dd"):"")" class="datepicker margin-left5" />
+                                    <input type="date" id="startDateEle" name="StartDate" value="@(Model.StartDate.HasValue?Model.StartDate.Value.ToString("yyyy-MM-dd") : "")" class="datepicker margin-left5" />
                                     <label for="startDateEle">Campaign Start Date*</label>
                                 </div>
                             </div>
 
                             <div class="col m2">
                                 <div class="input-field">
-                                    <input type="time" id="startTimeEle" value="@(Model!=null?Model.StartDate.ToString("HH:MM"):"")"/>
+                                    <input type="time" id="startTimeEle" value="@(Model.StartDate.HasValue?Model.StartDate.Value.ToString("HH:MM"):"")"/>
                                 </div>
                             </div>
 
                             <div class="col m4">
                                 <div class="input-field">
                                     <i class="material-icons prefix margin-top15">date_range</i>
-                                    <input type="date" id="endDateEle" name="EndDate" value="@(Model!=null?Model.EndDate.ToString("yyyy-MM-dd"):"")" class="datepicker margin-left5" />
+                                    <input type="date" id="endDateEle" name="EndDate" value="@(Model.EndDate.HasValue?Model.EndDate.Value.ToString("yyyy-MM-dd") : "")" class="datepicker margin-left5" />
                                     <label for="endDateEle">Campaign End Date</label>
                                 </div>
                             </div>
 
                             <div class="col m2">
                                 <div class="input-field">
-                                    <input type="time" id="endTimeEle" value="@(Model!=null?Model.EndDate.ToString("HH:MM"):"")" />
+                                    <input type="time" id="endTimeEle" value="@(Model.StartDate.HasValue?Model.StartDate.Value.ToString("HH:MM"):"")" />
                                 </div>
                             </div>
 
@@ -133,9 +133,9 @@
                             <div class="col m5 margin-top25">
                                 <label>Button Type :</label>
                                 <span>
-                                    <input name="group1" type="radio" id="btnTypeLinkDesktop"   @(Model.DesktopBannerDetails!=null && Model.DesktopBannerDetails.ButtonType==1?"checked":"") />
+                                    <input name="group3" type="radio" id="btnTypeLinkDesktop"   @(Model.DesktopBannerDetails!=null && Model.DesktopBannerDetails.ButtonType==1?"checked":"") />
                                     <label for="btnTypeLinkDesktop">Link</label>
-                                    <input name="group1" type="radio" id="btnTypeButtonDesktop" @(Model.DesktopBannerDetails!=null && Model.DesktopBannerDetails.ButtonType==2?"checked":"") />
+                                    <input name="group3" type="radio" id="btnTypeButtonDesktop" @(Model.DesktopBannerDetails!=null && Model.DesktopBannerDetails.ButtonType==2? "checked" : "") />
                                     <label for="btnTypeButtonDesktop">Button</label>
                                 </span>
                             </div>
@@ -161,9 +161,9 @@
                             <div class="col m6 margin-top25">
                                 <label>Open Button Link In New Page :</label>
                                 <span>                                   
-                                    <input name="group2" type="radio" id="radioOpenInNewPageDesktop"  @(Model.DesktopBannerDetails!=null && Model.DesktopBannerDetails.Target==1?"checked":"")/>
+                                    <input name="group4" type="radio" id="radioOpenInNewPageDesktop"  @(Model.DesktopBannerDetails!=null && Model.DesktopBannerDetails.Target==1? "checked=checked" : "")/>
                                     <label for="radioOpenInNewPageDesktop">Yes</label>
-                                    <input name="group2" type="radio" id="radioOpenInSamePageDesktop" @(Model.DesktopBannerDetails!=null && Model.DesktopBannerDetails.Target==2?"checked":"")/>
+                                    <input name="group4" type="radio" id="radioOpenInSamePageDesktop" @(Model.DesktopBannerDetails!=null && Model.DesktopBannerDetails.Target==2? "checked=checked" : "")/>
                                     <label for="radioOpenInSamePageDesktop">No</label>
                                 </span>
                             </div>
@@ -267,9 +267,9 @@
                             <div class="col m5 margin-top25">
                                 <label>Button Type :</label>
                                 <span>
-                                    <input name="group1" type="radio" id="btnTypeLinkMobile"  @(Model.MobileBannerDetails != null && Model.MobileBannerDetails.ButtonType==1?"checked":"")/>
+                                    <input name="group1" type="radio" id="btnTypeLinkMobile"  @(Model.MobileBannerDetails != null && Model.MobileBannerDetails.ButtonType==1?"checked=checked":"")/>
                                     <label for="btnTypeLinkMobile">Link</label>
-                                    <input name="group1" type="radio" id="btnTypeButtonMobile" @(Model.MobileBannerDetails != null && Model.MobileBannerDetails.ButtonType==2?"checked":"") />
+                                    <input name="group1" type="radio" id="btnTypeButtonMobile" @(Model.MobileBannerDetails != null && Model.MobileBannerDetails.ButtonType==2?"checked=checked":"") />
                                     <label for="btnTypeButtonMobile">Button</label>
                                 </span>
                             </div>
