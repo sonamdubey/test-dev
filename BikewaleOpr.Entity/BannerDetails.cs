@@ -42,12 +42,17 @@ namespace BikewaleOpr.Entity
 
         [JsonProperty("html")]
         public string HTML { get; set; }
+        [JsonProperty("unmodifiedhtml")]
+        public string UnModifiedHtml { get; set; }
 
         [JsonProperty("js")]
         public string JS { get; set; }
+     
 
         [JsonProperty("css")]
         public string CSS { get; set; }
+        [JsonProperty("unmodifiedcss")]
+        public string UnModifiedCSS { get; set; }
 
         [JsonProperty("category")]
         public string Category { get; set; }

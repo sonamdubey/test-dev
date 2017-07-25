@@ -121,10 +121,15 @@ namespace BikewaleOpr.DALs.Banner
                     param.Add("par_jumbotrondepth", objBanner.JumbotronDepth);
                     param.Add("par_html", objBanner.HTML);
                     param.Add("par_css", objBanner.CSS);
+                    param.Add("par_unmodifiedhtml", objBanner.UnModifiedHtml);
+                    param.Add("par_unmodifiedcss", objBanner.UnModifiedCSS);
                     param.Add("par_js", objBanner.JS);
                     param.Add("par_id", campaignId);
                     param.Add("par_platformid", platformId);
-                  success= connection.Execute("savebannerdetails", param: param, commandType: CommandType.StoredProcedure);
+                    param.Add("par_category", objBanner.Category);
+                    param.Add("par_action", objBanner.Action);
+                    param.Add("par_label", objBanner.Label);
+                    success = connection.Execute("savebannerdetails", param: param, commandType: CommandType.StoredProcedure);
                 }
 
             }

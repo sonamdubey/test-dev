@@ -129,13 +129,16 @@ bannerId = $('#bannerId').val();
                 var desktopDetails = {
                     "DesktopBannerDetails":
                         {
-                        "html": $('#ModifiedHtmlDesktop').val(),
-                        "css": $('#ModifiedCssDesktop').val(),
+                            "html": $('#ModifiedHtmlDesktop').val(),
+                            "css": $('#ModifiedCssDesktop').val(),
                             "js": $('#textareaJsDesktop').val(),
+                            "unmodifiedhtml": $('#textareaHtmlDesktop').val(),
+                            "unmodifiedcss": $('#textareaCssDesktop').val(),
+                          
                             "backgroundcolor": $('#txtBackgroundColorDesktop').val(),
                             "bannertitle": $('#txtBannerTitleDesktop').val(),
                             "buttontext": $('#txtButtonDesktop').val(),
-                            "targethref": $('#linkButtonDesktop').val(),
+                            "targethref": $('#txtButtonlinkMobile').val(),
                             "horizontalposition": $('#select-hori-pos-Desktop').val(),
                             "verticalposition": $("#select-ver-pos-Desktop").val(),
                             "buttonposition": $("#select-button-pos-Desktop").val(),
@@ -223,10 +226,13 @@ bannerId = $('#bannerId').val();
                             "html": $('#textareaHtmlMobile').val(),
                             "css": $('#textareaCssMobile').val(),
                             "js": $('#textareaJsMobile').val(),
+                            "unmodifiedhtml": $('#textareaHtmlMobile').val(),
+                            "unmodifiedcss": $('#textareaCssMobile').val(),
+                           
                             "backgroundcolor": $('#txtBackgroundColorMobile').val(),
                             "bannertitle": $('#txtBannerTitleMobile').val(),
                             "buttontext": $('#txtButtonMobile').val(),
-                            "targethref": $('#linkButtonMobile').val(),
+                            "targethref": $('#txtButtonlinkMobile').val(),
                             "horizontalposition": $('#select-hori-pos-Mobile').val(),
                             "verticalposition": $("#select-ver-pos-Mobile").val(),
                             "buttonposition": $("#select-button-pos-Mobile").val(),
