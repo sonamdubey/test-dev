@@ -26,33 +26,57 @@ bannerId = $('#bannerId').val();
 
     var configureBanner = function () {
         var self = this;
+
+        self.bannerDescriptionMsg = ko.observable("");
+        self.campaignStartDateMsg = ko.observable("");
+
+        self.validateBasicDetails = function () {
+            var isValid = true;
+
+            if($('#textareaBannerDesc').val() == "")
+            {
+                self.bannerDescriptionMsg('*Required');
+                isValid = false;
+            }
+
+            if ($('#startDateEle').val() == "")
+            {
+                self.campaignStartDateMsg('*Required');
+                isValid = false;
+            }
+
+            return isValid;
+        };
+
         self.Configure = function () {
 
-            var queries = {};
-            if (document.location.search != "") {
-                $.each(document.location.search.substr(1).split('&'), function (c, q) {
-                    var i = q.split('=');
-                    queries[i[0].toString()] = i[1].toString();
+            if (self.validateBasicDetails()) {
+                var queries = {};
+                if (document.location.search != "") {
+                    $.each(document.location.search.substr(1).split('&'), function (c, q) {
+                        var i = q.split('=');
+                        queries[i[0].toString()] = i[1].toString();
+                    });
+                }
+
+                var basicDetails = {
+                    "startdate": $('#startDateEle').val() + ' ' + $('#startTimeEle').val(),
+                    "enddate": $('#endDateEle').val() + ' ' + $('#endTimeEle').val(),
+                    "bannerdescription": $('#textareaBannerDesc').val(),
+                    "campaignid": queries
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/api/bannerbasic/save/",
+                    contentType: "application/json",
+                    data: ko.toJSON(basicDetails),
+                    success: function (response) {
+                        $('#bannerId').val(response);
+                        bannerId = response;
+                        $('.stepper').nextStep();
+                    }
                 });
             }
-           
-            var basicDetails = {
-                "startdate": $('#startDateEle').val() + ' ' + $('#startTimeEle').val(),
-                "enddate": $('#endDateEle').val() + ' ' + $('#endTimeEle').val(),
-                "bannerdescription": $('#textareaBannerDesc').val(),
-                "campaignid": queries
-            }
-            $.ajax({
-                type: "POST",
-                url: "/api/bannerbasic/save/",
-                contentType: "application/json",
-                data: ko.toJSON(basicDetails),
-                success: function (response) {
-                    $('#bannerId').val(response);
-                    bannerId = response;
-                    $('.stepper').nextStep();
-                }
-            });
         };
 
         self.backgroundColorMobileMsg = ko.observable("");
