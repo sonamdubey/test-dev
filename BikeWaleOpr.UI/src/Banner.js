@@ -21,7 +21,8 @@ bannerId = $('#bannerId').val();
         currentFileMobile = e.target.files[0];
     });
 
-   
+    imgPathDesktop = $('#desktop-image').data('src');
+    imgPathMobile = $('#mobile-image').data('src');
 
     var configureBanner = function () {
         var self = this;
