@@ -19,21 +19,24 @@
                     <th>Edit</th>
                     <th>Stop</th>                   
                 </tr>
-               @foreach (var m in Model.BannerList)
-               {
-                <tr >
+                @if (Model.BannerList != null && Model.BannerList.Count() > 0)
+                {
+                    foreach (var m in Model.BannerList)
+                    {
+                    <tr >
                     <td>@m.BannerId</td>                    
                     <td>@m.BannerDescription</td>                   
-                    <td>@m.StartDate</td>
-                    <td>@m.EndDate</td>
+                    <td>@(m.StartDate != null ? m.StartDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
+                    <td>@(m.EndDate != null ? m.EndDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
                     <td>@(m.IsActive == 1 ? "Active" : "InActive")</td>
-                    <td><a href="/banner/index/?id=@m.BannerId" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                    <td><a target="_blank" href="/banner/index/?id=@m.BannerId" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a></td>
                     @if (m.IsActive == 1)
                     {
                         <td><a class="tooltipped" id="btnAbort_@m.BannerId" data-position="bottom" data-delay="50" data-tooltip="Abort Campaign" title="Abort Campaign" data-bannerId="@m.BannerId" onclick="stopBanner(event)"><i class="material-icons icon-red">cancel</i></a></td>
                     }
                  </tr>
-               }
+                    }
+                }
             </table>
         </div>
     </div>
@@ -62,7 +65,7 @@
         </ul>
 
         <div style="margin-top:10px;">
-            <a class="btn waves-effect waves-light" href="/banner/index" type="button">Add new Banner</a>
+            <a target="_blank" class="btn waves-effect waves-light" href="/banner/index" type="button">Add new Banner</a>
         </div>
     </div>
         

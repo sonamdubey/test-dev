@@ -261,14 +261,16 @@ bannerId = $('#bannerId').val();
         }
 
         self.uploadToAWS = function (file, photoId, itemId, path, ext, categoryId) {
-            var imgUpldUtil = new ImageUploadUtility();
-            imgUpldUtil.request = { "originalPath": path, "categoryId": categoryId, "itemId": itemId, "isWaterMark": 0, "isMaster": 0, "isMain": 0, "extension": ext };
-            imgUpldUtil.photoId = photoId;
-            imgUpldUtil.baseURL = $('#bwOprHostUrl').val();
-            file.type = "image/" + ext;
-            imgUpldUtil.upload(file);
-            $(file._removeLink).attr("photoId", (imgUpldUtil.photoId ? imgUpldUtil.photoId : ''));
-            return imgUpldUtil;
+            if (file) {
+                var imgUpldUtil = new ImageUploadUtility();
+                imgUpldUtil.request = { "originalPath": path, "categoryId": categoryId, "itemId": itemId, "isWaterMark": 0, "isMaster": 0, "isMain": 0, "extension": ext };
+                imgUpldUtil.photoId = photoId;
+                imgUpldUtil.baseURL = $('#bwOprHostUrl').val();
+                file.type = "image/" + ext;
+                imgUpldUtil.upload(file);
+                $(file._removeLink).attr("photoId", (imgUpldUtil.photoId ? imgUpldUtil.photoId : ''));
+                return imgUpldUtil;
+            }
         };
 
          self.uploadPhoto = function (e, platformid) {
@@ -294,7 +296,7 @@ bannerId = $('#bannerId').val();
                         path = 'bw/' + $('#environment').val() + 'm/banners/homepagebanner-' + bannerId + '-' + (new Date()).getTime() + '.' + ext;
                     }
 
-                    if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1 && (bannerId > 0)) {
+                    if (curFile && $.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1 && (bannerId > 0)) {
                         Materialize.toast('Invalid extension!', 4000);
                         return false;
                     }
@@ -339,7 +341,7 @@ var $dateInput = $('.datepicker').pickadate({
 $('.validate-step').click(function (event) {
     if (!(bannerId && bannerId > 0)) {
         event.preventDefault();
-        $('#bannerSelectionMsgModal').modal('open');
+        Materialize.toast('Please configure bannner first', 4000);
         return false;
     }
 });
