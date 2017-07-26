@@ -64,8 +64,8 @@
                         <div class="row">
                             @if (Model.DesktopBannerDetails != null)
                             {
-                            <div class="col m3">
-                                <img class="materialboxed" width="150" src='@string.Format("{0}0x0{1}", @Model.DesktopBannerDetails.HostUrl, @Model.DesktopBannerDetails.OriginalImagePath)'>
+                            <div class="col m3" id="desktop-image" data-src='@string.Format("{0}0x0{1}", @Model.DesktopBannerDetails.HostUrl, @Model.DesktopBannerDetails.OriginalImagePath)'>
+                                <img class="materialboxed"  width="150" src='@string.Format("{0}0x0{1}", @Model.DesktopBannerDetails.HostUrl, @Model.DesktopBannerDetails.OriginalImagePath)'>
                             </div>
                             }
                             <div class="col m9">
@@ -86,7 +86,7 @@
                         <div class="row">
                             @if (Model.MobileBannerDetails != null)
                             {
-                            <div class="col m3">
+                            <div class="col m3" id="mobile-image" data-src='@string.Format("{0}0x0{1}", @Model.MobileBannerDetails.HostUrl, @Model.MobileBannerDetails.OriginalImagePath)'>
                                 <img class="materialboxed" width="150" src='@string.Format("{0}0x0{1}", @Model.MobileBannerDetails.HostUrl, @Model.MobileBannerDetails.OriginalImagePath)'>
                             </div>
                             }
