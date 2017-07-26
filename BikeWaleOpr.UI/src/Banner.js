@@ -350,11 +350,11 @@ $('.validate-step').click(function (event) {
 
 var processCss = function (platformId) {
     if (platformId == 1) {
-        return ['<style type="text/css">', $('#textareaCssDesktop').val(), compulsoryDesktopCss, processBannerPhoto(1), processJumbotron(1), processButtoncolor(1), processBannerPosition(1), '<style>'].join('');
+        return ['<style type="text/css">', $('#textareaCssDesktop').val(), compulsoryDesktopCss, processBannerPhoto(1), processJumbotron(1), processButtoncolor(1), processBannerPosition(1), '</style>'].join('');
     }
     else
     {
-        return ['<style type="text/css">', $('#textareaCssMobile').val(), compulsoryMobileCss, processBannerPhoto(2), processJumbotron(2), processButtoncolor(2), processBannerPosition(2), '<style>'].join('');
+        return ['<style type="text/css">', $('#textareaCssMobile').val(), compulsoryMobileCss, processBannerPhoto(2), processJumbotron(2), processButtoncolor(2), processBannerPosition(2), '</style>'].join('');
     }
 };
 
