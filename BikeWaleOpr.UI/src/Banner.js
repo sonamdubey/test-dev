@@ -7,6 +7,9 @@ var buttonColorMobile = { transparent: '.campaign__target-btn{background:transpa
 var compulsoryDesktopCss = ".top-campaign-banner-container .welcome-box h1{margin-bottom:5px}.top-campaign-banner-container .margin-top60{margin-top:25px}.campaign-banner__wrapper{width:996px;margin:0 auto;position:absolute;bottom:20px;left:0;right:0}.campaign-banner__wrapper:after{content:'';display:block;clear:both}.campaign-banner__text-box{width:280px;}.campaign__title{font-size:14px;text-align:left;color:#fff;margin-bottom:5px}.campaign__target-btn{font-size:14px;padding:5px 8px;}.arrow-white{width:6px;height:10px;background-position:-222px -14px;margin-left:5px}";
     
 var compulsoryMobileCss = ".top-campaign-banner-container.banner-container h1{margin-bottom:5px}.top-campaign-banner-container.banner-container .banner-subheading{margin-bottom:15px}.campaign-banner__wrapper{position:absolute;bottom:20px;left:10px;right:10px}.campaign-banner__wrapper:after{content:'';display:block;clear:both}.campaign__title{width:60%;font-size:12px;text-align:left;float:left;color:#fff}.campaign__target-btn{font-size:14px;padding:5px 8px;float:right}.arrow-white{width:6px;height:10px;background-position:-204px -49px;margin-left:5px}";
+
+var compulsoryHtml = '<div class="campaign-banner__wrapper"><div class="campaign-banner__text-box"><p class="campaign__title"></p><a class="btn campaign__target-btn bw-ga"><span class="campaign-banner-button-text"></span><span class="bwsprite arrow-white"></span></a></div></div>';
+
 $(document).ready(function () {
 bannerId = $('#bannerId').val();
     $('#startTimeEle').val("00:00:00");
@@ -20,6 +23,12 @@ bannerId = $('#bannerId').val();
     $("#file-mobile").change(function (e) {
         currentFileMobile = e.target.files[0];
     });
+
+    if($('#textareaHtmlDesktop').val() == '')
+        $('#textareaHtmlDesktop').val(compulsoryHtml);
+
+    if ($('#textareaHtmlMobile').val() == '')
+        $('#textareaHtmlMobile').val(compulsoryHtml);
 
     imgPathDesktop = $('#desktop-image').data('src');
     imgPathMobile = $('#mobile-image').data('src');
