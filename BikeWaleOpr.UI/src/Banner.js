@@ -138,7 +138,7 @@ bannerId = $('#bannerId').val();
                             "backgroundcolor": $('#txtBackgroundColorDesktop').val(),
                             "bannertitle": $('#txtBannerTitleDesktop').val(),
                             "buttontext": $('#txtButtonDesktop').val(),
-                            "targethref": $('#txtButtonlinkMobile').val(),
+                            "targethref": $('#txtButtonlinkDesktop').val(),
                             "horizontalposition": $('#select-hori-pos-Desktop').val(),
                             "verticalposition": $("#select-ver-pos-Desktop").val(),
                             "buttonposition": $("#select-button-pos-Desktop").val(),
@@ -228,7 +228,6 @@ bannerId = $('#bannerId').val();
                             "js": $('#textareaJsMobile').val(),
                             "unmodifiedhtml": $('#textareaHtmlMobile').val(),
                             "unmodifiedcss": $('#textareaCssMobile').val(),
-                           
                             "backgroundcolor": $('#txtBackgroundColorMobile').val(),
                             "bannertitle": $('#txtBannerTitleMobile').val(),
                             "buttontext": $('#txtButtonMobile').val(),
