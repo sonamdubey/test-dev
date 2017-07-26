@@ -17,9 +17,11 @@ namespace Bikewale.DAL.HomePage
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Dec 2016 
         /// Description :   Calls sp gethomepagebanner
+        /// Modified By:-Subodh Jain 26 july 2017
+        /// Summary :- changed Sp and modified according to platform id
         /// </summary>
         /// <returns></returns>
-        public HomePageBannerEntity GetHomePageBanner()
+        public HomePageBannerEntity GetHomePageBanner(uint platformId)
         {
             HomePageBannerEntity banner = null;
             try
@@ -28,23 +30,25 @@ namespace Bikewale.DAL.HomePage
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "gethomepagebanner";
+                    cmd.CommandText = "gethomepagebannerbyplatformid";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_platformid", DbType.Int32, platformId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
+                           
                             if (dr.Read())
                             {
+
                                 banner = new HomePageBannerEntity()
                                 {
-                                    DesktopCss = Convert.ToString(dr["desktopcss"]),
-                                    DesktopHtml = Convert.ToString(dr["desktophtml"]),
-                                    DesktopJS = Convert.ToString(dr["desktopjs"]),
-                                    MobileCss = Convert.ToString(dr["mobilecss"]),
-                                    MobileHtml = Convert.ToString(dr["mobilehtml"]),
-                                    MobileJS = Convert.ToString(dr["mobilejs"])
+                                    Html = Convert.ToString(dr["html"]),
+                                    Css = Convert.ToString(dr["css"]),
+                                    JS = Convert.ToString(dr["js"]),
+                                   
                                 };
                             }
+                         
                             dr.Close();
                         }
 
@@ -53,7 +57,7 @@ namespace Bikewale.DAL.HomePage
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "HomePageBannerRepository.GetHomePageBanner");
+                ErrorClass err = new ErrorClass(ex, string.Format("HomePageBannerRepository.GetHomePageBanner platformid:{0}",platformId));
             }
             return banner;
         }
