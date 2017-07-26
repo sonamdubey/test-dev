@@ -5,6 +5,10 @@ using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.UserReviews
 {
+    /// <summary>
+    /// Modified by sajal gupta on 13-07-2017
+    /// Description : Added SaveUserReviewMileage, GetReviewQuestionValuesByModel
+    /// </summary>
     public interface IUserReviewsRepository
     {
         List<ReviewTaggedBikeEntity> GetMostReviewedBikesList(ushort totalRecords);
@@ -39,5 +43,8 @@ namespace Bikewale.Interfaces.UserReviews
         IEnumerable<UserReviewSummary> GetUserReviewSummaryList(string reviewIdList);
 
         BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);
+
+        bool SaveUserReviewMileage(uint reviewId, string mileage);
+        QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId);
     }   // class
 }   // namespace

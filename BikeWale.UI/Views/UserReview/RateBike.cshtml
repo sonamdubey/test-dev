@@ -4,6 +4,7 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/user-review/write-review.css' />";
     Model.Page_JS_Path = "/src/user-review/write-review.js";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.ExcludeContestSlug = true;
     Model.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/rate-your-bike/{0}/", Model.objModelEntity.ModelId);
     string gaLabel = string.Format("{0}_{1}_{2}", Model.objModelEntity.MakeBase.MakeName, Model.objModelEntity.ModelName, Model.SourceId);
 }
@@ -14,6 +15,11 @@
                     <div class="content-box-shadow">
                         <h1 class="content-box-shadow padding-15-20 margin-top20">@Model.objModelEntity.MakeBase.MakeName @Model.objModelEntity.ModelName</h1>
                         <div class="padding-15-20">
+							<div class="contest-slug-sm slug-grey-info margin-bottom20">
+								<span class="trophy-a2a2a2-14"></span>
+								<p class="contest-slug__label">Rate &amp; write a detailed review and stand a chance to win Amazon vouchers worth &#x20B9; 1,000. Help others in making the right decision.</p>
+							</div>
+
                             <div class="grid-8 alpha">
                                 <h2 class="font18 margin-bottom10">How much do you like this bike?</h2>
                                 <p class="text-slate-grey">Consider looks & styling, performance, servicing experience, mileage etc. before you rate.</p>

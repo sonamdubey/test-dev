@@ -17,9 +17,9 @@
         isAd300x250BTFShown = false;
          %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/pikaday.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>    
+    <link href="<%= staticUrl  %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl  %>/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl  %>/css/pikaday.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>    
         
     <%  isTransparentHeader = true;   %>
 </head>
@@ -282,9 +282,9 @@
     </section>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/insurance.js?<%= staticFileVersion %>"></script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/pikaday.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl %>/src/home.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl %>/src/insurance.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl %>/src/pikaday.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             var picker = new Pikaday({
                 field: document.getElementById('bikeRegistrationDate')

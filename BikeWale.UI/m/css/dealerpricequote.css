@@ -70,7 +70,7 @@
 .dropdown-menu .dropdown-label,
 .dropdown-menu .dropdown-selected-item {
     width: 100%;
-    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
     border-bottom: 1px solid #82888b;
 }
 
@@ -89,12 +89,7 @@
     left: 0;
     background: #fff;
     z-index: 1;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -o-border-radius: 2px;
-    -ms-border-radius: 2px;
     border-radius: 2px;
-    border: 1px solid #e2e2e2;
     -webkit-box-shadow: -3px 3px 15px 1px #ddd;
     -moz-box-shadow: -3px 3px 15px 1px #ddd;
     -ms-box-shadow: -3px 3px 15px 1px #ddd;
@@ -114,7 +109,6 @@
 .dropdown-menu .dropdown-menu-list li {
     padding: 5px 10px;
     cursor: pointer;
-    white-space: nowrap;
 }
 
 .dropdown-menu .dropdown-with-select li:hover {
@@ -133,7 +127,7 @@
 }
 
 .dropdown-effect-light {
-    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
     padding-right: 25px;
 }
 
@@ -232,7 +226,7 @@
     line-height: 1.5;
 }
 
-.dealership-address {
+.dealership-details-wrapper .dealership-address {
     width:85%;
 }
 
@@ -248,12 +242,6 @@
     width: 14px;
     height: 12px;
     background-position: 1px -436px;
-}
-
-.dealership-loc-icon {
-    width:14px;
-    height:15px;
-    background-position: -38px -435px;
 }
 
 .dropdown-icon {
@@ -285,7 +273,7 @@
 }
 
 .offers-sprite {
-    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v16may2017) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v16may2017) no-repeat;
     display: inline-block;
 }
 
@@ -392,6 +380,7 @@
 	position: absolute;
 	bottom: -18px;
 	font-size: 13px;
+	height: 36px;
 }
 
 .pos-bottom-40 {
@@ -472,7 +461,7 @@
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #ef3030; height: 4px; }
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -12px; z-index: 2; background-position:3px 3px; }
+.ui-slider .ui-slider-handle { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -12px; z-index: 2; background-position:3px 3px; }
 .emi-slider-box-right-section { text-align:right; }
 .pos-top2 { top:2px; }
 .btn.emi-quote-btn { padding:8px 19px; }
@@ -494,8 +483,8 @@
 #notifyAvailabilityContainer .notify-close-btn{z-index:2}
 #leadCapturePopup .error-icon,#leadCapturePopup .bw-blackbg-tooltip{display:none}
 #otpPopup{display:none}
-.icon-outer-container{width:72px;height:72px;}
-.icon-inner-container{width:64px;height:64px;margin:3px auto;}
+.bwm-fullscreen-popup .icon-outer-container{width:72px;height:72px;}
+.bwm-fullscreen-popup .icon-inner-container{width:64px;height:64px;margin:3px auto;}
 .user-contact-details-icon{width:29px;height:30px;background-position:-109px -216px}
 .otp-icon { width:29px; height:29px; background-position: -109px -177px; }
 .edit-blue-icon { width:20px; height:20px; background-position: -114px -122px; }
@@ -580,54 +569,6 @@
     border-left: 10px solid transparent;
 }
 
-/* campaign */
-#campaign-container .tel-sm-icon {
-    top: 0
-}
-#campaign-offer-list li {
-    width: 50%;
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 20px
-}
-#campaign-offer-list li span {
-    display: inline-block;
-    vertical-align: middle
-}
-.campaign-offer-label {
-    width: 80%;
-    font-size: 13px;
-    font-weight: bold;
-    padding-right: 5px
-}
-#campaign-button-container .btn {
-    padding-right: 0;
-    padding-left: 0
-}
-#campaign-button-container .grid-6.hide + .grid-6 {
-    width: 100%;
-    padding-right: 0
-}
-.campaign-offer-1,
-.campaign-offer-2,
-.campaign-offer-3,
-.campaign-offer-4 {
-    width: 22px;
-    height: 22px;
-    margin-right: 5px
-}
-.campaign-offer-1 {
-    background-position: 0 -387px;
-}
-.campaign-offer-2 {
-    background-position: 0 -416px;
-}
-.campaign-offer-3 {
-    background-position: -28px -387px;
-}
-.campaign-offer-4 {
-    background-position: -56px -387px;
-}
 .position-abt {
     font-size: 8px;
 }
@@ -642,43 +583,21 @@
     right: 88px;
 }
 
-/* new campaign */
-.campaign-content .tel-sm-icon {
-    top: 0;
-}
-.campaign-content .campaign-title-content {
-    padding-left: 20px;
-    width: 70%;
-}
-.campaign-content .campaign-logo {
-    width: 80px;
-    height: 40px;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg?v06Apr2017) no-repeat;
-}
-.campaign-disc-list {
-    padding-left: 20px;
-}
-.campaign-disc-list li {
-    list-style: disc;
-    margin-bottom: 10px;
-}
-.campaign-button-content .btn {
-    padding-right: 0;
-    padding-left: 0;
-}
-
 .full-width-select .dropdown-select-wrapper,
 .full-width-select .dropdown-menu,
 .full-width-select .dropdown-menu .dropdown-label,
 .full-width-select .dropdown-menu .dropdown-selected-item,
-.full-width-select .dropdown-menu .dropdown-list-wrapper {
+.full-width-select .dropdown-menu .dropdown-list-wrapper,
+.full-width-select .dropdown-menu .dropdown-menu-title {
     width: 100%;
+	max-width: 100%;
 }
 
-.full-width-select .dropdown-menu .dropdown-label,
-.full-width-select .dropdown-menu .dropdown-selected-item {
-    max-width: 100%;
+.full-width-select .dropdown-menu-list {
+	max-height: 165px;
+	overflow-y: scroll;
 }
+
 /* campaign offer loans */
 .campaign__powered-key {
     font-size: 12px;

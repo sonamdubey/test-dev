@@ -84,7 +84,7 @@ docReady(function () {
 
     var $window = $(window),
         buttonWrapper = $('#pricequote-floating-button-wrapper'),
-        floatingButton = buttonWrapper.find('.float-button'),
+        floatButton = buttonWrapper.find('.float-button'),
         windowHeight,
         body = $('body');
 
@@ -174,15 +174,44 @@ docReady(function () {
             windowHeight = $(this).height() - 63;
 
             if (windowScrollTop + windowHeight > buttonWrapperTop) {
-                floatingButton.removeClass('float-fixed');
+                floatButton.removeClass('float-fixed');
                 body.addClass('floating-btn-inactive');
             }
             else {
-                floatingButton.addClass('float-fixed');
+                floatButton.addClass('float-fixed');
                 body.removeClass('floating-btn-inactive');
             }
         }
     });
+
+	//floating button
+	var floatingButton = document.querySelectorAll('.floating-btn')[0];
+
+	if (floatingButton) {
+		attachListener('scroll', window, toggleFloatingBtn);
+	}
+
+	function attachListener(event, element, functionName) {
+		if (element.addEventListener) {
+			element.addEventListener(event, functionName, false);
+		}
+		else if (element.attachEvent) {
+			element.attachEvent('on' + event, functionName);
+		}
+	};
+	
+	var	docWindowHeight = $(window).height();
+
+	function toggleFloatingBtn() {
+		var bodyHeight = $('body').height(),
+			footerHeight = $('footer').height(),
+			scrollPosition = $(window).scrollTop();
+
+		if (scrollPosition + docWindowHeight > (bodyHeight - footerHeight))
+			$(floatingButton).hide();
+		else
+			$(floatingButton).show();
+	}
 
     $(".leadcapturebtn").click(function (e) {
         ele = $(this);
@@ -212,49 +241,13 @@ docReady(function () {
                     lab: ele.attr("v")
                 }
             };
-            if (leadOptions.dealersRequired) {
-                generateDealerDropdown(leadOptions.dealerid);
-            }
+
             dleadvm.setOptions(leadOptions);
         } catch (e) {
             console.warn("Unable to get submit details : " + e.message);
         }
 
     });
-
-    function generateDealerDropdown(dealerId) {
-        $.ajax({
-            type: "GET",
-            url: "/api/ManufacturerCampaign/city/" + cityId + "/dealer/" + dealerId + "/",
-            contentType: "application/json",
-            dataType: 'json',
-            success: function (response) {
-                var obj = ko.toJS(response);
-                var count = obj.length;
-                if (count >= 1) {
-                    if (count == 1) {
-                        $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
-                        $("#ddlMfgDealers").val('0');
-                        $("#ddlMfgDealers").closest('.select-box').addClass('done');
-                        dleadvm.dealersRequired(false);
-                    } else {
-                        $("#ddlMfgDealers").html('');
-                        $("#ddlMfgDealers").append("<option value selected>Select dealer</option>");
-                        for (i = 0; i < count; i++) {
-                            var dt = obj[i];
-                            var areaName = '';
-                            if (dt.area != null) {
-                                areaName = ", " + dt.area;
-                            }
-                            $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-id='" + dt.id + "' >" + dt.dealerName + areaName + "</option>");
-                        }
-                    }
-                }
-                $("#getDealer-select-box").find(".dropdown-menu").remove();
-                dropdown.setMenu($("#ddlMfgDealers"));
-            },
-        });
-    };
 
 
     $("#ddlVersion").on("change", function () {

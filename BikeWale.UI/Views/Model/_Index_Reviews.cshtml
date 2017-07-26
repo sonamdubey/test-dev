@@ -1,10 +1,11 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.ReviewRate > 0 && Model.ModelPageEntity.ModelDetails.RatingCount > 0)
 {
-    <div class="rating-box inline-block">
-        <span class="bwsprite star-one"></span>
-        <span class="font14 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span><span class="padding-left2 font12 text-light-grey">/5</span>
-    </div>
+
+    <span class="inline-block rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating))">
+        <span class="bwsprite star-icon star-size-16"></span>
+        <span class="font14 text-bold inline-block">@Model.ModelPageEntity.ModelDetails.ReviewUIRating.TrimEnd('0', '.')</span> 
+    </span>
     <div class="review-box font14 inline-block">
         <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
             <meta itemprop="ratingCount" content="@Model.ModelPageEntity.ModelDetails.RatingCount">
@@ -12,11 +13,14 @@
             <meta itemprop="worstRating" content="1">
             <meta itemprop="bestRating" content="5">
             <meta itemprop="itemreviewed" content="@Model.BikeName" />
-            <a href="@Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="review-count-target">
-                <span>@Model.ModelPageEntity.ModelDetails.ReviewCount</span> Reviews
-            </a>
+            @if (@Model.ModelPageEntity.ModelDetails.ReviewCount > 0)
+            {
+                <a href="@Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="review-count-target left-divider">
+                    <span>@Model.ModelPageEntity.ModelDetails.ReviewCount</span> Reviews
+                </a>
+            }
         </span>
-        <a href="@string.Format("/rate-your-bike/{0}/?q={1}", Model.ModelId,Model.ReturnUrl)">Rate this bike</a>
+        <a href="@string.Format("/rate-your-bike/{0}/?q={1}", Model.ModelId,Model.ReturnUrl)" class="left-divider">Rate this bike</a>
     </div>
 }
 else
@@ -26,6 +30,6 @@ else
     </div>
     <div class="review-box font14 inline-block">
         <span class="no-rating text-light-grey">Not rated yet</span>
-        <a href="@string.Format("/rate-your-bike/{0}/?q={1}", Model.ModelId, Model.ReturnUrl)">Rate this bike</a>
+        <a href="@string.Format("/rate-your-bike/{0}/?q={1}", Model.ModelId, Model.ReturnUrl)" class="left-divider">Rate this bike</a>
     </div>
 }

@@ -494,7 +494,7 @@
 }
 
 /* city */
-.city-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
+.city-sprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
 .mumbai-icon, .pune-icon, .bangalore-icon, .newdelhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 92px; }
 .mumbai-icon { width: 130px; background-position: 0 0; }
 .pune-icon { width: 186px; background-position: -140px 0; }
@@ -587,98 +587,14 @@ width: 100%;
 }
 
 .offer-benefit-sprite {
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat;
     display: inline-block;
-}
-
-/* campaign */
-#campaign-container .campaign-left-col {
-    width: 78%;
-    padding-right: 10px;
-}
-
-#campaign-container .campaign-right-col {
-    width: 21%;
-}
-
-.campaign-offer-label {
-    width: 75%;
-    font-size: 14px;
-    font-weight: bold;
 }
 
 .btn-large {
     padding: 8px 56px;
 }
 
-#campaign-offer-list li {
-    width: 175px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    padding-right: 5px;
-}
-
-#campaign-offer-list li span {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.campaign-offer-1, .campaign-offer-2, .campaign-offer-3, .campaign-offer-4 {
-    width: 34px;
-    height: 28px;
-    margin-right: 5px;
-}
-
-.campaign-offer-1 {
-    background-position: 0 -356px;
-}
-
-.campaign-offer-2 {
-    background-position: 0 -390px;
-}
-
-.campaign-offer-3 {
-    background-position: 0 -425px;
-}
-
-.campaign-offer-4 {
-    background-position: 0 -463px;
-}
-
-.left-neg10 {
-    left: -10px;
-}
-
-/* new campaign */
-.campaign-content .tel-sm-icon {
-    top: 0;
-}
-.campaign-content .campaign-title-content {
-    padding-left: 20px;
-    width: 70%;
-}
-.campaign-content .campaign-logo {
-    width: 80px;
-    height: 40px;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg?v06Apr2017) no-repeat;
-}
-.campaign-content .campaign-left-col {
-    width: 78%;
-}
-.campaign-content .campaign-right-col {
-    width: 21%;
-}
-.campaign-disc-list {
-    padding-left: 20px;
-}
-.campaign-disc-list li {
-    list-style: disc;
-    float: left;
-    margin-right: 40px;
-    margin-bottom: 10px;
-}
 .left-neg10 {
     left: -10px;
 }
@@ -731,4 +647,64 @@ width: 100%;
     min-width: 160px;
     padding: 5px;
     font-size: 14px;    
+}
+
+/* Review and rating css */
+.star-icon {
+  width: 26px;
+  height: 25px;
+  vertical-align: middle;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -o-transform: scale(0.8);
+  transform: scale(0.8); }
+  .star-icon.star-size-16 {
+    -webkit-transform: scale(0.6);
+    -moz-transform: scale(0.6);
+    -o-transform: scale(0.6);
+    transform: scale(0.6); }
+
+.rate-count-1 .star-icon {
+  background-position: 0 -790px; }
+
+.rate-count-2 .star-icon {
+  background-position: -46px -790px; }
+
+.rate-count-3 .star-icon {
+  background-position: 0 -757px; }
+
+.rate-count-4 .star-icon {
+  background-position: -92px -790px; }
+
+.rate-count-5 .star-icon {
+  background-position: -138px -790px; }
+  
+.rate-count-5 {
+  color: #198D55; }
+
+.rate-count-4 {
+  color: #13B65D; }
+
+.rate-count-3 {
+  color: #EFD700; }
+
+.rate-count-2 {
+  color: #FD971C; }
+
+.rate-count-1 {
+  color: #EF3F30; }
+  
+  .review-left-divider {
+    position: relative;
+    margin-left: 15px;
+    padding-left: 15px;
+}
+  .review-left-divider:before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 1px;
+    height: 12px;
+    border-left: 1px solid #e2e2e2;
 }

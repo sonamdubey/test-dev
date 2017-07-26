@@ -109,6 +109,7 @@ namespace Bikewale.Utility
         private string _StaticAppFileVersion;
         private string _StaticVendorFileVersion;
         private string _ServiceWorkerPath;
+        private string _StaticCSSBTFPWAVersion;
         private bool _DisablePWA;
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -166,7 +167,7 @@ namespace Bikewale.Utility
             _GoogleMapApiKey = ConfigurationManager.AppSettings["GoogleMapApiKey"];
             _apiMaxWaitTime = ConfigurationManager.AppSettings["ApiMaxWaitTime"];
             _useGrpc = ConfigurationManager.AppSettings["UseGrpc"];
-            _bikeWaleLogo = "https://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png";
+            _bikeWaleLogo = "https://imgd.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png";
             _CWSAPiHostUrl = ConfigurationManager.AppSettings["CwWebServiceHostUrl"];
             _WebsiteDomain = ConfigurationManager.AppSettings["WebsiteDomain"];
             _grpcChannelWaitTime = ConfigurationManager.AppSettings["GrpcChannelWaitTime"];
@@ -202,6 +203,7 @@ namespace Bikewale.Utility
             _StaticVendorFileVersion = ConfigurationManager.AppSettings["StaticVendorFileVersion"];
             _ServiceWorkerPath = ConfigurationManager.AppSettings["ServiceWorkerPath"];
             _DisablePWA = string.IsNullOrEmpty(ConfigurationManager.AppSettings["DisablePWA"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["DisablePWA"]);
+            _StaticCSSBTFPWAVersion = ConfigurationManager.AppSettings["StaticCSSBTFPWAVersion"];
         }
 
         // Static method to provide access to instance
@@ -345,6 +347,7 @@ namespace Bikewale.Utility
         public string StaticAppFileVersion { get { return _StaticAppFileVersion; } }
         public string StaticVendorFileVersion { get { return _StaticVendorFileVersion; } }
         public string ServiceWorkerPath { get { return _ServiceWorkerPath; } }
+        public string StaticCSSBTFPWAVersion { get { return _StaticCSSBTFPWAVersion; } }
         public bool DisablePWA { get { return _DisablePWA; } }
     }   // class
 }   // namespace

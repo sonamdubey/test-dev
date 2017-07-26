@@ -23,8 +23,8 @@
 </head>
 <body class="bg-light-grey">
     
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+    <link href="<%= staticUrl  %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
    
     <div class="blackOut-window"></div>
     <!-- global-search-popup code starts here -->
@@ -109,10 +109,10 @@
                     </div>
                     <div style="text-align: center;">
                         <div id="nobike" class="hide">
-                            <img src="https://imgd3.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">
+                            <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">
                         </div>
                         <div id="loading" class="hide">
-                            <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                            <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
                                 <!--<div class="position-abt pos-right10 pos-top10 infoBtn bwmsprite alert-circle-icon"></div>-->
                                 <div class="imageWrapper">
                                     <a data-bind="click: function () { $.ModelClickGaTrack(bikemodel.modelName(),'/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' ) }">
-                                        <img data-bind="attr: { title: bikeName, alt: bikeName, src: 'https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()" />
+                                        <img data-bind="attr: { title: bikeName, alt: bikeName, src: 'https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()" />
                                     </a>
                                 </div>
                                 <div class="bikeDescWrapper">
@@ -323,7 +323,7 @@
     <!-- #include file="/includes/footerBW_Mobile.aspx" -->
     <!-- all other js plugins -->
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-    <script src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
+    <script src="<%= staticUrl  %>/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
     <div class="back-to-top" id="back-to-top"></div>
 </body>
 </html>

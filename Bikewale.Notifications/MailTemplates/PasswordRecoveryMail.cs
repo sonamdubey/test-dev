@@ -17,7 +17,7 @@ namespace Bikewale.Notifications.MailTemplates
             try
             {
                 StringBuilder message = new StringBuilder();
-                message.Append("<img align=\"right\" src=\"https://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 
                 message.Append("<h4>Dear " + customerName + ",</h4>");
 

@@ -31,7 +31,7 @@
             {
                 <li>
                     <a href="/m/@Model.Make.MaskingName-dealer-showrooms-in-@Model.CityDetails.CityMaskingName/@Details.DealerId-@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)/" title="@Details.Name">
-                        <div class="@string.Format("{0}",Details.DealerType==3||Details.DealerType==2?"":"hide") featured-tag">
+                        <div class="@string.Format("{0}",Details.DealerType==4 || Details.DealerType==3 || Details.DealerType == 2 ? string.Empty : "hide") featured-tag">
                             <span class="bwmsprite star-white"></span>Featured
                         </div>
                         <h3 class="text-truncate margin-bottom5">
@@ -55,7 +55,10 @@
                             </a>
                         </div>
                     </a>
-                    <input data-leadsourceid="20" data-item-id="@Details.DealerId" data-item-type="@Details.DealerType" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-campid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" type="button" class="btn btn-white margin-top10 leadcapturebtn bw-ga @(string.Format("{0}", Details.DealerType == 3 || Details.DealerType == 2 ? "margin-top20" : "hide"))" c="Dealer_Locator" a="Get_Offers_Clicked" l="@Details.GetOffersGALabel" data-cityname="@Model.CityDetails.CityName" data-areaname="@Details.objArea.AreaName" data-eventcategory="Dealer_Locator" value="@Details.DisplayTextLarge" />
+                    @if (Details.DealerType == 4 || Details.DealerType == 3 || Details.DealerType == 2)
+                    {
+                    <input data-leadsourceid="20" data-item-id="@Details.DealerId" data-item-type="@Details.DealerType" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-campid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" type="button" class="btn btn-white margin-top10 leadcapturebtn bw-ga margin-top20" c="Dealer_Locator" a="Get_Offers_Clicked" l="@Details.GetOffersGALabel" data-cityname="@Model.CityDetails.CityName" data-areaname="@Details.objArea.AreaName" data-eventcategory="Dealer_Locator" value="@Details.DisplayTextLarge" />
+                    }
                    </li>
             }
         </ul>

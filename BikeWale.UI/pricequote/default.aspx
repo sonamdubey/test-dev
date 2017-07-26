@@ -13,10 +13,10 @@
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 
-<link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
-<link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
-<script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/price_quote.js?<%= staticFileVersion %>"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>
+<link href="<%= staticUrl  %>/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
+<link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+<script type="text/javascript" src="<%= staticUrl  %>/src/pq/price_quote.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl  %>/src/common/chosen.jquery.min.js"></script>
 <div class="main-container">
     <div class="container_12  container-min-height">
         <div class="grid_12">

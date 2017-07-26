@@ -349,7 +349,7 @@ namespace BikewaleOpr.DALs.UserReviews
 
                     connection.Open();
 
-                    connection.Query("updateuserreviewratingsstatus", param: param, commandType: CommandType.StoredProcedure);                    
+                    connection.Query("updateuserreviewratingsstatus_17072017", param: param, commandType: CommandType.StoredProcedure);                    
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();

@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Bikewale.Interfaces.MobileVerification;
+using Bikewale.Notifications;
+using MySql.CoreDAL;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
-using Bikewale.CoreDAL;
-using Bikewale.Notifications;
-using Bikewale.Interfaces.MobileVerification;
-using System.Data.Common;
-using MySql.CoreDAL;
-using System.Collections.Generic;
 
 namespace Bikewale.DAL.MobileVerification
 {
@@ -32,12 +31,12 @@ namespace Bikewale.DAL.MobileVerification
                 {
                     cmd.CommandText = "cv_isverifiedmobile";
                     cmd.CommandType = CommandType.StoredProcedure;
-                        // LogLiveSps.LogSpInGrayLog(cmd);
+                    // LogLiveSps.LogSpInGrayLog(cmd);
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbType.String, 100, emailId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbType.String, 50, mobileNo));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismobilever", DbType.Boolean, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                     isVerified = Convert.ToBoolean(cmd.Parameters["par_ismobilever"].Value);
                 }
             }
@@ -75,10 +74,10 @@ namespace Bikewale.DAL.MobileVerification
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbType.String, 100, emailId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbType.String, 50, mobileNo));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_noofattempts", DbType.Int16, ParameterDirection.Output));
-                        // LogLiveSps.LogSpInGrayLog(cmd);
+                    // LogLiveSps.LogSpInGrayLog(cmd);
 
-                     MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
-                        noOfOTPSend = Convert.ToSByte(cmd.Parameters["par_noofattempts"].Value);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    noOfOTPSend = Convert.ToSByte(cmd.Parameters["par_noofattempts"].Value);
                 }
             }
             catch (SqlException ex)
@@ -119,9 +118,9 @@ namespace Bikewale.DAL.MobileVerification
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 50, mobileNo));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbType.DateTime, DateTime.Now));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cvid", DbType.Int64, ParameterDirection.Output));
-                        // LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
-                        cvId = Convert.ToUInt64(cmd.Parameters["par_cvid"].Value);
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    cvId = Convert.ToUInt64(cmd.Parameters["par_cvid"].Value);
                 }
             }
             catch (SqlException ex)
@@ -156,15 +155,15 @@ namespace Bikewale.DAL.MobileVerification
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "cv_checkverification";
-                        // LogLiveSps.LogSpInGrayLog(cmd);
+                    // LogLiveSps.LogSpInGrayLog(cmd);
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbType.String, 50, mobileNo));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cwicode", DbType.String, 50, cwiCode));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cuicode", DbType.String, 50, cuiCode));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
-                        verified = Convert.ToBoolean(cmd.Parameters["par_isverified"].Value);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    verified = Convert.ToBoolean(cmd.Parameters["par_isverified"].Value);
                 }
             }
             catch (SqlException ex)
@@ -192,7 +191,7 @@ namespace Bikewale.DAL.MobileVerification
                 using (DbCommand cmd = DbFactory.GetDBCommand("getblockedphonenumbers"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                   
+
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
 
@@ -201,7 +200,7 @@ namespace Bikewale.DAL.MobileVerification
                             numberList = new List<string>();
                             while (dr.Read())
                             {
-                               numberList.Add(Convert.ToString(dr["MobileNumber"]));
+                                numberList.Add(Convert.ToString(dr["MobileNumber"]));
                             }
                             dr.Close();
                         }

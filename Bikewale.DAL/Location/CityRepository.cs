@@ -137,7 +137,7 @@ namespace Bikewale.DAL.Location
             List<CityEntityBase> objCities = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getpricequotecities_03042016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getpricequotecities_18072017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int64, modelId));
@@ -150,10 +150,10 @@ namespace Bikewale.DAL.Location
                             while (dr.Read())
                                 objCities.Add(new CityEntityBase()
                                 {
-                                    CityId = Convert.ToUInt32(dr["Value"]),
-                                    CityName = Convert.ToString(dr["Text"]),
-                                    IsPopular = Convert.ToBoolean(dr["IsPopular"]),
-                                    HasAreas = Convert.ToBoolean(dr["HasAreas"]),
+                                    CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
+                                    CityName = Convert.ToString(dr["CityName"]),
+                                    IsPopular = SqlReaderConvertor.ToBoolean(dr["IsPopular"]),
+                                    HasAreas = SqlReaderConvertor.ToBoolean(dr["HasAreas"]),
                                     CityMaskingName = Convert.ToString(dr["citymaskingname"])
                                 });
                             dr.Close();

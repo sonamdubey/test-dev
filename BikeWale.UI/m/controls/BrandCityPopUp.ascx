@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.BrandCityPopUp" %>
 
-<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/chosen.min.css?<%=staticFileVersion %>" rel="stylesheet" />
+<link href="<%= staticUrl  %>/css/chosen.min.css?<%=staticFileVersion %>" rel="stylesheet" />
 <div class="bw-city-popup bwm-fullscreen-popup bw-popup-sm text-center hide" id="brandcitypopupWrapper">
     <div class="city-area-banner"></div>
     <div class="popup-inner-container">

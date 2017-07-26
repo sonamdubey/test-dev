@@ -151,5 +151,5 @@
         </div>
     </section>
 }
-<script defer type="text/javascript" src="@(!String.IsNullOrEmpty(BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + BWConfiguration.Instance.StaticUrl : "")/src/jquery.floating-social-share.min.js?@BWConfiguration.Instance.StaticPluginFileVersion"></script>
+<script defer type="text/javascript" src="@String.Format("{0}/src/jquery.floating-social-share.min.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
 

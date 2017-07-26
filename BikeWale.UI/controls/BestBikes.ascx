@@ -7,7 +7,7 @@
                 <a href="/best-bikes-in-india/" title="Top 10 bikes in India" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <div class="card-image-block">
-                            <img class="lazy" data-original="https://imgd3.aeplcdn.com/0x0/bw/best-bikes/best-bikes-thumb.jpg" alt="Top 10 bikes in India" src="" />
+                            <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/best-bikes/best-bikes-thumb.jpg" alt="Top 10 bikes in India" src="" />
                         </div>
                     </div>
                     <div class="card-desc-block">
@@ -20,7 +20,7 @@
                 <a href="/best-scooters-in-india/" title="Top 10 scooters in India" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <div class="card-image-block">
-                            <img class="lazy" data-original="https://imgd2.aeplcdn.com/0x0/bw/best-bikes/scooter-style-thumb.jpg" alt="Top 10 scooters in India" src="" />
+                            <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/best-bikes/scooter-style-thumb.jpg" alt="Top 10 scooters in India" src="" />
                         </div>
                     </div>
                     <div class="card-desc-block">
@@ -33,7 +33,7 @@
                 <a href="/best-mileage-bikes-in-india/" title="Top 10 mileage bikes in India" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <div class="card-image-block">
-                            <img class="lazy" data-original="https://imgd3.aeplcdn.com/0x0/bw/best-bikes/mileage-bikes-thumb.jpg" alt="Top 10 mileage bikes in India" src="" />
+                            <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/best-bikes/mileage-bikes-thumb.jpg" alt="Top 10 mileage bikes in India" src="" />
                         </div>
                     </div>
                     <div class="card-desc-block">
@@ -46,7 +46,7 @@
                 <a href="/best-sports-bikes-in-india/" title="Top 10 sports bikes in India" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <div class="card-image-block">
-                            <img class="lazy" data-original="https://imgd1.aeplcdn.com/0x0/bw/best-bikes/sports-style-thumb.jpg" alt="Top 10 sports bikes in India" src="" />
+                            <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/best-bikes/sports-style-thumb.jpg" alt="Top 10 sports bikes in India" src="" />
                         </div>
                     </div>
                     <div class="card-desc-block">
@@ -59,7 +59,7 @@
                 <a href="/best-cruiser-bikes-in-india/" title="Top 10 cruiser bikes in India" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <div class="card-image-block">
-                            <img class="lazy" data-original="https://imgd2.aeplcdn.com/0x0/bw/best-bikes/cruiser-style-thumb.jpg" alt="Top 10 cruiser bikes in India" src="" />
+                            <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/bw/best-bikes/cruiser-style-thumb.jpg" alt="Top 10 cruiser bikes in India" src="" />
                         </div>
                     </div>
                     <div class="card-desc-block">

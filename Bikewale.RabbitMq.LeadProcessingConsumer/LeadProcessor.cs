@@ -405,10 +405,9 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     Logs.WriteInfoLog("Update Lead Limit.");
                     if (campaignId > 0)
                     {
-
-                        isSuccess = _repository.PushedToAB(pqId, abInqId, retryAttempt);
                         isSuccess = _repository.IsDealerDailyLeadLimitExceeds(campaignId);
                         isSuccess = _repository.UpdateDealerDailyLeadCount(campaignId, abInqId);
+                        isSuccess = _repository.PushedToAB(pqId, abInqId, retryAttempt);
                     }
                     Logs.WriteInfoLog("Saved AB InquiryId");
                 }

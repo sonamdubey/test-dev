@@ -145,7 +145,7 @@
     border: 0;
     cursor: pointer;
     border-bottom: 1px solid #82888b;
-    background: transparent url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+    background: transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     -ms-border-radius: 0;
@@ -268,14 +268,14 @@
       .cover-window-popup .cover-popup-list li:first-child span {
         border-top: 0; }
   .cover-window-popup .with-arrow li {
-    background: url("https://imgd1.aeplcdn.com/0x0/bw/static/design15/grey-right-arrow.png") no-repeat 94% 50%; }
+    background: url("https://imgd.aeplcdn.com/0x0/bw/static/design15/grey-right-arrow.png") no-repeat 94% 50%; }
   .cover-window-popup .cover-popup-loader-body {
     display: none; }
 
 .bike-banner {
   width: 100%;
   height: 110px;
-  background: #fff url(https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/bike-popup-banner.png) repeat-x center bottom; }
+  background: #fff url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/m/bike-popup-banner.png) repeat-x center bottom; }
 
 .cover-popup-body-head .head-label {
   font-size: 16px;
@@ -463,7 +463,7 @@
   padding-bottom: 5px;
   position: relative;
   border-bottom: 1px solid #82888b;
-  background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+  background: #fff url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
   height: 36px; }
   .select-color-box .select-color-label {
     font-size: 16px;
@@ -508,7 +508,7 @@
   position: relative; }
   .color-list-item.active .color-box:before {
     content: "";
-    background: rgba(0, 0, 0, 0.2) url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/white-tick-mark.png) 48% no-repeat;
+    background: rgba(0, 0, 0, 0.2) url(https://imgd.aeplcdn.com/0x0/bw/static/design15/white-tick-mark.png) 48% no-repeat;
     width: 28px;
     height: 28px;
     display: block;
@@ -568,7 +568,7 @@
   top: -14px; }
 
 .sell-bike-sprite {
-  background: url("https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bwm-sell-bike.png") no-repeat;
+  background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-sell-bike.png") no-repeat;
   display: inline-block; }
 
 .step-1-active,

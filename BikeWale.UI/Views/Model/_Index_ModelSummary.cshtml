@@ -20,10 +20,10 @@
                         @if (Model.ModelPageEntity.ModelDetails.MinPrice > 0)
                     {
                             <tr>
-                                <td width="36%">Price</td>
+                                <td width="36%"><strong class="text-unbold">Price</strong></td>
                                 <td width="64%">
                                     @Html.Raw("&#x20B9;")
-                                    <span class="text-bold">@(Model.BikePrice > 0 && Model.IsLocationSelected ? string.Format("{0}", Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())) : Bikewale.Utility.Format.FormatPrice(Model.ModelPageEntity.ModelDetails.MinPrice.ToString()))</span>&nbsp;<span class="font12 text-light-grey">@(Model.BikePrice > 0 && Model.IsLocationSelected ? string.Format("On-road {0}", Model.City.CityName) : string.Format("Ex-showroom {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName))</span>
+                                    <strong class="text-bold">@(Model.BikePrice > 0 && Model.IsLocationSelected ? string.Format("{0}", Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())) : Bikewale.Utility.Format.FormatPrice(Model.ModelPageEntity.ModelDetails.MinPrice.ToString()))</strong>
                                 </td>
                             </tr>
                     }

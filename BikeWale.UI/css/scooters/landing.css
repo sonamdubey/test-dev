@@ -34,7 +34,7 @@
   display: none; }
 
 .scooters-banner {
-  background: #82817e url(https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/scooters-banner.jpg) no-repeat center;
+  background: #82817e url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/scooters-banner.jpg) no-repeat center;
   background-size: cover;
   height: 268px;
   padding-top: 1px; }
@@ -340,7 +340,7 @@
     width: 292px;
     height: 164px;
     display: block;
-    background: url("https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif") no-repeat center center; }
+    background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif") no-repeat center center; }
   .model-preview-image-container img {
     width: 100%;
     height: 164px; }

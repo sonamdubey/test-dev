@@ -1,10 +1,11 @@
 ﻿@model Bikewale.Models.WriteReviewContestVM
     @{
-	Model.IsHeaderFix = false;
-	Model.IsPageTypeLanding = true;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/user-review/review-contest.css' />";
-    Model.Page_JS_Path = "/src/user-review/review-contest.js";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+        Model.IsHeaderFix = false;
+        Model.IsPageTypeLanding = true;
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/user-review/review-contest.css' />";
+        Model.Page_JS_Path = "/src/user-review/review-contest.js";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        Model.ExcludeContestSlug = true;
 }
 
 <link href="https://fonts.googleapis.com/css?family=Oxygen:300,400,700" rel="stylesheet">
@@ -190,7 +191,7 @@
     <span id="querystring" data-query="@Model.QueryString" />
 </section>
 
-<script defer type="text/javascript" src="@(!String.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.StaticUrl) ? "https://st.aeplcdn.com" + Bikewale.Utility.BWConfiguration.Instance.StaticUrl : "")/src/swiper-3.1.7.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion"></script>
+<script defer type="text/javascript" src="@String.Format("{0}/src/swiper-3.1.7.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></script>
 
 <style type="text/css">
 	.winner-review-swiper .swiper-slide {

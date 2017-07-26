@@ -41,36 +41,21 @@
     top: -2px;
 }
 
-.review-box .review-count-target,
-.no-rating {
-    position: relative;
-    padding-right: 14px;
-    margin-right: 12px;
-}
-
-.review-box .review-count-target {
+.left-divider {
+	position: relative;
     padding-left: 14px;
     margin-left: 12px;
 }
 
-.review-box .review-count-target:before,
-.review-box .review-count-target:after,
-.review-box .no-rating:after {
-    content: '';
+.left-divider:before {
+	content: '';
     width: 1px;
     height: 15px;
     display: block;
     position: absolute;
-    top: 3px;
-    border-right: 1px solid #eee;
-}
-
-.review-box .review-count-target:before {
-    left: 0;
-}
-
-.review-box .review-count-target:after, .no-rating:after {
-    right: 0;
+	top: 2px;
+	left: 0;
+    border-left: 1px solid #eee;
 }
 
 /* floating tabs */
@@ -106,7 +91,7 @@
 }
 
 .overall-specs-tabs-wrapper a {
-    padding: 10px 14px;
+    padding: 10px 12px;
     display: table-cell;
     text-align: center;
     font-size: 14px;
@@ -368,8 +353,8 @@
     border-bottom-color: #4d5057;
 }
 
-/* bw-group-flex */
-.bw-group-flex li {
+/* tabs-group */
+.tabs-group__list-item {
     font-size: 12px;
     color: #82888b;
     padding: 4px 15px 5px;
@@ -382,11 +367,15 @@
     user-select: none;
 }
 
-.bw-group-flex li:first-child {
+.tabs-group__list-item:first-child {
     border-right: 0;
 }
 
-.bw-group-flex li.active {
+.tabs-group__list-item .label-count {
+	display: none;
+}
+
+.tabs-group__list-item.active {
     color: #4d5057;
     background: #fff;
     font-weight: 600;
@@ -394,20 +383,12 @@
     pointer-events: none;
 }
 
-.toggle-btn-label li.active .label-count {
+.tabs-group__list-item.active .label-count {
     display: inline;
 }
 
-.toggle-btn-label li.active .label-overview {
+.tabs-group__list-item.active .label-overview {
     display: none;
-}
-
-.toggle-btn-label li.inactive .label-count {
-    display: none;
-}
-
-.toggle-btn-label li.inactive .label-overview {
-    display: inline;
 }
 
 /* Connected carousel */
@@ -821,7 +802,7 @@
 }
 
 /* model sprite classes */
-.model-sprite { background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
+.model-sprite { background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
 .partner-dealer {
     width: 32px;
     height: 34px;
@@ -871,6 +852,11 @@
     background-position: -217px -263px;
 }
 
+.offer-benefit-sprite {
+	background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat;
+	display: inline-block;
+}
+
 .benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width: 38px; height: 38px; vertical-align: middle; margin-right: 10px; }
 .benifitIcon_1 { background-position: -129px -154px; }
 .benifitIcon_2 { background-position: 0 -196px; }
@@ -891,90 +877,6 @@
 .border-light-bottom { border-bottom:1px solid #f1f1f1; }
 
 #leadCapturePopup, #otpPopup { display:none;}
-
-/* campaign */
-.offer-benefit-sprite {
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat;
-    display: inline-block;
-}
-#campaign-offer-list li,
-#campaign-offer-list li span {
-    display: inline-block;
-    vertical-align: middle;
-}
-#campaign-container .campaign-left-col {
-    width: 78%;
-    padding-right: 10px;
-}
-#campaign-container .campaign-right-col {
-    width: 21%;
-}
-.campaign-offer-label {
-    width: 75%;
-    font-size: 14px;
-    font-weight: 700;
-}
-.btn-large {
-    padding: 8px 56px;
-}
-#campaign-offer-list li {
-    width: 175px;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    padding-right: 5px;
-}
-.campaign-offer-1,
-.campaign-offer-2,
-.campaign-offer-3,
-.campaign-offer-4 {
-    width: 34px;
-    height: 28px;
-    margin-right: 5px;
-}
-.campaign-offer-1 {
-    background-position: 0 -356px;
-}
-.campaign-offer-2 {
-    background-position: 0 -390px;
-}
-.campaign-offer-3 {
-    background-position: 0 -425px;
-}
-.campaign-offer-4 {
-    background-position: 0 -463px;
-}
-#campaign-container .phone-black-icon {
-    top: 0;
-}
-
-/* new campaign */
-.campaign-content .tel-sm-icon {
-    top: 0;
-}
-.campaign-content .campaign-title-content {
-    padding-left: 20px;
-    width: 70%;
-}
-.campaign-content .campaign-logo {
-    width: 80px;
-    height: 40px;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg?v06Apr2017) no-repeat;
-}
-.campaign-content .campaign-left-col {
-    width: 78%;
-}
-.campaign-content .campaign-right-col {
-    width: 21%;
-}
-.campaign-disc-list {
-    padding-left: 20px;
-}
-.campaign-disc-list li {
-    list-style: disc;
-    float: left;
-    margin-right: 40px;
-    margin-bottom: 10px;
-}
 
 /* price list */
 /* version prices */

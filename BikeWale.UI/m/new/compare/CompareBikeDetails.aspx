@@ -27,21 +27,21 @@
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
         <% if (vmCompare != null)
-           { %>
+            { %>
         <section>
             <% if (vmCompare.BasicInfo != null)
-               { %>
+                { %>
             <div <%= !isSponsoredBike ? "" : "id='sponsored-column-active'"  %>>
                 <%-- add sponsored-column-active for sponsored bike--%>
                 <div class="container box-shadow bg-white card-bottom-margin bw-tabs-panel">
                     <h1 class="box-shadow padding-15-20 margin-bottom3 text-bold"><%= comparisionText %></h1>
                     <div class="comparison-main-card">
                         <% foreach (var bike in vmCompare.BasicInfo)
-                           {
-                               string bikeName = string.Format("{0} {1}", bike.Make, bike.Model); %>
+                            {
+                                string bikeName = string.Format("{0} {1}", bike.Make, bike.Model); %>
                         <div class="bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>" data-masking="<%= string.Format("{0}-{1}",bike.MakeMaskingName,bike.ModelMaskingName)%>" data-changed="" data-modelid="<%= bike.ModelId %>" data-versionid="<%= bike.VersionId %>">
                             <% if (bike.VersionId == sponsoredVersionId)
-                               {%>
+                                {%>
                             <span class="position-abt pos-top5 label-text">Sponsored</span>
                             <% } %>
                             <span <%= (bike.VersionId != sponsoredVersionId ) ? "" : "id='close-sponsored-bike'" %> class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey"></span>
@@ -54,63 +54,65 @@
 
 
                             <% if (bike.Versions.Count() > 1)
-                               { %>
+                                { %>
                             <div class="dropdown-select-wrapper">
                                 <select class="dropdown-select" data-title="Version">
                                     <% foreach (var v in bike.Versions)
-                                       { %>
+                                        { %>
                                     <option value="<%= v.VersionId %>" <%= (bike.VersionId!=v.VersionId)?"":" selected" %>><%= v.VersionName %></option>
                                     <% } %>
                                 </select>
                             </div>
                             <% }
-                               else
-                               { %>
+                                else
+                                { %>
                             <p class="dropdown-selected-item option-count-one dropdown-width"><%= bike.Version %></p>
                             <% } %>
 
                             <p class="text-truncate label-text">Ex-showroom, <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                             <p class="margin-bottom10">
-                                <span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) %></span>
+                                <span class="bwmsprite inr-xsm-icon"></span><span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) %></span>
                             </p>
                             <% if ((bike.VersionId != sponsoredVersionId) || string.IsNullOrEmpty(featuredBike))
-                               { %>
+                                { %>
                             <div>
                                 <a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-modelid="<%= bike.ModelId %>" rel="nofollow">On-road price</a>
                             </div>
                             <% }
-                               else
-                               { %>
+                                else
+                                { %>
 
                             <div class="padding-top5 padding-bottom5">
-                                <a href="<%= featuredBike  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike %>" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= bikeName %>_Top Card" target="_blank" class="font14 bw-ga">Know more <span class="bwmsprite know-more-icon"></span></a>
+                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0} {1}_Floating",bike.Make, bike.Model) %>" class="font14 bw-ga text-link">Know more <span class="bwmsprite know-more-icon"></span></span>
                             </div>
                             <% } %>
+
+
                         </div>
                         <% } %>
                         <div class="clear"></div>
                     </div>
                     <div id="comparison-floating-card" class="box-shadow slideIn-transition">
                         <% foreach (var bike in vmCompare.BasicInfo)
-                           {   %>
+                            {   %>
                         <div class="bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>">
                             <% if (bike.VersionId == sponsoredVersionId)
-                               {%>
+                                {%>
                             <span class="position-abt pos-top5 label-text">Sponsored</span>
                             <% } %>
-                                <span class="font10 text-light-grey text-truncate"><%= bike.Make  %></span>
+                            <span class="font10 text-light-grey text-truncate"><%= bike.Make  %></span>
                             <a href="<%= string.Format("/m/{0}-bikes/{1}/",bike.MakeMaskingName,bike.ModelMaskingName) %>" class="font12 text-truncate bike-title-target"><%= bike.Model %></a>
                             <% if ((bike.VersionId != sponsoredVersionId) || string.IsNullOrEmpty(featuredBike))
-                               { %>
+                                { %>
                             <div>
-                                <a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike %>" data-modelid="<%= bike.ModelId %>" rel="nofollow">On-road price</a>
+                                <a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-pqsourceid="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike %>" data-modelid="<%= bike.ModelId %>" rel="nofollow">On-road price</a>
                             </div>
                             <% }
-                               else
-                               { %>
+                                else
+                                { %>
 
                             <div class="padding-top5 padding-bottom5">
-                                <a href="<%= featuredBike  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0} {1}_Floating",bike.Make, bike.Model) %>" target="_blank" class="font14 bw-ga">Know more <span class="bwmsprite know-more-icon"></span></a>
+                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0} {1}_Floating",bike.Make, bike.Model) %>" class="font14 bw-ga  text-link">Know more <span class="bwmsprite know-more-icon"></span></span>
                             </div>
                             <% } %>
                         </div>
@@ -142,9 +144,9 @@
                     </div>
                     <div id="specsTabContent" class="bw-tabs-data active">
                         <% if (vmCompare.CompareSpecifications != null)
-                           { %>
-                        <% bool isFirstActiveTab = true;  foreach (var spec in vmCompare.CompareSpecifications.Spec)
-                           {  %>
+                            { %>
+                        <% bool isFirstActiveTab = true; foreach (var spec in vmCompare.CompareSpecifications.Spec)
+                            {  %>
                         <div class="model-accordion-tab <%= (isFirstActiveTab) ? "active" :""  %>">
                             <span class="offers-sprite specs-<%= spec.Value%>-sm-icon"></span>
                             <span class="accordion-tab-label"><%= spec.Text%></span>
@@ -153,18 +155,18 @@
                         <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
                                 <% isFirstActiveTab = false; foreach (var specCat in spec.SpecCategory)
-                                   {  %>
+                                    {  %>
                                 <tr class="row-type-heading">
                                     <td colspan="2"><%= specCat.Text%></td>
                                     <td></td>
                                 </tr>
                                 <tr class="row-type-data">
                                     <% foreach (var compSpec in specCat.CompareSpec)
-                                       { %>
+                                        { %>
                                     <td><%= compSpec.Value%></td>
                                     <% } %>
                                     <%if (!isSponsoredBike)
-                                      { %>
+                                        { %>
                                     <td></td>
                                     <% } %>
                                 </tr>
@@ -178,24 +180,24 @@
                     </div>
                     <div id="featuresTabContent" class="bw-tabs-data">
                         <% if (vmCompare.CompareFeatures != null)
-                           { %>
+                            { %>
                         <% foreach (var spec in vmCompare.CompareFeatures.Spec)
-                           { %>
+                            { %>
                         <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
                                 <% foreach (var specCat in spec.SpecCategory)
-                                   {  %>
+                                    {  %>
                                 <tr class="row-type-heading">
                                     <td colspan="2"><%= specCat.Text %></td>
                                     <td></td>
                                 </tr>
                                 <tr class="row-type-data">
                                     <% foreach (var compSpec in specCat.CompareSpec)
-                                       { %>
+                                        { %>
                                     <td><%= compSpec.Value %></td>
                                     <% } %>
                                     <%if (!isSponsoredBike)
-                                      { %>
+                                        { %>
                                     <td></td>
                                     <% } %>
                                 </tr>
@@ -207,7 +209,7 @@
                     </div>
                     <div id="coloursTabContent" class="bw-tabs-data">
                         <% if (vmCompare.CompareColors != null)
-                           { %>
+                            { %>
                         <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
                             <tbody>
                                 <tr class="row-type-heading">
@@ -216,19 +218,21 @@
                                 </tr>
                                 <tr class="row-type-data">
                                     <% foreach (var bike in vmCompare.CompareColors.bikes)
-                                       { %>
+                                        { %>
                                     <td>
                                         <% foreach (var color in bike.bikeColors)
-                                           {
-                                               if (color.HexCodes != null) { %>
+                                            {
+                                                if (color.HexCodes != null)
+                                                { %>
                                         <div class="color-box color-count-<%= color.HexCodes.Count()   %>">
                                             <% foreach (var hexCode in color.HexCodes)
-                                               { %>
+                                                { %>
                                             <span style="background-color: #<%= hexCode %>"></span>
                                             <% } %>
                                         </div>
                                         <p><%= color.Color %></p>
-                                        <% } } %>
+                                        <% }
+                                        } %>
                                     </td>
                                     <% } %>
                                 </tr>
@@ -250,7 +254,7 @@
                         <p class="text-bold font16 line-height17 inline"><%= templateSummaryTitle %></p>
                         <span class="model-preview-main-content">
                             <p class="font14 text-light-grey line-height17 inline padding-top10"><%= Bikewale.Utility.StringExtention.StringHelper.Truncate(compareSummaryText,200) %>  ... </p>
-						 </span>
+                        </span>
                         <span class="model-preview-more-content hide">
                             <p class="font14 text-light-grey line-height17 inline padding-top10"><%= compareSummaryText %></p>
                         </span>
@@ -258,7 +262,7 @@
                     </div>
                 </section>
                 <% if (isUsedBikePresent)
-                   { %>
+                    { %>
                 <div id="used-bikes-container" class="container box-shadow bg-white card-bottom-margin">
                     <h2 class="content-inner-block-15">Used bikes you may like</h2>
                     <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -269,16 +273,18 @@
                             </tr>
                             <tr class="row-type-data">
                                 <% foreach (var bike in vmCompare.BasicInfo)
-                                   { %>
+                                    { %>
                                 <td>
                                     <% if (bike.UsedBikeCount.BikeCount > 0)
-                                       {  %>
+                                        {  %>
                                     <a href="/m<%= Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" ) %>" class="block"><%= string.Format("{0} Used {1} {2}",bike.UsedBikeCount.BikeCount,bike.Make,bike.Model) %></a><p class="text-light-grey text-unbold">
                                         starting at<br />
                                         <span class="bwmsprite inr-grey-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(bike.UsedBikeCount.StartingPrice.ToString()) %>
                                     </p>
-                                    <% } else { %>
-                                        <div class="font14 text-bold text-center">--</div>
+                                    <% }
+                                    else
+                                    { %>
+                                    <div class="font14 text-bold text-center">--</div>
                                     <%} %>
                                 </td>
                                 <% } %>
@@ -290,7 +296,7 @@
             <% } %>
 
             <% if (objMakes != null)
-               { %>
+                { %>
             <!-- select bike starts here -->
             <div id="select-bike-cover-popup" class="cover-window-popup">
                 <div class="ui-corner-top">
@@ -307,7 +313,7 @@
                     </div>
                     <ul class="cover-popup-list with-arrow">
                         <% foreach (var make in objMakes)
-                           { %>
+                            { %>
                         <li data-bind="click: makeChanged" data-masking="<%= make.MaskingName %>" data-id="<%= make.MakeId %>"><span><%= make.MakeName %></span></li>
                         <% } %>
                     </ul>
@@ -358,20 +364,20 @@
         <% } %>
 
         <% if (ctrlSimilarBikes != null && ctrlSimilarBikes.fetchedCount > 0)
-           { %>
+            { %>
         <section class="container bg-white box-shadow margin-bottom15">
             <h2 class="padding-15-20">Similar comparisons</h2>
             <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />
         </section>
         <% } %>
-          <script type="text/javascript">
-              var compareSource = <%=  (int)Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_Page %>;
+        <script type="text/javascript">
+            var compareSource = <%=  (int)Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_Page %>;
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : ""%>/m/src/compare/details.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/m/src/compare/details.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     </form>
 </body>

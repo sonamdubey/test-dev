@@ -284,7 +284,7 @@ namespace Bikewale.DAL.BikeData
                                     VersionId = Convert.ToInt32(dr["ID"]),
                                     VersionName = Convert.ToString(dr["Version"]),
                                     ModelName = Convert.ToString(dr["Model"]),
-                                    IsGstPrice=SqlReaderConvertor.ToBoolean(dr["isgstprice"]),
+                                    IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]),
                                     Price = Convert.ToUInt64(dr["VersionPrice"]),
                                     BrakeType = !Convert.IsDBNull(dr["BrakeType"]) ? Convert.ToString(dr["BrakeType"]) : String.Empty,
                                     AlloyWheels = !Convert.IsDBNull(dr["AlloyWheels"]) ? Convert.ToBoolean(dr["AlloyWheels"]) : false,
@@ -1856,7 +1856,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getbikeinfo";
+                    cmd.CommandText = "getbikeinfo_05072017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     genericBikeInfo = PopulateGenericBikeInfoEntity(genericBikeInfo, cmd);
                 }
@@ -1914,6 +1914,9 @@ namespace Bikewale.DAL.BikeData
                             genericBikeInfo.UserReview = SqlReaderConvertor.ToUInt32(dr["ReviewCount"]);
                             genericBikeInfo.DealersCount = SqlReaderConvertor.ToUInt32(dr["dealeravailable"]);
                             genericBikeInfo.PriceInCity = SqlReaderConvertor.ToUInt32(dr["priceincity"]);
+                            genericBikeInfo.Rating = Convert.ToSingle(dr["ReviewRate"]);
+                            genericBikeInfo.RatingCount = SqlReaderConvertor.ToUInt16(dr["RatingsCount"]);
+                            genericBikeInfo.UserReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
                         }
                         dr.Close();
                     }
@@ -1948,7 +1951,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getbikeinfobycity";
+                    cmd.CommandText = "getbikeinfobycity_05072017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     genericBikeInfo = PopulateGenericBikeInfoEntity(genericBikeInfo, cmd);
@@ -2416,38 +2419,38 @@ namespace Bikewale.DAL.BikeData
                             {
                                 popularScooters.Add(
                                    new MostPopularBikesBase()
-                                  {
-                                      objMake = new BikeMakeEntityBase()
-                                      {
-                                          MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
-                                          MakeName = Convert.ToString(dr["make"]),
-                                          MaskingName = Convert.ToString(dr["makemaskingname"]),
-                                      },
-                                      objModel = new BikeModelEntityBase()
-                                      {
-                                          ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
-                                          ModelName = Convert.ToString(dr["model"]),
-                                          MaskingName = Convert.ToString(dr["modelmaskingname"]),
-                                      },
-                                      Specs = new MinSpecsEntity()
-                                      {
-                                          Displacement = SqlReaderConvertor.ToUInt32(dr["displacement"]),
-                                          KerbWeight = SqlReaderConvertor.ToUInt16(dr["KerbWeight"]),
-                                          MaximumTorque = SqlReaderConvertor.ToUInt32(dr["maximumtorque"]),
-                                          MaxPower = SqlReaderConvertor.ToUInt32(dr["maxpower"]),
-                                          FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"])
-                                      },
-                                      BikeName = Convert.ToString(dr["bikename"]),
-                                      MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
-                                      MakeName = Convert.ToString(dr["make"]),
-                                      MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
-                                      HostURL = Convert.ToString(dr["hosturl"]),
-                                      OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
-                                      VersionPrice = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]),
-                                      ReviewCount = SqlReaderConvertor.ToInt32(dr["reviewcount"]),
-                                      CityName = Convert.ToString(dr["cityname"]),
-                                      CityMaskingName = Convert.ToString(dr["citymasking"])
-                                  }
+                                   {
+                                       objMake = new BikeMakeEntityBase()
+                                       {
+                                           MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                           MakeName = Convert.ToString(dr["make"]),
+                                           MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                       },
+                                       objModel = new BikeModelEntityBase()
+                                       {
+                                           ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                           ModelName = Convert.ToString(dr["model"]),
+                                           MaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                       },
+                                       Specs = new MinSpecsEntity()
+                                       {
+                                           Displacement = SqlReaderConvertor.ToUInt32(dr["displacement"]),
+                                           KerbWeight = SqlReaderConvertor.ToUInt16(dr["KerbWeight"]),
+                                           MaximumTorque = SqlReaderConvertor.ToUInt32(dr["maximumtorque"]),
+                                           MaxPower = SqlReaderConvertor.ToUInt32(dr["maxpower"]),
+                                           FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"])
+                                       },
+                                       BikeName = Convert.ToString(dr["bikename"]),
+                                       MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                       MakeName = Convert.ToString(dr["make"]),
+                                       MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
+                                       HostURL = Convert.ToString(dr["hosturl"]),
+                                       OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
+                                       VersionPrice = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]),
+                                       ReviewCount = SqlReaderConvertor.ToInt32(dr["reviewcount"]),
+                                       CityName = Convert.ToString(dr["cityname"]),
+                                       CityMaskingName = Convert.ToString(dr["citymasking"])
+                                   }
                                   );
                             }
                             dr.Close();

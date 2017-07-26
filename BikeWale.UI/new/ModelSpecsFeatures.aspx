@@ -21,7 +21,7 @@
         AdPath = "/1017752/Bikewale_NewBike_";
           %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/specsandfeature.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%=  staticUrl  %>/css/specsandfeature.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     
 </head>
 <body class="bg-light-grey">

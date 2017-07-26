@@ -54,6 +54,6 @@ namespace Bikewale.Utility
     public enum DataBaseName
     {
         CW = 1,
-        BW = 2,
+        BW = 2
     }
 }

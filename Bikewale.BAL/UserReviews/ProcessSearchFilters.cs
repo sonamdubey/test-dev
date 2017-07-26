@@ -106,7 +106,10 @@ namespace Bikewale.BAL.UserReviews.Search
 
                     IEnumerable<UserReviewSummary> objReviewSummaryList = _userReviewsCache.GetUserReviewSummaryList(reviewIdList);
 
-                    objReviewSummaryList = objReviewSummaryList.OrderBy(d => reviewIdList.ToList().FindIndex(m => m == d.ReviewId));
+                    if (objReviewSummaryList != null)
+                    {
+                        objReviewSummaryList = objReviewSummaryList.OrderBy(d => reviewIdList.ToList().FindIndex(m => m == d.ReviewId));
+                    }
 
                     objResult.PageUrl = GetPrevNextUrl(inputFilters, objResult.TotalCount);
                     objResult.CurrentPageNo = inputFilters.PN;

@@ -17,12 +17,26 @@
                 <div class="clear"></div>
                 <a href="<%= bikeUrl%>" title="<%=bikeName%>" class="leftfloat margin-bottom15 text-default">
                     <h2><%=bikeName%></h2>
-                </a>
+                </a>     
+                <%if (RatingCount > 0)
+                        { %>
+                <div id="reviewRatingsDiv" class="inline-block">            
+                        <span class="rate-count-<%=Math.Round(Rating) %>">
+                            <span class="bwsprite star-icon star-size-16"></span>
+                            <span class="font14 text-bold inline-block"><%= Rating.ToString("0.0").TrimEnd('0', '.') %></span>
+                        </span>
+                        <span class='font11 text-xt-light-grey inline-block padding-left3'>(<%=string.Format("{0} {1}", RatingCount, RatingCount > 1 ? "ratings" : "rating") %>)</span>
+                        <%if (UserReviewCount > 0)
+                        {  %>
+                            <a class='text-xt-light review-left-divider inline-block' href="<%=string.Format("{0}reviews/", bikeUrl)%>" title="<%=bikeName%> user reviews"><%=string.Format("{0} {1}", UserReviewCount, UserReviewCount > 1 ? "reviews" : "review") %></a>
+                       <%  } %>   
+                    </div> 
+                <%} %>               
                 <div class="clear"></div>
                 <div class="grid-8 alpha padding-right20 border-solid-right">
                     <a href="<%= bikeUrl%>" title="<%=bikeName%>" class="model-image-target vertical-top">
                         <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._160x89) %>" src="" alt="<%=bikeName%>" />
-                    </a>
+                    </a>                   
                     <div class="model-details-block vertical-top">
                         <% if (bikeInfo.MinSpecs != null)
                            { %>
@@ -53,7 +67,7 @@
                             </li>
                             <%} %>
                         </ul>
-                        <%} %>
+                        <%} %>                        
                         <ul class="item-more-details-list margin-bottom5 inline-block">
                             <%if (bikeInfo.Tabs != null)
                               {

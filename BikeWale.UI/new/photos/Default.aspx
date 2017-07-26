@@ -159,7 +159,7 @@
         <BW:SimilarBikeWithPhotos ID="ctrlSimilarBikesWithPhotos" runat="server" />
 
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
         <div id="gallery-root">
             <div class="gallery-container gallery-bg-overlay" style="display: none;" data-bind="visible: isGalleryActive()">
@@ -323,9 +323,22 @@
                                     <img src="<%=Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61)%>" alt="<%= bikeName %>" title="<%= bikeName %>">
                                 </a>
                                 <%int count = 0; %>
-                                <div class="bike-details-block inline-block">
-                                    <h3><a href="<%=bikeUrl %>" class="text-default"><%= bikeName %></a></h3>
-                                    <ul class="item-more-details-list inline-block">
+                               
+                                <div class="bike-details-block inline-block">                                    
+                                    <h3><a href="<%=bikeUrl %>" class="text-default"><%= bikeName %></a></h3>  
+                                     <% if (bikeInfo.RatingCount > 0)
+                                              {%>                                  
+                                    <span class="rate-count-<%=Math.Round(bikeInfo.Rating) %> inline-block">
+                                        <span class="bwsprite star-icon star-size-16"></span>
+                                        <span class="font14 text-bold inline-block"><%= bikeInfo.Rating.ToString("0.0").TrimEnd('0', '.') %></span>
+                                    </span>
+                                    <span class='font11 text-xt-light-grey inline-block padding-left3'>(<%=string.Format("{0} {1}", bikeInfo.RatingCount, bikeInfo.RatingCount > 1 ? "ratings" : "rating") %>)</span>
+                                    <%if (bikeInfo.UserReviewCount > 0)
+                                              {  %>
+                                        <a class='text-xt-light review-left-divider inline-block' href="<%=string.Format("{0}reviews/", bikeUrl)%>" title="<%=bikeName%> user reviews"><%=string.Format("{0} {1}", bikeInfo.UserReviewCount, bikeInfo.UserReviewCount > 1 ? "reviews" : "review") %></a>
+                                   <%  } %>  
+                                    <%} %>                                  
+                                    <ul class="item-more-details-list">
                                            <%if (bikeInfo.IsSpecsAvailable && count<3)
                                           {
                                               count++; 
@@ -391,7 +404,7 @@
                                         <%} %>
                                      
                                     </ul>
-                                </div>
+                                </div>                               
                             </div>
 
                             <%if (!IsUpcoming && !IsDiscontinued)
@@ -483,7 +496,7 @@
                                     <li>
                                         <div class="gallery-photo-img-container">
                                             <span>
-                                                <img class="lazy" data-bind="attr: { alt: ImageTitle, 'data-original': HostUrl + '/1056x594/' + OriginalImgPath }" src="https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="" border="0" />
+                                                <img class="lazy" data-bind="attr: { alt: ImageTitle, 'data-original': HostUrl + '/1056x594/' + OriginalImgPath }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="" border="0" />
                                             </span>
                                         </div>
                                     </li>
@@ -545,7 +558,7 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
 
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl  %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
             try{            
@@ -563,8 +576,8 @@
                 console.warn(e);
             }
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/swiper-3.1.7.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/src/swiper-3.1.7.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/src/photos.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript">            
             docReady(function () {
                 if(returnUrl.length > 0)
@@ -579,7 +592,7 @@
             });
         </script>
         <!--[if lt IE 10]>
-            <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/fallback-gallery.js?<%=staticFileVersion%>"></script>
+            <script type="text/javascript" src="<%= staticUrl %>/src/fallback-gallery.js?<%=staticFileVersion%>"></script>
         <![endif]-->
 
         <!-- #include file="/includes/fontBW.aspx" -->

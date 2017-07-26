@@ -22,7 +22,7 @@
   font-weight: 700; }
 
 .service-center-banner {
-  background: #565b5e url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/bw-service-banner.jpg) no-repeat center;
+  background: #565b5e url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/bw-service-banner.jpg) no-repeat center;
   height: 268px;
   padding-top: 1px; }
 
@@ -111,7 +111,7 @@
     padding-top: 0; }
 
 .city-sprite {
-  background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat;
   display: inline-block; }
 
 .c1-icon, .c12-icon, .c2-icon, .c10-icon, .c176-icon, .c105-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon {
@@ -407,7 +407,7 @@
     width: 292px;
     height: 164px;
     display: block;
-    background: url("https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif") no-repeat center center; }
+    background: url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif") no-repeat center center; }
   .model-preview-image-container img {
     width: 100%;
     height: 164px; }

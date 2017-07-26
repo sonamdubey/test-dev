@@ -66,7 +66,7 @@ $(document).ready(function () {
             var imgUpldUtil = uploadToAWS(curFile, responsePhotoId, modelId, path.toLowerCase(), ext);
             if (imgUpldUtil && imgUpldUtil.status) {
                 if (imgUpldUtil.status) {
-                    var imgPath = 'https://imgd5.aeplcdn.com/' + '144x81/' + imgUpldUtil.response.originalImagePath;
+                    var imgPath = 'https://imgd.aeplcdn.com/' + '144x81/' + imgUpldUtil.response.originalImagePath;
                     showToast('Image uploaded');
                     $('.delcolumn').show();
                     $(this).closest('tr').find('#mainImage').attr('src', imgPath);
@@ -121,7 +121,7 @@ $('.deleteImage').live("click", function () {
             startLoading($("#inputSection"));
         },
         success: function (data) {
-            delBtn.closest('tr').find('#mainImage').attr('src', 'https://imgd3.aeplcdn.com/144x81/bikewaleimg/images/noimage.png');
+            delBtn.closest('tr').find('#mainImage').attr('src', 'https://imgd.aeplcdn.com/144x81/bikewaleimg/images/noimage.png');
             showToast('Image deleted');            
             delBtn.hide();
         },

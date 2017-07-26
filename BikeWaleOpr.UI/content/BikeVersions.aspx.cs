@@ -306,6 +306,7 @@ namespace BikeWaleOpr.Content
                 nvc.Add("v_bodystyleid", Convert.ToInt16(Request.Form["cmbGridBodyStyle"]).ToString());
                 SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CW, nvc);
 
+
                 var makeId = Request.Form["cmbMakes"];
 
                 //Refresh memcache object for popularBikes change

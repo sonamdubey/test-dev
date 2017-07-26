@@ -16,5 +16,8 @@ namespace Bikewale.Models
         public bool IsUpcoming { get; set; }
         public bool IsDiscontinued { get; set; }
         public bool IsSmallSlug { get; set; }
+
+        public string ReviewLink {get;set;}
+        public uint ReviewCount { get; set; }
     }
 }

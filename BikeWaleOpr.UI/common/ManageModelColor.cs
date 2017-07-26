@@ -222,6 +222,7 @@ namespace BikewaleOpr.Common
                         nvc.Add("v_userId", userId.ToString());
                         nvc.Add("v_hexCodes", hexCodes);
                         SyncBWData.PushToQueue("BW_SaveBikeModelColor", DataBaseName.CW, nvc);
+
                     }
 
 

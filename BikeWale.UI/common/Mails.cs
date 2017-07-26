@@ -17,7 +17,7 @@ namespace Bikewale.Common
                 string subject = "Purchase Request Arrived : Bike #" + bikeId;
 
                 CustomerDetails cd = new CustomerDetails(customerId);
-                message.Append("<img align=\"right\" src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
                 message.Append("<h4>Dear " + dealer + ",</h4>");
                 message.Append("<p>Greetings from bikewale!</p>");
                 message.Append("<p>bikewale has received a Used Bike Purchase Inquiry for Your Bike #");
@@ -66,7 +66,7 @@ namespace Bikewale.Common
 
                 CustomerDetails cd = new CustomerDetails(customerId);
 
-                message.Append("<img align=\"right\" src=\"https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 
                 message.Append("<h4>Dear " + cd.Name + ",</h4>");
 
@@ -128,7 +128,7 @@ namespace Bikewale.Common
 
                 CustomerDetails cd = new CustomerDetails(customerId);
 
-                message.Append("<img align=\"right\" src=\"https://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 
                 message.Append("<h4>Dear " + cd.Name + ",</h4>");
 
@@ -189,7 +189,7 @@ namespace Bikewale.Common
                 StringBuilder message = new StringBuilder();
                 string subject = "BikeWale Password Recovery.";
 
-                message.Append("<img align=\"right\" src=\"https://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 
                 message.Append("<h4>Dear " + customerName + ",</h4>");
 
@@ -230,51 +230,7 @@ namespace Bikewale.Common
             } // catch Exception
         }
 
-        //public static void CustomerPasswordRecovery( string email, string customerName, string password )
-        //{
-        //    try
-        //    {
-        //        StringBuilder message = new StringBuilder();
-        //        string subject = "BikeWale Password Recovery.";
-
-        //        message.Append("<img align=\"right\" src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
-
-        //        message.Append( "<h4>Dear " + customerName + ",</h4>" );
-
-        //        message.Append( "<p>Greetings from BikeWale!</p>" ); 
-
-        //        message.Append( "<p>Thank you for choosing BikeWale." );
-        //        message.Append( " We are committed to improve your bike trading experience through our services.</p>" );
-
-        //        message.Append( "<p>This mail is an auto-responder for your request to receover your BikeWale password." );
-        //        message.Append( " Your loginId and password are as mentioned below. </p>" );
-
-        //        message.Append( "User ID : " + email + "<br>" );
-        //        message.Append( "Password : " + password + "<br>" );
-
-        //        message.Append( "<p>We request your presence on the portal and look forward to serve your diverse needs.</p>" );
-
-        //        message.Append( "<p>For any assistance or suggestions kindly mail us at contact@bikewale.com</p>" ); 
-
-        //        message.Append( "<br>Warm Regards,<br><br>" );
-        //        message.Append( "Customer Care,<br><b>BikeWale</b>" );
-
-        //        //MailerAds ma = new MailerAds();
-        //        //message.Append("<br><br>" + ma.GetAdScript(CustomerDetails.GetCustomerIdFromEmail(email)));
-
-        //        HttpContext.Current.Trace.Warn("Sent Mail: " + message.ToString() );
-
-        //        CommonOpn op = new CommonOpn();
-        //        op.SendMail( email, subject, message.ToString(), true );
-        //    }
-        //    catch(Exception err)
-        //    {
-        //        HttpContext.Current.Trace.Warn(err.Message);
-        //        ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    } // catch Exception
-        //}
-
+      
         public static void EmailVerification(string code)
         {
             try
@@ -380,7 +336,7 @@ namespace Bikewale.Common
                 StringBuilder message = new StringBuilder();
                 string subject = senderName + " has referred you BikeWale.";
 
-                message.Append("<img align=\"right\" src=\"https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
                 message.Append("<h4>Hello,</h4>");
                 message.Append("<p>Greetings from Bikewale!</p>");
                 message.Append("<p><b>" + senderName + "(" + senderEmail + ")" + "</b> ");
@@ -537,7 +493,7 @@ namespace Bikewale.Common
                     subject = "Used Bike Purchase Inquiry Arrived.";
                 }
 
-                message.Append("<img align=\"right\" src=\"https://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
                 message.Append("<b>Dear " + name + ",</b>");
 
                 message.Append("<p>Greetings from Bikewale!</p>");
@@ -629,7 +585,7 @@ namespace Bikewale.Common
                     subject = "Used Bike Purchase Inquiry Arrived.";
                 }
 
-                message.Append("<img align=\"right\" src=\"https://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
                 message.Append("<b>Dear " + name + ",</b>");
 
                 message.Append("<p>Greetings from Bikewale!</p>");
@@ -801,58 +757,7 @@ namespace Bikewale.Common
             ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "Mails.SendNewsLetter");
             objErr.SendMail();
 
-            //CommonOpn op = new CommonOpn();
-            //Database db = new Database();
-            //string sql = "";
-
-
-            //try
-            //{
-            //    sql = " Select cu.id, cu.Name, cu.email, ck.CustomerKey From "
-            //        + " Customers as cu, CustomerSecurityKey as ck With(NoLock) Where "
-            //        + " ReceiveNewsletters = 1 and ck.CustomerId = cu.id and cu.isfake = 0 ";
-
-            //    if(startId != "")
-            //        sql += " AND CU.ID >= @startId";
-
-            //    if(endId != "")
-            //        sql += " AND CU.ID <= @endId";
-
-            //    sql += " ORDER BY ID ";
-
-            //    SqlParameter [] param ={new SqlParameter("@startId", startId), new SqlParameter("@endId", endId)};
-            //    DataSet ds = db.SelectAdaptQry(sql, param);
-
-            //    foreach(DataRow row in ds.Tables[0].Rows)
-            //    {
-            //        StringBuilder message = new StringBuilder();
-
-            //        string custId	= row["Id"].ToString();
-            //        string custName = row["Name"].ToString();
-            //        string custMail = row["email"].ToString();
-            //        string custSKey = row["CustomerKey"].ToString();
-
-            //        message.Append("Dear " + custName + ",");
-
-            //        message.Append(body);
-
-            //        //add the disclaimer message
-            //        message.Append("<span style=\"font-size: 9px;\">This email was sent to"
-            //                        + " <a href=\"mailto:" + custMail + "\">" 
-            //                        + custMail + "</a>. To stop receiving this newsletter click"
-            //                        + " <a href=\"https://www.bikewale.com/Newsletter/Unsubscribe.aspx\">here</a>.</span>");
-
-            //        op.SendNewsletterMail(custMail, subject, message.ToString(), true);
-
-            //        HttpContext.Current.Trace.Warn("Newsletter Sent to : " + custId + " : " + custName + " : " + custMail);
-            //    }
-            //}
-            //catch(Exception err)
-            //{
-            //    HttpContext.Current.Trace.Warn(err.Message);
-            //    ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //} // catch Exception
+     
         }
 
         /// <summary>
@@ -867,7 +772,7 @@ namespace Bikewale.Common
 
                 subject = "Used Bike Purchase Inquiry Arrived.";
 
-                message.Append("<img align=\"right\" src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
                 message.Append("<b>Dear " + name + ",</b>");
 
                 message.Append("<p>Greetings from bikewale!</p>");

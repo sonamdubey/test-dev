@@ -78,7 +78,7 @@
                             <li data-item-type="@Details.DealerType" data-item-id="@Details.DealerId" data-item-inquired="false" data-item-number="@Details.MaskingNumber" data-lat="@Details.objArea.Latitude" data-log="@Details.objArea.Longitude" data-address="@Details.Address" data-campid="@Details.CampaignId" data-item-url="@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)">
                                 <a href="/@Model.Make.MaskingName-dealer-showrooms-in-@Model.CityDetails.CityMaskingName/@Details.DealerId-@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)/" title="@Details.Name" class="dealer-card-target font14">
                                     <div class="margin-bottom5">
-                                        <div class="@string.Format("{0}",Details.DealerType==3||Details.DealerType==2?"":"hide")">
+                                        <div class="@string.Format("{0}",Details.DealerType == 4|| Details.DealerType == 3 || Details.DealerType == 2? string.Empty : "hide" )">
                                             <span class="featured-tag margin-bottom5"><span class="bwsprite star-white"></span>Featured</span>
                                         </div>
                                         <h3 class="dealer-name text-black text-bold">@Details.Name</h3>
@@ -99,7 +99,7 @@
                                         <span class="vertical-top text-bold text-default dealership-card-details">@Details.MaskingNumber</span>
                                     </p>
                                 </a>
-                                <div class="@string.Format("{0}", Details.DealerType == 3 || Details.DealerType == 2 ? "margin-top20" : "hide")">
+                                <div class="@string.Format("{0}", Details.DealerType == 4 || Details.DealerType == 3 || Details.DealerType == 2 ? "margin-top20" : "hide")">
                                     <a id="dealerLead" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-areaname="@Details.objArea.AreaName" data-cityname="@Model.CityDetails.CityName" data-campid="@Details.CampaignId" data-pqsourceid="(int)@Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton" data-eventcategory="Dealer_Locator" class="btn btn-white btn-full-width font14 leadcapturebtn bw-ga" c="Dealer_Locator" a="Get_Offers_Clicked" l="@Details.GetOffersGALabel">@Details.DisplayTextLarge</a>
                                   </div>
                             </li>
@@ -110,7 +110,7 @@
                 </div>
                 <div id="listing-right-column" class="grid-8 alpha omega">
                     <div class="dealer-map-wrapper">
-                        <div id="dealerMapWrapper" data-currentcityname="@Model.CityDetails.CityName" style="width: 661px; height: 530px; background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;">
+                        <div id="dealerMapWrapper" data-currentcityname="@Model.CityDetails.CityName" style="width: 661px; height: 530px; background: #fff url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;">
                             <div id="dealersMap" style="width: 661px; height: 530px;"></div>
                         </div>
                     </div>

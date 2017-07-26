@@ -3,8 +3,8 @@
     private string title = "", relPrevPageUrl = string.Empty, relNextPageUrl = string.Empty,description = "", keywords = "", AdId = "", AdPath = "", canonical = "", TargetedModel = "", TargetedMakes = "", TargetedModels = "", TargetedCity = ""
         , OGImage = "";
     private ushort feedbackTypeId = 0;
-    string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
-    string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+    string staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
+    string staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
     private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false, Ad320x150_I = false, Ad320x150_II = false,
         EnableOG = true, Ad_Mid_320x50 = false, ShowSellBikeLink = false;    
 </script>
@@ -27,7 +27,7 @@
 <%if (!String.IsNullOrEmpty(relPrevPageUrl)){ %> <link rel="prev" href="<%= relPrevPageUrl %>" /><% } %>
 <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %> <link rel="next" href="<%= relNextPageUrl %>" /><% }%>
 
-<link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
+<link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
 
 <link rel="stylesheet" type="text/css" href="/m/css/bwm-common-atf.css" />
 

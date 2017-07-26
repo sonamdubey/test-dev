@@ -68,6 +68,13 @@ docReady(function () {
     var vmVersionTable = new versionTable();
     ko.applyBindings(vmVersionTable, $("#orpContent")[0]);
 
+    $('.chosen-select').on('change', function () {
+        var selectField = $(this);
+        if (selectField.val() > 0) {
+            selectField.closest('.select-box').addClass('done');
+        }
+    });
+
     $('#version-dropdown').chosen().change(function () {
         var obj = $(this);
         vmVersionTable.getVersionObject(obj.val());
@@ -340,48 +347,14 @@ docReady(function () {
                     lab: ele.attr("v")
                 }
             };
-            if (leadOptions.dealersRequired) {
-                generateDealerDropdown(leadOptions.dealerid);
-            }
+            
             dleadvm.setOptions(leadOptions);
         } catch (e) {
             console.warn("Unable to get submit details : " + e.message);
         }
 
     });
-    function generateDealerDropdown(dealerId) {
-        var cityId = $("#priceincity").data("cityid") || 0;
-        $.ajax({
-            type: "GET",
-            url: "/api/ManufacturerCampaign/city/" + cityId + "/dealer/" + dealerId + "/",
-            contentType: "application/json",
-            dataType: 'json',
-            success: function (response) {
-                var obj = ko.toJS(response);
-                var count = obj.length;
-                if (count >= 1) {
-                    if (count == 1) {
-                        $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
-                        $("#ddlMfgDealers").val('0');
-                        $("#ddlMfgDealers").closest('.select-box').addClass('done');
-                        dleadvm.dealersRequired(false);
-                    } else {
-                        $("#ddlMfgDealers").html('');
-                        $("#ddlMfgDealers").append("<option value></option>");
-                        for (i = 0; i < count; i++) {
-                            var dt = obj[i];
-                            var areaName = '';
-                            if (dt.area != null) {
-                                areaName = ", " + dt.area;
-                            }
-                            $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-id='" + dt.id + "' >" + dt.dealerName + areaName + "</option>");
-                        }
-                    }
-                }
-                $("#ddlMfgDealers").trigger("chosen:updated");
-            },
-        });
-    }; 
+   
 });
 
 // add divider

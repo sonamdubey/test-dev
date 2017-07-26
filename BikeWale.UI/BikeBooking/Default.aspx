@@ -17,9 +17,9 @@
          
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bookinglanding.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl  %>/css/bookinglanding.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey" data-contestslug="true">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <script type="text/javascript">document.getElementById("header").children[1].innerHTML = "";</script>
@@ -155,7 +155,7 @@
             </div>
         </section>
 
-        <script src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
+        <script src="<%= staticUrl  %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
 
         <script>
             $(window).on("scroll", function () {

@@ -15,10 +15,23 @@
                     <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                 }
                 <div class="clear"></div>
-                <a href="@string.Format("/m{0}", Model.BikeUrl)" class="leftfloat text-default margin-bottom15" title="@Model.BikeName">
+                <a href="@string.Format("/m{0}", Model.BikeUrl)" class="block text-default margin-bottom5" title="@Model.BikeName">
                     <h2>@Model.BikeName</h2>
                 </a>
-
+                @if (Model.BikeInfo.RatingCount > 0)
+                {
+                <div id="reviewRatingsDiv" class="margin-bottom10 position-rel position--left-neg-5">                                    
+                    <span class="rate-count-@Math.Round(Model.BikeInfo.Rating)">                     
+                        <span class="bwmsprite star-icon star-size-16"></span>
+                        <span class="font14 text-bold inline-block">@Model.BikeInfo.Rating.ToString("0.0").TrimEnd('0', '.')</span>
+                    </span>
+                    <span class='font11 text-xx-light inline-block padding-left5'>(@string.Format("{0} {1}", Model.BikeInfo.RatingCount, Model.BikeInfo.RatingCount > 1 ? "ratings" : "rating"))</span>
+                    @if (Model.BikeInfo.UserReviewCount > 0)
+                    {
+                        <a class='text-xt-light review-left-divider inline-block' href="@string.Format("/m{0}reviews/", Model.BikeUrl)" title="@Model.BikeName user reviews">@string.Format("{0} {1}", Model.BikeInfo.UserReviewCount, Model.BikeInfo.UserReviewCount > 1 ? "reviews" : "review")</a>
+                    }
+                </div>
+                }
                 <div class="margin-bottom10">
                     @if (Model.IsSmallSlug)
                     {
