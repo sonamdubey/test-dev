@@ -33,21 +33,25 @@ namespace BikewaleOpr.DALs.Banner
 
                     var param = new DynamicParameters();
                     param.Add("par_id", bannerId);
-                    objBannerVM = new BannerVM();
+                   
                     var obj = connection.QueryMultiple("gethomepagebanner_20072017", param: param, commandType: CommandType.StoredProcedure);
-                    objBannerVM.DesktopBannerDetails = obj.Read<BannerDetails>().FirstOrDefault();
-                    objBannerVM.MobileBannerDetails = obj.Read<BannerDetails>().FirstOrDefault();
-                    var objvm = obj.Read<dynamic>().FirstOrDefault();
-                    if (objvm != null)
+                    if (obj!=null)
                     {
-                        objBannerVM.StartDate = objvm.StartDate;
-                        objBannerVM.EndDate = objvm.EndDate;
-
-                        objBannerVM.BannerDescription = objvm.BannerDescription;
-
+                        objBannerVM = new BannerVM();
+                        objBannerVM.DesktopBannerDetails = obj.Read<BannerDetails>().FirstOrDefault();
+                        objBannerVM.MobileBannerDetails = obj.Read<BannerDetails>().FirstOrDefault();
+                        var objvm = obj.Read<dynamic>().FirstOrDefault();
+                        if (objvm != null)
+                        {
+                            objBannerVM.StartDate = objvm.StartDate;
+                            objBannerVM.EndDate = objvm.EndDate;
+                            objBannerVM.BannerDescription = objvm.BannerDescription;
+                        }
+                      
+                       
+                        if (bannerId > 0)
+                            objBannerVM.CampaignId = bannerId; 
                     }
-                    if (bannerId > 0)
-                        objBannerVM.CampaignId = bannerId;
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
                 }
@@ -165,10 +169,15 @@ namespace BikewaleOpr.DALs.Banner
                     param.Add("par_jumbotrondepth", objBanner.JumbotronDepth);
                     param.Add("par_html", objBanner.HTML);
                     param.Add("par_css", objBanner.CSS);
+                    param.Add("par_unmodifiedhtml", objBanner.UnModifiedHtml);
+                    param.Add("par_unmodifiedcss", objBanner.UnModifiedCSS);
                     param.Add("par_js", objBanner.JS);
                     param.Add("par_id", campaignId);
                     param.Add("par_platformid", platformId);
-                  success= connection.Execute("savebannerdetails", param: param, commandType: CommandType.StoredProcedure);
+                    param.Add("par_category", objBanner.Category);
+                    param.Add("par_action", objBanner.Action);
+                    param.Add("par_label", objBanner.Label);
+                    success = connection.Execute("savebannerdetails", param: param, commandType: CommandType.StoredProcedure);
                 }
 
             }
