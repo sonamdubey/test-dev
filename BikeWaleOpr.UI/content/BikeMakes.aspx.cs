@@ -108,7 +108,7 @@ namespace BikeWaleOpr.Content
                         nvc.Add("v_Futuristic", "0");
                         nvc.Add("v_Used", "1");
                         nvc.Add("v_New", "1");
-                        SyncBWData.PushToQueue("BW_AddBikeMakes", DataBaseName.CWMD, nvc);
+                        SyncBWData.PushToQueue("BW_AddBikeMakes", DataBaseName.CW, nvc);
                     }
                 }
             }
