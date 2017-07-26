@@ -9,11 +9,11 @@ namespace Bikewale.Entities.HomePage
     [Serializable]
     public class HomePageBannerEntity
     {
-        public string MobileHtml { get; set; }
-        public string DesktopHtml { get; set; }
-        public string MobileCss { get; set; }
-        public string DesktopCss { get; set; }
-        public string MobileJS { get; set; }
-        public string DesktopJS { get; set; }
+        public string Html { get; set; }
+        
+        public string Css { get; set; }
+        
+        public string JS { get; set; }
+        
     }
 }

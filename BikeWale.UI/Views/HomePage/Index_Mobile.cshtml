@@ -31,9 +31,9 @@
             <ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
             @if (Model.Banner != null)
             {
-               @Html.Raw(Model.Banner.MobileCss);
-                @Html.Raw(Model.Banner.MobileHtml);
-                @Html.Raw(Model.Banner.MobileJS);
+               @Html.Raw(Model.Banner.Html);
+                @Html.Raw(Model.Banner.Css);
+                @Html.Raw(Model.Banner.JS);
             }
         </div>
     </div>
