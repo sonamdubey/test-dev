@@ -48,7 +48,7 @@
             </table>
         </div>
     </div>
-@using (Html.BeginForm("Add", "Makes", FormMethod.Post))
+@using (Html.BeginForm("AddorUpdateSponsoredComparison", "Comparison", FormMethod.Post))
 {
     <div class="col m2">
         <ul class="collapsible" data-collapsible="accordion">
@@ -130,7 +130,7 @@
                                 <label for="txtBikeImageImpression">Bike Image Impression/GA</label>
                             </li>
                             <li class="input-field">
-                                <button data-bind="click: redirect" class="btn waves-effect waves-light" type="submit" name="action">
+                                <button data-bind="click: " class="btn waves-effect waves-light" type="submit" name="action">
                                     Add Campaign
                                 </button>
                             </li>

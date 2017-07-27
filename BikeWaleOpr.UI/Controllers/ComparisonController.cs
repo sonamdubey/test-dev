@@ -34,5 +34,20 @@ namespace BikewaleOpr.Controllers
             }
             return View();
         }
+
+        /// <summary>
+        /// Created by :- Sushil Kumar on 27th July 2017
+        /// summary :- Add or update sponsord comparisons
+        /// </summary>
+        /// <returns></returns>
+        [Route("comparison/sponsored/add/rules/")]
+        public ActionResult AddSponsoredComparisonRules(uint comparisonId)
+        {
+            if (comparisonId > 0)
+            {
+
+            }
+            return View();
+        }
     }
 }
