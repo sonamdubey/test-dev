@@ -24,11 +24,13 @@ namespace Bikewale.Cache.HomePage
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Dec 2016
         /// Description :   Gets Home Page Banner from Cache
+        /// Modified By:-Subodh Jain 26 july 2017
+        /// Summary :- changed cache key and modified according to platform id
         /// </summary>
         /// <returns></returns>
         public HomePageBannerEntity GetHomePageBanner(uint platformId)
         {
-            string key = "BW_HomePageBanner";
+            string key = string.Format("BW_HomePageBanner_PlatformId_{0}", platformId);
             HomePageBannerEntity homePageBanner = null;
             try
             {
@@ -37,7 +39,7 @@ namespace Bikewale.Cache.HomePage
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "HomePageBannerCacheRepository.GetHomePageBanner");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("HomePageBannerRepository.GetHomePageBanner platformid:{0}", platformId));
             }
             return homePageBanner;
         }
