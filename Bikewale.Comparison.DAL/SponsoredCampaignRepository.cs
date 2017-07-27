@@ -5,72 +5,219 @@ using System.Text;
 using System.Threading.Tasks;
 using Bikewale.Comparison.Entities;
 using Bikewale.Comparison.Interface;
+using Bikewale.DAL.CoreDAL;
+using System.Data;
+using Dapper;
+using Bikewale.Notifications;
 
 namespace Bikewale.Comparison.DAL
 {
-    public class SponsoredCampaignRepository : ISponsoredCampaign
+    /// <summary>
+    /// Modified by :- Sangram Nandkhile on 26 july 2017
+    /// summary :- Sponsored Campaign Repository
+    /// </summary>
+    /// <returns></returns>
+    public class SponsoredCampaignRepository : ISponsoredCampaignRepository
     {
         public bool DeleteSponsoredComparisonBikeAllRules(uint camparisonId)
         {
-            throw new NotImplementedException();
+            bool isSaved = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_camparisonid", camparisonId);
+                    connection.Query<dynamic>("DeleteSponsoredComparisonBikeAllRules", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                    isSaved = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeAllRules: -> campaignId : {0}", camparisonId));
+            }
+            return isSaved;
         }
 
-        public bool DeleteSponsoredComparisonBikecityRules(uint camparisonId, uint ruleId, uint cityId)
+        public bool DeleteSponsoredComparisonBikeSponsoredModelRules(uint camparisonId, uint SponsoredModelId)
+        {
+            bool isSaved = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_camparisonid", camparisonId);
+                    param.Add("par_sponsoredmodelid", SponsoredModelId);
+                    connection.Query<dynamic>("DeleteSponsoredComparisonBikeSponsoredModelRules", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                    isSaved = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeSponsoredModelRules: -> campaignId : {0},SponsoredModelId : {1} ", camparisonId, SponsoredModelId));
+            }
+            return isSaved;
+        }
+
+        public bool DeleteSponsoredComparisonBikeSponsoredVersionRules(uint camparisonId, uint sponsoredVersionId)
+        {
+            bool isSaved = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_camparisonid", camparisonId);
+                    param.Add("par_sponsoredversionid", sponsoredVersionId);
+                    connection.Query<dynamic>("DeleteSponsoredComparisonBikeSponsoredVersionRules", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                    isSaved = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeSponsoredModelRules: -> camparisonId : {0},sponsoredVersionId : {1} ", camparisonId, sponsoredVersionId));
+            }
+            return isSaved;
+        }
+
+        public bool DeleteSponsoredComparisonBikeTargetVersionRules(uint camparisonId, uint targetversionId)
+        {
+            bool isSaved = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_camparisonid", camparisonId);
+                    param.Add("par_sponsoredversionid", targetversionId);
+                    connection.Query<dynamic>("deletesponsoredComparisonbiketargetVersionRules", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                    isSaved = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeTargetVersionRules: -> camparisonId : {0},targetversionId : {1} ", camparisonId, targetversionId));
+            }
+            return isSaved;
+        }
+
+        public SponsoredCampaign GetSponsoredComparison()
         {
             throw new NotImplementedException();
         }
 
-        public bool DeleteSponsoredComparisonBikeSponsoredModelRules(uint camparisonId, uint SponsoredmodelId)
+        public SponsoredCampaign GetSponsoredComparison(uint campaignId)
         {
-            throw new NotImplementedException();
+            SponsoredCampaign objCampaign = null;
+
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    objCampaign = connection.Query<SponsoredCampaign>("getsponsoredcomparison", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparison: -> campaignId : {0}", campaignId));
+            }
+
+
+            return objCampaign;
         }
 
-        public bool DeleteSponsoredComparisonBikeSponsoredVersionRules(uint camparisonId, uint SponsoredversionId)
+        public IEnumerable<SponsoredCampaign> GetSponsoredComparisons(string statuses)
         {
-            throw new NotImplementedException();
-        }
+            IEnumerable<SponsoredCampaign> comparisonCampaigns = null;
 
-        public bool DeleteSponsoredComparisonBikeStateRules(uint camparisonId, uint ruleId, uint stateId)
-        {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_statuses", statuses);
+                    comparisonCampaigns = connection.Query<SponsoredCampaign>("getsponsoredcomparisons", param: param, commandType: CommandType.StoredProcedure);
 
-        public bool DeleteSponsoredComparisonBiketargetVersionRules(uint camparisonId, uint targetversionId)
-        {
-            throw new NotImplementedException();
-        }
 
-        public IEnumerable<SponsoredCampaign> GetSponsoredComparison()
-        {
-            throw new NotImplementedException();
-        }
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparisons");
+            }
 
-        public SponsoredCampaign GetSponsoredComparisons(SponsoredCampaignStatus status)
-        {
-            throw new NotImplementedException();
+            return comparisonCampaigns;
         }
 
         public TargetedModel GetSponsoredComparisonSponsoredBike(uint camparisonId)
         {
             throw new NotImplementedException();
         }
-
-        public IEnumerable<City> GetSponsoredComparisonTargetVersionLocation(uint camparisonId, string targetVersionId)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public SponsoredVersionMapping GetSponsoredComparisonVersionMapping(uint camparisonId, uint sponsoredModelId)
         {
             throw new NotImplementedException();
         }
 
-        public bool SaveSponsoredComparisonBikecityRules(uint camparisonId, bool isAllIndia, string cityIds)
+        public bool SaveSponsoredComparison(SponsoredCampaign campaign)
         {
-            throw new NotImplementedException();
+            bool isSaved = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_name", campaign.Name);
+                    param.Add("par_startdate", campaign.StartDate);
+                    param.Add("par_enddate", campaign.EndDate);
+                    param.Add("par_linktext", campaign.LinkText);
+                    param.Add("par_linkurl", campaign.LinkUrl);
+                    param.Add("par_impressionurl", campaign.ImpressionUrl);
+                    param.Add("par_imgimpressionurl", campaign.ImgImpressionUrl);
+                    param.Add("par_updatedby", campaign.UpdatedBy);
+                    param.Add("par_id", campaign.Id, dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    connection.Query<dynamic>("savesponsoredcomparisons", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                    isSaved = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.SaveSponsoredComparison");
+            }
+            return isSaved;
         }
 
-        public bool saveSponsoredComparisonBikeRules(SponsoredCampaign campaign)
+        public bool SaveSponsoredComparisonBikeRules()
         {
             throw new NotImplementedException();
         }

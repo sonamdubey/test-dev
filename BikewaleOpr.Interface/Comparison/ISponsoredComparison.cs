@@ -5,17 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Bikewale.Comparison.Entities;
 
-namespace Bikewale.Comparison.Interface
+namespace BikewaleOpr.Interface.Comparison
 {
-    /// <summary>
-    /// Modified by :- Sangram Nandkhile on 26 july 2017
-    /// summary :- Get Sponsored Campaign
-    /// </summary>
-    /// <returns></returns>
-    public interface ISponsoredCampaignRepository
+    public interface ISponsoredComparison
     {
         SponsoredCampaign GetSponsoredComparison();
-        IEnumerable<SponsoredCampaign> GetSponsoredComparisons(string statuses);
+        IEnumerable<SponsoredCampaign> GetSponsoredComparisons(SponsoredCampaignStatus status);
         bool SaveSponsoredComparison(SponsoredCampaign campaign);
         bool SaveSponsoredComparisonBikeRules();
         SponsoredVersionMapping GetSponsoredComparisonVersionMapping(uint camparisonId, uint sponsoredModelId);
@@ -24,9 +19,6 @@ namespace Bikewale.Comparison.Interface
         bool DeleteSponsoredComparisonBikeSponsoredModelRules(uint camparisonId, uint SponsoredmodelId);
         bool DeleteSponsoredComparisonBikeSponsoredVersionRules(uint camparisonId, uint SponsoredversionId);
         bool DeleteSponsoredComparisonBikeTargetVersionRules(uint camparisonId, uint targetversionId);
-        //bool DeleteSponsoredComparisonBikeStateRules(uint camparisonId, uint ruleId, uint stateId);
-        //bool DeleteSponsoredComparisonBikecityRules(uint camparisonId, uint ruleId, uint cityId);
-        //IEnumerable<City> GetSponsoredComparisonTargetVersionLocation(uint camparisonId, string targetVersionId);
-        //bool SaveSponsoredComparisonBikecityRules(uint camparisonId, bool isAllIndia, string cityIds);
+
     }
 }

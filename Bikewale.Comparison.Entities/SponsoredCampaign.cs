@@ -6,26 +6,36 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Comparison.Entities
 {
+    /// <summary>
+    /// Created by: Sangram Nandkhie 27-Jul-2017
+    /// Summary: Entity for sponsored campaign
+    /// </summary>
     public class SponsoredCampaign
     {
         public uint Id { get; set; }
+        public string Name { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public string LinkText { get; set; }
         public string LinkUrl { get; set; }
         public string ImpressionUrl { get; set; }
         public string ImgImpressionUrl { get; set; }
         public SponsoredCampaignStatus Status { get; set; }
-        public string Name { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
         public DateTime EntryDate { get; set; }
         public DateTime LastUpdated { get; set; }
         public uint UpdatedBy { get; set; }
+
+        public uint ComparisonId { get; set; }
     }
 
+    /// <summary>
+    /// Created by: Sangram Nandkhie 27-Jul-2017
+    /// Summary: Entity for sponsored campaign model
+    /// </summary>
     public class SponsoredCampaignModel
     {
         public uint Id { get; set; }
-        public uint CamparisonId { get; set; }
+        public uint ComparisonId { get; set; }
         public string TargetModelId { get; set; }
         public string TargetVersionId { get; set; }
         public string SponsoredModelId { get; set; }
@@ -35,6 +45,10 @@ namespace Bikewale.Comparison.Entities
         public DateTime EntryDate { get; set; }
     }
 
+    /// <summary>
+    /// Created by: Sangram Nandkhie 27-Jul-2017
+    /// Summary: Entity for sponsored campaign status
+    /// </summary>
     public enum SponsoredCampaignStatus
     {
         Unstarted = 0,
@@ -44,6 +58,11 @@ namespace Bikewale.Comparison.Entities
         Aborted = 4
     }
 
+    /// <summary>
+    /// Created by: Sangram Nandkhie 27-Jul-2017
+    /// Summary: Entity for sponsored campaign bike version
+    /// </summary>
+    /// 
     public class BikeVersion
     {
         public uint Id { get; set; }
@@ -52,12 +71,6 @@ namespace Bikewale.Comparison.Entities
         public double Price { get; set; }
     }
 
-    public class City
-    {
-        public uint Id { get; set; }
-        public string Name { get; set; }
-        public string MaskingName { get; set; }
-    }
 
     public class SponsoredVersionMapping
     {
