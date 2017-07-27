@@ -1,8 +1,8 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.CMS;
@@ -96,11 +96,11 @@ namespace Bikewale.Models
                 objVM.Location = cityName;
                 objVM.LocationMasking = cityMaskingName;
                 cityBase = new CityEntityBase()
-                    {
-                        CityId = cityId,
-                        CityMaskingName = cityMaskingName,
-                        CityName = cityName
-                    };
+                {
+                    CityId = cityId,
+                    CityMaskingName = cityMaskingName,
+                    CityName = cityName
+                };
             }
             else
             {
@@ -126,10 +126,13 @@ namespace Bikewale.Models
             objVM.UpcomingBikes = new UpcomingBikesWidgetVM();
             objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
             BindCompareBikes(objVM, CompareSource, cityId);
-            
+
             objVM.BestBikes = new BestBikeWidgetModel(null, _cachedModels).GetData();
 
-            objVM.UsedBikeCities = new UsedBikeCitiesWidgetModel(cityMaskingName, string.Empty, _IUsedBikesCache).GetData();
+            string cityWidgetTitle = string.Empty, cityWidgetHref = string.Empty;
+            cityWidgetTitle = "Second hand bikes in India";
+            cityWidgetHref = "/used/bikes-in-india/";
+            objVM.UsedBikeCities = new UsedBikeCitiesWidgetModel(cityWidgetTitle, cityWidgetHref, _IUsedBikesCache).GetData();
 
             objVM.UsedModels = BindUsedBikeByModel(cityId);
 
