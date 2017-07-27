@@ -40,27 +40,27 @@
                 <div class="text-slate-grey line-height17">
                     @if (!Model.IsUpcomingBike)
                     {
-                        <p id="main-preview-content" class="inline">
-                            @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
+                    <p id="main-preview-content" class="inline">
+                        @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
                             {
-                                @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                            @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
                             }
                             else
                             {
-                                @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                            @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
                             }
-                        </p>
+                    </p>
                         if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
                         {
-                            <p id="more-preview-content" class="hide">
-                                @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
-                            </p>
-                            <a href="javascript:void(0)" id="read-more-preview" rel="nofollow">Read more</a>
+                    <p id="more-preview-content" class="hide">
+                        @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                    </p>
+                    <a href="javascript:void(0)" id="read-more-preview" rel="nofollow">Read more</a>
                         }
                     }
                     else
                     {
-                        @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
+                    @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription)
                     }
                 </div>
             </div>
@@ -70,11 +70,24 @@
             <div class="clear"></div>
         </div>
                     }
+    
+    <div class="card-bottom-margin">
+        <div class="content-box-shadow content-inner-block-20">
+            <div class="leftfloat">
+                <span class="contest-fullwidth__trophy-circle"></span>
+                <p class="contest-fullwidth__heading">Bike Review Contest</p>
+                <p class="contest-fullwidth__subheading">Rate &amp; write a detailed review to win Amazon vouchers worth &#x20B9; 1,000</p>
+            </div>
+            <div class="rightfloat padding-top15">
+                <a href="/bike-review-contest/" class="btn btn-inv-teal contest-fullwidth__target">Participate &amp; win<span class="bwsprite teal-right"></span></a>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
 
     @if (Model.IsReviewsAvailable || Model.IsUserReviewsAvailable)
     {
         <div id="modelReviewsContent" class="bw-model-tabs-data font14">
-
             @if (Model.IsUserReviewsAvailable)
             {
                 <div class="content-box-shadow card-bottom-margin content-inner-block-20">
