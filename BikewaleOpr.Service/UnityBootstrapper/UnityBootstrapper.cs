@@ -1,4 +1,6 @@
-﻿using Bikewale.ManufacturerCampaign.DAL;
+﻿using Bikewale.Comparison.DAL;
+using Bikewale.Comparison.Interface;
+using Bikewale.ManufacturerCampaign.DAL;
 using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.Images;
@@ -12,6 +14,7 @@ using BikewaleOpr.DALs.ManufactureCampaign;
 using BikewaleOpr.DALs.UserReviews;
 using BikewaleOpr.Interface.BikeColorImages;
 using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Interface.Comparison;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.Images;
 using BikewaleOpr.Interface.ManufacturerCampaign;
@@ -55,6 +58,9 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IImageRepository, ImageRepository>();
             container.RegisterType<ISecurity, SecurityBL>();
             container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
+            container.RegisterType<ISponsoredCampaignRepository, SponsoredCampaignRepository>();
+
+            
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
 
             return container;
