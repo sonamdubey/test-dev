@@ -82,6 +82,7 @@ bannerId = $('#bannerId').val();
                     success: function (response) {
                         $('#bannerId').val(response);
                         bannerId = response;
+                        Materialize.toast('Banner basic details saved', 4000);
                         $('.stepper').nextStep();
                     }
                 });
@@ -193,6 +194,7 @@ bannerId = $('#bannerId').val();
                     contentType: "application/json",
                     data: ko.toJSON(desktopDetails),
                     success: function (response) {
+                        Materialize.toast('Desktop banner configured', 4000);
                         $('.stepper').nextStep();
                     }
                 });
@@ -259,8 +261,8 @@ bannerId = $('#bannerId').val();
                 var mobileDetails = {
                     "MobileBannerDetails":
                         {
-                            "html": $('#textareaHtmlMobile').val(),
-                            "css": $('#textareaCssMobile').val(),
+                            "html": $('#ModifiedHtmlMobile').val(),
+                            "css": $('#ModifiedCssMobile').val(),
                             "js": $('#textareaJsMobile').val(),
                             "unmodifiedhtml": $('#textareaHtmlMobile').val(),
                             "unmodifiedcss": $('#textareaCssMobile').val(),
@@ -287,6 +289,7 @@ bannerId = $('#bannerId').val();
                     contentType: "application/json",
                     data: ko.toJSON(mobileDetails),
                     success: function (response) {
+                        Materialize.toast('Mobile banner configured', 4000);
                         $('.stepper').nextStep();
                     }
                 });
@@ -344,6 +347,11 @@ bannerId = $('#bannerId').val();
                                 imgPathMobile = 'https://imgd.aeplcdn.com/' + '0x0/' + imgUpldUtil.response.originalImagePath;
 
                             Materialize.toast('Image uploaded succesfull!', 4000);
+
+                            if (platformid == 1)
+                                Materialize.toast('Please configure desktop banner to reflect photo', 4000);
+                            else
+                                Materialize.toast('Please configure mobile banner to reflect photo', 4000);
                         }
                     }
 
