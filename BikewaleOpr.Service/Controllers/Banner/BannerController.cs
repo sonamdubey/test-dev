@@ -1,4 +1,5 @@
 ﻿using Bikewale.Notifications;
+using BikewaleOpr.BAL;
 using BikewaleOpr.Entity;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Models;
@@ -73,6 +74,8 @@ namespace BikewaleOpr.Service.Controllers
                 {
                     BannerDetails objBannerDetails = (platformId == 1) ? objBanner.DesktopBannerDetails : objBanner.MobileBannerDetails;
                     bool success = _objBannerRespository.SaveBannerProperties(objBannerDetails, platformId, objBanner.CampaignId);
+                    if(success)
+                    MemCachedUtil.Remove(string.Format("BW_HomePageBanner_PlatformId_{0}", platformId));
                     return Ok(success);
                 }
                 catch (Exception ex)
