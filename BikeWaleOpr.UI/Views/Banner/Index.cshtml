@@ -16,8 +16,8 @@
                     <div class="step-content">
                         <div class="row">
                             <div class="input-field row">
-                                <textarea id="textareaBannerDesc" class="materialize-textarea">@(Model.BannerDescription )</textarea>
-                                <label for="textareaBannerDesc">Banner Description*</label>
+                                <textarea id="textareaBannerDesc" class="materialize-textarea" data-bind="css:bannerDescriptionMsg()!=''?'invalid':'' ">@(Model.BannerDescription )</textarea>
+                                <label for="textareaBannerDesc" data-error="" data-bind="attr:{'data-error':bannerDescriptionMsg},css:bannerDescriptionMsg()!=''?'active':''">Banner Description*</label>
                             </div>
                         </div>
 
@@ -25,8 +25,8 @@
                             <div class="col m4">
                                 <div class="input-field">
                                     <i class="material-icons prefix margin-top15">date_range</i>
-                                    <input type="date" id="startDateEle" name="StartDate" value="@(Model.StartDate.HasValue?Model.StartDate.Value.ToString("yyyy-MM-dd") : "")" class="datepicker margin-left5" />
-                                    <label for="startDateEle">Campaign Start Date*</label>
+                                    <input type="date" id="startDateEle" name="StartDate" value="@(Model.StartDate.HasValue?Model.StartDate.Value.ToString("yyyy-MM-dd") : "")" class="datepicker margin-left5" data-bind="css:campaignStartDateMsg()!=''?'invalid':'' "/>
+                                    <label for="startDateEle" data-error="" data-bind="attr:{'data-error':campaignStartDateMsg},css:campaignStartDateMsg()!=''?'active':''">Campaign Start Date*</label>
                                 </div>
                             </div>
 

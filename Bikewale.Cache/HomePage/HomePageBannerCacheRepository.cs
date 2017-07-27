@@ -26,13 +26,13 @@ namespace Bikewale.Cache.HomePage
         /// Description :   Gets Home Page Banner from Cache
         /// </summary>
         /// <returns></returns>
-        public HomePageBannerEntity GetHomePageBanner()
+        public HomePageBannerEntity GetHomePageBanner(uint platformId)
         {
             string key = "BW_HomePageBanner";
             HomePageBannerEntity homePageBanner = null;
             try
             {
-                homePageBanner = _cache.GetFromCache<HomePageBannerEntity>(key, new TimeSpan(0, 30, 0), () => _homePageRepository.GetHomePageBanner());
+                homePageBanner = _cache.GetFromCache<HomePageBannerEntity>(key, new TimeSpan(0, 30, 0), () => _homePageRepository.GetHomePageBanner(platformId));
 
             }
             catch (Exception ex)
