@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Manage Sponsored Comparisons";
+    ViewBag.PageTitle = "Manage Sponsored Comparisons";
+}
+
+<div id="sponsoredComparisons" class="row margin-top10">
+    <div class="col m10">
+        <div id="tblCampaigns" class="" data-BwOprHostUrl="@System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]">
+            <table class="bordered highlight z-depth-3 centered responsive-table" id="sponsoredComparisonsList">
+                <tr>
+                    <th>ComparisonId</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>LinkText</th>
+                    <th>LinkUrl</th>
+                    <th>Name Impression Tracker</th>
+                    <th>Image Impression Tracker</th>
+                    <th>Status</th>
+                    <th>Rules</th>
+                    <th>Updated On</th>
+                    <th>Updated By</th>
+                </tr>
+                <tbody data-bind="foreach: ManufacturersCampaign">
+                    <tr>
+                        <td data-bind="text: id"></td>
+                        <td data-bind="text: description"></td>
+                        <td data-bind="text: startDate"></td>
+                        <td data-bind="text: endDate"></td>
+                        <td data-bind="text: linkText"></td>
+                        <td data-bind="text: linkUrl"></td>
+                        <td data-bind="text: nameImpression"></td>
+                        <td data-bind="text: imageImpression"></td>
+                        <td>
+                            <span data-bind="text: status"></span>
+                            <p>
+                                <a href="javascriptvoid(0)" data-bind="event: { click: function (data, event) { $parent.changeStatus(data, event); } },visible : (status=='Paused'||status=='Unstarted')?true:false" data-status="2" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Start Campaign"><i class="material-icons icon-green">play_circle_filled</i></a>
+
+                                <a href="javascriptvoid(0)" data-bind="event: { click: function (data, event) { $parent.changeStatus(data, event); } },visible : status=='Active'?true:false" class="tooltipped" data-status="4" data-position="bottom" data-delay="50" data-tooltip="Pause Campaign"><i class="material-icons icon-blue">pause_circle_filled</i></a>
+                                <a href="javascriptvoid(0)" data-bind="event: { click: function (data, event) { $parent.changeStatus(data, event); } },visible : (status=='Active'||status=='Paused')?true:false" data-status="6" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Abort Campaign" title="Abort Campaign"><i class="material-icons icon-red">cancel</i></a>
+                            </p>
+                        </td>
+                        <td data-bind="text: rules ?'Yes':'No'"></td>
+                        <td data-bind="text: lastUpdatedOn"></td>
+                        <td data-bind="text: lastUpdatedBy"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+@using (Html.BeginForm("Add", "Makes", FormMethod.Post))
+{
+    <div class="col m2">
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header"><strong>Search Comparisons</strong></div>
+                <div class="collapsible-body">
+                    <div class="container">
+                        <ul class="input-field row m12">
+                            <li>
+                                <input type="checkbox" id="chkAllStatus" name="chkAllStatus" value="0" class="with-gap" />
+                                <label for="chkAllStatus">All</label>
+                            </li>
+                            <li class="padding-top5">
+                                <input type="checkbox" id="chkActiveStatus" name="chkActiveStatus" value="1" class="with-gap" />
+                                <label for="chkActiveStatus">Active</label>
+                            </li>
+                            <li class="padding-top5">
+                                <input type="checkbox" id="chkPausedStatus" name="chkPausedStatus" value="2" class="with-gap" />
+                                <label for="chkPausedStatus">Paused</label>
+                            </li>
+                            <li class="padding-top5">
+                                <input type="checkbox" id="chkAbortedStatus" name="chkAbortedStatus" value="4" class="with-gap" />
+                                <label for="chkAbortedStatus">Aborted</label>
+                            </li>
+                            <li class="padding-top5">
+                                <input type="checkbox" id="chkExpiredStatus" name="chkExpiredStatus" value="3" class="with-gap" />
+                                <label for="chkExpiredStatus">Expired</label>
+                            </li>
+                        </ul>
+
+                        <div class="input-field row s12">
+                            <a href="javascript:void(0)" data-bind="click: searchSponsoredCamparisons" id="btnSearchCamparisons" class="btn waves-effect waves-light" name="action">
+                                Search Campaign
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </li>
+
+            <li>
+               
+                <div class="collapsible-header"><strong>Add Campaign</strong></div>
+                <div class="collapsible-body">
+                    <div class="container">
+                        <ul class="input-field row m12">
+                            <li>
+                                <input id="txtComparisonDescription" type="text" class="validate" name="Description" maxlength="100" length="100">
+                                <label for="txtComparisonDescription">Comparison Description *</label>
+                            </li>
+                            <li class="input-field">
+                                <i class="material-icons prefix margin-top15">date_range</i>
+                                <input type="date" id="dtStartTime" class="datepicker margin-left5" data-bind="textInput : startDate" data-value="" />
+                                <label for="dtStartTime">Campaign Start Date *</label>
+                                <input type="time" id="dtStartTime" value="" />
+                            </li>
+                            <li class="input-field">
+                                <i class="material-icons prefix margin-top15">date_range</i>
+                                <input type="date" id="dtEndDate" class="datepicker margin-left5" data-bind="textInput : startDate" data-value="" />
+                                <label for="dtEndDate">Campaign End Date *</label>
+                                <input type="time" id="dtEndTime" value="" />
+                            </li>
+                            <li class="input-field">
+                                <input id="txtLinkText" type="text" class="validate" name="LinkText">
+                                <label for="txtLinkText">Link Text</label>
+                            </li>
+                            <li  class="input-field">
+                                <input id="txtLinkUrl" type="text" class="validate" name="LinkUrl">
+                                <label for="txtLinkUrl">Link Url</label>
+                            </li>
+                            <li class="input-field">
+                                <input id="txtBikeNameImpression" type="text" class="validate" name="NameImpression">
+                                <label for="txtBikeNameImpression">Bike Name Impression/GA</label>
+                            </li>
+                            <li class="input-field">
+                                <input id="txtBikeImageImpression" type="text" class="validate" name="ImageImpression">
+                                <label for="txtBikeImageImpression">Bike Image Impression/GA</label>
+                            </li>
+                            <li class="input-field">
+                                <button data-bind="click: redirect" class="btn waves-effect waves-light" type="submit" name="action">
+                                    Add Campaign
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                
+            </li>
+        </ul>
+    </div>
+    <div id="msgBox" class="errorMessage margin-top10"></div>
+}
+</div>
+
+<script type="text/javascript">
+    var $dateInput = $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month   
+        closeOnSelect: true,
+        onClose: function () { if (dateValue != $("#reviewDateEle").val()) $("#reviewDate").val($("#reviewDateEle").val()); },
+        onOpen: function () { dateValue = $("#reviewDateEle").val() },
+        onSet: function (ele) { if (ele.select) { this.close(); } }
+    });
+</script>
