@@ -182,9 +182,9 @@
                             <div class="col m6 margin-top25">
                                 <label>Open Button Link In New Page :</label>
                                 <span>
-                                    <input name="group4" type="radio" id="radioOpenInNewPageDesktop" class="with-gap" @(Model.DesktopBannerDetails != null && Model.DesktopBannerDetails.Target == 1 ? "checked=checked" : "") />
+                                    <input name="group4" type="radio" id="radioOpenInNewPageDesktop" value="1" class="with-gap" @(Model.DesktopBannerDetails != null && Model.DesktopBannerDetails.Target == 1 ? "checked=checked" : "") />
                                     <label for="radioOpenInNewPageDesktop">Yes</label>
-                                    <input name="group4" type="radio" class="with-gap" id="radioOpenInSamePageDesktop" @(Model.DesktopBannerDetails != null && Model.DesktopBannerDetails.Target == 2 ? "checked=checked" : "") />
+                                    <input name="group4" type="radio" class="with-gap" id="radioOpenInSamePageDesktop" value="2" @(Model.DesktopBannerDetails != null && Model.DesktopBannerDetails.Target == 2 ? "checked=checked" : "") />
                                     <label for="radioOpenInSamePageDesktop">No</label>
                                 </span>
                             </div>
