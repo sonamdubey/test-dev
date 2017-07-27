@@ -839,6 +839,10 @@ a.chosen-single:hover {
 	border-right: 1px solid #fff;
 }
 
+.contest-banner__right-grid {
+	width: 66%;
+}
+
 .contest-banner__title-13,
 .contest-banner__title-18 {
 	font-weight: 700;
