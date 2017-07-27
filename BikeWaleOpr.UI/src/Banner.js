@@ -526,7 +526,7 @@ var processButtonHtml = function (platformId) {
             if ($('#txtLabelDesktop').val() != "")
                 button.attr('l', $('#txtLabelDesktop').val());
 
-            if($("input[name='pageOpenDesktop']:checked").val() == "1")
+            if ($("input[name='group4']:checked").val() == "1")
                 button.attr("target", "_blank");
 
             if (el.find('.campaign-banner-button-text').length > 0 && $('#txtButtonDesktop').val() != "")
@@ -556,7 +556,7 @@ var processButtonHtml = function (platformId) {
             if ($('#txtLabelMobile').val() != "")
                 button.attr('l', $('#txtLabelMobile').val());
 
-            if ($("input[name='pageOpenMobile']:checked").val() == "1")
+            if ($("input[name='group2']:checked").val() == "1")
                 button.attr("target", "_blank");
 
             if (el.find('.campaign-banner-button-text').length > 0 && $('#txtButtonMobile').val() != "")
