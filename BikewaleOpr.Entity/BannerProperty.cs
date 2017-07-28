@@ -13,5 +13,7 @@ namespace BikewaleOpr.Entity
         public string BannerDescription { get; set; }               
         public uint BannerId { get; set; }  
         public uint IsActive { get; set; }
+        public string UpdatedBy { get; set; }
+        public DateTime LastUpdated { get; set; }
     }
 }

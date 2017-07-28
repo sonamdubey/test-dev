@@ -16,6 +16,8 @@
                     <th>Start Date</th>
                     <th>End Date</th>                   
                     <th>Status</th>
+                    <th>Updated By</th>
+                    <th>Last Updated</th>
                     <th>Edit</th>                                  
                 </tr>
                 @if (Model.BannerList != null && Model.BannerList.Count() > 0)
@@ -27,7 +29,9 @@
                     <td>@m.BannerDescription</td>                   
                     <td>@(m.StartDate != null ? m.StartDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
                     <td>@(m.EndDate != null ? m.EndDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
-                    <td>@(m.IsActive == 1 ? "Active" : "InActive")</td>                                         
+                    <td>@(m.IsActive == 1 ? "Active" : "InActive")</td>   
+                    <td>@m.UpdatedBy</td>         
+                    <td>@(m.LastUpdated != null ? m.LastUpdated.ToString("dd MMM yyyy, hh:mm tt") : "")</td>                             
                     <td><a target="_blank" href="/banner/index/?id=@m.BannerId" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a>
                         @if (m.IsActive == 1)
                         {
@@ -65,12 +69,16 @@
                         </div>
                     </div>
                 </div>
-            </li>           
-        </ul>
-
-        <div style="margin-top:10px;">
-            <a target="_blank" class="btn waves-effect waves-light" href="/banner/index" type="button">Add new Banner</a>
-        </div>
+            </li>   
+            <li>
+                <div class="collapsible-header"><strong>Add Banner</strong></div>
+                <div class="collapsible-body">
+                    <div class="input-field row s12" style="margin-left:20px">
+                        <a target="_blank" class="btn waves-effect waves-light" href="/banner/index">Add new Banner</a>
+                    </div>
+                </div>
+            </li>        
+        </ul>        
     </div>
         
 </div>
