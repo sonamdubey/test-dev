@@ -50,6 +50,8 @@ namespace BikewaleOpr.Service.Controllers
             try
             {
                 status = _objBannerRespository.ChangeBannerStatus(reviewId, bannerStatus);
+                MemCachedUtil.Remove("BW_HomePageBanner_PlatformId_0");
+                MemCachedUtil.Remove("BW_HomePageBanner_PlatformId_1");
                 return Ok(status);
             }
             catch (Exception ex)
