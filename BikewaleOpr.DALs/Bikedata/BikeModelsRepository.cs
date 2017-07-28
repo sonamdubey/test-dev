@@ -374,6 +374,33 @@ namespace BikewaleOpr.DALs.Bikedata
             return models;
         }
 
+        /// <summary>
+        ///  Created By: Ashutosh Sharma on 27-07-2017
+        /// Description: Update used bike as sold in 'classifiedindividualsellinquiries' table.
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        public void UpdateAsSoldInquiry(uint inquiryId)
+        {
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "updateassoldusedbikelisting";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryId", DbType.Int32, inquiryId));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                }
+            }
+            
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UpdateAsSoldInquiry : inquiryId {0}", inquiryId));
+                objErr.SendMail();
+            }
+        }
+
     }
 }
 
