@@ -110,15 +110,24 @@ namespace BikewaleOpr.Service.Controllers.Used
         [HttpPost, Route("api/used/markassold/{inquiryId}")]
         public IHttpActionResult UpdateInquiryAsSold(uint inquiryId)
         {
-            try
+           
+                if (inquiryId > 0)
+                {
+                    try
+                    {
+                        bool success = false;
+                        success = _objBikeModels.UpdateInquiryAsSold(inquiryId);
+                        return Ok(success);
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesController.UpdateAsSoldInquiry inquiryId {0}", inquiryId));
+                        return InternalServerError();
+                    } 
+                }
+                else
             {
-                _objBikeModels.UpdateAsSoldInquiry(inquiryId);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesController.UpdateAsSoldInquiry inquiryId {0}", inquiryId));
-                return InternalServerError();
+                return BadRequest();
             }
         }
     }

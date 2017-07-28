@@ -379,8 +379,9 @@ namespace BikewaleOpr.DALs.Bikedata
         /// Description: Update used bike as sold in 'classifiedindividualsellinquiries' table.
         /// </summary>
         /// <param name="inquiryId"></param>
-        public void UpdateAsSoldInquiry(uint inquiryId)
+        public bool UpdateInquiryAsSold(uint inquiryId)
         {
+            int success = 0;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -390,15 +391,15 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryId", DbType.Int32, inquiryId));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    success = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.UpdateAsSoldInquiry : inquiryId {0}", inquiryId));
-                objErr.SendMail();
             }
+            return success > 0;
         }
 
     }
