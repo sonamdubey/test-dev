@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Bikewale.Comparison.Entities
 {
     /// <summary>
-    /// Created by: Sangram Nandkhie 27-Jul-2017
+    /// Created by: Sangram Nandkhile 27-Jul-2017
     /// Summary: Entity for sponsored campaign
     /// </summary>
     public class SponsoredCampaign
@@ -28,59 +28,4 @@ namespace Bikewale.Comparison.Entities
         public uint ComparisonId { get; set; }
     }
 
-    /// <summary>
-    /// Created by: Sangram Nandkhie 27-Jul-2017
-    /// Summary: Entity for sponsored campaign model
-    /// </summary>
-    public class SponsoredCampaignModel
-    {
-        public uint Id { get; set; }
-        public uint ComparisonId { get; set; }
-        public string TargetModelId { get; set; }
-        public string TargetVersionId { get; set; }
-        public string SponsoredModelId { get; set; }
-        public string SponsoredVersionId { get; set; }
-        public string ImpressionUrl { get; set; }
-        public bool IsActive { get; set; }
-        public DateTime EntryDate { get; set; }
-    }
-
-    /// <summary>
-    /// Created by: Sangram Nandkhie 27-Jul-2017
-    /// Summary: Entity for sponsored campaign status
-    /// </summary>
-    public enum SponsoredCampaignStatus
-    {
-        Unstarted = 0,
-        Active = 1,
-        Paused = 2,
-        Closed = 3,
-        Aborted = 4
-    }
-
-    /// <summary>
-    /// Created by: Sangram Nandkhie 27-Jul-2017
-    /// Summary: Entity for sponsored campaign bike version
-    /// </summary>
-    /// 
-    public class BikeVersion
-    {
-        public uint Id { get; set; }
-        public string Name { get; set; }
-        public string ImpressionUrl { get; set; }
-        public double Price { get; set; }
-    }
-
-
-    public class SponsoredVersionMapping
-    {
-        IEnumerable<BikeVersion> TargettedVersions { get; set; }
-        IEnumerable<BikeVersion> SponsoredVerisions { get; set; }
-    }
-
-    public class TargetedModel
-    {
-        public uint ModelId { get; set; }
-        public IEnumerable<BikeVersion> versionList { get; set; }
-    }
 }

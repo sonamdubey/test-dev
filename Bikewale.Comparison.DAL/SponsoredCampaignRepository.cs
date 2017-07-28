@@ -19,6 +19,11 @@ namespace Bikewale.Comparison.DAL
     /// <returns></returns>
     public class SponsoredCampaignRepository : ISponsoredCampaignRepository
     {
+        /// <summary>
+        /// Deletes the sponsored comparison bike all rules.
+        /// </summary>
+        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <returns></returns>
         public bool DeleteSponsoredComparisonBikeAllRules(uint camparisonId)
         {
             bool isSaved = false;
@@ -43,6 +48,12 @@ namespace Bikewale.Comparison.DAL
             return isSaved;
         }
 
+        /// <summary>
+        /// Deletes the sponsored comparison bike sponsored model rules.
+        /// </summary>
+        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <param name="SponsoredModelId">The sponsored model identifier.</param>
+        /// <returns></returns>
         public bool DeleteSponsoredComparisonBikeSponsoredModelRules(uint camparisonId, uint SponsoredModelId)
         {
             bool isSaved = false;
@@ -68,6 +79,12 @@ namespace Bikewale.Comparison.DAL
             return isSaved;
         }
 
+        /// <summary>
+        /// Deletes the sponsored comparison bike sponsored version rules.
+        /// </summary>
+        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <param name="sponsoredVersionId">The sponsored version identifier.</param>
+        /// <returns></returns>
         public bool DeleteSponsoredComparisonBikeSponsoredVersionRules(uint camparisonId, uint sponsoredVersionId)
         {
             bool isSaved = false;
@@ -93,6 +110,12 @@ namespace Bikewale.Comparison.DAL
             return isSaved;
         }
 
+        /// <summary>
+        /// Deletes the sponsored comparison bike target version rules.
+        /// </summary>
+        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <param name="targetversionId">The targetversion identifier.</param>
+        /// <returns></returns>
         public bool DeleteSponsoredComparisonBikeTargetVersionRules(uint camparisonId, uint targetversionId)
         {
             bool isSaved = false;
@@ -118,11 +141,21 @@ namespace Bikewale.Comparison.DAL
             return isSaved;
         }
 
+        /// <summary>
+        /// Gets the sponsored comparison.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public SponsoredCampaign GetSponsoredComparison()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets the sponsored comparison.
+        /// </summary>
+        /// <param name="campaignId">The campaign identifier.</param>
+        /// <returns></returns>
         public SponsoredCampaign GetSponsoredComparison(uint campaignId)
         {
             SponsoredCampaign objCampaign = null;
@@ -149,6 +182,11 @@ namespace Bikewale.Comparison.DAL
             return objCampaign;
         }
 
+        /// <summary>
+        /// Gets the sponsored comparisons.
+        /// </summary>
+        /// <param name="statuses">The statuses.</param>
+        /// <returns></returns>
         public IEnumerable<SponsoredCampaign> GetSponsoredComparisons(string statuses)
         {
             IEnumerable<SponsoredCampaign> comparisonCampaigns = null;
@@ -175,17 +213,62 @@ namespace Bikewale.Comparison.DAL
             return comparisonCampaigns;
         }
 
-        public TargetedModel GetSponsoredComparisonSponsoredBike(uint camparisonId)
-        {
-            throw new NotImplementedException();
-        }
-        
-        public SponsoredVersionMapping GetSponsoredComparisonVersionMapping(uint camparisonId, uint sponsoredModelId)
+        /// <summary>
+        /// Gets the sponsored comparison sponsored bike.
+        /// </summary>
+        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public dynamic GetSponsoredComparisonSponsoredBike(uint camparisonId)
         {
             throw new NotImplementedException();
         }
 
-        public bool SaveSponsoredComparison(SponsoredCampaign campaign)
+        /// <summary>
+        /// Gets the sponsored comparison version mapping.
+        /// </summary>
+        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <param name="sponsoredModelId">The sponsored model identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public TargetSponsoredMapping GetSponsoredComparisonVersionMapping(uint camparisonId, uint targetModelId, uint sponsoredModelId)
+        {
+            TargetSponsoredMapping objResult = default(TargetSponsoredMapping);
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    objResult = new TargetSponsoredMapping();
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_comparisonid", camparisonId);
+                    param.Add("par_targetmodelid", targetModelId);
+                    param.Add("par_sponsoredmodelid", sponsoredModelId);
+
+                    using (var results = connection.QueryMultiple("getsponsoredcomparisonversionmapping", param: param, commandType: CommandType.StoredProcedure))
+                    {
+                        objResult.SponsoredModelVersion = results.Read<BikeModel>();
+                        objResult.SponsoredVersionsMapping = results.Read<BikeModelVersionmapping>();
+                    }
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparisonVersionMapping, camparisonId: {0}, targetModelId: {1}, sponsoredModelId: {2} ", camparisonId, targetModelId, sponsoredModelId));
+            }
+            return objResult;
+        }
+
+        
+/// <summary>
+/// Saves the sponsored comparison.
+/// </summary>
+/// <param name="campaign">The campaign.</param>
+/// <returns></returns>
+public bool SaveSponsoredComparison(SponsoredCampaign campaign)
         {
             bool isSaved = false;
             try
@@ -217,9 +300,36 @@ namespace Bikewale.Comparison.DAL
             return isSaved;
         }
 
-        public bool SaveSponsoredComparisonBikeRules()
+        /// <summary>
+        /// Saves the sponsored comparison bike rules.
+        /// </summary>
+        /// <param name="rules">The rules.</param>
+        /// <returns></returns>
+        public bool SaveSponsoredComparisonBikeRules(VersionTargetMapping rules)
         {
-            throw new NotImplementedException();
+            bool isSaved = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_comparisonid", rules.Comparisonid);
+                    param.Add("par_isversionmapping", rules.IsVersionMapping);
+                    param.Add("par_targetsponsoredids", rules.TargetSponsoredIds);
+                    param.Add("par_impressionurls", rules.ImpressionUrl);
+                    connection.Query<dynamic>("savesponsoredcomparisonsbikerules", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                    isSaved = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.SaveSponsoredComparisonBikeRules");
+            }
+            return isSaved;
         }
     }
 }

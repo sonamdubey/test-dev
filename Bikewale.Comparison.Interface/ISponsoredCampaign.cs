@@ -17,9 +17,9 @@ namespace Bikewale.Comparison.Interface
         SponsoredCampaign GetSponsoredComparison();
         IEnumerable<SponsoredCampaign> GetSponsoredComparisons(string statuses);
         bool SaveSponsoredComparison(SponsoredCampaign campaign);
-        bool SaveSponsoredComparisonBikeRules();
-        SponsoredVersionMapping GetSponsoredComparisonVersionMapping(uint camparisonId, uint sponsoredModelId);
-        TargetedModel GetSponsoredComparisonSponsoredBike(uint camparisonId); //- Returns sponsored model- version and their target bikes
+        bool SaveSponsoredComparisonBikeRules(VersionTargetMapping rules);
+        TargetSponsoredMapping GetSponsoredComparisonVersionMapping(uint camparisonId, uint targetModelId, uint sponsoredModelId);
+        dynamic GetSponsoredComparisonSponsoredBike(uint camparisonId); //- Returns sponsored model- version and their target bikes
         bool DeleteSponsoredComparisonBikeAllRules(uint camparisonId);
         bool DeleteSponsoredComparisonBikeSponsoredModelRules(uint camparisonId, uint SponsoredmodelId);
         bool DeleteSponsoredComparisonBikeSponsoredVersionRules(uint camparisonId, uint SponsoredversionId);
