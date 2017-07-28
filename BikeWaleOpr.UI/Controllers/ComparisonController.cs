@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bikewale.Comparison.Entities;
+using Bikewale.Comparison.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,16 @@ namespace BikewaleOpr.Controllers
 {
     public class ComparisonController : Controller
     {
+        private readonly ISponsoredCampaignRepository _objSponsoredComparison = null;
+        //private readonly ISponsoredCampaignRepository objSponsoredComparison = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ComparisonController(ISponsoredCampaignRepository objSponsoredComparison)
+        {
+            _objSponsoredComparison = objSponsoredComparison;
+        }
 
         /// <summary>
         /// Created by :- Sushil Kumar on 27th July 2017
@@ -25,14 +37,30 @@ namespace BikewaleOpr.Controllers
         /// summary :- Add or update sponsord comparisons
         /// </summary>
         /// <returns></returns>
-        [Route("comparison/sponsored/add/")]
-        public ActionResult AddorUpdateSponsoredComparison(uint? comparisonId)
+        [HttpPost,Route("comparison/sponsored/add/")]
+        public ActionResult AddorUpdateSponsoredComparison([System.Web.Http.FromBody] SponsoredComparison objData)
         {
-            if(comparisonId.HasValue && comparisonId.Value > 0)
+            uint comparisonId = 0;
+            try
+            {
+                if (objData != null)
+                {
+                    comparisonId = _objSponsoredComparison.SaveSponsoredComparison(objData);
+                }
+            }
+            catch (Exception ex)
             {
 
             }
-            return View();
+
+            if (comparisonId > 0)
+            {
+                return Redirect(string.Format("/comparison/sponsored/add/rules/{0}/", objData.Id));
+            }
+            else
+            {
+                return Redirect("/comparison/sponsored/manage/");
+            }
         }
 
         /// <summary>
@@ -40,7 +68,7 @@ namespace BikewaleOpr.Controllers
         /// summary :- Add or update sponsord comparisons
         /// </summary>
         /// <returns></returns>
-        [Route("comparison/sponsored/add/rules/")]
+        [Route("comparison/sponsored/add/rules/{comparisonId}/")]
         public ActionResult AddSponsoredComparisonRules(uint comparisonId)
         {
             if (comparisonId > 0)
@@ -49,5 +77,7 @@ namespace BikewaleOpr.Controllers
             }
             return View();
         }
+
+        
     }
 }

@@ -8,9 +8,9 @@ namespace Bikewale.Comparison.Entities
 {
     /// <summary>
     /// Created by: Sangram Nandkhie 27-Jul-2017
-    /// Summary: Entity for sponsored campaign
+    /// Summary: Entity for sponsored Comparison
     /// </summary>
-    public class SponsoredCampaign
+    public class SponsoredComparison
     {
         public uint Id { get; set; }
         public string Name { get; set; }
@@ -18,21 +18,19 @@ namespace Bikewale.Comparison.Entities
         public DateTime EndDate { get; set; }
         public string LinkText { get; set; }
         public string LinkUrl { get; set; }
-        public string ImpressionUrl { get; set; }
+        public string NameImpressionUrl { get; set; }
         public string ImgImpressionUrl { get; set; }
-        public SponsoredCampaignStatus Status { get; set; }
+        public SponsoredComparisonStatus Status { get; set; }
         public DateTime EntryDate { get; set; }
         public DateTime LastUpdated { get; set; }
         public uint UpdatedBy { get; set; }
-
-        public uint ComparisonId { get; set; }
     }
 
     /// <summary>
     /// Created by: Sangram Nandkhie 27-Jul-2017
-    /// Summary: Entity for sponsored campaign model
+    /// Summary: Entity for sponsored Comparison model
     /// </summary>
-    public class SponsoredCampaignModel
+    public class SponsoredComparisonModel
     {
         public uint Id { get; set; }
         public uint ComparisonId { get; set; }
@@ -47,9 +45,9 @@ namespace Bikewale.Comparison.Entities
 
     /// <summary>
     /// Created by: Sangram Nandkhie 27-Jul-2017
-    /// Summary: Entity for sponsored campaign status
+    /// Summary: Entity for sponsored Comparison status
     /// </summary>
-    public enum SponsoredCampaignStatus
+    public enum SponsoredComparisonStatus
     {
         Unstarted = 0,
         Active = 1,
@@ -60,7 +58,7 @@ namespace Bikewale.Comparison.Entities
 
     /// <summary>
     /// Created by: Sangram Nandkhie 27-Jul-2017
-    /// Summary: Entity for sponsored campaign bike version
+    /// Summary: Entity for sponsored Comparison bike version
     /// </summary>
     /// 
     public class BikeVersion

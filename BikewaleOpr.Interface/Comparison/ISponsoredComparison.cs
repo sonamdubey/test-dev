@@ -9,9 +9,9 @@ namespace BikewaleOpr.Interface.Comparison
 {
     public interface ISponsoredComparison
     {
-        SponsoredCampaign GetSponsoredComparison();
-        IEnumerable<SponsoredCampaign> GetSponsoredComparisons(SponsoredCampaignStatus status);
-        bool SaveSponsoredComparison(SponsoredCampaign campaign);
+        SponsoredComparison GetSponsoredComparison();
+        IEnumerable<SponsoredComparison> GetSponsoredComparisons(SponsoredComparisonStatus status);
+        bool SaveSponsoredComparison(SponsoredComparison campaign);
         bool SaveSponsoredComparisonBikeRules();
         SponsoredVersionMapping GetSponsoredComparisonVersionMapping(uint camparisonId, uint sponsoredModelId);
         TargetedModel GetSponsoredComparisonSponsoredBike(uint camparisonId); //- Returns sponsored model- version and their target bikes

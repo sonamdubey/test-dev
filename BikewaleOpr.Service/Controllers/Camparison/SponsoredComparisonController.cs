@@ -31,7 +31,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
         [HttpGet, Route("api/comparison/sponsoredcampaigns/{statuses}/")]
         public IHttpActionResult GetCampaigns(string statuses)
         {
-           IEnumerable<SponsoredCampaign> objSponsoredCampaign = null;
+           IEnumerable<SponsoredComparison> objSponsoredCampaign = null;
             try
             {
                 objSponsoredCampaign = _objSponsoredRepo.GetSponsoredComparisons(statuses);
@@ -46,19 +46,19 @@ namespace BikewaleOpr.Service.Controllers.Camparison
         }
 
         [HttpPost, Route("api/comparison/sponsoredcampaigns/save/")]
-        public IHttpActionResult SaveSponsoredCampaign([FromBody]SponsoredCampaign campaign)
+        public IHttpActionResult SaveSponsoredCampaign([FromBody]SponsoredComparison campaign)
         {
-            bool isSuccess = false;
+            uint comparisonId = 0;
             try
             {
-                isSuccess =  _objSponsoredRepo.SaveSponsoredComparison(campaign);
+                comparisonId =  _objSponsoredRepo.SaveSponsoredComparison(campaign);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.GetCampaigns.SaveSponsoredCampaign");
                 return InternalServerError();
             }
-            return Ok(isSuccess);
+            return Ok(comparisonId);
         }
 
 
