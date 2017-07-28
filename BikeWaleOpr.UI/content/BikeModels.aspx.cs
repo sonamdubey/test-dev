@@ -162,7 +162,6 @@ namespace BikeWaleOpr.Content
                         nvc.Add("v_New", "1");
                         nvc.Add("v_Used", "1");
                         nvc.Add("v_Futuristic", "0");
-
                         SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
 
                         //CLear popularBikes key                       

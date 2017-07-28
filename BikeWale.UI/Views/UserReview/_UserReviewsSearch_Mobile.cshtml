@@ -12,12 +12,12 @@
                         @if (Model.ActiveReviewCategory.Equals(FilterBy.MostRecent))
                         {
                             <li data-category="2" data-page-num="1" data-count="@Model.ReviewsInfo.MostHelpfulReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Helpful (@Model.ReviewsInfo.MostHelpfulReviews)</li>
-                            <li class="active" data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</li>                            
+                            <li class="active" data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</li>
                         }
                         else
                         {
                             <li class="active" data-category="2" data-page-num="1" data-count="@Model.ReviewsInfo.MostHelpfulReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Helpful (@Model.ReviewsInfo.MostHelpfulReviews)</li>
-                            <li data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</li>                                                        
+                            <li data-category="1" data-page-num="1" data-count="@Model.ReviewsInfo.MostRecentReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Most Recent (@Model.ReviewsInfo.MostRecentReviews)</li>
                         }
                         <li data-cattypes="4,5" data-category="5" data-page-num="1" data-count="@Model.ReviewsInfo.PostiveReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Positive (@Model.ReviewsInfo.PostiveReviews)</li>
                         <li data-cattypes="1,2" data-category="6" data-page-num="1" data-count="@Model.ReviewsInfo.NegativeReviews" data-bind="click: function(d,e){ toggleReviewList(e);}">Negative (@Model.ReviewsInfo.NegativeReviews)</li>
@@ -38,53 +38,47 @@
                     {
                          <!-- ko if : activeReviewList()[@i] -->
                         <li>
-                            <div itemprop="review" itemscope itemtype="http://schema.org/Review">
-                                <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" title="@review.ReviewTitle" data-bind="attr : {'title' : activeReviewList()[@i].reviewTitle,'href' : '/m/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + activeReviewList()[@i].reviewId + '/'}" class="item-target">
-                                    <div class="margin-bottom10">
-                                        <span class="rating-badge" data-rate-bg="@review.OverAllRating.OverAllRating" data-bind="attr: {'data-rate-bg' : activeReviewList()[@i].overAllRating.overAllRating } ">
-                                            <span class="bwmsprite star-white"></span>
-                                            <span data-bind="text: activeReviewList()[@i].overAllRating.overAllRating">@review.OverAllRating.OverAllRating</span>
-                                        </span>
-                                        <div class="grid-10-inline font15 text-black text-bold text-truncate">
-                                            <span class="review-title position-rel" data-bind="text: activeReviewList()[@i].reviewTitle"><span itemprop="name">@review.ReviewTitle</span></span>
-                                        </div>
+                            <a href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" title="@review.ReviewTitle" data-bind="attr : {'title' : activeReviewList()[@i].reviewTitle,'href' : '/m/' + '@Model.ReviewsInfo.Make.MaskingName' + '-bikes/' + '@Model.ReviewsInfo.Model.MaskingName' + '/reviews/' + activeReviewList()[@i].reviewId + '/'}" class="item-target">
+                                <div class="margin-bottom10">
+                                    <span class="rating-badge" data-rate-bg="@review.OverAllRating.OverAllRating" data-bind="attr: {'data-rate-bg' : activeReviewList()[@i].overAllRating.overAllRating } ">
+                                        <span class="bwmsprite star-white"></span>
+                                        <span data-bind="text: activeReviewList()[@i].overAllRating.overAllRating">@review.OverAllRating.OverAllRating</span>
+                                    </span>
+                                    <div class="grid-10-inline font15 text-black text-bold text-truncate">
+                                        <span class="review-title position-rel" data-bind="text: activeReviewList()[@i].reviewTitle">@review.ReviewTitle</span>
                                     </div>
-
-                                    <div class="margin-bottom10">
-                                        <span class="font12 text-light-grey" data-bind="text: activeReviewList()[@i].reviewAge + ' ago by ' + activeReviewList()[@i].writtenBy"><meta itemprop="datePublished" content="@review.ReviewDate.ToString("yyyy-MM-dd")">@review.ReviewAge ago by <span itemprop="author">@review.WrittenBy</span></span>
-                                    </div>
-
-                                    <div class="font14 text-slate-grey margin-bottom10">
-                                        @{ var truncated = Bikewale.Utility.FormatDescription.TruncateDescription(review.Comments, 175); }
-                                        <p class="inline" data-bind="text: activeReviewList()[@i].comments"><meta itemprop="description" content='@truncated' />@truncated</p>
-
-                                        <span class="inline" style="display: @(!string.IsNullOrEmpty(review.Comments) && review.Comments.Length > 160 ? "inline" : "none")" data-bind="visible : activeReviewList()[@i].comments && activeReviewList()[@i].comments.length > 160">...<span class="text-link">Read more</span></span>
-                                    </div>
-
-                                    <div class="grid-7 alpha">
-                                        <div class="item-stats-grid">
-                                            <span class="bwmsprite like-sm"></span>
-                                            <span data-bind="CurrencyText: activeReviewList()[@i].liked">@Format.FormatNumeric(review.Liked.ToString())</span>
-                                        </div>
-                                        <div class="item-stats-grid">
-                                            <span class="bwmsprite dislike-sm"></span>
-                                            <span data-bind="CurrencyText: activeReviewList()[@i].disliked">@Format.FormatNumeric(review.Disliked.ToString())</span>
-                                        </div>
-                                    </div>
-                                    <div class="grid-5 omega text-right" style="display: @(review.Viewed > 0 ? "block" : "none")" data-bind="visible: activeReviewList()[@i].viewed >
-                                    0">
-                                        <div class="item-views-grid">
-                                            <span data-bind="CurrencyText: activeReviewList()[@i].viewed">@Format.FormatNumeric(review.Viewed.ToString())</span><span>&nbsp;views</span>
-                                        </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                </a>
-                                <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
-                                    <meta itemprop="worstRating" content="1" />
-                                    <meta itemprop="ratingValue" content="@review.OverAllRating.OverAllRating" />
-                                    <meta itemprop="bestRating" content="5" />
                                 </div>
-                            </div>
+
+                                <div class="margin-bottom10">
+                                    <span class="font12 text-light-grey" data-bind="text: activeReviewList()[@i].reviewAge + ' ago by ' + activeReviewList()[@i].writtenBy">@review.ReviewAge ago by @review.WrittenBy</span>
+                                </div>
+
+                                <div class="font14 text-slate-grey margin-bottom10">
+                                    <p class="inline" data-bind="text: activeReviewList()[@i].comments">@Bikewale.Utility.FormatDescription.TruncateDescription(review.Comments, 175)</p>
+
+                                    <span class="inline" style="display: @(!string.IsNullOrEmpty(review.Comments) && review.Comments.Length > 160 ? "inline" : "none")" data-bind="visible : activeReviewList()[@i].comments && activeReviewList()[@i].comments.length > 160">...<span class="text-link">Read more</span></span>
+                                </div>
+
+                                <div class="grid-7 alpha">
+                                    <div class="item-stats-grid">
+                                        <span class="bwmsprite like-sm"></span>
+                                        <span data-bind="CurrencyText: activeReviewList()[@i].liked">@Format.FormatNumeric(review.Liked.ToString())</span>
+                                    </div>
+                                    <div class="item-stats-grid">
+                                        <span class="bwmsprite dislike-sm"></span>
+                                        <span data-bind="CurrencyText: activeReviewList()[@i].disliked">@Format.FormatNumeric(review.Disliked.ToString())</span>
+                                    </div>
+                                </div>
+
+                                <div class="grid-5 omega text-right" style="display: @(review.Viewed > 0 ? "block" : "none")" data-bind="visible: activeReviewList()[@i].viewed >
+                                    0">
+                                    <div class="item-views-grid text-light-grey">
+                                        <span data-bind="CurrencyText: activeReviewList()[@i].viewed">@Format.FormatNumeric(review.Viewed.ToString())</span><span>&nbsp;views</span>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </a>
+
                         </li>
                          <!-- /ko -->
                         i++;
@@ -130,19 +124,19 @@
 
         </div>
     </section>
-}
-else
-{
-    <section>
-        <div class="container content-box-shadow card-bottom-margin">
-            <h2 class="h2-heading padding-15-20 content-box-shadow">Reviews on @Model.BikeName</h2>
-            <div class="content-inner-block-20 text-center">
-                <div class="circle-placeholder">
-                    <span class="bwmsprite write-icon margin-top25"></span>
-                </div>
-                <p class="font14 text-light-grey margin-bottom15">There are no reviews for this bike. Be the first one to share your experience.</p>
-                <a href="/m/rate-your-bike/@Model.ModelId/?q=@Model.WriteReviewLink" class="btn btn-white btn-auto-32">Write a review</a>
-            </div>
-        </div>
-    </section>
-}
+                        }
+                        else
+                        {
+                            <section>
+                                <div class="container content-box-shadow card-bottom-margin">
+                                    <h2 class="h2-heading padding-15-20 content-box-shadow">Reviews on @Model.BikeName</h2>
+                                    <div class="content-inner-block-20 text-center">
+                                        <div class="circle-placeholder">
+                                            <span class="bwmsprite write-icon margin-top25"></span>
+                                        </div>
+                                        <p class="font14 text-light-grey margin-bottom15">There are no reviews for this bike. Be the first one to share your experience.</p>
+                                        <a href="/m/rate-your-bike/@Model.ModelId/?q=@Model.WriteReviewLink" class="btn btn-white btn-auto-32">Write a review</a>
+                                    </div>
+                                </div>
+                            </section>
+                        }

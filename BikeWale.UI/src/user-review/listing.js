@@ -601,3 +601,17 @@ docReady(function() {
     if (chkRating2)
         document.getElementById('rate-bikestar-' + parseInt(chkRating2)).checked = false;
 });
+
+function updateView(e) {
+    try {
+        var reviewId = e.currentTarget.getAttribute("data-reviewid");
+        $.ajax({
+            type: "POST",
+            url: "/api/user-reviews/updateView/" + reviewId + "/",
+            success: function (response) {                
+            }
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}

@@ -36,7 +36,7 @@
   font-weight: 700; }
 
 .scooters-banner {
-  background: #89a3b7 url(https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/scooters-banner.jpg) no-repeat center;
+  background: #89a3b7 url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/m/scooters-banner.jpg) no-repeat center;
   background-size: cover;
   height: 130px;
   padding-top: 25px; }
@@ -338,7 +338,7 @@
     top: 45px;
     width: 22px;
     height: 21px;
-    background: url("https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png") no-repeat;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png") no-repeat;
     display: block; }
 
 .btn-size-1 {

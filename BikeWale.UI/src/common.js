@@ -804,9 +804,10 @@ docReady(function () {
                     }
                     if (bw_ObjContest.visible && bw_ObjContest.count >= 3) {
                         if (!document.getElementsByTagName("BODY")[0].getAttribute("data-contestslug")) {
-                            $('#bg-footer').before("<div id='contestSlideInSlug' class='review-contest-slidein-slug'><span id='contestSlideInCloseBtn' class='bwsprite slidein-slug__close-icon'></span><span class='slidein-slug__trophy-icon'></span><a href='/bike-review-contest/?csrc=12' class='slidein-slug__target bw-ga' c='Other' a='Contest_Slug_Clicked_Participate_CTA' l='If a user clicked on participate CTA'><span class='slidein-slug__target-title'>Bike Review Contest</span><span class='btn slidein-slug__target-btn'>Participate<span class='bwsprite slidein-slug__btn-arrow'></span></span></a></div>")
+                            $('#bg-footer').before("<div id='contestSlideInSlug' class='review-contest-slidein-slug'><span id='contestSlideInCloseBtn' class='bwsprite slidein-slug__close-icon'></span><span class='slidein-slug__trophy-icon'></span><a href='/bike-review-contest/?csrc=12' class='slidein-slug__target bw-ga' c='Other' a='Contest_Slug_Clicked_Participate_CTA' l=''><span class='slidein-slug__target-title'>Bike Review Contest</span><span class='btn slidein-slug__target-btn'>Participate<span class='bwsprite slidein-slug__btn-arrow'></span></span></a></div>")
+                            triggerGA("Other", "Contest_Slug_Appeared", "");
                         }
-                        triggerGA("Other", "Contest_Slug_Appeared", "Whenever the slug appears");
+                     
 
                     }
                 }
@@ -821,9 +822,11 @@ docReady(function () {
     (vmContestSlug.init());
     
     // review contest slide-in slug
-    var contestSlideInSlug = $('#contestSlideInSlug');
+    var contestSlideInSlug = $('#contestSlideInSlug'),
+		contestSlugEndPoint;
 
     if (contestSlideInSlug.length > 0) {
+		contestSlugEndPoint = ($(window).height() * 30) / 100; // 30 percent of window height
         attachListener('scroll', window, positionContestSlug);
         contestSlideInSlug.addClass('slidein-slug--visible');
     }
@@ -833,7 +836,7 @@ docReady(function () {
             if (!contestSlideInSlug.hasClass('slug--position-absolute')) {
                 contestSlideInSlug.addClass('slug--position-absolute');
                 contestSlideInSlug.css({
-                    'top': $(window).scrollTop() + contestSlideInSlug.offset().top
+                    'top': 600 + contestSlugEndPoint
                 });
             }
         }
@@ -848,13 +851,10 @@ docReady(function () {
     }
 
     $('#contestSlideInCloseBtn').on('click', function () {
-        contestSlideInSlug.removeClass('slidein-slug--visible');
+        contestSlideInSlug.remove();
         bw_ObjContest.visible = false;
         bwcache.set("showContestSlug", bw_ObjContest, true);
-        triggerGA("Other", "Contest_Slug_Clicked_On_Cross", "If a user clicked on cross")
-        setTimeout(function () {
-            contestSlideInSlug.remove();
-        }, 500);
+        triggerGA("Other", "Contest_Slug_Clicked_On_Cross", "")
     });
 
 

@@ -32,9 +32,7 @@ namespace Bikewale.Utility
                     case DataBaseName.CW:
                         dbName = "CW";
                         break;
-                    case DataBaseName.CWMD:
-                        dbName = "CWMD";
-                        break; 
+                    default: dbName = "BW"; break;
                 }
                 nvc.Add("DBNAME", dbName);
                 nvc.Add("SPNAME", spName);
@@ -56,7 +54,6 @@ namespace Bikewale.Utility
     public enum DataBaseName
     {
         CW = 1,
-        BW = 2,
-        CWMD = 3,
+        BW = 2
     }
 }

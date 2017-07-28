@@ -29,6 +29,7 @@ namespace Bikewale.Models
         public Entities.BikeData.BikeModelEntityBase BikeModel { get; set; }
         public IEnumerable<BikeQuotationEntity> BikeVersionPrices { get; set; }
         public CityEntityBase CityEntity { get; set; }
+        public CityEntityBase CookieCityEntity { get; set; }
         public BikeModelRankVM BikeRank { get; set; }
         public string ModelImage { get; set; }
         public uint VersionId { get; set; }

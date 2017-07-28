@@ -320,7 +320,7 @@ docReady(function () {
         vmRateBike.feedbackTitle(headingText);
         vmRateBike.feedbackSubtitle(descText);
         vmRateBike.ratingCount(buttonValue);
-        triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue + '_' + pageSrc);
+        triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue + '_' + contestSrc);
 
 		updateStarZeroIcon($(this));
     });

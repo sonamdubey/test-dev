@@ -7,7 +7,7 @@ namespace Bikewale.Interfaces.UserReviews
 {
     /// <summary>
     /// Modified by sajal gupta on 13-07-2017
-    /// Description : Added SaveUserReviewMileage
+    /// Description : Added SaveUserReviewMileage, GetReviewQuestionValuesByModel
     /// </summary>
     public interface IUserReviewsRepository
     {
@@ -45,5 +45,6 @@ namespace Bikewale.Interfaces.UserReviews
         BikeReviewIdListByCategory GetReviewsIdListByModel(uint modelId);
 
         bool SaveUserReviewMileage(uint reviewId, string mileage);
+        QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId);
     }   // class
 }   // namespace

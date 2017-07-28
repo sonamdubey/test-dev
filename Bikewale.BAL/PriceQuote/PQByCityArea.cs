@@ -206,8 +206,13 @@ namespace Bikewale.BAL.PriceQuote
                 if (cityId > 0)
                 {
                     IEnumerable<CityEntityBase> cityList = FetchCityByModelId(modelID);
-                    pqEntity.IsCityExists = cityList != null && cityList.Any(p => p.CityId == cityId);
-                    if (pqEntity.IsCityExists)
+                    CityEntityBase selectedCity = null;
+                    if (cityList != null)
+                    {
+                        selectedCity = cityList.FirstOrDefault(p => p.CityId == cityId);
+                    }
+                    pqEntity.IsCityExists = selectedCity != null;
+                    if (pqEntity.IsCityExists && cityList != null)
                     {
                         var areaList = GetAreaForCityAndModel(modelID, Convert.ToInt16(cityId));
                         pqEntity.IsAreaExists = (areaList != null && areaList.Count() > 0);
@@ -216,7 +221,15 @@ namespace Bikewale.BAL.PriceQuote
                         {
                             pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
                         }
-                        pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        if (selectedCity.HasAreas)
+                        {
+                            if (pqEntity.IsAreaSelected)
+                                pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        }
+                        else
+                        {
+                            pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        }
                         if (pqOnRoad != null)
                         {
                             pqEntity.PqId = pqOnRoad.PriceQuote.PQId;
@@ -224,7 +237,7 @@ namespace Bikewale.BAL.PriceQuote
                             pqEntity.IsExShowroomPrice = pqOnRoad.DPQOutput == null && pqOnRoad.BPQOutput == null;
 
                             // When City has areas and area is not selected then show ex-showrrom price so user can select it
-                            bool isAreaExistAndSelected = pqEntity.IsAreaExists && pqEntity.IsAreaSelected;
+                            bool isAreaExistAndSelected = ((pqEntity.IsAreaExists && pqEntity.IsAreaSelected) || !selectedCity.HasAreas);
                             // when DPQ OR Only city level pricing exists
                             if (isAreaExistAndSelected || (!pqEntity.IsAreaExists))
                             {
@@ -266,6 +279,10 @@ namespace Bikewale.BAL.PriceQuote
                             {
                                 pqEntity.IsExShowroomPrice = true;
                             }
+                        }
+                        else
+                        {
+                            pqEntity.IsExShowroomPrice = true;
                         }
                     }
                     else // Show mumbai Ex showroom price
@@ -349,6 +366,7 @@ namespace Bikewale.BAL.PriceQuote
                                     pqOutput.PriceQuote = objDealer.ProcessPQ(pqInput);
                                 }
                             }
+
                         }
                         else // when selected city is not in the list show cities list 
                         {
@@ -437,7 +455,12 @@ namespace Bikewale.BAL.PriceQuote
                 if (cityId > 0)
                 {
                     IEnumerable<CityEntityBase> cityList = FetchCityByModelId(modelID);
-                    pqEntity.IsCityExists = cityList != null && cityList.Any(p => p.CityId == cityId);
+                    CityEntityBase selectedCity = null;
+                    if (cityList != null)
+                    {
+                        selectedCity = cityList.FirstOrDefault(p => p.CityId == cityId);
+                    }
+                    pqEntity.IsCityExists = selectedCity != null;
                     if (pqEntity.IsCityExists)
                     {
                         var areaList = GetAreaForCityAndModel(modelID, Convert.ToInt16(cityId));
@@ -447,8 +470,15 @@ namespace Bikewale.BAL.PriceQuote
                         {
                             pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
                         }
-
-                        pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        if (selectedCity.HasAreas)
+                        {
+                            if (pqEntity.IsAreaSelected)
+                                pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        }
+                        else
+                        {
+                            pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        }
                         if (pqOnRoad != null)
                         {
                             pqEntity.PqId = pqOnRoad.PriceQuote.PQId;
@@ -456,7 +486,7 @@ namespace Bikewale.BAL.PriceQuote
                             pqEntity.IsExShowroomPrice = pqOnRoad.DPQOutput == null && pqOnRoad.BPQOutput == null;
 
                             // When City has areas and area is not selected then show ex-showrrom price so user can select it
-                            isAreaExistAndSelected = pqEntity.IsAreaExists && pqEntity.IsAreaSelected;
+                            isAreaExistAndSelected = ((pqEntity.IsAreaExists && pqEntity.IsAreaSelected) || !selectedCity.HasAreas);
                             // when DPQ OR Only city level pricing exists
                             if (isAreaExistAndSelected || (!pqEntity.IsAreaExists))
                             {
@@ -500,6 +530,10 @@ namespace Bikewale.BAL.PriceQuote
                                 pqEntity.IsExShowroomPrice = true;
                             }
                         }
+                        else
+                        {
+                            pqEntity.IsExShowroomPrice = true;
+                        }
                     }
                     else // Show mumbai Ex showroom price
                     {
@@ -528,7 +562,7 @@ namespace Bikewale.BAL.PriceQuote
                         versionID = objDealer.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
                 }
 
-                if (cityId > 0 && versionID > 0)
+                if (cityId > 0 && versionID > 0 && pqOnRoad != null)
                 {
                     DetailedDealerQuotationEntity detailedDealer = null;
 

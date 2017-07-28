@@ -2,6 +2,7 @@ var assistFormSubmit, assistGetName, assistGetEmail, assistGetMobile;
 var getOnRoadPriceBtn, onroadPriceConfirmBtn;
 var getOffersClick = false, selectDropdownBox;
 var $window, modelDetailsFloatingCard, modelSpecsTabsContentWrapper;
+var abusereviewId;
 
 // colour carousel
 var colourCarousel, carouselColorList;
@@ -148,11 +149,6 @@ docReady(function () {
     function callFallBackWriteReview() {
         $('#adBlocker').show();
     };
-
-    // bw group flex tabs
-    $('.toggle-btn-label').on('click', 'li', function() {
-        $(this).removeClass('inactive').siblings().addClass('inactive');
-    });
 
     colourCarousel = $('#colourCarousel');
     carouselColorList = $('#model-color-list');
@@ -411,11 +407,13 @@ docReady(function () {
                     bottom = top + $(this).outerHeight();
                     
                 if (windowScrollTop >= top && windowScrollTop <= bottom) {
-                    topNavBar.find('a').removeClass('active');
-                    $('#modelDetailsContainer .bw-model-tabs-data').removeClass('active');
+					if(!$(this).hasClass('active')) {
+						topNavBar.find('a').removeClass('active');
+						$('#modelDetailsContainer .bw-model-tabs-data').removeClass('active');
 
-                    $(this).addClass('active');
-                    topNavBar.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+						$(this).addClass('active');
+						topNavBar.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+					}
                 }
             });
         } catch (e) {
@@ -440,13 +438,9 @@ docReady(function () {
     }
 
     // remove tabs highlight class for combined sections
-    var newsContent = $('#modelNewsContent'),
-        alternativeContent = $('#modelAlternateBikeContent'),
+    var alternativeContent = $('#modelAlternateBikeContent'),
         makeDealersContent = $('#makeDealersContent');
 
-    if (newsContent.length != 0) { // check if news content is present
-        newsContent.removeClass('bw-model-tabs-data').addClass('model-news-content');
-    }
     if (alternativeContent.length != 0) {
         alternativeContent.removeClass('bw-model-tabs-data');
     }
@@ -689,4 +683,126 @@ docReady(function () {
             tooltipParent.slideUp();
         }
     });
+
+    applyLikeDislikes();
+
+    $('#report-background, .report-abuse-close-btn').on('click', function() {
+        reportAbusePopup.close();
+    });
 });
+
+
+function upVoteListReview(e) {
+    var localReviewId = e.currentTarget.getAttribute("data-reviewid");
+    bwcache.set("ReviewDetailPage_reviewVote_" + localReviewId, { "vote": "1" });
+    $('#upvoteBtn' + "-" + localReviewId).addClass('active');
+    $('#downvoteBtn' + "-" + localReviewId).attr('disabled', 'disabled');
+    $('#upvoteCount' + "-" + localReviewId).text(parseInt($('#upvoteCount' + "-" + localReviewId).text()) + 1);
+    voteListUserReview(1, localReviewId);
+}
+
+function downVoteListReview(e) {
+    var localReviewId = e.currentTarget.getAttribute("data-reviewid");
+    bwcache.set("ReviewDetailPage_reviewVote_" + localReviewId, { "vote": "0" });
+    $('#downvoteBtn' + "-" + localReviewId).addClass('active');
+    $('#upvoteBtn' + "-" + localReviewId).attr('disabled', 'disabled');
+    $('#downvoteCount' + "-" + localReviewId).text(parseInt($('#downvoteCount' + "-" + localReviewId).text()) + 1);
+    voteListUserReview(0, localReviewId);
+}
+
+function voteListUserReview(vote, locReviewId) {
+    $.ajax({
+        type: "POST",
+        url: "/api/user-reviews/voteUserReview/?reviewId=" + locReviewId + "&vote=" + vote,
+        success: function (response) {
+        }
+    });
+}
+
+function applyLikeDislikes() {
+    $(".upvoteListButton").each(function () {
+        var locReviewId = this.getAttribute("data-reviewid");
+        var listVote = bwcache.get("ReviewDetailPage_reviewVote_" + locReviewId);
+
+        if (listVote != null && listVote.vote) {
+            if (listVote.vote == "0") {
+                $('#downvoteBtn' + "-" + locReviewId).addClass('active');
+                $('#upvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+            }
+            else {
+                $('#upvoteBtn' + "-" + locReviewId).addClass('active');
+                $('#downvoteBtn' + "-" + locReviewId).attr('disabled', 'disabled');
+            }
+        }
+        else {
+            $('#upvoteBtn' + "-" + locReviewId).removeClass('active');
+            $('#downvoteBtn' + "-" + locReviewId).prop('disabled', false);
+        }
+    });
+}
+
+function reportReview(e) {
+    abusereviewId = e.currentTarget.getAttribute("data-reviewid");
+    reportAbusePopup.open();
+}
+
+function reportAbuse() {
+    var isError = false;
+
+    if ($("#txtAbuseComments").val().trim() == "") {
+        $("#spnAbuseComments").html("Comments are required");
+        isError = true;
+    } else {
+        $("#spnAbuseComments").html("");
+    }
+
+    var locReviewId;
+    if (abusereviewId > 0 && !isError) {
+        locReviewId = abusereviewId;
+        document.getElementById("pReport-" + locReviewId).innerHTML = "Your request has been sent to the administrator.";
+    }
+    
+
+    if (!isError) {
+        var commentsForAbuse = $("#txtAbuseComments").val().trim();
+        $.ajax({
+            type: "POST",
+            url: "/api/user-reviews/abuseUserReview/?reviewId=" + locReviewId + "&comments=" + commentsForAbuse,
+            success: function (response) {
+                reportAbusePopup.close();
+            }
+        });
+    }
+}
+
+var reportAbusePopup = {
+    popupElement: $('#report-abuse'),
+
+    bgContainer: $('#report-background'),
+
+    open: function () {
+        reportAbusePopup.popupElement.show();
+        popup.lock();
+        $(".blackOut-window").hide();
+        reportAbusePopup.bgContainer.show();
+    },
+    close: function () {
+        reportAbusePopup.popupElement.hide();
+        popup.unlock();
+        reportAbusePopup.bgContainer.hide();
+    }
+};
+
+function updateView(e) {
+    try {
+        var reviewId = e.currentTarget.getAttribute("data-reviewid");
+        $.ajax({
+            type: "POST",
+            url: "/api/user-reviews/updateView/" + reviewId + "/",
+            success: function (response) {               
+            }
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}

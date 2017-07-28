@@ -1,6 +1,6 @@
 ﻿var ratingBox, page;
 var userNameField, userEmailIdField, vmWriteReview;
-var detailedReviewField, reviewTitleField, reviewQuestion, ratingOverAll, pageSourceID;
+var detailedReviewField, reviewTitleField, reviewQuestion, ratingOverAll, pageSourceID, contentSourceId;
 var writeReview, isSubmit = false;
 var makeModelName, ratingErrorFields="", reviewErrorFields="";
 var bikeRating = {
@@ -43,6 +43,10 @@ docReady(function () {
 
     if ($('#pageSourceId') && $('#pageSourceId').length)
         pageSourceID = Number($('#pageSourceId').val());
+
+    if ($('#contestSrc') && $('#contestSrc').length)
+        contentSourceId = Number($('#contestSrc').val());
+    
 
     if (document.getElementById("bike-rating-box") != null && document.getElementById("bike-rating-box").getAttribute("data-make-model")) {
         makeModelName = document.getElementById("bike-rating-box").getAttribute("data-make-model");
@@ -335,8 +339,7 @@ docReady(function () {
         vmRateBike.feedbackSubtitle(descText);
         vmRateBike.ratingCount(buttonValue);
         vmRateBike.clickEventRatingCount(buttonValue);
-
-        triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue + '_' + pageSourceID);
+        triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue + '_' + contentSourceId);
 
     });
     var selRating = $("#bike-rating-box").attr("data-selectedrating");
