@@ -11,3 +11,4 @@ D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Release\RabbitMQ.Client.dll
 D:\work\bikewaleweb\Bikewale.DataSync\DataSync\bin\Release\RabbitMqPublishing.dll
 D:\work\bikewaleweb\Bikewale.DataSync\DataSync\obj\Release\DataSync.exe
 D:\work\bikewaleweb\Bikewale.DataSync\DataSync\obj\Release\DataSync.pdb
+D:\work\bikewaleweb\Bikewale.DataSync\DataSync\obj\Release\Bikewale.DataSync.csprojResolveAssemblyReference.cache

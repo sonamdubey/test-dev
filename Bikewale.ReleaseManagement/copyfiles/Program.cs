@@ -44,7 +44,7 @@ namespace CopyFiles
                     if(!String.IsNullOrEmpty(path))
                     {
                         isMinify = !path.ToUpper().Contains("OPR");
-                        copyPath = String.Format(@"{0}..\..\Bikewale{2}-Releases\{1}\website\",path,DateTime.Now.ToString("dd MMM yyyy - hh-mm"),isMinify ? string.Empty : "OPR");
+                        copyPath = String.Format(@"{0}..\..\Bikewale{1}-Releases\Content\website\",path,isMinify ? string.Empty : "OPR");
                     }                   
                 }
             }
