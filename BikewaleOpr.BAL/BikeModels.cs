@@ -58,5 +58,47 @@ namespace BikewaleOpr.BAL
             }
             return objBikeByMakeNotificationData;
         }
+
+        /// <summary>
+        /// Description: BAL layer to call DAL function GetModelsWithMissingImage and group them with MakeId
+        /// 
+        /// created by: vivek singh tomar on 27/07/2017
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BikeModelsByMake> GetModelsWithMissingColorImage()
+        {
+            IEnumerable<BikeModelsByMake> objBikeModelsByMakeList = null;
+            IEnumerable<BikeMakeModelData> objBikeMakeModelDataList = null;
+            try
+            {
+                objBikeMakeModelDataList = _IBikeModel.GetModelsWithMissingColorImage();
+                if(objBikeMakeModelDataList != null)
+                {
+                    var groupModelsByMake = objBikeMakeModelDataList
+                        .GroupBy(m => m.BikeMake.MakeId)
+                        .Select(grp => new {
+                            MakeId = grp.Key,
+                            MakeEntiy = grp.First().BikeMake,
+                            ModelEntiy = grp.Select(t => t.BikeModel)
+                        })
+                        .ToList();
+                      
+                    if(groupModelsByMake != null)
+                    {
+                        objBikeModelsByMakeList = groupModelsByMake
+                                                    .Select(m => new BikeModelsByMake()
+                                                    {
+                                                        BikeMakeEntity = m.MakeEntiy,
+                                                        BikeModelEntity = m.ModelEntiy
+                                                    });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.BikeModels.GetModelsWithMissingColorImage");
+            }
+            return objBikeModelsByMakeList;
+        }
     }
 }

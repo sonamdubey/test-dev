@@ -61,6 +61,10 @@ namespace BikewaleOpr.BAL
                         if (objHomePageData.UsedModelsData.IsNotify)
                             _IUsedBikes.SendUploadUsedModelImageEmail();
                     }
+
+                    //Get models with their respective make id whose any color variation image is yet to be uploaded.
+
+                    objHomePageData.BikeModelByMakeList = _IBikeModel.GetModelsWithMissingColorImage();
                 }
             }
             catch (Exception ex)

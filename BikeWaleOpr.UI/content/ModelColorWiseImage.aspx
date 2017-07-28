@@ -1,8 +1,8 @@
 <%@ Page trace="false" Inherits="BikeWaleOpr.Content.ModelColorWiseImage" AutoEventWireUp="false" EnableEventValidation="false" Language="C#" %>
 <%@ Import Namespace ="System.Linq" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<script language="javascript" src="/src/modelImagesByColor.js"></script>
-<script language="javascript" src="/src/imageUpload.js"></script>
+<script defer language="javascript" src="/src/modelImagesByColor.js"></script>
+<script defer language="javascript" src="/src/imageUpload.js"></script>
 
 <style>
     #one {

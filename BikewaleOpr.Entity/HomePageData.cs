@@ -1,4 +1,5 @@
 ﻿using BikewaleOpr.Entity.BikeData;
+using System.Collections.Generic;
 
 namespace BikewaleOpr.Entity
 {
@@ -12,5 +13,6 @@ namespace BikewaleOpr.Entity
         public bool IsUsedBikeModelsAvailable { get; set; }
         public SoldUnitData SoldUnitsData { get; set; }
         public UsedBikeImagesByMakeNotificationData UsedModelsData { get; set; }
+        public IEnumerable<BikeModelsByMake> BikeModelByMakeList { get; set; }
     }
 }

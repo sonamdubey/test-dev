@@ -146,7 +146,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
-                        {
+                        {               
                             objImagesData = new UsedBikeImagesNotificationData();
 
                             _objBikeModels = new List<UsedBikeImagesModel>();
@@ -372,6 +372,53 @@ namespace BikewaleOpr.DALs.Bikedata
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.GetModelsByMake : makeId {0}", makeId));
             }
             return models;
+        }
+
+        /// <summary>
+        /// To fetch the list of models having missing image of any of their specified colors.
+        /// 
+        /// created by: vivek singh tomar on 27/07/2017
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeModelData> GetModelsWithMissingColorImage()
+        {
+            ICollection<BikeMakeModelData> objBikeMakeModelDataList = null;
+            try
+            {
+                using(IDbConnection conn = DatabaseHelper.GetReadonlyConnection())
+                {
+                    IDbCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = "getmodelswithmissingcolorimage";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    IDataReader reader = cmd.ExecuteReader();
+                    if(reader != null)
+                    {
+                        objBikeMakeModelDataList = new List<BikeMakeModelData>();
+                        while (reader.Read())
+                        {
+                            BikeMakeModelData objBikeMakeModelData = new BikeMakeModelData();
+                            objBikeMakeModelData.BikeMake = new Entities.BikeMakeEntityBase();
+                            objBikeMakeModelData.BikeModel = new Entities.BikeModelEntityBase();
+
+                            objBikeMakeModelData.BikeMake.MakeId = SqlReaderConvertor.ToInt32(reader["MakeId"]);
+                            objBikeMakeModelData.BikeMake.MakeName = Convert.ToString(reader["MakeName"]);
+                            objBikeMakeModelData.BikeMake.MaskingName = Convert.ToString(reader["MakeMaskingName"]);
+                            objBikeMakeModelData.BikeModel.ModelId = SqlReaderConvertor.ToInt32(reader["ModelId"]);
+                            objBikeMakeModelData.BikeModel.ModelName = Convert.ToString(reader["ModelName"]);
+                            objBikeMakeModelData.BikeModel.MaskingName = Convert.ToString(reader["ModelMaskingName"]);
+
+                            objBikeMakeModelDataList.Add(objBikeMakeModelData);
+                        }
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.BikeModelsRepository.GetModelsWithMissingColorImage"));
+            }
+            return objBikeMakeModelDataList;
         }
 
     }

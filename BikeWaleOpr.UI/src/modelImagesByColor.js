@@ -1,10 +1,10 @@
 ﻿var modelId, environment, userid, bwHostUrl, bikeFullName, currentFile;
 $(document).ready(function () {
-        if ($('#hdnModelId').val() > 0) {
-            fillDropdowns();
-            $("#cmbModel").val($('#hdnModelId').val())
-            setBikeName();
-        }
+    if ($('#hdnModelId').val() > 0) {
+        fillDropdowns();
+        $("#cmbModel").val($('#hdnModelId').val())
+        setBikeName();
+    }
     
     $('#cmbMake').change(function () {
         fillDropdowns();
@@ -97,6 +97,7 @@ function readURL(input,control) {
 }
 
 $("#btnSubmit").live("click", function () {
+    window.location.href = window.location.href.split("?")[0];
     if ($("#cmbMake").val() > 0 && $("#cmbModel").val() > 0) {
         setBikeName();
         return true;
