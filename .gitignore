@@ -1,7 +1,6 @@
 */bin
 */obj
 *.suo
-/packages
 *.log
 *.user
 Bikewale.Service/bin/*.XML
