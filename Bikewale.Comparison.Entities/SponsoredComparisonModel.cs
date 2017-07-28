@@ -8,9 +8,9 @@ namespace Bikewale.Comparison.Entities
 {
     /// <summary>
     /// Created by: Sangram Nandkhile 27-Jul-2017
-    /// Summary: Entity for sponsored campaign model
+    /// Summary: Entity for sponsored comparison model
     /// </summary>
-    public class SponsoredCampaignModel
+    public class SponsoredComparisonModel
     {
         public uint Id { get; set; }
         public uint ComparisonId { get; set; }

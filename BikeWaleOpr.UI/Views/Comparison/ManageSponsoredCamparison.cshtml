@@ -98,7 +98,7 @@
                     <div class="container">
                         <ul class="input-field row m12">
                             <li>
-                                <input id="txtComparisonDescription" type="text" class="validate" name="Description" maxlength="100" length="100">
+                                <input id="txtComparisonDescription" type="text" class="validate" name="Name" maxlength="100" length="100">
                                 <label for="txtComparisonDescription">Comparison Description *</label>
                             </li>
                             <li class="input-field">
@@ -106,12 +106,14 @@
                                 <input type="date" id="dtStartTime" class="datepicker margin-left5" data-bind="textInput : startDate" data-value="" />
                                 <label for="dtStartTime">Campaign Start Date *</label>
                                 <input type="time" id="dtStartTime" value="" />
+                                <input type="hidden" name="StartDate" />
                             </li>
                             <li class="input-field">
                                 <i class="material-icons prefix margin-top15">date_range</i>
                                 <input type="date" id="dtEndDate" class="datepicker margin-left5" data-bind="textInput : startDate" data-value="" />
                                 <label for="dtEndDate">Campaign End Date *</label>
                                 <input type="time" id="dtEndTime" value="" />
+                                <input type="hidden" name="EndDate"/>
                             </li>
                             <li class="input-field">
                                 <input id="txtLinkText" type="text" class="validate" name="LinkText">
@@ -122,15 +124,15 @@
                                 <label for="txtLinkUrl">Link Url</label>
                             </li>
                             <li class="input-field">
-                                <input id="txtBikeNameImpression" type="text" class="validate" name="NameImpression">
+                                <input id="txtBikeNameImpression" type="text" class="validate" name="NameImpressionUrl">
                                 <label for="txtBikeNameImpression">Bike Name Impression/GA</label>
                             </li>
                             <li class="input-field">
-                                <input id="txtBikeImageImpression" type="text" class="validate" name="ImageImpression">
+                                <input id="txtBikeImageImpression" type="text" class="validate" name="ImgImpressionUrl">
                                 <label for="txtBikeImageImpression">Bike Image Impression/GA</label>
                             </li>
                             <li class="input-field">
-                                <button data-bind="click: " class="btn waves-effect waves-light" type="submit" name="action">
+                                <button data-bind="click: addSponsoredComparison" class="btn waves-effect waves-light" type="submit" name="action">
                                     Add Campaign
                                 </button>
                             </li>

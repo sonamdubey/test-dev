@@ -144,29 +144,18 @@ namespace Bikewale.Comparison.DAL
         /// <summary>
         /// Gets the sponsored comparison.
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public SponsoredCampaign GetSponsoredComparison()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Gets the sponsored comparison.
-        /// </summary>
         /// <param name="campaignId">The campaign identifier.</param>
         /// <returns></returns>
-        public SponsoredCampaign GetSponsoredComparison(uint campaignId)
+        public SponsoredComparison GetSponsoredComparison()
         {
-            SponsoredCampaign objCampaign = null;
-
+            SponsoredComparison objCampaign = null;
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     connection.Open();
                     var param = new DynamicParameters();
-                    objCampaign = connection.Query<SponsoredCampaign>("getsponsoredcomparison", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    objCampaign = connection.Query<SponsoredComparison>("getsponsoredcomparison", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
 
 
                     if (connection.State == ConnectionState.Open)
@@ -175,10 +164,8 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparison: -> campaignId : {0}", campaignId));
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparison()");
             }
-
-
             return objCampaign;
         }
 
@@ -187,9 +174,9 @@ namespace Bikewale.Comparison.DAL
         /// </summary>
         /// <param name="statuses">The statuses.</param>
         /// <returns></returns>
-        public IEnumerable<SponsoredCampaign> GetSponsoredComparisons(string statuses)
+        public IEnumerable<SponsoredComparison> GetSponsoredComparisons(string statuses)
         {
-            IEnumerable<SponsoredCampaign> comparisonCampaigns = null;
+            IEnumerable<SponsoredComparison> comparisonCampaigns = null;
 
             try
             {
@@ -198,7 +185,7 @@ namespace Bikewale.Comparison.DAL
                     connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_statuses", statuses);
-                    comparisonCampaigns = connection.Query<SponsoredCampaign>("getsponsoredcomparisons", param: param, commandType: CommandType.StoredProcedure);
+                    comparisonCampaigns = connection.Query<SponsoredComparison>("getsponsoredcomparisons", param: param, commandType: CommandType.StoredProcedure);
 
 
                     if (connection.State == ConnectionState.Open)
@@ -207,7 +194,7 @@ namespace Bikewale.Comparison.DAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparisons");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetSponsoredComparison() {0}:", statuses));
             }
 
             return comparisonCampaigns;
@@ -262,15 +249,15 @@ namespace Bikewale.Comparison.DAL
             return objResult;
         }
 
-        
-/// <summary>
-/// Saves the sponsored comparison.
-/// </summary>
-/// <param name="campaign">The campaign.</param>
-/// <returns></returns>
-public bool SaveSponsoredComparison(SponsoredCampaign campaign)
+
+        /// <summary>
+        /// Saves the sponsored comparison.
+        /// </summary>
+        /// <param name="campaign">The campaign.</param>
+        /// <returns></returns>
+        public uint SaveSponsoredComparison(SponsoredComparison campaign)
         {
-            bool isSaved = false;
+            uint comparisonId = 0;
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
@@ -282,22 +269,24 @@ public bool SaveSponsoredComparison(SponsoredCampaign campaign)
                     param.Add("par_enddate", campaign.EndDate);
                     param.Add("par_linktext", campaign.LinkText);
                     param.Add("par_linkurl", campaign.LinkUrl);
-                    param.Add("par_impressionurl", campaign.ImpressionUrl);
+                    param.Add("par_impressionurl", campaign.NameImpressionUrl);
                     param.Add("par_imgimpressionurl", campaign.ImgImpressionUrl);
                     param.Add("par_updatedby", campaign.UpdatedBy);
                     param.Add("par_id", campaign.Id, dbType: DbType.Int32, direction: ParameterDirection.Output);
                     connection.Query<dynamic>("savesponsoredcomparisons", param: param, commandType: CommandType.StoredProcedure);
 
+                    comparisonId = param.Get<uint>("par_id");
+
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
-                    isSaved = true;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.SaveSponsoredComparison");
             }
-            return isSaved;
+
+            return comparisonId;
         }
 
         /// <summary>
@@ -331,5 +320,6 @@ public bool SaveSponsoredComparison(SponsoredCampaign campaign)
             }
             return isSaved;
         }
+
     }
 }

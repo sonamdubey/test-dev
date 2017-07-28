@@ -34,7 +34,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
         [HttpGet, Route("api/compare/sponsored/{statuses}/")]
         public IHttpActionResult GetCampaigns(string statuses)
         {
-           IEnumerable<SponsoredCampaign> objSponsoredCampaign = null;
+           IEnumerable<SponsoredComparison> objSponsoredCampaign = null;
             try
             {
                 objSponsoredCampaign = _objSponsoredRepo.GetSponsoredComparisons(statuses);
@@ -56,7 +56,6 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             try
             {
                 objSponsoredCampaign = _objSponsoredRepo.GetSponsoredComparisonVersionMapping(id,targetModelId, sponsoredModelId);
-
                 return Ok(objSponsoredCampaign);
             }
             catch (Exception ex)
@@ -66,27 +65,28 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
         }
 
+
         /// <summary>
         /// Saves the sponsored campaign.
         /// </summary>
         /// <param name="campaign">The campaign.</param>
         /// <returns></returns>
         [HttpPost, Route("api/compare/sponsored/save/")]
-        public IHttpActionResult SaveSponsoredCampaign([FromBody]SponsoredCampaign campaign)
+        public IHttpActionResult SaveSponsoredCampaign([FromBody]SponsoredComparison campaign)
         {
-            bool isSuccess = false;
+            uint comparisonId = 0;
             try
             {
-                isSuccess =  _objSponsoredRepo.SaveSponsoredComparison(campaign);
+                comparisonId =  _objSponsoredRepo.SaveSponsoredComparison(campaign);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.SaveSponsoredCampaign");
                 return InternalServerError();
             }
-            return Ok(isSuccess);
+            return Ok(comparisonId);
         }
-
+        
         /// <summary>
         /// Saves the sponsored comparisons bike rules.
         /// </summary>
@@ -95,7 +95,6 @@ namespace BikewaleOpr.Service.Controllers.Camparison
         [HttpPost, Route("api/compare/sponsored/rules/save/")]
         public IHttpActionResult SaveSponsoredComparisonsBikeRules([FromBody]VersionTargetMapping ruleObj)
         {
-
             bool isSuccess = false;
             try
             {
@@ -147,7 +146,7 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.GetCampaigns.DeleteSponsoredComparisonModelRules");
+                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.DeleteSponsoredComparisonModelRules");
                 return InternalServerError();
             }
             return Ok(isSuccess);

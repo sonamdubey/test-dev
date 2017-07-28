@@ -8,9 +8,9 @@ namespace Bikewale.Comparison.Entities
 {
     /// <summary>
     /// Created by: Sangram Nandkhile 27-Jul-2017
-    /// Summary: Entity for sponsored campaign status
+    /// Summary: Entity for sponsored comparison status
     /// </summary>
-    public enum SponsoredCampaignStatus
+    public enum SponsoredComparisonStatus
     {
         Unstarted = 0,
         Active = 1,
