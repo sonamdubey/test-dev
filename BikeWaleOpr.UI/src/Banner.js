@@ -41,6 +41,9 @@ $(document).ready(function () {
     imgPathMobile = $('#mobile-image').data('src');
     userId = $('#configureBanner').attr('data-userId');
 
+
+    $('#startTimeEle').val($('#starttime').val());
+    $('#endTimeEle').val($('#endtime').val());
     var configureBanner = function () {
         var self = this;
 

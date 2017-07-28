@@ -149,12 +149,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                     IEnumerable<BikeRatingApproveEntity> objReviewDetails = _userReviewsRepo.GetUserReviewDetails(reviewIds);
 
                     foreach(var obj in objReviewDetails)
-                    {
-                        string reviewUrl = string.Format("{0}/{1}-bikes/{2}/reviews/{3}/", BWConfiguration.Instance.BwHostUrl, obj.MakeMaskingName, obj.ModelMaskingName, obj.ReviewId);
-
-                        ComposeEmailBase objBase = new ReviewApprovalEmail(obj.CustomerName, reviewUrl, obj.BikeName);
-                        objBase.Send(obj.CustomerEmail, "Congratulations! Your review has been published");
-                        
+                    {                                                
                         MemCachedUtil.Remove(string.Format("BW_BikeReviewsInfo_MO_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_BikeRatingsReviewsInfo_MO_V1_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ModelDetail_v1_{0}", obj.ModelId));
