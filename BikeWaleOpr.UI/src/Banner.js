@@ -80,7 +80,7 @@ $(document).ready(function () {
                     "startdate": $('#startDateEle').val() + ' ' + $('#startTimeEle').val(),
                     "enddate": $('#endDateEle').val() + ' ' + $('#endTimeEle').val(),
                     "bannerdescription": $('#textareaBannerDesc').val(),
-                    "campaignid": queries.id
+                    "campaignid": queries.id,
                     "userId": userId
                 }
                 $.ajax({
