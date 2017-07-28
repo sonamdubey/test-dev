@@ -868,6 +868,8 @@ namespace Bikewale.DAL.UserReviews
         /// Summary     : Added sourceId parameter
         /// Modified by : Sajal Gupta on 05-07-2017
         /// Summary     : Changed SP
+        /// Modified by : Sajal Gupta on 17-07-2017
+        /// Summary     : Changed SP
         /// </summary>
         /// <param name="overAllrating"></param>
         /// <param name="ratingQuestionAns"></param>
@@ -884,7 +886,7 @@ namespace Bikewale.DAL.UserReviews
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings_04072017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserratings_13072017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
@@ -926,6 +928,8 @@ namespace Bikewale.DAL.UserReviews
         /// Description : Save user reviews by user with comments and title
         /// Modified by : Sajal Gupta on 05-07-2017
         /// Summary     : Changed SP
+        /// Modified by : Sajal Gupta on 17-07-2017
+        /// Summary     : Changed SP
         /// </summary>
         /// <param name="reviewId"></param>
         /// <param name="tipsnAdvices"></param>
@@ -940,7 +944,7 @@ namespace Bikewale.DAL.UserReviews
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserreviews_04072017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveuserreviews_13072017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.UInt32, reviewId));
@@ -1312,6 +1316,61 @@ namespace Bikewale.DAL.UserReviews
             }
 
             return objBikeReviewInfo;
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 14-07-2017
+        /// Description : Dal Function to fetch review questions aggrgate value by modelid
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public QuestionsRatingValueByModel GetReviewQuestionValuesByModel(uint modelId)
+        {
+            QuestionsRatingValueByModel objQuestionsList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getreviewquestionvaluebymodel"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.UInt32, modelId));
+                   
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objQuestionsList = new QuestionsRatingValueByModel();
+                            objQuestionsList.ModelId = modelId;
+                            IList<QuestionRatingsValueEntity> objList = new List<QuestionRatingsValueEntity>();                            
+
+                            while (dr.Read())
+                            {
+                                QuestionRatingsValueEntity objQuestion = new QuestionRatingsValueEntity();
+
+                                objQuestion.ModelId = SqlReaderConvertor.ToUInt32(dr["modelId"]);
+                                objQuestion.QuestionId = SqlReaderConvertor.ToUInt16(dr["questionId"]);
+                                objQuestion.AverageRatingValue = SqlReaderConvertor.ToFloat(dr["aggregateValue"]);
+                                objQuestion.QuestionHeading = Convert.ToString(dr["heading"]);
+                                objQuestion.QuestionDescription = Convert.ToString(dr["description"]);
+
+                                objList.Add(objQuestion);
+                            }
+
+                            dr.Close();
+
+                            objQuestionsList.QuestionsList = objList;
+                        }
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                ErrorClass errObj = new ErrorClass(ex, String.Format("Bikewale.DAL.Used.Search.GetReviewQuestionValuesByModel({0})", modelId));
+
+            }
+
+            return objQuestionsList;
         }
 
         public BikeRatingsReviewsInfo GetBikeRatingsReviewsInfo(uint modelId)

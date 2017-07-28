@@ -277,7 +277,7 @@ namespace Bikewale.Service.Controllers.Model
             Bikewale.DTO.Model.v3.ModelPage objDTOModelPage = null;
             try
             {
-                if (modelId <= 0 || cityId <= 0 || areaId <= 0)
+                if (modelId <= 0 || cityId <= 0)
                 {
                     return BadRequest();
                 }
@@ -336,7 +336,7 @@ namespace Bikewale.Service.Controllers.Model
             Bikewale.DTO.Model.v4.ModelPage objDTOModelPage = null;
             try
             {
-                if (modelId <= 0 || cityId <= 0 || areaId <= 0)
+                if (modelId <= 0 || cityId <= 0)
                 {
                     return BadRequest();
                 }
@@ -361,7 +361,7 @@ namespace Bikewale.Service.Controllers.Model
                                 pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
                             }
 
-                            if (areaId != null && !objModelPage.ModelDetails.Futuristic)
+                            if (cityId != null && cityId.Value > 0 && !objModelPage.ModelDetails.Futuristic)
                             {
                                 int versionId = 0;
                                 if (pqEntity != null && pqEntity.VersionList != null && pqEntity.VersionList.Count() > 0)
@@ -387,8 +387,11 @@ namespace Bikewale.Service.Controllers.Model
 
                                     }
                                 }
-                                objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity,
-                                    _dealers.GetDealerQuotation(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId));
+                                if (pqEntity.IsExShowroomPrice)
+                                    objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity, null);
+                                else
+                                    objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity,
+                                    _dealers.GetDealerQuotationV2(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId, Convert.ToUInt32(areaId.HasValue ? areaId.Value : 0)));
                             }
                             else
                             {

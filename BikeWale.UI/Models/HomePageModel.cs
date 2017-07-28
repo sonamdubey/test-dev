@@ -127,7 +127,7 @@ namespace Bikewale.Models
             objVM.UpcomingBikes.UpcomingBikes = _cachedModels.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, (int)TopCount, null, null, 1);
             BindCompareBikes(objVM, CompareSource, cityId);
             
-            objVM.BestBikes = new BestBikeWidgetModel(null).GetData();
+            objVM.BestBikes = new BestBikeWidgetModel(null, _cachedModels).GetData();
 
             objVM.UsedBikeCities = new UsedBikeCitiesWidgetModel(cityMaskingName, string.Empty, _IUsedBikesCache).GetData();
 

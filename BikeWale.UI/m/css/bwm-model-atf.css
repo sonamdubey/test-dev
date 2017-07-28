@@ -61,6 +61,17 @@
 .border-light-left {
     border-left: 1px solid #ededed;
 }
+.rating-review-content .star-icon {
+  width: 26px;
+  height: 25px;
+  vertical-align: middle;
+  -webkit-transform: scale(0.6);
+  -moz-transform: scale(0.6);
+  -o-transform: scale(0.6);
+  transform: scale(0.6);
+  position: relative;
+  top: -2px;
+}
 
 /* floating tabs */
 #modelOverallSpecsTopContent { height:44px; }

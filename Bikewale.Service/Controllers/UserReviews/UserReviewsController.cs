@@ -88,6 +88,30 @@ namespace Bikewale.Service.Controllers.UserReviews
         }   // Get review details
         #endregion
 
+        /// <summary>
+        /// Created by Sajal Gupta on 17-07-2017
+        /// Description : Created api to increase user review view count
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/user-reviews/updateView/{reviewId}/")]
+        public IHttpActionResult UpdateUserReviewViews(uint reviewId)
+        {            
+            try
+            {
+                NameValueCollection nvc = new NameValueCollection();
+                nvc.Add("par_reviewId", reviewId.ToString());
+                SyncBWData.PushToQueue("updateUserReviewViews", DataBaseName.BW, nvc);
+
+                return Ok();                
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController.UpdateUserReviewViews");                
+                return InternalServerError();
+            }           
+        }
+
         #region Get User Review Ratings
         /// <summary>
         /// To get Review Ratings based on Model Id

@@ -21,7 +21,7 @@
 					<li>
 						<a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="Expert Review: @article.Title">
 							<div class="article-item-content">
-								@(Regex.Match(article.AuthorName, @"\b(sponsored)\b", RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "")
+								@Html.Raw(Regex.Match(article.AuthorName, @"\b(sponsored)\b", RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "")
 								<div class="article-wrapper">
 									<div class="article-image-wrapper">
 										<img class="lazy" alt='Expert Review: @article.Title' title="Expert reviews: @article.Title" data-original='@Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._110x61, QualityFactor._70)' width="100%" border="0" src="">
@@ -41,7 +41,7 @@
 							</div>
 						</a>
 					</li>
-					if(Model.PagerEntity.PageNo == 1 && Model.PagerEntity.PageSize <= 10 && i == 4) {
+					if(Model.PagerEntity.PageNo == 1 && Model.EndIndex == 10 && i == 4) {
 						<li class="list-item__slug hide" id="writereviewslug">
 							<span class="bwmsprite list-slug__close"></span>
 							<div class="list-slug__wrapper">
@@ -51,7 +51,7 @@
 								<div class="list-slug__details slug-content--top-align">
 									<p class="list-slug__heading">Bike review contest</p>
 									<p class="list-slug__subheading">Write a detailed review &amp; stand a chance to win Amazon vouchers worth <span>&#x20B9;</span>&nbsp;1,000</p>
-									<a href="/m/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ExpertReviews)" title="Participate now" class="list-slug__target">Participate now<span class="bwmsprite target-arrow"></span></a>
+									<a href="/m/bike-review-contest/?csrc=@((int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ExpertReviews)" title="Bike Review Contest" class="list-slug__target">Participate now<span class="bwmsprite target-arrow"></span></a>
 								</div>
 							</div>
 						</li>

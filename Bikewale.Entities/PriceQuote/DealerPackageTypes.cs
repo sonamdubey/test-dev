@@ -16,6 +16,7 @@ namespace Bikewale.Entities.PriceQuote
         Invalid = 0,
         Standard = 1,
         Deluxe = 2,
-        Premium = 3
+        Premium = 3,
+        Pricing = 4
     }
 }

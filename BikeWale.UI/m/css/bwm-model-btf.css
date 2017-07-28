@@ -103,7 +103,7 @@
 
 /*about*/
 #aboutContent img {
-width:100%;
+	width: 100%;
 }
 
 /* reviews and news */
@@ -243,7 +243,7 @@ width:100%;
 .bike-details-list-ul { list-style:disc; margin-left:18px; }
 
 .content-details-wrapper .overall-specs-tabs-wrapper li.active h3 { font-weight: bold; }
-.content-details-wrapper h2 { font-size: 18px; margin-bottom:13px; font-weight: bold; }
+.content-details-wrapper h2 { font-size: 18px; margin-bottom:13px; }
 h2.text-bold { font-weight: bold; }
 .content-details-wrapper h3, .content-details-wrapper .model-specs-header { margin-bottom:12px; }
 #modelReviewsContent h3.model-section-subtitle { margin-bottom:20px; }
@@ -252,6 +252,330 @@ h2.text-bold { font-weight: bold; }
 .content-inner-block-1222 { padding:15px 20px 20px; }
 
 .swiper-wrapper .swiper-slide:first-child { margin-left:10px; }
+
+/* user reviews */
+.content-details-wrapper h2.heading-bottom-margin {
+	margin-bottom: 5px;
+}
+
+/* overall rating */
+.model-overall-rating {
+	padding-bottom: 10px;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #e2e2e2;
+}
+
+.overall-rating-alignment {
+	position: relative;
+	left: -4px;
+}
+
+.text-xt-light {
+	color: #a2a2a2;
+}
+
+.model-overall-rating span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.review-left-divider {
+    position: relative;
+    margin-left: 15px;
+    padding-left: 15px;
+}
+.review-left-divider:before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 1px;
+    height: 16px;
+    border-left: 1px solid #e2e2e2;
+}
+
+.rate-count-5 {
+    color: #198D55;
+}
+.rate-count-4 {
+    color: #13B65D;
+}
+.rate-count-3 {
+    color: #EFD700;
+}
+.rate-count-2 {
+    color: #FD971C;
+}
+.rate-count-1 {
+    color: #EF3F30;
+}
+
+.model-overall-rating .star-icon {
+    width: 26px;
+    height: 25px;
+    -webkit-transform: scale(0.6);
+    -moz-transform: scale(0.6);
+    -o-transform: scale(0.6);
+    transform: scale(0.6);
+}
+.rate-count-1 .star-icon {
+    background-position: 0 -667px;
+}
+.rate-count-2 .star-icon {
+    background-position: -38px -667px;
+}
+.rate-count-3 .star-icon {
+    background-position: 0 -278px;
+}
+.rate-count-4 .star-icon {
+    background-position: -74px -667px;
+}
+.rate-count-5 .star-icon {
+    background-position: -110px -667px;
+}
+
+/* rating circle list */
+.rating-circle-list {
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #e2e2e2;
+}
+.rating-circle-list:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.rating-circle-list li {
+    float: left;
+    margin-right: 7px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+.rating-circle-list li:last-child {
+    margin-right: 0;
+}
+.rating-circle-list .list-item-label {
+    font-size: 13px;
+    color: #787878;
+    padding-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+	min-width: 115px;
+}
+
+.rating-circle {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: inline-block;
+    vertical-align: middle;
+}
+.circle-label {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #787878;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    line-height: 24px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    background: #fff;
+    text-align: center;
+    z-index: 1;
+}
+.rating-progress {
+    width: 30px;
+    height: 30px;
+    display: block;
+    position: absolute;
+    clip: rect(0, 30px, 30px, 15px);
+}
+.rating-progress:before,
+.rating-progress:after {
+    content: '';
+    width: 30px;
+    height: 30px;
+    display: block;
+    position: absolute;
+    border-width: 3px;
+    border-style: solid;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    clip: rect(0, 15px, 30px, 0);
+}
+.circle-rate-3 .rating-progress,
+.circle-rate-4 .rating-progress,
+.circle-rate-5 .rating-progress {
+    clip: rect(auto, auto, auto, auto);
+}
+.circle-rate-3 .rating-progress:after,
+.circle-rate-4 .rating-progress:after,
+.circle-rate-5 .rating-progress:after {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.circle-rate-1 .rating-progress:before {
+    border-color: #EF3F30;
+    -webkit-transform: rotate(62deg);
+    -moz-transform: rotate(62deg);
+    -o-transform: rotate(62deg);
+    transform: rotate(62deg);
+}
+.circle-rate-2 .rating-progress:before {
+    border-color: #FD971C;
+    -webkit-transform: rotate(144deg);
+    -moz-transform: rotate(144deg);
+    -o-transform: rotate(144deg);
+    transform: rotate(144deg);
+}
+.circle-rate-3 .rating-progress:before {
+    -webkit-transform: rotate(216deg);
+    -moz-transform: rotate(216deg);
+    -o-transform: rotate(216deg);
+    transform: rotate(216deg);
+}
+.circle-rate-4 .rating-progress:before {
+    -webkit-transform: rotate(288deg);
+    -moz-transform: rotate(288deg);
+    -o-transform: rotate(288deg);
+    transform: rotate(288deg);
+}
+.circle-rate-3 .rating-progress:before,
+.circle-rate-3 .rating-progress:after {
+    border-color: #EFD700;
+}
+.circle-rate-4 .rating-progress:before,
+.circle-rate-4 .rating-progress:after {
+    border-color: #13B65D;
+}
+.circle-rate-5 .rating-progress:before,
+.circle-rate-5 .rating-progress:after {
+    border-color: #198D55;
+}
+
+/* user reviews list */
+.user-review-list li {
+    border-top: 1px solid #eee;
+}
+.user-review-list li:first-child {
+    border-top: 0;
+}
+.user-review-list .item-target {
+    display: block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.user-review-list .item-target:hover {
+    text-decoration: none;
+}
+.user-review-list .grid-10-inline.text-truncate {
+    width: 83.33333%;
+}
+.user-review-list .star-white {
+    margin-right: 0;
+}
+
+.grid-10-inline {
+    width: 83.33333%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: -4px;
+}
+
+.inline {
+	display: inline;
+}
+
+/* rating badges */
+.rating-badge {
+    min-width: 40px;
+    height: 20px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+    text-align: center;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.star-white {
+    width: 12px;
+    height: 12px;
+    background-position: -172px -447px;
+    position: relative;
+    top: 1px;
+    margin-right: 4px;
+}
+
+.rating-badge[data-rate-bg="5"] {
+    background-color: #198D55;
+}
+.rating-badge[data-rate-bg="4"] {
+    background-color: #13B65D;
+}
+.rating-badge[data-rate-bg="3"] {
+    background-color: #EFD700;
+}
+.rating-badge[data-rate-bg="2"] {
+    background-color: #FD971C;
+}
+.rating-badge[data-rate-bg="1"] {
+    background-color: #EF3F30;
+}
+
+.item-stats-grid {
+    font-size: 14px;
+    color: #82888b;
+    display: inline-block;
+    vertical-align: middle;
+}
+.item-stats-grid span {
+    display: inline-block;
+    vertical-align: middle;
+}
+.item-stats-grid {
+    min-width: 60px;
+}
+
+/* icons */
+.like-sm,
+.dislike-sm,
+.views-sm {
+    width: 16px;
+    height: 14px;
+    vertical-align: middle;
+}
+.like-sm {
+    background-position: -109px -252px;
+}
+.dislike-sm {
+    background-position: -109px -265px;
+}
+.views-sm {
+    background-position: -59px -304px;
+}
+
 
 .news-image-wrapper { width:148px; height:83px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:15px; }
 .news-image-wrapper a { width:148px; height:83px; display:table-cell; vertical-align:middle; text-align:center; }
@@ -264,7 +588,7 @@ h2.text-bold { font-weight: bold; }
 .margin-top17 { margin-top:17px; }
 .model-user-review-rating-container { width:120px; height:68px; border:1px solid #e2e2e2; background:#f9f9f9; padding-top:10px; text-align:center;display:inline-block; vertical-align:top; margin-right:10px;}
 .model-user-review-title-container { width:55%; display:inline-block; vertical-align:top;}
-#modelAlternateBikeContent .swiper-slide { width:186px; min-height:240px; border:1px solid #e2e2e2\9; background:#fff; -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2); -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.2); -ms-box-shadow: 0 1px 4px rgba(0,0,0,0.2); box-shadow: 0 1px 4px rgba(0,0,0,0.2); -webkit-border-radius:2px; -moz-border-radius:2px; -ms-border-radius:2px; border-radius:2px; }
+#modelAlternateBikeContent .swiper-slide { width:186px; min-height:240px; background:#fff; -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2); -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.2); -ms-box-shadow: 0 1px 4px rgba(0,0,0,0.2); box-shadow: 0 1px 4px rgba(0,0,0,0.2); -webkit-border-radius:2px; -moz-border-radius:2px; -ms-border-radius:2px; border-radius:2px; }
 #modelAlternateBikeContent .swiper-slide h3 {  margin-bottom:7px; }
 .model-swiper-image-preview { width:100%; height:101px; }
 .model-swiper-image-preview a { width:180px; height:101px; display:block; position:relative; }
@@ -292,7 +616,6 @@ h2.text-bold { font-weight: bold; }
     min-height: 220px;
 }
 .comparison-swiper .swiper-card {
-    border: 1px solid #e2e2e2\9;
     background: #fff;
     -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
@@ -350,7 +673,6 @@ h2.text-bold { font-weight: bold; }
     -moz-box-shadow: 0 1px 7px 0 #ccc;
     box-shadow: 0 1px 7px 0 #ccc;
     border-radius: 2px;
-    border: 1px solid #ccc\9;
     display: block;
 }
 
@@ -469,15 +791,16 @@ h2.text-bold { font-weight: bold; }
     }
 }
 
+
 .full-width-select .dropdown-select-wrapper,
-.full-width-select .dropdown-menu,
-.full-width-select .dropdown-menu .dropdown-label,
-.full-width-select .dropdown-menu .dropdown-selected-item,
+	.full-width-select .dropdown-menu,
+	.full-width-select .dropdown-menu .dropdown-label,
+	.full-width-select .dropdown-menu .dropdown-selected-item,
 .full-width-select .dropdown-menu .dropdown-list-wrapper,
 .full-width-select .dropdown-menu .dropdown-menu-title {
-    width: 100%;
+		width: 100%;
 	max-width: 100%;
-}
+	}
 
 .full-width-select .dropdown-menu-list {
 	max-height: 165px;
@@ -487,4 +810,10 @@ h2.text-bold { font-weight: bold; }
 #getDealer-select-box .dropdown-select-wrapper {
     border-bottom: 1px solid #82888b;
     padding-bottom: 7px;
+}
+
+@media only screen and (max-width: 320px) {
+	.rating-circle-list .list-item-label {
+		min-width: 95px;
+	}
 }

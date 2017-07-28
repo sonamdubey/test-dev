@@ -10,7 +10,11 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
+
+using Bikewale.Entities.UserReviews.Search;
+
 using Bikewale.Interfaces;
+
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -23,11 +27,13 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Models.Used;
+using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
 using Bikewale.Utility.GenericBikes;
 using System;
@@ -64,15 +70,24 @@ namespace Bikewale.Models.BikeModels
         private readonly IUserReviewsCache _userReviewCache;
         private readonly IUsedBikesCache _usedBikesCache;
         private readonly IUpcoming _upcoming = null;
+
+        private readonly IUserReviewsCache _userReviewsCache = null;
+        private readonly IUserReviewsSearch _userReviewsSearch = null;
+
+        private uint _modelId, _cityId, _areaId;
+
+
+
+
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
+
         private ModelPageVM _objData = null;
-        private uint _modelId, _cityId, _areaId;
         private PQOnRoadPrice _pqOnRoad;
         private StringBuilder _colorStr = new StringBuilder();
 
 
-             
+
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
         public uint OtherDealersTopCount { get; set; }
@@ -82,7 +97,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsMobile { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
 
-        public ModelPage(string makeMasking, string modelMasking, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, Interfaces.IManufacturerCampaign objManufacturerCampaign)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IBikeCompareCacheRepository objCompare, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, Interfaces.IManufacturerCampaign objManufacturerCampaign)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -104,6 +119,8 @@ namespace Bikewale.Models.BikeModels
             _userReviewCache = userReviewCache;
             _usedBikesCache = usedBikesCache;
             _objManufacturerCampaign = objManufacturerCampaign;
+            _userReviewsSearch = userReviewsSearch;
+            _userReviewsCache = userReviewsCache;
             ParseQueryString(makeMasking, modelMasking);
         }
 
@@ -296,9 +313,9 @@ namespace Bikewale.Models.BikeModels
                     _objData.News = new RecentNews(3, (uint)objMake.MakeId, _objData.ModelId, objMake.MakeName, objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, "News", _objArticles).GetData();
                     _objData.ExpertReviews = new RecentExpertReviews(3, (uint)objMake.MakeId, _objData.ModelId, objMake.MakeName, objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, _objArticles, string.Format("{0} Reviews", _objData.BikeName)).GetData();
                     _objData.Videos = new RecentVideos(1, 3, (uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, _objData.ModelId, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, _objVideos).GetData();
-                     _objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName, (int)(IsMobile?UserReviewPageSourceEnum.Mobile_ModelPage: UserReviewPageSourceEnum.Desktop_ModelPage)));
-               
-                       
+                    _objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName, (int)(IsMobile ? UserReviewPageSourceEnum.Mobile_ModelPage : UserReviewPageSourceEnum.Desktop_ModelPage)));
+
+
 
                     if (!_objData.IsUpcomingBike)
                     {
@@ -345,7 +362,9 @@ namespace Bikewale.Models.BikeModels
 
                         GetBikeRankingCategory();
 
-                        _objData.UserReviews = BindUserReviews();
+
+                        BindUserReviewsWidget(_objData);
+
 
                         if (_objData.BikeRanking != null)
                         {
@@ -386,7 +405,44 @@ namespace Bikewale.Models.BikeModels
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Models.ModelPage.BindControls");
             }
         }
+        /// <summary>
+        /// created by :- Subodh Jain on 17 july 2017
+        /// Summary added BindUserReviewSWidget
+        /// </summary>
+        /// <param name="makeMasking"></param>
+        /// <param name="modelMasking"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public void BindUserReviewsWidget(ModelPageVM objPage)
+        {
+            try
+            {
+                InputFilters filters = null;
 
+                filters = new InputFilters()
+                {
+                    Model = _modelId.ToString(),
+                    SO = 1,
+                    PN = 1,
+                    PS = 3,
+                    Reviews = true
+
+                };
+                var objUserReviews = new UserReviewsSearchWidget(_modelId, filters, _userReviewsCache, _userReviewsSearch);
+                if (objUserReviews != null)
+                {
+                    objUserReviews.ActiveReviewCateory = FilterBy.MostRecent;
+                    objPage.UserReviews = objUserReviews.GetDataDesktop();
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Model.BindUserReviewSWidget()"));
+            }
+        }
         /// <summary>
         /// Created By:- Subodh Jain 23 March 2017
         /// Summary:- Binding data for upcoming bike widget
@@ -563,10 +619,10 @@ namespace Bikewale.Models.BikeModels
                     }
                     else
                     {
-                        _objData.PageMetaTags.Description = String.Format("{0} Price in India - Rs. {1}. Find {2} Reviews, Specs, Features, Mileage, On Road Price and Images at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric(_objData.BikePrice.ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
+                        _objData.PageMetaTags.Description = String.Format("{0} Price in India - Rs. {1}. Find {2} Images, Mileage, Reviews, Specs, Features and GST On Road Price at Bikewale. {3}", _objData.BikeName, Bikewale.Utility.Format.FormatNumeric(_objData.BikePrice.ToString()), _objData.ModelPageEntity.ModelDetails.ModelName, _colorStr);
                     }
 
-                    _objData.PageMetaTags.Title = String.Format("{0} Price, Reviews, Spec, Images, Mileage, Colours | Bikewale", _objData.BikeName);
+                    _objData.PageMetaTags.Title = String.Format("{0} Price (GST Rates), Images, Colours, Mileage | BikeWale", _objData.BikeName);
 
                     _objData.PageMetaTags.CanonicalUrl = String.Format("{0}/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrl, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName);
 
@@ -867,7 +923,7 @@ namespace Bikewale.Models.BikeModels
             var errorParams = string.Empty;
             try
             {
-                if (_cityId > 0 && _objData.City != null)
+                if (_cityId > 0 && _objData.City != null && ((_objData.City.HasAreas && _areaId > 0) || !_objData.City.HasAreas))
                 {
                     _pqOnRoad = GetOnRoadPrice();
                     // Set Pricequote Cookie
@@ -926,7 +982,7 @@ namespace Bikewale.Models.BikeModels
             }
             finally
             {
-                if (_cityId > 0 && _areaId > 0 && _objData.VersionId > 0)
+                if (_pqOnRoad != null && _pqOnRoad.PriceQuote != null && _pqOnRoad.PriceQuote.IsDealerAvailable && _cityId > 0 && _objData.VersionId > 0)
                 {
                     _objData.DetailedDealer = _objDealerDetails.GetDealerQuotationV2(_cityId, _objData.VersionId, _objData.DealerId, _areaId);
                 }
@@ -1036,7 +1092,6 @@ namespace Bikewale.Models.BikeModels
                 {
                     if (_objData.VersionId == 0)
                         _objData.VersionId = objPQOutput.VersionId;
-                    //objData.VersionId = objPQOutput.DefaultVersionId;
                     _pqOnRoad = new PQOnRoadPrice();
                     _pqOnRoad.PriceQuote = objPQOutput;
                     if (objPQOutput != null && objPQOutput.PQId > 0)
@@ -1050,6 +1105,8 @@ namespace Bikewale.Models.BikeModels
                         }
                         if (objPQOutput.DealerId != 0)
                         {
+                            _objData.ShowOnRoadButton = false;
+                            _objData.IsAreaSelected = true;
                             PQ_QuotationEntity oblDealerPQ = null;
                             AutoBizCommon dealerPq = new AutoBizCommon();
                             try
@@ -1111,10 +1168,13 @@ namespace Bikewale.Models.BikeModels
                     {
                         var selectedCity = cities.FirstOrDefault(m => m.CityId == _cityId);
 
-                        _objData.City = selectedCity;
-                        _objData.ShowOnRoadButton = selectedCity != null && selectedCity.HasAreas && _areaId <= 0;
-                        _objData.IsAreaSelected = selectedCity != null && selectedCity.HasAreas && _areaId > 0;
-                        if (!_objData.IsAreaSelected) _areaId = 0;
+                        if (selectedCity != null)
+                        {
+                            _objData.City = selectedCity;
+                            _objData.ShowOnRoadButton = selectedCity.HasAreas && _areaId <= 0;
+                            _objData.IsAreaSelected = selectedCity.HasAreas && _areaId > 0;
+                            if (!_objData.IsAreaSelected) _areaId = 0;
+                        }
                     }
                 }
                 else

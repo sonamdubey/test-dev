@@ -59,7 +59,7 @@ namespace Bikewale.DAL.AutoBiz
                         objPriceQuote.PriceList = new List<PQ_Price>();
                         while (dr.Read())
                         {
-                            objPriceQuote.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt32(dr["Price"]), DealerId = Convert.ToUInt32(dr["DealerId"]),IsGstPrice=SqlReaderConvertor.ToBoolean(dr["isgstprice"]) });
+                            objPriceQuote.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt32(dr["Price"]), DealerId = Convert.ToUInt32(dr["DealerId"]), IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"]) });
                         }
 
                         dr.NextResult();
@@ -157,180 +157,6 @@ namespace Bikewale.DAL.AutoBiz
 
             return objPriceQuote;
         }
-
-
-        /// <summary>
-        /// Created By : Created By Sanjay On 29/10/2014
-        /// Summary : function to get Bike Category Items Name
-        /// Modified By : Ashwini Todkar on 7 Nove 2014 addition category list parameter added
-        /// </summary>
-        /// <returns> list of prices(Rto , ex-showroom ,insurance etc)</returns>
-        /// <param name="categoryList"></param>
-        public List<PQ_Price> GetBikeCategoryItems(string categoryList)
-        {
-            List<PQ_Price> objCategoryList = null;
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetCategoryItemsName"))
-                {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_CategoryItemList", DbType.String, !String.IsNullOrEmpty(categoryList) ? categoryList : Convert.DBNull));
-
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr != null)
-                        {
-                            objCategoryList = new List<PQ_Price>();
-                            while (dr.Read())
-                            {
-                                objCategoryList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), CategoryId = Convert.ToUInt32(dr["ItemCategoryId"]) });
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetBikeCategoryItems ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return objCategoryList;
-        }
-
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 3 Nov 2014
-        /// Summary : To check Dealer exists or not w.r.t. versionId and areaId 
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <param name="areaId"></param>
-        /// <returns></returns>
-        public uint IsDealerExists(uint versionId, uint areaId)
-        {
-            uint dealerId = 0;
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealers"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_AreaId", DbType.Int32, areaId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_VersionId", DbType.Int32, versionId));
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr.Read())
-                        {
-                            dealerId = Convert.ToUInt32(dr["DealerId"]);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("IsDealerExists ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return dealerId;
-        }
-
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 6 Nov 2014
-        /// Summary : To get all dealer area mapping detail by city id
-        /// </summary>
-        /// <param name="cityId"></param>
-        /// <returns></returns>
-        public List<DealerAreaDetails> GetDealerAreaDetails(uint cityId)
-        {
-
-            List<DealerAreaDetails> objMapping = null;
-
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("GetDealerAreaList"))
-                {
-
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
-
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        objMapping = new List<DealerAreaDetails>();
-                        while (dr.Read())
-                        {
-                            objMapping.Add(new DealerAreaDetails()
-                            {
-                                AreaId = Convert.ToUInt32(dr["AreaId"]),
-                                AreaName = dr["AreaName"].ToString(),
-                                CityId = Convert.ToUInt32(dr["CityId"]),
-                                PinCode = dr["PinCode"].ToString(),
-                                DealerId = Convert.ToUInt32(dr["DealerId"]),
-                                DealerOrganization = dr["Organization"].ToString(),
-                                DealerCount = Convert.ToUInt32(dr["DealerCount"]),
-                                DealerRank = Convert.ToUInt32(dr["DealerRank"]),
-                                MakeName = dr["MakeName"].ToString()
-                            });
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetDealerAreaDetails ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return objMapping;
-        }
-
-
-        /// <summary>
-        /// Written By : Ashish G. Kamble on 12 Jan 2015
-        /// Summary : Function to get the lattitude and longitude of the given city.
-        /// </summary>
-        /// <param name="areaId"></param>
-        /// <param name="lattitude"></param>
-        /// <param name="longitude"></param>
-        public void GetAreaLatLong(uint areaId, out double lattitude, out double longitude)
-        {
-
-            lattitude = 0;
-            longitude = 0;
-
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getarealatlong"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, areaId));
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr != null)
-                        {
-                            if (dr.Read())
-                            {
-                                lattitude = Convert.ToDouble(dr["Lattitude"]);
-                                longitude = Convert.ToDouble(dr["Longitude"]);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetCityLatLong ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
-
         /// <summary>
         /// Written By : Ashish G. Kamble on 10 May 2015
         /// Summary : Function to get the list of cities where bike booking is available.
@@ -808,7 +634,7 @@ namespace Bikewale.DAL.AutoBiz
                                         CategoryName = Convert.ToString(dr["ItemName"]),
                                         Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
                                         DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]),
-                                        IsGstPrice=SqlReaderConvertor.ToBoolean(dr["isgstprice"])
+                                        IsGstPrice = SqlReaderConvertor.ToBoolean(dr["isgstprice"])
 
                                     });
                                 }
@@ -1053,26 +879,70 @@ namespace Bikewale.DAL.AutoBiz
         }
 
         /// <summary>
-        /// Author : Vivek Gupta
-        /// Date : 28-04-2016
-        /// Desc : to check dealer exists for areaId and version id and isSecondaryDealers availble
+        /// Created by  :   Sumit Kate on 18 Jul 2017
+        /// Description :   Returns the primary dealer by model and city
+        /// Primary dealer allocation is by random logic. because area is not given
         /// </summary>
-        /// <param name="versionId"></param>
-        /// <param name="areaId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
         /// <returns></returns>
-        public DealerInfo GetCampaignDealersLatLongV3(uint versionId, uint areaId)
+        public DealerInfo GetNearestDealer(uint modelId, uint cityId)
         {
             DealerInfo objDealersList = null;
 
             try
             {
-                if (versionId > 0 && areaId > 0)
+                if (modelId > 0 && cityId > 0)
                 {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerslatlong_15052017"))
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getnearestdealerbymodelcity"))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.Int32, modelId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        {
+                            objDealersList = new DealerInfo();
+
+                            while (dr.Read())
+                            {
+                                objDealersList.DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]);
+                                objDealersList.IsDealerAvailable = SqlReaderConvertor.ToBoolean(dr["IsDealerAvailable"]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetNearestDealer({0},{1})", modelId, cityId));
+            }
+            return objDealersList;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 18 Jul 2017
+        /// Description :   Nearest primary dealer is returned
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public DealerInfo GetNearestDealer(uint modelId, uint cityId, uint areaId)
+        {
+            DealerInfo objDealersList = null;
+
+            try
+            {
+                if (modelId > 0 && cityId > 0 && areaId > 0)
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getnearestdealerbymodelcityarea"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, areaId));
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -1081,8 +951,8 @@ namespace Bikewale.DAL.AutoBiz
 
                             while (dr.Read())
                             {
-                                objDealersList.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
-                                objDealersList.IsDealerAvailable = !Convert.IsDBNull(dr["IsDealerAvailable"]) ? Convert.ToBoolean(dr["IsDealerAvailable"]) : default(bool);
+                                objDealersList.DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]);
+                                objDealersList.IsDealerAvailable = SqlReaderConvertor.ToBoolean(dr["IsDealerAvailable"]);
                             }
                         }
                     }
@@ -1090,8 +960,7 @@ namespace Bikewale.DAL.AutoBiz
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetCampaignDealersLatLongV3");
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetNearestDealer({0},{1},{2})", modelId, cityId, areaId));
             }
             return objDealersList;
         }

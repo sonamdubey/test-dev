@@ -288,6 +288,7 @@ namespace BikeWaleOpr.Content
                             nvc.Add("v_IsDeleted", null);
                             nvc.Add("v_ModelId", modelId);
                             SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
+
                         }
                     }
 
