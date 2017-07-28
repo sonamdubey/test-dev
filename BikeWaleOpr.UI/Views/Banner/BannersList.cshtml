@@ -27,11 +27,11 @@
                     <tr >
                     <td>@m.BannerId</td>                    
                     <td>@m.BannerDescription</td>                   
-                    <td>@(m.StartDate != null ? m.StartDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
-                    <td>@(m.EndDate != null ? m.EndDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
+                    <td>@(m.StartDate != null && m.StartDate != DateTime.MinValue ? m.StartDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
+                    <td>@(m.EndDate != null && m.EndDate != DateTime.MinValue ? m.EndDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
                     <td>@(m.IsActive == 1 ? "Active" : "InActive")</td>   
                     <td>@m.UpdatedBy</td>         
-                    <td>@(m.LastUpdated != null ? m.LastUpdated.ToString("dd MMM yyyy, hh:mm tt") : "")</td>                             
+                    <td>@(m.LastUpdated != null && m.LastUpdated != DateTime.MinValue ? m.LastUpdated.ToString("dd MMM yyyy, hh:mm tt") : "")</td>                             
                     <td><a target="_blank" href="/banner/index/?id=@m.BannerId" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a>
                         @if (m.IsActive == 1)
                         {
