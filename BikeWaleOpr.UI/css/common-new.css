@@ -318,3 +318,64 @@ input[type=text].invalid + label.active:after {
 	margin-bottom: 0;
 }
 /* stepper-height-60 end */
+
+/* fixed table start */
+.fixed-table {
+	margin-bottom: 20px;
+}
+
+.fixed-table:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.fixed-table__header {
+	min-height: 30px;
+	overflow: hidden;
+	border-bottom: 1px solid #ccc;
+}
+
+.fixed-table__header,
+.fixed-table__body {
+	width: 90%;
+}
+
+.fixed-table__header {
+	margin-left: 10%;
+}
+
+.fixed-table__sidebar,
+.fixed-table__body {
+	height: 500px;
+}
+
+.fixed-table table {
+	background-color: #fff;
+	width: 100%;
+}
+
+.fixed-table .table tr td,
+.fixed-table .table tr th {
+	min-width: 100px;
+    min-height: 20px;
+}
+
+.fixed-table__sidebar {
+	width: 10%;
+    float: left;
+	overflow: hidden;
+	border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.fixed-table__body {
+	float: left;
+	overflow: auto;
+}
+
+.table thead {
+	border-bottom: 0;
+	border-left: 1px solid #ccc;
+}
+/* fixed table end */
