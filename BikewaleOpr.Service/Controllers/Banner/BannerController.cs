@@ -43,13 +43,13 @@ namespace BikewaleOpr.Service.Controllers
             }
         }
 
-        [HttpPost, Route("api/banner/stop/{reviewId}")]
-        public IHttpActionResult StopBanner(uint reviewId)
+        [HttpPost, Route("api/banner/changeStatus/{reviewId}/{bannerStatus}")]
+        public IHttpActionResult ChangeBannerStatus(uint reviewId, UInt16 bannerStatus)
         {
             bool status = false;
             try
             {
-                status = _objBannerRespository.StopBanner(reviewId);
+                status = _objBannerRespository.ChangeBannerStatus(reviewId, bannerStatus);
                 return Ok(status);
             }
             catch (Exception ex)
@@ -66,10 +66,9 @@ namespace BikewaleOpr.Service.Controllers
         /// </summary>
         [HttpPost, Route("api/bannerproperties/save/{platformId}/")]
         public IHttpActionResult SaveBanner([FromBody] BannerVM objBanner ,uint platformId)
-        {
-
+        {           
             if (platformId > 0)
-            {
+            {                
                 try
                 {
                     BannerDetails objBannerDetails = (platformId == 1) ? objBanner.DesktopBannerDetails : objBanner.MobileBannerDetails;

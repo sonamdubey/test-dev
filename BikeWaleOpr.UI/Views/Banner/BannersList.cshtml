@@ -16,8 +16,7 @@
                     <th>Start Date</th>
                     <th>End Date</th>                   
                     <th>Status</th>
-                    <th>Edit</th>
-                    <th>Stop</th>                   
+                    <th>Edit</th>                                  
                 </tr>
                 @if (Model.BannerList != null && Model.BannerList.Count() > 0)
                 {
@@ -28,12 +27,17 @@
                     <td>@m.BannerDescription</td>                   
                     <td>@(m.StartDate != null ? m.StartDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
                     <td>@(m.EndDate != null ? m.EndDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
-                    <td>@(m.IsActive == 1 ? "Active" : "InActive")</td>
-                    <td><a target="_blank" href="/banner/index/?id=@m.BannerId" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a></td>
-                    @if (m.IsActive == 1)
-                    {
-                        <td><a class="tooltipped" id="btnAbort_@m.BannerId" data-position="bottom" data-delay="50" data-tooltip="Abort Campaign" title="Abort Campaign" data-bannerId="@m.BannerId" onclick="stopBanner(event)"><i class="material-icons icon-red">cancel</i></a></td>
-                    }
+                    <td>@(m.IsActive == 1 ? "Active" : "InActive")</td>                                         
+                    <td><a target="_blank" href="/banner/index/?id=@m.BannerId" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Campaign"><i class="material-icons icon-blue">mode_edit</i></a>
+                        @if (m.IsActive == 1)
+                        {
+                            <a class="tooltipped" href="" id="btnAbort_@m.BannerId" data-position="bottom" data-delay="50" data-tooltip="Abort Campaign" title="Abort Campaign" data-bannerId="@m.BannerId" onclick="changeBannerStatus(event, 0)"><i class="material-icons icon-red">cancel</i></a>
+                        }
+                        else
+                        {
+                            <a class="tooltipped" href="" id="btnStart_@m.BannerId" data-position="bottom" data-delay="50" data-tooltip="Start Campaign" title="Start Campaign" data-bannerId="@m.BannerId" onclick="changeBannerStatus(event, 1)"><i class="material-icons icon-green">play_circle_filled</i></a>
+                        }
+                        </td>                    
                  </tr>
                     }
                 }
@@ -44,7 +48,7 @@
     <div class="col s2 m2" >
         <ul class="collapsible" data-collapsible="accordion">
             <li>
-                <div class="collapsible-header"><strong>Filter Banners</strong></div>
+                <div class="collapsible-header active"><strong>Filter Banners</strong></div>
                 <div class="collapsible-body">
                     <div class="container">                        
                         <div class="input-field row s12">

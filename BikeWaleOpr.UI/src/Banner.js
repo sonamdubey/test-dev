@@ -1,4 +1,4 @@
-﻿var currentFileDesktop, currentFileMobile, bannerId, imgPathDesktop, imgPathMobile;
+﻿var currentFileDesktop, currentFileMobile, bannerId, imgPathDesktop, imgPathMobile, userId;
 
 var bannerDescriptionAlignment = { right: '.campaign-banner__text-box{float:right}', left: '.campaign-banner__text-box{float:left}' };
 var buttonColorDesktop = { transparent : '.campaign__target-btn{background:transparent;color:#fff;border:1px solid #fff}.campaign__target-btn:hover{background:#fff;color:#222;}.campaign__target-btn:hover .arrow-white{background-position:-222px -28px}', orange: '.campaign__target-btn{background:#f04031;color:#fff;border:1px solid transparent}.campaign__target-btn:hover{background:#f85649;color:#fff;}' };
@@ -13,12 +13,17 @@ var compulsoryHtmlDesktop = '<div class="campaign-banner__wrapper"><div class="c
 var compulsoryHtmlMobile = '<div class="campaign-banner__wrapper"><p class="campaign__title"></p><a class="btn campaign__target-btn bw-ga"><span class="campaign-banner-button-text"></span><span class="bwsprite arrow-white"></span></a></div>';
 
 $(document).ready(function () {
-bannerId = $('#bannerId').val();
+    bannerId = $('#bannerId').val();   
+
     $('#startTimeEle').val("00:00:00");
     $('#endTimeEle').val("00:00:00");
     if ($(".stepper")) {
         $('.stepper').activateStepper({ autoFocusInput: false });
     }
+
+    if (bannerId && bannerId > 0)
+        $('.stepper').nextStep();
+
     $("#file-desktop").change(function (e) {
         currentFileDesktop = e.target.files[0];
     });
@@ -34,6 +39,7 @@ bannerId = $('#bannerId').val();
 
     imgPathDesktop = $('#desktop-image').data('src');
     imgPathMobile = $('#mobile-image').data('src');
+    userId = $('#configureBanner').attr('data-userId');
 
     var configureBanner = function () {
         var self = this;
@@ -74,7 +80,8 @@ bannerId = $('#bannerId').val();
                     "startdate": $('#startDateEle').val() + ' ' + $('#startTimeEle').val(),
                     "enddate": $('#endDateEle').val() + ' ' + $('#endTimeEle').val(),
                     "bannerdescription": $('#textareaBannerDesc').val(),
-                    "campaignid": queries
+                    "campaignid": queries,
+                    "userId": userId
                 }
                 $.ajax({
                     type: "POST",

@@ -1,13 +1,20 @@
 ﻿
-var stopBanner = function  (event) {   
+var changeBannerStatus = function  (event, status) {   
     var bannerId = event.currentTarget.getAttribute("data-bannerId")
     $.ajax({
         type: "POST",
-        url: "/api/banner/stop/" + bannerId + '/',
+        url: "/api/banner/changeStatus/" + bannerId + '/' + status + '/',
         contentType: "application/json",       
         success: function (response) {
-            $("#btnAbort_" + bannerId).closest("tr").fadeOut();
-            Materialize.toast('Banner aborted', 4000);
+            if (status == 0) {
+                $("#btnAbort_" + bannerId).closest("tr").fadeOut();
+                Materialize.toast('Banner aborted', 4000);
+            }
+            else
+                {
+                $("#btnStart_" + bannerId).closest("tr").fadeOut();
+                Materialize.toast('Banner started', 4000);
+            }
         }
     });
 };

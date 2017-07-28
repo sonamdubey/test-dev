@@ -91,7 +91,7 @@ namespace BikewaleOpr.DALs.Banner
             return objBannerList;
         }
 
-        public bool StopBanner(uint bannerId)
+        public bool ChangeBannerStatus(uint bannerId, UInt16 bannerStatus)
         {
             bool status = false;
             try
@@ -102,7 +102,8 @@ namespace BikewaleOpr.DALs.Banner
 
                     var param = new DynamicParameters();
                     param.Add("par_reviewId", bannerId);
-                    connection.Execute("stopbanner", param: param, commandType: CommandType.StoredProcedure);
+                    param.Add("par_status", bannerStatus);
+                    connection.Execute("changebannerstatus", param: param, commandType: CommandType.StoredProcedure);
                     status = true;
                 }
             }
@@ -132,6 +133,7 @@ namespace BikewaleOpr.DALs.Banner
                     param.Add("par_startdate", BannerVM.StartDate);
                     param.Add("par_enddate", BannerVM.EndDate);
                     param.Add("par_bannerdescription", BannerVM.BannerDescription);
+                    param.Add("par_userid", BannerVM.UserId);
                     campaignid = connection.Query<uint>("savebannerbasicdetails", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
                 }
             }
@@ -153,8 +155,7 @@ namespace BikewaleOpr.DALs.Banner
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
+                    connection.Open();                    
                     var param = new DynamicParameters();
                     param.Add("par_horizontalposition", objBanner.HorizontalPosition);
                     param.Add("par_verticalposition", objBanner.VerticalPosition);

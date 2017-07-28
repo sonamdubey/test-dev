@@ -18,6 +18,6 @@ namespace BikewaleOpr.Interface.Banner
 
         IEnumerable<BannerProperty> GetBanners(uint bannerStatus);
 
-        bool StopBanner(uint bannerId);
+        bool ChangeBannerStatus(uint bannerId, UInt16 bannerStatus);
     }
 }

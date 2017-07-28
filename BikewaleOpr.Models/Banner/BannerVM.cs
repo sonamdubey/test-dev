@@ -20,5 +20,7 @@ public class BannerVM
         public string BannerDescription { get; set; }
         [JsonProperty("campaignid")]
         public uint CampaignId { get; set; }
+        [JsonProperty("userId")]
+        public string UserId { get; set; }
     }
 }
