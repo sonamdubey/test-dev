@@ -420,6 +420,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\ModelsController.cs" />
+    <Compile Include="Controllers\PriceMonitoringController.cs" />
     <Compile Include="Controllers\UserReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="controls\DateControl.cs">
@@ -580,6 +581,7 @@
     <Folder Include="Entities\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
+    <Folder Include="Views\PriceMonitoring\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="aspnet_client\FreeTextBox\FTB-FreeTextBox.js" />
