@@ -58,7 +58,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IImageRepository, ImageRepository>();
             container.RegisterType<ISecurity, SecurityBL>();
             container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
-            container.RegisterType<ISponsoredCampaignRepository, SponsoredCampaignRepository>();
+            container.RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>();
 
             
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();

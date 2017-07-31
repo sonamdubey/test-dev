@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A350717A-FA30-4E65-B2DB-AE6FB5DAA58E}</ProjectGuid>
+    <ProjectGuid>{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bikewale.Comparison.DTO</RootNamespace>
-    <AssemblyName>Bikewale.Comparison.DTO</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <RootNamespace>Bikewale.Comparison.Cache</RootNamespace>
+    <AssemblyName>Bikewale.Comparison.Cache</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,8 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SponsoredCamparisonDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
+      <Project>{038bc901-9d7f-4a95-8ca6-117db3aa48cc}</Project>
+      <Name>Bikewale.Cache.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Entities\Bikewale.Comparison.Entities.csproj">
+      <Project>{1cdaf20b-89e5-4f96-b8f4-7835e0291a80}</Project>
+      <Name>Bikewale.Comparison.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

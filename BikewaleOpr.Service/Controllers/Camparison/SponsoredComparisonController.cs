@@ -7,6 +7,8 @@ using System.Web.Http;
 using Bikewale.Comparison.Entities;
 using Bikewale.Notifications;
 using Bikewale.Comparison.Interface;
+using BikewaleOpr.Service.AutoMappers;
+using Bikewale.Comparison.DTO;
 
 namespace BikewaleOpr.Service.Controllers.Camparison
 {
@@ -19,9 +21,9 @@ namespace BikewaleOpr.Service.Controllers.Camparison
     /// </author>
     public class SponsoredComparisonController : ApiController
     {
-        private readonly ISponsoredCampaignRepository _objSponsoredRepo = null;
+        private readonly ISponsoredComparisonRepository _objSponsoredRepo = null;
 
-        public SponsoredComparisonController(ISponsoredCampaignRepository objSponsoredRepo)
+        public SponsoredComparisonController(ISponsoredComparisonRepository objSponsoredRepo)
         {
             _objSponsoredRepo = objSponsoredRepo;
         }
@@ -35,11 +37,17 @@ namespace BikewaleOpr.Service.Controllers.Camparison
         public IHttpActionResult GetCampaigns(string statuses)
         {
            IEnumerable<SponsoredComparison> objSponsoredCampaign = null;
+            IEnumerable<SponsoredCamparisonDTO> objSponsoredCampaignDTO = null;
             try
             {
                 objSponsoredCampaign = _objSponsoredRepo.GetSponsoredComparisons(statuses);
+                if(objSponsoredCampaign!= null)
+                {
+                    // Auto map the properties
+                    objSponsoredCampaignDTO = SponsoredComparisonMapper.Convert(objSponsoredCampaign);
 
-                return Ok(objSponsoredCampaign);
+                }
+                return Ok(objSponsoredCampaignDTO);
             }
             catch (Exception ex)
             {
@@ -86,7 +94,30 @@ namespace BikewaleOpr.Service.Controllers.Camparison
             }
             return Ok(comparisonId);
         }
-        
+
+
+        /// <summary>
+        /// Updates the sponsored campaign status.
+        /// </summary>
+        /// <param name="comparisonId">The comparison identifier.</param>
+        /// <param name="statusId">The status identifier.</param>
+        /// <returns></returns>
+        [HttpPost, Route("api/compare/sponsored/{comparisonId}/updatestatus/{statusId}/")]
+        public IHttpActionResult UpdateSponsoredCampaignStatus(uint comparisonId, ushort statusId)
+        {
+            bool isSaved = false;
+            try
+            {
+                isSaved = _objSponsoredRepo.ChangeSponsoredComparisonStatus(comparisonId,statusId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Camparison.SponsoredComparisonController.UpdateSponsoredCampaignStatus");
+                return InternalServerError();
+            }
+            return Ok(isSaved);
+        }
+
         /// <summary>
         /// Saves the sponsored comparisons bike rules.
         /// </summary>

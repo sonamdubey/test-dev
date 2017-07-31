@@ -125,6 +125,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.Comparison.DAL", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bikewale.Comparison", "Bikewale.Comparison", "{B8FB7557-803F-4CAF-A01A-62C306B5098C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.Comparison.Cache", "Bikewale.Comparison.Cache\Bikewale.Comparison.Cache.csproj", "{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1335,6 +1337,24 @@ Global
 		{3A88ECF7-A561-43EA-9E6F-922D43C43611}.Testing|x64.Build.0 = Release|Any CPU
 		{3A88ECF7-A561-43EA-9E6F-922D43C43611}.Testing|x86.ActiveCfg = Release|Any CPU
 		{3A88ECF7-A561-43EA-9E6F-922D43C43611}.Testing|x86.Build.0 = Release|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Debug|x64.Build.0 = Debug|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Debug|x86.Build.0 = Debug|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Release|x64.ActiveCfg = Release|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Release|x64.Build.0 = Release|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Release|x86.ActiveCfg = Release|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Release|x86.Build.0 = Release|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Staging|Any CPU.ActiveCfg = Release|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Staging|x64.ActiveCfg = Release|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Staging|x86.ActiveCfg = Release|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Testing|x64.ActiveCfg = Release|Any CPU
+		{19EEC108-FDF3-40D1-B013-BCE93FD90CD2}.Testing|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

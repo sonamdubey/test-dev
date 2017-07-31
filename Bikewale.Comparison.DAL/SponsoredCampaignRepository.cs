@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Comparison.Entities;
+﻿using Bikewale.Comparison.Entities;
 using Bikewale.Comparison.Interface;
 using Bikewale.DAL.CoreDAL;
-using System.Data;
-using Dapper;
 using Bikewale.Notifications;
+using Dapper;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace Bikewale.Comparison.DAL
 {
     /// <summary>
     /// Modified by :- Sangram Nandkhile on 26 july 2017
-    /// summary :- Sponsored Campaign Repository
+    /// summary :- Sponsored Comparison Repository
     /// </summary>
     /// <returns></returns>
-    public class SponsoredCampaignRepository : ISponsoredCampaignRepository
+    public class SponsoredComparisonRepository : ISponsoredComparisonRepository
     {
         /// <summary>
         /// Deletes the sponsored comparison bike all rules.
@@ -139,6 +137,38 @@ namespace Bikewale.Comparison.DAL
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.DeleteSponsoredComparisonBikeTargetVersionRules: -> camparisonId : {0},targetversionId : {1} ", camparisonId, targetversionId));
             }
             return isSaved;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 31 Jul 2017
+        /// Description :   Returns Sponsored version by given list of Target Version Ids.
+        /// </summary>
+        /// <param name="versionIds">Comma delimited version ids</param>
+        /// <returns></returns>
+        public SponsoredVersionEntityBase GetSponsoredBike(string versionIds)
+        {
+            SponsoredVersionEntityBase sponsoredVersion = null;
+
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_versions", versionIds);
+                    sponsoredVersion = connection.Query<SponsoredVersionEntityBase>("getsponsoredcomparisonbyversions", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("SponsoredCampaignRepository.GetSponsoredBike() {0}:", versionIds));
+            }
+
+            return sponsoredVersion;
         }
 
         /// <summary>
@@ -321,5 +351,37 @@ namespace Bikewale.Comparison.DAL
             return isSaved;
         }
 
+        /// <summary>
+        /// Changes the sponsored comparison status.
+        /// </summary>
+        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <param name="status">The status.</param>
+        /// <returns></returns>
+        public bool ChangeSponsoredComparisonStatus(uint camparisonId, ushort status)
+        {
+            bool isSaved = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_comparisonid", camparisonId);
+                    param.Add("par_status", status);
+
+                    connection.Query<dynamic>("changesponsoredcomparisonstatus", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                    isSaved = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.ChangeSponsoredComparisonStatus, camparisonId: {0}, Status: {1}", camparisonId, status));
+            }
+            return isSaved;
+        }
+        
     }
 }

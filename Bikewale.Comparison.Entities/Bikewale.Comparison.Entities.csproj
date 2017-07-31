@@ -47,6 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SponsoredComparisonModel.cs" />
     <Compile Include="SponsoredComparisonStatusEnum.cs" />
+    <Compile Include="SponsoredVersionEntityBase.cs" />
     <Compile Include="TargetSponsoredMapping.cs" />
     <Compile Include="VersionTargetMapping.cs" />
   </ItemGroup>

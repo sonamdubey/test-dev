@@ -1,5 +1,4 @@
-﻿using Bikewale.BAL.Compare;
-using Bikewale.Cache.Compare;
+﻿using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.Compare;
 using Bikewale.Entities.BikeData;
@@ -70,8 +69,6 @@ namespace Bikewale.BindViewModels.Controls
                         if (SponsoredVersionId > 0)
                         {
                             var objFeaturedComparision = objSimilarBikes.FirstOrDefault(f => f.VersionId2 == SponsoredVersionId.ToString());
-                            if (objFeaturedComparision != null)
-                                FeaturedBikeLink = Bikewale.Utility.SponsoredComparision.FetchValue(objFeaturedComparision.ModelId2.ToString());
                         }
 
                         FetchedRecordsCount = (uint)objSimilarBikes.Count();
@@ -89,31 +86,5 @@ namespace Bikewale.BindViewModels.Controls
             return objSimilarBikes;
         }
 
-        /// <summary>
-        /// Created By : Sushil Kumar on 2nd Dec 2016
-        /// Description : To get fetaured bike versionId
-        /// </summary>
-        /// <param name="versionList"></param>
-        /// <returns></returns>
-        public Int64 CheckSponsoredBikeForAnyVersion(string versionList)
-        {
-            try
-            {
-
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeCompare, BikeComparison>();
-                    IBikeCompare objCompare = container.Resolve<IBikeCompare>();
-                    SponsoredVersionId = objCompare.GetFeaturedBike(versionList);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_CheckSponsoredBikeForAnyVersion_{1}", HttpContext.Current.Request.ServerVariables["URL"], versionList));
-                objErr.SendMail();
-            }
-
-            return SponsoredVersionId;
-        }
     }
 }

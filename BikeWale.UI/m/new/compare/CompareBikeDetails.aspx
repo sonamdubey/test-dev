@@ -39,13 +39,13 @@
                         <% foreach (var bike in vmCompare.BasicInfo)
                             {
                                 string bikeName = string.Format("{0} {1}", bike.Make, bike.Model); %>
-                        <div class="bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>" data-masking="<%= string.Format("{0}-{1}",bike.MakeMaskingName,bike.ModelMaskingName)%>" data-changed="" data-modelid="<%= bike.ModelId %>" data-versionid="<%= bike.VersionId %>">
+                        <div class="bike-details-block <%= (bike.VersionId != sponsoredVersionId ) ? "" : "sponsored-bike-details-block" %>" data-masking="<%= string.Format("{0}-{1}",bike.MakeMaskingName,bike.ModelMaskingName)%>" data-changed="" data-modelid="<%= bike.ModelId %>" data-versionid="<%= bike.VersionId %>" data-bikename="<%= String.Format("{0}_{1}_{2}",bike.Make,bike.Model,bike.Version) %>">
                             <% if (bike.VersionId == sponsoredVersionId)
                                 {%>
                             <span class="position-abt pos-top5 label-text">Sponsored</span>
                             <% } %>
                             <span <%= (bike.VersionId != sponsoredVersionId ) ? "" : "id='close-sponsored-bike'" %> class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey"></span>
-                            <a href="<%= string.Format("/m/{0}-bikes/{1}/",bike.MakeMaskingName,bike.ModelMaskingName) %>" title="<%= bikeName %>" class="block margin-top10">
+                            <a href="<%= string.Format("/m/{0}-bikes/{1}/",bike.MakeMaskingName,bike.ModelMaskingName) %>" title="<%= bikeName %>" class="block margin-top10 <%= !String.IsNullOrEmpty(sponsoredBikeImpressionTracker) ? "bw-ga" : "" %>" <%= sponsoredBikeImpressionTracker %>>
                                 <span class="font10 text-light-grey text-truncate"><%= bike.Make  %></span>
                                 <h2 class="font12 text-truncate margin-bottom5"><%= bike.Model  %></h2>
                                 <img class="bike-image-block" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.ImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="<%= bikeName %>" />
@@ -83,7 +83,7 @@
                                 { %>
 
                             <div class="padding-top5 padding-bottom5">
-                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0} {1}_Floating",bike.Make, bike.Model) %>" class="font14 bw-ga text-link">Know more <span class="bwmsprite know-more-icon"></span></span>
+                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0} {1}",bike.Make, bike.Model) %>" class="font14 bw-ga text-link"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
                             </div>
                             <% } %>
 
@@ -112,7 +112,7 @@
                                 { %>
 
                             <div class="padding-top5 padding-bottom5">
-                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0} {1}_Floating",bike.Make, bike.Model) %>" class="font14 bw-ga  text-link">Know more <span class="bwmsprite know-more-icon"></span></span>
+                                <span onclick="<%= String.Format("window.open('{0}', '_blank')",featuredBike)  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison_Know_more_clicked" l="<%= String.Format("{0} {1}_Floating",bike.Make, bike.Model) %>" class="font14 bw-ga  text-link"><%= knowMoreLinkText %><span class="bwmsprite know-more-icon margin-left5"></span></span>
                             </div>
                             <% } %>
                         </div>
@@ -225,8 +225,7 @@
                                                 if (color.HexCodes != null)
                                                 { %>
                                         <div class="color-box color-count-<%= color.HexCodes.Count()   %>">
-                                            <% foreach (var hexCode in color.HexCodes)
-                                                { %>
+                                            <% foreach (var hexCode in color.HexCodes) { %>
                                             <span style="background-color: #<%= hexCode %>"></span>
                                             <% } %>
                                         </div>

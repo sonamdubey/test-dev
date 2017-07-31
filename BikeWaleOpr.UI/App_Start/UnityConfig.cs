@@ -48,7 +48,7 @@ namespace BikewaleOpr
                 .RegisterType<ICommuteDistance, CommuteDistanceBL>()
                 .RegisterType<ILocation, LocationRepository>()
                 .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, ManufacturerCampaignRepository>()
-                 .RegisterType<ISponsoredCampaignRepository, SponsoredCampaignRepository>()
+                 .RegisterType<ISponsoredComparisonRepository, SponsoredComparisonRepository>()
                 .RegisterType<IContractCampaign, ContractCampaign>();
 
 

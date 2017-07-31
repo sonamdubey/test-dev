@@ -133,6 +133,7 @@
   <ItemGroup>
     <Compile Include="AutoMappers\BikeData\BikeDataMapper.cs" />
     <Compile Include="AutoMappers\BikeData\BikeModelsMapper.cs" />
+    <Compile Include="AutoMappers\Comparison\SponsoredComparison.cs" />
     <Compile Include="AutoMappers\Dealer\DealerCampaignMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
@@ -180,6 +181,10 @@
     <ProjectReference Include="..\Bikewale.Comparison.DAL\Bikewale.Comparison.DAL.csproj">
       <Project>{3a88ecf7-a561-43ea-9e6f-922d43c43611}</Project>
       <Name>Bikewale.Comparison.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.DTO\Bikewale.Comparison.DTO.csproj">
+      <Project>{a350717a-fa30-4e65-b2db-ae6fb5daa58e}</Project>
+      <Name>Bikewale.Comparison.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Comparison.Entities\Bikewale.Comparison.Entities.csproj">
       <Project>{1cdaf20b-89e5-4f96-b8f4-7835e0291a80}</Project>
