@@ -25,6 +25,8 @@ namespace Bikewale.Mobile.New
         protected string templateSummaryTitle = string.Empty, comparisionText = string.Empty, targetedModels = string.Empty, featuredBike = string.Empty,
             compareSummaryText = string.Empty, baseUrl = string.Empty, bikeQueryString = string.Empty, cityName = string.Empty;
         protected IEnumerable<BikeMakeEntityBase> objMakes = null;
+        protected string sponsoredBikeImpressionTracker = String.Empty;
+        protected string knowMoreLinkText = string.Empty;
         public SimilarCompareBikes ctrlSimilarBikes;
 
         protected override void OnInit(EventArgs e)
@@ -74,6 +76,11 @@ namespace Bikewale.Mobile.New
                     BindPageWidgets(objCompare.versionsList, objCompare.CityId);
                     compareSummaryText = objCompare.summaryText;
                     templateSummaryTitle = objCompare.TemplateSummaryTitle;
+                    if (objCompare.SponsoredBike != null)
+                    {
+                        sponsoredBikeImpressionTracker = objCompare.SponsoredBike.BikeImpressionTracker;
+                        knowMoreLinkText = objCompare.SponsoredBike.LinkText;
+                    }
                 }
             }
             catch (Exception ex)

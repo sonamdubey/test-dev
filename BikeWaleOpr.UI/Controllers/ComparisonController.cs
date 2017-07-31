@@ -1,5 +1,6 @@
 ﻿using Bikewale.Comparison.Entities;
 using Bikewale.Comparison.Interface;
+using BikewaleOpr.Models.Comparison;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,9 +28,17 @@ namespace BikewaleOpr.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("comparison/sponsored/manage/")]
-        public ActionResult ManageSponsoredCamparison()
+        public ActionResult ManageSponsoredCamparison(string comparisonType)
         {
-            return View();
+            if(string.IsNullOrEmpty(comparisonType))
+            {
+                comparisonType = "1"; //default show only active comparisons
+            }
+
+            ManageSponsoredComparisonVM objData = new ManageSponsoredComparisonVM();
+            objData.Sponsoredcomparisons = _objSponsoredComparison.GetSponsoredComparisons(comparisonType);
+
+            return View(objData);
         }
 
         /// <summary>
