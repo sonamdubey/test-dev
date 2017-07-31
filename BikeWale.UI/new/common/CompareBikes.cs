@@ -1,5 +1,6 @@
 using Bikewale.Common;
-using Bikewale.Interfaces.Compare;
+using Bikewale.Comparison.DAL;
+using Bikewale.Comparison.Interface;
 using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 /***********************************************************/
@@ -77,11 +78,15 @@ namespace Bikewale.New
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeCompare, Bikewale.BAL.Compare.BikeComparison>();
+                    container.RegisterType<ISponsoredCampaignRepository, SponsoredCampaignRepository>();
 
-                    var _objCompare = container.Resolve<IBikeCompare>();
+                    var _objCompare = container.Resolve<ISponsoredCampaignRepository>();
 
-                    featuredBikeId = _objCompare.GetFeaturedBike(versions);
+                    var sponsoredBike = _objCompare.GetSponsoredBike(versions);
+                    if (sponsoredBike != null)
+                    {
+                        featuredBikeId = sponsoredBike.VersionId;
+                    }
                 }
             }
             catch (Exception ex)
