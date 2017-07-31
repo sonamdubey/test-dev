@@ -210,6 +210,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Feb 2017
         /// Description :   ClearBWCache
+        /// Modified By : Vivek Singh Tomar on 31 July 2017
+        /// Description : Clear city list cache for model when city prices is updated
         /// </summary>
         private void ClearBWCache()
         {
@@ -226,6 +228,8 @@ namespace BikeWaleOpr.Content
                 {
                     BwMemCache.ClearVersionPrice(model, city);
                 }
+                //To clear price quote for city
+                MemCachedUtil.Remove(string.Format("BW_PQCity_{0}", Convert.ToUInt32(model)));
             }
         }
 

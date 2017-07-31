@@ -40,6 +40,8 @@ namespace Bikewale.Service.Controllers.BikeData
         /// Created By : Sadhana Upadhyay on 25 Aug 2015
         /// Summary : To get Upcoming Bike List
         /// </summary>
+        /// Modified by: Vivek Singh Tomar on 31 July 2017
+        /// Summary    : Replaced logic of fetching upcoming bike list.
         /// <param name="sortBy">Default = 0, PriceLowToHigh = 1, PriceHighToLow = 2, LaunchDateSooner = 3, LaunchDateLater = 4</param>
         /// <param name="pageSize">No of Records</param>
         /// <param name="makeId">Make Id (Optional)</param>
@@ -53,8 +55,14 @@ namespace Bikewale.Service.Controllers.BikeData
             try
             {
                 currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
-
-                IEnumerable<UpcomingBikeEntity> objUpcoming = _modelCacheRepository.GetUpcomingBikesList(sortBy, pageSize, makeId, modelId, currentPageNo);
+                var objFiltersUpcoming = new UpcomingBikesListInputEntity()
+                {
+                    PageSize = pageSize,
+                    MakeId = Convert.ToInt32(makeId),
+                    ModelId = Convert.ToInt32(modelId),
+                    PageNo = currentPageNo
+                };
+                IEnumerable<UpcomingBikeEntity> objUpcoming = _upcomingBL.GetModels(objFiltersUpcoming, sortBy);
 
                 upcomingBikes.UpcomingBike = UpcomingBikeListMapper.Convert(objUpcoming);
 

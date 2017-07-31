@@ -117,6 +117,8 @@ namespace BikeWaleOpr.Content
         /// Modified By : Sushil Kumar on 9th July 2017
         /// Description : Change input parametres as per carwale mysql master base conventions
         /// </summary>
+        /// Modified By : Vivek Singh Tomar on 31st July 2017
+        /// Description : Clear Memcache when new version added
         /// <param name="id"></param>
         /// <returns></returns>
         string SaveData(string id)
@@ -161,6 +163,8 @@ namespace BikeWaleOpr.Content
                         SyncBWData.PushToQueue("BW_AddBikeVersions", DataBaseName.CWMD, nvc);
                     }
                 }
+                //Refresh memcache object for version details
+                MemCachedUtil.Remove(string.Format("BW_ModelDetail_v1_{0}", Convert.ToUInt32(Request["cmbmodels"])));
             }
             catch (SqlException err)
             {
@@ -227,6 +231,8 @@ namespace BikeWaleOpr.Content
         /// Modified By : Sushil Kumar on 9th July 2017
         /// Description : Change input parametres as per carwale mysql master base conventions
         /// </summary>
+        /// Modified By : Vivek Singh Tomar on 31st July 2017
+        /// Description : Refresh cache when any of the version is updated
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
@@ -308,6 +314,8 @@ namespace BikeWaleOpr.Content
 
                 //Refresh memcache object for popularBikes change
                 MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", makeId));
+                //Refresh memcache object for version details
+                MemCachedUtil.Remove(string.Format("BW_ModelDetail_v1_{0}", Convert.ToUInt32(Request["cmbmodels"])));
             }
             catch (SqlException ex)
             {
@@ -333,6 +341,8 @@ namespace BikeWaleOpr.Content
         /// Modified By : Sushil Kumar on 9th July 2017
         /// Description : Change input parametres as per carwale mysql master base conventions
         /// </summary>
+        /// Modified By : Vivek Singh Tomar on 31st July 2017
+        /// Description : Clear Memcache when any version is deleted
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void dtgrdMembers_Delete(object sender, DataGridCommandEventArgs e)
@@ -363,6 +373,8 @@ namespace BikeWaleOpr.Content
                 uint makeId;
                 uint.TryParse(Request.Form["cmbMakes"], out makeId);
                 deleteVersionMostPopularBikes((uint)_versionId, makeId);
+                //Refresh memcache object for version details
+                MemCachedUtil.Remove(string.Format("BW_ModelDetail_v1_{0}", Convert.ToUInt32(Request["cmbmodels"])));
             }
             catch (SqlException ex)
             {
