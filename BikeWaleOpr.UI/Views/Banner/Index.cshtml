@@ -25,28 +25,28 @@
                             <div class="col m4">
                                 <div class="input-field">
                                     <i class="material-icons prefix margin-top15">date_range</i>
-                                    <input type="date" id="startDateEle" name="StartDate" value="@(Model.StartDate.HasValue ? Model.StartDate.Value.ToString("yyyy-MM-dd") : "")" class="datepicker margin-left5" data-bind="css:campaignStartDateMsg()!=''?'invalid':'' "/>
+                                    <input type="date" id="startDateEle" name="StartDate" value="@(Model.StartDate!= null && Model.StartDate != DateTime.MinValue?Model.StartDate.ToString("yyyy-MM-dd") : "")" class="datepicker margin-left5" data-bind="css:campaignStartDateMsg()!=''?'invalid':'' "/>
                                     <label for="startDateEle" data-error="" data-bind="attr:{'data-error':campaignStartDateMsg},css:campaignStartDateMsg()!=''?'active':''">Campaign Start Date*</label>
                                 </div>
                             </div>
 
                             <div class="col m2">
                                 <div class="input-field">
-                                    <input type="time" id="startTimeEle" value="@(Model.StartDate.HasValue?Model.StartDate.Value.ToString("hh:mm"):"")" />
+                                  <input type="time" id="startTimeEle" value="@(Model.StartDate!= null && Model.StartDate != DateTime.MinValue?Model.StartDate.ToString("HH:mm:ss"):"00:00:00")" />
                                 </div>
                             </div>
 
                             <div class="col m4">
                                 <div class="input-field">
                                     <i class="material-icons prefix margin-top15">date_range</i>
-                                    <input type="date" id="endDateEle" name="EndDate" value="@(Model.EndDate.HasValue?Model.EndDate.Value.ToString("yyyy-MM-dd") : "")" class="datepicker margin-left5" />
+                                    <input type="date" id="endDateEle" name="EndDate" value="@(Model.EndDate!= null && Model.EndDate != DateTime.MinValue?Model.EndDate.ToString("yyyy-MM-dd") : "")" class="datepicker margin-left5" />
                                     <label for="endDateEle">Campaign End Date</label>
                                 </div>
                             </div>
 
                             <div class="col m2">
                                 <div class="input-field">
-                                    <input type="time" id="endTimeEle" value="@(Model.EndDate.HasValue?Model.EndDate.Value.ToString("hh:mm"):"")" />
+                                    <input type="time" id="endTimeEle" value="@(Model.EndDate!= null && Model.EndDate != DateTime.MinValue?Model.EndDate.ToString("HH:mm:ss"):"00:00:00")" />
                                 </div>
                             </div>
 
@@ -390,5 +390,3 @@
 <input id="ModifiedCssMobile" type="text" hidden />
 <input id="ModifiedHtmlDesktop" type="text" hidden />
 <input id="ModifiedHtmlMobile" type="text" hidden />
-<input id="endtime" value="@(Model.EndDate.HasValue?Model.EndDate.Value.ToString("hh:mm"):"")"type="text" hidden />
-<input id="starttime" value="@(Model.StartDate.HasValue?Model.StartDate.Value.ToString("hh:mm"):"")" type="text" hidden />
