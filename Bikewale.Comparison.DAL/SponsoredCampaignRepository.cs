@@ -382,6 +382,32 @@ namespace Bikewale.Comparison.DAL
             }
             return isSaved;
         }
-        
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 31 Jul 2017
+        /// Description :   Returns Active Sponsored Comparisons
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ActiveSponsoredCampaign> GetActiveSponsoredComparisons()
+        {
+            IEnumerable<ActiveSponsoredCampaign> sponsoredComparison = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
+                {
+                    connection.Open();
+                    sponsoredComparison = connection.Query<ActiveSponsoredCampaign>("getactivesponsoredcomparisons", commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Comparison.DAL.SponsoredCampaignRepository.GetActiveSponsoredComparisons");
+            }
+            return sponsoredComparison;
+
+        }
     }
 }

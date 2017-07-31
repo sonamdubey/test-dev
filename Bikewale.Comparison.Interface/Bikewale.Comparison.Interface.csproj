@@ -41,8 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ISponsoredCampaign.cs" />
-    <Compile Include="ISponsoredCampaignCacheRepository.cs" />
+    <Compile Include="ISponsoredComparisonRepository.cs" />
+    <Compile Include="ISponsoredComparisonCacheRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
