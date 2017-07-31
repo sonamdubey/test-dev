@@ -1,4 +1,5 @@
-﻿using Consumer;
+﻿using Bikewale.Utility;
+using Consumer;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -6,19 +7,19 @@ using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Reflection;
-
+using System.Linq;
 namespace BikewaleAutoSuggest
 {
     public class GetBikeListDb
     {
         private static string _con = ConfigurationManager.AppSettings["connectionString"];
-        public static List<TempList> GetBikeList()
+        public static IEnumerable<TempList> GetBikeList()
         {
-            List<TempList> objList = null;
+            IList<TempList> objList = null;
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getautosuggestmakemodellist"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getautosuggestmakemodellist_31072017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
@@ -33,12 +34,12 @@ namespace BikewaleAutoSuggest
                             {
                                 objList.Add(new TempList()
                                 {
-                                    MakeId = Convert.ToInt32(dr["MakeId"]),
-                                    ModelId = Convert.ToInt32(dr["ModelId"]),
-                                    Make = dr["Make"].ToString() + " Bikes",
-                                    Model = dr["Model"].ToString(),
-                                    MakeMaskingName = dr["MakeMaskingName"].ToString(),
-                                    ModelMaskingName = dr["ModelMaskingName"].ToString(),
+                                    MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]),
+                                    ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]),
+                                    Make = string.Format("{0} Bikes", dr["Make"]),
+                                    Model = Convert.ToString(dr["Model"]),
+                                    MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                    ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
                                     New = Convert.ToBoolean(dr["New"]),
                                     Futuristic = Convert.ToBoolean(dr["Futuristic"])
                                 });
@@ -50,14 +51,15 @@ namespace BikewaleAutoSuggest
                             {
                                 objList.Add(new TempList()
                                 {
-                                    MakeId = Convert.ToInt32(dr["MakeId"]),
-                                    ModelId = Convert.ToInt32(dr["ModelId"]),
-                                    Make = dr["Make"].ToString(),
-                                    Model = dr["Model"].ToString(),
-                                    MakeMaskingName = dr["MakeMaskingName"].ToString(),
-                                    ModelMaskingName = dr["ModelMaskingName"].ToString(),
+                                    MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]),
+                                    ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]),
+                                    Make = Convert.ToString(dr["Make"]),
+                                    Model = Convert.ToString( dr["Model"]),
+                                    MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                    ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
                                     New = Convert.ToBoolean(dr["New"]),
-                                    Futuristic = Convert.ToBoolean(dr["Futuristic"])
+                                    Futuristic = Convert.ToBoolean(dr["Futuristic"]),
+                                    UserReviewCount= SqlReaderConvertor.ToInt32(dr["reviewCount"])
                                 });
                             }
                             dr.Close();
@@ -73,32 +75,33 @@ namespace BikewaleAutoSuggest
             return objList;
         }
 
-        public static List<BikeList> GetSuggestList(List<TempList> objBikeList)
+        public static IEnumerable<BikeList> GetSuggestList(IEnumerable<TempList> objBikeList)
         {
-            List<BikeList> objSuggestList = null;
-            int count = objBikeList.Count;
+            IList<BikeList> objSuggestList = null;
+            int count = objBikeList.Count();
             try
             {
                 objSuggestList = new List<BikeList>();
                 foreach (TempList bikeItem in objBikeList)
                 {
-                    string bikeName = (bikeItem.Make + " " + bikeItem.Model).Trim();
+                    string bikeName = string.Format("{0} {1}", bikeItem.Make, bikeItem.Model);
                     BikeList ObjTemp = new BikeList();
 
-                    ObjTemp.Id = bikeItem.MakeId.ToString() + "_" + bikeItem.ModelId.ToString();
-                    ObjTemp.name = bikeItem.Make + " " + bikeItem.Model;
+                    ObjTemp.Id = string.Format("{0}_{1}", bikeItem.MakeId, bikeItem.ModelId);
+                    ObjTemp.name = bikeName;
 
                     ObjTemp.mm_suggest = new BikeSuggestion();
-                    ObjTemp.mm_suggest.output = bikeItem.Make + " " + bikeItem.Model;
+                    ObjTemp.mm_suggest.output = bikeName;
 
                     ObjTemp.mm_suggest.payload = new PayLoad()
                     {
-                        MakeId = bikeItem.MakeId.ToString(),
-                        ModelId = bikeItem.ModelId.ToString(),
-                        MakeMaskingName = bikeItem.MakeMaskingName,
-                        ModelMaskingName = bikeItem.ModelMaskingName,
-                        Futuristic = bikeItem.Futuristic.ToString(),
-                        IsNew = bikeItem.New.ToString()
+                        MakeId = Convert.ToString(bikeItem.MakeId),
+                        ModelId = Convert.ToString(bikeItem.ModelId),
+                        MakeMaskingName = Convert.ToString(bikeItem.MakeMaskingName),
+                        ModelMaskingName = Convert.ToString(bikeItem.ModelMaskingName),
+                        Futuristic = Convert.ToString(bikeItem.Futuristic),
+                        IsNew = Convert.ToString(bikeItem.New),
+                        UserReviewCount= Convert.ToString(bikeItem.UserReviewCount)
 
                     };
 
@@ -108,137 +111,35 @@ namespace BikewaleAutoSuggest
                     bikeName = bikeName.Replace('-', ' ').Replace("'", "");
                     string[] tokens = bikeName.Split(' ');
 
-                    if (tokens.Length == 1)    //If Display Name has length=1
+                    int length = tokens.Length;
+
+                    for (int index = 1; index < 1 << length; index++)
                     {
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim());
-                    }
-                    else if (tokens.Length == 2)    //If Display Name has length=2
-                    {
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim());
+                        int temp_value = index;
 
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim());
+                        int jindex = 0;
 
-                    }
-                    else if (tokens.Length == 3)    //If Display Name has length=3
-                    {
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[2].Trim());
-
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[2].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[2].Trim());
-
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim());
-
-
-                        //For Royal Enfield Bikes add Bullet in Suggestion
-                        if (bikeName.Contains("Royal Enfield"))
+                        string value = string.Empty;
+                        while (temp_value > 0)
                         {
-                            ObjTemp.mm_suggest.input.Add("Bullet");
-                            ObjTemp.mm_suggest.input.Add("Bullet Bikes");
-                        }
-                    }
-                    else if (tokens.Length == 4)    //If Display Name has length=4
-                    {
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[2].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[3].Trim());
-
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[2].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[3].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[2].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[3].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[2].Trim() + " " + tokens[3].Trim());
-
-
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[3].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim());
-
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim());
-
-
-                        //For Royal Enfield Bikes add Bullet in Suggestion
-                        if (bikeName.Contains("Royal Enfield"))
-                            ObjTemp.mm_suggest.input.Add("Bullet");
-
-                    }
-                    else if (tokens.Length == 5)    //If Display Name has length=5
-                    {
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[2].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[3].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[4].Trim());
-
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[0].Trim(), tokens[1].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[0].Trim(), tokens[2].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[0].Trim(), tokens[3].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[0].Trim(), tokens[4].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[1].Trim(), tokens[2].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[1].Trim(), tokens[3].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[1].Trim(), tokens[4].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[2].Trim(), tokens[3].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[2].Trim(), tokens[4].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[3].Trim(), tokens[4].Trim()));
-
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[0].Trim(), tokens[1].Trim(), tokens[2].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[0].Trim(), tokens[1].Trim(), tokens[3].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[0].Trim(), tokens[1].Trim(), tokens[4].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[0].Trim(), tokens[2].Trim(), tokens[3].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[0].Trim(), tokens[2].Trim(), tokens[4].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[0].Trim(), tokens[3].Trim(), tokens[4].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[1].Trim(), tokens[2].Trim(), tokens[3].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[1].Trim(), tokens[2].Trim(), tokens[4].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[1].Trim(), tokens[3].Trim(), tokens[4].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[2].Trim(), tokens[3].Trim(), tokens[4].Trim()));
-
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2} {3}", tokens[0].Trim(), tokens[1].Trim(), tokens[2].Trim(), tokens[3].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2} {3}", tokens[0].Trim(), tokens[1].Trim(), tokens[2].Trim(), tokens[4].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2} {3}", tokens[0].Trim(), tokens[1].Trim(), tokens[3].Trim(), tokens[4].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2} {3}", tokens[0].Trim(), tokens[2].Trim(), tokens[3].Trim(), tokens[4].Trim()));
-                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2} {3}", tokens[1].Trim(), tokens[2].Trim(), tokens[3].Trim(), tokens[4].Trim()));
-
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim() + " " + tokens[4].Trim());
-
-
-                        //For Royal Enfield Bikes add Bullet in Suggestion
-                        if (bikeName.Contains("Royal Enfield"))
-                            ObjTemp.mm_suggest.input.Add("Bullet");
-                    }
-                    else   //If display name has length > 5
-                    {
-                        for (int index = 0; index < tokens.Length; index++)
-                        {
-                            if (!String.IsNullOrEmpty(tokens[index].Trim()))
-                                ObjTemp.mm_suggest.input.Add(tokens[index].Trim());
-                        }
-
-                        for (int index = 0; index < tokens.Length; index++)
-                        {
-                            for (int jindex = index + 1; jindex < tokens.Length; jindex++)
+                            if ((temp_value & 1) > 0)
                             {
-                                ObjTemp.mm_suggest.input.Add(tokens[index].Trim() + " " + tokens[jindex].Trim());
-                            }
-                        }
 
-                        for (int index = 0; index < tokens.Length - 1; index++)
-                        {
-                            for (int jindex = index + 2; jindex < tokens.Length; jindex++)
-                            {
-                                ObjTemp.mm_suggest.input.Add(tokens[index].Trim() + " " + tokens[index + 1].Trim() + " " + tokens[jindex].Trim());
+                                value = string.Format("{0} {1}", value, tokens[jindex]);
                             }
-                        }
+                            temp_value >>= 1;
+                            jindex++;
 
-                        //For Royal Enfield Bikes add Bullet in Suggestion
-                        if (bikeName.Contains("Royal Enfield"))
-                            ObjTemp.mm_suggest.input.Add("Bullet");
+                        }
+                        if (!string.IsNullOrEmpty(value))
+                            ObjTemp.mm_suggest.input.Add(value);
+
                     }
+
+                    //For Royal Enfield Bikes add Bullet in Suggestion
+                    if (bikeName.Contains("Royal Enfield"))
+                            ObjTemp.mm_suggest.input.Add("Bullet");
+                    
 
                     objSuggestList.Add(ObjTemp);
                     count--;
