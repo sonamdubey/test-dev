@@ -14,10 +14,10 @@ namespace Bikewale.Comparison.DAL
 {
     /// <summary>
     /// Modified by :- Sangram Nandkhile on 26 july 2017
-    /// summary :- Sponsored Campaign Repository
+    /// summary :- Sponsored Comparison Repository
     /// </summary>
     /// <returns></returns>
-    public class SponsoredCampaignRepository : ISponsoredCampaignRepository
+    public class SponsoredComparisonRepository : ISponsoredComparisonRepository
     {
         /// <summary>
         /// Deletes the sponsored comparison bike all rules.
@@ -321,5 +321,37 @@ namespace Bikewale.Comparison.DAL
             return isSaved;
         }
 
+        /// <summary>
+        /// Changes the sponsored comparison status.
+        /// </summary>
+        /// <param name="camparisonId">The camparison identifier.</param>
+        /// <param name="status">The status.</param>
+        /// <returns></returns>
+        public bool ChangeSponsoredComparisonStatus(uint camparisonId, ushort status)
+        {
+            bool isSaved = false;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+                    var param = new DynamicParameters();
+                    param.Add("par_comparisonid", camparisonId);
+                    param.Add("par_status", status);
+
+                    connection.Query<dynamic>("changesponsoredcomparisonstatus", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                    isSaved = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Comparison.DAL.SponsoredCampaignRepository.ChangeSponsoredComparisonStatus, camparisonId: {0}, Status: {1}", camparisonId, status));
+            }
+            return isSaved;
+        }
+        
     }
 }

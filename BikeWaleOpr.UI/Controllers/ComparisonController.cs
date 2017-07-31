@@ -10,13 +10,13 @@ namespace BikewaleOpr.Controllers
 {
     public class ComparisonController : Controller
     {
-        private readonly ISponsoredCampaignRepository _objSponsoredComparison = null;
+        private readonly ISponsoredComparisonRepository _objSponsoredComparison = null;
         //private readonly ISponsoredCampaignRepository objSponsoredComparison = null;
 
         /// <summary>
         /// 
         /// </summary>
-        public ComparisonController(ISponsoredCampaignRepository objSponsoredComparison)
+        public ComparisonController(ISponsoredComparisonRepository objSponsoredComparison)
         {
             _objSponsoredComparison = objSponsoredComparison;
         }
