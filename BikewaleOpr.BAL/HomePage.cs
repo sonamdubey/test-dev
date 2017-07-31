@@ -29,6 +29,8 @@ namespace BikewaleOpr.BAL
         /// created by : Sajal Gupta on 21-3-2017
         /// Description : BAL layer function for getting homepage data
         /// </summary>
+        /// Modified by : Vivek Singh Tomar on 31 July 2017
+        /// Description : Add Another call to get models with missing color images
         /// <returns></returns>
         public HomePageData GetHomePageData(string id, string userName)
         {

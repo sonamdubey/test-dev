@@ -2,7 +2,7 @@
     ViewBag.Title = "Home Page";
     ViewBag.PageTitle = "Bikewale Operations - Home";
 }
-
+@model BikewaleOpr.Entity.HomePageData
 @if (Model != null)
 {
     <div class="row">
@@ -57,7 +57,7 @@
         </div>
         }
         }
-        @if(Model.BikeModelByMakeList != null)
+        @if(Model.BikeModelByMakeList != null && Model.BikeModelByMakeList.Count() > 0)
         {
             <div class="col s12 m4">
                 <div class="card">
@@ -66,7 +66,7 @@
                         <p>
                             <b>Find Models with their color variations image are yet to be uploaded</b>
                         </p>
-                        <p><a class="modal-trigger" href="#findmodels">Select model by color</a></p>
+                        <p><a class="modal-trigger" href="#modal-missingColor">Select model by color</a></p>
                     </div>
                     <div class="card-action">
                         <a target="_blank" href="/content/ModelColorWiseImage.aspx">Models images by color</a>
@@ -74,34 +74,40 @@
                 </div>
             </div>
 
-            <div id="findmodels" class="modal">
+            <div id="modal-missingColor" class="modal">
                 <div class="modal-content">
                     <h4>Models with missing color image</h4>
                     @foreach (var makeGroup in Model.BikeModelByMakeList)
                     {
-                        <div class="col s12 m6">
-                            <div class="card">
-                                <div class="card-image waves-effect waves-block waves-light margin-left20 activator">
-                                    <span class="margin-top10 brandlogosprite brand-@makeGroup.BikeMakeEntity.MakeId activator"></span>
-                                </div>
-                                <div class="card-content activator">
-                                    <span class="card-title grey-text text-darken-4 activator">@makeGroup.BikeMakeEntity.MakeName</span>
-                                </div>
-                                <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
-                                    <ul class="collection">
-                                        @foreach (var bikeModel in makeGroup.BikeModelEntity)
-                                        {   
-                                            <li class="collection-item">
-                                                <a target="_blank" href="/content/ModelColorWiseImage.aspx/?makeid=@makeGroup.BikeMakeEntity.MakeId&modelid=@bikeModel.ModelId">
-                                                    @bikeModel.ModelName
-                                                </a>
-                                            </li>
-                                        }
-                                    </ul>
+                        if (makeGroup.BikeMakeEntity != null)
+                        {
+                            <div class="col s12 m6">
+                                <div class="card">
+                                    <div class="card-image waves-effect waves-block waves-light margin-left20 activator">
+                                        <span class="margin-top10 brandlogosprite brand-@makeGroup.BikeMakeEntity.MakeId activator"></span>
+                                    </div>
+                                    <div class="card-content activator">
+                                        <span class="card-title grey-text text-darken-4 activator">@makeGroup.BikeMakeEntity.MakeName</span>
+                                    </div>
+                                    <div class="card-reveal">
+                                        <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                                        <ul class="collection">
+                                            @if (makeGroup.BikeModelEntity != null && makeGroup.BikeModelEntity.Count() > 0)
+                                            {
+                                                foreach (var bikeModel in makeGroup.BikeModelEntity)
+                                                {
+                                                    <li class="collection-item">
+                                                        <a target="_blank" href="/content/ModelColorWiseImage.aspx/?makeid=@makeGroup.BikeMakeEntity.MakeId&modelid=@bikeModel.ModelId">
+                                                            @bikeModel.ModelName
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     }
                 </div>
             </div>

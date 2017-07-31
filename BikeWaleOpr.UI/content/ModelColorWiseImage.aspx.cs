@@ -17,6 +17,8 @@ namespace BikeWaleOpr.Content
     /// <summary>
     /// Created by: Sangram Nandkhile on 13 Jan 2017
     /// Summary: Page to assign images to models by color
+    /// Modified by : Vivek Singh Tomar on 31 July 2017
+    /// Description : Add function to prefill the details and bind the data if query string passes any data
     /// </summary>
     public class ModelColorWiseImage : Page
     {
@@ -30,7 +32,7 @@ namespace BikeWaleOpr.Content
         ManageModelColor objManageModelColor = null;
         protected Button btnSubmit;
         protected HiddenField hdnModelId;
-        public int makeId;
+        protected uint makeId;
         protected bool isQueryString;
         #region events
 
@@ -51,37 +53,10 @@ namespace BikeWaleOpr.Content
             if (!IsPostBack)
             {
                 BindMakeModel();
-
-                if (Request.QueryString["makeid"] != null)
+                makeId = SqlReaderConvertor.ToUInt32(Request.QueryString["makeid"]);
+                if (makeId != 0)
                 {
-                    isQueryString = true;
-                    makeId = SqlReaderConvertor.ToInt32(Request.QueryString["makeid"]);
-                    modelId = SqlReaderConvertor.ToInt32(Request.QueryString["modelid"]);
-                    cmbMake.SelectedIndex = SqlReaderConvertor.ToInt32(cmbMake.Items.IndexOf(cmbMake.Items.FindByValue(Convert.ToString(makeId))));
-                    var response = Common.CommonOpn.GetModelFromMake(cmbMake.SelectedValue);
-                    IEnumerable<BikeModelEntityBase> models = new List<BikeModelEntityBase>();
-                    if(response.Tables.Count > 0)
-                    {
-                        models = response.Tables[0].AsEnumerable()
-                       .Select(row => new BikeModelEntityBase
-                       {
-                           ModelId = row.Field<int>(0),
-                           ModelName = row.Field<string>(1)
-                       });
-                        cmbModel.DataSource = models;
-                        cmbModel.DataTextField = "ModelName";
-                        cmbModel.DataValueField = "ModelId";
-                        cmbModel.DataBind();
-                        cmbModel.Items.Insert(0, "Any");
-                        var temp = cmbModel.Items.FindByValue(Convert.ToString(modelId));
-                        var ind = cmbModel.Items.IndexOf(temp);
-                        cmbModel.SelectedIndex = SqlReaderConvertor.ToInt32(cmbModel.Items.IndexOf(cmbModel.Items.FindByValue(Convert.ToString(modelId))));
-                        if (modelId > 0)
-                        {
-                            objManageModelColor = new ManageModelColor();
-                            BindModelColorRepeater();
-                        }
-                    }
+                    ShowModelColorImageUsingQueryString();
                 }
             }
             if (!isQueryString && hdnModelId != null && hdnModelId.Value != null)
@@ -148,6 +123,39 @@ namespace BikeWaleOpr.Content
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.BindModelColorRepeater()");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Vivek Singh Tomar on 31 July 2017
+        /// Bind model color images to view page if data is passed through query string
+        /// </summary>
+        private void ShowModelColorImageUsingQueryString()
+        {
+            isQueryString = true;
+            modelId = SqlReaderConvertor.ToInt32(Request.QueryString["modelid"]);
+            cmbMake.SelectedIndex = SqlReaderConvertor.ToInt32(cmbMake.Items.IndexOf(cmbMake.Items.FindByValue(Convert.ToString(makeId))));
+            var response = Common.CommonOpn.GetModelFromMake(cmbMake.SelectedValue);
+            IEnumerable<BikeModelEntityBase> models = new List<BikeModelEntityBase>();
+            if (response != null && response.Tables != null && response.Tables.Count > 0)
+            {
+                models = response.Tables[0].AsEnumerable()
+               .Select(row => new BikeModelEntityBase
+               {
+                   ModelId = row.Field<int>(0),
+                   ModelName = row.Field<string>(1)
+               });
+                cmbModel.DataSource = models;
+                cmbModel.DataTextField = "ModelName";
+                cmbModel.DataValueField = "ModelId";
+                cmbModel.DataBind();
+                cmbModel.Items.Insert(0, "Any");
+                cmbModel.SelectedIndex = SqlReaderConvertor.ToInt32(cmbModel.Items.IndexOf(cmbModel.Items.FindByValue(Convert.ToString(modelId))));
+                if (modelId > 0)
+                {
+                    objManageModelColor = new ManageModelColor();
+                    BindModelColorRepeater();
+                }
             }
         }
 
