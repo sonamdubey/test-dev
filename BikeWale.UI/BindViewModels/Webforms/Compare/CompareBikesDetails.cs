@@ -3,6 +3,8 @@ using Bikewale.BAL.BikeData;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
+using Bikewale.Comparison.DAL;
+using Bikewale.Comparison.Interface;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Compare;
 using Bikewale.Entities.BikeData;
@@ -32,6 +34,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelMaskingCache = null;
         private readonly IBikeCompareCacheRepository _objCompareCache = null;
         private readonly IBikeCompare _objCompare = null;
+        private readonly ISponsoredCampaignRepository _objSponsored = null;
 
         public GlobalCityAreaEntity cityArea = null;
         public bool isPageNotFound, isPermanentRedirect, isUsedBikePresent, isCompareLandingRedirection;
@@ -45,6 +48,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         public IEnumerable<BikeMakeEntityBase> makes = null;
         public ushort maxComparisions = 5;
         public int CityId = 0;
+        public Bikewale.Comparison.Entities.SponsoredVersionEntityBase SponsoredBike { get; set; }
 
         /// <summary>
         /// Created By : Sushil kumar on 2nd Feb 2017 
@@ -64,13 +68,14 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                         .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakes<BikeMakeEntity, int>>()
                         .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
                         .RegisterType<ICacheManager, MemcacheManager>()
-                        .RegisterType<IBikeCompare, Bikewale.BAL.Compare.BikeComparison>();
+                        .RegisterType<IBikeCompare, Bikewale.BAL.Compare.BikeComparison>()
+                        .RegisterType<ISponsoredCampaignRepository, SponsoredCampaignRepository>();
 
                     _objModelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
                     _objCompareCache = container.Resolve<IBikeCompareCacheRepository>();
                     _objCompare = container.Resolve<IBikeCompare>();
                     _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-
+                    _objSponsored = container.Resolve<ISponsoredCampaignRepository>();
                 }
             }
             catch (Exception ex)
@@ -99,7 +104,13 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                 {
                     cityName = BWConfiguration.Instance.DefaultName;
                 }
-                SponsoredVersionId = _objCompare.GetFeaturedBike(versionsList);
+                SponsoredBike = _objSponsored.GetSponsoredBike(versionsList);
+
+                if (SponsoredBike != null)
+                {
+                    SponsoredVersionId = SponsoredBike.VersionId;
+                    FeaturedBikeLink = SponsoredBike.LinkUrl;
+                }
 
                 if (SponsoredVersionId > 0) versionsList = string.Format("{0},{1}", versionsList, SponsoredVersionId);
 
@@ -110,13 +121,6 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                     makes = _objMakeCache.GetMakesByType(EnumBikeType.New);
                     GetComparisionTextAndMetas();
                     isUsedBikePresent = comparedBikes.BasicInfo.FirstOrDefault(x => x.UsedBikeCount.BikeCount > 0) != null;
-
-                    if (SponsoredVersionId > 0)
-                    {
-                        var objFeaturedComparision = comparedBikes.BasicInfo.FirstOrDefault(f => f.VersionId == SponsoredVersionId);
-                        if (objFeaturedComparision != null)
-                            FeaturedBikeLink = Bikewale.Utility.SponsoredComparision.FetchValue(objFeaturedComparision.ModelId.ToString());
-                    }
                 }
             }
             catch (Exception ex)

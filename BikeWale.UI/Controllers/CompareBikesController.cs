@@ -1,4 +1,5 @@
-﻿using Bikewale.CoreDAL;
+﻿using Bikewale.Comparison.Interface;
+using Bikewale.CoreDAL;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
@@ -21,15 +22,16 @@ namespace Bikewale.Controllers
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelMaskingCache = null;
         private readonly IBikeCompare _objCompare = null;
-
-        public CompareBikesController(IBikeCompareCacheRepository cachedCompare, ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompare objCompare, IBikeMakesCacheRepository<int> objMakeCache)
+        private readonly ISponsoredCampaignRepository _objSponsored = null;
+        public CompareBikesController(IBikeCompareCacheRepository cachedCompare, ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompare objCompare, IBikeMakesCacheRepository<int> objMakeCache, ISponsoredCampaignRepository objSponsored)
         {
             _cachedCompare = cachedCompare;
             _compareTest = compareTest;
             _objModelMaskingCache = objModelMaskingCache;
             _objCompare = objCompare;
             _objMakeCache = objMakeCache;
-          }
+            _objSponsored = objSponsored;
+        }
 
         // GET: CompareBikes
         [Route("compare/")]
@@ -77,7 +79,7 @@ namespace Bikewale.Controllers
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
-            CompareDetails objDetails = new CompareDetails(_compareTest, _objModelMaskingCache, _cachedCompare, _objCompare, _objMakeCache, originalUrl);
+            CompareDetails objDetails = new CompareDetails(_compareTest, _objModelMaskingCache, _cachedCompare, _objCompare, _objMakeCache, _objSponsored, originalUrl);
             if (objDetails != null)
             {
                 if (objDetails.status == Entities.StatusCodes.ContentFound)
