@@ -8,7 +8,7 @@ namespace BikewaleOpr.Entity
 {
     /// <summary>
     /// Created by  :   Vishnu Teja Yalakuntla on 28-Jul-2017
-    /// Description :   Entity for holding dealer, version and price details.
+    /// Description :   Entity for holding dealer, version and price details in seperate lists.
     /// </summary>
     public class DealerPriceBaseEntity
     {

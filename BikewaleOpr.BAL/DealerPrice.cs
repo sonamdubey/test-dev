@@ -39,26 +39,28 @@ namespace BikewaleOpr.BAL
             {
                 dealerPriceBase = dealerPriceRepository.GetDealerPrices(cityId, makeId, dealerId);
 
-                dealerVersionPrices = dealerPriceBase.DealerVersions.GroupJoin(dealerPriceBase.VersionPrices,
-                     model => model.VersionId,
-                     category => category.VersionId,
-                     (model, categories) => new DealerVersionPriceEntity
-                     {
-                         MakeName = model.ModelName,
-                         VersionName = model.VersionName,
-                         ModelName = model.ModelName,
-                         VersionId = model.VersionId,
-                         Categories = categories,
-                         NumberOfDays = model.NumberOfDays,
-                         BikeModelId = model.BikeModelId
-                     }
-                );
+                if (dealerPriceBase != null && dealerPriceBase.DealerVersions != null)
+                {
+                    dealerVersionPrices = dealerPriceBase.DealerVersions.GroupJoin(dealerPriceBase.VersionPrices,
+                        model => model.VersionId,
+                        category => category.VersionId,
+                        (model, categories) => new DealerVersionPriceEntity
+                        {
+                            MakeName = model.ModelName,
+                            VersionName = model.VersionName,
+                            ModelName = model.ModelName,
+                            VersionId = model.VersionId,
+                            Categories = categories,
+                            NumberOfDays = model.NumberOfDays,
+                            BikeModelId = model.BikeModelId
+                        }
+                    );
+                }
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetDealerPriceQuotes ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                string exString = string.Format("GetDealerPriceQuotes cityId={0} makeId={1} dealerId={2}", cityId, makeId, dealerId);
+                ErrorClass objErr = new ErrorClass(ex, exString);
             }
 
             return dealerVersionPrices;
@@ -81,11 +83,10 @@ namespace BikewaleOpr.BAL
             {
                 isDeleted = dealerPriceRepository.DeleteVersionPrices(dealerId, cityId, versionIdsString);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetDealerPriceQuotes ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                string exString = string.Format("DeleteVersionPriceQuotes dealerId={0} cityId={1} versionIdsString={2}", dealerId, cityId, versionIdsString);
+                ErrorClass objErr = new ErrorClass(ex, exString);
             }
 
             return isDeleted;
@@ -116,9 +117,10 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetDealerPriceQuotes ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                string exString = string.Format(
+                    "SaveVersionPriceQuotes dealerId={0} cityId={1} versionIdsString={2} itemIdsString={3} itemValuesString={4} enteredBy={5}", 
+                    dealerId, cityId, versionIdsString, itemIdsString, itemValuesString, enteredBy);
+                ErrorClass objErr = new ErrorClass(ex, exString);
             }
             return isSaved;
         }

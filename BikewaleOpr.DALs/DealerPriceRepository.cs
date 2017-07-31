@@ -36,7 +36,7 @@ namespace BikewaleOpr.DALs
             DealerPriceBaseEntity priceSheetBase = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     connection.Open();
 
@@ -60,9 +60,8 @@ namespace BikewaleOpr.DALs
 
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetBikeCategoryItems ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                string exString = string.Format("GetDealerPrices cityId={0} makeId={1} dealerId={2}", cityId, makeId, dealerId);
+                ErrorClass objErr = new ErrorClass(ex, exString);
             }
 
             return priceSheetBase;
@@ -99,9 +98,8 @@ namespace BikewaleOpr.DALs
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("DeleteVersionPrices ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                string exString = string.Format("GetDealerPrices dealerId={0} cityId={1} versionIdList={2}", dealerId, cityId, versionIdList);
+                ErrorClass objErr = new ErrorClass(ex, exString);
             }
 
             return isSuccess;
@@ -144,9 +142,10 @@ namespace BikewaleOpr.DALs
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("SaveDealerPrice ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                string exString = string.Format(
+                    "GetDealerPrices dealerId={0} cityId={1} versionIdList={2} itemIdList={3} itemValueList={4} enteredBy={5}",
+                    dealerId, cityId, versionIdList, itemIdList, itemValueList, enteredBy);
+                ErrorClass objErr = new ErrorClass(ex, exString);
             }
 
             return isPriceSaved;
