@@ -32,7 +32,7 @@ namespace BikewaleOpr.Controllers
         {
             if(string.IsNullOrEmpty(comparisonType))
             {
-                comparisonType = "1"; //default show only active comparisons
+                comparisonType = "2"; //default show only active comparisons
             }
 
             ManageSponsoredComparisonVM objData = new ManageSponsoredComparisonVM();
