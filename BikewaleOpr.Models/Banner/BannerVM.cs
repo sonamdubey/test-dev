@@ -13,9 +13,9 @@ public class BannerVM
         public BannerDetails DesktopBannerDetails { get; set; }
         public BannerDetails MobileBannerDetails { get; set; }
         [JsonProperty("startdate")]
-        public DateTime? StartDate { get; set; }
+        public DateTime StartDate { get; set; }
         [JsonProperty("enddate")]
-        public DateTime? EndDate { get; set; }
+        public DateTime EndDate { get; set; }
         [JsonProperty("bannerdescription")]
         public string BannerDescription { get; set; }
         [JsonProperty("campaignid")]

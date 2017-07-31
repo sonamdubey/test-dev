@@ -40,10 +40,8 @@ $(document).ready(function () {
     imgPathDesktop = $('#desktop-image').data('src');
     imgPathMobile = $('#mobile-image').data('src');
     userId = $('#configureBanner').attr('data-userId');
-
-
-    $('#startTimeEle').val($('#starttime').val());
-    $('#endTimeEle').val($('#endtime').val());
+    $('#endTimeEle').val($('#endTimeEle').attr('value'));
+    $('#startTimeEle').val($('#startTimeEle').attr('value'));
     var configureBanner = function () {
         var self = this;
 
