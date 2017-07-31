@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="BikeModels.cs" />
     <Compile Include="ContractCampaign\ContractCampaignMapping.cs" />
+    <Compile Include="DealerPrice.cs" />
     <Compile Include="Dealers.cs" />
     <Compile Include="HomePage.cs" />
     <Compile Include="Images\ImageBL.cs" />

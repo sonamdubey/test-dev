@@ -129,10 +129,14 @@
     <Compile Include="DealerLatLong.cs" />
     <Compile Include="DealerOffersEntity.cs" />
     <Compile Include="DealerPackageTypes.cs" />
+    <Compile Include="DealerVersionPriceEntity.cs" />
+    <Compile Include="DealerPriceBaseEntity.cs" />
     <Compile Include="DealerPriceEntity.cs" />
     <Compile Include="DealerPriceQuoteDetailed.cs" />
     <Compile Include="DealerPriceQuoteEntity.cs" />
     <Compile Include="DealerQuotation.cs" />
+    <Compile Include="VersionPriceEntity.cs" />
+    <Compile Include="DealerVersionEntity.cs" />
     <Compile Include="EMI.cs" />
     <Compile Include="FacilityEntity.cs" />
     <Compile Include="GeoLocationDestinationEntity.cs" />

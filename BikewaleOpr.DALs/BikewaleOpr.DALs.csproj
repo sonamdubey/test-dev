@@ -91,6 +91,7 @@
     <Compile Include="BikePricing\DealerPriceRepository.cs" />
     <Compile Include="ContractCampaign\DealerCampaignRepository.cs" />
     <Compile Include="DealerPriceQuoteRepository.cs" />
+    <Compile Include="DealerPriceRepository.cs" />
     <Compile Include="DealersRepository.cs" />
     <Compile Include="Image\ImageRepository.cs" />
     <Compile Include="Location\LocationRepository.cs" />
