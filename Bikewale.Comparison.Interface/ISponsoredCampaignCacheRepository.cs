@@ -1,6 +1,6 @@
 ﻿namespace Bikewale.Comparison.Interface
 {
-    public interface ISponsoredCampaignCacheRepository
+    public interface ISponsoredComparisonCacheRepository
     {
     }
 }
