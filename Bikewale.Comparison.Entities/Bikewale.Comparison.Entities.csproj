@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveSponsoredCampaign.cs" />
     <Compile Include="BikeModel.cs" />
     <Compile Include="BikeModelVersionMapping.cs" />
     <Compile Include="SponsoredComparison.cs" />
