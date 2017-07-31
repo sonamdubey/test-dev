@@ -51,6 +51,10 @@
       <Project>{1cdaf20b-89e5-4f96-b8f4-7835e0291a80}</Project>
       <Name>Bikewale.Comparison.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Comparison.Interface\Bikewale.Comparison.Interface.csproj">
+      <Project>{18c44359-a725-4093-9c32-75898d3dd088}</Project>
+      <Name>Bikewale.Comparison.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
