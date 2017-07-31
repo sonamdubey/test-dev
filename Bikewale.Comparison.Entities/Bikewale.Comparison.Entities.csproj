@@ -45,7 +45,7 @@
     <Compile Include="BikeModelVersionMapping.cs" />
     <Compile Include="SponsoredComparison.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SponsoredCampaignModel.cs" />
+    <Compile Include="SponsoredComparisonModel.cs" />
     <Compile Include="SponsoredComparisonStatusEnum.cs" />
     <Compile Include="TargetSponsoredMapping.cs" />
     <Compile Include="VersionTargetMapping.cs" />
