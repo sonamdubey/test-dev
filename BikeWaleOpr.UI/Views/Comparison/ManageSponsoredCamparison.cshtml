@@ -17,7 +17,7 @@
                     <th>LinkUrl</th>
                     <th>Name Impression</th>
                     <th>Image Impression</th>
-                    <th>Status</th>
+                    <th>Comparison Status</th>
                     <th>Rules</th>
                     <th>Updated On</th>
                     <th>Updated By</th>
@@ -29,19 +29,28 @@
                         <tr>
                             <td data-cell="id">@comp.Id</td>
                             <td data-cell="description">@comp.Name</td>
-                            <td  data-cell="startdate">@(comp.StartDate != null && comp.StartDate != DateTime.MinValue ? comp.StartDate.ToString("dd MMM yyyy, hh:mm tt") : "")              
-                            <td  data-cell="enddate">@(comp.EndDate != null && comp.EndDate != DateTime.MinValue ? comp.EndDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
-                            <td  data-cell="linktext">@comp.LinkText</td>
-                            <td  data-cell="linkurl">@comp.LinkUrl</td>
-                            <td  data-cell="nameimpression">@comp.NameImpressionUrl</td>
-                            <td  data-cell="imgimpression">@comp.ImgImpressionUrl</td>
+                            <td data-cell="startdate">@(comp.StartDate != null && comp.StartDate != DateTime.MinValue ? comp.StartDate.ToString("dd MMM yyyy, hh:mm tt") : "")
+                            <td data-cell="enddate">@(comp.EndDate != null && comp.EndDate != DateTime.MinValue ? comp.EndDate.ToString("dd MMM yyyy, hh:mm tt") : "")</td>
+                            <td data-cell="linktext">@comp.LinkText</td>
+                            <td data-cell="linkurl">@comp.LinkUrl</td>
+                            <td data-cell="nameimpression">@comp.NameImpressionUrl</td>
+                            <td data-cell="imgimpression">@comp.ImgImpressionUrl</td>
                             <td>
                                 <span>@comp.Status</span>
                                 <p>
-                                    <a href="javascriptvoid(0)" data-bind="event: { click: function (data, event) { $parent.changeStatus(data, event); } },visible : (status=='Paused'||status=='Unstarted')?true:false" data-status="2" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Start Campaign"><i class="material-icons icon-green">play_circle_filled</i></a>
+                                    @if (comp.Status.Equals(Bikewale.Comparison.Entities.SponsoredComparisonStatus.Active))
+                                    {
 
-                                    <a href="javascriptvoid(0)" data-bind="event: { click: function (data, event) { $parent.changeStatus(data, event); } },visible : status=='Active'?true:false" class="tooltipped" data-status="4" data-position="bottom" data-delay="50" data-tooltip="Pause Campaign"><i class="material-icons icon-blue">pause_circle_filled</i></a>
-                                    <a href="javascriptvoid(0)" data-bind="event: { click: function (data, event) { $parent.changeStatus(data, event); } },visible : (status=='Active'||status=='Paused')?true:false" data-status="6" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Abort Campaign" title="Abort Campaign"><i class="material-icons icon-red">cancel</i></a>
+                                        <a href="javascript:void(0)" data-bind="click : function(d,e){ changeComparisonStatus(d,e); }" class="tooltipped" data-status="4" data-position="bottom" data-delay="50" data-tooltip="Pause Campaign"><i class="material-icons icon-blue">pause_circle_filled</i></a>
+
+                                            <a  href="javascript:void(0)" data-bind="click : function(d,e){ changeComparisonStatus(d,e); }" data-status="6" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Abort Campaign" title="Abort Campaign"><i class="material-icons icon-red">cancel</i></a>
+                                    }
+                                    else
+                                    {
+                                        <a  href="javascript:void(0)" data-bind="click : function(d,e){ changeComparisonStatus(d,e); }" data-status="2" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Start Campaign"><i class="material-icons icon-green">play_circle_filled</i></a>
+
+                                    }
+
                                 </p>
                             </td>
                             <td>Yes</td>
@@ -66,22 +75,26 @@
                         {
                             <ul class="input-field row m12" id="searchComparisons">
                                 <li>
-                                    <input type="checkbox" id="chkActiveStatus" data-value="1" class="with-gap" />
+                                    <input type="checkbox" id="chkActiveStatus" data-value="2" class="with-gap" />
                                     <label for="chkActiveStatus">Active</label>
                                 </li>
+                                <li>
+                                    <input type="checkbox" id="chkUnstartedStatus" data-value="1" class="with-gap" />
+                                    <label for="chkUnstartedStatus">Unstarted</label>
+                                </li>
                                 <li class="margin-top5">
-                                    <input type="checkbox" id="chkPausedStatus" data-value="2" class="with-gap" />
+                                    <input type="checkbox" id="chkPausedStatus" data-value="3" class="with-gap" />
                                     <label for="chkPausedStatus">Paused</label>
                                 </li>
                                 <li class="margin-top5">
-                                    <input type="checkbox" id="chkAbortedStatus" data-value="4" class="with-gap" />
+                                    <input type="checkbox" id="chkAbortedStatus" data-value="5" class="with-gap" />
                                     <label for="chkAbortedStatus">Aborted</label>
                                 </li>
                                 <li class="margin-top5">
-                                    <input type="checkbox" id="chkExpiredStatus" data-value="3" class="with-gap" />
-                                    <label for="chkExpiredStatus">Expired</label>
+                                    <input type="checkbox" id="chkExpiredStatus" data-value="4" class="with-gap" />
+                                    <label for="chkExpiredStatus">Closed</label>
                                 </li>
-                                <li class="margin-top5" >
+                                <li class="margin-top5">
                                     <input type="checkbox" id="chkAllStatus" data-value="0" class="with-gap" data-bind="click : checkAllStatus" />
                                     <label for="chkAllStatus">All</label>
                                 </li>
@@ -111,15 +124,15 @@
                                     <i class="material-icons prefix margin-top15">date_range</i>
                                     <input type="date" id="dtStartDate" class="datepicker margin-left5" data-bind="css : {invalid : startDateTime()==''}, value:startDate" />
                                     <label for="dtStartDate" data-error="Please enter start date">Campaign Start Date *</label>
-                                    <input type="time" id="dtStartTime" value=""  data-bind="value : startTime" class="timepicker" />
-                                    <input type="hidden" name="StartDate" data-bind="value : startDateTime "/>
+                                    <input type="time" id="dtStartTime" value="" data-bind="value : startTime" class="timepicker" />
+                                    <input type="hidden" name="StartDate" data-bind="value : startDateTime " />
                                 </li>
                                 <li class="input-field">
                                     <i class="material-icons prefix margin-top15">date_range</i>
                                     <input type="date" id="dtEndDate" class="datepicker margin-left5" data-bind="css : {invalid : endDateTime()==''},value:endDate" />
                                     <label for="dtEndDate" data-error="Please enter end date">Campaign End Date *</label>
                                     <input type="time" id="dtEndTime" data-bind="value : endTime" class="timepicker" />
-                                    <input type="hidden" name="EndDate" data-bind="value : endDateTime "/>
+                                    <input type="hidden" name="EndDate" data-bind="value : endDateTime " />
                                 </li>
                                 <li class="input-field">
                                     <input id="txtLinkText" type="text" class="validate" name="LinkText" data-bind="value : linkText">
@@ -138,7 +151,7 @@
                                     <label for="txtBikeImageImpression">Bike Image Impression/GA</label>
                                 </li>
                                 <li class="input-field">
-                                    <button data-bind="click: addSponsoredComparison,value : currentId" class="btn waves-effect waves-light margin-bottom20" type="submit" name="Id" >
+                                    <button data-bind="click: addSponsoredComparison,value : currentId" class="btn waves-effect waves-light margin-bottom20" type="submit" name="Id">
                                         Add Campaign
                                     </button>
                                 </li>
@@ -163,7 +176,8 @@
         onSet: function (ele) { if (ele.select) { this.close(); } }
     });
 
-    var pgContainer = $("#sponsoredComparisons"),vmSponsoredComparison;
+
+    var pgContainer = $("#sponsoredComparisons"), vmSponsoredComparison;
     var searchComparisons = $("#searchComparisons"), searchStatusChks = searchComparisons.find("input:checkbox");
     //$('.timepicker').pickatime({
     //    default: 'now', // Set default time: 'now', '1:30AM', '16:30'
@@ -204,25 +218,24 @@
                     });
                 }
                 else {
-                    searchComparisons.find("input:checkbox[data-value=1]").prop("checked", true);
+                    searchComparisons.find("input:checkbox[data-value=2]").prop("checked", true);
                 }
             }
             else {
-                searchComparisons.find("input:checkbox[data-value=1]").prop("checked", true);
+                searchComparisons.find("input:checkbox[data-value=2]").prop("checked", true);
             }
             $(".picker + label").each(function () {
                 $(this).insertBefore($(this).prev());
             });
-            
+
             var tab = pgContainer.find(".collapsible-header").first();
-            if (!tab.hasClass("active"))
-            {
+            if (!tab.hasClass("active")) {
                 tab.click();
-            }          
+            }
 
         }();
 
-        self.checkAllStatus = function (d,e) {
+        self.checkAllStatus = function (d, e) {
             var ele = $(e.currentTarget);
             if (ele.prop("checked")) {
                 searchStatusChks.prop("checked", true);
@@ -261,25 +274,21 @@
             self.endDateTime((self.endDate() || '') + " " + (self.endTime() || ''));
         });
 
-        self.addSponsoredComparison = function()
-        {
-            if(self.validateAddComparison())
-            {
+        self.addSponsoredComparison = function () {
+            if (self.validateAddComparison()) {
                 return true;
             }
             return false;
         }
 
-        self.validateAddComparison = function()
-        {
+        self.validateAddComparison = function () {
             var isValid = false;
             if (self.description() && self.description().trim() != "") {
                 isValid = true;
             }
             else self.description("");
 
-            if(self.startDateTime() && self.startDateTime().trim()!="")
-            {
+            if (self.startDateTime() && self.startDateTime().trim() != "") {
                 isValid = true;
             }
             else {
@@ -308,11 +317,25 @@
             self.nameImpression(ele.find("td[data-cell=nameimpression]").text());
             self.imgImpression(ele.find("td[data-cell=imgimpression]").text());
 
+            //setdate
+            var tempDateTime = new Date(self.startDateTime());
+            $("#dtStartDate").pickadate('picker').set('select', tempDateTime);
+            self.startTime(tempDateTime.getHours() + ":" + tempDateTime.getMinutes());
+
+            tempDateTime = new Date(self.endDateTime());
+            $("#dtEndDate").pickadate('picker').set('select', tempDateTime);
+            self.endTime(tempDateTime.getHours() + ":" + tempDateTime.getMinutes());
+
             Materialize.updateTextFields();
             var tab = pgContainer.find(".collapsible-header").last();
             if (!tab.hasClass("active")) {
                 tab.click();
             }
+
+        };
+
+        self.changeComparisonStatus = function (d,e) {
+            var ele = $(e.currentTarget), status = ele.data("status");
 
         };
 

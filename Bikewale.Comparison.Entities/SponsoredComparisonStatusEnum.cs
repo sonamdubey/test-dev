@@ -12,10 +12,10 @@ namespace Bikewale.Comparison.Entities
     /// </summary>
     public enum SponsoredComparisonStatus
     {
-        Unstarted = 0,
-        Active = 1,
-        Paused = 2,
-        Closed = 3,
-        Aborted = 4
+        Unstarted = 1,
+        Active = 2,
+        Paused = 3,
+        Closed = 4,
+        Aborted = 5
     }
 }
